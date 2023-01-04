@@ -69,9 +69,7 @@ def compute_soil_organic_carbon(
 
     in_vrt_path = tempfile.NamedTemporaryFile(suffix=".vrt").name
     LDMP.logger.log("Saving SOC input files to {}".format(in_vrt_path))
-    bounds = area_of_interest.get_aligned_output_bounds_deprecated(
-        lc_initial_vrt
-    )
+    bounds = area_of_interest.get_aligned_output_bounds_deprecated(lc_initial_vrt)
     gdal.BuildVRT(
         in_vrt_path,
         in_files,

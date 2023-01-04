@@ -164,7 +164,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         in_data_type,
         out_res,
         out_data_type=gdal.GDT_Int16,
-        dst_srs=None
+        dst_srs=None,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -285,13 +285,13 @@ class RemapVectorWorker(worker.AbstractWorker):
 
 class RasterizeWorker(worker.AbstractWorker):
     def __init__(
-            self,
-            in_file,
-            out_file,
-            out_res,
-            attribute,
-            out_data_type=gdal.GDT_Int16,
-            dst_srs=None
+        self,
+        in_file,
+        out_file,
+        out_res,
+        attribute,
+        out_data_type=gdal.GDT_Int16,
+        dst_srs=None,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -340,12 +340,12 @@ class RasterizeWorker(worker.AbstractWorker):
 class RasterImportWorker(worker.AbstractWorker):
     def __init__(
         self,
-            in_file,
-            out_file,
-            out_res,
-            resample_mode,
-            out_data_type=gdal.GDT_Int16,
-            dst_srs=None
+        in_file,
+        out_file,
+        out_res,
+        resample_mode,
+        out_data_type=gdal.GDT_Int16,
+        dst_srs=None,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -1116,7 +1116,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_file,
             out_res,
             attribute,
-            self.settings_crs()
+            self.settings_crs(),
         )
 
         if not rasterize_worker.success:
@@ -1138,8 +1138,10 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         log("Importing {} to {}".format(in_file, out_file))
 
         if self.input_widget.groupBox_output_resolution.isChecked():
-            out_res = None # self.get_out_res_wgs84()
-            resample_mode = gdal.GRA_NearestNeighbour # self.get_resample_mode(temp_vrt)
+            out_res = None  # self.get_out_res_wgs84()
+            resample_mode = (
+                gdal.GRA_NearestNeighbour
+            )  # self.get_resample_mode(temp_vrt)
         else:
             out_res = None
             resample_mode = gdal.GRA_NearestNeighbour
@@ -1150,7 +1152,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_file,
             out_res,
             resample_mode,
-            self.settings_crs()
+            self.settings_crs(),
         )
         os.remove(temp_vrt)
 
@@ -1804,17 +1806,11 @@ class WidgetDataIOSelectTEDatasetExisting(
 
         if ResultType(job.results.type) == ResultType.RASTER_RESULTS:
             band = self.get_bands(band)[0]
-            return qgis.core.QgsRasterLayer(
-                str(band.path),
-                "raster file",
-                "gdal"
-            )
+            return qgis.core.QgsRasterLayer(str(band.path), "raster file", "gdal")
 
         elif ResultType(job.results.type) == ResultType.VECTOR_RESULTS:
             return qgis.core.QgsVectorLayer(
-                str(self.get_current_data_file()),
-                "vector file",
-                "ogr"
+                str(self.get_current_data_file()), "vector file", "ogr"
             )
 
         return None

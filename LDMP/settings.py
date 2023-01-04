@@ -180,10 +180,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.reports_layout.layout().insertWidget(0, self.widget_settings_report)
 
         # CRS settings
-        self.widget_crs_settings = WidgetSettingsCrs(
-            self,
-            message_bar=self.message_bar
-        )
+        self.widget_crs_settings = WidgetSettingsCrs(self, message_bar=self.message_bar)
         self.crs_layout.layout().insertWidget(0, self.widget_crs_settings)
 
         # Set Dialog UIs
@@ -1589,9 +1586,7 @@ class WidgetSettingsCrs(QtWidgets.QWidget, Ui_WidgetSettingsCrs):
         self.msg_bar = message_bar
 
         self._load_crs_from_settings()
-        self.proj_selector.setDialogTitle(
-            self.tr("Specify Default Dataset CRS")
-        )
+        self.proj_selector.setDialogTitle(self.tr("Specify Default Dataset CRS"))
         self.proj_selector.setMessage(
             self.tr(
                 "Specify the default CRS to be applied for new jobs and "
@@ -1604,12 +1599,7 @@ class WidgetSettingsCrs(QtWidgets.QWidget, Ui_WidgetSettingsCrs):
         if not crs:
             msg_level = qgis.core.Qgis.MessageLevel.Warning
             msg = self.tr("Previously saved CRS is not defined or invalid.")
-            self.msg_bar.pushMessage(
-                self.tr("CRS"),
-                msg,
-                msg_level,
-                5
-            )
+            self.msg_bar.pushMessage(self.tr("CRS"), msg, msg_level, 5)
         self.proj_selector.setCrs(crs)
 
     def showEvent(self, event):
@@ -1625,10 +1615,7 @@ class WidgetSettingsCrs(QtWidgets.QWidget, Ui_WidgetSettingsCrs):
         else:
             crs_str = crs.authid()
 
-        settings_manager.write_value(
-            Setting.CUSTOM_CRS,
-            crs_str
-        )
+        settings_manager.write_value(Setting.CUSTOM_CRS, crs_str)
 
 
 class LandCoverCustomClassesManager(

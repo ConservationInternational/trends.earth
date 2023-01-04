@@ -903,7 +903,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         # Include check for CRS defined in settings
         crs_check_defn = [
             (model_layer, model_layer_name),
-            (check_layer, check_layer_name)
+            (check_layer, check_layer_name),
         ]
 
         if not self._validate_crs_multi_layer(crs_check_defn):

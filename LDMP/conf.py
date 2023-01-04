@@ -138,7 +138,7 @@ class SettingsManager:
         Setting.LC_MAX_CLASSES: 45,
         Setting.LC_LAST_DIR: "",
         Setting.LC_IPCC_NESTING: "",
-        Setting.LC_ESA_NESTING: ""
+        Setting.LC_ESA_NESTING: "",
     }
 
     def __init__(self):
@@ -234,9 +234,7 @@ def settings_crs_as_wkt():
     if not crs:
         return ""
 
-    return crs.toWkt(
-        qgis.core.QgsCoordinateReferenceSystem.WktVariant.WKT1_GDAL
-    )
+    return crs.toWkt(qgis.core.QgsCoordinateReferenceSystem.WktVariant.WKT1_GDAL)
 
 
 datasets_file = os.path.join(

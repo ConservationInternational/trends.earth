@@ -197,7 +197,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         # Check layers' CRS
         crs_check_defn = [
             (initial_layer, self.tr("initial layer")),
-            (final_layer, self.tr("target layer"))
+            (final_layer, self.tr("target layer")),
         ]
 
         if not self._validate_crs_multi_layer(crs_check_defn):

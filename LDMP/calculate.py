@@ -503,10 +503,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.changed_region.emit()
 
     def run_settings(self):
-        self.iface.showOptionsDialog(
-            self.iface.mainWindow(),
-            currentPage=OPTIONS_TITLE
-        )
+        self.iface.showOptionsDialog(self.iface.mainWindow(), currentPage=OPTIONS_TITLE)
         self.update_current_region()
 
     def showEvent(self, event):
@@ -526,10 +523,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         pass
 
     def settings_btn_clicked(self):
-        self.iface.showOptionsDialog(
-            self.iface.mainWindow(),
-            currentPage=OPTIONS_TITLE
-        )
+        self.iface.showOptionsDialog(self.iface.mainWindow(), currentPage=OPTIONS_TITLE)
 
     def _validate_crs_multi_layer(self, layer_defn: list) -> bool:
         """
@@ -565,11 +559,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             else:
                 s = "\n- ".join(msgs)
                 msg = f"- {s}"
-            QtWidgets.QMessageBox.critical(
-                self,
-                tr_calculate.tr("CRS Error"),
-                msg
-            )
+            QtWidgets.QMessageBox.critical(self, tr_calculate.tr("CRS Error"), msg)
 
         return is_valid
 

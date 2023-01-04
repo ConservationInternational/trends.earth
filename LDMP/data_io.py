@@ -974,7 +974,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
     def get_resample_mode(self, f):
         in_res = self.get_in_res_wgs84()
-        out_res = self.get_out_res_wgs84()
+        out_res = self.get_out_res_in_metres()
 
         if in_res < out_res:
             if self.datatype == "categorical":
@@ -1043,14 +1043,18 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         return ((lrx - ulx) / float(x_size) + (lry - uly) / float(y_size)) / 2
 
-    def get_out_res_wgs84(self):
+    def get_out_res_in_metres(self):
         # Calculate res in degrees from input which is in meters
+        crs = self.settings_crs()
         res = int(self.input_widget.spinBox_resolution.value())
+
+        if not crs.isGeographic():
+            return res
 
         return res / (111.325 * 1000)  # 111.325km in one degree
 
     def remap_vector(self, l, out_file, remap_dict, attribute):
-        out_res = None # self.get_out_res_wgs84()
+        out_res = self.get_out_res_in_metres()
         log(
             'Remapping and rasterizing {} using output resolution {}, and field "{}"'.format(
                 out_file, out_res, attribute
@@ -1100,7 +1104,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             return True
 
     def rasterize_vector(self, in_file, out_file, attribute):
-        out_res = self.get_out_res_wgs84()
+        out_res = self.get_out_res_in_metres()
         log(
             f"Rasterizing {out_file} using output resolution {out_res}, "
             f'and field "{attribute}"'

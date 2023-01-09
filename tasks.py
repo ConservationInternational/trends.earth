@@ -123,13 +123,14 @@ def _replace(file_path, regex, subst):
 @task(
     help={
         "v": "Version to set",
-        "ta": "Also set version for trends.earth-algorithms",
-        "ts": "Also set version for trends.earth-schemas",
+        "testing": "Set for requirements-testing.txt?",
+        "modules": "Also set versions for any modules specified "
+        "in ext_libs.local_modules",
         "tag": "Also set tag(s)",
         "gee": "Also set versions for gee scripts",
     }
 )
-def set_version(c, v=None, testing=False, ta=False, ts=False, tag=False, gee=False):
+def set_version(c, v=None, testing=False, modules=False, tag=False, gee=False):
     # Validate the version matches the regex
 
     if not v:
@@ -269,20 +270,21 @@ def set_version(c, v=None, testing=False, ta=False, ts=False, tag=False, gee=Fal
     if tag:
         set_tag(c)
 
-    for module in c.plugin.ext_libs.local_modules:
-        module_path = Path(module["path"]).parent
-        ret = query_yes_no(
-            f"Also set version {'and tag ' if tag else ''}for {module['name']}?"
-        )
-        if ret:
-            if tag:
-                subprocess.check_call(
-                    ["invoke", "set-version", "-v", v, "-t"], cwd=module_path
-                )
-            else:
-                subprocess.check_call(
-                    ["invoke", "set-version", "-v", v], cwd=module_path
-                )
+    if modules:
+        for module in c.plugin.ext_libs.local_modules:
+            module_path = Path(module["path"]).parent
+            ret = query_yes_no(
+                f"Also set version {'and tag ' if tag else ''}for {module['name']}?"
+            )
+            if ret:
+                if tag:
+                    subprocess.check_call(
+                        ["invoke", "set-version", "-v", v, "-t"], cwd=module_path
+                    )
+                else:
+                    subprocess.check_call(
+                        ["invoke", "set-version", "-v", v], cwd=module_path
+                    )
 
 
 @task()
@@ -1461,7 +1463,7 @@ def zipfile_build(
     c, clean=True, version=3, tests=False, filename=None, pip="pip", tag=False
 ):
     """Create plugin package"""
-    set_version(c)
+    set_version(c, modules=True)
 
     if tag:
         set_tag(c)

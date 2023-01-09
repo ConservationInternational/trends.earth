@@ -81,6 +81,9 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
 )
 
 
+DEFAULT_NO_DATA = -32768
+
+
 class tr_data_io:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_data_io", message)
@@ -259,7 +262,7 @@ class RemapVectorWorker(worker.AbstractWorker):
             format="GTiff",
             xRes=self.out_res,
             yRes=-self.out_res,
-            noData=-32768,
+            noData=DEFAULT_NO_DATA,
             attribute="code",
             outputSRS="epsg:4326",
             outputType=self.out_data_type,
@@ -306,7 +309,7 @@ class RasterizeWorker(worker.AbstractWorker):
             format="GTiff",
             xRes=self.out_res,
             yRes=-self.out_res,
-            noData=-32768,
+            noData=DEFAULT_NO_DATA,
             attribute=self.attribute,
             outputSRS="epsg:4326",
             outputType=self.out_data_type,
@@ -351,7 +354,8 @@ class RasterImportWorker(worker.AbstractWorker):
                 format="GTiff",
                 xRes=self.out_res,
                 yRes=-self.out_res,
-                dstNodata=-32768,
+                srcNodata=DEFAULT_NO_DATA,
+                dstNodata=DEFAULT_NO_DATA,
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
@@ -363,7 +367,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 self.out_file,
                 self.in_file,
                 format="GTiff",
-                dstNodata=-32768,
+                dstNodata=DEFAULT_NO_DATA,
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
@@ -831,9 +835,7 @@ class ImportSelectFileInputWidget(
         if not vector_file:
             return None
 
-        return qgis.core.QgsVectorLayer(
-            self.lineEdit_vector_file.text(), "vector file", "ogr"
-        )
+        return qgis.core.QgsVectorLayer(vector_file, "vector file", "ogr")
 
     def get_raster_layer(self) -> qgis.core.QgsRasterLayer:
         """
@@ -909,7 +911,7 @@ class ImportSelectRasterOutput(
 
 def extents_within_tolerance(
     geom1: qgis.core.QgsGeometry, geom2: qgis.core.QgsGeometry
-) -> bool:
+) -> typing.Tuple[bool, float]:
     """
     Check if the two geometries are overlapping and to which extent based on
     the tolerance setting, which is based on a ratio of the non-overlapping
@@ -917,27 +919,28 @@ def extents_within_tolerance(
     Ensure the two geometries are in the same CRS.
     """
     if geom1.equals(geom2):
-        return True
+        return True, 1
 
+    # diff_geom represents area of geom1 that isn't in geom2
     diff_geom = geom1.difference(geom2)
     if diff_geom.isNull():
-        return False
+        return False, 0
 
     # Cannot calculate tolerance based on area if not polygon based.
     if diff_geom.type() != qgis.core.QgsWkbTypes.GeometryType.PolygonGeometry:
-        return False
+        return False, 0
 
     area_calculator = qgis.core.QgsDistanceArea()
-    diff_ratio = area_calculator.measureArea(diff_geom) / area_calculator.measureArea(
+    diff = 1 - area_calculator.measureArea(diff_geom) / area_calculator.measureArea(
         geom1
     )
 
     tolerance = conf.settings_manager.get_value(conf.Setting.IMPORT_AREA_TOLERANCE)
 
-    if (1 - diff_ratio) > tolerance:
-        return True
+    if diff > tolerance:
+        return True, diff
 
-    return False
+    return False, diff
 
 
 class DlgDataIOImportBase(QtWidgets.QDialog):
@@ -998,8 +1001,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         overlaps with that of the selected region. The allowed range should
         be within the tolerance specified in the settings. Sends a warning
         that the output will be expanded or clipped if the extents are not
-        the same. Messaging will be sent if the child dialog contains a
-        'msg_bar' attribute of type QMessageBar.
+        the same.
         """
         self.msg_bar.clearWidgets()
 
@@ -1066,14 +1068,20 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                 return False
 
         # Check if within tolerance
-        if not extents_within_tolerance(region_geom, layer_bbox_geom):
+        overlap, diff_ratio = extents_within_tolerance(region_geom, layer_bbox_geom)
+        if not overlap:
             # Notify user
             if user_warning:
                 reg_name = self.region_selector.region_info.area_name
                 self.msg_bar.pushMessage(
-                    self.tr(f"Output file will be resized " f"to '{reg_name}' extent."),
+                    self.tr(
+                        f"The input file covers only {diff_ratio*100:.2f}% of "
+                        f"'{reg_name}'. The output file will be resized to cover "
+                        f"the full extent of '{reg_name}', with missing data in "
+                        "any areas not covered by the input file."
+                    ),
                     qgis.core.Qgis.MessageLevel.Warning,
-                    8,
+                    10,
                 )
             return False
 
@@ -1086,7 +1094,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         determined.
         """
         bbox = None
-        if self.region_selector.region_info:
+        if self.region_selector.region_info and self.region_selector.region_info.geom:
             bbox = self.region_selector.region_info.geom.boundingBox()
 
         if bbox is None:
@@ -1296,15 +1304,21 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
         temp_vrt = GetTempFilename(".vrt")
         target_bounds = self.extent_as_list()
+        args = [temp_vrt, in_file]
+        kwargs = {
+            "bandList": [band_number],
+            "srcNodata": DEFAULT_NO_DATA,
+            "VRTNodata": DEFAULT_NO_DATA,
+        }
+
         if len(target_bounds) == 0:
             log("Target bounds for warping raster not available.")
-            gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
         else:
             ext_str = ",".join(map(str, target_bounds))
             log(f"Target bounds for warped raster: {ext_str}")
-            gdal.BuildVRT(
-                temp_vrt, in_file, bandList=[band_number], outputBounds=target_bounds
-            )
+            kwargs["outputBounds"] = target_bounds
+
+        gdal.BuildVRT(*args, **kwargs)
 
         log("Importing {} to {}".format(in_file, out_file))
 

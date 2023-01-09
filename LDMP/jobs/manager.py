@@ -62,7 +62,7 @@ def is_gdal_vsi_path(path: Path):
 def update_uris_if_needed(job: Job, job_path):
     "Update uris stored in a job when downloading/importing if it has absolute paths"
     # First check if the data is in the same folder as the job file and relative to
-    # it. If it is, update the various uris so they are  can still be found after
+    # it. If it is, update the various uris so they can still be found after
     # moving the job file
     if (
         hasattr(job.results, "uri")
@@ -705,7 +705,7 @@ class JobManager(QtCore.QObject):
         uris = None
 
         if job.results.type == ResultType.RASTER_RESULTS:
-            uris = job.results.get_main_uris()
+            uris = job.results.get_all_uris()
         elif job.results.type == ResultType.VECTOR_RESULTS:
             uris = [job.results.vector.uri]
         elif job.results.type == ResultType.FILE_RESULTS:
@@ -718,7 +718,9 @@ class JobManager(QtCore.QObject):
 
                 # File had already been moved so just update the uri
                 if uri.uri in moved_files:
-                    uri.uri = moved_files[uri.uri]
+                    new_uri = moved_files[uri.uri]
+                    if uri.uri != new_uri:
+                        uri.uri = new_uri
                     continue
 
                 # Copy the rest
@@ -726,10 +728,11 @@ class JobManager(QtCore.QObject):
                 if uri.uri.exists() and not new_path.exists():
                     shutil.copy(uri.uri, new_path)
                     uri.uri = new_path
-                else:
+                elif not uri.uri.exists():
                     uri.uri = None
 
         self._remove_job_metadata_file(job)
+        self._setup_main_uri(job.results, job_path)
         self.write_job_metadata_file(job)
 
     def create_job_from_dataset(
@@ -939,6 +942,24 @@ class JobManager(QtCore.QObject):
         del self.known_jobs[previous_status][job.id]
         self.known_jobs[job.status][job.id] = job
 
+    def _setup_main_uri(self, raster_results: RasterResults, base_output_path: Path):
+        # Setup the main uri. This could be a vrt (if rasters
+        # has more than one Raster, or if it has one or more TiledRasters)
+
+        if len(raster_results.rasters) > 1 or (
+            len(raster_results.rasters) == 1
+            and [*raster_results.rasters.values()][0].type
+            == results.RasterType.TILED_RASTER
+        ):
+            vrt_file = base_output_path.parent / f"{base_output_path.name}.vrt"
+            main_raster_file_paths = [
+                raster.uri.uri for raster in raster_results.rasters.values()
+            ]
+            combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
+            raster_results.uri = results.URI(uri=vrt_file)
+        else:
+            raster_results.uri = [*raster_results.rasters.values()][0].uri
+
     def _download_cloud_results(self, job: jobs.Job) -> typing.Optional[Path]:
         base_output_path = self.get_downloaded_dataset_base_file_path(job)
 
@@ -1000,20 +1021,7 @@ class JobManager(QtCore.QObject):
 
         job.results.rasters = out_rasters
 
-        # Setup the main uri. This could be a vrt (if job.results.rasters
-        # has more than one Raster, or if it has one or more TiledRasters)
-
-        if len(job.results.rasters) > 1 or (
-            len(job.results.rasters) == 1
-            and [*job.results.rasters.values()][0].type
-            == results.RasterType.TILED_RASTER
-        ):
-            vrt_file = base_output_path.parent / f"{base_output_path.name}.vrt"
-            main_raster_file_paths = [raster.uri.uri for raster in out_rasters.values()]
-            combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
-            job.results.uri = results.URI(uri=vrt_file)
-        else:
-            job.results.uri = [*job.results.rasters.values()][0].uri
+        self._setup_main_uri(job.results, base_output_path)
 
         _set_results_extents_raster(job)
 

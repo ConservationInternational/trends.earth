@@ -892,32 +892,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationBase</name>
     <message>
-        <location filename="../lc_setup.py" line="578"/>
+        <location filename="../lc_setup.py" line="592"/>
         <source>Select a land cover definition file</source>
         <translation type="unfinished">حدد ملف تعريف الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="607"/>
+        <location filename="../lc_setup.py" line="621"/>
         <source>Land cover definition (*.json)</source>
         <translation type="unfinished">تعريف الغطاء الأرضي (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="620"/>
+        <location filename="../lc_setup.py" line="634"/>
         <source>Error</source>
         <translation type="unfinished">خطأ</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="591"/>
+        <location filename="../lc_setup.py" line="605"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation type="unfinished">لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="607"/>
+        <location filename="../lc_setup.py" line="621"/>
         <source>Choose where to save this land cover definition</source>
         <translation type="unfinished">اختر مكان حفظ تعريف الغطاء الأرضي هذا</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="620"/>
+        <location filename="../lc_setup.py" line="634"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation type="unfinished">لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
     </message>
@@ -925,12 +925,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationCustom</name>
     <message>
-        <location filename="../lc_setup.py" line="845"/>
+        <location filename="../lc_setup.py" line="859"/>
         <source>Warning</source>
         <translation type="unfinished">تحذير</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="845"/>
+        <location filename="../lc_setup.py" line="859"/>
         <source>Some of the parent classes ({unnecessary_parent_codes!r}) in the definition file are not listed in the current class legend. These classes will be ignored.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -938,17 +938,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationESA</name>
     <message>
-        <location filename="../lc_setup.py" line="710"/>
+        <location filename="../lc_setup.py" line="724"/>
         <source>Warning</source>
         <translation type="unfinished">تحذير</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="698"/>
+        <location filename="../lc_setup.py" line="712"/>
         <source>Some of the class codes ({unnecessary_child_codes!r}) in the definition file do not appear in the chosen data file.</source>
         <translation type="unfinished">لا تظهر بعض أكواد الفئات ({unnecessary_child_codes! r}) في ملف التعريف في ملف البيانات المختار.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="710"/>
+        <location filename="../lc_setup.py" line="724"/>
         <source>Some of the class codes ({child_codes_missing_from_input!r}) in the data file do not appear in the chosen definition file.</source>
         <translation type="unfinished">لا تظهر بعض أكواد الفئات ({child_codes_missing_from_input!r}) في ملف التعريف في ملف البيانات المختار.</translation>
     </message>
@@ -2947,6 +2947,19 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>DlgDataIOImportBase</name>
+    <message>
+        <location filename="../data_io.py" line="1050"/>
+        <source>Missing or invalid CRS for input file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1073"/>
+        <source>Output file will be resized to &apos;{reg_name}&apos; extent.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DlgDataIOImportLC</name>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="23"/>
@@ -2974,27 +2987,27 @@ p, li { white-space: pre-wrap; }
         <translation>ملاحظة: إذا كنت تقرأ ملفًا كبيرًا ، فمن المستحسن التحقق من الخيار أعلاه ، لأنه سيسرع بشكل كبير عملية قراءة فئات الإدخال من مجموعة البيانات. ومع ذلك ، إذا وجدت أن Trends.Earth لا يحدد جميع الفئات في ملف الإدخال ، فقد يكون من الضروري إيقاف تشغيل هذا الخيار. (ينطبق فقط إذا تم اختيار إدخال البيانات النقطية)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1095"/>
+        <location filename="../lc_setup.py" line="1117"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="966"/>
         <source>Choose an output file.</source>
-        <translation>اختيار ملف الإخراج.</translation>
+        <translation type="obsolete">اختيار ملف الإخراج.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="973"/>
+        <location filename="../lc_setup.py" line="975"/>
         <source>No definition set</source>
         <translation>لا مجموعة التعريف</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="973"/>
+        <location filename="../lc_setup.py" line="975"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation type="unfinished">انقر فوق &amp;quot;تعديل التعريف&amp;quot; لتحديد تعريف الغطاء الأرضي قبل التصدير.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="987"/>
+        <location filename="../lc_setup.py" line="989"/>
         <source>Enter the year of the input data.</source>
         <translation>أدخل سنة إدخال البيانات.</translation>
     </message>
@@ -3004,13 +3017,18 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">خطأ في قراءة البيانات. يدعم Trends.Earth 60 فصلًا مختلفًا للغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1095"/>
+        <location filename="../lc_setup.py" line="1117"/>
         <source>Error reading data. Trends.Earth supports a maximum of 38 different land cover classes</source>
         <translation type="unfinished">خطأ في قراءة البيانات. يدعم Trends.Earth 60 فصلًا مختلفًا للغطاء الأرضي {38 ?}</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1131"/>
+        <location filename="../lc_setup.py" line="1154"/>
         <source>Land cover ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="1091"/>
+        <source>Error reading data. Trends.Earth supports a maximum of {max_classes!s} different land cover classes.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3031,7 +3049,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -3040,7 +3058,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -3052,6 +3070,11 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: ثابت&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: في زيادة&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 أو -32768: لا تتوافر بيانات&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1567"/>
+        <source>Land productivity (imported)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4089,12 +4112,12 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body style=&quot;;text-align:right;direction:rtl&quot;&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; تنويه: الحدود المقدمة هي من &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;الأرض الطبيعية&lt;/span&gt;&lt;/a&gt; ، وهي في &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;المجال العام&lt;/span&gt;&lt;/a&gt; . الحدود والأسماء المستخدمة ، والتسميات المستخدمة ، في الاتجاهات. لا تعني ضمنا المصادقة الرسمية أو القبول من قبل مؤسسة الحفظ الدولية ، أو من قبل المنظمات الشريكة والمساهمين. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../visualization.py" line="361"/>
+        <location filename="../visualization.py" line="478"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../visualization.py" line="361"/>
+        <location filename="../visualization.py" line="478"/>
         <source>Error downloading basemap data.</source>
         <translation>خطأ في تنزيل بيانات خريطة الأساس.</translation>
     </message>
@@ -4241,37 +4264,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="1173"/>
+        <location filename="../lc_setup.py" line="1197"/>
         <source>Land cover in initial year </source>
         <translation>الغطاء الأرضي في السنة الأولية</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1290"/>
+        <location filename="../lc_setup.py" line="1314"/>
         <source>Select a transition matrix definition file</source>
         <translation>حدد ملف تعريف المصفوفة الانتقالية</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1321"/>
+        <location filename="../lc_setup.py" line="1345"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>تعريف المصفوفة الانتقالية (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1334"/>
+        <location filename="../lc_setup.py" line="1358"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1303"/>
+        <location filename="../lc_setup.py" line="1327"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1321"/>
+        <location filename="../lc_setup.py" line="1345"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>اختر مكان حفظ تعريف المصفوفة الانتقالية هذا</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1334"/>
+        <location filename="../lc_setup.py" line="1358"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
     </message>
@@ -5779,207 +5802,207 @@ for running algorithms and their results.</source>
         <translation>كل المناطق</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="225"/>
+        <location filename="../conf.py" line="229"/>
         <source>Land degradation</source>
         <translation>تدهور الأرض</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="229"/>
+        <location filename="../conf.py" line="233"/>
         <source>Sub-indicators for SDG 15.3.1</source>
         <translation>المؤشرات الفرعية لـSDG 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="230"/>
+        <location filename="../conf.py" line="234"/>
         <source>Calculate SDG 15.3.1 sub-indicators (required prior to 15.3.1 indicator calculation)</source>
         <translation>أحسب المؤشرات الفرعية للـSDG 15.3.1 (مطلوب قبل حساب المؤشر 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="243"/>
+        <location filename="../conf.py" line="247"/>
         <source>Indicator for SDG 15.3.1</source>
         <translation>مؤشر لـSDG 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="244"/>
+        <location filename="../conf.py" line="248"/>
         <source>Spatial layer and summary table for total boundary</source>
         <translation>الطبقة المكانية وجدول ملخص الحدود الكلية</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="247"/>
+        <location filename="../conf.py" line="251"/>
         <source>Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators</source>
         <translation>أحسب مؤشر SDG 15.3.1 من المؤشرات الفرعية للإنتاجية والغطاء الأرضي والكربون العضوي في التربة</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="277"/>
+        <location filename="../conf.py" line="281"/>
         <source>Land productivity</source>
         <translation>إنتاجية الأرض</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="278"/>
+        <location filename="../conf.py" line="282"/>
         <source>Land productivity is the biological productive capacity of land</source>
         <translation>إنتاجية الأرض هي القدرة الإنتاجية البيولوجية للأرض</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="293"/>
+        <location filename="../conf.py" line="297"/>
         <source>Land cover change</source>
         <translation>تغير غطاء الأرض</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="294"/>
+        <location filename="../conf.py" line="298"/>
         <source>Land cover is the physical material at the surface of the earth. </source>
         <translation>الغطاء الأرضي هو المادة الفيزيائية الموجودة على سطح الأرض.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="311"/>
+        <location filename="../conf.py" line="315"/>
         <source>Soil Organic Carbon</source>
         <translation>الكربون العضوي للتربة</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="312"/>
+        <location filename="../conf.py" line="316"/>
         <source>Soil organic carbon is a measure of soil organic matter</source>
         <translation>الكربون العضوي للتربة هو مقياس للمادة العضوية في التربة</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="331"/>
+        <location filename="../conf.py" line="335"/>
         <source>Drought</source>
         <translation>الجفاف</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="332"/>
+        <location filename="../conf.py" line="336"/>
         <source>Vulnerability and exposure</source>
         <translation>الواهنية والتعرض</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="336"/>
+        <location filename="../conf.py" line="340"/>
         <source>Drought vulnerability</source>
         <translation>واهنية الجفاف</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="337"/>
+        <location filename="../conf.py" line="341"/>
         <source>Calculate indicators of drought vulnerability consistent with UNCCD SO3 Good Practice Guidance</source>
         <translation>أحسب مؤشرات واهنية الجفاف بما يتفق مع إرشادات الممارسات الجيدة لـUNCCD SO3</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="350"/>
+        <location filename="../conf.py" line="354"/>
         <source>Drought vulnerability summary table</source>
         <translation>جدول ملخص واهنية الجفاف</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="351"/>
+        <location filename="../conf.py" line="355"/>
         <source>Summarize drought indicators in alignment with UNCCD SO3 reporting requirements</source>
         <translation>تلخيص مؤشرات الجفاف بما يتماشى مع متطلبات الإبلاغ لـUNCCD SO3</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="365"/>
+        <location filename="../conf.py" line="369"/>
         <source>UNCCD Reporting</source>
         <translation>تقرير UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="366"/>
+        <location filename="../conf.py" line="370"/>
         <source>Summarize data for reporting</source>
         <translation>تلخيص البيانات لعرض التقرير </translation>
     </message>
     <message>
-        <location filename="../conf.py" line="384"/>
+        <location filename="../conf.py" line="388"/>
         <source>Generate data package for UNCCD reporting</source>
         <translation>توليد حزمة البيانات لعرض تقرير UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="385"/>
+        <location filename="../conf.py" line="389"/>
         <source>Summarize Strategic Objective (SO) 1, SO2, and SO3 datasets in proper format for submission to UNCCD for 2021 reporting cycle</source>
         <translation>تلخيص مجموعات بيانات الهدف الاستراتيجي (SO) 1 و SO2 و SO3 بالنسق المناسب لتقديمها إلى UNCCD لدورة 2021 لعرض التقارير</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="400"/>
+        <location filename="../conf.py" line="404"/>
         <source>SDG 11.3.1</source>
         <translation>SDG 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="401"/>
+        <location filename="../conf.py" line="405"/>
         <source>Urban change and land consumption</source>
         <translation>التغير الحضري واستهلاك الأرض</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="405"/>
+        <location filename="../conf.py" line="409"/>
         <source>Urban change spatial layer</source>
         <translation>الطبقة المكانية للتغير الحضري</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="406"/>
+        <location filename="../conf.py" line="410"/>
         <source>Calculate indicators of change in urban extent (SDG 11.3.1 indicator)</source>
         <translation>أحسب مؤشرات التغير في الامتداد الحضري (مؤشر SDG 11.3.1)</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="419"/>
+        <location filename="../conf.py" line="423"/>
         <source>Urban change summary table for city</source>
         <translation>جدول ملخص التغير الحضري للمدينة</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="420"/>
+        <location filename="../conf.py" line="424"/>
         <source>Calculate table summarizing SDG indicator 11.3.1</source>
         <translation>أحسب الجدول الذي يلخص مؤشر SDG 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="433"/>
+        <location filename="../conf.py" line="437"/>
         <source>Experimental</source>
         <translation>تجريبي</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="436"/>
+        <location filename="../conf.py" line="440"/>
         <source>Calculate change in total carbon</source>
         <translation>أحسب التغير في الكربون الكلي</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="437"/>
+        <location filename="../conf.py" line="441"/>
         <source>Above and below ground, emissions and deforestation</source>
         <translation>فوق وتحت الأرض، الانبعاثات وإزالة الغابات</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="443"/>
+        <location filename="../conf.py" line="447"/>
         <source>Calculate change in carbon</source>
         <translation>أحسب التغير في الكربون</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="444"/>
+        <location filename="../conf.py" line="448"/>
         <source>Calculate total carbon (above and below-ground) and emissions from deforestation</source>
         <translation>احسب إجمالي الكربون (فوق وتحت الأرض) والانبعاثات الناتجة عن إزالة الغابات</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="462"/>
+        <location filename="../conf.py" line="466"/>
         <source>Change in carbon summary table</source>
         <translation>جدول ملخص التغير في الكربون</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="463"/>
+        <location filename="../conf.py" line="467"/>
         <source>Calculate table summarizing change in total carbon</source>
         <translation>احسب الجدول الذي يلخص التغير في إجمالي الكربون</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="476"/>
+        <location filename="../conf.py" line="480"/>
         <source>Potential change in biomass due to restoration</source>
         <translation>تغيير محتمل في الكتلة الحيوية بسبب الترميم</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="477"/>
+        <location filename="../conf.py" line="481"/>
         <source>Above and below ground woody</source>
         <translation>فوق وتحت خشبية الأرض</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="481"/>
+        <location filename="../conf.py" line="485"/>
         <source>Estimate potential impacts of restoration</source>
         <translation>تقدير الآثار المحتملة للترميم</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="482"/>
+        <location filename="../conf.py" line="486"/>
         <source>Estimate potential change in biomass due to restoration</source>
         <translation>تقدير التغير المحتمل في الكتلة الحيوية بسبب الترميم</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="494"/>
+        <location filename="../conf.py" line="498"/>
         <source>Table summarizing likely changes in biomass</source>
         <translation>جدول يلخص التغيرات المحتملة في الكتلة الحيوية</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="497"/>
+        <location filename="../conf.py" line="501"/>
         <source>Generate table summarizing potential change in biomass due to restoration</source>
         <translation>قم بإنشاء جدول يلخص التغيير المحتمل في الكتلة الحيوية بسبب الاستعادة</translation>
     </message>
@@ -5987,167 +6010,167 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_data_io</name>
     <message>
-        <location filename="../data_io.py" line="649"/>
+        <location filename="../data_io.py" line="655"/>
         <source>Could not load file</source>
         <translation>تعذر تحميل الملف</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="667"/>
+        <location filename="../data_io.py" line="673"/>
         <source>Could not parse the selected file into a valid JSON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="745"/>
+        <location filename="../data_io.py" line="751"/>
         <source>Select a raster input file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="745"/>
+        <location filename="../data_io.py" line="751"/>
         <source>Raster file (*.tif *.dat *.img *.vrt)</source>
         <translation>ملف نقطي (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1677"/>
+        <location filename="../data_io.py" line="1868"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="802"/>
+        <location filename="../data_io.py" line="808"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="787"/>
+        <location filename="../data_io.py" line="793"/>
         <source>Select a vector input file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="787"/>
+        <location filename="../data_io.py" line="793"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>ملف المتجه (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="844"/>
+        <location filename="../data_io.py" line="881"/>
         <source>Choose a name for the output file</source>
         <translation>اختر اسمًا لملف الإخراج</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="844"/>
+        <location filename="../data_io.py" line="881"/>
         <source>Raster file (*.tif)</source>
         <translation>ملف نقطي (* .tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="860"/>
+        <location filename="../data_io.py" line="897"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="893"/>
+        <location filename="../data_io.py" line="973"/>
         <source>Metadata</source>
         <translation>البيانات الوصفية</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="901"/>
+        <location filename="../data_io.py" line="1100"/>
         <source>Choose an input raster file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="912"/>
+        <location filename="../data_io.py" line="1111"/>
         <source>Choose an input polygon dataset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="929"/>
+        <location filename="../data_io.py" line="1128"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1033"/>
+        <location filename="../data_io.py" line="1239"/>
         <source>Vector remapping failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1055"/>
+        <location filename="../data_io.py" line="1261"/>
         <source>Raster remapping failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1079"/>
+        <location filename="../data_io.py" line="1285"/>
         <source>Rasterizing failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1113"/>
+        <location filename="../data_io.py" line="1328"/>
         <source>Raster import failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1296"/>
         <source>Choose an output file.</source>
-        <translation>اختيار ملف الإخراج.</translation>
+        <translation type="obsolete">اختيار ملف الإخراج.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1158"/>
+        <location filename="../data_io.py" line="1361"/>
         <source>Enter the year of the input data.</source>
         <translation>أدخل سنة إدخال البيانات.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1183"/>
+        <location filename="../data_io.py" line="1386"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1199"/>
+        <location filename="../data_io.py" line="1402"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1212"/>
+        <location filename="../data_io.py" line="1415"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1227"/>
+        <location filename="../data_io.py" line="1430"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1321"/>
+        <location filename="../data_io.py" line="1510"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1335"/>
+        <location filename="../data_io.py" line="1524"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1348"/>
+        <location filename="../data_io.py" line="1537"/>
         <source>Warning</source>
         <translation>تحذير</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1348"/>
+        <location filename="../data_io.py" line="1537"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1460"/>
+        <location filename="../data_io.py" line="1651"/>
         <source>No layers available in this region</source>
         <translation>لا توجد طبقات متوفرة في هذه المنطقة</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1677"/>
+        <location filename="../data_io.py" line="1868"/>
         <source>Select a layer to load.</source>
         <translation>اختر طبقة لتحميلها.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1714"/>
+        <location filename="../data_io.py" line="1905"/>
         <source>No datasets available in this region</source>
         <translation>لا توجد مجموعات بيانات متوفرة في هذه المنطقة</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1258"/>
+        <location filename="../data_io.py" line="1461"/>
         <source>Soil organic carbon ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation type="unfinished"></translation>
     </message>

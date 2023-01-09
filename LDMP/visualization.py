@@ -202,9 +202,9 @@ def get_admin_bbox(
 
         # City-level - get region from populated places layer
         if not is_admin_one_region:
-            country_cities = download.get_cities().get(country_name, None)
+            country_cities = download.get_cities().get(country_code, None)
             if country_cities is None:
-                log(f"Could not find cities information for {country_name}")
+                log(f"Could not find cities information for {country_code}")
                 return None
 
             # Get wof_id corresponding to the given city name

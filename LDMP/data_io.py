@@ -911,7 +911,7 @@ class ImportSelectRasterOutput(
 
 def extents_within_tolerance(
     geom1: qgis.core.QgsGeometry, geom2: qgis.core.QgsGeometry
-) -> bool:
+) -> typing.Tuple[bool, float]:
     """
     Check if the two geometries are overlapping and to which extent based on
     the tolerance setting, which is based on a ratio of the non-overlapping
@@ -919,27 +919,28 @@ def extents_within_tolerance(
     Ensure the two geometries are in the same CRS.
     """
     if geom1.equals(geom2):
-        return True
+        return True, 1
 
+    # diff_geom represents area of geom1 that isn't in geom2
     diff_geom = geom1.difference(geom2)
     if diff_geom.isNull():
-        return False
+        return False, 0
 
     # Cannot calculate tolerance based on area if not polygon based.
     if diff_geom.type() != qgis.core.QgsWkbTypes.GeometryType.PolygonGeometry:
-        return False
+        return False, 0
 
     area_calculator = qgis.core.QgsDistanceArea()
-    diff_ratio = area_calculator.measureArea(diff_geom) / area_calculator.measureArea(
+    diff = 1 - area_calculator.measureArea(diff_geom) / area_calculator.measureArea(
         geom1
     )
 
     tolerance = conf.settings_manager.get_value(conf.Setting.IMPORT_AREA_TOLERANCE)
 
-    if (1 - diff_ratio) > tolerance:
-        return True
+    if diff > tolerance:
+        return True, diff
 
-    return False
+    return False, diff
 
 
 class DlgDataIOImportBase(QtWidgets.QDialog):
@@ -1067,14 +1068,20 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                 return False
 
         # Check if within tolerance
-        if not extents_within_tolerance(region_geom, layer_bbox_geom):
+        overlap, diff_ratio = extents_within_tolerance(region_geom, layer_bbox_geom)
+        if not overlap:
             # Notify user
             if user_warning:
                 reg_name = self.region_selector.region_info.area_name
                 self.msg_bar.pushMessage(
-                    self.tr(f"Output file will be resized " f"to '{reg_name}' extent."),
+                    self.tr(
+                        f"The input file covers only {diff_ratio*100:.2f}% of "
+                        f"'{reg_name}'. The output file will be resized to cover "
+                        f"the full extent of '{reg_name}', with missing data in "
+                        "any areas not covered by the input file."
+                    ),
                     qgis.core.Qgis.MessageLevel.Warning,
-                    8,
+                    10,
                 )
             return False
 

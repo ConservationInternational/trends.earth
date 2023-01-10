@@ -12,6 +12,7 @@
 """
 import io
 import typing
+import sys
 
 from future import standard_library
 
@@ -24,7 +25,14 @@ import requests
 import backoff
 
 from dateutil import tz
-from qgis.core import QgsApplication, QgsTask, QgsNetworkAccessManager, QgsApplication, QgsSettings
+from qgis.core import (
+    QgsApplication,
+    QgsTask,
+    QgsNetworkAccessManager,
+    QgsApplication,
+    QgsSettings,
+    QgsNetworkReplyContent
+)
 from qgis.PyQt import QtCore, QtWidgets, QtNetwork
 
 from qgis.utils import iface
@@ -48,6 +56,9 @@ class tr_api:
 class RequestTask(QgsTask):
     def __init__(self, description, url, method, payload, headers, timeout=30):
         super().__init__(description, QgsTask.CanCancel)
+
+        print('init')
+
         self.description = description
         self.url = url
         self.method = method
@@ -58,7 +69,12 @@ class RequestTask(QgsTask):
         self.exception = None
         self.resp = None
 
+        print('end of init')
+
     def run(self):
+
+        print('run')
+
         try:
             settings = QgsSettings()
             auth_id = settings.value('trendsearth/auth')
@@ -80,6 +96,7 @@ class RequestTask(QgsTask):
                 QtNetwork.QNetworkRequest.ContentTypeHeader,
                 "application/json"
             )
+
             if len(self.headers) > 0:
                 network_request.setRawHeader(
                     QtCore.QByteArray(b'Authorization'),
@@ -88,6 +105,8 @@ class RequestTask(QgsTask):
                               encoding='utf-8')
                     )
                 )
+
+            print('before')
 
             if self.method == "get":
 
@@ -102,7 +121,11 @@ class RequestTask(QgsTask):
 
                 print('post')
 
-                doc = QtCore.QJsonDocument(self.payload)
+                if self.payload is None:
+                    empty_payload = {}
+                    doc = QtCore.QJsonDocument(empty_payload)
+                else:
+                    doc = QtCore.QJsonDocument(self.payload)
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
                 self.resp = network_manager.blockingPost(network_request, request_data)
 
@@ -113,42 +136,64 @@ class RequestTask(QgsTask):
 
                 print('update')
 
-                self.resp = requests.update(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
-                )
+                doc = QtCore.QJsonDocument(self.payload)
+                request_data = doc.toJson(QtCore.QJsonDocument.Compact)
+
+                self.resp = network_manager.sendCustomRequest(network_request, b'UPDATE', request_data)
+
+                loop = QtCore.QEventLoop()
+                self.resp.finished.connect(loop.quit)
+                loop.exec_()
+
+                # self.resp = requests.update(
+                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
+                # )
             elif self.method == "delete":
 
                 print('delete')
 
-                self.resp = requests.delete(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
-                )
+                empty_payload = {}
+                doc = QtCore.QJsonDocument(empty_payload)
+                request_data = doc.toJson(QtCore.QJsonDocument.Compact)
+
+                self.resp = network_manager.sendCustomRequest(network_request, b'DELETE', request_data)
+
+                loop = QtCore.QEventLoop()
+                self.resp.finished.connect(loop.quit)
+                loop.exec_()
+
+                # self.resp = requests.delete(
+                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
+                # )
             elif self.method == "patch":
 
                 print('patch')
 
-                self.resp = requests.patch(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
-                )
+                doc = QtCore.QJsonDocument(self.payload)
+                request_data = doc.toJson(QtCore.QJsonDocument.Compact)
+
+                self.resp = network_manager.sendCustomRequest(network_request, b'PATCH', request_data)
+
+                loop = QtCore.QEventLoop()
+                self.resp.finished.connect(loop.quit)
+                loop.exec_()
+
+                # self.resp = requests.patch(
+                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
+                # )
             elif self.method == "head":
 
                 print('head')
 
-                self.resp = requests.head(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
-                )
+                self.resp = network_manager.head(network_request)
+
+                loop = QtCore.QEventLoop()
+                self.resp.finished.connect(loop.quit)
+                loop.exec_()
+
+                # self.resp = requests.head(
+                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
+                # )
             else:
 
                 print('valueerror')
@@ -158,15 +203,29 @@ class RequestTask(QgsTask):
                 )
                 return False
         except Exception as exc:
+
+            print('exception: ' + str(exc))
+
             self.exception = exc
             return False
+
+        print('end of run')
 
         return True
 
     def finished(self, result):
+
+        print('finished')
+
         if result:
+
+            print('task completed')
+
             log("Task completed")
         else:
+
+            print('task did not complete')
+
             if self.exception is None:
                 log(f"API {self.method} not successful - probably cancelled")
             else:
@@ -335,11 +394,19 @@ class APIClient(QtCore.QObject):
         backoff.expo, lambda x: x is None, max_tries=3, on_backoff=backoff_hdlr
     )
     def _make_request(self, description, **kwargs):
+        print('_make_request')
+
         api_task = RequestTask(description, **kwargs)
         QgsApplication.taskManager().addTask(api_task)
-        result = api_task.waitForFinished((self.timeout + 1) * 1000)
+        result = api_task.waitForFinished((TIMEOUT + 1) * 1000)
+
         if not result:
+            print('Request timed out')
+
             log("Request timed out")
+
+        print('end of make_request: ' + str(api_task.resp))
+
         return api_task.resp
 
     def _clean_payload(self, payload):
@@ -360,11 +427,15 @@ class APIClient(QtCore.QObject):
                 log("API no token required.")
             headers = {}
 
+        print('after use token')
+
         # Only continue if don't need token or if token load was successful
 
         if (not use_token) or token:
-            # Strip password out of payload for printing to QGIS logs
 
+            print('token')
+
+            # Strip password out of payload for printing to QGIS logs
             if payload:
                 clean_payload = self._clean_payload(payload)
             else:
@@ -373,17 +444,54 @@ class APIClient(QtCore.QObject):
 
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log("API call payload: {}".format(clean_payload))
-            resp = self._make_request(
+            resp = _make_request(
                 "Trends.Earth API call",
-                url=self.url + endpoint,
+                url=API_URL + endpoint,
                 method=method,
                 payload=payload,
                 headers=headers,
-                timeout=self.timeout,
+            )
+        else:
+
+            print('set resp to none')
+
+            resp = None
+
+        if resp is not None:
+            status_code = resp.attribute(
+                QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
             )
 
+            print('status code: ' + str(status_code))
+
+            if status_code == 200:
+                if type(resp) is QtNetwork.QNetworkReply:
+                    ret = resp.readAll()
+                    ret = json.load(io.BytesIO(ret))
+                elif type(resp) is QgsNetworkReplyContent:
+                    ret = resp.content()
+                    ret = json.load(io.BytesIO(ret))
+                else:
+                    err_msg = "Unknown object type: {}.".format(str(resp))
+                    log(err_msg)
+            else:
+
+                print('status not 200')
+
+                desc, status = resp.error(), resp.errorString()
+                err_msg = "Error: {} (status {}).".format(desc, status)
+                log(err_msg)
+                """
+                iface.messageBar().pushCritical(
+                    "Trends.Earth", "Error: {} (status {}).".format(desc, status)
+                )
+                """
+                ret = None
         else:
-            resp = None
+
+            print('set ret to none')
+
+            ret = None
 
         if resp != None:
             if resp.status_code == 200:

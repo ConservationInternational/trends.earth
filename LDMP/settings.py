@@ -824,6 +824,8 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
             self.country.currentText(),
         )
 
+        print('register response: ' + str(resp))
+
         if resp:
             self.close()
             QtWidgets.QMessageBox.information(

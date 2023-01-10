@@ -319,6 +319,9 @@ class DownloadWorker(AbstractWorker):
             network_request,
             auth_id
         )
+
+        print('download')
+
         resp = network_manager.blockingGet(network_request)
         status_code = resp.attribute(
             QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
@@ -326,6 +329,8 @@ class DownloadWorker(AbstractWorker):
         if status_code != 200:
             log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(status_code, self.url))
             raise DownloadError("Unable to start download of {}".format(self.url))
+
+        print('download2')
 
         #resp = requests.get(self.url, stream=True)
         # if resp.status_code != 200:
@@ -340,9 +345,14 @@ class DownloadWorker(AbstractWorker):
 
         # log(u'Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
 
+        print('download2')
+
         bytes_dl = 0
         #r = requests.get(self.url, stream=True)
         r = network_manager.blockingGet(network_request)
+
+        print('download2')
+
         with open(self.outfile, "wb") as f:
             for chunk in r.iter_content(chunk_size=8192):
                 if self.killed == True:

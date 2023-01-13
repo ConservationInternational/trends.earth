@@ -319,9 +319,6 @@ class DownloadWorker(AbstractWorker):
             network_request,
             auth_id
         )
-
-        print('download')
-
         resp = network_manager.blockingGet(network_request)
         status_code = resp.attribute(
             QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
@@ -330,33 +327,22 @@ class DownloadWorker(AbstractWorker):
             log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(status_code, self.url))
             raise DownloadError("Unable to start download of {}".format(self.url))
 
-        print('download2')
-
-        #resp = requests.get(self.url, stream=True)
-        # if resp.status_code != 200:
-        #     # log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
-        #     raise DownloadError("Unable to start download of {}".format(self.url))
-
         total_size = int(resp.headers["Content-length"])
         if total_size < 1e5:
             total_size_pretty = "{:.2f} KB".format(round(total_size / 1024, 2))
         else:
             total_size_pretty = "{:.2f} MB".format(round(total_size * 1e-6, 2))
 
-        # log(u'Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
+        log(u'Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
 
-        print('download2')
 
         bytes_dl = 0
-        #r = requests.get(self.url, stream=True)
         r = network_manager.blockingGet(network_request)
-
-        print('download2')
 
         with open(self.outfile, "wb") as f:
             for chunk in r.iter_content(chunk_size=8192):
                 if self.killed == True:
-                    # log(u"Download {} killed by user".format(self.url))
+                    log(u"Download {} killed by user".format(self.url))
                     break
                 elif chunk:  # filter out keep-alive new chunks
                     f.write(chunk)
@@ -365,7 +351,7 @@ class DownloadWorker(AbstractWorker):
         f.close()
 
         if bytes_dl != total_size:
-            # log(u"Download error. File size of {} didn't match expected ({} versus {})".format(self.url, bytes_dl, total_size))
+            log(u"Download error. File size of {} didn't match expected ({} versus {})".format(self.url, bytes_dl, total_size))
             os.remove(self.outfile)
             if not self.killed:
                 raise DownloadError(
@@ -373,7 +359,7 @@ class DownloadWorker(AbstractWorker):
                 )
             return None
         else:
-            # log(u"Download of {} complete".format(self.url))
+            log(u"Download of {} complete".format(self.url))
             return True
 
 

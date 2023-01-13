@@ -209,7 +209,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         if auth_id is not None:
             self.authcfg_acs.setConfigId(auth_id)
         else:
-            print('no id')
+            log('Authentication configuration id was not found')
 
         # load gui default value from settings
         self.reloadAuthConfigurations()
@@ -225,7 +225,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.widgetSettingsAdvanced.update_settings()
         self.widget_settings_report.save_settings()
         if not self.lcc_manager.save_settings():
-            print("Validation failed")
+            log("Validation failed")
             return
 
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
@@ -336,23 +336,21 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
                 # self.authConfigUpdated.emit()
 
     def on_accept(self):
-
-        print('ACCEPT')
-
         auth_id = self.authcfg_acs.configId()
         if auth_id != '':
             settings.setValue('trendsearth/auth', auth_id)
         else:
-            print('no auth provided')
+            log('Authentication configuration id not found')
 
         self.area_widget.save_settings()
         self.widgetSettingsAdvanced.update_settings()
         self.widget_settings_report.save_settings()
         if not self.lcc_manager.save_settings():
-            print("Validation failed")
+            log("Validation failed")
             return
 
         self.accept()
+
 
 class AreaWidgetSection(Flag):
     """
@@ -823,8 +821,6 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
             self.organization.text(),
             self.country.currentText(),
         )
-
-        print('register response: ' + str(resp))
 
         if resp:
             self.close()

@@ -57,8 +57,6 @@ class RequestTask(QgsTask):
     def __init__(self, description, url, method, payload, headers, timeout=30):
         super().__init__(description, QgsTask.CanCancel)
 
-        print('init')
-
         self.description = description
         self.url = url
         self.method = method
@@ -69,11 +67,7 @@ class RequestTask(QgsTask):
         self.exception = None
         self.resp = None
 
-        print('end of init')
-
     def run(self):
-
-        print('run')
 
         try:
             settings = QgsSettings()
@@ -106,21 +100,10 @@ class RequestTask(QgsTask):
                     )
                 )
 
-            print('before')
-
             if self.method == "get":
-
-                print('get')
-
                 self.resp = network_manager.blockingGet(network_request)
 
-                # self.resp = requests.get(
-                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
-                # )
             elif self.method == "post":
-
-                print('post')
-
                 if self.payload is None:
                     empty_payload = {}
                     doc = QtCore.QJsonDocument(empty_payload)
@@ -129,13 +112,7 @@ class RequestTask(QgsTask):
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
                 self.resp = network_manager.blockingPost(network_request, request_data)
 
-                # self.resp = requests.post(
-                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
-                # )
             elif self.method == "update":
-
-                print('update')
-
                 doc = QtCore.QJsonDocument(self.payload)
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
 
@@ -145,13 +122,7 @@ class RequestTask(QgsTask):
                 self.resp.finished.connect(loop.quit)
                 loop.exec_()
 
-                # self.resp = requests.update(
-                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
-                # )
             elif self.method == "delete":
-
-                print('delete')
-
                 empty_payload = {}
                 doc = QtCore.QJsonDocument(empty_payload)
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
@@ -162,13 +133,7 @@ class RequestTask(QgsTask):
                 self.resp.finished.connect(loop.quit)
                 loop.exec_()
 
-                # self.resp = requests.delete(
-                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
-                # )
             elif self.method == "patch":
-
-                print('patch')
-
                 doc = QtCore.QJsonDocument(self.payload)
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
 
@@ -178,54 +143,28 @@ class RequestTask(QgsTask):
                 self.resp.finished.connect(loop.quit)
                 loop.exec_()
 
-                # self.resp = requests.patch(
-                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
-                # )
             elif self.method == "head":
-
-                print('head')
-
                 self.resp = network_manager.head(network_request)
 
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
                 loop.exec_()
 
-                # self.resp = requests.head(
-                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
-                # )
             else:
-
-                print('valueerror')
-
                 self.exception = ValueError(
                     "Unrecognized method: {}".format(self.method)
                 )
                 return False
         except Exception as exc:
-
-            print('exception: ' + str(exc))
-
             self.exception = exc
             return False
-
-        print('end of run')
 
         return True
 
     def finished(self, result):
-
-        print('finished')
-
         if result:
-
-            print('task completed')
-
             log("Task completed")
         else:
-
-            print('task did not complete')
-
             if self.exception is None:
                 log(f"API {self.method} not successful - probably cancelled")
             else:
@@ -248,12 +187,6 @@ class RequestTask(QgsTask):
             log(f'API response from "{self.method}" request: {self.resp.error()}')
         else:
             log(f'API response from "{self.method}" request was None')
-
-        # if conf.settings_manager.get_value(conf.Setting.DEBUG):
-        #     log(
-        #         f'API response from "{self.method}" request (data): '
-        #         f'{clean_api_response(self.resp)}'
-        #     )
 
 ###############################################################################
 # Other helper functions for api calls
@@ -293,22 +226,6 @@ class APIClient(QtCore.QObject):
                 response = resp.text
 
         return response
-
-    def get_error_status(self, resp):
-        try:
-            # JSON conversion will fail if the server didn't return a json
-            # response
-            resp = resp.json()
-        except ValueError:
-            return ("Unknown error", None)
-        status = resp.get("status", None)
-
-        if not status:
-            status = resp.get("status_code", "None")
-        desc = resp.get("detail", None)
-
-        if not desc:
-            desc = resp.get("description", "Generic error")
 
     def login(self, authConfigId=None):
         authConfig = auth.get_auth_config(
@@ -394,23 +311,22 @@ class APIClient(QtCore.QObject):
         backoff.expo, lambda x: x is None, max_tries=3, on_backoff=backoff_hdlr
     )
     def _make_request(self, description, **kwargs):
-        print('_make_request')
 
         api_task = RequestTask(description, **kwargs)
         QgsApplication.taskManager().addTask(api_task)
-        result = api_task.waitForFinished((TIMEOUT + 1) * 1000)
+        result = api_task.waitForFinished((self.timeout + 1) * 1000)
 
         if not result:
-            print('Request timed out')
-
             log("Request timed out")
-
-        print('end of make_request: ' + str(api_task.resp))
 
         return api_task.resp
 
     def _clean_payload(self, payload):
         clean_payload = payload.copy()
+
+        if "password" in clean_payload:
+            clean_payload["password"] = "**REMOVED**"
+        return clean_payload
 
     def call_api(self, endpoint, method="get", payload=None, use_token=False):
         if use_token:
@@ -427,15 +343,11 @@ class APIClient(QtCore.QObject):
                 log("API no token required.")
             headers = {}
 
-        print('after use token')
-
         # Only continue if don't need token or if token load was successful
 
         if (not use_token) or token:
-
-            print('token')
-
             # Strip password out of payload for printing to QGIS logs
+
             if payload:
                 clean_payload = self._clean_payload(payload)
             else:
@@ -444,25 +356,21 @@ class APIClient(QtCore.QObject):
 
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log("API call payload: {}".format(clean_payload))
-            resp = _make_request(
+            resp = self._make_request(
                 "Trends.Earth API call",
-                url=API_URL + endpoint,
+                url=self.url + endpoint,
                 method=method,
                 payload=payload,
                 headers=headers,
+                timeout=self.timeout,
             )
         else:
-
-            print('set resp to none')
-
             resp = None
 
         if resp is not None:
             status_code = resp.attribute(
                 QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
             )
-
-            print('status code: ' + str(status_code))
 
             if status_code == 200:
                 if type(resp) is QtNetwork.QNetworkReply:
@@ -475,29 +383,7 @@ class APIClient(QtCore.QObject):
                     err_msg = "Unknown object type: {}.".format(str(resp))
                     log(err_msg)
             else:
-
-                print('status not 200')
-
                 desc, status = resp.error(), resp.errorString()
-                err_msg = "Error: {} (status {}).".format(desc, status)
-                log(err_msg)
-                """
-                iface.messageBar().pushCritical(
-                    "Trends.Earth", "Error: {} (status {}).".format(desc, status)
-                )
-                """
-                ret = None
-        else:
-
-            print('set ret to none')
-
-            ret = None
-
-        if resp != None:
-            if resp.status_code == 200:
-                ret = resp.json()
-            else:
-                desc, status = self.get_error_status(resp)
                 err_msg = "Error: {} (status {}).".format(desc, status)
                 log(err_msg)
                 """

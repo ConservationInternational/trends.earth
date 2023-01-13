@@ -11,8 +11,8 @@
  ***************************************************************************/
 """
 import io
-import typing
 import sys
+import typing
 
 from future import standard_library
 
@@ -31,7 +31,7 @@ from qgis.core import (
     QgsNetworkAccessManager,
     QgsApplication,
     QgsSettings,
-    QgsNetworkReplyContent
+    QgsNetworkReplyContent,
 )
 from qgis.PyQt import QtCore, QtWidgets, QtNetwork
 
@@ -71,7 +71,7 @@ class RequestTask(QgsTask):
 
         try:
             settings = QgsSettings()
-            auth_id = settings.value('trendsearth/auth')
+            auth_id = settings.value("trendsearth/auth")
 
             qurl = QtCore.QUrl(self.url)
 
@@ -81,23 +81,18 @@ class RequestTask(QgsTask):
             network_request = QtNetwork.QNetworkRequest(qurl)
 
             auth_manager = QgsApplication.authManager()
-            auth_added, _ = auth_manager.updateNetworkRequest(
-                network_request,
-                auth_id
-            )
+            auth_added, _ = auth_manager.updateNetworkRequest(network_request, auth_id)
 
             network_request.setHeader(
-                QtNetwork.QNetworkRequest.ContentTypeHeader,
-                "application/json"
+                QtNetwork.QNetworkRequest.ContentTypeHeader, "application/json"
             )
 
             if len(self.headers) > 0:
                 network_request.setRawHeader(
-                    QtCore.QByteArray(b'Authorization'),
+                    QtCore.QByteArray(b"Authorization"),
                     QtCore.QByteArray(
-                        bytes(self.headers.get('Authorization'),
-                              encoding='utf-8')
-                    )
+                        bytes(self.headers.get("Authorization"), encoding="utf-8")
+                    ),
                 )
 
             if self.method == "get":
@@ -116,7 +111,9 @@ class RequestTask(QgsTask):
                 doc = QtCore.QJsonDocument(self.payload)
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
 
-                self.resp = network_manager.sendCustomRequest(network_request, b'UPDATE', request_data)
+                self.resp = network_manager.sendCustomRequest(
+                    network_request, b"UPDATE", request_data
+                )
 
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
@@ -127,7 +124,9 @@ class RequestTask(QgsTask):
                 doc = QtCore.QJsonDocument(empty_payload)
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
 
-                self.resp = network_manager.sendCustomRequest(network_request, b'DELETE', request_data)
+                self.resp = network_manager.sendCustomRequest(
+                    network_request, b"DELETE", request_data
+                )
 
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
@@ -137,7 +136,9 @@ class RequestTask(QgsTask):
                 doc = QtCore.QJsonDocument(self.payload)
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
 
-                self.resp = network_manager.sendCustomRequest(network_request, b'PATCH', request_data)
+                self.resp = network_manager.sendCustomRequest(
+                    network_request, b"PATCH", request_data
+                )
 
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
@@ -187,6 +188,7 @@ class RequestTask(QgsTask):
             log(f'API response from "{self.method}" request: {self.resp.error()}')
         else:
             log(f'API response from "{self.method}" request was None')
+
 
 ###############################################################################
 # Other helper functions for api calls

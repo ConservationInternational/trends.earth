@@ -20,17 +20,17 @@ import zipfile
 from pathlib import Path
 
 import requests
-from qgis.PyQt import QtWidgets, QtCore, QtNetwork
-
+from qgis.core import QgsApplication
+from qgis.core import QgsNetworkAccessManager
+from qgis.core import QgsSettings
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtNetwork
+from qgis.PyQt import QtWidgets
 from qgis.utils import iface
-
 
 from .api import APIClient
 from .constants import API_URL
 from .constants import TIMEOUT
-
-from qgis.core import QgsNetworkAccessManager, QgsApplication, QgsSettings
-
 from .logger import log
 from .worker import AbstractWorker
 from .worker import start_worker
@@ -307,7 +307,7 @@ class DownloadWorker(AbstractWorker):
         self.toggle_show_cancel.emit(True)
 
         settings = QgsSettings()
-        auth_id = settings.value('trendsearth/auth')
+        auth_id = settings.value("trendsearth/auth")
         qurl = QtCore.QUrl(self.url)
         network_manager = QgsNetworkAccessManager().instance()
         network_manager.setTimeout(600000)
@@ -315,16 +315,15 @@ class DownloadWorker(AbstractWorker):
         network_request = QtNetwork.QNetworkRequest(qurl)
 
         auth_manager = QgsApplication.authManager()
-        auth_added, _ = auth_manager.updateNetworkRequest(
-            network_request,
-            auth_id
-        )
+        auth_added, _ = auth_manager.updateNetworkRequest(network_request, auth_id)
         resp = network_manager.blockingGet(network_request)
-        status_code = resp.attribute(
-            QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
-        )
+        status_code = resp.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute)
         if status_code != 200:
-            log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(status_code, self.url))
+            log(
+                "Unexpected HTTP status code ({}) while trying to download {}.".format(
+                    status_code, self.url
+                )
+            )
             raise DownloadError("Unable to start download of {}".format(self.url))
 
         total_size = int(resp.headers["Content-length"])
@@ -333,8 +332,11 @@ class DownloadWorker(AbstractWorker):
         else:
             total_size_pretty = "{:.2f} MB".format(round(total_size * 1e-6, 2))
 
-        log(u'Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
-
+        log(
+            "Downloading {} ({}) to {}".format(
+                self.url, total_size_pretty, self.outfile
+            )
+        )
 
         bytes_dl = 0
         r = network_manager.blockingGet(network_request)
@@ -342,7 +344,7 @@ class DownloadWorker(AbstractWorker):
         with open(self.outfile, "wb") as f:
             for chunk in r.iter_content(chunk_size=8192):
                 if self.killed == True:
-                    log(u"Download {} killed by user".format(self.url))
+                    log("Download {} killed by user".format(self.url))
                     break
                 elif chunk:  # filter out keep-alive new chunks
                     f.write(chunk)
@@ -351,7 +353,11 @@ class DownloadWorker(AbstractWorker):
         f.close()
 
         if bytes_dl != total_size:
-            log(u"Download error. File size of {} didn't match expected ({} versus {})".format(self.url, bytes_dl, total_size))
+            log(
+                "Download error. File size of {} didn't match expected ({} versus {})".format(
+                    self.url, bytes_dl, total_size
+                )
+            )
             os.remove(self.outfile)
             if not self.killed:
                 raise DownloadError(
@@ -359,7 +365,7 @@ class DownloadWorker(AbstractWorker):
                 )
             return None
         else:
-            log(u"Download of {} complete".format(self.url))
+            log("Download of {} complete".format(self.url))
             return True
 
 

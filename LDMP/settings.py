@@ -205,11 +205,11 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.region_of_interest.setLayout(layout)
 
         # Load gui default value from settings
-        auth_id = settings.value('trendsearth/auth')
+        auth_id = settings.value("trendsearth/auth")
         if auth_id is not None:
             self.authcfg_acs.setConfigId(auth_id)
         else:
-            log('Authentication configuration id was not found')
+            log("Authentication configuration id was not found")
 
         # load gui default value from settings
         self.reloadAuthConfigurations()
@@ -337,10 +337,10 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
 
     def on_accept(self):
         auth_id = self.authcfg_acs.configId()
-        if auth_id != '':
-            settings.setValue('trendsearth/auth', auth_id)
+        if auth_id != "":
+            settings.setValue("trendsearth/auth", auth_id)
         else:
-            log('Authentication configuration id not found')
+            log("Authentication configuration id not found")
 
         self.area_widget.save_settings()
         self.widgetSettingsAdvanced.update_settings()

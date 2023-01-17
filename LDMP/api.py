@@ -79,7 +79,6 @@ class RequestTask(QgsTask):
             network_manager.setTimeout(600000)
 
             network_request = QtNetwork.QNetworkRequest(qurl)
-
             auth_manager = QgsApplication.authManager()
             auth_added, _ = auth_manager.updateNetworkRequest(network_request, auth_id)
 
@@ -99,12 +98,23 @@ class RequestTask(QgsTask):
                 self.resp = network_manager.blockingGet(network_request)
 
             elif self.method == "post":
-                if self.payload is None:
-                    empty_payload = {}
-                    doc = QtCore.QJsonDocument(empty_payload)
-                else:
-                    doc = QtCore.QJsonDocument(self.payload)
-                request_data = doc.toJson(QtCore.QJsonDocument.Compact)
+                request_data = None
+                doc = QtCore.QJsonDocument({})
+
+                if self.payload is not None:
+                    # Work around to handle QJsonDocument failing to deal with
+                    # dictionaries that contain nested values of OrderedDict.
+                    try:
+                        doc = QtCore.QJsonDocument(self.payload)
+                    except TypeError as te:
+                        request_data = bytes(json.dumps(self.payload), encoding="utf-8")
+
+                request_data = (
+                    doc.toJson(QtCore.QJsonDocument.Compact)
+                    if request_data is None
+                    else request_data
+                )
+
                 self.resp = network_manager.blockingPost(network_request, request_data)
 
             elif self.method == "update":

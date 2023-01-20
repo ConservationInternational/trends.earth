@@ -130,7 +130,62 @@ def _get_error_recode_polygons(in_file):
 def _set_error_recode(in_file, out_file, error_recode_polys):
     with open(in_file) as f:
         summary = reporting.TrendsEarthLandConditionSummary.Schema().load(json.load(f))
+
+    # Add polygons
     summary.land_condition["integrated"].error_recode = error_recode_polys
+
+    # Keys fields in the summary json to those in the error recode polygons
+    field_key = {
+        "No data": "nodata_pct",
+        "Degraded": "degraded_pct",
+        "Stable": "stable_pct",
+        "Improved": "improved_pct",
+    }
+
+    sdg_areas = {
+        item.name: item.area for item in summary.land_condition["integrated"].sdg.areas
+    }
+    total_area_initial = sum(sdg_areas.values())
+    for feat in error_recode_polys.features:
+        for recode_from, recode_to in zip(
+            ["Degraded", "Stable", "Improved"],
+            [
+                feat.properties.recode_deg_to,
+                feat.properties.recode_stable_to,
+                feat.properties.recode_imp_to,
+            ],
+        ):
+            # *.01 to convert hectares to sq km, and /100 to convert from
+            # percent to a fraction
+            area = (
+                feat.properties.stats["sdg"]["area_ha"]
+                * 0.01
+                * (feat.properties.stats["sdg"][field_key[recode_from]] / 100)
+            )
+            if recode_to is None:
+                continue
+            elif recode_to == -32768:
+                sdg_areas[recode_from] -= area
+                sdg_areas["No data"] += area
+            elif recode_to == -1:
+                sdg_areas[recode_from] -= area
+                sdg_areas["Degraded"] += area
+            elif recode_to == 0:
+                sdg_areas[recode_from] -= area
+                sdg_areas["Stable"] += area
+            elif recode_to == 1:
+                sdg_areas[recode_from] -= area
+                sdg_areas["Improved"] += area
+
+    assert all(value >= 0 for value in sdg_areas.values())
+    total_area_final = sum(sdg_areas.values())
+    assert abs(total_area_initial - total_area_final) < 0.001
+
+    summary.land_condition["integrated"].sdg_error_recode = reporting.AreaList(
+        "SDG Indicator 15.3.1 (progress since baseline), with errors recoded",
+        "sq km",
+        [reporting.Area(name, area) for name, area in sdg_areas.items()],
+    )
     out_json = json.loads(
         reporting.TrendsEarthLandConditionSummary.Schema().dumps(summary)
     )

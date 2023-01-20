@@ -830,6 +830,13 @@ class JobManager(QtCore.QObject):
                 "band_name": soil.band_info.name,
                 "uuid": str(soil.job.id),
             }
+        if sdg:
+            job.params["sdg"] = {
+                "path": str(sdg.path),
+                "band": sdg.band_index,
+                "band_name": sdg.band_info.name,
+                "uuid": str(sdg.job.id),
+            }
 
         self._init_error_recode_layer(job)
         self.write_job_metadata_file(job)

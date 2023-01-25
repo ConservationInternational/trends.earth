@@ -177,9 +177,14 @@ def _set_error_recode(in_file, out_file, error_recode_polys):
                 sdg_areas[recode_from] -= area
                 sdg_areas["Improved"] += area
 
-    assert all(value >= 0 for value in sdg_areas.values())
+    assert all(
+        value >= 0 for value in sdg_areas.values()
+    ), f"sdg_areas should all be greater than zero, but values are {sdg_areas}"
     total_area_final = sum(sdg_areas.values())
-    assert abs(total_area_initial - total_area_final) < 0.001
+    assert abs(total_area_initial - total_area_final) < 0.001, (
+        f"total_area_initial ({total_area_initial}) differs "
+        f"from total_area_final ({total_area_final})"
+    )
 
     summary.land_condition["integrated"].sdg_error_recode = reporting.AreaList(
         "SDG Indicator 15.3.1 (progress since baseline), with errors recoded",

@@ -12,5 +12,5 @@ docker-compose up -d
 
 docker-compose exec -T qgis-testing-environment sh -c "apt-get update"
 docker-compose exec -T qgis-testing-environment sh -c "apt-get install -y python3-opencv"
-sleep 10
+sleep 20
 docker-compose exec -T qgis-testing-environment qgis_testrunner.sh test_suite.test_package

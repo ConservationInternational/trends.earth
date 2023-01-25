@@ -17,7 +17,7 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../maptools.py" line="43"/>
+        <location filename="../maptools.py" line="46"/>
         <source>Area</source>
         <translation>区域</translation>
     </message>
@@ -62,20 +62,20 @@
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="55"/>
-        <source>{:.6g} km²</source>
+        <location filename="../maptools.py" line="51"/>
+        <source>0.00 kmu00B2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="48"/>
-        <source>0.00 km²</source>
+        <location filename="../maptools.py" line="58"/>
+        <source>{:.6g} kmu00B2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>BufferMapTool</name>
     <message>
-        <location filename="../maptools.py" line="552"/>
+        <location filename="../maptools.py" line="601"/>
         <source>add feature</source>
         <translation>添加功能</translation>
     </message>
@@ -83,23 +83,23 @@
 <context>
     <name>BufferWidget</name>
     <message>
-        <location filename="../maptools.py" line="100"/>
+        <location filename="../maptools.py" line="103"/>
         <source> km</source>
         <translation>km</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="83"/>
+        <location filename="../maptools.py" line="86"/>
         <source>Radius</source>
         <translation>半径</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="84"/>
+        <location filename="../maptools.py" line="87"/>
         <source>Area</source>
         <translation>区域</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="98"/>
-        <source> km²</source>
+        <location filename="../maptools.py" line="101"/>
+        <source> kmu00B2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -255,22 +255,22 @@
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="604"/>
+        <location filename="../jobs/mvc.py" line="611"/>
         <source>Dataset metadata</source>
         <translation>数据集元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="611"/>
+        <location filename="../jobs/mvc.py" line="618"/>
         <source>{} metadata</source>
         <translation>{} 元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="626"/>
+        <location filename="../jobs/mvc.py" line="633"/>
         <source>Add vector layer to map</source>
         <translation>将矢量图层添加到地图</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="630"/>
+        <location filename="../jobs/mvc.py" line="637"/>
         <source>Add raster layers to map</source>
         <translation>将栅格图层添加到地图</translation>
     </message>
@@ -477,8 +477,8 @@
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="27"/>
-        <source>SDG 15.3.1 Indicator</source>
-        <translation>SDG 15.3.1 指标</translation>
+        <source>SDG 15.3.1 Indicator;SDG 15.3.1 Indicator (status)</source>
+        <translation type="unfinished">SDG 15.3.1 指标</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="103"/>
@@ -4456,9 +4456,19 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PolygonMapTool</name>
     <message>
-        <location filename="../maptools.py" line="360"/>
+        <location filename="../maptools.py" line="410"/>
         <source>add feature</source>
         <translation>添加功能</translation>
+    </message>
+    <message>
+        <location filename="../maptools.py" line="398"/>
+        <source>Error</source>
+        <translation type="unfinished">错误</translation>
+    </message>
+    <message>
+        <location filename="../maptools.py" line="398"/>
+        <source>Empty geometry. Did you draw a feature outside of the currently selected region, or overlapping existing features?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4624,12 +4634,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>TEMapToolMixin</name>
     <message>
-        <location filename="../maptools.py" line="227"/>
+        <location filename="../maptools.py" line="260"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="227"/>
+        <location filename="../maptools.py" line="260"/>
         <source>Current cursor position is outside the extent of the base source dataset.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5580,17 +5590,17 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_areaofinterest</name>
     <message>
-        <location filename="../areaofinterest.py" line="635"/>
+        <location filename="../areaofinterest.py" line="637"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="469"/>
+        <location filename="../areaofinterest.py" line="471"/>
         <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation>第 {} 行中的几何图形无效。在处理之前检查所有输入 geom_jsons 是否有效。尝试使用工具栏“矢量”菜单上的检查有效性工具，以获取关于哪些功能无效的更多信息（在“矢量”——“几何工具”——“检查有效性”下）。</translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="635"/>
+        <location filename="../areaofinterest.py" line="637"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation>错误 - 图层不在地理坐标系中。无法将图层包裹在180度经线。</translation>
     </message>

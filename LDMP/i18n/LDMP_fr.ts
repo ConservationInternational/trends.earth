@@ -17,7 +17,7 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../maptools.py" line="43"/>
+        <location filename="../maptools.py" line="46"/>
         <source>Area</source>
         <translation>Région</translation>
     </message>
@@ -62,20 +62,20 @@
         <translation>Impossible à lire {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="55"/>
-        <source>{:.6g} km²</source>
+        <location filename="../maptools.py" line="51"/>
+        <source>0.00 kmu00B2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="48"/>
-        <source>0.00 km²</source>
+        <location filename="../maptools.py" line="58"/>
+        <source>{:.6g} kmu00B2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>BufferMapTool</name>
     <message>
-        <location filename="../maptools.py" line="552"/>
+        <location filename="../maptools.py" line="601"/>
         <source>add feature</source>
         <translation>ajouter une fonction</translation>
     </message>
@@ -83,23 +83,23 @@
 <context>
     <name>BufferWidget</name>
     <message>
-        <location filename="../maptools.py" line="100"/>
+        <location filename="../maptools.py" line="103"/>
         <source> km</source>
         <translation>km</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="83"/>
+        <location filename="../maptools.py" line="86"/>
         <source>Radius</source>
         <translation>Radius</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="84"/>
+        <location filename="../maptools.py" line="87"/>
         <source>Area</source>
         <translation>Région</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="98"/>
-        <source> km²</source>
+        <location filename="../maptools.py" line="101"/>
+        <source> kmu00B2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -255,22 +255,22 @@
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="604"/>
+        <location filename="../jobs/mvc.py" line="611"/>
         <source>Dataset metadata</source>
         <translation>Métadonnées de l'ensemble de données</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="611"/>
+        <location filename="../jobs/mvc.py" line="618"/>
         <source>{} metadata</source>
         <translation>{} métadonnées</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="626"/>
+        <location filename="../jobs/mvc.py" line="633"/>
         <source>Add vector layer to map</source>
         <translation>Ajouter une couche vectorielle à la carte</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="630"/>
+        <location filename="../jobs/mvc.py" line="637"/>
         <source>Add raster layers to map</source>
         <translation>Ajouter des couches matricielles à la carte</translation>
     </message>
@@ -477,8 +477,8 @@
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="27"/>
-        <source>SDG 15.3.1 Indicator</source>
-        <translation>Indicateur SDG 15.3.1 </translation>
+        <source>SDG 15.3.1 Indicator;SDG 15.3.1 Indicator (status)</source>
+        <translation type="unfinished">Indicateur SDG 15.3.1 </translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="103"/>
@@ -4457,9 +4457,19 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PolygonMapTool</name>
     <message>
-        <location filename="../maptools.py" line="360"/>
+        <location filename="../maptools.py" line="410"/>
         <source>add feature</source>
         <translation>ajouter une fonctionnalité</translation>
+    </message>
+    <message>
+        <location filename="../maptools.py" line="398"/>
+        <source>Error</source>
+        <translation type="unfinished">Erreur</translation>
+    </message>
+    <message>
+        <location filename="../maptools.py" line="398"/>
+        <source>Empty geometry. Did you draw a feature outside of the currently selected region, or overlapping existing features?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4625,12 +4635,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>TEMapToolMixin</name>
     <message>
-        <location filename="../maptools.py" line="227"/>
+        <location filename="../maptools.py" line="260"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="227"/>
+        <location filename="../maptools.py" line="260"/>
         <source>Current cursor position is outside the extent of the base source dataset.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5581,17 +5591,17 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_areaofinterest</name>
     <message>
-        <location filename="../areaofinterest.py" line="635"/>
+        <location filename="../areaofinterest.py" line="637"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="469"/>
+        <location filename="../areaofinterest.py" line="471"/>
         <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation>Géométrie non valide dans la ligne {}. Vérifiez que tous les geom_jsons d'entrée sont valides avant le traitement. Essayez d'utiliser l'outil de vérification de la validité dans le menu &quot;Vector&quot; de la barre d'outils pour obtenir plus d'informations sur les caractéristiques non valides (sous « Vector » - « Geometry Tools » - « Check Validity »).</translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="635"/>
+        <location filename="../areaofinterest.py" line="637"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation>Erreur - La couche n'est pas dans un système de coordonnées géographiques. Impossible d'envelopper la couche sur le 180ème méridien.</translation>
     </message>

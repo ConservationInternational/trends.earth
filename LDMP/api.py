@@ -144,6 +144,16 @@ class RequestTask(QgsTask):
 # Other helper functions for api calls
 
 
+def backoff_hdlr(details):
+    if details["kwargs"]["payload"]:
+        details["kwargs"]["payload"] = self._clean_payload(details["kwargs"]["payload"])
+    log(
+        "Backing off {wait:0.1f} seconds after {tries} tries "
+        "calling function {target} with args {args} and kwargs "
+        "{kwargs}".format(**details)
+    )
+
+
 class APIClient(QtCore.QObject):
     url: str
 
@@ -269,17 +279,6 @@ class APIClient(QtCore.QObject):
                 )
 
             return False
-
-    def backoff_hdlr(self, details):
-        if details["kwargs"]["payload"]:
-            details["kwargs"]["payload"] = self._clean_payload(
-                details["kwargs"]["payload"]
-            )
-        log(
-            "Backing off {wait:0.1f} seconds after {tries} tries "
-            "calling function {target} with args {args} and kwargs "
-            "{kwargs}".format(**details)
-        )
 
     @backoff.on_predicate(
         backoff.expo, lambda x: x is None, max_tries=3, on_backoff=backoff_hdlr

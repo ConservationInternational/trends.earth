@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.1.8
+version=2.1.7
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -25,7 +25,12 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.1.6 (December 8, 2022)
+changelog=2.1.8 (January 25, 2023)
+    - Output JSON field for Prais containing updated false positive/negative
+      calculations.
+    - Fixes #752 - false positive/negative datasets not showing up in
+      non-English versions
+  2.1.6 (December 8, 2022)
     - Bumps maximum number of land cover classes to 45 (useful particularly for
       users seeking to use Corine legend)
     - Fix issue that was arising on Mac/Linux due to missing QgsPanelWidget ui

@@ -18,9 +18,18 @@ import os
 import typing
 import zipfile
 from pathlib import Path
+from functools import partial
 
 import requests
-from qgis.core import QgsApplication
+from qgis.core import (
+    QgsApplication,
+    QgsFileDownloader,
+    QgsProcessing,
+    QgsProcessingFeedback,
+    QgsTask,
+)
+from qgis import processing
+
 from qgis.core import QgsNetworkAccessManager
 from qgis.core import QgsSettings
 from qgis.PyQt import QtCore
@@ -301,72 +310,60 @@ class DownloadWorker(AbstractWorker):
         AbstractWorker.__init__(self)
         self.url = url
         self.outfile = outfile
+        self.network_manager = QgsNetworkAccessManager().instance()
+        self.network_reply = None
+        self.bytes_dl = 0
+        self.total_size = 0
 
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        settings = QgsSettings()
-        auth_id = settings.value("trendsearth/auth")
-        qurl = QtCore.QUrl(self.url)
-        network_manager = QgsNetworkAccessManager().instance()
-        network_manager.setTimeout(600000)
+        self.download_file(self.url, self.outfile)
 
-        network_request = QtNetwork.QNetworkRequest(qurl)
+        return True
 
-        auth_manager = QgsApplication.authManager()
-        auth_added, _ = auth_manager.updateNetworkRequest(network_request, auth_id)
-        resp = network_manager.blockingGet(network_request)
-        status_code = resp.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute)
-        if status_code != 200:
-            log(
-                "Unexpected HTTP status code ({}) while trying to download {}.".format(
-                    status_code, self.url
-                )
-            )
-            raise DownloadError("Unable to start download of {}".format(self.url))
+    def download_file(self, url, outfile):
+        try:
+            loop = QtCore.QEventLoop()
 
-        total_size = int(resp.headers["Content-length"])
-        if total_size < 1e5:
-            total_size_pretty = "{:.2f} KB".format(round(total_size / 1024, 2))
-        else:
-            total_size_pretty = "{:.2f} MB".format(round(total_size * 1e-6, 2))
+            download_exit = partial(self.download_exit, loop)
 
+            downloader = QgsFileDownloader(QtCore.QUrl(url), outfile)
+            downloader.downloadCompleted.connect(self.download_finished)
+            downloader.downloadExited.connect(download_exit)
+            downloader.downloadCanceled.connect(download_exit)
+            downloader.downloadError.connect(self.download_error)
+            downloader.downloadProgress.connect(self.update_progress)
+
+            if self.killed:
+                downloader.downloadProgress.connect(downloader.cancelDownload)
+
+            loop.exec_()
+
+        except Exception as e:
+            log(tr_download.tr("Error in downloading file, {}").format(str(e)))
+
+    def update_progress(self, value, total):
+        if total > 0:
+            self.progress.emit(value * 100 / total)
+
+    def download_error(self, error):
         log(
-            "Downloading {} ({}) to {}".format(
-                self.url, total_size_pretty, self.outfile
+            tr_download.tr(
+                f"Error while downloading file to" f" {self.outfile}, {error}"
             )
         )
+        raise DownloadError(
+            "Unable to start download of {}, {}".format(self.url, error)
+        )
 
-        bytes_dl = 0
-        r = network_manager.blockingGet(network_request)
+    def download_finished(self):
+        log(tr_download.tr(f"Finished downloading file to {self.outfile}"))
 
-        with open(self.outfile, "wb") as f:
-            for chunk in r.iter_content(chunk_size=8192):
-                if self.killed == True:
-                    log("Download {} killed by user".format(self.url))
-                    break
-                elif chunk:  # filter out keep-alive new chunks
-                    f.write(chunk)
-                    bytes_dl += len(chunk)
-                    self.progress.emit(100 * float(bytes_dl) / float(total_size))
-        f.close()
-
-        if bytes_dl != total_size:
-            log(
-                "Download error. File size of {} didn't match expected ({} versus {})".format(
-                    self.url, bytes_dl, total_size
-                )
-            )
-            os.remove(self.outfile)
-            if not self.killed:
-                raise DownloadError(
-                    "Final file size of {} does not match expected".format(self.url)
-                )
-            return None
-        else:
-            log("Download of {} complete".format(self.url))
-            return True
+    def download_exit(self, loop):
+        log(tr_download.tr(f"Download exited {self.outfile}"))
+        loop.exit()
 
 
 class Download:
@@ -389,34 +386,7 @@ class Download:
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
-        except requests.exceptions.ChunkedEncodingError:
-            log(
-                "Download failed due to ChunkedEncodingError - likely a connection loss"
-            )
-            QtWidgets.QMessageBox.critical(
-                None,
-                tr_download.tr("Error"),
-                tr_download.tr("Download failed. Check your internet connection."),
-            )
-            return False
-        except requests.exceptions.ConnectionError:
-            log("Download failed due to connection error")
-            QtWidgets.QMessageBox.critical(
-                None,
-                tr_download.tr("Error"),
-                tr_download.tr(
-                    "Unable to access internet. Check your internet connection."
-                ),
-            )
-            return False
-        except requests.exceptions.Timeout:
-            log("Download timed out.")
-            QtWidgets.QMessageBox.critical(
-                None,
-                tr_download.tr("Error"),
-                tr_download.tr("Download timed out. Check your internet connection."),
-            )
-            return False
+
         except DownloadError:
             log("Download failed.")
             QtWidgets.QMessageBox.critical(
@@ -424,6 +394,13 @@ class Download:
                 tr_download.tr("Error"),
                 tr_download.tr("Download failed. Check your internet connection."),
             )
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_download.tr("Error"),
+                tr_download.tr("Problem running task for downloading file"),
+            )
+            log(tr_download.tr("An error occured when running task for"))
             return False
         return True
 

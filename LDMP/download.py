@@ -21,10 +21,8 @@ from functools import partial
 from pathlib import Path
 
 import requests
-from qgis.core import (
-    QgsApplication,
-    QgsFileDownloader,
-)
+from qgis.core import QgsApplication
+from qgis.core import QgsFileDownloader
 from qgis.core import QgsSettings
 from qgis.core import QgsTask
 from qgis.PyQt import QtCore

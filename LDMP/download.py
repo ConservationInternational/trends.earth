@@ -17,21 +17,18 @@ import json
 import os
 import typing
 import zipfile
-from pathlib import Path
 from functools import partial
+from pathlib import Path
 
 import requests
-from qgis.core import (
-    QgsApplication,
-    QgsFileDownloader,
-    QgsProcessing,
-    QgsProcessingFeedback,
-    QgsTask,
-)
 from qgis import processing
-
+from qgis.core import QgsApplication
+from qgis.core import QgsFileDownloader
 from qgis.core import QgsNetworkAccessManager
+from qgis.core import QgsProcessing
+from qgis.core import QgsProcessingFeedback
 from qgis.core import QgsSettings
+from qgis.core import QgsTask
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtNetwork
 from qgis.PyQt import QtWidgets

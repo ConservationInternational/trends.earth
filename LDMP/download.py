@@ -21,12 +21,10 @@ from functools import partial
 from pathlib import Path
 
 import requests
-from qgis import processing
-from qgis.core import QgsApplication
-from qgis.core import QgsFileDownloader
-from qgis.core import QgsNetworkAccessManager
-from qgis.core import QgsProcessing
-from qgis.core import QgsProcessingFeedback
+from qgis.core import (
+    QgsApplication,
+    QgsFileDownloader,
+)
 from qgis.core import QgsSettings
 from qgis.core import QgsTask
 from qgis.PyQt import QtCore
@@ -307,10 +305,6 @@ class DownloadWorker(AbstractWorker):
         AbstractWorker.__init__(self)
         self.url = url
         self.outfile = outfile
-        self.network_manager = QgsNetworkAccessManager().instance()
-        self.network_reply = None
-        self.bytes_dl = 0
-        self.total_size = 0
 
     def work(self):
         self.toggle_show_progress.emit(True)

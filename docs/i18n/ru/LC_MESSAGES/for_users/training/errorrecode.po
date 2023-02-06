@@ -1,26 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-02-06 15:34+0000\n"
 "PO-Revision-Date: 2022-06-21 21:07+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-"
+"international/teams/80165/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
 
 #: ../../source/for_users/training/errorrecode.rst:4
 msgid "False positive/negative layers"
@@ -28,7 +32,8 @@ msgstr "Ложноположительные/отрицательные слои
 
 #: ../../source/for_users/training/errorrecode.rst:6
 msgid ""
-"**Objective**: Learn how to create false positive/negative vector datasets."
+"**Objective**: Learn how to create false positive/negative vector "
+"datasets."
 msgstr ""
 "**Задача**: Научиться создавать наборы данных с "
 "ложноположительными/отрицательными векторными данными."
@@ -43,8 +48,8 @@ msgstr "**Доступ в интернет**: Не требуется"
 
 #: ../../source/for_users/training/errorrecode.rst:12
 msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
-" icon."
+"Click on the Trends.Earth toolbar within QGIS, and click on the "
+"Trends.Earth icon."
 msgstr ""
 "Кликните по панели инструментов Trends.Earth в QGIS, а затем по иконке "
 "Trends.Earth."
@@ -52,8 +57,8 @@ msgstr ""
 #: ../../source/for_users/training/errorrecode.rst:17
 msgid ""
 "The **Trends.Earth** menu will open. In the **Dataset** window, where "
-"existing tasks are listed in the menu if the **Download remotely-generated "
-"datasets automatically** is checked in settings."
+"existing tasks are listed in the menu if the **Download remotely-"
+"generated datasets automatically** is checked in settings."
 msgstr ""
 "Откроется меню **Trends.Earth**. В окне **Набор данных**, где в случае "
 "установленного в настройках флажка **Автоматически загружать удаленно "
@@ -62,23 +67,24 @@ msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:20
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more about "
-"**Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more "
+"about **Advanced settings**"
 msgstr ""
-"Обратитесь к разделу :ref:`tut_settings` данного руководства, чтобы узнать "
-"больше о **Расширенных настройках**"
+"Обратитесь к разделу :ref:`tut_settings` данного руководства, чтобы "
+"узнать больше о **Расширенных настройках**"
 
 #: ../../source/for_users/training/errorrecode.rst:22
 msgid "Select the Refresh button if no datasets appear in the menu."
 msgstr "Нажмите кнопку Обновить, если в меню нет наборов данных."
 
 #: ../../source/for_users/training/errorrecode.rst:24
+#, fuzzy
 msgid ""
-"Press the **Create** button at the bottom of the **Trends.Earth** menu and "
-"then select **False positive layer**"
+"Press the **Create** button at the bottom of the **Trends.Earth** menu "
+"and then select **False positive/negative layer**"
 msgstr ""
-"Нажмите кнопку **Создать** в нижней части меню **Trends.Earth** и выберите "
-"**Ложноположительный слой**"
+"Нажмите кнопку **Создать** в нижней части меню **Trends.Earth** и "
+"выберите **Ложноположительный слой**"
 
 #: ../../source/for_users/training/errorrecode.rst:29
 msgid ""
@@ -93,8 +99,8 @@ msgid ""
 "To add the vector dataset to QGIS map canvas for viewing use **Add to "
 "canvas** button"
 msgstr ""
-"Чтобы добавить для отображения набор векторных данных на холст карты QGIS, "
-"нажмите кнопку **Добавить на холст**"
+"Чтобы добавить для отображения набор векторных данных на холст карты "
+"QGIS, нажмите кнопку **Добавить на холст**"
 
 #: ../../source/for_users/training/errorrecode.rst:39
 msgid "Layer will be added with the predefined styling as shown below"
@@ -102,94 +108,88 @@ msgstr "Слой будет добавлен с предопределенным
 
 #: ../../source/for_users/training/errorrecode.rst:44
 msgid ""
-"To define areas in the dataset it is necessary to add it to QGIS map canvas "
-"using **Edit layer** button"
+"To define areas in the dataset it is necessary to add it to QGIS map "
+"canvas using **Edit layer** button"
 msgstr ""
-"Чтобы определить области в наборе данных, необходимо добавить их на холст "
-"карты QGIS с помощью кнопки **Редактировать слой**"
+"Чтобы определить области в наборе данных, необходимо добавить их на холст"
+" карты QGIS с помощью кнопки **Редактировать слой**"
 
 #: ../../source/for_users/training/errorrecode.rst:49
+#, fuzzy
 msgid ""
-"If this is first time when layer added to QGIS canvas a dialog asking for "
-"indicator layers will be shown"
+"If this is the first time a false positive/negative layer is added to "
+"QGIS canvas a dialog asking for indicator layers will be shown"
 msgstr ""
 "Если слой добавляется на холст QGIS впервые, появится диалоговое окно с "
 "предложением указать отображаемые индикаторные слои."
 
 #: ../../source/for_users/training/errorrecode.rst:54
 msgid ""
-"In this dialog it is necessary to select indicator layers which will be used"
-" to calculate charts. This is one-time action, choice made in this dialog "
-"will be preserved and used in all subsequent edits of this specific vector "
-"dataset."
+"In this dialog it is necessary to correctly select corresponding "
+"indicator layers which will be used to calculate charts - **special "
+"attention when selecting the layer for SDG 15.3.1 indicator, make sure to"
+" select the SDG 15.3.1 Indicator that has been updated with the "
+"respective progress period**. This is a one-time action, choice made in "
+"this dialog will be preserved and used in all subsequent edits of this "
+"specific vector dataset."
 msgstr ""
-"В этом диалоговом окне необходимо выбрать те индикаторные слои, которые "
-"будут использоваться для создания графиков. Это действие нужно совершить "
-"лишь один раз, а выбор, сделанный в этом диалоговом окне, будет сохранен и "
-"использован при всех последующих правках данного набора векторных данных."
 
-#: ../../source/for_users/training/errorrecode.rst:56
+#: ../../source/for_users/training/errorrecode.rst:58
+#, fuzzy
 msgid ""
 "Once the dataset added to the canvas in editing mode, polygons can be "
-"created using either **Polygon** tool"
+"created using either **Polygon** tool or **Buffer** tool which can be "
+"found on the **Trends.Earth** toolbar."
 msgstr ""
 "После добавления набора данных на холст в режиме редактирования можно "
 "создавать полигоны с помощью инструмента **Полигон**"
 
-#: ../../source/for_users/training/errorrecode.rst:61
-msgid "or **Buffer** tool"
-msgstr "или инструмента **Буфер**,"
-
-#: ../../source/for_users/training/errorrecode.rst:66
-msgid "which can be found on the **Trends.Earth** toolbar."
-msgstr "который можно найти на панели инструментов **Trends.Earth**."
-
-#: ../../source/for_users/training/errorrecode.rst:68
+#: ../../source/for_users/training/errorrecode.rst:63
 msgid ""
 "The **Polygon** tool used to digitize polygons manually, using the same "
 "point-and-click approach as native QGIS digitizing tools do. When "
-"**Polygon** tool is selected and digitizing started in the top-right corner "
-"of the QGIS map canvas a widget showing area of the polygon will be "
-"displayed."
+"**Polygon** tool is selected and digitizing started in the top-right "
+"corner of the QGIS map canvas a widget showing area of the polygon will "
+"be displayed."
 msgstr ""
 "Инструмент **Полигон**, предназначенный для ручной оцифровки полигонов, "
-"использует тот же принцип \"укажи и кликни\", что и собственные инструменты "
-"оцифровки QGIS. Когда выбран инструмент **Полигон** и оцифровка уже идет, в "
-"правом верхнем углу холста карты QGIS отобразится виджет, показывающий "
-"площадь полигона."
+"использует тот же принцип \"укажи и кликни\", что и собственные "
+"инструменты оцифровки QGIS. Когда выбран инструмент **Полигон** и "
+"оцифровка уже идет, в правом верхнем углу холста карты QGIS отобразится "
+"виджет, показывающий площадь полигона."
+
+#: ../../source/for_users/training/errorrecode.rst:68
+msgid ""
+"The **Buffer** tool used to digitize polygons by selecting a center point"
+" and defining a radius or area of the circle around that center point. "
+"Once **Buffer** tools is selected and center point defined with the mouse"
+" click in the top-right corner of the QGIS map canvas a widget showing "
+"circle radius will be shown. Enter desired radius and press **Enter** key"
+" to create circle. Alternatively it is possible to draw circle manually "
+"by moving mouse cursor, in this case current radius will be displayed in "
+"the same widget."
+msgstr ""
+"Инструмент **Буфер** используется для оцифровки полигонов путем выбора "
+"центральной точки и определения радиуса или площади окружности вокруг "
+"нее. После выбора инструмента **Буфер** и указания центральной точки "
+"правым кликом в правом верхнем углу холста карты QGIS отобразится виджет,"
+" показывающий радиус окружности. Укажите желаемый радиус и нажмите "
+"клавишу **Enter**, чтобы создать окружность. Кроме того, круг можно "
+"нарисовать вручную, перемещая указатель мыши, а текущий радиус будет "
+"отображаться в том же виджете."
 
 #: ../../source/for_users/training/errorrecode.rst:73
 msgid ""
-"The **Buffer** tool used to digitize polygons by selecting a center point "
-"and defining a radius or area of the circle around that center point. Once "
-"**Buffer** tools is selected and center point defined with the mouse click "
-"in the top-right corner of the QGIS map canvas a widget showing circle "
-"radius will be shown. Enter desired radius and press **Enter** key to create"
-" circle. Alternatively it is possible to draw circle manually by moving "
-"mouse cursor, in this case current radius will be displayed in the same "
-"widget."
-msgstr ""
-"Инструмент **Буфер** используется для оцифровки полигонов путем выбора "
-"центральной точки и определения радиуса или площади окружности вокруг нее. "
-"После выбора инструмента **Буфер** и указания центральной точки правым "
-"кликом в правом верхнем углу холста карты QGIS отобразится виджет, "
-"показывающий радиус окружности. Укажите желаемый радиус и нажмите клавишу "
-"**Enter**, чтобы создать окружность. Кроме того, круг можно нарисовать "
-"вручную, перемещая указатель мыши, а текущий радиус будет отображаться в том"
-" же виджете."
-
-#: ../../source/for_users/training/errorrecode.rst:78
-msgid ""
-"When digitizing of the polygon is finished a custom attribute form will be "
-"shown."
+"When digitizing of the polygon is finished a custom attribute form will "
+"be shown."
 msgstr ""
 "Когда оцифровка полигона будет завершена, отобразиться форма указания "
 "пользовательских атрибутов."
 
-#: ../../source/for_users/training/errorrecode.rst:83
+#: ../../source/for_users/training/errorrecode.rst:79
 msgid ""
-"In addition to various attributes this form also contains indicators chart "
-"calculated based on the rasters selected in the step 7."
+"In addition to various attributes this form also contains indicators "
+"chart calculated based on the rasters selected in the step 7."
 msgstr ""
 "В этой форме кроме различных атрибутов также содержится и диаграмма "
 "индикаторов, рассчитанная на основе растров, выбранных на шаге 7."
@@ -205,3 +205,28 @@ msgstr "iconReports"
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
+
+#~ msgid ""
+#~ "In this dialog it is necessary to"
+#~ " select indicator layers which will "
+#~ "be used to calculate charts. This "
+#~ "is one-time action, choice made in"
+#~ " this dialog will be preserved and"
+#~ " used in all subsequent edits of "
+#~ "this specific vector dataset."
+#~ msgstr ""
+#~ "В этом диалоговом окне необходимо "
+#~ "выбрать те индикаторные слои, которые "
+#~ "будут использоваться для создания графиков."
+#~ " Это действие нужно совершить лишь "
+#~ "один раз, а выбор, сделанный в "
+#~ "этом диалоговом окне, будет сохранен и"
+#~ " использован при всех последующих правках"
+#~ " данного набора векторных данных."
+
+#~ msgid "or **Buffer** tool"
+#~ msgstr "или инструмента **Буфер**,"
+
+#~ msgid "which can be found on the **Trends.Earth** toolbar."
+#~ msgstr "который можно найти на панели инструментов **Trends.Earth**."
+

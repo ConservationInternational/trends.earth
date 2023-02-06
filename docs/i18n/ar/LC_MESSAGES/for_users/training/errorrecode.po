@@ -1,26 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-02-06 15:34+0000\n"
 "PO-Revision-Date: 2022-06-21 21:07+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-"
+"international/teams/80165/ar/)\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
+"n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
 
 #: ../../source/for_users/training/errorrecode.rst:4
 msgid "False positive/negative layers"
@@ -28,9 +31,9 @@ msgstr "الطبقات الزائفة الموجبة/ السلبية"
 
 #: ../../source/for_users/training/errorrecode.rst:6
 msgid ""
-"**Objective**: Learn how to create false positive/negative vector datasets."
-msgstr ""
-"** الهدف **: تعلم كيفية إنشاء مجموعات بيانات ناقلات موجبة/ سلبية كاذبة."
+"**Objective**: Learn how to create false positive/negative vector "
+"datasets."
+msgstr "** الهدف **: تعلم كيفية إنشاء مجموعات بيانات ناقلات موجبة/ سلبية كاذبة."
 
 #: ../../source/for_users/training/errorrecode.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
@@ -42,25 +45,24 @@ msgstr "**الوصول إلى الإنترنت**: غير مطلوب"
 
 #: ../../source/for_users/training/errorrecode.rst:12
 msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
-" icon."
-msgstr ""
-"انقر على شريط أدوات Trends.Earth داخل QGIS، وانقر على أيقونة Trends.Earth."
+"Click on the Trends.Earth toolbar within QGIS, and click on the "
+"Trends.Earth icon."
+msgstr "انقر على شريط أدوات Trends.Earth داخل QGIS، وانقر على أيقونة Trends.Earth."
 
 #: ../../source/for_users/training/errorrecode.rst:17
 msgid ""
 "The **Trends.Earth** menu will open. In the **Dataset** window, where "
-"existing tasks are listed in the menu if the **Download remotely-generated "
-"datasets automatically** is checked in settings."
+"existing tasks are listed in the menu if the **Download remotely-"
+"generated datasets automatically** is checked in settings."
 msgstr ""
 "ستفتح قائمة **Trends.Earth**. في نافذة **Dataset**، حيث يتم إدراج المهام "
-"الحالية في القائمة إذا تم تحديد ** تنزيل مجموعات البيانات المُنشأة عن بُعد "
-"تلقائيًا ** في الإعدادات."
+"الحالية في القائمة إذا تم تحديد ** تنزيل مجموعات البيانات المُنشأة عن "
+"بُعد تلقائيًا ** في الإعدادات."
 
 #: ../../source/for_users/training/errorrecode.rst:20
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more about "
-"**Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more "
+"about **Advanced settings**"
 msgstr ""
 "حول إلى: المرجع: قسم \"tut_settings\" من هذا الدليل لمعرفة المزيد حول "
 "**الإعدادات المتقدمة**"
@@ -70,12 +72,13 @@ msgid "Select the Refresh button if no datasets appear in the menu."
 msgstr "اختر الزر \"تحديث\" إذا لم تظهر أي مجموعات بيانات في القائمة."
 
 #: ../../source/for_users/training/errorrecode.rst:24
+#, fuzzy
 msgid ""
-"Press the **Create** button at the bottom of the **Trends.Earth** menu and "
-"then select **False positive layer**"
+"Press the **Create** button at the bottom of the **Trends.Earth** menu "
+"and then select **False positive/negative layer**"
 msgstr ""
-"اضغط على الزر **إنشاء** أسفل قائمة **Trends.Earth** ثم اختر**False positive "
-"layer**"
+"اضغط على الزر **إنشاء** أسفل قائمة **Trends.Earth** ثم اختر**False "
+"positive layer**"
 
 #: ../../source/for_users/training/errorrecode.rst:29
 msgid ""
@@ -99,93 +102,87 @@ msgstr "ستتم إضافة الطبقة مع التصميم المحدد مسب
 
 #: ../../source/for_users/training/errorrecode.rst:44
 msgid ""
-"To define areas in the dataset it is necessary to add it to QGIS map canvas "
-"using **Edit layer** button"
+"To define areas in the dataset it is necessary to add it to QGIS map "
+"canvas using **Edit layer** button"
 msgstr ""
-"لتحديد المناطق في مجموعة البيانات، من الضروري إضافتها إلى لوحة خريطة QGIS "
-"باستخدام زر **Edit layer** "
+"لتحديد المناطق في مجموعة البيانات، من الضروري إضافتها إلى لوحة خريطة QGIS"
+" باستخدام زر **Edit layer** "
 
 #: ../../source/for_users/training/errorrecode.rst:49
+#, fuzzy
 msgid ""
-"If this is first time when layer added to QGIS canvas a dialog asking for "
-"indicator layers will be shown"
+"If this is the first time a false positive/negative layer is added to "
+"QGIS canvas a dialog asking for indicator layers will be shown"
 msgstr ""
-"إذا كانت هذه هي المرة الأولى التي تتم فيها إضافة الطبقة إلى لوحة QGIS، فسيتم"
-" عرض مربع حوار يطلب طبقات المؤشر"
+"إذا كانت هذه هي المرة الأولى التي تتم فيها إضافة الطبقة إلى لوحة QGIS، "
+"فسيتم عرض مربع حوار يطلب طبقات المؤشر"
 
 #: ../../source/for_users/training/errorrecode.rst:54
 msgid ""
-"In this dialog it is necessary to select indicator layers which will be used"
-" to calculate charts. This is one-time action, choice made in this dialog "
-"will be preserved and used in all subsequent edits of this specific vector "
-"dataset."
+"In this dialog it is necessary to correctly select corresponding "
+"indicator layers which will be used to calculate charts - **special "
+"attention when selecting the layer for SDG 15.3.1 indicator, make sure to"
+" select the SDG 15.3.1 Indicator that has been updated with the "
+"respective progress period**. This is a one-time action, choice made in "
+"this dialog will be preserved and used in all subsequent edits of this "
+"specific vector dataset."
 msgstr ""
-"من الضروري في هذا الحوار تحديد طبقات المؤشر التي سيتم استخدامها لحساب الرسوم"
-" البيانية. هذا إجراء لمرة واحدة، سيتم الاحتفاظ بالاختيار الذي تم إجراؤه في "
-"مربع الحوار هذا واستخدامه في جميع عمليات التحرير اللاحقة لمجموعة بيانات "
-"الناقل المحددة هذه."
 
-#: ../../source/for_users/training/errorrecode.rst:56
+#: ../../source/for_users/training/errorrecode.rst:58
+#, fuzzy
 msgid ""
 "Once the dataset added to the canvas in editing mode, polygons can be "
-"created using either **Polygon** tool"
+"created using either **Polygon** tool or **Buffer** tool which can be "
+"found on the **Trends.Earth** toolbar."
 msgstr ""
-"بمجرد إضافة مجموعة البيانات إلى اللوحة القماشية في وضع التحرير، يمكن إنشاء "
-"المضلعات باستخدام إما أداة **Polygon**"
+"بمجرد إضافة مجموعة البيانات إلى اللوحة القماشية في وضع التحرير، يمكن "
+"إنشاء المضلعات باستخدام إما أداة **Polygon**"
 
-#: ../../source/for_users/training/errorrecode.rst:61
-msgid "or **Buffer** tool"
-msgstr "أو أداة **Buffer** "
-
-#: ../../source/for_users/training/errorrecode.rst:66
-msgid "which can be found on the **Trends.Earth** toolbar."
-msgstr "والتي يمكن العثور عليها في شريط أدوات **Trends.Earth**."
-
-#: ../../source/for_users/training/errorrecode.rst:68
+#: ../../source/for_users/training/errorrecode.rst:63
 msgid ""
 "The **Polygon** tool used to digitize polygons manually, using the same "
 "point-and-click approach as native QGIS digitizing tools do. When "
-"**Polygon** tool is selected and digitizing started in the top-right corner "
-"of the QGIS map canvas a widget showing area of the polygon will be "
-"displayed."
+"**Polygon** tool is selected and digitizing started in the top-right "
+"corner of the QGIS map canvas a widget showing area of the polygon will "
+"be displayed."
 msgstr ""
 "أداة **Polygon** المستخدمة لرقمنة المضلعات يدويًا، باستخدام نفس أسلوب "
 "التأشير والنقر كما تفعل أدوات الرقمنة الأصلية QGIS. عند اختيار أداة "
-"**Polygon** وبدأ الرقمنة في الزاوية العلوية اليمنى من لوحة خريطة QGIS، سيتم "
-"عرض عنصر واجهة مستخدم يعرض منطقة المضلع."
+"**Polygon** وبدأ الرقمنة في الزاوية العلوية اليمنى من لوحة خريطة QGIS، "
+"سيتم عرض عنصر واجهة مستخدم يعرض منطقة المضلع."
+
+#: ../../source/for_users/training/errorrecode.rst:68
+msgid ""
+"The **Buffer** tool used to digitize polygons by selecting a center point"
+" and defining a radius or area of the circle around that center point. "
+"Once **Buffer** tools is selected and center point defined with the mouse"
+" click in the top-right corner of the QGIS map canvas a widget showing "
+"circle radius will be shown. Enter desired radius and press **Enter** key"
+" to create circle. Alternatively it is possible to draw circle manually "
+"by moving mouse cursor, in this case current radius will be displayed in "
+"the same widget."
+msgstr ""
+"أداة **Buffer** المستخدمة لرقمنة المضلعات عن طريق تحديد نقطة مركزية "
+"وتحديد نصف قطر أو مساحة من الدائرة حول نقطة المركز تلك. بمجرد تحديد أدوات"
+" **Buffer** وتحديد نقطة المركز بنقرة ماوس الكمبيوتر في الزاوية العلوية "
+"اليمنى من لوحة خريطة QGIS، سيتم عرض عنصر واجهة مستخدم يظهر نصف قطر "
+"الدائرة. أدخل نصف القطر المطلوب واضغط على مفتاح **Enter** لإنشاء دائرة. "
+"بدلاً من ذلك، من الممكن رسم دائرة يدوياً عن طريق تحريك مؤشر الماوس، وفي "
+"هذه الحالة سيتم عرض نصف القطر الحالي في نفس عنصر واجهة المستخدم."
 
 #: ../../source/for_users/training/errorrecode.rst:73
 msgid ""
-"The **Buffer** tool used to digitize polygons by selecting a center point "
-"and defining a radius or area of the circle around that center point. Once "
-"**Buffer** tools is selected and center point defined with the mouse click "
-"in the top-right corner of the QGIS map canvas a widget showing circle "
-"radius will be shown. Enter desired radius and press **Enter** key to create"
-" circle. Alternatively it is possible to draw circle manually by moving "
-"mouse cursor, in this case current radius will be displayed in the same "
-"widget."
-msgstr ""
-"أداة **Buffer** المستخدمة لرقمنة المضلعات عن طريق تحديد نقطة مركزية وتحديد "
-"نصف قطر أو مساحة من الدائرة حول نقطة المركز تلك. بمجرد تحديد أدوات "
-"**Buffer** وتحديد نقطة المركز بنقرة ماوس الكمبيوتر في الزاوية العلوية اليمنى"
-" من لوحة خريطة QGIS، سيتم عرض عنصر واجهة مستخدم يظهر نصف قطر الدائرة. أدخل "
-"نصف القطر المطلوب واضغط على مفتاح **Enter** لإنشاء دائرة. بدلاً من ذلك، من "
-"الممكن رسم دائرة يدوياً عن طريق تحريك مؤشر الماوس، وفي هذه الحالة سيتم عرض "
-"نصف القطر الحالي في نفس عنصر واجهة المستخدم."
-
-#: ../../source/for_users/training/errorrecode.rst:78
-msgid ""
-"When digitizing of the polygon is finished a custom attribute form will be "
-"shown."
+"When digitizing of the polygon is finished a custom attribute form will "
+"be shown."
 msgstr "عند الانتهاء من رقمنة المضلع، سيتم عرض نموذج سمة مخصص."
 
-#: ../../source/for_users/training/errorrecode.rst:83
+#: ../../source/for_users/training/errorrecode.rst:79
 msgid ""
-"In addition to various attributes this form also contains indicators chart "
-"calculated based on the rasters selected in the step 7."
+"In addition to various attributes this form also contains indicators "
+"chart calculated based on the rasters selected in the step 7."
 msgstr ""
-"بالإضافة إلى السمات المختلفة، يحتوي هذا النموذج أيضًا على مخطط مؤشرات محسوب "
-"بناءً على البيانات النقطية المحددة في الخطوة 7."
+"بالإضافة إلى السمات المختلفة، يحتوي هذا النموذج أيضًا على مخطط مؤشرات "
+"محسوب بناءً على البيانات النقطية المحددة في الخطوة 7."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
@@ -198,3 +195,27 @@ msgstr "iconReports"
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
+
+#~ msgid ""
+#~ "In this dialog it is necessary to"
+#~ " select indicator layers which will "
+#~ "be used to calculate charts. This "
+#~ "is one-time action, choice made in"
+#~ " this dialog will be preserved and"
+#~ " used in all subsequent edits of "
+#~ "this specific vector dataset."
+#~ msgstr ""
+#~ "من الضروري في هذا الحوار تحديد "
+#~ "طبقات المؤشر التي سيتم استخدامها لحساب"
+#~ " الرسوم البيانية. هذا إجراء لمرة "
+#~ "واحدة، سيتم الاحتفاظ بالاختيار الذي تم"
+#~ " إجراؤه في مربع الحوار هذا واستخدامه"
+#~ " في جميع عمليات التحرير اللاحقة "
+#~ "لمجموعة بيانات الناقل المحددة هذه."
+
+#~ msgid "or **Buffer** tool"
+#~ msgstr "أو أداة **Buffer** "
+
+#~ msgid "which can be found on the **Trends.Earth** toolbar."
+#~ msgstr "والتي يمكن العثور عليها في شريط أدوات **Trends.Earth**."
+

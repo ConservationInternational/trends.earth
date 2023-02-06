@@ -3,6 +3,14 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.1.8 (January 25, 2023) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.8>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Output JSON field for Prais containing updated false positive/negative
+      calculations.
+    - Fixes #752 - false positive/negative datasets not showing up in
+      non-English versions
+
 `2.1.6 (December 8, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.6>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

@@ -13,7 +13,7 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Tags are comma separated with spaces allowed
-tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals
+tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals, ldmp
 
 homepage=https://trends.earth
 category=Plugins

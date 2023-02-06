@@ -229,10 +229,12 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
 
         offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
         if offline_mode:
-            self.dock_widget.pushButton_download.setEnabled(False)
+            if self.dock_widget.pushButton_download:
+                self.dock_widget.pushButton_download.setEnabled(False)
             self.dock_widget.setWindowTitle(DOCK_TITLE_OFFLINE)
         else:
-            self.dock_widget.pushButton_download.setEnabled(True)
+            if self.dock_widget.pushButton_download:
+                self.dock_widget.pushButton_download.setEnabled(True)
             self.dock_widget.setWindowTitle(DOCK_TITLE)
 
     def closeEvent(self, event):

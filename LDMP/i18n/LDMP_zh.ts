@@ -32,32 +32,32 @@
         <translation type="obsolete">{:.6g} kmÂ²</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="530"/>
+        <location filename="../settings.py" line="532"/>
         <source>The map must have at least one layer.</source>
         <translation>地图必须至少有一层。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="540"/>
+        <location filename="../settings.py" line="542"/>
         <source>Click the map to choose a point.</source>
         <translation>点击地图选择一个点。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="673"/>
+        <location filename="../settings.py" line="675"/>
         <source>Select a file defining the area of interest</source>
         <translation>选择一个定义感兴趣区域的文件</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="673"/>
+        <location filename="../settings.py" line="675"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="687"/>
+        <location filename="../settings.py" line="689"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="687"/>
+        <location filename="../settings.py" line="689"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
@@ -473,12 +473,12 @@
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="34"/>
         <source>sdg-15-3-1-summary</source>
-        <translation>sdg-15-3-1-总结</translation>
+        <translation type="obsolete">sdg-15-3-1-总结</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="27"/>
         <source>SDG 15.3.1 Indicator;SDG 15.3.1 Indicator (status)</source>
-        <translation type="unfinished">SDG 15.3.1 指标</translation>
+        <translation type="obsolete">SDG 15.3.1 指标</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="103"/>
@@ -518,7 +518,7 @@
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="75"/>
         <source>Soil organic carbon (degradation)</source>
-        <translation>土壤有机碳（降解）</translation>
+        <translation type="obsolete">土壤有机碳（降解）</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="95"/>
@@ -528,7 +528,7 @@
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="96"/>
         <source>Land cover (degradation)</source>
-        <translation>土地覆盖（退化）</translation>
+        <translation type="obsolete">土地覆盖（退化）</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="41"/>
@@ -539,11 +539,6 @@
         <location filename="../gui/DlgSelectDS.ui" line="20"/>
         <source>Productivity degradation</source>
         <translation>生产力下降</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="89"/>
-        <source>Land Productivity Dynamics (from JRC);Land Productivity Dynamics (from FAO-WOCAT);Land Productivity Dynamics (from Trends.Earth)</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="143"/>
@@ -3731,32 +3726,32 @@ p, li { white-space: pre-wrap; }
         <translation>输入你的电子邮箱地址...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="967"/>
+        <location filename="../settings.py" line="969"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="967"/>
+        <location filename="../settings.py" line="969"/>
         <source>Enter your email address to reset your password.</source>
         <translation>输入您的电子邮件地址来重置您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="975"/>
+        <location filename="../settings.py" line="977"/>
         <source>Reset password?</source>
         <translation>重设密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="975"/>
+        <location filename="../settings.py" line="977"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? Your new password will be emailed to you.</source>
         <translation>您确定要重新设置{self.email.text()}的密码吗？新密码将通过电子邮件发送给您。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="992"/>
+        <location filename="../settings.py" line="994"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="992"/>
+        <location filename="../settings.py" line="994"/>
         <source>The password has been reset for {self.email.text()}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
         <translation>{self.email.text()}的密码已重置。检查您的电子邮件以获取新密码，然后返回 Trends.Earth 输入密码。</translation>
     </message>
@@ -3789,37 +3784,37 @@ p, li { white-space: pre-wrap; }
         <translation>组织：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1051"/>
+        <location filename="../settings.py" line="1053"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1033"/>
+        <location filename="../settings.py" line="1035"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1039"/>
+        <location filename="../settings.py" line="1041"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1045"/>
+        <location filename="../settings.py" line="1047"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1051"/>
+        <location filename="../settings.py" line="1053"/>
         <source>Enter your country.</source>
         <translation>进入你的国家。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1065"/>
+        <location filename="../settings.py" line="1067"/>
         <source>Saved</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1065"/>
+        <location filename="../settings.py" line="1067"/>
         <source>Updated information for {}.</source>
         <translation>{}的更新信息。</translation>
     </message>
@@ -3842,27 +3837,27 @@ p, li { white-space: pre-wrap; }
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="854"/>
+        <location filename="../settings.py" line="856"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="848"/>
+        <location filename="../settings.py" line="850"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="854"/>
+        <location filename="../settings.py" line="856"/>
         <source>Enter your password.</source>
         <translation>输入您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="861"/>
+        <location filename="../settings.py" line="863"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="861"/>
+        <location filename="../settings.py" line="863"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>以{self.email.text()}登录 Trends.Earth 服务器。&lt;html&gt;&lt;p&gt;欢迎来到 Trends.Earth！&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;加入 Trends.Earth 用户电子邮件组&lt;a/&gt;&lt;/p&gt;&lt;p&gt;确保加入 Trends.Earth 用户电子邮件组，了解关于支持可持续发展目标监测的工具、方法和数据集的更新和问答。</translation>
     </message>
@@ -3870,27 +3865,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="910"/>
+        <location filename="../settings.py" line="912"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="904"/>
+        <location filename="../settings.py" line="906"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="910"/>
+        <location filename="../settings.py" line="912"/>
         <source>Enter your password.</source>
         <translation>输入密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="929"/>
+        <location filename="../settings.py" line="931"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="929"/>
+        <location filename="../settings.py" line="931"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>以{self.email.text()}成功设置登录到 LandPKS 服务器。</translation>
     </message>
@@ -3923,37 +3918,37 @@ p, li { white-space: pre-wrap; }
         <translation>组织：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="788"/>
+        <location filename="../settings.py" line="790"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="770"/>
+        <location filename="../settings.py" line="772"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="776"/>
+        <location filename="../settings.py" line="778"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="782"/>
+        <location filename="../settings.py" line="784"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="788"/>
+        <location filename="../settings.py" line="790"/>
         <source>Enter your country.</source>
         <translation>进入你的国家。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="803"/>
+        <location filename="../settings.py" line="805"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="803"/>
+        <location filename="../settings.py" line="805"/>
         <source>User registered. Your password has been emailed to {self.email.text()}. Enter that password in Trends.Earth settings to finish setting up the plugin.</source>
         <translation>用户已注册。您的密码已通过电子邮件发送至{self.email.text()}。在 Trends.Earth 设置中输入此密码以完成插件设置。</translation>
     </message>
@@ -4269,37 +4264,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2164"/>
+        <location filename="../settings.py" line="2166"/>
         <source>Class Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2215"/>
+        <location filename="../settings.py" line="2217"/>
         <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2247"/>
+        <location filename="../settings.py" line="2249"/>
         <source>Class name cannot be empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2251"/>
+        <location filename="../settings.py" line="2253"/>
         <source>Invalid color selected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2255"/>
+        <location filename="../settings.py" line="2257"/>
         <source>Parent class cannot be empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2260"/>
+        <location filename="../settings.py" line="2262"/>
         <source>Invalid class code value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2264"/>
+        <location filename="../settings.py" line="2266"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4307,87 +4302,87 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="1600"/>
+        <location filename="../settings.py" line="1602"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1600"/>
+        <location filename="../settings.py" line="1602"/>
         <source>Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1600"/>
+        <location filename="../settings.py" line="1602"/>
         <source>Parent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1654"/>
+        <location filename="../settings.py" line="1656"/>
         <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1921"/>
+        <location filename="../settings.py" line="1923"/>
         <source>Maximum number of classes reached.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1725"/>
+        <location filename="../settings.py" line="1727"/>
         <source>Nothing to save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1732"/>
+        <location filename="../settings.py" line="1734"/>
         <source>Save Land Cover Classes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1756"/>
+        <location filename="../settings.py" line="1758"/>
         <source>Select Land Cover Classes File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1774"/>
+        <location filename="../settings.py" line="1776"/>
         <source>No land cover classes found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1839"/>
+        <location filename="../settings.py" line="1841"/>
         <source>Land Cover Class Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1904"/>
+        <location filename="../settings.py" line="1906"/>
         <source>Invalid row for land cover class</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1909"/>
+        <location filename="../settings.py" line="1911"/>
         <source>Unable to update class.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1928"/>
+        <location filename="../settings.py" line="1930"/>
         <source>Unable to add new class.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1956"/>
+        <location filename="../settings.py" line="1958"/>
         <source>class does not have children assigned to it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1976"/>
+        <location filename="../settings.py" line="1978"/>
         <source>class has not been assigned a parent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2099"/>
+        <location filename="../settings.py" line="2101"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2104"/>
+        <location filename="../settings.py" line="2106"/>
         <source>Delete Failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4647,27 +4642,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>TrendsEarthSettings</name>
     <message>
-        <location filename="../settings.py" line="248"/>
+        <location filename="../settings.py" line="250"/>
         <source>Please register in order to use Trends.Earth</source>
         <translation type="unfinished">请注册以使用Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="303"/>
+        <location filename="../settings.py" line="305"/>
         <source>Delete user?</source>
         <translation type="unfinished">是否删除用户？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="303"/>
+        <location filename="../settings.py" line="305"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
         <translation type="unfinished">您确定要删除用户{}吗？您的所有任务都将丢失，将不能再使用Trends.Earth在线处理数据。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="319"/>
+        <location filename="../settings.py" line="321"/>
         <source>Success</source>
         <translation type="unfinished">成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="319"/>
+        <location filename="../settings.py" line="321"/>
         <source>Trends.Earth user {email} deleted.</source>
         <translation type="unfinished">Trends.Earth 用户 {email} 已删除。</translation>
     </message>
@@ -5297,102 +5292,102 @@ p, li { white-space: pre-wrap; }
         <translation>启用 LandPKS 数据访问</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1125"/>
+        <location filename="../settings.py" line="1127"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1125"/>
+        <location filename="../settings.py" line="1127"/>
         <source>You must restart QGIS for these changes to take effect.</source>
         <translation>您必须重新启动 QGIS 才能使这些更改生效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1238"/>
+        <location filename="../settings.py" line="1240"/>
         <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
         <translation>二进制文件&lt;b&gt;已&lt;/b&gt;加载。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1240"/>
+        <location filename="../settings.py" line="1242"/>
         <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
         <translation>二进制文件&lt;b&gt;未&lt;/b&gt;加载。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1250"/>
+        <location filename="../settings.py" line="1252"/>
         <source>No base data directory set</source>
         <translation>没有设置基本数据目录</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1305"/>
+        <location filename="../settings.py" line="1307"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>无法写给{}。尝试其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1280"/>
+        <location filename="../settings.py" line="1282"/>
         <source>Choose a folder</source>
         <translation>选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1280"/>
+        <location filename="../settings.py" line="1282"/>
         <source>Choose a folder before downloading binaries.</source>
         <translation>在下载二进制文件之前选择一个文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1416"/>
+        <location filename="../settings.py" line="1418"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1289"/>
+        <location filename="../settings.py" line="1291"/>
         <source>Unable to write to {}. Choose a different folder.</source>
         <translation>无法写给{}。选择其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1329"/>
+        <location filename="../settings.py" line="1331"/>
         <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
         <translation>无法写给{}。检查您是否有权写入此文件夹，并且您没有尝试覆盖当前在 QGIS 中加载的二进制文件。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1341"/>
+        <location filename="../settings.py" line="1343"/>
         <source>Unable to read binaries from {}. Check that binaries were downloaded successfully.</source>
         <translation>无法从{}读取二进制文件。检查二进制文件是否已成功下载。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1356"/>
+        <location filename="../settings.py" line="1358"/>
         <source>Error downloading binaries.</source>
         <translation>下载二进制文件时出错。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1366"/>
+        <location filename="../settings.py" line="1368"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1362"/>
+        <location filename="../settings.py" line="1364"/>
         <source>Downloaded binaries.</source>
         <translation>下载的二进制文件。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1366"/>
+        <location filename="../settings.py" line="1368"/>
         <source>All binaries up to date.</source>
         <translation>所有二进制文件都是最新的。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1386"/>
+        <location filename="../settings.py" line="1388"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation>选择包含 Trends.Earth 二进制文件的文件夹</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1398"/>
+        <location filename="../settings.py" line="1400"/>
         <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
         <translation>选择其他的文件夹——无法在 Trends.Earth QGIS 插件安装文件夹中安装二进制文件。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1416"/>
+        <location filename="../settings.py" line="1418"/>
         <source>Cannot read {folder_path!r}. Choose a different folder.</source>
         <translation>无法读取{folder_path!r}。选择其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1212"/>
+        <location filename="../settings.py" line="1214"/>
         <source>Offline mode is enabled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5455,27 +5450,27 @@ p, li { white-space: pre-wrap; }
         <translation>在输出目录中记录警告</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1486"/>
+        <location filename="../settings.py" line="1488"/>
         <source>Select Report Template Search Path</source>
         <translation>选择报告模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1496"/>
+        <location filename="../settings.py" line="1498"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>需要重新启动 QGIS 才能使更改生效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1498"/>
+        <location filename="../settings.py" line="1500"/>
         <source>Template Search Path</source>
         <translation>模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1508"/>
+        <location filename="../settings.py" line="1510"/>
         <source>All Images</source>
         <translation>所有图片</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1523"/>
+        <location filename="../settings.py" line="1525"/>
         <source>Select Organization Logo</source>
         <translation>选择组织徽标</translation>
     </message>
@@ -5562,27 +5557,27 @@ for running algorithms and their results.</source>
         <translation>无法连接到 Trends.Earth 服务器。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="223"/>
+        <location filename="../api.py" line="233"/>
         <source>Unable to read token for Trends.Earth server. Check username and password.</source>
         <translation>无法读取 Trends.Earth 服务器的令牌。检查用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="230"/>
+        <location filename="../api.py" line="240"/>
         <source>Unable to login to Trends.Earth. Check username and password.</source>
         <translation>无法登录 Trends.Earth。检查用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="238"/>
+        <location filename="../api.py" line="248"/>
         <source>Unable to access Trends.Earth server. Check your internet connection</source>
         <translation>无法访问 Trends.Earth 服务器。检查您的互联网连接</translation>
     </message>
     <message>
-        <location filename="../api.py" line="262"/>
+        <location filename="../api.py" line="272"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../api.py" line="262"/>
+        <location filename="../api.py" line="272"/>
         <source>Unable to login to Trends.Earth. Check that username and password are correct.</source>
         <translation>无法登录 Trends.Earth。检查用户名和密码是否正确。</translation>
     </message>

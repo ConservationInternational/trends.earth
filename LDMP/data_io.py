@@ -41,6 +41,7 @@ from . import metadata
 from . import metadata_dialog
 from . import utils
 from . import worker
+from .areaofinterest import prepare_area_of_interest
 from .jobs.manager import job_manager
 from .jobs.manager import set_results_extents
 from .jobs.manager import update_uris_if_needed
@@ -1003,12 +1004,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         """
         self.msg_bar.clearWidgets()
 
-        region_geom = None
-        if self.region_selector.region_info:
-            region_geom = self.region_selector.region_info.geom
-
-        # No need to go further if the region geometry cannot be determined.
-        if region_geom is None:
+        region_geom = prepare_area_of_interest().get_unary_geometry()
+        if region_geom is None or not region_geom.isGeosValid():
             return False
 
         file_type = self.input_widget.selected_file_type()
@@ -1085,9 +1082,11 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         region geom extent or an empty list if the extent could not be
         determined.
         """
-        bbox = None
-        if self.region_selector.region_info:
-            bbox = self.region_selector.region_info.geom.boundingBox()
+        geom = prepare_area_of_interest().get_unary_geometry()
+        if geom is None or not geom.isGeosValid():
+            return []
+
+        bbox = geom.boundingBox()
 
         if bbox is None:
             return []

@@ -46,7 +46,6 @@ class CalculateLDNOneStep(unittest.TestCase):
 
         auth_manager = QgsApplication.authManager()
         if not auth_manager.masterPasswordHashInDatabase():
-
             auth_manager.setMasterPassword(AUTHDB_MASTERPWD, True)
             # Create config
             auth_manager.authenticationDatabasePath()

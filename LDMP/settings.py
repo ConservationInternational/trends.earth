@@ -1874,7 +1874,6 @@ class LandCoverCustomClassesManager(
                 vs_bar.setValue(init_pos)
 
     def on_editor_accepted(self, panel):
-
         vertical_scroll_bar = self.scroll_area.verticalScrollBar()
 
         # Sets the size to the number of rows

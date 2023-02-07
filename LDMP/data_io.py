@@ -1612,7 +1612,6 @@ def _get_usable_bands(
 
         if is_available and is_of_interest and is_valid_type:
             for band_index, band_info in enumerate(job.results.get_bands(), start=1):
-
                 if job.results.uri is not None and (
                     band_info.name == band_name or band_name == "any"
                 ):

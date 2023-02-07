@@ -1201,11 +1201,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         if self.cb_offline_mode.isChecked():
             # Offline mode is enabled
             self.download_remote_datasets_chb.setEnabled(False)
-            self.download_remote_datasets_chb.setChecked(False)
 
             # Polling frequency settings
             self.polling_frequency_gb.setEnabled(False)
-            self.polling_frequency_gb.setChecked(False)
 
             # Login settings
             self.group_box.setEnabled(False)
@@ -1216,11 +1214,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         else:
             # Offline mode is disabled
             self.download_remote_datasets_chb.setEnabled(True)
-            self.download_remote_datasets_chb.setChecked(True)
 
             # Polling frequency settings
             self.polling_frequency_gb.setEnabled(True)
-            self.polling_frequency_gb.setChecked(True)
 
             # Login settings
             self.group_box.setEnabled(True)

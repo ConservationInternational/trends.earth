@@ -339,7 +339,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             if _should_run(local_frequency, self.last_refreshed_local_state):
                 # lets check if we also need to update from remote, as that takes
                 # precedence
-                if settings_manager.get_value(Setting.POLL_REMOTE):
+                if not settings_manager.get_value(
+                    Setting.OFFLINE_MODE
+                ) and settings_manager.get_value(Setting.POLL_REMOTE):
                     remote_frequency = settings_manager.get_value(
                         Setting.REMOTE_POLLING_FREQUENCY
                     )
@@ -703,9 +705,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
 
 def maybe_download_finished_results():
+    offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
     dataset_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
 
-    if dataset_auto_download:
+    if not offline_mode and dataset_auto_download:
         if len(job_manager.known_jobs[JobStatus.FINISHED]) > 0:
             log("downloading results...")
             job_manager.download_available_results()

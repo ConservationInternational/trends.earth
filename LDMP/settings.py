@@ -224,18 +224,17 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
         if old_base_dir != new_base_dir:
             job_manager.clear_known_jobs()
-            if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
+            if hasattr(self, "dock_widget") and self.dock_widget:
                 self.dock_widget.refresh_after_cache_update()
 
-        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
-        if offline_mode:
-            if self.dock_widget.pushButton_download:
+        if hasattr(self, "dock_widget") and self.dock_widget:
+            offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
+            if offline_mode:
                 self.dock_widget.pushButton_download.setEnabled(False)
-            self.dock_widget.setWindowTitle(DOCK_TITLE_OFFLINE)
-        else:
-            if self.dock_widget.pushButton_download:
+                self.dock_widget.setWindowTitle(DOCK_TITLE_OFFLINE)
+            else:
                 self.dock_widget.pushButton_download.setEnabled(True)
-            self.dock_widget.setWindowTitle(DOCK_TITLE)
+                self.dock_widget.setWindowTitle(DOCK_TITLE)
 
     def closeEvent(self, event):
         self.widgetSettingsAdvanced.closeEvent(event)

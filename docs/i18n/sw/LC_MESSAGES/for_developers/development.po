@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-01 21:07+0000\n"
+"POT-Creation-Date: 2023-02-08 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: sw\n"
@@ -21,7 +21,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.3\n"
+"Generated-By: Babel 2.11.0\n"
 
 #: ../../source/for_developers/development.rst:4
 msgid "Development"
@@ -57,31 +57,47 @@ msgid ""
 "The |trends.earth| QGIS plugin is supported by a number of different "
 "Python scripts that allow calculation of the various indicators on Google"
 " Earth Engine (GEE). These scripts sit in the \"gee\" sub-folder of that "
-"GitHub repository. The GEE scripts are supported by the `landdegradation`"
-" Python module, which includes code for processing inputs and outputs for"
-" the plugin, as well as other common functions supporting calculation of "
-"NDVI integrals, statistical significance, and other shared code. The code"
-" for this module is available in the `landdegradation "
-"<https://github.com/ConservationInternational/landdegradation>`_ "
+"GitHub repository."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:21
+msgid "The plugin is also supported by a number of other modules:"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:23
+msgid ""
+"The `trends.earth-algorithms` module includes code for processing inputs "
+"and outputs for the plugin, as well as other common functions supporting "
+"calculation of NDVI integrals, statistical significance, and other shared"
+" code. The code for this module is available in the `landdegradation "
+"<https://github.com/ConservationInternational/trends.earth-algorithms>`_ "
 "repository on GitHub."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:28
+#: ../../source/for_developers/development.rst:31
 msgid ""
-"Further details are below on how to contribute to Trends.Earth by working"
-" on the plugin code, by modifying the processing code, or by contributing"
-" to translating the website and plugin."
+"The `trends.earth-schemas` module includes code for managing the schemas "
+"used for data input/output from `trends.earth`, including handling land "
+"cover classes, job parameters, structuring reports for UNCCD, and other "
+"related functions"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:33
+#: ../../source/for_developers/development.rst:36
+msgid ""
+"Further details are below on how to contribute to Trends.Earth by working"
+" on the plugin GUI code, by modifying the processing code, or by "
+"contributing to translation of the website and plugin."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:41
 msgid "Modifying the QGIS Plugin code"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:37
+#: ../../source/for_developers/development.rst:45
 msgid "Downloading the trends.earth code"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:39
+#: ../../source/for_developers/development.rst:47
 msgid ""
 "The Trends.Earth code for both the plugin and the Google Earth Engine "
 "scripts that support it are located on GitHub in the `trends.earth "
@@ -90,7 +106,7 @@ msgid ""
 "ensure you have the latest version of the code."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:45
+#: ../../source/for_developers/development.rst:53
 msgid ""
 "There are a number of different branches of the trends.earth repository "
 "that are under active development. The plugin officially supports QGIS3 "
@@ -99,16 +115,16 @@ msgid ""
 "QGIS2 version 2.18+."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:51
-#: ../../source/for_developers/development.rst:742
+#: ../../source/for_developers/development.rst:59
+#: ../../source/for_developers/development.rst:750
 msgid "Installing dependencies"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:54
+#: ../../source/for_developers/development.rst:62
 msgid "Python"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:56
+#: ../../source/for_developers/development.rst:64
 msgid ""
 "The plugin is coded in Python. In addition to being used to run the "
 "plugin through QGIS, Python is also used to support managing the plugin "
@@ -122,12 +138,12 @@ msgid ""
 "/#download-section>`_."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:67
-#: ../../source/for_developers/development.rst:745
+#: ../../source/for_developers/development.rst:75
+#: ../../source/for_developers/development.rst:753
 msgid "Python dependencies"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:69
+#: ../../source/for_developers/development.rst:77
 msgid ""
 "In order to work with the trends.earth code, you need to have Invoke "
 "installed on your machine, as well as a number of other packages that are"
@@ -137,7 +153,7 @@ msgid ""
 "trends.earth code folder and typing::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:79
+#: ../../source/for_developers/development.rst:87
 msgid ""
 "If you are using Anaconda, you will first want to activate a Python 3.7 "
 "virtual environment before running the above command (and any of the "
@@ -147,18 +163,18 @@ msgid ""
 "started/#write-a-python-program-using-anaconda-prompt-or-terminal>`_."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:86
+#: ../../source/for_developers/development.rst:94
 msgid "PyQt"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:88
+#: ../../source/for_developers/development.rst:96
 msgid ""
 "PyQt5 is the graphics toolkit used by QGIS3. To compile the user "
 "interface for Trends.Earth for QGIS3 you need to install PyQt5. This "
 "package can be installed from pip using::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:95
+#: ../../source/for_developers/development.rst:103
 msgid ""
 "PyQt4 is the graphics toolkit used by QGIS2. The best source for this "
 "package on Windows is from the set of packages maintained by Christoph "
@@ -171,17 +187,17 @@ msgid ""
 "\"win32\" for 32-bit python."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:105
+#: ../../source/for_developers/development.rst:113
 msgid ""
 "After downloading from the above link, use ``pip`` to install it. For "
 "example, for the 64-bit wheel for Python 3.7, you would run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:111
+#: ../../source/for_developers/development.rst:119
 msgid "Changing the version of the plugin"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:113
+#: ../../source/for_developers/development.rst:121
 msgid ""
 "The convention for Trends.Earth is that version numbers ending in an odd "
 "number (for example 0.65) are development versions, while versions ending"
@@ -192,7 +208,7 @@ msgid ""
 "testing new features prior to their public release."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:121
+#: ../../source/for_developers/development.rst:129
 msgid ""
 "If you wish to make changes to the code and have downloaded a public "
 "release of the plugin (one ending in an even number), the first step is "
@@ -205,7 +221,7 @@ msgid ""
 "you would run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:132
+#: ../../source/for_developers/development.rst:140
 msgid ""
 "Running the above command will update the version number every place it "
 "is referenced in the code. To avoid confusion, never change the version "
@@ -213,11 +229,11 @@ msgid ""
 "version tag to the next odd number."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:138
+#: ../../source/for_developers/development.rst:146
 msgid "Testing changes to the plugin"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:140
+#: ../../source/for_developers/development.rst:148
 msgid ""
 "After making changes to the plugin code, you will need to test them to "
 "ensure the plugin behaves as expected, and to ensure no bugs or errors "
@@ -226,7 +242,7 @@ msgid ""
 " to ensure that any changes to the code do not break the plugin."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:146
+#: ../../source/for_developers/development.rst:154
 msgid ""
 "To test any changes that you have made to the plugin within QGIS, you "
 "will need to install it locally. There are invoke tasks that assist with "
@@ -235,7 +251,7 @@ msgid ""
 " in order to run from within QGIS. To do this, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:154
+#: ../../source/for_developers/development.rst:162
 msgid ""
 "The above task only needs to be run immediately after downloading the "
 "trends.earth code, or if any changes are made to the dependencies for the"
@@ -244,13 +260,13 @@ msgid ""
 " command."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:160
+#: ../../source/for_developers/development.rst:168
 msgid ""
 "After running ``plugin-setup``, you are ready to install the plugin to "
 "the QGIS plugins folder on your machine. To do this, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:165
+#: ../../source/for_developers/development.rst:173
 msgid ""
 "After running the above command, you will need to either 1) restart QGIS,"
 " or 2) use the `Plugin Reloader "
@@ -259,7 +275,7 @@ msgid ""
 "made."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:170
+#: ../../source/for_developers/development.rst:178
 msgid ""
 "By default ``plugin-install`` will overwrite any existing plugin files on"
 " your machine, but leave in place any data (administrative boundaries, "
@@ -269,7 +285,7 @@ msgid ""
 "``-c`` flag."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:177
+#: ../../source/for_developers/development.rst:185
 msgid ""
 "By default plugin-install assumes you want to install the plugin to be "
 "used in QGIS3. To install the plugin for use in QGIS3, add the flag ``-v "
@@ -278,11 +294,11 @@ msgid ""
 " QGIS2 and is still being tested on QGIS3."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:184
+#: ../../source/for_developers/development.rst:192
 msgid "Syncing and deploying changes to the binaries"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:186
+#: ../../source/for_developers/development.rst:194
 msgid ""
 "To speed the computations in Trends.Earth, some of the tools allow making"
 " use of pre-compiled binaries that have been compiled using `numba "
@@ -293,13 +309,13 @@ msgid ""
 "binaries available for download if users choose to install them."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:194
+#: ../../source/for_developers/development.rst:202
 msgid ""
 "To generate pre-compiled binaries for the OS, bitness (32/64 bit) and "
 "Python version you are running on your machine, use::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:200
+#: ../../source/for_developers/development.rst:208
 msgid ""
 "You will need a C++ compiler for the above command to work. On Windows, "
 "see `this github page "
@@ -310,22 +326,22 @@ msgid ""
 " install the appropriate version of GCC."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:208
+#: ../../source/for_developers/development.rst:216
 msgid ""
 "To make binaries publicly available, they are distributed through an "
 "Amazon Web services S3 bucket. To upload the binaries generated with the "
 "above command to the bucket, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:214
-#: ../../source/for_developers/development.rst:224
-#: ../../source/for_developers/development.rst:263
+#: ../../source/for_developers/development.rst:222
+#: ../../source/for_developers/development.rst:232
+#: ../../source/for_developers/development.rst:271
 msgid ""
 "The above command will fail if you do not have keys allowing write access"
 " to the ``trends.earth`` bucket on S3."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:217
+#: ../../source/for_developers/development.rst:225
 msgid ""
 "The above command will sync each individual binary file to S3. However, "
 "users of the toolbox download the binaries as a single zipfile tied to "
@@ -333,11 +349,11 @@ msgid ""
 "so that it can be accessed by Trends.Earth users, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:229
+#: ../../source/for_developers/development.rst:237
 msgid "Building a plugin ZIP file"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:231
+#: ../../source/for_developers/development.rst:239
 msgid ""
 "There are several invoke tasks to help with building a ZIP file to deploy"
 " the plugin to the QGIS repository, or to share the development version "
@@ -348,7 +364,7 @@ msgid ""
 "latest-packaged-development-version>`_, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:241
+#: ../../source/for_developers/development.rst:249
 msgid ""
 "This command will create a folder named ``build`` at the root of the "
 "trends.earth code folder, and in that folder it will create a file called"
@@ -360,11 +376,11 @@ msgid ""
 "in the publicly released version of the plugin."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:250
+#: ../../source/for_developers/development.rst:258
 msgid "Deploying the development version ZIP file"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:252
+#: ../../source/for_developers/development.rst:260
 msgid ""
 "The Trends.Earth GitHub page gives a link a ZIP file that allows users "
 "who may not be developers to access the development version of "
@@ -372,18 +388,18 @@ msgid ""
 "(the ZIP file is stored on S3), run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:259
+#: ../../source/for_developers/development.rst:267
 msgid ""
 "This command will package the plugin and copy it to "
 "`https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip "
 "<https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip>`_."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:267
+#: ../../source/for_developers/development.rst:275
 msgid "Modifying the Earth Engine processing code"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:270
+#: ../../source/for_developers/development.rst:278
 msgid ""
 "The Google Earth Engine (GEE) processing scripts used by Trends.Earth are"
 " all stored in the \"gee\" folder under the main trends.earth folder. For"
@@ -395,15 +411,15 @@ msgid ""
 "deploy GEE scripts to be used with Trends.Earth."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:279
+#: ../../source/for_developers/development.rst:287
 msgid "Setting up dependencies"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:282
+#: ../../source/for_developers/development.rst:290
 msgid "trends.earth-CLI"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:284
+#: ../../source/for_developers/development.rst:292
 msgid ""
 "The \"trends.earth-CLI\" Python package is required in order to work with"
 " the api.trends.earth server. This package is located on GitHub in the "
@@ -411,7 +427,7 @@ msgid ""
 "repository."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:289
+#: ../../source/for_developers/development.rst:297
 msgid ""
 "The first step is to clone this repository onto your machine. We "
 "recommend that you clone the repository into the same folder where you "
@@ -423,7 +439,7 @@ msgid ""
 "repository into that same folder."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:298
+#: ../../source/for_developers/development.rst:306
 msgid ""
 "When you setup your system as recommended above, trends.earth-CLI will "
 "work with the invoke tasks used to manage trends.earth without any "
@@ -436,17 +452,17 @@ msgid ""
 "CLI/tecli\"):"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:312
+#: ../../source/for_developers/development.rst:320
 msgid ""
 "Again, you **do not** need to add this .yaml file if you setup your "
 "system as recommended above."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:316
+#: ../../source/for_developers/development.rst:324
 msgid "docker"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:318
+#: ../../source/for_developers/development.rst:326
 msgid ""
 "The trends.earth-CLI package requires `docker <http://www.docker.com>`_ "
 "in order to function. `Follow these instructions to install docker on "
@@ -457,11 +473,11 @@ msgid ""
 "appropriate for the Linux distribution you are using."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:328
+#: ../../source/for_developers/development.rst:336
 msgid "Testing an Earth Engine script locally"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:330
+#: ../../source/for_developers/development.rst:338
 msgid ""
 "After installing the trends.earth-CLI package, you will need to setup a "
 ".tecli.yml file with an access token to a GEE service account in order to"
@@ -471,11 +487,11 @@ msgid ""
 " key to tecli with the following command::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:339
+#: ../../source/for_developers/development.rst:347
 msgid "where \"key\" is the base64 encoded JSON format service account key."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:341
+#: ../../source/for_developers/development.rst:349
 msgid ""
 "While converting a script specifying code to be run on GEE from "
 "JavaScript to Python, or when making modifications to that code, it can "
@@ -485,7 +501,7 @@ msgid ""
 "the Trends.Earth code, and, in a command prompt, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:350
+#: ../../source/for_developers/development.rst:358
 msgid ""
 "This will use the trends.earth-CLI package to build and run a docker "
 "container that will attempt to run the \"land_cover\" script. If there "
@@ -495,21 +511,21 @@ msgid ""
 "without any errors."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:356
+#: ../../source/for_developers/development.rst:364
 msgid "When using ``invoke tecli-run`` you may get an error saying:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:364
+#: ../../source/for_developers/development.rst:372
 msgid ""
 "This error can be caused if the clock on the docker container gets out of"
 " sync with the system clock. Restarting docker should fix this error."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:368
+#: ../../source/for_developers/development.rst:376
 msgid "Deploying a GEE script to api.trends.earth"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:370
+#: ../../source/for_developers/development.rst:378
 msgid ""
 "When you have finished testing a GEE script and would like it to be "
 "accessible using the QGIS plugin (and by other users of Trends.Earth), "
@@ -517,7 +533,7 @@ msgid ""
 "process is logging in to the api.trends.earth server. To login, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:377
+#: ../../source/for_developers/development.rst:385
 msgid ""
 "You will be asked for a username and password. These are the same as the "
 "username and password that you use to login to the Trends.Earth server "
@@ -526,7 +542,7 @@ msgid ""
 "example, the \"land_cover\" script) to the server, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:385
+#: ../../source/for_developers/development.rst:393
 msgid ""
 "If this script already exists on the server, you will be asked if you "
 "want to overwrite the existing script. Be very careful uploading scripts "
@@ -536,7 +552,7 @@ msgid ""
 "numbers)."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:391
+#: ../../source/for_developers/development.rst:399
 msgid ""
 "After publishing a script to the server, you can use the `tecli-info` "
 "task to check the status of the script (to know whether it deployed "
@@ -544,31 +560,31 @@ msgid ""
 "To check the status, of a deployed script, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:398
+#: ../../source/for_developers/development.rst:406
 msgid ""
 "If you are making a new release of the plugin, and want to upload ALL of "
 "the GEE scripts at once (this is necessary whenever the plugin version "
 "number changes), run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:404
+#: ../../source/for_developers/development.rst:412
 msgid ""
 "Again - never run the above on a publicly released version of the plugin "
 "unless you are intending to overwrite all the publicly available scripts "
 "used by the plugin."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:409
+#: ../../source/for_developers/development.rst:417
 msgid "Editing vector layer templates"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:411
+#: ../../source/for_developers/development.rst:419
 msgid ""
 "Trends.Earth allow users to digitize new vector features to delineate "
 "areas of special interest."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:414
+#: ../../source/for_developers/development.rst:422
 msgid ""
 "For now only \"false positive/negative\" layers are supported, but more "
 "can be added if necessary. Any vector layer is created from the template "
@@ -582,7 +598,7 @@ msgid ""
 " file is used."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:425
+#: ../../source/for_developers/development.rst:433
 msgid ""
 "To change schema of the layer it is necessary to change corresponding "
 "template files in the ``data/error_recode`` folder of the plugin "
@@ -591,18 +607,18 @@ msgid ""
 "applied to the layer when loading into QGIS."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:431
+#: ../../source/for_developers/development.rst:439
 msgid ""
 "To display charts in the attribute form a built-in QML widget is used. "
 "Data for charts are stored in the vector layer attribute table. Values "
 "from the corresponding fields extracted with the help of expressions."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:435
+#: ../../source/for_developers/development.rst:443
 msgid "The code to generate charts looks like this:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:465
+#: ../../source/for_developers/development.rst:473
 msgid ""
 "To extract field value function "
 "``expression.evaluate(\"\\\"prod_deg\\\"\")`` is used, the only argument "
@@ -613,25 +629,25 @@ msgid ""
 "case of productivity indicator fields will be:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:473
+#: ../../source/for_developers/development.rst:481
 msgid "prod_deg - degraded productivity"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:474
+#: ../../source/for_developers/development.rst:482
 msgid "prod_stab - stable productivity"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:475
+#: ../../source/for_developers/development.rst:483
 msgid "prod_imp - improved productivity"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:477
+#: ../../source/for_developers/development.rst:485
 msgid ""
 "The same naming approach is applied to land cover (``land_*`` fields) and"
 " soil organic carbon (``soil_*`` fields)."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:480
+#: ../../source/for_developers/development.rst:488
 msgid ""
 "Calculation of area percentage is done with custom expression function, "
 "its code can be found in the file ``charts.py`` in the plugin root "
@@ -643,7 +659,7 @@ msgid ""
 "numpy array functions it is very fast even for big polygons."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:489
+#: ../../source/for_developers/development.rst:497
 msgid ""
 "On the first attempt to edit a vector layer the user will be presented "
 "with a dialog where they should select which datasets to use for "
@@ -651,11 +667,11 @@ msgid ""
 "indicator fields, so the value will be updated on every geometry change."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:495
+#: ../../source/for_developers/development.rst:503
 msgid "Dataset metadata handling"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:497
+#: ../../source/for_developers/development.rst:505
 msgid ""
 "Dataset metadata are stored in the QGIS QMD format. These QMD files can "
 "be created for each raster individually and also for the whole dataset. "
@@ -663,22 +679,22 @@ msgid ""
 "Trends.Earth dock."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:502
+#: ../../source/for_developers/development.rst:510
 msgid ""
 "When dataset is exported to ZIP, conversion to ISO XML is performed using"
 " XSLT transformation. Corresponding transformation are located in the "
 "``data\\xsl`` subdirectory of the plugin installation folder."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:508
+#: ../../source/for_developers/development.rst:516
 msgid "Updating the Reporting Framework"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:513
+#: ../../source/for_developers/development.rst:521
 msgid "Overview of the Reporting Framework"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:514
+#: ../../source/for_developers/development.rst:522
 msgid ""
 "The Reports Framework is designed to be extensible while also providing "
 "interactivity to the user through non-blocking operations. The Framework "
@@ -689,13 +705,13 @@ msgid ""
 "<https://docs.qgis.org/3.22/en/docs/user_manual/processing/standalone.html>`_."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:519
+#: ../../source/for_developers/development.rst:527
 msgid ""
 "There are two main steps the toolbox performs when generating reports "
 "(and charts) for the default layers in a job:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:521
+#: ../../source/for_developers/development.rst:529
 msgid ""
 "It creates a :code:`ReportTaskContext` object that constitutes a "
 ":code:`ReportConfiguration` object (see :ref:`config_report_params`) and "
@@ -706,7 +722,7 @@ msgid ""
 "<https://qgis.org/pyqgis/master/core/QgsTask.html>`_)."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:526
+#: ../../source/for_developers/development.rst:534
 msgid ""
 "The :code:`ReportProcessHandlerTask` object initiates a separate instance"
 " of :code:`qgis_process` and passes the path to the JSON file as an input"
@@ -722,15 +738,15 @@ msgid ""
 "chart configurations)"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:534
+#: ../../source/for_developers/development.rst:542
 msgid "The diagram below provides a high-level illustration of this process:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:540
+#: ../../source/for_developers/development.rst:548
 msgid "`* Click on the image for an enlarged view.`"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:543
+#: ../../source/for_developers/development.rst:551
 msgid ""
 "Some of the function names in the diagram above have been simplified for "
 "illustration purposes. The aforementioned classes can be found in the "
@@ -741,11 +757,11 @@ msgid ""
 " modules."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:551
+#: ../../source/for_developers/development.rst:559
 msgid "Adding Report Layout Variables"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:552
+#: ../../source/for_developers/development.rst:560
 msgid ""
 "Report variables provide context information related to a job, layer (or "
 "band) or :ref:`report_settings` during the report execution process. "
@@ -753,7 +769,7 @@ msgid ""
 ":ref:`layout_expr_vars` section."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:555
+#: ../../source/for_developers/development.rst:563
 msgid ""
 "Each variable is defined as a :code:`namedtuple` in the "
 "`LDMP.reports.expressions "
@@ -762,17 +778,17 @@ msgid ""
 ":code:`ReportTaskProcessor` object."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:558
+#: ../../source/for_developers/development.rst:566
 msgid ""
 "Follow the guidelines below on how to add new job or current layer "
 "variables."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:561
+#: ../../source/for_developers/development.rst:569
 msgid "Job Variable"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:562
+#: ../../source/for_developers/development.rst:570
 msgid ""
 "It enables information about the current job - being executed - to be "
 "added to a report layout. Information about each job variable is "
@@ -780,31 +796,31 @@ msgid ""
 "attributes:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:566
-#: ../../source/for_developers/development.rst:608
+#: ../../source/for_developers/development.rst:574
+#: ../../source/for_developers/development.rst:616
 msgid "Attribute Name"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:566
-#: ../../source/for_developers/development.rst:608
+#: ../../source/for_developers/development.rst:574
+#: ../../source/for_developers/development.rst:616
 msgid "Description"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:566
-#: ../../source/for_developers/development.rst:608
+#: ../../source/for_developers/development.rst:574
+#: ../../source/for_developers/development.rst:616
 msgid "Data Type"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:566
-#: ../../source/for_developers/development.rst:608
+#: ../../source/for_developers/development.rst:574
+#: ../../source/for_developers/development.rst:616
 msgid "Default Value"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:568
+#: ../../source/for_developers/development.rst:576
 msgid "`job_attr`"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:568
+#: ../../source/for_developers/development.rst:576
 msgid ""
 "Attribute name of a :code:`Job` object as used in a dot notation. For "
 "instance, `id` corresponds to :code:`job.id`. You can even use the dot "
@@ -812,50 +828,50 @@ msgid ""
 "`results.uri.uri`."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:568
-#: ../../source/for_developers/development.rst:573
-#: ../../source/for_developers/development.rst:610
+#: ../../source/for_developers/development.rst:576
+#: ../../source/for_developers/development.rst:581
+#: ../../source/for_developers/development.rst:618
 msgid "String"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:568
-#: ../../source/for_developers/development.rst:573
-#: ../../source/for_developers/development.rst:610
+#: ../../source/for_developers/development.rst:576
+#: ../../source/for_developers/development.rst:581
+#: ../../source/for_developers/development.rst:618
 msgid "N/A"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:573
-#: ../../source/for_developers/development.rst:610
+#: ../../source/for_developers/development.rst:581
+#: ../../source/for_developers/development.rst:618
 msgid "`var_name`"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:573
+#: ../../source/for_developers/development.rst:581
 msgid "Name of the report layout variable. It should be prefixed with `te_job_`."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:576
-#: ../../source/for_developers/development.rst:613
+#: ../../source/for_developers/development.rst:584
+#: ../../source/for_developers/development.rst:621
 msgid "`default_value`"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:576
-#: ../../source/for_developers/development.rst:613
+#: ../../source/for_developers/development.rst:584
+#: ../../source/for_developers/development.rst:621
 msgid ""
 "A default value to use for `var_name`, mostly applied when designing "
 "layouts."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:576
-#: ../../source/for_developers/development.rst:613
+#: ../../source/for_developers/development.rst:584
+#: ../../source/for_developers/development.rst:621
 msgid "object"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:579
-#: ../../source/for_developers/development.rst:616
+#: ../../source/for_developers/development.rst:587
+#: ../../source/for_developers/development.rst:624
 msgid "`fmt_func`"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:579
+#: ../../source/for_developers/development.rst:587
 msgid ""
 "A function object that will be used to convert the job's attribute value "
 "to a format that is compatible with QGIS expressions. For instance, "
@@ -863,40 +879,40 @@ msgid ""
 " string. You can also use lambda functions here."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:579
-#: ../../source/for_developers/development.rst:616
+#: ../../source/for_developers/development.rst:587
+#: ../../source/for_developers/development.rst:624
 msgid "function object"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:579
-#: ../../source/for_developers/development.rst:616
+#: ../../source/for_developers/development.rst:587
+#: ../../source/for_developers/development.rst:624
 msgid "None"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:587
+#: ../../source/for_developers/development.rst:595
 msgid ""
 "The code snippet below shows how to add a variable `te_job_result_name` "
 "that corresponds to :code:`job.results.name`."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:603
+#: ../../source/for_developers/development.rst:611
 msgid "Layer Variable"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:604
+#: ../../source/for_developers/development.rst:612
 msgid ""
 "It provides information about the current raster layer being executed. "
 "This variable information is encapsulated in a :code:`LayerVarInfo` "
 "object that is made up of three attributes:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:610
+#: ../../source/for_developers/development.rst:618
 msgid ""
 "Name of the report layout variable. It should be prefixed with "
 "`te_current_layer_`."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:616
+#: ../../source/for_developers/development.rst:624
 msgid ""
 "A function object that will be used to extract and/or convert a value "
 "from a `QgsRasterLayer "
@@ -905,32 +921,32 @@ msgid ""
 "functions here."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:620
+#: ../../source/for_developers/development.rst:628
 msgid "For instance, :code:`lambda layer: layer.name()` returns the layer name."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:624
+#: ../../source/for_developers/development.rst:632
 msgid ""
 "The code snippet below shows how to add a variable "
 "`te_current_layer_height` that corresponds to the raster layer's height."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:643
+#: ../../source/for_developers/development.rst:651
 msgid "These variables are only available in the layout scope."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:649
+#: ../../source/for_developers/development.rst:657
 msgid "Adding Chart Configurations"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:650
+#: ../../source/for_developers/development.rst:658
 msgid ""
 "Charts can be grouped using a chart configuration object that corresponds"
 " to a specific algorithm. Defining a new chart configuration is a three-"
 "step process:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:653
+#: ../../source/for_developers/development.rst:661
 msgid ""
 "Create a new chart class that inherits from :code:`BaseChart` in the "
 "`LDMP.reports.charts "
@@ -945,13 +961,13 @@ msgid ""
 "base class. See the code snippet below:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:683
+#: ../../source/for_developers/development.rst:691
 msgid ""
 "You can refer to the :code:`UniqueValuesPieChart` class for a more "
 "complete example."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:685
+#: ../../source/for_developers/development.rst:693
 msgid ""
 "Create a chart configuration class that inherits from "
 ":code:`BaseAlgorithmChartsConfiguration` and implement the "
@@ -963,13 +979,13 @@ msgid ""
 "class for a more complete example."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:691
+#: ../../source/for_developers/development.rst:699
 msgid ""
 "Finally, map an algorithm (name) to the correspond chart configuration "
 "class in the :code:`AlgorithmChartsManager` class as shown below:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:705
+#: ../../source/for_developers/development.rst:713
 msgid ""
 "The :code:`AlgorithmChartsManager` class, which is instantiated in the "
 ":code:`ReportTaskProcessor` object, will create a new chart configuration"
@@ -977,15 +993,15 @@ msgid ""
 "generated."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:710
+#: ../../source/for_developers/development.rst:718
 msgid "Contributing to the documentation"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:713
+#: ../../source/for_developers/development.rst:721
 msgid "Overview"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:715
+#: ../../source/for_developers/development.rst:723
 msgid ""
 "The documentation for Trends.Earth is produced using `Sphinx <http://www"
 ".sphinx-doc.org/en/master/>`_, and is written in `reStructuredText "
@@ -994,21 +1010,21 @@ msgid ""
 "information on how they are used."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:721
+#: ../../source/for_developers/development.rst:729
 msgid ""
 "The documentation for Trends.Earth is stored in the \"docs\" folder under"
 " the main trends.earth directory. Within that folder there are a number "
 "of key files and folders to be aware of:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:725
+#: ../../source/for_developers/development.rst:733
 msgid ""
 "build: contains the build documentation for trends.earth (in PDF and HTML"
 " format). Note it will only appear on your machine after running the "
 "``docs-build`` invoke task."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:728
+#: ../../source/for_developers/development.rst:736
 msgid ""
 "i18n: contains translations of the documentation into other languages. "
 "The files in here are normally processed automatically using invoke "
@@ -1016,7 +1032,7 @@ msgid ""
 "folder."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:731
+#: ../../source/for_developers/development.rst:739
 msgid ""
 "resources: contains any resources (primarily images or PDFs) that are "
 "referred to in the documentation. Currently there is only one folder "
@@ -1026,14 +1042,14 @@ msgid ""
 "images specific to a particular language."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:737
+#: ../../source/for_developers/development.rst:745
 msgid ""
 "source: contains the reStructuredText source files that define the "
 "documentation (these are the actual English text of the documentation, "
 "and are the files you are most likely to need to modify)."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:747
+#: ../../source/for_developers/development.rst:755
 msgid ""
 "In order to work with the documentation, you need to have invoke, Sphinx,"
 " sphinx-intl, and sphinx-rtd-theme (the theme for the Trends.Earth "
@@ -1043,17 +1059,17 @@ msgid ""
 "folder and typing::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:756
+#: ../../source/for_developers/development.rst:764
 msgid "LaTeX"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:758
+#: ../../source/for_developers/development.rst:766
 msgid ""
 "LaTeX is used to produce PDF outputs of the documentation for "
 "Trends.Earth."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:760
+#: ../../source/for_developers/development.rst:768
 msgid ""
 "To install on Windows, `follow the process outlined here "
 "<https://www.tug.org/protext>`_ to install the proTeXt distribution of "
@@ -1063,31 +1079,31 @@ msgid ""
 "time to download and install."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:767
+#: ../../source/for_developers/development.rst:775
 msgid ""
 "On MacOS, MacTeX is a good option, and can be installed `following the "
 "instructions here <http://www.tug.org/mactex/>`_."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:770
+#: ../../source/for_developers/development.rst:778
 msgid ""
 "On Linux, installing LaTeX should be much easier - use your "
 "distribution's package manager to find and install whatever LaTeX "
 "distribution is included by default."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:775
+#: ../../source/for_developers/development.rst:783
 msgid "Qt Linguist"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:777
+#: ../../source/for_developers/development.rst:785
 msgid ""
 "Qt Linguist is also needed in order to pull strings from the code and GUI"
 " for translation. The \"lrelease\" command must be available and on your "
 "path. Try trying::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:783
+#: ../../source/for_developers/development.rst:791
 msgid ""
 "within a terminal window. If the file is not found, you'll need to "
 "install Qt Linguist. `This page <https://github.com/lelegard/qtlinguist-"
@@ -1096,11 +1112,11 @@ msgid ""
 "your path so that the Trends.Earth invoke script can find it."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:791
+#: ../../source/for_developers/development.rst:799
 msgid "Updating and building the documentation"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:793
+#: ../../source/for_developers/development.rst:801
 msgid ""
 "Once you have installed the sphinx requirements, you are ready to begin "
 "modifying the documentation. The files to modify are located under the "
@@ -1118,7 +1134,7 @@ msgid ""
 "fast option, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:809
+#: ../../source/for_developers/development.rst:817
 msgid ""
 "The above command will take a few seconds to run, and then if you look "
 "under \"docs\\\\build\\\\html\\\\en\", you will see the HTML version of "
@@ -1126,20 +1142,20 @@ msgid ""
 "how it looks."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:813
+#: ../../source/for_developers/development.rst:821
 msgid ""
 "To build the full documentation, for all languages, in PDF and in HTML "
 "(remember this could take a few hours to complete), run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:818
+#: ../../source/for_developers/development.rst:826
 msgid ""
 "After running the above command you will see (for English) the HTML "
 "documentation under \"docs\\\\build\\\\html\\\\en\", and the PDFs of the "
 "documentation under \"docs\\\\build\\\\html\\\\en\\\\pdfs\"."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:822
+#: ../../source/for_developers/development.rst:830
 msgid ""
 "If you want to test a specific language (when testing translations, for "
 "example), you can specify a two letter language code to only build the "
@@ -1147,13 +1163,13 @@ msgid ""
 "only, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:829
+#: ../../source/for_developers/development.rst:837
 msgid ""
 "Note that options can be combined, so you can use the fast option to "
 "build only the HTML version of the Spanish documentation by running::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:834
+#: ../../source/for_developers/development.rst:842
 msgid ""
 "When building the full documentation for the website, it is a good idea "
 "to first remove any old builds of the documentation, as they might "
@@ -1161,7 +1177,7 @@ msgid ""
 " this, use the ``-c`` (clean) option::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:841
+#: ../../source/for_developers/development.rst:849
 msgid ""
 "In general, docs-build MUST complete without any errors if you are "
 "planning to share the documentation or post it on the website. However, "
@@ -1172,7 +1188,7 @@ msgid ""
 " this, use the ``-i`` (ignore errors) option::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:850
+#: ../../source/for_developers/development.rst:858
 msgid ""
 "Whenever you make any changes to the text of the documentation, it is a "
 "good idea to push the latest strings to Transifex so they can be "
@@ -1180,30 +1196,30 @@ msgid ""
 "run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:856
+#: ../../source/for_developers/development.rst:864
 msgid ""
 "To successfully run the above command you will need to have the key for "
 "the Trends.Earth transifex account."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:860
+#: ../../source/for_developers/development.rst:868
 msgid "Building documentation for release"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:862
+#: ../../source/for_developers/development.rst:870
 msgid ""
 "Before releasing new documentation, always pull the latest translations "
 "from Transifex so that all translations are up to date. To do this, run::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:867
+#: ../../source/for_developers/development.rst:875
 msgid ""
 "To build a version of the documentation for public release (either to the"
 " website, or in PDF) you must build the entire documentation using "
 "``docs-build`` with no additional parameters::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:873
+#: ../../source/for_developers/development.rst:881
 msgid ""
 "This process must complete successfully with no errors. If any errors "
 "occur during the process, review the error message, and make any "
@@ -1212,7 +1228,7 @@ msgid ""
 " the website."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:878
+#: ../../source/for_developers/development.rst:886
 msgid ""
 "Both of the above commands also have ``-f`` (force) options that force "
 "pulling or pushing the latest translations from or to Transifex "
@@ -1222,11 +1238,11 @@ msgid ""
 "translations have not yet been committed to github."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:886
+#: ../../source/for_developers/development.rst:894
 msgid "Adding new documentation text"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:888
+#: ../../source/for_developers/development.rst:896
 msgid ""
 "Any new .rst files that are added to the documentation need to be added "
 "to several configuration files to ensure they appear in the navigation "
@@ -1234,20 +1250,20 @@ msgid ""
 "that they are generated in PDF so they can be downloaded for offline use."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:893
+#: ../../source/for_developers/development.rst:901
 msgid ""
 "docs\\\\source\\\\index.rst: add new .rst files in the appropriate place "
 "here to ensure that they are linked to from the navigation menu."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:895
+#: ../../source/for_developers/development.rst:903
 msgid ""
 ".tx\\\\config: list new .rst files here (in the same format as the other "
 "files already included) in order to make the translation software aware "
 "of them so that they can be translated"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:898
+#: ../../source/for_developers/development.rst:906
 msgid ""
 "docs\\\\source\\\\conf.py: if you want to generate a PDF file of page of "
 "the website, then you must list that page here in the ``latex_documents``"
@@ -1257,11 +1273,11 @@ msgid ""
 "regardless of whether it is in the ``latex_documents`` list."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:906
+#: ../../source/for_developers/development.rst:914
 msgid "Adding new images or other resources"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:908
+#: ../../source/for_developers/development.rst:916
 msgid ""
 "Any new images or other resources (PDFs, etc.) that are needed by the "
 "documentation should be added under \"docs\\\\resources\\\\en\". If "
@@ -1278,7 +1294,7 @@ msgid ""
 "a localized version will be used when available."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:921
+#: ../../source/for_developers/development.rst:929
 msgid ""
 "There is another folder, ``docs\\\\source\\\\static``, that is used to "
 "hold resources temporarily while running the scripts that build the "
@@ -1289,11 +1305,11 @@ msgid ""
 "appropriate language-specific folder under ``docs\\\\resources``."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:930
+#: ../../source/for_developers/development.rst:938
 msgid "Contributing as a translator"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:932
+#: ../../source/for_developers/development.rst:940
 msgid ""
 "The translations for both the QGIS plugin and also for this site are "
 "managed by `transifex <http://www.transifex.com>`_. If you'd like to "
@@ -1302,6 +1318,43 @@ msgid ""
 "<https://www.transifex.com/conservation-international/trendsearth>`_, or "
 "by emailing us at `trends.earth@conservation.org "
 "<mailto:trends.earth@conservation.org>`_."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:949
+msgid "Releasing a new plugin version"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:951
+msgid "There are several steps to making a new public release of the plugin:"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:953
+msgid "Update changelog in `LDMP\\metadata.txt`"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:954
+msgid ""
+"Run `invoke set-version -v X.Y.Z -m` (where X.Y.Z is the new version) to "
+"set the new version number for both `trends.earth` and subcomponents "
+"(`trends.earth-schemas` and `trends.earth-algorithms`)"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:957
+msgid ""
+"Ensure all changes are commited, and then tag the new versions and push "
+"those tags to github by running `invoke set-tag -m`"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:959
+msgid "Ensure that all new versionsa and tags are pushed to github"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:960
+msgid "Publish release on QGIS repository"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:961
+msgid "Publish on github with - Run `invoke release-github'"
 msgstr ""
 
 #: ../../../<rst_epilog>:2
@@ -1334,5 +1387,35 @@ msgstr ""
 #~ "Once you are done you should see"
 #~ " files within the \"LDMP\\\\schemas\" "
 #~ "folder within the trends.earth folder."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The |trends.earth| QGIS plugin is "
+#~ "supported by a number of different "
+#~ "Python scripts that allow calculation of"
+#~ " the various indicators on Google "
+#~ "Earth Engine (GEE). These scripts sit"
+#~ " in the \"gee\" sub-folder of "
+#~ "that GitHub repository. The GEE scripts"
+#~ " are supported by the `landdegradation` "
+#~ "Python module, which includes code for"
+#~ " processing inputs and outputs for "
+#~ "the plugin, as well as other "
+#~ "common functions supporting calculation of "
+#~ "NDVI integrals, statistical significance, and"
+#~ " other shared code. The code for "
+#~ "this module is available in the "
+#~ "`landdegradation "
+#~ "<https://github.com/ConservationInternational/landdegradation>`_ "
+#~ "repository on GitHub."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Further details are below on how "
+#~ "to contribute to Trends.Earth by working"
+#~ " on the plugin code, by modifying "
+#~ "the processing code, or by contributing"
+#~ " to translating the website and "
+#~ "plugin."
 #~ msgstr ""
 

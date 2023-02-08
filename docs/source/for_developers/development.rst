@@ -958,5 +958,4 @@ There are several steps to making a new public release of the plugin:
     those tags to github by running `invoke set-tag -m`
   - Ensure that all new versionsa and tags are pushed to github
   - Publish release on QGIS repository
-  - Publish on github with - Run `invoke set-version -v X.Y.Z -m --tag` (where
-    X.Y.Z is the new version)
+  - Publish on github with - Run `invoke release-github'

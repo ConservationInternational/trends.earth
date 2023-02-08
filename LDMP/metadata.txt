@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.1.8
+version=2.1.10
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -25,7 +25,11 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.1.8 (January 25, 2023)
+changelog=2.1.10 (February 7, 2023)
+  - Fix error when using shapefiles/geojsons to define aoi (#768)
+  - Ensure user settings are retained and not reset by offline mode checks
+  - Update translations
+  2.1.8 (January 25, 2023)
     - Output JSON field for Prais containing updated false positive/negative
       calculations.
     - Fixes #752 - false positive/negative datasets not showing up in

@@ -16,18 +16,26 @@ GitHub repository.
 
 The |trends.earth| QGIS plugin is supported by a number of different Python
 scripts that allow calculation of the various indicators on Google Earth Engine
-(GEE). These scripts sit in the "gee" sub-folder of that GitHub repository. The
-GEE scripts are supported by the `landdegradation` Python module, which
-includes code for processing inputs and outputs for the plugin, as well as
-other common functions supporting calculation of NDVI integrals, statistical
-significance, and other shared code. The code for this module is available in
-the `landdegradation
-<https://github.com/ConservationInternational/landdegradation>`_ repository on
-GitHub.
+(GEE). These scripts sit in the "gee" sub-folder of that GitHub repository.
+
+The plugin is also supported by a number of other modules:
+
+- The `trends.earth-algorithms` module includes code for
+  processing inputs and outputs for the plugin, as well as other common
+  functions supporting calculation of NDVI integrals, statistical significance,
+  and other shared code. The code for this module is available in the
+  `landdegradation
+  <https://github.com/ConservationInternational/trends.earth-algorithms>`_
+  repository on GitHub.
+
+- The `trends.earth-schemas` module includes code for managing the schemas used
+  for data input/output from `trends.earth`, including handling land cover
+  classes, job parameters, structuring reports for UNCCD, and other related
+  functions
 
 Further details are below on how to contribute to Trends.Earth by working on
-the plugin code, by modifying the processing code, or by contributing to
-translating the website and plugin.
+the plugin GUI code, by modifying the processing code, or by contributing to
+translation of the website and plugin.
 
 Modifying the QGIS Plugin code
 ______________________________
@@ -936,3 +944,18 @@ can request to join `our team through transifex
 <https://www.transifex.com/conservation-international/trendsearth>`_, or by
 emailing us at `trends.earth@conservation.org
 <mailto:trends.earth@conservation.org>`_.
+
+Releasing a new plugin version
+______________________________
+
+There are several steps to making a new public release of the plugin:
+
+  - Update changelog in `LDMP\metadata.txt`
+  - Run `invoke set-version -v X.Y.Z -m --tag` (where X.Y.Z is the new version)
+    to set the new version number for both `trends.earth` and subcomponents
+    (`trends.earth-schemas` and `trends.earth-algorithms`), and to tag the new
+    versions.
+  - Ensure that all new versionsa and tags are pushed to github
+  - Publish release on QGIS repository
+  - Publish on github with - Run `invoke set-version -v X.Y.Z -m --tag` (where
+    X.Y.Z is the new version)

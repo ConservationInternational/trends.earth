@@ -951,10 +951,11 @@ ______________________________
 There are several steps to making a new public release of the plugin:
 
   - Update changelog in `LDMP\metadata.txt`
-  - Run `invoke set-version -v X.Y.Z -m --tag` (where X.Y.Z is the new version)
+  - Run `invoke set-version -v X.Y.Z -m` (where X.Y.Z is the new version)
     to set the new version number for both `trends.earth` and subcomponents
-    (`trends.earth-schemas` and `trends.earth-algorithms`), and to tag the new
-    versions.
+    (`trends.earth-schemas` and `trends.earth-algorithms`)
+  - Ensure all changes are commited, and then tag the new versions and push
+    those tags to github by running `invoke set-tag -m`
   - Ensure that all new versionsa and tags are pushed to github
   - Publish release on QGIS repository
   - Publish on github with - Run `invoke set-version -v X.Y.Z -m --tag` (where

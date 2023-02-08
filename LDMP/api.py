@@ -424,8 +424,15 @@ class APIClient(QtCore.QObject):
                 QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
             )
             if status_code == 200:
-                ret = resp.content()
-                ret = json.load(io.BytesIO(ret))
+                if type(resp) is QtNetwork.QNetworkReply:
+                    ret = resp.readAll()
+                    ret = json.load(io.BytesIO(ret))
+                elif type(resp) is QgsNetworkReplyContent:
+                    ret = resp.content()
+                    ret = json.load(io.BytesIO(ret))
+                else:
+                    err_msg = "Unknown object type: {}.".format(str(resp))
+                    log(err_msg)
             else:
                 desc, status = resp.error(), resp.errorString()
                 err_msg = "Error: {} (status {}).".format(desc, status)

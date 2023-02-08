@@ -318,8 +318,12 @@ def release_github(c):
     # https://docs.github.com/en/rest/reference/repos#update-a-release-asset
 
 
-@task(help={"ext_libs": "Also set tag for local copies of modules under ext_libs"})
-def set_tag(c, ext_libs=False):
+@task(
+    help={
+        "modules": "Also set tag for any modules specified " "in ext_libs.local_modules"
+    }
+)
+def set_tag(c, modules=False):
     v = get_version(c)
     ret = subprocess.run(
         ["git", "diff-index", "HEAD", "--"], capture_output=True, text=True
@@ -353,7 +357,7 @@ def set_tag(c, ext_libs=False):
     )
     subprocess.check_call(["git", "push", "origin", "v{}".format(v)])
 
-    if ext_libs:
+    if modules:
         for module in c.plugin.ext_libs.local_modules:
             module_path = Path(module["path"]).parent
             print(f"Also setting tag for {module['name']}")

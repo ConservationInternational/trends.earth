@@ -16,7 +16,6 @@ ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
 
 class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
-
     layer: qgis.core.QgsMapLayer
     metadata: qgis.core.QgsLayerMetadata
 

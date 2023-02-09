@@ -651,7 +651,6 @@ class JobManager(QtCore.QObject):
         layers.edit(str(layer_path))
 
     def import_job(self, job: Job, job_path):
-
         update_uris_if_needed(job, job_path)
 
         set_results_extents(job)

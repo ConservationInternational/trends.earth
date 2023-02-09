@@ -62,7 +62,6 @@ def get_main_unccd_report_job_params(
     include_error_recode: bool,
     task_notes: Optional[str] = "",
 ) -> Dict:
-
     params = {"task_name": task_name, "task_notes": task_notes}
 
     if include_so1_so2:

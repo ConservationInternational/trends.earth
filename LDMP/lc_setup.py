@@ -149,6 +149,7 @@ tr_dict = {
     "Permanent snow and ice": tr_lc_setup.tr("Permanent snow and ice"),
 }
 
+
 # TODO: Finish this - probably makes more sense to do it by subclassing dict, or see
 # here: https://stackoverflow.com/questions/3387691/how-to-perfectly-override-a-dict
 def _tr_cover_class(translations):
@@ -514,7 +515,6 @@ def _get_default_matrix():
 
 
 def get_trans_matrix(get_default=False, save_settings=True):
-
     if not get_default:
         log("Loading land cover degradation matrix from settings")
         matrix = trans_matrix_from_settings()

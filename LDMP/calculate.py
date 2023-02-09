@@ -452,7 +452,6 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.splitter_collapsed = not self.splitter_collapsed
 
     def _finish_initialization(self):
-
         cancel_btn = self.button_box.button(QtWidgets.QDialogButtonBox.Cancel)
         cancel_btn.clicked.connect(self.reject)
         ok_button = self.button_box.button(QtWidgets.QDialogButtonBox.Ok)

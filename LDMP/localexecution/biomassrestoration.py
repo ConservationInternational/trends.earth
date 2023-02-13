@@ -28,7 +28,6 @@ from ..jobs.models import Job
 def get_main_restoration_job_params(
     combo_layer_biomass_diff: data_io.WidgetDataIOSelectTELayerExisting,
 ):
-
     band = combo_layer_biomass_diff.get_current_band()
 
     restoration_years = band.job.params["length_yr"]

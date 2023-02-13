@@ -29,7 +29,6 @@ def run_stats(
     substr_regexs,
     logger,
 ):
-
     filename_base = iso
     filename_base += "_" + boundary_dataset
     filename_base += "_" + script_name

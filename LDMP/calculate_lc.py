@@ -114,7 +114,6 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         )
 
     def calculate_locally(self):
-
         if len(self.lc_setup_widget.initial_year_layer_cb.layer_list) == 0:
             QtWidgets.QMessageBox.critical(
                 None,

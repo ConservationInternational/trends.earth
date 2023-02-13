@@ -46,7 +46,6 @@ def calculate_error_recode(
     EXECUTION_ID,
     logger,
 ):
-
     filename_base = iso
     filename_base += "_" + boundary_dataset
     filename_base += "_" + script_name

@@ -91,7 +91,6 @@ def get_main_drought_summary_job_params(
     combo_layer_so3_vulnerability: data_io.WidgetDataIOSelectTELayerExisting,
     task_notes: Optional[str] = "",
 ) -> Dict:
-
     spi_input = _get_drought_inputs(combo_dataset_drought, SPI_BAND_NAME)
     population_input = _get_drought_inputs(combo_dataset_drought, POPULATION_BAND_NAME)
     spi_lag = _get_spi_lag(combo_dataset_drought)

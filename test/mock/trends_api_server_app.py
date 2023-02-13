@@ -27,7 +27,6 @@ def auth():
 
 @app.route("/api/v1/script/<script_id>/run", methods=["GET", "POST"])
 def script_run(script_id):
-
     response = {}
     files = [
         DATA_PATH / "sample_raw_job.json",
@@ -40,7 +39,6 @@ def script_run(script_id):
 
 @app.route("/api/v1/script/<script_id>", methods=["GET", "POST"])
 def script_index(script_id):
-
     response = {}
     files = [
         DATA_PATH / "sample_raw_job.json",

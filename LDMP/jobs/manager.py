@@ -67,11 +67,12 @@ def update_uris_if_needed(job: Job, job_path):
     if (
         hasattr(job.results, "uri")
         and job.results.uri
-        and not job.results.uri.uri.is_absolute()
         and not is_gdal_vsi_path(job.results.uri.uri)  # ignore gdal virtual fs
+        and (not job.results.uri.uri.is_absolute() or not job.results.uri.uri.exists())
     ):
         # If the path doesn't exist, but the filename does exist in the
-        # same folder as the job, assume that is what is meant
+        # same folder as the job, the below function will assume that is what
+        # is meant
         job.results.update_uris(job_path)
 
 

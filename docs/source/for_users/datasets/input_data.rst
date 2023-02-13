@@ -131,4 +131,32 @@ Administrative Boundaries
 
 Population
 --------------------------------
-**Coming soon**
+
++-------------------------------------------+-----------+---------+--------+------------------+
+| Sensor/Dataset                            | Temporal  | Spatial | Extent | License          |
++===========================================+===========+=========+========+==================+
+| `WorldPop 100m Global Population grid`_   | 2000-2020 | 100m    | Global | `Public Domain`_ |
++-------------------------------------------+-----------+---------+--------+------------------+
+
+.. note::
+    The `WorldPop`_ dataset included in Trends.Earth was produced by the
+   `UNCCD` from publicly available data layers from the WorldPop project. This
+   dataset is a combination of the national-level age and sex-disaggregated
+   grids produced by the WorldPop project at 100m resolution. In support of
+   UNCCD National Reporting on Strategic Objectives 2 and 3, UNCCD funded the
+   development of a set of global mosaics, disaggregated by sex, giving
+   population counts per pixel. These layers are used within Trends.Earth to
+   tabulate population exposure to drought and degradation, disaggregated by
+   sex.
+
+   These data are also available in a publicly-accessible S3 bucket
+   (trends.earth-shared, in the us-east-1 region), as tiled 32-bit floating
+   point GeoTiffs at 100m, 300m, and 1200m resolution, at the following
+   locations on s3:
+
+   - s3://trends.earth-shared/worldpop/100m
+   - s3://trends.earth-shared/worldpop/300m
+   - s3://trends.earth-shared/worldpop/1200m
+
+.. _UNCCD: https://www.unccd.int
+.. _WorldPop 100m Global Population grid: https://www.worldpop.org

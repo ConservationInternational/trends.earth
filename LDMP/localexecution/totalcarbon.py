@@ -164,7 +164,6 @@ class SummaryTask(qgis.core.QgsTask):
                 area_missing = summary_task["AREA_MISSING"]
                 area_site = summary_task["AREA_SITE"]
             else:
-
                 forest_loss = forest_loss + summary.np_array_from_str(
                     summary_task["FOREST_LOSS"]
                 )

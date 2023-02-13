@@ -121,7 +121,6 @@ def _get_ld_input_period(
     year_initial_field: str = "year_initial",
     year_final_field: str = "year_final",
 ) -> LdnInputInfo:
-
     band_info = data_selection_widget.get_current_band().band_info
 
     return {
@@ -242,7 +241,6 @@ def get_main_sdg_15_3_1_job_params(
     combo_layer_pop_female: data_io.WidgetDataIOSelectTELayerExisting,
     task_notes: Optional[str] = "",
 ) -> Dict:
-
     land_cover_inputs = _get_ld_inputs(combo_layer_lc, ld_config.LC_BAND_NAME)
     land_cover_transition_input = _get_ld_input_aux_band(
         combo_layer_lc, ld_config.LC_TRANS_BAND_NAME

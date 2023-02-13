@@ -3,6 +3,13 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.1.10 (February 7, 2023) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.10>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Fix error when using shapefiles/geojsons to define aoi (#768)
+  - Ensure user settings are retained and not reset by offline mode checks
+  - Update translations
+
 `2.1.8 (January 25, 2023) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.8>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

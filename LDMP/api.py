@@ -145,12 +145,9 @@ class RequestTask(QgsTask):
 
 
 def backoff_hdlr(details):
-    if details["kwargs"]["payload"]:
-        details["kwargs"]["payload"] = self._clean_payload(details["kwargs"]["payload"])
     log(
         "Backing off {wait:0.1f} seconds after {tries} tries "
-        "calling function {target} with args {args} and kwargs "
-        "{kwargs}".format(**details)
+        "calling function {target}".format(**details)
     )
 
 

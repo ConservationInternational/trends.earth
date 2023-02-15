@@ -6,7 +6,6 @@ import json
 import random
 
 from te_algorithms.gee.download import download
-from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 
 
 def run(params, logger):
@@ -30,8 +29,5 @@ def run(params, logger):
 
     logger.debug("Running main script.")
     out = download(asset, name, temporal_resolution, start_year, end_year, logger)
-
-    logger.debug("Converting output to TEImageV2 format")
-    out = teimage_v1_to_teimage_v2(out)
 
     return out.export(geojsons, "download", crs, logger, EXECUTION_ID)

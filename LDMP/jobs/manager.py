@@ -1322,7 +1322,7 @@ def _get_access_token():
     return login_reply["access_token"]
 
 
-def _get_user_id() -> uuid:
+def _get_user_id() -> uuid.UUID:
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log("Retrieving user id...")
 
@@ -1345,8 +1345,7 @@ def _get_raster_vrt(tiles: List[Path], out_file: Path):
 def backoff_hdlr(details):
     log(
         "Backing off {wait:0.1f} seconds after {tries} tries "
-        "calling function {target} with args {args} and kwargs "
-        "{kwargs}".format(**details)
+        "calling function {target}".format(**details)
     )
 
 

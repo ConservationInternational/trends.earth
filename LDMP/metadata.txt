@@ -25,7 +25,10 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.1.10 (February 7, 2023)
+changelog=2.1.12 (February 17, 2023)
+  - Improve data download tool, including support for downloading WorldPop
+    population data used in UNCCD reporting
+  2.1.10 (February 7, 2023)
   - Fix error when using shapefiles/geojsons to define aoi (#768)
   - Ensure user settings are retained and not reset by offline mode checks
   - Update translations

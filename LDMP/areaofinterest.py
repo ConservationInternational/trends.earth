@@ -1,5 +1,6 @@
 import functools
 import json
+import traceback
 import typing
 from pathlib import Path
 
@@ -165,6 +166,9 @@ class AOI:
             n += 1
         return qgis.core.QgsGeometry.unaryUnion(geometries)
 
+    @functools.lru_cache(
+        maxsize=None
+    )  # not using functools.cache, as it was only introduced in Python 3.9
     def meridian_split(self, out_type="extent", out_format="geojson", warn=True):
         """
         Return list of bounding boxes in WGS84 as geojson for GEE
@@ -172,6 +176,9 @@ class AOI:
         Returns multiple geometries as needed to avoid having an extent
         crossing the 180th meridian
         """
+
+        # log("In meridian_split")
+        # log(traceback.extract_tb().format()().format())
 
         if out_type not in ["extent", "layer"]:
             raise ValueError('Unrecognized out_type "{}"'.format(out_type))

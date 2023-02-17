@@ -959,3 +959,10 @@ There are several steps to making a new public release of the plugin:
   - Ensure that all new versionsa and tags are pushed to github
   - Publish release on QGIS repository
   - Publish on github with - Run `invoke release-github'
+
+.. note:: If you want to make a release after updating the scripts that call
+   the Trends.Earth API (so if either the code under the `gee` folder changes,
+   or if `trends.earth-schemas` or `trends.earth-algorithms` have changed, then
+   you need to add a `-g` flag to the above command. After running `invoke
+   set-version` with the `-g` flag you will also need to run `invoke
+   tecli-publish`, in order to push the updated scripts to the API.

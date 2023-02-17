@@ -40,7 +40,7 @@ def _run_lc(params, additional_years, logger):
     )
     lc.selectBands(["Land cover (degradation)", "Land cover transitions", "Land cover"])
 
-    return lc
+    return teimage_v1_to_teimage_v2(lc)
 
 
 def _run_soc(params, logger):
@@ -61,7 +61,7 @@ def _run_soc(params, logger):
     )
     soc_out.selectBands(["Soil organic carbon (degradation)", "Soil organic carbon"])
 
-    return soc_out
+    return teimage_v1_to_teimage_v2(soc_out)
 
 
 def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
@@ -128,6 +128,9 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
             if prod_year_final not in lc_years:
                 additional_years.append(prod_year_final)
 
+            logger.debug("Converting output to TEImageV2 format")
+            out = teimage_v1_to_teimage_v2(out)
+
             out.merge(_run_lc(params.get("land_cover"), additional_years, logger))
 
             out.merge(_run_soc(params.get("soil_organic_carbon"), logger))
@@ -142,12 +145,6 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                     "Productivity performance (degradation)",
                 ]
             )
-
-            logger.debug("Converting output to TEImageV2 format")
-
-            # Need to use te_image_v2 to support adding another dataset
-            # (population) as float32
-            out = teimage_v1_to_teimage_v2(out)
 
             logger.debug("Adding population data")
             # Population needs to be saved as floats
@@ -239,10 +236,11 @@ def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
     lpd_year_initial = params.get("productivity")["year_initial"]
     lpd_year_final = params.get("productivity")["year_final"]
     # Save as int16 to be compatible with other data
-    out.image = out.image.int16().rename(
+    lpd_image = list(out.images.values())[0]
+    lpd_image.image = lpd_image.image.int16().rename(
         f"{prod_mode}_{lpd_year_initial}-{lpd_year_final}"
     )
-    out.band_info[0].metadata.update(
+    lpd_image.bands[0].metadata.update(
         {"year_initial": lpd_year_initial, "year_final": lpd_year_final}
     )
 
@@ -274,7 +272,6 @@ def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
             lpd_layer_name,
         ]
     )
-    out = teimage_v1_to_teimage_v2(out)
 
     # Population needs to be saved as floats
     out.add_image(**_get_population(params.get("population"), logger))

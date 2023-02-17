@@ -14,8 +14,8 @@ def run(params, logger):
     asset = params.get("asset")
     name = params.get("name")
     geojsons = json.loads(params.get("geojsons"))
-    start_year = params.get("start_year", None)
-    end_year = params.get("end_year", None)
+    start_year = params.get("year_initial", None)
+    end_year = params.get("year_final", None)
     temporal_resolution = params.get("temporal_resolution", None)
     crs = params.get("crs")
 

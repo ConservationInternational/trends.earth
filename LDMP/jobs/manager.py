@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import List
 
 import backoff
+import te_algorithms.gdal.land_deg.config as ld_conf
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
 from qgis.core import QgsApplication
@@ -747,7 +748,11 @@ class JobManager(QtCore.QObject):
             script = conf.KNOWN_SCRIPTS["local-land-cover"]
         elif band_name == "Soil organic carbon":
             script = conf.KNOWN_SCRIPTS["local-soil-organic-carbon"]
-        elif band_name == "Land Productivity Dynamics (LPD)":
+        elif band_name in [
+            ld_conf.JRC_LPD_BAND_NAME,
+            ld_conf.FAO_WOCAT_LPD_BAND_NAME,
+            ld_conf.TE_LPD_BAND_NAME,
+        ]:
             script = conf.KNOWN_SCRIPTS["productivity"]
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")

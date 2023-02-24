@@ -22,6 +22,7 @@ import numpy as np
 import qgis.core
 import qgis.gui
 import qgis.utils
+import te_algorithms.gdal.land_deg.config as ld_conf
 from osgeo import gdal
 from osgeo import osr
 from qgis.PyQt import QtCore
@@ -1479,6 +1480,13 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.input_widget.groupBox_year.hide()
+        self.populate_data_types()
+
+        # Ensure the special value text (set to " ") is displayed by default
+        self.spinBox_year_initial.setSpecialValueText(" ")
+        self.spinBox_year_initial.setValue(int(self.spinBox_year_initial.minimum()))
+        self.spinBox_year_final.setSpecialValueText(" ")
+        self.spinBox_year_final.setValue(int(self.spinBox_year_final.minimum()))
 
     def done(self, value):
         if value == QtWidgets.QDialog.Accepted:
@@ -1487,6 +1495,19 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             super().done(value)
 
     def validate_input(self, value):
+        try:
+            _ = int(self.spinBox_year_initial.text())
+            _ = int(self.spinBox_year_final.text())
+        except ValueError:
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "Enter the intial and final year applying to this input data."
+                ),
+            )
+
+            return
         ret = super().validate_input(value)
 
         if not ret:
@@ -1550,6 +1571,14 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
         self.ok_clicked()
 
+    def populate_data_types(self):
+        for datatype in [
+            ld_conf.JRC_LPD_BAND_NAME,
+            ld_conf.FAO_WOCAT_LPD_BAND_NAME,
+            ld_conf.TE_LPD_BAND_NAME,
+        ]:
+            self.datatype_cb.addItem(datatype)
+
     def ok_clicked(self):
         out_file = self._output_raster_path
 
@@ -1564,10 +1593,15 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             return False
 
         job = job_manager.create_job_from_dataset(
-            Path(out_file),
-            "Land Productivity Dynamics (LPD)",
-            {"source": "custom data"},
-            task_name=self.tr("Land productivity (imported)"),
+            dataset_path=Path(out_file),
+            band_name=self.datatype_cb.currentText(),
+            band_metadata={
+                "year_initial": int(self.spinBox_year_initial.text()),
+                "year_final": int(self.spinBox_year_final.text()),
+            },
+            task_name=self.tr(
+                f"Land productivity (imported - {self.datatype_cb.currentText()})"
+            ),
         )
         job_manager.import_job(job, Path(out_file))
         job_manager.move_job_results(job)

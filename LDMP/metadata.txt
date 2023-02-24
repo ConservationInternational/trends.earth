@@ -25,7 +25,11 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.1.12 (February 17, 2023)
+changelog=2.1.14 (February 24, 2023)
+  - Improve land productivity import tool, including support for JRC,
+    FAO-WOCAT, or Trends.Earth data, and option to specify initial and final
+    years
+  2.1.12 (February 17, 2023)
   - Improve data download tool, including support for downloading WorldPop
     population data used in UNCCD reporting
   2.1.10 (February 7, 2023)

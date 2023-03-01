@@ -23,6 +23,7 @@ from pathlib import Path
 import requests
 from qgis.core import QgsApplication
 from qgis.core import QgsFileDownloader
+from qgis.core import QgsNetworkReplyContent
 from qgis.core import QgsSettings
 from qgis.core import QgsTask
 from qgis.PyQt import QtCore
@@ -119,7 +120,12 @@ def check_hash_against_etag(url, filename, expected=None):
             log("Failed to fetch expected hash for {}".format(filename))
             return False
         else:
-            expected = h.get("ETag", "").strip('"')
+            if type(h) is QtNetwork.QNetworkReply:
+                expected = h.header(QtNetwork.QNetworkRequest.ETagHeader).strip('"')
+            elif type(h) is QgsNetworkReplyContent:
+                expected = h.rawheader("ETag").strip('"')
+            else:
+                raise NotImplementedError
 
     with open(filename, "rb") as f:
         md5hash = hashlib.md5(f.read()).hexdigest()
@@ -324,6 +330,8 @@ class DownloadWorker(AbstractWorker):
             downloader.downloadCanceled.connect(download_exit)
             downloader.downloadError.connect(self.download_error)
             downloader.downloadProgress.connect(self.update_progress)
+
+            downloader.startDownload()
 
             if self.killed:
                 downloader.downloadProgress.connect(downloader.cancelDownload)

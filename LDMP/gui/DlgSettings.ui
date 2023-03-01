@@ -166,6 +166,9 @@
             </item>
            </layout>
           </item>
+          <item>
+           <widget class="QgsAuthConfigSelect" name="authcfg_acs"/>
+          </item>
          </layout>
         </widget>
        </item>
@@ -279,6 +282,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QgsAuthConfigSelect</class>
+   <extends>QWidget</extends>
+   <header>qgsauthconfigselect.h</header>
+  </customwidget>
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>

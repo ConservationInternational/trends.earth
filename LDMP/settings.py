@@ -205,6 +205,13 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.region_of_interest.setLayout(layout)
 
         # Load gui default value from settings
+        auth_id = settings.value("trendsearth/auth")
+        if auth_id is not None:
+            self.authcfg_acs.setConfigId(auth_id)
+        else:
+            log("Authentication configuration id was not found")
+
+        # load gui default value from settings
         self.reloadAuthConfigurations()
 
         self.api_client = api.APIClient(API_URL, TIMEOUT)
@@ -218,7 +225,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.widgetSettingsAdvanced.update_settings()
         self.widget_settings_report.save_settings()
         if not self.lcc_manager.save_settings():
-            print("Validation failed")
+            log("Validation failed")
             return
 
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
@@ -327,6 +334,22 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
                 auth.remove_current_auth_config(auth.TE_API_AUTH_SETUP)
                 self.reloadAuthConfigurations()
                 # self.authConfigUpdated.emit()
+
+    def on_accept(self):
+        auth_id = self.authcfg_acs.configId()
+        if auth_id != "":
+            settings.setValue("trendsearth/auth", auth_id)
+        else:
+            log("Authentication configuration id not found")
+
+        self.area_widget.save_settings()
+        self.widgetSettingsAdvanced.update_settings()
+        self.widget_settings_report.save_settings()
+        if not self.lcc_manager.save_settings():
+            log("Validation failed")
+            return
+
+        self.accept()
 
 
 class AreaWidgetSection(Flag):
@@ -1131,7 +1154,6 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     def update_settings(self):
         """Store the current value of each setting in QgsSettings"""
-        log(f"poll remote: {self.polling_frequency_gb.isChecked()}")
         settings_manager.write_value(
             Setting.POLL_REMOTE, self.polling_frequency_gb.isChecked()
         )
@@ -1190,7 +1212,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         )
 
     def set_offline_mode_states(self):
-        """This funtion is called when offline mode is enabled or disabled.
+        """This function is called when offline mode is enabled or disabled.
         If offline mode is enabled, then all settings related to online
         requests (e.g. download remote datasets or polling the server) will
         be disabled as well. The login section will also be disabled.

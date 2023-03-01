@@ -68,7 +68,6 @@ class RequestTask(QgsTask):
         self.resp = None
 
     def run(self):
-
         try:
             settings = QgsSettings()
             auth_id = settings.value("trendsearth/auth")
@@ -323,7 +322,6 @@ class APIClient(QtCore.QObject):
         backoff.expo, lambda x: x is None, max_tries=3, on_backoff=backoff_hdlr
     )
     def _make_request(self, description, **kwargs):
-
         api_task = RequestTask(description, **kwargs)
         QgsApplication.taskManager().addTask(api_task)
         result = api_task.waitForFinished((self.timeout + 1) * 1000)
@@ -424,15 +422,7 @@ class APIClient(QtCore.QObject):
                 QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
             )
             if status_code == 200:
-                if type(resp) is QtNetwork.QNetworkReply:
-                    ret = resp.readAll()
-                    ret = json.load(io.BytesIO(ret))
-                elif type(resp) is QgsNetworkReplyContent:
-                    ret = resp.content()
-                    ret = json.load(io.BytesIO(ret))
-                else:
-                    err_msg = "Unknown object type: {}.".format(str(resp))
-                    log(err_msg)
+                ret = resp
             else:
                 desc, status = resp.error(), resp.errorString()
                 err_msg = "Error: {} (status {}).".format(desc, status)

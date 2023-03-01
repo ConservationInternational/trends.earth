@@ -1154,7 +1154,6 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     def update_settings(self):
         """Store the current value of each setting in QgsSettings"""
-        log(f"poll remote: {self.polling_frequency_gb.isChecked()}")
         settings_manager.write_value(
             Setting.POLL_REMOTE, self.polling_frequency_gb.isChecked()
         )
@@ -1213,7 +1212,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         )
 
     def set_offline_mode_states(self):
-        """This funtion is called when offline mode is enabled or disabled.
+        """This function is called when offline mode is enabled or disabled.
         If offline mode is enabled, then all settings related to online
         requests (e.g. download remote datasets or polling the server) will
         be disabled as well. The login section will also be disabled.

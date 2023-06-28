@@ -478,7 +478,7 @@ in the tool).
 +====================+===============================================================+
 | -32768             | Meaning                                                       |
 +--------------------+---------------------------------------------------------------+
-| Any negative value | A positive value indicates a pixel **was** exposed to drought |
+| Any negative value | A negative value indicates a pixel **was** exposed to drought |
 |                    | (defined as SPI < -1) during a particular (typically four-    |
 |                    | year) period. The pixel value indicates the population of     |
 |                    | the pixel at the time of maximum drought.                     |

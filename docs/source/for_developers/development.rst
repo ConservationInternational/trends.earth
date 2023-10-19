@@ -68,7 +68,7 @@ QGIS, you will also need a local version of Python that you can setup with the
 software needed to manage the plugin. The easiest way to manage multiple
 versions of Python is through the `Anaconda distribution
 <https://www.anaconda.com>`_. For work developing the plugin, Python
-3 is required. To download Python 3.7 (recommended) though Anaconda,
+3 is required. To download Python 3.7 (recommended) through Anaconda,
 `see this page <https://www.anaconda.com/distribution/#download-section>`_.
 
 Python dependencies
@@ -209,7 +209,7 @@ version you are running on your machine, use::
   Windows, see `this github page
   <https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_
   for details on how to
-  install the Microsoft Visual C++ compiler needed for you Python version. On
+  install the Microsoft Visual C++ compiler needed for your Python version. On
   MacOS, you will most likely need to install Xcode. On Linux, install the
   appropriate version of GCC.
 
@@ -257,7 +257,7 @@ before they are available in the publicly released version of the plugin.
 Deploying the development version ZIP file
 ------------------------------------------
 
-The Trends.Earth GitHub page gives a link a ZIP file that allows users who may
+The Trends.Earth GitHub page gives a link to a ZIP file that allows users who may
 not be developers to access the development version of Trends.Earth. To create
 a ZIP file and make it available on that page (the ZIP file is stored on S3),
 run::
@@ -416,7 +416,7 @@ plugin.
 Editing vector layer templates
 _________________________________
 
-Trends.Earth allow users to digitize new vector features to delineate areas
+Trends.Earth allows users to digitize new vector features to delineate areas
 of special interest.
 
 For now only "false positive/negative" layers are supported, but more
@@ -427,12 +427,12 @@ there are 6 template files, one for each UN official language. The ISO
 language code is added as a suffix to the file name. This is necessary to
 provide localized labels in the attribute forms. When creation of the
 vector layer is requested QGIS will look for the template file
-taking QGIS locale into accont, as a fall-back option English version
+taking QGIS locale into account, as a fall-back option English version
 of the template file is used.
 
 To change schema of the layer it is necessary to change corresponding
 template files in the ``data/error_recode`` folder of the plugin
-installation directory. Also template file contains a buil-in default
+installation directory. Also template file contains a built-in default
 styling and attribute form configuration which will be automatically
 applied to the layer when loading into QGIS.
 
@@ -489,7 +489,7 @@ Calculation of area percentage is done with custom expression function,
 its code can be found in the file ``charts.py`` in the plugin root
 directory. Function optimized to work with large polygons and uses
 following workflow. For a given geometry find a bbox and extract raster
-susbset using this bbox. Perform in-memory geometry rasterization and
+subset using this bbox. Perform in-memory geometry rasterization and
 apply it as a mask to raster. Then count number of pixels which have
 specific value and calculate percentage. As pixel counting is built
 on numpy array functions it is very fast even for big polygons.
@@ -928,8 +928,8 @@ when available.
 
 .. note:: There is another folder, ``docs\\source\\static``, that is used to
    hold resources temporarily while running the scripts that build the
-   Trends.Earth documenation. You may have images listed under that folder if
-   you have ever built the documenation on that machine. **This folder should
+   Trends.Earth documentation. You may have images listed under that folder if
+   you have ever built the documentation on that machine. **This folder should
    never be used to add new resources** - new resources should always go under
    ``docs\\resources\\en`` or, for translated images, the appropriate
    language-specific folder under ``docs\\resources``.

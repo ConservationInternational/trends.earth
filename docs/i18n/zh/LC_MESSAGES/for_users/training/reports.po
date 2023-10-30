@@ -1,25 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-"
+"international/teams/80165/zh/)\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/reports.rst:4
 msgid "Dataset Reports"
@@ -51,16 +53,16 @@ msgstr "在数据集项目的报告按钮中，选择**打开报告目录**子�
 
 #: ../../source/for_users/training/reports.rst:23
 msgid ""
-"This action will open the directory containing the output reports for the "
-"selected dataset. Depending on the report configuration for the given "
+"This action will open the directory containing the output reports for the"
+" selected dataset. Depending on the report configuration for the given "
 "algorithm, the directory will contain PDF and/or image files showing the "
 "default thematic layers for the selected dataset."
 msgstr "此操作将打开包含所选数据集的输出报告的目录。根据给定算法的报告配置，此目录将包含显示所选数据集的默认专题图层的 PDF 和/或图像文件。"
 
 #: ../../source/for_users/training/reports.rst:28
 msgid ""
-"The example below is from the sub-indicators for SDG 15.3.1 algorithm with "
-"the AOI set to Uganda."
+"The example below is from the sub-indicators for SDG 15.3.1 algorithm "
+"with the AOI set to Uganda."
 msgstr "下面的示例来自 SDG 15.3.1 算法的子指标，其中 AOI 设置为乌干达。"
 
 #: ../../source/for_users/training/reports.rst:37
@@ -68,8 +70,7 @@ msgid "Open Report Layouts"
 msgstr "打开报告布局"
 
 #: ../../source/for_users/training/reports.rst:39
-msgid ""
-"Select the **Open layouts...** sub-menu in a dataset item's report button."
+msgid "Select the **Open layouts...** sub-menu in a dataset item's report button."
 msgstr "在数据集项目的报告按钮中，选择 **打开布局...** 子菜单。"
 
 #: ../../source/for_users/training/reports.rst:45
@@ -80,53 +81,54 @@ msgstr "在单独的应用程序实例中，此操作将打开包含作业图层
 
 #: ../../source/for_users/training/reports.rst:48
 msgid ""
-"By default, on opening the project, a warning message will appear indicating"
-" Python macros cannot be run. This is a security features that prevents "
-"users from running macros for QGIS projects from unknown or untrusted "
-"sources. However, in this case, the project is locally generated hence it is"
-" safe to run macros by clicking on the **Enable Macros** button in the "
-"message bar (top-right corner)."
+"By default, on opening the project, a warning message will appear "
+"indicating Python macros cannot be run. This is a security features that "
+"prevents users from running macros for QGIS projects from unknown or "
+"untrusted sources. However, in this case, the project is locally "
+"generated hence it is safe to run macros by clicking on the **Enable "
+"Macros** button in the message bar (top-right corner)."
 msgstr ""
 "默认情况下，在打开项目时，将出现一条警告消息，指示无法运行 Python 宏。这是一项安全功能，可防止用户从未知或不受信任的来源为 QGIS "
 "项目运行宏。但是，在这种情况下，项目是在本地生成的，因此可以单击消息栏（右上角）中的 **启用宏** 按钮，以安全地运行宏。"
 
 #: ../../source/for_users/training/reports.rst:57
 msgid ""
-"On the Layout Manager dialog, select a layout name in the list then click on"
-" **Show** to edit the layout."
+"On the Layout Manager dialog, select a layout name in the list then click"
+" on **Show** to edit the layout."
 msgstr "在“布局管理器”对话框中，在列表中选择一个布局名称，然后单击 **显示** 以编辑布局。"
 
 #: ../../source/for_users/training/reports.rst:65
 msgid ""
-"If the **Reports** button (|iconReports|) is disabled, it means the report "
-"generation task is still running and will automatically be enabled once the "
-"process is complete."
+"If the **Reports** button (|iconReports|) is disabled, it means the "
+"report generation task is still running and will automatically be enabled"
+" once the process is complete."
 msgstr "如果 **报告** 按钮 (|iconReports|) 被禁用，则表示报告生成任务仍在运行，一旦进程完成将自动启用。"
 
-#: ../../../<rst_epilog>:4 ../../../<rst_epilog>:4
+#: ../../../<rst_epilog>:4
 msgid "iconReports"
 msgstr "iconReports"
 
 #: ../../source/for_users/training/reports.rst:66
 msgid ""
-"If the **Reports** button is not visible, then it means there is no report "
-"configuration defined for datasets resulting from the given algorithm."
+"If the **Reports** button is not visible, then it means there is no "
+"report configuration defined for datasets resulting from the given "
+"algorithm."
 msgstr "如果没看见 **报告** 按钮，则表示没有为给定算法生成的数据集定义报告配置。"
 
 #: ../../source/for_users/training/reports.rst:70
 msgid ""
-"To allow macros to be executed automatically, go to **Settings > Options** "
-"then, under the **General** category, scroll to the bottom to the **Enable "
-"Macros** setting. Select **Always**, though this option is not recommended "
-"especially if you interact with qgs or qgz projects from external sources."
+"To allow macros to be executed automatically, go to **Settings > "
+"Options** then, under the **General** category, scroll to the bottom to "
+"the **Enable Macros** setting. Select **Always**, though this option is "
+"not recommended especially if you interact with qgs or qgz projects from "
+"external sources."
 msgstr ""
 "要允许自动执行宏，请转到 **设置 > 选项**，然后在 **通用** 类别下，滚动到底部的 **启用宏** 设置。选择 "
 "**总是**，但不建议使用此选项，尤其在与来自外部源的 qgs 或 qgz 项目交互时。"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

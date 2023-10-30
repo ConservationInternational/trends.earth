@@ -1,21 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
-"Language-Team: Persian (https://www.transifex.com/conservation-international/teams/80165/fa/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
+"Language-Team: Persian (https://www.transifex.com/conservation-"
+"international/teams/80165/fa/)\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/reports.rst:4
 msgid "Dataset Reports"
@@ -47,16 +51,16 @@ msgstr ""
 
 #: ../../source/for_users/training/reports.rst:23
 msgid ""
-"This action will open the directory containing the output reports for the "
-"selected dataset. Depending on the report configuration for the given "
+"This action will open the directory containing the output reports for the"
+" selected dataset. Depending on the report configuration for the given "
 "algorithm, the directory will contain PDF and/or image files showing the "
 "default thematic layers for the selected dataset."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:28
 msgid ""
-"The example below is from the sub-indicators for SDG 15.3.1 algorithm with "
-"the AOI set to Uganda."
+"The example below is from the sub-indicators for SDG 15.3.1 algorithm "
+"with the AOI set to Uganda."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:37
@@ -64,8 +68,7 @@ msgid "Open Report Layouts"
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:39
-msgid ""
-"Select the **Open layouts...** sub-menu in a dataset item's report button."
+msgid "Select the **Open layouts...** sub-menu in a dataset item's report button."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:45
@@ -76,49 +79,50 @@ msgstr ""
 
 #: ../../source/for_users/training/reports.rst:48
 msgid ""
-"By default, on opening the project, a warning message will appear indicating"
-" Python macros cannot be run. This is a security features that prevents "
-"users from running macros for QGIS projects from unknown or untrusted "
-"sources. However, in this case, the project is locally generated hence it is"
-" safe to run macros by clicking on the **Enable Macros** button in the "
-"message bar (top-right corner)."
+"By default, on opening the project, a warning message will appear "
+"indicating Python macros cannot be run. This is a security features that "
+"prevents users from running macros for QGIS projects from unknown or "
+"untrusted sources. However, in this case, the project is locally "
+"generated hence it is safe to run macros by clicking on the **Enable "
+"Macros** button in the message bar (top-right corner)."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:57
 msgid ""
-"On the Layout Manager dialog, select a layout name in the list then click on"
-" **Show** to edit the layout."
+"On the Layout Manager dialog, select a layout name in the list then click"
+" on **Show** to edit the layout."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:65
 msgid ""
-"If the **Reports** button (|iconReports|) is disabled, it means the report "
-"generation task is still running and will automatically be enabled once the "
-"process is complete."
+"If the **Reports** button (|iconReports|) is disabled, it means the "
+"report generation task is still running and will automatically be enabled"
+" once the process is complete."
 msgstr ""
 
-#: ../../../<rst_epilog>:4 ../../../<rst_epilog>:4
+#: ../../../<rst_epilog>:4
 msgid "iconReports"
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:66
 msgid ""
-"If the **Reports** button is not visible, then it means there is no report "
-"configuration defined for datasets resulting from the given algorithm."
+"If the **Reports** button is not visible, then it means there is no "
+"report configuration defined for datasets resulting from the given "
+"algorithm."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:70
 msgid ""
-"To allow macros to be executed automatically, go to **Settings > Options** "
-"then, under the **General** category, scroll to the bottom to the **Enable "
-"Macros** setting. Select **Always**, though this option is not recommended "
-"especially if you interact with qgs or qgz projects from external sources."
+"To allow macros to be executed automatically, go to **Settings > "
+"Options** then, under the **General** category, scroll to the bottom to "
+"the **Enable Macros** setting. Select **Always**, though this option is "
+"not recommended especially if you interact with qgs or qgz projects from "
+"external sources."
 msgstr ""
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr ""
+#~ msgid "iconCalculator"
+#~ msgstr ""
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr ""
+#~ msgid "Trends.Earth"
+#~ msgstr ""
+

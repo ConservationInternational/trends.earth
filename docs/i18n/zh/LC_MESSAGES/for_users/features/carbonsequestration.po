@@ -1,26 +1,28 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-"
+"international/teams/80165/zh/)\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/features/carbonsequestration.rst:4
 msgid "Potential carbon sequestration from restoration"
@@ -33,11 +35,12 @@ msgstr "背景"
 #: ../../source/for_users/features/carbonsequestration.rst:9
 msgid ""
 "Restoration could remove 400 Gt of CO2 by 2100 (Griscom et. al., 2017), "
-"putting us on the pathway to reduce carbon emissions to keep us within the "
-"Paris Climate Agreement goal to limit “the increase in the global average "
-"temperature to well below 2 °C above preindustrial levels” (UNFCCC 2015). "
-"Forest landscape restoration is a natural climate solution for removing "
-"carbon dioxide from the atmosphere through different reforestation efforts."
+"putting us on the pathway to reduce carbon emissions to keep us within "
+"the Paris Climate Agreement goal to limit “the increase in the global "
+"average temperature to well below 2 °C above preindustrial levels” "
+"(UNFCCC 2015). Forest landscape restoration is a natural climate solution"
+" for removing carbon dioxide from the atmosphere through different "
+"reforestation efforts."
 msgstr ""
 "到2100年，恢复可以消除400Gt的二氧化碳（Griscom等人，2017年），使我们走上减少碳排放的道路，使我们保持在《巴黎气候协定》的目标之内，即限制"
 " \"全球平均温度的上升远远低于工业化前水平的2℃\"（UNFCCC "
@@ -50,15 +53,15 @@ msgstr "监测的理由"
 #: ../../source/for_users/features/carbonsequestration.rst:17
 msgid ""
 "There is a need for tools to support restoration prioritization, and "
-"planning restoration activities on the ground. This module in Trends.Earth "
-"allows users to estimate the potential climate benefits of different forest "
-"landscape restoration approaches."
+"planning restoration activities on the ground. This module in "
+"Trends.Earth allows users to estimate the potential climate benefits of "
+"different forest landscape restoration approaches."
 msgstr "需要有工具来支持恢复的优先次序，并在实地规划恢复活动。Trends.Earth中的这个模块允许用户估计不同森林景观恢复方法的潜在气候效益。"
 
 #: ../../source/for_users/features/carbonsequestration.rst:22
 msgid ""
-"Refer to the :ref:`tut_carbon_sequestration_restoration` for the tutorial to"
-" use this methodology and data."
+"Refer to the :ref:`tut_carbon_sequestration_restoration` for the tutorial"
+" to use this methodology and data."
 msgstr "请参考 :ref:`tut_carbon_sequestration_restoration`的教程，以使用这个方法和数据。"
 
 #: ../../source/for_users/features/carbonsequestration.rst:25
@@ -69,40 +72,39 @@ msgstr "指标和数据需求"
 msgid ""
 "This module allows users to select a restoration type (terrestrial or "
 "mangrove) within a region and length of restoration activity to estimate "
-"change in biomass (CO2 equivalence) for 8 different restoration activities."
+"change in biomass (CO2 equivalence) for 8 different restoration "
+"activities."
 msgstr "该模块允许用户在一个区域内选择一个恢复类型（陆地或红树林）和恢复活动的长度，以估计8种不同恢复活动的生物量变化（二氧化碳当量）。"
 
 #: ../../source/for_users/features/carbonsequestration.rst:33
 msgid ""
-"The years of intervention and region is then selected using the pre-existing"
-" national/sub-national boundaries, a coordinate or a custom uploaded "
-"dataset."
+"The years of intervention and region is then selected using the pre-"
+"existing national/sub-national boundaries, a coordinate or a custom "
+"uploaded dataset."
 msgstr "然后使用预先存在的国家/次国家边界、一个坐标或自定义上传的数据集来选择干预的年份和地区。"
 
 #: ../../source/for_users/features/carbonsequestration.rst:36
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
-msgstr ""
-"在Trends.Earth中提供的“自然地球行政边界”_在“公共领域”中。在Trends.Earth中使用的边界和名称以及使用的名称并不意味着保护国际基金会或其合作组织和贡献者的正式认可或接受。"
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
+"are in the `public domain`_. The boundaries and names used, and the "
+"designations used, in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors."
+msgstr "在Trends.Earth中提供的“自然地球行政边界”_在“公共领域”中。在Trends.Earth中使用的边界和名称以及使用的名称并不意味着保护国际基金会或其合作组织和贡献者的正式认可或接受。"
 
 #: ../../source/for_users/features/carbonsequestration.rst:42
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users"
+" choose an official boundary provided by the designated office of their "
 "country."
 msgstr "如果使用Trends.Earth作为官方用途，建议用户选择其国家指定办公室提供的官方边界。"
 
 #: ../../source/for_users/features/carbonsequestration.rst:50
 msgid ""
-"Trends.Earth gives the change in biomass under the 8 scenarios and a tabular"
-" output with the change in biomass compared to pre-restoration levels and "
-"final total biomass in tons CO2 equivalence."
-msgstr ""
-"Trends.Earth给出了8种情况下的生物量变化，并以表格形式输出了与恢复前水平相比的生物量变化和以吨二氧化碳当量为单位的最终总生物量。"
+"Trends.Earth gives the change in biomass under the 8 scenarios and a "
+"tabular output with the change in biomass compared to pre-restoration "
+"levels and final total biomass in tons CO2 equivalence."
+msgstr "Trends.Earth给出了8种情况下的生物量变化，并以表格形式输出了与恢复前水平相比的生物量变化和以吨二氧化碳当量为单位的最终总生物量。"
 
 #: ../../source/for_users/features/carbonsequestration.rst:59
 msgid "**Citations:**"
@@ -110,22 +112,22 @@ msgstr "**引文：**"
 
 #: ../../source/for_users/features/carbonsequestration.rst:61
 msgid ""
-"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
-"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. An "
-"integrated pan-tropical biomass map using multiple reference datasets. "
-"Global Change Biology, 22, pp. 1406–1420."
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, "
+"O. L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. "
+"An integrated pan-tropical biomass map using multiple reference datasets."
+" Global Change Biology, 22, pp. 1406–1420."
 msgstr ""
-"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
-"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. "
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, "
+"O. L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. "
 "等人，2016。使用多个参考数据集的综合泛热带生物量地图。Global Change Biology, 22, pp.1406-1420."
 
 #: ../../source/for_users/features/carbonsequestration.rst:63
 msgid ""
 "Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
 "Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
-"Gatti, R. et al., 2014. Comparative analysis and fusion for improved global "
-"biomass mapping.  Global Vegetation Monitoring and Modeling, 3 – 7 February "
-"2014, Avignon (France)."
+"Gatti, R. et al., 2014. Comparative analysis and fusion for improved "
+"global biomass mapping.  Global Vegetation Monitoring and Modeling, 3 – 7"
+" February 2014, Avignon (France)."
 msgstr ""
 "Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
 "Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
@@ -133,23 +135,23 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonsequestration.rst:65
 msgid ""
-"Bernal, B., Murray, L. T. & Pearson, T. R. H. Global carbon dioxide removal "
-"rates from forest landscape restoration activities. Carbon Balance and "
-"Management 13, 22 (2018)."
+"Bernal, B., Murray, L. T. & Pearson, T. R. H. Global carbon dioxide "
+"removal rates from forest landscape restoration activities. Carbon "
+"Balance and Management 13, 22 (2018)."
 msgstr ""
-"Bernal, B., Murray, L. T. & Pearson, T. R. H. 森林景观恢复活动的全球二氧化碳清除率。碳平衡与管理13, "
-"22 (2018)。"
+"Bernal, B., Murray, L. T. & Pearson, T. R. H. "
+"森林景观恢复活动的全球二氧化碳清除率。碳平衡与管理13, 22 (2018)。"
 
 #: ../../source/for_users/features/carbonsequestration.rst:67
 msgid ""
-"Bunting P, Rosenqvist A, Lucas RM, Rebelo L-M, Hilarides L, Thomas N, Hardy "
-"A, Itoh T, Shimada M, Finlayson CM. The Global Mangrove Watch—A New 2010 "
-"Global Baseline of Mangrove Extent. Remote Sensing. 2018; 10(10):1669. "
-"https://doi.org/10.3390/rs10101669"
+"Bunting P, Rosenqvist A, Lucas RM, Rebelo L-M, Hilarides L, Thomas N, "
+"Hardy A, Itoh T, Shimada M, Finlayson CM. The Global Mangrove Watch—A New"
+" 2010 Global Baseline of Mangrove Extent. Remote Sensing. 2018; "
+"10(10):1669. https://doi.org/10.3390/rs10101669"
 msgstr ""
-"Bunting P, Rosenqvist A, Lucas RM, Rebelo L-M, Hilarides L, Thomas N, Hardy "
-"A, Itoh T, Shimada M, Finlayson CM. 全球红树林观察-2010年全球红树林范围的新基线。Remote Sensing."
-" 2018; 10(10):1669. https://doi.org/10.3390/rs10101669"
+"Bunting P, Rosenqvist A, Lucas RM, Rebelo L-M, Hilarides L, Thomas N, "
+"Hardy A, Itoh T, Shimada M, Finlayson CM. 全球红树林观察-2010年全球红树林范围的新基线。Remote"
+" Sensing. 2018; 10(10):1669. https://doi.org/10.3390/rs10101669"
 
 #: ../../source/for_users/features/carbonsequestration.rst:69
 msgid ""
@@ -162,14 +164,14 @@ msgstr ""
 #: ../../source/for_users/features/carbonsequestration.rst:71
 msgid ""
 "Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
-"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
-"M. and Wegmüller, U., 2015. Forest growing stock volume of the northern "
-"hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
-" Remote Sensing of Environment, 168, pp. 316-334."
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., "
+"Thurner, M. and Wegmüller, U., 2015. Forest growing stock volume of the "
+"northern hemisphere: Spatially explicit estimates for 2010 derived from "
+"Envisat ASAR. Remote Sensing of Environment, 168, pp. 316-334."
 msgstr ""
 "Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
-"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
-"M. and Wegmüller, U., 2015。北半球的森林生长量。来自Envisat "
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., "
+"Thurner, M. and Wegmüller, U., 2015。北半球的森林生长量。来自Envisat "
 "ASAR的2010年空间明确估计。环境遥感，168，第316-334页。"
 
 #: ../../source/for_users/features/carbonsequestration.rst:73
@@ -181,14 +183,12 @@ msgstr ""
 "联合国气候变化框架公约》，第21届缔约方会议气候协议（UNFCCC，巴黎）2015。 参 "
 "unfccc.int/resource/docs/2015/cop21/eng/l09r01.pdf。"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "图标计算器"
+#~ msgid "iconCalculator"
+#~ msgstr "图标计算器"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "图标报告"
+#~ msgid "iconReports"
+#~ msgstr "图标报告"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

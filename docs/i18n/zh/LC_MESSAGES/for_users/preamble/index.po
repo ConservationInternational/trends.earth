@@ -1,26 +1,28 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-"
+"international/teams/80165/zh/)\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/preamble/index.rst:4
 msgid "Preamble"
@@ -28,30 +30,31 @@ msgstr "前言"
 
 #: ../../source/for_users/preamble/index.rst:5
 msgid ""
-"Trends.Earth is a platform to monitor land change using earth observations. "
-"It is now available as a browser-based tool in addition to the plugin to "
-"desktop QGIS spatial-analytical software."
-msgstr ""
-"Trends.Earth 是一个使用地球观测来监测土地变化的平台。除了桌面 QGIS 空间分析软件的插件外，它现在还可以作为基于浏览器的工具使用。"
+"Trends.Earth is a platform to monitor land change using earth "
+"observations. It is now available as a browser-based tool in addition to "
+"the plugin to desktop QGIS spatial-analytical software."
+msgstr "Trends.Earth 是一个使用地球观测来监测土地变化的平台。除了桌面 QGIS 空间分析软件的插件外，它现在还可以作为基于浏览器的工具使用。"
 
 #: ../../source/for_users/preamble/index.rst:9
 msgid ""
-"The tool allows users to assess time series of key indicators of land change"
-" to produce maps and other graphics that can support monitoring and "
-"reporting, and to track the impact of sustainable land management. The tool "
-"supports monitoring progress on land degradation neutrality (SDG 15.3.1), "
-"land consumption (SDG 11.3.1), modeling carbon emissions from deforestation,"
-" and modeling potential carbon sequestration from restoration activities. "
-"Trends.Earth supports monitoring and reporting on Sustainable Development "
-"Goals (SDGs) 15.3.1 (area of degraded land) and 11.3.1 (ration of land "
-"consumption rate to population growth) by providing a platform for analyzing"
-" data for reporting commitments to the United Nations Convention to Combat "
-"Desertification (UNCCD) and UN-Habitat."
+"The tool allows users to assess time series of key indicators of land "
+"change to produce maps and other graphics that can support monitoring and"
+" reporting, and to track the impact of sustainable land management. The "
+"tool supports monitoring progress on land degradation neutrality (SDG "
+"15.3.1), land consumption (SDG 11.3.1), modeling carbon emissions from "
+"deforestation, and modeling potential carbon sequestration from "
+"restoration activities. Trends.Earth supports monitoring and reporting on"
+" Sustainable Development Goals (SDGs) 15.3.1 (area of degraded land) and "
+"11.3.1 (ration of land consumption rate to population growth) by "
+"providing a platform for analyzing data for reporting commitments to the "
+"United Nations Convention to Combat Desertification (UNCCD) and UN-"
+"Habitat."
 msgstr ""
-"此工具允许用户评估土地变化关键指标的时间序列，以生成支持监测和报告的地图和其他图形，并跟踪可持续土地管理的影响。此工具支持监测土地退化中和 (SDG "
-"15.3.1)、土地消耗 (SDG 11.3.1) 方面的进展，模拟毁林产生的碳排放，还模拟恢复活动产生的潜在碳封存。为了向《联合国防治荒漠化公约》 "
-"(UNCCD) 和联合国人居署汇报工作，Trends.Earth 提供了一个数据分析平台，以支持对可持续发展目标 (SDG) "
-"15.3.1（退化土地面积）和 11.3.1（土地消耗率与人口增长的比率）的监测和报告。"
+"此工具允许用户评估土地变化关键指标的时间序列，以生成支持监测和报告的地图和其他图形，并跟踪可持续土地管理的影响。此工具支持监测土地退化中和 "
+"(SDG 15.3.1)、土地消耗 (SDG 11.3.1) "
+"方面的进展，模拟毁林产生的碳排放，还模拟恢复活动产生的潜在碳封存。为了向《联合国防治荒漠化公约》 (UNCCD) "
+"和联合国人居署汇报工作，Trends.Earth 提供了一个数据分析平台，以支持对可持续发展目标 (SDG) 15.3.1（退化土地面积）和 "
+"11.3.1（土地消耗率与人口增长的比率）的监测和报告。"
 
 #: ../../source/for_users/preamble/index.rst:18
 msgid ""
@@ -70,10 +73,9 @@ msgstr "**监控土地变化**"
 #: ../../source/for_users/preamble/index.rst:24
 msgid ""
 "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
-"platform from `Conservation International`_ for monitoring land change using"
-" earth observations in an innovative desktop and cloud-based system."
-msgstr ""
-"Trends.Earth（以前的土地退化监测工具箱）是“保护国际”_ 的一个平台，用于在创新的桌面和基于云的系统中，使用地球观测来监测土地变化。"
+"platform from `Conservation International`_ for monitoring land change "
+"using earth observations in an innovative desktop and cloud-based system."
+msgstr "Trends.Earth（以前的土地退化监测工具箱）是“保护国际”_ 的一个平台，用于在创新的桌面和基于云的系统中，使用地球观测来监测土地变化。"
 
 #: ../../source/for_users/preamble/index.rst:30
 msgid "**Track achievement of the sustainable development goals**"
@@ -84,25 +86,24 @@ msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
 "supported by |trends.earth|: productivity, land cover, and soil organic "
-"carbon.  The tool also supports countries in analyzing data to prepare for "
-"their reporting commitments to the United Nations Convention to Combat "
-"Desertification (UNCCD)."
+"carbon.  The tool also supports countries in analyzing data to prepare "
+"for their reporting commitments to the United Nations Convention to "
+"Combat Desertification (UNCCD)."
 msgstr ""
 "|trends.earth|支持监测实现土地退化零增长（LDN，可持续发展目标 SDG 目标 "
 "15.3）的三个子指标：生产力、土地覆盖和土壤有机碳。此工具还支持各国分析数据，以准备其对《联合国防治荒漠化公约》(UNCCD) 的汇报工作。"
 
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
 #: ../../source/for_users/preamble/index.rst:39
 msgid ""
 "Trends.Earth allows users to plot time series of key indicators of land "
-"change (including degradation and improvement), to produce maps and other "
-"graphics that can support monitoring and reporting, and to track the impact "
-"of sustainable land management or other projects."
-msgstr ""
-"Trends.Earth允许用户绘制土地变化（包括退化和改善）关键指标的时间序列，生成可支持监测和报告的地图和其他图形，并跟踪可持续土地管理或其他项目的影响。"
+"change (including degradation and improvement), to produce maps and other"
+" graphics that can support monitoring and reporting, and to track the "
+"impact of sustainable land management or other projects."
+msgstr "Trends.Earth允许用户绘制土地变化（包括退化和改善）关键指标的时间序列，生成可支持监测和报告的地图和其他图形，并跟踪可持续土地管理或其他项目的影响。"
 
 #: ../../source/for_users/preamble/index.rst:44
 msgid "**More information**"
@@ -110,17 +111,16 @@ msgstr "**更多信息**"
 
 #: ../../source/for_users/preamble/index.rst:46
 msgid ""
-"For more information about the toolbox, see the `General Information section"
-" <_general>` For toolbox users, see the `User Guide <_for_users>` For "
-"developers, see the `Developers Guide <_for_developers>`"
+"For more information about the toolbox, see the `General Information "
+"section <_general>` For toolbox users, see the `User Guide <_for_users>` "
+"For developers, see the `Developers Guide <_for_developers>`"
 msgstr ""
 "关于工具箱的更多信息，请参阅`一般信息部分 <_general>`。对于工具箱用户，请参阅`用户指南 "
 "<_for_users>`。对于开发人员，请参阅`开发人员指南 <_for_developers>`"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
+

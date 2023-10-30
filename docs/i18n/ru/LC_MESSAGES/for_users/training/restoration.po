@@ -1,26 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-"
+"international/teams/80165/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/restoration.rst:4
 msgid "Potential Carbon Sequestration under Restoration"
@@ -44,8 +48,8 @@ msgstr "** Доступ в интернет **: требуется"
 
 #: ../../source/for_users/training/restoration.rst:13
 msgid ""
-"Refer to the :ref:`background_restoration` for background information on the"
-" datasets and"
+"Refer to the :ref:`background_restoration` for background information on "
+"the datasets and"
 msgstr ""
 "Обращайтесь к :ref:`background_restoration` для получения информации о "
 "наборах данных и"
@@ -71,17 +75,17 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:27
 msgid ""
-"Select the **Estimate potential impacts of restoration** menu by selecting "
-"**Execute locally**."
+"Select the **Estimate potential impacts of restoration** menu by "
+"selecting **Execute locally**."
 msgstr ""
 "Выберите меню **Оценить потенциальное влияние восстановления**, выбрав "
 "**Осуществить локально**."
 
 #: ../../source/for_users/training/restoration.rst:32
 msgid ""
-"A window will appear where you can select the paramaters for the restoration"
-" analysis. Select the type of restoration: terrestrial or coastal "
-"(mangrove). Define the length of the intervention in year."
+"A window will appear where you can select the paramaters for the "
+"restoration analysis. Select the type of restoration: terrestrial or "
+"coastal (mangrove). Define the length of the intervention in year."
 msgstr ""
 "Появится окно, в котором вы можете выбрать параметры для анализа "
 "восстановления. Выберите тип восстановления: на суше или прибрежное "
@@ -89,27 +93,27 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:39
 msgid "Select **Change region** to define the area of interest."
-msgstr ""
-"Выбрать **Изменить регион**, чтобы определить интересующий вас регион."
+msgstr "Выбрать **Изменить регион**, чтобы определить интересующий вас регион."
 
 #: ../../source/for_users/training/restoration.rst:45
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
+"are in the `public domain`_. The boundaries and names used, and the "
+"designations used, in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors."
 msgstr ""
 "«Административные границы естественной земли», представленные в "
-"Trends.Earth, находятся в «общественном достоянии». Используемые границы и "
-"названия, а также обозначения, используемые в Trends.Earth, не подразумевают"
-" официального одобрения или принятия со стороны Международного фонда "
-"сохранения или его партнерских организаций и участников."
+"Trends.Earth, находятся в «общественном достоянии». Используемые границы "
+"и названия, а также обозначения, используемые в Trends.Earth, не "
+"подразумевают официального одобрения или принятия со стороны "
+"Международного фонда сохранения или его партнерских организаций и "
+"участников."
 
 #: ../../source/for_users/training/restoration.rst:51
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users"
+" choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
 "Если вы используете Trends.Earth для официальных целей, пользователям "
@@ -118,14 +122,15 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:59
 msgid ""
-"Use your own area file: If you want to use your own area of analysis, make "
-"sure the **Area from file** option is highlighted. Then click **Browse** and"
-" navigate to the folder in your computer where you have the file stored."
+"Use your own area file: If you want to use your own area of analysis, "
+"make sure the **Area from file** option is highlighted. Then click "
+"**Browse** and navigate to the folder in your computer where you have the"
+" file stored."
 msgstr ""
-"Используйте свой собственный файл области: если вы хотите использовать свою "
-"собственную область анализа, убедитесь, что опция ** Область из файла ** "
-"выделена. Затем нажмите ** Обзор ** и перейдите к папке на вашем компьютере,"
-" где хранится файл."
+"Используйте свой собственный файл области: если вы хотите использовать "
+"свою собственную область анализа, убедитесь, что опция ** Область из "
+"файла ** выделена. Затем нажмите ** Обзор ** и перейдите к папке на вашем"
+" компьютере, где хранится файл."
 
 #: ../../source/for_users/training/restoration.rst:61
 msgid "Add a descriptive name and notes for the analysis"
@@ -138,14 +143,14 @@ msgstr "Выбрать **Запланировать удаленное выпо�
 #: ../../source/for_users/training/restoration.rst:68
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
-"successfully submitted. The analysis will be run in Google servers and could"
-" take between 5 and 15 minutes depending on the size of the study area "
-"(larger areas tend to take longer)."
+"successfully submitted. The analysis will be run in Google servers and "
+"could take between 5 and 15 minutes depending on the size of the study "
+"area (larger areas tend to take longer)."
 msgstr ""
-"Временно отобразится голубая полоса, указывающая, что задание было успешно "
-"отправлено. Анализ будет выполняться на серверах Google и может занять от 5 "
-"до 15 минут в зависимости от размера исследуемой области (большие области, "
-"как правило, занимают больше времени)."
+"Временно отобразится голубая полоса, указывающая, что задание было "
+"успешно отправлено. Анализ будет выполняться на серверах Google и может "
+"занять от 5 до 15 минут в зависимости от размера исследуемой области "
+"(большие области, как правило, занимают больше времени)."
 
 #: ../../source/for_users/training/restoration.rst:71
 msgid "Table summarizing likely changes in biomass"
@@ -156,39 +161,42 @@ msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
 msgstr ""
-"Перейдите в закладку **Наборы данных** к **Добавить уровни по умолчанию из "
-"этого набора данных на карте**."
+"Перейдите в закладку **Наборы данных** к **Добавить уровни по умолчанию "
+"из этого набора данных на карте**."
 
 #: ../../source/for_users/training/restoration.rst:78
 msgid ""
-"In order to view the defined area of interest with reference data, select "
-"the **Load Base Map** in the **Datasets** tab."
+"In order to view the defined area of interest with reference data, select"
+" the **Load Base Map** in the **Datasets** tab."
 msgstr ""
-"Чтобы увидеть определенный интересующий вас регион со справочными данными, "
-"выберите **Загрузить основную карту** в закладке **Наборы данных**."
+"Чтобы увидеть определенный интересующий вас регион со справочными "
+"данными, выберите **Загрузить основную карту** в закладке **Наборы "
+"данных**."
 
 #: ../../source/for_users/training/restoration.rst:86
 msgid ""
-"Go back to the **Algorithms** tab in Trends.Earth plugin in QGIS, under the "
-"**Experimental** menu, select **Potential change in biomass due to "
-"restoration - Above and below ground woody** menu and select the **Execute "
-"locally** button under **Table summarizing likely changes in biomass**."
+"Go back to the **Algorithms** tab in Trends.Earth plugin in QGIS, under "
+"the **Experimental** menu, select **Potential change in biomass due to "
+"restoration - Above and below ground woody** menu and select the "
+"**Execute locally** button under **Table summarizing likely changes in "
+"biomass**."
 msgstr ""
-"Перейдите обратно в закладку **Алгоритмы** в плагине Trends.Earth в QGIS, в "
-"меню **Экспериментальное**, выберите меню **Потенциальное изменение биомассы"
-" в результате восстановления - над и под древесной массой на поверхности "
-"земли** и выберите кнопку **Осуществить локально** в **Таблице с "
-"подведенными итогами по возможным изменениям биомассы**."
+"Перейдите обратно в закладку **Алгоритмы** в плагине Trends.Earth в QGIS,"
+" в меню **Экспериментальное**, выберите меню **Потенциальное изменение "
+"биомассы в результате восстановления - над и под древесной массой на "
+"поверхности земли** и выберите кнопку **Осуществить локально** в "
+"**Таблице с подведенными итогами по возможным изменениям биомассы**."
 
 #: ../../source/for_users/training/restoration.rst:94
 msgid ""
-"The layers will pre-populate in the data layer drop-down lists. Confirm the "
-"region is the same area of interest, provide descriptive names and notes and"
-" select **Execute locally**."
+"The layers will pre-populate in the data layer drop-down lists. Confirm "
+"the region is the same area of interest, provide descriptive names and "
+"notes and select **Execute locally**."
 msgstr ""
 "Уровни будут заполнены автоматически в уровне данных в раскрывающихся "
-"списках. Подтвердите, что это тот же самый интересующий вас регион, добавьте"
-" описательное название и примечания и выберите **Осуществить локально**."
+"списках. Подтвердите, что это тот же самый интересующий вас регион, "
+"добавьте описательное название и примечания и выберите **Осуществить "
+"локально**."
 
 #: ../../source/for_users/training/restoration.rst:94
 msgid ""
@@ -196,18 +204,16 @@ msgid ""
 "**trends_earth_data*** folder under your user account on your computer "
 "(e.g., C:\\Users\\mnoon\\trends_earth_data)."
 msgstr ""
-"Электронная таблица, сравнивающая окончательные результаты, сохраняется в "
-"вашей папке **trends_earth_data*** в вашем аккаунте пользователя на вашем "
-"компьютере (например, C:\\Users\\mnoon\\trends_earth_data)."
+"Электронная таблица, сравнивающая окончательные результаты, сохраняется в"
+" вашей папке **trends_earth_data*** в вашем аккаунте пользователя на "
+"вашем компьютере (например, C:\\Users\\mnoon\\trends_earth_data)."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

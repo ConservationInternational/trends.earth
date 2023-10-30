@@ -1,26 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-"
+"international/teams/80165/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/datasets/output_data.rst:4
 msgid "Output datasets from Trends.Earth"
@@ -28,43 +32,43 @@ msgstr "Выходные наборы данных из Trends.Earth"
 
 #: ../../source/for_users/datasets/output_data.rst:6
 msgid ""
-"The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
-"widely supported format, so these datasets can be used within QGIS as well "
-"as within any other GIS software."
+"The spatial data produced by |trends.earth| is in GeoTiff format. This is"
+" a widely supported format, so these datasets can be used within QGIS as "
+"well as within any other GIS software."
 msgstr ""
-"Пространственные данные созданы |trends.earth| в формате GeoTiff. Это широко"
-" поддерживаемый формат, поэтому эти наборы данных можно использовать как в "
-"QGIS, так и в любом другом программном обеспечении GIS "
+"Пространственные данные созданы |trends.earth| в формате GeoTiff. Это "
+"широко поддерживаемый формат, поэтому эти наборы данных можно "
+"использовать как в QGIS, так и в любом другом программном обеспечении GIS"
+" "
 
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
 #: ../../source/for_users/datasets/output_data.rst:10
 msgid ""
-"If you wish to use |trends.earth| data outside of the tool itself, you will "
-"need to know how the data is coded. The tables below provide guidance on "
-"what the exact layers are that are produced by each analysis in "
-"|trends.earth|."
+"If you wish to use |trends.earth| data outside of the tool itself, you "
+"will need to know how the data is coded. The tables below provide "
+"guidance on what the exact layers are that are produced by each analysis "
+"in |trends.earth|."
 msgstr ""
 "Если вы хотите использовать данные|trends.earth| за пределами самого "
-"инструмента, вам необходимо знать, как данные закодированы. В приведенных "
-"ниже таблицах представлены рекомендации о том, какие именно слои создаются "
-"каждым анализом в |trends.earth|."
+"инструмента, вам необходимо знать, как данные закодированы. В приведенных"
+" ниже таблицах представлены рекомендации о том, какие именно слои "
+"создаются каждым анализом в |trends.earth|."
 
 #: ../../source/for_users/datasets/output_data.rst:14
 msgid ""
-"To see which of the below layers is contained within a |trends.earth| output"
-" file, use the `load data <../documentation/load_data.html>`_ tool. When you"
-" choose a file with that tool, it will show you a list of the layers within "
-"that file, as well as the band number for each layer."
+"To see which of the below layers is contained within a |trends.earth| "
+"output file, use the `load data <../documentation/load_data.html>`_ tool."
+" When you choose a file with that tool, it will show you a list of the "
+"layers within that file, as well as the band number for each layer."
 msgstr ""
 "Чтобы увидеть, какой из приведенных ниже слоев содержится в выходном "
 "файле|trends.earth|, используйте инструмент `load data "
-"<../documentation/load_data.html>`_. Когда вы выбираете файл с помощью этого"
-" инструмента, он покажет вам список слоев в этом файле, а также номер уровня"
-" для каждого слоя."
+"<../documentation/load_data.html>`_. Когда вы выбираете файл с помощью "
+"этого инструмента, он покажет вам список слоев в этом файле, а также "
+"номер уровня для каждого слоя."
 
 #: ../../source/for_users/datasets/output_data.rst:20
 msgid "Land degradation (SDG 15.3.1)"
@@ -318,11 +322,15 @@ msgstr "Показатели производительности (коэффи�
 
 #: ../../source/for_users/datasets/output_data.rst:97
 msgid ""
-"Ratio of mean NDVI and maximum productivity. See background on `performance "
-"<../background/understanding_indicators15.html#productivity-performance>`_."
+"Ratio of mean NDVI and maximum productivity. See background on "
+"`performance <../background/understanding_indicators15.html#productivity-"
+"performance>`_."
 msgstr ""
-"Соотношение среднего Нормализованного Относительного Индекса Растительности и максимальной продуктивности. См. справочную информацию о производительности\n"
-"<../background/understanding_indicators15.html#productivity-performance>`_."
+"Соотношение среднего Нормализованного Относительного Индекса "
+"Растительности и максимальной продуктивности. См. справочную информацию о"
+" производительности\n"
+"<../background/understanding_indicators15.html#productivity-"
+"performance>`_."
 
 #: ../../source/for_users/datasets/output_data.rst:102
 msgid "Productivity performance (units)"
@@ -336,7 +344,8 @@ msgid ""
 msgstr ""
 "Идентификационный номер устройства, используемый для расчета "
 "производительности. См. справочную информацию о производительности "
-"<../background/understanding_indicators15.html#productivity-performance>`_."
+"<../background/understanding_indicators15.html#productivity-"
+"performance>`_."
 
 #: ../../source/for_users/datasets/output_data.rst:114
 msgid "Productivity state (degradation)"
@@ -345,9 +354,9 @@ msgstr "Состояние производительности (деграда�
 #: ../../source/for_users/datasets/output_data.rst:121
 msgid ""
 "Change in productivity state classes between baseline and target period, "
-"calculated as the rank in the target period minus the rank in the baseline "
-"period. Positive values indicate improvement, negative values indicate "
-"decline."
+"calculated as the rank in the target period minus the rank in the "
+"baseline period. Positive values indicate improvement, negative values "
+"indicate decline."
 msgstr ""
 "Изменение классов состояния производительности между базовым и целевым "
 "периодами, рассчитанное как рейтинг в целевом периоде минус рейтинг в "
@@ -361,7 +370,8 @@ msgstr "Классы состояния производительности"
 #: ../../source/for_users/datasets/output_data.rst:135
 msgid ""
 "Percentile class for productivity state. See background on `productivity "
-"state <../background/understanding_indicators15.html#productivity-state>`_."
+"state <../background/understanding_indicators15.html#productivity-"
+"state>`_."
 msgstr ""
 "Процентильный класс для состояния производительности. См. справочную "
 "информацию о `состоянии производительности "
@@ -370,14 +380,15 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:140
 msgid "Productivity state NDVI mean"
 msgstr ""
-"Состояние продуктивности, среднее значение Нормализованного Относительного "
-"Индекса Растительности "
+"Состояние продуктивности, среднее значение Нормализованного "
+"Относительного Индекса Растительности "
 
 #: ../../source/for_users/datasets/output_data.rst:147
 msgid ""
 "Mean annually integrated NDVI for the baseline period chosen for "
-"productivity state, scaled by 10,000. See background on `productivity state "
-"<../background/understanding_indicators15.html#productivity-state>`_."
+"productivity state, scaled by 10,000. See background on `productivity "
+"state <../background/understanding_indicators15.html#productivity-"
+"state>`_."
 msgstr ""
 "Среднегодовой интегрированный Нормализованный Относительный Индекс "
 "Растительности  за базовый период, выбранный для состояния "
@@ -536,8 +547,8 @@ msgstr "30"
 
 #: ../../source/for_users/datasets/output_data.rst:247
 msgid ""
-"Mosaic cropland (>50%) / natural vegetation (tree, shrub, "
-"herbaceous cover) (<50%)"
+"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous "
+"cover) (<50%)"
 msgstr ""
 "Фотоснимок пахотные земли (>50%) / естественная растительность (дерево, "
 "кустарник, травянистый покров) (<50%)"
@@ -548,8 +559,8 @@ msgstr "40"
 
 #: ../../source/for_users/datasets/output_data.rst:250
 msgid ""
-"Mosaic natural vegetation (tree, shrub, herbaceous cover) "
-"(>50%) / cropland (<50%)"
+"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / "
+"cropland (<50%)"
 msgstr ""
 "Фотоснимок естественная растительность (дерево, кустарник, травянистый "
 "покров) (>50%) / пахотные земли(<50%)"
@@ -571,7 +582,8 @@ msgstr "60"
 #: ../../source/for_users/datasets/output_data.rst:255
 msgid "Tree cover, broadleaved, deciduous, closed to open (>15%)"
 msgstr ""
-"Древесный покров, широколиственный, лиственный, закрытый или открытый (>15%)"
+"Древесный покров, широколиственный, лиственный, закрытый или открытый "
+"(>15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:257
 #: ../../source/for_users/datasets/output_data.rst:398
@@ -597,8 +609,7 @@ msgstr "70"
 
 #: ../../source/for_users/datasets/output_data.rst:261
 msgid "Tree cover, needleleaved, evergreen, closed to open (>15%)"
-msgstr ""
-"Древесный покров, игольчатый, вечнозеленый, закрытый или открытый (>15%)"
+msgstr "Древесный покров, игольчатый, вечнозеленый, закрытый или открытый (>15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:263
 #: ../../source/for_users/datasets/output_data.rst:410
@@ -664,8 +675,7 @@ msgstr "110"
 
 #: ../../source/for_users/datasets/output_data.rst:277
 msgid "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
-msgstr ""
-"Фотоснимок травяной покров (>50%) / древесно-кустарниковый покров (<50%)"
+msgstr "Фотоснимок травяной покров (>50%) / древесно-кустарниковый покров (<50%)"
 
 #: ../../source/for_users/datasets/output_data.rst:279
 msgid "120"
@@ -713,8 +723,7 @@ msgstr "150"
 
 #: ../../source/for_users/datasets/output_data.rst:289
 msgid "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
-msgstr ""
-"Разреженная растительность (дерево, кустарник, травянистый покров) (<15%)"
+msgstr "Разреженная растительность (дерево, кустарник, травянистый покров) (<15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:291
 msgid "151"
@@ -1174,19 +1183,19 @@ msgstr "Органический углерод почвы (деградация
 #: ../../source/for_users/datasets/output_data.rst:434
 msgid ""
 "Percentage change in soil organic carbon content (0 - 30 cm depth) from "
-"baseline to target year. Positive values indicate increase, negative values "
-"indicate decrease."
+"baseline to target year. Positive values indicate increase, negative "
+"values indicate decrease."
 msgstr ""
-"Процентное изменение содержания органического углерода в почве (на глубине "
-"0–30 см) от исходного уровня к целевому году. Положительные значения "
-"указывают на увеличение, отрицательные значения указывают на уменьшение."
+"Процентное изменение содержания органического углерода в почве (на "
+"глубине 0–30 см) от исходного уровня к целевому году. Положительные "
+"значения указывают на увеличение, отрицательные значения указывают на "
+"уменьшение."
 
 #: ../../source/for_users/datasets/output_data.rst:447
-msgid ""
-"Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
+msgid "Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
 msgstr ""
-"Содержание органического углерода в почве (глубина 0–30 см) в метрических "
-"тоннах на гектар"
+"Содержание органического углерода в почве (глубина 0–30 см) в метрических"
+" тоннах на гектар"
 
 #: ../../source/for_users/datasets/output_data.rst:452
 msgid "Drought hazard, vulnerability, and exposure"
@@ -1206,32 +1215,35 @@ msgstr "Население при максимальной засухе"
 
 #: ../../source/for_users/datasets/output_data.rst:470
 msgid ""
-"As an indicator of population exposure to drought, Trends.Earth's drought "
-"tools produce a layer assessing total population (or male or female "
-"population, depending on the selections made by the user) at time of maximum"
-" drought. For the purpose of these analyses, drought is defined as an SPI "
-"less than -1.0 (a lag 12 SPI is the default used in the tool)."
+"As an indicator of population exposure to drought, Trends.Earth's drought"
+" tools produce a layer assessing total population (or male or female "
+"population, depending on the selections made by the user) at time of "
+"maximum drought. For the purpose of these analyses, drought is defined as"
+" an SPI less than -1.0 (a lag 12 SPI is the default used in the tool)."
 msgstr ""
-"В качестве индикатора воздействия засухи на население Trends.Earth создает "
-"слой, оценивающий общую численность населения (или мужское или женское "
-"население, в зависимости от выбора, сделанного пользователем) во время "
-"максимальной засухи. Для целей этих анализов засуха определяется как СИО "
-"менее -1,0 (по умолчанию в инструменте используется СИО с отставанием 12)."
+"В качестве индикатора воздействия засухи на население Trends.Earth "
+"создает слой, оценивающий общую численность населения (или мужское или "
+"женское население, в зависимости от выбора, сделанного пользователем) во "
+"время максимальной засухи. Для целей этих анализов засуха определяется "
+"как СИО менее -1,0 (по умолчанию в инструменте используется СИО с "
+"отставанием 12)."
 
 #: ../../source/for_users/datasets/output_data.rst:481
 msgid "Any negative value"
 msgstr "Любое отрицательное значение"
 
 #: ../../source/for_users/datasets/output_data.rst:481
+#, fuzzy
 msgid ""
-"A positive value indicates a pixel **was** exposed to drought (defined as "
-"SPI < -1) during a particular (typically four- year) period. The pixel value"
-" indicates the population of the pixel at the time of maximum drought."
+"A negative value indicates a pixel **was** exposed to drought (defined as"
+" SPI < -1) during a particular (typically four- year) period. The pixel "
+"value indicates the population of the pixel at the time of maximum "
+"drought."
 msgstr ""
-"Положительное значение указывает на то, что пиксель **был** подвержен засухе"
-" (определяемой как СИО < -1) в течение определенного (обычно четырехлетнего)"
-" периода. Значение пикселя указывает численность пикселя во время "
-"максимальной засухи."
+"Положительное значение указывает на то, что пиксель **был** подвержен "
+"засухе (определяемой как СИО < -1) в течение определенного (обычно "
+"четырехлетнего) периода. Значение пикселя указывает численность пикселя "
+"во время максимальной засухи."
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid "Any positive value"
@@ -1239,13 +1251,13 @@ msgstr "Любое положительное значение"
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid ""
-"A positive value indicates a pixel **was not** exposed to drought during a "
-"particular (typically four-year) period. The pixel value indicates the "
+"A positive value indicates a pixel **was not** exposed to drought during "
+"a particular (typically four-year) period. The pixel value indicates the "
 "maximum population of the pixel during the period."
 msgstr ""
-"Положительное значение означает, что пиксель **не был** подвержен засухе в "
-"течение определенного (обычно четырехлетнего) периода. Значение пикселя "
-"указывает максимальное заполнение пикселя в течение периода."
+"Положительное значение означает, что пиксель **не был** подвержен засухе "
+"в течение определенного (обычно четырехлетнего) периода. Значение пикселя"
+" указывает максимальное заполнение пикселя в течение периода."
 
 #: ../../source/for_users/datasets/output_data.rst:494
 msgid "Sustainable urbanization (SDG 11.3.1)"
@@ -1339,24 +1351,23 @@ msgstr "Население (всего, мужчины или женщины)"
 
 #: ../../source/for_users/datasets/output_data.rst:560
 msgid ""
-"This output draws on data from the `WorldPop <https://www.worldpop.org>`_ "
-"project. Depending on the tool used in Trends.Earth, population outputs can "
-"be: total population (male and female), total male population, or total "
-"female population. The pixels values in each all are coded the same way, and"
-" refer to actual population counts per grid cell."
+"This output draws on data from the `WorldPop <https://www.worldpop.org>`_"
+" project. Depending on the tool used in Trends.Earth, population outputs "
+"can be: total population (male and female), total male population, or "
+"total female population. The pixels values in each all are coded the same"
+" way, and refer to actual population counts per grid cell."
 msgstr ""
 "Эти выходные данные основаны на данных проекта `WorldPop "
-"<https://www.worldpop.org>`_. В зависимости от инструмента, используемого в "
-"Trends.Earth, выходными данными о населении могут быть: общая численность "
-"населения (мужчины и женщины), общая численность мужского населения или "
-"общая численность женского населения. Значения пикселей во всех значениях "
-"кодируются одинаково и относятся к фактическому количеству населения в "
-"ячейке сетки."
+"<https://www.worldpop.org>`_. В зависимости от инструмента, используемого"
+" в Trends.Earth, выходными данными о населении могут быть: общая "
+"численность населения (мужчины и женщины), общая численность мужского "
+"населения или общая численность женского населения. Значения пикселей во "
+"всех значениях кодируются одинаково и относятся к фактическому количеству"
+" населения в ячейке сетки."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
+

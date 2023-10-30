@@ -1,26 +1,28 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-"
+"international/teams/80165/zh/)\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/features/carbonemissions.rst:4
 msgid "Carbon emissions from deforestation"
@@ -32,17 +34,16 @@ msgstr "背景"
 
 #: ../../source/for_users/features/carbonemissions.rst:9
 msgid ""
-"Global forests store carbon, which can be released as carbon dioxide back "
-"into the atmosphere from degradation or deforestation, driving climate "
+"Global forests store carbon, which can be released as carbon dioxide back"
+" into the atmosphere from degradation or deforestation, driving climate "
 "change. Between 2001-2020, global forests lost 10% area coverage, or 411 "
-"million hectares, releasing 165 Gt of carbon dioxide emissions (UMD & WRI, "
-"2022). There is an increasing trend where high losses on tropical primary "
-"forests are shifting areas, like the Amazon rainforest, from a carbon sink "
-"to a carbon source (Bacchini et al., 2017). Drivers of this loss are "
-"attributed to wildfires, shifting agriculture, forestry, urbanization and "
-"commodity driven deforestation (Curtis et al., 2019)."
-msgstr ""
-"全球森林储存着碳，由于退化或砍伐森林，这些碳可以作为二氧化碳释放回大气层，从而推动气候变化。2001-2020年期间，全球森林的覆盖面积减少了10%，即4.11亿公顷，释放了165Gt的二氧化碳排放量（UMD和WRI，2022）。一个日益增长的趋势，是热带原始森林的急剧损失正在使一些地区，如亚马逊雨林，从碳汇变为碳源（Bacchini等人，2017）。这种损失的驱动力归因于野火、农业转移、林业、城市化和大宗商品驱动的森林砍伐（Curtiset等人，2019）。"
+"million hectares, releasing 165 Gt of carbon dioxide emissions (UMD & "
+"WRI, 2022). There is an increasing trend where high losses on tropical "
+"primary forests are shifting areas, like the Amazon rainforest, from a "
+"carbon sink to a carbon source (Bacchini et al., 2017). Drivers of this "
+"loss are attributed to wildfires, shifting agriculture, forestry, "
+"urbanization and commodity driven deforestation (Curtis et al., 2019)."
+msgstr "全球森林储存着碳，由于退化或砍伐森林，这些碳可以作为二氧化碳释放回大气层，从而推动气候变化。2001-2020年期间，全球森林的覆盖面积减少了10%，即4.11亿公顷，释放了165Gt的二氧化碳排放量（UMD和WRI，2022）。一个日益增长的趋势，是热带原始森林的急剧损失正在使一些地区，如亚马逊雨林，从碳汇变为碳源（Bacchini等人，2017）。这种损失的驱动力归因于野火、农业转移、林业、城市化和大宗商品驱动的森林砍伐（Curtiset等人，2019）。"
 
 #: ../../source/for_users/features/carbonemissions.rst:15
 msgid "Rationale for Monitoring"
@@ -50,8 +51,8 @@ msgstr "监测的理由"
 
 #: ../../source/for_users/features/carbonemissions.rst:17
 msgid ""
-"Monitoring deforestation is the first step to understand the cause of tree "
-"cover loss and to plan interventions for preventing it."
+"Monitoring deforestation is the first step to understand the cause of "
+"tree cover loss and to plan interventions for preventing it."
 msgstr "监测森林砍伐情况是了解树木覆盖面损失的原因和规划预防森林砍伐的干预措施的第一个步骤。"
 
 #: ../../source/for_users/features/carbonemissions.rst:20
@@ -67,28 +68,27 @@ msgstr "指标和数据需求"
 #: ../../source/for_users/features/carbonemissions.rst:25
 msgid ""
 "Trends.Earth allows the user to analyze the area of forest cover, carbon "
-"stored in forests, forest loss and estimated emissions from deforestation "
-"within an area of interest in terrestrial forests anywhere on Earth. The "
-"user is first prompted to select the years for monitoring their specified "
-"area for the analysis. In order to define the baseline forest area, they "
-"will assign a threshold to define forests."
-msgstr ""
-"Trends.Earth允许用户分析地球上任何地方的陆地森林的森林覆盖面积、森林碳储量、森林损失和毁林的估计排放量。首先会提示用户选择监测其指定区域的年份进行分析。为了定义基线森林面积，将指定一个阈值来定义森林。"
+"stored in forests, forest loss and estimated emissions from deforestation"
+" within an area of interest in terrestrial forests anywhere on Earth. The"
+" user is first prompted to select the years for monitoring their "
+"specified area for the analysis. In order to define the baseline forest "
+"area, they will assign a threshold to define forests."
+msgstr "Trends.Earth允许用户分析地球上任何地方的陆地森林的森林覆盖面积、森林碳储量、森林损失和毁林的估计排放量。首先会提示用户选择监测其指定区域的年份进行分析。为了定义基线森林面积，将指定一个阈值来定义森林。"
 
 #: ../../source/for_users/features/carbonemissions.rst:33
 msgid ""
-"The definition of canopy cover should be changed to accommodate the specific"
-" area of interest."
+"The definition of canopy cover should be changed to accommodate the "
+"specific area of interest."
 msgstr "树冠覆盖的定义应该改变，以适应特定的关注领域。"
 
 #: ../../source/for_users/features/carbonemissions.rst:32
 msgid ""
-"The dataset maps global tree cover based on percent canopy cover in the year"
-" 2000. Many studies cite 25% - 30% threshold to define forest, however this "
-"definition can change for arid regions. For more information, please see the"
-" publication: `Quantification of global gross forest cover`_ \""
-msgstr ""
-"该数据集根据2000年的树冠覆盖率绘制全球树木覆盖图。许多研究引用25%到30%这一阈值来定义森林，然而这一定义在干旱地区会发生变化。更多信息，请参见出版物：\"全球总森林覆盖率的量化\"_\""
+"The dataset maps global tree cover based on percent canopy cover in the "
+"year 2000. Many studies cite 25% - 30% threshold to define forest, "
+"however this definition can change for arid regions. For more "
+"information, please see the publication: `Quantification of global gross "
+"forest cover`_ \""
+msgstr "该数据集根据2000年的树冠覆盖率绘制全球树木覆盖图。许多研究引用25%到30%这一阈值来定义森林，然而这一定义在干旱地区会发生变化。更多信息，请参见出版物：\"全球总森林覆盖率的量化\"_\""
 
 #: ../../source/for_users/features/carbonemissions.rst:38
 msgid ""
@@ -98,18 +98,17 @@ msgstr "然后使用预先存在的国家/次国家边界、一个坐标或自�
 
 #: ../../source/for_users/features/carbonemissions.rst:41
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
-msgstr ""
-"在Trends.Earth中提供的“自然地球行政边界”_在“公共领域”中。在Trends.Earth中使用的边界和名称以及使用的名称并不意味着保护国际基金会或其合作组织和贡献者的正式认可或接受。"
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
+"are in the `public domain`_. The boundaries and names used, and the "
+"designations used, in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors."
+msgstr "在Trends.Earth中提供的“自然地球行政边界”_在“公共领域”中。在Trends.Earth中使用的边界和名称以及使用的名称并不意味着保护国际基金会或其合作组织和贡献者的正式认可或接受。"
 
 #: ../../source/for_users/features/carbonemissions.rst:47
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users"
+" choose an official boundary provided by the designated office of their "
 "country."
 msgstr "如果使用Trends.Earth作为官方用途，建议用户选择其国家指定办公室提供的官方边界。"
 
@@ -126,14 +125,13 @@ msgstr "下表列出了Trends.Earth中可用的生物量数据集。"
 
 #: ../../source/for_users/features/carbonemissions.rst:66
 msgid ""
-"The results provide annual breakdowns of forest cover, forest loss, carbon "
-"(tC) stored and carbon emissions (tCO2) for the region, summarizing the "
-"baseline and final year land cover, forest area loss, carbon loss and carbon"
-" emissions over the entire period. There are two spatial outputs from the "
-"analysis. The first is the dataset visualizing the estimated change in "
-"biomass:"
-msgstr ""
-"结果提供了该地区森林覆盖率、森林损失、碳（tC）储存和碳排放（tCO2）的年度细分，总结了整个时期的基线和最后一年的土地覆盖、森林面积损失、碳损失和碳排放。该分析有两个空间输出。第一个是可视化的数据集，估计生物量的变化："
+"The results provide annual breakdowns of forest cover, forest loss, "
+"carbon (tC) stored and carbon emissions (tCO2) for the region, "
+"summarizing the baseline and final year land cover, forest area loss, "
+"carbon loss and carbon emissions over the entire period. There are two "
+"spatial outputs from the analysis. The first is the dataset visualizing "
+"the estimated change in biomass:"
+msgstr "结果提供了该地区森林覆盖率、森林损失、碳（tC）储存和碳排放（tCO2）的年度细分，总结了整个时期的基线和最后一年的土地覆盖、森林面积损失、碳损失和碳排放。该分析有两个空间输出。第一个是可视化的数据集，估计生物量的变化："
 
 #: ../../source/for_users/features/carbonemissions.rst:73
 msgid "The second is the forest loss layer for the region:"
@@ -145,74 +143,76 @@ msgstr "**引文：**"
 
 #: ../../source/for_users/features/carbonemissions.rst:80
 msgid ""
-"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
-"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. An "
-"integrated pan-tropical biomass map using multiple reference datasets. "
-"Global Change Biology, 22, pp. 1406–1420."
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, "
+"O. L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. "
+"An integrated pan-tropical biomass map using multiple reference datasets."
+" Global Change Biology, 22, pp. 1406–1420."
 msgstr ""
-"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
-"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. "
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, "
+"O. L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. "
 "等人，2016。使用多个参考数据集的综合泛热带生物量地图。Global Change Biology, 22, pp.1406-1420."
 
 #: ../../source/for_users/features/carbonemissions.rst:81
 msgid ""
 "Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
 "Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
-"Gatti, R. et al., 2014. Comparative analysis and fusion for improved global "
-"biomass mapping.  Global Vegetation Monitoring and Modeling,  3 – 7 February"
-" 2014, Avignon (France)."
+"Gatti, R. et al., 2014. Comparative analysis and fusion for improved "
+"global biomass mapping.  Global Vegetation Monitoring and Modeling,  3 – "
+"7 February 2014, Avignon (France)."
 msgstr ""
 "Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
 "Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
-"Gatti, R. 等人 ，2014。用于改进全球生物量绘图的比较分析和融合。 全球植被监测和建模，2014年2月3-7日，Avignon（法国）。"
+"Gatti, R. 等人 ，2014。用于改进全球生物量绘图的比较分析和融合。 "
+"全球植被监测和建模，2014年2月3-7日，Avignon（法国）。"
 
 #: ../../source/for_users/features/carbonemissions.rst:82
 msgid ""
-"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. A. "
-"Houghton, 2017. \"Tropical forests are a net carbon source based on "
+"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. "
+"A. Houghton, 2017. \"Tropical forests are a net carbon source based on "
 "aboveground measurements of gain and loss.\" 358 (6360): 230-234. "
 "https://www.science.org/doi/10.1126/science.aam5962"
 msgstr ""
-"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe 和 R. A. Houghton, 2017. \"基于地上测量的增益和损失，热带森林是一个净碳源。\" 358 (6360): 230-234. \n"
+"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe 和 R. A. "
+"Houghton, 2017. \"基于地上测量的增益和损失，热带森林是一个净碳源。\" 358 (6360): 230-234. \n"
 "https://www.science.org/doi/10.1126/science.aam5962"
 
 #: ../../source/for_users/features/carbonemissions.rst:83
 msgid ""
 "Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
-"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and R."
-" A. Houghton. Estimated carbon dioxide emissions from tropical deforestation"
-" improved by carbon-density maps. 2012 Nature Climate Change, "
-"https://doi.org/10.1038/NCLIMATE1354"
+"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and"
+" R. A. Houghton. Estimated carbon dioxide emissions from tropical "
+"deforestation improved by carbon-density maps. 2012 Nature Climate "
+"Change, https://doi.org/10.1038/NCLIMATE1354"
 msgstr ""
 "Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
-"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta和R. A. "
-"Houghton。通过碳密度图改进热带森林砍伐的二氧化碳排放估计。2012年《自然-"
-"气候变化》，https://doi.org/10.1038/NCLIMATE1354"
+"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta和R. "
+"A. "
+"Houghton。通过碳密度图改进热带森林砍伐的二氧化碳排放估计。2012年《自然-气候变化》，https://doi.org/10.1038/NCLIMATE1354"
 
 #: ../../source/for_users/features/carbonemissions.rst:84
 msgid ""
-"Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. 2019. "
-"“Classifying Drivers of Global Forest Loss.” Science."
+"Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. "
+"2019. “Classifying Drivers of Global Forest Loss.” Science."
 msgstr ""
-"Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. 2019. "
-"\"对全球森林损失的驱动因素进行分类。\" 《科学》。"
+"Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. "
+"2019. \"对全球森林损失的驱动因素进行分类。\" 《科学》。"
 
 #: ../../source/for_users/features/carbonemissions.rst:85
 msgid ""
-"Hansen, M. C., S. V. Stehman, and P. V. Potapov. \"Quantification of global "
-"gross forest cover.\" PNAS. 107 (19) 8650-8655. "
+"Hansen, M. C., S. V. Stehman, and P. V. Potapov. \"Quantification of "
+"global gross forest cover.\" PNAS. 107 (19) 8650-8655. "
 "https://www.pnas.org/doi/10.1073/pnas.0912668107"
 msgstr ""
-"Hansen, M. C., S. V. Stehman, and P. V. Potapov. \"全球总森林覆盖率的量化\"。PNAS。107 "
-"(19) 8650-8655。https://www.pnas.org/doi/10.1073/pnas.0912668107"
+"Hansen, M. C., S. V. Stehman, and P. V. Potapov. \"全球总森林覆盖率的量化\"。PNAS。107"
+" (19) 8650-8655。https://www.pnas.org/doi/10.1073/pnas.0912668107"
 
 #: ../../source/for_users/features/carbonemissions.rst:86
 msgid ""
 "Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. "
 "Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. "
-"Kommareddy, A. Egorov, L. Chini, C. O. Justice, and J. R. G. "
-"Townshend.“High-Resolution Global Maps of 21st-Century Forest Cover Change.”"
-" Science 342 (15 November): 850–53. Data available on-line at: "
+"Kommareddy, A. Egorov, L. Chini, C. O. Justice, and J. R. G. Townshend"
+".“High-Resolution Global Maps of 21st-Century Forest Cover Change.” "
+"Science 342 (15 November): 850–53. Data available on-line at: "
 "https://earthenginepartners.appspot.com/science-2013-global-forest."
 msgstr ""
 "Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. "
@@ -224,17 +224,17 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonemissions.rst:87
 msgid ""
-"Intergovernmental Panel on Climate Change (IPCC), 2006. IPCC Guidelines for "
-"National Greenhouse Gas Inventories � Volume 4. Egglestone, H.S., L. "
+"Intergovernmental Panel on Climate Change (IPCC), 2006. IPCC Guidelines "
+"for National Greenhouse Gas Inventories � Volume 4. Egglestone, H.S., L. "
 "Buendia, K. Miwa, T. Ngara and K. Tanabe (Eds)."
 msgstr ""
-"政府间气候变化专门委员会（IPCC），2006年。IPCC国家温室气体清单指南第四卷。Egglestone, H.S., L. Buendia, K. "
-"Miwa, T. Ngara and K. Tanabe（编辑）。"
+"政府间气候变化专门委员会（IPCC），2006年。IPCC国家温室气体清单指南第四卷。Egglestone, H.S., L. Buendia, "
+"K. Miwa, T. Ngara and K. Tanabe（编辑）。"
 
 #: ../../source/for_users/features/carbonemissions.rst:88
 msgid ""
-"Intergovernmental Panel on Climate Change (IPCC), IPCC/IGES, Hayama, Japan. "
-"http://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html"
+"Intergovernmental Panel on Climate Change (IPCC), IPCC/IGES, Hayama, "
+"Japan. http://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html"
 msgstr ""
 "政府间气候变化专门委员会（IPCC），IPCC/IGES，日本叶山，http://www.ipcc-"
 "nggip.iges.or.jp/public/2006gl/vol4.html。"
@@ -244,20 +244,20 @@ msgid ""
 "Mokany, K., R. Raison, A.S. Prokushkin. Critical analysis of root: shoot "
 "ratios in terrestrial biomesGlob. Chang. Biol., 12 (1) (2006), pp. 84-96"
 msgstr ""
-"Mokany, K., R. Raison, A.S. Prokushkin. 陆地生物群落中根：芽比例的关键分析Glob. Chang. Biol.,"
-" 12 (1) (2006), pp.84-96"
+"Mokany, K., R. Raison, A.S. Prokushkin. 陆地生物群落中根：芽比例的关键分析Glob. Chang. "
+"Biol., 12 (1) (2006), pp.84-96"
 
 #: ../../source/for_users/features/carbonemissions.rst:90
 msgid ""
 "Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
-"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
-"M. and Wegmüller, U., 2015. Forest growing stock volume of the northern "
-"hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
-" Remote Sensing of Environment, 168, pp. 316-334."
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., "
+"Thurner, M. and Wegmüller, U., 2015. Forest growing stock volume of the "
+"northern hemisphere: Spatially explicit estimates for 2010 derived from "
+"Envisat ASAR. Remote Sensing of Environment, 168, pp. 316-334."
 msgstr ""
 "Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
-"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
-"M. and Wegmüller, U., 2015。北半球的森林生长量。来自Envisat "
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., "
+"Thurner, M. and Wegmüller, U., 2015。北半球的森林生长量。来自Envisat "
 "ASAR的2010年空间明确估计。环境遥感，168，第316-334页。"
 
 #: ../../source/for_users/features/carbonemissions.rst:91
@@ -265,17 +265,14 @@ msgid ""
 "University of Maryland and World Resources Institute. \"Global Primary "
 "Forest Loss\". Accessed through Global Forest Watch: "
 "https://www.globalforestwatch.org/dashboards/global/?category=summary&location=WyJnbG9iYWwiXQ%3D%3D&map=eyJkYXRhc2V0cyI6W3sib3BhY2l0eSI6MC43LCJ2aXNpYmlsaXR5Ijp0cnVlLCJkYXRhc2V0IjoicHJpbWFyeS1mb3Jlc3RzIiwibGF5ZXJzIjpbInByaW1hcnktZm9yZXN0cy0yMDAxIl19LHsiZGF0YXNldCI6InBvbGl0aWNhbC1ib3VuZGFyaWVzIiwibGF5ZXJzIjpbImRpc3B1dGVkLXBvbGl0aWNhbC1ib3VuZGFyaWVzIiwicG9saXRpY2FsLWJvdW5kYXJpZXMiXSwiYm91bmRhcnkiOnRydWUsIm9wYWNpdHkiOjEsInZpc2liaWxpdHkiOnRydWV9LHsiZGF0YXNldCI6InRyZWUtY292ZXItbG9zcyIsImxheWVycyI6WyJ0cmVlLWNvdmVyLWxvc3MiXSwib3BhY2l0eSI6MSwidmlzaWJpbGl0eSI6dHJ1ZSwidGltZWxpbmVQYXJhbXMiOnsic3RhcnREYXRlIjoiMjAwMi0wMS0wMSIsImVuZERhdGUiOiIyMDIwLTEyLTMxIiwidHJpbUVuZERhdGUiOiIyMDIwLTEyLTMxIn0sInBhcmFtcyI6eyJ0aHJlc2hvbGQiOjMwLCJ2aXNpYmlsaXR5Ijp0cnVlfX1dfQ%3D%3D&showMap=true"
-msgstr ""
-"马里兰大学和世界资源研究所。\"全球原始森林损失\"。通过全球森林观察访问：https://www.globalforestwatch.org/dashboards/global/?category=summary&location=WyJnbG9iYWwiXQ%3D%3D&map=eyJkYXRhc2V0cyI6W3sib3BhY2l0eSI6MC43LCJ2aXNpYmlsaXR5Ijp0cnVlLCJkYXRhc2V0IjoicHJpbWFyeS1mb3Jlc3RzIiwibGF5ZXJzIjpbInByaW1hcnktZm9yZXN0cy0yMDAxIl19LHsiZGF0YXNldCI6InBvbGl0aWNhbC1ib3VuZGFyaWVzIiwibGF5ZXJzIjpbImRpc3B1dGVkLXBvbGl0aWNhbC1ib3VuZGFyaWVzIiwicG9saXRpY2FsLWJvdW5kYXJpZXMiXSwiYm91bmRhcnkiOnRydWUsIm9wYWNpdHkiOjEsInZpc2liaWxpdHkiOnRydWV9LHsiZGF0YXNldCI6InRyZWUtY292ZXItbG9zcyIsImxheWVycyI6WyJ0cmVlLWNvdmVyLWxvc3MiXSwib3BhY2l0eSI6MSwidmlzaWJpbGl0eSI6dHJ1ZSwidGltZWxpbmVQYXJhbXMiOnsic3RhcnREYXRlIjoiMjAwMi0wMS0wMSIsImVuZERhdGUiOiIyMDIwLTEyLTMxIiwidHJpbUVuZERhdGUiOiIyMDIwLTEyLTMxIn0sInBhcmFtcyI6eyJ0aHJlc2hvbGQiOjMwLCJ2aXNpYmlsaXR5Ijp0cnVlfX1dfQ%3D%3D&showMap=true"
+msgstr "马里兰大学和世界资源研究所。\"全球原始森林损失\"。通过全球森林观察访问：https://www.globalforestwatch.org/dashboards/global/?category=summary&location=WyJnbG9iYWwiXQ%3D%3D&map=eyJkYXRhc2V0cyI6W3sib3BhY2l0eSI6MC43LCJ2aXNpYmlsaXR5Ijp0cnVlLCJkYXRhc2V0IjoicHJpbWFyeS1mb3Jlc3RzIiwibGF5ZXJzIjpbInByaW1hcnktZm9yZXN0cy0yMDAxIl19LHsiZGF0YXNldCI6InBvbGl0aWNhbC1ib3VuZGFyaWVzIiwibGF5ZXJzIjpbImRpc3B1dGVkLXBvbGl0aWNhbC1ib3VuZGFyaWVzIiwicG9saXRpY2FsLWJvdW5kYXJpZXMiXSwiYm91bmRhcnkiOnRydWUsIm9wYWNpdHkiOjEsInZpc2liaWxpdHkiOnRydWV9LHsiZGF0YXNldCI6InRyZWUtY292ZXItbG9zcyIsImxheWVycyI6WyJ0cmVlLWNvdmVyLWxvc3MiXSwib3BhY2l0eSI6MSwidmlzaWJpbGl0eSI6dHJ1ZSwidGltZWxpbmVQYXJhbXMiOnsic3RhcnREYXRlIjoiMjAwMi0wMS0wMSIsImVuZERhdGUiOiIyMDIwLTEyLTMxIiwidHJpbUVuZERhdGUiOiIyMDIwLTEyLTMxIn0sInBhcmFtcyI6eyJ0aHJlc2hvbGQiOjMwLCJ2aXNpYmlsaXR5Ijp0cnVlfX1dfQ%3D%3D&showMap=true"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "图标计算器"
+#~ msgid "iconCalculator"
+#~ msgstr "图标计算器"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "图标报告"
+#~ msgid "iconReports"
+#~ msgstr "图标报告"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

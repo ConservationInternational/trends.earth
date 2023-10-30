@@ -1,32 +1,36 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-12 06:50-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-"
+"international/teams/80165/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/index.rst:42
 msgid "Trends.Earth User Guide"
 msgstr "Руководство пользователя Trends.Earth"
 
-#: ../../source/index.rst:42 ../../source/index.rst:42
+#: ../../source/index.rst:42
 msgid "User Guide"
 msgstr "Руководство пользователя"
 
@@ -34,16 +38,15 @@ msgstr "Руководство пользователя"
 msgid "Trends.Earth Developers Guide"
 msgstr "Руководство для разработчиков Trends.Earth"
 
-#: ../../source/index.rst:48 ../../source/index.rst:48
+#: ../../source/index.rst:48
 msgid "Developers Guide"
 msgstr "Руководство для разработчиков"
 
-#: ../../source/index.rst:54 ../../source/index.rst:54
 #: ../../source/index.rst:54
 msgid "General Information"
 msgstr "Общая информация"
 
-#: ../../source/index.rstNone
+#: ../../source/index.rst:-1
 msgid "trends.earth"
 msgstr "trends.earth"
 
@@ -81,32 +84,32 @@ msgstr ":index_path:`Kiswahili <sw>`"
 
 #: ../../source/index.rst:22
 msgid ""
-"Trends.Earth is a free and open source tool to understand land change: the "
-"how and why behind changes on the ground. Trends.Earth allows users to draw "
-"on the best available information from across a range of sources - from "
-"globally available data to customized local maps. A broad range of users are"
-" applying Trends.Earth for projects ranging from planning and monitoring "
-"restoration efforts, to tracking urbanization, to developing official "
-"national reports for submission to the United Nations Convention to Combat "
-"Desertification (UNCCD)."
+"Trends.Earth is a free and open source tool to understand land change: "
+"the how and why behind changes on the ground. Trends.Earth allows users "
+"to draw on the best available information from across a range of sources "
+"- from globally available data to customized local maps. A broad range of"
+" users are applying Trends.Earth for projects ranging from planning and "
+"monitoring restoration efforts, to tracking urbanization, to developing "
+"official national reports for submission to the United Nations Convention"
+" to Combat Desertification (UNCCD)."
 msgstr ""
 "Trends.Earth — это бесплатный инструмент с открытым исходным кодом для "
-"понимания изменений в земле: как и почему происходят изменения на местах. "
-"Trends.Earth позволяет пользователям использовать наилучшую доступную "
-"информацию из различных источников — от глобальных данных до настраиваемых "
-"местных карт. Широкий круг пользователей применяет Trends.Earth для "
-"различных проектов: от планирования и мониторинга восстановительных работ до"
-" отслеживания урбанизации и подготовки официальных национальных отчетов для "
-"представления в Конвенцию Организации Объединенных Наций по борьбе с "
-"опустыниванием (КБО ООН)."
+"понимания изменений в земле: как и почему происходят изменения на местах."
+" Trends.Earth позволяет пользователям использовать наилучшую доступную "
+"информацию из различных источников — от глобальных данных до "
+"настраиваемых местных карт. Широкий круг пользователей применяет "
+"Trends.Earth для различных проектов: от планирования и мониторинга "
+"восстановительных работ до отслеживания урбанизации и подготовки "
+"официальных национальных отчетов для представления в Конвенцию "
+"Организации Объединенных Наций по борьбе с опустыниванием (КБО ООН)."
 
 #: ../../source/index.rst:30
 msgid ""
-"Trends.Earth was produced by a partnership of Conservation International, "
-"Lund University, and the National Aeronautics and Space Administration "
-"(NASA), with the support of the Global Environment Facility (GEF). It was "
-"further developed through a partnership with Conservation International, "
-"University of Bern, University of Colorado in partnership with USDA and "
+"Trends.Earth was produced by a partnership of Conservation International,"
+" Lund University, and the National Aeronautics and Space Administration "
+"(NASA), with the support of the Global Environment Facility (GEF). It was"
+" further developed through a partnership with Conservation International,"
+" University of Bern, University of Colorado in partnership with USDA and "
 "USAID, University of California - Santa Barbara in partnership with "
 "University of North Carolina - Wilmington and Brown University with "
 "additional funding from the Global Environment Facility (GEF)."
@@ -114,21 +117,20 @@ msgstr ""
 "Trends.Earth был создан в сотрудничестве с Conservation International, "
 "Лундским университетом и Национальным управлением по аэронавтике и "
 "исследованию космического пространства (NASA) при поддержке Глобального "
-"экологического фонда (GEF). Дальнейшее развитие он получил в партнерстве с "
-"Conservation International, Бернским университетом, Университетом Колорадо в"
-" партнерстве с Министерством сельского хозяйства США и USAID, Калифорнийским"
-" университетом в Санта-Барбаре в партнерстве с Университетом Северной "
-"Каролины в Уилмингтоне и Университетом Брауна при дополнительном "
-"финансировании со стороны Global Environment Facility (GEF)."
+"экологического фонда (GEF). Дальнейшее развитие он получил в партнерстве "
+"с Conservation International, Бернским университетом, Университетом "
+"Колорадо в партнерстве с Министерством сельского хозяйства США и USAID, "
+"Калифорнийским университетом в Санта-Барбаре в партнерстве с "
+"Университетом Северной Каролины в Уилмингтоне и Университетом Брауна при "
+"дополнительном финансировании со стороны Global Environment Facility "
+"(GEF)."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "иконкаКалькулятор"
+#~ msgid "iconCalculator"
+#~ msgstr "иконкаКалькулятор"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "иконкаОтчеты"
+#~ msgid "iconReports"
+#~ msgstr "иконкаОтчеты"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

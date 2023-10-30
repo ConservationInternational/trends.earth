@@ -12,18 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-20 14:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ar\n"
 "Language-Team: Arabic (https://www.transifex.com/conservation-"
 "international/teams/80165/ar/)\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
-"n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5\n"
+"n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:4
 #, fuzzy
@@ -276,14 +276,6 @@ msgstr "ستظهر لك رسالة تشير إلى تسجيل دخولك بنج�
 #: ../../source/for_users/gettingstarted/qgis_version.rst:149
 msgid "You are now ready to start using Trends.Earth!"
 msgstr "أنت الآن جاهز لبدء استخدام برنامج Trends.Earth!"
-
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "أيقونة الحاسبة"
-
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "أيقونة التقارير"
 
 #~ msgid "QGIS"
 #~ msgstr "QGIS"
@@ -739,4 +731,10 @@ msgstr "أيقونة التقارير"
 
 #~ msgid "Ocean"
 #~ msgstr "المحيط"
+
+#~ msgid "iconCalculator"
+#~ msgstr "أيقونة الحاسبة"
+
+#~ msgid "iconReports"
+#~ msgstr "أيقونة التقارير"
 

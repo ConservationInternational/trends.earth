@@ -1,25 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-20 14:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-07-20 19:07+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-"
+"international/teams/80165/zh/)\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/pyramids.rst:4
 msgid "Computing Pyramids"
@@ -29,42 +31,41 @@ msgstr ""
 msgid ""
 "When the raster file is too big, due to a large study area, high spatial "
 "resolution, or a large number of bands in the file, the data could take "
-"several seconds to display. If you change the zoom or turn layers on an  off"
-" frequently, this could make the work a bit frustrating. An option to "
-"overcome this is to compute **Pyramids** to the file. This process will take"
-" from **minutes to hours** to run depending on the size of the area, so make"
-" sure to have enough time for it to process. To compute pyramids you have "
-"to:"
-msgstr ""
-"如果栅格文件太大，由于研究区域大、空间分辨率高或文件中有大量波段，数据可能需要几秒钟才能显示。如果您经常更改缩放或关闭图层，这可能会使工作有点令人沮丧。克服这个问题的一个选项是计算文件的**金字塔**。根据区域的大小，此过程将需要**几分钟到几小时**才能运行，因此请确保有足够的时间进行处理。要计算金字塔，您必须："
+"several seconds to display. If you change the zoom or turn layers on an  "
+"off frequently, this could make the work a bit frustrating. An option to "
+"overcome this is to compute **Pyramids** to the file. This process will "
+"take from **minutes to hours** to run depending on the size of the area, "
+"so make sure to have enough time for it to process. To compute pyramids "
+"you have to:"
+msgstr "如果栅格文件太大，由于研究区域大、空间分辨率高或文件中有大量波段，数据可能需要几秒钟才能显示。如果您经常更改缩放或关闭图层，这可能会使工作有点令人沮丧。克服这个问题的一个选项是计算文件的**金字塔**。根据区域的大小，此过程将需要**几分钟到几小时**才能运行，因此请确保有足够的时间进行处理。要计算金字塔，您必须："
 
 #: ../../source/for_users/training/pyramids.rst:8
 msgid ""
-"Navigate with your cursor to the layer you want to compute pyramids for and "
-"right click over it. A menu will open. Navigate to **Properties** and click "
-"on it."
+"Navigate with your cursor to the layer you want to compute pyramids for "
+"and right click over it. A menu will open. Navigate to **Properties** and"
+" click on it."
 msgstr "将光标导航到要为其计算金字塔的图层并右键单击它。这将打开一个菜单。导航到 **属性** 并单击它。"
 
 #: ../../source/for_users/training/pyramids.rst:11
 msgid ""
 "When using the **Calculate all three sub-indicators in one step** option "
-"(described in the tutorial :ref:`tut_land_degradation`), all the bands are "
-"stored in a single TIF file, so even though you see three layers loaded in "
-"the QGIS window, they all refer to the same file. This means that the "
-"pyramids need to be computed only once for the three sub-indicators."
+"(described in the tutorial :ref:`tut_land_degradation`), all the bands "
+"are stored in a single TIF file, so even though you see three layers "
+"loaded in the QGIS window, they all refer to the same file. This means "
+"that the pyramids need to be computed only once for the three sub-"
+"indicators."
 msgstr ""
 "当使用**一步计算所有三个子指标**选项（在教程中描述 :ref:`tut_land_degradation`）时，所有波段都存储在一个 TIF "
 "文件中，所以即使您看到 QGIS 窗口加载了三层 ，它们都引用同一个文件。这意味着只需为三个子指标计算一次金字塔。"
 
 #: ../../source/for_users/training/pyramids.rst:16
 msgid ""
-"The Layer Properties menu will open. From the options on the left, navigate "
-"to **Pyramids** and click on it."
+"The Layer Properties menu will open. From the options on the left, "
+"navigate to **Pyramids** and click on it."
 msgstr "图层属性菜单将会打开。从左侧的选项中，导航到 **金字塔** 并单击它。"
 
 #: ../../source/for_users/training/pyramids.rst:21
-msgid ""
-"Once on the **Pyramids** tab you will see a description about they are."
+msgid "Once on the **Pyramids** tab you will see a description about they are."
 msgstr "在 **金字塔** 选项卡上，您将看到关于它们的描述。"
 
 #: ../../source/for_users/training/pyramids.rst:26
@@ -72,12 +73,12 @@ msgid ""
 "To the right of the window you will see the **Resolutions** options. "
 "Selecting all of them will make displaying in QGIS the fastest, but this "
 "could take hours to compute depending on the file size and processing "
-"capabilities of the computer you are using. For the Uganda example, we can "
-"select them all, but if using a larger area or higher spatial resolution "
-"than the default 250m, we recommend you select alternating resolutions "
-"options (i.e. one resolution selected and one not selected, and so on). "
-"Resolutions are selected by clicking on them. When selected, they will turn "
-"blue."
+"capabilities of the computer you are using. For the Uganda example, we "
+"can select them all, but if using a larger area or higher spatial "
+"resolution than the default 250m, we recommend you select alternating "
+"resolutions options (i.e. one resolution selected and one not selected, "
+"and so on). Resolutions are selected by clicking on them. When selected, "
+"they will turn blue."
 msgstr ""
 "在窗口右侧，您将看到 **分辨率** 选项。全选将使 QGIS "
 "中的显示速度最快，但这可能需要数小时来计算，具体取决于所用计算机的文件大小和处理能力。对于乌干达示例，您可以全选它们，但如果使用比默认 250m "
@@ -104,21 +105,20 @@ msgstr "然后点击**建造金字塔**按钮。它旁边的进度条将显示�
 #: ../../source/for_users/training/pyramids.rst:38
 msgid ""
 "When pyramids have been built you will notice that the icons next to the "
-"resolutions will have changed from **red crosses** to **yellow pyramids**."
+"resolutions will have changed from **red crosses** to **yellow "
+"pyramids**."
 msgstr "金字塔建成后，您会注意到分辨率旁边的图标将从**红十字**变为**黄色金字塔**。"
 
 #: ../../source/for_users/training/pyramids.rst:43
 msgid "Click **OK** to go back to the QGIS main interface."
 msgstr "点击 **好** 以返回 QGIS 主界面。"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "图标计算器"
+#~ msgid "iconCalculator"
+#~ msgstr "图标计算器"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "图标报告"
+#~ msgid "iconReports"
+#~ msgstr "图标报告"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

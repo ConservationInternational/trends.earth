@@ -172,7 +172,7 @@ the developers can look into it.
 When you report an issue, be sure to provide enough information to allow us to
 be able to reproduce it. In particular, be sure to specify:
 
-- What you were doing with the plugin when the problem or error ocurred (for
+- What you were doing with the plugin when the problem or error occurred (for
   example "I clicked on 'Download Results' and got an error messaging saying
   `describe what the message said`".
 - The operating system you are using, version of the plugin are you using, and
@@ -184,13 +184,13 @@ be able to reproduce it. In particular, be sure to specify:
   location you were analyzing with the tool (for example: "I selected Argentina
   from the dropdown menu"). If you used your own shapefile, please send us the
   file you used.
-- If you got a message saying "An error has ocurred while executing Python
+- If you got a message saying "An error has occurred while executing Python
   code", send us either the text of the message, or a a screenshot of the error
   message. **Also, send us the content of the Trends.Earth log messages
   panel.** To access the Trends.Earth log messages panel, select "View", then
   "Panels", then "Log Messages" from within QGIS. Copy and paste the text from
   that panel and include it in your issue report. It will make it easiest for
-  us to track things down (as their will be fewer log messages) if you do this
+  us to track things down (as there will be fewer log messages) if you do this
   after first starting a new QGIS session and immediately reproducing the
   error.
 

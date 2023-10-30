@@ -1,25 +1,28 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-"
+"international/teams/80165/pt/)\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/designingreports/index.rst:4
 msgid "Designing Reports"
@@ -27,18 +30,18 @@ msgstr "Conceção de Relatórios"
 
 #: ../../source/for_users/designingreports/index.rst:6
 msgid ""
-"Reports are, in simplest terms, created by populating a report template with"
-" textual and/or spatial data from one or more jobs. It is important to note "
-"that reports are generated at the layer/band level hence the number of "
-"reports from a single job will correspond to the number of **default** bands"
-" for the given job."
+"Reports are, in simplest terms, created by populating a report template "
+"with textual and/or spatial data from one or more jobs. It is important "
+"to note that reports are generated at the layer/band level hence the "
+"number of reports from a single job will correspond to the number of "
+"**default** bands for the given job."
 msgstr ""
-"Os relatórios são, em termos mais simples, criados preenchendo um modelo de "
-"relatório com dados textuais e/ou espaciais de um ou mais trabalhos. É "
-"importante ter em atenção que os relatórios são gerados ao nível da "
-"camada/banda, pelo que o número de relatórios gerados por um único trabalho "
-"irá corresponder ao número de bandas **por defeito** para o trabalho em "
-"questão. "
+"Os relatórios são, em termos mais simples, criados preenchendo um modelo "
+"de relatório com dados textuais e/ou espaciais de um ou mais trabalhos. É"
+" importante ter em atenção que os relatórios são gerados ao nível da "
+"camada/banda, pelo que o número de relatórios gerados por um único "
+"trabalho irá corresponder ao número de bandas **por defeito** para o "
+"trabalho em questão. "
 
 #: ../../source/for_users/designingreports/index.rst:11
 msgid "Designing reports is a two-step process that involves:"
@@ -49,11 +52,10 @@ msgid "Designing templates using the QGIS layout framework;"
 msgstr "Desenhar modelos usando a estrutura de esquema do QGIS;"
 
 #: ../../source/for_users/designingreports/index.rst:14
-msgid ""
-"Specifying the configuration parameters in a report configuration file."
+msgid "Specifying the configuration parameters in a report configuration file."
 msgstr ""
-"Especificar os parâmetros de configuração num ficheiro de configuração de "
-"relatórios."
+"Especificar os parâmetros de configuração num ficheiro de configuração de"
+" relatórios."
 
 #: ../../source/for_users/designingreports/index.rst:17
 msgid "Prerequisites"
@@ -98,29 +100,29 @@ msgstr "Variáveis de Expressão de Esquema"
 
 #: ../../source/for_users/designingreports/index.rst:30
 msgid ""
-"A report is made up of static content (such as logos, disclaimer text etc.) "
-"that does not change from one report to another. It may also include dynamic"
-" content (such as maps or attribute information) that is generated at "
-"runtime during the execution process."
+"A report is made up of static content (such as logos, disclaimer text "
+"etc.) that does not change from one report to another. It may also "
+"include dynamic content (such as maps or attribute information) that is "
+"generated at runtime during the execution process."
 msgstr ""
 "Um relatório é composto por conteúdo estático (como logotipos, texto de "
-"isenção de responsabilidade, etc.) que não muda de um relatório para outro. "
-"Pode também incluir conteúdo dinâmico (tal como mapas ou informação de "
-"atributos) que é gerado em tempo de execução, durante o processo de "
-"execução."
+"isenção de responsabilidade, etc.) que não muda de um relatório para "
+"outro. Pode também incluir conteúdo dinâmico (tal como mapas ou "
+"informação de atributos) que é gerado em tempo de execução, durante o "
+"processo de execução."
 
 #: ../../source/for_users/designingreports/index.rst:34
 msgid ""
-"The Trends.Earth toolbox provides a number of layout expression variables "
-"that can be used to insert dynamic content in a layout. Some of these are "
-"available at design time while others are only available at runtime. The "
-"table below provides a summary of the available variables."
+"The Trends.Earth toolbox provides a number of layout expression variables"
+" that can be used to insert dynamic content in a layout. Some of these "
+"are available at design time while others are only available at runtime. "
+"The table below provides a summary of the available variables."
 msgstr ""
 "A toolbox Trends.Earth fornece uma série de variáveis de expressão de "
 "esquema que podem ser usadas para inserir conteúdo dinâmico num esquema. "
-"Algumas delas estão disponíveis no momento da conceção, enquanto outras só "
-"estão disponíveis no tempo de execução. A tabela abaixo apresenta um resumo "
-"das variáveis disponíveis."
+"Algumas delas estão disponíveis no momento da conceção, enquanto outras "
+"só estão disponíveis no tempo de execução. A tabela abaixo apresenta um "
+"resumo das variáveis disponíveis."
 
 #: ../../source/for_users/designingreports/index.rst:39
 msgid "Job Variables"
@@ -128,10 +130,11 @@ msgstr "Variáveis de Trabalho"
 
 #: ../../source/for_users/designingreports/index.rst:40
 msgid ""
-"These are characterized by a `te_job_` prefix and only available at runtime."
+"These are characterized by a `te_job_` prefix and only available at "
+"runtime."
 msgstr ""
-"Estas são caraterizadas por um prefixo `te_job_` e só estão disponíveis em "
-"tempo de execução."
+"Estas são caraterizadas por um prefixo `te_job_` e só estão disponíveis "
+"em tempo de execução."
 
 #: ../../source/for_users/designingreports/index.rst:43
 #: ../../source/for_users/designingreports/index.rst:67
@@ -204,6 +207,7 @@ msgid "Creation date/time of a job"
 msgstr "Data/hora de criação de um trabalho"
 
 #: ../../source/for_users/designingreports/index.rst:53
+#, python-format
 msgid "String in %Y-%m-%d %H:%M format"
 msgstr "String em formato %Y-%m-%d %H:%M"
 
@@ -239,11 +243,11 @@ msgstr "Variáveis de Camada"
 
 #: ../../source/for_users/designingreports/index.rst:64
 msgid ""
-"These are characterized by a `te_current_layer_` prefix and only available "
-"at runtime."
+"These are characterized by a `te_current_layer_` prefix and only "
+"available at runtime."
 msgstr ""
-"Estas caraterizam-se pelo prefixo `te_current_layer_` e só estão disponíveis"
-" em tempo de execução."
+"Estas caraterizam-se pelo prefixo `te_current_layer_` e só estão "
+"disponíveis em tempo de execução."
 
 #: ../../source/for_users/designingreports/index.rst:69
 msgid "`te_current_layer_name`"
@@ -259,10 +263,10 @@ msgstr "Variáveis de Definições de Relatório"
 
 #: ../../source/for_users/designingreports/index.rst:74
 msgid ""
-"These are characterized by a `te_report_` prefix and are available at both "
-"design time and runtime. Refer to the :ref:`report_settings` section for a "
-"detailed description of the report settings and corresponding variable "
-"names."
+"These are characterized by a `te_report_` prefix and are available at "
+"both design time and runtime. Refer to the :ref:`report_settings` section"
+" for a detailed description of the report settings and corresponding "
+"variable names."
 msgstr ""
 "Estas caraterizam-se pelo prefixo `te_report_` e estão disponíveis tanto "
 "durante o tempo de conceção como de execução. Consulte a secção "
@@ -284,14 +288,14 @@ msgstr "Modelo Completo"
 #: ../../source/for_users/designingreports/index.rst:83
 msgid ""
 "This is designed to contain - or provide an allowance to include - more "
-"information such as author name. The default template is set on an A4 page "
-"and includes a layout title, map, legend, scale bar, north arrow, disclaimer"
-" text. and logo."
+"information such as author name. The default template is set on an A4 "
+"page and includes a layout title, map, legend, scale bar, north arrow, "
+"disclaimer text. and logo."
 msgstr ""
-"Este está concebido para conter - ou permitir incluir - mais informações, "
-"como o nome de autor. O modelo padrão é definido numa página A4 e inclui um "
-"título de esquema, mapa, legenda, barra de escala, seta norte, texto de "
-"isenção de responsabilidade e logotipo."
+"Este está concebido para conter - ou permitir incluir - mais informações,"
+" como o nome de autor. O modelo padrão é definido numa página A4 e inclui"
+" um título de esquema, mapa, legenda, barra de escala, seta norte, texto "
+"de isenção de responsabilidade e logotipo."
 
 #: ../../source/for_users/designingreports/index.rst:88
 msgid "Simple Template"
@@ -299,25 +303,25 @@ msgstr "Modelo Simples"
 
 #: ../../source/for_users/designingreports/index.rst:89
 msgid ""
-"This is designed to be a lighter version of the template with the default "
-"one set on an 83mm by 59mm page size (in landscape mode) or vice versa in "
-"portrait mode and contains a map, legend, north arrow, scale bar, disclaimer"
-" text and logo."
+"This is designed to be a lighter version of the template with the default"
+" one set on an 83mm by 59mm page size (in landscape mode) or vice versa "
+"in portrait mode and contains a map, legend, north arrow, scale bar, "
+"disclaimer text and logo."
 msgstr ""
 "Este está concebido para ser uma versão mais leve do modelo com o padrão "
-"definido numa página de tamanho 83 mm por 59 mm (em modo paisagem) ou vice-"
-"versa em modo retrato, e contém um mapa, legenda, seta norte, barra de "
-"escala, texto de isenção de responsabilidade e logotipo."
+"definido numa página de tamanho 83 mm por 59 mm (em modo paisagem) ou "
+"vice-versa em modo retrato, e contém um mapa, legenda, seta norte, barra "
+"de escala, texto de isenção de responsabilidade e logotipo."
 
 #: ../../source/for_users/designingreports/index.rst:94
 msgid ""
 "For each template type, you will need to provide both the portrait and "
-"landscape versions as the toolbox will select one of these depending on the "
-"dimensions of the map layer being rendered."
+"landscape versions as the toolbox will select one of these depending on "
+"the dimensions of the map layer being rendered."
 msgstr ""
 "Para cada tipo de modelo, precisará de fornecer ambas as versões em modo "
-"retrato e modo paisagem, uma vez que a toolbox irá selecionar uma destas, "
-"dependendo das dimensões da camada de mapa a ser renderizada."
+"retrato e modo paisagem, uma vez que a toolbox irá selecionar uma destas,"
+" dependendo das dimensões da camada de mapa a ser renderizada."
 
 #: ../../source/for_users/designingreports/index.rst:98
 msgid "Designing Report Templates"
@@ -386,59 +390,60 @@ msgid ""
 "Builder** dialog and can be inserted in label items as any other QGIS "
 "variable."
 msgstr ""
-"Pode adicionar itens ao modelo, de forma semelhante à definida no `manual "
-"QGIS  "
+"Pode adicionar itens ao modelo, de forma semelhante à definida no `manual"
+" QGIS  "
 "<https://docs.qgis.org/3.16/en/docs/user_manual/print_composer/composer_items/index.html>`_."
 " As variáveis de expressão Trends.Earth estão disponíveis no diálogo "
-"**Construtor de Expressão** e podem ser inseridas em itens de etiqueta da "
-"mesma forma que qualquer outra variável QGIS."
+"**Construtor de Expressão** e podem ser inseridas em itens de etiqueta da"
+" mesma forma que qualquer outra variável QGIS."
 
 #: ../../source/for_users/designingreports/index.rst:158
 msgid ""
-"For instance, to insert a job's algorithm name in a label item, you can use "
-"the following expression: :code:`[% @te_job_alg_name %]`."
+"For instance, to insert a job's algorithm name in a label item, you can "
+"use the following expression: :code:`[% @te_job_alg_name %]`."
 msgstr ""
 "Por exemplo, para inserir o nome do algoritmo de um trabalho num item de "
 "etiqueta, pode usar a seguinte expressão: :code:`[% @te_job_alg_name %]`."
 
 #: ../../source/for_users/designingreports/index.rst:164
 msgid ""
-"For a map item, do not add any layers or specify a map theme as the layers "
-"and their ordering will be automatically set during the report generation "
-"process."
+"For a map item, do not add any layers or specify a map theme as the "
+"layers and their ordering will be automatically set during the report "
+"generation process."
 msgstr ""
-"Para um item de mapa, não adicione nenhuma camada ou especifique um tema de "
-"mapa, uma vez que as camadas e a sua ordenação serão automaticamente "
+"Para um item de mapa, não adicione nenhuma camada ou especifique um tema "
+"de mapa, uma vez que as camadas e a sua ordenação serão automaticamente "
 "definidas durante o processo de geração do relatório."
 
 #: ../../source/for_users/designingreports/index.rst:167
 msgid ""
-"When using a legend item, ensure the **Auto update** option is selected. The"
-" toolbox will determine which legend items to show/hide depending on the "
-"rendering context."
+"When using a legend item, ensure the **Auto update** option is selected. "
+"The toolbox will determine which legend items to show/hide depending on "
+"the rendering context."
 msgstr ""
 "Ao usar um item de legenda, certifique-se de que a opção **Auto "
-"Atualização** está selecionada. A toolbox irá determinar quais os itens de "
-"legenda a mostrar/ocultar, dependendo do contexto de renderização."
+"Atualização** está selecionada. A toolbox irá determinar quais os itens "
+"de legenda a mostrar/ocultar, dependendo do contexto de renderização."
 
 #: ../../source/for_users/designingreports/index.rst:174
 msgid ""
-"For map items rendering a job's layers or label items that use the toolbox's"
-" expression variables, please ensure that you define their corresponding "
-"item IDs so that they can be flagged for updating during the report "
-"generation process. A preferred naming convention - for the item ID - is "
-"`[item_type.context_name]` e.g. :code:`label.layer_name`, "
-":code:`label.job_alg_name`, :code:`map.main`. We will see how these item IDs"
-" are used in the :ref:`item_scope_mapping` section."
+"For map items rendering a job's layers or label items that use the "
+"toolbox's expression variables, please ensure that you define their "
+"corresponding item IDs so that they can be flagged for updating during "
+"the report generation process. A preferred naming convention - for the "
+"item ID - is `[item_type.context_name]` e.g. :code:`label.layer_name`, "
+":code:`label.job_alg_name`, :code:`map.main`. We will see how these item "
+"IDs are used in the :ref:`item_scope_mapping` section."
 msgstr ""
-"Para os itens de mapa que renderizam as camadas de um trabalho ou itens de "
-"etiqueta que utilizam as variáveis de expressão da toolbox, certifique-se de"
-" que define os seus identificadores de item correspondentes, para que possam"
-" ser sinalizados para atualização, durante o processo de geração de "
-"relatório. Uma convenção de nomenclatura preferida, para o identificador do "
-"item, é `[item_type.context_name]` e.g. :code:`label.layer_name`, "
-":code:`label.job_alg_name`, :code:`map.main`. Iremos ver como estes "
-"identificadores de item são usados na secção :ref:`item_scope_mapping`."
+"Para os itens de mapa que renderizam as camadas de um trabalho ou itens "
+"de etiqueta que utilizam as variáveis de expressão da toolbox, "
+"certifique-se de que define os seus identificadores de item "
+"correspondentes, para que possam ser sinalizados para atualização, "
+"durante o processo de geração de relatório. Uma convenção de nomenclatura"
+" preferida, para o identificador do item, é `[item_type.context_name]` "
+"e.g. :code:`label.layer_name`, :code:`label.job_alg_name`, "
+":code:`map.main`. Iremos ver como estes identificadores de item são "
+"usados na secção :ref:`item_scope_mapping`."
 
 #: ../../source/for_users/designingreports/index.rst:187
 msgid "Configuring Report Parameters"
@@ -452,10 +457,11 @@ msgid ""
 "`[base_data_directory]/reports/templates` on loading the toolbox for the "
 "first time."
 msgstr ""
-"O próximo passo é definir que modelos serão usados para cada algoritmo. Isto"
-" é feito através de um ficheiro de configuração de relatórios - "
-"`templates.json`- que é criado em `[base_data_directory]/reports/templates`,"
-" ao carregar a toolbox pela primeira vez."
+"O próximo passo é definir que modelos serão usados para cada algoritmo. "
+"Isto é feito através de um ficheiro de configuração de relatórios - "
+"`templates.json`- que é criado em "
+"`[base_data_directory]/reports/templates`, ao carregar a toolbox pela "
+"primeira vez."
 
 #: ../../source/for_users/designingreports/index.rst:192
 msgid ""
@@ -465,8 +471,8 @@ msgid ""
 msgstr ""
 "O `templates.json` é uma lista de objetos de configuração de relatórios, "
 "onde cada objeto de configuração corresponde a um campo de aplicação. Um "
-"campo de aplicação, neste caso, refere-se a um algoritmo. Uma configuração é"
-" composta por duas partes:"
+"campo de aplicação, neste caso, refere-se a um algoritmo. Uma "
+"configuração é composta por duas partes:"
 
 #: ../../source/for_users/designingreports/index.rst:195
 msgid ""
@@ -490,11 +496,11 @@ msgstr "template_info"
 
 #: ../../source/for_users/designingreports/index.rst:241
 msgid ""
-"Contains information about the QGIS report templates associated with one or "
-"more algorithm scopes."
+"Contains information about the QGIS report templates associated with one "
+"or more algorithm scopes."
 msgstr ""
-"Contém informação sobre os modelos de relatório QGIS associados com um ou "
-"mais campos de aplicação de algoritmo."
+"Contém informação sobre os modelos de relatório QGIS associados com um ou"
+" mais campos de aplicação de algoritmo."
 
 #: ../../source/for_users/designingreports/index.rst:244
 #: ../../source/for_users/designingreports/index.rst:278
@@ -596,8 +602,8 @@ msgid ""
 "A list of item scope objects. It should contain at least one scope "
 "definition."
 msgstr ""
-"Uma lista de objetos de campo de aplicação de item. Deve conter pelo menos "
-"uma definição de campo de aplicação."
+"Uma lista de objetos de campo de aplicação de item. Deve conter pelo "
+"menos uma definição de campo de aplicação."
 
 #: ../../source/for_users/designingreports/index.rst:262
 msgid "See :ref:`item_scope_mapping` for more information."
@@ -605,11 +611,11 @@ msgstr "Ver :ref:`item_scope_mapping` para mais informações."
 
 #: ../../source/for_users/designingreports/index.rst:267
 msgid ""
-"The paths defined above are basically file names which are relative to the "
-"location of the `templates.json` configuration file."
+"The paths defined above are basically file names which are relative to "
+"the location of the `templates.json` configuration file."
 msgstr ""
-"Os caminhos definidos acima são basicamente nomes de ficheiros relativos à "
-"localização do ficheiro de configuração `templates.json`."
+"Os caminhos definidos acima são basicamente nomes de ficheiros relativos "
+"à localização do ficheiro de configuração `templates.json`."
 
 #: ../../source/for_users/designingreports/index.rst:274
 msgid "output_options"
@@ -625,8 +631,8 @@ msgstr "`formats`"
 
 #: ../../source/for_users/designingreports/index.rst:280
 msgid ""
-"A list of format objects specifying the output format of the report. You can"
-" have a report produced in multiple types such as PDF and PNG."
+"A list of format objects specifying the output format of the report. You "
+"can have a report produced in multiple types such as PDF and PNG."
 msgstr ""
 "Uma lista de objetos de formato, especificando o formato de saída do "
 "relatório. É possível produzir um relatório em vários tipos de ficheiro, "
@@ -641,8 +647,8 @@ msgid ""
 "See :ref:`output_format` for configuration options for an output format "
 "object."
 msgstr ""
-"Ver :ref:`output_format` para opções de configuração de um objeto de formato"
-" de saída."
+"Ver :ref:`output_format` para opções de configuração de um objeto de "
+"formato de saída."
 
 #: ../../source/for_users/designingreports/index.rst:289
 msgid "`template_type`"
@@ -660,8 +666,8 @@ msgstr "As opções suportadas incluem: **SIMPLES**, **COMPLETO** ou **TODOS**."
 #: ../../source/for_users/designingreports/index.rst:338
 msgid "Please note that these should be in uppercase as provided above."
 msgstr ""
-"Tenha em atenção que estes devem estar em maiúsculas, tal como apresentados "
-"em cima."
+"Tenha em atenção que estes devem estar em maiúsculas, tal como "
+"apresentados em cima."
 
 #: ../../source/for_users/designingreports/index.rst:299
 msgid "item_scope_mapping"
@@ -672,8 +678,8 @@ msgid ""
 "Provides a mechanism for grouping layout items based on a scope (i.e. "
 "algorithm)."
 msgstr ""
-"Fornece um mecanismo para agrupar itens de esquema, com base num campo de "
-"aplicação (i.e., algoritmo)."
+"Fornece um mecanismo para agrupar itens de esquema, com base num campo de"
+" aplicação (i.e., algoritmo)."
 
 #: ../../source/for_users/designingreports/index.rst:305
 msgid ""
@@ -694,8 +700,8 @@ msgid ""
 "A dictionary containing an enumeration of the layout item type and "
 "corresponding list of item IDs defined in the template."
 msgstr ""
-"Um dicionário contendo uma enumeração do tipo de item de esquema e a lista "
-"correspondente de identificadores de item definidos no modelo."
+"Um dicionário contendo uma enumeração do tipo de item de esquema e a "
+"lista correspondente de identificadores de item definidos no modelo."
 
 #: ../../source/for_users/designingreports/index.rst:312
 msgid "Supported layout item types include: **map**, **label**, **picture**"
@@ -706,8 +712,8 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:322
 msgid "See :ref:`adding_layout_items` on how to specify item IDs."
 msgstr ""
-"Ver :ref:`adding_layout_items` para saber como especificar identificadores "
-"de item."
+"Ver :ref:`adding_layout_items` para saber como especificar "
+"identificadores de item."
 
 #: ../../source/for_users/designingreports/index.rst:328
 msgid "output_format"
@@ -735,8 +741,8 @@ msgstr "`params`"
 
 #: ../../source/for_users/designingreports/index.rst:341
 msgid ""
-"Depending on the specified output type, this property contains additional "
-"information regarding the format."
+"Depending on the specified output type, this property contains additional"
+" information regarding the format."
 msgstr ""
 "Dependendo do tipo de saída especificada, esta propriedade contém "
 "informações adicionais sobre o formato."
@@ -744,12 +750,12 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:344
 msgid ""
 "For instance, if the IMAGE is specified as the output format, then this "
-"property can be used to specify the IMAGE type. Does nothing for PDF type "
-"and defaults to PNG for an IMAGE type."
+"property can be used to specify the IMAGE type. Does nothing for PDF type"
+" and defaults to PNG for an IMAGE type."
 msgstr ""
 "Por exemplo, se o formato de saída especificado for IMAGEM, então esta "
-"propriedade pode ser usada para especificar o tipo de IMAGEM. Não tem efeito"
-" para o tipo PDF e assume PNG por defeito para o tipo IMAGEM."
+"propriedade pode ser usada para especificar o tipo de IMAGEM. Não tem "
+"efeito para o tipo PDF e assume PNG por defeito para o tipo IMAGEM."
 
 #: ../../source/for_users/designingreports/index.rst:351
 msgid "Resetting to Default Templates and Configuration"
@@ -757,8 +763,8 @@ msgstr "Redefinição para modelos e configuração por defeito"
 
 #: ../../source/for_users/designingreports/index.rst:352
 msgid ""
-"To revert back to the default templates and report configuration file that "
-"ship with the toolbox, perform the following steps:"
+"To revert back to the default templates and report configuration file "
+"that ship with the toolbox, perform the following steps:"
 msgstr ""
 "Para regressar aos modelos e ficheiro de configuração de relatório por "
 "defeito que são fornecidos com a toolbox, execute os seguintes passos:"
@@ -775,14 +781,12 @@ msgstr ""
 msgid "Proceed to delete the `templates` folder then restart QGIS."
 msgstr "Elimine a pasta `templates` e depois reinicie o QGIS."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

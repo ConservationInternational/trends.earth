@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-01 11:29-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
 "Language-Team: Persian (https://www.transifex.com/conservation-"
 "international/teams/80165/fa/)\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/landdegradation.rst:4
 msgid "Land Degradation"
@@ -918,14 +918,6 @@ msgstr ""
 msgid "**Coming soon**"
 msgstr ""
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr ""
-
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr ""
-
 #~ msgid "Strategic Objective 3"
 #~ msgstr ""
 
@@ -1072,5 +1064,11 @@ msgstr ""
 #~ "The data for SO 3 Indicators will"
 #~ " be added to the map for the"
 #~ " region of interest."
+#~ msgstr ""
+
+#~ msgid "iconCalculator"
+#~ msgstr ""
+
+#~ msgid "iconReports"
 #~ msgstr ""
 

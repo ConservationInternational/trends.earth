@@ -1,26 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-"
+"international/teams/80165/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/metadata.rst:4
 msgid "Dataset Metadata"
@@ -42,16 +46,15 @@ msgstr "**Доступ в Интернет**: Не требуется"
 
 #: ../../source/for_users/training/metadata.rst:12
 msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
-" icon."
-msgstr ""
-"Нажмите на панель инструментов Trends.Earth в QGIS и значок Trends.Earth."
+"Click on the Trends.Earth toolbar within QGIS, and click on the "
+"Trends.Earth icon."
+msgstr "Нажмите на панель инструментов Trends.Earth в QGIS и значок Trends.Earth."
 
 #: ../../source/for_users/training/metadata.rst:17
 msgid ""
 "The **Trends.Earth** menu will open. In the **Dataset** window, where "
-"existing tasks are listed in the menu if the **Download remotely-generated "
-"datasets automatically** is checked in settings."
+"existing tasks are listed in the menu if the **Download remotely-"
+"generated datasets automatically** is checked in settings."
 msgstr ""
 "Откроется меню **Trends.Earth**. В окне **Набор данных**, где в меню "
 "перечислены существующие задачи, если в настройках установлен флажок "
@@ -59,11 +62,11 @@ msgstr ""
 
 #: ../../source/for_users/training/metadata.rst:20
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more about "
-"**Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more "
+"about **Advanced settings**"
 msgstr ""
-"Обратитесь к разделу :ref:`tut_settings` данного руководства, чтобы узнать "
-"больше о **Расширенных настройках**."
+"Обратитесь к разделу :ref:`tut_settings` данного руководства, чтобы "
+"узнать больше о **Расширенных настройках**."
 
 #: ../../source/for_users/training/metadata.rst:22
 msgid "Select the Refresh button if no datasets appear in the menu."
@@ -74,57 +77,57 @@ msgid ""
 "Press the Edit metadata button to open a drop-down menu with available "
 "options"
 msgstr ""
-"Нажмите кнопку «Изменить метаданные», чтобы открыть раскрывающееся меню с "
-"доступными параметрами."
+"Нажмите кнопку «Изменить метаданные», чтобы открыть раскрывающееся меню с"
+" доступными параметрами."
 
 #: ../../source/for_users/training/metadata.rst:29
 msgid ""
 "The drop-down menu allows to select any raster from the list of all "
-"available rasters of the dataset to edit or view its metadata. Once raster "
-"is selected a metadata editor dialog will show up."
+"available rasters of the dataset to edit or view its metadata. Once "
+"raster is selected a metadata editor dialog will show up."
 msgstr ""
 "Выпадающее меню позволяет выбрать любой растр из списка всех доступных "
-"растров набора данных для редактирования или просмотра его метаданных. После"
-" выбора растра появится диалоговое окно редактора метаданных."
+"растров набора данных для редактирования или просмотра его метаданных. "
+"После выбора растра появится диалоговое окно редактора метаданных."
 
 #: ../../source/for_users/training/metadata.rst:34
 msgid ""
-"Fill in the necessary information or edit existing data in the dialog fields"
-" and press OK button to save your changes. Metadata will be saved in the "
-"QGIS QMD format, in a separate file for each raster in the dataset folder."
+"Fill in the necessary information or edit existing data in the dialog "
+"fields and press OK button to save your changes. Metadata will be saved "
+"in the QGIS QMD format, in a separate file for each raster in the dataset"
+" folder."
 msgstr ""
-"Заполните необходимую информацию или отредактируйте существующие данные в "
-"полях диалога и нажмите кнопку OK, чтобы сохранить изменения. Метаданные "
-"будут сохранены в формате QGIS QMD, в отдельном файле для каждого растра в "
-"папке набора данных."
+"Заполните необходимую информацию или отредактируйте существующие данные в"
+" полях диалога и нажмите кнопку OK, чтобы сохранить изменения. Метаданные"
+" будут сохранены в формате QGIS QMD, в отдельном файле для каждого растра"
+" в папке набора данных."
 
 #: ../../source/for_users/training/metadata.rst:36
 msgid ""
-"Metadata also can be viewed/edited from the Dataset details dialog via the "
-"same Metadata button, as described in the step 3 above."
+"Metadata also can be viewed/edited from the Dataset details dialog via "
+"the same Metadata button, as described in the step 3 above."
 msgstr ""
 "Метаданные также можно просматривать/редактировать в диалоговом окне "
-"сведений о наборе данных с помощью той же кнопки «Метаданные», как описано в"
-" шаге 3 выше."
+"сведений о наборе данных с помощью той же кнопки «Метаданные», как "
+"описано в шаге 3 выше."
 
 #: ../../source/for_users/training/metadata.rst:41
 msgid ""
-"When exporting dataset to the ZIP archive from the Dataset details dialog "
-"all existing metadata in the QMD format will be automatically converted to "
-"ISO XML format and packaged together with the layers."
+"When exporting dataset to the ZIP archive from the Dataset details dialog"
+" all existing metadata in the QMD format will be automatically converted "
+"to ISO XML format and packaged together with the layers."
 msgstr ""
-"При экспорте набора данных в ZIP-архив из диалогового окна сведений о наборе"
-" данных все существующие метаданные в формате QMD будут автоматически "
-"преобразованы в формат ISO XML и упакованы вместе со слоями."
+"При экспорте набора данных в ZIP-архив из диалогового окна сведений о "
+"наборе данных все существующие метаданные в формате QMD будут "
+"автоматически преобразованы в формат ISO XML и упакованы вместе со "
+"слоями."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

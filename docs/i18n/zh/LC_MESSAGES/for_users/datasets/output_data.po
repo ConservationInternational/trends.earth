@@ -1,26 +1,28 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-"
+"international/teams/80165/zh/)\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/datasets/output_data.rst:4
 msgid "Output datasets from Trends.Earth"
@@ -28,33 +30,31 @@ msgstr "从 Trends.Earth 输出数据集"
 
 #: ../../source/for_users/datasets/output_data.rst:6
 msgid ""
-"The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
-"widely supported format, so these datasets can be used within QGIS as well "
-"as within any other GIS software."
+"The spatial data produced by |trends.earth| is in GeoTiff format. This is"
+" a widely supported format, so these datasets can be used within QGIS as "
+"well as within any other GIS software."
 msgstr ""
 "|trends.earth|生成的空间数据为 GeoTiff 格式。这是一种广泛支持的格式，因此这些数据集可以在 QGIS 以及其他任何 GIS "
 "软件中使用。"
 
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
 #: ../../source/for_users/datasets/output_data.rst:10
 msgid ""
-"If you wish to use |trends.earth| data outside of the tool itself, you will "
-"need to know how the data is coded. The tables below provide guidance on "
-"what the exact layers are that are produced by each analysis in "
-"|trends.earth|."
-msgstr ""
-"如果您想使用|trends.earth|工具本身以外的数据，您需要知道数据是如何编码的。下表提供了|trends.earth|中每个分析产生的确切图层的指导。"
+"If you wish to use |trends.earth| data outside of the tool itself, you "
+"will need to know how the data is coded. The tables below provide "
+"guidance on what the exact layers are that are produced by each analysis "
+"in |trends.earth|."
+msgstr "如果您想使用|trends.earth|工具本身以外的数据，您需要知道数据是如何编码的。下表提供了|trends.earth|中每个分析产生的确切图层的指导。"
 
 #: ../../source/for_users/datasets/output_data.rst:14
 msgid ""
-"To see which of the below layers is contained within a |trends.earth| output"
-" file, use the `load data <../documentation/load_data.html>`_ tool. When you"
-" choose a file with that tool, it will show you a list of the layers within "
-"that file, as well as the band number for each layer."
+"To see which of the below layers is contained within a |trends.earth| "
+"output file, use the `load data <../documentation/load_data.html>`_ tool."
+" When you choose a file with that tool, it will show you a list of the "
+"layers within that file, as well as the band number for each layer."
 msgstr ""
 "要查看下方哪个图层包含在|trends.earth|输出文件中，请使用 `load data "
 "<../documentation/load_data.html>`_ "
@@ -312,11 +312,13 @@ msgstr "生产力表现（比率）"
 
 #: ../../source/for_users/datasets/output_data.rst:97
 msgid ""
-"Ratio of mean NDVI and maximum productivity. See background on `performance "
-"<../background/understanding_indicators15.html#productivity-performance>`_."
+"Ratio of mean NDVI and maximum productivity. See background on "
+"`performance <../background/understanding_indicators15.html#productivity-"
+"performance>`_."
 msgstr ""
 "平均 NDVI 与最大生产力的比率。查看背景`performance "
-"<../background/understanding_indicators15.html#productivity-performance>`_。"
+"<../background/understanding_indicators15.html#productivity-"
+"performance>`_。"
 
 #: ../../source/for_users/datasets/output_data.rst:102
 msgid "Productivity performance (units)"
@@ -329,7 +331,8 @@ msgid ""
 "performance>`_."
 msgstr ""
 "用于计算表现的单位的 ID。查看背景`performance "
-"<../background/understanding_indicators15.html#productivity-performance>`_。"
+"<../background/understanding_indicators15.html#productivity-"
+"performance>`_。"
 
 #: ../../source/for_users/datasets/output_data.rst:114
 msgid "Productivity state (degradation)"
@@ -338,9 +341,9 @@ msgstr "生产力状态（退化）"
 #: ../../source/for_users/datasets/output_data.rst:121
 msgid ""
 "Change in productivity state classes between baseline and target period, "
-"calculated as the rank in the target period minus the rank in the baseline "
-"period. Positive values indicate improvement, negative values indicate "
-"decline."
+"calculated as the rank in the target period minus the rank in the "
+"baseline period. Positive values indicate improvement, negative values "
+"indicate decline."
 msgstr "基线期和目标期之间生产力状态等级的变化，计算为目标期的排名减去基线期的排名。正值表示改善，负值表示退化。"
 
 #: ../../source/for_users/datasets/output_data.rst:128
@@ -350,7 +353,8 @@ msgstr "生产力状态等级"
 #: ../../source/for_users/datasets/output_data.rst:135
 msgid ""
 "Percentile class for productivity state. See background on `productivity "
-"state <../background/understanding_indicators15.html#productivity-state>`_."
+"state <../background/understanding_indicators15.html#productivity-"
+"state>`_."
 msgstr ""
 "生产力状态的百分等级。查看背景`productivity state "
 "<../background/understanding_indicators15.html#productivity-state>`_。"
@@ -362,8 +366,9 @@ msgstr "生产力状态 NDVI 平均值"
 #: ../../source/for_users/datasets/output_data.rst:147
 msgid ""
 "Mean annually integrated NDVI for the baseline period chosen for "
-"productivity state, scaled by 10,000. See background on `productivity state "
-"<../background/understanding_indicators15.html#productivity-state>`_."
+"productivity state, scaled by 10,000. See background on `productivity "
+"state <../background/understanding_indicators15.html#productivity-"
+"state>`_."
 msgstr ""
 "针对生产力状态选择的基线期的年均综合 NDVI，按 10,000 缩放。查看背景`productivity state "
 "<../background/understanding_indicators15.html#productivity-state>`_。"
@@ -519,8 +524,8 @@ msgstr "30"
 
 #: ../../source/for_users/datasets/output_data.rst:247
 msgid ""
-"Mosaic cropland (>50%) / natural vegetation (tree, shrub, "
-"herbaceous cover) (<50%)"
+"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous "
+"cover) (<50%)"
 msgstr "马赛克农田 (>50%) /天然植被（树木、灌木、草本覆盖）(<50%)"
 
 #: ../../source/for_users/datasets/output_data.rst:250
@@ -529,8 +534,8 @@ msgstr "40"
 
 #: ../../source/for_users/datasets/output_data.rst:250
 msgid ""
-"Mosaic natural vegetation (tree, shrub, herbaceous cover) "
-"(>50%) / cropland (<50%)"
+"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / "
+"cropland (<50%)"
 msgstr "马赛克自然植被（树木、灌木、草本覆盖）(>50%) /农田 (<50%)"
 
 #: ../../source/for_users/datasets/output_data.rst:253
@@ -1145,13 +1150,12 @@ msgstr "土壤有机碳（降解）"
 #: ../../source/for_users/datasets/output_data.rst:434
 msgid ""
 "Percentage change in soil organic carbon content (0 - 30 cm depth) from "
-"baseline to target year. Positive values indicate increase, negative values "
-"indicate decrease."
+"baseline to target year. Positive values indicate increase, negative "
+"values indicate decrease."
 msgstr "从基线到目标年份的土壤有机碳含量（0–30 厘米深度）的百分比变化。正值表示增加，负值表示减少。"
 
 #: ../../source/for_users/datasets/output_data.rst:447
-msgid ""
-"Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
+msgid "Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
 msgstr "以每公顷公吨计的土壤有机碳含量（0–30 cm 深度）"
 
 #: ../../source/for_users/datasets/output_data.rst:452
@@ -1172,11 +1176,11 @@ msgstr "最大干旱人口"
 
 #: ../../source/for_users/datasets/output_data.rst:470
 msgid ""
-"As an indicator of population exposure to drought, Trends.Earth's drought "
-"tools produce a layer assessing total population (or male or female "
-"population, depending on the selections made by the user) at time of maximum"
-" drought. For the purpose of these analyses, drought is defined as an SPI "
-"less than -1.0 (a lag 12 SPI is the default used in the tool)."
+"As an indicator of population exposure to drought, Trends.Earth's drought"
+" tools produce a layer assessing total population (or male or female "
+"population, depending on the selections made by the user) at time of "
+"maximum drought. For the purpose of these analyses, drought is defined as"
+" an SPI less than -1.0 (a lag 12 SPI is the default used in the tool)."
 msgstr ""
 "作为人口受干旱影响的指标，Trends.Earth "
 "的干旱工具会生成一个图层，用于评估最大干旱时的总人口（或男性或女性人口，取决于用户所做的选择）。出于这些分析的目的，干旱被定义为 SPI 小于 "
@@ -1187,10 +1191,12 @@ msgid "Any negative value"
 msgstr "任何负值"
 
 #: ../../source/for_users/datasets/output_data.rst:481
+#, fuzzy
 msgid ""
-"A positive value indicates a pixel **was** exposed to drought (defined as "
-"SPI < -1) during a particular (typically four- year) period. The pixel value"
-" indicates the population of the pixel at the time of maximum drought."
+"A negative value indicates a pixel **was** exposed to drought (defined as"
+" SPI < -1) during a particular (typically four- year) period. The pixel "
+"value indicates the population of the pixel at the time of maximum "
+"drought."
 msgstr "正值表示像素在特定（通常为四年）时期**曾**受干旱影响（定义为 SPI < -1）。像素值表示最大干旱时像素的人口。"
 
 #: ../../source/for_users/datasets/output_data.rst:486
@@ -1199,8 +1205,8 @@ msgstr "任何正值"
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid ""
-"A positive value indicates a pixel **was not** exposed to drought during a "
-"particular (typically four-year) period. The pixel value indicates the "
+"A positive value indicates a pixel **was not** exposed to drought during "
+"a particular (typically four-year) period. The pixel value indicates the "
 "maximum population of the pixel during the period."
 msgstr "正值表示像素在特定（通常为四年）时期**未曾**受干旱影响。像素值表示此时期内像素的最大人口数量。"
 
@@ -1296,19 +1302,18 @@ msgstr "人口（总人数、男性或女性）"
 
 #: ../../source/for_users/datasets/output_data.rst:560
 msgid ""
-"This output draws on data from the `WorldPop <https://www.worldpop.org>`_ "
-"project. Depending on the tool used in Trends.Earth, population outputs can "
-"be: total population (male and female), total male population, or total "
-"female population. The pixels values in each all are coded the same way, and"
-" refer to actual population counts per grid cell."
+"This output draws on data from the `WorldPop <https://www.worldpop.org>`_"
+" project. Depending on the tool used in Trends.Earth, population outputs "
+"can be: total population (male and female), total male population, or "
+"total female population. The pixels values in each all are coded the same"
+" way, and refer to actual population counts per grid cell."
 msgstr ""
 "此输出使用来自 `WorldPop <https://www.worldpop.org>`_ 项目的数据。根据 Trends.Earth "
 "中使用的工具，人口输出可以是：总人口（男性和女性）、总男性人口或总女性人口。每个当中的像素值都以相同的方式编码，并参考每个网格单元的实际人口计数。"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
+

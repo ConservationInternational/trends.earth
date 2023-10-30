@@ -1,21 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
-"Language-Team: Persian (https://www.transifex.com/conservation-international/teams/80165/fa/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
+"Language-Team: Persian (https://www.transifex.com/conservation-"
+"international/teams/80165/fa/)\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/preamble/index.rst:4
 msgid "Preamble"
@@ -23,24 +27,25 @@ msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:5
 msgid ""
-"Trends.Earth is a platform to monitor land change using earth observations. "
-"It is now available as a browser-based tool in addition to the plugin to "
-"desktop QGIS spatial-analytical software."
+"Trends.Earth is a platform to monitor land change using earth "
+"observations. It is now available as a browser-based tool in addition to "
+"the plugin to desktop QGIS spatial-analytical software."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:9
 msgid ""
-"The tool allows users to assess time series of key indicators of land change"
-" to produce maps and other graphics that can support monitoring and "
-"reporting, and to track the impact of sustainable land management. The tool "
-"supports monitoring progress on land degradation neutrality (SDG 15.3.1), "
-"land consumption (SDG 11.3.1), modeling carbon emissions from deforestation,"
-" and modeling potential carbon sequestration from restoration activities. "
-"Trends.Earth supports monitoring and reporting on Sustainable Development "
-"Goals (SDGs) 15.3.1 (area of degraded land) and 11.3.1 (ration of land "
-"consumption rate to population growth) by providing a platform for analyzing"
-" data for reporting commitments to the United Nations Convention to Combat "
-"Desertification (UNCCD) and UN-Habitat."
+"The tool allows users to assess time series of key indicators of land "
+"change to produce maps and other graphics that can support monitoring and"
+" reporting, and to track the impact of sustainable land management. The "
+"tool supports monitoring progress on land degradation neutrality (SDG "
+"15.3.1), land consumption (SDG 11.3.1), modeling carbon emissions from "
+"deforestation, and modeling potential carbon sequestration from "
+"restoration activities. Trends.Earth supports monitoring and reporting on"
+" Sustainable Development Goals (SDGs) 15.3.1 (area of degraded land) and "
+"11.3.1 (ration of land consumption rate to population growth) by "
+"providing a platform for analyzing data for reporting commitments to the "
+"United Nations Convention to Combat Desertification (UNCCD) and UN-"
+"Habitat."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:18
@@ -58,8 +63,8 @@ msgstr ""
 #: ../../source/for_users/preamble/index.rst:24
 msgid ""
 "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
-"platform from `Conservation International`_ for monitoring land change using"
-" earth observations in an innovative desktop and cloud-based system."
+"platform from `Conservation International`_ for monitoring land change "
+"using earth observations in an innovative desktop and cloud-based system."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:30
@@ -71,21 +76,21 @@ msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
 "supported by |trends.earth|: productivity, land cover, and soil organic "
-"carbon.  The tool also supports countries in analyzing data to prepare for "
-"their reporting commitments to the United Nations Convention to Combat "
-"Desertification (UNCCD)."
+"carbon.  The tool also supports countries in analyzing data to prepare "
+"for their reporting commitments to the United Nations Convention to "
+"Combat Desertification (UNCCD)."
 msgstr ""
 
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:39
 msgid ""
 "Trends.Earth allows users to plot time series of key indicators of land "
-"change (including degradation and improvement), to produce maps and other "
-"graphics that can support monitoring and reporting, and to track the impact "
-"of sustainable land management or other projects."
+"change (including degradation and improvement), to produce maps and other"
+" graphics that can support monitoring and reporting, and to track the "
+"impact of sustainable land management or other projects."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:44
@@ -94,15 +99,14 @@ msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:46
 msgid ""
-"For more information about the toolbox, see the `General Information section"
-" <_general>` For toolbox users, see the `User Guide <_for_users>` For "
-"developers, see the `Developers Guide <_for_developers>`"
+"For more information about the toolbox, see the `General Information "
+"section <_general>` For toolbox users, see the `User Guide <_for_users>` "
+"For developers, see the `Developers Guide <_for_developers>`"
 msgstr ""
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr ""
+#~ msgid "iconCalculator"
+#~ msgstr ""
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr ""
+#~ msgid "iconReports"
+#~ msgstr ""
+

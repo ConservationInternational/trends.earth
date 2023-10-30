@@ -1,21 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
-"Language-Team: Persian (https://www.transifex.com/conservation-international/teams/80165/fa/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
+"Language-Team: Persian (https://www.transifex.com/conservation-"
+"international/teams/80165/fa/)\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/designingreports/index.rst:4
 msgid "Designing Reports"
@@ -23,11 +27,11 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:6
 msgid ""
-"Reports are, in simplest terms, created by populating a report template with"
-" textual and/or spatial data from one or more jobs. It is important to note "
-"that reports are generated at the layer/band level hence the number of "
-"reports from a single job will correspond to the number of **default** bands"
-" for the given job."
+"Reports are, in simplest terms, created by populating a report template "
+"with textual and/or spatial data from one or more jobs. It is important "
+"to note that reports are generated at the layer/band level hence the "
+"number of reports from a single job will correspond to the number of "
+"**default** bands for the given job."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:11
@@ -39,8 +43,7 @@ msgid "Designing templates using the QGIS layout framework;"
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:14
-msgid ""
-"Specifying the configuration parameters in a report configuration file."
+msgid "Specifying the configuration parameters in a report configuration file."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:17
@@ -77,18 +80,18 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:30
 msgid ""
-"A report is made up of static content (such as logos, disclaimer text etc.) "
-"that does not change from one report to another. It may also include dynamic"
-" content (such as maps or attribute information) that is generated at "
-"runtime during the execution process."
+"A report is made up of static content (such as logos, disclaimer text "
+"etc.) that does not change from one report to another. It may also "
+"include dynamic content (such as maps or attribute information) that is "
+"generated at runtime during the execution process."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:34
 msgid ""
-"The Trends.Earth toolbox provides a number of layout expression variables "
-"that can be used to insert dynamic content in a layout. Some of these are "
-"available at design time while others are only available at runtime. The "
-"table below provides a summary of the available variables."
+"The Trends.Earth toolbox provides a number of layout expression variables"
+" that can be used to insert dynamic content in a layout. Some of these "
+"are available at design time while others are only available at runtime. "
+"The table below provides a summary of the available variables."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:39
@@ -97,7 +100,8 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:40
 msgid ""
-"These are characterized by a `te_job_` prefix and only available at runtime."
+"These are characterized by a `te_job_` prefix and only available at "
+"runtime."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:43
@@ -171,6 +175,7 @@ msgid "Creation date/time of a job"
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:53
+#, python-format
 msgid "String in %Y-%m-%d %H:%M format"
 msgstr ""
 
@@ -204,8 +209,8 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:64
 msgid ""
-"These are characterized by a `te_current_layer_` prefix and only available "
-"at runtime."
+"These are characterized by a `te_current_layer_` prefix and only "
+"available at runtime."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:69
@@ -222,10 +227,10 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:74
 msgid ""
-"These are characterized by a `te_report_` prefix and are available at both "
-"design time and runtime. Refer to the :ref:`report_settings` section for a "
-"detailed description of the report settings and corresponding variable "
-"names."
+"These are characterized by a `te_report_` prefix and are available at "
+"both design time and runtime. Refer to the :ref:`report_settings` section"
+" for a detailed description of the report settings and corresponding "
+"variable names."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:78
@@ -243,9 +248,9 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:83
 msgid ""
 "This is designed to contain - or provide an allowance to include - more "
-"information such as author name. The default template is set on an A4 page "
-"and includes a layout title, map, legend, scale bar, north arrow, disclaimer"
-" text. and logo."
+"information such as author name. The default template is set on an A4 "
+"page and includes a layout title, map, legend, scale bar, north arrow, "
+"disclaimer text. and logo."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:88
@@ -254,17 +259,17 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:89
 msgid ""
-"This is designed to be a lighter version of the template with the default "
-"one set on an 83mm by 59mm page size (in landscape mode) or vice versa in "
-"portrait mode and contains a map, legend, north arrow, scale bar, disclaimer"
-" text and logo."
+"This is designed to be a lighter version of the template with the default"
+" one set on an 83mm by 59mm page size (in landscape mode) or vice versa "
+"in portrait mode and contains a map, legend, north arrow, scale bar, "
+"disclaimer text and logo."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:94
 msgid ""
 "For each template type, you will need to provide both the portrait and "
-"landscape versions as the toolbox will select one of these depending on the "
-"dimensions of the map layer being rendered."
+"landscape versions as the toolbox will select one of these depending on "
+"the dimensions of the map layer being rendered."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:98
@@ -332,33 +337,33 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:158
 msgid ""
-"For instance, to insert a job's algorithm name in a label item, you can use "
-"the following expression: :code:`[% @te_job_alg_name %]`."
+"For instance, to insert a job's algorithm name in a label item, you can "
+"use the following expression: :code:`[% @te_job_alg_name %]`."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:164
 msgid ""
-"For a map item, do not add any layers or specify a map theme as the layers "
-"and their ordering will be automatically set during the report generation "
-"process."
+"For a map item, do not add any layers or specify a map theme as the "
+"layers and their ordering will be automatically set during the report "
+"generation process."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:167
 msgid ""
-"When using a legend item, ensure the **Auto update** option is selected. The"
-" toolbox will determine which legend items to show/hide depending on the "
-"rendering context."
+"When using a legend item, ensure the **Auto update** option is selected. "
+"The toolbox will determine which legend items to show/hide depending on "
+"the rendering context."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:174
 msgid ""
-"For map items rendering a job's layers or label items that use the toolbox's"
-" expression variables, please ensure that you define their corresponding "
-"item IDs so that they can be flagged for updating during the report "
-"generation process. A preferred naming convention - for the item ID - is "
-"`[item_type.context_name]` e.g. :code:`label.layer_name`, "
-":code:`label.job_alg_name`, :code:`map.main`. We will see how these item IDs"
-" are used in the :ref:`item_scope_mapping` section."
+"For map items rendering a job's layers or label items that use the "
+"toolbox's expression variables, please ensure that you define their "
+"corresponding item IDs so that they can be flagged for updating during "
+"the report generation process. A preferred naming convention - for the "
+"item ID - is `[item_type.context_name]` e.g. :code:`label.layer_name`, "
+":code:`label.job_alg_name`, :code:`map.main`. We will see how these item "
+"IDs are used in the :ref:`item_scope_mapping` section."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:187
@@ -401,8 +406,8 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:241
 msgid ""
-"Contains information about the QGIS report templates associated with one or "
-"more algorithm scopes."
+"Contains information about the QGIS report templates associated with one "
+"or more algorithm scopes."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:244
@@ -512,8 +517,8 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:267
 msgid ""
-"The paths defined above are basically file names which are relative to the "
-"location of the `templates.json` configuration file."
+"The paths defined above are basically file names which are relative to "
+"the location of the `templates.json` configuration file."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:274
@@ -530,8 +535,8 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:280
 msgid ""
-"A list of format objects specifying the output format of the report. You can"
-" have a report produced in multiple types such as PDF and PNG."
+"A list of format objects specifying the output format of the report. You "
+"can have a report produced in multiple types such as PDF and PNG."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:284
@@ -622,15 +627,15 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:341
 msgid ""
-"Depending on the specified output type, this property contains additional "
-"information regarding the format."
+"Depending on the specified output type, this property contains additional"
+" information regarding the format."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:344
 msgid ""
 "For instance, if the IMAGE is specified as the output format, then this "
-"property can be used to specify the IMAGE type. Does nothing for PDF type "
-"and defaults to PNG for an IMAGE type."
+"property can be used to specify the IMAGE type. Does nothing for PDF type"
+" and defaults to PNG for an IMAGE type."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:351
@@ -639,8 +644,8 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:352
 msgid ""
-"To revert back to the default templates and report configuration file that "
-"ship with the toolbox, perform the following steps:"
+"To revert back to the default templates and report configuration file "
+"that ship with the toolbox, perform the following steps:"
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:354
@@ -653,14 +658,12 @@ msgstr ""
 msgid "Proceed to delete the `templates` folder then restart QGIS."
 msgstr ""
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr ""
+#~ msgid "iconCalculator"
+#~ msgstr ""
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr ""
+#~ msgid "iconReports"
+#~ msgstr ""
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr ""
+#~ msgid "Trends.Earth"
+#~ msgstr ""
+

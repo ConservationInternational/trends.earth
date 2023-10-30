@@ -1,25 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-"
+"international/teams/80165/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/unccdreporting.rst:4
 msgid "UNCCD Reporting"
@@ -32,21 +36,21 @@ msgstr "Создать пакет данных для отчетов для UNCC
 #: ../../source/for_users/training/unccdreporting.rst:10
 msgid ""
 "In the **Trends.Earth** panel, select the **Algorithm** window, click on "
-"**UNCCD Reporting - Generate data package for UNCCD reporting** and select "
-"**Execute locally**."
+"**UNCCD Reporting - Generate data package for UNCCD reporting** and "
+"select **Execute locally**."
 msgstr ""
-"На панели **Trends.Earth** выберите окно **Алгоритм**, нажмите на **Отчеты "
-"для UNCCD — создать пакет данных для отчетов для UNCCD** и выберите "
-"**Осуществить локально**."
+"На панели **Trends.Earth** выберите окно **Алгоритм**, нажмите на "
+"**Отчеты для UNCCD — создать пакет данных для отчетов для UNCCD** и "
+"выберите **Осуществить локально**."
 
 #: ../../source/for_users/training/unccdreporting.rst:15
 msgid ""
 "The window will appear with the default data populated in the drop-down "
-"lists for the region of interest. Enter **Execution name** and **Notes**. "
-"Select **Execute locally**."
+"lists for the region of interest. Enter **Execution name** and **Notes**."
+" Select **Execute locally**."
 msgstr ""
-"Появится окно с данными по умолчанию, заполненными в раскрывающихся списках "
-"для интересующего вас региона. Введите **Название выполнения** и "
+"Появится окно с данными по умолчанию, заполненными в раскрывающихся "
+"списках для интересующего вас региона. Введите **Название выполнения** и "
 "**Примечание**. Выберите **Осуществить локально**."
 
 #: ../../source/for_users/training/unccdreporting.rst:20
@@ -61,11 +65,11 @@ msgstr ""
 
 #: ../../source/for_users/training/unccdreporting.rst:24
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more about "
-"**Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more "
+"about **Advanced settings**"
 msgstr ""
-"Обратитесь к разделу :ref:`tut_settings` данного руководства, чтобы получить"
-" дополнительную информацию о **Дополнительных настройках**"
+"Обратитесь к разделу :ref:`tut_settings` данного руководства, чтобы "
+"получить дополнительную информацию о **Дополнительных настройках**"
 
 #: ../../source/for_users/training/unccdreporting.rst:26
 msgid "Select the Refresh button if the analysis does not appear in the menu."
@@ -81,28 +85,26 @@ msgstr ""
 
 #: ../../source/for_users/training/unccdreporting.rst:33
 msgid ""
-"The final SDG 15.3.1 Indicator using default data will be added to the map "
-"for the region of interest."
+"The final SDG 15.3.1 Indicator using default data will be added to the "
+"map for the region of interest."
 msgstr ""
-"Окончательный SDG 15.3.1 Indicator, использующий данные по умолчанию, будет "
-"добавлен на карте для интересующего вас региона."
+"Окончательный SDG 15.3.1 Indicator, использующий данные по умолчанию, "
+"будет добавлен на карте для интересующего вас региона."
 
 #: ../../source/for_users/training/unccdreporting.rst:36
 msgid ""
-"Refer to the :ref:`background_unccdreporting` background for interpreting "
-"the results of this analysis."
+"Refer to the :ref:`background_unccdreporting` background for interpreting"
+" the results of this analysis."
 msgstr ""
-"Обращайтесь к информации :ref:`background_unccdreporting` для интерпретации "
-"результатов данного анализа."
+"Обращайтесь к информации :ref:`background_unccdreporting` для "
+"интерпретации результатов данного анализа."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

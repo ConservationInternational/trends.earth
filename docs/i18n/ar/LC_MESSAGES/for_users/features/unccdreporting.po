@@ -1,26 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-"
+"international/teams/80165/ar/)\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
+"n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/features/unccdreporting.rst:4
 msgid "UNCCD Reporting - SDG 15.3.1"
@@ -33,46 +36,46 @@ msgid ""
 "As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
 "Development Goal (SDG) 15 is to:"
 msgstr ""
-"كجزء من \"خطة التنمية المستدامة لعام 2030\"، يتمثل هدف التنمية المستدامة رقم"
-" 15 في:"
+"كجزء من \"خطة التنمية المستدامة لعام 2030\"، يتمثل هدف التنمية المستدامة "
+"رقم 15 في:"
 
 #: ../../source/for_users/features/unccdreporting.rst:9
 msgid ""
-"\"Protect, restore and promote sustainable use of terrestrial ecosystems, "
-"sustainably manage forests, combat desertification, and halt and reverse "
-"land degradation and halt biodiversity loss\""
+"\"Protect, restore and promote sustainable use of terrestrial ecosystems,"
+" sustainably manage forests, combat desertification, and halt and reverse"
+" land degradation and halt biodiversity loss\""
 msgstr ""
-"\"حماية واستعادة وتعزيز الاستخدام المستدام للنظم الإيكولوجية الأرضية، وإدارة"
-" الغابات على نحو مستدام، ومكافحة التصحر، ووقف تدهور الأراضي وعكس اتجاهه ووقف"
-" فقدان التنوع البيولوجي\""
+"\"حماية واستعادة وتعزيز الاستخدام المستدام للنظم الإيكولوجية الأرضية، "
+"وإدارة الغابات على نحو مستدام، ومكافحة التصحر، ووقف تدهور الأراضي وعكس "
+"اتجاهه ووقف فقدان التنوع البيولوجي\""
 
 #: ../../source/for_users/features/unccdreporting.rst:13
 msgid ""
-"Each SDG has specific targets addressing different components, in this case,"
-" of life on land. Target 15.3 aims to:"
+"Each SDG has specific targets addressing different components, in this "
+"case, of life on land. Target 15.3 aims to:"
 msgstr ""
-"لكل هدف من أهداف التنمية المستدامة أهداف محددة تتناول مكونات مختلفة، في هذه "
-"الحالة، من الحياة على الأرض. يعمل الهدف 15.3 على:"
+"لكل هدف من أهداف التنمية المستدامة أهداف محددة تتناول مكونات مختلفة، في "
+"هذه الحالة، من الحياة على الأرض. يعمل الهدف 15.3 على:"
 
 #: ../../source/for_users/features/unccdreporting.rst:16
 msgid ""
-"\"By 2030, combat desertification, restore degraded land and soil, including"
-" land affected by desertification, drought and floods, and strive to achieve"
-" a land degradation-neutral world\""
+"\"By 2030, combat desertification, restore degraded land and soil, "
+"including land affected by desertification, drought and floods, and "
+"strive to achieve a land degradation-neutral world\""
 msgstr ""
-"\"بحلول عام 2030، مكافحة التصحر، واستعادة الأراضي والتربة المتدهورة، بما في "
-"ذلك الأراضي المتأثرة بالتصحر والجفاف والفيضانات، والسعي جاهدين لتحقيق عالم "
-"خالٍ من تدهور الأراضي"
+"\"بحلول عام 2030، مكافحة التصحر، واستعادة الأراضي والتربة المتدهورة، بما "
+"في ذلك الأراضي المتأثرة بالتصحر والجفاف والفيضانات، والسعي جاهدين لتحقيق "
+"عالم خالٍ من تدهور الأراضي"
 
 #: ../../source/for_users/features/unccdreporting.rst:20
 msgid ""
-"Indicators will be used then to assess the progress of each SDG target. In "
-"the case of SDG 15.3 the progress towards a land degradation neutral world "
-"will be assessed using indicator 15.3.1:"
+"Indicators will be used then to assess the progress of each SDG target. "
+"In the case of SDG 15.3 the progress towards a land degradation neutral "
+"world will be assessed using indicator 15.3.1:"
 msgstr ""
 "سيتم استخدام المؤشرات بعد ذلك لتقييم التقدم المحرز في كل هدف من أهداف "
-"التنمية المستدامة. في حالة الهدف 15.3 من أهداف التنمية المستدامة، سيتم تقييم"
-" التقدم المحرز نحو عالم محايد لتدهور الأراضي باستخدام المؤشر 15.3.1:"
+"التنمية المستدامة. في حالة الهدف 15.3 من أهداف التنمية المستدامة، سيتم "
+"تقييم التقدم المحرز نحو عالم محايد لتدهور الأراضي باستخدام المؤشر 15.3.1:"
 
 #: ../../source/for_users/features/unccdreporting.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
@@ -81,38 +84,33 @@ msgstr "\"نسبة الأراضي المتدهورة على إجمالي مسا�
 #: ../../source/for_users/features/unccdreporting.rst:26
 msgid ""
 "As the custodian agency for SDG 15.3, the United Nations Convention to "
-"Combat Desertification (UNCCD) has developed a `Good Practice Guidance (GPG)"
-" <https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-"
-"Indicator-15.3.1_version2_2021.pdf>`_. providing recommendations on how to "
-"calculate SDG Indicator 15.3.1."
+"Combat Desertification (UNCCD) has developed a `Good Practice Guidance "
+"(GPG) <https://www.unccd.int/sites/default/files/documents/2021-09"
+"/UNCCD_GPG_SDG-Indicator-15.3.1_version2_2021.pdf>`_. providing "
+"recommendations on how to calculate SDG Indicator 15.3.1."
 msgstr ""
 "بصفتها الوكالة الراعية لهدف التنمية المستدامة 15.3، طورت اتفاقية الأمم "
 "المتحدة لمكافحة التصحر ` إرشادات الممارسات الجيدة "
-"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-"
-"Indicator-15.3.1_version2_2021.pdf> `_. تقديم توصيات حول كيفية حساب مؤشر هدف"
-" التنمية المستدامة 15.3.1."
+"<https://www.unccd.int/sites/default/files/documents/2021-09"
+"/UNCCD_GPG_SDG-Indicator-15.3.1_version2_2021.pdf> `_. تقديم توصيات حول "
+"كيفية حساب مؤشر هدف التنمية المستدامة 15.3.1."
 
 #: ../../source/for_users/features/unccdreporting.rst:31
 msgid ""
 "This document provides a brief introduction to SDG Indicator 15.3.1 and "
 "describes how each indicator is calculated by |trends.earth|."
 msgstr ""
-"تقدم هذه الوثيقة مقدمة موجزة لمؤشر هدف التنمية المستدامة 15.3.1 وتصف كيفية "
-"حساب كل مؤشر من خلال|trends.earth|."
+"تقدم هذه الوثيقة مقدمة موجزة لمؤشر هدف التنمية المستدامة 15.3.1 وتصف "
+"كيفية حساب كل مؤشر من خلال|trends.earth|."
 
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
 #: ../../source/for_users/features/unccdreporting.rst:34
 msgid ""
-"In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
-"from 3 sub-indicators:"
+"In order to assess the area degraded, SDG Indicator 15.3.1 uses "
+"information from 3 sub-indicators:"
 msgstr ""
 "من أجل تقييم المنطقة المتدهورة، يستخدم مؤشر هدف التنمية المستدامة 15.3.1 "
 "معلومات من 3 مؤشرات فرعية:"
@@ -133,15 +131,16 @@ msgstr "الكربون العضوي في التربة"
 
 #: ../../source/for_users/features/unccdreporting.rst:44
 msgid ""
-"|trends.earth| allows the user to compute each of these sub-indicators in a "
-"spatially explicit way generating raster maps which are then integrated into"
-" a final SDG 15.3.1 indicator map and produces a table result reporting "
-"areas potentially improved and degraded for the area of analysis."
+"|trends.earth| allows the user to compute each of these sub-indicators in"
+" a spatially explicit way generating raster maps which are then "
+"integrated into a final SDG 15.3.1 indicator map and produces a table "
+"result reporting areas potentially improved and degraded for the area of "
+"analysis."
 msgstr ""
-"|trends.earth| يسمح للمستخدم بحساب كل من هذه المؤشرات الفرعية بطريقة صريحة "
-"مكانيًا لإنشاء خرائط نقطية يتم دمجها بعد ذلك في خريطة مؤشر هدف التنمية "
-"المستدامة 15.3.1 النهائية وتنتج جدولًا لمناطق الإبلاغ عن النتائج التي يحتمل "
-"أن تكون محسّنة ومتدهورة لمنطقة التحليل."
+"|trends.earth| يسمح للمستخدم بحساب كل من هذه المؤشرات الفرعية بطريقة "
+"صريحة مكانيًا لإنشاء خرائط نقطية يتم دمجها بعد ذلك في خريطة مؤشر هدف "
+"التنمية المستدامة 15.3.1 النهائية وتنتج جدولًا لمناطق الإبلاغ عن النتائج "
+"التي يحتمل أن تكون محسّنة ومتدهورة لمنطقة التحليل."
 
 #: ../../source/for_users/features/unccdreporting.rst:50
 msgid "Sub-indicators"
@@ -154,40 +153,42 @@ msgstr "إنتاجية"
 #: ../../source/for_users/features/unccdreporting.rst:57
 msgid ""
 "Land productivity is the biological productive capacity of the land, the "
-"source of all the food, fiber and fuel that sustains humans (United Nations "
-"Statistical Commission 2016). Net primary productivity (NPP) is the net "
-"amount of carbon assimilated after photosynthesis and autotrophic "
-"respiration over a given period of time (Clark et al. 2001) and is typically"
-" represented in units such as kg/ha/yr. NPP is a variable time consuming and"
-" costly to estimate, for that reason, we rely on remotely sensed information"
-" to derive indicators of NPP."
+"source of all the food, fiber and fuel that sustains humans (United "
+"Nations Statistical Commission 2016). Net primary productivity (NPP) is "
+"the net amount of carbon assimilated after photosynthesis and autotrophic"
+" respiration over a given period of time (Clark et al. 2001) and is "
+"typically represented in units such as kg/ha/yr. NPP is a variable time "
+"consuming and costly to estimate, for that reason, we rely on remotely "
+"sensed information to derive indicators of NPP."
 msgstr ""
 "إنتاجية الأرض هي القدرة الإنتاجية البيولوجية للأرض، ومصدر جميع الأغذية "
-"والألياف والوقود الذي يدعم الإنسان (اللجنة الإحصائية للأمم المتحدة 2016). "
-"صافي الإنتاجية الأولية هو صافي كمية الكربون التي تم استيعابها بعد التمثيل "
-"الضوئي والتنفس الذاتي التغذية خلال فترة زمنية معينة (كلارك وآخرون 2001) ويتم"
-" تمثيلها عادةً بوحدات مثل كجم / هكتار / سنة. صافي الإنتاجية الأولية عبارة عن"
-" عملية متغيرة تستغرق وقتًا طويلاً ومكلفة لتقديرها، ولهذا السبب، نعتمد على "
-"المعلومات المستشعرة عن بُعد لاشتقاق مؤشرات صافي الإنتاجية الأولية."
+"والألياف والوقود الذي يدعم الإنسان (اللجنة الإحصائية للأمم المتحدة 2016)."
+" صافي الإنتاجية الأولية هو صافي كمية الكربون التي تم استيعابها بعد "
+"التمثيل الضوئي والتنفس الذاتي التغذية خلال فترة زمنية معينة (كلارك وآخرون"
+" 2001) ويتم تمثيلها عادةً بوحدات مثل كجم / هكتار / سنة. صافي الإنتاجية "
+"الأولية عبارة عن عملية متغيرة تستغرق وقتًا طويلاً ومكلفة لتقديرها، ولهذا "
+"السبب، نعتمد على المعلومات المستشعرة عن بُعد لاشتقاق مؤشرات صافي "
+"الإنتاجية الأولية."
 
 #: ../../source/for_users/features/unccdreporting.rst:66
 msgid ""
-"One of the most commonly used surrogates of NPP is the Normalized Difference"
-" Vegetation Index (NDVI), computed using information from the red and near "
-"infrared portions of the electromagnetic spectrum. In |trends.earth| we make"
-" use of bi-weekly products from MODIS and AVHRR to compute annual integrals "
-"of NDVI (computed as the mean annual NDVI for simplicity of interpretation "
-"of results). These annual integrals of NDVI are then used to compute each of"
-" the productivity indicators explained below."
+"One of the most commonly used surrogates of NPP is the Normalized "
+"Difference Vegetation Index (NDVI), computed using information from the "
+"red and near infrared portions of the electromagnetic spectrum. In "
+"|trends.earth| we make use of bi-weekly products from MODIS and AVHRR to "
+"compute annual integrals of NDVI (computed as the mean annual NDVI for "
+"simplicity of interpretation of results). These annual integrals of NDVI "
+"are then used to compute each of the productivity indicators explained "
+"below."
 msgstr ""
-"أحد البدائل الأكثر استخدامًا لصافي الإنتاجية الأولية هو فهرس الغطاء النباتي "
-"للاختلاف المعياري، والذي يتم حسابه باستخدام معلومات من الأجزاء الحمراء "
-"والقريبة من الأشعة تحت الحمراء من الطيف الكهرومغناطيسي. في |trends.earth| "
-"نحن نستخدم المنتجات نصف الأسبوعية من MODIS و AVHRR لحساب التكاملات السنوية "
-"لمؤشر الفرق المعياري للغطاء النباتي (محسوبة على أنها متوسط مؤشر مؤشر الفرق "
-"المعياري للغطاء النباتي السنوي لتبسيط تفسير النتائج). ثم يتم استخدام هذه "
-"التكاملات السنوية من دليل مؤشر الفرق المعياري للغطاء النباتي لحساب كل من "
-"مؤشرات الإنتاجية الموضحة أدناه."
+"أحد البدائل الأكثر استخدامًا لصافي الإنتاجية الأولية هو فهرس الغطاء "
+"النباتي للاختلاف المعياري، والذي يتم حسابه باستخدام معلومات من الأجزاء "
+"الحمراء والقريبة من الأشعة تحت الحمراء من الطيف الكهرومغناطيسي. في "
+"|trends.earth| نحن نستخدم المنتجات نصف الأسبوعية من MODIS و AVHRR لحساب "
+"التكاملات السنوية لمؤشر الفرق المعياري للغطاء النباتي (محسوبة على أنها "
+"متوسط مؤشر مؤشر الفرق المعياري للغطاء النباتي السنوي لتبسيط تفسير "
+"النتائج). ثم يتم استخدام هذه التكاملات السنوية من دليل مؤشر الفرق "
+"المعياري للغطاء النباتي لحساب كل من مؤشرات الإنتاجية الموضحة أدناه."
 
 #: ../../source/for_users/features/unccdreporting.rst:74
 msgid ""
@@ -195,8 +196,9 @@ msgid ""
 "Council (JRC) as the default data for computing the final SDG 15.3.1 "
 "Indicator."
 msgstr ""
-"يتم توفير بيانات ديناميكيات إنتاجية الأراضي (LPD) من قبل مجلس البحوث المشترك"
-" (JRC) باعتبارها البيانات الافتراضية لحساب مؤشر SDG 15.3.1 النهائي."
+"يتم توفير بيانات ديناميكيات إنتاجية الأراضي (LPD) من قبل مجلس البحوث "
+"المشترك (JRC) باعتبارها البيانات الافتراضية لحساب مؤشر SDG 15.3.1 "
+"النهائي."
 
 #: ../../source/for_users/features/unccdreporting.rst:80
 msgid ""
@@ -207,11 +209,12 @@ msgid ""
 "dataset, but local maps can also be used. The indicator is computed as "
 "follows:"
 msgstr ""
-"لتقييم التغييرات في الغطاء الأرضي يحتاج المستخدمون إلى خرائط الغطاء الأرضي "
-"التي تغطي منطقة الدراسة لخط الأساس والسنوات المستهدفة. يجب أن تكون هذه "
-"الخرائط ذات دقة مقبولة وأن يتم إنشاؤها بطريقة تسمح بإجراء مقارنات صحيحة. "
-"|trends.earth| يستخدم خرائط الغطاء الأرضي ESA CCI كمجموعة بيانات افتراضية، "
-"ولكن يمكن أيضًا استخدام الخرائط المحلية. يتم حساب المؤشر على النحو التالي:"
+"لتقييم التغييرات في الغطاء الأرضي يحتاج المستخدمون إلى خرائط الغطاء "
+"الأرضي التي تغطي منطقة الدراسة لخط الأساس والسنوات المستهدفة. يجب أن تكون"
+" هذه الخرائط ذات دقة مقبولة وأن يتم إنشاؤها بطريقة تسمح بإجراء مقارنات "
+"صحيحة. |trends.earth| يستخدم خرائط الغطاء الأرضي ESA CCI كمجموعة بيانات "
+"افتراضية، ولكن يمكن أيضًا استخدام الخرائط المحلية. يتم حساب المؤشر على "
+"النحو التالي:"
 
 #: ../../source/for_users/features/unccdreporting.rst:86
 msgid ""
@@ -219,126 +222,130 @@ msgid ""
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
 "area, bare land and water)."
 msgstr ""
-"أعد تصنيف خرائط الغطاء الأرضي إلى فئات الغطاء الأرضي السبعة اللازمة لتقديم "
-"التقارير إلى اتفاقية الأمم المتحدة لمكافحة التصحر (الغابات والأراضي العشبية "
-"والأراضي الزراعية والأراضي الرطبة والمنطقة الاصطناعية والأراضي الجرداء "
-"والمياه)."
+"أعد تصنيف خرائط الغطاء الأرضي إلى فئات الغطاء الأرضي السبعة اللازمة "
+"لتقديم التقارير إلى اتفاقية الأمم المتحدة لمكافحة التصحر (الغابات "
+"والأراضي العشبية والأراضي الزراعية والأراضي الرطبة والمنطقة الاصطناعية "
+"والأراضي الجرداء والمياه)."
 
 #: ../../source/for_users/features/unccdreporting.rst:90
 msgid ""
-"Perform a land cover transition analysis to identify which pixels remained "
-"in the same land cover class, and which ones changed."
+"Perform a land cover transition analysis to identify which pixels "
+"remained in the same land cover class, and which ones changed."
 msgstr ""
-"قم بإجراء تحليل انتقال للغطاء الأرضي لتحديد وحدات البكسل التي بقيت في نفس "
-"فئة الغطاء الأرضي، وتلك التي تغيرت."
+"قم بإجراء تحليل انتقال للغطاء الأرضي لتحديد وحدات البكسل التي بقيت في نفس"
+" فئة الغطاء الأرضي، وتلك التي تغيرت."
 
 #: ../../source/for_users/features/unccdreporting.rst:93
 msgid ""
-"Based on your local knowledge of the conditions in the study area and the "
-"land degradation processed occurring there, use the table below to identify "
-"which transitions correspond to degradation (- sign), improvement (+ sign), "
-"or no change in terms of land condition (zero)."
+"Based on your local knowledge of the conditions in the study area and the"
+" land degradation processed occurring there, use the table below to "
+"identify which transitions correspond to degradation (- sign), "
+"improvement (+ sign), or no change in terms of land condition (zero)."
 msgstr ""
-"استنادًا إلى معرفتك المحلية بالظروف في منطقة الدراسة وتدهور الأراضي الذي يتم"
-" معالجته هناك، استخدم الجدول أدناه لتحديد التحولات التي تتوافق مع التدهور "
-"(علامة -)، أو التحسين (علامة +)، أو لا يوجد تغيير من حيث حالة الأرض (صفر)."
+"استنادًا إلى معرفتك المحلية بالظروف في منطقة الدراسة وتدهور الأراضي الذي "
+"يتم معالجته هناك، استخدم الجدول أدناه لتحديد التحولات التي تتوافق مع "
+"التدهور (علامة -)، أو التحسين (علامة +)، أو لا يوجد تغيير من حيث حالة "
+"الأرض (صفر)."
 
 #: ../../source/for_users/features/unccdreporting.rst:102
 msgid ""
-"|trends.earth| will combine the information from the land cover maps and the"
-" table of degradation typologies by land cover transition to compute the "
-"land cover sub-indicator."
+"|trends.earth| will combine the information from the land cover maps and "
+"the table of degradation typologies by land cover transition to compute "
+"the land cover sub-indicator."
 msgstr ""
-"|trends.earth| سيجمع المعلومات من خرائط الغطاء الأرضي وجدول أنماط التدهور عن"
-" طريق انتقال الغطاء الأرضي لحساب المؤشر الفرعي للغطاء الأرضي."
+"|trends.earth| سيجمع المعلومات من خرائط الغطاء الأرضي وجدول أنماط التدهور"
+" عن طريق انتقال الغطاء الأرضي لحساب المؤشر الفرعي للغطاء الأرضي."
 
 #: ../../source/for_users/features/unccdreporting.rst:112
 msgid ""
-"The third sub-indicator for monitoring land degradation as part of the SDG "
-"process quantifies changes in soil organic carbon (SOC) over the reporting "
-"period. Changes in SOC are particularly difficult to assess for several "
-"reasons, some of them being the high spatial variability of soil properties,"
-" the time and cost intensiveness of conducting representative soil surveys "
-"and the lack of time series data on SOC for most regions of the world. To "
-"address some of the limitations, a combined land cover/SOC method is used in"
-" |trends.earth| to estimate changes in SOC and identify potentially degraded"
-" areas. The indicator is computed as follows:"
+"The third sub-indicator for monitoring land degradation as part of the "
+"SDG process quantifies changes in soil organic carbon (SOC) over the "
+"reporting period. Changes in SOC are particularly difficult to assess for"
+" several reasons, some of them being the high spatial variability of soil"
+" properties, the time and cost intensiveness of conducting representative"
+" soil surveys and the lack of time series data on SOC for most regions of"
+" the world. To address some of the limitations, a combined land cover/SOC"
+" method is used in |trends.earth| to estimate changes in SOC and identify"
+" potentially degraded areas. The indicator is computed as follows:"
 msgstr ""
 "يحدد المؤشر الفرعي الثالث لرصد تدهور الأراضي كجزء من عملية أهداف التنمية "
 "المستدامة التغيرات في الكربون العضوي في التربة خلال الفترة المشمولة "
-"بالتقرير. من الصعب بشكل خاص تقييم التغييرات في الكربون العضوي في التربة لعدة"
-" أسباب، بعضها هو التباين المكاني العالي لخصائص التربة، والوقت والتكلفة "
-"المكثفة لإجراء مسوحات التربة التمثيلية ونقص بيانات السلاسل الزمنية على "
-"الكربون العضوي في التربة لمعظم مناطق العالم. لمعالجة بعض القيود، يتم استخدام"
-" طريقة مجمعة للغطاء الأرضي/ الكربون العضوي في التربة في|trends.earth| لتقدير"
-" التغييرات في الكربون العضوي في التربة وتحديد المناطق التي يحتمل تدهورها. "
-"يتم حساب المؤشر على النحو التالي:"
+"بالتقرير. من الصعب بشكل خاص تقييم التغييرات في الكربون العضوي في التربة "
+"لعدة أسباب، بعضها هو التباين المكاني العالي لخصائص التربة، والوقت "
+"والتكلفة المكثفة لإجراء مسوحات التربة التمثيلية ونقص بيانات السلاسل "
+"الزمنية على الكربون العضوي في التربة لمعظم مناطق العالم. لمعالجة بعض "
+"القيود، يتم استخدام طريقة مجمعة للغطاء الأرضي/ الكربون العضوي في التربة "
+"في|trends.earth| لتقدير التغييرات في الكربون العضوي في التربة وتحديد "
+"المناطق التي يحتمل تدهورها. يتم حساب المؤشر على النحو التالي:"
 
 #: ../../source/for_users/features/unccdreporting.rst:122
 msgid ""
 "Determine the SOC reference values. |trends.earth| uses SoilGrids 250m "
 "carbon stocks for the first 30 cm of the soil profile as the reference "
-"values for calculation (NOTE: SoilGrids uses information from a variety of "
-"data sources and ranging from many years to produce this product, therefore "
-"assigning a date for calculations purposes could cause inaccuracies in the "
-"stock change calculations)."
+"values for calculation (NOTE: SoilGrids uses information from a variety "
+"of data sources and ranging from many years to produce this product, "
+"therefore assigning a date for calculations purposes could cause "
+"inaccuracies in the stock change calculations)."
 msgstr ""
 "تحديد القيم المرجعية للكربون عضوي في التربة. |trends.earth| يستخدم مخزون "
 "الكربون SoilGrids 250m لأول 30 سم من ملف تعريف التربة كقيم مرجعية للحساب "
-"(ملاحظة: تستخدم SoilGrids معلومات من مجموعة متنوعة من مصادر البيانات وتتراوح"
-" بين عدة سنوات لإنتاج هذا المنتج، وبالتالي فإن تعيين تاريخ لأغراض الحسابات "
-"يمكن تسبب في عدم الدقة في حسابات تغيير المخزون)."
+"(ملاحظة: تستخدم SoilGrids معلومات من مجموعة متنوعة من مصادر البيانات "
+"وتتراوح بين عدة سنوات لإنتاج هذا المنتج، وبالتالي فإن تعيين تاريخ لأغراض "
+"الحسابات يمكن تسبب في عدم الدقة في حسابات تغيير المخزون)."
 
 #: ../../source/for_users/features/unccdreporting.rst:129
 msgid ""
 "Reclassify the land cover maps to the 7 land cover classes needed for "
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
-"area, bare land and water). Ideally annual land cover maps are preferred, "
-"but at least land cover maps for the starting and end years are needed."
+"area, bare land and water). Ideally annual land cover maps are preferred,"
+" but at least land cover maps for the starting and end years are needed."
 msgstr ""
-"أعد تصنيف خرائط الغطاء الأرضي إلى فئات الغطاء الأرضي السبعة اللازمة لتقديم "
-"التقارير إلى اتفاقية الأمم المتحدة لمكافحة التصحر (الغابات والأراضي العشبية "
-"والأراضي الزراعية والأراضي الرطبة والمنطقة الاصطناعية والأراضي الجرداء "
-"والمياه). تفضل خرائط الغطاء الأرضي السنوية بشكل مثالي، ولكن هناك حاجة إلى "
-"خرائط الغطاء الأرضي على الأقل لسنتي البداية والنهاية."
+"أعد تصنيف خرائط الغطاء الأرضي إلى فئات الغطاء الأرضي السبعة اللازمة "
+"لتقديم التقارير إلى اتفاقية الأمم المتحدة لمكافحة التصحر (الغابات "
+"والأراضي العشبية والأراضي الزراعية والأراضي الرطبة والمنطقة الاصطناعية "
+"والأراضي الجرداء والمياه). تفضل خرائط الغطاء الأرضي السنوية بشكل مثالي، "
+"ولكن هناك حاجة إلى خرائط الغطاء الأرضي على الأقل لسنتي البداية والنهاية."
 
 #: ../../source/for_users/features/unccdreporting.rst:134
 msgid ""
-"To estimate the changes in C stocks for the reporting period C conversion "
-"coefficients for changes in land use, management and inputs are recommended "
-"by the IPCC and the UNCCD. However, spatially explicit information on "
-"management and C inputs is not available for most regions. As such, only "
-"land use conversion coefficient can be applied for estimating changes in C "
-"stocks (using land cover as a proxy for land use). The coefficients used "
-"were the result of a literature review performed by the UNCCD and are "
-"presented in the table below. Those coefficients represent the proportional "
-"in C stocks after 20 years of land cover change."
+"To estimate the changes in C stocks for the reporting period C conversion"
+" coefficients for changes in land use, management and inputs are "
+"recommended by the IPCC and the UNCCD. However, spatially explicit "
+"information on management and C inputs is not available for most regions."
+" As such, only land use conversion coefficient can be applied for "
+"estimating changes in C stocks (using land cover as a proxy for land "
+"use). The coefficients used were the result of a literature review "
+"performed by the UNCCD and are presented in the table below. Those "
+"coefficients represent the proportional in C stocks after 20 years of "
+"land cover change."
 msgstr ""
-"حتى يمكن تقدير التغييرات في مخزونات الكربون خلال الفترة المشمولة بالتقرير، "
-"أوصت الهيئة الحكومية الدولية المعنية بتغير المناخ واتفاقية مكافحة التصحر، "
-"باستخدام معاملات التحويل \"ج\" للتغيرات في استخدام الأراضي، والإدارة "
-"والمدخلات. ومع ذلك، لا تتوفر معلومات صريحة مكانيًا حول الإدارة ومدخلات C "
-"لمعظم المناطق. على هذا النحو، يمكن تطبيق معامل تحويل استخدام الأراضي فقط "
-"لتقدير التغيرات في مخزون الكربون (باستخدام الغطاء الأرضي كمؤشر لاستخدام "
-"الأراضي). كانت المعاملات المستخدمة نتيجة لمراجعة الأدبيات التي أجرتها "
-"اتفاقية مكافحة التصحر وهي معروضة في الجدول أدناه. تمثل هذه المعاملات النسبة "
-"في مخزون الكربون بعد 20 عامًا من تغير الغطاء الأرضي."
+"حتى يمكن تقدير التغييرات في مخزونات الكربون خلال الفترة المشمولة "
+"بالتقرير، أوصت الهيئة الحكومية الدولية المعنية بتغير المناخ واتفاقية "
+"مكافحة التصحر، باستخدام معاملات التحويل \"ج\" للتغيرات في استخدام "
+"الأراضي، والإدارة والمدخلات. ومع ذلك، لا تتوفر معلومات صريحة مكانيًا حول "
+"الإدارة ومدخلات C لمعظم المناطق. على هذا النحو، يمكن تطبيق معامل تحويل "
+"استخدام الأراضي فقط لتقدير التغيرات في مخزون الكربون (باستخدام الغطاء "
+"الأرضي كمؤشر لاستخدام الأراضي). كانت المعاملات المستخدمة نتيجة لمراجعة "
+"الأدبيات التي أجرتها اتفاقية مكافحة التصحر وهي معروضة في الجدول أدناه. "
+"تمثل هذه المعاملات النسبة في مخزون الكربون بعد 20 عامًا من تغير الغطاء "
+"الأرضي."
 
 #: ../../source/for_users/features/unccdreporting.rst:147
 msgid ""
 "Changes in SOC are better studied for land cover transitions involving "
-"agriculture, and for that reason there is a different set of coefficients "
-"for each of the main global climatic regions: Temperate Dry (f = 0.80), "
+"agriculture, and for that reason there is a different set of coefficients"
+" for each of the main global climatic regions: Temperate Dry (f = 0.80), "
 "Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = "
 "0.48), and Tropical Montane (f = 0.64)."
 msgstr ""
 "تمت دراسة التغييرات في الكربون العضوي في التربة بشكل أفضل لتحولات الغطاء "
-"الأرضي التي تنطوي على الزراعة، ولهذا السبب توجد مجموعة مختلفة من المعاملات "
-"لكل من المناطق المناخية العالمية الرئيسية: معتدل جاف (f = 0.80)، رطب معتدل "
-"(f = 0.69)، استوائي جاف (f = 0.58)، رطب استوائي (f = 0.48)، و Tropical "
-"Montane (f = 0.64)."
+"الأرضي التي تنطوي على الزراعة، ولهذا السبب توجد مجموعة مختلفة من "
+"المعاملات لكل من المناطق المناخية العالمية الرئيسية: معتدل جاف (f = "
+"0.80)، رطب معتدل (f = 0.69)، استوائي جاف (f = 0.58)، رطب استوائي (f = "
+"0.48)، و Tropical Montane (f = 0.64)."
 
 #: ../../source/for_users/features/unccdreporting.rst:153
+#, python-format
 msgid ""
 "Compute relative different in SOC between the baseline and the target "
 "period, areas which experienced a loss in SOC of 10% of more during the "
@@ -347,8 +354,8 @@ msgid ""
 msgstr ""
 "حساب الاختلاف النسبي في الكربون العضوي في التربة بين خط الأساس والفترة "
 "المستهدفة، المناطق التي تعرضت لخسارة في SOC بنسبة 10٪ أكثر خلال الفترة "
-"المشمولة بالتقرير ستُعتبر متدهورة المحتمل، والمناطق التي تشهد مكاسب بنسبة "
-"10٪ أو أكثر من المحتمل أن تتحسن."
+"المشمولة بالتقرير ستُعتبر متدهورة المحتمل، والمناطق التي تشهد مكاسب بنسبة"
+" 10٪ أو أكثر من المحتمل أن تتحسن."
 
 #: ../../source/for_users/features/unccdreporting.rst:163
 msgid "Combining indicators"
@@ -356,15 +363,15 @@ msgstr "الجمع بين المؤشرات"
 
 #: ../../source/for_users/features/unccdreporting.rst:165
 msgid ""
-"The integration of the three SDG 15.3.1 sub-indicators is done following the"
-" one-out all-out rule, this means that if an area was identified as "
-"potentially degraded by any of the sub-indicators, then that area will be "
-"considered potentially degraded for reporting purposes."
+"The integration of the three SDG 15.3.1 sub-indicators is done following "
+"the one-out all-out rule, this means that if an area was identified as "
+"potentially degraded by any of the sub-indicators, then that area will be"
+" considered potentially degraded for reporting purposes."
 msgstr ""
-"يتم دمج المؤشرات الفرعية الثلاثة لهدف التنمية المستدامة 15.3.1 باتباع قاعدة "
-"المنفردة الشاملة، وهذا يعني أنه إذا تم تحديد منطقة ما على أنها تدهور محتمل "
-"بواسطة أي من المؤشرات الفرعية، فسيتم اعتبار هذا المجال محتملًا تدهورت لأغراض"
-" الإبلاغ."
+"يتم دمج المؤشرات الفرعية الثلاثة لهدف التنمية المستدامة 15.3.1 باتباع "
+"قاعدة المنفردة الشاملة، وهذا يعني أنه إذا تم تحديد منطقة ما على أنها "
+"تدهور محتمل بواسطة أي من المؤشرات الفرعية، فسيتم اعتبار هذا المجال "
+"محتملًا تدهورت لأغراض الإبلاغ."
 
 #: ../../source/for_users/features/unccdreporting.rst:174
 msgid "UNCCD Strategic Objective 2 (SO 2)"
@@ -376,49 +383,51 @@ msgstr "لتحسين الظروف المعيشية للسكان المتضرري
 
 #: ../../source/for_users/features/unccdreporting.rst:179
 msgid ""
-"Addressing the global challenges of desertification, land degradation, and "
-"drought (DLDD) and their impacts on coupled human-environmental systems is a"
-" key component of the 2030 Agenda for Sustainable Development. In "
-"particular, Sustainable Development Goal (SDG) 15.3 aims to, by 2030, combat"
-" desertification, restore degraded land and soil, including land affected by"
-" desertification, drought and floods, and strive to achieve a land "
-"degradation-neutral world. Addressing this challenge is essential for "
-"improving the livelihoods of those most affected by DLDD and for "
-"safeguarding against the most extreme effects of climate change."
+"Addressing the global challenges of desertification, land degradation, "
+"and drought (DLDD) and their impacts on coupled human-environmental "
+"systems is a key component of the 2030 Agenda for Sustainable "
+"Development. In particular, Sustainable Development Goal (SDG) 15.3 aims "
+"to, by 2030, combat desertification, restore degraded land and soil, "
+"including land affected by desertification, drought and floods, and "
+"strive to achieve a land degradation-neutral world. Addressing this "
+"challenge is essential for improving the livelihoods of those most "
+"affected by DLDD and for safeguarding against the most extreme effects of"
+" climate change."
 msgstr ""
 "تعتبر معالجة التحديات العالمية للتصحر وتدهور الأراضي والجفاف وآثارها على "
-"النظم البشرية والبيئية المقترنة مكونًا رئيسيًا في خطة التنمية المستدامة لعام"
-" 2030. على وجه الخصوص، يهدف هدف التنمية المستدامة 15.3، بحلول عام 2030، إلى "
-"مكافحة التصحر، واستعادة الأراضي والتربة المتدهورة، بما في ذلك الأراضي "
-"المتأثرة بالتصحر والجفاف والفيضانات، والسعي لتحقيق عالم خالٍ من تدهور "
-"الأراضي. إن معالجة هذا التحدي أمر ضروري لتحسين سبل عيش الأشخاص الأكثر تضرراً"
-" من التصحر وتدهور الأراضي والجفاف وللحماية من الآثار الشديدة لتغير المناخ."
+"النظم البشرية والبيئية المقترنة مكونًا رئيسيًا في خطة التنمية المستدامة "
+"لعام 2030. على وجه الخصوص، يهدف هدف التنمية المستدامة 15.3، بحلول عام "
+"2030، إلى مكافحة التصحر، واستعادة الأراضي والتربة المتدهورة، بما في ذلك "
+"الأراضي المتأثرة بالتصحر والجفاف والفيضانات، والسعي لتحقيق عالم خالٍ من "
+"تدهور الأراضي. إن معالجة هذا التحدي أمر ضروري لتحسين سبل عيش الأشخاص "
+"الأكثر تضرراً من التصحر وتدهور الأراضي والجفاف وللحماية من الآثار الشديدة"
+" لتغير المناخ."
 
 #: ../../source/for_users/features/unccdreporting.rst:186
 msgid ""
 "The livelihoods of people in degraded areas include multiple human and "
-"natural characteristics of local environments, including adequate access to "
-"food and water, either directly through subsistence livelihoods, through "
-"sufficient income to purchase food and water security, or a combination of "
-"both. If food and water security are achieved, outmigration from affected "
-"areas should no longer be forced but rather voluntary in nature. Socially "
-"and economically marginalized populations, communities and households tend "
-"to be disproportionally vulnerable to climate change and the combined "
-"effects of DLDD. The ability to identify and quantify the makeup, "
-"distribution, and relative vulnerability of such populations,communities, "
-"and households is critical in reinforcing livelihood resilience in order to "
-"enhance positive adaptations to DLDD"
+"natural characteristics of local environments, including adequate access "
+"to food and water, either directly through subsistence livelihoods, "
+"through sufficient income to purchase food and water security, or a "
+"combination of both. If food and water security are achieved, "
+"outmigration from affected areas should no longer be forced but rather "
+"voluntary in nature. Socially and economically marginalized populations, "
+"communities and households tend to be disproportionally vulnerable to "
+"climate change and the combined effects of DLDD. The ability to identify "
+"and quantify the makeup, distribution, and relative vulnerability of such"
+" populations,communities, and households is critical in reinforcing "
+"livelihood resilience in order to enhance positive adaptations to DLDD"
 msgstr ""
-"تشمل سبل عيش الناس في المناطق المتدهورة العديد من الخصائص البشرية والطبيعية "
-"للبيئات المحلية، بما في ذلك الوصول الكافي إلى الغذاء والمياه، إما مباشرة من "
-"خلال سبل العيش المعيشية، من خلال الدخل الكافي لشراء الغذاء والأمن المائي، أو"
-" مزيج من الاثنين معًا. إذا تم تحقيق الأمن الغذائي والمائي، فلا ينبغي أن تكون"
-" الهجرة من المناطق المتضررة قسرية بل طوعية بطبيعتها. تميل المجتمعات والأسر "
-"المهمشة اجتماعيًا واقتصاديًا إلى أن تكون عرضة بشكل غير متناسب لتغير المناخ "
-"والآثار المشتركة للتصحر وتدهور الأراضي والجفاف. تعد القدرة على تحديد وقياس "
-"التركيب والتوزيع والضعف النسبي لهؤلاء السكان والمجتمعات والأسر أمرًا بالغ "
-"الأهمية في تعزيز مرونة سبل العيش من أجل تعزيز التكيفات الإيجابية للتصحر "
-"وتدهور الأراضي والجفاف"
+"تشمل سبل عيش الناس في المناطق المتدهورة العديد من الخصائص البشرية "
+"والطبيعية للبيئات المحلية، بما في ذلك الوصول الكافي إلى الغذاء والمياه، "
+"إما مباشرة من خلال سبل العيش المعيشية، من خلال الدخل الكافي لشراء الغذاء "
+"والأمن المائي، أو مزيج من الاثنين معًا. إذا تم تحقيق الأمن الغذائي "
+"والمائي، فلا ينبغي أن تكون الهجرة من المناطق المتضررة قسرية بل طوعية "
+"بطبيعتها. تميل المجتمعات والأسر المهمشة اجتماعيًا واقتصاديًا إلى أن تكون "
+"عرضة بشكل غير متناسب لتغير المناخ والآثار المشتركة للتصحر وتدهور الأراضي "
+"والجفاف. تعد القدرة على تحديد وقياس التركيب والتوزيع والضعف النسبي لهؤلاء"
+" السكان والمجتمعات والأسر أمرًا بالغ الأهمية في تعزيز مرونة سبل العيش من "
+"أجل تعزيز التكيفات الإيجابية للتصحر وتدهور الأراضي والجفاف"
 
 #: ../../source/for_users/features/unccdreporting.rst:194
 msgid ""
@@ -426,16 +435,16 @@ msgid ""
 "indicator on **Trends in Population Exposure to Land Degradation "
 "Disaggregated by Sex (SO 2-3)** by calculating the proportions of "
 "population, disaggregated by sex, exposed to land degradation. "
-"|trends.earth| uses gridded data representing the spatial distribution of "
-"the population over the SDG 15.3.1 Indicator map to establish its exposure "
-"to land degradation."
+"|trends.earth| uses gridded data representing the spatial distribution of"
+" the population over the SDG 15.3.1 Indicator map to establish its "
+"exposure to land degradation."
 msgstr ""
 "|trends.earth| يسمح للمستخدمين بمراقبة مؤشر الهدف الاستراتيجي 2 لاتفاقية "
-"الأمم المتحدة لمكافحة التصحر بشأن ** الاتجاهات في تعرض السكان لتدهور الأراضي"
-" مصنفة حسب الجنس (الهدف الاستراتيجي 3-2) ** عن طريق حساب نسب السكان، المصنفة"
-" حسب الجنس، المعرضين لتدهور الأراضي. |trends.earth| يستخدم بيانات شبكية تمثل"
-" التوزيع المكاني للسكان على خريطة مؤشر SDG 15.3.1 لتحديد تعرضهم لتدهور "
-"الأراضي."
+"الأمم المتحدة لمكافحة التصحر بشأن ** الاتجاهات في تعرض السكان لتدهور "
+"الأراضي مصنفة حسب الجنس (الهدف الاستراتيجي 3-2) ** عن طريق حساب نسب "
+"السكان، المصنفة حسب الجنس، المعرضين لتدهور الأراضي. |trends.earth| يستخدم"
+" بيانات شبكية تمثل التوزيع المكاني للسكان على خريطة مؤشر SDG 15.3.1 "
+"لتحديد تعرضهم لتدهور الأراضي."
 
 #: ../../source/for_users/features/unccdreporting.rst:198
 msgid "The (SO 2-3) indicator uses the following metrics:"
@@ -443,22 +452,23 @@ msgstr "يستخدم مؤشر (الهدف الاستراتيجي 3-2) المقا
 
 #: ../../source/for_users/features/unccdreporting.rst:200
 msgid ""
-"-Percentage of the female population exposed to land degradation -Percentage"
-" of the male population exposed to land degradation -Percentage of the total"
-" (female and male) population exposed to land degradation"
+"-Percentage of the female population exposed to land degradation "
+"-Percentage of the male population exposed to land degradation "
+"-Percentage of the total (female and male) population exposed to land "
+"degradation"
 msgstr ""
-"- النسبة المئوية للسكان الإناث المعرضات لتدهور الأراضي - نسبة السكان الذكور "
-"المعرضين لتدهور الأراضي - النسبة المئوية من إجمالي السكان (الإناث والذكور) "
-"المعرضين لتدهور الأراضي"
+"- النسبة المئوية للسكان الإناث المعرضات لتدهور الأراضي - نسبة السكان "
+"الذكور المعرضين لتدهور الأراضي - النسبة المئوية من إجمالي السكان (الإناث "
+"والذكور) المعرضين لتدهور الأراضي"
 
 #: ../../source/for_users/features/unccdreporting.rst:204
 msgid ""
 "|trends.earth| provides access the WorldPop dataset, which is used by "
 "default by the UNCCD for calculating indicator SO2-3."
 msgstr ""
-"|trends.earth| يوفر الوصول إلى مجموعة بيانات WorldPop، والتي يتم استخدامها "
-"افتراضيًا بواسطة اتفاقية الأمم المتحدة لمكافحة التصحر لحساب مؤشر الهدف "
-"الاستراتيجي 3-2."
+"|trends.earth| يوفر الوصول إلى مجموعة بيانات WorldPop، والتي يتم "
+"استخدامها افتراضيًا بواسطة اتفاقية الأمم المتحدة لمكافحة التصحر لحساب "
+"مؤشر الهدف الاستراتيجي 3-2."
 
 #: ../../source/for_users/features/unccdreporting.rst:207
 msgid "UNCCD Strategic Objective 3 (SO 3)"
@@ -466,8 +476,8 @@ msgstr "الهدف الاستراتيجي 3 لاتفاقية مكافحة الت
 
 #: ../../source/for_users/features/unccdreporting.rst:210
 msgid ""
-"To mitigate, adapt to, and manage the effects of drought in order to enhance"
-" resilience of vulnerable populations and ecosystems."
+"To mitigate, adapt to, and manage the effects of drought in order to "
+"enhance resilience of vulnerable populations and ecosystems."
 msgstr ""
 "للتخفيف من آثار الجفاف والتكيف معها وإدارتها من أجل تعزيز قدرة السكان "
 "المعرضين للخطر والنظم البيئية على الصمود."
@@ -478,116 +488,117 @@ msgstr "الجفاف وتدهور الأراضي"
 
 #: ../../source/for_users/features/unccdreporting.rst:214
 msgid ""
-"**Land degradation** as defined by the UNCCD refers to any reduction or loss"
-" in the biological or economic productive capacity of the land resource "
-"base. It is generally caused by human activities, exacerbated by natural "
-"processes, and often magnified by and closely intertwined with climate "
-"change and biodiversity loss.Land degradation reduces agricultural "
-"productivity and increases the vulnerability of those areas already at risk "
-"of impacts from climate variability and change, especially in regions of the"
-" world."
+"**Land degradation** as defined by the UNCCD refers to any reduction or "
+"loss in the biological or economic productive capacity of the land "
+"resource base. It is generally caused by human activities, exacerbated by"
+" natural processes, and often magnified by and closely intertwined with "
+"climate change and biodiversity loss.Land degradation reduces "
+"agricultural productivity and increases the vulnerability of those areas "
+"already at risk of impacts from climate variability and change, "
+"especially in regions of the world."
 msgstr ""
-"يشير ** تدهور الأراضي ** على النحو المحدد في اتفاقية مكافحة التصحر إلى أي "
-"انخفاض أو خسارة في القدرة الإنتاجية البيولوجية أو الاقتصادية لقاعدة موارد "
-"الأرض. وهو ناتج بشكل عام عن الأنشطة البشرية، التي تتفاقم بسبب العمليات "
-"الطبيعية، وغالبًا ما تتضخم وتتشابك بشكل وثيق مع تغير المناخ وفقدان التنوع "
-"البيولوجي. خاصة في مناطق العالم."
+"يشير ** تدهور الأراضي ** على النحو المحدد في اتفاقية مكافحة التصحر إلى أي"
+" انخفاض أو خسارة في القدرة الإنتاجية البيولوجية أو الاقتصادية لقاعدة "
+"موارد الأرض. وهو ناتج بشكل عام عن الأنشطة البشرية، التي تتفاقم بسبب "
+"العمليات الطبيعية، وغالبًا ما تتضخم وتتشابك بشكل وثيق مع تغير المناخ "
+"وفقدان التنوع البيولوجي. خاصة في مناطق العالم."
 
 #: ../../source/for_users/features/unccdreporting.rst:220
 msgid ""
-"**Drought** is a complex, slow-onset phenomenon that happens over different "
-"time scales. It is characterized by a reduction in water availability, "
-"leading to cascading effects on people's livelihoods and economic sectors. "
-"Drought is sometimes simplistically defined as a period of dry weather long "
-"enough to cause a hydrological imbalance, although a globally agreed upon "
-"definition for drought does not exist. Moreover, drought hardly occurs as a "
-"single risk event but rather interlinked with other hazards such as "
-"heatwaves, wildfires, sand/dust storms, or floods."
+"**Drought** is a complex, slow-onset phenomenon that happens over "
+"different time scales. It is characterized by a reduction in water "
+"availability, leading to cascading effects on people's livelihoods and "
+"economic sectors. Drought is sometimes simplistically defined as a period"
+" of dry weather long enough to cause a hydrological imbalance, although a"
+" globally agreed upon definition for drought does not exist. Moreover, "
+"drought hardly occurs as a single risk event but rather interlinked with "
+"other hazards such as heatwaves, wildfires, sand/dust storms, or floods."
 msgstr ""
-"** الجفاف ** ظاهرة معقدة وبطيئة الظهور تحدث على نطاقات زمنية مختلفة. يتميز "
-"بانخفاض في توافر المياه، مما يؤدي إلى آثار متتالية على سبل عيش الناس "
-"والقطاعات الاقتصادية. يُعرَّف الجفاف أحيانًا بشكل مبسط على أنه فترة من الطقس"
-" الجاف طويلة بما يكفي للتسبب في اختلال التوازن الهيدرولوجي، على الرغم من عدم"
-" وجود تعريف متفق عليه عالميًا للجفاف. علاوة على ذلك، نادرًا ما يحدث الجفاف "
-"كحدث خطر وحيد ولكنه مرتبط بالأحرى بأخطار أخرى مثل موجات الحر أو حرائق "
-"الغابات أو العواصف الرملية / الترابية أو الفيضانات."
+"** الجفاف ** ظاهرة معقدة وبطيئة الظهور تحدث على نطاقات زمنية مختلفة. "
+"يتميز بانخفاض في توافر المياه، مما يؤدي إلى آثار متتالية على سبل عيش "
+"الناس والقطاعات الاقتصادية. يُعرَّف الجفاف أحيانًا بشكل مبسط على أنه فترة"
+" من الطقس الجاف طويلة بما يكفي للتسبب في اختلال التوازن الهيدرولوجي، على "
+"الرغم من عدم وجود تعريف متفق عليه عالميًا للجفاف. علاوة على ذلك، نادرًا "
+"ما يحدث الجفاف كحدث خطر وحيد ولكنه مرتبط بالأحرى بأخطار أخرى مثل موجات "
+"الحر أو حرائق الغابات أو العواصف الرملية / الترابية أو الفيضانات."
 
 #: ../../source/for_users/features/unccdreporting.rst:226
 msgid ""
 "The International Panel on Climate Change (IPCC) defines drought as \"a "
-"period of abnormally dry weather long enough to cause a serious hydrological"
-" imbalance\". Drought is a relative term, therefore any discussion in terms "
-"of precipitation deficit must refer to the particular precipitation-related "
-"activity that is under discussion. For example, shortage of precipitation "
-"during the growing season impinges on crop production or ecosystem function "
-"in general (due to soil moisture drought, also termed agricultural drought),"
-" and during the runoff and percolation season primarily affects water "
-"supplies (hydrological drought). Storage changes in soil moisture and "
-"groundwater are also affected by increases in actual evapotranspiration in "
-"addition to reductions in precipitation. A period with an abnormal "
-"precipitation deficit is defined as a meteorological drought. See also Soil "
-"moisture (IPCC Assessment Report 5, 2014). The United Nations Disasters Risk"
-" Reduction (UNDRR) defines drought as a slow-onset hazard, often referred to"
-" as a creeping phenomenon. The absence of a precise, universally accepted "
-"definition of drought adds to the confusion. Definitions must be region "
-"specific because each climate regime has distinctive climatic "
-"characteristics (UNDRR GAR Chapter 6). The lack of agreed upon definition "
-"complicates monitoring efforts, as the definition and monitoring approach "
-"are typically context specific. where poverty rates remain high despite "
-"efforts to reduce poverty, inequality, and enhance the socio-economic well-"
-"being of all people worldwide."
+"period of abnormally dry weather long enough to cause a serious "
+"hydrological imbalance\". Drought is a relative term, therefore any "
+"discussion in terms of precipitation deficit must refer to the particular"
+" precipitation-related activity that is under discussion. For example, "
+"shortage of precipitation during the growing season impinges on crop "
+"production or ecosystem function in general (due to soil moisture "
+"drought, also termed agricultural drought), and during the runoff and "
+"percolation season primarily affects water supplies (hydrological "
+"drought). Storage changes in soil moisture and groundwater are also "
+"affected by increases in actual evapotranspiration in addition to "
+"reductions in precipitation. A period with an abnormal precipitation "
+"deficit is defined as a meteorological drought. See also Soil moisture "
+"(IPCC Assessment Report 5, 2014). The United Nations Disasters Risk "
+"Reduction (UNDRR) defines drought as a slow-onset hazard, often referred "
+"to as a creeping phenomenon. The absence of a precise, universally "
+"accepted definition of drought adds to the confusion. Definitions must be"
+" region specific because each climate regime has distinctive climatic "
+"characteristics (UNDRR GAR Chapter 6). The lack of agreed upon definition"
+" complicates monitoring efforts, as the definition and monitoring "
+"approach are typically context specific. where poverty rates remain high "
+"despite efforts to reduce poverty, inequality, and enhance the socio-"
+"economic well-being of all people worldwide."
 msgstr ""
-"تعرّف الهيئة الدولية المعنية بتغير المناخ الجفاف بأنه \"فترة من الطقس الجاف "
-"بشكل غير طبيعي لمدة كافية لإحداث خلل هيدرولوجي خطير\". الجفاف مصطلح نسبي، "
-"وبالتالي فإن أي مناقشة تتعلق بنقص الهطول يجب أن تشير إلى نشاط معين مرتبط "
-"بهطول الأمطار قيد المناقشة. على سبيل المثال، يؤثر نقص هطول الأمطار خلال موسم"
-" النمو على إنتاج المحاصيل أو وظيفة النظام الإيكولوجي بشكل عام (بسبب جفاف "
-"رطوبة التربة، ويسمى أيضًا الجفاف الزراعي)، وأثناء الجريان السطحي وموسم "
-"الترشيح يؤثر بشكل أساسي على إمدادات المياه (الجفاف الهيدرولوجي). كما تتأثر "
-"تغييرات التخزين في رطوبة التربة والمياه الجوفية بالزيادات في التبخر الفعلي "
-"بالإضافة إلى انخفاض هطول الأمطار. تُعرَّف الفترة التي تشهد عجزًا غير طبيعي "
-"في هطول الأمطار بأنها جفاف أرصاد جوية. انظر أيضًا رطوبة التربة (تقرير تقييم "
-"الهيئة الحكومية الدولية المعنية بتغير المناخ رقم 5، 2014). يُعرِّف برنامج "
-"الأمم المتحدة للحد من مخاطر الكوارث الجفاف بأنه خطر بطيء الظهور، وغالبًا ما "
-"يشار إليه على أنه ظاهرة زاحفة. ويزيد عدم وجود تعريف دقيق ومقبول عالميًا "
-"للجفاف من الالتباس. يجب أن تكون التعريفات خاصة بالمنطقة لأن لكل نظام مناخي "
-"خصائص مناخية مميزة (الفصل 6 من تقرير التقييم العالمي للحد من مخاطر الكوارث)."
-" يؤدي عدم وجود تعريف متفق عليه إلى تعقيد جهود المراقبة، حيث إن نهج التعريف "
-"والرصد عادة ما يكون محدد السياق. حيث تظل معدلات الفقر مرتفعة على الرغم من "
-"الجهود المبذولة للحد من الفقر وعدم المساواة وتعزيز الرفاه الاجتماعي "
-"والاقتصادي لجميع الناس في جميع أنحاء العالم."
+"تعرّف الهيئة الدولية المعنية بتغير المناخ الجفاف بأنه \"فترة من الطقس "
+"الجاف بشكل غير طبيعي لمدة كافية لإحداث خلل هيدرولوجي خطير\". الجفاف مصطلح"
+" نسبي، وبالتالي فإن أي مناقشة تتعلق بنقص الهطول يجب أن تشير إلى نشاط معين"
+" مرتبط بهطول الأمطار قيد المناقشة. على سبيل المثال، يؤثر نقص هطول الأمطار"
+" خلال موسم النمو على إنتاج المحاصيل أو وظيفة النظام الإيكولوجي بشكل عام "
+"(بسبب جفاف رطوبة التربة، ويسمى أيضًا الجفاف الزراعي)، وأثناء الجريان "
+"السطحي وموسم الترشيح يؤثر بشكل أساسي على إمدادات المياه (الجفاف "
+"الهيدرولوجي). كما تتأثر تغييرات التخزين في رطوبة التربة والمياه الجوفية "
+"بالزيادات في التبخر الفعلي بالإضافة إلى انخفاض هطول الأمطار. تُعرَّف "
+"الفترة التي تشهد عجزًا غير طبيعي في هطول الأمطار بأنها جفاف أرصاد جوية. "
+"انظر أيضًا رطوبة التربة (تقرير تقييم الهيئة الحكومية الدولية المعنية "
+"بتغير المناخ رقم 5، 2014). يُعرِّف برنامج الأمم المتحدة للحد من مخاطر "
+"الكوارث الجفاف بأنه خطر بطيء الظهور، وغالبًا ما يشار إليه على أنه ظاهرة "
+"زاحفة. ويزيد عدم وجود تعريف دقيق ومقبول عالميًا للجفاف من الالتباس. يجب "
+"أن تكون التعريفات خاصة بالمنطقة لأن لكل نظام مناخي خصائص مناخية مميزة "
+"(الفصل 6 من تقرير التقييم العالمي للحد من مخاطر الكوارث). يؤدي عدم وجود "
+"تعريف متفق عليه إلى تعقيد جهود المراقبة، حيث إن نهج التعريف والرصد عادة "
+"ما يكون محدد السياق. حيث تظل معدلات الفقر مرتفعة على الرغم من الجهود "
+"المبذولة للحد من الفقر وعدم المساواة وتعزيز الرفاه الاجتماعي والاقتصادي "
+"لجميع الناس في جميع أنحاء العالم."
 
 #: ../../source/for_users/features/unccdreporting.rst:238
 msgid ""
 "Drought increasingly impacts larger numbers of people, livelihoods, "
-"ecosystems, and economies worldwide. When it occurs concomitantly with land "
-"degradation, it can expose already vulnerable populations to deleterious "
-"livelihood, environmental, socio-economic, and health risks and decrease "
-"population and community resilience."
+"ecosystems, and economies worldwide. When it occurs concomitantly with "
+"land degradation, it can expose already vulnerable populations to "
+"deleterious livelihood, environmental, socio-economic, and health risks "
+"and decrease population and community resilience."
 msgstr ""
-"يؤثر الجفاف بشكل متزايد على أعداد أكبر من الناس وسبل العيش والنظم البيئية "
-"والاقتصادات في جميع أنحاء العالم. عندما يحدث بالتزامن مع تدهور الأراضي، فإنه"
-" يمكن أن يعرض السكان المعرضين بالفعل لمخاطر معيشية ضارة ومخاطر بيئية "
+"يؤثر الجفاف بشكل متزايد على أعداد أكبر من الناس وسبل العيش والنظم البيئية"
+" والاقتصادات في جميع أنحاء العالم. عندما يحدث بالتزامن مع تدهور الأراضي، "
+"فإنه يمكن أن يعرض السكان المعرضين بالفعل لمخاطر معيشية ضارة ومخاطر بيئية "
 "واجتماعية اقتصادية وصحية ويقلل من قدرة السكان والمجتمع على الصمود."
 
 #: ../../source/for_users/features/unccdreporting.rst:243
-msgid ""
-"The UNCCD has adopted a monitoring framework with three levels for SO 3:"
+msgid "The UNCCD has adopted a monitoring framework with three levels for SO 3:"
 msgstr ""
-"اعتمدت اتفاقية الأمم المتحدة لمكافحة التصحر إطار عمل للرصد من ثلاثة مستويات "
-"للهدف الاستراتيجي 3:"
+"اعتمدت اتفاقية الأمم المتحدة لمكافحة التصحر إطار عمل للرصد من ثلاثة "
+"مستويات للهدف الاستراتيجي 3:"
 
 #: ../../source/for_users/features/unccdreporting.rst:245
 msgid ""
-"Level I SO 3-1 Trends in the proportion of land under drought over the total"
-" land area(Hazard), Level II SO 3-2 Trends in the proportion of the total "
-"population exposed to drought(Exposure), Level III SO 3-3 Trends in the "
-"degree of drought vulnerability (Vulnerability)."
+"Level I SO 3-1 Trends in the proportion of land under drought over the "
+"total land area(Hazard), Level II SO 3-2 Trends in the proportion of the "
+"total population exposed to drought(Exposure), Level III SO 3-3 Trends in"
+" the degree of drought vulnerability (Vulnerability)."
 msgstr ""
-"المستوى الأول الهدف الاستراتيجي 1-3 الاتجاهات في نسبة الأراضي المعرضة للجفاف"
-" على إجمالي مساحة الأرض (الخطر)، المستوى الثاني الهدف الاستراتيجي 2-3 "
-"الاتجاهات في نسبة إجمالي السكان المعرضين للجفاف (التعرض)، المستوى الثالث "
-"الهدف الاستراتيجي 3-3 الاتجاهات في درجة التعرض للجفاف (الضعف)."
+"المستوى الأول الهدف الاستراتيجي 1-3 الاتجاهات في نسبة الأراضي المعرضة "
+"للجفاف على إجمالي مساحة الأرض (الخطر)، المستوى الثاني الهدف الاستراتيجي "
+"2-3 الاتجاهات في نسبة إجمالي السكان المعرضين للجفاف (التعرض)، المستوى "
+"الثالث الهدف الاستراتيجي 3-3 الاتجاهات في درجة التعرض للجفاف (الضعف)."
 
 #: ../../source/for_users/features/unccdreporting.rst:249
 msgid "Under the IPCC framework:"
@@ -598,40 +609,40 @@ msgid ""
 "**Hazard** is the potential occurrence of a natural or human-induced "
 "physical event or trend or physical impact that may cause loss of life, "
 "injury, or other health impacts, as well as damage and loss to property, "
-"infrastructure, livelihoods, service provision, ecosystems and environmental"
-" resources."
+"infrastructure, livelihoods, service provision, ecosystems and "
+"environmental resources."
 msgstr ""
 "** الخطر ** هو احتمال حدوث حدث مادي طبيعي أو من صنع الإنسان أو اتجاه أو "
-"تأثير مادي قد يتسبب في خسائر في الأرواح أو إصابات أو آثار صحية أخرى، فضلاً "
-"عن الأضرار والخسائر التي تلحق بالممتلكات والبنية التحتية وسبل العيش، توفير "
-"الخدمات والنظم البيئية والموارد البيئية."
+"تأثير مادي قد يتسبب في خسائر في الأرواح أو إصابات أو آثار صحية أخرى، "
+"فضلاً عن الأضرار والخسائر التي تلحق بالممتلكات والبنية التحتية وسبل "
+"العيش، توفير الخدمات والنظم البيئية والموارد البيئية."
 
 #: ../../source/for_users/features/unccdreporting.rst:255
 msgid ""
-"**Exposure** characterizes the presence of people, livelihoods, species or "
-"ecosystems, environmental functions, services, and resources, "
+"**Exposure** characterizes the presence of people, livelihoods, species "
+"or ecosystems, environmental functions, services, and resources, "
 "infrastructure, or economic, social, or cultural assets in places and "
 "settings that could be adversely affected."
 msgstr ""
 "يميز ** التعرض ** وجود الناس أو سبل العيش أو الأنواع أو النظم البيئية أو "
-"الوظائف والخدمات والموارد البيئية أو البنية التحتية أو الأصول الاقتصادية أو "
-"الاجتماعية أو الثقافية في الأماكن والأماكن التي يمكن أن تتأثر سلبًا."
+"الوظائف والخدمات والموارد البيئية أو البنية التحتية أو الأصول الاقتصادية "
+"أو الاجتماعية أو الثقافية في الأماكن والأماكن التي يمكن أن تتأثر سلبًا."
 
 #: ../../source/for_users/features/unccdreporting.rst:258
 msgid ""
 "**Vulnerability** is defined as the propensity or predisposition to be "
 "adversely affected by climate change and related processes."
 msgstr ""
-"تُعرَّف ** القابلية للتأثر ** بأنها الميل أو الاستعداد للتأثر سلبًا بتغير "
-"المناخ والعمليات ذات الصلة."
+"تُعرَّف ** القابلية للتأثر ** بأنها الميل أو الاستعداد للتأثر سلبًا بتغير"
+" المناخ والعمليات ذات الصلة."
 
 #: ../../source/for_users/features/unccdreporting.rst:260
 msgid ""
-"In order to assess the SO 3 indicators, |trends.earth| uses information from"
-" 3 sub-indicators:"
+"In order to assess the SO 3 indicators, |trends.earth| uses information "
+"from 3 sub-indicators:"
 msgstr ""
-"من أجل تقييم مؤشرات الهدف الاستراتيجي 3، يستخدم |trends.earth| معلومات من 3 "
-"مؤشرات فرعية:"
+"من أجل تقييم مؤشرات الهدف الاستراتيجي 3، يستخدم |trends.earth| معلومات من"
+" 3 مؤشرات فرعية:"
 
 #: ../../source/for_users/features/unccdreporting.rst:262
 #: ../../source/for_users/features/unccdreporting.rst:289
@@ -649,14 +660,14 @@ msgstr "مؤشر التعرض للجفاف (DVI)"
 #: ../../source/for_users/features/unccdreporting.rst:266
 msgid ""
 "|trends.earth| allows the user to compute each of these indicators in a "
-"spatially explicit way generating raster maps and producing a summary table "
-"reporting areas potentially improved and degraded for the area of analysis. "
-"SO 3-1 \"Trends in the proportion of land under drought over the total land "
-"area\"."
+"spatially explicit way generating raster maps and producing a summary "
+"table reporting areas potentially improved and degraded for the area of "
+"analysis. SO 3-1 \"Trends in the proportion of land under drought over "
+"the total land area\"."
 msgstr ""
 "يسمح|trends.earth|للمستخدم بحساب كل من هذه المؤشرات بطريقة صريحة مكانيًا "
-"وإنشاء خرائط نقطية وإنتاج جدول موجز للإبلاغ عن المناطق التي يحتمل أن تكون "
-"محسّنة ومتدهورة في منطقة التحليل. الهدف الاستراتيجي 1-3 \"اتجاهات نسبة "
+"وإنشاء خرائط نقطية وإنتاج جدول موجز للإبلاغ عن المناطق التي يحتمل أن تكون"
+" محسّنة ومتدهورة في منطقة التحليل. الهدف الاستراتيجي 1-3 \"اتجاهات نسبة "
 "الأراضي التي تتعرض للجفاف إلى إجمالي مساحة الأرض\"."
 
 #: ../../source/for_users/features/unccdreporting.rst:270
@@ -664,31 +675,32 @@ msgid ""
 "The United Nations Convention to Combat Desertification (UNCCD) has "
 "developed a `Good practice guidance for national reporting on UNCCD "
 "Strategic Objective 3 "
-"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
-"Objective-3_2021.pdf>`_ (GPG-SO3). providing recommendations on how to "
-"calculate indicators of SO3."
+"<https://www.unccd.int/sites/default/files/documents/2021-09"
+"/UNCCD_GPG_Strategic-Objective-3_2021.pdf>`_ (GPG-SO3). providing "
+"recommendations on how to calculate indicators of SO3."
 msgstr ""
-"وضعت اتفاقية الأمم المتحدة لمكافحة التصحر \"إرشادات الممارسات الجيدة لإعداد "
-"التقارير الوطنية بشأن الهدف الاستراتيجي 3 لاتفاقية الأمم المتحدة لمكافحة "
-"التصحر "
-"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
-"Objective-3_2021.pdf>\" _ (إرشادات الممارسات الجيدة - الهدف الاستراتيجي "
-"الثالث). تقديم توصيات حول كيفية حساب مؤشرات الهدف الاستراتيجي 3."
+"وضعت اتفاقية الأمم المتحدة لمكافحة التصحر \"إرشادات الممارسات الجيدة "
+"لإعداد التقارير الوطنية بشأن الهدف الاستراتيجي 3 لاتفاقية الأمم المتحدة "
+"لمكافحة التصحر "
+"<https://www.unccd.int/sites/default/files/documents/2021-09"
+"/UNCCD_GPG_Strategic-Objective-3_2021.pdf>\" _ (إرشادات الممارسات الجيدة "
+"- الهدف الاستراتيجي الثالث). تقديم توصيات حول كيفية حساب مؤشرات الهدف "
+"الاستراتيجي 3."
 
 #: ../../source/for_users/features/unccdreporting.rst:275
 msgid ""
-"This document provides a brief introduction to the UNCCD Strategic Objective"
-" 3 and describes how each indicator is calculated by |trends.earth|, "
-"following the Strategic Objective 3 Good Practice Guidance."
+"This document provides a brief introduction to the UNCCD Strategic "
+"Objective 3 and describes how each indicator is calculated by "
+"|trends.earth|, following the Strategic Objective 3 Good Practice "
+"Guidance."
 msgstr ""
-"تقدم هذه الوثيقة مقدمة موجزة عن الهدف الاستراتيجي 3 لاتفاقية الأمم المتحدة "
-"لمكافحة التصحر وتصف كيفية حساب كل مؤشر من خلال|trends.earth، باتباع إرشادات "
-"الممارسة الجيدة للهدف الاستراتيجي 3."
+"تقدم هذه الوثيقة مقدمة موجزة عن الهدف الاستراتيجي 3 لاتفاقية الأمم "
+"المتحدة لمكافحة التصحر وتصف كيفية حساب كل مؤشر من خلال|trends.earth، "
+"باتباع إرشادات الممارسة الجيدة للهدف الاستراتيجي 3."
 
 #: ../../source/for_users/features/unccdreporting.rst:279
 msgid "SO3 Level I indicator (SO 3-1 Hazard)"
-msgstr ""
-"مؤشر الهدف الاستراتيجي الثالث المستوى الأول ( الهدف الاستراتيجي 1-3، خطر)"
+msgstr "مؤشر الهدف الاستراتيجي الثالث المستوى الأول ( الهدف الاستراتيجي 1-3، خطر)"
 
 #: ../../source/for_users/features/unccdreporting.rst:281
 msgid "Steps to calculate Level I indicator following the UNCCD GPG-SO3:"
@@ -698,16 +710,16 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:283
 msgid ""
-"Calculate SPI using an accumulation period of 12 months (SPI-12) and gridded"
-" precipitation data"
+"Calculate SPI using an accumulation period of 12 months (SPI-12) and "
+"gridded precipitation data"
 msgstr ""
-"احسب مؤشر هطول الأمطار القياسي باستخدام فترة تراكم تبلغ 12 شهرًا (SPI-12) "
-"وبيانات هطول الأمطار الموزعّة"
+"احسب مؤشر هطول الأمطار القياسي باستخدام فترة تراكم تبلغ 12 شهرًا (SPI-12)"
+" وبيانات هطول الأمطار الموزعّة"
 
 #: ../../source/for_users/features/unccdreporting.rst:284
 msgid ""
-"Identify the drought intensity class of each pixel based on the previously "
-"calculated SPI"
+"Identify the drought intensity class of each pixel based on the "
+"previously calculated SPI"
 msgstr ""
 "حدد فئة شدة الجفاف لكل بكسل بناءً على مؤشر هطول الأمطار القياسي المحسوب "
 "مسبقًا"
@@ -720,63 +732,64 @@ msgstr "احسب نسبة الأرض داخل كل فئة شدة جفاف."
 msgid ""
 "The Standardized Precipitation Index (SPI) has been widely used to "
 "characterize meteorological drought or precipitation deficit, and was "
-"recognized through the Lincoln Declaration on Drought as the internationally"
-" preferred index for calculating and monitoring meteorological drought. SPI "
-"is calculated as standard deviations that the observed precipitation over a "
-"specified period would deviate from the long-term mean over periods of that "
-"duration considered over typically 30 years of data, for a normal "
-"distribution and fitted probability distribution for the actual "
-"precipitation record. The primary advantages for using the SPI for global "
-"drought monitoring, prediction, and risk assessment is that it is currently "
-"in use in many countries globally and is endorsed by the World "
-"Meteorological Organization. Other key advantages are that the SPI "
-"represents both precipitation deficits and surpluses, and it can be "
-"calculated at different timescales (e.g., SPI-3, SPI-6, SPI-12, with the "
-"number indicating the number of months over which the index is calculated). "
-"Thus, it indirectly considers effects of accumulating precipitation "
-"deficits, which are critical for soil moisture and hydrological droughts."
+"recognized through the Lincoln Declaration on Drought as the "
+"internationally preferred index for calculating and monitoring "
+"meteorological drought. SPI is calculated as standard deviations that the"
+" observed precipitation over a specified period would deviate from the "
+"long-term mean over periods of that duration considered over typically 30"
+" years of data, for a normal distribution and fitted probability "
+"distribution for the actual precipitation record. The primary advantages "
+"for using the SPI for global drought monitoring, prediction, and risk "
+"assessment is that it is currently in use in many countries globally and "
+"is endorsed by the World Meteorological Organization. Other key "
+"advantages are that the SPI represents both precipitation deficits and "
+"surpluses, and it can be calculated at different timescales (e.g., SPI-3,"
+" SPI-6, SPI-12, with the number indicating the number of months over "
+"which the index is calculated). Thus, it indirectly considers effects of "
+"accumulating precipitation deficits, which are critical for soil moisture"
+" and hydrological droughts."
 msgstr ""
 "استخدم مؤشر هطول الأمطار القياسي على نطاق واسع لوصف الجفاف أو نقص هطول "
-"الأمطار، وتم الاعتراف به من خلال إعلان لينكولن بشأن الجفاف باعتباره المؤشر "
-"المفضل دوليًا لحساب ورصد الجفاف في الأحوال الجوية. يُحسب مؤشر هطول الأمطار "
-"القياسي على أنه انحرافات معيارية بأن الهطول المرصود خلال فترة محددة سينحرف "
-"عن المتوسط ​​طويل الأجل على مدى فترات تلك المدة التي يتم النظر فيها عادةً "
-"على مدى 30 عامًا من البيانات، للتوزيع الطبيعي والتوزيع الاحتمالي المناسب "
-"لسجل الهطول الفعلي. تتمثل المزايا الأساسية لاستخدام مؤشر هطول الأمطار "
-"القياسي في مراقبة الجفاف العالمي والتنبؤ به وتقييم المخاطر في أنه قيد "
-"الاستخدام حاليًا في العديد من البلدان على مستوى العالم ومصادق عليه من قبل "
-"المنظمة العالمية للأرصاد الجوية. المزايا الرئيسية الأخرى هي أن مؤشر هطول "
-"الأمطار القياسي يمثل كلا من عجز وفائض الهطول، ويمكن حسابه على نطاقات زمنية "
-"مختلفة (على سبيل المثال SPI-3 ،SPI-6  SPI-12، مع الرقم الذي يشير إلى عدد "
-"الأشهر التي يمر خلالها المؤشر محسوب). وبالتالي، فإنه يأخذ في الاعتبار بشكل "
-"غير مباشر آثار تراكم النقص في هطول الأمطار، وهو أمر بالغ الأهمية لرطوبة "
-"التربة والجفاف الهيدرولوجي."
+"الأمطار، وتم الاعتراف به من خلال إعلان لينكولن بشأن الجفاف باعتباره "
+"المؤشر المفضل دوليًا لحساب ورصد الجفاف في الأحوال الجوية. يُحسب مؤشر هطول"
+" الأمطار القياسي على أنه انحرافات معيارية بأن الهطول المرصود خلال فترة "
+"محددة سينحرف عن المتوسط ​​طويل الأجل على مدى فترات تلك المدة التي يتم "
+"النظر فيها عادةً على مدى 30 عامًا من البيانات، للتوزيع الطبيعي والتوزيع "
+"الاحتمالي المناسب لسجل الهطول الفعلي. تتمثل المزايا الأساسية لاستخدام "
+"مؤشر هطول الأمطار القياسي في مراقبة الجفاف العالمي والتنبؤ به وتقييم "
+"المخاطر في أنه قيد الاستخدام حاليًا في العديد من البلدان على مستوى العالم"
+" ومصادق عليه من قبل المنظمة العالمية للأرصاد الجوية. المزايا الرئيسية "
+"الأخرى هي أن مؤشر هطول الأمطار القياسي يمثل كلا من عجز وفائض الهطول، "
+"ويمكن حسابه على نطاقات زمنية مختلفة (على سبيل المثال SPI-3 ،SPI-6  "
+"SPI-12، مع الرقم الذي يشير إلى عدد الأشهر التي يمر خلالها المؤشر محسوب). "
+"وبالتالي، فإنه يأخذ في الاعتبار بشكل غير مباشر آثار تراكم النقص في هطول "
+"الأمطار، وهو أمر بالغ الأهمية لرطوبة التربة والجفاف الهيدرولوجي."
 
 #: ../../source/for_users/features/unccdreporting.rst:303
 msgid ""
-"By default, |trends.earth| offers access to SPI calculated from the Global "
-"Precipitation Climatology Centre (GPCC) Monitoring Product, a raster "
-"representing precipitation and derived from rain gauge data featuring "
-"spatial resolution of ~27 sq km and covering the entire globe. Users have "
-"also the option to use an alternative SPI calculated from the Climate "
-"Hazards Group InfraRed Precipitation with Stations (CHIRPS), with "
-"precipitation estimates based on satellite observations combined to gauged "
-"station data at ~5 sq km. While CHIRPS features higher spatial resolution, "
-"it has a \"quasi-global\" coverage that spans 50°S to 50°N. Therefore, users"
-" interested in calculating SO3-1 Hazard for areas outside this range will "
-"not be able to use the CHRIPS dataset."
+"By default, |trends.earth| offers access to SPI calculated from the "
+"Global Precipitation Climatology Centre (GPCC) Monitoring Product, a "
+"raster representing precipitation and derived from rain gauge data "
+"featuring spatial resolution of ~27 sq km and covering the entire globe. "
+"Users have also the option to use an alternative SPI calculated from the "
+"Climate Hazards Group InfraRed Precipitation with Stations (CHIRPS), with"
+" precipitation estimates based on satellite observations combined to "
+"gauged station data at ~5 sq km. While CHIRPS features higher spatial "
+"resolution, it has a \"quasi-global\" coverage that spans 50°S to 50°N. "
+"Therefore, users interested in calculating SO3-1 Hazard for areas outside"
+" this range will not be able to use the CHRIPS dataset."
 msgstr ""
-"افتراضيًا، يوفر|trends.earth| الوصول إلى مؤشر هطول الأمطار القياسي المحسوب "
-"من مركز مراقبة مناخ الهطول العالمي، وهو عبارة عن خطوط نقطية تمثل هطول "
-"الأمطار ومشتقة من بيانات مقياس المطر التي تتميز بدقة مكانية تبلغ حوالي 27 "
-"كيلومترًا مربعًا وتغطي الكرة الأرضية بأكملها. يتوفر للمستخدمين أيضًا خيار "
-"استخدام مؤشر مؤشر هطول الأمطار القياسي بديل محسوب من مجموعة المخاطر المناخية"
-" InfraRed هطول الأمطار مع المحطات (CHIRPS)، مع تقديرات هطول الأمطار بناءً "
-"على ملاحظات الأقمار الصناعية مجتمعة مع بيانات المحطة المقاسة عند حوالي 5 "
-"كيلومترات مربعة. بينما تتميز CHIRPS بدقة مكانية أعلى، فإنها تتمتع بتغطية "
-"\"شبه عالمية\" تمتد من 50 درجة جنوبا إلى 50 درجة شمالا. لذلك، لن يتمكن "
-"المستخدمون المهتمون بحساب الهدف الاستراتيجي 1-3 الخطر في مناطق خارج هذا "
-"النطاق من استخدام مجموعة بيانات CHRIPS."
+"افتراضيًا، يوفر|trends.earth| الوصول إلى مؤشر هطول الأمطار القياسي "
+"المحسوب من مركز مراقبة مناخ الهطول العالمي، وهو عبارة عن خطوط نقطية تمثل "
+"هطول الأمطار ومشتقة من بيانات مقياس المطر التي تتميز بدقة مكانية تبلغ "
+"حوالي 27 كيلومترًا مربعًا وتغطي الكرة الأرضية بأكملها. يتوفر للمستخدمين "
+"أيضًا خيار استخدام مؤشر مؤشر هطول الأمطار القياسي بديل محسوب من مجموعة "
+"المخاطر المناخية InfraRed هطول الأمطار مع المحطات (CHIRPS)، مع تقديرات "
+"هطول الأمطار بناءً على ملاحظات الأقمار الصناعية مجتمعة مع بيانات المحطة "
+"المقاسة عند حوالي 5 كيلومترات مربعة. بينما تتميز CHIRPS بدقة مكانية أعلى،"
+" فإنها تتمتع بتغطية \"شبه عالمية\" تمتد من 50 درجة جنوبا إلى 50 درجة "
+"شمالا. لذلك، لن يتمكن المستخدمون المهتمون بحساب الهدف الاستراتيجي 1-3 "
+"الخطر في مناطق خارج هذا النطاق من استخدام مجموعة بيانات CHRIPS."
 
 #: ../../source/for_users/features/unccdreporting.rst:312
 msgid "Step 1. Calculating SPI"
@@ -784,18 +797,19 @@ msgstr "الخطوة 1. حساب مؤشر هطول الأمطار القياسي
 
 #: ../../source/for_users/features/unccdreporting.rst:314
 msgid ""
-"The SPI quantifies observed precipitation as a standardized departure from a"
-" selected probability distribution function that models the raw data. The "
-"raw data can be fitted to a gamma or a Pearson Type III distribution, and "
-"then transformed to a normal distribution. The transformed precipitation "
-"data are then used to compute the dimensionless SPI value, defined as the "
-"standardized anomaly of the precipitation."
+"The SPI quantifies observed precipitation as a standardized departure "
+"from a selected probability distribution function that models the raw "
+"data. The raw data can be fitted to a gamma or a Pearson Type III "
+"distribution, and then transformed to a normal distribution. The "
+"transformed precipitation data are then used to compute the dimensionless"
+" SPI value, defined as the standardized anomaly of the precipitation."
 msgstr ""
-"يحدد مؤشر هطول الأمطار القياسي كمية الهطول المرصود باعتباره خروجًا معياريًا "
-"من دالة توزيع احتمالية مختارة تقوم بنمذجة البيانات الأولية. يمكن ملاءمة "
-"البيانات الأولية لتوزيع جاما أو توزيع بيرسون من النوع الثالث، ثم تحويلها إلى"
-" توزيع عادي. ثم تُستخدم بيانات الهواطل المحولة لحساب قيمة مؤشر هطول الأمطار "
-"القياسي عديمة الأبعاد، والتي تُعرَّف على أنها الانحراف المعياري للهطول."
+"يحدد مؤشر هطول الأمطار القياسي كمية الهطول المرصود باعتباره خروجًا "
+"معياريًا من دالة توزيع احتمالية مختارة تقوم بنمذجة البيانات الأولية. يمكن"
+" ملاءمة البيانات الأولية لتوزيع جاما أو توزيع بيرسون من النوع الثالث، ثم "
+"تحويلها إلى توزيع عادي. ثم تُستخدم بيانات الهواطل المحولة لحساب قيمة مؤشر"
+" هطول الأمطار القياسي عديمة الأبعاد، والتي تُعرَّف على أنها الانحراف "
+"المعياري للهطول."
 
 #: ../../source/for_users/features/unccdreporting.rst:318
 msgid ""
@@ -806,8 +820,7 @@ msgstr ""
 "توزيع جاما:"
 
 #: ../../source/for_users/features/unccdreporting.rst:323
-msgid ""
-"The transformation of the precipitation value into SPI has the purpose of:"
+msgid "The transformation of the precipitation value into SPI has the purpose of:"
 msgstr "الغرض من تحويل قيمة الهطول إلى مؤشر هطول الأمطار القياسي هو:"
 
 #: ../../source/for_users/features/unccdreporting.rst:321
@@ -824,11 +837,11 @@ msgstr "يجب تعديل انحراف البيانات الموجودة إلى 
 
 #: ../../source/for_users/features/unccdreporting.rst:325
 msgid ""
-"When these goals have been achieved the standardized precipitation index can"
-" be interpreted as mean 0 and standard deviation of 1.0."
+"When these goals have been achieved the standardized precipitation index "
+"can be interpreted as mean 0 and standard deviation of 1.0."
 msgstr ""
-"عندما يتم تحقيق هذه الأهداف، يمكن تفسير مؤشر هطول الأمطار المعياري على أنه "
-"متوسط 0 وانحراف معياري قدره 1.0."
+"عندما يتم تحقيق هذه الأهداف، يمكن تفسير مؤشر هطول الأمطار المعياري على "
+"أنه متوسط 0 وانحراف معياري قدره 1.0."
 
 #: ../../source/for_users/features/unccdreporting.rst:328
 msgid "Mean of the precipitation can be computed as:"
@@ -856,11 +869,12 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:351
 msgid ""
-"The resulting parameters are then used to find the cumulative probability of"
-" an observed precipitation event. The cumulative probability is given by:"
+"The resulting parameters are then used to find the cumulative probability"
+" of an observed precipitation event. The cumulative probability is given "
+"by:"
 msgstr ""
-"ثم تُستخدم المعاملات الناتجة لإيجاد الاحتمال التراكمي لحدوث هطول مرصود. يتم "
-"إعطاء الاحتمال التراكمي من خلال:"
+"ثم تُستخدم المعاملات الناتجة لإيجاد الاحتمال التراكمي لحدوث هطول مرصود. "
+"يتم إعطاء الاحتمال التراكمي من خلال:"
 
 #: ../../source/for_users/features/unccdreporting.rst:358
 msgid ""
@@ -876,11 +890,11 @@ msgstr "حيث يكون الاحتمال من q صفرًا."
 
 #: ../../source/for_users/features/unccdreporting.rst:366
 msgid ""
-"The cumulative probability H(x) is then transformed to the standard normal "
-"random variable Z with mean zero and variance of one:"
+"The cumulative probability H(x) is then transformed to the standard "
+"normal random variable Z with mean zero and variance of one:"
 msgstr ""
-"ثم يتم تحويل الاحتمال التراكمي H (x) إلى المتغير العشوائي العادي القياسي Z "
-"بمتوسط صفر وتباين واحد:"
+"ثم يتم تحويل الاحتمال التراكمي H (x) إلى المتغير العشوائي العادي القياسي "
+"Z بمتوسط صفر وتباين واحد:"
 
 #: ../../source/for_users/features/unccdreporting.rst:372
 msgid "where:"
@@ -893,52 +907,53 @@ msgstr "الخطوة 2. تحديد فئات كثافة الجفاف"
 #: ../../source/for_users/features/unccdreporting.rst:380
 msgid ""
 "The dimensionless SPI values are interpreted as the number of standard "
-"deviations by which the observed anomaly deviates from the long-term mean "
-"and are typically labeled categorically based on condition (i.e., extremely "
-"wet, extremely dry, normal) as shown in the table below. A drought occurs "
-"when the SPI is consecutively negative, and its value reaches an intensity "
-"of -1 or less and ends when the SPI becomes positive."
+"deviations by which the observed anomaly deviates from the long-term mean"
+" and are typically labeled categorically based on condition (i.e., "
+"extremely wet, extremely dry, normal) as shown in the table below. A "
+"drought occurs when the SPI is consecutively negative, and its value "
+"reaches an intensity of -1 or less and ends when the SPI becomes "
+"positive."
 msgstr ""
 "يتم تفسير قيم مؤشر هطول الأمطار عديمة الأبعاد على أنها عدد الانحرافات "
-"المعيارية التي ينحرف بها الشذوذ الملحوظ عن المتوسط طويل الأجل ويتم تصنيفها "
-"عادةً بشكل قاطع بناءً على الحالة (أي، رطب للغاية، جاف للغاية، طبيعي) كما هو "
-"موضح في الجدول أدناه. يحدث الجفاف عندما يكون مؤشر هطول الأمطار سالبًا على "
-"التوالي، وتصل قيمته إلى شدة -1 أو أقل وينتهي عندما يصبح المؤشر مؤشر هطول "
-"الأمطار موجبًا."
+"المعيارية التي ينحرف بها الشذوذ الملحوظ عن المتوسط طويل الأجل ويتم "
+"تصنيفها عادةً بشكل قاطع بناءً على الحالة (أي، رطب للغاية، جاف للغاية، "
+"طبيعي) كما هو موضح في الجدول أدناه. يحدث الجفاف عندما يكون مؤشر هطول "
+"الأمطار سالبًا على التوالي، وتصل قيمته إلى شدة -1 أو أقل وينتهي عندما "
+"يصبح المؤشر مؤشر هطول الأمطار موجبًا."
 
 #: ../../source/for_users/features/unccdreporting.rst:388
 msgid ""
-"Drought intensity classes are identified by assessing the December SPI-12 "
-"values for ear year of time-series. The December SPI-12 values represent the"
-" precipitation deficits (or excesses) over the Gregorian (January-December) "
-"calendar year. Positive SPI values are discarded, since they indicate that "
-"there was no drought in the given period."
+"Drought intensity classes are identified by assessing the December SPI-12"
+" values for ear year of time-series. The December SPI-12 values represent"
+" the precipitation deficits (or excesses) over the Gregorian (January-"
+"December) calendar year. Positive SPI values are discarded, since they "
+"indicate that there was no drought in the given period."
 msgstr ""
-"يتم تحديد فئات شدة الجفاف من خلال تقييم قيم SPI-12 لشهر ديسمبر للسنة الأولى "
-"من السلسلة الزمنية. تمثل قيم SPI-12 لشهر ديسمبر عجز هطول الأمطار (أو "
-"التجاوزات) على مدار السنة الميلادية (يناير - ديسمبر). يتم تجاهل قيم المؤشر "
-"المعياري للهطول (SPI) الإيجابية، لأنها تشير إلى عدم حدوث جفاف في الفترة "
-"المحددة."
+"يتم تحديد فئات شدة الجفاف من خلال تقييم قيم SPI-12 لشهر ديسمبر للسنة "
+"الأولى من السلسلة الزمنية. تمثل قيم SPI-12 لشهر ديسمبر عجز هطول الأمطار "
+"(أو التجاوزات) على مدار السنة الميلادية (يناير - ديسمبر). يتم تجاهل قيم "
+"المؤشر المعياري للهطول (SPI) الإيجابية، لأنها تشير إلى عدم حدوث جفاف في "
+"الفترة المحددة."
 
 #: ../../source/for_users/features/unccdreporting.rst:392
 msgid ""
 "For further details on SPI, see the `Good practice guidance for national "
 "reporting on UNCCD Strategic Objective 3 "
-"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
-"Objective-3_2021.pdf>`_. We also recommend reading the Tools4LDN Technical "
-"Report on Monitoring Progress Towards UNCCD Strategic Objective 3 `A review "
-"of Publicly Available Geospatial Datasets and Indicators in Support of "
-"Drought Monitoring "
+"<https://www.unccd.int/sites/default/files/documents/2021-09"
+"/UNCCD_GPG_Strategic-Objective-3_2021.pdf>`_. We also recommend reading "
+"the Tools4LDN Technical Report on Monitoring Progress Towards UNCCD "
+"Strategic Objective 3 `A review of Publicly Available Geospatial Datasets"
+" and Indicators in Support of Drought Monitoring "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>`_."
 msgstr ""
-"لمزيد من التفاصيل حول المؤشر القياسي للهطول، راجع إرشادات الممارسات الجيدة "
-"لإعداد التقارير الوطنية بشأن الهدف الاستراتيجي 3 لاتفاقية الأمم المتحدة "
-"لمكافحة التصحر "
-"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
-"Objective-3_2021.pdf> \"_. نوصي أيضًا بقراءة التقرير الفني لـ Tools4LDN حول "
-"رصد التقدم نحو الهدف الاستراتيجي 3 لاتفاقية الأمم المتحدة لمكافحة التصحر `` "
-"مراجعة مجموعات البيانات والمؤشرات الجغرافية المكانية المتاحة للجمهور لدعم "
-"مراقبة الجفاف "
+"لمزيد من التفاصيل حول المؤشر القياسي للهطول، راجع إرشادات الممارسات "
+"الجيدة لإعداد التقارير الوطنية بشأن الهدف الاستراتيجي 3 لاتفاقية الأمم "
+"المتحدة لمكافحة التصحر "
+"<https://www.unccd.int/sites/default/files/documents/2021-09"
+"/UNCCD_GPG_Strategic-Objective-3_2021.pdf> \"_. نوصي أيضًا بقراءة التقرير"
+" الفني لـ Tools4LDN حول رصد التقدم نحو الهدف الاستراتيجي 3 لاتفاقية الأمم"
+" المتحدة لمكافحة التصحر `` مراجعة مجموعات البيانات والمؤشرات الجغرافية "
+"المكانية المتاحة للجمهور لدعم مراقبة الجفاف "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>"
 " `_."
 
@@ -954,9 +969,9 @@ msgid ""
 "classes takes the land area under the each drought intensity class "
 "identified in the previous step over the the total land area, as follows:"
 msgstr ""
-"تأخذ معادلة تقدير النسبة المئوية للأرض ضمن فئات شدة الجفاف مساحة الأرض تحت "
-"كل فئة من فئات شدة الجفاف المحددة في الخطوة السابقة على إجمالي مساحة الأرض، "
-"على النحو التالي:"
+"تأخذ معادلة تقدير النسبة المئوية للأرض ضمن فئات شدة الجفاف مساحة الأرض "
+"تحت كل فئة من فئات شدة الجفاف المحددة في الخطوة السابقة على إجمالي مساحة "
+"الأرض، على النحو التالي:"
 
 #: ../../source/for_users/features/unccdreporting.rst:406
 msgid "Where:"
@@ -964,8 +979,8 @@ msgstr "حيث أن:"
 
 #: ../../source/for_users/features/unccdreporting.rst:408
 msgid ""
-"`Pij` is the proportion of land under the drought intensity class i in the "
-"year j"
+"`Pij` is the proportion of land under the drought intensity class i in "
+"the year j"
 msgstr "\"Pij\" هي نسبة الأراضي الواقعة تحت فئة شدة الجفاف i في العام j"
 
 #: ../../source/for_users/features/unccdreporting.rst:410
@@ -986,73 +1001,74 @@ msgstr "مؤشر SO3 من المستوى الثاني (التعرض SO 3-2)"
 
 #: ../../source/for_users/features/unccdreporting.rst:418
 msgid ""
-"The UNCCD SO3 Level III drought Exposure indicator is built upon the SO 3 "
-"Level I Hazard indicator by overlaying a gridded population data. Using the "
-"overlaying population as a proxy for calculating drought exposure is a "
-"straight-forward method. Knowing how many people are directly affected by "
-"drought can help aid get allocated to the most needed areas, based on "
+"The UNCCD SO3 Level III drought Exposure indicator is built upon the SO 3"
+" Level I Hazard indicator by overlaying a gridded population data. Using "
+"the overlaying population as a proxy for calculating drought exposure is "
+"a straight-forward method. Knowing how many people are directly affected "
+"by drought can help aid get allocated to the most needed areas, based on "
 "percent of population exposed and strength of that exposure (drought "
 "severity). This method can also serve as a proxy for socioeconomic "
 "drought.The gender disaggregation calculation for the SO3 Level II "
-"population indicator is computed based on percent male and percent female in"
-" each grid cell. The outputs include exposure information by gender (percent"
-" male and percent female) exposed to each Level I drought intensity class. "
-"This produces two comparable grids that could be aggregated to "
-"administrative boundaries if desired, where global and local spatial "
-"relationships between gender and drought occurrence and/or severity can be "
-"better quantified and visualized."
+"population indicator is computed based on percent male and percent female"
+" in each grid cell. The outputs include exposure information by gender "
+"(percent male and percent female) exposed to each Level I drought "
+"intensity class. This produces two comparable grids that could be "
+"aggregated to administrative boundaries if desired, where global and "
+"local spatial relationships between gender and drought occurrence and/or "
+"severity can be better quantified and visualized."
 msgstr ""
-"تمّ إنشاء مؤشر التعرض للجفاف التابع لاتفاقية الأمم المتحدة لمكافحة التصحر "
-"SO3 من المستوى الثالث وفقاً لمؤشر الخطر SO3 من المستوى الأول عن طريق تراكب "
-"بيانات السكان الشبكية. يُعد استخدام تراكب السكان كمؤشر بديل لحساب التعرض "
-"للجفاف طريقة مباشرة. يُمكن أن تساعد معرفة عدد الأشخاص المتأثرين بالجفاف بشكل"
-" مباشر في تخصيص المساعدة للمناطق الأكثر احتياجًا، بناءً على النسبة المئوية "
-"للسكان المعرضين وقوة هذا التعرض (شدة الجفاف). كما يمكن أن تعمل هذه الطريقة "
-"كمؤشر بديل للجفاف الاجتماعي والاقتصادي. يُحسب التصنيف الجنساني لمؤشر السكان "
-"SO3 من المستوى الثاني على أساس النسبة المئوية للذكور والنسبة المئوية للإناث "
-"في كل خلية شبكية. تشمل النواتج معلومات التعرض حسب الجنس (النسبة المئوية "
-"للذكور والإناث) المعرضين لكل فئة من فئات شدة الجفاف من المستوى الأول. ينتج "
-"عن ذلك شبكتان متشابهتان يمكن تجميعهما للحدود الإدارية عند الرغبة، حيث يمكن "
-"تحديد العلاقات المكانية العالمية والمحلية بين الجنس وحدوث الجفاف و/أو شدته "
-"بشكل أفضل."
+"تمّ إنشاء مؤشر التعرض للجفاف التابع لاتفاقية الأمم المتحدة لمكافحة التصحر"
+" SO3 من المستوى الثالث وفقاً لمؤشر الخطر SO3 من المستوى الأول عن طريق "
+"تراكب بيانات السكان الشبكية. يُعد استخدام تراكب السكان كمؤشر بديل لحساب "
+"التعرض للجفاف طريقة مباشرة. يُمكن أن تساعد معرفة عدد الأشخاص المتأثرين "
+"بالجفاف بشكل مباشر في تخصيص المساعدة للمناطق الأكثر احتياجًا، بناءً على "
+"النسبة المئوية للسكان المعرضين وقوة هذا التعرض (شدة الجفاف). كما يمكن أن "
+"تعمل هذه الطريقة كمؤشر بديل للجفاف الاجتماعي والاقتصادي. يُحسب التصنيف "
+"الجنساني لمؤشر السكان SO3 من المستوى الثاني على أساس النسبة المئوية "
+"للذكور والنسبة المئوية للإناث في كل خلية شبكية. تشمل النواتج معلومات "
+"التعرض حسب الجنس (النسبة المئوية للذكور والإناث) المعرضين لكل فئة من فئات"
+" شدة الجفاف من المستوى الأول. ينتج عن ذلك شبكتان متشابهتان يمكن تجميعهما "
+"للحدود الإدارية عند الرغبة، حيث يمكن تحديد العلاقات المكانية العالمية "
+"والمحلية بين الجنس وحدوث الجفاف و/أو شدته بشكل أفضل."
 
 #: ../../source/for_users/features/unccdreporting.rst:427
 msgid ""
 "The WorldPop collection is a global gridded high resolution geospatial "
-"dataset on population distributions,demographics, and dynamics. WorldPop's "
-"spatially disaggregated layers are gridded with an output resolution of 3 "
-"arc-seconds and 30 arc-seconds (approximately 100 m & 1 km, respectively at "
-"the equator) and incorporates inputs such as population census tables & "
-"national geographic boundaries, roads, land cover, built structures, urban "
-"areas, night-time lights, infrastructure, environmental data, protected "
-"areas, and water bodies. The strengths of WorldPop are that the population "
-"estimation method of dasymetric mapping is multivariate, i.e., highly "
-"modeled, and therefore tailored to match data conditions and geographical "
-"nature of each individual country and region. Gender information is also "
-"available. The weakness of WorldPop is that the utilization of such complex "
-"interpolation models with sparse census data may lead to highly uncertain "
-"and imprecise population estimates in some sub-national and rural regions. "
-"In spite of the aforementioned limitation, WorldPop remains the most ideal "
-"gridded population dataset as it satisfies all our inclusion criteria, "
-"including spatial resolution, global coverage, frequency of data updates, "
-"and inclusion of a gender-disaggregated component."
+"dataset on population distributions,demographics, and dynamics. "
+"WorldPop's spatially disaggregated layers are gridded with an output "
+"resolution of 3 arc-seconds and 30 arc-seconds (approximately 100 m & 1 "
+"km, respectively at the equator) and incorporates inputs such as "
+"population census tables & national geographic boundaries, roads, land "
+"cover, built structures, urban areas, night-time lights, infrastructure, "
+"environmental data, protected areas, and water bodies. The strengths of "
+"WorldPop are that the population estimation method of dasymetric mapping "
+"is multivariate, i.e., highly modeled, and therefore tailored to match "
+"data conditions and geographical nature of each individual country and "
+"region. Gender information is also available. The weakness of WorldPop is"
+" that the utilization of such complex interpolation models with sparse "
+"census data may lead to highly uncertain and imprecise population "
+"estimates in some sub-national and rural regions. In spite of the "
+"aforementioned limitation, WorldPop remains the most ideal gridded "
+"population dataset as it satisfies all our inclusion criteria, including "
+"spatial resolution, global coverage, frequency of data updates, and "
+"inclusion of a gender-disaggregated component."
 msgstr ""
-"إن مجموعة WorldPop هي مجموعة بيانات جغرافية مكانية عالمية شبكية عالية الدقة "
-"بشأن التوزيعات السكانية والتركيبة السكانية والديناميكيات. إن طبقات WorldPop "
-"المصنفة مكانيًا مصفوفة بدقة إخراج تبلغ 3 ثوانٍ قوسية و 30 ثانية قوسية (نحو "
-"100 متر وكيلومتر واحد على التوالي عند خط الاستواء) وتتضمن مدخلات مثل جداول "
-"التعداد السكاني والحدود الجغرافية الوطنية، والطرق، والغطاء الأرضي، والمنشآت "
-"المبنية، والمناطق الحضرية، والأضواء الليلية، والبنية التحتية، والبيانات "
-"البيئية، والمناطق المحمية، والمسطحات المائية. تكمن نقاط قوة WorldPop في أن "
-"طريقة تقدير السكان لرسم الخرائط الديزيمترية متعددة المتغيرات، أي مصممة بدقة "
-"عالية، وبالتالي فهي مصممة لمطابقة ظروف البيانات والطبيعة الجغرافية لكل بلد "
-"ومنطقة على حدة. والمعلومات الجنسانية متاحة أيضًا. تتمثل نقطة ضعف WorldPop في"
-" أن استخدام نماذج الاستيفاء المعقدة مع بيانات التعداد المتفرقة قد يؤدي إلى "
-"تقديرات سكانية غير مؤكدة وغير دقيقة في بعض المناطق الوطنية الفرعية والريفية."
-" على الرغم من القيود المذكورة أعلاه، تظل WorldPop أكثر مجموعات البيانات "
-"السكانية الشبكية مثالية لأنها تلبي جميع معايير الإدراج لدينا، بما في ذلك "
-"الدقة المكانية والتغطية العالمية وتكرار تحديثات البيانات وإدراج مكون مصنف "
-"حسب الجنس."
+"إن مجموعة WorldPop هي مجموعة بيانات جغرافية مكانية عالمية شبكية عالية "
+"الدقة بشأن التوزيعات السكانية والتركيبة السكانية والديناميكيات. إن طبقات "
+"WorldPop المصنفة مكانيًا مصفوفة بدقة إخراج تبلغ 3 ثوانٍ قوسية و 30 ثانية "
+"قوسية (نحو 100 متر وكيلومتر واحد على التوالي عند خط الاستواء) وتتضمن "
+"مدخلات مثل جداول التعداد السكاني والحدود الجغرافية الوطنية، والطرق، "
+"والغطاء الأرضي، والمنشآت المبنية، والمناطق الحضرية، والأضواء الليلية، "
+"والبنية التحتية، والبيانات البيئية، والمناطق المحمية، والمسطحات المائية. "
+"تكمن نقاط قوة WorldPop في أن طريقة تقدير السكان لرسم الخرائط الديزيمترية "
+"متعددة المتغيرات، أي مصممة بدقة عالية، وبالتالي فهي مصممة لمطابقة ظروف "
+"البيانات والطبيعة الجغرافية لكل بلد ومنطقة على حدة. والمعلومات الجنسانية "
+"متاحة أيضًا. تتمثل نقطة ضعف WorldPop في أن استخدام نماذج الاستيفاء "
+"المعقدة مع بيانات التعداد المتفرقة قد يؤدي إلى تقديرات سكانية غير مؤكدة "
+"وغير دقيقة في بعض المناطق الوطنية الفرعية والريفية. على الرغم من القيود "
+"المذكورة أعلاه، تظل WorldPop أكثر مجموعات البيانات السكانية الشبكية "
+"مثالية لأنها تلبي جميع معايير الإدراج لدينا، بما في ذلك الدقة المكانية "
+"والتغطية العالمية وتكرار تحديثات البيانات وإدراج مكون مصنف حسب الجنس."
 
 #: ../../source/for_users/features/unccdreporting.rst:438
 msgid ""
@@ -1060,8 +1076,8 @@ msgid ""
 "number of people within each drought intensity classes over of the total "
 "population."
 msgstr ""
-"تُحسب النسب المئوية للسكان المعرضين للجفاف من خلال عدد الأشخاص في كل فئة من "
-"فئات شدة الجفاف على إجمالي عدد السكان."
+"تُحسب النسب المئوية للسكان المعرضين للجفاف من خلال عدد الأشخاص في كل فئة "
+"من فئات شدة الجفاف على إجمالي عدد السكان."
 
 #: ../../source/for_users/features/unccdreporting.rst:443
 msgid "SO3 Level III indicator (SO 3-3 Vulnerability)"
@@ -1069,27 +1085,28 @@ msgstr "مؤشر SO3 من المستوى الثالث (قابلية التأثر
 
 #: ../../source/for_users/features/unccdreporting.rst:444
 msgid ""
-"Drought Vulnerability assessment is based on the Drought Vulnerability Index"
-" (DVI), a composite index incorporating three components reflecting the "
-"vulnerability of the population to drought: i) social, ii) economic and iii)"
-" infrastructural. Currently DVI does not feature components on ecological or"
-" ecosystem vulnerability. |trends.earth| offers access to the global default"
-" DVI dataset produced by the Joint Research Centre (JRC). The JRC has "
-"developed a framework which integrates 15 economic, social, and "
-"infrastructural components related to drought vulnerability derived from "
-"global data sources. This framework recommends that drought vulnerability "
-"indicators should encompass orthogonal social, infrastructural, and economic"
-" factors that are generic and valid for any region."
+"Drought Vulnerability assessment is based on the Drought Vulnerability "
+"Index (DVI), a composite index incorporating three components reflecting "
+"the vulnerability of the population to drought: i) social, ii) economic "
+"and iii) infrastructural. Currently DVI does not feature components on "
+"ecological or ecosystem vulnerability. |trends.earth| offers access to "
+"the global default DVI dataset produced by the Joint Research Centre "
+"(JRC). The JRC has developed a framework which integrates 15 economic, "
+"social, and infrastructural components related to drought vulnerability "
+"derived from global data sources. This framework recommends that drought "
+"vulnerability indicators should encompass orthogonal social, "
+"infrastructural, and economic factors that are generic and valid for any "
+"region."
 msgstr ""
 "يعتمد تقييم قابلية التأثر بالجفاف على مؤشر التعرض للجفاف (DVI)، وهو مؤشر "
-"مركب يتضمن ثلاثة مكونات تعكس تعرض السكان للجفاف: 1) اجتماعي، 2) اقتصادي، 3) "
-"البنية التحتية. لا تحتوي DVI حاليًا على مكونات تتعلق بالضعف البيئي أو النظام"
-" البيئي. | اتجاهات.الأرض | يوفر الوصول إلى مجموعة بيانات DVI الافتراضية "
-"العالمية التي ينتجها مركز الأبحاث المشتركة (JRC). طور مركز البحوث المشتركة "
-"(JRC) إطار عمل يدمج 15 مكونًا اقتصاديًا واجتماعيًا وبنية تحتية تتعلق بقابلية"
-" التعرض للجفاف المستمدة من مصادر البيانات العالمية. يوصي هذا الإطار بأن "
-"مؤشرات التعرض للجفاف يجب أن تشمل العوامل الاجتماعية والبنية التحتية "
-"والاقتصادية المتعامدة والتي تكون عامة وصالحة لأي منطقة."
+"مركب يتضمن ثلاثة مكونات تعكس تعرض السكان للجفاف: 1) اجتماعي، 2) اقتصادي، "
+"3) البنية التحتية. لا تحتوي DVI حاليًا على مكونات تتعلق بالضعف البيئي أو "
+"النظام البيئي. | اتجاهات.الأرض | يوفر الوصول إلى مجموعة بيانات DVI "
+"الافتراضية العالمية التي ينتجها مركز الأبحاث المشتركة (JRC). طور مركز "
+"البحوث المشتركة (JRC) إطار عمل يدمج 15 مكونًا اقتصاديًا واجتماعيًا وبنية "
+"تحتية تتعلق بقابلية التعرض للجفاف المستمدة من مصادر البيانات العالمية. "
+"يوصي هذا الإطار بأن مؤشرات التعرض للجفاف يجب أن تشمل العوامل الاجتماعية "
+"والبنية التحتية والاقتصادية المتعامدة والتي تكون عامة وصالحة لأي منطقة."
 
 #: ../../source/for_users/features/unccdreporting.rst:452
 msgid ""
@@ -1097,30 +1114,30 @@ msgid ""
 "al., 2016 "
 "<https://www.sciencedirect.com/science/article/pii/S0959378016300565>`_ "
 "adopts an approach for SO3 assessing drought vulnerability that was "
-"initially proposed by the United Nations Office for Disaster Risk Reduction "
-"(UNDRR - formerly the United Nations International Strategy for Disaster "
-"Reduction or UNISDR) that reflects the state of the individual and "
-"collective social, economic, and infrastructural factors of a region [61]. "
-"This methodology has also been operationally implemented within the JRC "
-"Global Drought Observatory (GDO) to document and map global risk of drought "
-"impact for agriculture. The authors state that the factors that have been "
-"included do not represent a complete description of vulnerability in "
-"relation to a specific exposed element but can be viewed as the foundation "
-"for building a regional plan for reducing vulnerability and facilitating "
-"adaptation."
+"initially proposed by the United Nations Office for Disaster Risk "
+"Reduction (UNDRR - formerly the United Nations International Strategy for"
+" Disaster Reduction or UNISDR) that reflects the state of the individual "
+"and collective social, economic, and infrastructural factors of a region "
+"[61]. This methodology has also been operationally implemented within the"
+" JRC Global Drought Observatory (GDO) to document and map global risk of "
+"drought impact for agriculture. The authors state that the factors that "
+"have been included do not represent a complete description of "
+"vulnerability in relation to a specific exposed element but can be viewed"
+" as the foundation for building a regional plan for reducing "
+"vulnerability and facilitating adaptation."
 msgstr ""
-"يتبع إطار عمل مركز البحوث المشتركة لرصد مخاطر الجفاف كما هو موضح في `Carrão "
-"et al., 2016 "
+"يتبع إطار عمل مركز البحوث المشتركة لرصد مخاطر الجفاف كما هو موضح في "
+"`Carrão et al., 2016 "
 "<https://www.sciencedirect.com/science/article/pii/S0959378016300565>` _ "
-"نهجًا لSO3 لتقييم قابلية التأثر بالجفاف الذي اقترحه في البداية مكتب الأمم "
-"المتحدة للحد من مخاطر الكوارث (UNDRR - المعروفة سابقاً بالاستراتيجية الدولية"
-" للحد من الكوارث للأمم المتحدة أو UNISDR) التي تعكس حالة العوامل الاجتماعية "
-"والاقتصادية والبنية التحتية الفردية والجماعية للمنطقة [61]. كما نفذت هذه "
-"المنهجية عمليًا داخل مرصد الجفاف العالمي التابع لمركز البحوث المشتركة (GDO) "
-"لتوثيق ورسم خرائط للمخاطر العالمية لتأثير الجفاف على الزراعة. يذكر المؤلفون "
-"أن العوامل التي تم تضمينها لا تمثل وصفًا كاملاً لقابلية التأثر فيما يتعلق "
-"بعنصر مكشوف محدد ولكن يمكن اعتبارها أساسًا لبناء خطة إقليمية لتقليل قابلية "
-"للتأثر وتسهيل التكيّف."
+"نهجًا لSO3 لتقييم قابلية التأثر بالجفاف الذي اقترحه في البداية مكتب الأمم"
+" المتحدة للحد من مخاطر الكوارث (UNDRR - المعروفة سابقاً بالاستراتيجية "
+"الدولية للحد من الكوارث للأمم المتحدة أو UNISDR) التي تعكس حالة العوامل "
+"الاجتماعية والاقتصادية والبنية التحتية الفردية والجماعية للمنطقة [61]. "
+"كما نفذت هذه المنهجية عمليًا داخل مرصد الجفاف العالمي التابع لمركز البحوث"
+" المشتركة (GDO) لتوثيق ورسم خرائط للمخاطر العالمية لتأثير الجفاف على "
+"الزراعة. يذكر المؤلفون أن العوامل التي تم تضمينها لا تمثل وصفًا كاملاً "
+"لقابلية التأثر فيما يتعلق بعنصر مكشوف محدد ولكن يمكن اعتبارها أساسًا "
+"لبناء خطة إقليمية لتقليل قابلية للتأثر وتسهيل التكيّف."
 
 #: ../../source/for_users/features/unccdreporting.rst:460
 msgid ""
@@ -1132,35 +1149,35 @@ msgid ""
 "composite model that derives from the aggregation of 15 proxy indicators "
 "(show in the Table below) that represent social, economic, and "
 "infrastructural vulnerability at each geographic location (a similar "
-"methodology as the DVI, discussed subsequently) and are derived from both at"
-" the national level and very high spatial resolution gridded data."
+"methodology as the DVI, discussed subsequently) and are derived from both"
+" at the national level and very high spatial resolution gridded data."
 msgstr ""
 "المنهجية المستخدمة في `Carrão et al., 2016 "
-"<https://www.sciencedirect.com/science/article/pii/S0959378016300565>`_ تتبع"
-" المفهوم الذي ينص على أن الأفراد والسكان يحتاجون إلى مجموعة من العوامل شبه "
-"المستقلة التي تتميز بمجموعة من المؤشرات البديلة لتحقيق مرونة إيجابية في "
-"مواجهة الآثار. تستخدم المنهجية نموذجًا مركبًا من خطوتين مشتقًا من تجميع 15 "
-"مؤشرًا بديلاً (موضحة في الجدول أدناه) والتي تمثل قابلية التأثر الاجتماعي "
-"والاقتصادي وتأثر البنية التحتية في كل موقع جغرافي (منهجية مماثلة مثل DVI، "
-"وستُناقش لاحقًا) و مستمدة من البيانات الشبكية على المستوى الوطني ومن "
-"البيانات الشبكية عالية الدقة المكانية."
+"<https://www.sciencedirect.com/science/article/pii/S0959378016300565>`_ "
+"تتبع المفهوم الذي ينص على أن الأفراد والسكان يحتاجون إلى مجموعة من "
+"العوامل شبه المستقلة التي تتميز بمجموعة من المؤشرات البديلة لتحقيق مرونة "
+"إيجابية في مواجهة الآثار. تستخدم المنهجية نموذجًا مركبًا من خطوتين مشتقًا"
+" من تجميع 15 مؤشرًا بديلاً (موضحة في الجدول أدناه) والتي تمثل قابلية "
+"التأثر الاجتماعي والاقتصادي وتأثر البنية التحتية في كل موقع جغرافي "
+"(منهجية مماثلة مثل DVI، وستُناقش لاحقًا) و مستمدة من البيانات الشبكية على"
+" المستوى الوطني ومن البيانات الشبكية عالية الدقة المكانية."
 
 #: ../../source/for_users/features/unccdreporting.rst:470
 msgid ""
-"This process involves first combining the indicators presented in the Table "
-"for each factor using a Data Envelopment Analysis (DEA) model, a "
-"deterministic and non-parametric linear programming technique that can be "
-"used to quantify the relative exposure of a region to drought from a "
-"multidimensional set of indicators. Secondly, arithmetically aggregating the"
-" individual factors resulting from the DEA model into a composite model of "
-"drought vulnerability such that:"
+"This process involves first combining the indicators presented in the "
+"Table for each factor using a Data Envelopment Analysis (DEA) model, a "
+"deterministic and non-parametric linear programming technique that can be"
+" used to quantify the relative exposure of a region to drought from a "
+"multidimensional set of indicators. Secondly, arithmetically aggregating "
+"the individual factors resulting from the DEA model into a composite "
+"model of drought vulnerability such that:"
 msgstr ""
 "تتضمن هذه العملية أولاً الجمع بين المؤشرات الواردة في الجدول لكل عامل "
-"باستخدام نموذج تحليل مغلف البيانات (DEA)، وهي تقنية برمجة خطية حتمية وغير "
-"بارامترية يمكن استخدامها لتحديد كمية التعرض النسبي لمنطقة ما للجفاف من "
-"مجموعة من المؤشرات متعددة الأبعاد. ثانيًا، التجميع الحسابي للعوامل الفردية "
-"الناتجة عن نموذج تحليل مغلف البيانات في نموذج مركب لقابلية التأثر بالجفاف، "
-"مثل:"
+"باستخدام نموذج تحليل مغلف البيانات (DEA)، وهي تقنية برمجة خطية حتمية وغير"
+" بارامترية يمكن استخدامها لتحديد كمية التعرض النسبي لمنطقة ما للجفاف من "
+"مجموعة من المؤشرات متعددة الأبعاد. ثانيًا، التجميع الحسابي للعوامل "
+"الفردية الناتجة عن نموذج تحليل مغلف البيانات في نموذج مركب لقابلية التأثر"
+" بالجفاف، مثل:"
 
 #: ../../source/for_users/features/unccdreporting.rst:477
 msgid ""
@@ -1170,10 +1187,9 @@ msgstr ""
 "حيث Soc i وEcon i وInfr i هي عوامل قابلية التأثر الاجتماعية والاقتصادية "
 "وقابلية تأثر البنية التحتية للمنطقة i."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "أيقونة الآلة الحاسبة"
+#~ msgid "iconCalculator"
+#~ msgstr "أيقونة الآلة الحاسبة"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "أيقونة التقارير"
+#~ msgid "iconReports"
+#~ msgstr "أيقونة التقارير"
+

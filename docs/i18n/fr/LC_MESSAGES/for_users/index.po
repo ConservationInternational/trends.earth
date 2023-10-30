@@ -1,46 +1,47 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-12 06:50-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language-Team: French (https://www.transifex.com/conservation-"
+"international/teams/80165/fr/)\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/index.rst:3
 msgid ""
-":docs_pdf:`Download this section of the documentation as a PDF for offline "
-"use <User_Guide>`"
+":docs_pdf:`Download this section of the documentation as a PDF for "
+"offline use <User_Guide>`"
 msgstr ""
-":docs_pdf:`Télécharger cette section de la documentation au format PDF pour "
-"une utilisation hors ligne <User_Guide>`"
+":docs_pdf:`Télécharger cette section de la documentation au format PDF "
+"pour une utilisation hors ligne <User_Guide>`"
 
 #: ../../source/for_users/index.rst:7
 msgid "Trends.Earth User Guide"
 msgstr "Guide d'utilisateur Trends.Earth"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "Icône de calculatrice"
+#~ msgid "iconCalculator"
+#~ msgstr "Icône de calculatrice"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "Icône de rapports"
+#~ msgid "iconReports"
+#~ msgstr "Icône de rapports"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-28 04:02+0000\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ar\n"
@@ -23,7 +23,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/settings.rst:4
 msgid "Settings"
@@ -469,18 +469,6 @@ msgstr "معلومات تسجيل دخول LandPKS"
 msgid "**Coming soon**"
 msgstr "**قريباً**"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
-
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "أيقونة التقارير"
-
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
-
 #~ msgid ""
 #~ "Check the boxes to: 1) Filter "
 #~ "remote jobs according to local base "
@@ -514,5 +502,15 @@ msgstr "Trends.Earth"
 #~ "تلقائياً - لا تحدد هذا إذا كان "
 #~ "لديك سعة إنترنت محدودة أو تعمل دون"
 #~ " اتصال 5) استخدم الثنائيات للمعالجة "
-#~ "الأسرع - حدد مجلداً لتخزين الثنائيات \n"
+#~ "الأسرع - حدد مجلداً لتخزين الثنائيات"
+#~ " \n"
+
+#~ msgid "iconCalculator"
+#~ msgstr "أيقونة حاسبة"
+
+#~ msgid "iconReports"
+#~ msgstr "أيقونة التقارير"
+
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
 

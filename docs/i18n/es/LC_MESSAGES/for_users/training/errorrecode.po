@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-06 15:34+0000\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-06-21 21:07+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: es\n"
@@ -23,7 +23,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/errorrecode.rst:4
 msgid "False positive/negative layers"
@@ -200,18 +200,6 @@ msgstr ""
 "de indicadores calculado en base a los rásteres seleccionados en el paso "
 "7."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
-
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
-
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
-
 #~ msgid ""
 #~ "In this dialog it is necessary to"
 #~ " select indicator layers which will "
@@ -235,4 +223,13 @@ msgstr "Trends.Earth"
 
 #~ msgid "which can be found on the **Trends.Earth** toolbar."
 #~ msgstr "que se puede encontrar en la barra de herramientas **Trends.Earth**."
+
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
+
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
+
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
 

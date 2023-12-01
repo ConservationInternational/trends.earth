@@ -389,6 +389,7 @@ def landtrend(year_start, year_end, geojson, lang, gc_client, metadata):
 ###############################################################################
 # Code for base image (Landsat 8 RGB plot)
 
+
 # Function to mask out clouds and cloud-shadows present in Landsat images
 def maskL8sr(image):
     # Bits 3 and 5 are cloud shadow and cloud, respectively.

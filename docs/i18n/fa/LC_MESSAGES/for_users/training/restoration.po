@@ -1,21 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
-"Language-Team: Persian (https://www.transifex.com/conservation-international/teams/80165/fa/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
+"Language-Team: Persian (https://www.transifex.com/conservation-"
+"international/teams/80165/fa/)\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/restoration.rst:4
 msgid "Potential Carbon Sequestration under Restoration"
@@ -37,8 +41,8 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:13
 msgid ""
-"Refer to the :ref:`background_restoration` for background information on the"
-" datasets and"
+"Refer to the :ref:`background_restoration` for background information on "
+"the datasets and"
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:14
@@ -58,15 +62,15 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:27
 msgid ""
-"Select the **Estimate potential impacts of restoration** menu by selecting "
-"**Execute locally**."
+"Select the **Estimate potential impacts of restoration** menu by "
+"selecting **Execute locally**."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:32
 msgid ""
-"A window will appear where you can select the paramaters for the restoration"
-" analysis. Select the type of restoration: terrestrial or coastal "
-"(mangrove). Define the length of the intervention in year."
+"A window will appear where you can select the paramaters for the "
+"restoration analysis. Select the type of restoration: terrestrial or "
+"coastal (mangrove). Define the length of the intervention in year."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:39
@@ -75,25 +79,26 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:45
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
+"are in the `public domain`_. The boundaries and names used, and the "
+"designations used, in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:51
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users"
+" choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:59
 msgid ""
-"Use your own area file: If you want to use your own area of analysis, make "
-"sure the **Area from file** option is highlighted. Then click **Browse** and"
-" navigate to the folder in your computer where you have the file stored."
+"Use your own area file: If you want to use your own area of analysis, "
+"make sure the **Area from file** option is highlighted. Then click "
+"**Browse** and navigate to the folder in your computer where you have the"
+" file stored."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:61
@@ -107,9 +112,9 @@ msgstr ""
 #: ../../source/for_users/training/restoration.rst:68
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
-"successfully submitted. The analysis will be run in Google servers and could"
-" take between 5 and 15 minutes depending on the size of the study area "
-"(larger areas tend to take longer)."
+"successfully submitted. The analysis will be run in Google servers and "
+"could take between 5 and 15 minutes depending on the size of the study "
+"area (larger areas tend to take longer)."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:71
@@ -124,23 +129,24 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:78
 msgid ""
-"In order to view the defined area of interest with reference data, select "
-"the **Load Base Map** in the **Datasets** tab."
+"In order to view the defined area of interest with reference data, select"
+" the **Load Base Map** in the **Datasets** tab."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:86
 msgid ""
-"Go back to the **Algorithms** tab in Trends.Earth plugin in QGIS, under the "
-"**Experimental** menu, select **Potential change in biomass due to "
-"restoration - Above and below ground woody** menu and select the **Execute "
-"locally** button under **Table summarizing likely changes in biomass**."
+"Go back to the **Algorithms** tab in Trends.Earth plugin in QGIS, under "
+"the **Experimental** menu, select **Potential change in biomass due to "
+"restoration - Above and below ground woody** menu and select the "
+"**Execute locally** button under **Table summarizing likely changes in "
+"biomass**."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:94
 msgid ""
-"The layers will pre-populate in the data layer drop-down lists. Confirm the "
-"region is the same area of interest, provide descriptive names and notes and"
-" select **Execute locally**."
+"The layers will pre-populate in the data layer drop-down lists. Confirm "
+"the region is the same area of interest, provide descriptive names and "
+"notes and select **Execute locally**."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:94
@@ -150,14 +156,12 @@ msgid ""
 "(e.g., C:\\Users\\mnoon\\trends_earth_data)."
 msgstr ""
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr ""
+#~ msgid "iconCalculator"
+#~ msgstr ""
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr ""
+#~ msgid "iconReports"
+#~ msgstr ""
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr ""
+#~ msgid "Trends.Earth"
+#~ msgstr ""
+

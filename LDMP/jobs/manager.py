@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import List
 
 import backoff
+import te_algorithms.gdal.land_deg.config as ld_conf
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
 from qgis.core import QgsApplication
@@ -67,11 +68,12 @@ def update_uris_if_needed(job: Job, job_path):
     if (
         hasattr(job.results, "uri")
         and job.results.uri
-        and not job.results.uri.uri.is_absolute()
         and not is_gdal_vsi_path(job.results.uri.uri)  # ignore gdal virtual fs
+        and (not job.results.uri.uri.is_absolute() or not job.results.uri.uri.exists())
     ):
         # If the path doesn't exist, but the filename does exist in the
-        # same folder as the job, assume that is what is meant
+        # same folder as the job, the below function will assume that is what
+        # is meant
         job.results.update_uris(job_path)
 
 
@@ -651,7 +653,6 @@ class JobManager(QtCore.QObject):
         layers.edit(str(layer_path))
 
     def import_job(self, job: Job, job_path):
-
         update_uris_if_needed(job, job_path)
 
         set_results_extents(job)
@@ -747,7 +748,11 @@ class JobManager(QtCore.QObject):
             script = conf.KNOWN_SCRIPTS["local-land-cover"]
         elif band_name == "Soil organic carbon":
             script = conf.KNOWN_SCRIPTS["local-soil-organic-carbon"]
-        elif band_name == "Land Productivity Dynamics (LPD)":
+        elif band_name in [
+            ld_conf.JRC_LPD_BAND_NAME,
+            ld_conf.FAO_WOCAT_LPD_BAND_NAME,
+            ld_conf.TE_LPD_BAND_NAME,
+        ]:
             script = conf.KNOWN_SCRIPTS["productivity"]
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")
@@ -829,6 +834,13 @@ class JobManager(QtCore.QObject):
                 "band": soil.band_index,
                 "band_name": soil.band_info.name,
                 "uuid": str(soil.job.id),
+            }
+        if sdg:
+            job.params["sdg"] = {
+                "path": str(sdg.path),
+                "band": sdg.band_index,
+                "band_name": sdg.band_info.name,
+                "uuid": str(sdg.job.id),
             }
 
         self._init_error_recode_layer(job)
@@ -1315,7 +1327,7 @@ def _get_access_token():
     return login_reply["access_token"]
 
 
-def _get_user_id() -> uuid:
+def _get_user_id() -> uuid.UUID:
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log("Retrieving user id...")
 
@@ -1338,8 +1350,7 @@ def _get_raster_vrt(tiles: List[Path], out_file: Path):
 def backoff_hdlr(details):
     log(
         "Backing off {wait:0.1f} seconds after {tries} tries "
-        "calling function {target} with args {args} and kwargs "
-        "{kwargs}".format(**details)
+        "calling function {target}".format(**details)
     )
 
 

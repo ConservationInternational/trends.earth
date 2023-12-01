@@ -17,7 +17,7 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../maptools.py" line="43"/>
+        <location filename="../maptools.py" line="46"/>
         <source>Area</source>
         <translation>Территория</translation>
     </message>
@@ -32,50 +32,50 @@
         <translation type="obsolete">{:.6g} км²</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="530"/>
+        <location filename="../settings.py" line="554"/>
         <source>The map must have at least one layer.</source>
         <translation>Карта должна иметь хотя бы один слой.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="540"/>
+        <location filename="../settings.py" line="564"/>
         <source>Click the map to choose a point.</source>
         <translation>Нажмите на карту, чтобы выбрать точку.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="673"/>
+        <location filename="../settings.py" line="697"/>
         <source>Select a file defining the area of interest</source>
         <translation>Выберите файл, определяющий интересующую область</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="673"/>
+        <location filename="../settings.py" line="697"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Векторный файл (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="687"/>
+        <location filename="../settings.py" line="711"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="687"/>
+        <location filename="../settings.py" line="711"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Не могу читать {}. Выберите другой файл.</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="55"/>
-        <source>{:.6g} km²</source>
+        <location filename="../maptools.py" line="51"/>
+        <source>0.00 kmu00B2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="48"/>
-        <source>0.00 km²</source>
+        <location filename="../maptools.py" line="58"/>
+        <source>{:.6g} kmu00B2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>BufferMapTool</name>
     <message>
-        <location filename="../maptools.py" line="552"/>
+        <location filename="../maptools.py" line="601"/>
         <source>add feature</source>
         <translation>добавить свойство</translation>
     </message>
@@ -83,23 +83,23 @@
 <context>
     <name>BufferWidget</name>
     <message>
-        <location filename="../maptools.py" line="100"/>
+        <location filename="../maptools.py" line="103"/>
         <source> km</source>
         <translation>км</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="83"/>
+        <location filename="../maptools.py" line="86"/>
         <source>Radius</source>
         <translation>Радиус</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="84"/>
+        <location filename="../maptools.py" line="87"/>
         <source>Area</source>
         <translation>Территория</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="98"/>
-        <source> km²</source>
+        <location filename="../maptools.py" line="101"/>
+        <source> kmu00B2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -255,22 +255,22 @@
         <translation>НДВИ х 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="604"/>
+        <location filename="../jobs/mvc.py" line="611"/>
         <source>Dataset metadata</source>
         <translation>Метаданные набора данных</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="611"/>
+        <location filename="../jobs/mvc.py" line="618"/>
         <source>{} metadata</source>
         <translation>Метаданные {}</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="626"/>
+        <location filename="../jobs/mvc.py" line="633"/>
         <source>Add vector layer to map</source>
         <translation>Добавить векторный слой на карту</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="630"/>
+        <location filename="../jobs/mvc.py" line="637"/>
         <source>Add raster layers to map</source>
         <translation>Добавить растровые слои на карту</translation>
     </message>
@@ -473,12 +473,12 @@
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="34"/>
         <source>sdg-15-3-1-summary</source>
-        <translation>sdg-15-3-1-сводка</translation>
+        <translation type="obsolete">sdg-15-3-1-сводка</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="27"/>
-        <source>SDG 15.3.1 Indicator</source>
-        <translation>Индикатор SDG 15.3.1</translation>
+        <source>SDG 15.3.1 Indicator;SDG 15.3.1 Indicator (status)</source>
+        <translation type="obsolete">Индикатор SDG 15.3.1</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="103"/>
@@ -518,7 +518,7 @@
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="75"/>
         <source>Soil organic carbon (degradation)</source>
-        <translation>Органический углерод почвы (деградация)</translation>
+        <translation type="obsolete">Органический углерод почвы (деградация)</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="95"/>
@@ -528,7 +528,7 @@
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="96"/>
         <source>Land cover (degradation)</source>
-        <translation>Земельный покров (деградация)</translation>
+        <translation type="obsolete">Земельный покров (деградация)</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="41"/>
@@ -539,11 +539,6 @@
         <location filename="../gui/DlgSelectDS.ui" line="20"/>
         <source>Productivity degradation</source>
         <translation>Снижение продуктивности</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="89"/>
-        <source>Land Productivity Dynamics (from JRC);Land Productivity Dynamics (from FAO-WOCAT);Land Productivity Dynamics (from Trends.Earth)</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="143"/>
@@ -760,42 +755,42 @@ p, li { white-space: pre-wrap; }
         <translation>Расширенная настройка</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="187"/>
+        <location filename="../calculate_lc.py" line="186"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="119"/>
+        <location filename="../calculate_lc.py" line="118"/>
         <source>You must add an initial land cover layer to your map before you can run the calculation.</source>
         <translation>Перед тем, как выполнить расчет, вы должны добавить начальный слой грунтового покрытия на свою карту.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="130"/>
+        <location filename="../calculate_lc.py" line="129"/>
         <source>You must add a final land cover layer to your map before you can run the calculation.</source>
         <translation>Перед тем, как выполнить расчет, вы должны добавить окончательный слой грунтового покрытия на свою карту.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="144"/>
+        <location filename="../calculate_lc.py" line="143"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="144"/>
+        <location filename="../calculate_lc.py" line="143"/>
         <source>The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>Начальный год ({}) больше или равен целевому году ({}) - этот анализ может дать странные результаты.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="157"/>
+        <location filename="../calculate_lc.py" line="156"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>Интересующая область не полностью находится в пределах первоначального слоя почвенного покрова.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="170"/>
+        <location filename="../calculate_lc.py" line="169"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>Интересующая область не полностью находится в пределах окончательного слоя почвенного покрова.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="187"/>
+        <location filename="../calculate_lc.py" line="186"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
         <translation>Расположение легенд земельного покрова для начального и конечного слоя земельного покрова должно быть одинаковым.</translation>
     </message>
@@ -892,32 +887,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationBase</name>
     <message>
-        <location filename="../lc_setup.py" line="578"/>
+        <location filename="../lc_setup.py" line="592"/>
         <source>Select a land cover definition file</source>
         <translation type="unfinished">Выберите файл определения обложки</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="607"/>
+        <location filename="../lc_setup.py" line="621"/>
         <source>Land cover definition (*.json)</source>
         <translation type="unfinished">Определение земельного покрова (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="620"/>
+        <location filename="../lc_setup.py" line="634"/>
         <source>Error</source>
         <translation type="unfinished">ошибка</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="591"/>
+        <location filename="../lc_setup.py" line="605"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation type="unfinished">Не могу читать {}. Выберите другой файл.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="607"/>
+        <location filename="../lc_setup.py" line="621"/>
         <source>Choose where to save this land cover definition</source>
         <translation type="unfinished">Выберите, где сохранить это определение обложки</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="620"/>
+        <location filename="../lc_setup.py" line="634"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation type="unfinished">Невозможно написать {}. Выберите другой файл.</translation>
     </message>
@@ -925,12 +920,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationCustom</name>
     <message>
-        <location filename="../lc_setup.py" line="845"/>
+        <location filename="../lc_setup.py" line="859"/>
         <source>Warning</source>
         <translation type="unfinished">Предупреждение</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="845"/>
+        <location filename="../lc_setup.py" line="859"/>
         <source>Some of the parent classes ({unnecessary_parent_codes!r}) in the definition file are not listed in the current class legend. These classes will be ignored.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -938,17 +933,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationESA</name>
     <message>
-        <location filename="../lc_setup.py" line="710"/>
+        <location filename="../lc_setup.py" line="724"/>
         <source>Warning</source>
         <translation type="unfinished">Предупреждение</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="698"/>
+        <location filename="../lc_setup.py" line="712"/>
         <source>Some of the class codes ({unnecessary_child_codes!r}) in the definition file do not appear in the chosen data file.</source>
         <translation type="unfinished">Некоторые коды классов ({unnecessary_child_codes!r}) в файле определения не появляются в выбранном файле данных.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="710"/>
+        <location filename="../lc_setup.py" line="724"/>
         <source>Some of the class codes ({child_codes_missing_from_input!r}) in the data file do not appear in the chosen definition file.</source>
         <translation type="unfinished">Некоторые коды классов ({child_codes_missing_from_input!r}) в файле данных не появляются в выбранном файле определения.</translation>
     </message>
@@ -2935,6 +2930,19 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>DlgDataIOImportBase</name>
+    <message>
+        <location filename="../data_io.py" line="1048"/>
+        <source>Missing or invalid CRS for input file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1071"/>
+        <source>Output file will be resized to &apos;{reg_name}&apos; extent.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DlgDataIOImportLC</name>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="23"/>
@@ -2962,27 +2970,27 @@ p, li { white-space: pre-wrap; }
         <translation>Примечание. При чтении большого файла рекомендуется проверить вышеуказанную опцию, поскольку это значительно ускорит процесс чтения входных классов из набора данных. Однако, если вы обнаружите, что Trends.Earth не идентифицирует все классы во входном файле, может потребоваться отключить эту опцию. (Применяется, только если выбран растровый ввод)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1095"/>
+        <location filename="../lc_setup.py" line="1117"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="966"/>
         <source>Choose an output file.</source>
-        <translation>Выберите выходной файл.</translation>
+        <translation type="obsolete">Выберите выходной файл.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="973"/>
+        <location filename="../lc_setup.py" line="975"/>
         <source>No definition set</source>
         <translation>Нет определения</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="973"/>
+        <location filename="../lc_setup.py" line="975"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation type="unfinished">Нажмите «Изменить определение», чтобы определить определение земельного покрова перед экспортом.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="987"/>
+        <location filename="../lc_setup.py" line="989"/>
         <source>Enter the year of the input data.</source>
         <translation>Введите год ввода данных.</translation>
     </message>
@@ -2992,13 +3000,18 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Ошибка чтения данных. Trends.Earth поддерживает максимум 60 различных классов земного покрова</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1095"/>
+        <location filename="../lc_setup.py" line="1117"/>
         <source>Error reading data. Trends.Earth supports a maximum of 38 different land cover classes</source>
         <translation type="unfinished">Ошибка чтения данных. Trends.Earth поддерживает максимум 60 различных классов земного покрова {38 ?}</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1131"/>
+        <location filename="../lc_setup.py" line="1154"/>
         <source>Land cover ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="1091"/>
+        <source>Error reading data. Trends.Earth supports a maximum of {max_classes!s} different land cover classes.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3010,7 +3023,7 @@ p, li { white-space: pre-wrap; }
         <translation>Загрузить пользовательский набор данных по продуктивности земли</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOImportProd.ui" line="35"/>
+        <location filename="../gui/DlgDataIOImportProd.ui" line="132"/>
         <source>Productivity class definition</source>
         <translation>Определение класса производительности</translation>
     </message>
@@ -3019,7 +3032,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -3028,7 +3041,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -3040,6 +3053,42 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: стабильно&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: рост&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 или -32768: нет данных&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportProd.ui" line="38"/>
+        <source>Initial year</source>
+        <translation type="unfinished">Начальный год</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportProd.ui" line="45"/>
+        <source>Final year</source>
+        <translation type="unfinished">Конечный год</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportProd.ui" line="117"/>
+        <source>Data type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportProd.ui" line="150"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Moderate decline&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stressed&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1595"/>
+        <source>Land productivity (imported - {self.datatype_cb.currentText()})</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3086,107 +3135,107 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDatasetMetadata</name>
     <message>
-        <location filename="../metadata_dialog.py" line="46"/>
+        <location filename="../metadata_dialog.py" line="45"/>
         <source>Farming</source>
         <translation>Фермерство</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="47"/>
+        <location filename="../metadata_dialog.py" line="46"/>
         <source>Biota</source>
         <translation>Биота</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="48"/>
+        <location filename="../metadata_dialog.py" line="47"/>
         <source>Boundaries</source>
         <translation>Границы</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="49"/>
+        <location filename="../metadata_dialog.py" line="48"/>
         <source>Climatology Meteorology Atmosphere</source>
         <translation>Климатология Метеорология Атмосфера</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="50"/>
+        <location filename="../metadata_dialog.py" line="49"/>
         <source>Economy</source>
         <translation>Экономика</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="51"/>
+        <location filename="../metadata_dialog.py" line="50"/>
         <source>Elevation</source>
         <translation>Перепад высот</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="52"/>
+        <location filename="../metadata_dialog.py" line="51"/>
         <source>Environment</source>
         <translation>Окружающая среда</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="53"/>
+        <location filename="../metadata_dialog.py" line="52"/>
         <source>Geoscientific Information</source>
         <translation>Геофизическая информация</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="54"/>
+        <location filename="../metadata_dialog.py" line="53"/>
         <source>Health</source>
         <translation>Здоровье</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="55"/>
+        <location filename="../metadata_dialog.py" line="54"/>
         <source>Imagery Base Maps Earth Cover</source>
         <translation>Изображение базовых карт земельного покрова</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="56"/>
+        <location filename="../metadata_dialog.py" line="55"/>
         <source>Intelligence Military</source>
         <translation>Сведения от военных</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="57"/>
+        <location filename="../metadata_dialog.py" line="56"/>
         <source>Inland Waters</source>
         <translation>Внутренние водоемы</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="58"/>
+        <location filename="../metadata_dialog.py" line="57"/>
         <source>Location</source>
         <translation>Местоположение</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="59"/>
+        <location filename="../metadata_dialog.py" line="58"/>
         <source>Oceans</source>
         <translation>Океаны</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="60"/>
+        <location filename="../metadata_dialog.py" line="59"/>
         <source>Planning Cadastre</source>
         <translation>Составление кадастрового плана</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="61"/>
+        <location filename="../metadata_dialog.py" line="60"/>
         <source>Society</source>
         <translation>Население</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="62"/>
+        <location filename="../metadata_dialog.py" line="61"/>
         <source>Structure</source>
         <translation>Структура</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="63"/>
+        <location filename="../metadata_dialog.py" line="62"/>
         <source>Transportation</source>
         <translation>Транспорт</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="64"/>
+        <location filename="../metadata_dialog.py" line="63"/>
         <source>Utilities Communication</source>
         <translation>Взаимодействие с коммунальными службами</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="83"/>
+        <location filename="../metadata_dialog.py" line="82"/>
         <source>postal</source>
         <translation>по почте</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="98"/>
+        <location filename="../metadata_dialog.py" line="97"/>
         <source>New Category</source>
         <translation>Новая категория</translation>
     </message>
@@ -3201,47 +3250,102 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="42"/>
         <source>Select Data</source>
-        <translation>Выберите данные</translation>
+        <translation type="obsolete">Выберите данные</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="83"/>
         <source>Select Time Period</source>
-        <translation>Выберите период времени</translation>
+        <translation type="obsolete">Выберите период времени</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="95"/>
         <source>Period</source>
-        <translation>период</translation>
+        <translation type="obsolete">период</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="209"/>
         <source>Last year:</source>
-        <translation>В прошлом году:</translation>
+        <translation type="obsolete">В прошлом году:</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="228"/>
         <source>First year:</source>
-        <translation>Первый год:</translation>
+        <translation type="obsolete">Первый год:</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="269"/>
         <source>Next</source>
-        <translation>следующий</translation>
+        <translation type="obsolete">следующий</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="288"/>
+        <location filename="../gui/DlgDownload.ui" line="249"/>
         <source>Submit download request</source>
         <translation>Отправить заявку на скачивание</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="307"/>
         <source>Previous</source>
-        <translation>предыдущий</translation>
+        <translation type="obsolete">предыдущий</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="193"/>
+        <location filename="../download_data.py" line="191"/>
         <source>Details</source>
         <translation>Детали</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="37"/>
+        <source>The current selected region of interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="40"/>
+        <source>region name</source>
+        <translation type="unfinished">название региона</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="50"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="53"/>
+        <source>Change region</source>
+        <translation type="unfinished">Изменить регион</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="183"/>
+        <source>yyyy</source>
+        <translation type="unfinished">гггг</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="190"/>
+        <source>Initial year:</source>
+        <translation type="unfinished">Начальный год:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="197"/>
+        <source>Final year:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="212"/>
+        <source>Input the name that will be assigned to the execution task.</source>
+        <translation type="unfinished">Введите имя, которое будет присвоено задаче выполнения.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="215"/>
+        <source>Execution name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="222"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="159"/>
+        <source>Current region: {region}</source>
+        <translation type="unfinished">Текущий регион: {region}</translation>
     </message>
 </context>
 <context>
@@ -3616,12 +3720,12 @@ p, li { white-space: pre-wrap; }
         <translation>Удалить пользователя</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="227"/>
+        <location filename="../gui/DlgSettings.ui" line="230"/>
         <source>Reports</source>
         <translation>Отчеты</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="251"/>
+        <location filename="../gui/DlgSettings.ui" line="254"/>
         <source>Advanced</source>
         <translation>продвинутый</translation>
     </message>
@@ -3651,12 +3755,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Пользователь Trends.Earth с адресом электронной почты {email} удален.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="194"/>
+        <location filename="../gui/DlgSettings.ui" line="197"/>
         <source>Custom Land Cover Classes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="175"/>
+        <location filename="../gui/DlgSettings.ui" line="178"/>
         <source>Region of interest</source>
         <translation type="unfinished">Область исследования</translation>
     </message>
@@ -3707,32 +3811,32 @@ p, li { white-space: pre-wrap; }
         <translation>Введите ваш адрес электронной почты...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="967"/>
+        <location filename="../settings.py" line="991"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="967"/>
+        <location filename="../settings.py" line="991"/>
         <source>Enter your email address to reset your password.</source>
         <translation>Введите свой адрес электронной почты для восстановления пароля.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="975"/>
+        <location filename="../settings.py" line="999"/>
         <source>Reset password?</source>
         <translation>Сброс пароля?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="975"/>
+        <location filename="../settings.py" line="999"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? Your new password will be emailed to you.</source>
         <translation>Вы уверены, что хотите сбросить пароль для {self.email.text()}? Ваш новый пароль будет отправлен вам по электронной почте.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="992"/>
+        <location filename="../settings.py" line="1016"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="992"/>
+        <location filename="../settings.py" line="1016"/>
         <source>The password has been reset for {self.email.text()}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
         <translation>Пароль для {self.email.text()} был сброшен. Проверьте свой адрес электронной почты на наличие нового пароля, а затем вернитесь на Trends.Earth, чтобы ввести его.</translation>
     </message>
@@ -3765,37 +3869,37 @@ p, li { white-space: pre-wrap; }
         <translation>Организация:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1051"/>
+        <location filename="../settings.py" line="1075"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1033"/>
+        <location filename="../settings.py" line="1057"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1039"/>
+        <location filename="../settings.py" line="1063"/>
         <source>Enter your name.</source>
         <translation>Введите ваше имя.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1045"/>
+        <location filename="../settings.py" line="1069"/>
         <source>Enter your organization.</source>
         <translation>Войдите в свою организацию.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1051"/>
+        <location filename="../settings.py" line="1075"/>
         <source>Enter your country.</source>
         <translation>Войдите в свою страну.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1065"/>
+        <location filename="../settings.py" line="1089"/>
         <source>Saved</source>
         <translation>Сохраненный</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1065"/>
+        <location filename="../settings.py" line="1089"/>
         <source>Updated information for {}.</source>
         <translation>Обновлена ​​информация для {}.</translation>
     </message>
@@ -3818,27 +3922,27 @@ p, li { white-space: pre-wrap; }
         <translation>Пароль:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="854"/>
+        <location filename="../settings.py" line="878"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="848"/>
+        <location filename="../settings.py" line="872"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="854"/>
+        <location filename="../settings.py" line="878"/>
         <source>Enter your password.</source>
         <translation>Введите ваш пароль.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="861"/>
+        <location filename="../settings.py" line="885"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="861"/>
+        <location filename="../settings.py" line="885"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>Вы зашли на сервер Trends.Earth как {self.email.text()}.&lt;html&gt;&lt;p&gt;Добро пожаловать в Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Присоединяйтесь к почтовой группе пользователей Trends.Earth&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Не забудьте присоединиться к почтовой группе пользователей Trends.Earth, чтобы быть в курсе обновлений и получать информацию на вопросы об инструменте, методах и наборах данных в поддержку мониторинга Целей устойчивого развития.</translation>
     </message>
@@ -3846,27 +3950,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="910"/>
+        <location filename="../settings.py" line="934"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="904"/>
+        <location filename="../settings.py" line="928"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="910"/>
+        <location filename="../settings.py" line="934"/>
         <source>Enter your password.</source>
         <translation>Введите ваш пароль.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="929"/>
+        <location filename="../settings.py" line="953"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="929"/>
+        <location filename="../settings.py" line="953"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>Успешная настройка входа на сервер LandPKS для {self.email.text()}.</translation>
     </message>
@@ -3899,37 +4003,37 @@ p, li { white-space: pre-wrap; }
         <translation>Организация:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="788"/>
+        <location filename="../settings.py" line="812"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="770"/>
+        <location filename="../settings.py" line="794"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="776"/>
+        <location filename="../settings.py" line="800"/>
         <source>Enter your name.</source>
         <translation>Введите ваше имя.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="782"/>
+        <location filename="../settings.py" line="806"/>
         <source>Enter your organization.</source>
         <translation>Войдите в свою организацию.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="788"/>
+        <location filename="../settings.py" line="812"/>
         <source>Enter your country.</source>
         <translation>Войдите в свою страну.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="803"/>
+        <location filename="../settings.py" line="827"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="803"/>
+        <location filename="../settings.py" line="827"/>
         <source>User registered. Your password has been emailed to {self.email.text()}. Enter that password in Trends.Earth settings to finish setting up the plugin.</source>
         <translation>Пользователь зарегистрирован. Ваш пароль был отправлен по электронной почте {self.email.text()}. Введите этот пароль в настройках Trends.Earth, чтобы завершить настройку плагина.</translation>
     </message>
@@ -4055,12 +4159,12 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Отказ от ответственности: предоставленные границы от &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline; color: # 0000ff; &quot;&gt; Natural Earth &lt;/ span&gt; &lt;/a&gt; и находятся в &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; общедоступный домен &lt;/ span&gt; &lt;/a&gt;. Используемые границы и названия, а также используемые обозначения в тенденциях. Не предполагают официального одобрения или принятия Международным фондом консервации или его партнерскими организациями и вкладчиками. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
     <message>
-        <location filename="../visualization.py" line="361"/>
+        <location filename="../visualization.py" line="478"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../visualization.py" line="361"/>
+        <location filename="../visualization.py" line="478"/>
         <source>Error downloading basemap data.</source>
         <translation>Ошибка загрузки данных базовой карты.</translation>
     </message>
@@ -4207,37 +4311,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="1173"/>
+        <location filename="../lc_setup.py" line="1197"/>
         <source>Land cover in initial year </source>
         <translation>Земельный покров в начальный год</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1290"/>
+        <location filename="../lc_setup.py" line="1314"/>
         <source>Select a transition matrix definition file</source>
         <translation>Выберите файл определения матрицы перехода</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1321"/>
+        <location filename="../lc_setup.py" line="1345"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Определение матрицы перехода (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1334"/>
+        <location filename="../lc_setup.py" line="1358"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1303"/>
+        <location filename="../lc_setup.py" line="1327"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Не могу читать {}. Выберите другой файл.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1321"/>
+        <location filename="../lc_setup.py" line="1345"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Выберите, где сохранить это определение матрицы перехода</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1334"/>
+        <location filename="../lc_setup.py" line="1358"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Невозможно написать {}. Выберите другой файл.</translation>
     </message>
@@ -4245,37 +4349,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2164"/>
+        <location filename="../settings.py" line="2182"/>
         <source>Class Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2215"/>
+        <location filename="../settings.py" line="2233"/>
         <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2247"/>
+        <location filename="../settings.py" line="2265"/>
         <source>Class name cannot be empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2251"/>
+        <location filename="../settings.py" line="2269"/>
         <source>Invalid color selected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2255"/>
+        <location filename="../settings.py" line="2273"/>
         <source>Parent class cannot be empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2260"/>
+        <location filename="../settings.py" line="2278"/>
         <source>Invalid class code value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2264"/>
+        <location filename="../settings.py" line="2282"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4283,87 +4387,87 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="1600"/>
+        <location filename="../settings.py" line="1619"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1600"/>
+        <location filename="../settings.py" line="1619"/>
         <source>Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1600"/>
+        <location filename="../settings.py" line="1619"/>
         <source>Parent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1654"/>
+        <location filename="../settings.py" line="1673"/>
         <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1921"/>
+        <location filename="../settings.py" line="1939"/>
         <source>Maximum number of classes reached.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1725"/>
+        <location filename="../settings.py" line="1744"/>
         <source>Nothing to save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1732"/>
+        <location filename="../settings.py" line="1751"/>
         <source>Save Land Cover Classes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1756"/>
+        <location filename="../settings.py" line="1775"/>
         <source>Select Land Cover Classes File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1774"/>
+        <location filename="../settings.py" line="1793"/>
         <source>No land cover classes found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1839"/>
+        <location filename="../settings.py" line="1858"/>
         <source>Land Cover Class Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1904"/>
+        <location filename="../settings.py" line="1922"/>
         <source>Invalid row for land cover class</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1909"/>
+        <location filename="../settings.py" line="1927"/>
         <source>Unable to update class.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1928"/>
+        <location filename="../settings.py" line="1946"/>
         <source>Unable to add new class.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1956"/>
+        <location filename="../settings.py" line="1974"/>
         <source>class does not have children assigned to it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1976"/>
+        <location filename="../settings.py" line="1994"/>
         <source>class has not been assigned a parent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2099"/>
+        <location filename="../settings.py" line="2117"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2104"/>
+        <location filename="../settings.py" line="2122"/>
         <source>Delete Failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4432,9 +4536,19 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PolygonMapTool</name>
     <message>
-        <location filename="../maptools.py" line="360"/>
+        <location filename="../maptools.py" line="410"/>
         <source>add feature</source>
         <translation>добавить функцию</translation>
+    </message>
+    <message>
+        <location filename="../maptools.py" line="398"/>
+        <source>Error</source>
+        <translation type="unfinished">ошибка</translation>
+    </message>
+    <message>
+        <location filename="../maptools.py" line="398"/>
+        <source>Empty geometry. Did you draw a feature outside of the currently selected region, or overlapping existing features?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4600,12 +4714,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>TEMapToolMixin</name>
     <message>
-        <location filename="../maptools.py" line="227"/>
+        <location filename="../maptools.py" line="260"/>
         <source>Warning</source>
         <translation type="unfinished">Предупреждение</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="227"/>
+        <location filename="../maptools.py" line="260"/>
         <source>Current cursor position is outside the extent of the base source dataset.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4613,27 +4727,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>TrendsEarthSettings</name>
     <message>
-        <location filename="../settings.py" line="248"/>
+        <location filename="../settings.py" line="256"/>
         <source>Please register in order to use Trends.Earth</source>
         <translation type="unfinished">Пожалуйста, зарегистрируйтесь, чтобы использовать Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="303"/>
+        <location filename="../settings.py" line="311"/>
         <source>Delete user?</source>
         <translation type="unfinished">Удалить пользователя?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="303"/>
+        <location filename="../settings.py" line="311"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
         <translation type="unfinished">Вы уверены, что хотите удалить пользователя {}? Все ваши задачи будут потеряны, и вы больше не сможете обрабатывать данные онлайн с помощью Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="319"/>
+        <location filename="../settings.py" line="327"/>
         <source>Success</source>
         <translation type="unfinished">успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="319"/>
+        <location filename="../settings.py" line="327"/>
         <source>Trends.Earth user {email} deleted.</source>
         <translation type="unfinished">Пользователь Trends.Earth с адресом электронной почты {email} удален.</translation>
     </message>
@@ -5263,102 +5377,102 @@ p, li { white-space: pre-wrap; }
         <translation>Разрешить доступ к данным LandPKS</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1125"/>
+        <location filename="../settings.py" line="1149"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1125"/>
+        <location filename="../settings.py" line="1149"/>
         <source>You must restart QGIS for these changes to take effect.</source>
         <translation>Необходимо перезапустить QGIS, чтобы эти изменения вступили в силу.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1238"/>
+        <location filename="../settings.py" line="1257"/>
         <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
         <translation>Двоичные файлы &lt;b&gt;&lt;/b&gt;загружены.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1240"/>
+        <location filename="../settings.py" line="1259"/>
         <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
         <translation>Двоичные файлы &lt;b&gt;не&lt;/b&gt; загружены.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1250"/>
+        <location filename="../settings.py" line="1269"/>
         <source>No base data directory set</source>
         <translation>Основной каталог данных не задан</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1305"/>
+        <location filename="../settings.py" line="1324"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>Не получается создать запись в {}. Попробуйте другую папку.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1280"/>
+        <location filename="../settings.py" line="1299"/>
         <source>Choose a folder</source>
         <translation>Выбрать папку</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1280"/>
+        <location filename="../settings.py" line="1299"/>
         <source>Choose a folder before downloading binaries.</source>
         <translation>Выберите папку перед загрузкой двоичных файлов.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1416"/>
+        <location filename="../settings.py" line="1435"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1289"/>
+        <location filename="../settings.py" line="1308"/>
         <source>Unable to write to {}. Choose a different folder.</source>
         <translation>Не получается создать запись в {}. Выберите другую папку.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1329"/>
+        <location filename="../settings.py" line="1348"/>
         <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
         <translation>Не получается создать запись в {}. Убедитесь, что у вас есть права на запись в эту папку и что вы не пытаетесь перезаписать двоичные файлы, загруженные в данный момент в QGIS.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1341"/>
+        <location filename="../settings.py" line="1360"/>
         <source>Unable to read binaries from {}. Check that binaries were downloaded successfully.</source>
         <translation>Не получается прочитать двоичные файлы из {}. Убедитесь, что бинарные файлы были успешно загружены.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1356"/>
+        <location filename="../settings.py" line="1375"/>
         <source>Error downloading binaries.</source>
         <translation>Ошибка при скачивании двоичных файлов.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1366"/>
+        <location filename="../settings.py" line="1385"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1362"/>
+        <location filename="../settings.py" line="1381"/>
         <source>Downloaded binaries.</source>
         <translation>Скачанные двоичные файлы.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1366"/>
+        <location filename="../settings.py" line="1385"/>
         <source>All binaries up to date.</source>
         <translation>Все двоичные файлы обновлены.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1386"/>
+        <location filename="../settings.py" line="1405"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation>Выберите папку, содержащую двоичные файлы Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1398"/>
+        <location filename="../settings.py" line="1417"/>
         <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
         <translation>Выберите другую папку — невозможно установить двоичные файлы в папке установки подключаемого модуля Trends.Earth QGIS.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1416"/>
+        <location filename="../settings.py" line="1435"/>
         <source>Cannot read {folder_path!r}. Choose a different folder.</source>
         <translation>Не получается прочитать {folder_path!r}. Выберите другую папку.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1212"/>
+        <location filename="../settings.py" line="1233"/>
         <source>Offline mode is enabled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5421,27 +5535,27 @@ p, li { white-space: pre-wrap; }
         <translation>Записывать предупреждения в выходной каталог</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1486"/>
+        <location filename="../settings.py" line="1505"/>
         <source>Select Report Template Search Path</source>
         <translation>Выбрать путь поиска шаблона отчета</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1496"/>
+        <location filename="../settings.py" line="1515"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>Чтобы изменения вступили в силу, необходимо перезапустить QGIS.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1498"/>
+        <location filename="../settings.py" line="1517"/>
         <source>Template Search Path</source>
         <translation>Путь поиска шаблона</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1508"/>
+        <location filename="../settings.py" line="1527"/>
         <source>All Images</source>
         <translation>Все изображения</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1523"/>
+        <location filename="../settings.py" line="1542"/>
         <source>Select Organization Logo</source>
         <translation>Выберите логотип организации</translation>
     </message>
@@ -5517,37 +5631,37 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_api</name>
     <message>
-        <location filename="../api.py" line="122"/>
+        <location filename="../api.py" line="187"/>
         <source>Unable to login to Trends.Earth server. Check your internet connection.</source>
         <translation>Не удалось выполнить вход на сервер Trends.Earth. Проверьте подключение к Интернету.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="127"/>
+        <location filename="../api.py" line="192"/>
         <source>Unable to connect to Trends.Earth  server.</source>
         <translation>Не удалось подключиться к серверу Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="223"/>
+        <location filename="../api.py" line="271"/>
         <source>Unable to read token for Trends.Earth server. Check username and password.</source>
         <translation>Не удалось считать токен для сервера Trends.Earth. Проверьте имя пользователя и пароль.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="230"/>
+        <location filename="../api.py" line="278"/>
         <source>Unable to login to Trends.Earth. Check username and password.</source>
         <translation>Не удалось выполнить вход на сервер Trends.Earth. Проверьте имя пользователя и пароль.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="238"/>
+        <location filename="../api.py" line="286"/>
         <source>Unable to access Trends.Earth server. Check your internet connection</source>
         <translation>Не удалось получить доступ к серверу Trends.Earth. Проверьте подключение к Интернету</translation>
     </message>
     <message>
-        <location filename="../api.py" line="262"/>
+        <location filename="../api.py" line="310"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../api.py" line="262"/>
+        <location filename="../api.py" line="310"/>
         <source>Unable to login to Trends.Earth. Check that username and password are correct.</source>
         <translation>Не удалось войти на Trends.Earth. Проверьте имя пользователя и пароль.</translation>
     </message>
@@ -5555,17 +5669,17 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_areaofinterest</name>
     <message>
-        <location filename="../areaofinterest.py" line="635"/>
+        <location filename="../areaofinterest.py" line="644"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="469"/>
+        <location filename="../areaofinterest.py" line="478"/>
         <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation>Неправильная геометрия в строке {}. Проверьте, правильны ли все вводимые geom_jsons, перед тем как осуществить обработку данных. Попробуйте использовать инструмент для проверка правильности значений в меню &quot;Вектор&quot; на инструментальной панели для дополнительной информации о том, какие свойства неправильны (меню &quot;Вектор&quot; - &quot;Геометрические инструменты&quot; - &quot;Проверка правильности значений&quot;).</translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="635"/>
+        <location filename="../areaofinterest.py" line="644"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation>Ошибка — слой не в географической системе координат. Невозможно обернуть слой через 180-й меридиан.</translation>
     </message>
@@ -5626,7 +5740,7 @@ for running algorithms and their results.</source>
         <translation>Выберите папку с данными</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="562"/>
+        <location filename="../calculate.py" line="561"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
@@ -5671,27 +5785,27 @@ for running algorithms and their results.</source>
         <translation>Выберите другой выходной префикс и повторите попытку.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="462"/>
+        <location filename="../calculate.py" line="461"/>
         <source>Schedule remote execution</source>
         <translation>Запланировать удаленное выполнение</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="464"/>
+        <location filename="../calculate.py" line="463"/>
         <source>Execute locally</source>
         <translation>Выполнить локально</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="501"/>
+        <location filename="../calculate.py" line="500"/>
         <source>Current region: {region}</source>
         <translation>Текущий регион: {region}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="550"/>
+        <location filename="../calculate.py" line="549"/>
         <source>Unable to calculate bounding box.</source>
         <translation>Невозможно рассчитать ограничивающую рамку.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="562"/>
+        <location filename="../calculate.py" line="561"/>
         <source>Choose an output base name.</source>
         <translation>Выберите выходное базовое имя.</translation>
     </message>
@@ -5701,7 +5815,7 @@ for running algorithms and their results.</source>
         <translation type="obsolete">Вы выбрали запуск этого расчета для точки (или для города). Чтобы запустить этот инструмент в точке, вы также должны выбрать буфер.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="534"/>
+        <location filename="../calculate.py" line="533"/>
         <source>You have chosen to run this calculation on a point (or for a city). To run this tool on a point you must also select a buffer. This can be done in the Trends.Earth settings.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5714,22 +5828,22 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_calculate_tc</name>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="209"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="209"/>
         <source>Summary table saved to {self.output_file}</source>
         <translation>Сводная таблица сохранена в {self.output_file}</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="216"/>
+        <location filename="../localexecution/totalcarbon.py" line="215"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="216"/>
+        <location filename="../localexecution/totalcarbon.py" line="215"/>
         <source>Error saving output table - check that {self.output_file} is accessible and not already open.</source>
         <translation>Ошибка при сохранении выходной таблицы. Убедитесь, что файл {self.output_file} доступен и еще не открыт.</translation>
     </message>
@@ -5742,207 +5856,207 @@ for running algorithms and their results.</source>
         <translation>Все регионы</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="225"/>
+        <location filename="../conf.py" line="229"/>
         <source>Land degradation</source>
         <translation>Деградация земель</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="229"/>
+        <location filename="../conf.py" line="233"/>
         <source>Sub-indicators for SDG 15.3.1</source>
         <translation>Подпоказатели для SDG 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="230"/>
+        <location filename="../conf.py" line="234"/>
         <source>Calculate SDG 15.3.1 sub-indicators (required prior to 15.3.1 indicator calculation)</source>
         <translation>Рассчитать подпоказатели SDG 15.3.1 (требуется до расчета показателя 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="243"/>
+        <location filename="../conf.py" line="247"/>
         <source>Indicator for SDG 15.3.1</source>
         <translation>Показатель для SDG 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="244"/>
+        <location filename="../conf.py" line="248"/>
         <source>Spatial layer and summary table for total boundary</source>
         <translation>Пространственный слой и сводная таблица для общей границы</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="247"/>
+        <location filename="../conf.py" line="251"/>
         <source>Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators</source>
         <translation>Рассчитать показатель SDG 15.3.1 на основе подпоказателей продуктивности, растительного покрова и почвенного органического углерода.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="277"/>
+        <location filename="../conf.py" line="281"/>
         <source>Land productivity</source>
         <translation>Продуктивность земли</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="278"/>
+        <location filename="../conf.py" line="282"/>
         <source>Land productivity is the biological productive capacity of land</source>
         <translation>Продуктивность земли — это биологическая продуктивная способность земли</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="293"/>
+        <location filename="../conf.py" line="297"/>
         <source>Land cover change</source>
         <translation>Изменение растительного покрова</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="294"/>
+        <location filename="../conf.py" line="298"/>
         <source>Land cover is the physical material at the surface of the earth. </source>
         <translation>Растительный покров — это физический материал на поверхности земли.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="311"/>
+        <location filename="../conf.py" line="315"/>
         <source>Soil Organic Carbon</source>
         <translation>Органический углерод в почве</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="312"/>
+        <location filename="../conf.py" line="316"/>
         <source>Soil organic carbon is a measure of soil organic matter</source>
         <translation>Органический углерод в почве является мерой органического вещества в почве</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="331"/>
+        <location filename="../conf.py" line="335"/>
         <source>Drought</source>
         <translation>Засуха</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="332"/>
+        <location filename="../conf.py" line="336"/>
         <source>Vulnerability and exposure</source>
         <translation>Уязвимость и незащищенность</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="336"/>
+        <location filename="../conf.py" line="340"/>
         <source>Drought vulnerability</source>
         <translation>Уязвимость к засухе</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="337"/>
+        <location filename="../conf.py" line="341"/>
         <source>Calculate indicators of drought vulnerability consistent with UNCCD SO3 Good Practice Guidance</source>
         <translation>Рассчитать показатели уязвимости к засухе в соответствии с руководством по эффективной практике UNCCD SO3</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="350"/>
+        <location filename="../conf.py" line="354"/>
         <source>Drought vulnerability summary table</source>
         <translation>Сводная таблица уязвимости к засухе</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="351"/>
+        <location filename="../conf.py" line="355"/>
         <source>Summarize drought indicators in alignment with UNCCD SO3 reporting requirements</source>
         <translation>Обобщить показатели засухи в соответствии с требованиями к отчетности UNCCD SO3</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="365"/>
+        <location filename="../conf.py" line="369"/>
         <source>UNCCD Reporting</source>
         <translation>Отчетность UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="366"/>
+        <location filename="../conf.py" line="370"/>
         <source>Summarize data for reporting</source>
         <translation>Обобщить данные для отчетности</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="384"/>
+        <location filename="../conf.py" line="388"/>
         <source>Generate data package for UNCCD reporting</source>
         <translation>Создать пакет данных для отчетности UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="385"/>
+        <location filename="../conf.py" line="389"/>
         <source>Summarize Strategic Objective (SO) 1, SO2, and SO3 datasets in proper format for submission to UNCCD for 2021 reporting cycle</source>
         <translation>Обобщить наборы данных стратегической цели (СЦ) 1, СЦ 2 и СЦ 3 в надлежащем формате для представления в UNCCD для отчетного цикла 2021 года.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="400"/>
+        <location filename="../conf.py" line="404"/>
         <source>SDG 11.3.1</source>
         <translation>SDG 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="401"/>
+        <location filename="../conf.py" line="405"/>
         <source>Urban change and land consumption</source>
         <translation>Городские изменения и потребление земли</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="405"/>
+        <location filename="../conf.py" line="409"/>
         <source>Urban change spatial layer</source>
         <translation>Пространственный слой городских изменений</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="406"/>
+        <location filename="../conf.py" line="410"/>
         <source>Calculate indicators of change in urban extent (SDG 11.3.1 indicator)</source>
         <translation>Рассчитать показатели изменения городской территории (показатель SDG 11.3.1)</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="419"/>
+        <location filename="../conf.py" line="423"/>
         <source>Urban change summary table for city</source>
         <translation>Сводная таблица городских изменений для города</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="420"/>
+        <location filename="../conf.py" line="424"/>
         <source>Calculate table summarizing SDG indicator 11.3.1</source>
         <translation>Рассчитать таблицу, обобщающую показатель SDG 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="433"/>
+        <location filename="../conf.py" line="437"/>
         <source>Experimental</source>
         <translation>Экспериментальный</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="436"/>
+        <location filename="../conf.py" line="440"/>
         <source>Calculate change in total carbon</source>
         <translation>Рассчитать изменение общего содержания углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="437"/>
+        <location filename="../conf.py" line="441"/>
         <source>Above and below ground, emissions and deforestation</source>
         <translation>Надземные и подземные выбросы и вырубка лесов</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="443"/>
+        <location filename="../conf.py" line="447"/>
         <source>Calculate change in carbon</source>
         <translation>Рассчитать изменение углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="444"/>
+        <location filename="../conf.py" line="448"/>
         <source>Calculate total carbon (above and below-ground) and emissions from deforestation</source>
         <translation>Рассчитать общий углерод (над и под землей) и выбросы от обезлесения</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="462"/>
+        <location filename="../conf.py" line="466"/>
         <source>Change in carbon summary table</source>
         <translation>Изменение сводной таблицы углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="463"/>
+        <location filename="../conf.py" line="467"/>
         <source>Calculate table summarizing change in total carbon</source>
         <translation>Рассчитать сводную таблицу изменения общего содержания углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="476"/>
+        <location filename="../conf.py" line="480"/>
         <source>Potential change in biomass due to restoration</source>
         <translation>Потенциальное изменение биомассы в результате восстановления</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="477"/>
+        <location filename="../conf.py" line="481"/>
         <source>Above and below ground woody</source>
         <translation>Древесная масса над и под землей</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="481"/>
+        <location filename="../conf.py" line="485"/>
         <source>Estimate potential impacts of restoration</source>
         <translation>Оценить потенциальное воздействие восстановления</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="482"/>
+        <location filename="../conf.py" line="486"/>
         <source>Estimate potential change in biomass due to restoration</source>
         <translation>Оценить потенциальное изменение биомассы в результате восстановления</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="494"/>
+        <location filename="../conf.py" line="498"/>
         <source>Table summarizing likely changes in biomass</source>
         <translation>Таблица, обобщающая вероятные изменения в биомассе</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="497"/>
+        <location filename="../conf.py" line="501"/>
         <source>Generate table summarizing potential change in biomass due to restoration</source>
         <translation>Генерировать таблицу со сводной информацией о потенциальном изменении биомассы, обусловленном восстановлением</translation>
     </message>
@@ -5950,227 +6064,262 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_data_io</name>
     <message>
-        <location filename="../data_io.py" line="649"/>
+        <location filename="../data_io.py" line="657"/>
         <source>Could not load file</source>
         <translation>Не удалось загрузить файл</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="667"/>
+        <location filename="../data_io.py" line="675"/>
         <source>Could not parse the selected file into a valid JSON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="745"/>
+        <location filename="../data_io.py" line="753"/>
         <source>Select a raster input file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="745"/>
+        <location filename="../data_io.py" line="753"/>
         <source>Raster file (*.tif *.dat *.img *.vrt)</source>
         <translation>Растровый файл (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1677"/>
+        <location filename="../data_io.py" line="1900"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="802"/>
+        <location filename="../data_io.py" line="810"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Не могу читать {}. Выберите другой файл.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="787"/>
+        <location filename="../data_io.py" line="795"/>
         <source>Select a vector input file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="787"/>
+        <location filename="../data_io.py" line="795"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Векторный файл (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="844"/>
+        <location filename="../data_io.py" line="883"/>
         <source>Choose a name for the output file</source>
         <translation>Выберите имя для выходного файла</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="844"/>
+        <location filename="../data_io.py" line="883"/>
         <source>Raster file (*.tif)</source>
         <translation>Растровый файл (* .tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="860"/>
+        <location filename="../data_io.py" line="899"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Невозможно написать {}. Выберите другой файл.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="893"/>
+        <location filename="../data_io.py" line="975"/>
         <source>Metadata</source>
         <translation>Метаданные</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="901"/>
+        <location filename="../data_io.py" line="1100"/>
         <source>Choose an input raster file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="912"/>
+        <location filename="../data_io.py" line="1111"/>
         <source>Choose an input polygon dataset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="929"/>
+        <location filename="../data_io.py" line="1128"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1033"/>
+        <location filename="../data_io.py" line="1239"/>
         <source>Vector remapping failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1055"/>
+        <location filename="../data_io.py" line="1261"/>
         <source>Raster remapping failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1079"/>
+        <location filename="../data_io.py" line="1285"/>
         <source>Rasterizing failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1113"/>
+        <location filename="../data_io.py" line="1328"/>
         <source>Raster import failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1296"/>
         <source>Choose an output file.</source>
-        <translation>Выберите выходной файл.</translation>
+        <translation type="obsolete">Выберите выходной файл.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1158"/>
+        <location filename="../data_io.py" line="1361"/>
         <source>Enter the year of the input data.</source>
         <translation>Введите год ввода данных.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1183"/>
+        <location filename="../data_io.py" line="1386"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1199"/>
+        <location filename="../data_io.py" line="1402"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1212"/>
+        <location filename="../data_io.py" line="1415"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1227"/>
+        <location filename="../data_io.py" line="1430"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1321"/>
+        <location filename="../data_io.py" line="1530"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1335"/>
+        <location filename="../data_io.py" line="1544"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>Входной файл ({}) не является допустимым файлом ввода производительности.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1348"/>
+        <location filename="../data_io.py" line="1557"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1348"/>
+        <location filename="../data_io.py" line="1557"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1460"/>
+        <location filename="../data_io.py" line="1683"/>
         <source>No layers available in this region</source>
         <translation>Нет доступных слоев в этой области</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1677"/>
+        <location filename="../data_io.py" line="1900"/>
         <source>Select a layer to load.</source>
         <translation>Выбрать уровень для загрузки.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1714"/>
+        <location filename="../data_io.py" line="1937"/>
         <source>No datasets available in this region</source>
         <translation>Нет доступных наборов данных в этой области</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1258"/>
+        <location filename="../data_io.py" line="1461"/>
         <source>Soil organic carbon ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1502"/>
+        <source>Enter the intial and final year applying to this input data.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="394"/>
+        <location filename="../download.py" line="395"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../download.py" line="239"/>
+        <location filename="../download.py" line="251"/>
         <source>Unable to write to {}.</source>
         <translation>Не в состоянии написать {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="188"/>
+        <location filename="../download.py" line="200"/>
         <source>Unable to write to {}. Do you need administrator permissions?</source>
         <translation>Не в состоянии написать {}. Вам нужны разрешения администратора?</translation>
     </message>
     <message>
-        <location filename="../download.py" line="213"/>
+        <location filename="../download.py" line="225"/>
         <source>Folder does not exist</source>
         <translation>Папка не существует</translation>
     </message>
     <message>
-        <location filename="../download.py" line="213"/>
+        <location filename="../download.py" line="225"/>
         <source>Folder {} does not exist.</source>
         <translation>Папка {} не существует.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="249"/>
+        <location filename="../download.py" line="261"/>
         <source>Error accessing {}.</source>
         <translation>Ошибка доступа к {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="257"/>
+        <location filename="../download.py" line="269"/>
         <source>File verification failed for {}.</source>
         <translation>Ошибка проверки файла для {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="358"/>
+        <location filename="../download.py" line="380"/>
         <source>Downloading {}</source>
         <translation>Загрузка {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="394"/>
+        <location filename="../download.py" line="389"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>Ошибка загрузки. Проверьте подключение к интернету.</translation>
     </message>
     <message>
         <location filename="../download.py" line="376"/>
         <source>Unable to access internet. Check your internet connection.</source>
-        <translation>Невозможно получить доступ к интернету. Проверьте подключение к интернету.</translation>
+        <translation type="obsolete">Невозможно получить доступ к интернету. Проверьте подключение к интернету.</translation>
     </message>
     <message>
         <location filename="../download.py" line="386"/>
         <source>Download timed out. Check your internet connection.</source>
-        <translation>Время загрузки истекло. Проверьте подключение к интернету.</translation>
+        <translation type="obsolete">Время загрузки истекло. Проверьте подключение к интернету.</translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="342"/>
+        <source>Error in downloading file, {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="349"/>
+        <source>Error while downloading file to {self.outfile}, {error}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="359"/>
+        <source>Finished downloading file to {self.outfile}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="362"/>
+        <source>Download exited {self.outfile}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="395"/>
+        <source>Problem running task for downloading file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="400"/>
+        <source>An error occured when running task for</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6789,37 +6938,37 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_lc_setup</name>
     <message>
-        <location filename="../lc_setup.py" line="329"/>
+        <location filename="../lc_setup.py" line="330"/>
         <source>Input code</source>
         <translation>Введите код</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="330"/>
+        <location filename="../lc_setup.py" line="331"/>
         <source>Input class</source>
         <translation>Входной класс</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="331"/>
+        <location filename="../lc_setup.py" line="332"/>
         <source>Output class</source>
         <translation>Выходной класс</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="425"/>
+        <location filename="../lc_setup.py" line="426"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="414"/>
+        <location filename="../lc_setup.py" line="415"/>
         <source>Cannot read {}.</source>
         <translation>Не могу читать {}.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="396"/>
+        <location filename="../lc_setup.py" line="397"/>
         <source>{f} does not appear to contain a valid land cover legend nesting definition: {e}</source>
         <translation>{f} не содержит действительного определения вложенности легенды земного покрова: {e}</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="425"/>
+        <location filename="../lc_setup.py" line="426"/>
         <source>{f} does not appear to contain a valid land cover transition matrix definition: {e}</source>
         <translation>{f} не содержит действительного определения матрицы перехода земного покрова: {e}</translation>
     </message>

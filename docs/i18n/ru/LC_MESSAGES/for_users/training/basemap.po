@@ -1,25 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-20 14:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-07-20 19:07+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-"
+"international/teams/80165/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/basemap.rst:4
 msgid "Adding a basemap"
@@ -27,65 +31,68 @@ msgstr ""
 
 #: ../../source/for_users/training/basemap.rst:6
 msgid ""
-"Basemaps are very useful as a reference for identifying specific locations "
-"in maps. When downloaded, Trends.Earth results are displayed on an empty "
-"QGIS project, which could limit the user ability for identifying know places"
-" in the landscape. To facilitate this process, you can use the **Add "
-"Basemap** tool which will load country and state boundaries, roads, rivers, "
-"cities, coastlines and water bodies with labels to the QGIS project."
+"Basemaps are very useful as a reference for identifying specific "
+"locations in maps. When downloaded, Trends.Earth results are displayed on"
+" an empty QGIS project, which could limit the user ability for "
+"identifying know places in the landscape. To facilitate this process, you"
+" can use the **Add Basemap** tool which will load country and state "
+"boundaries, roads, rivers, cities, coastlines and water bodies with "
+"labels to the QGIS project."
 msgstr ""
-"Базовые карты очень полезны в качестве ориентира для определения конкретных "
-"мест на картах. При загрузке результаты Trends.Earth отображаются в пустом "
-"проекте QGIS, что может ограничить возможности пользователя по идентификации"
-" известных мест на ландшафте. Чтобы облегчить этот процесс, вы можете "
-"использовать инструмент **Добавить базовую карту**, который загрузит границы"
-" страны и штатов, а также дороги, реки, города, береговые линии и водоемы с "
-"подписями в проект QGIS."
+"Базовые карты очень полезны в качестве ориентира для определения "
+"конкретных мест на картах. При загрузке результаты Trends.Earth "
+"отображаются в пустом проекте QGIS, что может ограничить возможности "
+"пользователя по идентификации известных мест на ландшафте. Чтобы "
+"облегчить этот процесс, вы можете использовать инструмент **Добавить "
+"базовую карту**, который загрузит границы страны и штатов, а также "
+"дороги, реки, города, береговые линии и водоемы с подписями в проект "
+"QGIS."
 
 #: ../../source/for_users/training/basemap.rst:8
 msgid ""
-"To load the tool click on the **Datasets** tab and select **Load Base Map** "
-"in the bottom right of the window."
+"To load the tool click on the **Datasets** tab and select **Load Base "
+"Map** in the bottom right of the window."
 msgstr ""
-"Чтобы загрузить инструмент, нажмите на вкладку **Наборы данных** и выберите "
-"**Загрузить базовую карту** в правом нижнем углу окна."
+"Чтобы загрузить инструмент, нажмите на вкладку **Наборы данных** и "
+"выберите **Загрузить базовую карту** в правом нижнем углу окна."
 
 #: ../../source/for_users/training/basemap.rst:13
 msgid "On the **Add basemap** window you can do one of two things:"
 msgstr ""
-"В окне **Добавить базовую карту** вы можете совершить одно из двух действий:"
+"В окне **Добавить базовую карту** вы можете совершить одно из двух "
+"действий:"
 
 #: ../../source/for_users/training/basemap.rst:15
 msgid ""
 "**Use a mask option selected** will create a mask blocking all the "
 "information outside of the selected area. In this example, all the "
-"information outside of Uganda will not be displayed on the map. This option "
-"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
-"since the data download is not clipped to administrative boundaries (a "
-"bounding box is used instead). You can use first and second level "
-"administrative boundaries."
+"information outside of Uganda will not be displayed on the map. This "
+"option is useful when displaying the sub-indicators downloaded from "
+"Trends.Earth, since the data download is not clipped to administrative "
+"boundaries (a bounding box is used instead). You can use first and second"
+" level administrative boundaries."
 msgstr ""
 "Если включить опцию **Использовать маску**, то будет создана маска, "
-"блокирующая всю информацию за пределами выбранной области. В этом примере "
-"вся информация за пределами Уганды не будет отображаться на карте. Этот "
-"параметр полезен при отображении вспомогательных индикаторов, загруженных из"
-" Trends.Earth, поскольку загружаемые данные не ограничиваются "
+"блокирующая всю информацию за пределами выбранной области. В этом примере"
+" вся информация за пределами Уганды не будет отображаться на карте. Этот "
+"параметр полезен при отображении вспомогательных индикаторов, загруженных"
+" из Trends.Earth, поскольку загружаемые данные не ограничиваются "
 "административными границами (вместо этого используется ограничивающая "
-"рамка). Вы можете использовать административные границы первого и второго "
-"уровня."
+"рамка). Вы можете использовать административные границы первого и второго"
+" уровня."
 
 #: ../../source/for_users/training/basemap.rst:17
 msgid ""
-"**Use a mask option not selected** will load all the reference information, "
-"but no mask will be applied."
+"**Use a mask option not selected** will load all the reference "
+"information, but no mask will be applied."
 msgstr ""
 "Если опция **Использовать маску** не выбрана, то будет загружена вся "
 "справочная информация, но маска применена не будет."
 
 #: ../../source/for_users/training/basemap.rst:22
 msgid ""
-"Once the basemap is loaded, you will notice the information added to the map"
-" and to the Layer panel. The basemap has information for:"
+"Once the basemap is loaded, you will notice the information added to the "
+"map and to the Layer panel. The basemap has information for:"
 msgstr ""
 "После загрузки базовой карты вы заметите, что информация добавлена ​​на "
 "карту и на панель «Слой». Базовая карта содержит информацию о:"
@@ -122,14 +129,12 @@ msgstr "Государственных границах"
 msgid "Ocean"
 msgstr "Океанах"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "иконкаКалькулятор"
+#~ msgid "iconCalculator"
+#~ msgstr "иконкаКалькулятор"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "иконкаОтчеты"
+#~ msgid "iconReports"
+#~ msgstr "иконкаОтчеты"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

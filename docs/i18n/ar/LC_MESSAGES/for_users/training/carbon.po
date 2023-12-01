@@ -1,26 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-"
+"international/teams/80165/ar/)\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
+"n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/carbon.rst:4
 msgid "Forest and Carbon Change Tool"
@@ -29,12 +32,12 @@ msgstr "أداة تغيير الغابات والكربون"
 #: ../../source/for_users/training/carbon.rst:6
 msgid ""
 "**Objective**: Learn how to compute forest cover, forest loss, above and "
-"below ground biomass and emissions from deforestation in raster format and "
-"tabular outputs with areas estimated."
+"below ground biomass and emissions from deforestation in raster format "
+"and tabular outputs with areas estimated."
 msgstr ""
-"**الهدف**: تعلم كيفية حساب الغطاء الحرجي وفقدان الغابات والكتلة الحيوية فوق "
-"الأرض وتحتها والانبعاثات الناتجة عن إزالة الغابات في شكل خطوط المسح والنواتج"
-" المجدولة مع تقدير المناطق."
+"**الهدف**: تعلم كيفية حساب الغطاء الحرجي وفقدان الغابات والكتلة الحيوية "
+"فوق الأرض وتحتها والانبعاثات الناتجة عن إزالة الغابات في شكل خطوط المسح "
+"والنواتج المجدولة مع تقدير المناطق."
 
 #: ../../source/for_users/training/carbon.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
@@ -63,19 +66,18 @@ msgstr "حساب التغير في الكربون"
 #: ../../source/for_users/training/carbon.rst:21
 msgid ""
 "In the **Algorithms** tab in Trends.Earth plugin in QGIS, under the "
-"**Experimental** menu, select **Calculate change in total carbon - Above and"
-" below ground emissions, and deforestation** menu."
+"**Experimental** menu, select **Calculate change in total carbon - Above "
+"and below ground emissions, and deforestation** menu."
 msgstr ""
 "في علامة التبويب **الخوارزميات** في البرامج المساعدة لبرنامج QGIS في "
-"Trends.Earth، ضمن قائمة **التجريبي**، اختر قائمة ** حساب التغيير في إجمالي "
-"الكربون - الانبعاثات فوق وتحت الأرض، وإزالة الغابات **."
+"Trends.Earth، ضمن قائمة **التجريبي**، اختر قائمة ** حساب التغيير في "
+"إجمالي الكربون - الانبعاثات فوق وتحت الأرض، وإزالة الغابات **."
 
 #: ../../source/for_users/training/carbon.rst:27
 msgid ""
 "Select the **Calculate change in carbon** menu by selecting **Execute "
 "locally**."
-msgstr ""
-"اختر قائمة **احسب التغيير في الكربون** عن طريق تحديد **التنفيذ محلياً**."
+msgstr "اختر قائمة **احسب التغيير في الكربون** عن طريق تحديد **التنفيذ محلياً**."
 
 #: ../../source/for_users/training/carbon.rst:32
 msgid ""
@@ -90,21 +92,21 @@ msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:39
 msgid ""
-"The definition of canopy cover should be changed to accommodate the specific"
-" area of interest."
+"The definition of canopy cover should be changed to accommodate the "
+"specific area of interest."
 msgstr "يجب تغيير تعريف غطاء المظلة لاستيعاب منطقة الاهتمام المحددة."
 
 #: ../../source/for_users/training/carbon.rst:38
 msgid ""
-"The dataset maps global tree cover based on percent canopy cover in the year"
-" 2000. Many studies cite 25% - 30% threshold to define forest, however this "
-"definition can change for arid regions. For more information, please see the"
-" publication\""
+"The dataset maps global tree cover based on percent canopy cover in the "
+"year 2000. Many studies cite 25% - 30% threshold to define forest, "
+"however this definition can change for arid regions. For more "
+"information, please see the publication\""
 msgstr ""
-"تحدد مجموعة البيانات الغطاء الشجري العالمي بناءً على النسبة المئوية للغطاء "
-"المظلي في عام 2000. تشير العديد من الدراسات إلى 25% - 30% كحد لتعريف الغابة،"
-" ولكن هذا التعريف يمكن أن يتغير بالنسبة للمناطق القاحلة. لمزيد من المعلومات،"
-" يرجى الاطلاع على المنشور\""
+"تحدد مجموعة البيانات الغطاء الشجري العالمي بناءً على النسبة المئوية "
+"للغطاء المظلي في عام 2000. تشير العديد من الدراسات إلى 25% - 30% كحد "
+"لتعريف الغابة، ولكن هذا التعريف يمكن أن يتغير بالنسبة للمناطق القاحلة. "
+"لمزيد من المعلومات، يرجى الاطلاع على المنشور\""
 
 #: ../../source/for_users/training/carbon.rst:44
 msgid "Select **Change region** to define the area of interest."
@@ -112,36 +114,37 @@ msgstr "اختر **تغيير المنطقة** لتحديد المنطقة مح�
 
 #: ../../source/for_users/training/carbon.rst:50
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
+"are in the `public domain`_. The boundaries and names used, and the "
+"designations used, in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors."
 msgstr ""
 "&quot;الحدود الإدارية للأرض الطبيعية&quot; التي تم تقديمها في برنامج "
 "&quot;مؤشرات&quot;. الأرض موجودة في &quot;المجال العام&quot; _. الحدود "
-"والأسماء المستخدمة ، والتسميات المستخدمة ، في Trends.Earth لا تعني المصادقة "
-"أو القبول الرسمي من قبل مؤسسة Conservation International ، أو من قبل "
-"المنظمات الشريكة والمساهمين."
+"والأسماء المستخدمة ، والتسميات المستخدمة ، في Trends.Earth لا تعني "
+"المصادقة أو القبول الرسمي من قبل مؤسسة Conservation International ، أو من"
+" قبل المنظمات الشريكة والمساهمين."
 
 #: ../../source/for_users/training/carbon.rst:56
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users"
+" choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
-"إذا كنت تستخدم Trends.Earth لأغراض رسمية ، فمن المستحسن أن يختار المستخدمون "
-"حدًا رسميًا يوفره المكتب المعين لبلدهم."
+"إذا كنت تستخدم Trends.Earth لأغراض رسمية ، فمن المستحسن أن يختار "
+"المستخدمون حدًا رسميًا يوفره المكتب المعين لبلدهم."
 
 #: ../../source/for_users/training/carbon.rst:64
 msgid ""
-"Use your own area file: If you want to use your own area of analysis, make "
-"sure the **Area from file** option is highlighted. Then click **Browse** and"
-" navigate to the folder in your computer where you have the file stored."
+"Use your own area file: If you want to use your own area of analysis, "
+"make sure the **Area from file** option is highlighted. Then click "
+"**Browse** and navigate to the folder in your computer where you have the"
+" file stored."
 msgstr ""
-"استخدم ملف المنطقة الخاص بك: إذا كنت تريد استخدام منطقة التحليل الخاصة بك ، "
-"فتأكد من تحديد خيار ** المنطقة من الملف **. ثم انقر فوق ** تصفح ** وانتقل "
-"إلى المجلد في جهاز الكمبيوتر الخاص بك حيث تم تخزين الملف."
+"استخدم ملف المنطقة الخاص بك: إذا كنت تريد استخدام منطقة التحليل الخاصة بك"
+" ، فتأكد من تحديد خيار ** المنطقة من الملف **. ثم انقر فوق ** تصفح ** "
+"وانتقل إلى المجلد في جهاز الكمبيوتر الخاص بك حيث تم تخزين الملف."
 
 #: ../../source/for_users/training/carbon.rst:66
 msgid "Add a descriptive name and notes for the analysis"
@@ -149,24 +152,24 @@ msgstr "أضف اسماً وصفياً وملاحظات للتحليل"
 
 #: ../../source/for_users/training/carbon.rst:68
 msgid ""
-"Select the **Advanced configuration** menu to select the biomass dataset, "
-"and method for calculating the root to shoot ratio (below ground biomass) "
-"Select **Schedule remote exectution**"
+"Select the **Advanced configuration** menu to select the biomass dataset,"
+" and method for calculating the root to shoot ratio (below ground "
+"biomass) Select **Schedule remote exectution**"
 msgstr ""
 "حدد قائمة ** الإعدادات المتقدمة** لتحديد مجموعة بيانات الكتلة الحيوية، "
-"وطريقة حساب نسبة الجذر إلى التصوير (الكتلة الحيوية تحت الأرض) حدد **جدولة "
-"التنفيذ عن بُعد**"
+"وطريقة حساب نسبة الجذر إلى التصوير (الكتلة الحيوية تحت الأرض) حدد **جدولة"
+" التنفيذ عن بُعد**"
 
 #: ../../source/for_users/training/carbon.rst:74
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
-"successfully submitted. The analysis will be run in Google servers and could"
-" take between 5 and 15 minutes depending on the size of the study area "
-"(larger areas tend to take longer)."
+"successfully submitted. The analysis will be run in Google servers and "
+"could take between 5 and 15 minutes depending on the size of the study "
+"area (larger areas tend to take longer)."
 msgstr ""
-"سيظهر شريط أزرق فاتح مؤقتًا ، يشير إلى أنه تم إرسال المهمة بنجاح. سيتم تشغيل"
-" التحليل في خوادم Google ويمكن أن يستغرق ما بين 5 إلى 15 دقيقة وفقًا لحجم "
-"منطقة الدراسة (تميل المناطق الأكبر إلى أن تستغرق وقتًا أطول)."
+"سيظهر شريط أزرق فاتح مؤقتًا ، يشير إلى أنه تم إرسال المهمة بنجاح. سيتم "
+"تشغيل التحليل في خوادم Google ويمكن أن يستغرق ما بين 5 إلى 15 دقيقة وفقًا"
+" لحجم منطقة الدراسة (تميل المناطق الأكبر إلى أن تستغرق وقتًا أطول)."
 
 #: ../../source/for_users/training/carbon.rst:77
 msgid "Change in carbon summary table"
@@ -182,8 +185,8 @@ msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:84
 msgid ""
-"In order to view the defined area of interest with reference data, select "
-"the **Load Base Map** in the **Datasets** tab."
+"In order to view the defined area of interest with reference data, select"
+" the **Load Base Map** in the **Datasets** tab."
 msgstr ""
 "لعرض منطقة الاهتمام المحددة بالبيانات المرجعية، حدد **تحميل الخريطة "
 "الأساسية** في علامة التبويب **مجموعات البيانات**."
@@ -200,9 +203,9 @@ msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:101
 msgid ""
-"The layers will pre-populate in the data layer drop-down lists. Confirm the "
-"region is the same area of interest, provide descriptive names and notes and"
-" select **Execute locally**."
+"The layers will pre-populate in the data layer drop-down lists. Confirm "
+"the region is the same area of interest, provide descriptive names and "
+"notes and select **Execute locally**."
 msgstr ""
 "ستتم تعبئة الطبقات مسبقاً في القوائم المنسدلة لطبقة البيانات. تأكد من أن "
 "المنطقة هي نفس منطقة الاهتمام، وقدم أسماء وملاحظات وصفية وحدد **التنفيذ "
@@ -214,18 +217,16 @@ msgid ""
 "**trends_earth_data*** folder under your user account on your computer "
 "(e.g., C:\\Users\\mnoon\\trends_earth_data)."
 msgstr ""
-"يتم حفظ جدول بيانات يقارن النواتج النهائية في مجلد **trends_earth_data*** "
-"الخاص بك ضمن حساب المستخدم على جهاز الكمبيوتر الخاص بك (على سبيل المثال، "
-"C:\\Users\\mnoon\\trends_earth_data)."
+"يتم حفظ جدول بيانات يقارن النواتج النهائية في مجلد **trends_earth_data***"
+" الخاص بك ضمن حساب المستخدم على جهاز الكمبيوتر الخاص بك (على سبيل المثال،"
+" C:\\Users\\mnoon\\trends_earth_data)."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "أيقونة الحاسبة"
+#~ msgid "iconCalculator"
+#~ msgstr "أيقونة الحاسبة"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "أيقونة التقارير"
+#~ msgid "iconReports"
+#~ msgstr "أيقونة التقارير"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

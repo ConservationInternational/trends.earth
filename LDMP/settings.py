@@ -205,6 +205,13 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.region_of_interest.setLayout(layout)
 
         # Load gui default value from settings
+        auth_id = settings.value("trendsearth/auth")
+        if auth_id is not None:
+            self.authcfg_acs.setConfigId(auth_id)
+        else:
+            log("Authentication configuration id was not found")
+
+        # load gui default value from settings
         self.reloadAuthConfigurations()
 
         self.api_client = api.APIClient(API_URL, TIMEOUT)
@@ -218,22 +225,23 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.widgetSettingsAdvanced.update_settings()
         self.widget_settings_report.save_settings()
         if not self.lcc_manager.save_settings():
-            print("Validation failed")
+            log("Validation failed")
             return
 
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
         if old_base_dir != new_base_dir:
             job_manager.clear_known_jobs()
-            if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
+            if hasattr(self, "dock_widget") and self.dock_widget:
                 self.dock_widget.refresh_after_cache_update()
 
-        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
-        if offline_mode:
-            self.dock_widget.pushButton_download.setEnabled(False)
-            self.dock_widget.setWindowTitle(DOCK_TITLE_OFFLINE)
-        else:
-            self.dock_widget.pushButton_download.setEnabled(True)
-            self.dock_widget.setWindowTitle(DOCK_TITLE)
+        if hasattr(self, "dock_widget") and self.dock_widget:
+            offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
+            if offline_mode:
+                self.dock_widget.pushButton_download.setEnabled(False)
+                self.dock_widget.setWindowTitle(DOCK_TITLE_OFFLINE)
+            else:
+                self.dock_widget.pushButton_download.setEnabled(True)
+                self.dock_widget.setWindowTitle(DOCK_TITLE)
 
     def closeEvent(self, event):
         self.widgetSettingsAdvanced.closeEvent(event)
@@ -326,6 +334,22 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
                 auth.remove_current_auth_config(auth.TE_API_AUTH_SETUP)
                 self.reloadAuthConfigurations()
                 # self.authConfigUpdated.emit()
+
+    def on_accept(self):
+        auth_id = self.authcfg_acs.configId()
+        if auth_id != "":
+            settings.setValue("trendsearth/auth", auth_id)
+        else:
+            log("Authentication configuration id not found")
+
+        self.area_widget.save_settings()
+        self.widgetSettingsAdvanced.update_settings()
+        self.widget_settings_report.save_settings()
+        if not self.lcc_manager.save_settings():
+            log("Validation failed")
+            return
+
+        self.accept()
 
 
 class AreaWidgetSection(Flag):
@@ -1130,7 +1154,6 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     def update_settings(self):
         """Store the current value of each setting in QgsSettings"""
-        log(f"poll remote: {self.polling_frequency_gb.isChecked()}")
         settings_manager.write_value(
             Setting.POLL_REMOTE, self.polling_frequency_gb.isChecked()
         )
@@ -1189,7 +1212,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         )
 
     def set_offline_mode_states(self):
-        """This funtion is called when offline mode is enabled or disabled.
+        """This function is called when offline mode is enabled or disabled.
         If offline mode is enabled, then all settings related to online
         requests (e.g. download remote datasets or polling the server) will
         be disabled as well. The login section will also be disabled.
@@ -1200,11 +1223,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         if self.cb_offline_mode.isChecked():
             # Offline mode is enabled
             self.download_remote_datasets_chb.setEnabled(False)
-            self.download_remote_datasets_chb.setChecked(False)
 
             # Polling frequency settings
             self.polling_frequency_gb.setEnabled(False)
-            self.polling_frequency_gb.setChecked(False)
 
             # Login settings
             self.group_box.setEnabled(False)
@@ -1215,11 +1236,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         else:
             # Offline mode is disabled
             self.download_remote_datasets_chb.setEnabled(True)
-            self.download_remote_datasets_chb.setChecked(True)
 
             # Polling frequency settings
             self.polling_frequency_gb.setEnabled(True)
-            self.polling_frequency_gb.setChecked(True)
 
             # Login settings
             self.group_box.setEnabled(True)
@@ -1872,7 +1891,6 @@ class LandCoverCustomClassesManager(
                 vs_bar.setValue(init_pos)
 
     def on_editor_accepted(self, panel):
-
         vertical_scroll_bar = self.scroll_area.verticalScrollBar()
 
         # Sets the size to the number of rows

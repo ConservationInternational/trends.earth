@@ -1,26 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-"
+"international/teams/80165/pt/)\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/metadata.rst:4
 msgid "Dataset Metadata"
@@ -29,7 +32,8 @@ msgstr "Metadados do Conjunto de Dados"
 #: ../../source/for_users/training/metadata.rst:6
 msgid "**Objective**: Learn how to edit and view dataset metadata."
 msgstr ""
-"**Objetivo**: Saber como editar e visualizar metadados de conjuntos de dados"
+"**Objetivo**: Saber como editar e visualizar metadados de conjuntos de "
+"dados"
 
 #: ../../source/for_users/training/metadata.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
@@ -41,8 +45,8 @@ msgstr "**Acesso à internet**: Não necessário"
 
 #: ../../source/for_users/training/metadata.rst:12
 msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
-" icon."
+"Click on the Trends.Earth toolbar within QGIS, and click on the "
+"Trends.Earth icon."
 msgstr ""
 "Clique na barra de ferramentas Trends.Earth na QGIS e clique no ícone "
 "Trends.Earth."
@@ -50,84 +54,83 @@ msgstr ""
 #: ../../source/for_users/training/metadata.rst:17
 msgid ""
 "The **Trends.Earth** menu will open. In the **Dataset** window, where "
-"existing tasks are listed in the menu if the **Download remotely-generated "
-"datasets automatically** is checked in settings."
+"existing tasks are listed in the menu if the **Download remotely-"
+"generated datasets automatically** is checked in settings."
 msgstr ""
-"O menu **Trends.Earth** irá abrir. Na janela **Conjunto de dados**, onde as "
-"tarefas existentes estão listadas no menu se  **Descarregar automaticamente "
-"conjuntos de dados gerados remotamente** estiver selecionado nas definições."
+"O menu **Trends.Earth** irá abrir. Na janela **Conjunto de dados**, onde "
+"as tarefas existentes estão listadas no menu se  **Descarregar "
+"automaticamente conjuntos de dados gerados remotamente** estiver "
+"selecionado nas definições."
 
 #: ../../source/for_users/training/metadata.rst:20
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more about "
-"**Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more "
+"about **Advanced settings**"
 msgstr ""
-"Consulte a secção :ref:`tut_settings` deste manual para saber mais sobre as "
-"**Definições avançadas**"
+"Consulte a secção :ref:`tut_settings` deste manual para saber mais sobre "
+"as **Definições avançadas**"
 
 #: ../../source/for_users/training/metadata.rst:22
 msgid "Select the Refresh button if no datasets appear in the menu."
-msgstr ""
-"Clique no botão Atualizar se não aparecerem conjuntos de dados no menu."
+msgstr "Clique no botão Atualizar se não aparecerem conjuntos de dados no menu."
 
 #: ../../source/for_users/training/metadata.rst:24
 msgid ""
 "Press the Edit metadata button to open a drop-down menu with available "
 "options"
 msgstr ""
-"Clique no botão Editar metadados para abrir o menu drop-down com as opções "
-"disponíveis"
+"Clique no botão Editar metadados para abrir o menu drop-down com as "
+"opções disponíveis"
 
 #: ../../source/for_users/training/metadata.rst:29
 msgid ""
 "The drop-down menu allows to select any raster from the list of all "
-"available rasters of the dataset to edit or view its metadata. Once raster "
-"is selected a metadata editor dialog will show up."
+"available rasters of the dataset to edit or view its metadata. Once "
+"raster is selected a metadata editor dialog will show up."
 msgstr ""
-"O menu drop-down permite selecionar qualquer raster da lista de rasters do "
-"conjunto de dados disponíveis, para editar ou ver os metadados deste. Assim "
-"que estiver selecionado um raster, o diálogo de editor de metadados irá "
-"aparecer."
+"O menu drop-down permite selecionar qualquer raster da lista de rasters "
+"do conjunto de dados disponíveis, para editar ou ver os metadados deste. "
+"Assim que estiver selecionado um raster, o diálogo de editor de metadados"
+" irá aparecer."
 
 #: ../../source/for_users/training/metadata.rst:34
 msgid ""
-"Fill in the necessary information or edit existing data in the dialog fields"
-" and press OK button to save your changes. Metadata will be saved in the "
-"QGIS QMD format, in a separate file for each raster in the dataset folder."
+"Fill in the necessary information or edit existing data in the dialog "
+"fields and press OK button to save your changes. Metadata will be saved "
+"in the QGIS QMD format, in a separate file for each raster in the dataset"
+" folder."
 msgstr ""
-"Preencha as informações necessárias ou edita os dados existentes nos campos "
-"de diálogo e pressione o botão OK para guardar as sua alterações. Os "
-"metadados serão guardados no formato QGIS QMD, num ficheiro separado para "
-"cada raster na pasta do conjunto de dados."
+"Preencha as informações necessárias ou edita os dados existentes nos "
+"campos de diálogo e pressione o botão OK para guardar as sua alterações. "
+"Os metadados serão guardados no formato QGIS QMD, num ficheiro separado "
+"para cada raster na pasta do conjunto de dados."
 
 #: ../../source/for_users/training/metadata.rst:36
 msgid ""
-"Metadata also can be viewed/edited from the Dataset details dialog via the "
-"same Metadata button, as described in the step 3 above."
+"Metadata also can be viewed/edited from the Dataset details dialog via "
+"the same Metadata button, as described in the step 3 above."
 msgstr ""
 "Os metadados também podem ser vistos/editados no diálogo dos detalhes do "
-"Conjunto de dados através do mesmo Botão Metadados, como descrito no passo 3"
-" acima."
+"Conjunto de dados através do mesmo Botão Metadados, como descrito no "
+"passo 3 acima."
 
 #: ../../source/for_users/training/metadata.rst:41
 msgid ""
-"When exporting dataset to the ZIP archive from the Dataset details dialog "
-"all existing metadata in the QMD format will be automatically converted to "
-"ISO XML format and packaged together with the layers."
+"When exporting dataset to the ZIP archive from the Dataset details dialog"
+" all existing metadata in the QMD format will be automatically converted "
+"to ISO XML format and packaged together with the layers."
 msgstr ""
-"Ao exportar o conjunto de dados para o arquivo ZIP do diálogo de detalhes do"
-" Conjunto de dados, todos os metadados existentes no formato QMD serão "
-"convertidos automaticamente para o formato ISO XML e embalados juntamente "
-"com as camadas."
+"Ao exportar o conjunto de dados para o arquivo ZIP do diálogo de detalhes"
+" do Conjunto de dados, todos os metadados existentes no formato QMD serão"
+" convertidos automaticamente para o formato ISO XML e embalados "
+"juntamente com as camadas."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

@@ -1,26 +1,28 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-06-21 21:07+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-"
+"international/teams/80165/zh/)\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/errorrecode.rst:4
 msgid "False positive/negative layers"
@@ -28,7 +30,8 @@ msgstr "假阳性/阴性层"
 
 #: ../../source/for_users/training/errorrecode.rst:6
 msgid ""
-"**Objective**: Learn how to create false positive/negative vector datasets."
+"**Objective**: Learn how to create false positive/negative vector "
+"datasets."
 msgstr "**目的**：学习如何创建假阳性/阴性矢量数据集。"
 
 #: ../../source/for_users/training/errorrecode.rst:8
@@ -41,21 +44,21 @@ msgstr "**互联网接入**：不需要"
 
 #: ../../source/for_users/training/errorrecode.rst:12
 msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
-" icon."
+"Click on the Trends.Earth toolbar within QGIS, and click on the "
+"Trends.Earth icon."
 msgstr "点击QGIS内的Trends.Earth工具条，并点击Trends.Earth图标。"
 
 #: ../../source/for_users/training/errorrecode.rst:17
 msgid ""
 "The **Trends.Earth** menu will open. In the **Dataset** window, where "
-"existing tasks are listed in the menu if the **Download remotely-generated "
-"datasets automatically** is checked in settings."
+"existing tasks are listed in the menu if the **Download remotely-"
+"generated datasets automatically** is checked in settings."
 msgstr "将打开**趋势.地球**菜单。在**数据集**窗口中，如果在设置中勾选了**自动下载远程生成的数据集**，现有的任务就会列在菜单中。"
 
 #: ../../source/for_users/training/errorrecode.rst:20
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more about "
-"**Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more "
+"about **Advanced settings**"
 msgstr "请参阅本手册的 ref:`tut_settings`部分，以了解更多关于**高级设置**的信息。"
 
 #: ../../source/for_users/training/errorrecode.rst:22
@@ -63,9 +66,10 @@ msgid "Select the Refresh button if no datasets appear in the menu."
 msgstr "如果菜单中没有出现数据集，请选择 \"刷新 \"按钮。"
 
 #: ../../source/for_users/training/errorrecode.rst:24
+#, fuzzy
 msgid ""
-"Press the **Create** button at the bottom of the **Trends.Earth** menu and "
-"then select **False positive layer**"
+"Press the **Create** button at the bottom of the **Trends.Earth** menu "
+"and then select **False positive/negative layer**"
 msgstr "按**Trends.Earth**菜单底部的**创建**按钮，然后选择**假阳性层**。"
 
 #: ../../source/for_users/training/errorrecode.rst:29
@@ -86,81 +90,91 @@ msgstr "图层将被添加到预定义的样式中，如下文所示。"
 
 #: ../../source/for_users/training/errorrecode.rst:44
 msgid ""
-"To define areas in the dataset it is necessary to add it to QGIS map canvas "
-"using **Edit layer** button"
+"To define areas in the dataset it is necessary to add it to QGIS map "
+"canvas using **Edit layer** button"
 msgstr "要在数据集中定义区域，必须使用**编辑图层**按钮将其添加到QGIS地图画布中。"
 
 #: ../../source/for_users/training/errorrecode.rst:49
+#, fuzzy
 msgid ""
-"If this is first time when layer added to QGIS canvas a dialog asking for "
-"indicator layers will be shown"
+"If this is the first time a false positive/negative layer is added to "
+"QGIS canvas a dialog asking for indicator layers will be shown"
 msgstr "如果这是第一次将图层添加到QGIS画布上，将显示一个要求指示图层的对话框。"
 
 #: ../../source/for_users/training/errorrecode.rst:54
 msgid ""
-"In this dialog it is necessary to select indicator layers which will be used"
-" to calculate charts. This is one-time action, choice made in this dialog "
-"will be preserved and used in all subsequent edits of this specific vector "
-"dataset."
-msgstr "在这个对话框中，有必要选择用于计算图表的指标层。这是一次性操作，在此对话框中做出的选择将被保留，并用于此特定矢量数据集的所有后续编辑。"
+"In this dialog it is necessary to correctly select corresponding "
+"indicator layers which will be used to calculate charts - **special "
+"attention when selecting the layer for SDG 15.3.1 indicator, make sure to"
+" select the SDG 15.3.1 Indicator that has been updated with the "
+"respective progress period**. This is a one-time action, choice made in "
+"this dialog will be preserved and used in all subsequent edits of this "
+"specific vector dataset."
+msgstr ""
 
-#: ../../source/for_users/training/errorrecode.rst:56
+#: ../../source/for_users/training/errorrecode.rst:58
+#, fuzzy
 msgid ""
 "Once the dataset added to the canvas in editing mode, polygons can be "
-"created using either **Polygon** tool"
+"created using either **Polygon** tool or **Buffer** tool which can be "
+"found on the **Trends.Earth** toolbar."
 msgstr "一旦在编辑模式下将数据集添加到画布上，就可以使用**多边形**工具创建多边形。"
 
-#: ../../source/for_users/training/errorrecode.rst:61
-msgid "or **Buffer** tool"
-msgstr "或**缓冲区**工具"
-
-#: ../../source/for_users/training/errorrecode.rst:66
-msgid "which can be found on the **Trends.Earth** toolbar."
-msgstr "这可以在**Trends.Earth**的工具栏上找到。"
-
-#: ../../source/for_users/training/errorrecode.rst:68
+#: ../../source/for_users/training/errorrecode.rst:63
 msgid ""
 "The **Polygon** tool used to digitize polygons manually, using the same "
 "point-and-click approach as native QGIS digitizing tools do. When "
-"**Polygon** tool is selected and digitizing started in the top-right corner "
-"of the QGIS map canvas a widget showing area of the polygon will be "
-"displayed."
-msgstr ""
-"**Polygon**工具用于手动数字化多边形，使用与本地QGIS数字化工具相同的点选方法。当**多边形**工具被选中并在QGIS地图画布的右上角开始数字化时，将显示一个显示多边形区域的小部件。"
+"**Polygon** tool is selected and digitizing started in the top-right "
+"corner of the QGIS map canvas a widget showing area of the polygon will "
+"be displayed."
+msgstr "**Polygon**工具用于手动数字化多边形，使用与本地QGIS数字化工具相同的点选方法。当**多边形**工具被选中并在QGIS地图画布的右上角开始数字化时，将显示一个显示多边形区域的小部件。"
+
+#: ../../source/for_users/training/errorrecode.rst:68
+msgid ""
+"The **Buffer** tool used to digitize polygons by selecting a center point"
+" and defining a radius or area of the circle around that center point. "
+"Once **Buffer** tools is selected and center point defined with the mouse"
+" click in the top-right corner of the QGIS map canvas a widget showing "
+"circle radius will be shown. Enter desired radius and press **Enter** key"
+" to create circle. Alternatively it is possible to draw circle manually "
+"by moving mouse cursor, in this case current radius will be displayed in "
+"the same widget."
+msgstr "**缓冲区**工具用于通过选择中心点和定义半径或该中心点周围的圆的面积来实现多边形的数字化。一旦选择了**缓冲区**工具，并在QGIS地图画布的右上角用鼠标点击定义了中心点，一个显示圆半径的部件就会出现。输入所需的半径，然后按**输入键**来创建圆。另外，也可以通过移动鼠标光标来手动绘制圆，在这种情况下，当前的半径将显示在同一个小部件中。"
 
 #: ../../source/for_users/training/errorrecode.rst:73
 msgid ""
-"The **Buffer** tool used to digitize polygons by selecting a center point "
-"and defining a radius or area of the circle around that center point. Once "
-"**Buffer** tools is selected and center point defined with the mouse click "
-"in the top-right corner of the QGIS map canvas a widget showing circle "
-"radius will be shown. Enter desired radius and press **Enter** key to create"
-" circle. Alternatively it is possible to draw circle manually by moving "
-"mouse cursor, in this case current radius will be displayed in the same "
-"widget."
-msgstr ""
-"**缓冲区**工具用于通过选择中心点和定义半径或该中心点周围的圆的面积来实现多边形的数字化。一旦选择了**缓冲区**工具，并在QGIS地图画布的右上角用鼠标点击定义了中心点，一个显示圆半径的部件就会出现。输入所需的半径，然后按**输入键**来创建圆。另外，也可以通过移动鼠标光标来手动绘制圆，在这种情况下，当前的半径将显示在同一个小部件中。"
-
-#: ../../source/for_users/training/errorrecode.rst:78
-msgid ""
-"When digitizing of the polygon is finished a custom attribute form will be "
-"shown."
+"When digitizing of the polygon is finished a custom attribute form will "
+"be shown."
 msgstr "当多边形的数字化完成后，将显示一个自定义属性表格。"
 
-#: ../../source/for_users/training/errorrecode.rst:83
+#: ../../source/for_users/training/errorrecode.rst:79
 msgid ""
-"In addition to various attributes this form also contains indicators chart "
-"calculated based on the rasters selected in the step 7."
+"In addition to various attributes this form also contains indicators "
+"chart calculated based on the rasters selected in the step 7."
 msgstr "除了各种属性之外，这个表格还包含了根据步骤7中选择的栅格计算的指标图。"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "图标计算器"
+#~ msgid ""
+#~ "In this dialog it is necessary to"
+#~ " select indicator layers which will "
+#~ "be used to calculate charts. This "
+#~ "is one-time action, choice made in"
+#~ " this dialog will be preserved and"
+#~ " used in all subsequent edits of "
+#~ "this specific vector dataset."
+#~ msgstr "在这个对话框中，有必要选择用于计算图表的指标层。这是一次性操作，在此对话框中做出的选择将被保留，并用于此特定矢量数据集的所有后续编辑。"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "图标报告"
+#~ msgid "or **Buffer** tool"
+#~ msgstr "或**缓冲区**工具"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "which can be found on the **Trends.Earth** toolbar."
+#~ msgstr "这可以在**Trends.Earth**的工具栏上找到。"
+
+#~ msgid "iconCalculator"
+#~ msgstr "图标计算器"
+
+#~ msgid "iconReports"
+#~ msgstr "图标报告"
+
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

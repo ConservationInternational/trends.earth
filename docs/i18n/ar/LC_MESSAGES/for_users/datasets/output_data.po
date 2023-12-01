@@ -1,26 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-"
+"international/teams/80165/ar/)\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
+"n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/datasets/output_data.rst:4
 msgid "Output datasets from Trends.Earth"
@@ -28,41 +31,40 @@ msgstr "مجموعات بيانات الإخراج من Trends.Earth"
 
 #: ../../source/for_users/datasets/output_data.rst:6
 msgid ""
-"The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
-"widely supported format, so these datasets can be used within QGIS as well "
-"as within any other GIS software."
+"The spatial data produced by |trends.earth| is in GeoTiff format. This is"
+" a widely supported format, so these datasets can be used within QGIS as "
+"well as within any other GIS software."
 msgstr ""
 "البيانات المكانية التي تنتجها |trends.earth| بتنسيق GeoTiff. هذا التنسيق "
-"مدعوم على نطاق واسع، لذلك يمكن استخدام مجموعات البيانات هذه داخل QGIS وكذلك "
-"في أي برنامج GIS آخر."
+"مدعوم على نطاق واسع، لذلك يمكن استخدام مجموعات البيانات هذه داخل QGIS "
+"وكذلك في أي برنامج GIS آخر."
 
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
 #: ../../source/for_users/datasets/output_data.rst:10
 msgid ""
-"If you wish to use |trends.earth| data outside of the tool itself, you will "
-"need to know how the data is coded. The tables below provide guidance on "
-"what the exact layers are that are produced by each analysis in "
-"|trends.earth|."
+"If you wish to use |trends.earth| data outside of the tool itself, you "
+"will need to know how the data is coded. The tables below provide "
+"guidance on what the exact layers are that are produced by each analysis "
+"in |trends.earth|."
 msgstr ""
-"إذا كنت ترغب في استخدام |trends.earth| خارج الأداة نفسها، ستحتاج إلى معرفة "
-"كيفية تشفير البيانات. توفر الجداول أدناه إرشادات حول ماهية الطبقات الدقيقة "
-"التي تم إنتاجها بواسطة كل تحليل في |trends.earth|."
+"إذا كنت ترغب في استخدام |trends.earth| خارج الأداة نفسها، ستحتاج إلى "
+"معرفة كيفية تشفير البيانات. توفر الجداول أدناه إرشادات حول ماهية الطبقات "
+"الدقيقة التي تم إنتاجها بواسطة كل تحليل في |trends.earth|."
 
 #: ../../source/for_users/datasets/output_data.rst:14
 msgid ""
-"To see which of the below layers is contained within a |trends.earth| output"
-" file, use the `load data <../documentation/load_data.html>`_ tool. When you"
-" choose a file with that tool, it will show you a list of the layers within "
-"that file, as well as the band number for each layer."
+"To see which of the below layers is contained within a |trends.earth| "
+"output file, use the `load data <../documentation/load_data.html>`_ tool."
+" When you choose a file with that tool, it will show you a list of the "
+"layers within that file, as well as the band number for each layer."
 msgstr ""
-"لمعرفة أي من الطبقات أدناه مضمنة في  ملف إخراج |trends.earth|، استخدم `أداة "
-"تحميل البيانات <../documentation/load_data.html>`_. عندما تختار ملفاً "
-"باستخدام هذه الأداة، سيُظهر لك قائمة بالطبقات داخل هذا الملف، بالإضافة إلى "
-"رقم النطاق لكل طبقة."
+"لمعرفة أي من الطبقات أدناه مضمنة في  ملف إخراج |trends.earth|، استخدم "
+"`أداة تحميل البيانات <../documentation/load_data.html>`_. عندما تختار "
+"ملفاً باستخدام هذه الأداة، سيُظهر لك قائمة بالطبقات داخل هذا الملف، "
+"بالإضافة إلى رقم النطاق لكل طبقة."
 
 #: ../../source/for_users/datasets/output_data.rst:20
 msgid "Land degradation (SDG 15.3.1)"
@@ -316,11 +318,13 @@ msgstr "أداء الإنتاجية (النسبة)"
 
 #: ../../source/for_users/datasets/output_data.rst:97
 msgid ""
-"Ratio of mean NDVI and maximum productivity. See background on `performance "
-"<../background/understanding_indicators15.html#productivity-performance>`_."
+"Ratio of mean NDVI and maximum productivity. See background on "
+"`performance <../background/understanding_indicators15.html#productivity-"
+"performance>`_."
 msgstr ""
 "نسبة متوسط ​​NDVI والإنتاجية القصوى. شاهد خلفية عن `الأداء "
-"<../background/understanding_indicators15.html#productivity-performance>`_."
+"<../background/understanding_indicators15.html#productivity-"
+"performance>`_."
 
 #: ../../source/for_users/datasets/output_data.rst:102
 msgid "Productivity performance (units)"
@@ -333,7 +337,8 @@ msgid ""
 "performance>`_."
 msgstr ""
 "رقم معرف الوحدة المستخدمة لحساب الأداء. شاهد خلفية عن `الأداء "
-"<../background/understanding_indicators15.html#productivity-performance>`_."
+"<../background/understanding_indicators15.html#productivity-"
+"performance>`_."
 
 #: ../../source/for_users/datasets/output_data.rst:114
 msgid "Productivity state (degradation)"
@@ -342,13 +347,13 @@ msgstr "حالة الإنتاجية (التدهور)"
 #: ../../source/for_users/datasets/output_data.rst:121
 msgid ""
 "Change in productivity state classes between baseline and target period, "
-"calculated as the rank in the target period minus the rank in the baseline "
-"period. Positive values indicate improvement, negative values indicate "
-"decline."
+"calculated as the rank in the target period minus the rank in the "
+"baseline period. Positive values indicate improvement, negative values "
+"indicate decline."
 msgstr ""
-"التغيير في فئات حالة الإنتاجية بين خط الأساس والفترة المستهدفة، محسوباً على "
-"أنه الترتيب في الفترة المستهدفة مطروحاً منه الرتبة في فترة الأساس. تشير "
-"القيم الإيجابية إلى التحسن، بينما تشير القيم السلبية إلى الانخفاض."
+"التغيير في فئات حالة الإنتاجية بين خط الأساس والفترة المستهدفة، محسوباً "
+"على أنه الترتيب في الفترة المستهدفة مطروحاً منه الرتبة في فترة الأساس. "
+"تشير القيم الإيجابية إلى التحسن، بينما تشير القيم السلبية إلى الانخفاض."
 
 #: ../../source/for_users/datasets/output_data.rst:128
 msgid "Productivity state classes"
@@ -357,7 +362,8 @@ msgstr "فئات الدولة الإنتاجية"
 #: ../../source/for_users/datasets/output_data.rst:135
 msgid ""
 "Percentile class for productivity state. See background on `productivity "
-"state <../background/understanding_indicators15.html#productivity-state>`_."
+"state <../background/understanding_indicators15.html#productivity-"
+"state>`_."
 msgstr ""
 "فئة مئوية لحالة الإنتاجية. راجع خلفية `` حالة الإنتاجية "
 "<../background/understanding_indicators15.html#productivity-state>`_."
@@ -369,8 +375,9 @@ msgstr "تعني حالة الإنتاجية NDVI"
 #: ../../source/for_users/datasets/output_data.rst:147
 msgid ""
 "Mean annually integrated NDVI for the baseline period chosen for "
-"productivity state, scaled by 10,000. See background on `productivity state "
-"<../background/understanding_indicators15.html#productivity-state>`_."
+"productivity state, scaled by 10,000. See background on `productivity "
+"state <../background/understanding_indicators15.html#productivity-"
+"state>`_."
 msgstr ""
 "متوسط ​​دليل NDVI المتكامل سنوياً لفترة الأساس المختارة لحالة الإنتاجية، "
 "بمقياس 10000. راجع خلفية `` حالة الإنتاجية "
@@ -527,8 +534,8 @@ msgstr "30"
 
 #: ../../source/for_users/datasets/output_data.rst:247
 msgid ""
-"Mosaic cropland (>50%) / natural vegetation (tree, shrub, "
-"herbaceous cover) (<50%)"
+"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous "
+"cover) (<50%)"
 msgstr ""
 "أرض مزروعة بالفسيفساء (> 50%) / نباتات طبيعية (أشجار، شجيرة، غطاء عشبي) "
 "(<50%)"
@@ -539,8 +546,8 @@ msgstr "40"
 
 #: ../../source/for_users/datasets/output_data.rst:250
 msgid ""
-"Mosaic natural vegetation (tree, shrub, herbaceous cover) "
-"(>50%) / cropland (<50%)"
+"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / "
+"cropland (<50%)"
 msgstr ""
 "نباتات الفسيفساء الطبيعية (شجرة، شجيرة، غطاء عشبي) (> 50%) / أرض زراعية "
 "(<50%)"
@@ -1157,16 +1164,15 @@ msgstr "الكربون العضوي للتربة (تدهور)"
 #: ../../source/for_users/datasets/output_data.rst:434
 msgid ""
 "Percentage change in soil organic carbon content (0 - 30 cm depth) from "
-"baseline to target year. Positive values indicate increase, negative values "
-"indicate decrease."
+"baseline to target year. Positive values indicate increase, negative "
+"values indicate decrease."
 msgstr ""
-"النسبة المئوية للتغير في محتوى الكربون العضوي بالتربة (0 - 30 سم عمق) من خط "
-"الأساس إلى العام المستهدف. تشير القيم الموجبة إلى زيادة، بينما تشير القيم "
-"السلبية إلى انخفاض."
+"النسبة المئوية للتغير في محتوى الكربون العضوي بالتربة (0 - 30 سم عمق) من "
+"خط الأساس إلى العام المستهدف. تشير القيم الموجبة إلى زيادة، بينما تشير "
+"القيم السلبية إلى انخفاض."
 
 #: ../../source/for_users/datasets/output_data.rst:447
-msgid ""
-"Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
+msgid "Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
 msgstr "محتوى التربة من الكربون العضوي (0 - 30 سم عمق) بالطن المتري للهكتار"
 
 #: ../../source/for_users/datasets/output_data.rst:452
@@ -1187,31 +1193,33 @@ msgstr "السكان في أقصى جفاف"
 
 #: ../../source/for_users/datasets/output_data.rst:470
 msgid ""
-"As an indicator of population exposure to drought, Trends.Earth's drought "
-"tools produce a layer assessing total population (or male or female "
-"population, depending on the selections made by the user) at time of maximum"
-" drought. For the purpose of these analyses, drought is defined as an SPI "
-"less than -1.0 (a lag 12 SPI is the default used in the tool)."
+"As an indicator of population exposure to drought, Trends.Earth's drought"
+" tools produce a layer assessing total population (or male or female "
+"population, depending on the selections made by the user) at time of "
+"maximum drought. For the purpose of these analyses, drought is defined as"
+" an SPI less than -1.0 (a lag 12 SPI is the default used in the tool)."
 msgstr ""
-"كمؤشر على تعرض السكان للجفاف، تُنتج \"Trends.Earth\"، وأدوات الجفاف في الأرض"
-" طبقة تقيم إجمالي السكان (أو السكان من الذكور أو الإناث، اعتماداً على "
-"الاختيارات التي يقوم بها المستخدم) في وقت الجفاف الأقصى. ولأغراض هذه "
-"التحليلات، يُعرّف الجفاف على أنه SPI أقل من -1.0 (lag 12 SPI هو الافتراضي "
-"المستخدم في الأداة)."
+"كمؤشر على تعرض السكان للجفاف، تُنتج \"Trends.Earth\"، وأدوات الجفاف في "
+"الأرض طبقة تقيم إجمالي السكان (أو السكان من الذكور أو الإناث، اعتماداً "
+"على الاختيارات التي يقوم بها المستخدم) في وقت الجفاف الأقصى. ولأغراض هذه "
+"التحليلات، يُعرّف الجفاف على أنه SPI أقل من -1.0 (lag 12 SPI هو الافتراضي"
+" المستخدم في الأداة)."
 
 #: ../../source/for_users/datasets/output_data.rst:481
 msgid "Any negative value"
 msgstr "أي قيمة سلبية"
 
 #: ../../source/for_users/datasets/output_data.rst:481
+#, fuzzy
 msgid ""
-"A positive value indicates a pixel **was** exposed to drought (defined as "
-"SPI < -1) during a particular (typically four- year) period. The pixel value"
-" indicates the population of the pixel at the time of maximum drought."
+"A negative value indicates a pixel **was** exposed to drought (defined as"
+" SPI < -1) during a particular (typically four- year) period. The pixel "
+"value indicates the population of the pixel at the time of maximum "
+"drought."
 msgstr ""
-"تشير القيمة الإيجابية إلى أن البكسل **كان** قد تعرض للجفاف (يُعرّف على أنه "
-"SPI <-1) خلال فترة معينة (عادةً أربع سنوات). تشير قيمة البكسل إلى عدد سكان "
-"البكسل في وقت الجفاف الأقصى."
+"تشير القيمة الإيجابية إلى أن البكسل **كان** قد تعرض للجفاف (يُعرّف على "
+"أنه SPI <-1) خلال فترة معينة (عادةً أربع سنوات). تشير قيمة البكسل إلى عدد"
+" سكان البكسل في وقت الجفاف الأقصى."
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid "Any positive value"
@@ -1219,8 +1227,8 @@ msgstr "أي قيمة موجبة"
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid ""
-"A positive value indicates a pixel **was not** exposed to drought during a "
-"particular (typically four-year) period. The pixel value indicates the "
+"A positive value indicates a pixel **was not** exposed to drought during "
+"a particular (typically four-year) period. The pixel value indicates the "
 "maximum population of the pixel during the period."
 msgstr ""
 "تشير القيمة الموجبة إلى أن البكسل ** لم** يتعرض للجفاف خلال فترة معينة "
@@ -1318,22 +1326,22 @@ msgstr "السكان (إجمالي، ذكور، أو إناث)"
 
 #: ../../source/for_users/datasets/output_data.rst:560
 msgid ""
-"This output draws on data from the `WorldPop <https://www.worldpop.org>`_ "
-"project. Depending on the tool used in Trends.Earth, population outputs can "
-"be: total population (male and female), total male population, or total "
-"female population. The pixels values in each all are coded the same way, and"
-" refer to actual population counts per grid cell."
+"This output draws on data from the `WorldPop <https://www.worldpop.org>`_"
+" project. Depending on the tool used in Trends.Earth, population outputs "
+"can be: total population (male and female), total male population, or "
+"total female population. The pixels values in each all are coded the same"
+" way, and refer to actual population counts per grid cell."
 msgstr ""
-"يعتمد هذا الإخراج على بيانات من مشروع `WorldPop <https://www.worldpop.org>`_"
-" project. اعتماداً على الأداة المستخدمة في Trends.Earth، يمكن أن تكون مخرجات"
-" السكان: إجمالي السكان (ذكوراً وإناثاً)، أو إجمالي عدد السكان من الذكور، أو "
-"إجمالي عدد الإناث. يتم ترميز قيم البكسل في كل منها بنفس الطريقة، وتشير إلى "
-"عدد السكان الفعلي لكل خلية شبكة."
+"يعتمد هذا الإخراج على بيانات من مشروع `WorldPop "
+"<https://www.worldpop.org>`_ project. اعتماداً على الأداة المستخدمة في "
+"Trends.Earth، يمكن أن تكون مخرجات السكان: إجمالي السكان (ذكوراً وإناثاً)،"
+" أو إجمالي عدد السكان من الذكور، أو إجمالي عدد الإناث. يتم ترميز قيم "
+"البكسل في كل منها بنفس الطريقة، وتشير إلى عدد السكان الفعلي لكل خلية "
+"شبكة."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "أيقونة الحاسبة"
+#~ msgid "iconCalculator"
+#~ msgstr "أيقونة الحاسبة"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "أيقونة التقارير"
+#~ msgid "iconReports"
+#~ msgstr "أيقونة التقارير"
+

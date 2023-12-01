@@ -546,6 +546,13 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                         "band_name": soil.band_info.name,
                         "uuid": str(soil.job.id),
                     }
+                if sdg:
+                    self.job.params["sdg"] = {
+                        "path": str(sdg.path),
+                        "band": sdg.band_index,
+                        "band_name": sdg.band_info.name,
+                        "uuid": str(sdg.job.id),
+                    }
 
                 manager.job_manager.write_job_metadata_file(self.job)
                 manager.job_manager.display_error_recode_layer(self.job)
@@ -576,7 +583,6 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                         "index": sdg.band_index,
                     },
                 ]
-                log("setting default stats value")
                 layers.set_default_stats_value(
                     str(self.job.results.vector.uri.uri), band_datas
                 )
@@ -591,8 +597,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         has_prod = True if "prod" in self.job.params else False
         has_lc = True if "lc" in self.job.params else False
         has_soil = True if "soil" in self.job.params else False
+        has_sdg = True if "sdg" in self.job.params else False
 
-        return has_prod and has_lc and has_soil
+        return has_prod and has_lc and has_soil and has_sdg
 
     def prepare_metadata_menu(self):
         self.metadata_menu.clear()
@@ -634,10 +641,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def load_rasters_layers(self):
         jobs = manager.job_manager._known_downloaded_jobs.copy()
-        self._load_raster(jobs, "sdg")
-        self._load_raster(jobs, "prod")
         self._load_raster(jobs, "soil")
         self._load_raster(jobs, "lc")
+        self._load_raster(jobs, "prod")
+        self._load_raster(jobs, "sdg")
 
     def _load_raster(self, jobs, name):
         if name in self.job.params:

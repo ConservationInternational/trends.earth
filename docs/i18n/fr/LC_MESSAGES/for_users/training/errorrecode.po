@@ -1,25 +1,28 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-06-21 21:07+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language-Team: French (https://www.transifex.com/conservation-"
+"international/teams/80165/fr/)\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/errorrecode.rst:4
 msgid "False positive/negative layers"
@@ -27,7 +30,8 @@ msgstr "Couches faux positifs/négatifs"
 
 #: ../../source/for_users/training/errorrecode.rst:6
 msgid ""
-"**Objective**: Learn how to create false positive/negative vector datasets."
+"**Objective**: Learn how to create false positive/negative vector "
+"datasets."
 msgstr ""
 "**Objectif** : apprendre à créer des ensembles de données vectorielles "
 "faussement positives ou négatives."
@@ -42,8 +46,8 @@ msgstr "**Accès Internet** : non requis"
 
 #: ../../source/for_users/training/errorrecode.rst:12
 msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
-" icon."
+"Click on the Trends.Earth toolbar within QGIS, and click on the "
+"Trends.Earth icon."
 msgstr ""
 "Cliquez sur la barre d'outils Trends.Earth dans QGIS, puis cliquez sur "
 "l'icône Trends.Earth."
@@ -51,21 +55,21 @@ msgstr ""
 #: ../../source/for_users/training/errorrecode.rst:17
 msgid ""
 "The **Trends.Earth** menu will open. In the **Dataset** window, where "
-"existing tasks are listed in the menu if the **Download remotely-generated "
-"datasets automatically** is checked in settings."
+"existing tasks are listed in the menu if the **Download remotely-"
+"generated datasets automatically** is checked in settings."
 msgstr ""
-"Le menu **Trends.Earth** s'ouvre. Dans la fenêtre **Ensembles de données**, "
-"les tâches existantes sont listées dans le menu si la case **Télécharger "
-"automatiquement les ensembles de données générées à distance** est cochée "
-"dans les paramètres."
+"Le menu **Trends.Earth** s'ouvre. Dans la fenêtre **Ensembles de "
+"données**, les tâches existantes sont listées dans le menu si la case "
+"**Télécharger automatiquement les ensembles de données générées à "
+"distance** est cochée dans les paramètres."
 
 #: ../../source/for_users/training/errorrecode.rst:20
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more about "
-"**Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more "
+"about **Advanced settings**"
 msgstr ""
-"Se référer à la section :ref:`tut_settings` de ce manuel pour en savoir plus"
-" sur les **paramètres avancés**"
+"Se référer à la section :ref:`tut_settings` de ce manuel pour en savoir "
+"plus sur les **paramètres avancés**"
 
 #: ../../source/for_users/training/errorrecode.rst:22
 msgid "Select the Refresh button if no datasets appear in the menu."
@@ -74,9 +78,10 @@ msgstr ""
 "n'apparaît dans le menu."
 
 #: ../../source/for_users/training/errorrecode.rst:24
+#, fuzzy
 msgid ""
-"Press the **Create** button at the bottom of the **Trends.Earth** menu and "
-"then select **False positive layer**"
+"Press the **Create** button at the bottom of the **Trends.Earth** menu "
+"and then select **False positive/negative layer**"
 msgstr ""
 "Appuyez sur le bouton **Créer** en bas du menu **Trends.Earth**, puis "
 "sélectionnez **Couche faux positif**"
@@ -86,8 +91,8 @@ msgid ""
 "A new dataset called \"False positive/negative\" will be added to the "
 "**Dataset** window."
 msgstr ""
-"Un nouvel ensemble de données appelé « Faux positifs/négatifs » sera ajouté "
-"à la fenêtre **Ensemble de données**."
+"Un nouvel ensemble de données appelé « Faux positifs/négatifs » sera "
+"ajouté à la fenêtre **Ensemble de données**."
 
 #: ../../source/for_users/training/errorrecode.rst:34
 msgid ""
@@ -103,108 +108,125 @@ msgstr "La couche sera ajoutée avec le style prédéfini (voir ci-dessous)"
 
 #: ../../source/for_users/training/errorrecode.rst:44
 msgid ""
-"To define areas in the dataset it is necessary to add it to QGIS map canvas "
-"using **Edit layer** button"
+"To define areas in the dataset it is necessary to add it to QGIS map "
+"canvas using **Edit layer** button"
 msgstr ""
 "Pour définir des zones dans l'ensemble de données, il est nécessaire de "
-"l'ajouter au canevas de carte QGIS à l'aide du bouton **Modifier la couche**"
+"l'ajouter au canevas de carte QGIS à l'aide du bouton **Modifier la "
+"couche**"
 
 #: ../../source/for_users/training/errorrecode.rst:49
+#, fuzzy
 msgid ""
-"If this is first time when layer added to QGIS canvas a dialog asking for "
-"indicator layers will be shown"
+"If this is the first time a false positive/negative layer is added to "
+"QGIS canvas a dialog asking for indicator layers will be shown"
 msgstr ""
 "Si c'est la première fois que la couche est ajoutée au canevas QGIS, une "
 "boîte de dialogue demandant des couches indicatrices s'affiche."
 
 #: ../../source/for_users/training/errorrecode.rst:54
 msgid ""
-"In this dialog it is necessary to select indicator layers which will be used"
-" to calculate charts. This is one-time action, choice made in this dialog "
-"will be preserved and used in all subsequent edits of this specific vector "
-"dataset."
+"In this dialog it is necessary to correctly select corresponding "
+"indicator layers which will be used to calculate charts - **special "
+"attention when selecting the layer for SDG 15.3.1 indicator, make sure to"
+" select the SDG 15.3.1 Indicator that has been updated with the "
+"respective progress period**. This is a one-time action, choice made in "
+"this dialog will be preserved and used in all subsequent edits of this "
+"specific vector dataset."
 msgstr ""
-"Dans cette boîte de dialogue, il est nécessaire de sélectionner les couches "
-"indicatrices qui serviront à calculer les tableaux. Il s'agit d'une action "
-"unique ; le choix fait ici sera conservé et utilisé lors de toutes les "
-"modifications ultérieures de cet ensemble de données vectorielles "
-"spécifique."
 
-#: ../../source/for_users/training/errorrecode.rst:56
+#: ../../source/for_users/training/errorrecode.rst:58
+#, fuzzy
 msgid ""
 "Once the dataset added to the canvas in editing mode, polygons can be "
-"created using either **Polygon** tool"
+"created using either **Polygon** tool or **Buffer** tool which can be "
+"found on the **Trends.Earth** toolbar."
 msgstr ""
 "Lorsque l'ensemble de données est ajouté au canevas en mode édition, les "
 "polygones peuvent être créés à l'aide de l'outil **Polygone**"
 
-#: ../../source/for_users/training/errorrecode.rst:61
-msgid "or **Buffer** tool"
-msgstr "ou l'outil **Mémoire tampon**"
-
-#: ../../source/for_users/training/errorrecode.rst:66
-msgid "which can be found on the **Trends.Earth** toolbar."
-msgstr "qui se trouve dans la barre d'outils **Trends.Earth**."
-
-#: ../../source/for_users/training/errorrecode.rst:68
+#: ../../source/for_users/training/errorrecode.rst:63
 msgid ""
 "The **Polygon** tool used to digitize polygons manually, using the same "
 "point-and-click approach as native QGIS digitizing tools do. When "
-"**Polygon** tool is selected and digitizing started in the top-right corner "
-"of the QGIS map canvas a widget showing area of the polygon will be "
-"displayed."
+"**Polygon** tool is selected and digitizing started in the top-right "
+"corner of the QGIS map canvas a widget showing area of the polygon will "
+"be displayed."
 msgstr ""
 "L'outil **Polygone** permet de numériser des polygones manuellement en "
-"utilisant la même approche « pointer et cliquer » utilisée par les outils de"
-" numérisation natifs de QGIS. Lorsque l'outil **Polygone** est sélectionné "
-"et que la numérisation est lancée en haut à droite du canevas de carte QGIS,"
-" un widget indiquant la zone du polygone s'affiche."
+"utilisant la même approche « pointer et cliquer » utilisée par les outils"
+" de numérisation natifs de QGIS. Lorsque l'outil **Polygone** est "
+"sélectionné et que la numérisation est lancée en haut à droite du canevas"
+" de carte QGIS, un widget indiquant la zone du polygone s'affiche."
 
-#: ../../source/for_users/training/errorrecode.rst:73
+#: ../../source/for_users/training/errorrecode.rst:68
 msgid ""
-"The **Buffer** tool used to digitize polygons by selecting a center point "
-"and defining a radius or area of the circle around that center point. Once "
-"**Buffer** tools is selected and center point defined with the mouse click "
-"in the top-right corner of the QGIS map canvas a widget showing circle "
-"radius will be shown. Enter desired radius and press **Enter** key to create"
-" circle. Alternatively it is possible to draw circle manually by moving "
-"mouse cursor, in this case current radius will be displayed in the same "
-"widget."
+"The **Buffer** tool used to digitize polygons by selecting a center point"
+" and defining a radius or area of the circle around that center point. "
+"Once **Buffer** tools is selected and center point defined with the mouse"
+" click in the top-right corner of the QGIS map canvas a widget showing "
+"circle radius will be shown. Enter desired radius and press **Enter** key"
+" to create circle. Alternatively it is possible to draw circle manually "
+"by moving mouse cursor, in this case current radius will be displayed in "
+"the same widget."
 msgstr ""
 "L'outil **Mémoire tampon** permet de numériser des polygones en "
 "sélectionnant un point central et en définissant un rayon ou une zone du "
-"cercle autour de ce point central. Lorsque l'outil **Mémoire tampon** est "
-"sélectionné et que le point central est défini (en cliquant en haut à droite"
-" du canevas de carte QGIS), un widget indiquant le rayon du cercle apparaît."
-" Saisissez le rayon souhaité et appuyez sur la touche **Entrée** pour créer "
-"le cercle. Vous pouvez également dessiner manuellement le cercle en "
-"déplaçant votre souris ; le rayon actuel s'affiche alors dans le même "
-"widget."
+"cercle autour de ce point central. Lorsque l'outil **Mémoire tampon** est"
+" sélectionné et que le point central est défini (en cliquant en haut à "
+"droite du canevas de carte QGIS), un widget indiquant le rayon du cercle "
+"apparaît. Saisissez le rayon souhaité et appuyez sur la touche **Entrée**"
+" pour créer le cercle. Vous pouvez également dessiner manuellement le "
+"cercle en déplaçant votre souris ; le rayon actuel s'affiche alors dans "
+"le même widget."
 
-#: ../../source/for_users/training/errorrecode.rst:78
+#: ../../source/for_users/training/errorrecode.rst:73
 msgid ""
-"When digitizing of the polygon is finished a custom attribute form will be "
-"shown."
+"When digitizing of the polygon is finished a custom attribute form will "
+"be shown."
 msgstr ""
-"Un formulaire d'attribut personnalisé s'affiche lorsque la numérisation du "
-"polygone est terminée."
+"Un formulaire d'attribut personnalisé s'affiche lorsque la numérisation "
+"du polygone est terminée."
 
-#: ../../source/for_users/training/errorrecode.rst:83
+#: ../../source/for_users/training/errorrecode.rst:79
 msgid ""
-"In addition to various attributes this form also contains indicators chart "
-"calculated based on the rasters selected in the step 7."
+"In addition to various attributes this form also contains indicators "
+"chart calculated based on the rasters selected in the step 7."
 msgstr ""
 "Outre divers attributs, ce formulaire contient également des indicateurs "
 "calculés sur la base des trames sélectionnées à l'étape 7."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "icôneCalculatrice"
+#~ msgid ""
+#~ "In this dialog it is necessary to"
+#~ " select indicator layers which will "
+#~ "be used to calculate charts. This "
+#~ "is one-time action, choice made in"
+#~ " this dialog will be preserved and"
+#~ " used in all subsequent edits of "
+#~ "this specific vector dataset."
+#~ msgstr ""
+#~ "Dans cette boîte de dialogue, il "
+#~ "est nécessaire de sélectionner les "
+#~ "couches indicatrices qui serviront à "
+#~ "calculer les tableaux. Il s'agit d'une"
+#~ " action unique ; le choix fait "
+#~ "ici sera conservé et utilisé lors "
+#~ "de toutes les modifications ultérieures "
+#~ "de cet ensemble de données vectorielles"
+#~ " spécifique."
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "icôneRapports"
+#~ msgid "or **Buffer** tool"
+#~ msgstr "ou l'outil **Mémoire tampon**"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "which can be found on the **Trends.Earth** toolbar."
+#~ msgstr "qui se trouve dans la barre d'outils **Trends.Earth**."
+
+#~ msgid "iconCalculator"
+#~ msgstr "icôneCalculatrice"
+
+#~ msgid "iconReports"
+#~ msgstr "icôneRapports"
+
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

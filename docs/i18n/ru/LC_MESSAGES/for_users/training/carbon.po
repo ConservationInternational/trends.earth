@@ -1,26 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-"
+"international/teams/80165/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/carbon.rst:4
 msgid "Forest and Carbon Change Tool"
@@ -29,12 +33,12 @@ msgstr "Инструмент отслеживания изменения лес�
 #: ../../source/for_users/training/carbon.rst:6
 msgid ""
 "**Objective**: Learn how to compute forest cover, forest loss, above and "
-"below ground biomass and emissions from deforestation in raster format and "
-"tabular outputs with areas estimated."
+"below ground biomass and emissions from deforestation in raster format "
+"and tabular outputs with areas estimated."
 msgstr ""
-"**Цель**: Научиться рассчитывать лесной покров, потери лесов, надземную и "
-"подземную биомассу и выбросы в результате обезлесения в растровом формате и "
-"в виде таблиц с оценочными площадями."
+"**Цель**: Научиться рассчитывать лесной покров, потери лесов, надземную и"
+" подземную биомассу и выбросы в результате обезлесения в растровом "
+"формате и в виде таблиц с оценочными площадями."
 
 #: ../../source/for_users/training/carbon.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
@@ -49,8 +53,8 @@ msgid ""
 "Refer to the :ref:`background_carbon` for background information on the "
 "datasets and"
 msgstr ""
-"Обратитесь к :ref:`background_carbon` для получения справочной информации о "
-"наборах данных и"
+"Обратитесь к :ref:`background_carbon` для получения справочной информации"
+" о наборах данных и"
 
 #: ../../source/for_users/training/carbon.rst:14
 msgid "methodology used for this tutorial."
@@ -63,11 +67,11 @@ msgstr "Рассчитать изменение углерода"
 #: ../../source/for_users/training/carbon.rst:21
 msgid ""
 "In the **Algorithms** tab in Trends.Earth plugin in QGIS, under the "
-"**Experimental** menu, select **Calculate change in total carbon - Above and"
-" below ground emissions, and deforestation** menu."
+"**Experimental** menu, select **Calculate change in total carbon - Above "
+"and below ground emissions, and deforestation** menu."
 msgstr ""
-"На вкладке **Алгоритмы** в подключаемом модуле Trends.Earth в QGIS в меню "
-"**Экспериментальные** выберите пункт **Рассчитать изменение общего "
+"На вкладке **Алгоритмы** в подключаемом модуле Trends.Earth в QGIS в меню"
+" **Экспериментальные** выберите пункт **Рассчитать изменение общего "
 "содержания углерода — надземные и подземные выбросы и обезлесение**."
 
 #: ../../source/for_users/training/carbon.rst:27
@@ -85,30 +89,31 @@ msgid ""
 "loss, carbon emissions from deforestation. Define the percent tree cover "
 "considered forest for your area of interest."
 msgstr ""
-"Появится окно, в котором вы можете выбрать параметры для анализа углерода. "
-"Выберите начальный и целевой годы для мониторинга потери древесного покрова,"
-" выбросов углерода в результате обезлесения. Определите процент древесного "
-"покрова, который считается лесом для интересующей вас области."
+"Появится окно, в котором вы можете выбрать параметры для анализа "
+"углерода. Выберите начальный и целевой годы для мониторинга потери "
+"древесного покрова, выбросов углерода в результате обезлесения. "
+"Определите процент древесного покрова, который считается лесом для "
+"интересующей вас области."
 
 #: ../../source/for_users/training/carbon.rst:39
 msgid ""
-"The definition of canopy cover should be changed to accommodate the specific"
-" area of interest."
+"The definition of canopy cover should be changed to accommodate the "
+"specific area of interest."
 msgstr ""
 "Определение покрова должно быть изменено, чтобы учесть конкретную "
 "интересующую область."
 
 #: ../../source/for_users/training/carbon.rst:38
 msgid ""
-"The dataset maps global tree cover based on percent canopy cover in the year"
-" 2000. Many studies cite 25% - 30% threshold to define forest, however this "
-"definition can change for arid regions. For more information, please see the"
-" publication\""
+"The dataset maps global tree cover based on percent canopy cover in the "
+"year 2000. Many studies cite 25% - 30% threshold to define forest, "
+"however this definition can change for arid regions. For more "
+"information, please see the publication\""
 msgstr ""
-"Набор данных отображает глобальный древесный покров на основе процентного "
-"покрытия покрова в 2000 году. Во многих исследованиях указывается пороговое "
-"значение 25–30% для определения леса, однако это определение может меняться "
-"для засушливых регионов. Подробнее читайте в публикации\""
+"Набор данных отображает глобальный древесный покров на основе процентного"
+" покрытия покрова в 2000 году. Во многих исследованиях указывается "
+"пороговое значение 25–30% для определения леса, однако это определение "
+"может меняться для засушливых регионов. Подробнее читайте в публикации\""
 
 #: ../../source/for_users/training/carbon.rst:44
 msgid "Select **Change region** to define the area of interest."
@@ -116,22 +121,23 @@ msgstr "Выберите **Изменить регион**, чтобы опре�
 
 #: ../../source/for_users/training/carbon.rst:50
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
+"are in the `public domain`_. The boundaries and names used, and the "
+"designations used, in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors."
 msgstr ""
 "«Административные границы естественной земли», представленные в "
-"Trends.Earth, находятся в «общественном достоянии». Используемые границы и "
-"названия, а также обозначения, используемые в Trends.Earth, не подразумевают"
-" официального одобрения или принятия со стороны Международного фонда "
-"сохранения или его партнерских организаций и участников."
+"Trends.Earth, находятся в «общественном достоянии». Используемые границы "
+"и названия, а также обозначения, используемые в Trends.Earth, не "
+"подразумевают официального одобрения или принятия со стороны "
+"Международного фонда сохранения или его партнерских организаций и "
+"участников."
 
 #: ../../source/for_users/training/carbon.rst:56
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users"
+" choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
 "Если вы используете Trends.Earth для официальных целей, пользователям "
@@ -140,14 +146,15 @@ msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:64
 msgid ""
-"Use your own area file: If you want to use your own area of analysis, make "
-"sure the **Area from file** option is highlighted. Then click **Browse** and"
-" navigate to the folder in your computer where you have the file stored."
+"Use your own area file: If you want to use your own area of analysis, "
+"make sure the **Area from file** option is highlighted. Then click "
+"**Browse** and navigate to the folder in your computer where you have the"
+" file stored."
 msgstr ""
-"Используйте свой собственный файл области: если вы хотите использовать свою "
-"собственную область анализа, убедитесь, что опция ** Область из файла ** "
-"выделена. Затем нажмите ** Обзор ** и перейдите к папке на вашем компьютере,"
-" где хранится файл."
+"Используйте свой собственный файл области: если вы хотите использовать "
+"свою собственную область анализа, убедитесь, что опция ** Область из "
+"файла ** выделена. Затем нажмите ** Обзор ** и перейдите к папке на вашем"
+" компьютере, где хранится файл."
 
 #: ../../source/for_users/training/carbon.rst:66
 msgid "Add a descriptive name and notes for the analysis"
@@ -155,25 +162,25 @@ msgstr "Добавьте описательное имя и примечания
 
 #: ../../source/for_users/training/carbon.rst:68
 msgid ""
-"Select the **Advanced configuration** menu to select the biomass dataset, "
-"and method for calculating the root to shoot ratio (below ground biomass) "
-"Select **Schedule remote exectution**"
+"Select the **Advanced configuration** menu to select the biomass dataset,"
+" and method for calculating the root to shoot ratio (below ground "
+"biomass) Select **Schedule remote exectution**"
 msgstr ""
-"Выберите меню **Расширенная конфигурация**, чтобы выбрать набор данных по "
-"биомассе и метод расчета соотношения корней и побегов (подземная биомасса). "
-"Выберите **Расписание удаленного выполнения**."
+"Выберите меню **Расширенная конфигурация**, чтобы выбрать набор данных по"
+" биомассе и метод расчета соотношения корней и побегов (подземная "
+"биомасса). Выберите **Расписание удаленного выполнения**."
 
 #: ../../source/for_users/training/carbon.rst:74
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
-"successfully submitted. The analysis will be run in Google servers and could"
-" take between 5 and 15 minutes depending on the size of the study area "
-"(larger areas tend to take longer)."
+"successfully submitted. The analysis will be run in Google servers and "
+"could take between 5 and 15 minutes depending on the size of the study "
+"area (larger areas tend to take longer)."
 msgstr ""
-"Временно отобразится голубая полоса, указывающая, что задание было успешно "
-"отправлено. Анализ будет выполняться на серверах Google и может занять от 5 "
-"до 15 минут в зависимости от размера исследуемой области (большие области, "
-"как правило, занимают больше времени)."
+"Временно отобразится голубая полоса, указывающая, что задание было "
+"успешно отправлено. Анализ будет выполняться на серверах Google и может "
+"занять от 5 до 15 минут в зависимости от размера исследуемой области "
+"(большие области, как правило, занимают больше времени)."
 
 #: ../../source/for_users/training/carbon.rst:77
 msgid "Change in carbon summary table"
@@ -184,16 +191,17 @@ msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
 msgstr ""
-"Перейдите на вкладку **Наборы данных**, чтобы **Добавить слои по умолчанию "
-"из этого набора данных на карту**."
+"Перейдите на вкладку **Наборы данных**, чтобы **Добавить слои по "
+"умолчанию из этого набора данных на карту**."
 
 #: ../../source/for_users/training/carbon.rst:84
 msgid ""
-"In order to view the defined area of interest with reference data, select "
-"the **Load Base Map** in the **Datasets** tab."
+"In order to view the defined area of interest with reference data, select"
+" the **Load Base Map** in the **Datasets** tab."
 msgstr ""
-"Чтобы просмотреть определенную интересующую область со справочными данными, "
-"выберите **Загрузить базовую карту** на вкладке **Наборы данных**."
+"Чтобы просмотреть определенную интересующую область со справочными "
+"данными, выберите **Загрузить базовую карту** на вкладке **Наборы "
+"данных**."
 
 #: ../../source/for_users/training/carbon.rst:95
 msgid ""
@@ -201,19 +209,20 @@ msgid ""
 "emissions, and deforestation** menu under **Change in carbon summary "
 "table**, select the **Execute locally** button."
 msgstr ""
-"В меню **Расчет изменения общего содержания углерода — надземные и подземные"
-" выбросы и обезлесение** в разделе **Изменение сводной таблицы углерода** "
-"нажмите кнопку **Выполнить локально**."
+"В меню **Расчет изменения общего содержания углерода — надземные и "
+"подземные выбросы и обезлесение** в разделе **Изменение сводной таблицы "
+"углерода** нажмите кнопку **Выполнить локально**."
 
 #: ../../source/for_users/training/carbon.rst:101
 msgid ""
-"The layers will pre-populate in the data layer drop-down lists. Confirm the "
-"region is the same area of interest, provide descriptive names and notes and"
-" select **Execute locally**."
+"The layers will pre-populate in the data layer drop-down lists. Confirm "
+"the region is the same area of interest, provide descriptive names and "
+"notes and select **Execute locally**."
 msgstr ""
-"Слои будут предварительно заполнены в раскрывающихся списках слоев данных. "
-"Подтвердите, что область представляет собой ту же область интереса, укажите "
-"описательные имена и примечания и выберите **Выполнить локально**."
+"Слои будут предварительно заполнены в раскрывающихся списках слоев "
+"данных. Подтвердите, что область представляет собой ту же область "
+"интереса, укажите описательные имена и примечания и выберите **Выполнить "
+"локально**."
 
 #: ../../source/for_users/training/carbon.rst:101
 msgid ""
@@ -226,14 +235,12 @@ msgstr ""
 "пользователя на вашем компьютере (например, "
 "C:\\Users\\mnoon\\trends_earth_data)."
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
 
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
+

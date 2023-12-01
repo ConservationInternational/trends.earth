@@ -2,6 +2,7 @@ import enum
 import math
 
 from qgis.core import Qgis
+from qgis.core import QgsAbstractGeometry
 from qgis.core import QgsFeature
 from qgis.core import QgsGeometry
 from qgis.core import QgsPointXY
@@ -10,6 +11,7 @@ from qgis.core import QgsRasterLayer
 from qgis.core import QgsRectangle
 from qgis.core import QgsUnitTypes
 from qgis.core import QgsVectorLayerUtils
+from qgis.core import QgsWkbTypes
 from qgis.gui import QgsDoubleSpinBox
 from qgis.gui import QgsMapCanvas
 from qgis.gui import QgsMapMouseEvent
@@ -22,6 +24,7 @@ from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.utils import iface
 
+from .areaofinterest import prepare_area_of_interest
 from .jobs.manager import job_manager
 
 
@@ -45,14 +48,14 @@ class AreaWidget(QtWidgets.QWidget):
 
         self.line_edit = QtWidgets.QLineEdit(self)
         self.line_edit.setReadOnly(True)
-        self.line_edit.setText(self.tr("0.00 km²"))
+        self.line_edit.setText(self.tr("0.00 km\u00B2"))
         self.line_edit.setSizePolicy(
             QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Preferred
         )
         self.layout.addWidget(self.line_edit)
 
     def set_area(self, area):
-        self.line_edit.setText(self.tr("{:.6g} km²".format(area)))
+        self.line_edit.setText(self.tr("{:.6g} km\u00B2".format(area)))
 
 
 class BufferWidget(QtWidgets.QWidget):
@@ -95,7 +98,7 @@ class BufferWidget(QtWidgets.QWidget):
 
     def change_mode(self, index):
         if index == BufferMode.AREA:
-            self.spin_radius.setSuffix(self.tr(" km²"))
+            self.spin_radius.setSuffix(self.tr(" km\u00B2"))
         elif index == BufferMode.RADIUS:
             self.spin_radius.setSuffix(self.tr(" km"))
 
@@ -163,15 +166,11 @@ class TEMapToolMixin:
         intersect with the base layer.
         """
         if self._geom_engine is None:
-            ext_rect = self.base_layer_extents()
-            if ext_rect is None:
+            geom = prepare_area_of_interest().get_unary_geometry()
+            if geom is None or not geom.isGeosValid():
                 return
 
-            ext_geom = QgsGeometry.fromRect(ext_rect)
-            if not ext_geom.isGeosValid():
-                return
-
-            self._geom_engine = QgsGeometry.createGeometryEngine(ext_geom.constGet())
+            self._geom_engine = QgsGeometry.createGeometryEngine(geom.constGet())
             self._geom_engine.prepareGeometry()
 
     def intersects_with_base_extents(self, geom: QgsGeometry) -> GeomOpResult:
@@ -188,6 +187,39 @@ class TEMapToolMixin:
 
         return GeomOpResult.FALSE
 
+    def intersection_with_base_extents(self, geom: QgsGeometry) -> QgsAbstractGeometry:
+        """
+        Returns intersection of geom and base extent. If the base layer extent
+        could not be determined then this will return the unmodified geom.
+        """
+        if self._geom_engine is None:
+            return geom.get()
+        else:
+            # Disable below until crash is resolved
+            # g = QgsGeometry(self._geom_engine.intersection(geom.constGet()))
+            # g.convertGeometryCollectionToSubclass(QgsWkbTypes.PolygonGeometry)
+            g = self._geom_engine.intersection(geom.constGet())
+            if g.geometryType() == "Polygon":
+                return g
+            elif g.geometryType() == "GeometryCollection":
+                # When a new polygon partially overlaps the boundary of the
+                # region and also an existing polygon the user has drawn, then
+                # the intersection can include Linestrings - these need to be
+                # removed before the geometry is saved
+                n = 0
+                while n < g.childCount():
+                    child = g.childGeometry(n)
+                    if child.geometryType() not in ["Polygon", "MultiPolygon"]:
+                        g.removeGeometry(n)
+                        # Continue loop with same value of n as removal of this
+                        # geometry means another geometry has taken its place
+                        # in the same index position
+                        continue
+                    n += 1
+                return g
+            else:
+                return QgsGeometry().get()
+
     def _set_intersection_mode(self, avoid_overlaps: bool):
         # Activate/de-activate intersection mode
         project = QgsProject.instance()
@@ -196,8 +228,9 @@ class TEMapToolMixin:
 
         if avoid_overlaps:
             project.setAvoidIntersectionsMode(
-                Qgis.AvoidIntersectionsMode.AvoidIntersectionsCurrentLayer
+                Qgis.AvoidIntersectionsMode.AvoidIntersectionsLayers
             )
+            project.setAvoidIntersectionsLayers([self.currentVectorLayer()])
         else:
             # Restore original mode
             if self._intersection_mode is not None:
@@ -357,8 +390,24 @@ class PolygonMapTool(QgsMapToolDigitizeFeature, TEMapToolMixin):
             self.cadDockWidget().clear()
             return
 
-        layer.beginEditCommand(self.tr("add feature"))
         g = f.geometry()
+
+        g.set(self.intersection_with_base_extents(g))
+        if g.isEmpty() or g.area() == 0:
+            msg_bar = iface.messageBar()
+            msg_bar.pushMessage(
+                self.tr("Error"),
+                self.tr(
+                    "Empty geometry. Did you draw a feature outside of "
+                    "the currently selected region, or overlapping existing "
+                    "features?"
+                ),
+                Qgis.MessageLevel.Critical,
+                5,
+            )
+            return
+
+        layer.beginEditCommand(self.tr("add feature"))
         fields = layer.fields()
         attrs = {fields.lookupField("source"): "manual digitizing"}
         f = QgsVectorLayerUtils.createFeature(

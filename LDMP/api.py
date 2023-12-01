@@ -10,6 +10,10 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+import io
+import sys
+import typing
+
 from future import standard_library
 
 standard_library.install_aliases()
@@ -20,9 +24,19 @@ from urllib.parse import quote_plus
 import requests
 import backoff
 
-from qgis.core import QgsApplication, QgsTask
-from qgis.PyQt import QtCore, QtWidgets
+from dateutil import tz
+from qgis.core import (
+    QgsApplication,
+    QgsTask,
+    QgsNetworkAccessManager,
+    QgsApplication,
+    QgsSettings,
+    QgsNetworkReplyContent,
+)
+from qgis.PyQt import QtCore, QtWidgets, QtNetwork
+
 from qgis.utils import iface
+from qgis.gui import QgsAuthConfigSelect
 
 from . import auth, conf
 from .logger import log
@@ -42,59 +56,110 @@ class tr_api:
 class RequestTask(QgsTask):
     def __init__(self, description, url, method, payload, headers, timeout=30):
         super().__init__(description, QgsTask.CanCancel)
+
         self.description = description
         self.url = url
         self.method = method
         self.payload = payload
-        self.headers = headers
+
         self.timeout = timeout
+        self.headers = headers or {}
         self.exception = None
         self.resp = None
 
     def run(self):
         try:
+            settings = QgsSettings()
+            auth_id = settings.value("trendsearth/auth")
+
+            qurl = QtCore.QUrl(self.url)
+
+            network_manager = QgsNetworkAccessManager().instance()
+            network_manager.setTimeout(600000)
+
+            network_request = QtNetwork.QNetworkRequest(qurl)
+            auth_manager = QgsApplication.authManager()
+            auth_added, _ = auth_manager.updateNetworkRequest(network_request, auth_id)
+
+            network_request.setHeader(
+                QtNetwork.QNetworkRequest.ContentTypeHeader, "application/json"
+            )
+
+            if len(self.headers) > 0:
+                network_request.setRawHeader(
+                    QtCore.QByteArray(b"Authorization"),
+                    QtCore.QByteArray(
+                        bytes(self.headers.get("Authorization"), encoding="utf-8")
+                    ),
+                )
+
             if self.method == "get":
-                self.resp = requests.get(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
-                )
+                self.resp = network_manager.blockingGet(network_request)
+
             elif self.method == "post":
-                self.resp = requests.post(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
+                request_data = None
+                doc = QtCore.QJsonDocument({})
+
+                if self.payload is not None:
+                    # Work around to handle QJsonDocument failing to deal with
+                    # dictionaries that contain nested values of OrderedDict.
+                    try:
+                        doc = QtCore.QJsonDocument(self.payload)
+                    except TypeError as te:
+                        request_data = bytes(json.dumps(self.payload), encoding="utf-8")
+
+                request_data = (
+                    doc.toJson(QtCore.QJsonDocument.Compact)
+                    if request_data is None
+                    else request_data
                 )
+
+                self.resp = network_manager.blockingPost(network_request, request_data)
+
             elif self.method == "update":
-                self.resp = requests.update(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
+                doc = QtCore.QJsonDocument(self.payload)
+                request_data = doc.toJson(QtCore.QJsonDocument.Compact)
+
+                self.resp = network_manager.sendCustomRequest(
+                    network_request, b"UPDATE", request_data
                 )
+
+                loop = QtCore.QEventLoop()
+                self.resp.finished.connect(loop.quit)
+                loop.exec_()
+
             elif self.method == "delete":
-                self.resp = requests.delete(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
+                empty_payload = {}
+                doc = QtCore.QJsonDocument(empty_payload)
+                request_data = doc.toJson(QtCore.QJsonDocument.Compact)
+
+                self.resp = network_manager.sendCustomRequest(
+                    network_request, b"DELETE", request_data
                 )
+
+                loop = QtCore.QEventLoop()
+                self.resp.finished.connect(loop.quit)
+                loop.exec_()
+
             elif self.method == "patch":
-                self.resp = requests.patch(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
+                doc = QtCore.QJsonDocument(self.payload)
+                request_data = doc.toJson(QtCore.QJsonDocument.Compact)
+
+                self.resp = network_manager.sendCustomRequest(
+                    network_request, b"PATCH", request_data
                 )
+
+                loop = QtCore.QEventLoop()
+                self.resp.finished.connect(loop.quit)
+                loop.exec_()
+
             elif self.method == "head":
-                self.resp = requests.head(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
-                )
+                self.resp = network_manager.head(network_request)
+
+                loop = QtCore.QEventLoop()
+                self.resp.finished.connect(loop.quit)
+                loop.exec_()
+
             else:
                 self.exception = ValueError(
                     "Unrecognized method: {}".format(self.method)
@@ -129,19 +194,20 @@ class RequestTask(QgsTask):
                     )
 
         if self.resp is not None:
-            log(f'API response from "{self.method}" request: {self.resp.status_code}')
+            log(f'API response from "{self.method}" request: {self.resp.error()}')
         else:
             log(f'API response from "{self.method}" request was None')
-
-        # if conf.settings_manager.get_value(conf.Setting.DEBUG):
-        #     log(
-        #         f'API response from "{self.method}" request (data): '
-        #         f'{clean_api_response(self.resp)}'
-        #     )
 
 
 ###############################################################################
 # Other helper functions for api calls
+
+
+def backoff_hdlr(details):
+    log(
+        "Backing off {wait:0.1f} seconds after {tries} tries "
+        "calling function {target}".format(**details)
+    )
 
 
 class APIClient(QtCore.QObject):
@@ -171,24 +237,6 @@ class APIClient(QtCore.QObject):
                 response = resp.text
 
         return response
-
-    def get_error_status(self, resp):
-        try:
-            # JSON conversion will fail if the server didn't return a json
-            # response
-            resp = resp.json()
-        except ValueError:
-            return ("Unknown error", None)
-        status = resp.get("status", None)
-
-        if not status:
-            status = resp.get("status_code", "None")
-        desc = resp.get("detail", None)
-
-        if not desc:
-            desc = resp.get("description", "Generic error")
-
-        return (desc, status)
 
     def login(self, authConfigId=None):
         authConfig = auth.get_auth_config(
@@ -270,17 +318,6 @@ class APIClient(QtCore.QObject):
 
             return False
 
-    def backoff_hdlr(self, details):
-        if details["kwargs"]["payload"]:
-            details["kwargs"]["payload"] = self._clean_payload(
-                details["kwargs"]["payload"]
-            )
-        log(
-            "Backing off {wait:0.1f} seconds after {tries} tries "
-            "calling function {target} with args {args} and kwargs "
-            "{kwargs}".format(**details)
-        )
-
     @backoff.on_predicate(
         backoff.expo, lambda x: x is None, max_tries=3, on_backoff=backoff_hdlr
     )
@@ -288,8 +325,10 @@ class APIClient(QtCore.QObject):
         api_task = RequestTask(description, **kwargs)
         QgsApplication.taskManager().addTask(api_task)
         result = api_task.waitForFinished((self.timeout + 1) * 1000)
+
         if not result:
             log("Request timed out")
+
         return api_task.resp
 
     def _clean_payload(self, payload):
@@ -335,15 +374,26 @@ class APIClient(QtCore.QObject):
                 headers=headers,
                 timeout=self.timeout,
             )
-
         else:
             resp = None
 
-        if resp != None:
-            if resp.status_code == 200:
-                ret = resp.json()
+        if resp is not None:
+            status_code = resp.attribute(
+                QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
+            )
+
+            if status_code == 200:
+                if type(resp) is QtNetwork.QNetworkReply:
+                    ret = resp.readAll()
+                    ret = json.load(io.BytesIO(ret))
+                elif type(resp) is QgsNetworkReplyContent:
+                    ret = resp.content()
+                    ret = json.load(io.BytesIO(ret))
+                else:
+                    err_msg = "Unknown object type: {}.".format(str(resp))
+                    log(err_msg)
             else:
-                desc, status = self.get_error_status(resp)
+                desc, status = resp.error(), resp.errorString()
                 err_msg = "Error: {} (status {}).".format(desc, status)
                 log(err_msg)
                 """
@@ -368,21 +418,23 @@ class APIClient(QtCore.QObject):
         )
 
         if resp != None:
-            log(f'Response from "{url}" header request: {resp.status_code}')
-
-            if resp.status_code == 200:
-                ret = resp.headers
+            status_code = resp.attribute(
+                QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
+            )
+            if status_code == 200:
+                ret = resp
             else:
-                desc, status = self.get_error_status(resp)
+                desc, status = resp.error(), resp.errorString()
+                err_msg = "Error: {} (status {}).".format(desc, status)
+                log(err_msg)
+                """
                 iface.messageBar().pushCritical(
                     "Trends.Earth", "Error: {} (status {}).".format(desc, status)
                 )
+                """
                 ret = None
-        else:
-            log("Header request failed")
-            ret = None
 
-        return ret
+            return ret
 
     ################################################################################
     # Functions supporting access to individual api endpoints

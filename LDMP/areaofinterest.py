@@ -1,5 +1,6 @@
 import functools
 import json
+import traceback
 import typing
 from pathlib import Path
 
@@ -145,22 +146,9 @@ class AOI:
             raise RuntimeError("Failed to add geojson to temporary layer.")
         self.l = _transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
-    def meridian_split(self, out_type="extent", out_format="geojson", warn=True):
-        """
-        Return list of bounding boxes in WGS84 as geojson for GEE
+    def get_unary_geometry(self):
+        "Calculate a single feature that is the union of all the features in layer"
 
-        Returns multiple geometries as needed to avoid having an extent
-        crossing the 180th meridian
-        """
-
-        if out_type not in ["extent", "layer"]:
-            raise ValueError('Unrecognized out_type "{}"'.format(out_type))
-        if out_format not in ["geojson", "wkt"]:
-            raise ValueError('Unrecognized out_format "{}"'.format(out_format))
-
-        # Calculate a single feature that is the union of all the features in
-        # this layer - that way there is a single feature to intersect with
-        # each hemisphere.
         geometries = []
         n = 1
         for f in self.get_layer_wgs84().getFeatures():
@@ -176,7 +164,28 @@ class AOI:
                 )
             geometries.append(geom)
             n += 1
-        union = qgis.core.QgsGeometry.unaryUnion(geometries)
+        return qgis.core.QgsGeometry.unaryUnion(geometries)
+
+    @functools.lru_cache(
+        maxsize=None
+    )  # not using functools.cache, as it was only introduced in Python 3.9
+    def meridian_split(self, out_type="extent", out_format="geojson", warn=True):
+        """
+        Return list of bounding boxes in WGS84 as geojson for GEE
+
+        Returns multiple geometries as needed to avoid having an extent
+        crossing the 180th meridian
+        """
+
+        # log("In meridian_split")
+        # log(traceback.extract_tb().format()().format())
+
+        if out_type not in ["extent", "layer"]:
+            raise ValueError('Unrecognized out_type "{}"'.format(out_type))
+        if out_format not in ["geojson", "wkt"]:
+            raise ValueError('Unrecognized out_format "{}"'.format(out_format))
+
+        union = self.get_unary_geometry()
 
         log(
             "Calculating east and west intersections to test if AOI crosses 180th meridian."

@@ -12,7 +12,7 @@
       "type": "Polygon",
       "local_context": {
         "area_of_interest_name": "finland-all-regions-buffer-10.000",
-        "base_dir": "/home/samweli/trends_earth_data"
+        "base_dir": "/home/user/trends_earth_data"
       },
       "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2021",
       "prod_mode": "TrendsEarth-LPD-5",
@@ -31,6 +31,14 @@
     "progress": 0,
     "results": {},
     "script_id": "47b99c3d-f5b5-4df3-81e7-324a17a6e147",
+    "script": {
+        "description": "Calculate all three SDG 15.3.1 sub-indicators in one step",
+        "id": "47b99c3d-f5b5-4df3-81e7-324a17a6e147",
+        "name": "sdg-15-3-1-sub-indicators",
+        "name_readable": "SDG 15.3.1 sub-indicators",
+        "run_mode": "remote",
+        "version": "2.1"
+    },
     "start_date": "2022-12-05T12:42:27.164465",
     "status": "PENDING",
     "user_id": "a1d45524-7dbc-4e36-801b-5f9b70f6dc77"

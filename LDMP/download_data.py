@@ -11,6 +11,7 @@
  ***************************************************************************/
 """
 import json
+import os
 from pathlib import Path
 
 import qgis.gui
@@ -22,10 +23,14 @@ from te_schemas.algorithms import ExecutionScript
 
 from . import calculate
 from . import conf
+from .conf import Setting
+from .conf import settings_manager
 from .jobs.manager import job_manager
 from .logger import log
 
 DlgDownloadUi, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDownload.ui"))
+
+ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
 
 class tool_tipper(QtCore.QObject):
@@ -81,10 +86,10 @@ class DataTableModel(QtCore.QAbstractTableModel):
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 
-    def rowCount(self, parent):
+    def rowCount(self, parent=None):
         return len(self.datasets)
 
-    def columnCount(self, parent):
+    def columnCount(self, parent=None):
         return len(self.colnames_json)
 
     def data(self, index, role):
@@ -99,9 +104,12 @@ class DataTableModel(QtCore.QAbstractTableModel):
             7,
         ]:
             return QtCore.Qt.AlignCenter
-        elif role != QtCore.Qt.DisplayRole:
+        elif role in [QtCore.Qt.DisplayRole, QtCore.Qt.ToolTipRole]:
+            return self.datasets[index.row()].get(
+                self.colnames_json[index.column()], ""
+            )
+        else:
             return None
-        return self.datasets[index.row()].get(self.colnames_json[index.column()], "")
 
     def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
         if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:
@@ -142,45 +150,35 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         self.data_view.selectionModel().selectionChanged.connect(self.selection_changed)
         self.data_view.viewport().installEventFilter(tool_tipper(self.data_view))
 
+        self.update_current_region()
+        self.region_button.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, "wrench.svg")))
+        self.region_button.clicked.connect(self.run_settings)
+
+    def update_current_region(self):
+        region = settings_manager.get_value(Setting.AREA_NAME)
+        self.region_la.setText(self.tr(f"Current region: {region}"))
+        self.changed_region.emit()
+
     def selection_changed(self):
         if self.data_view.selectedIndexes():
             # Note there can only be one row selected at a time by default
             row = list({index.row() for index in self.data_view.selectedIndexes()})[0]
-            first_year = self.datasets[row]["Start year"]
-            last_year = self.datasets[row]["End year"]
-            if (first_year == "NA") or (last_year == "NA"):
-                self.first_year.setEnabled(False)
-                self.last_year.setEnabled(False)
+            year_initial = self.datasets[row]["Start year"]
+            year_final = self.datasets[row]["End year"]
+            if (year_initial == "NA") or (year_final == "NA"):
+                self.year_initial.setEnabled(False)
+                self.year_final.setEnabled(False)
             else:
-                self.first_year.setEnabled(True)
-                self.last_year.setEnabled(True)
-                first_year = QtCore.QDate(first_year, 12, 31)
-                last_year = QtCore.QDate(last_year, 12, 31)
-                self.first_year.setMinimumDate(first_year)
-                self.first_year.setMaximumDate(last_year)
-                self.last_year.setMinimumDate(first_year)
-                self.last_year.setMaximumDate(last_year)
-
-    def tab_changed(self):
-        super().tab_changed()
-        if (
-            self.TabBox.currentIndex() == (self.TabBox.count() - 1)
-        ) and not self.data_view.selectedIndexes():
-            # Only enable download if a dataset is selected
-            self.button_calculate.setEnabled(False)
-
-    def firstShow(self):
-        super().firstShow()
-        # Don't show the time selector for now
-        self.TabBox.removeTab(1)
-        self.button_prev.setHidden(True)
-        self.button_next.setHidden(True)
-
-    def showEvent(self, event):
-        super().showEvent(event)
-
-        # Don't local/cloud selector for this dialog
-        self.options_tab.toggle_show_where_to_run(False)
+                self.year_initial.setEnabled(True)
+                self.year_final.setEnabled(True)
+                year_initial = QtCore.QDate(year_initial, 12, 31)
+                year_final = QtCore.QDate(year_final, 12, 31)
+                self.year_initial.setMinimumDate(year_initial)
+                self.year_initial.setMaximumDate(year_final)
+                self.year_initial.setDate(year_initial)
+                self.year_final.setMinimumDate(year_initial)
+                self.year_final.setMaximumDate(year_final)
+                self.year_final.setDate(year_final)
 
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
@@ -194,30 +192,39 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
             btn.clicked.connect(self.btn_details)
             self.data_view.setIndexWidget(self.proxy_model.index(row, 8), btn)
 
+        # Category
         self.data_view.horizontalHeader().setSectionResizeMode(
-            0, QtWidgets.QHeaderView.Stretch
+            0, QtWidgets.QHeaderView.Interactive
         )
+        # Title
         self.data_view.horizontalHeader().setSectionResizeMode(
             1, QtWidgets.QHeaderView.Stretch
         )
+        # Units
         self.data_view.horizontalHeader().setSectionResizeMode(
-            2, QtWidgets.QHeaderView.Stretch
+            2, QtWidgets.QHeaderView.Interactive
         )
+        # Resolution
         self.data_view.horizontalHeader().setSectionResizeMode(
             3, QtWidgets.QHeaderView.ResizeToContents
         )
+        # Start year
         self.data_view.horizontalHeader().setSectionResizeMode(
             4, QtWidgets.QHeaderView.ResizeToContents
         )
+        # End year
         self.data_view.horizontalHeader().setSectionResizeMode(
             5, QtWidgets.QHeaderView.ResizeToContents
         )
+        # Extent (lat)
         self.data_view.horizontalHeader().setSectionResizeMode(
             6, QtWidgets.QHeaderView.ResizeToContents
         )
+        # Extent (long)
         self.data_view.horizontalHeader().setSectionResizeMode(
             7, QtWidgets.QHeaderView.ResizeToContents
         )
+        # Details button
         self.data_view.horizontalHeader().setSectionResizeMode(
             8, QtWidgets.QHeaderView.ResizeToContents
         )
@@ -233,12 +240,9 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        log("btn_calculate clicked")
         ret = super().btn_calculate()
-        log(f"ret: {ret}")
         if not ret:
             return
-        log(f"continuing...")
 
         rows = list({index.row() for index in self.data_view.selectedIndexes()})
         # Construct unique dataset names as the concatenation of the category
@@ -260,14 +264,14 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
             payload = {
                 "geojsons": json.dumps(geojsons),
                 "crs": self.aoi.get_crs_dst_wkt(),
-                "year_initial": self.first_year.date().year(),
-                "year_final": self.last_year.date().year(),
+                "year_initial": self.year_initial.date().year(),
+                "year_final": self.year_final.date().year(),
                 "crosses_180th": crosses_180th,
                 "asset": dataset["GEE Dataset"],
                 "name": dataset["title"],
                 "temporal_resolution": dataset["Temporal resolution"],
-                "task_name": self.options_tab.task_name.text(),
-                "task_notes": self.options_tab.task_notes.toPlainText(),
+                "task_name": self.execution_name_le.text(),
+                "task_notes": "",
             }
 
             resp = job_manager.submit_remote_job(payload, self.script.id)

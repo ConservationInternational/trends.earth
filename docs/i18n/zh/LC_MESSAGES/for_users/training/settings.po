@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-28 04:02+0000\n"
+"POT-Creation-Date: 2023-10-30 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: zh\n"
@@ -22,7 +22,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: ../../source/for_users/training/settings.rst:4
 msgid "Settings"
@@ -430,18 +430,6 @@ msgstr "LandPKS 登录信息"
 msgid "**Coming soon**"
 msgstr "**即将推出**"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr "iconCalculator"
-
-#: ../../../<rst_epilog>:4
-msgid "iconReports"
-msgstr "iconReports"
-
-#: ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
-
 #~ msgid ""
 #~ "Check the boxes to: 1) Filter "
 #~ "remote jobs according to local base "
@@ -465,4 +453,13 @@ msgstr "Trends.Earth"
 #~ " 3) 自动下载远程生成的数据集——如果您的带宽有限或离线工作，请勿选中此选项 4) "
 #~ "定期轮询远程处理服务器——这将设置服务器检查完成分析以自动下载的频率——如果您的带宽有限或离线工作，请勿检查此项 5) "
 #~ "使用二进制文件进行更快的处理——选择文件夹来存储二进制文件"
+
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
+
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
+
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
 

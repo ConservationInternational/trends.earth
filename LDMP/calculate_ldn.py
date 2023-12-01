@@ -984,7 +984,7 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         params = {
             "baseline": ldn.get_main_sdg_15_3_1_job_params(
-                task_name=self.options_tab.task_name.text(),
+                task_name=self.execution_name_le.text(),
                 aoi=self.aoi,
                 prod_mode=prod_mode_baseline,
                 pop_mode=pop_mode_baseline,

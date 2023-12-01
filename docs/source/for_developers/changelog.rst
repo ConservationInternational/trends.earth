@@ -3,6 +3,34 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.1.14 (February 24, 2023) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.14>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Improve land productivity import tool, including support for JRC,
+    FAO-WOCAT, or Trends.Earth data, and option to specify initial and final
+    years
+
+`2.1.12 (February 17, 2023) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.12>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Improve data download tool, including support for downloading WorldPop
+    population data used in UNCCD reporting
+
+`2.1.10 (February 7, 2023) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.10>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Fix error when using shapefiles/geojsons to define aoi (#768)
+  - Ensure user settings are retained and not reset by offline mode checks
+  - Update translations
+
+`2.1.8 (January 25, 2023) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.8>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Output JSON field for Prais containing updated false positive/negative
+      calculations.
+    - Fixes #752 - false positive/negative datasets not showing up in
+      non-English versions
+
 `2.1.6 (December 8, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.6>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

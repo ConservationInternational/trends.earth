@@ -318,8 +318,12 @@ def release_github(c):
     # https://docs.github.com/en/rest/reference/repos#update-a-release-asset
 
 
-@task(help={"ext_libs": "Also set tag for local copies of modules under ext_libs"})
-def set_tag(c, ext_libs=False):
+@task(
+    help={
+        "modules": "Also set tag for any modules specified " "in ext_libs.local_modules"
+    }
+)
+def set_tag(c, modules=False):
     v = get_version(c)
     ret = subprocess.run(
         ["git", "diff-index", "HEAD", "--"], capture_output=True, text=True
@@ -353,7 +357,7 @@ def set_tag(c, ext_libs=False):
     )
     subprocess.check_call(["git", "push", "origin", "v{}".format(v)])
 
-    if ext_libs:
+    if modules:
         for module in c.plugin.ext_libs.local_modules:
             module_path = Path(module["path"]).parent
             print(f"Also setting tag for {module['name']}")
@@ -443,6 +447,9 @@ def tecli_publish(c, script=None, overwrite=False):
     if script and n == 0:
         print('Script "{}" not found.'.format(script))
 
+    # Updating GEE script IDs in config
+    subprocess.check_call(["invoke", "update-script-ids"])
+
 
 @task(
     help={
@@ -531,7 +538,10 @@ def update_script_ids(c):
                 assert len(script_index) <= 1
                 script_index = script_index[0]
 
-                scripts[script_index]["id"] = config["id"]
+                try:
+                    scripts[script_index]["id"] = config["id"]
+                except KeyError:
+                    print(f"No id found in config for {script_name}")
                 script_version = (
                     re.compile("^[a-zA-Z0-9-]* ")
                     .sub("", config["name"])
@@ -539,7 +549,9 @@ def update_script_ids(c):
                 )
                 scripts[script_index]["version"] = script_version
             except IndexError:
-                print(f"Skipping {script_name} as not found in scripts.json")
+                print(
+                    f"Skipping {script_name} as not found in scripts.json - maybe need to publish?"
+                )
     with open(c.gee.scripts_json_file, "w") as f_out:
         json.dump(scripts, f_out, sort_keys=True, indent=4)
 

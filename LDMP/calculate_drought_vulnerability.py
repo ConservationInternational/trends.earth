@@ -10,6 +10,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 # pylint: disable=import-error
 import typing
 from pathlib import Path

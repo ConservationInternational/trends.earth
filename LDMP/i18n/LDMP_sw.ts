@@ -572,12 +572,12 @@
 <context>
     <name>DlgCalculateDrought</name>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="105"/>
+        <location filename="../calculate_drought_vulnerability.py" line="106"/>
         <source>Error</source>
         <translation>Kosa</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="105"/>
+        <location filename="../calculate_drought_vulnerability.py" line="106"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -647,22 +647,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="246"/>
+        <location filename="../calculate_drought_vulnerability.py" line="247"/>
         <source>Error</source>
         <translation>Kosa</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="196"/>
+        <location filename="../calculate_drought_vulnerability.py" line="197"/>
         <source>You must select a {dataset_name} layer before you can use the drought tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="210"/>
+        <location filename="../calculate_drought_vulnerability.py" line="211"/>
         <source>You must select a {layer_name} layer before you can use the drought tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="246"/>
+        <location filename="../calculate_drought_vulnerability.py" line="247"/>
         <source>Area of interest is not entirely within the drought dataset.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -991,22 +991,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1133"/>
+        <location filename="../calculate_ldn.py" line="1134"/>
         <source>Coming soon!</source>
         <translation>Inakuja hivi karibuni!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1133"/>
+        <location filename="../calculate_ldn.py" line="1134"/>
         <source>This function coming soon!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1150"/>
+        <location filename="../calculate_ldn.py" line="1151"/>
         <source>Error</source>
         <translation>Kosa</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1150"/>
+        <location filename="../calculate_ldn.py" line="1151"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1188,32 +1188,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="639"/>
+        <location filename="../calculate_ldn.py" line="640"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="894"/>
+        <location filename="../calculate_ldn.py" line="895"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="739"/>
+        <location filename="../calculate_ldn.py" line="740"/>
         <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="807"/>
+        <location filename="../calculate_ldn.py" line="808"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="885"/>
+        <location filename="../calculate_ldn.py" line="886"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="894"/>
+        <location filename="../calculate_ldn.py" line="895"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1498,12 +1498,12 @@ p, li { white-space: pre-wrap; }
         <translation>Fafanua Athari za Mabadiliko ya Jalada la Ardhi</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="480"/>
+        <location filename="../calculate_ldn.py" line="481"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="480"/>
+        <location filename="../calculate_ldn.py" line="481"/>
         <source>Initial and final year are less 10 years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1520,12 +1520,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="175"/>
+        <location filename="../calculate_ldn.py" line="176"/>
         <source>Also reset land cover legend?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="175"/>
+        <location filename="../calculate_ldn.py" line="176"/>
         <source>The UNCCD default data uses a 7 class land cover legend. Do you also want to reset the land cover legend to the UNCCD default? This will mean any changes you may have made to the land cover legend will be lost.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2458,22 +2458,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="83"/>
+        <location filename="../calculate_unccd.py" line="84"/>
         <source>Coming soon!</source>
         <translation>Inakuja hivi karibuni!</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="83"/>
+        <location filename="../calculate_unccd.py" line="84"/>
         <source>This function coming soon!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="100"/>
+        <location filename="../calculate_unccd.py" line="101"/>
         <source>Error</source>
         <translation>Kosa</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="100"/>
+        <location filename="../calculate_unccd.py" line="101"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2555,27 +2555,27 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="197"/>
+        <location filename="../calculate_unccd.py" line="198"/>
         <source>Error</source>
         <translation>Kosa</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="183"/>
+        <location filename="../calculate_unccd.py" line="184"/>
         <source>You must select a {dataset_name} layer before you can use the UNCCD reporting tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="197"/>
+        <location filename="../calculate_unccd.py" line="198"/>
         <source>You must select a {layer_name} layer before you can use the UNCCD reporting tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="211"/>
+        <location filename="../calculate_unccd.py" line="212"/>
         <source>SO1 and SO2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="215"/>
+        <location filename="../calculate_unccd.py" line="216"/>
         <source>SO3 (hazard and exposure)</source>
         <translation type="unfinished"></translation>
     </message>

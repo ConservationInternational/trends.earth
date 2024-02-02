@@ -602,12 +602,12 @@
 <context>
     <name>DlgCalculateDrought</name>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="105"/>
+        <location filename="../calculate_drought_vulnerability.py" line="106"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="105"/>
+        <location filename="../calculate_drought_vulnerability.py" line="106"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>Между начальным и конечным годом менее 5 лет — результаты будут более надежными, если в анализ будет включено больше данных (лет).</translation>
     </message>
@@ -677,22 +677,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="246"/>
+        <location filename="../calculate_drought_vulnerability.py" line="247"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="196"/>
+        <location filename="../calculate_drought_vulnerability.py" line="197"/>
         <source>You must select a {dataset_name} layer before you can use the drought tool.</source>
         <translation>Необходимо выбрать слой {layer_name}, чтобы использовать инструмент засухи.</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="210"/>
+        <location filename="../calculate_drought_vulnerability.py" line="211"/>
         <source>You must select a {layer_name} layer before you can use the drought tool.</source>
         <translation>Необходимо выбрать слой {layer_name}, чтобы использовать инструмент засухи.</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="246"/>
+        <location filename="../calculate_drought_vulnerability.py" line="247"/>
         <source>Area of interest is not entirely within the drought dataset.</source>
         <translation>Интересующая область не полностью входит в набор данных о засухе.</translation>
     </message>
@@ -1036,22 +1036,22 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Этот инструмент поддерживает пересчет слоя показателей для исправления известных ошибок (ложноположительных или ложноотрицательных результатов).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1133"/>
+        <location filename="../calculate_ldn.py" line="1134"/>
         <source>Coming soon!</source>
         <translation>Скоро!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1133"/>
+        <location filename="../calculate_ldn.py" line="1134"/>
         <source>This function coming soon!</source>
         <translation>Эта функция скоро появится!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1150"/>
+        <location filename="../calculate_ldn.py" line="1151"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1150"/>
+        <location filename="../calculate_ldn.py" line="1151"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>Между начальным и конечным годом менее 5 лет — результаты будут более надежными, если в анализ будет включено больше данных (лет).</translation>
     </message>
@@ -1233,32 +1233,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="639"/>
+        <location filename="../calculate_ldn.py" line="640"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation>В этом регионе нет доступных наборов данных (см. расширенный)</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="894"/>
+        <location filename="../calculate_ldn.py" line="895"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="739"/>
+        <location filename="../calculate_ldn.py" line="740"/>
         <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
         <translation>Необходимо выбрать слой {layer_name}, чтобы использовать инструмент расчета SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="807"/>
+        <location filename="../calculate_ldn.py" line="808"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation>Интересующая область не полностью находится в пределах слоя {check_layer_name}.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="885"/>
+        <location filename="../calculate_ldn.py" line="886"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation>Разрешения слоя {model_layer_name} и слоя {check_layer_name} не совпадают.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="894"/>
+        <location filename="../calculate_ldn.py" line="895"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation>Системы координат слоя {model_layer_name} и слоя {check_layer_name} не совпадают.</translation>
     </message>
@@ -1543,12 +1543,12 @@ p, li { white-space: pre-wrap; }
         <translation>Определить эффекты изменения земного покрова</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="480"/>
+        <location filename="../calculate_ldn.py" line="481"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="480"/>
+        <location filename="../calculate_ldn.py" line="481"/>
         <source>Initial and final year are less 10 years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>Между начальным и конечным годом меньше 10 лет в течение {period} — результаты будут более надежными, если в анализ будет включено больше данных (годов).</translation>
     </message>
@@ -1565,12 +1565,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="175"/>
+        <location filename="../calculate_ldn.py" line="176"/>
         <source>Also reset land cover legend?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="175"/>
+        <location filename="../calculate_ldn.py" line="176"/>
         <source>The UNCCD default data uses a 7 class land cover legend. Do you also want to reset the land cover legend to the UNCCD default? This will mean any changes you may have made to the land cover legend will be lost.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2536,22 +2536,22 @@ p, li { white-space: pre-wrap; }
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Используйте инструменты раздела &amp;quot;Засуха — уязвимость и незащищенность&amp;quot; для оценки стратегической цели 3 (уязвимость к засухе)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="83"/>
+        <location filename="../calculate_unccd.py" line="84"/>
         <source>Coming soon!</source>
         <translation>Скоро!</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="83"/>
+        <location filename="../calculate_unccd.py" line="84"/>
         <source>This function coming soon!</source>
         <translation>Эта функция скоро появится!</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="100"/>
+        <location filename="../calculate_unccd.py" line="101"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="100"/>
+        <location filename="../calculate_unccd.py" line="101"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>Между начальным и конечным годом меньше 5 лет — результаты будут более надежными, если в анализ будет включено больше данных (годов).</translation>
     </message>
@@ -2642,27 +2642,27 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Установка флажка в ячейке &amp;quot;Расчет только для затронутых территорий&amp;quot; будет включать в отчет индикатор того, что этот расчет относится к затронутым территориям. Обратите внимание, что отчетность по затронутым территориям является необязательным элементом процесса отчетности КБО ООН в 2022 году и дополняет национальную отчетность. &quot;Затронутые территории&quot; определяются в статье 1 Конвенции как &quot;засушливые, полузасушливые и/или сухие субгумидные районы, затронутые опустыниванием или находящиеся под угрозой опустынивания&quot;. Стороны могут по своему выбору использовать это определение или предоставить рабочее определение затронутой зоны, используемое в их стране. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="197"/>
+        <location filename="../calculate_unccd.py" line="198"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="183"/>
+        <location filename="../calculate_unccd.py" line="184"/>
         <source>You must select a {dataset_name} layer before you can use the UNCCD reporting tool.</source>
         <translation>Прежде чем использовать инструмент создания отчетов КБО ООН, необходимо выбрать уровень {dataset_name}.</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="197"/>
+        <location filename="../calculate_unccd.py" line="198"/>
         <source>You must select a {layer_name} layer before you can use the UNCCD reporting tool.</source>
         <translation>Прежде чем использовать инструмент создания отчетов КБО ООН, необходимо выбрать уровень {layer_name}.</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="211"/>
+        <location filename="../calculate_unccd.py" line="212"/>
         <source>SO1 and SO2</source>
         <translation>СЦ1 и СЦ2</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="215"/>
+        <location filename="../calculate_unccd.py" line="216"/>
         <source>SO3 (hazard and exposure)</source>
         <translation>СЦ3 (опасность и воздействие)</translation>
     </message>

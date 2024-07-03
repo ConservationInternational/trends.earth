@@ -8,7 +8,7 @@ myst-parser
 linkify-it-py
 pylint
 pip>=10.0.0
-requests==2.26.0
+requests==2.31.0
 PyQt5
 black[jupyter]
 flake8

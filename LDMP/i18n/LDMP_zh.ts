@@ -602,12 +602,12 @@
 <context>
     <name>DlgCalculateDrought</name>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="105"/>
+        <location filename="../calculate_drought_vulnerability.py" line="106"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="105"/>
+        <location filename="../calculate_drought_vulnerability.py" line="106"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>最初和最后一年相隔不到 5 年——如果分析中包含更多数据（年），结果将更可靠。</translation>
     </message>
@@ -677,22 +677,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="246"/>
+        <location filename="../calculate_drought_vulnerability.py" line="247"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="196"/>
+        <location filename="../calculate_drought_vulnerability.py" line="197"/>
         <source>You must select a {dataset_name} layer before you can use the drought tool.</source>
         <translation>您必须先选择{dataset_name}图层，然后才能使用干旱工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="210"/>
+        <location filename="../calculate_drought_vulnerability.py" line="211"/>
         <source>You must select a {layer_name} layer before you can use the drought tool.</source>
         <translation>您必须先选择{layer_name}图层，然后才能使用干旱工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="246"/>
+        <location filename="../calculate_drought_vulnerability.py" line="247"/>
         <source>Area of interest is not entirely within the drought dataset.</source>
         <translation>感兴趣区域并不完全在干旱数据集中。</translation>
     </message>
@@ -1036,22 +1036,22 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;此工具支持重新计算指标层以纠正已知错误（假阳性或假阴性）。&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1133"/>
+        <location filename="../calculate_ldn.py" line="1134"/>
         <source>Coming soon!</source>
         <translation>快来了！</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1133"/>
+        <location filename="../calculate_ldn.py" line="1134"/>
         <source>This function coming soon!</source>
         <translation>此功能即将推出！</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1150"/>
+        <location filename="../calculate_ldn.py" line="1151"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1150"/>
+        <location filename="../calculate_ldn.py" line="1151"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>最初和最后一年相隔不到 5 年——如果分析中包含更多数据（年），结果将更可靠。</translation>
     </message>
@@ -1233,32 +1233,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="639"/>
+        <location filename="../calculate_ldn.py" line="640"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation>该地区没有可用的数据集（请参阅高级）</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="894"/>
+        <location filename="../calculate_ldn.py" line="895"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="739"/>
+        <location filename="../calculate_ldn.py" line="740"/>
         <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
         <translation>您必须先选择{layer_name}图层，然后才能使用 SDG 计算工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="807"/>
+        <location filename="../calculate_ldn.py" line="808"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation>感兴趣区域并不完全在{check_layer_name}层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="885"/>
+        <location filename="../calculate_ldn.py" line="886"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation>{model_layer_name}层和{check_layer_name}层的分辨率不匹配。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="894"/>
+        <location filename="../calculate_ldn.py" line="895"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation>{model_layer_name}层和{check_layer_name}层的坐标系不匹配。</translation>
     </message>
@@ -1543,12 +1543,12 @@ p, li { white-space: pre-wrap; }
         <translation>定义土地覆被变化的影响</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="480"/>
+        <location filename="../calculate_ldn.py" line="481"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="480"/>
+        <location filename="../calculate_ldn.py" line="481"/>
         <source>Initial and final year are less 10 years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>在{period}中，初始年和最后一年相隔不到 10 年——如果分析中包含更多数据（年），结果将更加可靠。</translation>
     </message>
@@ -1565,12 +1565,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="175"/>
+        <location filename="../calculate_ldn.py" line="176"/>
         <source>Also reset land cover legend?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="175"/>
+        <location filename="../calculate_ldn.py" line="176"/>
         <source>The UNCCD default data uses a 7 class land cover legend. Do you also want to reset the land cover legend to the UNCCD default? This will mean any changes you may have made to the land cover legend will be lost.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2537,22 +2537,22 @@ p, li { white-space: pre-wrap; }
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;使用&amp;quot;干旱--脆弱和暴露&amp;quot;下的工具，得出战略目标3（干旱脆弱性）的预估值&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="83"/>
+        <location filename="../calculate_unccd.py" line="84"/>
         <source>Coming soon!</source>
         <translation>快来了！</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="83"/>
+        <location filename="../calculate_unccd.py" line="84"/>
         <source>This function coming soon!</source>
         <translation>该功能很快会推出！</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="100"/>
+        <location filename="../calculate_unccd.py" line="101"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="100"/>
+        <location filename="../calculate_unccd.py" line="101"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>初始年份和最终年份相隔不到5年，--如果在分析中包括更多的数据（年份），结果会更可靠。</translation>
     </message>
@@ -2643,27 +2643,27 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;勾选&amp;quot;计算仅适用于受影响地区&amp;quot;方框将在报告中包含一个指标，表明该计算适用于受影响地区。请注意，关于受影响地区的报告是UNCCD2022年报告过程中的一个可选要素，是国家报告的补充。受影响地区 在《公约》第1条中被定义为 &quot;受荒漠化影响或威胁的干旱、半干旱和/或亚湿润干旱地区&quot;，缔约方可选择使用这一定义或提供其国家使用的受影响地区的实际定义。â&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="197"/>
+        <location filename="../calculate_unccd.py" line="198"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="183"/>
+        <location filename="../calculate_unccd.py" line="184"/>
         <source>You must select a {dataset_name} layer before you can use the UNCCD reporting tool.</source>
         <translation>在使用UNCCD报告工具之前，你必须选择一个{dataset_name}层。</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="197"/>
+        <location filename="../calculate_unccd.py" line="198"/>
         <source>You must select a {layer_name} layer before you can use the UNCCD reporting tool.</source>
         <translation>在使用UNCCD报告工具之前，你必须选择一个{layer_name}层</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="211"/>
+        <location filename="../calculate_unccd.py" line="212"/>
         <source>SO1 and SO2</source>
         <translation>战略目标1（SO1）和 战略目标2（SO2）</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="215"/>
+        <location filename="../calculate_unccd.py" line="216"/>
         <source>SO3 (hazard and exposure)</source>
         <translation>战略目标3（SO3）（危险和暴露）</translation>
     </message>

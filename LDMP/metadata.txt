@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.1.15
+version=2.1.16
 author=Conservation International
 email=trends.earth@conservation.org
 

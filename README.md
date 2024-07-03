@@ -73,11 +73,10 @@ of the plugin.
 
 ### Development version from zipfile
 
-[Download the latest `Trends.Earth` zipfile](https://s3.amazonaws.com/trends.earth/sharing/LDMP_main.zip) (or use the
-[the zipfile from the develop branch
-](https://s3.amazonaws.com/trends.earth/sharing/LDMP_develop.zip) for the absolute
-latest version). Then follow the instructions below on [installing the plugin
-from a zipfile](#installing-plugin-from-a-zipfile).
+[Download the latest `Trends.Earth`
+zipfile](https://s3.amazonaws.com/trends.earth/sharing/LDMP_main.zip). Then
+follow the instructions below on [installing the plugin from a
+zipfile](#installing-plugin-from-a-zipfile).
 
 QGIS3+ is required for the latest versions of Trends.Earth. The QGIS2 version is no
 longer supported (support ended in March 2020). If you want to use a previous version of

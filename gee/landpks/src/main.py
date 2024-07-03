@@ -343,7 +343,7 @@ def landtrend_make_plot(d, year_start, year_end):
     height = te_logo.size[1]
     # We need a float array between 0-1, rather than
     # a uint8 array between 0-255
-    im_array = np.array(te_logo).astype(np.float) / 255
+    im_array = np.array(te_logo).astype(float) / 255
     fig.figimage(im_array, 120, fig.bbox.ymax - height - 40, zorder=-1)
 
     # Set the first axis background to transparent so the trends.earth logo (placed behind it) will show through

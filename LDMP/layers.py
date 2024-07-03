@@ -10,6 +10,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 import json
 import math
 import os
@@ -19,6 +20,7 @@ from math import floor
 from math import log10
 from operator import attrgetter
 from pathlib import Path
+from te_schemas.land_cover import LCLegendNesting
 
 import numpy as np
 from osgeo import gdal
@@ -36,7 +38,6 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QColor
 from qgis.utils import iface
-from te_schemas.land_cover import LCLegendNesting
 
 from .logger import log
 
@@ -338,7 +339,7 @@ def get_sample(f, band_number, n=1e6):
             f"to a ({xsize_new}, {ysize_new}) array"
         )
 
-        return b.ReadAsArray().astype(np.float)
+        return b.ReadAsArray().astype(float)
     else:
         log(
             f"Resampling from a ({xsize}, {ysize}) array "
@@ -356,7 +357,7 @@ def get_sample(f, band_number, n=1e6):
             height=ysize_new,
         )
 
-        return ds_resamp.ReadAsArray().astype(np.float)
+        return ds_resamp.ReadAsArray().astype(float)
 
 
 # def _set_statistics(

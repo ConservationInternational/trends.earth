@@ -234,7 +234,7 @@ def set_version(c, v=None, testing=False, modules=False, tag=False, gee=False):
                         else:
                             # Last number in version string is odd, so this is a development
                             # version, so use development version of schemas
-                            _replace(filepath, requirements_txt_regex, r"\g<1>develop")
+                            _replace(filepath, requirements_txt_regex, r"\g<1>master")
                     elif file == "__init__.py":
                         print("Setting version to {} in {}".format(v, filepath))
                         init_version_regex = re.compile(
@@ -265,7 +265,7 @@ def set_version(c, v=None, testing=False, modules=False, tag=False, gee=False):
         else:
             # Last number in version string is odd, so this is a development
             # version, so use development version of schemas
-            _replace(requirements_file, requirements_txt_regex, r"\g<1>develop")
+            _replace(requirements_file, requirements_txt_regex, r"\g<1>master")
 
     if tag:
         set_tag(c)

@@ -25,7 +25,11 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.1.14 (February 24, 2023)
+changelog=2.1.16 (July 3, 2024)
+  - Bump dependency versions to address #812
+  - Fix deprecation of np.float
+  - Various dependency version updates
+  2.1.14 (February 24, 2023)
   - Improve land productivity import tool, including support for JRC,
     FAO-WOCAT, or Trends.Earth data, and option to specify initial and final
     years

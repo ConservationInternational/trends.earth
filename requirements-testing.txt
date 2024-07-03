@@ -3,5 +3,5 @@ black[jupyter]
 flask
 plotly
 pyqtgraph
-git+https://github.com/ConservationInternational/trends.earth-schemas.git@v2.1.8
-git+https://github.com/ConservationInternational/trends.earth-algorithms.git@v2.1.8
+git+https://github.com/ConservationInternational/trends.earth-schemas.git@v2.1.16
+git+https://github.com/ConservationInternational/trends.earth-algorithms.git@v2.1.16

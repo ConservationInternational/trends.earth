@@ -10,6 +10,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 import json
 import typing
 from pathlib import Path

@@ -1,6 +1,7 @@
 """
 Code for calculating total carbon.
 """
+
 # Copyright 2017 Conservation International
 import json
 import random

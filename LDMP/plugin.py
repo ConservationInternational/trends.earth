@@ -10,6 +10,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 import os
 
 from qgis.core import QgsApplication

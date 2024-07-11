@@ -1,4 +1,5 @@
 """Configuration utilities for Trends.Earth QGIS plugin."""
+
 import enum
 import json
 import os

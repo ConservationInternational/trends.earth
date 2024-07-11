@@ -1,4 +1,5 @@
 """Classes for interfacing UI with report models."""
+
 import os
 import typing
 

@@ -1,4 +1,5 @@
 """Dialog for generating compound/multiscope reports."""
+
 import typing
 from pathlib import Path
 

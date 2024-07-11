@@ -1,4 +1,5 @@
 """Data models for the reporting framework."""
+
 import hashlib
 import json
 import os

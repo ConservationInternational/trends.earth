@@ -1,4 +1,5 @@
 """Reads and validates templates."""
+
 import json
 import os
 import typing

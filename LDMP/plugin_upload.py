@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 """This script uploads a plugin package on the server.
-        Authors: A. Pasotti, V. Picavet
-        git sha              : $TemplateVCSFormat
+Authors: A. Pasotti, V. Picavet
+git sha              : $TemplateVCSFormat
 """
+
 from future import standard_library
 
 standard_library.install_aliases()

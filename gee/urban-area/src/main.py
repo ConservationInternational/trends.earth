@@ -1,6 +1,7 @@
 """
 Code for calculating urban area.
 """
+
 # Copyright 2017 Conservation International
 import json
 import random

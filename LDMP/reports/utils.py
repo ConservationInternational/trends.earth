@@ -1,4 +1,5 @@
 """Util functions for report-related functions."""
+
 import os
 import typing
 

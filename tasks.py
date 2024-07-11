@@ -1526,6 +1526,10 @@ def _make_zip(zipFile, c):
             zipFile.write(os.path.join(root, f), os.path.join(relpath, f))
         _filter_excludes(root, dirs, c)
 
+    # Include the license file within the plugin zipfile (it is in root of
+    # repo, so otherwise would be skipped)
+    zipFile.write("LICENSE", "LICENSE")
+
 
 @task(
     help={

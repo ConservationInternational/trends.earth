@@ -1,6 +1,7 @@
 """
 Code for calculating vegetation productivity.
 """
+
 # Copyright 2017 Conservation International
 import json
 import random
@@ -140,16 +141,14 @@ def run(params, logger):
         year_final = params.get("year_final")
         out = download(prod_asset, lpd_layer_name, "one time", None, None, logger)
         proj = ee.Image(prod_asset).projection()
-        out.image = out.image.int16().rename(
+        assert len(out.images) == 1, "multiple bands returned - should be 1"
+        (image,) = out.images.values()
+        image.image = image.image.int16().rename(
             f"{'prod_mode'}_{year_initial}-{year_final}"
         )
-        out.band_info[0].metadata.update(
+        image.bands[0].metadata.update(
             {"year_initial": year_initial, "year_final": year_final}
         )
-
-        logger.debug("Converting output to TEImageV2 format")
-        out = teimage_v1_to_teimage_v2(out)
-
         return out.export(geojsons, "productivity", crs, logger, EXECUTION_ID, proj)
     else:
         raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))

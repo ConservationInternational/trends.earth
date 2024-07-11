@@ -1528,7 +1528,7 @@ def _make_zip(zipFile, c):
 
     # Include the license file within the plugin zipfile (it is in root of
     # repo, so otherwise would be skipped)
-    zipFile.write("LICENSE", "LICENSE")
+    zipFile.write("LICENSE", os.path.join(os.path.relpath(src_dir), "LICENSE"))
 
 
 @task(

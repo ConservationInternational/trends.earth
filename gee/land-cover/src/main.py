@@ -1,6 +1,7 @@
 """
 Code for calculating land cover change indicator.
 """
+
 # Copyright 2017 Conservation International
 import json
 import random

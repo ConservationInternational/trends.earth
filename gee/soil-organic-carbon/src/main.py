@@ -1,6 +1,7 @@
 """
 Code for calculating soil organic carbon indicator.
 """
+
 # Copyright 2017 Conservation International
 import json
 import random

@@ -1,4 +1,5 @@
 """Charts showing summary layer statistics."""
+
 import os
 import typing
 from collections import namedtuple

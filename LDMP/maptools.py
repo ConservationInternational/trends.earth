@@ -48,14 +48,14 @@ class AreaWidget(QtWidgets.QWidget):
 
         self.line_edit = QtWidgets.QLineEdit(self)
         self.line_edit.setReadOnly(True)
-        self.line_edit.setText(self.tr("0.00 km\u00B2"))
+        self.line_edit.setText(self.tr("0.00 km\u00b2"))
         self.line_edit.setSizePolicy(
             QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Preferred
         )
         self.layout.addWidget(self.line_edit)
 
     def set_area(self, area):
-        self.line_edit.setText(self.tr("{:.6g} km\u00B2".format(area)))
+        self.line_edit.setText(self.tr("{:.6g} km\u00b2".format(area)))
 
 
 class BufferWidget(QtWidgets.QWidget):
@@ -98,7 +98,7 @@ class BufferWidget(QtWidgets.QWidget):
 
     def change_mode(self, index):
         if index == BufferMode.AREA:
-            self.spin_radius.setSuffix(self.tr(" km\u00B2"))
+            self.spin_radius.setSuffix(self.tr(" km\u00b2"))
         elif index == BufferMode.RADIUS:
             self.spin_radius.setSuffix(self.tr(" km"))
 

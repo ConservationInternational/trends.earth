@@ -1,4 +1,5 @@
 """Metadata editing dialog for Trends.Earth QGIS plugin."""
+
 import os
 from pathlib import Path
 

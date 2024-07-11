@@ -1,4 +1,5 @@
 """Report generator"""
+
 import json
 import os
 import signal

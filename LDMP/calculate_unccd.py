@@ -1,4 +1,4 @@
-﻿"""
+"""
 /***************************************************************************
  LDMP - A QGIS plugin
  This plugin supports monitoring and reporting of land degradation to the UNCCD

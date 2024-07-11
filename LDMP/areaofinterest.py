@@ -558,7 +558,8 @@ def prepare_area_of_interest() -> AOI:
         if geojson is None:
             raise RuntimeError(error_msg)
         area_of_interest.update_from_geojson(
-            geojson=geojson, wrap=False  # FIXME: add the corresponding setting
+            geojson=geojson,
+            wrap=False,  # FIXME: add the corresponding setting
         )
     elif area_method == conf.AreaSetting.VECTOR_LAYER.value:
         vector_path, error_msg = validate_vector_path()

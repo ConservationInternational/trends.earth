@@ -16,15 +16,11 @@ from multiprocessing import Process
 
 from mock.mock_http_server import MockApiServer
 from qgis.core import QgsApplication
-from qgis.core import QgsAuthManager
 from qgis.core import QgsAuthMethodConfig
 from qgis.PyQt import QtCore
 
 from LDMP.api import APIClient
 from LDMP.auth import AuthSetup
-from LDMP.auth import get_auth_config
-from LDMP.auth import init_auth_config
-from LDMP.auth import TE_API_AUTH_SETUP
 from LDMP.conf import KNOWN_SCRIPTS
 from LDMP.jobs.manager import job_manager
 from LDMP.jobs.models import Job

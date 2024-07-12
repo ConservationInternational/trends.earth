@@ -4,7 +4,6 @@ import sys
 import os
 import rollbar
 
-from gefcore import logger
 
 rollbar.init(os.getenv("ROLLBAR_SCRIPT_TOKEN"), os.getenv("ENV"))
 

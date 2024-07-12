@@ -2,7 +2,6 @@ import json
 from pathlib import Path
 
 from flask import Flask
-from flask import request
 
 app = Flask(__name__)
 

@@ -10,7 +10,6 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 import os
-import sys
 from datetime import date
 
 import sphinx_rtd_theme
@@ -96,7 +95,7 @@ release = "2.1.16"
 # for a list of supported languages.
 language = os.environ.get("READTHEDOCS_LANGUAGE")
 if not language:
-    for t in tags:
+    for t in tags:  # noqa: F821
         if t.startswith("language_"):
             language = t[9:]
 
@@ -158,6 +157,13 @@ pygments_style = "sphinx"
 # modindex_common_prefix = []
 
 # -- Options for HTML output ---------------------------------------------------
+
+# Set canonical URL from the Read the Docs Domain
+html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "")
+
+# Tell Jinja2 templates the build is running on Read the Docs
+if os.environ.get("READTHEDOCS", "") == "True":
+    html_context = {"READTHEDOCS": True}
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.

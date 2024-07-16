@@ -8,9 +8,6 @@ from typing import Dict
 
 from te_algorithms.api import util
 from te_algorithms.gdal.land_deg.land_deg_stats import calculate_statistics
-from te_schemas import algorithms
-from te_schemas import jobs
-from te_schemas.aoi import AOI
 from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.productivity import ProductivityMode
 from te_schemas.results import JsonResults

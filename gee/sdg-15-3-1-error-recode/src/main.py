@@ -78,7 +78,7 @@ def calculate_error_recode(
             filters,
         )
     except IndexError:
-        logger.exception("Failed to load band name %s".format(band_name))
+        logger.exception(f"Failed to load band name {band_name}")
 
     recode_params = {
         "write_tifs": write_tifs,

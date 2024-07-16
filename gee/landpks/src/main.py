@@ -7,7 +7,6 @@ import logging
 import os
 import pathlib
 import random
-import re
 import tempfile
 import threading
 from concurrent.futures import as_completed
@@ -15,7 +14,6 @@ from concurrent.futures import ThreadPoolExecutor
 from urllib import request
 
 import ee
-import matplotlib.colors as colors
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
@@ -191,7 +189,6 @@ def plot_image_to_file(d, title, legend=None):
     ax = fig.add_subplot()
     # ax.set_title(title, {'fontsize' :28})
     ax.set_axis_off()
-    img = ax.imshow(d)
     scalebar = ScaleBar(35, location=3, box_color="white")
     plt.gca().add_artist(scalebar)
 
@@ -688,7 +685,6 @@ def run(params, logger):
         metadata = json.load(f)
 
     logger.debug("Running main script.")
-    threads = []
     with ThreadPoolExecutor(max_workers=4) as executor:
         logger.debug("Starting threads...")
         res = []

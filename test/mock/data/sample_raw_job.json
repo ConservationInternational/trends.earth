@@ -1,46 +1,232 @@
 {
-  "data": {
-    "end_date": "2022-12-05T12:42:27.164470",
-    "id": "0eea9b1b-f86b-4770-bd52-a8d357a21459",
-    "params": {
-      "calc_perf": true,
-      "calc_state": true,
-      "calc_traj": true,
-      "climate_gee_dataset": null,
-      "crs": "",
-      "geojsons": "[]",
-      "type": "Polygon",
-      "local_context": {
-        "area_of_interest_name": "finland-all-regions-buffer-10.000",
-        "base_dir": "/home/user/trends_earth_data"
+  "sdg-15-3-1-sub-indicators": {
+    "data": {
+      "end_date": "2022-12-05T12:42:27.164470",
+      "id": "0eea9b1b-f86b-4770-bd52-a8d357a21459",
+      "params": {
+        "calc_perf": true,
+        "calc_state": true,
+        "calc_traj": true,
+        "climate_gee_dataset": null,
+        "crs": "",
+        "geojsons": "[]",
+        "type": "Polygon",
+        "local_context": {
+          "area_of_interest_name": "finland-all-regions-buffer-10.000",
+          "base_dir": "/home/user/trends_earth_data"
+        },
+        "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2021",
+        "prod_mode": "TrendsEarth-LPD-5",
+        "prod_perf_year_final": 2015,
+        "prod_perf_year_initial": 2001,
+        "prod_state_year_bl_end": 2012,
+        "prod_state_year_bl_start": 2001,
+        "prod_state_year_tg_end": 2015,
+        "prod_state_year_tg_start": 2013,
+        "prod_traj_year_final": 2015,
+        "prod_traj_year_initial": 2001,
+        "task_name": "",
+        "task_notes": "",
+        "trajectory_method": "ndvi_trend"
       },
-      "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2021",
-      "prod_mode": "TrendsEarth-LPD-5",
-      "prod_perf_year_final": 2015,
-      "prod_perf_year_initial": 2001,
-      "prod_state_year_bl_end": 2012,
-      "prod_state_year_bl_start": 2001,
-      "prod_state_year_tg_end": 2015,
-      "prod_state_year_tg_start": 2013,
-      "prod_traj_year_final": 2015,
-      "prod_traj_year_initial": 2001,
-      "task_name": "",
-      "task_notes": "",
-      "trajectory_method": "ndvi_trend"
-    },
-    "progress": 0,
-    "results": {},
-    "script_id": "47b99c3d-f5b5-4df3-81e7-324a17a6e147",
-    "script": {
+      "progress": 0,
+      "results": {},
+      "script_id": "47b99c3d-f5b5-4df3-81e7-324a17a6e147",
+      "script": {
         "description": "Calculate all three SDG 15.3.1 sub-indicators in one step",
         "id": "47b99c3d-f5b5-4df3-81e7-324a17a6e147",
         "name": "sdg-15-3-1-sub-indicators",
         "name_readable": "SDG 15.3.1 sub-indicators",
         "run_mode": "remote",
         "version": "2.1"
-    },
-    "start_date": "2022-12-05T12:42:27.164465",
-    "status": "PENDING",
-    "user_id": "a1d45524-7dbc-4e36-801b-5f9b70f6dc77"
+      },
+      "start_date": "2022-12-05T12:42:27.164465",
+      "status": "PENDING",
+      "user_id": "a1d45524-7dbc-4e36-801b-5f9b70f6dc77"
+    }
+  },
+  "sdg-15-3-1-summary": {
+    "data": {
+      "end_date": "2022-12-05T12:45:27.164470",
+      "id": "1dea9b1b-f86b-4770-bd52-a8d357a21460",
+      "params": {
+        "calc_perf": true,
+        "calc_state": true,
+        "calc_traj": true,
+        "climate_gee_dataset": null,
+        "crs": "",
+        "geojsons": "[]",
+        "type": "Polygon",
+        "local_context": {
+          "area_of_interest_name": "finland-all-regions-buffer-10.000",
+          "base_dir": "/home/user/trends_earth_data"
+        },
+        "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2021",
+        "prod_mode": "TrendsEarth-LPD-5",
+        "prod_perf_year_final": 2015,
+        "prod_perf_year_initial": 2001,
+        "prod_state_year_bl_end": 2012,
+        "prod_state_year_bl_start": 2001,
+        "prod_state_year_tg_end": 2015,
+        "prod_state_year_tg_start": 2013,
+        "prod_traj_year_final": 2015,
+        "prod_traj_year_initial": 2001,
+        "task_name": "",
+        "task_notes": "",
+        "trajectory_method": "ndvi_trend"
+      },
+      "progress": 0,
+      "results": {},
+      "script_id": "fe1cffa7-33f7-4148-ac7b-fc726402d59d",
+      "script": {
+        "description": "Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators",
+        "id": "fe1cffa7-33f7-4148-ac7b-fc726402d59d",
+        "name": "sdg-15-3-1-summary",
+        "name_readable": "SDG 15.3.1 summary",
+        "run_mode": "remote",
+        "version": "2.1"
+      },
+      "start_date": "2022-12-05T12:45:27.164465",
+      "status": "PENDING",
+      "user_id": "b1d45524-7dbc-4e36-801b-5f9b70f6dc77"
+    }
+  },
+  "productivity": {
+    "data": {
+      "end_date": "2022-12-05T12:48:27.164470",
+      "id": "2dea9b1b-f86b-4770-bd52-a8d357a21461",
+      "params": {
+        "calc_perf": true,
+        "calc_state": true,
+        "calc_traj": true,
+        "climate_gee_dataset": null,
+        "crs": "",
+        "geojsons": "[]",
+        "type": "Polygon",
+        "local_context": {
+          "area_of_interest_name": "finland-all-regions-buffer-10.000",
+          "base_dir": "/home/user/trends_earth_data"
+        },
+        "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2021",
+        "prod_mode": "TrendsEarth-LPD-5",
+        "prod_perf_year_final": 2015,
+        "prod_perf_year_initial": 2001,
+        "prod_state_year_bl_end": 2012,
+        "prod_state_year_bl_start": 2001,
+        "prod_state_year_tg_end": 2015,
+        "prod_state_year_tg_start": 2013,
+        "prod_traj_year_final": 2015,
+        "prod_traj_year_initial": 2001,
+        "task_name": "",
+        "task_notes": "",
+        "trajectory_method": "ndvi_trend"
+      },
+      "progress": 0,
+      "results": {},
+      "script_id": "e25d2a72-2274-45fa-9b69-74e87873054e",
+      "script": {
+        "description": "Calculate land productivity",
+        "id": "e25d2a72-2274-45fa-9b69-74e87873054e",
+        "name": "productivity",
+        "name_readable": "Land productivity",
+        "run_mode": "remote",
+        "version": "2.1"
+      },
+      "start_date": "2022-12-05T12:48:27.164465",
+      "status": "PENDING",
+      "user_id": "c1d45524-7dbc-4e36-801b-5f9b70f6dc77"
+    }
+  },
+  "land-cover": {
+    "data": {
+      "end_date": "2022-12-05T12:51:27.164470",
+      "id": "3dea9b1b-f86b-4770-bd52-a8d357a21462",
+      "params": {
+        "calc_perf": true,
+        "calc_state": true,
+        "calc_traj": true,
+        "climate_gee_dataset": null,
+        "crs": "",
+        "geojsons": "[]",
+        "type": "Polygon",
+        "local_context": {
+          "area_of_interest_name": "finland-all-regions-buffer-10.000",
+          "base_dir": "/home/user/trends_earth_data"
+        },
+        "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2021",
+        "prod_mode": "TrendsEarth-LPD-5",
+        "prod_perf_year_final": 2015,
+        "prod_perf_year_initial": 2001,
+        "prod_state_year_bl_end": 2012,
+        "prod_state_year_bl_start": 2001,
+        "prod_state_year_tg_end": 2015,
+        "prod_state_year_tg_start": 2013,
+        "prod_traj_year_final": 2015,
+        "prod_traj_year_initial": 2001,
+        "task_name": "",
+        "task_notes": "",
+        "trajectory_method": "ndvi_trend"
+      },
+      "progress": 0,
+      "results": {},
+      "script_id": "277f87e6-5362-4533-ab1d-c28251576884",
+      "script": {
+        "description": "Calculate land cover change",
+        "id": "277f87e6-5362-4533-ab1d-c28251576884",
+        "name": "land-cover",
+        "name_readable": "Land cover change",
+        "run_mode": "remote",
+        "version": "2.1"
+      },
+      "start_date": "2022-12-05T12:51:27.164465",
+      "status": "PENDING",
+      "user_id": "d1d45524-7dbc-4e36-801b-5f9b70f6dc77"
+    }
+  },
+  "soil-organic-carbon": {
+    "data": {
+      "end_date": "2022-12-05T12:54:27.164470",
+      "id": "4dea9b1b-f86b-4770-bd52-a8d357a21463",
+      "params": {
+        "calc_perf": true,
+        "calc_state": true,
+        "calc_traj": true,
+        "climate_gee_dataset": null,
+        "crs": "",
+        "geojsons": "[]",
+        "type": "Polygon",
+        "local_context": {
+          "area_of_interest_name": "finland-all-regions-buffer-10.000",
+          "base_dir": "/home/user/trends_earth_data"
+        },
+        "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2021",
+        "prod_mode": "TrendsEarth-LPD-5",
+        "prod_perf_year_final": 2015,
+        "prod_perf_year_initial": 2001,
+        "prod_state_year_bl_end": 2012,
+        "prod_state_year_bl_start": 2001,
+        "prod_state_year_tg_end": 2015,
+        "prod_state_year_tg_start": 2013,
+        "prod_traj_year_final": 2015,
+        "prod_traj_year_initial": 2001,
+        "task_name": "",
+        "task_notes": "",
+        "trajectory_method": "ndvi_trend"
+      },
+      "progress": 0,
+      "results": {},
+      "script_id": "f32fd29b-2af8-4564-9189-3dd440758be6",
+      "script": {
+        "description": "Calculate soil organic carbon",
+        "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
+        "name": "soil-organic-carbon",
+        "name_readable": "Soil organic carbon",
+        "run_mode": "remote",
+        "version": "2.1"
+      },
+      "start_date": "2022-12-05T12:54:27.164465",
+      "status": "PENDING",
+      "user_id": "e1d45524-7dbc-4e36-801b-5f9b70f6dc77"
+    }
   }
 }

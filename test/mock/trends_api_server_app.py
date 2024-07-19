@@ -1,7 +1,6 @@
 import json
 from pathlib import Path
-
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -32,7 +31,8 @@ def script_run(script_id):
     ]
     for f in files:
         with f.open() as fl:
-            response = json.load(fl)
+            data = json.load(fl)
+            response = data.get(script_id, {})
     return response
 
 
@@ -44,7 +44,8 @@ def script_index(script_id):
     ]
     for f in files:
         with f.open() as fl:
-            response = json.load(fl)
+            data = json.load(fl)
+            response = data.get(script_id, {})
     return response
 
 
@@ -56,5 +57,6 @@ def default_script():
     ]
     for f in files:
         with f.open() as fl:
-            response = json.load(fl)
+            data = json.load(fl)
+            response = data
     return response

@@ -1,4 +1,3 @@
-import datetime
 import datetime as dt
 import json
 import logging
@@ -799,7 +798,7 @@ class JobManager(QtCore.QObject):
             status=jobs.JobStatus.DOWNLOADED,
             local_context=_get_local_context(),
             results=VectorResults(
-                name=f"False positive/negative",
+                name="False positive/negative",
                 type=ResultType.VECTOR_RESULTS,
                 vector=VectorFalsePositive(
                     uri=None,
@@ -1166,7 +1165,7 @@ class JobManager(QtCore.QObject):
                     raw_job = json.load(fh)
                     job = Job.Schema().load(raw_job)
                     set_results_extents(job)
-                except (KeyError, json.decoder.JSONDecodeError) as exc:
+                except (KeyError, json.decoder.JSONDecodeError):
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
                             f"Unable to decode file {job_metadata_path!r} as valid json"

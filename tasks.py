@@ -338,7 +338,7 @@ def set_tag(c, modules=False):
             )
             ret.check_returncode()
         else:
-            print("Changes not committed - VERSION TAG NOT SET".format(v))
+            print("Changes not committed - VERSION TAG NOT SET".format())
 
     print("Tagging version {} and pushing tag to origin".format(v))
     ret = subprocess.run(
@@ -1663,7 +1663,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
         if os.path.isdir(f):
             continue
 
-        if not os.path.basename(f) in s3_object_names:
+        if os.path.basename(f) not in s3_object_names:
             print("S3 is missing {} - copying to S3.".format(f))
             data = open(f, "rb")
             client.put_object(

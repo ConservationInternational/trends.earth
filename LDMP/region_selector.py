@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 
 from qgis.core import QgsGeometry
-from qgis.core import QgsRectangle
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtWidgets
 from qgis.utils import iface

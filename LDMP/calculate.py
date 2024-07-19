@@ -18,7 +18,6 @@ import os
 import typing
 import uuid
 from pathlib import Path
-from typing import Optional
 
 import qgis.core
 import qgis.gui
@@ -39,7 +38,6 @@ from .conf import OPTIONS_TITLE
 from .conf import REMOTE_DATASETS
 from .conf import Setting
 from .conf import settings_manager
-from .logger import log
 
 
 DlgCalculateUi, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgCalculate.ui"))

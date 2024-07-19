@@ -25,7 +25,6 @@ from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
-from ..logger import log
 from ..plot import DlgPlotTimeries
 from ..reports.mvc import DatasetReportHandler
 from ..select_dataset import DlgSelectDataset

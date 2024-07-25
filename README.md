@@ -56,12 +56,14 @@ GitHub](https://github.com/ConservationInternational/trends.earth/releases). The
 the instructions below on [installing the plugin from a
 zipfile](#installing-plugin-from-a-zipfile).
 
-## Installation of unstable version of plugin
+## Installation of development version of plugin
 
-If you are interested in using the unstable (actively under development) version of the
+If you are interested in using the development version of the
 plugin, with the very latest (but not as well tested) features, or in contributing to
-the development of it, you will want to install the development version. There are
-two ways to install the development version:
+the development of it, you will want to install the development version. Note
+that the development version is more likely to contain bugs or other issues
+that have yet to be resolved. There are two ways to install the development
+version:
 
 - Using a packaged version (zipfile)
 
@@ -127,8 +129,7 @@ might be necessary to install the plugin from a zipfile if you need to install
 it offline, or if you need the latest features.
 
 To install from a zipfile, first download a zipfile of the
-[stable](#stable-version-from-zipfile) or
-[development](#development-version-from-zipfile) version. The zipfile might be
+[stable](#stable-version-from-zipfile) version. The zipfile might be
 named `LDMP.zip`or `LDMP_QGIS3.zip` depending on what
 version you are installing.
 

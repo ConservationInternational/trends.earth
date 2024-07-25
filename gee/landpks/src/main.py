@@ -216,9 +216,9 @@ def plot_image_to_file(d, title, legend=None):
 
 def landtrend_get_data(year_start, year_end, geojson):
     # geospatial datasets
-    lcover = "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2020"
-    vegindex = "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2020"
-    precip = "users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2019"
+    lcover = "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2022"
+    vegindex = "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2023"
+    precip = "users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2023"
 
     point = ee.Geometry(geojson)
 
@@ -655,7 +655,7 @@ def run(params, logger):
         raise InvalidParameter("Invalid starting year {}".format(year_start))
     year_end = int(params.get("year_end", None))
 
-    if year_end > 2019:
+    if year_end > 2022:
         raise InvalidParameter("Invalid ending year {}".format(year_end))
     lang = params.get("lang", None)
     langs = ["EN", "ES", "PT"]

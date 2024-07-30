@@ -805,7 +805,7 @@ def file_changed(infile, outfile):
         outfile_s = os.stat(outfile)
 
         return infile_s.st_mtime > outfile_s.st_mtime
-    except:
+    except Exception:
         return True
 
 
@@ -813,7 +813,8 @@ def _filter_excludes(root, items, c):
     excludes = set(c.plugin.excludes)
     skips = c.plugin.skip_exclude
 
-    exclude = lambda p: any([fnmatch.fnmatch(p, e) for e in excludes])
+    def exclude(p):
+        any([fnmatch.fnmatch(p, e) for e in excludes])
 
     if not items:
         return []

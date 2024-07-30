@@ -4,9 +4,6 @@ Authors: A. Pasotti, V. Picavet
 git sha              : $TemplateVCSFormat
 """
 
-from future import standard_library
-
-standard_library.install_aliases()
 import sys
 import getpass
 import xmlrpc.client

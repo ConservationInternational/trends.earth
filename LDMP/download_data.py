@@ -233,9 +233,10 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         self.data_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 
     def btn_details(self):
-        button = self.sender()
-        index = self.data_view.indexAt(button.pos())
+        # button = self.sender()
+        # index = self.data_view.indexAt(button.pos())
         # TODO: Code the details view
+        pass
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

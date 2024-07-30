@@ -833,8 +833,8 @@ class ReportTaskProcessor:
         if job_layers is None:
             return rect
 
-        for l in job_layers:
-            rect.combineExtentWith(l.extent())
+        for lyr in job_layers:
+            rect.combineExtentWith(lyr.extent())
 
         return rect
 

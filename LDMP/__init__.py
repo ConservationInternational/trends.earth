@@ -11,7 +11,6 @@
  ***************************************************************************/
 """
 
-# pylint: disable=import-error
 import json
 import os
 import re
@@ -26,6 +25,8 @@ from qgis.core import QgsApplication
 from qgis.PyQt import QtCore
 from qgis.utils import iface
 
+from . import logger
+
 # initialize translation
 plugin_dir = os.path.dirname(os.path.realpath(__file__))
 i18n_dir = os.path.join(plugin_dir, "i18n")
@@ -34,12 +35,10 @@ locale = QtCore.QLocale(QgsApplication.locale())
 translator.load(locale, "LDMP", "_", directory=i18n_dir, suffix=".qm")
 trans_result = QtCore.QCoreApplication.installTranslator(translator)
 
-from . import logger
-
 try:
     with open(os.path.join(plugin_dir, "version.json")) as f:
         version_info = json.load(f)
-except:
+except FileNotFoundError:
     # Will happen for a dev version if user downloads directly from github and installs
     # without using invoke script
     version_info = {
@@ -88,7 +87,7 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :type iface: QgsInterface
     """
 
-    from LDMP.plugin import LDMPPlugin  # noqa: autoimport
+    from LDMP.plugin import LDMPPlugin  # noqa: E402
 
     return LDMPPlugin(iface)
 
@@ -115,10 +114,10 @@ else:
         "FAILED while trying to install translator for {}.".format(locale.name())
     )
 
-from . import conf  # noqa: autoimport
+from . import conf  # noqa: E402
 
 if conf.settings_manager.get_value(conf.Setting.DEBUG):
-    import logging  # noqa: autoimport
+    import logging  # noqa: E402
 
     formatter = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logfilename = (
@@ -134,7 +133,7 @@ def binaries_available():
     ret = True
     debug_enabled = conf.settings_manager.get_value(conf.Setting.DEBUG)
     try:
-        from trends_earth_binaries import ldn_numba  # noqa: autoimport
+        from trends_earth_binaries import ldn_numba  # noqa: E402, F401
 
         if debug_enabled:
             logger.log("Numba-compiled version of ldn_numba available.")

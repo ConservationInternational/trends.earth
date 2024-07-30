@@ -13,10 +13,6 @@
 
 import io
 
-from future import standard_library
-
-standard_library.install_aliases()
-
 import json
 from urllib.parse import quote_plus
 
@@ -213,7 +209,7 @@ class APIClient(QtCore.QObject):
         self.timeout = timeout
 
     def clean_api_response(self, resp):
-        if resp == None:
+        if resp is None:
             # Return 'None' unmodified
             response = resp
         else:
@@ -412,7 +408,7 @@ class APIClient(QtCore.QObject):
             timeout=self.timeout,
         )
 
-        if resp != None:
+        if resp is not None:
             status_code = resp.attribute(
                 QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
             )
@@ -477,20 +473,20 @@ class APIClient(QtCore.QObject):
 
         return self.call_api("/api/v1/user/me", "patch", payload, use_token=True)
 
-    def update_password(self, password, repeatPassword):
-        payload = {
-            "email": email,
-            "name": name,
-            "institution": organization,
-            "country": country,
-        }
-
-        return self.call_api(
-            "/api/v1/user/{}".format(quote_plus(email)),
-            "patch",
-            payload,
-            use_token=True,
-        )
+    # def update_password(self, password, repeatPassword):
+    #     payload = {
+    #         "email": email,
+    #         "name": name,
+    #         "institution": organization,
+    #         "country": country,
+    #     }
+    #
+    #     return self.call_api(
+    #         "/api/v1/user/{}".format(quote_plus(email)),
+    #         "patch",
+    #         payload,
+    #         use_token=True,
+    #     )
 
     def get_execution(self, id=None, date=None):
         log("Fetching executions")

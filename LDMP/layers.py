@@ -627,7 +627,7 @@ def add_layer(
             ),
         )
         log(
-            'No style found for "{}" in {}'.format(
+            'No style found for "{}" (band {} in {})'.format(
                 band_info["name"], band_number, layer_path
             )
         )
@@ -836,7 +836,7 @@ def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
 
 
 def set_default_stats_value(v_path, band_datas):
-    log(f"setting default stats value function")
+    log("setting default stats value function")
     layer = None
     for l in QgsProject.instance().mapLayers().values():
         if l.source().split("|")[0] == v_path:

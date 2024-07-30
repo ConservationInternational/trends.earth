@@ -141,7 +141,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 max_x = item.get("Max Longitude", None)
                 min_y = item.get("Min Latitude", None)
                 max_y = item.get("Max Latitude", None)
-                if not None in (min_x, max_x, min_y, max_y):
+                if None not in (min_x, max_x, min_y, max_y):
                     extent_lat = "{} - {}".format(min_y, max_y)
                     extent_lon = "{} - {}".format(min_x, max_x)
                     item.update({"extent_lat": extent_lat, "extent_lon": extent_lon})

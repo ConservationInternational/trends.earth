@@ -10,6 +10,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 import os
 import typing
 import zipfile
@@ -29,7 +30,6 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 
-from . import __version__
 from . import api
 from . import auth
 from . import binaries_available
@@ -1325,8 +1325,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 None,
                 self.tr("Error"),
                 self.tr(
-                    "Unable to write to {}. Try a "
-                    "different folder.".format(out_folder)
+                    "Unable to write to {}. Try a different folder.".format(out_folder)
                 ),
             )
 
@@ -1385,7 +1384,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Success"),
-                    self.tr("All binaries up to date.".format(out_folder)),
+                    self.tr("All binaries up to date."),
                 )
 
     def binaries_toggle(self):

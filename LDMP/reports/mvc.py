@@ -122,7 +122,7 @@ class DatasetReportHandler:
     def check_job_report_status(self) -> bool:
         # Check job status, assert datasets are available and no report has
         # been generated yet.
-        if not self._job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
+        if self._job.status not in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
             return False
 
         if not job_has_results(self._job):

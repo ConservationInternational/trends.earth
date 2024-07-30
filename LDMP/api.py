@@ -12,8 +12,6 @@
 """
 
 import io
-import sys
-import typing
 
 from future import standard_library
 
@@ -25,9 +23,7 @@ from urllib.parse import quote_plus
 import requests
 import backoff
 
-from dateutil import tz
 from qgis.core import (
-    QgsApplication,
     QgsTask,
     QgsNetworkAccessManager,
     QgsApplication,
@@ -36,8 +32,6 @@ from qgis.core import (
 )
 from qgis.PyQt import QtCore, QtWidgets, QtNetwork
 
-from qgis.utils import iface
-from qgis.gui import QgsAuthConfigSelect
 
 from . import auth, conf
 from .logger import log
@@ -106,7 +100,7 @@ class RequestTask(QgsTask):
                     # dictionaries that contain nested values of OrderedDict.
                     try:
                         doc = QtCore.QJsonDocument(self.payload)
-                    except TypeError as te:
+                    except TypeError:
                         request_data = bytes(json.dumps(self.payload), encoding="utf-8")
 
                 request_data = (
@@ -191,7 +185,7 @@ class RequestTask(QgsTask):
                     )
                 except requests.exceptions.Timeout:
                     self.error_message = tr_api.tr(
-                        f"Unable to connect to Trends.Earth  server."
+                        "Unable to connect to Trends.Earth server."
                     )
 
         if self.resp is not None:

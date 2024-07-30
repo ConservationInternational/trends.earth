@@ -338,7 +338,7 @@ def set_tag(c, modules=False):
             )
             ret.check_returncode()
         else:
-            print("Changes not committed - VERSION TAG NOT SET".format(v))
+            print("Changes not committed - VERSION TAG NOT SET")
 
     print("Tagging version {} and pushing tag to origin".format(v))
     ret = subprocess.run(
@@ -429,7 +429,7 @@ def tecli_publish(c, script=None, overwrite=False):
         script_dir = os.path.join(c.gee.script_dir, dir)
 
         if os.path.exists(os.path.join(script_dir, "configuration.json")) and (
-            script == None or script == dir
+            script is None or script == dir
         ):
             print("Publishing {}...".format(dir))
             subprocess.check_call(
@@ -516,7 +516,6 @@ def update_script_ids(c):
         scripts = json.load(fin)
 
     dirs = next(os.walk(c.gee.script_dir))[1]
-    n = 0
     script_dir = None
 
     for dir in dirs:
@@ -568,7 +567,7 @@ def tecli_info(c, script=None):
         script_dir = os.path.join(c.gee.script_dir, dir)
 
         if os.path.exists(os.path.join(script_dir, "configuration.json")) and (
-            script == None or script == dir
+            script is None or script == dir
         ):
             print("Checking info on {}...".format(dir))
             subprocess.check_call(
@@ -701,16 +700,16 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
 
     if link:
         for module in c.plugin.ext_libs.local_modules:
-            l = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module["name"]
+            ln = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module["name"]
 
-            if os.path.islink(l):
-                print(f"{l} is already a link (to {os.readlink(l)})")
+            if os.path.islink(ln):
+                print(f"{ln} is already a link (to {os.readlink(ln)})")
             else:
                 print(
                     "Linking local repo of {} to plugin ext_libs".format(module["name"])
                 )
-                shutil.rmtree(l)
-                os.symlink(module["path"], l)
+                shutil.rmtree(ln)
+                os.symlink(module["path"], ln)
 
 
 @task(
@@ -1663,7 +1662,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
         if os.path.isdir(f):
             continue
 
-        if not os.path.basename(f) in s3_object_names:
+        if os.path.basename(f) not in s3_object_names:
             print("S3 is missing {} - copying to S3.".format(f))
             data = open(f, "rb")
             client.put_object(
@@ -1687,7 +1686,6 @@ def _check_hash(expected, filename):
 def binaries_sync(c, extensions=None):
     if not extensions:
         extensions = c.plugin.numba.binary_extensions
-    client = _get_s3_client()
     patterns = [os.path.join(c.plugin.numba.binary_folder, "*" + p) for p in extensions]
     _s3_sync(
         c,
@@ -1750,7 +1748,7 @@ def binaries_deploy(c, qgis):
         # binaries installed in the same folder
         moduledir = os.path.join(tmpdir, zipfile_basename, "trends_earth_binaries")
         os.makedirs(moduledir)
-        with open(os.path.join(moduledir, "__init__.py"), "w") as fp:
+        with open(os.path.join(moduledir, "__init__.py"), "w"):
             pass
         # Copy binaries to temp folder for later zipping
 

@@ -11,7 +11,6 @@ from qgis.core import QgsRasterLayer
 from qgis.core import QgsRectangle
 from qgis.core import QgsUnitTypes
 from qgis.core import QgsVectorLayerUtils
-from qgis.core import QgsWkbTypes
 from qgis.gui import QgsDoubleSpinBox
 from qgis.gui import QgsMapCanvas
 from qgis.gui import QgsMapMouseEvent

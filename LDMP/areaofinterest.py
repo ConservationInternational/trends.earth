@@ -1,6 +1,5 @@
 import functools
 import json
-import traceback
 import typing
 from pathlib import Path
 

@@ -21,12 +21,8 @@ import zipfile
 from functools import partial
 from pathlib import Path
 
-import requests
-from qgis.core import QgsApplication
 from qgis.core import QgsFileDownloader
 from qgis.core import QgsNetworkReplyContent
-from qgis.core import QgsSettings
-from qgis.core import QgsTask
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtNetwork
 from qgis.PyQt import QtWidgets
@@ -392,7 +388,7 @@ class Download:
                 tr_download.tr("Error"),
                 tr_download.tr("Download failed. Check your internet connection."),
             )
-        except Exception as err:
+        except Exception:
             QtWidgets.QMessageBox.critical(
                 None,
                 tr_download.tr("Error"),

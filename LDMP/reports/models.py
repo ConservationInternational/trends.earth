@@ -276,9 +276,8 @@ class ReportTemplateInfo:
         # set absolute paths for portrait and landscape templates
         # Prioritize matching paths in the user folder, if not found then
         # revert to the plugin one.
-        concat_path = lambda template_dir, file_name: os.path.normpath(
-            f"{template_dir}{os.sep}{file_name}"
-        )
+        def concat_path(template_dir, file_name):
+            os.path.normpath(f"{template_dir}{os.sep}{file_name}")
 
         # First check user-defined directory
         if user_templates_dir is not None:
@@ -398,8 +397,8 @@ class ReportTaskContext:
         self.jobs = jobs or []
         self.root_report_dir = root_report_dir or None
 
-    def __hash__(self):
-        return hash([[job.id for job in self.jobs], hash(self.report_configuration)])
+    def __hash__(self) -> int:
+        return hash(self.id())
 
     def display_name(self) -> str:
         # Friendly name for the task that can be used in the UI.
@@ -418,6 +417,3 @@ class ReportTaskContext:
         attrs_hash.update(attrs_bytes)
 
         return attrs_hash.hexdigest()
-
-    def __hash__(self) -> int:
-        return hash(self.id())

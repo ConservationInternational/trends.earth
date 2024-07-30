@@ -100,7 +100,7 @@ def qgis_bin_dir() -> str:
     platform_name = sys.platform
     lib_path = app.libexecPath()
     rt_path = ""
-    warning, info = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
+    warning, _ = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
     msg = "QGIS 'bin' directory could not be determined."
 
     if platform_name == "win32":
@@ -174,7 +174,7 @@ def qgis_process_path() -> str:
     (or script) could not be found.
     """
     platform_name = sys.platform
-    warning, info = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
+    warning, _ = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
     proc_script_path = ""
 
     rt_bin_dir = qgis_bin_dir()

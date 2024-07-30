@@ -1,5 +1,6 @@
 import enum
 import math
+from typing import TYPE_CHECKING
 
 from qgis.core import Qgis
 from qgis.core import QgsAbstractGeometry
@@ -25,6 +26,9 @@ from qgis.utils import iface
 
 from .areaofinterest import prepare_area_of_interest
 from .jobs.manager import job_manager
+
+if TYPE_CHECKING:
+    from .jobs.models import Job
 
 
 class BufferMode(enum.IntEnum):
@@ -235,7 +239,7 @@ class TEMapToolMixin:
             if self._intersection_mode is not None:
                 project.setAvoidIntersectionsMode(self._intersection_mode)
 
-    def job_from_current_layer(self) -> "Job":
+    def job_from_current_layer(self) -> Job:
         """
         Returns the 'Job' object corresponding to the current vector layer
         being digitized.

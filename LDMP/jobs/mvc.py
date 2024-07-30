@@ -3,6 +3,7 @@ import os
 import typing
 import uuid
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from qgis.core import QgsProject
 from qgis.PyQt import QtCore
@@ -32,6 +33,9 @@ from ..utils import FileUtils
 from .models import Job
 from .models import SortField
 from .models import TypeFilter
+
+if TYPE_CHECKING:
+    from ..main_widget import MainWidget
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui")
@@ -146,11 +150,11 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
 class JobItemDelegate(QtWidgets.QStyledItemDelegate):
     current_index: typing.Optional[QtCore.QModelIndex]
-    main_dock: "MainWidget"
+    main_dock: MainWidget
 
     def __init__(
         self,
-        main_dock: "MainWidget",
+        main_dock: MainWidget,
         parent: QtCore.QObject = None,
     ):
         super().__init__(parent)
@@ -230,7 +234,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
 
 class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     job: Job
-    main_dock: "MainWidget"
+    main_dock: MainWidget
 
     add_to_canvas_pb: QtWidgets.QToolButton
     notes_la: QtWidgets.QLabel
@@ -246,7 +250,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     edit_tb: QtWidgets.QToolButton
     report_pb: QtWidgets.QPushButton
 
-    def __init__(self, job: Job, main_dock: "MainWidget", parent=None):
+    def __init__(self, job: Job, main_dock: MainWidget, parent=None):
         super().__init__(parent)
         self.setupUi(self)
         self.job = job
@@ -310,9 +314,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         if self.job.is_vector():
             self.edit_tb.setEnabled(False)
             layers = QgsProject.instance().mapLayers()
-            for l in layers.values():
+            for lyr in layers.values():
                 # Ensure this vector layer is added to the map
-                if l.source().split("|")[0] == str(job.results.vector.uri.uri):
+                if lyr.source().split("|")[0] == str(job.results.vector.uri.uri):
                     self.edit_tb.setEnabled(True)
                     break
 

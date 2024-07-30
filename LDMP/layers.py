@@ -33,6 +33,7 @@ from qgis.core import QgsProviderRegistry
 from qgis.core import QgsProviderSublayerDetails
 from qgis.core import QgsRasterLayer
 from qgis.core import QgsRasterShader
+from qgis.core import QgsVectorLayer
 from qgis.core import QgsSingleBandPseudoColorRenderer
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
@@ -817,8 +818,8 @@ def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
         if layer.isValid():
             found = False
             layers = QgsProject.instance().mapLayers()
-            for l in layers.values():
-                if l.source().split("|")[0] == layer.source().split("|")[0]:
+            for lyr in layers.values():
+                if lyr.source().split("|")[0] == layer.source().split("|")[0]:
                     found = True
             if not found:
                 layer.setName(name)
@@ -826,8 +827,8 @@ def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
     else:
         found = False
         layers = QgsProject.instance().mapLayers()
-        for l in layers.values():
-            if l.source().split("|")[0] == layer_path:
+        for lyr in layers.values():
+            if lyr.source().split("|")[0] == layer_path:
                 found = True
         if not found:
             layer = iface.addVectorLayer(layer_path, name, "ogr")
@@ -838,9 +839,9 @@ def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
 def set_default_stats_value(v_path, band_datas):
     log("setting default stats value function")
     layer = None
-    for l in QgsProject.instance().mapLayers().values():
-        if l.source().split("|")[0] == v_path:
-            layer = l
+    for lyr in QgsProject.instance().mapLayers().values():
+        if lyr.source().split("|")[0] == v_path:
+            layer = lyr
             break
     if layer is None:
         return
@@ -858,9 +859,9 @@ def set_default_stats_value(v_path, band_datas):
 
 def edit(layer):
     layers = QgsProject.instance().mapLayers()
-    for l in layers.values():
-        if l.source().split("|")[0] == layer:
-            if l.isEditable():
-                l.commitChanges()
+    for lyr in layers.values():
+        if lyr.source().split("|")[0] == layer:
+            if lyr.isEditable():
+                lyr.commitChanges()
             else:
-                l.startEditing()
+                lyr.startEditing()

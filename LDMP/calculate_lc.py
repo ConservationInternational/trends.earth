@@ -25,12 +25,11 @@ from . import calculate
 from . import lc_setup
 from .jobs.manager import job_manager
 
+from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui")
 )
-
-from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 
 class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):

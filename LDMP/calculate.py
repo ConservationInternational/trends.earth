@@ -18,6 +18,7 @@ import os
 import typing
 import uuid
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import qgis.core
 import qgis.gui
@@ -38,6 +39,9 @@ from .conf import OPTIONS_TITLE
 from .conf import REMOTE_DATASETS
 from .conf import Setting
 from .conf import settings_manager
+
+if TYPE_CHECKING:
+    from .main_widget import MainWidget
 
 
 DlgCalculateUi, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgCalculate.ui"))
@@ -390,7 +394,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
     cities: typing.Dict[str, typing.Dict[str, download.City]]
     datasets: typing.Dict[str, typing.Dict]
     iface: qgis.gui.QgisInterface
-    main_dock: "MainWidget"
+    main_dock: MainWidget
     script: ExecutionScript
     _has_output: bool
     _firstShowEvent: bool
@@ -403,7 +407,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self,
         iface: qgis.gui.QgisInterface,
         script: ExecutionScript,
-        parent: "MainWidget" = None,
+        parent: MainWidget = None,
     ):
         super().__init__(parent)
         self.iface = iface

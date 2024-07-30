@@ -1,6 +1,7 @@
 import functools
 import typing
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
@@ -11,6 +12,9 @@ from te_schemas.algorithms import AlgorithmRunMode
 from . import models
 from ..conf import Setting
 from ..conf import settings_manager
+
+if TYPE_CHECKING:
+    from ..main_widget import MainWidget
 
 WidgetAlgorithmLeafUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetAlgorithmLeaf.ui")
@@ -142,12 +146,12 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
 class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
     current_index: typing.Optional[QtCore.QModelIndex]
     algorithm_execution_handler: typing.Callable
-    main_dock: "MainWidget"
+    main_dock: MainWidget
 
     def __init__(
         self,
         algorithm_execution_handler: typing.Callable,
-        main_dock: "MainWidget",
+        main_dock: MainWidget,
         parent: QtCore.QObject = None,
     ):
         super().__init__(parent)
@@ -218,13 +222,13 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
     name_la: QtWidgets.QLabel
     description_la: QtWidgets.QLabel
     open_execution_dialogue_tb: QtWidgets.QToolButton
-    main_dock: "MainWidget"
+    main_dock: MainWidget
 
     def __init__(
         self,
         algorithm: models.Algorithm,
         execution_handler: typing.Callable,
-        main_dock: "MainWidget",
+        main_dock: MainWidget,
         parent=None,
     ):
         super().__init__(parent)

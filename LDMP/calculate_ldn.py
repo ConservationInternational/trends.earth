@@ -561,9 +561,38 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 ),  # TODO: Use SOC matrix for the above once defined
             }
 
+            pop_dataset = conf.REMOTE_DATASETS["WorldPop"][
+                "Gridded Population Count (gender breakdown)"
+            ]
+            pop_start_year = pop_dataset["Start year"]
+            pop_end_year = pop_dataset["End year"]
+            # Use a population dataset that is as close as possible to the
+            # chosen final year, but no more than three years earlier or later
+            # than that year
+            if year_final < (pop_start_year - 3) or year_final > (pop_end_year + 3):
+                log(
+                    f"final year {year_final} is too far away from available worldpop data years"
+                )
+                QtWidgets.QMessageBox.information(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        f"Final year of the productivity data ({year_final}) must be "
+                        "within three years of the years for which population data "
+                        f"is available from the WorldPop dataset ({pop_start_year}-{pop_end_year})."
+                    ),
+                )
+                return
+            else:
+                if year_final < pop_start_year:
+                    pop_year = pop_start_year
+                elif year_final > pop_end_year:
+                    pop_year = pop_end_year
+                else:
+                    pop_year = year_final
             payload["population"] = {
-                "year": year_final,
-                "asset": "users/geflanddegradation/toolbox_datasets/worldpop_mf_v1_300m",
+                "year": pop_year,
+                "asset": pop_dataset["GEE Dataset"],
                 "source": "WorldPop (gender breakdown)",
             }
 

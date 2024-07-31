@@ -16,14 +16,11 @@ import typing
 from pathlib import Path
 
 import qgis.gui
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 from te_schemas.productivity import ProductivityMode
 
-from . import calculate
-from . import conf
+from . import calculate, conf
 from .jobs.manager import job_manager
 from .logger import log
 

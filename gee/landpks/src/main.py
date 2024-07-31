@@ -9,8 +9,7 @@ import pathlib
 import random
 import tempfile
 import threading
-from concurrent.futures import as_completed
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib import request
 
 import ee
@@ -21,9 +20,7 @@ import pandas as pd
 from google.cloud import storage
 from matplotlib_scalebar.scalebar import ScaleBar
 from PIL import Image
-from te_schemas.schemas import ImageryPNG
-from te_schemas.schemas import ImageryPNGSchema
-from te_schemas.schemas import Url
+from te_schemas.schemas import ImageryPNG, ImageryPNGSchema, Url
 
 # Turn off overly informative debug messages
 mpl_logger = logging.getLogger("matplotlib")

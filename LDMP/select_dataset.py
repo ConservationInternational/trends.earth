@@ -2,15 +2,10 @@ import os
 from pathlib import Path
 
 from qgis.core import Qgis
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from qgis.utils import iface
 
-from .conf import OPTIONS_TITLE
-from .conf import Setting
-from .conf import settings_manager
+from .conf import OPTIONS_TITLE, Setting, settings_manager
 
 Ui_DlgSelectDS, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgSelectDS.ui")

@@ -5,15 +5,13 @@ from pathlib import Path
 
 import qgis.core
 import qgis.gui
-from osgeo import gdal
-from osgeo import ogr
+from osgeo import gdal, ogr
 from qgis.core import Qgis
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.utils import iface as qgisiface
 
-from . import conf
-from . import download
+from . import conf, download
 from .layers import _get_qgis_version
 from .logger import log
 

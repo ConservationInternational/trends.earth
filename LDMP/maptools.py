@@ -2,26 +2,28 @@ import enum
 import math
 from typing import TYPE_CHECKING
 
-from qgis.core import Qgis
-from qgis.core import QgsAbstractGeometry
-from qgis.core import QgsFeature
-from qgis.core import QgsGeometry
-from qgis.core import QgsPointXY
-from qgis.core import QgsProject
-from qgis.core import QgsRasterLayer
-from qgis.core import QgsRectangle
-from qgis.core import QgsUnitTypes
-from qgis.core import QgsVectorLayerUtils
-from qgis.gui import QgsDoubleSpinBox
-from qgis.gui import QgsMapCanvas
-from qgis.gui import QgsMapMouseEvent
-from qgis.gui import QgsMapToolAdvancedDigitizing
-from qgis.gui import QgsMapToolCapture
-from qgis.gui import QgsMapToolDigitizeFeature
-from qgis.gui import QgsVertexMarker
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
+from qgis.core import (
+    Qgis,
+    QgsAbstractGeometry,
+    QgsFeature,
+    QgsGeometry,
+    QgsPointXY,
+    QgsProject,
+    QgsRasterLayer,
+    QgsRectangle,
+    QgsUnitTypes,
+    QgsVectorLayerUtils,
+)
+from qgis.gui import (
+    QgsDoubleSpinBox,
+    QgsMapCanvas,
+    QgsMapMouseEvent,
+    QgsMapToolAdvancedDigitizing,
+    QgsMapToolCapture,
+    QgsMapToolDigitizeFeature,
+    QgsVertexMarker,
+)
+from qgis.PyQt import QtCore, QtGui, QtWidgets
 from qgis.utils import iface
 
 from .areaofinterest import prepare_area_of_interest

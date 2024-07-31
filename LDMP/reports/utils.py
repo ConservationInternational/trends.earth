@@ -7,11 +7,8 @@ from te_schemas.jobs import Job
 from te_schemas.results import Band as JobBand
 
 from ..jobs import manager
-from ..layers import get_band_title
-from ..layers import styles
-from .models import ReportOutputOptions
-from .models import slugify
-from .models import TemplateType
+from ..layers import get_band_title, styles
+from .models import ReportOutputOptions, TemplateType, slugify
 
 
 def job_report_directory(job: Job) -> str:

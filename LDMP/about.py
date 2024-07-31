@@ -13,12 +13,9 @@
 
 from pathlib import Path
 
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtWidgets, uic
 
-from LDMP import __release_date__
-from LDMP import __revision__
-from LDMP import __version__
+from LDMP import __release_date__, __revision__, __version__
 
 Ui_DlgAbout, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgAbout.ui"))
 

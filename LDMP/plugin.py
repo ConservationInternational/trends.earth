@@ -13,28 +13,19 @@
 
 import os
 
-from qgis.core import QgsApplication
-from qgis.core import QgsExpression
-from qgis.core import QgsMasterLayoutInterface
+from qgis.core import QgsApplication, QgsExpression, QgsMasterLayoutInterface
 from qgis.gui import QgsLayoutDesignerInterface
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtCore import QLocale
-from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import QCoreApplication, QLocale, Qt
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction
-from qgis.PyQt.QtWidgets import QMenu
-from qgis.PyQt.QtWidgets import QToolButton
+from qgis.PyQt.QtWidgets import QAction, QMenu, QToolButton
 
-from . import about
-from . import conf
-from . import main_widget
+from . import about, conf, main_widget
 from .charts import calculate_error_recode_stats
 from .conf import OPTIONS_TITLE
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils
 from .logger import log
-from .maptools import BufferMapTool
-from .maptools import PolygonMapTool
+from .maptools import BufferMapTool, PolygonMapTool
 from .processing_provider.provider import Provider
 from .reports.expressions import ReportExpressionUtils
 from .reports.template_manager import template_manager
@@ -42,7 +33,6 @@ from .settings import TrendsEarthOptionsFactory
 from .timeseries import show_time_series
 from .utils import FileUtils
 from .visualization import download_base_map
-
 
 # Need to reset the land cover legends if the locale has changed (in order to ensure
 # class names with the proper translation are used)

@@ -8,24 +8,24 @@ from qgis.gui import QgsMessageBar
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QResizeEvent
-from qgis.PyQt.QtWidgets import QComboBox
-from qgis.PyQt.QtWidgets import QDialog
-from qgis.PyQt.QtWidgets import QDialogButtonBox
-from qgis.PyQt.QtWidgets import QFileDialog
-from qgis.PyQt.QtWidgets import QLabel
-from qgis.PyQt.QtWidgets import QLineEdit
-from qgis.PyQt.QtWidgets import QTableView
-from qgis.PyQt.QtWidgets import QToolButton
-from qgis.PyQt.QtWidgets import QWidget
+from qgis.PyQt.QtWidgets import (
+    QComboBox,
+    QDialog,
+    QDialogButtonBox,
+    QFileDialog,
+    QLabel,
+    QLineEdit,
+    QTableView,
+    QToolButton,
+    QWidget,
+)
 
 from .jobs.models import Job
 from .reports.generator import report_generator_manager
 from .reports.models import ReportTaskContext
-from .reports.mvc import JobSelectionItemDelegate
-from .reports.mvc import MultiscopeJobReportModel
+from .reports.mvc import JobSelectionItemDelegate, MultiscopeJobReportModel
 from .reports.template_manager import template_manager
 from .utils import FileUtils
-
 
 DlgGenerateReportUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgGenerateReport.ui")

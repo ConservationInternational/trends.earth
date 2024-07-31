@@ -8,13 +8,11 @@ import uuid
 
 import marshmallow_dataclass
 from marshmallow import pre_load
-from te_schemas.algorithms import AlgorithmRunMode
-from te_schemas.algorithms import ExecutionScript
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 from te_schemas.jobs import Job as JobBase
 from te_schemas.jobs import RemoteScript
 
-from .. import api
-from .. import conf
+from .. import api, conf
 from ..logger import log
 
 

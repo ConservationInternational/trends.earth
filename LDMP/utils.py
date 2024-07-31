@@ -8,8 +8,7 @@ from pathlib import Path
 
 import qgis.core
 from osgeo import gdal
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
+from qgis.PyQt import QtGui, QtWidgets
 
 from .jobs import manager
 from .jobs.models import Job

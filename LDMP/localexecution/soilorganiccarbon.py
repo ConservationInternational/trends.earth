@@ -4,20 +4,15 @@ import tempfile
 from pathlib import Path
 
 import numpy as np
-from osgeo import gdal
-from osgeo import osr
+from osgeo import gdal, osr
 from te_algorithms.gdal.util import trans_factors_for_custom_legend
 from te_schemas.land_cover import LCLegendNesting
+from te_schemas.results import URI, DataType, Raster, RasterFileType, RasterResults
 from te_schemas.results import Band as JobBand
-from te_schemas.results import DataType
-from te_schemas.results import Raster
-from te_schemas.results import RasterFileType
-from te_schemas.results import RasterResults
-from te_schemas.results import URI
 
 import LDMP.logger
-from .. import utils
-from .. import worker
+
+from .. import utils, worker
 from ..areaofinterest import AOI
 from ..jobs.models import Job
 

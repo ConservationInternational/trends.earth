@@ -24,33 +24,28 @@ import qgis.core
 import qgis.gui
 import qgis.utils
 import te_algorithms.gdal.land_deg.config as ld_conf
-from osgeo import gdal
-from osgeo import osr
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from osgeo import gdal, osr
+from qgis.PyQt import QtCore, QtWidgets, uic
 from qgis.PyQt.QtCore import QSettings
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import RasterType
-from te_schemas.results import ResultType
+from te_schemas.results import RasterType, ResultType
 
-from . import areaofinterest
-from . import conf
-from . import GetTempFilename
-from . import layers
-from . import metadata
-from . import metadata_dialog
-from . import utils
-from . import worker
+from . import (
+    GetTempFilename,
+    areaofinterest,
+    conf,
+    layers,
+    metadata,
+    metadata_dialog,
+    utils,
+    worker,
+)
 from .areaofinterest import prepare_area_of_interest
-from .jobs.manager import job_manager
-from .jobs.manager import set_results_extents
-from .jobs.manager import update_uris_if_needed
+from .jobs.manager import job_manager, set_results_extents, update_uris_if_needed
 from .jobs.models import Job
 from .logger import log
 from .region_selector import RegionSelector
-
 
 Ui_DlgDataIOLoadTE, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDataIOLoadTE.ui")

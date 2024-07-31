@@ -13,8 +13,7 @@
 
 import dataclasses
 
-from qgis.core import QgsApplication
-from qgis.core import QgsAuthMethodConfig
+from qgis.core import QgsApplication, QgsAuthMethodConfig
 from qgis.PyQt import QtCore
 from qgis.utils import iface
 

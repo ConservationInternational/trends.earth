@@ -21,22 +21,19 @@ from pathlib import Path
 from marshmallow.exceptions import ValidationError
 from marshmallow_dataclass import dataclass
 from qgis.core import QgsApplication
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
-from te_schemas.land_cover import LCClass
-from te_schemas.land_cover import LCLegend
-from te_schemas.land_cover import LCLegendNesting
-from te_schemas.land_cover import LCTransitionDefinitionDeg
-from te_schemas.land_cover import LCTransitionMatrixDeg
-from te_schemas.land_cover import LCTransitionMeaningDeg
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
+from te_schemas.land_cover import (
+    LCClass,
+    LCLegend,
+    LCLegendNesting,
+    LCTransitionDefinitionDeg,
+    LCTransitionMatrixDeg,
+    LCTransitionMeaningDeg,
+)
 
-from . import conf
-from . import data_io
+from . import conf, data_io
 from .jobs.manager import job_manager
 from .logger import log
-
 
 DlgCalculateLCSetAggregationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLCSetAggregation.ui")

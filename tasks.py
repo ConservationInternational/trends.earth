@@ -694,6 +694,11 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
         else:
             subprocess.check_call([pip, "install", "--upgrade", "-t", ext_libs, req])
 
+    # Remove the .pyc files as these are no allowed on QGIS repo
+    pyc_files = Path(ext_libs).rglob("*.pyc")
+    for pyc in pyc_files:
+        pyc.unlink()
+
     if link:
         for module in c.plugin.ext_libs.local_modules:
             ln = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module["name"]

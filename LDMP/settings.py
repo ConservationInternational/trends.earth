@@ -50,6 +50,13 @@ from .lc_setup import LccInfoUtils
 from .lc_setup import LCClassInfo
 
 
+from .constants import API_URL, TIMEOUT
+
+from .logger import log
+from .utils import FileUtils
+
+ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
+
 Ui_DlgLandCoverRestore, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgLandCoverRestore.ui")
 )
@@ -82,20 +89,13 @@ Ui_WidgetLandCoverCustomClassEditor, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetLCClassEditor.ui")
 )
 
-from .constants import API_URL, TIMEOUT
-
-from .logger import log
-from .utils import FileUtils
-
-ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
-
 
 settings = QtCore.QSettings()
 
 
 class tr_settings(QtCore.QObject):
     def tr(txt):
-        return QtCore.QCoreApplication.translate(self.__class__.__name__, txt)
+        return QtCore.QCoreApplication.translate("tr_settings", txt)
 
 
 # Function to indicate if child is a folder within parent

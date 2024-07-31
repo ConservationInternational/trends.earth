@@ -31,6 +31,9 @@ changelog=2.1.16 (July 31, 2024)
   - Update datasets to latest versions (MODIS, CHIRPS, ESA CCI, PERSIAN, MODIS
     ET, Hansen Global Forest Change)
   - Switch to ruff for code formatting/linting
+  - For SDG 15.3.1 sub-indicators task, when population data is needed default
+    to a dataset matching the final year of the productivity data, or within
+    three years of that date if an exact match is not possible
   - Various dependency version updates
   2.1.14 (February 24, 2023)
   - Improve land productivity import tool, including support for JRC,

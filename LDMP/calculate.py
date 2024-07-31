@@ -394,7 +394,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
     cities: typing.Dict[str, typing.Dict[str, download.City]]
     datasets: typing.Dict[str, typing.Dict]
     iface: qgis.gui.QgisInterface
-    main_dock: MainWidget
+    main_dock: "MainWidget"
     script: ExecutionScript
     _has_output: bool
     _firstShowEvent: bool
@@ -407,7 +407,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self,
         iface: qgis.gui.QgisInterface,
         script: ExecutionScript,
-        parent: MainWidget = None,
+        parent: "MainWidget" = None,
     ):
         super().__init__(parent)
         self.iface = iface

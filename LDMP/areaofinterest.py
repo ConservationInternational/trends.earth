@@ -116,9 +116,7 @@ class AOI:
                 f"Failed to process area of interest - unknown geometry "
                 f"type: {lyr.wkbType()}"
             )
-        self.lyr = _transform_layer(
-            lyr, self.crs_dst, datatype=self.datatype, wrap=wrap
-        )
+        self.l = _transform_layer(lyr, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
     def update_from_geojson(
         self, geojson, crs_src="epsg:4326", datatype="polygon", wrap=False
@@ -145,9 +143,7 @@ class AOI:
         lyr.commitChanges()
         if not lyr.isValid():
             raise RuntimeError("Failed to add geojson to temporary layer.")
-        self.lyr = _transform_layer(
-            lyr, self.crs_dst, datatype=self.datatype, wrap=wrap
-        )
+        self.l = _transform_layer(lyr, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
     def get_unary_geometry(self):
         "Calculate a single feature that is the union of all the features in layer"

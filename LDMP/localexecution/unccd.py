@@ -4,17 +4,14 @@ import re
 import tarfile
 import tempfile
 from pathlib import Path
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 
 from osgeo import ogr
 from te_schemas import reporting
 from te_schemas.error_recode import ErrorRecodePolygons
-from te_schemas.results import FileResults
-from te_schemas.results import URI
+from te_schemas.results import URI, FileResults
 
-from .. import areaofinterest
-from .. import data_io
+from .. import areaofinterest, data_io
 from ..jobs.models import Job
 from ..logger import log
 

@@ -12,27 +12,23 @@
 """
 
 import io
-
 import json
 from urllib.parse import quote_plus
 
-import requests
 import backoff
-
+import requests
 from qgis.core import (
-    QgsTask,
-    QgsNetworkAccessManager,
     QgsApplication,
-    QgsSettings,
+    QgsNetworkAccessManager,
     QgsNetworkReplyContent,
+    QgsSettings,
+    QgsTask,
 )
-from qgis.PyQt import QtCore, QtWidgets, QtNetwork
-
+from qgis.PyQt import QtCore, QtNetwork, QtWidgets
 
 from . import auth, conf
-from .logger import log
-
 from .constants import API_URL, TIMEOUT
+from .logger import log
 
 
 class tr_api:

@@ -5,15 +5,16 @@ Code for calculating vegetation productivity.
 # Copyright 2017 Conservation International
 import json
 import random
-from concurrent.futures import as_completed
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import ee
 from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
-from te_algorithms.gee.productivity import productivity_performance
-from te_algorithms.gee.productivity import productivity_state
-from te_algorithms.gee.productivity import productivity_trajectory
+from te_algorithms.gee.productivity import (
+    productivity_performance,
+    productivity_state,
+    productivity_trajectory,
+)
 from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 from te_schemas import results
 from te_schemas.productivity import ProductivityMode

@@ -15,36 +15,29 @@ import backoff
 import te_algorithms.gdal.land_deg.config as ld_conf
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
-from qgis.core import QgsApplication
-from qgis.core import QgsTask
-from qgis.core import QgsVectorLayer
+from qgis.core import QgsApplication, QgsTask, QgsVectorLayer
 from qgis.PyQt import QtCore
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
-from te_schemas import jobs
-from te_schemas import results
+from te_schemas import jobs, results
 from te_schemas.algorithms import AlgorithmRunMode
+from te_schemas.results import (
+    URI,
+    DataType,
+    Raster,
+    RasterFileType,
+    RasterResults,
+    ResultType,
+    VectorFalsePositive,
+    VectorResults,
+    VectorType,
+)
 from te_schemas.results import Band as JobBand
-from te_schemas.results import DataType
-from te_schemas.results import Raster
-from te_schemas.results import RasterFileType
-from te_schemas.results import RasterResults
-from te_schemas.results import ResultType
-from te_schemas.results import URI
-from te_schemas.results import VectorFalsePositive
-from te_schemas.results import VectorResults
-from te_schemas.results import VectorType
 
-from . import models
-from .. import api
-from .. import areaofinterest
-from .. import conf
+from .. import api, areaofinterest, conf, layers, metadata, utils
 from .. import download as ldmp_download
-from .. import layers
-from .. import metadata
-from .. import utils
-from ..constants import API_URL
-from ..constants import TIMEOUT
+from ..constants import API_URL, TIMEOUT
 from ..logger import log
+from . import models
 from .models import Job
 
 logger = logging.getLogger(__name__)

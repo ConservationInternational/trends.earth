@@ -9,33 +9,33 @@ from enum import Enum
 import numpy as np
 import plotly.graph_objects as go
 from qgis import processing
-from qgis.core import QgsColorRampShader
-from qgis.core import QgsDistanceArea
-from qgis.core import QgsGeometry
-from qgis.core import QgsLayoutExporter
-from qgis.core import QgsLayoutFrame
-from qgis.core import QgsLayoutItemHtml
-from qgis.core import QgsLayoutMeasurement
-from qgis.core import QgsLayoutMeasurementConverter
-from qgis.core import QgsLayoutPoint
-from qgis.core import QgsLayoutSize
-from qgis.core import QgsPrintLayout
-from qgis.core import QgsProject
-from qgis.core import QgsUnitTypes
-from qgis.core import QgsVectorLayer
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtCore import QObject
-from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtCore import QTemporaryFile
-from qgis.PyQt.QtCore import QUrl
+from qgis.core import (
+    QgsColorRampShader,
+    QgsDistanceArea,
+    QgsGeometry,
+    QgsLayoutExporter,
+    QgsLayoutFrame,
+    QgsLayoutItemHtml,
+    QgsLayoutMeasurement,
+    QgsLayoutMeasurementConverter,
+    QgsLayoutPoint,
+    QgsLayoutSize,
+    QgsPrintLayout,
+    QgsProject,
+    QgsUnitTypes,
+    QgsVectorLayer,
+)
+from qgis.PyQt.QtCore import QCoreApplication, QObject, Qt, QTemporaryFile, QUrl
 from qgis.PyQt.QtGui import QColor
 
 from ..jobs.models import Job
-from ..layers import create_categorical_color_ramp
-from ..layers import create_categorical_color_ramp_from_legend
-from ..layers import create_categorical_transitions_color_ramp_from_legend
-from ..layers import create_categorical_with_dynamic_ramp_color_ramp
-from ..layers import styles
+from ..layers import (
+    create_categorical_color_ramp,
+    create_categorical_color_ramp_from_legend,
+    create_categorical_transitions_color_ramp_from_legend,
+    create_categorical_with_dynamic_ramp_color_ramp,
+    styles,
+)
 from .models import slugify
 
 

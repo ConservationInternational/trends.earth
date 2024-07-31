@@ -16,16 +16,12 @@ from pathlib import Path
 
 import qgis.core
 import qgis.gui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
-from te_schemas.algorithms import AlgorithmRunMode
-from te_schemas.algorithms import ExecutionScript
+from qgis.PyQt import QtWidgets, uic
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
+from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 
-from . import calculate
-from . import lc_setup
+from . import calculate, lc_setup
 from .jobs.manager import job_manager
-
-from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui")

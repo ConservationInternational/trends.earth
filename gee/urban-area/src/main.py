@@ -7,9 +7,7 @@ import json
 import random
 
 import ee
-from te_algorithms.gee.util import get_coords
-from te_algorithms.gee.util import TEImage
-from te_algorithms.gee.util import teimage_v1_to_teimage_v2
+from te_algorithms.gee.util import TEImage, get_coords, teimage_v1_to_teimage_v2
 from te_schemas import results
 from te_schemas.schemas import BandInfo
 

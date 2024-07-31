@@ -23,22 +23,11 @@ from typing import TYPE_CHECKING
 import qgis.core
 import qgis.gui
 from osgeo import gdal
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
-from te_schemas.algorithms import AlgorithmRunMode
-from te_schemas.algorithms import ExecutionScript
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
-from . import areaofinterest
-from . import download
-from . import GetTempFilename
-from . import worker
-from .conf import AreaSetting
-from .conf import OPTIONS_TITLE
-from .conf import REMOTE_DATASETS
-from .conf import Setting
-from .conf import settings_manager
+from . import GetTempFilename, areaofinterest, download, worker
+from .conf import OPTIONS_TITLE, REMOTE_DATASETS, AreaSetting, Setting, settings_manager
 
 if TYPE_CHECKING:
     from .main_widget import MainWidget
@@ -118,8 +107,7 @@ class DlgCalculateTC(QtWidgets.QDialog, DlgCalculateTCUi):
         self.setupUi(self)
 
         # TODO: Bad style - fix when refactoring
-        from LDMP.calculate_tc import DlgCalculateTCData
-        from LDMP.calculate_tc import DlgCalculateTCSummaryTable
+        from LDMP.calculate_tc import DlgCalculateTCData, DlgCalculateTCSummaryTable
 
         self.dlg_calculate_tc_data = DlgCalculateTCData()
         self.dlg_calculate_tc_summary = DlgCalculateTCSummaryTable()
@@ -147,8 +135,10 @@ class DlgCalculateRestBiomass(QtWidgets.QDialog, DlgCalculateRestBiomassUi):
         self.setupUi(self)
 
         # TODO: Bad style - fix when refactoring
-        from LDMP.calculate_rest_biomass import DlgCalculateRestBiomassData
-        from LDMP.calculate_rest_biomass import DlgCalculateRestBiomassSummaryTable
+        from LDMP.calculate_rest_biomass import (
+            DlgCalculateRestBiomassData,
+            DlgCalculateRestBiomassSummaryTable,
+        )
 
         self.dlg_calculate_rest_biomass_data = DlgCalculateRestBiomassData()
         self.dlg_calculate_rest_biomass_summary = DlgCalculateRestBiomassSummaryTable()
@@ -176,8 +166,10 @@ class DlgCalculateUrban(QtWidgets.QDialog, DlgCalculateUrbanUi):
         self.setupUi(self)
 
         # TODO: Bad style - fix when refactoring
-        from LDMP.calculate_urban import DlgCalculateUrbanData
-        from LDMP.calculate_urban import DlgCalculateUrbanSummaryTable
+        from LDMP.calculate_urban import (
+            DlgCalculateUrbanData,
+            DlgCalculateUrbanSummaryTable,
+        )
 
         self.dlg_calculate_urban_data = DlgCalculateUrbanData()
         self.dlg_calculate_urban_summary = DlgCalculateUrbanSummaryTable()

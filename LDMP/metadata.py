@@ -10,7 +10,6 @@ from .jobs import manager
 from .jobs.models import Job
 from .logger import log
 
-
 XSL_PATH = os.path.join(os.path.dirname(__file__), "data", "xsl")
 
 

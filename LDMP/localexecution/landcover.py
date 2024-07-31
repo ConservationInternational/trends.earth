@@ -3,19 +3,12 @@ import os
 import tempfile
 from pathlib import Path
 
-from osgeo import gdal
-from osgeo import osr
-from te_schemas.land_cover import LCLegendNesting
-from te_schemas.land_cover import LCTransitionDefinitionDeg
+from osgeo import gdal, osr
+from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
+from te_schemas.results import URI, DataType, Raster, RasterFileType, RasterResults
 from te_schemas.results import Band as JobBand
-from te_schemas.results import DataType
-from te_schemas.results import Raster
-from te_schemas.results import RasterFileType
-from te_schemas.results import RasterResults
-from te_schemas.results import URI
 
-from .. import utils
-from .. import worker
+from .. import utils, worker
 from ..areaofinterest import AOI
 from ..jobs.models import Job
 from ..logger import log

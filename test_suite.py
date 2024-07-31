@@ -15,10 +15,10 @@ except ImportError:
     pipmain(["install", "coverage"])
     import coverage
 import tempfile
-from osgeo import gdal
-from qgis.PyQt import Qt
 
+from osgeo import gdal
 from qgis.core import Qgis
+from qgis.PyQt import Qt
 
 
 def _run_tests(test_suite, package_name, with_coverage=False):

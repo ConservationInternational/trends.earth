@@ -20,8 +20,7 @@ import sys
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
-from qgis.core import Qgis
-from qgis.core import QgsApplication
+from qgis.core import Qgis, QgsApplication
 from qgis.PyQt import QtCore
 from qgis.utils import iface
 

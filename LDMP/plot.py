@@ -16,9 +16,7 @@ from pathlib import Path
 import numpy as np
 import pyqtgraph as pg
 import qgis.gui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
-
+from qgis.PyQt import QtWidgets, uic
 
 UiDlgPlot, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgPlot.ui"))
 

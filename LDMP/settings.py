@@ -14,44 +14,30 @@
 import os
 import typing
 import zipfile
-from enum import auto
-from enum import Flag
+from enum import Flag, auto
 from pathlib import Path
 
 import qgis.core
 import qgis.gui
-from qgis.gui import QgsOptionsPageWidget
-from qgis.gui import QgsOptionsWidgetFactory
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from qgis.PyQt.QtGui import QIcon
 from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 
-from . import api
-from . import auth
-from . import binaries_available
-from . import binaries_name
-from . import conf
-from . import download
-from . import openFolder
-from .conf import DOCK_TITLE
-from .conf import DOCK_TITLE_OFFLINE
-from .conf import OPTIONS_ICON
-from .conf import OPTIONS_TITLE
-from .conf import Setting
-from .conf import settings_manager
-from .conf import TR_ALL_REGIONS
-from .jobs.manager import job_manager
-from .lc_setup import get_default_esa_nesting
-from .lc_setup import LccInfoUtils
-from .lc_setup import LCClassInfo
-
-
+from . import api, auth, binaries_available, binaries_name, conf, download, openFolder
+from .conf import (
+    DOCK_TITLE,
+    DOCK_TITLE_OFFLINE,
+    OPTIONS_ICON,
+    OPTIONS_TITLE,
+    TR_ALL_REGIONS,
+    Setting,
+    settings_manager,
+)
 from .constants import API_URL, TIMEOUT
-
+from .jobs.manager import job_manager
+from .lc_setup import LccInfoUtils, LCClassInfo, get_default_esa_nesting
 from .logger import log
 from .utils import FileUtils
 

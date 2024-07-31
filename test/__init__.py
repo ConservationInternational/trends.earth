@@ -1,9 +1,6 @@
-from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtCore import QTimer
+from qgis.PyQt.QtCore import Qt, QTimer
 from qgis.PyQt.QtTest import QTest
-from qgis.PyQt.QtWidgets import QApplication
-from qgis.PyQt.QtWidgets import QMessageBox
-
+from qgis.PyQt.QtWidgets import QApplication, QMessageBox
 
 # with open(
 #     os.path.join(os.path.dirname(__file__), "trends.earth_test_user_credentials.json"),

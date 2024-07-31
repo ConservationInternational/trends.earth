@@ -16,16 +16,11 @@ import os
 from pathlib import Path
 
 import qgis.gui
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
-from . import calculate
-from . import conf
-from .conf import Setting
-from .conf import settings_manager
+from . import calculate, conf
+from .conf import Setting, settings_manager
 from .jobs.manager import job_manager
 from .logger import log
 

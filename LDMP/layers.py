@@ -16,29 +16,30 @@ import math
 import os
 import re
 import typing
-from math import floor
-from math import log10
+from math import floor, log10
 from operator import attrgetter
 from pathlib import Path
-from te_schemas.land_cover import LCLegendNesting
 
 import numpy as np
 from osgeo import gdal
-from qgis.core import Qgis
-from qgis.core import QgsColorRampShader
-from qgis.core import QgsDefaultValue
-from qgis.core import QgsProcessingFeedback
-from qgis.core import QgsProject
-from qgis.core import QgsProviderRegistry
-from qgis.core import QgsProviderSublayerDetails
-from qgis.core import QgsRasterLayer
-from qgis.core import QgsRasterShader
-from qgis.core import QgsVectorLayer
-from qgis.core import QgsSingleBandPseudoColorRenderer
+from qgis.core import (
+    Qgis,
+    QgsColorRampShader,
+    QgsDefaultValue,
+    QgsProcessingFeedback,
+    QgsProject,
+    QgsProviderRegistry,
+    QgsProviderSublayerDetails,
+    QgsRasterLayer,
+    QgsRasterShader,
+    QgsSingleBandPseudoColorRenderer,
+    QgsVectorLayer,
+)
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QColor
 from qgis.utils import iface
+from te_schemas.land_cover import LCLegendNesting
 
 from .logger import log
 

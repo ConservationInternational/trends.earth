@@ -4,7 +4,6 @@
 import logging
 import sys
 
-
 LOGGER = logging.getLogger("QGIS")
 QGIS_APP = None  # Static variable used to hold hand to running QGIS app
 CANVAS = None
@@ -23,9 +22,10 @@ def get_qgis_app():
     """
 
     try:
-        from qgis.PyQt import QtGui, QtCore
         from qgis.core import QgsApplication
         from qgis.gui import QgsMapCanvas
+        from qgis.PyQt import QtCore, QtGui
+
         from .qgis_interface import QgisInterface
     except ImportError:
         return None, None, None, None

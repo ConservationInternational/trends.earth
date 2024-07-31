@@ -9,9 +9,7 @@ import re
 
 import ee
 from te_algorithms.gee.productivity import productivity_series
-from te_schemas.schemas import TimeSeries
-from te_schemas.schemas import TimeSeriesTable
-from te_schemas.schemas import TimeSeriesTableSchema
+from te_schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 
 
 def zonal_stats(

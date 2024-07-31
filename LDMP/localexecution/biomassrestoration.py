@@ -5,23 +5,18 @@ from pathlib import Path
 import numpy as np
 import openpyxl
 import qgis.core
-from openpyxl.styles import Alignment
-from openpyxl.styles import Font
+from openpyxl.styles import Alignment, Font
 from osgeo import gdal
-from te_schemas.results import Band
-from te_schemas.results import DataType
-from te_schemas.results import Raster
-from te_schemas.results import RasterFileType
-from te_schemas.results import RasterResults
-from te_schemas.results import URI
+from te_schemas.results import (
+    URI,
+    Band,
+    DataType,
+    Raster,
+    RasterFileType,
+    RasterResults,
+)
 
-from .. import areaofinterest
-from .. import calculate
-from .. import data_io
-from .. import logger
-from .. import summary
-from .. import utils
-from .. import worker
+from .. import areaofinterest, calculate, data_io, logger, summary, utils, worker
 from ..jobs.models import Job
 
 

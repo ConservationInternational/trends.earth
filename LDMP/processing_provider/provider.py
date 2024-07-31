@@ -5,8 +5,7 @@ from qgis.PyQt.QtGui import QIcon
 
 from .carbon import TCSummary
 from .report import ReportTaskContextAlgorithm
-from .utilities import ClipRaster
-from .utilities import GenerateMask
+from .utilities import ClipRaster, GenerateMask
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 

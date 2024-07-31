@@ -1,7 +1,8 @@
 __version__ = "2.1.16"
 
-import sys
 import os
+import sys
+
 import rollbar
 
 rollbar.init(os.getenv("ROLLBAR_SCRIPT_TOKEN"), os.getenv("ENV"))

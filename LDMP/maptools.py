@@ -239,7 +239,7 @@ class TEMapToolMixin:
             if self._intersection_mode is not None:
                 project.setAvoidIntersectionsMode(self._intersection_mode)
 
-    def job_from_current_layer(self) -> Job:
+    def job_from_current_layer(self) -> "Job":
         """
         Returns the 'Job' object corresponding to the current vector layer
         being digitized.

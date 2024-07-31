@@ -150,11 +150,11 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
 class JobItemDelegate(QtWidgets.QStyledItemDelegate):
     current_index: typing.Optional[QtCore.QModelIndex]
-    main_dock: MainWidget
+    main_dock: "MainWidget"
 
     def __init__(
         self,
-        main_dock: MainWidget,
+        main_dock: "MainWidget",
         parent: QtCore.QObject = None,
     ):
         super().__init__(parent)
@@ -234,7 +234,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
 
 class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     job: Job
-    main_dock: MainWidget
+    main_dock: "MainWidget"
 
     add_to_canvas_pb: QtWidgets.QToolButton
     notes_la: QtWidgets.QLabel
@@ -250,7 +250,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     edit_tb: QtWidgets.QToolButton
     report_pb: QtWidgets.QPushButton
 
-    def __init__(self, job: Job, main_dock: MainWidget, parent=None):
+    def __init__(self, job: Job, main_dock: "MainWidget", parent=None):
         super().__init__(parent)
         self.setupUi(self)
         self.job = job

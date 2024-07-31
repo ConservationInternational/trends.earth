@@ -25,9 +25,12 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.1.16 (July 3, 2024)
+changelog=2.1.16 (July 31, 2024)
   - Bump dependency versions to address #812
   - Fix deprecation of np.float
+  - Update datasets to latest versions (MODIS, CHIRPS, ESA CCI, PERSIAN, MODIS
+    ET, Hansen Global Forest Change)
+  - Switch to ruff for code formatting/linting
   - Various dependency version updates
   2.1.14 (February 24, 2023)
   - Improve land productivity import tool, including support for JRC,

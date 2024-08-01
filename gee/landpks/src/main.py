@@ -389,16 +389,7 @@ def landtrend(year_start, year_end, geojson, lang, gc_client, metadata):
 
 # Function to mask out clouds and cloud-shadows present in Landsat images
 def maskL8sr(image):
-    # Bits 3 and 5 are cloud shadow and cloud, respectively.
-    cloudShadowBitMask = 1 << 3
-    cloudsBitMask = 1 << 5
-    # Get the pixel QA band.
-    qa = image.select("QA_PIXEL")
-    # Both flags should be set to zero, indicating clear conditions.
-    mask = qa.bitwiseAnd(cloudShadowBitMask).eq(0)
-    mask = qa.bitwiseAnd(cloudsBitMask).eq(0)
-
-    return image.updateMask(mask)
+    return image.updateMask(image.select("QA_PIXEL").bitwiseAnd(int("11111", 2)).eq(0))
 
 
 # Function to generate the Normalized Diference Vegetation Index, NDVI = (NIR +
@@ -408,6 +399,12 @@ def calculate_ndvi(image):
 
 
 OLI_SR_COLL = ee.ImageCollection("LANDSAT/LC08/C02/T1_L2")
+
+
+def applyScaleFactors(image):
+    opticalBands = image.select("SR_B.").multiply(0.0000275).add(-0.2)
+    thermalBand = image.select("ST_B10").multiply(0.00341802).add(149.0)
+    return image.addBands(opticalBands, None, True).addBands(thermalBand, None, True)
 
 
 def base_image(year, geojson, lang, gc_client, metadata):
@@ -420,8 +417,10 @@ def base_image(year, geojson, lang, gc_client, metadata):
     range_coll = OLI_SR_COLL.filterDate(
         start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")
     )
+
     l8sr_y = (
         range_coll.map(maskL8sr)
+        .map(applyScaleFactors)
         .median()
         .setDefaultProjection(range_coll.first().projection())
     )
@@ -492,6 +491,7 @@ def greenness(year, geojson, lang, gc_client, metadata):
             start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")
         )
         .map(maskL8sr)
+        .map(applyScaleFactors)
         .map(calculate_ndvi)
         .mean()
         .addBands(ee.Image(year).float())
@@ -574,6 +574,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
         ndvi.append(
             OLI_SR_COLL.filterDate("{}-01-1".format(y), "{}-12-31".format(y))
             .map(maskL8sr)
+            .map(applyScaleFactors)
             .map(calculate_ndvi)
             .mean()
             .addBands(ee.Image(y).float())

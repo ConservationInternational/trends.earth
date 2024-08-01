@@ -220,7 +220,9 @@ def landtrend_get_data(year_start, year_end, geojson):
     point = ee.Geometry(geojson)
 
     # sets time series of interest
-    lcov = ee.Image(lcover).select(ee.List.sequence(year_start - 1992, 26, 1))
+    lcov = ee.Image(lcover).select(
+        ee.List.sequence(year_start - 1992, year_end - 1992, 1)
+    )
     ndvi = ee.Image(vegindex).select(
         ee.List.sequence(year_start - 2001, year_end - 2001, 1)
     )
@@ -321,6 +323,7 @@ def landtrend_make_plot(d, year_start, year_end):
     axs[2].set_ylim(0, 5)
     axs[2].tick_params(axis="y", left=False, labelleft=False, labelsize=28)
     axs[2].tick_params(axis="x", labelsize=28)
+    axs[2].locator_params(axis="x", integer=True)
     axs[2].set_xlabel(_("Year"), fontsize=32)
     axs[2].set_ylabel(_("Land\nCover"), fontsize=32)
     handles, labels = axs[2].get_legend_handles_labels()
@@ -390,7 +393,7 @@ def maskL8sr(image):
     cloudShadowBitMask = 1 << 3
     cloudsBitMask = 1 << 5
     # Get the pixel QA band.
-    qa = image.select("pixel_qa")
+    qa = image.select("QA_PIXEL")
     # Both flags should be set to zero, indicating clear conditions.
     mask = qa.bitwiseAnd(cloudShadowBitMask).eq(0)
     mask = qa.bitwiseAnd(cloudsBitMask).eq(0)
@@ -401,17 +404,17 @@ def maskL8sr(image):
 # Function to generate the Normalized Diference Vegetation Index, NDVI = (NIR +
 # Red)/(NIR + Red)
 def calculate_ndvi(image):
-    return image.normalizedDifference(["B5", "B4"]).rename(_("NDVI"))
+    return image.normalizedDifference(["SR_B5", "SR_B4"]).rename(_("NDVI"))
 
 
-OLI_SR_COLL = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR")
+OLI_SR_COLL = ee.ImageCollection("LANDSAT/LC08/C02/T1_L2")
 
 
 def base_image(year, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 2).geom()
+    region = point.buffer(BOX_SIDE / 2)
 
     # Mask out clouds and cloud-shadows in the Landsat image
     range_coll = OLI_SR_COLL.filterDate(
@@ -425,7 +428,7 @@ def base_image(year, geojson, lang, gc_client, metadata):
 
     # Define visualization parameter for ndvi trend and apply them
     p_l8sr = {
-        "bands": ["B4", "B3", "B2"],
+        "bands": ["SR_B4", "SR_B3", "SR_B2"],
         "min": 0,
         "max": 3000,
         "gamma": 1.5,
@@ -483,7 +486,7 @@ def greenness(year, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 2).geom()
+    region = point.buffer(BOX_SIDE / 2)
     ndvi_mean = (
         OLI_SR_COLL.filterDate(
             start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")
@@ -564,7 +567,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year_start, 1, 1)
     end_date = dt.datetime(year_end, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 2).geom()
+    region = point.buffer(BOX_SIDE / 2)
     ndvi = []
 
     for y in range(year_start, year_end + 1):

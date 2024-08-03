@@ -3,6 +3,19 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.1.16 (July 31, 2024) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.16>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Bump dependency versions to address #812
+  - Fix deprecation of np.float
+  - Update datasets to latest versions (MODIS, CHIRPS, ESA CCI, PERSIAN, MODIS
+    ET, Hansen Global Forest Change)
+  - Switch to ruff for code formatting/linting
+  - For SDG 15.3.1 sub-indicators task, when population data is needed default
+    to a dataset matching the final year of the productivity data, or within
+    three years of that date if an exact match is not possible
+  - Various dependency version updates
+
 `2.1.14 (February 24, 2023) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.14>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

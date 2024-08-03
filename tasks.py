@@ -444,7 +444,10 @@ def tecli_publish(c, script=None, overwrite=False):
         print('Script "{}" not found.'.format(script))
 
     # Updating GEE script IDs in config
-    subprocess.check_call(["invoke", "update-script-ids"])
+    if script:
+        subprocess.check_call(["invoke", "update-script-ids", "-s", script])
+    else:
+        subprocess.check_call(["invoke", "update-script-ids"])
 
 
 @task(
@@ -506,8 +509,8 @@ def tecli_run(c, script, queryParams=None, payload=None):
         print('Script "{}" not found.'.format(script))
 
 
-@task
-def update_script_ids(c):
+@task(help={"script": "Script name"})
+def update_script_ids(c, script=None):
     with open(c.gee.scripts_json_file) as fin:
         scripts = json.load(fin)
 
@@ -516,6 +519,10 @@ def update_script_ids(c):
 
     for dir in dirs:
         script_dir = os.path.join(c.gee.script_dir, dir)
+
+        if script:
+            if script_dir != script:
+                continue
 
         if os.path.exists(os.path.join(script_dir, "configuration.json")):
             with open(os.path.join(script_dir, "configuration.json")) as fin:

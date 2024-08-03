@@ -1329,7 +1329,7 @@ def changelog_build(c):
             version_number = version_header.group(0)
             version_number = version_number.strip(" \n")
             line = line.strip(" \n")
-            line = "\n`{} <https://github.com/ConservationInternational/trends.earth/releases/tag/{}>`_\n".format(
+            line = "\n`{} <https://github.com/ConservationInternational/trends.earth/releases/tag/v{}>`_\n".format(
                 line, version_number
             )
             line = [

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-02 04:02+0000\n"
+"POT-Creation-Date: 2024-08-05 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: es\n"
@@ -41,7 +41,7 @@ msgstr "Trends.Earth"
 #, fuzzy
 msgid ""
 "`2.1.16 (July 31, 2024) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.16>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.16>`_"
 msgstr ""
 "`1.0.6 (15 de julio de "
 "2021)<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>"
@@ -80,7 +80,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.1.14 (February 24, 2023) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.14>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.14>`_"
 msgstr ""
 "`1.0.10 (7 de julio de 2022) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_"
@@ -96,7 +96,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.1.12 (February 17, 2023) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.12>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.12>`_"
 msgstr ""
 "`1.0.10 (7 de julio de 2022) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_"
@@ -111,7 +111,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.1.10 (February 7, 2023) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.10>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.10>`_"
 msgstr ""
 "`1.0.10 (7 de julio de 2022) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_"
@@ -132,7 +132,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.1.8 (January 25, 2023) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.8>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.8>`_"
 msgstr ""
 "`1.0.10 (7 de julio de 2022) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_"
@@ -153,7 +153,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.1.6 (December 8, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.6>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.6>`_"
 msgstr ""
 "`1.0.8 (15 de octubre de 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
@@ -179,7 +179,7 @@ msgstr "Varias correcciones de errores menores."
 #, fuzzy
 msgid ""
 "`2.1.6 (November 21, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.6>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.6>`_"
 msgstr ""
 "`1.0.8 (15 de octubre de 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
@@ -201,7 +201,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.1.2 (November 18, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.2>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.2>`_"
 msgstr ""
 "`1.0.8 (15 de octubre de 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
@@ -229,7 +229,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.1.0 (November 11, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.0>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.0>`_"
 msgstr ""
 "`1.0.8 (15 de octubre de 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
@@ -250,7 +250,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.0.7 (October 31, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.7>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.0.7>`_"
 msgstr ""
 "`1.0.8 (15 de octubre de 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
@@ -272,7 +272,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.0.5 (October 19, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.5>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.0.5>`_"
 msgstr ""
 "`1.0.8 (15 de octubre de 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
@@ -285,7 +285,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.0.3 (October 19, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.3>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.0.3>`_"
 msgstr ""
 "`1.0.8 (15 de octubre de 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
@@ -308,7 +308,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.0.1 (October 13, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.1>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.0.1>`_"
 msgstr ""
 "`1.0.8 (15 de octubre de 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
@@ -351,7 +351,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "`2.0 (July 20, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.0>`_"
 msgstr ""
 "`1.0.10 (7 de julio de 2022) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_"
@@ -400,9 +400,10 @@ msgstr ""
 "trazado de tendencias, WUE, etc.)"
 
 #: ../../source/for_developers/changelog.rst:140
+#, fuzzy
 msgid ""
 "`1.0.10 (July 7, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.10>`_"
 msgstr ""
 "`1.0.10 (7 de julio de 2022) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_"
@@ -414,9 +415,10 @@ msgstr ""
 "en QGIS 3.22+"
 
 #: ../../source/for_developers/changelog.rst:145
+#, fuzzy
 msgid ""
 "`1.0.8 (October 15, 2021) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.8>`_"
 msgstr ""
 "`1.0.8 (15 de octubre de 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
@@ -430,9 +432,10 @@ msgstr ""
 "(relacionado con los problemas #500, y #505)"
 
 #: ../../source/for_developers/changelog.rst:151
+#, fuzzy
 msgid ""
 "`1.0.6 (July 15, 2021) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.6>`_"
 msgstr ""
 "`1.0.6 (15 de julio de "
 "2021)<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>"
@@ -463,9 +466,10 @@ msgstr ""
 "desarrollo/lanzamiento del complemento."
 
 #: ../../source/for_developers/changelog.rst:160
+#, fuzzy
 msgid ""
 "`1.0.4 (June 30, 2021) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.4>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.4>`_"
 msgstr ""
 "`1.0.4 (30 de junio de "
 "2021)<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.4>"
@@ -498,9 +502,10 @@ msgid "Minor documentation typo fixes"
 msgstr "Corrección de errores tipográficos menores en la documentación"
 
 #: ../../source/for_developers/changelog.rst:170
+#, fuzzy
 msgid ""
 "`1.0.2 (August 14, 2020) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.2>`_"
 msgstr ""
 "`1.0.2 (14 de agosto de "
 "2020)<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>"
@@ -560,9 +565,10 @@ msgstr ""
 "aparecían con algunos mensajes de QMessageBox."
 
 #: ../../source/for_developers/changelog.rst:187
+#, fuzzy
 msgid ""
 "`1.0.0 (April 27, 2020) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.0>`_"
 msgstr ""
 "`1.0.0 (27 de abril de 2020) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>"
@@ -640,9 +646,10 @@ msgstr ""
 "descargas)."
 
 #: ../../source/for_developers/changelog.rst:210
+#, fuzzy
 msgid ""
 "`0.98 (April 2, 2020) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.98>`_"
 msgstr ""
 "`0.98 (2 de abril de 2020) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
@@ -735,9 +742,10 @@ msgid "Various compatibility and minor bug fixes."
 msgstr "Varias mejoras en compatibilidad y correcciones de errores menores."
 
 #: ../../source/for_developers/changelog.rst:233
+#, fuzzy
 msgid ""
 "`0.66 (July 20, 2019) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.66>`_"
 msgstr ""
 "`0.66 (20 de julio de 2019) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_"
@@ -787,9 +795,10 @@ msgstr ""
 "traducciones de google para otros idiomas."
 
 #: ../../source/for_developers/changelog.rst:247
+#, fuzzy
 msgid ""
 "`0.64 (July 9, 2019) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.64>`_"
 msgstr ""
 "`0.64 (9 de julio de 2019) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_"
@@ -827,9 +836,10 @@ msgstr ""
 " la herramienta de un paso de ODS para 15.3.1."
 
 #: ../../source/for_developers/changelog.rst:258
+#, fuzzy
 msgid ""
 "`0.62 (January 27, 2019) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.62>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.62>`_"
 msgstr ""
 "`0.62 (27 de enero de 2019) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.62>`_"
@@ -864,9 +874,10 @@ msgid "Add publication list to help docs."
 msgstr "Añadir lista de publicaciones a documentos de ayuda."
 
 #: ../../source/for_developers/changelog.rst:269
+#, fuzzy
 msgid ""
 "`0.60 (December 3, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.60>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.60>`_"
 msgstr ""
 "`0.60 (3 de diciembre de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.60>`_"
@@ -890,9 +901,10 @@ msgid "Add optional buffering of AOI"
 msgstr "Añadir búfer opcional de AOI"
 
 #: ../../source/for_developers/changelog.rst:278
+#, fuzzy
 msgid ""
 "`0.58 (August 11, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.58>`_"
 msgstr ""
 "`0.58 (11 de agosto de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>`_"
@@ -916,9 +928,10 @@ msgstr ""
 "entradas AOI"
 
 #: ../../source/for_developers/changelog.rst:286
+#, fuzzy
 msgid ""
 "`0.56.5 (May 21, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.5>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56.5>`_"
 msgstr ""
 "`0.56.5 (21 de mayo de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.5>`_"
@@ -928,9 +941,10 @@ msgid "Fix error with LPD import requesting a data year."
 msgstr "Solucione el error con la importación de LPD solicitando un año de datos."
 
 #: ../../source/for_developers/changelog.rst:291
+#, fuzzy
 msgid ""
 "`0.56.4 (May 21, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.4>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56.4>`_"
 msgstr ""
 "`0.56.4 (21 de mayo de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.4>`_"
@@ -967,9 +981,10 @@ msgid "Fix handling of NULL values in legends."
 msgstr "Arreglar el manejo de valores NULL en las leyendas."
 
 #: ../../source/for_developers/changelog.rst:302
+#, fuzzy
 msgid ""
 "`0.56.3 (April 21, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.3>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56.3>`_"
 msgstr ""
 "`0.56.3 (21 de abril de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.3>`_"
@@ -992,9 +1007,10 @@ msgstr ""
 "todo el período) se consideren estables."
 
 #: ../../source/for_developers/changelog.rst:310
+#, fuzzy
 msgid ""
 "`0.56.2 (April 10, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.2>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56.2>`_"
 msgstr ""
 "`0.56.2 (10 de abril de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.2>`_"
@@ -1004,9 +1020,10 @@ msgid "Minor unicode fixes."
 msgstr "Correcciones menores de Unicode."
 
 #: ../../source/for_developers/changelog.rst:315
+#, fuzzy
 msgid ""
 "`0.56.1 (April 10, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.1>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56.1>`_"
 msgstr ""
 "`0.56.1 (10 de abril de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.1>`_"
@@ -1016,9 +1033,10 @@ msgid "Fix marshhmallow error on plugin load"
 msgstr "Solucionar error de malvavisco en la carga del complemento"
 
 #: ../../source/for_developers/changelog.rst:320
+#, fuzzy
 msgid ""
 "`0.56 (April 9, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56>`_"
 msgstr ""
 "`0.56 (9 de abril de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56>`_"
@@ -1038,9 +1056,10 @@ msgstr ""
 " personalizados"
 
 #: ../../source/for_developers/changelog.rst:327
+#, fuzzy
 msgid ""
 "`0.54 (April 8, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.54>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.54>`_"
 msgstr ""
 "`0.54 (8 de abril de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.54>`_"
@@ -1065,9 +1084,10 @@ msgstr ""
 
 #: ../../source/for_developers/changelog.rst:335
 #: ../../source/for_developers/changelog.rst:340
+#, fuzzy
 msgid ""
 "`0.52.1 (March 21, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52.1>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.52.1>`_"
 msgstr ""
 "`0.52.1 (21 de marzo de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52.1>`_"
@@ -1078,9 +1098,10 @@ msgid "Minor bug fixes during Antalya workshop."
 msgstr "Corrección de errores menores durante el taller de Antalya."
 
 #: ../../source/for_developers/changelog.rst:345
+#, fuzzy
 msgid ""
 "`0.52 (March 19, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.52>`_"
 msgstr ""
 "`0.52 (19 de marzo de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52>`_"
@@ -1090,9 +1111,10 @@ msgid "Clean AOI processing code."
 msgstr "Código de procesamiento AOI limpio."
 
 #: ../../source/for_developers/changelog.rst:350
+#, fuzzy
 msgid ""
 "`0.50 (March 15, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.50>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.50>`_"
 msgstr ""
 "`0.50 (15 de marzo de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.50>`_"
@@ -1110,9 +1132,10 @@ msgid "Various minor bug fixes."
 msgstr "Varias correcciones de errores menores."
 
 #: ../../source/for_developers/changelog.rst:357
+#, fuzzy
 msgid ""
 "`0.48 (March 13, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.48>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.48>`_"
 msgstr ""
 "`0.48 (13 de marzo de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.48>`_"
@@ -1122,9 +1145,10 @@ msgid "Fix table formatting"
 msgstr "Formato de tabla de arreglos"
 
 #: ../../source/for_developers/changelog.rst:362
+#, fuzzy
 msgid ""
 "`0.46 (March 13, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.46>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.46>`_"
 msgstr ""
 "`0.46 (13 de marzo de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.46>`_"
@@ -1154,9 +1178,10 @@ msgid "Fix download tasks (still no styles)"
 msgstr "Reparar tareas de descarga (aún sin estilos)"
 
 #: ../../source/for_developers/changelog.rst:371
+#, fuzzy
 msgid ""
 "`0.44 (March 12, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.44>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.44>`_"
 msgstr ""
 "`0.44 (12 de marzo de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.44>`_"
@@ -1232,9 +1257,10 @@ msgstr ""
 "versión del complemento."
 
 #: ../../source/for_developers/changelog.rst:390
+#, fuzzy
 msgid ""
 "`0.42 (February 4, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.42>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.42>`_"
 msgstr ""
 "`0.42 (4 de febrero de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.42>`_"
@@ -1246,9 +1272,10 @@ msgstr ""
 " el conjunto en la etiqueta eliminada)"
 
 #: ../../source/for_developers/changelog.rst:395
+#, fuzzy
 msgid ""
 "`0.40 (February 4, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.40>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.40>`_"
 msgstr ""
 "`0.40 (4 de febrero de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.40>`_"
@@ -1290,9 +1317,10 @@ msgid "Default to MODIS for productivity calculations."
 msgstr "Predeterminado a MODIS para cálculos de productividad."
 
 #: ../../source/for_developers/changelog.rst:407
+#, fuzzy
 msgid ""
 "`0.38 (January 16, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.38>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.38>`_"
 msgstr ""
 "`0.38 (16 de enero de 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.38>`_"
@@ -1374,9 +1402,10 @@ msgstr ""
 "seleccionen fechas no válidas a partir de los datos de CCI."
 
 #: ../../source/for_developers/changelog.rst:428
+#, fuzzy
 msgid ""
 "`0.36 (December 14, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.36>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.36>`_"
 msgstr ""
 "`0.36 (14 de diciembre de 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.36>`_"
@@ -1388,73 +1417,82 @@ msgstr ""
 "informes de mapas."
 
 #: ../../source/for_developers/changelog.rst:433
+#, fuzzy
 msgid ""
 "`0.34 (December 14, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.34>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.34>`_"
 msgstr ""
 "`0.34 (14 de diciembre de 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.34>`_"
 
 #: ../../source/for_developers/changelog.rst:437
+#, fuzzy
 msgid ""
 "`0.32 (December 14, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.32>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.32>`_"
 msgstr ""
 "`0.32 (14 de diciembre de 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.32>`_"
 
 #: ../../source/for_developers/changelog.rst:441
+#, fuzzy
 msgid ""
 "`0.30 (December 12, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.30>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.30>`_"
 msgstr ""
 "`0.30 (12 de diciembre de 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.30>`_"
 
 #: ../../source/for_developers/changelog.rst:445
+#, fuzzy
 msgid ""
 "`0.24 (December 6, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.24>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.24>`_"
 msgstr ""
 "`0.24 (6 de diciembre de 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.24>`_"
 
 #: ../../source/for_developers/changelog.rst:449
+#, fuzzy
 msgid ""
 "`0.22 (December 4, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.22>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.22>`_"
 msgstr ""
 "`0.22 (4 de diciembre de 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.22>`_"
 
 #: ../../source/for_developers/changelog.rst:453
+#, fuzzy
 msgid ""
 "`0.18 (December 2, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.18>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.18>`_"
 msgstr ""
 "`0.18 (2 de diciembre de 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.18>`_"
 
 #: ../../source/for_developers/changelog.rst:457
+#, fuzzy
 msgid ""
 "`0.16 (November 6, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.16>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.16>`_"
 msgstr ""
 "`0.16 (6 de noviembre de 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.16>`_"
 
 #: ../../source/for_developers/changelog.rst:461
+#, fuzzy
 msgid ""
 "`0.14 (October 25, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.14>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.14>`_"
 msgstr ""
 "`0.14 (25 de octubre de 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.14>`_"
 
 #: ../../source/for_developers/changelog.rst:465
+#, fuzzy
 msgid ""
 "`0.12 (October 6, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.12>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.12>`_"
 msgstr ""
 "`0.12 (6 de octubre de 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.12>`_"

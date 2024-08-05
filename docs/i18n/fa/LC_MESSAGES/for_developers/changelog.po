@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-02 04:02+0000\n"
+"POT-Creation-Date: 2024-08-05 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
@@ -36,7 +36,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:7
 msgid ""
 "`2.1.16 (July 31, 2024) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.16>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.16>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:9
@@ -71,7 +71,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:20
 msgid ""
 "`2.1.14 (February 24, 2023) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.14>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.14>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:22
@@ -84,7 +84,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:27
 msgid ""
 "`2.1.12 (February 17, 2023) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.12>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.12>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:29
@@ -96,7 +96,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:33
 msgid ""
 "`2.1.10 (February 7, 2023) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.10>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.10>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:35
@@ -114,7 +114,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:40
 msgid ""
 "`2.1.8 (January 25, 2023) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.8>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.8>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:42
@@ -132,7 +132,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:48
 msgid ""
 "`2.1.6 (December 8, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.6>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.6>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:50
@@ -154,7 +154,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:57
 msgid ""
 "`2.1.6 (November 21, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.6>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.6>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:59
@@ -173,7 +173,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:66
 msgid ""
 "`2.1.2 (November 18, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.2>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.2>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:68
@@ -198,7 +198,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:77
 msgid ""
 "`2.1.0 (November 11, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.0>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.0>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:79
@@ -216,7 +216,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:86
 msgid ""
 "`2.0.7 (October 31, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.7>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.0.7>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:88
@@ -235,7 +235,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:95
 msgid ""
 "`2.0.5 (October 19, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.5>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.0.5>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:97
@@ -245,7 +245,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:100
 msgid ""
 "`2.0.3 (October 19, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.3>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.0.3>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:102
@@ -265,7 +265,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:108
 msgid ""
 "`2.0.1 (October 13, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.1>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.0.1>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:110
@@ -304,7 +304,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:126
 msgid ""
 "`2.0 (July 20, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v2.0>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:128
@@ -341,7 +341,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:140
 msgid ""
 "`1.0.10 (July 7, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.10>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:142
@@ -351,7 +351,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:145
 msgid ""
 "`1.0.8 (October 15, 2021) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.8>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:147
@@ -363,7 +363,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:151
 msgid ""
 "`1.0.6 (July 15, 2021) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.6>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:153
@@ -385,7 +385,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:160
 msgid ""
 "`1.0.4 (June 30, 2021) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.4>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.4>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:162
@@ -413,7 +413,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:170
 msgid ""
 "`1.0.2 (August 14, 2020) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.2>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:172
@@ -463,7 +463,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:187
 msgid ""
 "`1.0.0 (April 27, 2020) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v1.0.0>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:189
@@ -519,7 +519,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:210
 msgid ""
 "`0.98 (April 2, 2020) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.98>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:212
@@ -588,7 +588,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:233
 msgid ""
 "`0.66 (July 20, 2019) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.66>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:235
@@ -627,7 +627,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:247
 msgid ""
 "`0.64 (July 9, 2019) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.64>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:249
@@ -657,7 +657,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:258
 msgid ""
 "`0.62 (January 27, 2019) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.62>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.62>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:260
@@ -687,7 +687,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:269
 msgid ""
 "`0.60 (December 3, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.60>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.60>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:271
@@ -707,7 +707,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:278
 msgid ""
 "`0.58 (August 11, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.58>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:280
@@ -727,7 +727,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:286
 msgid ""
 "`0.56.5 (May 21, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.5>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56.5>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:288
@@ -737,7 +737,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:291
 msgid ""
 "`0.56.4 (May 21, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.4>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56.4>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:293
@@ -769,7 +769,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:302
 msgid ""
 "`0.56.3 (April 21, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.3>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56.3>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:304
@@ -787,7 +787,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:310
 msgid ""
 "`0.56.2 (April 10, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.2>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56.2>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:312
@@ -797,7 +797,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:315
 msgid ""
 "`0.56.1 (April 10, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.1>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56.1>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:317
@@ -807,7 +807,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:320
 msgid ""
 "`0.56 (April 9, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.56>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:322
@@ -825,7 +825,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:327
 msgid ""
 "`0.54 (April 8, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.54>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.54>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:329
@@ -848,7 +848,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:340
 msgid ""
 "`0.52.1 (March 21, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52.1>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.52.1>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:337
@@ -859,7 +859,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:345
 msgid ""
 "`0.52 (March 19, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.52>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:347
@@ -869,7 +869,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:350
 msgid ""
 "`0.50 (March 15, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.50>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.50>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:352
@@ -885,7 +885,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:357
 msgid ""
 "`0.48 (March 13, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.48>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.48>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:359
@@ -895,7 +895,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:362
 msgid ""
 "`0.46 (March 13, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.46>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.46>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:364
@@ -923,7 +923,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:371
 msgid ""
 "`0.44 (March 12, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.44>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.44>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:373
@@ -989,7 +989,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:390
 msgid ""
 "`0.42 (February 4, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.42>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.42>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:392
@@ -999,7 +999,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:395
 msgid ""
 "`0.40 (February 4, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.40>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.40>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:397
@@ -1035,7 +1035,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:407
 msgid ""
 "`0.38 (January 16, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.38>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.38>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:409
@@ -1099,7 +1099,7 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:428
 msgid ""
 "`0.36 (December 14, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.36>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.36>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:430
@@ -1109,55 +1109,55 @@ msgstr ""
 #: ../../source/for_developers/changelog.rst:433
 msgid ""
 "`0.34 (December 14, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.34>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.34>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:437
 msgid ""
 "`0.32 (December 14, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.32>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.32>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:441
 msgid ""
 "`0.30 (December 12, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.30>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.30>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:445
 msgid ""
 "`0.24 (December 6, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.24>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.24>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:449
 msgid ""
 "`0.22 (December 4, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.22>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.22>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:453
 msgid ""
 "`0.18 (December 2, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.18>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.18>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:457
 msgid ""
 "`0.16 (November 6, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.16>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.16>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:461
 msgid ""
 "`0.14 (October 25, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.14>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.14>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:465
 msgid ""
 "`0.12 (October 6, 2017) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.12>`_"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/v0.12>`_"
 msgstr ""
 
 #~ msgid ""
@@ -1194,5 +1194,265 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "iconReports"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.1.16 (July 31, 2024) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.16>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.1.14 (February 24, 2023) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.14>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.1.12 (February 17, 2023) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.12>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.1.10 (February 7, 2023) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.10>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.1.8 (January 25, 2023) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.8>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.1.6 (December 8, 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.6>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.1.6 (November 21, 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.6>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.1.2 (November 18, 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.2>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.1.0 (November 11, 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.0>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.0.7 (October 31, 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.7>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.0.5 (October 19, 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.5>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.0.3 (October 19, 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.3>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.0.1 (October 13, 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.1>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.0 (July 20, 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`1.0.10 (July 7, 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`1.0.8 (October 15, 2021) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`1.0.6 (July 15, 2021) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`1.0.4 (June 30, 2021) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.4>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`1.0.2 (August 14, 2020) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`1.0.0 (April 27, 2020) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.98 (April 2, 2020) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.66 (July 20, 2019) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.64 (July 9, 2019) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.62 (January 27, 2019) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.62>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.60 (December 3, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.60>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.58 (August 11, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.56.5 (May 21, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.5>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.56.4 (May 21, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.4>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.56.3 (April 21, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.3>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.56.2 (April 10, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.2>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.56.1 (April 10, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.1>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.56 (April 9, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.54 (April 8, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.54>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.52.1 (March 21, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52.1>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.52 (March 19, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.50 (March 15, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.50>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.48 (March 13, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.48>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.46 (March 13, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.46>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.44 (March 12, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.44>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.42 (February 4, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.42>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.40 (February 4, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.40>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.38 (January 16, 2018) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.38>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.36 (December 14, 2017) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.36>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.34 (December 14, 2017) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.34>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.32 (December 14, 2017) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.32>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.30 (December 12, 2017) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.30>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.24 (December 6, 2017) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.24>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.22 (December 4, 2017) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.22>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.18 (December 2, 2017) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.18>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.16 (November 6, 2017) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.16>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.14 (October 25, 2017) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.14>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`0.12 (October 6, 2017) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.12>`_"
 #~ msgstr ""
 

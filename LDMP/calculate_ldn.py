@@ -19,16 +19,12 @@ from pathlib import Path
 import qgis.gui
 import te_algorithms.gdal.land_deg.config as ld_config
 from qgis.core import QgsGeometry
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
-from te_schemas.land_cover import LCLegendNesting
-from te_schemas.land_cover import LCTransitionDefinitionDeg
+from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
 
-from . import conf
-from . import lc_setup
+from . import conf, lc_setup
 from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import ldn
@@ -561,9 +557,38 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 ),  # TODO: Use SOC matrix for the above once defined
             }
 
+            pop_dataset = conf.REMOTE_DATASETS["WorldPop"][
+                "Gridded Population Count (gender breakdown)"
+            ]
+            pop_start_year = pop_dataset["Start year"]
+            pop_end_year = pop_dataset["End year"]
+            # Use a population dataset that is as close as possible to the
+            # chosen final year, but no more than three years earlier or later
+            # than that year
+            if year_final < (pop_start_year - 3) or year_final > (pop_end_year + 3):
+                log(
+                    f"final year {year_final} is too far away from available worldpop data years"
+                )
+                QtWidgets.QMessageBox.information(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        f"Final year of the productivity data ({year_final}) must be "
+                        "within three years of the years for which population data "
+                        f"is available from the WorldPop dataset ({pop_start_year}-{pop_end_year})."
+                    ),
+                )
+                return
+            else:
+                if year_final < pop_start_year:
+                    pop_year = pop_start_year
+                elif year_final > pop_end_year:
+                    pop_year = pop_end_year
+                else:
+                    pop_year = year_final
             payload["population"] = {
-                "year": year_final,
-                "asset": "users/geflanddegradation/toolbox_datasets/worldpop_mf_v1_300m",
+                "year": pop_year,
+                "asset": pop_dataset["GEE Dataset"],
                 "source": "WorldPop (gender breakdown)",
             }
 
@@ -1137,64 +1162,64 @@ class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi)
         self.close()
         return
 
-        ret = super(DlgCalculateUNCCD, self).btn_calculate()
-
-        if not ret:
-            return
-
-        crosses_180th, geojsons = self.gee_bounding_box
-
-        year_initial = self.year_initial_de.date().year()
-        year_final = self.year_final_de.date().year()
-
-        if (year_final - year_initial) < 5:
-            QtWidgets.QMessageBox.warning(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "Initial and final year are less 5 years "
-                    "apart in - results will be more reliable "
-                    "if more data (years) are included in the analysis."
-                ),
-            )
-
-            return
-
-        payload = {}
-        payload["population"] = {
-            "asset": self.population_dataset["GEE Dataset"],
-            "source": self.population_dataset_name,
-        }
-
-        payload["spi"] = {
-            "asset": self.spi_dataset["GEE Dataset"],
-            "source": self.spi_dataset_name,
-            "lag": int(self.lag_cb.currentText()),
-        }
-
-        payload.update(
-            {
-                "geojsons": geojsons,
-                "crs": self.aoi.get_crs_dst_wkt(),
-                "crosses_180th": crosses_180th,
-                "task_name": self.execution_name_le.text(),
-                "task_notes": self.task_notes.toPlainText(),
-                "script": ExecutionScript.Schema().dump(self.script),
-                "year_initial": year_initial,
-                "year_final": year_final,
-            }
-        )
-
-        self.close()
-
-        resp = job_manager.submit_remote_job(payload, self.script.id)
-
-        if resp:
-            main_msg = "Submitted"
-            description = "UNCCD default data task submitted to Trends.Earth server."
-        else:
-            main_msg = "Error"
-            description = "Unable to UNCCD default data task to Trends.Earth server."
-        self.mb.pushMessage(
-            self.tr(main_msg), self.tr(description), level=0, duration=5
-        )
+        # ret = super(DlgCalculateUNCCD, self).btn_calculate()
+        #
+        # if not ret:
+        #     return
+        #
+        # crosses_180th, geojsons = self.gee_bounding_box
+        #
+        # year_initial = self.year_initial_de.date().year()
+        # year_final = self.year_final_de.date().year()
+        #
+        # if (year_final - year_initial) < 5:
+        #     QtWidgets.QMessageBox.warning(
+        #         None,
+        #         self.tr("Error"),
+        #         self.tr(
+        #             "Initial and final year are less 5 years "
+        #             "apart in - results will be more reliable "
+        #             "if more data (years) are included in the analysis."
+        #         ),
+        #     )
+        #
+        #     return
+        #
+        # payload = {}
+        # payload["population"] = {
+        #     "asset": self.population_dataset["GEE Dataset"],
+        #     "source": self.population_dataset_name,
+        # }
+        #
+        # payload["spi"] = {
+        #     "asset": self.spi_dataset["GEE Dataset"],
+        #     "source": self.spi_dataset_name,
+        #     "lag": int(self.lag_cb.currentText()),
+        # }
+        #
+        # payload.update(
+        #     {
+        #         "geojsons": geojsons,
+        #         "crs": self.aoi.get_crs_dst_wkt(),
+        #         "crosses_180th": crosses_180th,
+        #         "task_name": self.execution_name_le.text(),
+        #         "task_notes": self.task_notes.toPlainText(),
+        #         "script": ExecutionScript.Schema().dump(self.script),
+        #         "year_initial": year_initial,
+        #         "year_final": year_final,
+        #     }
+        # )
+        #
+        # self.close()
+        #
+        # resp = job_manager.submit_remote_job(payload, self.script.id)
+        #
+        # if resp:
+        #     main_msg = "Submitted"
+        #     description = "UNCCD default data task submitted to Trends.Earth server."
+        # else:
+        #     main_msg = "Error"
+        #     description = "Unable to UNCCD default data task to Trends.Earth server."
+        # self.mb.pushMessage(
+        #     self.tr(main_msg), self.tr(description), level=0, duration=5
+        # )

@@ -3,17 +3,17 @@ import json
 import os
 from datetime import datetime
 
-from qgis.core import QgsProcessingAlgorithm
-from qgis.core import QgsProcessingContext
-from qgis.core import QgsProcessingFeedback
-from qgis.core import QgsProcessingOutputBoolean
-from qgis.core import QgsProcessingParameterFile
-from qgis.core import QgsProject
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtCore import QFileInfo
+from qgis.core import (
+    QgsProcessingAlgorithm,
+    QgsProcessingContext,
+    QgsProcessingFeedback,
+    QgsProcessingOutputBoolean,
+    QgsProcessingParameterFile,
+    QgsProject,
+)
+from qgis.PyQt.QtCore import QCoreApplication, QFileInfo
 
-from ..conf import Setting
-from ..conf import settings_manager
+from ..conf import Setting, settings_manager
 from ..reports.generator import ReportTaskProcessor
 from ..reports.models import ReportTaskContext
 

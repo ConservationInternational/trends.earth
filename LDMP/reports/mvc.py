@@ -5,35 +5,26 @@ import typing
 
 from qgis.core import Qgis
 from qgis.gui import QgisInterface
-from qgis.PyQt.QtCore import QAbstractItemModel
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtCore import QModelIndex
-from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtCore import QUrl
-from qgis.PyQt.QtGui import QDesktopServices
-from qgis.PyQt.QtGui import QStandardItem
-from qgis.PyQt.QtGui import QStandardItemModel
-from qgis.PyQt.QtWidgets import QComboBox
-from qgis.PyQt.QtWidgets import QMenu
-from qgis.PyQt.QtWidgets import QPushButton
-from qgis.PyQt.QtWidgets import QStyledItemDelegate
-from qgis.PyQt.QtWidgets import QStyleOptionViewItem
-from qgis.PyQt.QtWidgets import QWidget
+from qgis.PyQt.QtCore import QAbstractItemModel, QCoreApplication, QModelIndex, Qt, QUrl
+from qgis.PyQt.QtGui import QDesktopServices, QStandardItem, QStandardItemModel
+from qgis.PyQt.QtWidgets import (
+    QComboBox,
+    QMenu,
+    QPushButton,
+    QStyledItemDelegate,
+    QStyleOptionViewItem,
+    QWidget,
+)
 from te_schemas.jobs import JobStatus
 
 from ..jobs.manager import job_manager
 from ..jobs.models import Job
 from ..logger import log
-from ..utils import FileUtils
-from ..utils import open_qgis_project
+from ..utils import FileUtils, open_qgis_project
 from .generator import report_generator_manager
-from .models import ItemScopeMapping
-from .models import ReportConfiguration
-from .models import ReportTaskContext
+from .models import ItemScopeMapping, ReportConfiguration, ReportTaskContext
 from .template_manager import template_manager
-from .utils import job_has_report
-from .utils import job_has_results
-from .utils import job_report_directory
+from .utils import job_has_report, job_has_results, job_report_directory
 
 
 class DatasetReportHandler:

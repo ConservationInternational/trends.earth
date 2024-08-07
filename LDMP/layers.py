@@ -16,28 +16,30 @@ import math
 import os
 import re
 import typing
-from math import floor
-from math import log10
+from math import floor, log10
 from operator import attrgetter
 from pathlib import Path
-from te_schemas.land_cover import LCLegendNesting
 
 import numpy as np
 from osgeo import gdal
-from qgis.core import Qgis
-from qgis.core import QgsColorRampShader
-from qgis.core import QgsDefaultValue
-from qgis.core import QgsProcessingFeedback
-from qgis.core import QgsProject
-from qgis.core import QgsProviderRegistry
-from qgis.core import QgsProviderSublayerDetails
-from qgis.core import QgsRasterLayer
-from qgis.core import QgsRasterShader
-from qgis.core import QgsSingleBandPseudoColorRenderer
+from qgis.core import (
+    Qgis,
+    QgsColorRampShader,
+    QgsDefaultValue,
+    QgsProcessingFeedback,
+    QgsProject,
+    QgsProviderRegistry,
+    QgsProviderSublayerDetails,
+    QgsRasterLayer,
+    QgsRasterShader,
+    QgsSingleBandPseudoColorRenderer,
+    QgsVectorLayer,
+)
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QColor
 from qgis.utils import iface
+from te_schemas.land_cover import LCLegendNesting
 
 from .logger import log
 
@@ -627,9 +629,8 @@ def add_layer(
             ),
         )
         log(
-            'No style found for "{}" in {}'.format(
-                band_info["name"],
-                band_number,
+            'No style found for "{}" (band {} in {})'.format(
+                band_info["name"], band_number, layer_path
             )
         )
 
@@ -818,8 +819,8 @@ def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
         if layer.isValid():
             found = False
             layers = QgsProject.instance().mapLayers()
-            for l in layers.values():
-                if l.source().split("|")[0] == layer.source().split("|")[0]:
+            for lyr in layers.values():
+                if lyr.source().split("|")[0] == layer.source().split("|")[0]:
                     found = True
             if not found:
                 layer.setName(name)
@@ -827,8 +828,8 @@ def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
     else:
         found = False
         layers = QgsProject.instance().mapLayers()
-        for l in layers.values():
-            if l.source().split("|")[0] == layer_path:
+        for lyr in layers.values():
+            if lyr.source().split("|")[0] == layer_path:
                 found = True
         if not found:
             layer = iface.addVectorLayer(layer_path, name, "ogr")
@@ -839,9 +840,9 @@ def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
 def set_default_stats_value(v_path, band_datas):
     log("setting default stats value function")
     layer = None
-    for l in QgsProject.instance().mapLayers().values():
-        if l.source().split("|")[0] == v_path:
-            layer = l
+    for lyr in QgsProject.instance().mapLayers().values():
+        if lyr.source().split("|")[0] == v_path:
+            layer = lyr
             break
     if layer is None:
         return
@@ -859,9 +860,9 @@ def set_default_stats_value(v_path, band_datas):
 
 def edit(layer):
     layers = QgsProject.instance().mapLayers()
-    for l in layers.values():
-        if l.source().split("|")[0] == layer:
-            if l.isEditable():
-                l.commitChanges()
+    for lyr in layers.values():
+        if lyr.source().split("|")[0] == layer:
+            if lyr.isEditable():
+                lyr.commitChanges()
             else:
-                l.startEditing()
+                lyr.startEditing()

@@ -1,14 +1,17 @@
 import numpy as np
 from osgeo import gdal
-from qgis.core import QgsProcessingAlgorithm
-from qgis.core import QgsProcessingOutputNumber
-from qgis.core import QgsProcessingOutputString
-from qgis.core import QgsProcessingParameterFile
-from qgis.core import QgsProcessingParameterNumber
+from qgis.core import (
+    QgsProcessingAlgorithm,
+    QgsProcessingOutputNumber,
+    QgsProcessingOutputString,
+    QgsProcessingParameterFile,
+    QgsProcessingParameterNumber,
+)
 from qgis.PyQt.QtCore import QCoreApplication
 
-from ..logger import log
 from LDMP.summary import calc_cell_area
+
+from ..logger import log
 
 
 class TCSummary(QgsProcessingAlgorithm):

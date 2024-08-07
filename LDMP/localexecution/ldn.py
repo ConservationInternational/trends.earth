@@ -2,10 +2,7 @@ import dataclasses
 import enum
 import json
 from pathlib import Path
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
+from typing import Dict, List, Optional, Union
 
 import te_algorithms.gdal.land_deg.config as ld_config
 from qgis.PyQt import QtWidgets

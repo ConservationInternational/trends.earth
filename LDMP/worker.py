@@ -1,12 +1,8 @@
 import qgis.gui
 from qgis.core import Qgis
 from qgis.PyQt import QtCore
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtCore import QEventLoop
-from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtCore import QThread
-from qgis.PyQt.QtWidgets import QProgressBar
-from qgis.PyQt.QtWidgets import QPushButton
+from qgis.PyQt.QtCore import QCoreApplication, QEventLoop, Qt, QThread
+from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from qgis.utils import iface
 
 from .logger import log

@@ -16,9 +16,7 @@ import typing
 from pathlib import Path
 
 import qgis.gui
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
 from . import conf

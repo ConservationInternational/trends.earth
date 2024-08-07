@@ -9,16 +9,15 @@ from pathlib import Path
 
 import te_algorithms.gdal.land_deg.config as ld_config
 from te_algorithms.api import util
-from te_algorithms.gdal.land_deg.land_deg_recode import rasterize_error_recode
-from te_algorithms.gdal.land_deg.land_deg_recode import recode_errors
-from te_schemas import algorithms
-from te_schemas import jobs
+from te_algorithms.gdal.land_deg.land_deg_recode import (
+    rasterize_error_recode,
+    recode_errors,
+)
+from te_schemas import algorithms, jobs
 from te_schemas.aoi import AOI
 from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.productivity import ProductivityMode
-from te_schemas.results import Band
-from te_schemas.results import JsonResults
-from te_schemas.results import RasterResults
+from te_schemas.results import Band, JsonResults, RasterResults
 
 S3_PREFIX_RAW_DATA = "prais4-raw"
 S3_BUCKET_INPUT = "trends.earth-private"

@@ -4,10 +4,7 @@ import os
 from pathlib import Path
 
 import qgis.core
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 
 Ui_DlgDatasetMetadata, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDatasetMetadata.ui")

@@ -7,9 +7,8 @@ repos:
       # - id: pretty-format-json
       #   args: ["--autofix", "--no-sort-keys"]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.5.1
+    rev: v0.5.6
     hooks:
       - id: ruff
-        args:
-        - --fix
+        args: ["check", "--select", "I", "--fix"]
       - id: ruff-format

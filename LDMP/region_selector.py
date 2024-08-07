@@ -1,14 +1,10 @@
 from dataclasses import dataclass
 
 from qgis.core import QgsGeometry
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
+from qgis.PyQt import QtCore, QtWidgets
 from qgis.utils import iface
 
-from .conf import AreaSetting
-from .conf import OPTIONS_TITLE
-from .conf import Setting
-from .conf import settings_manager
+from .conf import OPTIONS_TITLE, AreaSetting, Setting, settings_manager
 from .utils import FileUtils
 from .visualization import get_admin_bbox
 

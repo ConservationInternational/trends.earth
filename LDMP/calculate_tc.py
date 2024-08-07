@@ -12,25 +12,21 @@
 """
 
 import json
+import os
 from pathlib import Path
 
+import numpy as np
 import qgis.core
 import qgis.gui
-from osgeo import gdal
-from osgeo import osr
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from osgeo import gdal, osr
+from qgis.PyQt import QtCore, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 from te_schemas.schemas import BandInfo
 
-from . import calculate
-from . import conf
-from . import data_io
-from . import GetTempFilename
-from . import worker
+from . import GetTempFilename, calculate, conf, data_io, worker
 from .jobs.manager import job_manager
-from .summary import *
+from .logger import log
+from .summary import calc_cell_area
 
 DlgCalculateTcDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateTCData.ui")
@@ -53,7 +49,7 @@ class TCWorker(worker.AbstractWorker):
         ds_in = gdal.Open(self.in_vrt)
 
         soc_band = ds_in.GetRasterBand(1)
-        clim_band = ds_in.GetRasterBand(2)
+        # clim_band = ds_in.GetRasterBand(2)
 
         block_sizes = soc_band.GetBlockSize()
         x_block_size = block_sizes[0]

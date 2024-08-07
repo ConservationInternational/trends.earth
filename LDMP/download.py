@@ -21,19 +21,14 @@ import zipfile
 from functools import partial
 from pathlib import Path
 
-from qgis.core import QgsFileDownloader
-from qgis.core import QgsNetworkReplyContent
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtNetwork
-from qgis.PyQt import QtWidgets
+from qgis.core import QgsFileDownloader, QgsNetworkReplyContent
+from qgis.PyQt import QtCore, QtNetwork, QtWidgets
 from qgis.utils import iface
 
 from .api import APIClient
-from .constants import API_URL
-from .constants import TIMEOUT
+from .constants import API_URL, TIMEOUT
 from .logger import log
-from .worker import AbstractWorker
-from .worker import start_worker
+from .worker import AbstractWorker, start_worker
 
 
 @dataclasses.dataclass()

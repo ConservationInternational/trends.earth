@@ -1,16 +1,16 @@
 import functools
 import typing
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import AlgorithmRunMode
 
+from ..conf import Setting, settings_manager
 from . import models
-from ..conf import Setting
-from ..conf import settings_manager
+
+if TYPE_CHECKING:
+    from ..main_widget import MainWidget
 
 WidgetAlgorithmLeafUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetAlgorithmLeaf.ui")

@@ -5,15 +5,13 @@ from pathlib import Path
 
 import qgis.core
 import qgis.gui
-from osgeo import gdal
-from osgeo import ogr
+from osgeo import gdal, ogr
 from qgis.core import Qgis
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.utils import iface as qgisiface
 
-from . import conf
-from . import download
+from . import conf, download
 from .layers import _get_qgis_version
 from .logger import log
 
@@ -88,8 +86,8 @@ class AOI:
 
     def update_from_file(self, f, wrap=False):
         log('Setting up AOI from file at {}"'.format(f))
-        l = qgis.core.QgsVectorLayer(f, "calculation boundary", "ogr")
-        if not l.isValid():
+        lyr = qgis.core.QgsVectorLayer(f, "calculation boundary", "ogr")
+        if not lyr.isValid():
             raise RuntimeError(
                 f"Unable to load area of interest from {f}. There may be a problem "
                 f"with the file or coordinate system. Try manually loading this file "
@@ -98,25 +96,25 @@ class AOI:
                 f"trends.earth@conservation.org."
             )
         if (
-            l.wkbType() == qgis.core.QgsWkbTypes.Polygon
-            or l.wkbType() == qgis.core.QgsWkbTypes.PolygonZ
-            or l.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon
-            or l.wkbType() == qgis.core.QgsWkbTypes.MultiPolygonZ
+            lyr.wkbType() == qgis.core.QgsWkbTypes.Polygon
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.PolygonZ
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.MultiPolygonZ
         ):
             self.datatype = "polygon"
         elif (
-            l.wkbType() == qgis.core.QgsWkbTypes.Point
-            or l.wkbType() == qgis.core.QgsWkbTypes.PointZ
-            or l.wkbType() == qgis.core.QgsWkbTypes.MultiPoint
-            or l.wkbType() == qgis.core.QgsWkbTypes.MultiPointZ
+            lyr.wkbType() == qgis.core.QgsWkbTypes.Point
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.PointZ
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.MultiPoint
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.MultiPointZ
         ):
             self.datatype = "point"
         else:
             raise RuntimeError(
                 f"Failed to process area of interest - unknown geometry "
-                f"type: {l.wkbType()}"
+                f"type: {lyr.wkbType()}"
             )
-        self.l = _transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
+        self.l = _transform_layer(lyr, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
     def update_from_geojson(
         self, geojson, crs_src="epsg:4326", datatype="polygon", wrap=False
@@ -124,7 +122,7 @@ class AOI:
         log("Setting up AOI with geojson. Wrap is {}.".format(wrap))
         self.datatype = datatype
         # Note geojson is assumed to be in 4326
-        l = qgis.core.QgsVectorLayer(
+        lyr = qgis.core.QgsVectorLayer(
             "{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src),
             "calculation boundary",
             "memory",
@@ -134,16 +132,16 @@ class AOI:
         feats_out = []
         for i in range(0, layer_in.GetFeatureCount()):
             feat_in = layer_in.GetFeature(i)
-            feat = qgis.core.QgsFeature(l.fields())
+            feat = qgis.core.QgsFeature(lyr.fields())
             geom = qgis.core.QgsGeometry()
             geom.fromWkb(feat_in.geometry().ExportToWkb())
             feat.setGeometry(geom)
             feats_out.append(feat)
-        l.dataProvider().addFeatures(feats_out)
-        l.commitChanges()
-        if not l.isValid():
+        lyr.dataProvider().addFeatures(feats_out)
+        lyr.commitChanges()
+        if not lyr.isValid():
             raise RuntimeError("Failed to add geojson to temporary layer.")
-        self.l = _transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
+        self.l = _transform_layer(lyr, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
     def get_unary_geometry(self):
         "Calculate a single feature that is the union of all the features in layer"
@@ -451,6 +449,7 @@ class AOI:
         in_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
         in_geom_area = in_geom.GetArea()
         if in_geom_area == 0:
+            aoi_geom = ogr.CreateGeometryFromWkt(aoi_wkts)
             if aoi_geom.Within(in_geom):
                 return False
 
@@ -629,18 +628,18 @@ def get_aligned_output_bounds(f, wkt_bounding_boxes):
     return out
 
 
-def _transform_layer(l, crs_dst, datatype="polygon", wrap=False):
+def _transform_layer(lyr, crs_dst, datatype="polygon", wrap=False):
     # Transform CRS of a layer while optionally wrapping geometries
     # across the 180th meridian
     log(
         'Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(
-            l.crs().toProj(), crs_dst.toProj(), wrap, datatype
+            lyr.crs().toProj(), crs_dst.toProj(), wrap, datatype
         )
     )
 
-    crs_src_string = l.crs().toProj()
+    crs_src_string = lyr.crs().toProj()
     if wrap:
-        if not l.crs().isGeographic():
+        if not lyr.crs().isGeographic():
             QtWidgets.QMessageBox.critical(
                 None,
                 tr_areaofinterest.tr("Error"),
@@ -668,7 +667,7 @@ def _transform_layer(l, crs_dst, datatype="polygon", wrap=False):
         "memory",
     )
     feats = []
-    for f in l.getFeatures():
+    for f in lyr.getFeatures():
         geom = f.geometry()
         if wrap:
             n = 0

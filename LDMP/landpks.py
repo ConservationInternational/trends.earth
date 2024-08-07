@@ -15,14 +15,10 @@ import json
 from pathlib import Path
 
 import qgis.gui
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
-from . import calculate
-from . import conf
+from . import calculate, conf
 from .jobs.manager import job_manager
 from .logger import log
 
@@ -228,9 +224,10 @@ class DlgLandPKSDownload(calculate.DlgCalculateBase, DlgLandPKSDownloadUi):
         self.data_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 
     def btn_details(self):
-        button = self.sender()
-        index = self.data_view.indexAt(button.pos())
+        # button = self.sender()
+        # index = self.data_view.indexAt(button.pos())
         # TODO: Code the details view
+        pass
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

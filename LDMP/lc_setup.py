@@ -15,29 +15,25 @@ from __future__ import annotations
 
 import json
 import os
-import re
 from copy import deepcopy
 from pathlib import Path
 
 from marshmallow.exceptions import ValidationError
 from marshmallow_dataclass import dataclass
 from qgis.core import QgsApplication
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
-from te_schemas.land_cover import LCClass
-from te_schemas.land_cover import LCLegend
-from te_schemas.land_cover import LCLegendNesting
-from te_schemas.land_cover import LCTransitionDefinitionDeg
-from te_schemas.land_cover import LCTransitionMatrixDeg
-from te_schemas.land_cover import LCTransitionMeaningDeg
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
+from te_schemas.land_cover import (
+    LCClass,
+    LCLegend,
+    LCLegendNesting,
+    LCTransitionDefinitionDeg,
+    LCTransitionMatrixDeg,
+    LCTransitionMeaningDeg,
+)
 
-from . import conf
-from . import data_io
+from . import conf, data_io
 from .jobs.manager import job_manager
 from .logger import log
-
 
 DlgCalculateLCSetAggregationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLCSetAggregation.ui")
@@ -125,7 +121,6 @@ tr_dict = {
     "Shrubland": tr_lc_setup.tr("Shrubland"),
     "Evergreen shrubland": tr_lc_setup.tr("Evergreen shrubland"),
     "Deciduous shrubland": tr_lc_setup.tr("Deciduous shrubland"),
-    "Grassland": tr_lc_setup.tr("Grassland"),
     "Lichens and mosses": tr_lc_setup.tr("Lichens and mosses"),
     "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)": tr_lc_setup.tr(
         "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
@@ -149,22 +144,6 @@ tr_dict = {
     "Water bodies": tr_lc_setup.tr("Water bodies"),
     "Permanent snow and ice": tr_lc_setup.tr("Permanent snow and ice"),
 }
-
-
-# TODO: Finish this - probably makes more sense to do it by subclassing dict, or see
-# here: https://stackoverflow.com/questions/3387691/how-to-perfectly-override-a-dict
-def _tr_cover_class(translations):
-    """
-    Handle translation of cover class names preceded by numeric codes
-
-    Some cover class names are preceded by numeric codes. Translate these by stripping
-    the code, finding the translation, and then re-adding the code.
-    """
-    label = re.sub("^-?[0-9]* - ", "", item["label"])
-    code = re.sub(" - .*$", "", item["label"])
-
-    translations.get()
-    nesting.translate(tr_dict)
 
 
 def json_serial(obj):
@@ -852,9 +831,9 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
             unnecessary_parent_codes = sorted(
                 [c for c in parent_code_input if c not in valid_parent_codes]
             )
-            parent_codes_missing_from_input = sorted(
-                [c for c in valid_parent_codes if c not in parent_code_input]
-            )
+            # parent_codes_missing_from_input = sorted(
+            #     [c for c in valid_parent_codes if c not in parent_code_input]
+            # )
 
             if len(unnecessary_parent_codes) > 0:
                 QtWidgets.QMessageBox.warning(
@@ -880,9 +859,9 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
             }
             # Nest under nodata any child classes that were nested under invalid
             # parent classes
-            child_codes_in_nesting_dict = [
-                value for values in nesting_input.nesting.values() for value in values
-            ]
+            # child_codes_in_nesting_dict = [
+            #     value for values in nesting_input.nesting.values() for value in values
+            # ]
 
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(f"nesting is {nesting_input.nesting}")
@@ -1104,14 +1083,14 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 self.load_agg(values, child_nodata_code=self.get_nodata_value())
         else:
             f = self.input_widget.lineEdit_vector_file.text()
-            l = self.input_widget.get_vector_layer()
-            idx = l.fields().lookupField(
+            layer = self.input_widget.get_vector_layer()
+            idx = layer.fields().lookupField(
                 self.input_widget.comboBox_fieldname.currentText()
             )
 
             if not self.dlg_agg or (self.last_vector != f or self.last_idx != idx):
                 values = data_io.get_unique_values_vector(
-                    l, self.input_widget.comboBox_fieldname.currentText()
+                    layer, self.input_widget.comboBox_fieldname.currentText()
                 )
 
                 if not values:
@@ -1141,9 +1120,9 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             remap_ret = self.remap_raster(out_file, self.dlg_agg.nesting.get_list())
         else:
             attribute = self.input_widget.comboBox_fieldname.currentText()
-            l = self.input_widget.get_vector_layer()
+            layer = self.input_widget.get_vector_layer()
             remap_ret = self.remap_vector(
-                l, out_file, self.dlg_agg.nesting.nesting, attribute
+                layer, out_file, self.dlg_agg.nesting.nesting, attribute
             )
 
         if not remap_ret:

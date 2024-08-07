@@ -9,8 +9,7 @@ import pathlib
 import random
 import tempfile
 import threading
-from concurrent.futures import as_completed
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib import request
 
 import ee
@@ -21,9 +20,7 @@ import pandas as pd
 from google.cloud import storage
 from matplotlib_scalebar.scalebar import ScaleBar
 from PIL import Image
-from te_schemas.schemas import ImageryPNG
-from te_schemas.schemas import ImageryPNGSchema
-from te_schemas.schemas import Url
+from te_schemas.schemas import ImageryPNG, ImageryPNGSchema, Url
 
 # Turn off overly informative debug messages
 mpl_logger = logging.getLogger("matplotlib")
@@ -216,14 +213,16 @@ def plot_image_to_file(d, title, legend=None):
 
 def landtrend_get_data(year_start, year_end, geojson):
     # geospatial datasets
-    lcover = "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2020"
-    vegindex = "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2020"
-    precip = "users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2019"
+    lcover = "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2022"
+    vegindex = "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2023"
+    precip = "users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2023"
 
     point = ee.Geometry(geojson)
 
     # sets time series of interest
-    lcov = ee.Image(lcover).select(ee.List.sequence(year_start - 1992, 26, 1))
+    lcov = ee.Image(lcover).select(
+        ee.List.sequence(year_start - 1992, year_end - 1992, 1)
+    )
     ndvi = ee.Image(vegindex).select(
         ee.List.sequence(year_start - 2001, year_end - 2001, 1)
     )
@@ -324,6 +323,7 @@ def landtrend_make_plot(d, year_start, year_end):
     axs[2].set_ylim(0, 5)
     axs[2].tick_params(axis="y", left=False, labelleft=False, labelsize=28)
     axs[2].tick_params(axis="x", labelsize=28)
+    axs[2].locator_params(axis="x", integer=True)
     axs[2].set_xlabel(_("Year"), fontsize=32)
     axs[2].set_ylabel(_("Land\nCover"), fontsize=32)
     handles, labels = axs[2].get_legend_handles_labels()
@@ -389,46 +389,45 @@ def landtrend(year_start, year_end, geojson, lang, gc_client, metadata):
 
 # Function to mask out clouds and cloud-shadows present in Landsat images
 def maskL8sr(image):
-    # Bits 3 and 5 are cloud shadow and cloud, respectively.
-    cloudShadowBitMask = 1 << 3
-    cloudsBitMask = 1 << 5
-    # Get the pixel QA band.
-    qa = image.select("pixel_qa")
-    # Both flags should be set to zero, indicating clear conditions.
-    mask = qa.bitwiseAnd(cloudShadowBitMask).eq(0)
-    mask = qa.bitwiseAnd(cloudsBitMask).eq(0)
-
-    return image.updateMask(mask)
+    return image.updateMask(image.select("QA_PIXEL").bitwiseAnd(int("11111", 2)).eq(0))
 
 
 # Function to generate the Normalized Diference Vegetation Index, NDVI = (NIR +
 # Red)/(NIR + Red)
 def calculate_ndvi(image):
-    return image.normalizedDifference(["B5", "B4"]).rename(_("NDVI"))
+    return image.normalizedDifference(["SR_B5", "SR_B4"]).rename(_("NDVI"))
 
 
-OLI_SR_COLL = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR")
+OLI_SR_COLL = ee.ImageCollection("LANDSAT/LC08/C02/T1_L2")
+
+
+def applyScaleFactors(image):
+    opticalBands = image.select("SR_B.").multiply(0.0000275).add(-0.2)
+    thermalBand = image.select("ST_B10").multiply(0.00341802).add(149.0)
+    return image.addBands(opticalBands, None, True).addBands(thermalBand, None, True)
 
 
 def base_image(year, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 2).geom()
+    region = point.buffer(BOX_SIDE / 2).bounds()
 
     # Mask out clouds and cloud-shadows in the Landsat image
     range_coll = OLI_SR_COLL.filterDate(
         start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")
     )
+
     l8sr_y = (
         range_coll.map(maskL8sr)
+        .map(applyScaleFactors)
         .median()
         .setDefaultProjection(range_coll.first().projection())
     )
 
     # Define visualization parameter for ndvi trend and apply them
     p_l8sr = {
-        "bands": ["B4", "B3", "B2"],
+        "bands": ["SR_B4", "SR_B3", "SR_B2"],
         "min": 0,
         "max": 3000,
         "gamma": 1.5,
@@ -486,12 +485,13 @@ def greenness(year, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 2).geom()
+    region = point.buffer(BOX_SIDE / 2).bounds()
     ndvi_mean = (
         OLI_SR_COLL.filterDate(
             start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")
         )
         .map(maskL8sr)
+        .map(applyScaleFactors)
         .map(calculate_ndvi)
         .mean()
         .addBands(ee.Image(year).float())
@@ -567,13 +567,14 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year_start, 1, 1)
     end_date = dt.datetime(year_end, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 2).geom()
+    region = point.buffer(BOX_SIDE / 2).bounds()
     ndvi = []
 
     for y in range(year_start, year_end + 1):
         ndvi.append(
             OLI_SR_COLL.filterDate("{}-01-1".format(y), "{}-12-31".format(y))
             .map(maskL8sr)
+            .map(applyScaleFactors)
             .map(calculate_ndvi)
             .mean()
             .addBands(ee.Image(y).float())
@@ -655,7 +656,7 @@ def run(params, logger):
         raise InvalidParameter("Invalid starting year {}".format(year_start))
     year_end = int(params.get("year_end", None))
 
-    if year_end > 2019:
+    if year_end > 2022:
         raise InvalidParameter("Invalid ending year {}".format(year_end))
     lang = params.get("lang", None)
     langs = ["EN", "ES", "PT"]

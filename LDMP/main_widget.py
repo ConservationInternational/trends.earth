@@ -6,30 +6,25 @@ from pathlib import Path
 
 import qgis.core
 import qgis.gui
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import AlgorithmRunMode
 from te_schemas.jobs import JobStatus
 
 from .algorithms import models as algorithm_models
 from .algorithms import mvc as algorithms_mvc
-from .conf import ALGORITHM_TREE
-from .conf import DOCK_TITLE
-from .conf import DOCK_TITLE_OFFLINE
-from .conf import KNOWN_SCRIPTS
-from .conf import Setting
-from .conf import settings_manager
-from .data_io import DlgDataIOImportProd
-from .data_io import DlgDataIOImportSOC
-from .data_io import DlgDataIOLoadTE
+from .conf import (
+    ALGORITHM_TREE,
+    DOCK_TITLE,
+    DOCK_TITLE_OFFLINE,
+    KNOWN_SCRIPTS,
+    Setting,
+    settings_manager,
+)
+from .data_io import DlgDataIOImportProd, DlgDataIOImportSOC, DlgDataIOLoadTE
 from .download_data import DlgDownload
 from .jobs import mvc as jobs_mvc
 from .jobs.manager import job_manager
-from .jobs.models import Job
-from .jobs.models import SortField
-from .jobs.models import TypeFilter
+from .jobs.models import Job, SortField, TypeFilter
 from .landpks import DlgLandPKSDownload
 from .lc_setup import DlgDataIOImportLC
 from .logger import log

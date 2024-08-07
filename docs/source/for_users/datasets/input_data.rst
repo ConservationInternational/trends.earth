@@ -135,7 +135,7 @@ Population
 +-------------------------------------------+-----------+---------+--------+--------------+
 | Sensor/Dataset                            | Temporal  | Spatial | Extent | License      |
 +===========================================+===========+=========+========+==============+
-| `WorldPop 100m Global Population grid`_   | 2000-2020 | 100m    | Global | `CC BY 4.0`_ |
+| `WorldPop`_ 100m Global Population grid   | 2000-2020 | 100m    | Global | `CC BY 4.0`_ |
 +-------------------------------------------+-----------+---------+--------+--------------+
 
 .. note::
@@ -159,5 +159,5 @@ Population
     - s3://trends.earth-shared/worldpop/1200m
 
 .. _UNCCD: https://www.unccd.int
-.. _WorldPop 100m Global Population grid: https://www.worldpop.org
+.. _WorldPop: https://www.worldpop.org
 .. _CC BY 4.0: https://creativecommons.org/licenses/by/4.0

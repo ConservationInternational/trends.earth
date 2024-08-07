@@ -60,5 +60,5 @@ jobs:
       - name: Run test suite
         run: |
           docker compose exec -T qgis-testing-environment sh -c "apt-get update"
-          docker-compose exec -T qgis-testing-environment sh -c "apt-get install -y '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev"
+          docker compose exec -T qgis-testing-environment sh -c "apt-get install -y '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev"
           docker compose exec -T qgis-testing-environment qgis_testrunner.sh test_suite.test_package

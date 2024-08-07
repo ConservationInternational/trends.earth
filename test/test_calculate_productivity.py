@@ -2,8 +2,7 @@ import unittest
 from multiprocessing import Process
 
 from mock.mock_http_server import MockApiServer
-from qgis.core import QgsApplication
-from qgis.core import QgsAuthMethodConfig
+from qgis.core import QgsApplication, QgsAuthMethodConfig
 from qgis.PyQt import QtCore
 
 from LDMP.api import APIClient

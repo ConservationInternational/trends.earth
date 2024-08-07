@@ -35,11 +35,11 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Preparing docker-compose environment
+      - name: Preparing docker compose environment
         env:
           QGIS_VERSION_TAG: ${{ matrix.qgis_version_tag }}
         run: |
@@ -54,11 +54,11 @@ jobs:
         run: |
           cat .env
           docker pull "${IMAGE}":${{ matrix.qgis_version_tag }}
-          docker-compose up -d
+          docker compose up -d
           sleep 10
 
       - name: Run test suite
         run: |
-          docker-compose exec -T qgis-testing-environment sh -c "apt-get update"
-          docker-compose exec -T qgis-testing-environment sh -c "apt-get install -y python3-opencv"
-          docker-compose exec -T qgis-testing-environment qgis_testrunner.sh test_suite.test_package
+          docker compose exec -T qgis-testing-environment sh -c "apt-get update"
+          docker compose exec -T qgis-testing-environment sh -c "apt-get install -y python3-opencv"
+          docker compose exec -T qgis-testing-environment qgis_testrunner.sh test_suite.test_package

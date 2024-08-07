@@ -24,33 +24,28 @@ import qgis.core
 import qgis.gui
 import qgis.utils
 import te_algorithms.gdal.land_deg.config as ld_conf
-from osgeo import gdal
-from osgeo import osr
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from osgeo import gdal, osr
+from qgis.PyQt import QtCore, QtWidgets, uic
 from qgis.PyQt.QtCore import QSettings
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import RasterType
-from te_schemas.results import ResultType
+from te_schemas.results import RasterType, ResultType
 
-from . import areaofinterest
-from . import conf
-from . import GetTempFilename
-from . import layers
-from . import metadata
-from . import metadata_dialog
-from . import utils
-from . import worker
+from . import (
+    GetTempFilename,
+    areaofinterest,
+    conf,
+    layers,
+    metadata,
+    metadata_dialog,
+    utils,
+    worker,
+)
 from .areaofinterest import prepare_area_of_interest
-from .jobs.manager import job_manager
-from .jobs.manager import set_results_extents
-from .jobs.manager import update_uris_if_needed
+from .jobs.manager import job_manager, set_results_extents, update_uris_if_needed
 from .jobs.models import Job
 from .logger import log
 from .region_selector import RegionSelector
-
 
 Ui_DlgDataIOLoadTE, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDataIOLoadTE.ui")
@@ -163,7 +158,7 @@ class Dataset:
 class RemapVectorWorker(worker.AbstractWorker):
     def __init__(
         self,
-        l,
+        layer,
         out_file,
         attribute,
         remap_dict,
@@ -174,7 +169,7 @@ class RemapVectorWorker(worker.AbstractWorker):
     ):
         worker.AbstractWorker.__init__(self)
 
-        self.l = l
+        self.l = layer
         self.out_file = out_file
         self.attribute = attribute
         self.remap_dict = remap_dict
@@ -426,7 +421,7 @@ class RemapRasterWorker(worker.AbstractWorker):
             if self.killed:
                 log(
                     "Processing of {} killed by user after processing {} out of {} blocks.".format(
-                        deg_file, y, ysize
+                        self.in_file, y, ysize
                     )
                 )
 
@@ -461,9 +456,9 @@ class RemapRasterWorker(worker.AbstractWorker):
             return True
 
 
-def get_unique_values_vector(l, field, max_unique=100):
-    idx = l.fields().lookupField(field)
-    values = l.uniqueValues(idx)
+def get_unique_values_vector(layer, field, max_unique=100):
+    idx = layer.fields().lookupField(field)
+    values = layer.uniqueValues(idx)
 
     if len(values) > max_unique:
         return None
@@ -485,9 +480,9 @@ def _get_min_max_tuple(values, min_min, max_max, nodata):
     return (mn, mx)
 
 
-def get_vector_stats(l, attribute, min_min=0, max_max=1000, nodata=0):
+def get_vector_stats(layer, attribute, min_min=0, max_max=1000, nodata=0):
     values = np.asarray(
-        [feat.attribute(attribute) for feat in l.getFeatures()], dtype=np.float32
+        [feat.attribute(attribute) for feat in layer.getFeatures()], dtype=np.float32
     )
 
     return _get_min_max_tuple(values, min_min, max_max, nodata)
@@ -526,7 +521,9 @@ def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0
                 else:
                     cols = xsize - x
 
-                mn, mx = _get_min_max_tuple(values, min_min, max_max, nodata)
+                d = b.ReadAsArray(x, y, cols, rows)
+
+                mn, mx = _get_min_max_tuple(d, min_min, max_max, nodata)
 
                 if not mn or not mx:
                     return None
@@ -763,9 +760,9 @@ class ImportSelectFileInputWidget(
             self.update_raster_layer(raster_file)
 
     def update_raster_layer(self, raster_file):
-        l = qgis.core.QgsRasterLayer(raster_file, "raster file", "gdal")
+        layer = qgis.core.QgsRasterLayer(raster_file, "raster file", "gdal")
 
-        if not os.access(raster_file, os.R_OK or not l.isValid()):
+        if not os.access(raster_file, os.R_OK or not layer.isValid()):
             QtWidgets.QMessageBox.critical(
                 None,
                 tr_data_io.tr("Error"),
@@ -781,7 +778,7 @@ class ImportSelectFileInputWidget(
             self.lineEdit_raster_file.setText(raster_file)
             self.comboBox_bandnumber.clear()
             self.comboBox_bandnumber.addItems(
-                [str(n) for n in range(1, l.dataProvider().bandCount() + 1)]
+                [str(n) for n in range(1, layer.dataProvider().bandCount() + 1)]
             )
 
             self.inputFileChanged.emit(True)
@@ -805,9 +802,9 @@ class ImportSelectFileInputWidget(
             self.update_vector_layer(vector_file)
 
     def update_vector_layer(self, vector_file):
-        l = qgis.core.QgsVectorLayer(vector_file, "vector file", "ogr")
+        layer = qgis.core.QgsVectorLayer(vector_file, "vector file", "ogr")
 
-        if not os.access(vector_file, os.R_OK) or not l.isValid():
+        if not os.access(vector_file, os.R_OK) or not layer.isValid():
             QtWidgets.QMessageBox.critical(
                 None,
                 tr_data_io.tr("Error"),
@@ -824,7 +821,7 @@ class ImportSelectFileInputWidget(
             self.comboBox_fieldname.clear()
             self.inputFileChanged.emit(True)
             self.comboBox_fieldname.addItems(
-                [field.name() for field in l.dataProvider().fields()]
+                [field.name() for field in layer.dataProvider().fields()]
             )
 
             return True
@@ -848,11 +845,11 @@ class ImportSelectFileInputWidget(
         if not raster_file:
             return None
 
-        l = qgis.core.QgsRasterLayer(raster_file)
-        if not l.isValid():
+        layer = qgis.core.QgsRasterLayer(raster_file)
+        if not layer.isValid():
             return None
 
-        return l
+        return layer
 
     def selected_file_type(self) -> str:
         """
@@ -1116,14 +1113,14 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                 )
 
                 return
-            l = self.input_widget.get_vector_layer()
+            layer = self.input_widget.get_vector_layer()
 
             if (
-                l.wkbType() == qgis.core.QgsWkbTypes.Polygon
-                or l.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon
+                layer.wkbType() == qgis.core.QgsWkbTypes.Polygon
+                or layer.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon
             ):
                 self.vector_datatype = "polygon"
-            elif l.wkbType() == qgis.core.QgsWkbTypes.Point:
+            elif layer.wkbType() == qgis.core.QgsWkbTypes.Point:
                 self.vector_datatype = "point"
             else:
                 QtWidgets.QMessageBox.critical(
@@ -1131,13 +1128,13 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                     tr_data_io.tr("Error"),
                     tr_data_io.tr(
                         "Cannot process {}. Unknown geometry type:{}".format(
-                            in_file, l.wkbType()
+                            in_file, layer.wkbType()
                         )
                     ),
                 )
                 log(
                     "Failed to process {} - unknown geometry type {}.".format(
-                        in_file, l.wkbType()
+                        in_file, layer.wkbType()
                     )
                 )
 
@@ -1210,7 +1207,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         return res / (111.325 * 1000)  # 111.325km in one degree
 
-    def remap_vector(self, l, out_file, remap_dict, attribute):
+    def remap_vector(self, layer, out_file, remap_dict, attribute):
         out_res = self.get_out_res_wgs84()
         log(
             'Remapping and rasterizing {} using output resolution {}, and field "{}"'.format(
@@ -1227,7 +1224,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         remap_vector_worker = worker.StartWorker(
             RemapVectorWorker,
             "rasterizing and remapping values",
-            l,
+            layer,
             out_file,
             attribute,
             remap_dict,
@@ -1379,11 +1376,11 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             )
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
-            l = self.input_widget.get_vector_layer()
+            layer = self.input_widget.get_vector_layer()
             field = self.input_widget.comboBox_fieldname.currentText()
-            idx = l.fields().lookupField(field)
+            idx = layer.fields().lookupField(field)
 
-            if not l.fields().field(idx).isNumeric():
+            if not layer.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(
                     self,
                     tr_data_io.tr("Error"),
@@ -1523,11 +1520,11 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             )
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
-            l = self.input_widget.get_vector_layer()
+            layer = self.input_widget.get_vector_layer()
             field = self.input_widget.comboBox_fieldname.currentText()
-            idx = l.fields().lookupField(field)
+            idx = layer.fields().lookupField(field)
 
-            if not l.fields().field(idx).isNumeric():
+            if not layer.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(
                     self,
                     tr_data_io.tr("Error"),
@@ -1539,7 +1536,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
                 return
             else:
-                values = get_unique_values_vector(l, field, max_unique=7)
+                values = get_unique_values_vector(layer, field, max_unique=7)
 
         if not values:
             QtWidgets.QMessageBox.critical(
@@ -1611,18 +1608,18 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
 
 def _get_layers(node):
-    l = []
+    layer = []
 
     if isinstance(node, qgis.core.QgsLayerTreeGroup):
         for child in node.children():
             if isinstance(child, qgis.core.QgsLayerTreeLayer):
-                l.append(child.layer())
+                layer.append(child.layer())
             else:
-                l.extend(_get_layers(child))
+                layer.extend(_get_layers(child))
     else:
-        l = node
+        layer = node
 
-    return l
+    return layer
 
 
 @functools.lru_cache(

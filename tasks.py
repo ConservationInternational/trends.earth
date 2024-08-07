@@ -10,17 +10,13 @@ import stat
 import subprocess
 import sys
 import zipfile
-from datetime import datetime
-from datetime import timezone
-from pathlib import Path
-from pathlib import PurePath
-from tempfile import mkstemp
-from tempfile import TemporaryDirectory
+from datetime import datetime, timezone
+from pathlib import Path, PurePath
+from tempfile import TemporaryDirectory, mkstemp
 
 import boto3
 import requests
-from invoke import Collection
-from invoke import task
+from invoke import Collection, task
 
 
 # Below is from:
@@ -338,7 +334,7 @@ def set_tag(c, modules=False):
             )
             ret.check_returncode()
         else:
-            print("Changes not committed - VERSION TAG NOT SET".format())
+            print("Changes not committed - VERSION TAG NOT SET")
 
     print("Tagging version {} and pushing tag to origin".format(v))
     ret = subprocess.run(
@@ -429,7 +425,7 @@ def tecli_publish(c, script=None, overwrite=False):
         script_dir = os.path.join(c.gee.script_dir, dir)
 
         if os.path.exists(os.path.join(script_dir, "configuration.json")) and (
-            script == None or script == dir
+            script is None or script == dir
         ):
             print("Publishing {}...".format(dir))
             subprocess.check_call(
@@ -448,7 +444,10 @@ def tecli_publish(c, script=None, overwrite=False):
         print('Script "{}" not found.'.format(script))
 
     # Updating GEE script IDs in config
-    subprocess.check_call(["invoke", "update-script-ids"])
+    if script:
+        subprocess.check_call(["invoke", "update-script-ids", "-s", script])
+    else:
+        subprocess.check_call(["invoke", "update-script-ids"])
 
 
 @task(
@@ -510,17 +509,20 @@ def tecli_run(c, script, queryParams=None, payload=None):
         print('Script "{}" not found.'.format(script))
 
 
-@task
-def update_script_ids(c):
+@task(help={"script": "Script name"})
+def update_script_ids(c, script=None):
     with open(c.gee.scripts_json_file) as fin:
         scripts = json.load(fin)
 
     dirs = next(os.walk(c.gee.script_dir))[1]
-    n = 0
     script_dir = None
 
     for dir in dirs:
         script_dir = os.path.join(c.gee.script_dir, dir)
+
+        if script:
+            if script_dir != script:
+                continue
 
         if os.path.exists(os.path.join(script_dir, "configuration.json")):
             with open(os.path.join(script_dir, "configuration.json")) as fin:
@@ -568,7 +570,7 @@ def tecli_info(c, script=None):
         script_dir = os.path.join(c.gee.script_dir, dir)
 
         if os.path.exists(os.path.join(script_dir, "configuration.json")) and (
-            script == None or script == dir
+            script is None or script == dir
         ):
             print("Checking info on {}...".format(dir))
             subprocess.check_call(
@@ -699,18 +701,23 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
         else:
             subprocess.check_call([pip, "install", "--upgrade", "-t", ext_libs, req])
 
+    # Remove the .pyc files as these are no allowed on QGIS repo
+    pyc_files = Path(ext_libs).rglob("*.pyc")
+    for pyc in pyc_files:
+        pyc.unlink()
+
     if link:
         for module in c.plugin.ext_libs.local_modules:
-            l = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module["name"]
+            ln = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module["name"]
 
-            if os.path.islink(l):
-                print(f"{l} is already a link (to {os.readlink(l)})")
+            if os.path.islink(ln):
+                print(f"{ln} is already a link (to {os.readlink(ln)})")
             else:
                 print(
                     "Linking local repo of {} to plugin ext_libs".format(module["name"])
                 )
-                shutil.rmtree(l)
-                os.symlink(module["path"], l)
+                shutil.rmtree(ln)
+                os.symlink(module["path"], ln)
 
 
 @task(
@@ -806,7 +813,7 @@ def file_changed(infile, outfile):
         outfile_s = os.stat(outfile)
 
         return infile_s.st_mtime > outfile_s.st_mtime
-    except:
+    except Exception:
         return True
 
 
@@ -814,7 +821,8 @@ def _filter_excludes(root, items, c):
     excludes = set(c.plugin.excludes)
     skips = c.plugin.skip_exclude
 
-    exclude = lambda p: any([fnmatch.fnmatch(p, e) for e in excludes])
+    def exclude(p):
+        any([fnmatch.fnmatch(p, e) for e in excludes])
 
     if not items:
         return []
@@ -1321,7 +1329,7 @@ def changelog_build(c):
             version_number = version_header.group(0)
             version_number = version_number.strip(" \n")
             line = line.strip(" \n")
-            line = "\n`{} <https://github.com/ConservationInternational/trends.earth/releases/tag/{}>`_\n".format(
+            line = "\n`{} <https://github.com/ConservationInternational/trends.earth/releases/tag/v{}>`_\n".format(
                 line, version_number
             )
             line = [
@@ -1687,7 +1695,6 @@ def _check_hash(expected, filename):
 def binaries_sync(c, extensions=None):
     if not extensions:
         extensions = c.plugin.numba.binary_extensions
-    client = _get_s3_client()
     patterns = [os.path.join(c.plugin.numba.binary_folder, "*" + p) for p in extensions]
     _s3_sync(
         c,
@@ -1750,7 +1757,7 @@ def binaries_deploy(c, qgis):
         # binaries installed in the same folder
         moduledir = os.path.join(tmpdir, zipfile_basename, "trends_earth_binaries")
         os.makedirs(moduledir)
-        with open(os.path.join(moduledir, "__init__.py"), "w") as fp:
+        with open(os.path.join(moduledir, "__init__.py"), "w"):
             pass
         # Copy binaries to temp folder for later zipping
 

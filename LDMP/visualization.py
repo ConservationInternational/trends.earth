@@ -16,20 +16,19 @@ import typing
 from pathlib import Path
 
 from qgis import processing
-from qgis.core import QgsFeatureRequest
-from qgis.core import QgsGeometry
-from qgis.core import QgsLayerDefinition
-from qgis.core import QgsProject
-from qgis.core import QgsReadWriteContext
-from qgis.core import QgsRectangle
-from qgis.core import QgsVectorLayer
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import QtXml
-from qgis.PyQt import uic
+from qgis.core import (
+    QgsFeatureRequest,
+    QgsGeometry,
+    QgsLayerDefinition,
+    QgsProject,
+    QgsReadWriteContext,
+    QgsRectangle,
+    QgsVectorLayer,
+)
+from qgis.PyQt import QtWidgets, QtXml, uic
 from qgis.utils import iface
 
-from . import conf
-from . import download
+from . import conf, download
 from .logger import log
 from .utils import FileUtils
 

@@ -7,15 +7,9 @@ from zipfile import ZipFile
 
 import qgis.core
 import qgis.gui
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 
-from . import metadata
-from . import metadata_dialog
-from . import openFolder
-from . import utils
+from . import metadata, metadata_dialog, openFolder, utils
 from .jobs import manager
 from .jobs.models import Job
 from .logger import log

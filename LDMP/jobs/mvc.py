@@ -3,35 +3,28 @@ import os
 import typing
 import uuid
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from qgis.core import QgsProject
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from qgis.utils import iface
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import RasterResults
-from te_schemas.results import TimeSeriesTableResult
+from te_schemas.results import RasterResults, TimeSeriesTableResult
 
-from . import manager
-from .. import layers
-from .. import metadata
-from .. import metadata_dialog
-from .. import openFolder
-from .. import utils
-from ..conf import Setting
-from ..conf import settings_manager
+from .. import layers, metadata, metadata_dialog, openFolder, utils
+from ..conf import Setting, settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
 from ..plot import DlgPlotTimeries
 from ..reports.mvc import DatasetReportHandler
 from ..select_dataset import DlgSelectDataset
 from ..utils import FileUtils
-from .models import Job
-from .models import SortField
-from .models import TypeFilter
+from . import manager
+from .models import Job, SortField, TypeFilter
+
+if TYPE_CHECKING:
+    from ..main_widget import MainWidget
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui")
@@ -310,9 +303,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         if self.job.is_vector():
             self.edit_tb.setEnabled(False)
             layers = QgsProject.instance().mapLayers()
-            for l in layers.values():
+            for lyr in layers.values():
                 # Ensure this vector layer is added to the map
-                if l.source().split("|")[0] == str(job.results.vector.uri.uri):
+                if lyr.source().split("|")[0] == str(job.results.vector.uri.uri):
                     self.edit_tb.setEnabled(True)
                     break
 

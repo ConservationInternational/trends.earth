@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.1.16
+version=2.1.17
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -25,9 +25,15 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.1.16 (July 3, 2024)
+changelog=2.1.16 (July 31, 2024)
   - Bump dependency versions to address #812
   - Fix deprecation of np.float
+  - Update datasets to latest versions (MODIS, CHIRPS, ESA CCI, PERSIAN, MODIS
+    ET, Hansen Global Forest Change)
+  - Switch to ruff for code formatting/linting
+  - For SDG 15.3.1 sub-indicators task, when population data is needed default
+    to a dataset matching the final year of the productivity data, or within
+    three years of that date if an exact match is not possible
   - Various dependency version updates
   2.1.14 (February 24, 2023)
   - Improve land productivity import tool, including support for JRC,

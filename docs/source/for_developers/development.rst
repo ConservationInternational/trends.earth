@@ -956,9 +956,9 @@ There are several steps to making a new public release of the plugin:
     (`trends.earth-schemas` and `trends.earth-algorithms`)
   - Ensure all changes are commited, and then tag the new versions and push
     those tags to github by running `invoke set-tag -m`
-  - Ensure that all new versionsa and tags are pushed to github
+  - Ensure that all new versions and tags are pushed to github
   - Publish release on QGIS repository
-  - Publish on github with - Run `invoke release-github'
+  - Publish on github with - Run `invoke release-github`
 
 .. note:: If you want to make a release after updating the scripts that call
    the Trends.Earth API (so if either the code under the `gee` folder changes,

@@ -6,19 +6,12 @@ import numpy as np
 import openpyxl
 import qgis.core
 from osgeo import gdal
+from te_schemas.results import URI, DataType, Raster, RasterFileType, RasterResults
 from te_schemas.results import Band as JobBand
-from te_schemas.results import DataType
-from te_schemas.results import Raster
-from te_schemas.results import RasterFileType
-from te_schemas.results import RasterResults
-from te_schemas.results import URI
 
 import LDMP.logger
-from .. import areaofinterest
-from .. import calculate
-from .. import summary
-from .. import utils
-from .. import worker
+
+from .. import areaofinterest, calculate, summary, utils, worker
 from ..jobs.models import Job
 
 

@@ -9,17 +9,10 @@ import processing
 import qgis.core
 from openpyxl.drawing.image import Image
 from osgeo import gdal
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from te_schemas.results import FileResults
-from te_schemas.results import URI
+from qgis.PyQt import QtCore, QtWidgets
+from te_schemas.results import URI, FileResults
 
-from .. import areaofinterest
-from .. import calculate
-from .. import GetTempFilename
-from .. import logger
-from .. import summary
-from .. import utils
+from .. import GetTempFilename, areaofinterest, calculate, logger, summary, utils
 from ..jobs.models import Job
 
 

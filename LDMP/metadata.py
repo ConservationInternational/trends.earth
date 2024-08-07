@@ -10,7 +10,6 @@ from .jobs import manager
 from .jobs.models import Job
 from .logger import log
 
-
 XSL_PATH = os.path.join(os.path.dirname(__file__), "data", "xsl")
 
 
@@ -38,7 +37,7 @@ def read_qmd(file_path):
     document = QtXml.QDomDocument("qgis")
     with open(file_path, encoding="utf-8") as f:
         if not document.setContent(f.read()):
-            log("Could not read metadata from file {}".format(md_path))
+            log("Could not read metadata from file {}".format(file_path))
             return md
 
     root = document.firstChildElement("qgis")

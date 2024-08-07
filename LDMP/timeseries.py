@@ -15,10 +15,8 @@ import json
 from pathlib import Path
 
 import qgis.gui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
-from qgis.PyQt.QtCore import QDate
-from qgis.PyQt.QtCore import Qt
+from qgis.PyQt import QtWidgets, uic
+from qgis.PyQt.QtCore import QDate, Qt
 from te_schemas.algorithms import ExecutionScript
 
 from .calculate import (
@@ -27,9 +25,7 @@ from .calculate import (
 from .conf import KNOWN_SCRIPTS
 from .jobs.manager import job_manager
 from .logger import log
-from .settings import AreaWidget
-from .settings import AreaWidgetSection
-
+from .settings import AreaWidget, AreaWidgetSection
 
 Ui_DlgTimeseries, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgTimeseries.ui")

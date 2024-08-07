@@ -9,55 +9,53 @@ import typing
 from dataclasses import dataclass
 from uuid import uuid4
 
-from qgis.core import Qgis
-from qgis.core import QgsApplication
-from qgis.core import QgsCoordinateReferenceSystem
-from qgis.core import QgsExpression
-from qgis.core import QgsExpressionContext
-from qgis.core import QgsLayerDefinition
-from qgis.core import QgsLayoutExporter
-from qgis.core import QgsLayoutItem
-from qgis.core import QgsLayoutItemLegend
-from qgis.core import QgsLayoutItemMap
-from qgis.core import QgsLayoutItemRegistry
-from qgis.core import QgsLegendRenderer
-from qgis.core import QgsLegendStyle
-from qgis.core import QgsMapLayerLegendUtils
-from qgis.core import QgsPrintLayout
-from qgis.core import QgsProcessingFeedback
-from qgis.core import QgsProject
-from qgis.core import QgsRasterLayer
-from qgis.core import QgsReadWriteContext
-from qgis.core import QgsRectangle
-from qgis.core import QgsReferencedRectangle
-from qgis.core import QgsSimpleLegendNode
-from qgis.core import QgsTask
-from qgis.core import QgsVectorLayer
+from qgis.core import (
+    Qgis,
+    QgsApplication,
+    QgsCoordinateReferenceSystem,
+    QgsExpression,
+    QgsExpressionContext,
+    QgsLayerDefinition,
+    QgsLayoutExporter,
+    QgsLayoutItem,
+    QgsLayoutItemLegend,
+    QgsLayoutItemMap,
+    QgsLayoutItemRegistry,
+    QgsLegendRenderer,
+    QgsLegendStyle,
+    QgsMapLayerLegendUtils,
+    QgsPrintLayout,
+    QgsProcessingFeedback,
+    QgsProject,
+    QgsRasterLayer,
+    QgsReadWriteContext,
+    QgsRectangle,
+    QgsReferencedRectangle,
+    QgsSimpleLegendNode,
+    QgsTask,
+    QgsVectorLayer,
+)
 from qgis.gui import QgsMessageBar
-from qgis.PyQt.QtCore import pyqtSignal
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtCore import QDateTime
-from qgis.PyQt.QtCore import QFile
-from qgis.PyQt.QtCore import QIODevice
-from qgis.PyQt.QtCore import QObject
+from qgis.PyQt.QtCore import (
+    QCoreApplication,
+    QDateTime,
+    QFile,
+    QIODevice,
+    QObject,
+    pyqtSignal,
+)
 from qgis.PyQt.QtXml import QDomDocument
 from qgis.utils import iface
 from te_schemas.results import Band as JobBand
 
 from ..jobs.models import Job
-from ..layers import get_band_title
-from ..layers import style_layer
-from ..layers import styles
+from ..layers import get_band_title, style_layer, styles
 from ..logger import log
-from ..utils import FileUtils
-from ..utils import qgis_process_path
-from ..visualization import download_base_map
-from ..visualization import ExtractAdministrativeArea
-from .charts import AlgorithmChartsManager
-from .charts import LayerBandInfo
+from ..utils import FileUtils, qgis_process_path
+from ..visualization import ExtractAdministrativeArea, download_base_map
+from .charts import AlgorithmChartsManager, LayerBandInfo
 from .expressions import ReportExpressionUtils
-from .models import ReportTaskContext
-from .models import TemplateType
+from .models import ReportTaskContext, TemplateType
 from .utils import build_report_paths
 
 
@@ -833,8 +831,8 @@ class ReportTaskProcessor:
         if job_layers is None:
             return rect
 
-        for l in job_layers:
-            rect.combineExtentWith(l.extent())
+        for lyr in job_layers:
+            rect.combineExtentWith(lyr.extent())
 
         return rect
 

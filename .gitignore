@@ -51,3 +51,4 @@ LDMP/data/ne_10m_*
 LDMP/data/trends.earth_basemap_data.zip
 /invoke_old.yaml
 /tx.exe
+gee_key.json

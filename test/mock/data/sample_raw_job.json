@@ -1,5 +1,5 @@
 {
-  "sdg-15-3-1-sub-indicators": {
+  "e1d37da1-8391-4c9b-b962-472942c788e1": {
     "data": {
       "end_date": "2022-12-05T12:42:27.164470",
       "id": "0eea9b1b-f86b-4770-bd52-a8d357a21459",
@@ -91,7 +91,7 @@
       "user_id": "b1d45524-7dbc-4e36-801b-5f9b70f6dc77"
     }
   },
-  "productivity": {
+  "7e4ba147-d898-4723-93e8-4de2c18e527c": {
     "data": {
       "end_date": "2022-12-05T12:48:27.164470",
       "id": "2dea9b1b-f86b-4770-bd52-a8d357a21461",
@@ -137,7 +137,7 @@
       "user_id": "c1d45524-7dbc-4e36-801b-5f9b70f6dc77"
     }
   },
-  "land-cover": {
+  "6e80627c-48b2-4271-a847-7f9498547f1a": {
     "data": {
       "end_date": "2022-12-05T12:51:27.164470",
       "id": "3dea9b1b-f86b-4770-bd52-a8d357a21462",
@@ -183,7 +183,7 @@
       "user_id": "d1d45524-7dbc-4e36-801b-5f9b70f6dc77"
     }
   },
-  "soil-organic-carbon": {
+  "c630eea1-5b26-4fa9-a8aa-b13f2795990d": {
     "data": {
       "end_date": "2022-12-05T12:54:27.164470",
       "id": "4dea9b1b-f86b-4770-bd52-a8d357a21463",
@@ -215,13 +215,105 @@
       },
       "progress": 0,
       "results": {},
-      "script_id": "f32fd29b-2af8-4564-9189-3dd440758be6",
+      "script_id": "c630eea1-5b26-4fa9-a8aa-b13f2795990d",
       "script": {
         "description": "Calculate soil organic carbon",
         "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
         "name": "soil-organic-carbon",
         "name_readable": "Soil organic carbon",
         "run_mode": "remote",
+        "version": "2.1"
+      },
+      "start_date": "2022-12-05T12:54:27.164465",
+      "status": "PENDING",
+      "user_id": "e1d45524-7dbc-4e36-801b-5f9b70f6dc77"
+    }
+  },
+  "local-land-cover": {
+    "data": {
+      "end_date": "2022-12-05T12:54:27.164470",
+      "id": "4dea9b1b-f86b-4770-bd52-a8d357a21463",
+      "params": {
+        "calc_perf": true,
+        "calc_state": true,
+        "calc_traj": true,
+        "climate_gee_dataset": null,
+        "crs": "",
+        "geojsons": "[]",
+        "type": "Polygon",
+        "local_context": {
+          "area_of_interest_name": "finland-all-regions-buffer-10.000",
+          "base_dir": "/home/user/trends_earth_data"
+        },
+        "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2021",
+        "prod_mode": "TrendsEarth-LPD-5",
+        "prod_perf_year_final": 2015,
+        "prod_perf_year_initial": 2001,
+        "prod_state_year_bl_end": 2012,
+        "prod_state_year_bl_start": 2001,
+        "prod_state_year_tg_end": 2015,
+        "prod_state_year_tg_start": 2013,
+        "prod_traj_year_final": 2015,
+        "prod_traj_year_initial": 2001,
+        "task_name": "",
+        "task_notes": "",
+        "trajectory_method": "ndvi_trend"
+      },
+      "progress": 0,
+      "results": {},
+      "script_id": "c630eea1-5b26-4fa9-a8aa-b13f2795990d",
+      "script": {
+        "description": "Calculate local land cover",
+        "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
+        "name": "local-land-cover",
+        "name_readable": "Local land cover",
+        "run_mode": "local",
+        "version": "2.1"
+      },
+      "start_date": "2022-12-05T12:54:27.164465",
+      "status": "PENDING",
+      "user_id": "e1d45524-7dbc-4e36-801b-5f9b70f6dc77"
+    }
+  },
+  "local-soil-organic-carbon": {
+    "data": {
+      "end_date": "2022-12-05T12:54:27.164470",
+      "id": "4dea9b1b-f86b-4770-bd52-a8d357a21463",
+      "params": {
+        "calc_perf": true,
+        "calc_state": true,
+        "calc_traj": true,
+        "climate_gee_dataset": null,
+        "crs": "",
+        "geojsons": "[]",
+        "type": "Polygon",
+        "local_context": {
+          "area_of_interest_name": "finland-all-regions-buffer-10.000",
+          "base_dir": "/home/user/trends_earth_data"
+        },
+        "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2021",
+        "prod_mode": "TrendsEarth-LPD-5",
+        "prod_perf_year_final": 2015,
+        "prod_perf_year_initial": 2001,
+        "prod_state_year_bl_end": 2012,
+        "prod_state_year_bl_start": 2001,
+        "prod_state_year_tg_end": 2015,
+        "prod_state_year_tg_start": 2013,
+        "prod_traj_year_final": 2015,
+        "prod_traj_year_initial": 2001,
+        "task_name": "",
+        "task_notes": "",
+        "trajectory_method": "ndvi_trend"
+      },
+      "progress": 0,
+      "results": {},
+      "script_id": "c630eea1-5b26-4fa9-a8aa-b13f2795990d",
+      "script": {
+        "description": "Calculate soil organic carbon",
+        "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
+        "name": "local-soil-organic-carbon",
+        "name_readable": "Local soil organic carbon",
+        "run_mode": "local",
         "version": "2.1"
       },
       "start_date": "2022-12-05T12:54:27.164465",

@@ -17,13 +17,14 @@ from pathlib import Path
 
 import qgis.gui
 from qgis.PyQt import QtCore, QtWidgets, uic
-from te_schemas.algorithms import ExecutionScript
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
 from . import conf
 from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import unccd
 from .logger import log
+from .tasks import create_task
 
 DlgCalculateUNCCDUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateUNCCD.ui")
@@ -135,7 +136,12 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
 
         self.close()
 
-        resp = job_manager.submit_remote_job(payload, self.script.id)
+        resp = create_task(
+            job_manager,
+            payload, 
+            self.script.id, 
+            AlgorithmRunMode.REMOTE,
+        )
 
         if resp:
             main_msg = "Submitted"

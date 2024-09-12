@@ -16,11 +16,12 @@ from pathlib import Path
 
 import qgis.gui
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
-from te_schemas.algorithms import ExecutionScript
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
 from . import calculate, conf
 from .jobs.manager import job_manager
 from .logger import log
+from .tasks import create_task
 
 DlgLandPKSDownloadUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgLandPKSDownload.ui")
@@ -270,7 +271,13 @@ class DlgLandPKSDownload(calculate.DlgCalculateBase, DlgLandPKSDownloadUi):
                 "task_notes": self.options_tab.task_notes.toPlainText(),
             }
 
-            resp = job_manager.submit_remote_job(payload, self.script.id)
+            resp = create_task(
+                job_manager,
+                payload,
+                self.script.id,
+                AlgorithmRunMode.REMOTE,
+            )
+
             if resp:
                 main_msg = "Success"
                 description = "Download request submitted to LandPKS."

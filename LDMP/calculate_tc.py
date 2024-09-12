@@ -20,13 +20,14 @@ import qgis.core
 import qgis.gui
 from osgeo import gdal, osr
 from qgis.PyQt import QtCore, QtWidgets, uic
-from te_schemas.algorithms import ExecutionScript
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 from te_schemas.schemas import BandInfo
 
 from . import GetTempFilename, calculate, conf, data_io, worker
 from .jobs.manager import job_manager
 from .logger import log
 from .summary import calc_cell_area
+from .tasks import create_task
 
 DlgCalculateTcDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateTCData.ui")
@@ -427,7 +428,14 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
         }
-        resp = job_manager.submit_remote_job(payload, self.script.id)
+
+        resp = create_task(
+            job_manager,
+            payload, 
+            self.script.id, 
+            AlgorithmRunMode.REMOTE,
+        )
+
         if resp:
             main_msg = "Submitted"
             description = "Total carbon submitted to Trends.Earth server."

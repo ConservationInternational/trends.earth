@@ -69,7 +69,7 @@ class Job(JobBase):
                     log(f"Failed to get script by id for {script_id}")
                     script = get_job_local_script(data["script_name"])
                 else:
-                    log(f"Failed to get script by id for {script_id}")
+                    log(f"Got script from id {script_id}")
                     script = ExecutionScript(
                         script_id, run_mode=AlgorithmRunMode.NOT_APPLICABLE
                     )

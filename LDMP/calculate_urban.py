@@ -17,11 +17,12 @@ from pathlib import Path
 import qgis.core
 import qgis.gui
 from qgis.PyQt import QtCore, QtWidgets, uic
-from te_schemas.algorithms import ExecutionScript
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
 from . import calculate, data_io
 from .jobs.manager import job_manager
 from .logger import log
+from .task import create_task
 
 DlgCalculateUrbanDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateUrbanData.ui")
@@ -196,7 +197,12 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
             "task_notes": self.options_tab.task_notes.toPlainText(),
         }
 
-        resp = job_manager.submit_remote_job(payload, self.script.id)
+        resp = create_task(
+            job_manager,
+            payload, 
+            self.script.id, 
+            AlgorithmRunMode.REMOTE,
+        )
 
         if resp:
             main_msg = "Submitted"

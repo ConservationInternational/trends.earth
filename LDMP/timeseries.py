@@ -17,7 +17,7 @@ from pathlib import Path
 import qgis.gui
 from qgis.PyQt import QtWidgets, uic
 from qgis.PyQt.QtCore import QDate, Qt
-from te_schemas.algorithms import ExecutionScript
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
 from .calculate import (
     DlgCalculateBase,
@@ -26,6 +26,7 @@ from .conf import KNOWN_SCRIPTS
 from .jobs.manager import job_manager
 from .logger import log
 from .settings import AreaWidget, AreaWidgetSection
+from .tasks import create_task
 
 Ui_DlgTimeseries, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgTimeseries.ui")
@@ -311,7 +312,12 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             ][self.traj_indic.currentText()]["params"]
         )
 
-        resp = job_manager.submit_remote_job(payload, self.script.id)
+        resp = create_task(
+            job_manager,
+            payload, 
+            self.script.id, 
+            AlgorithmRunMode.REMOTE,
+        )
 
         self.reset_widgets()
 

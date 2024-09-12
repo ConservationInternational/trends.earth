@@ -17,11 +17,12 @@ from pathlib import Path
 import qgis.core
 import qgis.gui
 from qgis.PyQt import QtWidgets, uic
-from te_schemas.algorithms import ExecutionScript
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
 from . import calculate, data_io
 from .jobs.manager import job_manager
 from .localexecution import biomassrestoration
+from .tasks import create_task
 
 DlgCalculateRestBiomassDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateRestBiomassData.ui")
@@ -79,7 +80,13 @@ class DlgCalculateRestBiomassData(
             "task_notes": self.task_notes.toPlainText(),
         }
 
-        resp = job_manager.submit_remote_job(payload, self.script.id)
+
+        resp = create_task(
+            job_manager,
+            payload, 
+            self.script.id, 
+            AlgorithmRunMode.REMOTE,
+        )
         if resp:
             main_msg = "Submitted"
             description = "Restoration biomass change submitted to Trends.Earth server."

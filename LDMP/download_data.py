@@ -18,13 +18,14 @@ from pathlib import Path
 
 import qgis.gui
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
-from te_schemas.algorithms import ExecutionScript
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
 from . import calculate, conf
 from .conf import Setting, settings_manager
 from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
 from .jobs.manager import job_manager
 from .logger import log
+from .tasks import create_task
 
 DlgDownloadUi, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDownload.ui"))
 
@@ -275,7 +276,15 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 "task_notes": "",
             }
 
-            resp = job_manager.submit_remote_job(payload, self.script.id)
+
+
+            resp = create_task(
+                job_manager,
+                payload,
+                self.script.id,
+                AlgorithmRunMode.REMOTE,
+            )
+
             if resp:
                 main_msg = "Success"
                 description = "Download request submitted to Trends.Earth server."

@@ -23,6 +23,7 @@ from . import calculate, data_io, lc_setup
 from .jobs.manager import job_manager
 from .lc_setup import get_trans_matrix
 from .logger import log
+from .tasks import create_task
 
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui")
@@ -286,7 +287,12 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             "task_notes": self.options_tab.task_notes.toPlainText(),
         }
 
-        resp = job_manager.submit_remote_job(payload, self.script.id)
+        resp = create_task(
+            job_manager,
+            payload, 
+            self.script.id, 
+            AlgorithmRunMode.REMOTE,
+        )
         if resp:
             main_msg = "Submitted"
             description = "Soil organic carbon task submitted to Trends.Earth server."

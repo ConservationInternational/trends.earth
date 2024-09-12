@@ -11,6 +11,7 @@
  ***************************************************************************/
 """
 
+import functools
 import json
 from pathlib import Path
 
@@ -22,6 +23,7 @@ from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 
 from . import calculate, lc_setup
 from .jobs.manager import job_manager
+from .tasks import create_task
 
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui")
@@ -97,9 +99,17 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
         }
-        job = job_manager.submit_remote_job(payload, self.script.id)
 
-        if job is not None:
+        create_task(
+            job_manager,
+            payload,
+            self.script.id,
+            AlgorithmRunMode.REMOTE,
+            self.job_submitted,
+        )
+
+    def job_submitted(self, exception, result=None):
+        if result is not None:
             main_msg = "Submitted"
             description = "Land cover task submitted to Trends.Earth server."
         else:
@@ -206,4 +216,11 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "legend_nesting": initial_nesting,
             "trans_matrix": LCTransitionDefinitionDeg.Schema().dumps(trans_matrix),
         }
-        job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)
+
+        create_task(
+            job_manager,
+            job_params,
+            self.LOCAL_SCRIPT_NAME,
+            AlgorithmRunMode.LOCAL,
+            self.aoi,
+        )

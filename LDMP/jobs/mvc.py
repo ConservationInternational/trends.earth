@@ -130,7 +130,9 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         if self.start_date and self.end_date:
             job_start_date = QtCore.QDate.fromString(job.start_date, "yyyy-MM-dd")
             job_end_date = QtCore.QDate.fromString(job.end_date, "yyyy-MM-dd")
-            matches_date = job_start_date >= self.start_date and job_end_date <= self.end_date
+            matches_date = (
+                job_start_date >= self.start_date and job_end_date <= self.end_date
+            )
 
         return matches_filter and matches_type and matches_date
 

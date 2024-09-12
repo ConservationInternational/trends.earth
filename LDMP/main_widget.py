@@ -164,7 +164,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.start_dte.dateChanged(self.date_filter_changed)
         self.end_dte.dateChanged(self.date_filter_changed)
 
-
     def date_filter_changed(self):
         start_date = self.start_dte.dateTime()
         end_date = self.end_date.dateTime()

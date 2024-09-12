@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_algorithms">
        <attribute name="title">
@@ -41,7 +41,7 @@
        <attribute name="title">
         <string>Datasets</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
@@ -65,7 +65,7 @@ for running algorithms and their results.</string>
             <property name="placeholderText">
              <string>Search...</string>
             </property>
-            <property name="showSearchIcon" stdset="0">
+            <property name="showSearchIcon">
              <bool>true</bool>
             </property>
             <property name="qgisRelation" stdset="0">
@@ -81,6 +81,79 @@ for running algorithms and their results.</string>
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QgsCollapsibleGroupBox" name="date_filter_group">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="title">
+           <string>Filter by date</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <property name="collapsed">
+           <bool>true</bool>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Start</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>End</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QgsDateTimeEdit" name="start_dte">
+             <property name="toolTip">
+              <string/>
+             </property>
+             <property name="dateTime">
+              <datetime>
+               <hour>0</hour>
+               <minute>0</minute>
+               <second>0</second>
+               <year>2021</year>
+               <month>1</month>
+               <day>1</day>
+              </datetime>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QgsDateTimeEdit" name="end_dte">
+             <property name="dateTime">
+              <datetime>
+               <hour>0</hour>
+               <minute>0</minute>
+               <second>0</second>
+               <year>2021</year>
+               <month>12</month>
+               <day>1</day>
+              </datetime>
+             </property>
+             <property name="date">
+              <date>
+               <year>2021</year>
+               <month>12</month>
+               <day>1</day>
+              </date>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
          <widget class="QTreeView" name="datasets_tv">
@@ -155,9 +228,20 @@ for running algorithms and their results.</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>QgsCollapsibleGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>qgscollapsiblegroupbox.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QgsDateTimeEdit</class>
+   <extends>QDateTimeEdit</extends>
+   <header>qgsdatetimeedit.h</header>
+  </customwidget>
+  <customwidget>
    <class>QgsFilterLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>qgis.gui</header>
+   <header>qgsfilterlineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

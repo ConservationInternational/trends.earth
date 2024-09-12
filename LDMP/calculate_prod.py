@@ -25,7 +25,6 @@ from .jobs.manager import job_manager
 from .logger import log
 from .tasks import create_task
 
-
 DlgCalculateProdUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateProd.ui")
 )

@@ -199,8 +199,8 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
 
         resp = create_task(
             job_manager,
-            payload, 
-            self.script.id, 
+            payload,
+            self.script.id,
             AlgorithmRunMode.REMOTE,
         )
 

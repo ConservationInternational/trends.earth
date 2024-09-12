@@ -1,7 +1,7 @@
 from qgis.core import QgsApplication, QgsTask
 from qgis.utils import iface
-
 from te_schemas.algorithms import AlgorithmRunMode
+
 
 def submit_job(job_manager, payload, script_id, job_type, task):
     """Function that submits a job and runs in a task."""
@@ -16,7 +16,9 @@ def submit_job(job_manager, payload, script_id, job_type, task):
         return None
 
 
-def create_task(job_manager, payload, script_id, job_type, task_finished=None, aoi=None):
+def create_task(
+    job_manager, payload, script_id, job_type, task_finished=None, aoi=None
+):
     # Create a task using fromFunction
     if task_finished is None:
         task_finished = on_task_finished
@@ -29,12 +31,13 @@ def create_task(job_manager, payload, script_id, job_type, task_finished=None, a
         payload=payload,
         script_id=script_id,
         job_type=job_type,
-        aoi=aoi
+        aoi=aoi,
     )
 
     QgsApplication.taskManager().addTask(task)
 
     return task
+
 
 def on_task_finished(exception, result=None):
     if exception is None:

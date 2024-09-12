@@ -289,8 +289,8 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
         resp = create_task(
             job_manager,
-            payload, 
-            self.script.id, 
+            payload,
+            self.script.id,
             AlgorithmRunMode.REMOTE,
         )
         if resp:

@@ -25,13 +25,12 @@ from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
 
-
-from .tasks import create_task
 from . import conf, lc_setup
 from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import ldn
 from .logger import log
+from .tasks import create_task
 
 DlgCalculateOneStepUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateOneStep.ui")
@@ -935,12 +934,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.close()
 
         for payload in payloads:
-
             resp = create_task(
-                job_manager,
-                payload,
-                self.script.id,
-                AlgorithmRunMode.REMOTE
+                job_manager, payload, self.script.id, AlgorithmRunMode.REMOTE
             )
 
             if resp:

@@ -10,6 +10,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 import functools
 import json
 from pathlib import Path
@@ -21,8 +22,8 @@ from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 
 from . import calculate, lc_setup
-from .tasks import create_task
 from .jobs.manager import job_manager
+from .tasks import create_task
 
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui")
@@ -104,7 +105,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             payload,
             self.script.id,
             AlgorithmRunMode.REMOTE,
-            self.job_submitted
+            self.job_submitted,
         )
 
     def job_submitted(self, exception, result=None):
@@ -221,6 +222,5 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             job_params,
             self.LOCAL_SCRIPT_NAME,
             AlgorithmRunMode.LOCAL,
-            self.aoi
+            self.aoi,
         )
-

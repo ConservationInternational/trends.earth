@@ -161,6 +161,17 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.pushButton_download.setEnabled(True)
             self.setWindowTitle(DOCK_TITLE)
 
+        self.start_dte.dateChanged(self.date_filter_changed)
+        self.end_dte.dateChanged(self.date_filter_changed)
+
+
+    def date_filter_changed(self):
+        start_date = self.start_dte.dateTime()
+        end_date = self.end_date.dateTime()
+
+        if self.proxy_model:
+            self.proxy_model.set_date_filter(start_date, end_date)
+
     def setup_datasets_page_gui(self):
         self.pushButton_refresh.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionRefresh.svg"))

@@ -43,6 +43,6 @@ sustainable land management or other projects.
 
 **More information**
 
-For more information about the toolbox, see the :ref:`General Information section <_general>`
-For toolbox users, see the :ref:`User Guide <_for_users>`
-For developers, see the :ref:`Developers Guide <_for_developers>`
+For more information about the toolbox, see the :ref:`General Information<_general_info>` section.
+For toolbox users, see the :ref:`User Guide <_for_users>`.
+For developers, see the :ref:`Developers Guide <_for_developers>`.

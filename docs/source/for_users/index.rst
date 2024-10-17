@@ -1,3 +1,5 @@
+.. _for_users:
+
 .. only:: html
 
   .. note:: :docs_pdf:`Download this section of the documentation as a PDF for offline use <User_Guide>`

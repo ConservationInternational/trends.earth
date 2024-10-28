@@ -1,0 +1,40 @@
+name: Updating staging with a new released plugin
+on:
+  release:
+    types:
+      - published
+      - edited
+
+jobs:
+  update-staging:
+    runs-on: ubuntu-22.04
+    container:
+      image: samtwesa/qgis:release-3_34
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Fix Python command
+        run: apt-get install python-is-python3
+
+      - name: Install python
+        uses: actions/setup-python@v4
+
+      - name: Install plugin dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: release
+      - name: Update custom plugin repository to include latest plugin releases
+        run: |
+          invoke generate-plugin-repo-xml
+          echo " " >> docs/repository/plugins.xml 
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global --add safe.directory /__w/trends.earth/trends.earth
+
+          git add -A
+          git commit -m "Update on plugins.xml"
+          git push origin release

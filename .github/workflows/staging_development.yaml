@@ -8,6 +8,8 @@ jobs:
   staging_repository_update:
     name: Staging repository update
     runs-on: ubuntu-latest
+    container:
+      image: qgis/qgis:release-3_34
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3

@@ -1473,25 +1473,22 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
         "prerelease": "A pre release for user testing",
         "prerelease_url": "The URL of the pre release",
         "prerelease_time": "The time of the pre release",
-        "prerelease_filename": "The filename of the plugin zip file"
+        "prerelease_filename": "The filename of the plugin zip file",
     }
 )
 def generate_plugin_repo_xml(
-        c,
-        prerelease=False,
-        prerelease_url=None,
-        prerelease_time=None,
-        prerelease_filename=None
+    c,
+    prerelease=False,
+    prerelease_url=None,
+    prerelease_time=None,
+    prerelease_filename=None,
 ):
     """Generates the plugin repository xml file, from which users
-        can use to install the plugin in QGIS.
+    can use to install the plugin in QGIS.
 
     """
     repo_base_dir = Path(
-        os.path.join(
-            os.path.dirname(c.plugin.source_dir),
-            "docs" ,
-            "repository")
+        os.path.join(os.path.dirname(c.plugin.source_dir), "docs", "repository")
     )
 
     repo_base_dir.mkdir(parents=True, exist_ok=True)
@@ -1518,14 +1515,16 @@ def generate_plugin_repo_xml(
     """.strip()
     contents = "<?xml version = '1.0' encoding = 'UTF-8'?>\n<plugins>"
     if prerelease:
-        all_releases = [{
-            "pre_release": prerelease,
-            "tag_name": get_version(c),
-            "url": prerelease_url,
-            "published_at": datetime.strptime(
-                prerelease_time, "%Y-%m-%dT%H:%M:%SZ"
-            ),
-        }]
+        all_releases = [
+            {
+                "pre_release": prerelease,
+                "tag_name": get_version(c),
+                "url": prerelease_url,
+                "published_at": datetime.strptime(
+                    prerelease_time, "%Y-%m-%dT%H:%M:%SZ"
+                ),
+            }
+        ]
     else:
         all_releases = _get_existing_releases(c)
 
@@ -1542,12 +1541,13 @@ def generate_plugin_repo_xml(
             about=metadata.get("about"),
             qgis_minimum_version=metadata.get("qgisMinimumVersion"),
             homepage=metadata.get("homepage"),
-            filename=release.get('url').rpartition("/")[-1] \
-            if not prerelease_filename else prerelease_filename,
+            filename=release.get("url").rpartition("/")[-1]
+            if not prerelease_filename
+            else prerelease_filename,
             icon=metadata.get("icon", ""),
             author="test",
-            download_url=release.get('url'),
-            update_date=release.get('published_at'),
+            download_url=release.get("url"),
+            update_date=release.get("published_at"),
             experimental=False,
             deprecated=metadata.get("deprecated"),
             tracker=metadata.get("tracker"),
@@ -1580,7 +1580,7 @@ def _get_metadata(c):
                 continue
 
             # Split key and value
-            if '=' not in line:
+            if "=" not in line:
                 continue
             key, value = line.split("=", 1)
             metadata[key.strip()] = value.strip()
@@ -1623,17 +1623,21 @@ def _get_existing_releases(c):
 
             # If a zip URL was found, append the release info to the list
             if zip_download_url:
-                releases.append({
-                    "pre_release": release.get("prerelease", True),
-                    "tag_name": release.get("tag_name"),
-                    "url": zip_download_url,
-                    "published_at": datetime.strptime(
-                        release["published_at"], "%Y-%m-%dT%H:%M:%SZ"
-                    ),
-                })
+                releases.append(
+                    {
+                        "pre_release": release.get("prerelease", True),
+                        "tag_name": release.get("tag_name"),
+                        "url": zip_download_url,
+                        "published_at": datetime.strptime(
+                            release["published_at"], "%Y-%m-%dT%H:%M:%SZ"
+                        ),
+                    }
+                )
     else:
         # Handle the case where GitHub API returns an error
-        raise Exception(f"Failed to fetch releases: {response.status_code} {response.text}")
+        raise Exception(
+            f"Failed to fetch releases: {response.status_code} {response.text}"
+        )
 
     return releases
 
@@ -1669,7 +1673,6 @@ def _get_latest_releases(
                 latest_stable = release
 
     return latest_stable, latest_experimental
-
 
 
 ###############################################################################
@@ -2134,7 +2137,7 @@ ns.configure(
             "repo_owner": "ConservationInternational",
             "repo_name": "trends.earth",
             "token": None,
-            "releases_url": "https://api.github.com/repos/ConservationInternational/trends.earth/releases"
+            "releases_url": "https://api.github.com/repos/ConservationInternational/trends.earth/releases",
         },
     }
 )

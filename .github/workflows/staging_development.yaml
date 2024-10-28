@@ -43,11 +43,7 @@ jobs:
         run: |
           
           echo "REF_NAME=$REF_NAME" >> $GITHUB_ENV
-          
           mkdir $GITHUB_WORKSPACE/docs/repository/$REF_NAME
-          
-          echo "tag directory"
-          ls $GITHUB_WORKSPACE/docs/repository
 
       - name: Update custom plugin repository to include latest plugin version
         env:

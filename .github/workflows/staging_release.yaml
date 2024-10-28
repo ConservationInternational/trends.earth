@@ -9,7 +9,7 @@ jobs:
   update-staging:
     runs-on: ubuntu-22.04
     container:
-      image: samtwesa/qgis:release-3_34
+      image: qgis/qgis:release-3_34
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

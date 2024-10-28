@@ -1329,7 +1329,7 @@ def changelog_build(c):
             version_number = version_header.group(0)
             version_number = version_number.strip(" \n")
             line = line.strip(" \n")
-            line = "\n`{} <https://github.com/Samweli/trends.earth/releases/tag/v{}>`_\n".format(
+            line = "\n`{} <https://github.com/ConservationInternational/trends.earth/releases/tag/v{}>`_\n".format(
                 line, version_number
             )
             line = [
@@ -1473,14 +1473,26 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
         "prerelease": "A pre release for user testing",
         "prerelease_url": "The URL of the pre release",
         "prerelease_time": "The time of the pre release",
+        "prerelease_filename": "The filename of the plugin zip file"
     }
 )
-def generate_plugin_repo_xml(c, prerelease=False, prerelease_url=None, prerelease_time=None, prerelease_filename=None):
+def generate_plugin_repo_xml(
+        c,
+        prerelease=False,
+        prerelease_url=None,
+        prerelease_time=None,
+        prerelease_filename=None
+):
     """Generates the plugin repository xml file, from which users
         can use to install the plugin in QGIS.
 
     """
-    repo_base_dir = Path(os.path.join(os.path.dirname(c.plugin.source_dir), "docs" , "repository"))
+    repo_base_dir = Path(
+        os.path.join(
+            os.path.dirname(c.plugin.source_dir),
+            "docs" ,
+            "repository")
+    )
 
     repo_base_dir.mkdir(parents=True, exist_ok=True)
     metadata = _get_metadata(c)
@@ -1515,7 +1527,7 @@ def generate_plugin_repo_xml(c, prerelease=False, prerelease_url=None, prereleas
             ),
         }]
     else:
-        all_releases = _get_existing_releases()
+        all_releases = _get_existing_releases(c)
 
     if prerelease:
         target_releases = all_releases
@@ -1584,14 +1596,14 @@ def _get_metadata(c):
     return metadata
 
 
-def _get_existing_releases():
+def _get_existing_releases(c):
     """Gets the existing plugin releases available in the GitHub repository.
 
     :returns: List of GitHub releases in dictionary format
     :rtype: List[dict]
     """
     # Set up the base URL for GitHub releases
-    base_url = "https://api.github.com/repos/Samweli/trends.earth/releases"
+    base_url = c.github.releases_url
 
     # Start a session with requests
     session = requests.Session()
@@ -1674,11 +1686,10 @@ def _get_latest_releases(
         #'python': 'Python to use for setup and compiling',
         "pip": 'Path to pip (usually "pip" or "pip3"',
         "tag": "Whether to tag on Github",
-        "directory": "Folder to put the zipped file",
     }
 )
 def zipfile_build(
-    c, clean=True, version=3, tests=False, filename=None, pip="pip", tag=False, directory=None
+    c, clean=True, version=3, tests=False, filename=None, pip="pip", tag=False
 ):
     """Create plugin package"""
     set_version(c, modules=True)
@@ -2123,6 +2134,7 @@ ns.configure(
             "repo_owner": "ConservationInternational",
             "repo_name": "trends.earth",
             "token": None,
+            "releases_url": "https://api.github.com/repos/ConservationInternational/trends.earth/releases"
         },
     }
 )

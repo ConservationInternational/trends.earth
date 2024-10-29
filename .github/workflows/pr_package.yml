@@ -1,0 +1,93 @@
+name: Create plugin package in the PR
+
+on:
+  pull_request:
+    types:
+      - edited
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - main
+
+jobs:
+  create-package:
+    runs-on: ubuntu-22.04
+    container:
+      image: qgis/qgis:release-3_34
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Fix Python command
+        run: apt-get install python-is-python3
+
+      - name: Install python
+        uses: actions/setup-python@v4
+
+      - name: Install plugin dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Get unique identifier
+        id: get-identifier
+        run: |
+          echo "PACKAGE_ID=$(python -c "import uuid; print(str(uuid.uuid4())[:4])")" >> $GITHUB_ENV
+
+      - name: Set version SHA
+        run: |
+          git config --global --add safe.directory /__w/trends.earth/trends.earth
+          
+          invoke set-version
+
+      - name: Build zipfile
+        run: |
+          invoke zipfile-build  --filename LDMP-${{ github.event.pull_request.head.ref }}_${{ env.PACKAGE_ID }}.zip
+          echo "REF_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+
+      - name: Plugin path details
+        id: get-zip-details
+        run: |
+          ls
+          
+          unzip -o $GITHUB_WORKSPACE/LDMP-"$REF_NAME"_"$PACKAGE_ID".zip -d build
+          
+          mkdir build/LDMP-"$REF_NAME"_"$PACKAGE_ID"
+          
+          mv build/LDMP build/LDMP-"$REF_NAME"_"$PACKAGE_ID/LDMP"
+
+          echo "ZIP_PATH=$GITHUB_WORKSPACE/build/LDMP-"$REF_NAME"_"$PACKAGE_ID"" >> $GITHUB_ENV
+          echo "ZIP_NAME=LDMP-"$REF_NAME"_"$PACKAGE_ID"">> $GITHUB_ENV
+
+      - name: Uploading plugin build
+        id: artifact-upload-step
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ZIP_NAME }}
+          path: ${{ env.ZIP_PATH }}
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.number }}
+          comment-author: 'github-actions[bot]'
+
+      - name: Update Comment
+        env:
+          HEAD_SHA: "${{ github.event.head_sha }}"
+          ARTIFACT_URL: ${{ steps.artifact-upload-step.outputs.artifact-url }}
+
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          token: ${{ github.token }}
+          issue-number: ${{ github.event.number }}
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |-
+            ![badge]
+            
+            Plugin zip package for the changes in this PR has been successfully built!.
+            
+            Download the plugin zip file here ${{ env.ARTIFACT_URL }}
+            
+            [badge]: https://img.shields.io/badge/package_build-success-green

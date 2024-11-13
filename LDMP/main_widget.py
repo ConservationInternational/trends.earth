@@ -163,28 +163,22 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.pushButton_download.setEnabled(True)
             self.setWindowTitle(DOCK_TITLE)
 
-        date_filter_enabled = settings_manager.get_value(
-            Setting.DATE_FILTER_ENABLED
-        )
+        date_filter_enabled = settings_manager.get_value(Setting.DATE_FILTER_ENABLED)
 
         if not date_filter_enabled:
             date_filter_enabled = False
 
-        self.date_filter_group.setChecked(
-            date_filter_enabled
-        )
+        self.date_filter_group.setChecked(date_filter_enabled)
 
-        settings_start_date = settings_manager.get_value(
-            Setting.FILTER_START_DATE
-        )
-        settings_end_date = settings_manager.get_value(
-            Setting.FILTER_END_DATE
-        )
+        settings_start_date = settings_manager.get_value(Setting.FILTER_START_DATE)
+        settings_end_date = settings_manager.get_value(Setting.FILTER_END_DATE)
         if settings_start_date != "" and settings_end_date != "":
             start_date = QtCore.QDateTime.fromString(
-                settings_start_date, "yyyy-MM-dd HH:mm:ss")
+                settings_start_date, "yyyy-MM-dd HH:mm:ss"
+            )
             end_date = QtCore.QDateTime.fromString(
-                settings_end_date, "yyyy-MM-dd HH:mm:ss")
+                settings_end_date, "yyyy-MM-dd HH:mm:ss"
+            )
 
             self.start_dte.setDateTime(start_date)
             self.end_dte.setDateTime(end_date)
@@ -194,21 +188,18 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.end_dte.dateChanged.connect(self.date_filter_changed)
 
     def date_filter_group_toggled(self, value):
-        settings_manager.write_value(
-            Setting.DATE_FILTER_ENABLED,
-            value
-        )
+        settings_manager.write_value(Setting.DATE_FILTER_ENABLED, value)
         self.date_filter_changed(disabled=not value)
 
     def date_filter_changed(self, disabled=False):
         settings_manager.write_value(
             Setting.FILTER_START_DATE,
-            self.start_dte.dateTime().toString("yyyy-MM-dd HH:mm:ss")
+            self.start_dte.dateTime().toString("yyyy-MM-dd HH:mm:ss"),
         )
 
         settings_manager.write_value(
             Setting.FILTER_END_DATE,
-            self.end_dte.dateTime().toString("yyyy-MM-dd HH:mm:ss")
+            self.end_dte.dateTime().toString("yyyy-MM-dd HH:mm:ss"),
         )
 
         start_date = self.start_dte.dateTime() if not disabled else None

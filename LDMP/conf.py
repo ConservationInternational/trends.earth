@@ -52,6 +52,10 @@ class Setting(enum.Enum):
     UNKNOWN_AREA_OF_INTEREST = "private/unknown_area_of_interest"
     PRIOR_LOCALE = "private/prior_locale"
 
+    DATE_FILTER_ENABLED = "filters/date_filter_enabled"
+    FILTER_START_DATE = "filters/start_date"
+    FILTER_END_DATE = "filters/end_date"
+
     DEBUG = "advanced/debug"
     BINARIES_ENABLED = "advanced/binaries_enabled"
     BINARIES_DIR = "advanced/binaries_folder"
@@ -116,6 +120,9 @@ class SettingsManager:
         Setting.CUSTOM_CRS: "epsg:4326",
         Setting.POLL_REMOTE: True,
         Setting.DOWNLOAD_RESULTS: True,
+        Setting.DATE_FILTER_ENABLED: False,
+        Setting.FILTER_START_DATE: "",
+        Setting.FILTER_END_DATE: "",
         Setting.BUFFER_CHECKED: False,
         Setting.AREA_FROM_OPTION: AreaSetting.COUNTRY_REGION.value,
         Setting.POINT_X: 0.0,

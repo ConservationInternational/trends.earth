@@ -14,10 +14,13 @@
 import json
 import os
 from pathlib import Path
+from functools import partial
 
 import qgis.gui
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
+
+from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
 
 from . import calculate, conf
 from .conf import Setting, settings_manager
@@ -185,7 +188,8 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         # Add "Notes" buttons in cell
         for row in range(0, len(self.datasets)):
             btn = QtWidgets.QPushButton(self.tr("Details"))
-            btn.clicked.connect(self.btn_details)
+            btn_details = partial(self.btn_details, self.datasets[row])
+            btn.clicked.connect(btn_details)
             self.data_view.setIndexWidget(self.proxy_model.index(row, 8), btn)
 
         # Category
@@ -227,11 +231,12 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
 
         self.data_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 
-    def btn_details(self):
+    def btn_details(self, dataset):
         # button = self.sender()
         # index = self.data_view.indexAt(button.pos())
         # TODO: Code the details view
-        pass
+        dlg = DataSetAdditionalMetadataDialog(dataset)
+        dlg.exec()
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

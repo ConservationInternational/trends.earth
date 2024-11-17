@@ -1,5 +1,4 @@
 import os
-
 from pathlib import Path
 
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
@@ -24,7 +23,7 @@ class DataSetAdditionalMetadataDialog(QtWidgets.QDialog, DatasetAdditionalMetada
     def __init__(self, dataset: dict, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.le_title.setText(dataset.get('title', ''))
-        self.te_author.setPlainText(dataset.get('Data source', ''))
-        self.le_source.setText(dataset.get('Source', ''))
-        self.te_citation.setPlainText(dataset.get('Citation', ''))
+        self.le_title.setText(dataset.get("title", ""))
+        self.te_author.setPlainText(dataset.get("Data source", ""))
+        self.le_source.setText(dataset.get("Source", ""))
+        self.te_citation.setPlainText(dataset.get("Citation", ""))

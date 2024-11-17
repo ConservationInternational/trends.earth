@@ -99,6 +99,13 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
     def __init__(self, current_sort_field: SortField, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.current_sort_field = current_sort_field
+        self.start_date = None
+        self.end_date = None
+
+    def set_date_filter(self, start_date, end_date):
+        self.start_date = start_date
+        self.end_date = end_date
+        self.invalidateFilter()
 
     def filterAcceptsRow(self, source_row: int, source_parent: QtCore.QModelIndex):
         jobs_model = self.sourceModel()
@@ -118,7 +125,20 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         elif self.type_filter == TypeFilter.VECTOR:
             matches_type = job.is_vector()
 
-        return matches_filter and matches_type
+        # Date filtering logic
+        matches_date = True
+        if self.start_date and self.end_date:
+            job_start_date = QtCore.QDateTime.fromString(
+                job.start_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
+            )
+            job_end_date = QtCore.QDateTime.fromString(
+                job.end_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
+            )
+            matches_date = (
+                job_start_date >= self.start_date and job_end_date <= self.end_date
+            )
+
+        return matches_filter and matches_type and matches_date
 
     def lessThan(self, left: QtCore.QModelIndex, right: QtCore.QModelIndex) -> bool:
         model = self.sourceModel()

@@ -184,8 +184,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.end_dte.setDateTime(end_date)
 
         self.date_filter_group.toggled.connect(self.date_filter_group_toggled)
-        self.start_dte.dateChanged.connect(self.date_filter_changed)
-        self.end_dte.dateChanged.connect(self.date_filter_changed)
+        date_filter_enabled = functools.partial(self.date_filter_changed, False)
+
+        self.start_dte.dateChanged.connect(date_filter_enabled)
+        self.end_dte.dateChanged.connect(date_filter_enabled)
 
     def date_filter_group_toggled(self, value):
         settings_manager.write_value(Setting.DATE_FILTER_ENABLED, value)
@@ -336,7 +338,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # self.datasets_tv.setModel(model)
         self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
         self.type_filter_changed(TypeFilter.ALL)
-        # self.date_filter_changed(not self.date_filter_group.isChecked())
+        self.date_filter_changed(disabled=not self.date_filter_group.isChecked())
 
         self.filter_changed("")
         action = self.filter_menu.actions()[0]

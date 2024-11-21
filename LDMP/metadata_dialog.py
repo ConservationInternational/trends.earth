@@ -40,7 +40,6 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         self.layer = None
         self.metadata = None
 
-
     def set_metadata(self, metadata):
         self.metadata = metadata
         self.update_ui()

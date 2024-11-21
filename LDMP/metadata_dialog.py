@@ -21,12 +21,6 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.btn_add_address.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "symbologyAdd.svg"))
-        )
-        self.btn_remove_address.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "symbologyRemove.svg"))
-        )
         self.btn_new_category.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "symbologyAdd.svg"))
         )
@@ -39,6 +33,83 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
 
         self.layer = None
         self.metadata = None
+        self.default_categories = [
+            self.tr("Farming"),
+            self.tr("Biota"),
+            self.tr("Boundaries"),
+            self.tr("Climatology Meteorology Atmosphere"),
+            self.tr("Economy"),
+            self.tr("Elevation"),
+            self.tr("Environment"),
+            self.tr("Geoscientific Information"),
+            self.tr("Health"),
+            self.tr("Imagery Base Maps Earth Cover"),
+            self.tr("Intelligence Military"),
+            self.tr("Inland Waters"),
+            self.tr("Location"),
+            self.tr("Oceans"),
+            self.tr("Planning Cadastre"),
+            self.tr("Society"),
+            self.tr("Structure"),
+            self.tr("Transportation"),
+            self.tr("Utilities Communication"),
+        ]
+        self.default_categories_model = QtCore.QStringListModel(self.default_categories)
+        self.default_categories_model.sort(0)
+        self.lst_default_categories.setModel(self.default_categories_model)
+
+        self.categories_model = QtCore.QStringListModel(self.lst_categories)
+        self.lst_categories.setModel(self.categories_model)
+
+        self.btn_new_category.clicked.connect(self.add_new_category)
+        self.btn_add_default_category.clicked.connect(self.add_default_categories)
+        self.btn_remove_category.clicked.connect(self.remove_categories)
+
+    def add_new_category(self):
+        text, ok = QtWidgets.QInputDialog.getText(
+            self,
+            self.tr("New Category"),
+            self.tr("New Category"),
+            QtWidgets.QLineEdit.Normal,
+            "",
+        )
+        if ok and text:
+            categories_list = self.categories_model.stringList()
+            if text not in categories_list:
+                categories_list.append(text)
+                self.categories_model.setStringList(categories_list)
+                self.categories_model.sort(0)
+
+    def add_default_categories(self):
+        selected_indexes = (
+            self.lst_default_categories.selectionModel().selectedIndexes()
+        )
+        default_categories_list = self.default_categories_model.stringList()
+        selected_categories = self.categories_model.stringList()
+
+        for i in selected_indexes:
+            item = self.default_categories_model.data(i, QtCore.Qt.DisplayRole)
+            default_categories_list.remove(item)
+            selected_categories.append(item)
+
+        self.default_categories_model.setStringList(default_categories_list)
+        self.categories_model.setStringList(selected_categories)
+        self.categories_model.sort(0)
+
+    def remove_categories(self):
+        selected_indexes = self.lst_categories.selectionModel().selectedIndexes()
+        categories = self.categories_model.stringList()
+        default_list = self.default_categories_model.stringList()
+
+        for i in selected_indexes:
+            item = self.categories_model.data(i, QtCore.Qt.DisplayRole)
+            categories.remove(item)
+            if item in self.default_categories:
+                default_list.append(item)
+
+        self.categories_model.setStringList(categories)
+        self.default_categories_model.setStringList(default_list)
+        self.default_categories_model.sort(0)
 
     def set_metadata(self, metadata):
         self.metadata = metadata
@@ -54,12 +125,19 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         if self.metadata.title():
             self.le_title.setText(self.metadata.title())
 
+        self.categories_model.setStringList(self.metadata.categories())
+
     def save_metadata(self):
         if self.metadata is None:
             self.metadata = qgis.core.QgsLayerMetadata()
 
         self.metadata.setTitle(self.le_title.text())
+        self.metadata.setEncoding("UTF-8")
 
+        if self.categories_model.rowCount() > 0:
+            self.metadata.setKeywords(
+                {"gmd:topicCategory": self.categories_model.stringList()}
+            )
         if self.layer is not None:
             self.metadata.setCrs(self.layer.dataProvider().crs())
 

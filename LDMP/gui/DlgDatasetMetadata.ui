@@ -50,8 +50,8 @@
           <string>General</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="9" column="0">
-           <widget class="QTextEdit" name="te_citation">
+          <item row="4" column="0">
+           <widget class="QTextEdit" name="te_author">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -61,9 +61,9 @@
            <widget class="QLineEdit" name="le_title"/>
           </item>
           <item row="6" column="0">
-           <widget class="QLineEdit" name="le_source">
-            <property name="readOnly">
-             <bool>true</bool>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Source Link or Identifier</string>
             </property>
            </widget>
           </item>
@@ -74,15 +74,8 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Bibliographical Citation</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QTextEdit" name="te_author">
+          <item row="12" column="0">
+           <widget class="QTextEdit" name="te_citation">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -95,10 +88,74 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_4">
+          <item row="11" column="0">
+           <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Source Link or Identifier</string>
+             <string>Bibliographical Citation</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QLineEdit" name="le_source">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QgsCollapsibleGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Topics</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0" rowspan="3">
+           <widget class="QListView" name="lst_default_categories"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="btn_add_default_category">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>Add selected ISO categories to metadata</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2" rowspan="3">
+           <widget class="QListView" name="lst_categories"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="btn_new_category">
+            <property name="toolTip">
+             <string>Add a new custom category to the metadata</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="btn_remove_category">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>Remove selected categories from metadata</string>
+            </property>
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>
@@ -132,6 +189,11 @@
  <tabstops>
   <tabstop>scrollArea</tabstop>
   <tabstop>le_title</tabstop>
+  <tabstop>lst_default_categories</tabstop>
+  <tabstop>btn_add_default_category</tabstop>
+  <tabstop>btn_new_category</tabstop>
+  <tabstop>btn_remove_category</tabstop>
+  <tabstop>lst_categories</tabstop>
  </tabstops>
  <resources/>
  <connections>

@@ -148,24 +148,29 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         self.update_style()
 
     def update_style(self):
+        self.le_title.setStyleSheet(
+            GREEN_HIGHLIGHT
+        ) if self.le_title.text() != "" else (
+            self.le_title.setStyleSheet(RED_HIGHLIGHT)
+        )
 
-        self.le_title.setStyleSheet(GREEN_HIGHLIGHT) \
-            if self.le_title.text() != "" else (
-            self.le_title.setStyleSheet(RED_HIGHLIGHT))
+        self.te_author.setStyleSheet(
+            GREEN_HIGHLIGHT
+        ) if self.te_author.toPlainText() != "" else (
+            self.te_author.setStyleSheet(RED_HIGHLIGHT)
+        )
 
+        self.le_source.setStyleSheet(
+            GREEN_HIGHLIGHT
+        ) if self.le_source.text() != "" else (
+            self.le_source.setStyleSheet(RED_HIGHLIGHT)
+        )
 
-        self.te_author.setStyleSheet(GREEN_HIGHLIGHT) \
-            if self.te_author.toPlainText() != "" else (
-            self.te_author.setStyleSheet(RED_HIGHLIGHT))
-
-        self.le_source.setStyleSheet(GREEN_HIGHLIGHT) \
-            if self.le_source.text() != "" else (
-            self.le_source.setStyleSheet(RED_HIGHLIGHT))
-
-        self.te_citation.setStyleSheet(GREEN_HIGHLIGHT) \
-            if self.te_citation.toPlainText() != "" else (
-            self.te_citation.setStyleSheet(RED_HIGHLIGHT))
-
+        self.te_citation.setStyleSheet(
+            GREEN_HIGHLIGHT
+        ) if self.te_citation.toPlainText() != "" else (
+            self.te_citation.setStyleSheet(RED_HIGHLIGHT)
+        )
 
     def save_metadata(self):
         if self.metadata is None:

@@ -6,6 +6,8 @@ from pathlib import Path
 import qgis.core
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 
+from .definitions import GREEN_HIGHLIGHT, RED_HIGHLIGHT
+
 Ui_DlgDatasetMetadata, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDatasetMetadata.ui")
 )
@@ -64,6 +66,11 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         self.btn_new_category.clicked.connect(self.add_new_category)
         self.btn_add_default_category.clicked.connect(self.add_default_categories)
         self.btn_remove_category.clicked.connect(self.remove_categories)
+
+        self.le_title.textChanged.connect(self.update_style)
+        self.te_author.textChanged.connect(self.update_style)
+        self.le_source.textChanged.connect(self.update_style)
+        self.te_citation.textChanged.connect(self.update_style)
 
     def add_new_category(self):
         text, ok = QtWidgets.QInputDialog.getText(
@@ -125,7 +132,40 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         if self.metadata.title():
             self.le_title.setText(self.metadata.title())
 
+        if self.metadata.abstract():
+            self.te_citation.setText(self.metadata.abstract())
+
+        if self.metadata.identifier():
+            self.le_source.setText(self.metadata.identifier())
+
+        contacts = self.metadata.contacts()
+        if len(contacts) > 0:
+            contact = contacts[0]
+            self.te_author.setPlainText(contact.name)
+
         self.categories_model.setStringList(self.metadata.categories())
+
+        self.update_style()
+
+    def update_style(self):
+
+        self.le_title.setStyleSheet(GREEN_HIGHLIGHT) \
+            if self.le_title.text() != "" else (
+            self.le_title.setStyleSheet(RED_HIGHLIGHT))
+
+
+        self.te_author.setStyleSheet(GREEN_HIGHLIGHT) \
+            if self.te_author.toPlainText() != "" else (
+            self.te_author.setStyleSheet(RED_HIGHLIGHT))
+
+        self.le_source.setStyleSheet(GREEN_HIGHLIGHT) \
+            if self.le_source.text() != "" else (
+            self.le_source.setStyleSheet(RED_HIGHLIGHT))
+
+        self.te_citation.setStyleSheet(GREEN_HIGHLIGHT) \
+            if self.te_citation.toPlainText() != "" else (
+            self.te_citation.setStyleSheet(RED_HIGHLIGHT))
+
 
     def save_metadata(self):
         if self.metadata is None:
@@ -133,6 +173,20 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
 
         self.metadata.setTitle(self.le_title.text())
         self.metadata.setEncoding("UTF-8")
+
+        self.metadata.setAbstract(self.te_citation.toPlainText())
+
+        self.metadata.setIdentifier(self.le_source.text())
+
+        contacts = self.metadata.contacts()
+        if len(contacts) > 0:
+            del contacts[0]
+
+        contact = qgis.core.QgsAbstractMetadataBase.Contact()
+        contact.name = self.te_author.toPlainText()
+        contacts.insert(0, contact)
+
+        self.metadata.setContacts(contacts)
 
         if self.categories_model.rowCount() > 0:
             self.metadata.setKeywords(

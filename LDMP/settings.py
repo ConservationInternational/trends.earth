@@ -11,10 +11,10 @@
  ***************************************************************************/
 """
 
+import csv
 import os
 import typing
 import zipfile
-import csv
 from enum import Flag, auto
 from pathlib import Path
 
@@ -1648,12 +1648,10 @@ class LandCoverCustomClassesManager(
         if not file_path:
             return
 
-        settings_manager.write_value(
-            Setting.CSV_FILE_DIR, str(Path(file_path).parent)
-        )
+        settings_manager.write_value(Setting.CSV_FILE_DIR, str(Path(file_path).parent))
 
         class_names = []
-        with open(file_path, newline='', encoding='utf-8') as csvfile:
+        with open(file_path, newline="", encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 class_names.append(row["Class Name"])
@@ -2195,7 +2193,7 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
 
         self.accept_button = QtWidgets.QPushButton(self.tr("Accept"))
         self.accept_button.clicked.connect(self.accept)
-        self.cancel_button =QtWidgets.QPushButton(self.tr("Cancel"))
+        self.cancel_button = QtWidgets.QPushButton(self.tr("Cancel"))
         self.cancel_button.clicked.connect(self.reject)
 
         button_layout = QtWidgets.QHBoxLayout()
@@ -2221,7 +2219,7 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
             self.parent.append_msg(msg)
 
             return
-        code  = min(code_set)
+        code = min(code_set)
 
         auto_id = int(code)
 

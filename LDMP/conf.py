@@ -59,6 +59,7 @@ class Setting(enum.Enum):
     BASE_DIR = "advanced/base_data_directory"
     CUSTOM_CRS_ENABLED = "region_of_interest/custom_crs_enabled"
     CUSTOM_CRS = "region_of_interest/custom_crs"
+    CSV_FILE_DIR = "advanced/csv_file_dir"
     POLL_REMOTE = "advanced/poll_remote_server"
     REMOTE_POLLING_FREQUENCY = "advanced/remote_polling_frequency_seconds"
     DOWNLOAD_RESULTS = "advanced/download_remote_results_automatically"
@@ -122,6 +123,7 @@ class SettingsManager:
         Setting.POINT_Y: 0.0,
         Setting.VECTOR_FILE_PATH: "",
         Setting.VECTOR_FILE_DIR: "",
+        Setting.CSV_FILE_DIR: "",
         Setting.COUNTRY_NAME: "",
         Setting.REGION_NAME: "",
         Setting.CITY_NAME: "",

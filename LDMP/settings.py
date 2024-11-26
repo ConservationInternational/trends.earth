@@ -1659,8 +1659,7 @@ class LandCoverCustomClassesManager(
         dialog = LandCoverClassSelectionDialog(class_names, parent=self)
 
         if dialog.exec_() == QtWidgets.QDialog.Accepted:
-            selected_values = dialog.get_selected_values()
-            log(f"Selected Values: {selected_values}")
+            dialog.set_selected_classes()
 
     def _show_path_selector(self, file_dir: str) -> str:
         """Show file selector dialog for selecting a csv file."""
@@ -2168,22 +2167,52 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
     def __init__(self, class_names, parent=None):
         super().__init__(parent)
         self.parent = parent
-        self.setWindowTitle("Select Class Options")
+        self.setWindowTitle("Import Classes options")
         self.layout = QtWidgets.QVBoxLayout()
+
+        top_label = QtWidgets.QLabel(
+            self.tr("<b>Select a parent for each of the below class names</b>")
+        )
+        self.layout.addWidget(top_label)
+
         self.combo_boxes = {}
+
+        label_tooltip = self.parent.tr(
+            "The class name value that will imported,"
+            " should not exceed 20 characters. "
+        )
+
+        combo_box_tooltip = self.parent.tr(
+            "Select the parent for the corresponding class name."
+        )
 
         for class_name in class_names:
             row_layout = QtWidgets.QHBoxLayout()
-            label = QtWidgets.QLabel(class_name)
+
+            trimmed_class_name = class_name[:19] + "…" \
+                if len(class_name) > 20 else class_name
+
+            label = QtWidgets.QLabel(trimmed_class_name)
+            label.setToolTip(label_tooltip)
+
             combo_box = QtWidgets.QComboBox()
+            combo_box.setToolTip(combo_box_tooltip)
 
             status, ref_classes = LccInfoUtils.load_settings()
 
             for l_class in ref_classes:
-                combo_box.insertItem(l_class.idx, l_class.lcc.name_long, l_class.lcc)
+                combo_box.insertItem(
+                    l_class.idx,
+                    l_class.lcc.name_long,
+                    l_class.lcc
+                )
                 clr = QtGui.QColor(l_class.lcc.color)
 
-                combo_box.setItemData(l_class.idx, clr, QtCore.Qt.DecorationRole)
+                combo_box.setItemData(
+                    l_class.idx,
+                    clr,
+                    QtCore.Qt.DecorationRole
+                )
 
             self.combo_boxes[class_name] = combo_box
 
@@ -2203,9 +2232,8 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
 
         self.setLayout(self.layout)
 
-    def get_selected_values(self):
-        """Return the selected values"""
-        result = []
+    def set_selected_classes(self):
+        """Sets the selected class names"""
         codes_max = 255
         code_range = set(range(1, codes_max + 1))
 
@@ -2226,22 +2254,26 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
         for class_name, combo_box in self.combo_boxes.items():
             parent = combo_box.itemData(combo_box.currentIndex())
 
+            trimmed_class_name = class_name[:19] \
+                if len(class_name) > 20 else class_name
+
             if not parent:
                 continue
 
-            lcc = LCClass(auto_id, class_name, class_name)
+            lcc = LCClass(
+                auto_id,
+                trimmed_class_name,
+                trimmed_class_name
+            )
+
             lc_class_info = LCClassInfo()
 
             lc_class_info.lcc = lcc
             lc_class_info.parent = parent
 
-            result.append(lc_class_info)
-
             self.parent.add_class_info_to_table(lc_class_info)
 
             auto_id += 1
-        return result
-
 
 class LandCoverCustomClassEditor(
     qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassEditor

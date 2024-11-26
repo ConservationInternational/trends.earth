@@ -2189,8 +2189,9 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
         for class_name in class_names:
             row_layout = QtWidgets.QHBoxLayout()
 
-            trimmed_class_name = class_name[:19] + "…" \
-                if len(class_name) > 20 else class_name
+            trimmed_class_name = (
+                class_name[:19] + "…" if len(class_name) > 20 else class_name
+            )
 
             label = QtWidgets.QLabel(trimmed_class_name)
             label.setToolTip(label_tooltip)
@@ -2201,18 +2202,10 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
             status, ref_classes = LccInfoUtils.load_settings()
 
             for l_class in ref_classes:
-                combo_box.insertItem(
-                    l_class.idx,
-                    l_class.lcc.name_long,
-                    l_class.lcc
-                )
+                combo_box.insertItem(l_class.idx, l_class.lcc.name_long, l_class.lcc)
                 clr = QtGui.QColor(l_class.lcc.color)
 
-                combo_box.setItemData(
-                    l_class.idx,
-                    clr,
-                    QtCore.Qt.DecorationRole
-                )
+                combo_box.setItemData(l_class.idx, clr, QtCore.Qt.DecorationRole)
 
             self.combo_boxes[class_name] = combo_box
 
@@ -2254,17 +2247,12 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
         for class_name, combo_box in self.combo_boxes.items():
             parent = combo_box.itemData(combo_box.currentIndex())
 
-            trimmed_class_name = class_name[:19] \
-                if len(class_name) > 20 else class_name
+            trimmed_class_name = class_name[:19] if len(class_name) > 20 else class_name
 
             if not parent:
                 continue
 
-            lcc = LCClass(
-                auto_id,
-                trimmed_class_name,
-                trimmed_class_name
-            )
+            lcc = LCClass(auto_id, trimmed_class_name, trimmed_class_name)
 
             lc_class_info = LCClassInfo()
 
@@ -2274,6 +2262,7 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
             self.parent.add_class_info_to_table(lc_class_info)
 
             auto_id += 1
+
 
 class LandCoverCustomClassEditor(
     qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassEditor

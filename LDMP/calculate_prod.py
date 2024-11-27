@@ -78,7 +78,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.dataset_climate_update()
 
     def mode_te_prod_toggled(self):
-        if self.mode_lpd_jrc.isChecked():
+        if self.mode_lpd_jrc.isChecked() or self.mode_fao_wocat.isChecked():
             self.combo_lpd.setEnabled(True)
             self.advance_configurations.setEnabled(False)
             self.groupBox_ndvi_dataset.setEnabled(False)

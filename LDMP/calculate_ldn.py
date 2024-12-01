@@ -19,7 +19,7 @@ from pathlib import Path
 import qgis.gui
 import te_algorithms.gdal.land_deg.config as ld_config
 from qgis.core import QgsGeometry
-from qgis.PyQt import QtCore, QtWidgets, uic
+from qgis.PyQt import QtCore, QtWidgets, uic, QtGui
 from te_schemas.algorithms import ExecutionScript
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
@@ -74,6 +74,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
+        self.scene = QtWidgets.QGraphicsScene()
+        self.graphic_view.setScene(self.scene)
+
+        self.graphic_scroll_area.setWidgetResizable(True)
+
         self.widgets_baseline = TimePeriodWidgets(
             self.radio_time_period_same_baseline,
             self.radio_lpd_te,
@@ -90,6 +95,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.year_initial_baseline_soc,
             self.year_final_baseline_soc,
         )
+
+        self.draw_timeline(self.widgets_baseline)
+
         self.widgets_progress = TimePeriodWidgets(
             self.radio_time_period_same_progress,
             self.radio_lpd_te,
@@ -106,6 +114,18 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.year_initial_progress_soc,
             self.year_final_progress_soc,
         )
+
+        baseline_date_widgets = [
+          self.year_initial_baseline_prod,
+          self.year_final_baseline_prod,
+          self.year_initial_baseline_lc,
+          self.year_final_baseline_lc,
+          self.year_initial_baseline_soc,
+          self.year_final_baseline_soc
+        ]
+
+        for widget in baseline_date_widgets:
+          widget.dateChanged.connect(self.on_date_changed)
 
         self.cb_jrc_baseline.addItems(
             [*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()]
@@ -167,6 +187,160 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
 
         self._finish_initialization()
+    
+    def on_date_changed(self, date):
+      self.draw_timeline(self.widgets_baseline)
+
+    def draw_timeline(self, widgets):
+      self.scene.clear()
+      min_year = widgets.year_initial.minimumDate().year()
+      max_year = widgets.year_final.maximumDate().year()
+
+      padding = 25
+      title_text = "SDG Status Calculation"
+      title_item = QtWidgets.QGraphicsTextItem(title_text)
+      title_font = QtGui.QFont("Arial", 18, QtGui.QFont.Bold)
+      title_item.setFont(title_font)
+      title_item.setDefaultTextColor(QtCore.Qt.black)
+      title_item.setPos(0, 0)
+      self.scene.addItem(title_item)
+      
+      years = [
+        (widgets.year_initial_prod.date().year(), 
+        widgets.year_final_prod.date().year()),
+        (widgets.year_initial_lc.date().year(), 
+        widgets.year_final_lc.date().year()),
+        (widgets.year_initial_soc.date().year(), 
+        widgets.year_final_soc.date().year())
+      ]
+      colors = [
+        QtGui.QColor(78, 92, 196),
+        QtGui.QColor(61, 142, 46),
+        QtGui.QColor(129, 101, 5)
+      ]
+      labels = [
+        "Productivity degradation", 
+        "Land cover degradation", 
+        "Soil organic carbon degradation"
+      ]
+      rendered_year_labels = []
+
+      for year_range in years:
+        min_year = min(min_year, year_range[0])
+        max_year = max(max_year, year_range[1])
+
+      title_min_year = min(year[0] for year in years)
+      title_max_year = max(year[1] for year in years)
+
+      # Constants
+      chart_width = 800
+      chart_height = 300
+      content_start_y = 100
+      bar_height = 20
+      scale_factor = chart_width / (max_year - min_year)
+
+      # Draw year labels and X-axis
+      axis_pen = QtGui.QPen(QtCore.Qt.black, 2)
+      axis_y = content_start_y
+      self.scene.addLine(0, axis_y, chart_width, axis_y, axis_pen)
+
+      dotted_pen = QtGui.QPen(QtCore.Qt.black)
+      dotted_pen.setStyle(QtCore.Qt.DotLine)
+      dotted_pen.setWidth(1)
+
+      for year in years:
+        year_start_x = (year[0] - min_year) * scale_factor
+        year_end_x = (year[1] - min_year) * scale_factor
+        # Vertical dotted lines from X-axis to bottom of chart
+        self.scene.addLine(year_start_x, axis_y, 
+                          year_start_x, 
+                          chart_height + content_start_y, 
+                          dotted_pen)
+        self.scene.addLine(
+          year_start_x, axis_y - 5, 
+          year_start_x, axis_y + 5, 
+          axis_pen)
+        
+        if str(year[0]) not in rendered_year_labels:
+          label = QtWidgets.QGraphicsTextItem(str(year[0]))
+          label.setPos(year_start_x - 10, axis_y - 25)
+          self.scene.addItem(label)
+          rendered_year_labels.append(str(year[0]))
+
+        self.scene.addLine(year_end_x, axis_y, 
+                          year_end_x, 
+                          chart_height + content_start_y, 
+                          dotted_pen)
+        self.scene.addLine(
+          year_end_x, axis_y - 5, 
+          year_end_x, axis_y + 5, 
+          axis_pen)
+        
+        if str(year[1]) not in rendered_year_labels:
+          label = QtWidgets.QGraphicsTextItem(str(year[1]))
+          label.setPos(year_end_x - 10, axis_y - 25)
+          self.scene.addItem(label)
+          rendered_year_labels.append(str(year[1]))
+
+      y_offset = axis_y + 20
+
+      title_bar_height = 30
+      title_bar_width = (title_max_year - title_min_year) * scale_factor
+      title_bar_rect = QtCore.QRectF(
+        (title_min_year - min_year) * scale_factor,
+        y_offset,
+        title_bar_width,
+        title_bar_height
+      )
+      self.scene.addRect(
+        title_bar_rect,
+        QtGui.QPen(QtGui.QColor(118, 112, 111)),
+        QtGui.QBrush(QtGui.QColor(118, 112, 111))
+      )
+
+      title_text = "Baseline period"
+      title_font = QtGui.QFont("Arial", 16, QtGui.QFont.Bold)
+      title_metrics = QtGui.QFontMetrics(title_font)
+      title_x = title_bar_rect.left() + (
+        title_bar_width - title_metrics.horizontalAdvance(title_text)) / 2
+      title_y = y_offset + (
+        title_bar_height - title_metrics.height()) / 2 - 2
+
+      title_label = QtWidgets.QGraphicsTextItem(title_text)
+      title_label.setDefaultTextColor(QtCore.Qt.white)
+      title_label.setFont(title_font)
+      title_label.setPos(title_x, title_y)
+      self.scene.addItem(title_label)
+      y_offset += title_bar_height
+
+      for i, (label, color, year) in enumerate(zip(labels, colors, years)):
+        bar_start_x = (year[0] - min_year) * scale_factor
+        bar_width = (year[1] - year[0]) * scale_factor
+        bar_rect = QtCore.QRectF(bar_start_x, y_offset, bar_width, bar_height)
+
+        self.scene.addRect(
+          bar_rect,
+          QtGui.QPen(color),
+          QtGui.QBrush(color)
+        )
+
+        label_item = QtWidgets.QGraphicsTextItem(label)
+        label_item.setDefaultTextColor(QtCore.Qt.white)
+        label_item.setFont(QtGui.QFont("Arial", 10))
+        label_x = bar_start_x + 10
+        label_y = y_offset + (
+          bar_height - label_item.boundingRect().height()) / 2
+        label_item.setPos(label_x, label_y)
+        self.scene.addItem(label_item)
+
+        y_offset += bar_height + 1
+
+      self.scene.setSceneRect(
+        -padding, 
+        -padding, 
+        chart_width + 2 * padding, 
+        chart_height + 2 * padding)
+
 
     def _ask_reset_legend(self):
         resp = QtWidgets.QMessageBox.question(
@@ -269,10 +443,14 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_initial_lc.setDate(widgets.year_initial.date())
         widgets.year_initial_soc.setDate(widgets.year_initial.date())
 
+        self.draw_timeline(widgets)
+
     def update_end_dates(self, widgets):
         widgets.year_final_prod.setDate(widgets.year_final.date())
         widgets.year_final_lc.setDate(widgets.year_final.date())
         widgets.year_final_soc.setDate(widgets.year_final.date())
+
+        self.draw_timeline(widgets)
 
     def toggle_time_period(self, widgets):
         if widgets.radio_time_period_same.isChecked():

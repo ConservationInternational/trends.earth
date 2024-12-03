@@ -66,8 +66,8 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>781</width>
+            <y>-221</y>
+            <width>790</width>
             <height>1248</height>
            </rect>
           </property>
@@ -184,6 +184,12 @@
                 <layout class="QGridLayout" name="gridLayout_2">
                  <item row="12" column="1">
                   <widget class="QLabel" name="label_baseline_soc">
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #8B7100; padding-left: 2px; color: white</string>
+                   </property>
                    <property name="text">
                     <string>Soil organic carbon</string>
                    </property>
@@ -250,6 +256,9 @@
                  </item>
                  <item row="9" column="1">
                   <widget class="QLabel" name="label_baseline_prod">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #5B66D0; padding-left: 2px; color: white</string>
+                   </property>
                    <property name="text">
                     <string>Productivity</string>
                    </property>
@@ -578,6 +587,12 @@
                  </item>
                  <item row="11" column="1">
                   <widget class="QLabel" name="label_baseline_lc">
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #459824; padding-left: 2px; color: white</string>
+                   </property>
                    <property name="text">
                     <string>Land cover</string>
                    </property>
@@ -726,6 +741,9 @@
                  </item>
                  <item row="12" column="1">
                   <widget class="QLabel" name="label_progress_soc">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #8B7100; padding-left: 2px; color: white</string>
+                   </property>
                    <property name="text">
                     <string>Soil organic carbon</string>
                    </property>
@@ -733,6 +751,12 @@
                  </item>
                  <item row="9" column="1">
                   <widget class="QLabel" name="label_progress_prod">
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #5B66D0; padding-left: 2px; color: white</string>
+                   </property>
                    <property name="text">
                     <string>Productivity</string>
                    </property>
@@ -773,6 +797,12 @@
                  </item>
                  <item row="11" column="1">
                   <widget class="QLabel" name="label_progress_lc">
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #459824; padding-left: 2px; color: white</string>
+                   </property>
                    <property name="text">
                     <string>Land cover</string>
                    </property>
@@ -1229,44 +1259,42 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item>
-        
         <widget class="QScrollArea" name="graphic_scroll_area">
-          <property name="sizePolicy">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="graphic_view_container">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>280</width>
+            <height>471</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_graphic">
+           <item>
+            <widget class="QGraphicsView" name="graphic_view">
+             <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>1</verstretch>
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
               </sizepolicy>
-          </property>
-          <property name="widgetResizable">
-              <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="graphic_view_container">
-              <property name="geometry">
-                  <rect>
-                      <x>0</x>
-                      <y>0</y>
-                      <width>280</width>
-                      <height>471</height>
-                  </rect>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_graphic">
-                  <item>
-                      <widget class="QGraphicsView" name="graphic_view">
-                          <property name="sizePolicy">
-                              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                                  <horstretch>0</horstretch>
-                                  <verstretch>0</verstretch>
-                              </sizepolicy>
-                          </property>
-                          <property name="alignment">
-                              <set>Qt::AlignLeft|Qt::AlignTop</set>
-                          </property>
-                      </widget>
-                  </item>
-              </layout>
-          </widget>
-      </widget>
-
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
        </item>
       </layout>
      </widget>

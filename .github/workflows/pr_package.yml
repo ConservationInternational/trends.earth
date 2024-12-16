@@ -64,30 +64,3 @@ jobs:
         with:
           name: ${{ env.ZIP_NAME }}
           path: ${{ env.ZIP_PATH }}
-
-      - name: Find Comment
-        uses: peter-evans/find-comment@v2
-        id: find-comment
-        with:
-          issue-number: ${{ github.event.number }}
-          comment-author: 'github-actions[bot]'
-
-      - name: Update Comment
-        env:
-          HEAD_SHA: "${{ github.event.head_sha }}"
-          ARTIFACT_URL: ${{ steps.artifact-upload-step.outputs.artifact-url }}
-
-        uses: peter-evans/create-or-update-comment@v3
-        with:
-          token: ${{ github.token }}
-          issue-number: ${{ github.event.number }}
-          comment-id: ${{ steps.find-comment.outputs.comment-id }}
-          edit-mode: replace
-          body: |-
-            ![badge]
-            
-            Plugin zip package for the changes in this PR has been successfully built!.
-            
-            Download the plugin zip file here ${{ env.ARTIFACT_URL }}
-            
-            [badge]: https://img.shields.io/badge/package_build-success-green

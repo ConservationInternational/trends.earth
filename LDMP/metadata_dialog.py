@@ -6,6 +6,8 @@ from pathlib import Path
 import qgis.core
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 
+from .definitions import GREEN_HIGHLIGHT, RED_HIGHLIGHT
+
 Ui_DlgDatasetMetadata, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDatasetMetadata.ui")
 )
@@ -21,12 +23,6 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.btn_add_address.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "symbologyAdd.svg"))
-        )
-        self.btn_remove_address.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "symbologyRemove.svg"))
-        )
         self.btn_new_category.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "symbologyAdd.svg"))
         )
@@ -67,29 +63,14 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         self.categories_model = QtCore.QStringListModel(self.lst_categories)
         self.lst_categories.setModel(self.categories_model)
 
-        self.btn_add_address.clicked.connect(self.add_address)
-        self.btn_remove_address.clicked.connect(self.remove_address)
         self.btn_new_category.clicked.connect(self.add_new_category)
         self.btn_add_default_category.clicked.connect(self.add_default_categories)
         self.btn_remove_category.clicked.connect(self.remove_categories)
 
-    def add_address(self):
-        row = self.tbl_addresses.rowCount()
-        self.tbl_addresses.setRowCount(row + 1)
-
-        cell = QtWidgets.QTableWidgetItem(self.tr("postal"))
-        self.tbl_addresses.setItem(row, 0, cell)
-        self.tbl_addresses.setItem(row, 1, QtWidgets.QTableWidgetItem())
-        self.tbl_addresses.setItem(row, 2, QtWidgets.QTableWidgetItem())
-        self.tbl_addresses.setItem(row, 3, QtWidgets.QTableWidgetItem())
-        self.tbl_addresses.setItem(row, 4, QtWidgets.QTableWidgetItem())
-        self.tbl_addresses.setItem(row, 5, QtWidgets.QTableWidgetItem())
-
-    def remove_address(self):
-        selection_model = self.tbl_addresses.selectionModel()
-        selected_rows = selection_model.selectedRows()
-        for i in selected_rows:
-            self.tbl_addresses.model().removeRow(i.row())
+        self.le_title.textChanged.connect(self.update_style)
+        self.te_author.textChanged.connect(self.update_style)
+        self.le_source.textChanged.connect(self.update_style)
+        self.te_citation.textChanged.connect(self.update_style)
 
     def add_new_category(self):
         text, ok = QtWidgets.QInputDialog.getText(
@@ -151,85 +132,71 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         if self.metadata.title():
             self.le_title.setText(self.metadata.title())
 
-        self.te_abstract.setPlainText(self.metadata.abstract())
+        if self.metadata.abstract():
+            self.te_citation.setText(self.metadata.abstract())
 
-        self.categories_model.setStringList(self.metadata.categories())
+        if self.metadata.identifier():
+            self.le_source.setText(self.metadata.identifier())
 
         contacts = self.metadata.contacts()
         if len(contacts) > 0:
             contact = contacts[0]
-            self.le_contact_name.setText(contact.name)
-            self.le_contact_email.setText(contact.email)
-            self.le_contact_organisation.setText(contact.organization)
-            self.le_contact_phone.setText(contact.voice)
+            self.te_author.setPlainText(contact.name)
 
-            if self.cmb_contact_role.findText(contact.role) == -1:
-                self.cmb_contact_role.addItem(contact.role)
-            self.cmb_contact_role.setCurrentIndex(
-                self.cmb_contact_role.findText(contact.role)
-            )
+        self.categories_model.setStringList(self.metadata.categories())
 
-            self.tbl_addresses.setRowCount(0)
-            addresses = contact.addresses
-            for address in addresses:
-                row = self.tbl_addresses.rowCount()
-                self.tbl_addresses.setRowCount(row + 1)
-                self.tbl_addresses.setItem(
-                    row, 0, QtWidgets.QTableWidgetItem(address.type)
-                )
-                self.tbl_addresses.setItem(
-                    row, 1, QtWidgets.QTableWidgetItem(address.address)
-                )
-                self.tbl_addresses.setItem(
-                    row, 2, QtWidgets.QTableWidgetItem(address.postalCode)
-                )
-                self.tbl_addresses.setItem(
-                    row, 3, QtWidgets.QTableWidgetItem(address.city)
-                )
-                self.tbl_addresses.setItem(
-                    row, 4, QtWidgets.QTableWidgetItem(address.administrativeArea)
-                )
-                self.tbl_addresses.setItem(
-                    row, 5, QtWidgets.QTableWidgetItem(address.country)
-                )
+        self.update_style()
+
+    def update_style(self):
+        self.le_title.setStyleSheet(
+            GREEN_HIGHLIGHT
+        ) if self.le_title.text() != "" else (
+            self.le_title.setStyleSheet(RED_HIGHLIGHT)
+        )
+
+        self.te_author.setStyleSheet(
+            GREEN_HIGHLIGHT
+        ) if self.te_author.toPlainText() != "" else (
+            self.te_author.setStyleSheet(RED_HIGHLIGHT)
+        )
+
+        self.le_source.setStyleSheet(
+            GREEN_HIGHLIGHT
+        ) if self.le_source.text() != "" else (
+            self.le_source.setStyleSheet(RED_HIGHLIGHT)
+        )
+
+        self.te_citation.setStyleSheet(
+            GREEN_HIGHLIGHT
+        ) if self.te_citation.toPlainText() != "" else (
+            self.te_citation.setStyleSheet(RED_HIGHLIGHT)
+        )
 
     def save_metadata(self):
         if self.metadata is None:
             self.metadata = qgis.core.QgsLayerMetadata()
 
         self.metadata.setTitle(self.le_title.text())
-        self.metadata.setAbstract(self.te_abstract.toPlainText())
         self.metadata.setEncoding("UTF-8")
 
-        if self.categories_model.rowCount() > 0:
-            self.metadata.setKeywords(
-                {"gmd:topicCategory": self.categories_model.stringList()}
-            )
+        self.metadata.setAbstract(self.te_citation.toPlainText())
+
+        self.metadata.setIdentifier(self.le_source.text())
 
         contacts = self.metadata.contacts()
         if len(contacts) > 0:
             del contacts[0]
 
         contact = qgis.core.QgsAbstractMetadataBase.Contact()
-        contact.email = self.le_contact_email.text()
-        contact.voice = self.le_contact_phone.text()
-        contact.name = self.le_contact_name.text()
-        contact.organization = self.le_contact_organisation.text()
-        contact.role = self.cmb_contact_role.currentText()
-        addresses = list()
-        for i in range(self.tbl_addresses.rowCount()):
-            address = qgis.core.QgsAbstractMetadataBase.Address()
-            address.type = self.tbl_addresses.item(i, 0).text()
-            address.address = self.tbl_addresses.item(i, 1).text()
-            address.postalCode = self.tbl_addresses.item(i, 2).text()
-            address.city = self.tbl_addresses.item(i, 3).text()
-            address.administrativeArea = self.tbl_addresses.item(i, 4).text()
-            address.country = self.tbl_addresses.item(i, 5).text()
-            addresses.append(address)
-        contact.addresses = addresses
+        contact.name = self.te_author.toPlainText()
         contacts.insert(0, contact)
+
         self.metadata.setContacts(contacts)
 
+        if self.categories_model.rowCount() > 0:
+            self.metadata.setKeywords(
+                {"gmd:topicCategory": self.categories_model.stringList()}
+            )
         if self.layer is not None:
             self.metadata.setCrs(self.layer.dataProvider().crs())
 

@@ -1,9 +1,7 @@
 import os
 from pathlib import Path
 
-from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
-
-from LDMP.utils import log
+from qgis.PyQt import QtWidgets, uic
 
 DatasetAdditionalMetadataUi, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDatasetAdditionalMetadata.ui")

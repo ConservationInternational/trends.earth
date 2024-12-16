@@ -13,17 +13,16 @@
 
 import json
 import os
-from pathlib import Path
 from functools import partial
+from pathlib import Path
 
 import qgis.gui
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
-from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
-
 from . import calculate, conf
 from .conf import Setting, settings_manager
+from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
 from .jobs.manager import job_manager
 from .logger import log
 

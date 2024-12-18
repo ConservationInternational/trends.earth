@@ -220,57 +220,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="437"/>
+        <location filename="../jobs/mvc.py" line="457"/>
         <source>Add default layers from this dataset to map</source>
         <translation>Добавить слои по умолчанию из этого набора данных на карту</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="441"/>
+        <location filename="../jobs/mvc.py" line="461"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation>Выберите определенные слои из этого набора данных, чтобы добавить их на карту...</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="469"/>
+        <location filename="../jobs/mvc.py" line="489"/>
         <source>Time series table is empty</source>
         <translation>Таблица временных рядов пуста</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="475"/>
+        <location filename="../jobs/mvc.py" line="495"/>
         <source>Time Series</source>
         <translation>Временные ряды</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="484"/>
+        <location filename="../jobs/mvc.py" line="504"/>
         <source>Time</source>
         <translation>Время</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="485"/>
+        <location filename="../jobs/mvc.py" line="505"/>
         <source>Integrated NDVI</source>
         <translation>Интегрированный NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="485"/>
+        <location filename="../jobs/mvc.py" line="505"/>
         <source>NDVI x 10000</source>
         <translation>НДВИ х 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="603"/>
+        <location filename="../jobs/mvc.py" line="623"/>
         <source>Dataset metadata</source>
         <translation>Метаданные набора данных</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="610"/>
+        <location filename="../jobs/mvc.py" line="630"/>
         <source>{} metadata</source>
         <translation>Метаданные {}</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="625"/>
+        <location filename="../jobs/mvc.py" line="645"/>
         <source>Add vector layer to map</source>
         <translation>Добавить векторный слой на карту</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="629"/>
+        <location filename="../jobs/mvc.py" line="649"/>
         <source>Add raster layers to map</source>
         <translation>Добавить растровые слои на карту</translation>
     </message>
@@ -348,122 +348,122 @@
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="59"/>
         <source>Abstract</source>
-        <translation>Аннотация</translation>
+        <translation type="obsolete">Аннотация</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="66"/>
+        <location filename="../gui/DlgDatasetMetadata.ui" line="87"/>
         <source>Title</source>
         <translation>заглавие</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="79"/>
+        <location filename="../gui/DlgDatasetMetadata.ui" line="111"/>
         <source>Topics</source>
         <translation>Темы</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="94"/>
+        <location filename="../gui/DlgDatasetMetadata.ui" line="126"/>
         <source>Add selected ISO categories to metadata</source>
         <translation>Добавить выбранные категории ISO в метаданные</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="107"/>
+        <location filename="../gui/DlgDatasetMetadata.ui" line="139"/>
         <source>Add a new custom category to the metadata</source>
         <translation>Добавить новую пользовательскую категорию в метаданные</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="123"/>
+        <location filename="../gui/DlgDatasetMetadata.ui" line="155"/>
         <source>Remove selected categories from metadata</source>
         <translation>Удалить выбранные категории из метаданных</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="136"/>
         <source>Contact</source>
-        <translation>Контакт</translation>
+        <translation type="obsolete">Контакт</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="220"/>
         <source>Address</source>
-        <translation>Адрес</translation>
+        <translation type="obsolete">Адрес</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="168"/>
         <source>Name</source>
-        <translation>Имя</translation>
+        <translation type="obsolete">Имя</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="175"/>
         <source>Role</source>
-        <translation>Роль</translation>
+        <translation type="obsolete">Роль</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="192"/>
         <source>Phone</source>
-        <translation>Телефон</translation>
+        <translation type="obsolete">Телефон</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="212"/>
         <source>Type</source>
-        <translation>Тип</translation>
+        <translation type="obsolete">Тип</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="215"/>
         <source>Type of address, e.g &apos;postal&apos;</source>
-        <translation>Тип адреса, например, «почтовый».</translation>
+        <translation type="obsolete">Тип адреса, например, «почтовый».</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="223"/>
         <source>Free-form physical address component</source>
-        <translation>Компонент физического адреса в свободной форме</translation>
+        <translation type="obsolete">Компонент физического адреса в свободной форме</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="228"/>
         <source>Postal Code</source>
-        <translation>Почтовый индекс</translation>
+        <translation type="obsolete">Почтовый индекс</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="231"/>
         <source>Postal (or ZIP) code</source>
-        <translation>Почтовый (или ZIP) индекс</translation>
+        <translation type="obsolete">Почтовый (или ZIP) индекс</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="236"/>
         <source>City</source>
-        <translation>Город</translation>
+        <translation type="obsolete">Город</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="239"/>
         <source>City or locality name</source>
-        <translation>Название города или населенного пункта</translation>
+        <translation type="obsolete">Название города или населенного пункта</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="244"/>
         <source>Administrative Area</source>
-        <translation>Административный район</translation>
+        <translation type="obsolete">Административный район</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="247"/>
         <source>Administrative area (state, province/territory, etc.)</source>
-        <translation>Административный район (штат, провинция/территория и т.д.)</translation>
+        <translation type="obsolete">Административный район (штат, провинция/территория и т.д.)</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="252"/>
         <source>Country</source>
-        <translation>Страна</translation>
+        <translation type="obsolete">Страна</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="255"/>
         <source>Free-form country</source>
-        <translation>Страна в свободной форме</translation>
+        <translation type="obsolete">Страна в свободной форме</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="288"/>
         <source>Organization</source>
-        <translation>Организация</translation>
+        <translation type="obsolete">Организация</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="298"/>
         <source>Email</source>
-        <translation>Email</translation>
+        <translation type="obsolete">Email</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="14"/>
@@ -543,6 +543,21 @@
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="143"/>
         <source>Task name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDatasetMetadata.ui" line="66"/>
+        <source>Source Link or Identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDatasetMetadata.ui" line="73"/>
+        <source>Author or Publisher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDatasetMetadata.ui" line="94"/>
+        <source>Bibliographical Citation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3145,107 +3160,107 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDatasetMetadata</name>
     <message>
-        <location filename="../metadata_dialog.py" line="43"/>
+        <location filename="../metadata_dialog.py" line="39"/>
         <source>Farming</source>
         <translation>Фермерство</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="44"/>
+        <location filename="../metadata_dialog.py" line="40"/>
         <source>Biota</source>
         <translation>Биота</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="45"/>
+        <location filename="../metadata_dialog.py" line="41"/>
         <source>Boundaries</source>
         <translation>Границы</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="46"/>
+        <location filename="../metadata_dialog.py" line="42"/>
         <source>Climatology Meteorology Atmosphere</source>
         <translation>Климатология Метеорология Атмосфера</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="47"/>
+        <location filename="../metadata_dialog.py" line="43"/>
         <source>Economy</source>
         <translation>Экономика</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="48"/>
+        <location filename="../metadata_dialog.py" line="44"/>
         <source>Elevation</source>
         <translation>Перепад высот</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="49"/>
+        <location filename="../metadata_dialog.py" line="45"/>
         <source>Environment</source>
         <translation>Окружающая среда</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="50"/>
+        <location filename="../metadata_dialog.py" line="46"/>
         <source>Geoscientific Information</source>
         <translation>Геофизическая информация</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="51"/>
+        <location filename="../metadata_dialog.py" line="47"/>
         <source>Health</source>
         <translation>Здоровье</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="52"/>
+        <location filename="../metadata_dialog.py" line="48"/>
         <source>Imagery Base Maps Earth Cover</source>
         <translation>Изображение базовых карт земельного покрова</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="53"/>
+        <location filename="../metadata_dialog.py" line="49"/>
         <source>Intelligence Military</source>
         <translation>Сведения от военных</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="54"/>
+        <location filename="../metadata_dialog.py" line="50"/>
         <source>Inland Waters</source>
         <translation>Внутренние водоемы</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="55"/>
+        <location filename="../metadata_dialog.py" line="51"/>
         <source>Location</source>
         <translation>Местоположение</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="56"/>
+        <location filename="../metadata_dialog.py" line="52"/>
         <source>Oceans</source>
         <translation>Океаны</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="57"/>
+        <location filename="../metadata_dialog.py" line="53"/>
         <source>Planning Cadastre</source>
         <translation>Составление кадастрового плана</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="58"/>
+        <location filename="../metadata_dialog.py" line="54"/>
         <source>Society</source>
         <translation>Население</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="59"/>
+        <location filename="../metadata_dialog.py" line="55"/>
         <source>Structure</source>
         <translation>Структура</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="60"/>
+        <location filename="../metadata_dialog.py" line="56"/>
         <source>Transportation</source>
         <translation>Транспорт</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="61"/>
+        <location filename="../metadata_dialog.py" line="57"/>
         <source>Utilities Communication</source>
         <translation>Взаимодействие с коммунальными службами</translation>
     </message>
     <message>
         <location filename="../metadata_dialog.py" line="80"/>
         <source>postal</source>
-        <translation>по почте</translation>
+        <translation type="obsolete">по почте</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="95"/>
+        <location filename="../metadata_dialog.py" line="76"/>
         <source>New Category</source>
         <translation>Новая категория</translation>
     </message>
@@ -3298,7 +3313,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">предыдущий</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="187"/>
+        <location filename="../download_data.py" line="189"/>
         <source>Details</source>
         <translation>Детали</translation>
     </message>
@@ -3353,7 +3368,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="155"/>
+        <location filename="../download_data.py" line="157"/>
         <source>Current region: {region}</source>
         <translation type="unfinished">Текущий регион: {region}</translation>
     </message>
@@ -4485,47 +4500,47 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="../main_widget.py" line="172"/>
+        <location filename="../main_widget.py" line="221"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="177"/>
+        <location filename="../main_widget.py" line="226"/>
         <source>Raster</source>
         <translation>Растр</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="182"/>
+        <location filename="../main_widget.py" line="231"/>
         <source>Vector</source>
         <translation>Вектор</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="195"/>
+        <location filename="../main_widget.py" line="244"/>
         <source>Load existing Trends.Earth output file...</source>
         <translation>Загрузить существующий файл вывода Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="199"/>
+        <location filename="../main_widget.py" line="248"/>
         <source>Import custom Productivity dataset...</source>
         <translation>Импортировать пользовательский набор данных о продуктивности...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="205"/>
+        <location filename="../main_widget.py" line="254"/>
         <source>Import custom Land Cover dataset...</source>
         <translation>Импортировать пользовательский набор данных о земельном покрове...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="211"/>
+        <location filename="../main_widget.py" line="260"/>
         <source>Import custom Soil Organic Carbon dataset...</source>
         <translation>Импортировать пользовательский набор данных о содержании органического углерода в почве...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="223"/>
+        <location filename="../main_widget.py" line="272"/>
         <source>Download raw dataset used in Trends.Earth...</source>
         <translation>Скачать исходный набор данных, который используется в Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="247"/>
+        <location filename="../main_widget.py" line="296"/>
         <source>Create false positive/negative layer</source>
         <translation>Создать ложноположительный/ложноотрицательный слой</translation>
     </message>
@@ -5608,34 +5623,49 @@ for running algorithms and their results.</source>
         <translation>Поиск...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetMain.ui" line="103"/>
+        <location filename="../gui/WidgetMain.ui" line="176"/>
         <source>Import dataset...</source>
         <translation>Импорт набора данных...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetMain.ui" line="110"/>
+        <location filename="../gui/WidgetMain.ui" line="183"/>
         <source>Create...</source>
         <translation>Создать...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetMain.ui" line="117"/>
+        <location filename="../gui/WidgetMain.ui" line="190"/>
         <source>Download datasets from the official Trends.Earth remote server</source>
         <translation>Скачать наборы данных с официального удаленного сервера Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetMain.ui" line="120"/>
+        <location filename="../gui/WidgetMain.ui" line="193"/>
         <source>Download data...</source>
         <translation>Загрузить данные...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetMain.ui" line="127"/>
+        <location filename="../gui/WidgetMain.ui" line="200"/>
         <source>Load a set of base layers that were prepared by Trends.Earth into QGIS in order to serve as a reference map</source>
         <translation>Загрузите набор базовых слоев, подготовленных Trends.Earth, в QGIS, чтобы они служили опорной картой</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetMain.ui" line="130"/>
+        <location filename="../gui/WidgetMain.ui" line="203"/>
         <source>Load Base Map</source>
         <translation>Загрузить базовую карту</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetMain.ui" line="91"/>
+        <source>Filter by date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetMain.ui" line="106"/>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetMain.ui" line="113"/>
+        <source>End</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5871,207 +5901,207 @@ for running algorithms and their results.</source>
         <translation>Все регионы</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="230"/>
+        <location filename="../conf.py" line="237"/>
         <source>Land degradation</source>
         <translation>Деградация земель</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="234"/>
+        <location filename="../conf.py" line="241"/>
         <source>Sub-indicators for SDG 15.3.1</source>
         <translation>Подпоказатели для SDG 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="235"/>
+        <location filename="../conf.py" line="242"/>
         <source>Calculate SDG 15.3.1 sub-indicators (required prior to 15.3.1 indicator calculation)</source>
         <translation>Рассчитать подпоказатели SDG 15.3.1 (требуется до расчета показателя 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="248"/>
+        <location filename="../conf.py" line="255"/>
         <source>Indicator for SDG 15.3.1</source>
         <translation>Показатель для SDG 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="249"/>
+        <location filename="../conf.py" line="256"/>
         <source>Spatial layer and summary table for total boundary</source>
         <translation>Пространственный слой и сводная таблица для общей границы</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="252"/>
+        <location filename="../conf.py" line="259"/>
         <source>Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators</source>
         <translation>Рассчитать показатель SDG 15.3.1 на основе подпоказателей продуктивности, растительного покрова и почвенного органического углерода.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="282"/>
+        <location filename="../conf.py" line="289"/>
         <source>Land productivity</source>
         <translation>Продуктивность земли</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="283"/>
+        <location filename="../conf.py" line="290"/>
         <source>Land productivity is the biological productive capacity of land</source>
         <translation>Продуктивность земли — это биологическая продуктивная способность земли</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="298"/>
+        <location filename="../conf.py" line="305"/>
         <source>Land cover change</source>
         <translation>Изменение растительного покрова</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="299"/>
+        <location filename="../conf.py" line="306"/>
         <source>Land cover is the physical material at the surface of the earth. </source>
         <translation>Растительный покров — это физический материал на поверхности земли.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="316"/>
+        <location filename="../conf.py" line="323"/>
         <source>Soil Organic Carbon</source>
         <translation>Органический углерод в почве</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="317"/>
+        <location filename="../conf.py" line="324"/>
         <source>Soil organic carbon is a measure of soil organic matter</source>
         <translation>Органический углерод в почве является мерой органического вещества в почве</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="336"/>
+        <location filename="../conf.py" line="343"/>
         <source>Drought</source>
         <translation>Засуха</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="337"/>
+        <location filename="../conf.py" line="344"/>
         <source>Vulnerability and exposure</source>
         <translation>Уязвимость и незащищенность</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="341"/>
+        <location filename="../conf.py" line="348"/>
         <source>Drought vulnerability</source>
         <translation>Уязвимость к засухе</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="342"/>
+        <location filename="../conf.py" line="349"/>
         <source>Calculate indicators of drought vulnerability consistent with UNCCD SO3 Good Practice Guidance</source>
         <translation>Рассчитать показатели уязвимости к засухе в соответствии с руководством по эффективной практике UNCCD SO3</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="355"/>
+        <location filename="../conf.py" line="362"/>
         <source>Drought vulnerability summary table</source>
         <translation>Сводная таблица уязвимости к засухе</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="356"/>
+        <location filename="../conf.py" line="363"/>
         <source>Summarize drought indicators in alignment with UNCCD SO3 reporting requirements</source>
         <translation>Обобщить показатели засухи в соответствии с требованиями к отчетности UNCCD SO3</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="370"/>
+        <location filename="../conf.py" line="377"/>
         <source>UNCCD Reporting</source>
         <translation>Отчетность UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="371"/>
+        <location filename="../conf.py" line="378"/>
         <source>Summarize data for reporting</source>
         <translation>Обобщить данные для отчетности</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="389"/>
+        <location filename="../conf.py" line="396"/>
         <source>Generate data package for UNCCD reporting</source>
         <translation>Создать пакет данных для отчетности UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="390"/>
+        <location filename="../conf.py" line="397"/>
         <source>Summarize Strategic Objective (SO) 1, SO2, and SO3 datasets in proper format for submission to UNCCD for 2021 reporting cycle</source>
         <translation>Обобщить наборы данных стратегической цели (СЦ) 1, СЦ 2 и СЦ 3 в надлежащем формате для представления в UNCCD для отчетного цикла 2021 года.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="405"/>
+        <location filename="../conf.py" line="412"/>
         <source>SDG 11.3.1</source>
         <translation>SDG 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="406"/>
+        <location filename="../conf.py" line="413"/>
         <source>Urban change and land consumption</source>
         <translation>Городские изменения и потребление земли</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="410"/>
+        <location filename="../conf.py" line="417"/>
         <source>Urban change spatial layer</source>
         <translation>Пространственный слой городских изменений</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="411"/>
+        <location filename="../conf.py" line="418"/>
         <source>Calculate indicators of change in urban extent (SDG 11.3.1 indicator)</source>
         <translation>Рассчитать показатели изменения городской территории (показатель SDG 11.3.1)</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="424"/>
+        <location filename="../conf.py" line="431"/>
         <source>Urban change summary table for city</source>
         <translation>Сводная таблица городских изменений для города</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="425"/>
+        <location filename="../conf.py" line="432"/>
         <source>Calculate table summarizing SDG indicator 11.3.1</source>
         <translation>Рассчитать таблицу, обобщающую показатель SDG 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="438"/>
+        <location filename="../conf.py" line="445"/>
         <source>Experimental</source>
         <translation>Экспериментальный</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="441"/>
+        <location filename="../conf.py" line="448"/>
         <source>Calculate change in total carbon</source>
         <translation>Рассчитать изменение общего содержания углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="442"/>
+        <location filename="../conf.py" line="449"/>
         <source>Above and below ground, emissions and deforestation</source>
         <translation>Надземные и подземные выбросы и вырубка лесов</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="448"/>
+        <location filename="../conf.py" line="455"/>
         <source>Calculate change in carbon</source>
         <translation>Рассчитать изменение углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="449"/>
+        <location filename="../conf.py" line="456"/>
         <source>Calculate total carbon (above and below-ground) and emissions from deforestation</source>
         <translation>Рассчитать общий углерод (над и под землей) и выбросы от обезлесения</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="467"/>
+        <location filename="../conf.py" line="474"/>
         <source>Change in carbon summary table</source>
         <translation>Изменение сводной таблицы углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="468"/>
+        <location filename="../conf.py" line="475"/>
         <source>Calculate table summarizing change in total carbon</source>
         <translation>Рассчитать сводную таблицу изменения общего содержания углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="481"/>
+        <location filename="../conf.py" line="488"/>
         <source>Potential change in biomass due to restoration</source>
         <translation>Потенциальное изменение биомассы в результате восстановления</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="482"/>
+        <location filename="../conf.py" line="489"/>
         <source>Above and below ground woody</source>
         <translation>Древесная масса над и под землей</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="486"/>
+        <location filename="../conf.py" line="493"/>
         <source>Estimate potential impacts of restoration</source>
         <translation>Оценить потенциальное воздействие восстановления</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="487"/>
+        <location filename="../conf.py" line="494"/>
         <source>Estimate potential change in biomass due to restoration</source>
         <translation>Оценить потенциальное изменение биомассы в результате восстановления</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="499"/>
+        <location filename="../conf.py" line="506"/>
         <source>Table summarizing likely changes in biomass</source>
         <translation>Таблица, обобщающая вероятные изменения в биомассе</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="502"/>
+        <location filename="../conf.py" line="509"/>
         <source>Generate table summarizing potential change in biomass due to restoration</source>
         <translation>Генерировать таблицу со сводной информацией о потенциальном изменении биомассы, обусловленном восстановлением</translation>
     </message>

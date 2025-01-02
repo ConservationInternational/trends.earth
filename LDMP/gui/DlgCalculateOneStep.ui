@@ -38,6 +38,12 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="maximumSize">
+      <size>
+        <width>750</width>
+        <height>16777215</height>
+      </size>
+      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
@@ -66,7 +72,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-221</y>
+            <y>0</y>
             <width>790</width>
             <height>1248</height>
            </rect>
@@ -1221,6 +1227,12 @@
       </layout>
      </widget>
      <widget class="QWidget" name="right_pane">
+      <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>10</horstretch>
+        <verstretch>0</verstretch>
+      </sizepolicy>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_right_pane">
        <item>
         <widget class="QTextBrowser" name="alg_help">

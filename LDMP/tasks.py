@@ -1,6 +1,6 @@
 from qgis.core import QgsApplication, QgsTask
-
 from te_schemas.algorithms import AlgorithmRunMode
+
 
 def submit_job(job_manager, payload, script_id, job_type, aoi, task):
     """Function that submits a job and runs in a task."""

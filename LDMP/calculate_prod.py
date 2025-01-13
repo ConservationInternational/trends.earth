@@ -88,7 +88,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             self.advance_configurations.setCollapsed(True)
         elif self.mode_fao_wocat.isChecked():
             self.combo_lpd.setEnabled(True)
-            self.advance_configurations.setEnabled(False)
+            self.advance_configurations.setEnabled(True)
             self.groupBox_ndvi_dataset.setEnabled(False)
             self.groupBox_traj.setEnabled(False)
             self.groupBox_perf.setEnabled(False)

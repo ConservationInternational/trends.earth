@@ -2252,10 +2252,10 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
         for class_name, combo_box in self.combo_boxes.items():
             parent = combo_box.itemData(combo_box.currentIndex())
 
-            trimmed_short_name = class_name[:19] \
-                if len(class_name) > 20 else class_name
-            trimmed_long_name = class_name[:119] \
-                if len(class_name) > 120 else class_name
+            trimmed_short_name = class_name[:19] if len(class_name) > 20 else class_name
+            trimmed_long_name = (
+                class_name[:119] if len(class_name) > 120 else class_name
+            )
 
             if not parent:
                 continue

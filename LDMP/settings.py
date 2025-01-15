@@ -2043,12 +2043,15 @@ class LandCoverCustomClassesManager(
 
         if not update:
             name_item = QtGui.QStandardItem(lcc.name_long)
+            name_item.setToolTip(lcc.name_long)
+
             code_item = QtGui.QStandardItem(str(lcc.code))
             parent_item = QtGui.QStandardItem(str(parent.name_long))
         else:
             name_idx = self.model.index(row, 0)
             name_item = self.model.itemFromIndex(name_idx)
             name_item.setText(lcc.name_long)
+            name_item.setToolTip(lcc.name_long)
 
             code_idx = self.model.index(row, 1)
             code_item = self.model.itemFromIndex(code_idx)
@@ -2176,10 +2179,9 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
         self.layout.addWidget(top_label)
 
         self.combo_boxes = {}
-
         label_tooltip = self.parent.tr(
             "The class name value that will imported,"
-            " should not exceed 20 characters. "
+            " should not exceed 120 characters. "
         )
 
         combo_box_tooltip = self.parent.tr(
@@ -2190,8 +2192,11 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
             row_layout = QtWidgets.QHBoxLayout()
 
             trimmed_class_name = (
-                class_name[:19] + "…" if len(class_name) > 20 else class_name
+                class_name[:119] + "…" if len(class_name) >= 120 else class_name
             )
+
+            if len(class_name) >= 120:
+                label_tooltip = self.parent.tr(class_name)
 
             label = QtWidgets.QLabel(trimmed_class_name)
             label.setToolTip(label_tooltip)
@@ -2247,12 +2252,15 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
         for class_name, combo_box in self.combo_boxes.items():
             parent = combo_box.itemData(combo_box.currentIndex())
 
-            trimmed_class_name = class_name[:19] if len(class_name) > 20 else class_name
+            trimmed_short_name = class_name[:19] \
+                if len(class_name) > 20 else class_name
+            trimmed_long_name = class_name[:119] \
+                if len(class_name) > 120 else class_name
 
             if not parent:
                 continue
 
-            lcc = LCClass(auto_id, trimmed_class_name, trimmed_class_name)
+            lcc = LCClass(auto_id, trimmed_short_name, trimmed_long_name)
 
             lc_class_info = LCClassInfo()
 

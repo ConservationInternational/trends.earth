@@ -74,8 +74,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
 
         self.setMinimumSize(600, 400)
         self.graphic_view.setSizePolicy(
-            QtWidgets.QSizePolicy.Expanding,
-            QtWidgets.QSizePolicy.Expanding
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
         )
 
         self.scene = QtWidgets.QGraphicsScene()
@@ -86,13 +85,10 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         self.progress_period_enabled = False
 
     def set_timeline_data(
-        self, 
-        widgets_baseline, 
-        widgets_progress, 
-        progress_period_enabled
+        self, widgets_baseline, widgets_progress, progress_period_enabled
     ):
         """
-        Receive references to the baseline/progress TimePeriodWidgets from the 
+        Receive references to the baseline/progress TimePeriodWidgets from the
         main dialog.
         """
         self.widgets_baseline = widgets_baseline
@@ -298,13 +294,11 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         the dialog.
         """
         super().resizeEvent(event)
-        self.graphic_view.fitInView(
-            self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-    
+        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+
     def showEvent(self, event):
         super().showEvent(event)
-        self.graphic_view.fitInView(
-            self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
 
 class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
@@ -462,7 +456,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.timeline_dlg.set_timeline_data(
             widgets_baseline=self.widgets_baseline,
             widgets_progress=self.widgets_progress,
-            progress_period_enabled=self.checkBox_progress_period.isChecked()
+            progress_period_enabled=self.checkBox_progress_period.isChecked(),
         )
 
         parent_pos = self.mapToGlobal(QtCore.QPoint(0, 0))
@@ -473,7 +467,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self.timeline_dlg.destroyed.connect(self.on_timeline_destroyed)
         self.timeline_dlg.show()
-    
+
     def on_timeline_destroyed(self, *args):
         self.timeline_dlg = None
 

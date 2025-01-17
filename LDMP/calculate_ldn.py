@@ -39,6 +39,9 @@ DlgCalculateLdnSummaryTableAdminUi, _ = uic.loadUiType(
 DlgCalculateLdnErrorRecodeUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLDNErrorRecode.ui")
 )
+DlgTimelinePeriodGraphUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgTimelinePeriodGraph.ui")
+)
 
 
 class tr_calculate_ldn:
@@ -64,145 +67,44 @@ class TimePeriodWidgets:
     year_final_soc: QtWidgets.QDateEdit
 
 
-class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
-    def __init__(
-        self,
-        iface: qgis.gui.QgisInterface,
-        script: ExecutionScript,
-        parent: QtWidgets.QWidget = None,
-    ):
-        super().__init__(iface, script, parent)
+class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
+    def __init__(self, parent=None):
+        super().__init__(parent)
         self.setupUi(self)
+
+        self.setMinimumSize(600, 400)
+        self.graphic_view.setSizePolicy(
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Expanding
+        )
 
         self.scene = QtWidgets.QGraphicsScene()
         self.graphic_view.setScene(self.scene)
 
-        self.graphic_scroll_area.setWidgetResizable(True)
+        self.widgets_baseline = None
+        self.widgets_progress = None
+        self.progress_period_enabled = False
 
-        self.widgets_baseline = TimePeriodWidgets(
-            self.radio_time_period_same_baseline,
-            self.radio_lpd_te,
-            self.cb_jrc_baseline,
-            self.year_initial_baseline,
-            self.year_final_baseline,
-            self.label_baseline_prod,
-            self.year_initial_baseline_prod,
-            self.year_final_baseline_prod,
-            self.label_baseline_lc,
-            self.year_initial_baseline_lc,
-            self.year_final_baseline_lc,
-            self.label_baseline_soc,
-            self.year_initial_baseline_soc,
-            self.year_final_baseline_soc,
-        )
+    def set_timeline_data(
+        self, 
+        widgets_baseline, 
+        widgets_progress, 
+        progress_period_enabled
+    ):
+        """
+        Receive references to the baseline/progress TimePeriodWidgets from the 
+        main dialog.
+        """
+        self.widgets_baseline = widgets_baseline
+        self.widgets_progress = widgets_progress
+        self.progress_period_enabled = progress_period_enabled
 
-        self.widgets_progress = TimePeriodWidgets(
-            self.radio_time_period_same_progress,
-            self.radio_lpd_te,
-            self.cb_jrc_progress,
-            self.year_initial_progress,
-            self.year_final_progress,
-            self.label_progress_prod,
-            self.year_initial_progress_prod,
-            self.year_final_progress_prod,
-            self.label_progress_lc,
-            self.year_initial_progress_lc,
-            self.year_final_progress_lc,
-            self.label_progress_soc,
-            self.year_initial_progress_soc,
-            self.year_final_progress_soc,
-        )
-
-        self.timeline_years = []
         self.draw_timeline()
 
-        baseline_date_widgets = [
-            self.year_initial_baseline_prod,
-            self.year_final_baseline_prod,
-            self.year_initial_baseline_lc,
-            self.year_final_baseline_lc,
-            self.year_initial_baseline_soc,
-            self.year_final_baseline_soc,
-        ]
-        progress_date_widgets = [
-            self.year_initial_progress_prod,
-            self.year_final_progress_prod,
-            self.year_initial_progress_lc,
-            self.year_final_progress_lc,
-            self.year_initial_progress_soc,
-            self.year_final_progress_soc,
-        ]
+    def draw_timeline(self, progress_period_enabled=None):
+        if progress_period_enabled is not None:
+            self.progress_period_enabled = progress_period_enabled
 
-        for widget in baseline_date_widgets:
-            widget.dateChanged.connect(self.on_date_changed)
-        for widget in progress_date_widgets:
-            widget.dateChanged.connect(self.on_date_changed)
-
-        self.cb_jrc_baseline.addItems(
-            [*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()]
-        )
-        self.cb_jrc_baseline.setCurrentIndex(1)
-        self.cb_jrc_progress.addItems(
-            [*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()]
-        )
-        self.cb_jrc_progress.setCurrentIndex(2)
-
-        self.toggle_lpd_options()
-
-        self.cb_jrc_baseline.currentIndexChanged.connect(
-            lambda: self.update_time_bounds(self.widgets_baseline)
-        )
-        self.cb_jrc_progress.currentIndexChanged.connect(
-            lambda: self.update_time_bounds(self.widgets_progress)
-        )
-        self.radio_time_period_same_baseline.toggled.connect(
-            lambda: self.toggle_time_period(self.widgets_baseline)
-        )
-        self.radio_time_period_same_progress.toggled.connect(
-            lambda: self.toggle_time_period(self.widgets_progress)
-        )
-
-        self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
-            self, hide_min_year=True, hide_max_year=True
-        )
-
-        self.year_initial_baseline.dateChanged.connect(
-            lambda: self.update_start_dates(self.widgets_baseline)
-        )
-        self.year_final_baseline.dateChanged.connect(
-            lambda: self.update_end_dates(self.widgets_baseline)
-        )
-        self.year_initial_progress.dateChanged.connect(
-            lambda: self.update_start_dates(self.widgets_progress)
-        )
-        self.year_final_progress.dateChanged.connect(
-            lambda: self.update_end_dates(self.widgets_progress)
-        )
-
-        self.radio_lpd_te.toggled.connect(self.toggle_lpd_options)
-        self.radio_lpd_precalculated.toggled.connect(self.toggle_lpd_options)
-
-        self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
-
-        self.checkBox_progress_period.toggled.connect(self.toggle_progress_period)
-        self.toggle_progress_period()
-
-        self.button_preset_unccd_default_jrc.clicked.connect(
-            self.set_preset_unccd_default_jrc
-        )
-        self.button_preset_unccd_default_te.clicked.connect(
-            self.set_preset_unccd_default_te
-        )
-        self.button_preset_unccd_default_fao_wocat.clicked.connect(
-            self.set_preset_unccd_default_fao_wocat
-        )
-
-        self._finish_initialization()
-
-    def on_date_changed(self, date):
-        self.draw_timeline()
-
-    def draw_timeline(self):
         self.scene.clear()
 
         title_text = "SDG Status Calculation"
@@ -217,7 +119,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets = [self.widgets_baseline]
 
         # Progress period years, if active
-        if self.checkBox_progress_period.isChecked():
+        if self.progress_period_enabled:
             widgets.append(self.widgets_progress)
 
         for widget in widgets:
@@ -253,7 +155,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             max_year=max_year,
         )
 
-        if self.checkBox_progress_period.isChecked():
+        if self.progress_period_enabled:
             content_start_y += 125
             self.draw_timeline_graph(
                 widgets=self.widgets_progress,
@@ -272,7 +174,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if not self.timeline_years:
             return
 
-        # Constants
         chart_height = 500
         axis_pen = QtGui.QPen(QtCore.Qt.black, 2)
         axis_y = 75
@@ -282,7 +183,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         dotted_pen.setStyle(QtCore.Qt.DotLine)
         dotted_pen.setWidth(1)
 
-        # Calculate scale factor
         scale_factor = chart_width / (max_year - min_year)
 
         for year in self.timeline_years:
@@ -306,6 +206,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.scene.setSceneRect(
             -padding, -padding, chart_width + 2 * padding, chart_height + 2 * padding
         )
+        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
     def draw_timeline_graph(self, title, widgets, content_start_y, min_year, max_year):
         colors = [
@@ -390,6 +291,191 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.scene.addItem(label_item)
 
             y_offset += bar_height
+
+    def resizeEvent(self, event):
+        """
+        Override resizeEvent to re-fit the scene whenever the user resizes
+        the dialog.
+        """
+        super().resizeEvent(event)
+        self.graphic_view.fitInView(
+            self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+    
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.graphic_view.fitInView(
+            self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+
+
+class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
+    def __init__(
+        self,
+        iface: qgis.gui.QgisInterface,
+        script: ExecutionScript,
+        parent: QtWidgets.QWidget = None,
+    ):
+        super().__init__(iface, script, parent)
+        self.setupUi(self)
+
+        self.timeline_button.clicked.connect(self.on_show_timeline_clicked)
+        self.timeline_dlg = None
+
+        self.widgets_baseline = TimePeriodWidgets(
+            self.radio_time_period_same_baseline,
+            self.radio_lpd_te,
+            self.cb_jrc_baseline,
+            self.year_initial_baseline,
+            self.year_final_baseline,
+            self.label_baseline_prod,
+            self.year_initial_baseline_prod,
+            self.year_final_baseline_prod,
+            self.label_baseline_lc,
+            self.year_initial_baseline_lc,
+            self.year_final_baseline_lc,
+            self.label_baseline_soc,
+            self.year_initial_baseline_soc,
+            self.year_final_baseline_soc,
+        )
+
+        self.widgets_progress = TimePeriodWidgets(
+            self.radio_time_period_same_progress,
+            self.radio_lpd_te,
+            self.cb_jrc_progress,
+            self.year_initial_progress,
+            self.year_final_progress,
+            self.label_progress_prod,
+            self.year_initial_progress_prod,
+            self.year_final_progress_prod,
+            self.label_progress_lc,
+            self.year_initial_progress_lc,
+            self.year_final_progress_lc,
+            self.label_progress_soc,
+            self.year_initial_progress_soc,
+            self.year_final_progress_soc,
+        )
+
+        self.timeline_years = []
+
+        baseline_date_widgets = [
+            self.year_initial_baseline_prod,
+            self.year_final_baseline_prod,
+            self.year_initial_baseline_lc,
+            self.year_final_baseline_lc,
+            self.year_initial_baseline_soc,
+            self.year_final_baseline_soc,
+        ]
+        progress_date_widgets = [
+            self.year_initial_progress_prod,
+            self.year_final_progress_prod,
+            self.year_initial_progress_lc,
+            self.year_final_progress_lc,
+            self.year_initial_progress_soc,
+            self.year_final_progress_soc,
+        ]
+
+        for widget in baseline_date_widgets:
+            widget.dateChanged.connect(self.on_date_changed)
+        for widget in progress_date_widgets:
+            widget.dateChanged.connect(self.on_date_changed)
+
+        self.cb_jrc_baseline.addItems(
+            [*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()]
+        )
+        self.cb_jrc_baseline.setCurrentIndex(1)
+        self.cb_jrc_progress.addItems(
+            [*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()]
+        )
+        self.cb_jrc_progress.setCurrentIndex(2)
+
+        self.toggle_lpd_options()
+
+        self.cb_jrc_baseline.currentIndexChanged.connect(
+            lambda: self.update_time_bounds(self.widgets_baseline)
+        )
+        self.cb_jrc_progress.currentIndexChanged.connect(
+            lambda: self.update_time_bounds(self.widgets_progress)
+        )
+        self.radio_time_period_same_baseline.toggled.connect(
+            lambda: self.toggle_time_period(self.widgets_baseline)
+        )
+        self.radio_time_period_same_progress.toggled.connect(
+            lambda: self.toggle_time_period(self.widgets_progress)
+        )
+
+        self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
+            self, hide_min_year=True, hide_max_year=True
+        )
+
+        self.year_initial_baseline.dateChanged.connect(
+            lambda: self.update_start_dates(self.widgets_baseline)
+        )
+        self.year_final_baseline.dateChanged.connect(
+            lambda: self.update_end_dates(self.widgets_baseline)
+        )
+        self.year_initial_progress.dateChanged.connect(
+            lambda: self.update_start_dates(self.widgets_progress)
+        )
+        self.year_final_progress.dateChanged.connect(
+            lambda: self.update_end_dates(self.widgets_progress)
+        )
+
+        self.radio_lpd_te.toggled.connect(self.toggle_lpd_options)
+        self.radio_lpd_precalculated.toggled.connect(self.toggle_lpd_options)
+
+        self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
+
+        self.checkBox_progress_period.toggled.connect(self.toggle_progress_period)
+        self.toggle_progress_period()
+
+        self.button_preset_unccd_default_jrc.clicked.connect(
+            self.set_preset_unccd_default_jrc
+        )
+        self.button_preset_unccd_default_te.clicked.connect(
+            self.set_preset_unccd_default_te
+        )
+        self.button_preset_unccd_default_fao_wocat.clicked.connect(
+            self.set_preset_unccd_default_fao_wocat
+        )
+
+        self._finish_initialization()
+
+    def update_timeline_graph(self):
+        if self.timeline_dlg:
+            self.timeline_dlg.draw_timeline(
+                progress_period_enabled=self.checkBox_progress_period.isChecked()
+            )
+
+    def on_date_changed(self, date):
+        self.update_timeline_graph()
+
+    def on_show_timeline_clicked(self):
+        """
+        Only show the timeline dialog once. If it's already open, do nothing;
+        otherwise create and show it.
+        """
+        if self.timeline_dlg is not None and self.timeline_dlg.isVisible():
+            self.timeline_dlg.raise_()
+            self.timeline_dlg.activateWindow()
+            return
+
+        self.timeline_dlg = DlgTimelinePeriodGraph(parent=self)
+        self.timeline_dlg.set_timeline_data(
+            widgets_baseline=self.widgets_baseline,
+            widgets_progress=self.widgets_progress,
+            progress_period_enabled=self.checkBox_progress_period.isChecked()
+        )
+
+        parent_pos = self.mapToGlobal(QtCore.QPoint(0, 0))
+        self.timeline_dlg.move(parent_pos.x() + 700, parent_pos.y() + 50)
+
+        flags = self.timeline_dlg.windowFlags()
+        self.timeline_dlg.setWindowFlags(flags | QtCore.Qt.WindowStaysOnTopHint)
+
+        self.timeline_dlg.destroyed.connect(self.on_timeline_destroyed)
+        self.timeline_dlg.show()
+    
+    def on_timeline_destroyed(self, *args):
+        self.timeline_dlg = None
 
     def _ask_reset_legend(self):
         resp = QtWidgets.QMessageBox.question(
@@ -492,14 +578,14 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_initial_lc.setDate(widgets.year_initial.date())
         widgets.year_initial_soc.setDate(widgets.year_initial.date())
 
-        self.draw_timeline()
+        self.update_timeline_graph()
 
     def update_end_dates(self, widgets):
         widgets.year_final_prod.setDate(widgets.year_final.date())
         widgets.year_final_lc.setDate(widgets.year_final.date())
         widgets.year_final_soc.setDate(widgets.year_final.date())
 
-        self.draw_timeline()
+        self.update_timeline_graph()
 
     def toggle_time_period(self, widgets):
         if widgets.radio_time_period_same.isChecked():
@@ -648,7 +734,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         else:
             self.groupBox_progress_period.setVisible(False)
 
-        self.draw_timeline()
+        self.update_timeline_graph()
 
     def _get_period_years(self, widgets):
         return {

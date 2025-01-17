@@ -1246,10 +1246,16 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         for index in range(len(legend.key)):
             long_name = legend.key[index].get_name_long()
 
-            self.deg_def_matrix.horizontalHeaderItem(
-                index).setToolTip(long_name)
-            self.deg_def_matrix.verticalHeaderItem(
-                index).setToolTip(long_name)
+            horizontal_header_item = self.deg_def_matrix.horizontalHeaderItem(
+                index
+            )
+            horizontal_header_item.setToolTip(long_name) \
+                if horizontal_header_item else None
+
+            vertical_header_item = self.deg_def_matrix.verticalHeaderItem(
+                index)
+            vertical_header_item.setToolTip(long_name) \
+                if vertical_header_item else None
 
         if len(legend.key) > 9:
             self.deg_def_matrix.setHorizontalHeader(

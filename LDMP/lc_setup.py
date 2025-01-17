@@ -1235,12 +1235,22 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
     def setup_deg_def_matrix(self, legend):
         self.deg_def_matrix.setRowCount(len(legend.key))
         self.deg_def_matrix.setColumnCount(len(legend.key))
+
         self.deg_def_matrix.setHorizontalHeaderLabels(
             [c.get_name_short() for c in legend.key]
         )
         self.deg_def_matrix.setVerticalHeaderLabels(
             [c.get_name_short() for c in legend.key]
         )
+
+        for index in range(len(legend.key)):
+            long_name = legend.key[index].get_name_long()
+
+            self.deg_def_matrix.horizontalHeaderItem(
+                index).setToolTip(long_name)
+            self.deg_def_matrix.verticalHeaderItem(
+                index).setToolTip(long_name)
+
         if len(legend.key) > 9:
             self.deg_def_matrix.setHorizontalHeader(
                 RotatedHeaderView(QtCore.Qt.Horizontal, self.deg_def_matrix)

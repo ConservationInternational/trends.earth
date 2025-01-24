@@ -150,7 +150,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self.radio_lpd_te.toggled.connect(self.toggle_lpd_options)
         self.radio_lpd_precalculated.toggled.connect(self.toggle_lpd_options)
-        self.radio_fao_wocat.toggled.connect(self.toggle_lpd_options)
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
 

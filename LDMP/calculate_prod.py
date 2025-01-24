@@ -79,29 +79,75 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
     def mode_te_prod_toggled(self):
         if self.mode_lpd_jrc.isChecked():
+            self.reset_fao_wocat_settings()
             self.combo_lpd.setEnabled(True)
             self.advance_configurations.setEnabled(False)
             self.groupBox_ndvi_dataset.setEnabled(False)
             self.groupBox_traj.setEnabled(False)
             self.groupBox_perf.setEnabled(False)
             self.groupBox_state.setEnabled(False)
-            self.advance_configurations.setCollapsed(True)
+
         elif self.mode_fao_wocat.isChecked():
+            self.set_fao_wocat_settings()
             self.combo_lpd.setEnabled(True)
             self.advance_configurations.setEnabled(True)
-            self.groupBox_ndvi_dataset.setEnabled(False)
-            self.groupBox_traj.setEnabled(False)
-            self.groupBox_perf.setEnabled(False)
-            self.groupBox_state.setEnabled(False)
-            self.advance_configurations.setCollapsed(True)
+
         else:
+            self.reset_fao_wocat_settings()
             self.combo_lpd.setEnabled(False)
             self.advance_configurations.setEnabled(True)
             self.groupBox_ndvi_dataset.setEnabled(True)
             self.groupBox_traj.setEnabled(True)
             self.groupBox_perf.setEnabled(True)
             self.groupBox_state.setEnabled(True)
-            self.advance_configurations.setCollapsed(True)
+
+    def set_fao_wocat_settings(self):
+        ndvi_item = 'MODIS (MED filter option)'
+
+        for index in range(self.dataset_ndvi.count()):
+            if self.dataset_ndvi.itemText(index) == "AVHRR (GIMMS3g.v1, annual)":
+                self.dataset_ndvi.removeItem(index)
+                self.dataset_ndvi.insertItem(index, ndvi_item)
+
+        self.groupBox_traj.setVisible(False)
+        self.modis_group_box.setVisible(True)
+
+        modis_items = ['MannKendal', 'MannKendal + MTID']
+
+        self.modis_combo_box.addItems(modis_items)
+        self.modis_group_box.setEnabled(True)
+
+
+        self.groupBox_traj_climate.setVisible(False)
+        self.initial_biomass_group.setVisible(True)
+        self.initial_biomass_group.setEnabled(True)
+        self.groupBox_perf.setVisible(False)
+
+        self.groupBox_state_baseline.setVisible(False)
+        self.groupBox_state_comparison.setVisible(False)
+
+        self.period_interval.setVisible(True)
+
+    def reset_fao_wocat_settings(self):
+        for index in range(self.dataset_ndvi.count()):
+            if self.dataset_ndvi.itemText(index) == "MODIS (MED filter option)":
+                self.dataset_ndvi.removeItem(index)
+                self.dataset_ndvi.insertItem(index, "AVHRR (GIMMS3g.v1, annual)")
+
+        self.groupBox_traj.setVisible(True)
+        self.modis_group_box.setVisible(False)
+        self.modis_group_box.setEnabled(False)
+
+
+        self.groupBox_traj_climate.setVisible(True)
+        self.initial_biomass_group.setVisible(False)
+        self.initial_biomass_group.setEnabled(False)
+        self.groupBox_perf.setVisible(True)
+
+        self.groupBox_state_baseline.setVisible(True)
+        self.groupBox_state_comparison.setVisible(True)
+
+        self.period_interval.setVisible(False)
 
     def dataset_climate_update(self):
         self.traj_climate.clear()

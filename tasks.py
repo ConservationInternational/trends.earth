@@ -51,7 +51,7 @@ def query_yes_no(question, default="yes"):
         elif choice in valid:
             return valid[choice]
         else:
-            sys.stdout.write("Please respond with 'yes' or 'no' " "(or 'y' or 'n').\n")
+            sys.stdout.write("Please respond with 'yes' or 'no' (or 'y' or 'n').\n")
 
 
 def get_version(c):
@@ -189,6 +189,7 @@ def set_version(c, v=None, testing=False, modules=False, tag=False, gee=False):
         )
 
         if gee:
+            print("Setting version to {} for GEE scripts".format(v))
             # For the GEE config files the version can't have a dot, so convert to
             # underscore
             v_gee = v.replace(".", "_")
@@ -315,9 +316,7 @@ def release_github(c):
 
 
 @task(
-    help={
-        "modules": "Also set tag for any modules specified " "in ext_libs.local_modules"
-    }
+    help={"modules": "Also set tag for any modules specified in ext_libs.local_modules"}
 )
 def set_tag(c, modules=False):
     v = get_version(c)
@@ -1360,16 +1359,16 @@ def _make_download_link(c, title, key, data):
 def _make_sdg_download_row(c, iso, data):
     return (
         f"| {iso} | "
-        + f'{_make_download_link(c, f"{iso} (JRC LPD)", "JRC-LPD-5", data)} | '
-        + f'{_make_download_link(c, f"{iso} (Trends.Earth LPD)", "TrendsEarth-LPD-5", data)} | '
-        + f'{_make_download_link(c, f"{iso} (FAO-WOCAT LPD)", "FAO-WOCAT-LPD-5", data)} |\n'
+        + f"{_make_download_link(c, f'{iso} (JRC LPD)', 'JRC-LPD-5', data)} | "
+        + f"{_make_download_link(c, f'{iso} (Trends.Earth LPD)', 'TrendsEarth-LPD-5', data)} | "
+        + f"{_make_download_link(c, f'{iso} (FAO-WOCAT LPD)', 'FAO-WOCAT-LPD-5', data)} |\n"
     )
 
 
 def _make_drought_download_row(c, iso, data):
     return (
         f"| {iso} | "
-        + f'{_make_download_link(c, f"{iso} (Drought)", "Drought", data)} |\n'
+        + f"{_make_download_link(c, f'{iso} (Drought)', 'Drought', data)} |\n"
     )
 
 

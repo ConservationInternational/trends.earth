@@ -72,9 +72,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>666</width>
-            <height>621</height>
+            <y>-929</y>
+            <width>686</width>
+            <height>1631</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -242,7 +242,7 @@
               <string>Advanced configuration</string>
              </property>
              <property name="collapsed">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_9">
               <item>
@@ -284,6 +284,18 @@
                     <string>Select the type of the NDVI dataset.</string>
                    </property>
                   </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="modis_group_box">
+                <property name="title">
+                 <string>NDIV MODIS QA</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_12">
+                 <item>
+                  <widget class="QComboBox" name="modis_combo_box"/>
                  </item>
                 </layout>
                </widget>
@@ -499,6 +511,91 @@
                </widget>
               </item>
               <item>
+               <widget class="QGroupBox" name="initial_biomass_group">
+                <property name="title">
+                 <string>Initial Biomass</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>Low</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>Medium</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QDateEdit" name="medium_date_edit">
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2001</year>
+                     <month>1</month>
+                     <day>24</day>
+                    </datetime>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>2001</year>
+                     <month>1</month>
+                     <day>24</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QDateEdit" name="low_date_edit">
+                   <property name="minimumDate">
+                    <date>
+                     <year>2000</year>
+                     <month>1</month>
+                     <day>24</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_3">
+                   <property name="text">
+                    <string>High</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QDateEdit" name="high_date_edit">
+                   <property name="minimumDate">
+                    <date>
+                     <year>2002</year>
+                     <month>1</month>
+                     <day>24</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
                <widget class="QGroupBox" name="groupBox_perf">
                 <property name="title">
                  <string>Performance (a measure of how productivity in an area compares to that of similar areas)</string>
@@ -640,6 +737,29 @@
                  <bool>true</bool>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <item>
+                  <widget class="QGroupBox" name="period_interval">
+                   <property name="title">
+                    <string>Period interval</string>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_13">
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_2">
+                      <item>
+                       <widget class="QLabel" name="label_4">
+                        <property name="text">
+                         <string>Number of years:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="spinBox"/>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
                  <item>
                   <widget class="QGroupBox" name="groupBox_state_baseline">
                    <property name="title">

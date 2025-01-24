@@ -91,6 +91,10 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             self.set_fao_wocat_settings()
             self.combo_lpd.setEnabled(True)
             self.advance_configurations.setEnabled(True)
+            self.groupBox_ndvi_dataset.setEnabled(True)
+            self.groupBox_traj.setEnabled(True)
+            self.groupBox_perf.setEnabled(True)
+            self.groupBox_state.setEnabled(True)
 
         else:
             self.reset_fao_wocat_settings()

@@ -134,9 +134,13 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
     def reset_fao_wocat_settings(self):
         for index in range(self.dataset_ndvi.count()):
-            if self.dataset_ndvi.itemText(index) == "MODIS (MED filter option)":
+            if (self.dataset_ndvi.itemText(index) ==
+                    "MODIS (MED filter option)"):
                 self.dataset_ndvi.removeItem(index)
-                self.dataset_ndvi.insertItem(index, "AVHRR (GIMMS3g.v1, annual)")
+                self.dataset_ndvi.insertItem(
+                    index,
+                    "AVHRR (GIMMS3g.v1, annual)"
+                )
 
         self.groupBox_traj.setVisible(True)
         self.modis_group_box.setVisible(False)
@@ -225,9 +229,11 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
     def btn_cancel(self):
         self.close()
 
-    def _get_prod_mode(self, radio_lpd_te, cb_lpd):
+    def _get_prod_mode(self, radio_lpd_te, radio_fao_wocat, cb_lpd):
         if radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        elif radio_fao_wocat.isChecked():
+            return ProductivityMode.FAO_WOCAT.value
         else:
             if "FAO-WOCAT" in cb_lpd.currentText():
                 return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
@@ -278,7 +284,11 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             "task_notes": self.task_notes.toPlainText(),
         }
 
-        prod_mode = self._get_prod_mode(self.mode_te_prod, self.combo_lpd)
+        prod_mode = self._get_prod_mode(
+            self.mode_te_prod,
+            self.mode_fao_wocat,
+            self.combo_lpd
+        )
 
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
             payload.update(
@@ -306,7 +316,22 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                 self.traj_indic.currentText()
             ]
             payload.update(current_trajectory_function["params"])
+        elif prod_mode == ProductivityMode.FAO_WOCAT.value:
 
+            ndvi_dataset = self.dataset_ndvi.currentText()
+            modis_mode = self.modis_combo_box.currentText()
+            payload.update(
+                {
+                    "prod_mode": prod_mode,
+                    "low_biomass_year": self.low_date_edit.date().year(),
+                    "medium_biomass_year": self.medium_date_edit.date().year(),
+                    "high_biomass_year": self.high_date_edit.date().year(),
+                    "years_interval": self.number_years_box.value(),
+                    "crs": self.aoi.get_crs_dst_wkt(),
+                    "ndvi_gee_dataset": ndvi_dataset,
+                    "modis_mode": modis_mode,
+                }
+            )
         elif prod_mode in (
             ProductivityMode.JRC_5_CLASS_LPD.value,
             ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,

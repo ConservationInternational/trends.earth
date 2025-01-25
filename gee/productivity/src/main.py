@@ -11,7 +11,7 @@ import ee
 from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
 from te_algorithms.gee.productivity import (
-    productivity_fao_wocat,
+    productivity_faowocat,
     productivity_performance,
     productivity_state,
     productivity_trajectory,
@@ -139,7 +139,7 @@ def run(params, logger):
         res = []
         with ThreadPoolExecutor(max_workers=4) as executor:
             for n, geojson in enumerate(geojsons, start=1):
-                this_out = productivity_fao_wocat(
+                this_out = productivity_faowocat(
                     int(low_biomass_year),
                     int(medium_biomass_year),
                     int(high_biomass_year),

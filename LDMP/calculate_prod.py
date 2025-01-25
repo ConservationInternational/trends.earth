@@ -116,9 +116,10 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.groupBox_traj.setVisible(False)
         self.modis_group_box.setVisible(True)
 
-        modis_items = ['MannKendal', 'MannKendal + MTID']
+        if self.modis_combo_box.count() < 2:
+            modis_items = ['MannKendal', 'MannKendal + MTID']
 
-        self.modis_combo_box.addItems(modis_items)
+            self.modis_combo_box.addItems(modis_items)
         self.modis_group_box.setEnabled(True)
 
 

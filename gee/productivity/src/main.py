@@ -11,10 +11,10 @@ import ee
 from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
 from te_algorithms.gee.productivity import (
+    productivity_fao_wocat,
     productivity_performance,
     productivity_state,
     productivity_trajectory,
-    productivity_fao_wocat,
 )
 from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 from te_schemas import results
@@ -129,7 +129,6 @@ def run(params, logger):
         return schema.dump(final_output)
 
     elif prod_mode == ProductivityMode.FAO_WOCAT.value:
-
         low_biomass_year = params.get("low_biomass_year")
         medium_biomass_year = params.get("medium_biomass_year")
         high_biomass_year = params.get("high_biomass_year")

@@ -106,7 +106,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             self.groupBox_state.setEnabled(True)
 
     def set_fao_wocat_settings(self):
-        ndvi_item = 'MODIS (MED filter option)'
+        ndvi_item = "MODIS (MED filter option)"
 
         for index in range(self.dataset_ndvi.count()):
             if self.dataset_ndvi.itemText(index) == "AVHRR (GIMMS3g.v1, annual)":
@@ -117,11 +117,10 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.modis_group_box.setVisible(True)
 
         if self.modis_combo_box.count() < 2:
-            modis_items = ['MannKendal', 'MannKendal + MTID']
+            modis_items = ["MannKendal", "MannKendal + MTID"]
 
             self.modis_combo_box.addItems(modis_items)
         self.modis_group_box.setEnabled(True)
-
 
         self.groupBox_traj_climate.setVisible(False)
         self.initial_biomass_group.setVisible(True)
@@ -135,18 +134,13 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
     def reset_fao_wocat_settings(self):
         for index in range(self.dataset_ndvi.count()):
-            if (self.dataset_ndvi.itemText(index) ==
-                    "MODIS (MED filter option)"):
+            if self.dataset_ndvi.itemText(index) == "MODIS (MED filter option)":
                 self.dataset_ndvi.removeItem(index)
-                self.dataset_ndvi.insertItem(
-                    index,
-                    "AVHRR (GIMMS3g.v1, annual)"
-                )
+                self.dataset_ndvi.insertItem(index, "AVHRR (GIMMS3g.v1, annual)")
 
         self.groupBox_traj.setVisible(True)
         self.modis_group_box.setVisible(False)
         self.modis_group_box.setEnabled(False)
-
 
         self.groupBox_traj_climate.setVisible(True)
         self.initial_biomass_group.setVisible(False)
@@ -286,9 +280,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         }
 
         prod_mode = self._get_prod_mode(
-            self.mode_te_prod,
-            self.mode_fao_wocat,
-            self.combo_lpd
+            self.mode_te_prod, self.mode_fao_wocat, self.combo_lpd
         )
 
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
@@ -318,7 +310,6 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             ]
             payload.update(current_trajectory_function["params"])
         elif prod_mode == ProductivityMode.FAO_WOCAT.value:
-
             ndvi_dataset = self.dataset_ndvi.currentText()
             modis_mode = self.modis_combo_box.currentText()
             payload.update(

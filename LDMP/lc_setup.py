@@ -1193,7 +1193,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         )
 
         self.btn_transmatrix_reset.clicked.connect(
-            lambda: self.set_trans_matrix(get_default=False)
+            lambda: self.set_trans_matrix(get_default=True)
         )
         self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
         self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)

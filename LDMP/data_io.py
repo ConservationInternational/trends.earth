@@ -1067,7 +1067,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             if user_warning:
                 reg_name = self.region_selector.region_info.area_name
                 self.msg_bar.pushMessage(
-                    self.tr(f"Output file will be resized " f"to '{reg_name}' extent."),
+                    self.tr(f"Output file will be resized to '{reg_name}' extent."),
                     qgis.core.Qgis.MessageLevel.Warning,
                     8,
                 )

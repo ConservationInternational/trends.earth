@@ -246,7 +246,7 @@ def country_data_path() -> str:
     """
     Returns the path for the vector file containing country data.
     """
-    return f"{FileUtils.plugin_dir()}/data/" f"ne_10m_admin_0_countries.shp"
+    return f"{FileUtils.plugin_dir()}/data/ne_10m_admin_0_countries.shp"
 
 
 def sub_national_data_path() -> str:
@@ -254,7 +254,7 @@ def sub_national_data_path() -> str:
     Returns the path for the vector file containing sub-national data.
     """
     root_dir = FileUtils.plugin_dir()
-    return f"{root_dir}/data/" f"ne_10m_admin_1_states_provinces.shp"
+    return f"{root_dir}/data/ne_10m_admin_1_states_provinces.shp"
 
 
 def places_data_path() -> str:
@@ -262,7 +262,7 @@ def places_data_path() -> str:
     Returns the path for the vector file containing data on populated places.
     """
     root_dir = FileUtils.plugin_dir()
-    return f"{root_dir}/data/" f"ne_10m_populated_places.shp"
+    return f"{root_dir}/data/ne_10m_populated_places.shp"
 
 
 class ExtractAdministrativeArea:

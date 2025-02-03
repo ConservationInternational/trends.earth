@@ -116,8 +116,7 @@ def _get_user_email(auth_setup, warn=True):
             None,
             tr_settings.tr("Error"),
             tr_settings.tr(
-                "Please setup access to {auth_setup.name} before "
-                "using this function."
+                "Please setup access to {auth_setup.name} before using this function."
             ),
         )
         return None
@@ -1790,7 +1789,7 @@ class LandCoverCustomClassesManager(
             lcc_infos = self.class_infos()
             status = LccInfoUtils.save_file(lcc_save_path, lcc_infos)
             if not status:
-                log(f"Unable to save land cover " f"classes to '{lcc_save_path}'")
+                log(f"Unable to save land cover classes to '{lcc_save_path}'")
                 return
 
             fi = QtCore.QFileInfo(lcc_save_path)

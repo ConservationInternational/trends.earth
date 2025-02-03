@@ -205,7 +205,7 @@ def qgis_process_path() -> str:
 
     # Check execution permissions
     if not os.access(proc_script_path, os.X_OK):
-        log(f"User does not have execute permission " f"for '{proc_script_path}'.")
+        log(f"User does not have execute permission for '{proc_script_path}'.")
         return ""
 
     return proc_script_path

@@ -263,7 +263,7 @@ class APIClient(QtCore.QObject):
             except KeyError:
                 log("API unable to login - check username and password")
                 error_message = tr_api.tr(
-                    "Unable to login to Trends.Earth. " "Check username and password."
+                    "Unable to login to Trends.Earth. Check username and password."
                 )
                 ret = None
             else:
@@ -271,8 +271,7 @@ class APIClient(QtCore.QObject):
         else:
             log("Unable to access Trends.Earth server")
             error_message = tr_api.tr(
-                "Unable to access Trends.Earth server. Check your "
-                "internet connection"
+                "Unable to access Trends.Earth server. Check your internet connection"
             )
             ret = None
 
@@ -291,9 +290,7 @@ class APIClient(QtCore.QObject):
             return True
         else:
             if not email or not password:
-                log(
-                    "API unable to login during login test - check " "username/password"
-                )
+                log("API unable to login during login test - check username/password")
                 QtWidgets.QMessageBox.critical(
                     None,
                     tr_api.tr("Error"),

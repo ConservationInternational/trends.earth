@@ -591,7 +591,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def create_error_recode(self):
         dlg = DlgSelectDataset(self, validate_all=True)
-        win_title = f'{dlg.windowTitle()} - {self.tr("False positive/negative")}'
+        win_title = f"{dlg.windowTitle()} - {self.tr('False positive/negative')}"
         dlg.setWindowTitle(win_title)
         if dlg.exec_() == QtWidgets.QDialog.Accepted:
             self.pause_scheduler()

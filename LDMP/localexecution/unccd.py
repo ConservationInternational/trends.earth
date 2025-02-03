@@ -172,9 +172,9 @@ def _set_error_recode(in_file, out_file, error_recode_polys):
                 sdg_areas[recode_from] -= area
                 sdg_areas["Improved"] += area
 
-    assert all(
-        value >= 0 for value in sdg_areas.values()
-    ), f"sdg_areas should all be greater than zero, but values are {sdg_areas}"
+    assert all(value >= 0 for value in sdg_areas.values()), (
+        f"sdg_areas should all be greater than zero, but values are {sdg_areas}"
+    )
     total_area_final = sum(sdg_areas.values())
     assert abs(total_area_initial - total_area_final) < 0.001, (
         f"total_area_initial ({total_area_initial}) differs "
@@ -222,7 +222,7 @@ def compute_unccd_report(
             for i in range(len(params["so1_so2_all_paths"])):
                 if params["so1_so2_all_paths"][i] == str(orig_summary_path_so1_so2):
                     log(
-                        f'Replacing {str(params["so1_so2_all_paths"][i])} with '
+                        f"Replacing {str(params['so1_so2_all_paths'][i])} with "
                         f"{str(new_summary_path_so1_so2)}"
                     )
                     params["so1_so2_all_paths"][i] = str(new_summary_path_so1_so2)

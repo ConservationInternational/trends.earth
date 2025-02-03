@@ -616,7 +616,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 }
             )
 
-            log(f'period is: {payload["period"]}')
+            log(f"period is: {payload['period']}")
 
             payloads.append(payload)
 
@@ -1149,7 +1149,7 @@ class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi)
                 "layer_type", ld_config.SOC_DEG_BAND_NAME
             )
         self.combo_layer_input.populate()
-        log(f'filter set to {self.combo_layer_input.property("layer_type")}')
+        log(f"filter set to {self.combo_layer_input.property('layer_type')}")
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

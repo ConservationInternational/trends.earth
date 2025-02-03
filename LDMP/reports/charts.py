@@ -311,7 +311,7 @@ class UniqueValuesPieChart(BaseUniqueValuesChart):
         if not file_name_base:
             file_name_base = self.layer_name()
 
-        output_file_path = f"{self.root_output_dir}/" f"chart-{file_name_base}.png"
+        output_file_path = f"{self.root_output_dir}/chart-{file_name_base}.png"
 
         labels = []
         values = []
@@ -903,7 +903,7 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         productivity_barchart.data_items = lc_prod_info_items
         productivity_barchart.use_value_type = InfoValueType.PERCENT
         productivity_barchart.base_chart_name = (
-            f"land-cover-change-by-" f"productivity-{init_year!s}" f"-{final_year!s}"
+            f"land-cover-change-by-productivity-{init_year!s}-{final_year!s}"
         )
         productivity_barchart.value_axis_label = tr_reports_charts.tr("%")
         self._charts.append(productivity_barchart)

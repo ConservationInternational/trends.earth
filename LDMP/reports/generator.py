@@ -354,7 +354,7 @@ class ReportTaskProcessor:
         basemap_group = root_tree.findGroup(self.BASE_MAP_GROUP)
         if basemap_group is None:
             self._append_warning_msg(
-                "Basemap root group not found, unable to restore basemap " "layer."
+                "Basemap root group not found, unable to restore basemap layer."
             )
             return
 
@@ -1013,8 +1013,7 @@ class ReportGeneratorManager(QObject):
         # Assert if qgis_process path could be found
         if not self._qgis_proc_path:
             tr_msg = self.tr(
-                "could not be found in your system. Unable to run the "
-                "report generator."
+                "could not be found in your system. Unable to run the report generator."
             )
             self._push_warning_message(f"'qgis_process' {tr_msg}")
             return False
@@ -1042,7 +1041,7 @@ class ReportGeneratorManager(QObject):
 
         # Notify user
         tr_msg = self.tr(
-            f"are being processed (id " f"{[str(job.id) for job in ctx.jobs]})..."
+            f"are being processed (id {[str(job.id) for job in ctx.jobs]})..."
         )
         self._push_info_message(f"{ctx_display_name} {tr_msg}")
 
@@ -1136,7 +1135,7 @@ class ReportGeneratorManager(QObject):
                 ctx_file = QFile(ctx_file_path)
                 status = ctx_file.remove()
                 if not status:
-                    log(f"Unable to remove report context " f"file: {ctx_file_path}")
+                    log(f"Unable to remove report context file: {ctx_file_path}")
 
             # Remove from list of submitted tasks
             self.remove_task_context(ctx)

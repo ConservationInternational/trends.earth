@@ -338,11 +338,7 @@ class DownloadWorker(AbstractWorker):
             self.progress.emit(value * 100 / total)
 
     def download_error(self, error):
-        log(
-            tr_download.tr(
-                f"Error while downloading file to" f" {self.outfile}, {error}"
-            )
-        )
+        log(tr_download.tr(f"Error while downloading file to {self.outfile}, {error}"))
         raise DownloadError(
             "Unable to start download of {}, {}".format(self.url, error)
         )

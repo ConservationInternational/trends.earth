@@ -349,10 +349,10 @@ def get_sample(f, band_number, n=1e6):
         )
         log(
             "Resampling to "
-            f'/vsimem/resample_{Path(f).with_suffix(".tif").name}, from {f}'
+            f"/vsimem/resample_{Path(f).with_suffix('.tif').name}, from {f}"
         )
         ds_resamp = gdal.Translate(
-            f'/vsimem/{Path(f).with_suffix(".tif").name}',
+            f"/vsimem/{Path(f).with_suffix('.tif').name}",
             f,
             bandList=[band_number],
             width=xsize_new,

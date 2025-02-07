@@ -188,12 +188,25 @@ style_text_dict = {
     "combined_sdg_deg_deg": tr_layers.tr("Degradation"),
     "combined_sdg_deg_stable": tr_layers.tr("Stable"),
     "combined_sdg_deg_imp": tr_layers.tr("Improvement"),
-    "sdg_status_title": tr_layers.tr(
-        "SDG 15.3.1 Indicator ({baseline_year_initial}-{baseline_year_final} updated with {progress_year_initial}-{progress_year_final})"
+    "status_sdg_title": tr_layers.tr(
+        "SDG 15.3.1 Indicator (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
     ),
-    "sdg_status_deg": tr_layers.tr("Degradation"),
-    "sdg_status_stable": tr_layers.tr("Stable"),
-    "sdg_status_imp": tr_layers.tr("Improvement"),
+    "status_prod_title": tr_layers.tr(
+        "Productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
+    ),
+    "status_lc_title": tr_layers.tr(
+        "Land cover degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
+    ),
+    "status_soc_title": tr_layers.tr(
+        "Soil organic carbon degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
+    ),
+    "status_sdg_deg_persistent": tr_layers.tr("Degradation (persistent)"),
+    "status_sdg_deg_recent": tr_layers.tr("Degradation (recent)"),
+    "status_sdg_deg_baseline": tr_layers.tr("Degradation (baseline)"),
+    "status_sdg_stability": tr_layers.tr("Stability"),
+    "status_sdg_imp_baseline": tr_layers.tr("Improvement (baseline)"),
+    "status_sdg_imp_recent": tr_layers.tr("Improvement (recent)"),
+    "status_sdg_imp_persistent": tr_layers.tr("Improvement (persistent)"),
     "sdg_progress_title": tr_layers.tr(
         "SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
     ),
@@ -349,10 +362,10 @@ def get_sample(f, band_number, n=1e6):
         )
         log(
             "Resampling to "
-            f'/vsimem/resample_{Path(f).with_suffix(".tif").name}, from {f}'
+            f"/vsimem/resample_{Path(f).with_suffix('.tif').name}, from {f}"
         )
         ds_resamp = gdal.Translate(
-            f'/vsimem/{Path(f).with_suffix(".tif").name}',
+            f"/vsimem/{Path(f).with_suffix('.tif').name}",
             f,
             bandList=[band_number],
             width=xsize_new,

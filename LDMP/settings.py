@@ -11,6 +11,7 @@
  ***************************************************************************/
 """
 
+import csv
 import os
 import typing
 import zipfile
@@ -115,8 +116,7 @@ def _get_user_email(auth_setup, warn=True):
             None,
             tr_settings.tr("Error"),
             tr_settings.tr(
-                "Please setup access to {auth_setup.name} before "
-                "using this function."
+                "Please setup access to {auth_setup.name} before using this function."
             ),
         )
         return None
@@ -1631,6 +1631,51 @@ class LandCoverCustomClassesManager(
         self.btn_restore.setIcon(restore_icon)
         self.btn_restore.clicked.connect(self.dlg_land_cover_restore.exec_)
 
+        import_icon = qgis.core.QgsApplication.instance().getThemeIcon(
+            "mActionSharingImport.svg"
+        )
+        self.btn_import.setIcon(import_icon)
+        self.btn_import.clicked.connect(self.import_lclr_classes)
+
+    def import_lclr_classes(self):
+        data_dir = settings_manager.get_value(Setting.CSV_FILE_DIR)
+
+        if not data_dir:
+            data_dir = os.path.expanduser("~")
+
+        file_path = self._show_path_selector(data_dir)
+        if not file_path:
+            return
+
+        settings_manager.write_value(Setting.CSV_FILE_DIR, str(Path(file_path).parent))
+
+        class_names = []
+        with open(file_path, newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                class_names.append(row["Class Name"])
+
+        dialog = LandCoverClassSelectionDialog(class_names, parent=self)
+
+        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+            dialog.set_selected_classes()
+
+    def _show_path_selector(self, file_dir: str) -> str:
+        """Show file selector dialog for selecting a csv file."""
+        filter_tr = self.tr("CSV")
+
+        layer_path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr("Select csv file"),
+            file_dir,
+            f"{filter_tr} (*.csv)",
+            options=QtWidgets.QFileDialog.DontResolveSymlinks,
+        )
+        if not layer_path:
+            return ""
+
+        return layer_path
+
     def on_restore_esa(self):
         # Slot raised to restore ESA land cover classes.
         self.dlg_land_cover_restore.close()
@@ -1744,7 +1789,7 @@ class LandCoverCustomClassesManager(
             lcc_infos = self.class_infos()
             status = LccInfoUtils.save_file(lcc_save_path, lcc_infos)
             if not status:
-                log(f"Unable to save land cover " f"classes to '{lcc_save_path}'")
+                log(f"Unable to save land cover classes to '{lcc_save_path}'")
                 return
 
             fi = QtCore.QFileInfo(lcc_save_path)
@@ -1997,12 +2042,15 @@ class LandCoverCustomClassesManager(
 
         if not update:
             name_item = QtGui.QStandardItem(lcc.name_long)
+            name_item.setToolTip(lcc.name_long)
+
             code_item = QtGui.QStandardItem(str(lcc.code))
             parent_item = QtGui.QStandardItem(str(parent.name_long))
         else:
             name_idx = self.model.index(row, 0)
             name_item = self.model.itemFromIndex(name_idx)
             name_item.setText(lcc.name_long)
+            name_item.setToolTip(lcc.name_long)
 
             code_idx = self.model.index(row, 1)
             code_item = self.model.itemFromIndex(code_idx)
@@ -2115,6 +2163,112 @@ class LandCoverCustomClassesManager(
             log(f"Unable to remove land cover class in row {row!s}")
 
         self.set_table_height()
+
+
+class LandCoverClassSelectionDialog(QtWidgets.QDialog):
+    def __init__(self, class_names, parent=None):
+        super().__init__(parent)
+        self.parent = parent
+        self.setWindowTitle("Import Classes options")
+        self.layout = QtWidgets.QVBoxLayout()
+
+        top_label = QtWidgets.QLabel(
+            self.tr("<b>Select a parent for each of the below class names</b>")
+        )
+        self.layout.addWidget(top_label)
+
+        self.combo_boxes = {}
+        label_tooltip = self.parent.tr(
+            "The class name value that will imported,"
+            " should not exceed 120 characters. "
+        )
+
+        combo_box_tooltip = self.parent.tr(
+            "Select the parent for the corresponding class name."
+        )
+
+        for class_name in class_names:
+            row_layout = QtWidgets.QHBoxLayout()
+
+            trimmed_class_name = (
+                class_name[:119] + "…" if len(class_name) >= 120 else class_name
+            )
+
+            if len(class_name) >= 120:
+                label_tooltip = self.parent.tr(class_name)
+
+            label = QtWidgets.QLabel(trimmed_class_name)
+            label.setToolTip(label_tooltip)
+
+            combo_box = QtWidgets.QComboBox()
+            combo_box.setToolTip(combo_box_tooltip)
+
+            status, ref_classes = LccInfoUtils.load_settings()
+
+            for l_class in ref_classes:
+                combo_box.insertItem(l_class.idx, l_class.lcc.name_long, l_class.lcc)
+                clr = QtGui.QColor(l_class.lcc.color)
+
+                combo_box.setItemData(l_class.idx, clr, QtCore.Qt.DecorationRole)
+
+            self.combo_boxes[class_name] = combo_box
+
+            row_layout.addWidget(label)
+            row_layout.addWidget(combo_box)
+            self.layout.addLayout(row_layout)
+
+        self.accept_button = QtWidgets.QPushButton(self.tr("Accept"))
+        self.accept_button.clicked.connect(self.accept)
+        self.cancel_button = QtWidgets.QPushButton(self.tr("Cancel"))
+        self.cancel_button.clicked.connect(self.reject)
+
+        button_layout = QtWidgets.QHBoxLayout()
+        button_layout.addWidget(self.accept_button)
+        button_layout.addWidget(self.cancel_button)
+        self.layout.addLayout(button_layout)
+
+        self.setLayout(self.layout)
+
+    def set_selected_classes(self):
+        """Sets the selected class names"""
+        codes_max = 255
+        code_range = set(range(1, codes_max + 1))
+
+        codes = self.parent.class_codes()
+
+        used_codes = set(codes)
+        code_set = code_range - used_codes
+
+        if len(code_set) == 0:
+            msg = self.parent.tr("Maximum number of codes reached.")
+            self.parent.append_msg(msg)
+
+            return
+        code = min(code_set)
+
+        auto_id = int(code)
+
+        for class_name, combo_box in self.combo_boxes.items():
+            parent = combo_box.itemData(combo_box.currentIndex())
+
+            trimmed_short_name = class_name[:19] if len(class_name) > 20 else class_name
+            trimmed_long_name = (
+                class_name[:119] if len(class_name) > 120 else class_name
+            )
+
+            if not parent:
+                continue
+
+            lcc = LCClass(auto_id, trimmed_short_name, trimmed_long_name)
+
+            lc_class_info = LCClassInfo()
+
+            lc_class_info.lcc = lcc
+            lc_class_info.parent = parent
+
+            self.parent.add_class_info_to_table(lc_class_info)
+
+            auto_id += 1
 
 
 class LandCoverCustomClassEditor(

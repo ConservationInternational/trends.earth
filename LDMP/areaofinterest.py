@@ -222,10 +222,10 @@ class AOI:
             # original layer (or extent) if the area of the combined pieces
             # from both hemispheres is not significantly smaller than that of
             # the original polygon.
-            log("AOI being processed in one piece " "(does not cross 180th meridian)")
+            log("AOI being processed in one piece (does not cross 180th meridian)")
             return (False, [pieces_union_txt])
         else:
-            log("AOI crosses 180th meridian - " "splitting AOI into two geojsons.")
+            log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
             return (True, pieces_txt)
 
     def get_aligned_output_bounds(self, f):

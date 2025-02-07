@@ -1367,7 +1367,7 @@ def _delete_job_datasets(job: Job):
             path = os.path.split(job_manager.get_job_file_path(job))[0]
             shutil.rmtree(path)
         except OSError:
-            log(f"Could not remove directory {path!r}, " "skipping deletion...")
+            log(f"Could not remove directory {path!r}, skipping deletion...")
     else:
         log("This job has no results to be deleted, skipping...")
 

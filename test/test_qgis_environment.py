@@ -11,7 +11,7 @@
 
 __author__ = "tim@kartoza.com"
 __date__ = "20/01/2011"
-__copyright__ = "Copyright 2012, Australia Indonesia Facility for " "Disaster Reduction"
+__copyright__ = "Copyright 2012, Australia Indonesia Facility for Disaster Reduction"
 
 import os
 import unittest

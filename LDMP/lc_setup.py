@@ -373,7 +373,7 @@ def read_lc_nesting_file(f):
         with open(f) as nesting_file:
             nesting = LCLegendNesting.Schema().loads(nesting_file.read())
     except ValidationError as e:
-        log("Error loading land cover legend " f"nesting definition from {f}: {e}")
+        log(f"Error loading land cover legend nesting definition from {f}: {e}")
         QtWidgets.QMessageBox.critical(
             None,
             tr_lc_setup.tr("Error"),
@@ -1235,12 +1235,25 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
     def setup_deg_def_matrix(self, legend):
         self.deg_def_matrix.setRowCount(len(legend.key))
         self.deg_def_matrix.setColumnCount(len(legend.key))
+
         self.deg_def_matrix.setHorizontalHeaderLabels(
             [c.get_name_short() for c in legend.key]
         )
         self.deg_def_matrix.setVerticalHeaderLabels(
             [c.get_name_short() for c in legend.key]
         )
+
+        for index in range(len(legend.key)):
+            long_name = legend.key[index].get_name_long()
+
+            horizontal_header_item = self.deg_def_matrix.horizontalHeaderItem(index)
+            horizontal_header_item.setToolTip(
+                long_name
+            ) if horizontal_header_item else None
+
+            vertical_header_item = self.deg_def_matrix.verticalHeaderItem(index)
+            vertical_header_item.setToolTip(long_name) if vertical_header_item else None
+
         if len(legend.key) > 9:
             self.deg_def_matrix.setHorizontalHeader(
                 RotatedHeaderView(QtCore.Qt.Horizontal, self.deg_def_matrix)
@@ -1755,8 +1768,7 @@ class LccInfoUtils:
         trans_matrix_to_settings(matrix)
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(
-                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated matrix to "
-                f"settings."
+                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated matrix to settings."
             )
 
     @staticmethod
@@ -1915,8 +1927,7 @@ class LccInfoUtils:
             log(f"child codes are {current_nesting.child.codes()}")
 
             log(
-                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved ESA lc "
-                f"nesting to settings."
+                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved ESA lc nesting to settings."
             )
 
     @staticmethod

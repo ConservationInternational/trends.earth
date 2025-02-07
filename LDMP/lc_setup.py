@@ -373,7 +373,7 @@ def read_lc_nesting_file(f):
         with open(f) as nesting_file:
             nesting = LCLegendNesting.Schema().loads(nesting_file.read())
     except ValidationError as e:
-        log("Error loading land cover legend " f"nesting definition from {f}: {e}")
+        log(f"Error loading land cover legend nesting definition from {f}: {e}")
         QtWidgets.QMessageBox.critical(
             None,
             tr_lc_setup.tr("Error"),
@@ -1768,8 +1768,7 @@ class LccInfoUtils:
         trans_matrix_to_settings(matrix)
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(
-                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated matrix to "
-                f"settings."
+                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated matrix to settings."
             )
 
     @staticmethod
@@ -1928,8 +1927,7 @@ class LccInfoUtils:
             log(f"child codes are {current_nesting.child.codes()}")
 
             log(
-                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved ESA lc "
-                f"nesting to settings."
+                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved ESA lc nesting to settings."
             )
 
     @staticmethod

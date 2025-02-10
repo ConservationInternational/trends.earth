@@ -32,32 +32,32 @@
         <translation type="obsolete">{:.6g} kmÂ²</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="541"/>
+        <location filename="../settings.py" line="540"/>
         <source>The map must have at least one layer.</source>
         <translation>地图必须至少有一层。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="551"/>
+        <location filename="../settings.py" line="550"/>
         <source>Click the map to choose a point.</source>
         <translation>点击地图选择一个点。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="684"/>
+        <location filename="../settings.py" line="683"/>
         <source>Select a file defining the area of interest</source>
         <translation>选择一个定义感兴趣区域的文件</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="684"/>
+        <location filename="../settings.py" line="683"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="698"/>
+        <location filename="../settings.py" line="697"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="698"/>
+        <location filename="../settings.py" line="697"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
@@ -3837,32 +3837,32 @@ p, li { white-space: pre-wrap; }
         <translation>输入你的电子邮箱地址...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="978"/>
+        <location filename="../settings.py" line="977"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="978"/>
+        <location filename="../settings.py" line="977"/>
         <source>Enter your email address to reset your password.</source>
         <translation>输入您的电子邮件地址来重置您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="986"/>
+        <location filename="../settings.py" line="985"/>
         <source>Reset password?</source>
         <translation>重设密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="986"/>
+        <location filename="../settings.py" line="985"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? Your new password will be emailed to you.</source>
         <translation>您确定要重新设置{self.email.text()}的密码吗？新密码将通过电子邮件发送给您。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1003"/>
+        <location filename="../settings.py" line="1002"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1003"/>
+        <location filename="../settings.py" line="1002"/>
         <source>The password has been reset for {self.email.text()}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
         <translation>{self.email.text()}的密码已重置。检查您的电子邮件以获取新密码，然后返回 Trends.Earth 输入密码。</translation>
     </message>
@@ -3895,37 +3895,37 @@ p, li { white-space: pre-wrap; }
         <translation>组织：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1062"/>
+        <location filename="../settings.py" line="1061"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1044"/>
+        <location filename="../settings.py" line="1043"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1050"/>
+        <location filename="../settings.py" line="1049"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1056"/>
+        <location filename="../settings.py" line="1055"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1062"/>
+        <location filename="../settings.py" line="1061"/>
         <source>Enter your country.</source>
         <translation>进入你的国家。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1076"/>
+        <location filename="../settings.py" line="1075"/>
         <source>Saved</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1076"/>
+        <location filename="../settings.py" line="1075"/>
         <source>Updated information for {}.</source>
         <translation>{}的更新信息。</translation>
     </message>
@@ -3948,27 +3948,27 @@ p, li { white-space: pre-wrap; }
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="865"/>
+        <location filename="../settings.py" line="864"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="859"/>
+        <location filename="../settings.py" line="858"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="865"/>
+        <location filename="../settings.py" line="864"/>
         <source>Enter your password.</source>
         <translation>输入您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="872"/>
+        <location filename="../settings.py" line="871"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="872"/>
+        <location filename="../settings.py" line="871"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>以{self.email.text()}登录 Trends.Earth 服务器。&lt;html&gt;&lt;p&gt;欢迎来到 Trends.Earth！&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;加入 Trends.Earth 用户电子邮件组&lt;a/&gt;&lt;/p&gt;&lt;p&gt;确保加入 Trends.Earth 用户电子邮件组，了解关于支持可持续发展目标监测的工具、方法和数据集的更新和问答。</translation>
     </message>
@@ -3976,27 +3976,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="921"/>
+        <location filename="../settings.py" line="920"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="915"/>
+        <location filename="../settings.py" line="914"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="921"/>
+        <location filename="../settings.py" line="920"/>
         <source>Enter your password.</source>
         <translation>输入密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="940"/>
+        <location filename="../settings.py" line="939"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="940"/>
+        <location filename="../settings.py" line="939"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>以{self.email.text()}成功设置登录到 LandPKS 服务器。</translation>
     </message>
@@ -4029,37 +4029,37 @@ p, li { white-space: pre-wrap; }
         <translation>组织：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="799"/>
+        <location filename="../settings.py" line="798"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="781"/>
+        <location filename="../settings.py" line="780"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="787"/>
+        <location filename="../settings.py" line="786"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="793"/>
+        <location filename="../settings.py" line="792"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="799"/>
+        <location filename="../settings.py" line="798"/>
         <source>Enter your country.</source>
         <translation>进入你的国家。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="814"/>
+        <location filename="../settings.py" line="813"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="814"/>
+        <location filename="../settings.py" line="813"/>
         <source>User registered. Your password has been emailed to {self.email.text()}. Enter that password in Trends.Earth settings to finish setting up the plugin.</source>
         <translation>用户已注册。您的密码已通过电子邮件发送至{self.email.text()}。在 Trends.Earth 设置中输入此密码以完成插件设置。</translation>
     </message>
@@ -4122,27 +4122,27 @@ p, li { white-space: pre-wrap; }
         <translation>提交请求</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="329"/>
+        <location filename="../timeseries.py" line="328"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="320"/>
+        <location filename="../timeseries.py" line="319"/>
         <source>Submitted</source>
         <translation>提交</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="320"/>
+        <location filename="../timeseries.py" line="319"/>
         <source>Time series calculation task submitted to Trends.Earth server.</source>
         <translation>时间序列计算任务提交到 Trends.Earth 服务器。</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="329"/>
+        <location filename="../timeseries.py" line="328"/>
         <source>Unable to submit time series calculation task to Trends.Earth server</source>
         <translation>无法向 Trends.Earth 服务器提交时间序列计算任务</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="272"/>
+        <location filename="../timeseries.py" line="271"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
         <translation>请求区域的边界框（约{.6n}平方公里）过大。timeseries工具一次最多可以处理100万平方公里的面积。请选择一块较小的区域进行处理。</translation>
     </message>
@@ -4375,17 +4375,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LandCoverClassSelectionDialog</name>
     <message>
-        <location filename="../settings.py" line="2176"/>
+        <location filename="../settings.py" line="2175"/>
         <source>&lt;b&gt;Select a parent for each of the below class names&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2221"/>
+        <location filename="../settings.py" line="2220"/>
         <source>Accept</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2223"/>
+        <location filename="../settings.py" line="2222"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4393,37 +4393,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2322"/>
+        <location filename="../settings.py" line="2321"/>
         <source>Class Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2373"/>
+        <location filename="../settings.py" line="2372"/>
         <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2405"/>
+        <location filename="../settings.py" line="2404"/>
         <source>Class name cannot be empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2409"/>
+        <location filename="../settings.py" line="2408"/>
         <source>Invalid color selected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2413"/>
+        <location filename="../settings.py" line="2412"/>
         <source>Parent class cannot be empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2418"/>
+        <location filename="../settings.py" line="2417"/>
         <source>Invalid class code value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2422"/>
+        <location filename="../settings.py" line="2421"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4431,97 +4431,97 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="1605"/>
+        <location filename="../settings.py" line="1604"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1605"/>
+        <location filename="../settings.py" line="1604"/>
         <source>Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1605"/>
+        <location filename="../settings.py" line="1604"/>
         <source>Parent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1704"/>
+        <location filename="../settings.py" line="1703"/>
         <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1970"/>
+        <location filename="../settings.py" line="1969"/>
         <source>Maximum number of classes reached.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1775"/>
+        <location filename="../settings.py" line="1774"/>
         <source>Nothing to save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1782"/>
+        <location filename="../settings.py" line="1781"/>
         <source>Save Land Cover Classes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1806"/>
+        <location filename="../settings.py" line="1805"/>
         <source>Select Land Cover Classes File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1824"/>
+        <location filename="../settings.py" line="1823"/>
         <source>No land cover classes found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1889"/>
+        <location filename="../settings.py" line="1888"/>
         <source>Land Cover Class Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1953"/>
+        <location filename="../settings.py" line="1952"/>
         <source>Invalid row for land cover class</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1958"/>
+        <location filename="../settings.py" line="1957"/>
         <source>Unable to update class.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1977"/>
+        <location filename="../settings.py" line="1976"/>
         <source>Unable to add new class.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2005"/>
+        <location filename="../settings.py" line="2004"/>
         <source>class does not have children assigned to it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2025"/>
+        <location filename="../settings.py" line="2024"/>
         <source>class has not been assigned a parent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2151"/>
+        <location filename="../settings.py" line="2150"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2156"/>
+        <location filename="../settings.py" line="2155"/>
         <source>Delete Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1666"/>
+        <location filename="../settings.py" line="1665"/>
         <source>CSV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1668"/>
+        <location filename="../settings.py" line="1667"/>
         <source>Select csv file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4631,12 +4631,12 @@ p, li { white-space: pre-wrap; }
         <translation>在您的系统中找不到。无法运行报告生成器。</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1030"/>
+        <location filename="../reports/generator.py" line="1029"/>
         <source>reports</source>
         <translation>报告</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1044"/>
+        <location filename="../reports/generator.py" line="1043"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
         <translation>正在处理(编号{[str(工作.编号) for 工作 in ctx.工作]})...</translation>
     </message>
@@ -4781,27 +4781,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>TrendsEarthSettings</name>
     <message>
-        <location filename="../settings.py" line="243"/>
+        <location filename="../settings.py" line="242"/>
         <source>Please register in order to use Trends.Earth</source>
         <translation type="unfinished">请注册以使用Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="298"/>
+        <location filename="../settings.py" line="297"/>
         <source>Delete user?</source>
         <translation type="unfinished">是否删除用户？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="298"/>
+        <location filename="../settings.py" line="297"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
         <translation type="unfinished">您确定要删除用户{}吗？您的所有任务都将丢失，将不能再使用Trends.Earth在线处理数据。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="314"/>
+        <location filename="../settings.py" line="313"/>
         <source>Success</source>
         <translation type="unfinished">成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="314"/>
+        <location filename="../settings.py" line="313"/>
         <source>Trends.Earth user {email} deleted.</source>
         <translation type="unfinished">Trends.Earth 用户 {email} 已删除。</translation>
     </message>
@@ -5431,102 +5431,102 @@ p, li { white-space: pre-wrap; }
         <translation>启用 LandPKS 数据访问</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1136"/>
+        <location filename="../settings.py" line="1135"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1136"/>
+        <location filename="../settings.py" line="1135"/>
         <source>You must restart QGIS for these changes to take effect.</source>
         <translation>您必须重新启动 QGIS 才能使这些更改生效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1244"/>
+        <location filename="../settings.py" line="1243"/>
         <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
         <translation>二进制文件&lt;b&gt;已&lt;/b&gt;加载。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1246"/>
+        <location filename="../settings.py" line="1245"/>
         <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
         <translation>二进制文件&lt;b&gt;未&lt;/b&gt;加载。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1256"/>
+        <location filename="../settings.py" line="1255"/>
         <source>No base data directory set</source>
         <translation>没有设置基本数据目录</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1311"/>
+        <location filename="../settings.py" line="1310"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>无法写给{}。尝试其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1286"/>
+        <location filename="../settings.py" line="1285"/>
         <source>Choose a folder</source>
         <translation>选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1286"/>
+        <location filename="../settings.py" line="1285"/>
         <source>Choose a folder before downloading binaries.</source>
         <translation>在下载二进制文件之前选择一个文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1421"/>
+        <location filename="../settings.py" line="1420"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1295"/>
+        <location filename="../settings.py" line="1294"/>
         <source>Unable to write to {}. Choose a different folder.</source>
         <translation>无法写给{}。选择其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1334"/>
+        <location filename="../settings.py" line="1333"/>
         <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
         <translation>无法写给{}。检查您是否有权写入此文件夹，并且您没有尝试覆盖当前在 QGIS 中加载的二进制文件。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1346"/>
+        <location filename="../settings.py" line="1345"/>
         <source>Unable to read binaries from {}. Check that binaries were downloaded successfully.</source>
         <translation>无法从{}读取二进制文件。检查二进制文件是否已成功下载。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1361"/>
+        <location filename="../settings.py" line="1360"/>
         <source>Error downloading binaries.</source>
         <translation>下载二进制文件时出错。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1371"/>
+        <location filename="../settings.py" line="1370"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1367"/>
+        <location filename="../settings.py" line="1366"/>
         <source>Downloaded binaries.</source>
         <translation>下载的二进制文件。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1371"/>
+        <location filename="../settings.py" line="1370"/>
         <source>All binaries up to date.</source>
         <translation>所有二进制文件都是最新的。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1391"/>
+        <location filename="../settings.py" line="1390"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation>选择包含 Trends.Earth 二进制文件的文件夹</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1403"/>
+        <location filename="../settings.py" line="1402"/>
         <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
         <translation>选择其他的文件夹——无法在 Trends.Earth QGIS 插件安装文件夹中安装二进制文件。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1421"/>
+        <location filename="../settings.py" line="1420"/>
         <source>Cannot read {folder_path!r}. Choose a different folder.</source>
         <translation>无法读取{folder_path!r}。选择其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1220"/>
+        <location filename="../settings.py" line="1219"/>
         <source>Offline mode is enabled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5589,27 +5589,27 @@ p, li { white-space: pre-wrap; }
         <translation>在输出目录中记录警告</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1491"/>
+        <location filename="../settings.py" line="1490"/>
         <source>Select Report Template Search Path</source>
         <translation>选择报告模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1501"/>
+        <location filename="../settings.py" line="1500"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>需要重新启动 QGIS 才能使更改生效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1503"/>
+        <location filename="../settings.py" line="1502"/>
         <source>Template Search Path</source>
         <translation>模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1513"/>
+        <location filename="../settings.py" line="1512"/>
         <source>All Images</source>
         <translation>所有图片</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1528"/>
+        <location filename="../settings.py" line="1527"/>
         <source>Select Organization Logo</source>
         <translation>选择组织徽标</translation>
     </message>
@@ -5701,17 +5701,17 @@ for running algorithms and their results.</source>
 <context>
     <name>self.parent</name>
     <message>
-        <location filename="../settings.py" line="2182"/>
+        <location filename="../settings.py" line="2181"/>
         <source>The class name value that will imported, should not exceed 120 characters. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2187"/>
+        <location filename="../settings.py" line="2186"/>
         <source>Select the parent for the corresponding class name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2244"/>
+        <location filename="../settings.py" line="2243"/>
         <source>Maximum number of codes reached.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5744,12 +5744,12 @@ for running algorithms and their results.</source>
         <translation>无法访问 Trends.Earth 服务器。检查您的互联网连接</translation>
     </message>
     <message>
-        <location filename="../api.py" line="297"/>
+        <location filename="../api.py" line="294"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../api.py" line="297"/>
+        <location filename="../api.py" line="294"/>
         <source>Unable to login to Trends.Earth. Check that username and password are correct.</source>
         <translation>无法登录 Trends.Earth。检查用户名和密码是否正确。</translation>
     </message>
@@ -5999,157 +5999,157 @@ for running algorithms and their results.</source>
         <translation>土地覆盖是地球表面的物理物质。</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="325"/>
+        <location filename="../conf.py" line="324"/>
         <source>Soil Organic Carbon</source>
         <translation>土壤有机碳</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="326"/>
+        <location filename="../conf.py" line="325"/>
         <source>Soil organic carbon is a measure of soil organic matter</source>
         <translation>土壤有机碳是土壤有机质的量度</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="345"/>
+        <location filename="../conf.py" line="344"/>
         <source>Drought</source>
         <translation>干旱</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="346"/>
+        <location filename="../conf.py" line="345"/>
         <source>Vulnerability and exposure</source>
         <translation>脆弱性和暴露</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="350"/>
+        <location filename="../conf.py" line="349"/>
         <source>Drought vulnerability</source>
         <translation>干旱脆弱性</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="351"/>
+        <location filename="../conf.py" line="350"/>
         <source>Calculate indicators of drought vulnerability consistent with UNCCD SO3 Good Practice Guidance</source>
         <translation>根据 UNCCD SO3 良好实践指南，计算干旱脆弱性指标</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="364"/>
+        <location filename="../conf.py" line="363"/>
         <source>Drought vulnerability summary table</source>
         <translation>干旱脆弱性汇总表</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="365"/>
+        <location filename="../conf.py" line="364"/>
         <source>Summarize drought indicators in alignment with UNCCD SO3 reporting requirements</source>
         <translation>根据 UNCCD SO3 报告要求，总结干旱指标</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="379"/>
+        <location filename="../conf.py" line="378"/>
         <source>UNCCD Reporting</source>
         <translation>UNCCD 报告</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="380"/>
+        <location filename="../conf.py" line="379"/>
         <source>Summarize data for reporting</source>
         <translation>汇总数据以进行报告</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="398"/>
+        <location filename="../conf.py" line="397"/>
         <source>Generate data package for UNCCD reporting</source>
         <translation>为 UNCCD 报告生成数据包</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="399"/>
+        <location filename="../conf.py" line="398"/>
         <source>Summarize Strategic Objective (SO) 1, SO2, and SO3 datasets in proper format for submission to UNCCD for 2021 reporting cycle</source>
         <translation>以适当的格式总结战略目标 (SO) 1、SO2 和 SO3 数据集，以提交给 2021 年报告周期的 UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="414"/>
+        <location filename="../conf.py" line="413"/>
         <source>SDG 11.3.1</source>
         <translation>SDG 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="415"/>
+        <location filename="../conf.py" line="414"/>
         <source>Urban change and land consumption</source>
         <translation>城市变迁与土地消耗</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="419"/>
+        <location filename="../conf.py" line="418"/>
         <source>Urban change spatial layer</source>
         <translation>城市变化空间层</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="420"/>
+        <location filename="../conf.py" line="419"/>
         <source>Calculate indicators of change in urban extent (SDG 11.3.1 indicator)</source>
         <translation>计算城市范围变化指标（SDG 11.3.1 指标）</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="433"/>
+        <location filename="../conf.py" line="432"/>
         <source>Urban change summary table for city</source>
         <translation>城市变化汇总表</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="434"/>
+        <location filename="../conf.py" line="433"/>
         <source>Calculate table summarizing SDG indicator 11.3.1</source>
         <translation>计算总结 SDG 指标 11.3.1 的表格</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="447"/>
+        <location filename="../conf.py" line="446"/>
         <source>Experimental</source>
         <translation>实验性</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="450"/>
+        <location filename="../conf.py" line="449"/>
         <source>Calculate change in total carbon</source>
         <translation>计算总碳的变化</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="451"/>
+        <location filename="../conf.py" line="450"/>
         <source>Above and below ground, emissions and deforestation</source>
         <translation>地上和地下、排放和森林砍伐</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="457"/>
+        <location filename="../conf.py" line="456"/>
         <source>Calculate change in carbon</source>
         <translation>计算碳的变化</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="458"/>
+        <location filename="../conf.py" line="457"/>
         <source>Calculate total carbon (above and below-ground) and emissions from deforestation</source>
         <translation>计算森林砍伐造成的总碳（地上和地下）和排放量</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="476"/>
+        <location filename="../conf.py" line="475"/>
         <source>Change in carbon summary table</source>
         <translation>碳变化汇总表</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="477"/>
+        <location filename="../conf.py" line="476"/>
         <source>Calculate table summarizing change in total carbon</source>
         <translation>计算总结总碳变化的表格</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="490"/>
+        <location filename="../conf.py" line="489"/>
         <source>Potential change in biomass due to restoration</source>
         <translation>恢复导致的潜在生物量变化</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="491"/>
+        <location filename="../conf.py" line="490"/>
         <source>Above and below ground woody</source>
         <translation>地上和地下木本</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="495"/>
+        <location filename="../conf.py" line="494"/>
         <source>Estimate potential impacts of restoration</source>
         <translation>估计恢复的潜在影响</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="496"/>
+        <location filename="../conf.py" line="495"/>
         <source>Estimate potential change in biomass due to restoration</source>
         <translation>估计由于恢复引起的生物量的潜在变化</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="508"/>
+        <location filename="../conf.py" line="507"/>
         <source>Table summarizing likely changes in biomass</source>
         <translation>总结生物量可能变化的表格</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="511"/>
+        <location filename="../conf.py" line="510"/>
         <source>Generate table summarizing potential change in biomass due to restoration</source>
         <translation>生成总结恢复导致的生物量潜在变化的表格</translation>
     </message>
@@ -6330,7 +6330,7 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="387"/>
+        <location filename="../download.py" line="383"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -6365,12 +6365,12 @@ for running algorithms and their results.</source>
         <translation>{}的文件验证失败。</translation>
     </message>
     <message>
-        <location filename="../download.py" line="372"/>
+        <location filename="../download.py" line="368"/>
         <source>Downloading {}</source>
         <translation>正在下载{}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="381"/>
+        <location filename="../download.py" line="377"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>下载失败。检查您的互联网连接。</translation>
     </message>
@@ -6395,22 +6395,22 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="351"/>
+        <location filename="../download.py" line="347"/>
         <source>Finished downloading file to {self.outfile}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="354"/>
+        <location filename="../download.py" line="350"/>
         <source>Download exited {self.outfile}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="387"/>
+        <location filename="../download.py" line="383"/>
         <source>Problem running task for downloading file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="392"/>
+        <location filename="../download.py" line="388"/>
         <source>An error occured when running task for</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6453,7 +6453,7 @@ for running algorithms and their results.</source>
         <translation>生产力表现下降（{year_initial}到{year_final}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="194"/>
+        <location filename="../layers.py" line="188"/>
         <source>Degradation</source>
         <translation>降解</translation>
     </message>
@@ -6478,12 +6478,12 @@ for running algorithms and their results.</source>
         <translation>生产力状态降级（{year_bl_start}-{year_bl_end}与{year_tg_start}-{year_tg_end}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="195"/>
+        <location filename="../layers.py" line="189"/>
         <source>Stable</source>
         <translation>稳定</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="196"/>
+        <location filename="../layers.py" line="190"/>
         <source>Improvement</source>
         <translation>改善</translation>
     </message>
@@ -6711,322 +6711,362 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../layers.py" line="191"/>
-        <source>SDG 15.3.1 Indicator ({baseline_year_initial}-{baseline_year_final} updated with {progress_year_initial}-{progress_year_final})</source>
-        <translation>SDG 15.3.1 指标（{baseline_year_initial}-{baseline_year_final}更新为{progress_year_initial}-{progress_year_final}）</translation>
+        <source>SDG 15.3.1 Indicator (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
+        <translation type="unfinished">SDG 15.3.1 指标（{baseline_year_initial}-{baseline_year_final}更新为{progress_year_initial}-{progress_year_final}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="197"/>
+        <location filename="../layers.py" line="210"/>
         <source>SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
         <translation>SDG 15.3.1 进展（{baseline_year_initial}-{baseline_year_final}与{progress_year_initial}-{progress_year_final}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="201"/>
+        <location filename="../layers.py" line="214"/>
         <source>Forest loss ({year_initial} to {year_final})</source>
         <translation>森林损失（{year_initial}到{year_final}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="213"/>
+        <location filename="../layers.py" line="226"/>
         <source>Water</source>
         <translation>水</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="203"/>
+        <location filename="../layers.py" line="216"/>
         <source>Non-forest</source>
         <translation>非森林</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="204"/>
+        <location filename="../layers.py" line="217"/>
         <source>Forest (no loss)</source>
         <translation>森林（无损失）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="205"/>
+        <location filename="../layers.py" line="218"/>
         <source>Forest loss ({year_initial})</source>
         <translation>森林损失 ({year_initial})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="206"/>
+        <location filename="../layers.py" line="219"/>
         <source>Forest loss ({year_final})</source>
         <translation>森林损失 ({year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="208"/>
+        <location filename="../layers.py" line="221"/>
         <source>Total carbon ({year_initial}, tonnes per ha x 10)</source>
         <translation>总碳 ({year_initial}，每公顷吨数 x 10）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="210"/>
+        <location filename="../layers.py" line="223"/>
         <source>Root/shoot ratio (x 100)</source>
         <translation>根/拍摄比（x 100）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="212"/>
+        <location filename="../layers.py" line="225"/>
         <source>Urban area change</source>
         <translation>市区变化</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="214"/>
+        <location filename="../layers.py" line="227"/>
         <source>Built-up by 2000</source>
         <translation>到2000年建成</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="215"/>
+        <location filename="../layers.py" line="228"/>
         <source>Built-up by 2005</source>
         <translation>到2005年建成</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="216"/>
+        <location filename="../layers.py" line="229"/>
         <source>Built-up by 2010</source>
         <translation>到2010年建成</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="217"/>
+        <location filename="../layers.py" line="230"/>
         <source>Built-up by 2015</source>
         <translation>到2015年建成</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="219"/>
+        <location filename="../layers.py" line="232"/>
         <source>Urban area {year}</source>
         <translation>市区{year}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="220"/>
+        <location filename="../layers.py" line="233"/>
         <source>Urban</source>
         <translation>市区</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="221"/>
+        <location filename="../layers.py" line="234"/>
         <source>Suburban</source>
         <translation>郊区的</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="222"/>
+        <location filename="../layers.py" line="235"/>
         <source>Built-up rural</source>
         <translation>建成农村</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="223"/>
+        <location filename="../layers.py" line="236"/>
         <source>Open space (fringe)</source>
         <translation>开放空间（边缘）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="224"/>
+        <location filename="../layers.py" line="237"/>
         <source>Open space (captured)</source>
         <translation>开放空间（捕获）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="225"/>
+        <location filename="../layers.py" line="238"/>
         <source>Open space (rural)</source>
         <translation>开放空间（农村）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="226"/>
+        <location filename="../layers.py" line="239"/>
         <source>Open space (fringe, water)</source>
         <translation>开放空间（边缘，水）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="227"/>
+        <location filename="../layers.py" line="240"/>
         <source>Open space (captured, water)</source>
         <translation>开放空间（捕获的水）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="228"/>
+        <location filename="../layers.py" line="241"/>
         <source>Open space (rural, water)</source>
         <translation>开放空间（农村，水）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="230"/>
+        <location filename="../layers.py" line="243"/>
         <source>Population ({year})</source>
         <translation>人口（{year}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="231"/>
+        <location filename="../layers.py" line="244"/>
         <source>Population ({type}, {year})</source>
         <translation>人口 ({type}, {year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="232"/>
+        <location filename="../layers.py" line="245"/>
         <source>Population density ({year}, per sq km / 10)</source>
         <translation>人口密度（{year}，每平方公里 / 10）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="235"/>
+        <location filename="../layers.py" line="248"/>
         <source>Population exposed to degradation (population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})</source>
         <translation>受退化影响的人口（ {population_year}的人口，每平方公里 / 10，退化期{deg_year_initial}-{deg_year_final}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="238"/>
+        <location filename="../layers.py" line="251"/>
         <source>Population exposed to degradation ({type} population in {population_year}, degradation period {deg_year_initial}-{deg_year_final})</source>
         <translation>受退化影响的人口（{population_year}的{type}人口，退化期{deg_year_initial}-{deg_year_final}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="241"/>
+        <location filename="../layers.py" line="254"/>
         <source>Population density at maximum drought (density per sq km / 10, {year_initial}-{year_final} period)</source>
         <translation>最大干旱时的人口密度（每平方公里密度 / 10，{year_initial}-{year_final} 时期）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="244"/>
+        <location filename="../layers.py" line="257"/>
         <source>Population at maximum drought ({type}, {year_initial}-{year_final} period)</source>
         <translation>最大干旱人口（{type}，{year_initial}-{year_final} 时期）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="248"/>
+        <location filename="../layers.py" line="261"/>
         <source>Standardized Precipitation Index (SPI, {year}, {lag} month lag, * 1000)</source>
         <translation>标准化降水指数（SPI，{year}，{lag}月滞后，* 1000）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="251"/>
+        <location filename="../layers.py" line="264"/>
         <source>SPI at maximum drought during {year_initial}-{year_final} ({lag} month lag, * 1000)</source>
         <translation>{year_initial}-{year_final}期间最大干旱的 SPI（{lag}月滞后，* 1000）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="254"/>
+        <location filename="../layers.py" line="267"/>
         <source>Drought Vulnerability (JRC, {year}, * 1000)</source>
         <translation>干旱脆弱性 (JRC, {year}, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="257"/>
+        <location filename="../layers.py" line="270"/>
         <source>Extreme drought</source>
         <translation>极度干旱</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="258"/>
+        <location filename="../layers.py" line="271"/>
         <source>Severe drought</source>
         <translation>严重干旱</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="259"/>
+        <location filename="../layers.py" line="272"/>
         <source>Moderate drought</source>
         <translation>中度干旱</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="260"/>
+        <location filename="../layers.py" line="273"/>
         <source>Mild drought</source>
         <translation>轻度干旱</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="261"/>
+        <location filename="../layers.py" line="274"/>
         <source>Normal</source>
         <translation>正常</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="262"/>
+        <location filename="../layers.py" line="275"/>
         <source>Mildly wet</source>
         <translation>轻微湿润</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="263"/>
+        <location filename="../layers.py" line="276"/>
         <source>Moderately wet</source>
         <translation>中度湿润</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="264"/>
+        <location filename="../layers.py" line="277"/>
         <source>Severely wet</source>
         <translation>非常湿润</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="265"/>
+        <location filename="../layers.py" line="278"/>
         <source>Extremely wet</source>
         <translation>极度湿润</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="267"/>
+        <location filename="../layers.py" line="280"/>
         <source>Biomass (tonnes CO2e per ha, {year})</source>
         <translation>生物量（每公顷吨CO2e，{year}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="268"/>
+        <location filename="../layers.py" line="281"/>
         <source>Change in biomass (tonnes CO2e per ha, {type} after {years} years)</source>
         <translation>生物量变化（吨 CO2e / 每公顷，{years} 年后 {type} ）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="272"/>
+        <location filename="../layers.py" line="285"/>
         <source>Agro Ecological Zones V3.0</source>
         <translation>农业生态区V3.0</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="273"/>
+        <location filename="../layers.py" line="286"/>
         <source>Climatic Zones</source>
         <translation>气候区</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="275"/>
+        <location filename="../layers.py" line="288"/>
         <source>Hansen</source>
         <translation>汉森</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="277"/>
+        <location filename="../layers.py" line="290"/>
         <source>MOD16A2</source>
         <translation>MOD16A2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="279"/>
+        <location filename="../layers.py" line="292"/>
         <source>CHIRPS</source>
         <translation>芯片</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="280"/>
+        <location filename="../layers.py" line="293"/>
         <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
         <translation>GPCC V7（全球降水气候中心）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="281"/>
+        <location filename="../layers.py" line="294"/>
         <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
         <translation>GPCP v2.3 1个月（全球降水气候学项目）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="284"/>
+        <location filename="../layers.py" line="297"/>
         <source>PERSIANN-CDR</source>
         <translation>波斯CDR</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="286"/>
+        <location filename="../layers.py" line="299"/>
         <source>ERA I</source>
         <translation>我时代</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="287"/>
+        <location filename="../layers.py" line="300"/>
         <source>MERRA 2</source>
         <translation>梅拉2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="289"/>
+        <location filename="../layers.py" line="302"/>
         <source>MODIS (MOD13Q1, annual)</source>
         <translation>MODIS（MOD13Q1，每年）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="290"/>
+        <location filename="../layers.py" line="303"/>
         <source>AVHRR (GIMMS3g.v1, annual)</source>
         <translation>AVHRR（GIMMS3g.v1，每年）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="291"/>
+        <location filename="../layers.py" line="304"/>
         <source>MODIS (MOD13Q1, 16 day)</source>
         <translation>MODIS（MOD13Q1，16天）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="296"/>
+        <location filename="../layers.py" line="309"/>
         <source>Soil Grids 250</source>
         <translation>土壤网格250</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="294"/>
+        <location filename="../layers.py" line="307"/>
         <source>USDA Soil Type</source>
         <translation>USDA土壤类型</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="621"/>
+        <location filename="../layers.py" line="634"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="621"/>
+        <location filename="../layers.py" line="634"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>Trends.Earth没有为“ {}”分配样式（{}中的带{}）。要使用此图层，请手动将其添加到地图中。</translation>
     </message>
     <message>
         <location filename="../layers.py" line="117"/>
         <source>Land cover ({year})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="194"/>
+        <source>Productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="200"/>
+        <source>Soil organic carbon degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="203"/>
+        <source>Degradation (persistent)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="204"/>
+        <source>Degradation (recent)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="206"/>
+        <source>Stability</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="207"/>
+        <source>Improvement (baseline)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="208"/>
+        <source>Improvement (recent)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="209"/>
+        <source>Improvement (persistent)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -5,9 +5,9 @@
   <property name="geometry">
    <rect>
     <x>0</x>
-    <y>0</y>
+    <y>-221</y>
     <width>958</width>
-    <height>512</height>
+    <height>799</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -37,6 +37,12 @@
         <horstretch>2</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>750</width>
+        <height>16777215</height>
+       </size>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -182,29 +188,236 @@
                  <string>Baseline period</string>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_2">
-                 <item row="12" column="1">
-                  <widget class="QLabel" name="label_baseline_soc">
-                   <property name="text">
-                    <string>Soil organic carbon</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="2">
-                  <widget class="QLabel" name="label_10">
+                 <item row="3" column="3">
+                  <widget class="QLabel" name="label_3">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
                      <height>30</height>
                     </size>
                    </property>
-                   <property name="font">
-                    <font>
-                     <weight>50</weight>
-                     <bold>false</bold>
-                    </font>
+                   <property name="text">
+                    <string>Final year</string>
                    </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="2">
+                  <widget class="QLabel" name="label_6">
                    <property name="text">
                     <string>Initial year</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0" colspan="5">
+                  <widget class="QComboBox" name="cb_jrc_baseline"/>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_jrc_baseline">
+                   <property name="text">
+                    <string>Land Productivity Dynamics (LPD) dataset</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="1">
+                  <widget class="QLabel" name="label_baseline_prod">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #5B66D0; padding-left: 2px; color: white</string>
+                   </property>
+                   <property name="text">
+                    <string>Productivity</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="4">
+                  <spacer name="horizontalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="11" column="1">
+                  <widget class="QLabel" name="label_baseline_lc">
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #459824; padding-left: 2px; color: white</string>
+                   </property>
+                   <property name="text">
+                    <string>Land cover</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QRadioButton" name="radio_time_period_same_baseline">
+                   <property name="text">
+                    <string>Use the same time period across all indicators:</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="3">
+                  <widget class="QDateEdit" name="year_final_baseline_prod">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2015</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="3">
+                  <widget class="QDateEdit" name="year_final_baseline_lc">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2015</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="3">
+                  <widget class="QDateEdit" name="year_final_baseline">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                   <property name="date">
+                    <date>
+                     <year>2015</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="2">
+                  <widget class="QDateEdit" name="year_initial_baseline">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2001</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
                    </property>
                   </widget>
                  </item>
@@ -248,15 +461,21 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="9" column="1">
-                  <widget class="QLabel" name="label_baseline_prod">
+                 <item row="12" column="1">
+                  <widget class="QLabel" name="label_baseline_soc">
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #8B7100; padding-left: 2px; color: white</string>
+                   </property>
                    <property name="text">
-                    <string>Productivity</string>
+                    <string>Soil organic carbon</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="11" column="2">
-                  <widget class="QDateEdit" name="year_initial_baseline_lc">
+                 <item row="9" column="2">
+                  <widget class="QDateEdit" name="year_initial_baseline_prod">
                    <property name="minimumSize">
                     <size>
                      <width>100</width>
@@ -292,51 +511,18 @@
                    </property>
                    <property name="displayFormat">
                     <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="0">
+                  <widget class="QRadioButton" name="radio_time_period_vary_baseline">
+                   <property name="text">
+                    <string>Allow time period to vary by indicator:</string>
                    </property>
                   </widget>
                  </item>
                  <item row="12" column="2">
                   <widget class="QDateEdit" name="year_initial_baseline_soc">
-                   <property name="minimumSize">
-                    <size>
-                     <width>100</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                   <property name="dateTime">
-                    <datetime>
-                     <hour>0</hour>
-                     <minute>0</minute>
-                     <second>0</second>
-                     <year>2001</year>
-                     <month>1</month>
-                     <day>1</day>
-                    </datetime>
-                   </property>
-                   <property name="maximumDate">
-                    <date>
-                     <year>2035</year>
-                     <month>12</month>
-                     <day>31</day>
-                    </date>
-                   </property>
-                   <property name="minimumDate">
-                    <date>
-                     <year>1980</year>
-                     <month>1</month>
-                     <day>1</day>
-                    </date>
-                   </property>
-                   <property name="displayFormat">
-                    <string>yyyy</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="2">
-                  <widget class="QDateEdit" name="year_initial_baseline">
                    <property name="minimumSize">
                     <size>
                      <width>100</width>
@@ -382,15 +568,8 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="0">
-                  <widget class="QRadioButton" name="radio_time_period_vary_baseline">
-                   <property name="text">
-                    <string>Allow time period to vary by indicator:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="9" column="2">
-                  <widget class="QDateEdit" name="year_initial_baseline_prod">
+                 <item row="11" column="2">
+                  <widget class="QDateEdit" name="year_initial_baseline_lc">
                    <property name="minimumSize">
                     <size>
                      <width>100</width>
@@ -429,182 +608,31 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="3">
-                  <widget class="QLabel" name="label_3">
+                 <item row="3" column="2">
+                  <widget class="QLabel" name="label_10">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
                      <height>30</height>
                     </size>
                    </property>
-                   <property name="text">
-                    <string>Final year</string>
+                   <property name="font">
+                    <font>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
                    </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="3">
-                  <widget class="QDateEdit" name="year_final_baseline">
-                   <property name="minimumSize">
-                    <size>
-                     <width>100</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                   <property name="maximumDate">
-                    <date>
-                     <year>2035</year>
-                     <month>12</month>
-                     <day>31</day>
-                    </date>
-                   </property>
-                   <property name="minimumDate">
-                    <date>
-                     <year>1980</year>
-                     <month>1</month>
-                     <day>1</day>
-                    </date>
-                   </property>
-                   <property name="displayFormat">
-                    <string>yyyy</string>
-                   </property>
-                   <property name="date">
-                    <date>
-                     <year>2015</year>
-                     <month>1</month>
-                     <day>1</day>
-                    </date>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="11" column="3">
-                  <widget class="QDateEdit" name="year_final_baseline_lc">
-                   <property name="minimumSize">
-                    <size>
-                     <width>100</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                   <property name="dateTime">
-                    <datetime>
-                     <hour>0</hour>
-                     <minute>0</minute>
-                     <second>0</second>
-                     <year>2015</year>
-                     <month>1</month>
-                     <day>1</day>
-                    </datetime>
-                   </property>
-                   <property name="maximumDate">
-                    <date>
-                     <year>2035</year>
-                     <month>12</month>
-                     <day>31</day>
-                    </date>
-                   </property>
-                   <property name="minimumDate">
-                    <date>
-                     <year>1980</year>
-                     <month>1</month>
-                     <day>1</day>
-                    </date>
-                   </property>
-                   <property name="displayFormat">
-                    <string>yyyy</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="2">
-                  <widget class="QLabel" name="label_6">
                    <property name="text">
                     <string>Initial year</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="9" column="3">
-                  <widget class="QDateEdit" name="year_final_baseline_prod">
-                   <property name="minimumSize">
-                    <size>
-                     <width>100</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                   <property name="dateTime">
-                    <datetime>
-                     <hour>0</hour>
-                     <minute>0</minute>
-                     <second>0</second>
-                     <year>2015</year>
-                     <month>1</month>
-                     <day>1</day>
-                    </datetime>
-                   </property>
-                   <property name="maximumDate">
-                    <date>
-                     <year>2035</year>
-                     <month>12</month>
-                     <day>31</day>
-                    </date>
-                   </property>
-                   <property name="minimumDate">
-                    <date>
-                     <year>1980</year>
-                     <month>1</month>
-                     <day>1</day>
-                    </date>
-                   </property>
-                   <property name="displayFormat">
-                    <string>yyyy</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QRadioButton" name="radio_time_period_same_baseline">
+                 <item row="13" column="3">
+                  <widget class="QPushButton" name="timeline_button">
                    <property name="text">
-                    <string>Use the same time period across all indicators:</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
+                    <string>Show Timeline</string>
                    </property>
                   </widget>
-                 </item>
-                 <item row="11" column="1">
-                  <widget class="QLabel" name="label_baseline_lc">
-                   <property name="text">
-                    <string>Land cover</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="4">
-                  <spacer name="horizontalSpacer">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_jrc_baseline">
-                   <property name="text">
-                    <string>Land Productivity Dynamics (LPD) dataset</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0" colspan="5">
-                  <widget class="QComboBox" name="cb_jrc_baseline"/>
                  </item>
                 </layout>
                </widget>
@@ -623,12 +651,6 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>16777215</height>
-                 </size>
                 </property>
                 <property name="title">
                  <string>Progress period</string>
@@ -726,6 +748,9 @@
                  </item>
                  <item row="12" column="1">
                   <widget class="QLabel" name="label_progress_soc">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #8B7100; padding-left: 2px; color: white</string>
+                   </property>
                    <property name="text">
                     <string>Soil organic carbon</string>
                    </property>
@@ -733,6 +758,12 @@
                  </item>
                  <item row="9" column="1">
                   <widget class="QLabel" name="label_progress_prod">
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #5B66D0; padding-left: 2px; color: white</string>
+                   </property>
                    <property name="text">
                     <string>Productivity</string>
                    </property>
@@ -773,6 +804,12 @@
                  </item>
                  <item row="11" column="1">
                   <widget class="QLabel" name="label_progress_lc">
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: #459824; padding-left: 2px; color: white</string>
+                   </property>
                    <property name="text">
                     <string>Land cover</string>
                    </property>
@@ -1190,32 +1227,45 @@
        </item>
       </layout>
      </widget>
-     <widget class="QTextBrowser" name="alg_help">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="accessibleName">
-       <string/>
-      </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+     <widget class="QWidget" name="right_pane">
+      <layout class="QVBoxLayout" name="verticalLayout_right_pane">
+       <item>
+        <widget class="QTextBrowser" name="alg_help">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>250</height>
+          </size>
+         </property>
+         <property name="accessibleName">
+          <string/>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;Calculate all SDG 15.3.1 sub-indicators in a single step&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;This algorithm enables the simultaneous calculation of the three SDG 15.3.1 sub-indicators (Productivity, Land Cover and Soil Organic Carbon) in a single step. This is done using the remote Trends.Earth datasets described in each of the individual sub-indicator's sections.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="openExternalLinks">
-       <bool>true</bool>
-      </property>
-      <property name="openLinks">
-       <bool>true</bool>
-      </property>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Calculate all SDG 15.3.1 sub-indicators in a single step&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;This algorithm enables the simultaneous calculation of the three SDG 15.3.1 sub-indicators (Productivity, Land Cover and Soil Organic Carbon) in a single step. This is done using the remote Trends.Earth datasets described in each of the individual sub-indicator's sections.&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="openExternalLinks">
+          <bool>true</bool>
+         </property>
+         <property name="openLinks">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

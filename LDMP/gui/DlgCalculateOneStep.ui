@@ -20,7 +20,7 @@
    <string>SDG 15.3.1 Indicator (one-step) | Land Degradation</string>
   </property>
   <property name="toolTip">
-   <string>User notes associated with the executed task.</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_6">
    <item>
@@ -71,10 +71,10 @@
          <widget class="QWidget" name="scrollAreaWidgetContents">
           <property name="geometry">
            <rect>
-            <x>-550</x>
+            <x>0</x>
             <y>0</y>
-            <width>816</width>
-            <height>1282</height>
+            <width>787</width>
+            <height>1348</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -95,8 +95,8 @@
                 <property name="alignment">
                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
-                <property name="collapsed" stdset="0">
-                 <bool>true</bool>
+                <property name="collapsed">
+                 <bool>false</bool>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_2">
                  <item>
@@ -1127,8 +1127,8 @@
              <property name="title">
               <string>Advanced configuration</string>
              </property>
-             <property name="collapsed" stdset="0">
-              <bool>true</bool>
+             <property name="collapsed">
+              <bool>false</bool>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>

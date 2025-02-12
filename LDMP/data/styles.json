@@ -737,15 +737,70 @@
     }
   },
   "SDG 15.3.1 Indicator (status)": {
-    "title": "sdg_status_title",
+    "title": "status_sdg_title",
     "ramp": {
       "type": "categorical",
       "shader": "exact",
       "items": [
         { "value": -32768, "color": "#000000", "label": "nodata" },
-        { "value": -1, "color": "#9b2779", "label": "sdg_status_deg" },
-        { "value": 0, "color": "#ffffe0", "label": "sdg_status_stable" },
-        { "value": 1, "color": "#006500", "label": "sdg_status_imp" }
+        { "value": 1, "color": "#762a83", "label": "status_sdg_deg_persistent" },
+        { "value": 2, "color": "#af8dc3", "label": "status_sdg_deg_recent" },
+        { "value": 3, "color": "#e7d4e8", "label": "status_sdg_deg_baseline" },
+        { "value": 4, "color": "#f7f7f7", "label": "status_sdg_stability" },
+        { "value": 5, "color": "#d9f0d3", "label": "status_sdg_imp_baseline" },
+        { "value": 6, "color": "#7fbf7b", "label": "status_sdg_imp_recent" },
+        { "value": 7, "color": "#1b7837", "label": "status_sdg_imp_persistent" }
+      ]
+    }
+  },
+  "Productivity degradation (status)": {
+    "title": "status_prod_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#762a83", "label": "status_sdg_deg_persistent" },
+        { "value": 2, "color": "#af8dc3", "label": "status_sdg_deg_recent" },
+        { "value": 3, "color": "#e7d4e8", "label": "status_sdg_deg_baseline" },
+        { "value": 4, "color": "#f7f7f7", "label": "status_sdg_stability" },
+        { "value": 5, "color": "#d9f0d3", "label": "status_sdg_imp_baseline" },
+        { "value": 6, "color": "#7fbf7b", "label": "status_sdg_imp_recent" },
+        { "value": 7, "color": "#1b7837", "label": "status_sdg_imp_persistent" }
+      ]
+    }
+  },
+  "Land cover degradation (status)": {
+    "title": "status_lc_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#762a83", "label": "status_sdg_deg_persistent" },
+        { "value": 2, "color": "#af8dc3", "label": "status_sdg_deg_recent" },
+        { "value": 3, "color": "#e7d4e8", "label": "status_sdg_deg_baseline" },
+        { "value": 4, "color": "#f7f7f7", "label": "status_sdg_stability" },
+        { "value": 5, "color": "#d9f0d3", "label": "status_sdg_imp_baseline" },
+        { "value": 6, "color": "#7fbf7b", "label": "status_sdg_imp_recent" },
+        { "value": 7, "color": "#1b7837", "label": "status_sdg_imp_persistent" }
+      ]
+    }
+  },
+  "Soil organic carbon degradation (status)": {
+    "title": "status_soc_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#762a83", "label": "status_sdg_deg_persistent" },
+        { "value": 2, "color": "#af8dc3", "label": "status_sdg_deg_recent" },
+        { "value": 3, "color": "#e7d4e8", "label": "status_sdg_deg_baseline" },
+        { "value": 4, "color": "#f7f7f7", "label": "status_sdg_stability" },
+        { "value": 5, "color": "#d9f0d3", "label": "status_sdg_imp_baseline" },
+        { "value": 6, "color": "#7fbf7b", "label": "status_sdg_imp_recent" },
+        { "value": 7, "color": "#1b7837", "label": "status_sdg_imp_persistent" }
       ]
     }
   },

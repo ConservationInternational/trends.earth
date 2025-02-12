@@ -52,6 +52,10 @@ class Setting(enum.Enum):
     UNKNOWN_AREA_OF_INTEREST = "private/unknown_area_of_interest"
     PRIOR_LOCALE = "private/prior_locale"
 
+    DATE_FILTER_ENABLED = "filters/date_filter_enabled"
+    FILTER_START_DATE = "filters/start_date"
+    FILTER_END_DATE = "filters/end_date"
+
     DEBUG = "advanced/debug"
     BINARIES_ENABLED = "advanced/binaries_enabled"
     BINARIES_DIR = "advanced/binaries_folder"
@@ -59,6 +63,7 @@ class Setting(enum.Enum):
     BASE_DIR = "advanced/base_data_directory"
     CUSTOM_CRS_ENABLED = "region_of_interest/custom_crs_enabled"
     CUSTOM_CRS = "region_of_interest/custom_crs"
+    CSV_FILE_DIR = "advanced/csv_file_dir"
     POLL_REMOTE = "advanced/poll_remote_server"
     REMOTE_POLLING_FREQUENCY = "advanced/remote_polling_frequency_seconds"
     DOWNLOAD_RESULTS = "advanced/download_remote_results_automatically"
@@ -116,12 +121,16 @@ class SettingsManager:
         Setting.CUSTOM_CRS: "epsg:4326",
         Setting.POLL_REMOTE: True,
         Setting.DOWNLOAD_RESULTS: True,
+        Setting.DATE_FILTER_ENABLED: False,
+        Setting.FILTER_START_DATE: "",
+        Setting.FILTER_END_DATE: "",
         Setting.BUFFER_CHECKED: False,
         Setting.AREA_FROM_OPTION: AreaSetting.COUNTRY_REGION.value,
         Setting.POINT_X: 0.0,
         Setting.POINT_Y: 0.0,
         Setting.VECTOR_FILE_PATH: "",
         Setting.VECTOR_FILE_DIR: "",
+        Setting.CSV_FILE_DIR: "",
         Setting.COUNTRY_NAME: "",
         Setting.REGION_NAME: "",
         Setting.CITY_NAME: "",
@@ -297,8 +306,7 @@ _ALGORITHM_CONFIG = [
                 "id": "277f87e6-5362-4533-ab1d-c28251576884",
                 "name": tr_conf.tr("Land cover change"),
                 "description": tr_conf.tr(
-                    "Land cover is the physical material at the surface of "
-                    "the earth. "
+                    "Land cover is the physical material at the surface of the earth. "
                 ),
                 "scripts": [
                     {
@@ -316,7 +324,7 @@ _ALGORITHM_CONFIG = [
                 "name": tr_conf.tr("Soil Organic Carbon"),
                 "description": (
                     tr_conf.tr(
-                        "Soil organic carbon is a measure of soil organic " "matter"
+                        "Soil organic carbon is a measure of soil organic matter"
                     )
                 ),
                 "scripts": [
@@ -466,7 +474,7 @@ _ALGORITHM_CONFIG = [
                         "id": "a753f2c9-be4c-4d97-9e21-09b8882e8899",
                         "name": tr_conf.tr("Change in carbon summary table"),
                         "description": tr_conf.tr(
-                            "Calculate table summarizing change in " "total carbon"
+                            "Calculate table summarizing change in total carbon"
                         ),
                         "scripts": [
                             {
@@ -485,7 +493,7 @@ _ALGORITHM_CONFIG = [
                         "id": "61839d52-0d81-428d-90e6-83ea5ed3c032",
                         "name": tr_conf.tr("Estimate potential impacts of restoration"),
                         "description": tr_conf.tr(
-                            "Estimate potential change in biomass due to " "restoration"
+                            "Estimate potential change in biomass due to restoration"
                         ),
                         "scripts": [
                             {

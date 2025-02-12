@@ -250,8 +250,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             )
         else:
             return (
-                f"{self.traj_indic.currentText()} "
-                f"- {self.dataset_ndvi.currentText()}"
+                f"{self.traj_indic.currentText()} - {self.dataset_ndvi.currentText()}"
             )
 
     def btn_calculate(self):

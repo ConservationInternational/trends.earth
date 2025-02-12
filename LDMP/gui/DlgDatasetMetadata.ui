@@ -39,8 +39,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>680</width>
-        <height>624</height>
+        <width>694</width>
+        <height>532</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -50,13 +50,34 @@
           <string>General</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="2" column="0" colspan="3">
+          <item row="4" column="0">
+           <widget class="QTextEdit" name="te_author">
+            <property name="readOnly">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
            <widget class="QLineEdit" name="le_title"/>
           </item>
-          <item row="3" column="0" colspan="2">
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Source Link or Identifier</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Abstract</string>
+             <string>Author or Publisher</string>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="0">
+           <widget class="QTextEdit" name="te_citation">
+            <property name="readOnly">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -67,8 +88,19 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="0" colspan="3">
-           <widget class="QTextEdit" name="te_abstract"/>
+          <item row="11" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Bibliographical Citation</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QLineEdit" name="le_source">
+            <property name="readOnly">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -130,188 +162,6 @@
          </layout>
         </widget>
        </item>
-       <item>
-        <widget class="QgsCollapsibleGroupBox" name="groupBox_3">
-         <property name="title">
-          <string>Contact</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,0,0,0,0,0,0,0,0,0">
-          <item row="9" column="0">
-           <widget class="QLabel" name="label_10">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Address</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="1">
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Name</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Role</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" colspan="3">
-           <widget class="QLineEdit" name="le_contact_name">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>Phone</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1" colspan="3">
-           <widget class="QLineEdit" name="le_contact_phone"/>
-          </item>
-          <item row="10" column="0" colspan="4">
-           <widget class="QTableWidget" name="tbl_addresses">
-            <property name="selectionMode">
-             <enum>QAbstractItemView::SingleSelection</enum>
-            </property>
-            <property name="selectionBehavior">
-             <enum>QAbstractItemView::SelectRows</enum>
-            </property>
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>true</bool>
-            </attribute>
-            <column>
-             <property name="text">
-              <string>Type</string>
-             </property>
-             <property name="toolTip">
-              <string>Type of address, e.g 'postal'</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Address</string>
-             </property>
-             <property name="toolTip">
-              <string>Free-form physical address component</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Postal Code</string>
-             </property>
-             <property name="toolTip">
-              <string>Postal (or ZIP) code</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>City</string>
-             </property>
-             <property name="toolTip">
-              <string>City or locality name</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Administrative Area</string>
-             </property>
-             <property name="toolTip">
-              <string>Administrative area (state, province/territory, etc.)</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Country</string>
-             </property>
-             <property name="toolTip">
-              <string>Free-form country</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-          <item row="9" column="3">
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QPushButton" name="btn_add_address">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btn_remove_address">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="2" column="1" colspan="3">
-           <widget class="QComboBox" name="cmb_contact_role">
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string>Organization</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1" colspan="3">
-           <widget class="QLineEdit" name="le_contact_organisation"/>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>Email</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1" colspan="3">
-           <widget class="QLineEdit" name="le_contact_email">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
       </layout>
      </widget>
     </widget>
@@ -339,20 +189,11 @@
  <tabstops>
   <tabstop>scrollArea</tabstop>
   <tabstop>le_title</tabstop>
-  <tabstop>te_abstract</tabstop>
   <tabstop>lst_default_categories</tabstop>
   <tabstop>btn_add_default_category</tabstop>
   <tabstop>btn_new_category</tabstop>
   <tabstop>btn_remove_category</tabstop>
   <tabstop>lst_categories</tabstop>
-  <tabstop>le_contact_name</tabstop>
-  <tabstop>cmb_contact_role</tabstop>
-  <tabstop>le_contact_organisation</tabstop>
-  <tabstop>le_contact_email</tabstop>
-  <tabstop>le_contact_phone</tabstop>
-  <tabstop>btn_add_address</tabstop>
-  <tabstop>btn_remove_address</tabstop>
-  <tabstop>tbl_addresses</tabstop>
  </tabstops>
  <resources/>
  <connections>

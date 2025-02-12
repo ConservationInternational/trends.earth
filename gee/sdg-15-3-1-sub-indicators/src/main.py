@@ -38,6 +38,7 @@ def _run_lc(params, additional_years, logger):
         ),
         additional_years=additional_years,
         logger=logger,
+        fake_data=params.get("fake_data", False),
     )
     lc.selectBands(["Land cover (degradation)", "Land cover transitions", "Land cover"])
 
@@ -318,11 +319,11 @@ def run_period(params, max_workers, EXECUTION_ID, logger):
 def _gen_metadata_str_te(params):
     metadata = {
         "visible_metadata": {
-            "one liner": f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_initial"]}-{params["period"]["year_final"]})',
-            "full": f'{params["script"]["name"]}\n'
-            f'Period: {params["period"]["name"]} ({params["period"]["year_initial"]}-{params["period"]["year_final"]})'
-            f'Productivity {params["productivity"]["mode"]}:\n'
-            f'\tTrajectory ({params["productivity"]["traj_year_initial"]} {params["productivity"]["traj_year_final"]}',
+            "one liner": f"{params['script']['name']} ({params['period']['name']}, {params['period']['year_initial']}-{params['period']['year_final']})",
+            "full": f"{params['script']['name']}\n"
+            f"Period: {params['period']['name']} ({params['period']['year_initial']}-{params['period']['year_final']})"
+            f"Productivity {params['productivity']['mode']}:\n"
+            f"\tTrajectory ({params['productivity']['traj_year_initial']} {params['productivity']['traj_year_final']}",
         }
     }
 
@@ -332,10 +333,10 @@ def _gen_metadata_str_te(params):
 def _gen_metadata_str_precalculated_lpd(params):
     metadata = {
         "visible_metadata": {
-            "one liner": f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_initial"]}-{params["period"]["year_final"]})',
-            "full": f'{params["script"]["name"]}\n'
-            f'Period: {params["period"]["name"]} ({params["period"]["year_initial"]}-{params["period"]["year_final"]})'
-            f'Productivity {params["productivity"]["mode"]}: {params["productivity"]["year_initial"]}-{params["productivity"]["year_final"]}',
+            "one liner": f"{params['script']['name']} ({params['period']['name']}, {params['period']['year_initial']}-{params['period']['year_final']})",
+            "full": f"{params['script']['name']}\n"
+            f"Period: {params['period']['name']} ({params['period']['year_initial']}-{params['period']['year_final']})"
+            f"Productivity {params['productivity']['mode']}: {params['productivity']['year_initial']}-{params['productivity']['year_final']}",
         }
     }
 

@@ -75,7 +75,7 @@ def compute_biomass_restoration(
         )
         clip_worker = worker.StartWorker(
             calculate.ClipWorker,
-            f"masking layers (part {n+1} of {len(wkts)})",
+            f"masking layers (part {n + 1} of {len(wkts)})",
             in_file,
             str(output_biomass_diff_tif),
             geojson,
@@ -88,7 +88,7 @@ def compute_biomass_restoration(
             logger.log("Calculating summary table...")
             rest_summary_worker = worker.StartWorker(
                 RestBiomassSummaryWorker,
-                f"calculating summary table (part {n+1} of {len(wkts)})",
+                f"calculating summary table (part {n + 1} of {len(wkts)})",
                 str(output_biomass_diff_tif),
             )
 

@@ -70,6 +70,20 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
         self.advance_configurations.setCollapsed(True)
 
+        self.low_date_edit.dateChanged.connect(self.biomass_date_update)
+        self.hign_date_edit.dateChanged.connect(self.biomass_date_update)
+
+    def biomass_date_update(self):
+        """ Biomass date changes slot, handles low and high date inputs,
+        calculates the medium date and updates its corresponding input.
+        """
+
+        medium_year = int((self.low_date_edit.date().year() + 
+        self.high_date_edit.date().year()) / 2)
+
+        self.medium_date_edit.setDate(QtCore.QDate(medium_year, 1, 1))
+
+
     @property
     def trajectory_functions(self) -> typing.Dict:
         return self.script.additional_configuration["trajectory functions"]

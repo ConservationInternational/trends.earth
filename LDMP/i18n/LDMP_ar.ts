@@ -1053,12 +1053,12 @@ p, li { white-space: pre-wrap; }
 </translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1159"/>
+        <location filename="../calculate_ldn.py" line="1468"/>
         <source>Coming soon!</source>
         <translation>قريبا!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1159"/>
+        <location filename="../calculate_ldn.py" line="1468"/>
         <source>This function coming soon!</source>
         <translation>ستصدر هذه الخاصية قريباً!</translation>
     </message>
@@ -1250,32 +1250,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="665"/>
+        <location filename="../calculate_ldn.py" line="974"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation>لا توجد مجموعات بيانات متاحة في هذه المنطقة (انظر الإعدادات المتقدمة)</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="920"/>
+        <location filename="../calculate_ldn.py" line="1229"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="765"/>
+        <location filename="../calculate_ldn.py" line="1074"/>
         <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
         <translation>يجب تحديد طبقة {layer_name} قبل أن تتمكن من استخدام أداة حساب هدف التدوير المستدام.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="833"/>
+        <location filename="../calculate_ldn.py" line="1142"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation>منطقة الاهتمام ليست بالكامل ضمن طبقة {check_layer_name}.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="911"/>
+        <location filename="../calculate_ldn.py" line="1220"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation>لا تتطابق قرارات طبقة {model_layer_name} وطبقة {check_layer_name}.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="920"/>
+        <location filename="../calculate_ldn.py" line="1229"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation>أنظمة الإحداثيات لطبقة {model_layer_name} وطبقة {check_layer_name} غير متطابقة.</translation>
     </message>
@@ -1341,7 +1341,7 @@ p, li { white-space: pre-wrap; }
         <translation>حساب مؤشر هطول الأمطار القياسي (SPI)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1078"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1115"/>
         <source>User notes associated with the executed task.</source>
         <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
@@ -1401,32 +1401,32 @@ p, li { white-space: pre-wrap; }
         <translation>تضمين مؤشر الضعف JRC</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1014"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1051"/>
         <source>The current selected region of interest</source>
         <translation>منطقة الاهتمام المحددة الحالية</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1027"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1064"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; يفتح نافذة الإعدادات لتغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1030"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1067"/>
         <source>Change region</source>
         <translation>تغيير المنطقة</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1039"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1076"/>
         <source>Execution name:</source>
         <translation>اسم التنفيذ:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1046"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1083"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1053"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1090"/>
         <source>Notes:</source>
         <translation>الملاحظات:</translation>
     </message>
@@ -1450,155 +1450,161 @@ p, li { white-space: pre-wrap; }
         <translation>مؤشر SDG 15.3.1 (خطوة واحدة) | تدهور الأرض</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="87"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="93"/>
         <source>Presets for UNCCD 2016-2019 reporting period</source>
         <translation>الإعدادات المسبقة للفترة المشمولة بالتقرير 2016-2019 لاتفاقية الأمم المتحدة لمكافحة التصحر</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="105"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="111"/>
         <source>UNCCD Default Data</source>
         <translation>بيانات UNCCD الافتراضية</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="118"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="124"/>
         <source>Trends.Earth Default Data</source>
         <translation>Trends.Earth البيانات الافتراضية</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="131"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="137"/>
         <source>FAO-WOCAT Default Data</source>
         <translation>البيانات الافتراضية لـ FAO-WOCAT</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="141"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="147"/>
         <source>Land productivity data</source>
         <translation>بيانات إنتاجية الأرض</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="147"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="153"/>
         <source>Trends.Earth land productivity dynamics</source>
         <translation>ديناميات إنتاجية الأرض في Trends.Earth </translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="157"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="163"/>
         <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
         <translation>ديناميات إنتاجية الأراضي المحسوبة مسبقًا (من مركز البحوث الزراعية أو منظمة الفاو-وات)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="182"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="188"/>
         <source>Baseline period</source>
         <translation>فترة الأساس</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="730"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="755"/>
         <source>Soil organic carbon</source>
         <translation>الكربون العضوي في التربة</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="756"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="787"/>
         <source>Initial year</source>
         <translation>السنة الابتدائية</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="990"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1027"/>
         <source>yyyy</source>
         <translation>yyyy</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="737"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="768"/>
         <source>Productivity</source>
         <translation>إنتاجية</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="723"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="745"/>
         <source>Final year</source>
         <translation>السنة النهائية</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="770"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="801"/>
         <source>Allow time period to vary by indicator:</source>
         <translation>اسمح للفترة الزمنية بالتنوع حسب المؤشر:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="957"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="994"/>
         <source>Use the same time period across all indicators:</source>
         <translation>استخدم نفس الفترة الزمنية عبر جميع المؤشرات:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="777"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="814"/>
         <source>Land cover</source>
         <translation>الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="763"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="794"/>
         <source>Land Productivity Dynamics (LPD) dataset</source>
         <translation>مجموعة بيانات ديناميكيات إنتاجية الأرض (LPD)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="615"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="643"/>
         <source>Include progress period (for comparison to baseline)</source>
         <translation>تضمين فترة التقدم (للمقارنة بخط الأساس)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="634"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="656"/>
         <source>Progress period</source>
         <translation>ءاستخدم نفس الفترة الزمنية عبر جميع المؤشرات:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1091"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1128"/>
         <source>Advanced configuration</source>
         <translation>التكوين المتقدم</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1100"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1137"/>
         <source>Land Cover Setup</source>
         <translation>إعداد الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1137"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1174"/>
         <source>Define Effects of Land Cover Change</source>
         <translation>تحديد آثار تغير الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="477"/>
+        <location filename="../calculate_ldn.py" line="786"/>
         <source>Warning</source>
         <translation>تحذير</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="477"/>
+        <location filename="../calculate_ldn.py" line="786"/>
         <source>Initial and final year are less 10 years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>تفصل بين العام الأول والعام الأخير 10 سنوات في {period} - ستكون النتائج أكثر موثوقية إذا تم تضمين المزيد من البيانات (السنوات) في التحليل.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1204"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu Sans&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-weight:600;&quot;&gt;Calculate all SDG 15.3.1 sub-indicators in a single step&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;This algorithm enables the simultaneous calculation of the three SDG 15.3.1 sub-indicators (Productivity, Land Cover and Soil Organic Carbon) in a single step. This is done using the remote Trends.Earth datasets described in each of the individual sub-indicator&apos;s sections.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="172"/>
+        <location filename="../calculate_ldn.py" line="475"/>
         <source>Also reset land cover legend?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="172"/>
+        <location filename="../calculate_ldn.py" line="475"/>
         <source>The UNCCD default data uses a 7 class land cover legend. Do you also want to reset the land cover legend to the UNCCD default? This will mean any changes you may have made to the land cover legend will be lost.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="572"/>
+        <location filename="../calculate_ldn.py" line="881"/>
         <source>Error</source>
         <translation type="unfinished">خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="572"/>
+        <location filename="../calculate_ldn.py" line="881"/>
         <source>Final year of the productivity data ({year_final}) must be within three years of the years for which population data is available from the WorldPop dataset ({pop_start_year}-{pop_end_year}).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="633"/>
+        <source>Show Timeline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1250"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;.AppleSystemUIFont&apos;; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Calculate all SDG 15.3.1 sub-indicators in a single step&lt;/span&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;This algorithm enables the simultaneous calculation of the three SDG 15.3.1 sub-indicators (Productivity, Land Cover and Soil Organic Carbon) in a single step. This is done using the remote Trends.Earth datasets described in each of the individual sub-indicator&apos;s sections.&lt;/span&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7100,6 +7106,16 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="209"/>
         <source>Improvement (persistent)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="197"/>
+        <source>Land cover degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="205"/>
+        <source>Degradation (baseline)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

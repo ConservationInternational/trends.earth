@@ -2,10 +2,12 @@
 
 [![Trends.Earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_600width.png)](http://trends.earth)
 
-[![Documentation Status](https://readthedocs.org/projects/trendsearth/badge/?version=latest)](https://trendsearth.readthedocs.io/en/latest/?badge=latest)
-[![Zipfile Status](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml)
-[![Update translations](https://github.com/ConservationInternational/trends.earth/actions/workflows/translation_update.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/translation_update.yaml)
+[![Documentation](https://readthedocs.org/projects/trendsearth/badge/?version=latest)](https://trendsearth.readthedocs.io/en/latest/?badge=latest)
+[![Zipfile](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml)
+[![Translations](https://github.com/ConservationInternational/trends.earth/actions/workflows/translation_update.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/translation_update.yaml)
 [![Tests](https://github.com/ConservationInternational/trends.earth/actions/workflows/test.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/test.yaml)
+[![Documentation PDFs](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_docs_pdfs.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_docs_pdfs.yaml)
+
 
 `Trends.Earth` is a free and open source tool to understand land change: the how and why
 behind changes on the ground. Trends.Earth allows users to draw on the best available

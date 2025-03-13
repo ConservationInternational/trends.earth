@@ -60,6 +60,7 @@ def _run_soc(params, logger):
         ),
         dl_annual_lc=False,
         logger=logger,
+        fake_data=params.get("fake_data", False),
     )
     soc_out.selectBands(["Soil organic carbon (degradation)", "Soil organic carbon"])
 

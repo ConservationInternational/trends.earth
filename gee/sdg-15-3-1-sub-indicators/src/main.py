@@ -112,22 +112,27 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 )
             )
 
+            if params.get("annual_lc"):
+                lc_years = [
+                    *range(
+                        params.get("land_cover")["year_initial"],
+                        params.get("land_cover")["year_final"] + 1,
+                    )
+                ]
+            else:
+                lc_years = [
+                    params.get("land_cover")["year_initial"],
+                    params.get("land_cover")["year_final"],
+                ]
+
             # If the productivity start or end years aren't in the LC period,
             # then need to include additional years in the land cover dataset
             # so that crosstabs can be calculated for land cover class
-            lc_years = [
-                *range(
-                    params.get("land_cover")["year_initial"],
-                    params.get("land_cover")["year_final"] + 1,
-                )
-            ]
             additional_years = []
             prod_year_initial = params.get("productivity")["traj_year_initial"]
             prod_year_final = params.get("productivity")["traj_year_final"]
-
             if prod_year_initial not in lc_years:
                 additional_years.append(prod_year_initial)
-
             if prod_year_final not in lc_years:
                 additional_years.append(prod_year_final)
 
@@ -247,20 +252,25 @@ def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
         {"year_initial": lpd_year_initial, "year_final": lpd_year_final}
     )
 
+    if params.get("annual_lc"):
+        lc_years = [
+            *range(
+                params.get("land_cover")["year_initial"],
+                params.get("land_cover")["year_final"] + 1,
+            )
+        ]
+    else:
+        lc_years = [
+            params.get("land_cover")["year_initial"],
+            params.get("land_cover")["year_final"],
+        ]
+
     # If the LPD start or end years aren't in the LC period, then need to
     # include additional years in the land cover dataset so that crosstabs can
     # be calculated for LPD by land cover class
-    lc_years = [
-        *range(
-            params.get("land_cover")["year_initial"],
-            params.get("land_cover")["year_final"] + 1,
-        )
-    ]
     additional_years = []
-
     if lpd_year_initial not in lc_years:
         additional_years.append(lpd_year_initial)
-
     if lpd_year_final not in lc_years:
         additional_years.append(lpd_year_final)
 

@@ -17,7 +17,8 @@ def run(params, logger):
     year_initial = params.get("year_initial")
     year_final = params.get("year_final")
     fl = params.get("fl")
-    dl_annual_lc = params.get("download_annual_lc")
+    annual_lc = params.get("download_annual_lc")
+    annual_soc = params.get("download_annual_soc")
     geojsons = json.loads(params.get("geojsons"))
     crs = params.get("crs")
     trans_matrix = LCTransitionDefinitionDeg.Schema().load(params.get("trans_matrix"))
@@ -44,7 +45,8 @@ def run(params, logger):
         trans_matrix,
         esa_to_custom_nesting,
         ipcc_nesting,
-        dl_annual_lc,
+        annual_lc,
+        annual_soc,
         logger,
     )
 

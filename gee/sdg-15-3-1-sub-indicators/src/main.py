@@ -58,7 +58,8 @@ def _run_soc(params, logger):
         ipcc_nesting=LCLegendNesting.Schema().load(
             params.get("legend_nesting_custom_to_ipcc")
         ),
-        dl_annual_lc=False,
+        annual_lc=False,
+        annual_soc=False,
         logger=logger,
         fake_data=params.get("fake_data", False),
     )

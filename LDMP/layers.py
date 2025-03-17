@@ -55,12 +55,12 @@ class tr_layers:
 style_text_dict = {
     # Shared
     "nodata": tr_layers.tr("No data"),
-    # Productivity trajectory
+    # Land productivity trend
     "prod_traj_trend_title": tr_layers.tr(
-        "Productivity trajectory ({year_initial} to {year_final}, NDVI x 10000 / yr)"
+        "Land productivity trend ({year_initial} to {year_final}, NDVI x 10000 / yr)"
     ),
     "prod_traj_signif_title": tr_layers.tr(
-        "Productivity trajectory degradation ({year_initial} to {year_final})"
+        "Land productivity trend degradation ({year_initial} to {year_final})"
     ),
     "prod_traj_signif_dec_95": tr_layers.tr(
         "Degradation (significant decrease, p < .05)"
@@ -69,32 +69,32 @@ style_text_dict = {
     "prod_traj_signif_inc_95": tr_layers.tr(
         "Improvement (significant increase, p < .05)"
     ),
-    # Productivity performance
+    # Land productivity performance
     "prod_perf_deg_title": tr_layers.tr(
-        "Productivity performance degradation ({year_initial} to {year_final})"
+        "Land productivity performance degradation ({year_initial} to {year_final})"
     ),
     "prod_perf_deg_potential_deg": tr_layers.tr("Degradation"),
     "prod_perf_deg_not_potential_deg": tr_layers.tr("Not degradation"),
     "prod_perf_ratio_title": tr_layers.tr(
-        "Productivity performance ({year_initial} to {year_final}, ratio)"
+        "Land productivity performance ({year_initial} to {year_final}, ratio)"
     ),
     "prod_perf_units_title": tr_layers.tr(
-        "Productivity performance ({year_initial}, units)"
+        "Land productivity performance ({year_initial}, units)"
     ),
-    # Productivity state
+    # Land productivity state
     "prod_state_change_title": tr_layers.tr(
-        "Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})"
+        "Land productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})"
     ),
     "prod_state_change_potential_deg": tr_layers.tr("Degradation"),
     "prod_state_change_stable": tr_layers.tr("Stable"),
     "prod_state_change_potential_improvement": tr_layers.tr("Improvement"),
     "prod_state_classes_title": tr_layers.tr(
-        "Productivity state classes ({year_initial}-{year_final})"
+        "Land productivity state classes ({year_initial}-{year_final})"
     ),
-    # Productivity progress comparison (not the real progress taking into
+    # Land productivity progress comparison (not the real progress taking into
     # account magnitude)
     "prod_deg_comp_title": tr_layers.tr(
-        "Productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
+        "Land productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
     ),
     "prod_deg_comp_deg": tr_layers.tr("Degradation"),
     "prod_deg_comp_stable": tr_layers.tr("Stable"),
@@ -181,18 +181,18 @@ style_text_dict = {
     "lpd_stabbutstress": tr_layers.tr("Stressed"),
     "lpd_stab": tr_layers.tr("Stable"),
     "lpd_imp": tr_layers.tr("Increasing"),
-    # SDG 15.3.1 indicator layer
+    # SDG Indicator 15.3.1 layer
     "combined_sdg_title": tr_layers.tr(
-        "SDG 15.3.1 Indicator ({year_initial}-{year_final})"
+        "SDG Indicator 15.3.1 ({year_initial}-{year_final})"
     ),
     "combined_sdg_deg_deg": tr_layers.tr("Degradation"),
     "combined_sdg_deg_stable": tr_layers.tr("Stable"),
     "combined_sdg_deg_imp": tr_layers.tr("Improvement"),
     "status_sdg_title": tr_layers.tr(
-        "SDG 15.3.1 Indicator (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
+        "SDG Indicator 15.3.1 (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
     ),
     "status_prod_title": tr_layers.tr(
-        "Productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
+        "Land productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
     ),
     "status_lc_title": tr_layers.tr(
         "Land cover degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"

@@ -6465,13 +6465,13 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../layers.py" line="59"/>
-        <source>Productivity trajectory ({year_initial} to {year_final}, NDVI x 10000 / yr)</source>
-        <translation>مسار الإنتاجية ({year_initial} إلى {year_final}، NDVI x 10000 / سنة)</translation>
+        <source>Land productivity trend ({year_initial} to {year_final}, NDVI x 10000 / yr)</source>
+        <translation type="unfinished">مسار الإنتاجية ({year_initial} إلى {year_final}، NDVI x 10000 / سنة)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="62"/>
-        <source>Productivity trajectory degradation ({year_initial} to {year_final})</source>
-        <translation>تدهور مسار الإنتاجية ({year_initial} إلى {year_final})</translation>
+        <source>Land productivity trend degradation ({year_initial} to {year_final})</source>
+        <translation type="unfinished">تدهور مسار الإنتاجية ({year_initial} إلى {year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="65"/>
@@ -6490,8 +6490,8 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../layers.py" line="73"/>
-        <source>Productivity performance degradation ({year_initial} to {year_final})</source>
-        <translation>تدهور أداء الإنتاجية ({year_initial} إلى {year_final})</translation>
+        <source>Land productivity performance degradation ({year_initial} to {year_final})</source>
+        <translation type="unfinished">تدهور أداء الإنتاجية ({year_initial} إلى {year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="188"/>
@@ -6505,18 +6505,18 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../layers.py" line="78"/>
-        <source>Productivity performance ({year_initial} to {year_final}, ratio)</source>
-        <translation>أداء الإنتاجية ({year_initial} إلى {year_final}، النسبة)</translation>
+        <source>Land productivity performance ({year_initial} to {year_final}, ratio)</source>
+        <translation type="unfinished">أداء الإنتاجية ({year_initial} إلى {year_final}، النسبة)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="81"/>
-        <source>Productivity performance ({year_initial}, units)</source>
-        <translation>أداء الإنتاجية ({year_initial}، الوحدات)</translation>
+        <source>Land productivity performance ({year_initial}, units)</source>
+        <translation type="unfinished">أداء الإنتاجية ({year_initial}، الوحدات)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="85"/>
-        <source>Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
-        <translation>تدهور حالة الإنتاجية ({year_bl_start} - {year_bl_end} ضد {year_tg_start} - {year_tg_end})</translation>
+        <source>Land productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
+        <translation type="unfinished">تدهور حالة الإنتاجية ({year_bl_start} - {year_bl_end} ضد {year_tg_start} - {year_tg_end})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="189"/>
@@ -6530,13 +6530,13 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../layers.py" line="91"/>
-        <source>Productivity state classes ({year_initial}-{year_final})</source>
-        <translation>فئات حالة الإنتاجية ({year_initial} - {year_final})</translation>
+        <source>Land productivity state classes ({year_initial}-{year_final})</source>
+        <translation type="unfinished">فئات حالة الإنتاجية ({year_initial} - {year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="96"/>
-        <source>Productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
-        <translation>مقارنة تدهور الإنتاجية({baseline_year_initial}-{baseline_year_final} مقابل {progress_year_initial}-{progress_year_final})</translation>
+        <source>Land productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
+        <translation type="unfinished">مقارنة تدهور الإنتاجية({baseline_year_initial}-{baseline_year_final} مقابل {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="104"/>
@@ -6745,12 +6745,12 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../layers.py" line="185"/>
-        <source>SDG 15.3.1 Indicator ({year_initial}-{year_final})</source>
-        <translation>مؤشر SDG 15.3.1 ({year_initial} - {year_final})</translation>
+        <source>SDG Indicator 15.3.1 ({year_initial}-{year_final})</source>
+        <translation type="unfinished">مؤشر SDG 15.3.1 ({year_initial} - {year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="191"/>
-        <source>SDG 15.3.1 Indicator (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
+        <source>SDG Indicator 15.3.1 (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation type="unfinished">تم تحديث مؤشر SDG 15.3.1  ({baseline_year_initial}-{baseline_year_final} بـ {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
@@ -7070,7 +7070,7 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../layers.py" line="194"/>
-        <source>Productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
+        <source>Land productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

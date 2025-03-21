@@ -6485,13 +6485,13 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="59"/>
-        <source>Productivity trajectory ({year_initial} to {year_final}, NDVI x 10000 / yr)</source>
-        <translation>Trayectoria de productividad (desde {year_initial} hasta {year_final}, NDVI x 10 000 / año)</translation>
+        <source>Land productivity trend ({year_initial} to {year_final}, NDVI x 10000 / yr)</source>
+        <translation type="unfinished">Trayectoria de productividad (desde {year_initial} hasta {year_final}, NDVI x 10 000 / año)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="62"/>
-        <source>Productivity trajectory degradation ({year_initial} to {year_final})</source>
-        <translation>Degradación de la trayectoria de la productividad (desde {year_initial} hasta {year_final})</translation>
+        <source>Land productivity trend degradation ({year_initial} to {year_final})</source>
+        <translation type="unfinished">Degradación de la trayectoria de la productividad (desde {year_initial} hasta {year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="65"/>
@@ -6510,8 +6510,8 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="73"/>
-        <source>Productivity performance degradation ({year_initial} to {year_final})</source>
-        <translation>Degradación del rendimiento de la productividad (desde {year_initial} hasta {year_final})</translation>
+        <source>Land productivity performance degradation ({year_initial} to {year_final})</source>
+        <translation type="unfinished">Degradación del rendimiento de la productividad (desde {year_initial} hasta {year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="188"/>
@@ -6525,18 +6525,18 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="78"/>
-        <source>Productivity performance ({year_initial} to {year_final}, ratio)</source>
-        <translation>Rendimiento de la productividad (desde {year_initial} hasta {year_final}, ratio)</translation>
+        <source>Land productivity performance ({year_initial} to {year_final}, ratio)</source>
+        <translation type="unfinished">Rendimiento de la productividad (desde {year_initial} hasta {year_final}, ratio)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="81"/>
-        <source>Productivity performance ({year_initial}, units)</source>
-        <translation>Rendimiento de la productividad ({year_initial}, unidades)</translation>
+        <source>Land productivity performance ({year_initial}, units)</source>
+        <translation type="unfinished">Rendimiento de la productividad ({year_initial}, unidades)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="85"/>
-        <source>Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
-        <translation>Degradación del estado de la productividad ({year_bl_start}-{year_bl_end} versus {year_tg_start}-{year_tg_end})</translation>
+        <source>Land productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
+        <translation type="unfinished">Degradación del estado de la productividad ({year_bl_start}-{year_bl_end} versus {year_tg_start}-{year_tg_end})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="189"/>
@@ -6550,13 +6550,13 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="91"/>
-        <source>Productivity state classes ({year_initial}-{year_final})</source>
-        <translation>Categorías de estados de productividad ({year_initial}-{year_final})</translation>
+        <source>Land productivity state classes ({year_initial}-{year_final})</source>
+        <translation type="unfinished">Categorías de estados de productividad ({year_initial}-{year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="96"/>
-        <source>Productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
-        <translation>Comparativa de la degradación de la productividad ({baseline_year_initial}-{baseline_year_final} frente a {progress_year_initial}-{progress_year_final})</translation>
+        <source>Land productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
+        <translation type="unfinished">Comparativa de la degradación de la productividad ({baseline_year_initial}-{baseline_year_final} frente a {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="104"/>
@@ -6765,12 +6765,12 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="185"/>
-        <source>SDG 15.3.1 Indicator ({year_initial}-{year_final})</source>
-        <translation>Indicador SDG 15.3.1 ({year_initial}-{year_final})</translation>
+        <source>SDG Indicator 15.3.1 ({year_initial}-{year_final})</source>
+        <translation type="unfinished">Indicador SDG 15.3.1 ({year_initial}-{year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="191"/>
-        <source>SDG 15.3.1 Indicator (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
+        <source>SDG Indicator 15.3.1 (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation type="unfinished">Indicador SDG 15.3.1 ({baseline_year_initial}-{baseline_year_final} actualizado con {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
@@ -7090,7 +7090,7 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="194"/>
-        <source>Productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
+        <source>Land productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

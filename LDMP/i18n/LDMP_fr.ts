@@ -6426,13 +6426,13 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="59"/>
-        <source>Productivity trajectory ({year_initial} to {year_final}, NDVI x 10000 / yr)</source>
-        <translation>Trajectoire de la productivité ({year_initial} à {year_final}, NDVI x 10000 / an)</translation>
+        <source>Land productivity trend ({year_initial} to {year_final}, NDVI x 10000 / yr)</source>
+        <translation type="unfinished">Trajectoire de la productivité ({year_initial} à {year_final}, NDVI x 10000 / an)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="62"/>
-        <source>Productivity trajectory degradation ({year_initial} to {year_final})</source>
-        <translation>Dégradation de la trajectoire de la productivité ({year_initial} à {year_final})</translation>
+        <source>Land productivity trend degradation ({year_initial} to {year_final})</source>
+        <translation type="unfinished">Dégradation de la trajectoire de la productivité ({year_initial} à {year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="65"/>
@@ -6451,8 +6451,8 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="73"/>
-        <source>Productivity performance degradation ({year_initial} to {year_final})</source>
-        <translation>Dégradation de performance de la productivité ({year_initial} à {year_final})</translation>
+        <source>Land productivity performance degradation ({year_initial} to {year_final})</source>
+        <translation type="unfinished">Dégradation de performance de la productivité ({year_initial} à {year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="188"/>
@@ -6466,18 +6466,18 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="78"/>
-        <source>Productivity performance ({year_initial} to {year_final}, ratio)</source>
-        <translation>Performance de la productivité ({year_initial} à {year_final}, ratio)</translation>
+        <source>Land productivity performance ({year_initial} to {year_final}, ratio)</source>
+        <translation type="unfinished">Performance de la productivité ({year_initial} à {year_final}, ratio)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="81"/>
-        <source>Productivity performance ({year_initial}, units)</source>
-        <translation>Performance de la productivité ({year_initial}, unités)</translation>
+        <source>Land productivity performance ({year_initial}, units)</source>
+        <translation type="unfinished">Performance de la productivité ({year_initial}, unités)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="85"/>
-        <source>Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
-        <translation>Dégradation de l&amp;#39;état de productivité ({year_bl_start} - {year_bl_end} vs {year_tg_start} - {year_tg_end})</translation>
+        <source>Land productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
+        <translation type="unfinished">Dégradation de l&amp;#39;état de productivité ({year_bl_start} - {year_bl_end} vs {year_tg_start} - {year_tg_end})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="189"/>
@@ -6491,13 +6491,13 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="91"/>
-        <source>Productivity state classes ({year_initial}-{year_final})</source>
-        <translation>Catégories d'états de productivité ({year_initial}-{year_final})</translation>
+        <source>Land productivity state classes ({year_initial}-{year_final})</source>
+        <translation type="unfinished">Catégories d'états de productivité ({year_initial}-{year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="96"/>
-        <source>Productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
-        <translation>Comparaison de la dégradation de la productivité ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</translation>
+        <source>Land productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
+        <translation type="unfinished">Comparaison de la dégradation de la productivité ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="104"/>
@@ -6706,12 +6706,12 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="185"/>
-        <source>SDG 15.3.1 Indicator ({year_initial}-{year_final})</source>
-        <translation>Indicateur ODD 15.3.1 ({year_initial}-{year_final})</translation>
+        <source>SDG Indicator 15.3.1 ({year_initial}-{year_final})</source>
+        <translation type="unfinished">Indicateur ODD 15.3.1 ({year_initial}-{year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="191"/>
-        <source>SDG 15.3.1 Indicator (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
+        <source>SDG Indicator 15.3.1 (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation type="unfinished">Indicateur ODD 15.3.1 ({baseline_year_initial}-{baseline_year_final} mis à jour avec {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
@@ -7031,7 +7031,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="194"/>
-        <source>Productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
+        <source>Land productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

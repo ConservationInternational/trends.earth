@@ -71,7 +71,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.advance_configurations.setCollapsed(True)
 
         self.low_date_edit.dateChanged.connect(self.biomass_date_update)
-        self.hign_date_edit.dateChanged.connect(self.biomass_date_update)
+        self.high_date_edit.dateChanged.connect(self.biomass_date_update)
 
     def biomass_date_update(self):
         """Biomass date changes slot, handles low and high date inputs,

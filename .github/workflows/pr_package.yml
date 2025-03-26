@@ -64,3 +64,25 @@ jobs:
         with:
           name: ${{ env.ZIP_NAME }}
           path: ${{ env.ZIP_PATH }}
+
+      - name: Save the artifact url and pull request number
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+          ARTIFACT_URL: ${{ steps.artifact-upload-step.outputs.artifact-url }}
+        run: |
+          echo $ARTIFACT_URL > artifact_url.txt
+          echo $PR_NUMBER > pr_number.txt
+
+      - name: Upload the artifact url
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact_url
+          path: ./artifact_url.txt
+
+      - name: Upload the PR number
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr_number
+          path: ./pr_number.txt
+

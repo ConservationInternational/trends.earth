@@ -1,0 +1,122 @@
+name: Add comment on a pull request about the plugin package
+# Based on work from https://github.com/orgs/community/discussions/51403#discussioncomment-5535167
+on:
+  workflow_run:
+    types:
+      - completed
+    workflows:
+      - 'Creating plugin package in the PR'
+
+jobs:
+  comment:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for 10 seconds
+        run: sleep 10
+
+      - name: List all available artifact
+        run: |
+          echo "Listing all artifacts for the past workflow run"
+
+          # Get the past workflow run ID
+          run_id=${{ github.event.workflow_run.id }}
+          repo=${{ github.repository }}
+
+          response=$(curl -s \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$repo/actions/runs/$run_id/artifacts")
+
+          # Extract artifact names from the response
+          artifact_names=$(echo "$response" | jq -r '.artifacts[].name')
+
+          # Display the artifact names
+          echo "Artifacts:"
+          echo "$artifact_names"
+
+      - name: Download artifacts
+        run: |
+          mkdir -p artifacts
+          
+          # Get the past workflow run ID
+          run_id=${{ github.event.workflow_run.id }}
+          repo=${{ github.repository }}
+          
+          # Fetch all artifact download URLs
+          ARTIFACT_URLS=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+               "https://api.github.com/repos/$repo/actions/runs/$run_id/artifacts" \
+            | jq -r '.artifacts[] | select(.expired == false) | .archive_download_url')
+          
+          # Download each artifact using artifact ID
+          echo "$ARTIFACT_URLS" | while read -r url; do
+            ARTIFACT_ID=$(echo "$url" | cut -d'/' -f9)  # Extract artifact ID from URL
+            echo "Downloading artifact ID: $ARTIFACT_ID"
+            curl -L -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -o "artifacts/${ARTIFACT_ID}.zip" "$url"
+          done
+
+          echo "all artifacts: $ARTIFACT_URLS"
+
+      - name: Extract all artifacts
+        run: |
+          for zip in artifacts/*.zip; do
+            unzip -o "$zip" -d artifacts
+          done
+
+      - name: List extracted Files
+        run: ls -lah artifacts
+
+      - name: Read the pr number artifact
+        id: pr_number_reader
+        run: |
+          PR_NUMBER=$(cat artifacts/pr_number.txt)
+          echo "PR number: $PR_NUMBER"
+          echo "::set-output name=pr_number::$PR_NUMBER"
+
+      - name: Read the artifact URL
+        id: artifact_url_reader
+        run: |
+          ARTIFACT_URL=$(cat artifacts/artifact_url.txt)
+          echo "Artifact URL: $ARTIFACT_URL"
+          echo "::set-output name=artifact_url::$ARTIFACT_URL"
+
+      - name: Find existing comment
+        id: find-comment
+        run: |
+          COMMENT_ID=$(gh api repos/${{ github.repository }}/issues/${{ steps.pr_number_reader.outputs.pr_number }}/comments --jq '.[] | select(.user.login=="github-actions[bot]") | .id')
+          echo "comment-id=$COMMENT_ID" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update or create comment
+        env:
+          ARTIFACT_URL: "${{ steps.artifact_url_reader.outputs.artifact_url }}"
+          HEAD_SHA: "${{ github.event.head_sha }}"
+          COMMENT_ID: "${{ env.comment-id }}"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        run: |
+          BODY="## 🚀 **Plugin Build Successful!** ✅
+
+          A new **plugin build** has been successfully generated for the changes in this pull request! 🎉  
+
+          🔗 **[Download Plugin Zip](${ARTIFACT_URL}) 📥**  
+
+          ### 📌 **Next Steps**  
+          - 📥 **Download and test** the plugin built from this pull request.  
+          - 🔄 **Review the changes** and validate functionality.  
+          - 📝 **Provide feedback on this pull request!**  
+
+          ---
+          ### **🛠 Powered by GitHub Actions & gh API**  
+          "
+
+          if [ -z "$COMMENT_ID" ]; then
+            gh api repos/${{ github.repository }}/issues/${{ steps.pr_number_reader.outputs.pr_number }}/comments \
+              -f body="$BODY"
+          else
+            gh api repos/${{ github.repository }}/issues/comments/$COMMENT_ID \
+              --method PATCH \
+              -f body="$BODY"
+          fi

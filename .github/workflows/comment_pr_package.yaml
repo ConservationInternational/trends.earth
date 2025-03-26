@@ -5,7 +5,7 @@ on:
     types:
       - completed
     workflows:
-      - 'Creating plugin package in the PR'
+      - 'Create plugin package in the PR'
 
 jobs:
   comment:

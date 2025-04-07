@@ -1031,7 +1031,14 @@ class SdgSummaryJobAttributes:
 
     def __init__(self, job: Job):
         self._job = job
-        self._params_baseline = self._job.params["baseline"]
+        self._params_baseline = {}
+
+        periods = self._job.params.get("periods", [])
+        for period in periods:
+            if period.get("name") == "baseline":
+                self._params_baseline = period.get("params", {})
+                break
+
         self._data = self._job.results.data
         self._baseline_results = self._data["report"]["land_condition"]["baseline"]
 

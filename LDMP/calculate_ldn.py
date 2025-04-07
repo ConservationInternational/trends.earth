@@ -1317,29 +1317,34 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.radio_lpd_te, self.combo_boxes["progress"].combo_layer_lpd
         )
 
-        params = {
-            "baseline": ldn.get_main_sdg_15_3_1_job_params(
-                task_name=self.execution_name_le.text(),
-                aoi=self.aoi,
-                prod_mode=prod_mode_baseline,
-                pop_mode=pop_mode_baseline,
-                period_name="baseline",
-                combo_layer_lc=self.combo_boxes["baseline"].combo_layer_lc,
-                combo_layer_soc=self.combo_boxes["baseline"].combo_layer_soc,
-                combo_layer_traj=self.combo_boxes["baseline"].combo_layer_traj,
-                combo_layer_perf=self.combo_boxes["baseline"].combo_layer_perf,
-                combo_layer_state=self.combo_boxes["baseline"].combo_layer_state,
-                combo_layer_lpd=self.combo_boxes["baseline"].combo_layer_lpd,
-                combo_layer_pop_total=self.combo_boxes[
-                    "baseline"
-                ].combo_layer_pop_total,
-                combo_layer_pop_male=self.combo_boxes["baseline"].combo_layer_pop_male,
-                combo_layer_pop_female=self.combo_boxes[
-                    "baseline"
-                ].combo_layer_pop_female,
-                task_notes=self.options_tab.task_notes.toPlainText(),
-            )
-        }
+        periods = [
+            {
+                "name": "baseline",
+                "params": ldn.get_main_sdg_15_3_1_job_params(
+                    task_name=self.execution_name_le.text(),
+                    aoi=self.aoi,
+                    prod_mode=prod_mode_baseline,
+                    pop_mode=pop_mode_baseline,
+                    period_name="baseline",
+                    combo_layer_lc=self.combo_boxes["baseline"].combo_layer_lc,
+                    combo_layer_soc=self.combo_boxes["baseline"].combo_layer_soc,
+                    combo_layer_traj=self.combo_boxes["baseline"].combo_layer_traj,
+                    combo_layer_perf=self.combo_boxes["baseline"].combo_layer_perf,
+                    combo_layer_state=self.combo_boxes["baseline"].combo_layer_state,
+                    combo_layer_lpd=self.combo_boxes["baseline"].combo_layer_lpd,
+                    combo_layer_pop_total=self.combo_boxes[
+                        "baseline"
+                    ].combo_layer_pop_total,
+                    combo_layer_pop_male=self.combo_boxes[
+                        "baseline"
+                    ].combo_layer_pop_male,
+                    combo_layer_pop_female=self.combo_boxes[
+                        "baseline"
+                    ].combo_layer_pop_female,
+                    task_notes=self.options_tab.task_notes.toPlainText(),
+                ),
+            }
+        ]
 
         ##########
         # Progress
@@ -1369,9 +1374,10 @@ class DlgCalculateLDNSummaryTableAdmin(
 
                 return
 
-            params.update(
+            periods.append(
                 {
-                    "progress": ldn.get_main_sdg_15_3_1_job_params(
+                    "name": "progress",
+                    "params": ldn.get_main_sdg_15_3_1_job_params(
                         task_name=self.options_tab.task_name.text(),
                         aoi=self.aoi,
                         prod_mode=prod_mode_progress,
@@ -1395,12 +1401,15 @@ class DlgCalculateLDNSummaryTableAdmin(
                             "progress"
                         ].combo_layer_pop_female,
                         task_notes=self.options_tab.task_notes.toPlainText(),
-                    )
+                    ),
                 }
             )
 
-        params["task_name"] = self.options_tab.task_name.text()
-        params["task_notes"] = self.options_tab.task_notes.toPlainText()
+        params = {
+            "periods": periods,
+            "task_name": self.options_tab.task_name.text(),
+            "task_notes": self.options_tab.task_notes.toPlainText(),
+        }
 
         self.close()
 

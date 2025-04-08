@@ -277,7 +277,7 @@ class ReportTemplateInfo:
         # Prioritize matching paths in the user folder, if not found then
         # revert to the plugin one.
         def concat_path(template_dir, file_name):
-            os.path.normpath(f"{template_dir}{os.sep}{file_name}")
+            return os.path.normpath(f"{template_dir}{os.sep}{file_name}")
 
         # First check user-defined directory
         if user_templates_dir is not None:

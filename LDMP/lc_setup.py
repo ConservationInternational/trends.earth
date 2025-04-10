@@ -352,7 +352,7 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
         elif col_name == "Child_Label":
             return initial_class.name_long
         elif col_name == "Parent_Label":
-            return self.nesting.parentClassForChild(initial_class).name_long
+            return self.nesting.parent_class_for_child(initial_class).name_long
 
     def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
         if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:
@@ -777,7 +777,7 @@ class DlgCalculateLCSetAggregationESA(DlgCalculateLCSetAggregationBase):
                 row, self.table_model.child_code_col()
             ).data()
             parent_class = [
-                self.nesting.parentClassForChild(c)
+                self.nesting.parent_class_for_child(c)
                 for c in self.nesting.child.key_with_nodata()
                 if c.code == child_code
             ][0]
@@ -889,7 +889,7 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
                 row, self.table_model.child_code_col()
             ).data()
             parent_class = [
-                self.nesting.parentClassForChild(c)
+                self.nesting.parent_class_for_child(c)
                 for c in self.nesting.child.key_with_nodata()
                 if c.code == child_code
             ][0]
@@ -1383,7 +1383,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
 
             for col in range(0, self.deg_def_matrix.columnCount()):
                 final_class = matrix.legend.key[col]
-                meaning = matrix.definitions.meaningByTransition(
+                meaning = matrix.definitions.meaning_by_transition(
                     initial_class, final_class
                 )
 
@@ -1753,7 +1753,7 @@ class LccInfoUtils:
         ref_matrix = get_trans_matrix(True, False)
         for m in matrix.definitions.transitions:
             try:
-                ref_meaning = ref_matrix.definitions.meaningByTransition(
+                ref_meaning = ref_matrix.definitions.meaning_by_transition(
                     m.initial, m.final
                 )
                 if ref_meaning:

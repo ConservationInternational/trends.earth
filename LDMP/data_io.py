@@ -438,12 +438,16 @@ class RemapRasterWorker(worker.AbstractWorker):
                     cols = x_block_size
                 else:
                     cols = xsize - x
-                    d = band.ReadAsArray(x, y, cols, rows)
 
-                    for value, replacement in zip(
-                        self.remap_list[0], self.remap_list[1]
-                    ):
-                        d[d == int(value)] = int(replacement)
+                d = band.ReadAsArray(x, y, cols, rows)
+
+                d_original = d.copy()
+
+                for value, replacement in zip(
+                    self.remap_list[0], self.remap_list[1]
+                ):
+                    d[d_original == int(value)] = int(replacement)
+
                 ds_out.GetRasterBand(1).WriteArray(d, x, y)
                 blocks += 1
 

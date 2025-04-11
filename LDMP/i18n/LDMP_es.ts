@@ -1056,12 +1056,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Esta herramienta permite recalcular una capa de indicadores para corregir errores conocidos (falsos positivos o falsos negativos).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1468"/>
+        <location filename="../calculate_ldn.py" line="1477"/>
         <source>Coming soon!</source>
         <translation>¡Próximamente!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1468"/>
+        <location filename="../calculate_ldn.py" line="1477"/>
         <source>This function coming soon!</source>
         <translation>¡Próximamente: esta función!</translation>
     </message>
@@ -3005,12 +3005,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="1046"/>
+        <location filename="../data_io.py" line="1048"/>
         <source>Missing or invalid CRS for input file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1069"/>
+        <location filename="../data_io.py" line="1071"/>
         <source>Output file will be resized to &apos;{reg_name}&apos; extent.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3160,7 +3160,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1593"/>
+        <location filename="../data_io.py" line="1595"/>
         <source>Land productivity (imported - {self.datatype_cb.currentText()})</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6218,97 +6218,97 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
 <context>
     <name>tr_data_io</name>
     <message>
-        <location filename="../data_io.py" line="655"/>
+        <location filename="../data_io.py" line="657"/>
         <source>Could not load file</source>
         <translation>No se ha podido cargar el archivo </translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="673"/>
+        <location filename="../data_io.py" line="675"/>
         <source>Could not parse the selected file into a valid JSON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="751"/>
+        <location filename="../data_io.py" line="753"/>
         <source>Select a raster input file</source>
         <translation>Seleccione un archivo de entrada en formato ráster</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="751"/>
+        <location filename="../data_io.py" line="753"/>
         <source>Raster file (*.tif *.dat *.img *.vrt)</source>
         <translation>Archivo renderizado (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1898"/>
+        <location filename="../data_io.py" line="1900"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="808"/>
+        <location filename="../data_io.py" line="810"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No se puede leer {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="793"/>
+        <location filename="../data_io.py" line="795"/>
         <source>Select a vector input file</source>
         <translation>Seleccione un archivo de entrada en formato vectorial</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="793"/>
+        <location filename="../data_io.py" line="795"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Archivo vectorial (*.shp *.kml *.kmz *.geojson)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="881"/>
+        <location filename="../data_io.py" line="883"/>
         <source>Choose a name for the output file</source>
         <translation>Elija un nombre para el archivo de salida</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="881"/>
+        <location filename="../data_io.py" line="883"/>
         <source>Raster file (*.tif)</source>
         <translation>Archivo raster (*.tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="897"/>
+        <location filename="../data_io.py" line="899"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="973"/>
+        <location filename="../data_io.py" line="975"/>
         <source>Metadata</source>
         <translation>Metadata</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1098"/>
+        <location filename="../data_io.py" line="1100"/>
         <source>Choose an input raster file.</source>
         <translation>Elija un archivo raster de entrada.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1109"/>
+        <location filename="../data_io.py" line="1111"/>
         <source>Choose an input polygon dataset.</source>
         <translation>Elija un polígono de entrada.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1126"/>
+        <location filename="../data_io.py" line="1128"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation>No se puede procesar {}. Tipo de geometría desconocida: {}</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1237"/>
+        <location filename="../data_io.py" line="1239"/>
         <source>Vector remapping failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1259"/>
+        <location filename="../data_io.py" line="1261"/>
         <source>Raster remapping failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1283"/>
+        <location filename="../data_io.py" line="1285"/>
         <source>Rasterizing failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1326"/>
+        <location filename="../data_io.py" line="1328"/>
         <source>Raster import failed.</source>
         <translation>La importación de ráster falló.</translation>
     </message>
@@ -6318,72 +6318,72 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
         <translation type="obsolete">Elija un archivo de salida.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1359"/>
+        <location filename="../data_io.py" line="1361"/>
         <source>Enter the year of the input data.</source>
         <translation>Ingrese el año de los datos.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1384"/>
+        <location filename="../data_io.py" line="1386"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1400"/>
+        <location filename="../data_io.py" line="1402"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo válido de entrada de carbono orgánico del suelo. El archivo debe contener valores de carbono orgánico del suelo en toneladas / hectárea.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1413"/>
+        <location filename="../data_io.py" line="1415"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo válido de entrada de carbono orgánico del suelo. El valor mínimo en este archivo es {}. El valor sin datos debe ser -32768, y todos los demás valores deben ser&gt; = 0.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1428"/>
+        <location filename="../data_io.py" line="1430"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo válido de entrada de carbono orgánico del suelo. El valor máximo en este archivo es {}. El valor máximo permitido es de 1000 toneladas / hectárea.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1528"/>
+        <location filename="../data_io.py" line="1530"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1542"/>
+        <location filename="../data_io.py" line="1544"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo de entrada de productividad válido.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1555"/>
+        <location filename="../data_io.py" line="1557"/>
         <source>Warning</source>
         <translation>Advertencia</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1555"/>
+        <location filename="../data_io.py" line="1557"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo de entrada de productividad válido. Trends.Earth cargará el archivo de todos modos, pero revise el mapa una vez que se haya cargado para garantizar que los valores tengan sentido. Los únicos valores permitidos en un archivo de entrada de productividad son -32768, 1, 2, 3, 4 y 5. Hay {} valor (es) en el archivo de entrada que no fueron reconocidos.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1681"/>
+        <location filename="../data_io.py" line="1683"/>
         <source>No layers available in this region</source>
         <translation>No hay capas disponibles en esta región</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1898"/>
+        <location filename="../data_io.py" line="1900"/>
         <source>Select a layer to load.</source>
         <translation>Seleccione una capa para cargar.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1935"/>
+        <location filename="../data_io.py" line="1937"/>
         <source>No datasets available in this region</source>
         <translation>No hay conjuntos de datos disponibles en esta región</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1459"/>
+        <location filename="../data_io.py" line="1461"/>
         <source>Soil organic carbon ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1500"/>
+        <location filename="../data_io.py" line="1502"/>
         <source>Enter the intial and final year applying to this input data.</source>
         <translation type="unfinished"></translation>
     </message>

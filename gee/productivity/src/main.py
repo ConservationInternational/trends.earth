@@ -11,6 +11,7 @@ import ee
 from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
 from te_algorithms.gee.productivity import (
+    productivity_faowocat,
     productivity_performance,
     productivity_state,
     productivity_trajectory,
@@ -126,6 +127,54 @@ def run(params, logger):
             final_output.combine(schema.load(this_res.result()))
         logger.debug("Serializing")
         return schema.dump(final_output)
+
+    elif prod_mode == ProductivityMode.FAO_WOCAT.value:
+        low_biomass_year = params.get("low_biomass_year")
+        medium_biomass_year = params.get("medium_biomass_year")
+        high_biomass_year = params.get("high_biomass_year")
+        years_interval = params.get("years_interval")
+        modis_mode = params.get("modis_mode")
+        ndvi_gee_dataset = params.get("ndvi_gee_dataset")
+
+        res = []
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            for n, geojson in enumerate(geojsons, start=1):
+                this_out = productivity_faowocat(
+                    int(low_biomass_year),
+                    int(medium_biomass_year),
+                    int(high_biomass_year),
+                    int(years_interval),
+                    modis_mode,
+                    ndvi_gee_dataset,
+                    logger,
+                )
+
+                logger.debug("Converting output to TEImageV2 format")
+                this_out = teimage_v1_to_teimage_v2(this_out)
+                proj = ee.Image(ndvi_gee_dataset).projection()
+                res.append(
+                    executor.submit(
+                        this_out.export,
+                        geojsons=[geojson],
+                        task_name="productivity",
+                        crs=crs,
+                        logger=logger,
+                        execution_id=f"{EXECUTION_ID}_{n}",
+                        proj=proj,
+                    )
+                )
+
+            final_output = None
+            schema = results.RasterResults.Schema()
+            # Deserialize the data that was prepared for output from the
+            # productivity functions, so that new urls can be appended if need
+            # be from the next result (next geojson)
+            final_output = schema.load(res[0].result())
+            for n, this_res in enumerate(as_completed(res[1:]), start=1):
+                logger.debug(f"Combining main output with output {n}")
+                final_output.combine(schema.load(this_res.result()))
+            logger.debug("Serializing")
+            return schema.dump(final_output)
 
     elif prod_mode in (
         ProductivityMode.JRC_5_CLASS_LPD.value,

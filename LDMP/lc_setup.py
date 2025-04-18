@@ -353,7 +353,7 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
             return initial_class.name_long
         elif col_name == "Parent_Label":
             parent = self.nesting.parent_for_child(initial_class)
-            return parent.name_long if parent else ''
+            return parent.name_long if parent else ""
 
     def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
         if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:

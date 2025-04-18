@@ -352,7 +352,8 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
         elif col_name == "Child_Label":
             return initial_class.name_long
         elif col_name == "Parent_Label":
-            return self.nesting.parent_for_child(initial_class).name_long
+            parent = self.nesting.parent_for_child(initial_class)
+            return parent.name_long if parent else ''
 
     def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
         if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:
@@ -782,6 +783,9 @@ class DlgCalculateLCSetAggregationESA(DlgCalculateLCSetAggregationBase):
                 if c.code == child_code
             ][0]
 
+            if not parent_class:
+                continue
+
             lc_class_combo = LCClassComboBox(self.nesting)
 
             # Find the index in the combo box of this translated final label
@@ -893,6 +897,9 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
                 for c in self.nesting.child.key_with_nodata()
                 if c.code == child_code
             ][0]
+
+            if not parent_class:
+                continue
 
             lc_class_combo = LCClassComboBox(self.nesting)
 
@@ -1387,11 +1394,11 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                     initial_class, final_class
                 )
 
-                if meaning == "stable":
+                if meaning.meaning == "stable":
                     code = "0"
-                elif meaning == "degradation":
+                elif meaning.meaning == "degradation":
                     code = "-"
-                elif meaning == "improvement":
+                elif meaning.meaning == "improvement":
                     code = "+"
                 else:
                     log(
@@ -1757,7 +1764,7 @@ class LccInfoUtils:
                     m.initial, m.final
                 )
                 if ref_meaning:
-                    m.meaning = ref_meaning
+                    m.meaning = ref_meaning.meaning
             except (IndexError, KeyError):
                 continue
 

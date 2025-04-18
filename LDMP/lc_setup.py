@@ -352,7 +352,7 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
         elif col_name == "Child_Label":
             return initial_class.name_long
         elif col_name == "Parent_Label":
-            return self.nesting.parent_class_for_child(initial_class).name_long
+            return self.nesting.parent_for_child(initial_class).name_long
 
     def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
         if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:
@@ -777,7 +777,7 @@ class DlgCalculateLCSetAggregationESA(DlgCalculateLCSetAggregationBase):
                 row, self.table_model.child_code_col()
             ).data()
             parent_class = [
-                self.nesting.parent_class_for_child(c)
+                self.nesting.parent_for_child(c)
                 for c in self.nesting.child.key_with_nodata()
                 if c.code == child_code
             ][0]
@@ -889,7 +889,7 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
                 row, self.table_model.child_code_col()
             ).data()
             parent_class = [
-                self.nesting.parent_class_for_child(c)
+                self.nesting.parent_for_child(c)
                 for c in self.nesting.child.key_with_nodata()
                 if c.code == child_code
             ][0]

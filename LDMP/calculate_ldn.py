@@ -434,7 +434,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self.add_period_button.clicked.connect(self.on_add_period_clicked)
 
-        self.extra_progress_boxes: list[tuple[QtWidgets.QGroupBox, TimePeriodWidgets]] = []
+        self.extra_progress_boxes: list[
+            tuple[QtWidgets.QGroupBox, TimePeriodWidgets]
+        ] = []
 
         self._finish_initialization()
 
@@ -756,11 +758,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         structure that points to the new widgets.
         """
         grp = QtWidgets.QGroupBox(parent=self)
-        uic.loadUi(
-            str(Path(__file__).parent / "gui/fragment_progress_period.ui"), grp
-        )
+        uic.loadUi(str(Path(__file__).parent / "gui/fragment_progress_period.ui"), grp)
 
-        cb_lpd: QtWidgets.QComboBox = grp.findChild(QtWidgets.QComboBox, "cb_jrc_progress")
+        cb_lpd: QtWidgets.QComboBox = grp.findChild(
+            QtWidgets.QComboBox, "cb_jrc_progress"
+        )
 
         cb_lpd.addItems([*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()])
         cb_lpd.setCurrentIndex(0)
@@ -794,7 +796,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             w.year_initial_lc,
             w.year_final_lc,
             w.year_initial_soc,
-            w.year_final_soc
+            w.year_final_soc,
         ):
             de.dateChanged.connect(self.on_date_changed)
 
@@ -802,8 +804,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.toggle_time_period(w)
 
         same_btn = w.radio_time_period_same
-        vary_btn = grp.findChild(QtWidgets.QRadioButton,
-                                 "radio_time_period_vary_progress")
+        vary_btn = grp.findChild(
+            QtWidgets.QRadioButton, "radio_time_period_vary_progress"
+        )
 
         same_btn.toggled.connect(lambda _checked, l=w: self.toggle_time_period(w))
         vary_btn.toggled.connect(lambda _checked, l=w: self.toggle_time_period(w))
@@ -819,7 +822,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         # Insert right above the “Add Period” row (verticalLayout_7)
         container_layout: QtWidgets.QVBoxLayout = self.verticalLayout_7
         idx = container_layout.indexOf(
-            self.findChild(QtWidgets.QHBoxLayout, "verticalLayout_9"))
+            self.findChild(QtWidgets.QHBoxLayout, "verticalLayout_9")
+        )
         container_layout.insertWidget(idx, grp)
 
         self.extra_progress_boxes.append((grp, widgets))
@@ -866,8 +870,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         for (period, values), widgets in zip(
             periods.items(),
-            [self.widgets_baseline, self.widgets_progress] +
-            [w for _, w in self.extra_progress_boxes],
+            [self.widgets_baseline, self.widgets_progress]
+            + [w for _, w in self.extra_progress_boxes],
         ):
             payload = {}
             year_initial = values["period_year_initial"]

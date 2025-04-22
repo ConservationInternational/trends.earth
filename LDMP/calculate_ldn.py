@@ -811,6 +811,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         same_btn.toggled.connect(lambda _checked, l=w: self.toggle_time_period(w))
         vary_btn.toggled.connect(lambda _checked, l=w: self.toggle_time_period(w))
 
+        w.year_initial.dateChanged.connect(lambda _d, ww=w: self.update_start_dates(ww))
+        w.year_final.dateChanged.connect(lambda _d, ww=w: self.update_end_dates(ww))
+
         return grp, w
 
     @QtCore.pyqtSlot()
@@ -831,7 +834,14 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self.extra_progress_boxes.append((grp, widgets))
         self.update_timeline_graph()
-        self.toggle_lpd_options()
+
+        is_te = self.radio_lpd_te.isChecked()
+        for _box, w in getattr(self, "extra_progress_boxes", []):
+            w.cb_lpd.setVisible(not is_te)
+
+            lbl = _box.findChild(QtWidgets.QLabel, "label_jrc_progress")
+            if lbl is not None:
+                lbl.setVisible(not is_te)
 
     def _get_period_years(self, widgets):
         return {
@@ -863,8 +873,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         periods = {"baseline": self._get_period_years(self.widgets_baseline)}
 
+        progress_period = self._get_period_years(self.widgets_progress)
+        if progress_period:
+            periods['progress_1'] = progress_period
+
         for i, (_, w) in enumerate(self.extra_progress_boxes, start=1):
-            key = f"progress_{i}"
+            key = f"progress_{i + 1}"
             periods[key] = self._get_period_years(w)
 
         crosses_180th, geojsons = self.gee_bounding_box
@@ -1030,8 +1044,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     },
                 }
             )
-
-            log(f"period is: {payload['period']}")
 
             payloads.append(payload)
 

@@ -73,10 +73,12 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.setMinimumSize(600, 400)
+        self.setMinimumSize(800, 400)
         self.graphic_view.setSizePolicy(
             QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
         )
+
+        self.extra_progress_widgets: list[TimePeriodWidgets] = []
 
         self.scene = QtWidgets.QGraphicsScene()
         self.graphic_view.setScene(self.scene)
@@ -86,7 +88,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         self.progress_period_enabled = False
 
     def set_timeline_data(
-        self, widgets_baseline, widgets_progress, progress_period_enabled
+        self, widgets_baseline, widgets_progress, extra_widgets, progress_period_enabled
     ):
         """
         Receive references to the baseline/progress TimePeriodWidgets from the
@@ -94,6 +96,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         """
         self.widgets_baseline = widgets_baseline
         self.widgets_progress = widgets_progress
+        self.extra_progress_widgets = extra_widgets
         self.progress_period_enabled = progress_period_enabled
 
         self.draw_timeline()
@@ -118,6 +121,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         # Progress period years, if active
         if self.progress_period_enabled:
             widgets.append(self.widgets_progress)
+            widgets.extend(self.extra_progress_widgets)
 
         for widget in widgets:
             baseline_years = [
@@ -153,16 +157,23 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         )
 
         if self.progress_period_enabled:
-            content_start_y += 125
-            self.draw_timeline_graph(
-                widgets=self.widgets_progress,
-                content_start_y=content_start_y,
-                title="Progress period",
-                min_year=min_year,
-                max_year=max_year,
-            )
+            for idx, w in enumerate(
+                [self.widgets_progress] + self.extra_progress_widgets, start=1
+            ):
+                content_start_y += 125
+                self.draw_timeline_graph(
+                    widgets=w,
+                    content_start_y=content_start_y,
+                    title=f"Progress period #{idx}",
+                    min_year=min_year,
+                    max_year=max_year,
+                )
 
         self.draw_x_axis(min_year, max_year)
+
+        bounding = self.scene.itemsBoundingRect()
+        padded = bounding.adjusted(-25, -25, 25, 25)
+        self.scene.setSceneRect(padded)
 
     def draw_x_axis(self, min_year, max_year):
         chart_width = 800
@@ -198,12 +209,6 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
             label = QtWidgets.QGraphicsTextItem(str(year))
             label.setPos(x_pos - 10, axis_y - 25)
             self.scene.addItem(label)
-
-        # Update scene rect
-        self.scene.setSceneRect(
-            -padding, -padding, chart_width + 2 * padding, chart_height + 2 * padding
-        )
-        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
     def draw_timeline_graph(self, title, widgets, content_start_y, min_year, max_year):
         colors = [
@@ -295,11 +300,9 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         the dialog.
         """
         super().resizeEvent(event)
-        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
     def showEvent(self, event):
         super().showEvent(event)
-        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
 
 class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
@@ -442,6 +445,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
     def update_timeline_graph(self):
         if self.timeline_dlg:
+            self.timeline_dlg.extra_progress_widgets = [
+                w for _, w in self.extra_progress_boxes
+            ]
             self.timeline_dlg.draw_timeline(
                 progress_period_enabled=self.checkBox_progress_period.isChecked()
             )
@@ -463,6 +469,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.timeline_dlg.set_timeline_data(
             widgets_baseline=self.widgets_baseline,
             widgets_progress=self.widgets_progress,
+            extra_widgets=[w for _, w in self.extra_progress_boxes],
             progress_period_enabled=self.checkBox_progress_period.isChecked(),
         )
 

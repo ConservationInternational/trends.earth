@@ -875,7 +875,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         progress_period = self._get_period_years(self.widgets_progress)
         if progress_period:
-            periods['progress_1'] = progress_period
+            periods["progress_1"] = progress_period
 
         for i, (_, w) in enumerate(self.extra_progress_boxes, start=1):
             key = f"progress_{i + 1}"

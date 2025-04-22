@@ -816,15 +816,18 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     @QtCore.pyqtSlot()
     def on_add_period_clicked(self):
         grp, widgets = self._create_progress_period()
-
         grp.setTitle(f"Progress period #{len(self.extra_progress_boxes) + 2}")
 
-        # Insert right above the “Add Period” row (verticalLayout_7)
+        wrapper = QtWidgets.QWidget()
+        layout = QtWidgets.QHBoxLayout(wrapper)
+        layout.setContentsMargins(8, 0, 8, 0)
+        layout.addWidget(grp)
+
         container_layout: QtWidgets.QVBoxLayout = self.verticalLayout_7
         idx = container_layout.indexOf(
             self.findChild(QtWidgets.QHBoxLayout, "verticalLayout_9")
         )
-        container_layout.insertWidget(idx, grp)
+        container_layout.insertWidget(idx, wrapper)
 
         self.extra_progress_boxes.append((grp, widgets))
         self.update_timeline_graph()

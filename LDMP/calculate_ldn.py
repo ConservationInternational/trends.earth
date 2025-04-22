@@ -808,8 +808,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             QtWidgets.QRadioButton, "radio_time_period_vary_progress"
         )
 
-        same_btn.toggled.connect(lambda _checked, l=w: self.toggle_time_period(w))
-        vary_btn.toggled.connect(lambda _checked, l=w: self.toggle_time_period(w))
+        same_btn.toggled.connect(
+            lambda _checked, w_local=w: self.toggle_time_period(w_local)
+        )
+        vary_btn.toggled.connect(
+            lambda _checked, w_local=w: self.toggle_time_period(w_local)
+        )
 
         w.year_initial.dateChanged.connect(lambda _d, ww=w: self.update_start_dates(ww))
         w.year_final.dateChanged.connect(lambda _d, ww=w: self.update_end_dates(ww))

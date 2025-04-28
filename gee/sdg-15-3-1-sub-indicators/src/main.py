@@ -159,6 +159,9 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
             # Population needs to be saved as floats
             out.add_image(**_get_population(params.get("population"), logger))
 
+            logger.debug("Filtering duplicate layers")
+            out.rmDuplicates()
+
             logger.debug("Exporting results")
 
             res.append(

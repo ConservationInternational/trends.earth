@@ -99,6 +99,44 @@ def _build_land_cover_estimates(
     return estimates
 
 
+def _country_profile(job: Job, lc_areas_by_year: Dict[str, Dict[str, float]]):
+    periods = job.params.get("periods", [])
+    baseline_period_params = next(
+        (p.get("params", {}) for p in periods if p.get("name") == "baseline"),
+        {},
+    )
+
+    result = {"land_area": []}
+
+    if "period" in baseline_period_params:
+        year_initial = baseline_period_params["period"].get("year_initial")
+        year_final = baseline_period_params["period"].get("year_final")
+
+        if isinstance(year_initial, int) and isinstance(year_final, int):
+            for year in range(year_initial, year_final + 1):
+                year_str = str(year)
+                year_data = lc_areas_by_year.get(year_str)
+                if not year_data:
+                    continue
+
+                water_bodies_area = sum(
+                    v for k, v in year_data.items() if "water" in k.lower()
+                )
+                total_land_area = sum(
+                    v for k, v in year_data.items() if "water" not in k.lower()
+                )
+
+                result["land_area"].append(
+                    {
+                        "year": year,
+                        "total_land_area_km2": total_land_area,
+                        "water_bodies_km2": water_bodies_area,
+                        "total_country_area_km2": total_land_area + water_bodies_area,
+                    }
+                )
+    return result
+
+
 def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
     """Generate a PRAIS‑compatible JSON summary"""
     if not hasattr(result, "data"):
@@ -141,43 +179,6 @@ def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
         prais_data["land_cover_estimates"] = _build_land_cover_estimates(
             lc_areas_by_year
         )
-
-    lc_areas_by_year: Dict[str, Dict[str, float]] = land_cover_section.get(
-        "land_cover_areas_by_year", {}
-    ).get("values", {})
-
-    periods = job.params.get("periods", [])
-    baseline_period_params = next(
-        (p.get("params", {}) for p in periods if p.get("name") == "baseline"),
-        {},
-    )
-
-    if "period" in baseline_period_params:
-        year_initial = baseline_period_params["period"].get("year_initial")
-        year_final = baseline_period_params["period"].get("year_final")
-
-        if isinstance(year_initial, int) and isinstance(year_final, int):
-            for year in range(year_initial, year_final + 1):
-                year_str = str(year)
-                year_data = lc_areas_by_year.get(year_str)
-                if not year_data:
-                    continue
-
-                water_bodies_area = sum(
-                    v for k, v in year_data.items() if "water" in k.lower()
-                )
-                total_land_area = sum(
-                    v for k, v in year_data.items() if "water" not in k.lower()
-                )
-
-                # prais_data["country_profile"]["land_area"].append(
-                #     {
-                #         "year": year,
-                #         "total_land_area_km2": total_land_area,
-                #         "water_bodies_km2": water_bodies_area,
-                #         "total_country_area_km2": total_land_area + water_bodies_area,
-                #     }
-                # )
 
     transition_matrix_raw: Optional[Dict] = land_cover_section.get("transition_matrix")
     if transition_matrix_raw:

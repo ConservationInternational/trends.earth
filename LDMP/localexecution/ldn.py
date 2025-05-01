@@ -1,7 +1,7 @@
-import copy
 import dataclasses
 import enum
 import json
+import uuid
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
@@ -14,6 +14,7 @@ from te_schemas.results import Band as JobBand
 
 from .. import data_io
 from ..jobs.models import Job
+from ..reports.prais import generate_prais_json
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
@@ -359,104 +360,29 @@ def get_main_sdg_15_3_1_job_params(
     return params
 
 
-def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
-    """Generate PRAIS JSON file with land area information"""
-    if not hasattr(result, "data"):
-        return
-
-    result_data = result.data
-
-    data = copy.deepcopy(result_data)
-    if not data:
-        return
-    if (
-        "report" not in data
-        or "land_condition" not in data["report"]
-        or "baseline" not in data["report"]["land_condition"]
-    ):
-        return
-
-    baseline_results = data["report"]["land_condition"]["baseline"]
-
-    # Get land cover areas by year
-    if (
-        "land_cover" not in baseline_results
-        or "land_cover_areas_by_year" not in baseline_results["land_cover"]
-    ):
-        return
-
-    lc_areas_by_year = baseline_results["land_cover"]["land_cover_areas_by_year"][
-        "values"
-    ]
-
-    # Get period (initial and final years)
-    periods = job.params.get("periods", [])
-    period_params = {}
-    for period in periods:
-        if period.get("name") == "baseline":
-            period_params = period.get("params", {})
-            break
-
-    if not period_params or "period" not in period_params:
-        return
-
-    period = period_params["period"]
-    year_initial = period["year_initial"]
-    year_final = period["year_final"]
-
-    # Prepare data for PRAIS JSON
-    land_area = []
-    prais_data = {
-        "id": str(job.id),
-        "task_name": job.task_name,
-        "task_notes": job.task_notes,
-        "land_area": [],
-    }
-
-    for year in range(year_initial, year_final + 1):
-        year_str = str(year)
-        if year_str not in lc_areas_by_year:
-            continue
-
-        year_data = lc_areas_by_year[year_str]
-
-        # Find water bodies area
-        water_bodies_area = 0
-        for lc_class, area in year_data.items():
-            if "water" in lc_class.lower():
-                water_bodies_area = area
-                break
-
-        # Calculate total land area (excluding water bodies)
-        total_land_area = sum(
-            area
-            for lc_class, area in year_data.items()
-            if "water" not in lc_class.lower()
-        )
-
-        # Calculate total country area
-        total_country_area = total_land_area + water_bodies_area
-
-        land_area.append(
-            {
-                "year": year,
-                "total_land_area_km2": total_land_area,
-                "water_bodies_km2": water_bodies_area,
-                "total_country_area_km2": total_country_area,
-            }
-        )
-
-    prais_data["land_area"] = land_area
-
-    prais_json_path = job_output_path.parent / "prais_summary.json"
-    with open(prais_json_path, "w") as f:
-        json.dump(prais_data, f, indent=2)
-
-
 def compute_ldn(
     ldn_job: Job, aoi: AOI, job_output_path: Path, dataset_output_path: Path
 ) -> Job:
     """Calculate final SDG 15.3.1 indicator and save to disk"""
+
+    debug_json_path = job_output_path.parent / "debug_params.json"
+
+    ldn_job_copy = {
+        "id": str(uuid.uuid4()),
+        "task_name": ldn_job.task_name,
+        "params": ldn_job.params,
+    }
+    with open(debug_json_path, "w", encoding="utf-8") as debug_file:
+        json.dump(
+            {
+                "ldn_job": ldn_job_copy,
+                "aoi_geojson": aoi.get_geojson(),
+                "job_output_path": str(job_output_path),
+                "dataset_output_path": str(dataset_output_path),
+            },
+            debug_file,
+            indent=2,
+        )
 
     result = summarise_land_degradation(
         ldn_job, AOI(aoi.get_geojson()), job_output_path, n_cpus=1

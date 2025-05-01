@@ -365,28 +365,17 @@ def compute_ldn(
 ) -> Job:
     """Calculate final SDG 15.3.1 indicator and save to disk"""
 
-    debug_json_path = job_output_path.parent / "debug_params.json"
-
-    ldn_job_copy = {
-        "id": str(uuid.uuid4()),
-        "task_name": ldn_job.task_name,
-        "params": ldn_job.params,
-    }
-    with open(debug_json_path, "w", encoding="utf-8") as debug_file:
-        json.dump(
-            {
-                "ldn_job": ldn_job_copy,
-                "aoi_geojson": aoi.get_geojson(),
-                "job_output_path": str(job_output_path),
-                "dataset_output_path": str(dataset_output_path),
-            },
-            debug_file,
-            indent=2,
-        )
+    debug_json_path = job_output_path.parent / "debug_result.json"
 
     result = summarise_land_degradation(
         ldn_job, AOI(aoi.get_geojson()), job_output_path, n_cpus=1
     )
+    with open(debug_json_path, "w", encoding="utf-8") as debug_file:
+        json.dump(
+            result.data,
+            debug_file,
+            indent=2,
+        )
 
     generate_prais_json(result, ldn_job, job_output_path)
 

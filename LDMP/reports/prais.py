@@ -1,7 +1,9 @@
+import collections
 import copy
 import json
+import os
 from pathlib import Path
-from typing import Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 
 from te_schemas.jobs import Job
 from te_schemas.land_cover import LCClass, LCTransitionMatrixBase
@@ -34,9 +36,67 @@ def classify_process(initial: LCClass, final: LCClass) -> str:
     return "Other"
 
 
+def simplify_transition_matrix(transitions: collections.Iterable[Dict]) -> list[Any]:
+    """
+    Simplifies a list of transition matrices by extracting and restructuring key information
+    into a concise representation.
+    """
+    result = []
+    for transition in transitions:
+        result.append(
+            {
+                "initial": transition["initial"]["name_short"],
+                "final": transition["final"]["name_short"],
+                "meaning": transition["meaning"],
+            }
+        )
+    return result
+
+
 def _lc_name_short(lc: Union[LCClass, Dict]) -> str:
     """Return the short name regardless of whether *lc* is an LCClass or a raw dict."""
     return lc["name_short"] if hasattr(lc, "name_short") else lc.get("name_short", "")
+
+
+def _build_land_cover_estimates(
+    lc_areas_by_year: Dict[str, Dict[str, float]],
+) -> List[Dict]:
+    """Create the SO1‑1.T4 annual land‑cover estimates table."""
+    estimates: List[Dict] = []
+
+    for year_str, year_data in lc_areas_by_year.items():
+        row = {
+            "year": int(year_str),
+            "tree_covered_km2": 0.0,
+            "grasslands_km2": 0.0,
+            "croplands_km2": 0.0,
+            "wetlands_km2": 0.0,
+            "artificial_surfaces_km2": 0.0,
+            "other_lands_km2": 0.0,
+            "water_bodies_km2": 0.0,
+        }
+
+        for lc_class, area in year_data.items():
+            lc_lower = lc_class.lower()
+            if "tree" in lc_lower:
+                row["tree_covered_km2"] += area
+            elif "grass" in lc_lower:
+                row["grasslands_km2"] += area
+            elif "crop" in lc_lower:
+                row["croplands_km2"] += area
+            elif "wet" in lc_lower:
+                row["wetlands_km2"] += area
+            elif "artificial" in lc_lower or "built" in lc_lower:
+                row["artificial_surfaces_km2"] += area
+            elif "water" in lc_lower:
+                row["water_bodies_km2"] += area
+            else:
+                row["other_lands_km2"] += area
+
+        estimates.append(row)
+
+    estimates.sort(key=lambda r: r["year"])
+    return estimates
 
 
 def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
@@ -48,17 +108,39 @@ def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
 
     data = copy.deepcopy(result_data)
 
+    report_data = data.get("report", {})
+    land_condition = report_data.get("land_condition", {})
+    metadata = report_data.get("metadata", {})
+
     prais_data: Dict[str, Union[str, Dict, List]] = {
-        "id": str(job.id),
-        "task_name": job.task_name,
-        "task_notes": job.task_notes,
-        "country_profile": {"land_area": []},
+        "key_degradation_processes": [],
         "land_cover_legend": None,
         "land_cover_transition_matrix": None,
-        "key_degradation_processes": [],
+        "land_cover_estimates": [],
+        "land_cover_change_for_baseline": [],
+        "land_cover_change_for_progress": [],
+        "land_cover_degradation_in_baseline_and_progress": [],
     }
-    baseline = data.get("report", {}).get("land_condition", {}).get("baseline", {})
+    baseline = land_condition.get("baseline", {})
+    progress = land_condition.get("progress", {})
+    aoi = metadata.get("area_of_interest", {}).get("geojson", {})
+
     land_cover_section: Dict = baseline.get("land_cover", {})
+    land_cover_section_progress: Dict = progress.get("land_cover", {})
+
+    baseline_sdg: Dict = baseline.get("sdg", {})
+    progress_sdg: Dict = progress.get("sdg", {})
+
+    lc_areas_by_year: Dict[str, Dict[str, float]] = {
+        **land_cover_section.get("land_cover_areas_by_year", {}).get("values", {}),
+        **land_cover_section_progress.get("land_cover_areas_by_year", {}).get(
+            "values", {}
+        ),
+    }
+    if lc_areas_by_year:
+        prais_data["land_cover_estimates"] = _build_land_cover_estimates(
+            lc_areas_by_year
+        )
 
     lc_areas_by_year: Dict[str, Dict[str, float]] = land_cover_section.get(
         "land_cover_areas_by_year", {}
@@ -88,14 +170,14 @@ def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
                     v for k, v in year_data.items() if "water" not in k.lower()
                 )
 
-                prais_data["country_profile"]["land_area"].append(
-                    {
-                        "year": year,
-                        "total_land_area_km2": total_land_area,
-                        "water_bodies_km2": water_bodies_area,
-                        "total_country_area_km2": total_land_area + water_bodies_area,
-                    }
-                )
+                # prais_data["country_profile"]["land_area"].append(
+                #     {
+                #         "year": year,
+                #         "total_land_area_km2": total_land_area,
+                #         "water_bodies_km2": water_bodies_area,
+                #         "total_country_area_km2": total_land_area + water_bodies_area,
+                #     }
+                # )
 
     transition_matrix_raw: Optional[Dict] = land_cover_section.get("transition_matrix")
     if transition_matrix_raw:
@@ -104,7 +186,9 @@ def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
         )
 
         prais_data["land_cover_legend"] = transition_matrix_raw.get("legend")
-        prais_data["land_cover_transition_matrix"] = matrix_dict
+        prais_data["land_cover_transition_matrix"] = simplify_transition_matrix(
+            matrix_dict.get("transitions", [])
+        )
 
         matrix: LCTransitionMatrixBase = LCTransitionMatrixBase.Schema().load(
             matrix_dict
@@ -137,6 +221,41 @@ def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
             for t in degradation_transitions
         ]
 
-    prais_json_path = job_output_path.parent / "prais_summary.json"
+    prais_data["land_cover_change_for_baseline"] = land_cover_section.get(
+        "crosstabs_by_land_cover_class", []
+    )
+    prais_data["land_cover_change_for_progress"] = land_cover_section_progress.get(
+        "crosstabs_by_land_cover_class", []
+    )
+
+    baseline_areas = baseline_sdg.get("summary", {}).get("areas", [])
+    progress_areas = progress_sdg.get("summary", {}).get("areas", [])
+
+    if baseline_areas:
+        total_baseline_area = sum(a["area"] for a in baseline_areas)
+        [
+            a.update({"percentage": a["area"] / total_baseline_area * 100})
+            for a in baseline_areas
+        ]
+
+    if progress_areas:
+        total_progress_area = sum(a["area"] for a in progress_areas)
+        [
+            a.update({"percentage": a["area"] / total_progress_area * 100})
+            for a in progress_areas
+        ]
+
+    prais_data["land_cover_degradation_in_baseline_and_progress"] = {
+        "baseline": baseline_areas,
+        "progress": progress_areas,
+    }
+
+    prais_json_folder = os.path.join(job_output_path.parent, "prais")
+    os.mkdir(prais_json_folder)
+    prais_json_path = os.path.join(prais_json_folder, "so_1_1.json")
+    aoi_path = os.path.join(prais_json_folder, "aoi.json")
     with open(prais_json_path, "w", encoding="utf-8") as f:
         json.dump(prais_data, f, indent=2)
+
+    with open(aoi_path, "w", encoding="utf-8") as f:
+        json.dump(aoi, f, indent=2)

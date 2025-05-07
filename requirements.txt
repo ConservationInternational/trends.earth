@@ -4,7 +4,7 @@ requests>=2.32.0
 pyqtgraph>=0.12.4
 openpyxl>=3.1.3
 marshmallow>=3.21.3
-marshmallow_dataclass[enum, union]==8.7.0
+marshmallow_dataclass[enum, union]==8.7.1
 git+https://github.com/ConservationInternational/trends.earth-schemas.git@master
 git+https://github.com/ConservationInternational/trends.earth-algorithms.git@master
 

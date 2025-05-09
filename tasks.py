@@ -516,6 +516,7 @@ def update_script_ids(c, script=None):
     dirs = next(os.walk(c.gee.script_dir))[1]
     script_dir = None
 
+    print("Updating script IDs")
     for dir in dirs:
         script_dir = os.path.join(c.gee.script_dir, dir)
 

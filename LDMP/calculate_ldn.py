@@ -13,6 +13,7 @@
 
 # pylint: disable=import-error
 import typing
+import weakref
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -72,10 +73,12 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.setMinimumSize(600, 400)
+        self.setMinimumSize(800, 400)
         self.graphic_view.setSizePolicy(
             QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
         )
+
+        self.extra_progress_widgets: list[TimePeriodWidgets] = []
 
         self.scene = QtWidgets.QGraphicsScene()
         self.graphic_view.setScene(self.scene)
@@ -85,7 +88,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         self.progress_period_enabled = False
 
     def set_timeline_data(
-        self, widgets_baseline, widgets_progress, progress_period_enabled
+        self, widgets_baseline, widgets_progress, extra_widgets, progress_period_enabled
     ):
         """
         Receive references to the baseline/progress TimePeriodWidgets from the
@@ -93,6 +96,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         """
         self.widgets_baseline = widgets_baseline
         self.widgets_progress = widgets_progress
+        self.extra_progress_widgets = extra_widgets
         self.progress_period_enabled = progress_period_enabled
 
         self.draw_timeline()
@@ -117,6 +121,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         # Progress period years, if active
         if self.progress_period_enabled:
             widgets.append(self.widgets_progress)
+            widgets.extend(self.extra_progress_widgets)
 
         for widget in widgets:
             baseline_years = [
@@ -152,16 +157,23 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         )
 
         if self.progress_period_enabled:
-            content_start_y += 125
-            self.draw_timeline_graph(
-                widgets=self.widgets_progress,
-                content_start_y=content_start_y,
-                title="Progress period",
-                min_year=min_year,
-                max_year=max_year,
-            )
+            for idx, w in enumerate(
+                [self.widgets_progress] + self.extra_progress_widgets, start=1
+            ):
+                content_start_y += 125
+                self.draw_timeline_graph(
+                    widgets=w,
+                    content_start_y=content_start_y,
+                    title=f"Progress period #{idx}",
+                    min_year=min_year,
+                    max_year=max_year,
+                )
 
         self.draw_x_axis(min_year, max_year)
+
+        bounding = self.scene.itemsBoundingRect()
+        padded = bounding.adjusted(-25, -25, 25, 25)
+        self.scene.setSceneRect(padded)
 
     def draw_x_axis(self, min_year, max_year):
         chart_width = 800
@@ -197,12 +209,6 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
             label = QtWidgets.QGraphicsTextItem(str(year))
             label.setPos(x_pos - 10, axis_y - 25)
             self.scene.addItem(label)
-
-        # Update scene rect
-        self.scene.setSceneRect(
-            -padding, -padding, chart_width + 2 * padding, chart_height + 2 * padding
-        )
-        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
     def draw_timeline_graph(self, title, widgets, content_start_y, min_year, max_year):
         colors = [
@@ -294,11 +300,9 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         the dialog.
         """
         super().resizeEvent(event)
-        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
     def showEvent(self, event):
         super().showEvent(event)
-        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
 
 class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
@@ -431,10 +435,19 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.set_preset_unccd_default_fao_wocat
         )
 
+        self.add_period_button.clicked.connect(self.on_add_period_clicked)
+
+        self.extra_progress_boxes: list[
+            tuple[QtWidgets.QGroupBox, TimePeriodWidgets]
+        ] = []
+
         self._finish_initialization()
 
     def update_timeline_graph(self):
         if self.timeline_dlg:
+            self.timeline_dlg.extra_progress_widgets = [
+                w for _, w in self.extra_progress_boxes
+            ]
             self.timeline_dlg.draw_timeline(
                 progress_period_enabled=self.checkBox_progress_period.isChecked()
             )
@@ -456,6 +469,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.timeline_dlg.set_timeline_data(
             widgets_baseline=self.widgets_baseline,
             widgets_progress=self.widgets_progress,
+            extra_widgets=[w for _, w in self.extra_progress_boxes],
             progress_period_enabled=self.checkBox_progress_period.isChecked(),
         )
 
@@ -620,7 +634,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 widgets.year_final_prod.setEnabled(True)
 
     def toggle_lpd_options(self):
-        if not self.radio_lpd_te.isChecked():
+        is_te = self.radio_lpd_te.isChecked()
+        if not is_te:
             self.cb_jrc_baseline.show()
             self.label_jrc_baseline.show()
             self.cb_jrc_progress.show()
@@ -631,11 +646,22 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.cb_jrc_progress.hide()
             self.label_jrc_progress.hide()
 
+        for _box, w in getattr(self, "extra_progress_boxes", []):
+            w.cb_lpd.setVisible(not is_te)
+
+            lbl = _box.findChild(QtWidgets.QLabel, "label_jrc_progress")
+            if lbl is not None:
+                lbl.setVisible(not is_te)
+
         self.update_time_bounds(self.widgets_baseline)
         self.update_time_bounds(self.widgets_progress)
+        for _box, w in getattr(self, "extra_progress_boxes", []):
+            self.update_time_bounds(w)
 
         self.toggle_time_period(self.widgets_baseline)
         self.toggle_time_period(self.widgets_progress)
+        for _box, w in getattr(self, "extra_progress_boxes", []):
+            self.toggle_time_period(w)
 
     def update_time_bounds(self, widgets):
         lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
@@ -725,10 +751,108 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     def toggle_progress_period(self):
         if self.checkBox_progress_period.isChecked():
             self.groupBox_progress_period.setVisible(True)
+            self.add_period_button.setVisible(True)
         else:
             self.groupBox_progress_period.setVisible(False)
+            self.add_period_button.setVisible(False)
 
         self.update_timeline_graph()
+
+    def _create_progress_period(self) -> tuple[QtWidgets.QGroupBox, TimePeriodWidgets]:
+        """
+        Build an independent copy of the original groupBox_progress_period
+        and return both the box itself and a freshly‑wired TimePeriodWidgets
+        structure that points to the new widgets.
+        """
+        grp = QtWidgets.QGroupBox(parent=self)
+        uic.loadUi(str(Path(__file__).parent / "gui/fragment_progress_period.ui"), grp)
+
+        cb_lpd: QtWidgets.QComboBox = grp.findChild(
+            QtWidgets.QComboBox, "cb_jrc_progress"
+        )
+
+        cb_lpd.addItems([*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()])
+        cb_lpd.setCurrentIndex(0)
+
+        cb_lpd.currentIndexChanged.connect(
+            lambda _ix, wref=weakref.ref(self): wref() and wref().update_time_bounds(w)
+        )
+
+        w = TimePeriodWidgets(
+            grp.findChild(QtWidgets.QRadioButton, "radio_time_period_same_progress"),
+            self.radio_lpd_te,
+            grp.findChild(QtWidgets.QComboBox, "cb_jrc_progress"),
+            grp.findChild(QtWidgets.QDateEdit, "year_initial_progress"),
+            grp.findChild(QtWidgets.QDateEdit, "year_final_progress"),
+            grp.findChild(QtWidgets.QLabel, "label_progress_prod"),
+            grp.findChild(QtWidgets.QDateEdit, "year_initial_progress_prod"),
+            grp.findChild(QtWidgets.QDateEdit, "year_final_progress_prod"),
+            grp.findChild(QtWidgets.QLabel, "label_progress_lc"),
+            grp.findChild(QtWidgets.QDateEdit, "year_initial_progress_lc"),
+            grp.findChild(QtWidgets.QDateEdit, "year_final_progress_lc"),
+            grp.findChild(QtWidgets.QLabel, "label_progress_soc"),
+            grp.findChild(QtWidgets.QDateEdit, "year_initial_progress_soc"),
+            grp.findChild(QtWidgets.QDateEdit, "year_final_progress_soc"),
+        )
+
+        for de in (
+            w.year_initial,
+            w.year_final,
+            w.year_initial_prod,
+            w.year_final_prod,
+            w.year_initial_lc,
+            w.year_final_lc,
+            w.year_initial_soc,
+            w.year_final_soc,
+        ):
+            de.dateChanged.connect(self.on_date_changed)
+
+        self.update_time_bounds(w)
+        self.toggle_time_period(w)
+
+        same_btn = w.radio_time_period_same
+        vary_btn = grp.findChild(
+            QtWidgets.QRadioButton, "radio_time_period_vary_progress"
+        )
+
+        same_btn.toggled.connect(
+            lambda _checked, w_local=w: self.toggle_time_period(w_local)
+        )
+        vary_btn.toggled.connect(
+            lambda _checked, w_local=w: self.toggle_time_period(w_local)
+        )
+
+        w.year_initial.dateChanged.connect(lambda _d, ww=w: self.update_start_dates(ww))
+        w.year_final.dateChanged.connect(lambda _d, ww=w: self.update_end_dates(ww))
+
+        return grp, w
+
+    @QtCore.pyqtSlot()
+    def on_add_period_clicked(self):
+        grp, widgets = self._create_progress_period()
+        grp.setTitle(f"Progress period #{len(self.extra_progress_boxes) + 2}")
+
+        wrapper = QtWidgets.QWidget()
+        layout = QtWidgets.QHBoxLayout(wrapper)
+        layout.setContentsMargins(8, 0, 8, 0)
+        layout.addWidget(grp)
+
+        container_layout: QtWidgets.QVBoxLayout = self.verticalLayout_7
+        idx = container_layout.indexOf(
+            self.findChild(QtWidgets.QHBoxLayout, "verticalLayout_9")
+        )
+        container_layout.insertWidget(idx, wrapper)
+
+        self.extra_progress_boxes.append((grp, widgets))
+        self.update_timeline_graph()
+
+        is_te = self.radio_lpd_te.isChecked()
+        for _box, w in getattr(self, "extra_progress_boxes", []):
+            w.cb_lpd.setVisible(not is_te)
+
+            lbl = _box.findChild(QtWidgets.QLabel, "label_jrc_progress")
+            if lbl is not None:
+                lbl.setVisible(not is_te)
 
     def _get_period_years(self, widgets):
         return {
@@ -760,15 +884,22 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         periods = {"baseline": self._get_period_years(self.widgets_baseline)}
 
-        if self.checkBox_progress_period.isChecked():
-            periods.update({"progress": self._get_period_years(self.widgets_progress)})
+        progress_period = self._get_period_years(self.widgets_progress)
+        if progress_period:
+            periods["progress_1"] = progress_period
+
+        for i, (_, w) in enumerate(self.extra_progress_boxes, start=1):
+            key = f"progress_{i + 1}"
+            periods[key] = self._get_period_years(w)
 
         crosses_180th, geojsons = self.gee_bounding_box
 
         payloads = []
 
         for (period, values), widgets in zip(
-            periods.items(), (self.widgets_baseline, self.widgets_progress)
+            periods.items(),
+            [self.widgets_baseline, self.widgets_progress]
+            + [w for _, w in self.extra_progress_boxes],
         ):
             payload = {}
             year_initial = values["period_year_initial"]
@@ -924,8 +1055,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     },
                 }
             )
-
-            log(f"period is: {payload['period']}")
 
             payloads.append(payload)
 

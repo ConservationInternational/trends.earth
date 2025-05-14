@@ -277,7 +277,7 @@ class DlgCalculateUrbanSummaryTable(
         urban_indices_years = []
         pop_indices_years = []
 
-        for index, band in enumerate(urban_usable_info.job.results.bands):
+        for index, band in enumerate(urban_usable_info.job.results.get_bands()):
             band_index = index + 1
             band_year = band.metadata.get("year")
             if band.name.lower() == "urban":

@@ -31,24 +31,7 @@ def compute_soil_organic_carbon(
     lc_final_vrt = utils.save_vrt(
         soc_job.params["lc_final_path"], soc_job.params["lc_final_band_index"]
     )
-    lc_files = [lc_initial_vrt, lc_final_vrt]
-    lc_vrts = []
 
-    for index, path in enumerate(lc_files):
-        vrt_path = tempfile.NamedTemporaryFile(suffix=".vrt").name
-        # Add once since band numbers don't start at zero
-        gdal.BuildVRT(
-            vrt_path,
-            lc_files[index],
-            bandList=[index + 1],
-            outputBounds=area_of_interest.get_aligned_output_bounds_deprecated(
-                lc_initial_vrt
-            ),
-            resolution="highest",
-            resampleAlg=gdal.GRA_NearestNeighbour,
-            separate=True,
-        )
-        lc_vrts.append(vrt_path)
     custom_soc_vrt = utils.save_vrt(
         soc_job.params["custom_soc_path"], soc_job.params["custom_soc_band_index"]
     )
@@ -58,7 +41,9 @@ def compute_soil_organic_carbon(
     in_files = [
         custom_soc_vrt,
         str(climate_zones_path),
-    ] + lc_vrts
+        lc_initial_vrt,
+        lc_final_vrt
+    ]
 
     nesting = LCLegendNesting.Schema().load(
         soc_job.params["legend_nesting_custom_to_ipcc"]
@@ -79,13 +64,13 @@ def compute_soil_organic_carbon(
     LDMP.logger.log(f"Saving soil organic carbon to {dataset_output_path!r}")
     # Lc bands start on band 3 as band 1 is initial soc, and band 2 is
     # climate zones
-    lc_band_nums = list(range(3, len(lc_files) + 3))
     soc_worker = worker.StartWorker(
         SOCWorker,
         "calculating change in soil organic carbon",
         in_vrt_path,
         str(dataset_output_path),
-        lc_band_nums,
+        # Band 3 = Initial LC; Band 4 = Final LC
+        [3, 4],
         soc_job.params["lc_years"],
         soc_job.params["fl"],
         nesting,

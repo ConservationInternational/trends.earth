@@ -38,12 +38,7 @@ def compute_soil_organic_carbon(
 
     climate_zones_path = Path(__file__).parents[1] / "data" / "ipcc_climate_zones.tif"
 
-    in_files = [
-        custom_soc_vrt,
-        str(climate_zones_path),
-        lc_initial_vrt,
-        lc_final_vrt
-    ]
+    in_files = [custom_soc_vrt, str(climate_zones_path), lc_initial_vrt, lc_final_vrt]
 
     nesting = LCLegendNesting.Schema().load(
         soc_job.params["legend_nesting_custom_to_ipcc"]

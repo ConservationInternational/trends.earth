@@ -52,7 +52,9 @@ def compute_soil_organic_carbon(
     custom_soc_vrt = utils.save_vrt(
         soc_job.params["custom_soc_path"], soc_job.params["custom_soc_band_index"]
     )
-    climate_zones_path = Path(__file__).parents[1] / "data" / "IPCC_Climate_Zones.tif"
+
+    climate_zones_path = Path(__file__).parents[1] / "data" / "ipcc_climate_zones.tif"
+
     in_files = [
         custom_soc_vrt,
         str(climate_zones_path),

@@ -40,9 +40,12 @@ jobs:
           invoke set-version
 
       - name: Build zipfile
+        shell: bash
         run: |
-          invoke zipfile-build  --filename LDMP-${{ github.event.pull_request.head.ref }}_${{ env.PACKAGE_ID }}.zip
-          echo "REF_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+          SAFE_REF_NAME="${{ github.event.pull_request.head.ref }}"
+          SAFE_REF_NAME="${SAFE_REF_NAME//\//_}"
+          invoke zipfile-build  --filename LDMP-${SAFE_REF_NAME}_${{ env.PACKAGE_ID }}.zip
+          echo "REF_NAME=${SAFE_REF_NAME}" >> $GITHUB_ENV
 
       - name: Plugin path details
         id: get-zip-details
@@ -85,4 +88,3 @@ jobs:
         with:
           name: pr_number
           path: ./pr_number.txt
-

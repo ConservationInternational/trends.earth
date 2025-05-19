@@ -70,6 +70,20 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
         self.advance_configurations.setCollapsed(True)
 
+        self.low_date_edit.dateChanged.connect(self.biomass_date_update)
+        self.high_date_edit.dateChanged.connect(self.biomass_date_update)
+
+    def biomass_date_update(self):
+        """Biomass date changes slot, handles low and high date inputs,
+        calculates the medium date and updates its corresponding input.
+        """
+
+        medium_year = int(
+            (self.low_date_edit.date().year() + self.high_date_edit.date().year()) / 2
+        )
+
+        self.medium_date_edit.setDate(QtCore.QDate(medium_year, 1, 1))
+
     @property
     def trajectory_functions(self) -> typing.Dict:
         return self.script.additional_configuration["trajectory functions"]
@@ -79,21 +93,78 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
     def mode_te_prod_toggled(self):
         if self.mode_lpd_jrc.isChecked():
+            self.reset_fao_wocat_settings()
             self.combo_lpd.setEnabled(True)
             self.advance_configurations.setEnabled(False)
             self.groupBox_ndvi_dataset.setEnabled(False)
             self.groupBox_traj.setEnabled(False)
             self.groupBox_perf.setEnabled(False)
             self.groupBox_state.setEnabled(False)
-            self.advance_configurations.setCollapsed(True)
+
+        elif self.mode_fao_wocat.isChecked():
+            self.set_fao_wocat_settings()
+            self.combo_lpd.setEnabled(True)
+            self.advance_configurations.setEnabled(True)
+            self.groupBox_ndvi_dataset.setEnabled(True)
+            self.groupBox_traj.setEnabled(True)
+            self.groupBox_perf.setEnabled(True)
+            self.groupBox_state.setEnabled(True)
+
         else:
+            self.reset_fao_wocat_settings()
             self.combo_lpd.setEnabled(False)
             self.advance_configurations.setEnabled(True)
             self.groupBox_ndvi_dataset.setEnabled(True)
             self.groupBox_traj.setEnabled(True)
             self.groupBox_perf.setEnabled(True)
             self.groupBox_state.setEnabled(True)
-            self.advance_configurations.setCollapsed(True)
+
+    def set_fao_wocat_settings(self):
+        ndvi_item = "MODIS (MED filter option)"
+
+        for index in range(self.dataset_ndvi.count()):
+            if self.dataset_ndvi.itemText(index) == "AVHRR (GIMMS3g.v1, annual)":
+                self.dataset_ndvi.removeItem(index)
+                self.dataset_ndvi.insertItem(index, ndvi_item)
+
+        self.groupBox_traj.setVisible(False)
+        self.modis_group_box.setVisible(True)
+
+        if self.modis_combo_box.count() < 2:
+            modis_items = ["MannKendal", "MannKendal + MTID"]
+
+            self.modis_combo_box.addItems(modis_items)
+        self.modis_group_box.setEnabled(True)
+
+        self.groupBox_traj_climate.setVisible(False)
+        self.initial_biomass_group.setVisible(True)
+        self.initial_biomass_group.setEnabled(True)
+        self.groupBox_perf.setVisible(False)
+
+        self.groupBox_state_baseline.setVisible(False)
+        self.groupBox_state_comparison.setVisible(False)
+
+        self.period_interval.setVisible(True)
+
+    def reset_fao_wocat_settings(self):
+        for index in range(self.dataset_ndvi.count()):
+            if self.dataset_ndvi.itemText(index) == "MODIS (MED filter option)":
+                self.dataset_ndvi.removeItem(index)
+                self.dataset_ndvi.insertItem(index, "AVHRR (GIMMS3g.v1, annual)")
+
+        self.groupBox_traj.setVisible(True)
+        self.modis_group_box.setVisible(False)
+        self.modis_group_box.setEnabled(False)
+
+        self.groupBox_traj_climate.setVisible(True)
+        self.initial_biomass_group.setVisible(False)
+        self.initial_biomass_group.setEnabled(False)
+        self.groupBox_perf.setVisible(True)
+
+        self.groupBox_state_baseline.setVisible(True)
+        self.groupBox_state_comparison.setVisible(True)
+
+        self.period_interval.setVisible(False)
 
     def dataset_climate_update(self):
         self.traj_climate.clear()
@@ -167,9 +238,11 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
     def btn_cancel(self):
         self.close()
 
-    def _get_prod_mode(self, radio_lpd_te, cb_lpd):
+    def _get_prod_mode(self, radio_lpd_te, radio_fao_wocat, cb_lpd):
         if radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        elif radio_fao_wocat.isChecked():
+            return ProductivityMode.FAO_WOCAT.value
         else:
             if "FAO-WOCAT" in cb_lpd.currentText():
                 return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
@@ -220,7 +293,9 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             "task_notes": self.task_notes.toPlainText(),
         }
 
-        prod_mode = self._get_prod_mode(self.mode_te_prod, self.combo_lpd)
+        prod_mode = self._get_prod_mode(
+            self.mode_te_prod, self.mode_fao_wocat, self.combo_lpd
+        )
 
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
             payload.update(
@@ -248,7 +323,21 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                 self.traj_indic.currentText()
             ]
             payload.update(current_trajectory_function["params"])
-
+        elif prod_mode == ProductivityMode.FAO_WOCAT.value:
+            ndvi_dataset = self.dataset_ndvi.currentText()
+            modis_mode = self.modis_combo_box.currentText()
+            payload.update(
+                {
+                    "prod_mode": prod_mode,
+                    "low_biomass_year": self.low_date_edit.date().year(),
+                    "medium_biomass_year": self.medium_date_edit.date().year(),
+                    "high_biomass_year": self.high_date_edit.date().year(),
+                    "years_interval": self.number_years_box.value(),
+                    "crs": self.aoi.get_crs_dst_wkt(),
+                    "ndvi_gee_dataset": ndvi_dataset,
+                    "modis_mode": modis_mode,
+                }
+            )
         elif prod_mode in (
             ProductivityMode.JRC_5_CLASS_LPD.value,
             ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,

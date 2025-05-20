@@ -783,8 +783,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if expected_final <= max_final and initial_date != expected_initial:
             widgets.year_final_prod.blockSignals(True)
             widgets.year_final_prod.setDate(expected_final)
-            widgets.year_final_prod.setMinimumDate(initial_date)
-            widgets.year_final_prod.setMaximumDate(initial_date)
+            widgets.year_final_prod.setMinimumDate(expected_final)
+            widgets.year_final_prod.setMaximumDate(expected_final)
             widgets.year_final_prod.blockSignals(False)
         elif expected_initial >= min_initial and final_date != expected_final:
             widgets.year_initial_prod.blockSignals(True)

@@ -67,6 +67,9 @@ class TimePeriodWidgets:
     year_final_soc: QtWidgets.QDateEdit
 
 
+MIN_YEARS_FOR_PROD_UPDATE: int = 15
+
+
 class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -406,12 +409,27 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_final_baseline.dateChanged.connect(
             lambda: self.update_end_dates(self.widgets_baseline)
         )
+        self.year_initial_baseline_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_baseline)
+        )
+        self.year_final_baseline_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_baseline)
+        )
         self.year_initial_progress.dateChanged.connect(
             lambda: self.update_start_dates(self.widgets_progress)
         )
         self.year_final_progress.dateChanged.connect(
             lambda: self.update_end_dates(self.widgets_progress)
         )
+        self.year_initial_progress_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_progress)
+        )
+        self.year_final_progress_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_progress)
+        )
+
+        self.enforce_prod_date_range(self.widgets_baseline)
+        self.enforce_prod_date_range(self.widgets_progress)
 
         self.radio_lpd_te.toggled.connect(self.toggle_lpd_options)
         self.radio_lpd_precalculated.toggled.connect(self.toggle_lpd_options)
@@ -567,19 +585,25 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             )
             self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
-    def update_start_dates(self, widgets):
-        widgets.year_initial_prod.setDate(widgets.year_initial.date())
-        widgets.year_initial_lc.setDate(widgets.year_initial.date())
-        widgets.year_initial_soc.setDate(widgets.year_initial.date())
+    def _update_common_dates(self, widgets):
+        year_initial = widgets.year_initial.date()
+        year_final = widgets.year_final.date()
+
+        widgets.year_initial_lc.setDate(year_initial)
+        widgets.year_initial_soc.setDate(year_initial)
+        widgets.year_final_lc.setDate(year_final)
+        widgets.year_final_soc.setDate(year_final)
+
+        widgets.year_initial_prod.setDate(year_initial)
+        widgets.year_final_prod.setDate(year_final)
 
         self.update_timeline_graph()
+
+    def update_start_dates(self, widgets):
+        self._update_common_dates(widgets)
 
     def update_end_dates(self, widgets):
-        widgets.year_final_prod.setDate(widgets.year_final.date())
-        widgets.year_final_lc.setDate(widgets.year_final.date())
-        widgets.year_final_soc.setDate(widgets.year_final.date())
-
-        self.update_timeline_graph()
+        self._update_common_dates(widgets)
 
     def toggle_time_period(self, widgets):
         if widgets.radio_time_period_same.isChecked():
@@ -745,6 +769,27 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             elif "JRC" in widgets.cb_lpd.currentText():
                 return ProductivityMode.JRC_5_CLASS_LPD.value
         return None
+
+    def enforce_prod_date_range(self, widgets):
+        initial_date = widgets.year_initial_prod.date()
+        final_date = widgets.year_final_prod.date()
+
+        max_final = widgets.year_final.maximumDate()
+        min_initial = widgets.year_initial.minimumDate()
+
+        expected_final = initial_date.addYears(MIN_YEARS_FOR_PROD_UPDATE)
+        expected_initial = final_date.addYears(-MIN_YEARS_FOR_PROD_UPDATE)
+
+        if expected_final <= max_final and initial_date != expected_initial:
+            widgets.year_final_prod.blockSignals(True)
+            widgets.year_final_prod.setDate(expected_final)
+            widgets.year_final_prod.setMinimumDate(initial_date)
+            widgets.year_final_prod.setMaximumDate(initial_date)
+            widgets.year_final_prod.blockSignals(False)
+        elif expected_initial >= min_initial and final_date != expected_final:
+            widgets.year_initial_prod.blockSignals(True)
+            widgets.year_initial_prod.setDate(expected_initial)
+            widgets.year_initial_prod.blockSignals(False)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

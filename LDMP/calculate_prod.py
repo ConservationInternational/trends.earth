@@ -125,7 +125,9 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         for index in range(self.dataset_ndvi.count()):
             if self.dataset_ndvi.itemText(index) == "AVHRR (GIMMS3g.v1, annual)":
                 self.dataset_ndvi.removeItem(index)
+                # Disabled for now, not fully ready yet
                 self.dataset_ndvi.insertItem(index, ndvi_item)
+                self.dataset_ndvi.model().item(index).setEnabled(False)
 
         self.groupBox_traj.setVisible(False)
         self.modis_group_box.setVisible(True)

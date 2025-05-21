@@ -9,10 +9,16 @@ from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.results import URI, DataType, Raster, RasterFileType, RasterResults
 from te_schemas.results import Band as JobBand
 
-from .. import utils
+from .. import utils, tr
 from ..areaofinterest import AOI
 from ..jobs.models import Job
 from ..logger import log
+
+from qgis.core import QgsTask, QgsApplication, Qgis
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
+from qgis.gui import QgsMessageBar
+from qgis.utils import iface
 
 
 def _prepare_land_cover_inputs(job: Job, area_of_interest: AOI) -> Path:
@@ -53,9 +59,9 @@ def compute_land_cover(
 
     class_codes = sorted([c.code for c in nesting.child.key])
     class_positions = [*range(1, len(class_codes) + 1)]
-
+    task_name = "calculating land cover change"
     task = LandCoverChangeTask(
-        "calculating land cover change",
+        task_name,
         str(in_vrt),
         str(dataset_output_path),
         trans_matrix.get_list(),
@@ -63,6 +69,28 @@ def compute_land_cover(
         nesting.child.get_multiplier(),
         trans_matrix.get_persistence_list(),
     )
+
+    def _set_progress_bar_value(value: float):
+        progress_bar.setValue(int(value))
+        if value == 100:
+            message_bar.close()
+
+    def cancel_task():
+        task.cancel()
+        message_bar.close()
+
+    message_bar_item = QgsMessageBar.createMessage(tr(f"Processing: {task_name}"))
+    progress_bar = QProgressBar()
+    progress_bar.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+    cancel_button = QPushButton()
+    cancel_button.setText("Cancel")
+    cancel_button.clicked.connect(cancel_task)
+    message_bar_item.layout().addWidget(progress_bar)
+    message_bar_item.layout().addWidget(cancel_button)
+    message_bar = iface.messageBar()
+    message_bar.pushWidget(message_bar_item, Qgis.Info)
+
+    task.progressChanged.connect(_set_progress_bar_value)
 
     QgsApplication.taskManager().addTask(task)
 

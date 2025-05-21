@@ -13,9 +13,14 @@ from te_schemas.results import Band as JobBand
 
 from LDMP.logger import log
 
-from .. import utils
+from .. import utils, tr
 from ..areaofinterest import AOI
 from ..jobs.models import Job
+
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
+from qgis.gui import QgsMessageBar
+from qgis.utils import iface
 
 
 def compute_soil_organic_carbon(
@@ -60,8 +65,9 @@ def compute_soil_organic_carbon(
     log(f"Saving soil organic carbon to {dataset_output_path!r}")
     # Lc bands start on band 3 as band 1 is initial soc, and band 2 is
     # climate zones
+    task_name = "calculating change in soil organic carbon"
     soc_task = SOCTask(
-        "calculating change in soil organic carbon",
+        task_name,
         in_vrt_path,
         str(dataset_output_path),
         # Band 3 = Initial LC; Band 4 = Final LC
@@ -70,6 +76,28 @@ def compute_soil_organic_carbon(
         soc_job.params["fl"],
         nesting,
     )
+
+    def _set_progress_bar_value(value: float):
+        progress_bar.setValue(int(value))
+        if value == 100:
+            message_bar.close()
+
+    def cancel_task():
+        soc_task.cancel()
+        message_bar.close()
+
+    message_bar_item = QgsMessageBar.createMessage(tr(f"Processing: {task_name}"))
+    progress_bar = QProgressBar()
+    progress_bar.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+    cancel_button = QPushButton()
+    cancel_button.setText("Cancel")
+    cancel_button.clicked.connect(cancel_task)
+    message_bar_item.layout().addWidget(progress_bar)
+    message_bar_item.layout().addWidget(cancel_button)
+    message_bar = iface.messageBar()
+    message_bar.pushWidget(message_bar_item, Qgis.Info)
+
+    soc_task.progressChanged.connect(_set_progress_bar_value)
 
     QgsApplication.taskManager().addTask(soc_task)
 

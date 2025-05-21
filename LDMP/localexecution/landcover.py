@@ -5,20 +5,18 @@ from pathlib import Path
 
 from osgeo import gdal, osr
 from qgis.core import Qgis, QgsApplication, QgsTask
+from qgis.gui import QgsMessageBar
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
+from qgis.utils import iface
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.results import URI, DataType, Raster, RasterFileType, RasterResults
 from te_schemas.results import Band as JobBand
 
-from .. import utils, tr
+from .. import tr, utils
 from ..areaofinterest import AOI
 from ..jobs.models import Job
 from ..logger import log
-
-from qgis.core import QgsTask, QgsApplication, Qgis
-from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
-from qgis.gui import QgsMessageBar
-from qgis.utils import iface
 
 
 def _prepare_land_cover_inputs(job: Job, area_of_interest: AOI) -> Path:

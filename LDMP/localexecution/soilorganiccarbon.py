@@ -5,7 +5,7 @@ from pathlib import Path
 
 import numpy as np
 from osgeo import gdal, osr
-from qgis.core import QgsTask, QgsApplication, Qgis
+from qgis.core import Qgis, QgsApplication, QgsTask
 from te_algorithms.common.soc import trans_factors_for_custom_legend
 from te_schemas.land_cover import LCLegendNesting
 from te_schemas.results import URI, DataType, Raster, RasterFileType, RasterResults

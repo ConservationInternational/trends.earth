@@ -4,6 +4,7 @@ import tempfile
 from pathlib import Path
 
 from osgeo import gdal, osr
+from qgis.core import Qgis, QgsApplication, QgsTask
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.results import URI, DataType, Raster, RasterFileType, RasterResults
 from te_schemas.results import Band as JobBand
@@ -12,8 +13,6 @@ from .. import utils
 from ..areaofinterest import AOI
 from ..jobs.models import Job
 from ..logger import log
-
-from qgis.core import QgsTask, QgsApplication, Qgis
 
 
 def _prepare_land_cover_inputs(job: Job, area_of_interest: AOI) -> Path:

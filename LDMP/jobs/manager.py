@@ -13,12 +13,12 @@ from typing import List
 
 import backoff
 import te_algorithms.gdal.land_deg.config as ld_conf
-from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
+from qgis.core import Qgis, QgsApplication, QgsTask, QgsVectorLayer
 from qgis.gui import QgsMessageBar
-from qgis.core import QgsApplication, QgsTask, QgsVectorLayer, Qgis
 from qgis.PyQt import QtCore
+from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from qgis.utils import iface
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
 from te_schemas import jobs, results

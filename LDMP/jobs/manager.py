@@ -17,7 +17,7 @@ from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
 from qgis.gui import QgsMessageBar
-from qgis.core import QgsApplication, QgsTask, QgsVectorLayer,Qgis
+from qgis.core import QgsApplication, QgsTask, QgsVectorLayer, Qgis
 from qgis.PyQt import QtCore
 from qgis.utils import iface
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
@@ -525,7 +525,9 @@ class JobManager(QtCore.QObject):
         job_task = LocalJobTask(job_name, job, area_of_interest)
         job_task.processed_job.connect(self.finish_local_job)
 
-        message_bar_item = QgsMessageBar.createMessage(self.tr(f"Processing: {task_name}"))
+        message_bar_item = QgsMessageBar.createMessage(
+            self.tr(f"Processing: {task_name}")
+        )
         progress_bar = QProgressBar()
         progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         cancel_button = QPushButton()
@@ -546,7 +548,6 @@ class JobManager(QtCore.QObject):
         def close_messages():
             message_bar = iface.messageBar()
             message_bar.popWidget(message_bar_item)
-
 
         job_task.taskCompleted.connect(close_messages)
         cancel_button.clicked.connect(cancel_task)

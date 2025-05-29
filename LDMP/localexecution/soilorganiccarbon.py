@@ -12,7 +12,7 @@ from te_schemas.results import Band as JobBand
 
 import LDMP.logger
 
-from .. import utils, worker
+from .. import utils
 from ..areaofinterest import AOI
 from ..jobs.models import Job
 
@@ -118,7 +118,16 @@ def compute_soil_organic_carbon(
     return soc_job.results
 
 
-def soilorganiccarbon_work(in_vrt, out_f, lc_band_nums, lc_years, fl, ipcc_nesting, progress_callback, killed_callback):
+def soilorganiccarbon_work(
+    in_vrt,
+    out_f,
+    lc_band_nums,
+    lc_years,
+    fl,
+    ipcc_nesting,
+    progress_callback,
+    killed_callback,
+):
     ds_in = gdal.Open(in_vrt)
 
     soc_band = ds_in.GetRasterBand(1)
@@ -266,9 +275,7 @@ def soilorganiccarbon_work(in_vrt, out_f, lc_band_nums, lc_years, fl, ipcc_nesti
             # Write initial soc to band 2 of the output file. Read SOC in
             # as float so the soc change calculations won't accumulate
             # error due to repeated truncation of ints
-            soc = np.array(soc_band.ReadAsArray(x, y, cols, rows)).astype(
-                np.float32
-            )
+            soc = np.array(soc_band.ReadAsArray(x, y, cols, rows)).astype(np.float32)
             ds_out.GetRasterBand(2).WriteArray(soc, x, y)
 
             if fl == "per pixel":
@@ -393,9 +400,9 @@ def soilorganiccarbon_work(in_vrt, out_f, lc_band_nums, lc_years, fl, ipcc_nesti
 
             # Write out the percent change in SOC layer
             soc_initial = ds_out.GetRasterBand(2).ReadAsArray(x, y, cols, rows)
-            soc_final = ds_out.GetRasterBand(
-                2 + len(lc_band_nums) - 1
-            ).ReadAsArray(x, y, cols, rows)
+            soc_final = ds_out.GetRasterBand(2 + len(lc_band_nums) - 1).ReadAsArray(
+                x, y, cols, rows
+            )
             soc_initial = np.array(soc_initial).astype(np.float32)
             soc_final = np.array(soc_final).astype(np.float32)
             soc_pch = ((soc_final - soc_initial) / soc_initial) * 100
@@ -403,18 +410,10 @@ def soilorganiccarbon_work(in_vrt, out_f, lc_band_nums, lc_years, fl, ipcc_nesti
             ds_out.GetRasterBand(1).WriteArray(soc_pch, x, y)
 
             # Write out the initial and final lc layers
-            lc_bl = ds_in.GetRasterBand(lc_band_nums[0]).ReadAsArray(
-                x, y, cols, rows
-            )
-            ds_out.GetRasterBand(1 + len(lc_band_nums) + 1).WriteArray(
-                lc_bl, x, y
-            )
-            lc_tg = ds_in.GetRasterBand(lc_band_nums[-1]).ReadAsArray(
-                x, y, cols, rows
-            )
-            ds_out.GetRasterBand(1 + len(lc_band_nums) + 2).WriteArray(
-                lc_tg, x, y
-            )
+            lc_bl = ds_in.GetRasterBand(lc_band_nums[0]).ReadAsArray(x, y, cols, rows)
+            ds_out.GetRasterBand(1 + len(lc_band_nums) + 1).WriteArray(lc_bl, x, y)
+            lc_tg = ds_in.GetRasterBand(lc_band_nums[-1]).ReadAsArray(x, y, cols, rows)
+            ds_out.GetRasterBand(1 + len(lc_band_nums) + 2).WriteArray(lc_tg, x, y)
 
             blocks += 1
 

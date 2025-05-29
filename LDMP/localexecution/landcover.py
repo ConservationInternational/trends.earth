@@ -8,7 +8,7 @@ from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.results import URI, DataType, Raster, RasterFileType, RasterResults
 from te_schemas.results import Band as JobBand
 
-from .. import utils, worker
+from .. import utils
 from ..areaofinterest import AOI
 from ..jobs.models import Job
 from ..logger import log
@@ -42,7 +42,12 @@ def _prepare_land_cover_inputs(job: Job, area_of_interest: AOI) -> Path:
 
 
 def compute_land_cover(
-    lc_job: Job, area_of_interest: AOI, job_output_path: Path, dataset_output_path: Path, progress_callback, killed_callback
+    lc_job: Job,
+    area_of_interest: AOI,
+    job_output_path: Path,
+    dataset_output_path: Path,
+    progress_callback,
+    killed_callback,
 ) -> Job:
     in_vrt = _prepare_land_cover_inputs(lc_job, area_of_interest)
     trans_matrix = LCTransitionDefinitionDeg.Schema().loads(
@@ -119,8 +124,16 @@ def compute_land_cover(
 
     return lc_job.results
 
+
 def land_cover_change_work(
-    in_f, out_f, trans_matrix, class_recode, multiplier, persistence_remap, progress_callback, killed_callback
+    in_f,
+    out_f,
+    trans_matrix,
+    class_recode,
+    multiplier,
+    persistence_remap,
+    progress_callback,
+    killed_callback,
 ):
     ds_in = gdal.Open(in_f)
 
@@ -134,9 +147,7 @@ def land_cover_change_work(
     ysize = band_initial.YSize
 
     driver = gdal.GetDriverByName("GTiff")
-    ds_out = driver.Create(
-        out_f, xsize, ysize, 4, gdal.GDT_Int16, ["COMPRESS=LZW"]
-    )
+    ds_out = driver.Create(out_f, xsize, ysize, 4, gdal.GDT_Int16, ["COMPRESS=LZW"])
     src_gt = ds_in.GetGeoTransform()
     ds_out.SetGeoTransform(src_gt)
     out_srs = osr.SpatialReference()

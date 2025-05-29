@@ -13,10 +13,13 @@ from typing import List
 
 import backoff
 import te_algorithms.gdal.land_deg.config as ld_conf
+from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
-from qgis.core import QgsApplication, QgsTask, QgsVectorLayer
+from qgis.gui import QgsMessageBar
+from qgis.core import QgsApplication, QgsTask, QgsVectorLayer,Qgis
 from qgis.PyQt import QtCore
+from qgis.utils import iface
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
 from te_schemas import jobs, results
 from te_schemas.algorithms import AlgorithmRunMode
@@ -184,7 +187,12 @@ class LocalJobTask(QgsTask):
             self.job_copy
         )
         self.results = execution_handler(
-            self.job_copy, self.area_of_interest, job_output_path, dataset_output_path
+            self.job_copy,
+            self.area_of_interest,
+            job_output_path,
+            dataset_output_path,
+            self.setProgress,
+            self.cancel,
         )
 
         if self.results is None:
@@ -516,6 +524,34 @@ class JobManager(QtCore.QObject):
 
         job_task = LocalJobTask(job_name, job, area_of_interest)
         job_task.processed_job.connect(self.finish_local_job)
+
+        message_bar_item = QgsMessageBar.createMessage(self.tr(f"Processing: {task_name}"))
+        progress_bar = QProgressBar()
+        progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+        cancel_button = QPushButton()
+        cancel_button.setText("Cancel")
+        message_bar_item.layout().addWidget(progress_bar)
+        message_bar_item.layout().addWidget(cancel_button)
+        message_bar = iface.messageBar()
+        message_bar.pushWidget(message_bar_item, Qgis.Info)
+
+        def _set_progress_bar_value(value: float):
+            if value <= 100:
+                progress_bar.setValue(int(value))
+
+        def cancel_task():
+            job_task.cancel()
+            message_bar.close()
+
+        def close_messages():
+            message_bar = iface.messageBar()
+            message_bar.popWidget(message_bar_item)
+
+
+        job_task.taskCompleted.connect(close_messages)
+        cancel_button.clicked.connect(cancel_task)
+        job_task.progressChanged.connect(_set_progress_bar_value)
+
         self.tm.addTask(job_task)
 
     def submit_local_job(

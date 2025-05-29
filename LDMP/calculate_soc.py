@@ -260,7 +260,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(get_trans_matrix()),
             "fl": self.get_fl(),
         }
-        job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)
+        job_manager.submit_local_job_as_qgstask(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)
 
     def calculate_on_GEE(self):
         log("inside calculate_on_GEE...")

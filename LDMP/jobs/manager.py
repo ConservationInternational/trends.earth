@@ -976,7 +976,15 @@ class JobManager(QtCore.QObject):
             previous_status = jobs.JobStatus.DOWNLOADED
         # this already sets the new status on the job
         self._move_job_to_dir(job, target, force_rewrite=force_rewrite)
-        del self.known_jobs[previous_status][job.id]
+
+        if target == jobs.JobStatus.DELETED:
+            # Find which status dictionary actually contains the job
+            for status, jobs_dict in self.known_jobs.items():
+                if job.id in jobs_dict:
+                    del jobs_dict[job.id]
+                    break
+        else:
+            del self.known_jobs[previous_status][job.id]
         self.known_jobs[job.status][job.id] = job
 
     def _download_cloud_results(self, job: jobs.Job) -> typing.Optional[Path]:

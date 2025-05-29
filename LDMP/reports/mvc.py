@@ -71,15 +71,6 @@ class DatasetReportHandler:
         self._view_rpt_action.setToolTip(self.tr("Open directory containing reports"))
         self._view_rpt_action.triggered.connect(self.open_report_directory)
 
-        self._view_prais_action = self._rpt_menu.addAction(
-            FileUtils.get_icon("mActionFileOpen.svg"),
-            self.tr("Open PRAIS report directory"),
-        )
-        self._view_prais_action.setToolTip(
-            self.tr("Open directory containing PRAIS reports")
-        )
-        self._view_prais_action.triggered.connect(self.open_prais_report_directory)
-
         self._open_layouts_action = self._rpt_menu.addAction(
             FileUtils.get_icon("layout.svg"), self.tr("Open layouts...")
         )
@@ -161,21 +152,6 @@ class DatasetReportHandler:
     def open_report_directory(self):
         # Open directory containing the job reports.
         rpt_dir = job_report_directory(self._job)
-
-        if not os.path.exists(rpt_dir):
-            self._push_refactor_message(
-                self.tr("Invalid File"),
-                self.tr("Report output directory does not exist."),
-            )
-            log(f"Report file '{rpt_dir}' not found.", Qgis.Warning)
-            return
-
-        rpt_path_url = QUrl(QUrl.fromLocalFile(rpt_dir))
-        QDesktopServices.openUrl(rpt_path_url)
-
-    def open_prais_report_directory(self):
-        # Open directory containing the prais reports.
-        rpt_dir = job_report_directory(self._job).replace("reports", "prais")
 
         if not os.path.exists(rpt_dir):
             self._push_refactor_message(

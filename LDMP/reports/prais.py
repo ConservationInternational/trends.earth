@@ -3,7 +3,7 @@ import copy
 import json
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from te_schemas.jobs import Job
 from te_schemas.land_cover import LCClass, LCTransitionMatrixBase
@@ -36,12 +36,12 @@ def classify_process(initial: LCClass, final: LCClass) -> str:
     return "Other"
 
 
-def simplify_transition_matrix(transitions: collections.Iterable[Dict]) -> list[Any]:
+def simplify_transition_matrix(transitions: collections.Iterable[Dict]) -> List[Any]:
     """
     Simplifies a list of transition matrices by extracting and restructuring key information
     into a concise representation.
     """
-    result = []
+    result: List[Any] = []
     for transition in transitions:
         result.append(
             {
@@ -137,13 +137,14 @@ def _country_profile(job: Job, lc_areas_by_year: Dict[str, Dict[str, float]]):
     return result
 
 
-def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
-    """Generate a PRAIS‑compatible JSON summary"""
+def build_so_1_1_data(
+    result: Job, job: Job
+) -> Tuple[Dict[str, Union[str, Dict, List]], Dict]:
+    """Build and return the SO-1‑1 data structure and AOI needed for PRAIS export."""
     if not hasattr(result, "data"):
-        return
+        return {}, {}
 
     result_data = result.data
-
     data = copy.deepcopy(result_data)
 
     report_data = data.get("report", {})
@@ -159,6 +160,7 @@ def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
         "land_cover_change_for_progress": [],
         "land_cover_degradation_in_baseline_and_progress": [],
     }
+
     baseline = land_condition.get("baseline", {})
     progress = land_condition.get("progress", {})
     aoi = metadata.get("area_of_interest", {}).get("geojson", {})
@@ -175,6 +177,7 @@ def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
             "values", {}
         ),
     }
+
     if lc_areas_by_year:
         prais_data["land_cover_estimates"] = _build_land_cover_estimates(
             lc_areas_by_year
@@ -234,29 +237,36 @@ def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
 
     if baseline_areas:
         total_baseline_area = sum(a["area"] for a in baseline_areas)
-        [
-            a.update({"percentage": a["area"] / total_baseline_area * 100})
-            for a in baseline_areas
-        ]
+        for a in baseline_areas:
+            a["percentage"] = a["area"] / total_baseline_area * 100
 
     if progress_areas:
         total_progress_area = sum(a["area"] for a in progress_areas)
-        [
-            a.update({"percentage": a["area"] / total_progress_area * 100})
-            for a in progress_areas
-        ]
+        for a in progress_areas:
+            a["percentage"] = a["area"] / total_progress_area * 100
 
     prais_data["land_cover_degradation_in_baseline_and_progress"] = {
         "baseline": baseline_areas,
         "progress": progress_areas,
     }
 
-    prais_json_folder = os.path.join(job_output_path.parent, "prais")
-    os.mkdir(prais_json_folder)
-    prais_json_path = os.path.join(prais_json_folder, "so_1_1.json")
-    aoi_path = os.path.join(prais_json_folder, "aoi.json")
-    with open(prais_json_path, "w", encoding="utf-8") as f:
-        json.dump(prais_data, f, indent=2)
+    return prais_data, aoi
 
-    with open(aoi_path, "w", encoding="utf-8") as f:
+
+def generate_prais_json(result: Job, job: Job, job_output_path: Path) -> None:
+    """Generate PRAIS‑compatible JSON summaries."""
+    prais_so_1_1, aoi = build_so_1_1_data(result, job)
+    if not prais_so_1_1 and not aoi:
+        return
+
+    prais_json_folder = job_output_path.parent / "prais"
+    prais_json_folder.mkdir(exist_ok=True)
+
+    prais_json_path = prais_json_folder / "so_1_1.json"
+    aoi_path = prais_json_folder / "aoi.json"
+
+    with prais_json_path.open("w", encoding="utf-8") as f:
+        json.dump(prais_so_1_1, f, indent=2)
+
+    with aoi_path.open("w", encoding="utf-8") as f:
         json.dump(aoi, f, indent=2)

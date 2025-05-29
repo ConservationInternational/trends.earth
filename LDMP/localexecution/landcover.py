@@ -42,7 +42,7 @@ def _prepare_land_cover_inputs(job: Job, area_of_interest: AOI) -> Path:
 
 
 def compute_land_cover(
-    lc_job: Job, area_of_interest: AOI, job_output_path: Path, dataset_output_path: Path
+    lc_job: Job, area_of_interest: AOI, job_output_path: Path, dataset_output_path: Path, progress_callback, killed_callback
 ) -> Job:
     in_vrt = _prepare_land_cover_inputs(lc_job, area_of_interest)
     trans_matrix = LCTransitionDefinitionDeg.Schema().loads(
@@ -53,18 +53,18 @@ def compute_land_cover(
     class_codes = sorted([c.code for c in nesting.child.key])
     class_positions = [*range(1, len(class_codes) + 1)]
 
-    lc_change_worker = worker.StartWorker(
-        LandCoverChangeWorker,
-        "calculating land cover change",
+    result = land_cover_change_work(
         str(in_vrt),
         str(dataset_output_path),
         trans_matrix.get_list(),
         (class_codes, class_positions),
         nesting.child.get_multiplier(),
         trans_matrix.get_persistence_list(),
+        progress_callback,
+        killed_callback,
     )
 
-    if lc_change_worker.success:
+    if result:
         lc_job.end_date = dt.datetime.now(dt.timezone.utc)
         lc_job.progress = 100
         bands = [
@@ -117,111 +117,83 @@ def compute_land_cover(
     else:
         raise RuntimeError("Error calculating land cover change.")
 
-    return lc_job
+    return lc_job.results
 
+def land_cover_change_work(
+    in_f, out_f, trans_matrix, class_recode, multiplier, persistence_remap, progress_callback, killed_callback
+):
+    ds_in = gdal.Open(in_f)
 
-class LandCoverChangeWorker(worker.AbstractWorker):
-    def __init__(
-        self, in_f, out_f, trans_matrix, class_recode, multiplier, persistence_remap
-    ):
-        worker.AbstractWorker.__init__(self)
-        self.in_f = in_f
-        self.out_f = out_f
-        self.trans_matrix = trans_matrix
-        # class_recode is key for recoding classes from raw codes to ordinal codes
-        # used for calculating transitions
-        self.class_recode = class_recode
-        self.multiplier = multiplier
-        self.persistence_remap = persistence_remap
+    band_initial = ds_in.GetRasterBand(1)
+    band_final = ds_in.GetRasterBand(2)
 
-    def work(self):
-        ds_in = gdal.Open(self.in_f)
+    block_sizes = band_initial.GetBlockSize()
+    x_block_size = block_sizes[0]
+    y_block_size = block_sizes[1]
+    xsize = band_initial.XSize
+    ysize = band_initial.YSize
 
-        band_initial = ds_in.GetRasterBand(1)
-        band_final = ds_in.GetRasterBand(2)
+    driver = gdal.GetDriverByName("GTiff")
+    ds_out = driver.Create(
+        out_f, xsize, ysize, 4, gdal.GDT_Int16, ["COMPRESS=LZW"]
+    )
+    src_gt = ds_in.GetGeoTransform()
+    ds_out.SetGeoTransform(src_gt)
+    out_srs = osr.SpatialReference()
+    out_srs.ImportFromWkt(ds_in.GetProjectionRef())
+    ds_out.SetProjection(out_srs.ExportToWkt())
 
-        block_sizes = band_initial.GetBlockSize()
-        x_block_size = block_sizes[0]
-        y_block_size = block_sizes[1]
-        xsize = band_initial.XSize
-        ysize = band_initial.YSize
+    blocks = 0
 
-        driver = gdal.GetDriverByName("GTiff")
-        ds_out = driver.Create(
-            self.out_f, xsize, ysize, 4, gdal.GDT_Int16, ["COMPRESS=LZW"]
-        )
-        src_gt = ds_in.GetGeoTransform()
-        ds_out.SetGeoTransform(src_gt)
-        out_srs = osr.SpatialReference()
-        out_srs.ImportFromWkt(ds_in.GetProjectionRef())
-        ds_out.SetProjection(out_srs.ExportToWkt())
-
-        blocks = 0
-
-        for y in range(0, ysize, y_block_size):
-            if y + y_block_size < ysize:
-                rows = y_block_size
-            else:
-                rows = ysize - y
-
-            for x in range(0, xsize, x_block_size):
-                if self.killed:
-                    log(
-                        "Processing killed by user after processing {} out of {} blocks.".format(
-                            y, ysize
-                        )
-                    )
-
-                    break
-                self.progress.emit(
-                    100 * (float(y) + (float(x) / xsize) * y_block_size) / ysize
-                )
-
-                if x + x_block_size < xsize:
-                    cols = x_block_size
-                else:
-                    cols = xsize - x
-
-                a_i = band_initial.ReadAsArray(x, y, cols, rows)
-                a_f = band_final.ReadAsArray(x, y, cols, rows)
-
-                ds_out.GetRasterBand(2).WriteArray(a_i, x, y)
-                ds_out.GetRasterBand(3).WriteArray(a_f, x, y)
-
-                # Recode bands from raw codes to ordinal values prior to
-                # calculating transitions
-                for value, replacement in zip(
-                    self.class_recode[0], self.class_recode[1]
-                ):
-                    a_i[a_i == int(value)] = int(replacement)
-                    a_f[a_f == int(value)] = int(replacement)
-
-                a_tr = a_i * self.multiplier + a_f
-                a_tr[(a_i < 1) | (a_f < 1)] < -32768
-
-                a_deg = a_tr.copy()
-
-                for value, replacement in zip(
-                    self.trans_matrix[0], self.trans_matrix[1]
-                ):
-                    a_deg[a_deg == int(value)] = int(replacement)
-
-                # Recode transitions so that persistence classes are easier to
-                # map
-
-                for value, replacement in zip(
-                    self.persistence_remap[0], self.persistence_remap[1]
-                ):
-                    a_tr[a_tr == int(value)] = int(replacement)
-
-                ds_out.GetRasterBand(1).WriteArray(a_deg, x, y)
-                ds_out.GetRasterBand(4).WriteArray(a_tr, x, y)
-
-                blocks += 1
-
-        if self.killed:
-            os.remove(self.out_f)
-
-            return None
+    for y in range(0, ysize, y_block_size):
+        if y + y_block_size < ysize:
+            rows = y_block_size
         else:
-            return True
+            rows = ysize - y
+
+        for x in range(0, xsize, x_block_size):
+            if killed_callback():
+                log(
+                    "Processing killed by user after processing {} out of {} blocks.".format(
+                        y, ysize
+                    )
+                )
+                os.remove(out_f)
+                return None
+
+            progress_callback(
+                100 * (float(y) + (float(x) / xsize) * y_block_size) / ysize
+            )
+
+            if x + x_block_size < xsize:
+                cols = x_block_size
+            else:
+                cols = xsize - x
+
+            a_i = band_initial.ReadAsArray(x, y, cols, rows)
+            a_f = band_final.ReadAsArray(x, y, cols, rows)
+
+            ds_out.GetRasterBand(2).WriteArray(a_i, x, y)
+            ds_out.GetRasterBand(3).WriteArray(a_f, x, y)
+
+            for value, replacement in zip(class_recode[0], class_recode[1]):
+                a_i[a_i == int(value)] = int(replacement)
+                a_f[a_f == int(value)] = int(replacement)
+
+            a_tr = a_i * multiplier + a_f
+            a_tr[(a_i < 1) | (a_f < 1)] = -32768
+
+            a_deg = a_tr.copy()
+
+            for value, replacement in zip(trans_matrix[0], trans_matrix[1]):
+                a_deg[a_deg == int(value)] = int(replacement)
+
+            for value, replacement in zip(persistence_remap[0], persistence_remap[1]):
+                a_tr[a_tr == int(value)] = int(replacement)
+
+            ds_out.GetRasterBand(1).WriteArray(a_deg, x, y)
+            ds_out.GetRasterBand(4).WriteArray(a_tr, x, y)
+
+            blocks += 1
+
+    return True

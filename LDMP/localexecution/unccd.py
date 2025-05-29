@@ -199,6 +199,8 @@ def compute_unccd_report(
     area_of_interest: areaofinterest.AOI,
     job_output_path: Path,
     dataset_output_path: Path,
+    progress_callback,
+    kill_callback,
 ) -> Job:
     """Generate UNCCD report from SO1/SO2 and SO3 datasets"""
 

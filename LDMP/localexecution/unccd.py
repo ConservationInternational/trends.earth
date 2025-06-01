@@ -6,6 +6,7 @@ import tempfile
 from pathlib import Path
 from typing import Dict, Optional
 
+from marshmallow import schema
 from osgeo import ogr
 from te_schemas import reporting
 from te_schemas.error_recode import ErrorRecodePolygons
@@ -112,20 +113,41 @@ def _remove_progress_status(summary_json: dict) -> None:
         land_cond.pop("progress status")
 
 
-def _set_affected_areas_only(in_file, out_file, schema):
+def _set_affected_areas_only(in_file, out_file, _schema):
     """
     Toggle `metadata.affected_areas_only` and ensure any lingering
-    ``"progress status"`` blocks are stripped via :pyfunc:`_remove_progress_status`.
+    "progress status" blocks are stripped via _remove_progress_status.
     """
     with open(in_file) as f:
         data = json.load(f)
     _remove_progress_status(data)
-    summary = schema.load(data)
+    summary = _schema.load(data)
     summary.metadata.affected_areas_only = True
-    out_json = json.loads(schema.dumps(summary))
+
+    # Remove aoi from summary, as it is already included in a separate file
+    summary.metadata.area_of_interest = {}
+
+    out_json = json.loads(_schema.dumps(summary))
     with open(out_file, "w") as f:
         json.dump(out_json, f, indent=4)
     return out_file
+
+
+def _clean_up_output(paths):
+    for path in paths:
+        if path.name.endswith("_summary.json"):
+            _schema = reporting.TrendsEarthLandConditionSummary.Schema()
+            with open(path) as f:
+                data = json.load(f)
+            _remove_progress_status(data)
+            summary = _schema.load(data)
+
+            # Remove aoi from summary, as it is already included in a separate file
+            summary.metadata.area_of_interest = {}
+
+            out_json = json.loads(_schema.dumps(summary))
+            with open(path, "w") as f:
+                json.dump(out_json, f, indent=4)
 
 
 def _get_error_recode_polygons(in_file):
@@ -290,7 +312,12 @@ def compute_unccd_report(
                 log(f"{path} exists {path.exists()} (in context manager)")
         else:
             if params["include_so1_so2"]:
-                paths += [Path(p) for p in params["so1_so2_all_paths"]]
+                paths += [
+                    Path(p)
+                    for p in params["so1_so2_all_paths"]
+                    if not p.endswith("debug_result.json")
+                ]
+                _clean_up_output(paths)
             if params["include_so3"]:
                 paths += [Path(p) for p in params["so3_all_paths"]]
 

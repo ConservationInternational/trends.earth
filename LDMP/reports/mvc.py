@@ -42,6 +42,7 @@ class DatasetReportHandler:
         self._iface = iface
         self._rpt_menu = QMenu()
         self._view_rpt_action = None
+        self._view_prais_action = None
         self._open_layouts_action = None
         self._rpt_config = None
         self._rpt_task_ctx = None

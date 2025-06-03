@@ -48,6 +48,19 @@ class tr_plugin:
         return QCoreApplication.translate("tr_plugin", message)
 
 
+def start_debugger():
+    import debugpy
+
+    if not debugpy.is_client_connected():
+        debugpy.configure(
+            python=r"/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9"
+        )
+        debugpy.listen(("localhost", 9000))
+        print("Waiting for debugger to attach...")
+        debugpy.wait_for_client()
+        print("Debugger attached.")
+
+
 class LDMPPlugin:
     """QGIS Plugin Implementation."""
 
@@ -173,6 +186,8 @@ class LDMPPlugin:
         return action
 
     def initGui(self):
+        # start_debugger()
+
         self.initProcessing()
         QgsExpression.registerFunction(calculate_error_recode_stats)
 

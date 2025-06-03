@@ -16,6 +16,7 @@ import typing
 from pathlib import Path
 
 import qgis.gui
+from PyQt5.QtWidgets import QSpinBox
 from qgis.PyQt import QtCore, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 from te_schemas.productivity import ProductivityMode
@@ -27,6 +28,8 @@ from .logger import log
 DlgCalculateProdUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateProd.ui")
 )
+
+FAO_WOCAT = "FAO_WOCAT"
 
 
 class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
@@ -125,9 +128,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         for index in range(self.dataset_ndvi.count()):
             if self.dataset_ndvi.itemText(index) == "AVHRR (GIMMS3g.v1, annual)":
                 self.dataset_ndvi.removeItem(index)
-                # Disabled for now, not fully ready yet
                 self.dataset_ndvi.insertItem(index, ndvi_item)
-                self.dataset_ndvi.model().item(index).setEnabled(False)
 
         self.groupBox_traj.setVisible(False)
         self.modis_group_box.setVisible(True)
@@ -244,7 +245,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         if radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         elif radio_fao_wocat.isChecked():
-            return ProductivityMode.FAO_WOCAT.value
+            return FAO_WOCAT
         else:
             if "FAO-WOCAT" in cb_lpd.currentText():
                 return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
@@ -325,16 +326,19 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                 self.traj_indic.currentText()
             ]
             payload.update(current_trajectory_function["params"])
-        elif prod_mode == ProductivityMode.FAO_WOCAT.value:
+        elif prod_mode == FAO_WOCAT:
             ndvi_dataset = self.dataset_ndvi.currentText()
             modis_mode = self.modis_combo_box.currentText()
+            spin = self.period_interval.findChild(QSpinBox, "spinBox")
+            years_interval = spin.value() if spin is not None else 0
+
             payload.update(
                 {
                     "prod_mode": prod_mode,
-                    "low_biomass_year": self.low_date_edit.date().year(),
-                    "medium_biomass_year": self.medium_date_edit.date().year(),
-                    "high_biomass_year": self.high_date_edit.date().year(),
-                    "years_interval": self.number_years_box.value(),
+                    "low_biomass": 0.4,
+                    "medium_biomass": 0.6,
+                    "high_biomass": 0.7,
+                    "years_interval": 5,
                     "crs": self.aoi.get_crs_dst_wkt(),
                     "ndvi_gee_dataset": ndvi_dataset,
                     "modis_mode": modis_mode,

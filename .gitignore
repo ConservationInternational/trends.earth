@@ -52,3 +52,7 @@ LDMP/data/trends.earth_basemap_data.zip
 /invoke_old.yaml
 /tx.exe
 gee_key.json
+Changes
+.venv
+.vscode
+.vscode-extensions

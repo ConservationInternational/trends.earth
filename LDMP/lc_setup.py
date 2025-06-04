@@ -444,8 +444,11 @@ def get_default_esa_nesting():
 
 
 def ipcc_lc_nesting_to_settings(nesting: LCLegendNesting):
+    nesting_dict_str_keys = {str(k): vs for k, vs in nesting.nesting.items()}
+    _nesting = deepcopy(nesting)
+    _nesting.nesting = nesting_dict_str_keys
     conf.settings_manager.write_value(
-        conf.Setting.LC_IPCC_NESTING, LCLegendNesting.Schema().dumps(nesting)
+        conf.Setting.LC_IPCC_NESTING, LCLegendNesting.Schema().dumps(_nesting)
     )
 
 
@@ -508,13 +511,23 @@ def get_trans_matrix(get_default=False, save_settings=True):
         nesting = ipcc_lc_nesting_from_settings()
         definitions = []
         for c_initial in nesting.child.key:
+            c_initial_parent = nesting.parent_for_child(c_initial)
+            if not c_initial_parent:
+                c_initial_parent = c_initial
+
             for c_final in nesting.child.key:
+                c_final_parent = nesting.parent_for_child(c_final)
+
+                if not c_final_parent:
+                    c_final_parent = c_final
                 definition = deepcopy(
                     matrix.get_definition(
-                        nesting.parent_for_child(c_initial),
-                        nesting.parent_for_child(c_final),
+                        c_initial_parent,
+                        c_final_parent,
                     )
                 )
+                if not definition:
+                    continue
                 definition.initial = c_initial
                 definition.final = c_final
                 definitions.append(definition)
@@ -633,6 +646,7 @@ class DlgCalculateLCSetAggregationBase(
 
     def update_nesting_from_widget(self):
         nesting = self.get_nesting()
+        nodata_child = nesting.child.nodata
         for row in range(0, self.table_model.rowCount()):
             child_code = self.table_model.index(
                 row, self.table_model.child_code_col()
@@ -641,8 +655,12 @@ class DlgCalculateLCSetAggregationBase(
             new_parent_class = self.remap_view.indexWidget(
                 self.proxy_model.index(row, self.table_model.parent_label_col())
             ).get_current_class()
-
-            nesting.update_parent(child_class, new_parent_class)
+            old_parent = nesting.parent_for_child(child_class)
+            if not old_parent:
+                nesting.nesting[nodata_child.code].remove(child_code)
+                nesting.nesting[new_parent_class.code].append(child_code)
+            else:
+                nesting.update_parent(child_class, new_parent_class)
         self.set_nesting(nesting)
         self.nesting = deepcopy(nesting)
 
@@ -871,6 +889,7 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
             log(f"nesting is {nesting_input.nesting}")
             log(f"parent codes are {nesting_input.parent.codes()}")
             log(f"child codes are {nesting_input.child.codes()}")
+
         self.set_nesting(nesting_input)
         self.setup_nesting_table()
 
@@ -885,7 +904,6 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
         self.remap_view.setModel(self.proxy_model)
 
         # Add selector in cell
-
         for row in range(0, len(self.nesting.child.key_with_nodata())):
             # Get the input code for this row and the final label it should map
             # to by default
@@ -898,16 +916,17 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
                 if c.code == child_code
             ][0]
 
-            if not parent_class:
-                continue
-
             lc_class_combo = LCClassComboBox(self.nesting)
 
-            # Find the index in the combo box of this translated final label
-            ind = lc_class_combo.findText(parent_class.name_long)
-
-            if ind != -1:
-                lc_class_combo.setCurrentIndex(ind)
+            if parent_class:
+                ind = lc_class_combo.findText(parent_class.name_long)
+                if ind != -1:
+                    lc_class_combo.setCurrentIndex(ind)
+            else:
+                nodata_code = self.nesting.parent.nodata.code
+                nodata_index = self.nesting.parent.codes().index(nodata_code)
+                if nodata_index:
+                    lc_class_combo.setCurrentIndex(nodata_index)
             self.remap_view.setIndexWidget(
                 self.proxy_model.index(row, self.table_model.parent_label_col()),
                 lc_class_combo,
@@ -1026,18 +1045,18 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
         # Update nest based on previously saved values' mapping
         settings_nest = custom_lc_nesting_from_settings()
+        int_values = [int(v) for v in values]
         if len(settings_nest) > 0:
             for code, child_keys in nest.items():
                 st_codes = settings_nest.get(str(code), [])
                 if len(st_codes) == 0:
                     continue
-                code_values = [s for s in st_codes if s in values]
+                code_values = [s for s in st_codes if s in int_values]
                 nest[code] = code_values
 
-            # We need to determine those codes that were unused (from
-            # settings) and assign them to nodata.
             used_codes = [cv for code_values in nest.values() for cv in code_values]
-            unused_codes = list(set(values) - set(used_codes))
+            unused_codes = list(set(int_values) - set(used_codes))
+
             no_data_values = nest[default_nesting.child.nodata.code]
             no_data_values.extend(unused_codes)
             nest[default_nesting.child.nodata.code] = no_data_values

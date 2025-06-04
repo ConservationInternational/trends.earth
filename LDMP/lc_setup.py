@@ -1045,17 +1045,16 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
         # Update nest based on previously saved values' mapping
         settings_nest = custom_lc_nesting_from_settings()
-        int_values = [int(v) for v in values]
         if len(settings_nest) > 0:
             for code, child_keys in nest.items():
                 st_codes = settings_nest.get(str(code), [])
                 if len(st_codes) == 0:
                     continue
-                code_values = [s for s in st_codes if s in int_values]
+                code_values = [s for s in st_codes if s in values]
                 nest[code] = code_values
 
             used_codes = [cv for code_values in nest.values() for cv in code_values]
-            unused_codes = list(set(int_values) - set(used_codes))
+            unused_codes = list(set(values) - set(used_codes))
 
             no_data_values = nest[default_nesting.child.nodata.code]
             no_data_values.extend(unused_codes)

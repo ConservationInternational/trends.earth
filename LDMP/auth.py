@@ -20,6 +20,17 @@ from qgis.utils import iface
 from .logger import log
 
 
+def _push_critical(title: str, msg: str):
+    """
+    Thread‑safe wrapper around iface.messageBar().pushCritical.
+    """
+    if QtCore.QThread.currentThread() == QtCore.QCoreApplication.instance().thread():
+        iface.messageBar().pushCritical(title, msg)
+    else:
+        # Schedule on the main (GUI) thread
+        QtCore.QTimer.singleShot(0, lambda: iface.messageBar().pushCritical(title, msg))
+
+
 class tr_auth(QtCore.QObject):
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_auth", message)
@@ -70,16 +81,14 @@ def init_auth_config(
         if not QgsApplication.authManager().storeAuthenticationConfig(
             currentAuthConfig
         ):
-            iface.messageBar().pushCritical(
-                "Trends.Earth", tr_auth.tr("Cannot init auth configuration")
-            )
+            _push_critical("Trends.Earth", tr_auth.tr("Cannot init auth configuration"))
             return None
     else:
         # update existing
         if not QgsApplication.authManager().updateAuthenticationConfig(
             currentAuthConfig
         ):
-            iface.messageBar().pushCritical(
+            _push_critical(
                 "Trends.Earth", tr_auth.tr("Cannot update auth configuration")
             )
             return None
@@ -93,7 +102,7 @@ def init_auth_config(
 def remove_current_auth_config(auth_setup):
     authConfigId = QtCore.QSettings().value(f"trends_earth/{auth_setup.key}", None)
     if not authConfigId:
-        iface.messageBar().pushCritical(
+        _push_critical(
             "Trends.Earth",
             tr_auth.tr(
                 f"No authentication set for {auth_setup.name}. "
@@ -104,7 +113,7 @@ def remove_current_auth_config(auth_setup):
     log(f"remove_current_auth_config for {auth_setup.name} with ID {authConfigId}")
 
     if not QgsApplication.authManager().removeAuthenticationConfig(authConfigId):
-        iface.messageBar().pushCritical(
+        _push_critical(
             "Trends.Earth",
             tr_auth.tr(
                 f"Cannot remove auth configuration for "
@@ -134,10 +143,10 @@ def get_auth_config(auth_setup, authConfigId=None, warn=True):
     log(f"get_auth_config for {auth_setup.name} with auth id {authConfigId}")
 
     configs = QgsApplication.authManager().availableAuthMethodConfigs()
-    message_bar = iface.messageBar()
+    # message_bar = iface.messageBar()
     if authConfigId not in configs.keys():
         if warn:
-            message_bar.pushCritical(
+            _push_critical(
                 "Trends.Earth",
                 tr_auth.tr(
                     f"Cannot retrieve credentials with id {authConfigId}. "
@@ -154,7 +163,7 @@ def get_auth_config(auth_setup, authConfigId=None, warn=True):
     )
     if not ok:
         if warn:
-            message_bar.pushCritical(
+            _push_critical(
                 "Trends.Earth",
                 tr_auth.tr(
                     f"Cannot retrieve {auth_setup.name} credentials with id "
@@ -166,7 +175,7 @@ def get_auth_config(auth_setup, authConfigId=None, warn=True):
 
     if not authConfig.isValid():
         if warn:
-            message_bar.pushCritical(
+            _push_critical(
                 "Trends.Earth",
                 tr_auth.tr(
                     f"{auth_setup.name} credentials with id {authConfigId} "
@@ -179,7 +188,7 @@ def get_auth_config(auth_setup, authConfigId=None, warn=True):
     # check if auth method is the only supported for no
     if authConfig.method() != "Basic":
         if warn:
-            message_bar.pushCritical(
+            _push_critical(
                 "Trends.Earth",
                 tr_auth.tr(
                     f"Auth method with id {authConfigId} is "

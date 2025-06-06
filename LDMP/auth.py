@@ -12,7 +12,10 @@
 """
 
 import dataclasses
+from logging import ERROR
 
+from pysimplesoap.helpers import duration
+from qgis._core import Qgis
 from qgis.core import QgsApplication, QgsAuthMethodConfig
 from qgis.PyQt import QtCore
 from qgis.utils import iface
@@ -24,11 +27,8 @@ def _push_critical(title: str, msg: str):
     """
     Thread‑safe wrapper around iface.messageBar().pushCritical.
     """
-    if QtCore.QThread.currentThread() == QtCore.QCoreApplication.instance().thread():
-        iface.messageBar().pushCritical(title, msg)
-    else:
-        # Schedule on the main (GUI) thread
-        QtCore.QTimer.singleShot(0, lambda: iface.messageBar().pushCritical(title, msg))
+    log(message=msg)
+    # iface.messageBar().pushMessage(title, msg, level=Qgis.Critical, duration=3)
 
 
 class tr_auth(QtCore.QObject):
@@ -127,75 +127,58 @@ def remove_current_auth_config(auth_setup):
 
 
 def get_auth_config(auth_setup, authConfigId=None, warn=True):
+    def _warn(msg: str):
+        """Push a critical message only if 'warn' is True, thread-safe."""
+        if warn:
+            _push_critical("Trends.Earth", msg)
+
     if not authConfigId:
         # not set then retrieve from config if set
         authConfigId = QtCore.QSettings().value(f"trends_earth/{auth_setup.key}", None)
         if not authConfigId:
-            if warn:
-                iface.messageBar().pushCritical(
-                    "Trends.Earth",
-                    tr_auth.tr(
-                        "No authentication set. Setup username and password "
-                        f"before using {auth_setup.name} functions."
-                    ),
+            _warn(
+                tr_auth.tr(
+                    "No authentication set. "
+                    f"Setup username and password before using {auth_setup.name}."
                 )
+            )
             return None
     log(f"get_auth_config for {auth_setup.name} with auth id {authConfigId}")
 
     configs = QgsApplication.authManager().availableAuthMethodConfigs()
     # message_bar = iface.messageBar()
-    if authConfigId not in configs.keys():
-        if warn:
-            _push_critical(
-                "Trends.Earth",
-                tr_auth.tr(
-                    f"Cannot retrieve credentials with id {authConfigId}. "
-                    "Setup username and password before using "
-                    f"{auth_setup.name} functions."
-                ),
+    if authConfigId not in configs:
+        _warn(
+            tr_auth.tr(
+                f"Cannot retrieve credentials with id {authConfigId}. "
+                "Setup username and password before using "
+                f"{auth_setup.name} functions."
             )
-
+        )
         return None
 
     authConfig = QgsAuthMethodConfig()
     ok = QgsApplication.authManager().loadAuthenticationConfig(
         authConfigId, authConfig, True
     )
-    if not ok:
-        if warn:
-            _push_critical(
-                "Trends.Earth",
-                tr_auth.tr(
-                    f"Cannot retrieve {auth_setup.name} credentials with id "
-                    f"{authConfigId}. Setup username and password before "
-                    f"using {auth_setup.name} functions."
-                ),
+    if not ok or not authConfig.isValid():
+        _warn(
+            tr_auth.tr(
+                f"{auth_setup.name} credentials with id {authConfigId} "
+                "are not valid.  Setup username and password before using "
+                f"{auth_setup.name}."
             )
-        return None
-
-    if not authConfig.isValid():
-        if warn:
-            _push_critical(
-                "Trends.Earth",
-                tr_auth.tr(
-                    f"{auth_setup.name} credentials with id {authConfigId} "
-                    "are not valid. Setup username and password before using "
-                    f"{auth_setup.name}."
-                ),
-            )
+        )
         return None
 
     # check if auth method is the only supported for no
     if authConfig.method() != "Basic":
-        if warn:
-            _push_critical(
-                "Trends.Earth",
-                tr_auth.tr(
-                    f"Auth method with id {authConfigId} is "
-                    f"{authConfig.method()}. This method is not supported by "
-                    f"by {auth_setup.name}"
-                ),
+        _warn(
+            tr_auth.tr(
+                f"Auth method with id {authConfigId} is '{authConfig.method()}'. "
+                f"This method is not supported by {auth_setup.name}."
             )
+        )
         return None
 
     return authConfig

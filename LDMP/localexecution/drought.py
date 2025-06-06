@@ -164,7 +164,12 @@ def get_main_drought_summary_job_params(
 
 
 def compute_drought_vulnerability(
-    drought_job: Job, aoi: AOI, job_output_path: Path, dataset_output_path: Path
+    drought_job: Job,
+    aoi: AOI,
+    job_output_path: Path,
+    dataset_output_path: Path,
+    progress_callback,
+    kill_callback,
 ) -> Job:
     """Calculate drought vulnerability indicators and save to disk"""
 

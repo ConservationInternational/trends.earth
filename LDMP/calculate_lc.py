@@ -206,4 +206,6 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "legend_nesting": initial_nesting,
             "trans_matrix": LCTransitionDefinitionDeg.Schema().dumps(trans_matrix),
         }
-        job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)
+        job_manager.submit_local_job_as_qgstask(
+            job_params, self.LOCAL_SCRIPT_NAME, self.aoi
+        )

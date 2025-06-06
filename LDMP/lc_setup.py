@@ -574,7 +574,6 @@ class DlgCalculateLCSetAggregationBase(
 
         # Setup the class table so that the table is defined when a user first
         # loads the dialog
-        log(f"__init__ nesting {str(nesting)}")
         if nesting:
             self.nesting = nesting
         else:
@@ -650,7 +649,6 @@ class DlgCalculateLCSetAggregationBase(
     def update_nesting_from_widget(self):
         nesting = self.get_nesting()
         nodata_child = nesting.child.nodata
-        log(f"Updating nesting from {str(nesting.nesting)}")
 
         for row in range(0, self.table_model.rowCount()):
             child_code = self.table_model.index(
@@ -667,7 +665,6 @@ class DlgCalculateLCSetAggregationBase(
             else:
                 nesting.update_parent(child_class, new_parent_class)
 
-        log(f"Updating nesting to {str(nesting.nesting)}")
         self.set_nesting(nesting)
         self.nesting = deepcopy(nesting)
 
@@ -897,7 +894,6 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
             log(f"parent codes are {nesting_input.parent.codes()}")
             log(f"child codes are {nesting_input.child.codes()}")
 
-        log(f"setup nesting table {str(nesting_input.nesting)}")
         self.set_nesting(nesting_input)
         self.setup_nesting_table()
 

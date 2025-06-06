@@ -115,8 +115,18 @@ def worker_killed(result, thread, worker, iface, message_bar_item):
     pass
 
 
+def _pop_message_bar_widget(message_bar, widget):
+    """Thread-safe wrapper around message_bar.popWidget(widget)."""
+    if QtCore.QThread.currentThread() == QtCore.QCoreApplication.instance().thread():
+        message_bar.popWidget(widget)
+    else:
+        QtCore.QTimer.singleShot(0, lambda: message_bar.popWidget(widget))
+
+
 def worker_finished(result, thread, worker, iface, message_bar_item):
     message_bar = iface.messageBar()
+    _pop_message_bar_widget(message_bar, message_bar_item)
+
     message_bar.popWidget(message_bar_item)
     if result is not None:
         worker.successfully_finished.emit(result)

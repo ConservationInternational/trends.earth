@@ -444,8 +444,12 @@ def get_default_esa_nesting():
 
 
 def ipcc_lc_nesting_to_settings(nesting: LCLegendNesting):
+    nesting_dict_str_keys = {str(k): vs for k, vs in nesting.nesting.items()}
+    _nesting = deepcopy(nesting)
+    _nesting.nesting = nesting_dict_str_keys
+    log(f"ipcc_lc_nesting_to_settings {str(nesting_dict_str_keys)}")
     conf.settings_manager.write_value(
-        conf.Setting.LC_IPCC_NESTING, LCLegendNesting.Schema().dumps(nesting)
+        conf.Setting.LC_IPCC_NESTING, LCLegendNesting.Schema().dumps(_nesting)
     )
 
 
@@ -472,6 +476,7 @@ def custom_lc_nesting_from_settings() -> dict:
 
 
 def esa_lc_nesting_to_settings(nesting: LCLegendNesting):
+    log(f"esa_lc_nesting_to_settings {str(nesting.nesting)}")
     conf.settings_manager.write_value(
         conf.Setting.LC_ESA_NESTING, LCLegendNesting.Schema().dumps(nesting)
     )
@@ -508,13 +513,23 @@ def get_trans_matrix(get_default=False, save_settings=True):
         nesting = ipcc_lc_nesting_from_settings()
         definitions = []
         for c_initial in nesting.child.key:
+            c_initial_parent = nesting.parent_for_child(c_initial)
+            if not c_initial_parent:
+                c_initial_parent = c_initial
+
             for c_final in nesting.child.key:
+                c_final_parent = nesting.parent_for_child(c_final)
+
+                if not c_final_parent:
+                    c_final_parent = c_final
                 definition = deepcopy(
                     matrix.get_definition(
-                        nesting.parent_for_child(c_initial),
-                        nesting.parent_for_child(c_final),
+                        c_initial_parent,
+                        c_final_parent,
                     )
                 )
+                if not definition:
+                    continue
                 definition.initial = c_initial
                 definition.final = c_final
                 definitions.append(definition)
@@ -633,6 +648,8 @@ class DlgCalculateLCSetAggregationBase(
 
     def update_nesting_from_widget(self):
         nesting = self.get_nesting()
+        nodata_child = nesting.child.nodata
+
         for row in range(0, self.table_model.rowCount()):
             child_code = self.table_model.index(
                 row, self.table_model.child_code_col()
@@ -641,8 +658,13 @@ class DlgCalculateLCSetAggregationBase(
             new_parent_class = self.remap_view.indexWidget(
                 self.proxy_model.index(row, self.table_model.parent_label_col())
             ).get_current_class()
+            old_parent = nesting.parent_for_child(child_class)
+            if not old_parent:
+                nesting.nesting[nodata_child.code].remove(child_code)
+                nesting.nesting[new_parent_class.code].append(child_code)
+            else:
+                nesting.update_parent(child_class, new_parent_class)
 
-            nesting.update_parent(child_class, new_parent_class)
         self.set_nesting(nesting)
         self.nesting = deepcopy(nesting)
 
@@ -871,6 +893,7 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
             log(f"nesting is {nesting_input.nesting}")
             log(f"parent codes are {nesting_input.parent.codes()}")
             log(f"child codes are {nesting_input.child.codes()}")
+
         self.set_nesting(nesting_input)
         self.setup_nesting_table()
 
@@ -885,7 +908,6 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
         self.remap_view.setModel(self.proxy_model)
 
         # Add selector in cell
-
         for row in range(0, len(self.nesting.child.key_with_nodata())):
             # Get the input code for this row and the final label it should map
             # to by default
@@ -898,16 +920,17 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
                 if c.code == child_code
             ][0]
 
-            if not parent_class:
-                continue
-
             lc_class_combo = LCClassComboBox(self.nesting)
 
-            # Find the index in the combo box of this translated final label
-            ind = lc_class_combo.findText(parent_class.name_long)
-
-            if ind != -1:
-                lc_class_combo.setCurrentIndex(ind)
+            if parent_class:
+                ind = lc_class_combo.findText(parent_class.name_long)
+                if ind != -1:
+                    lc_class_combo.setCurrentIndex(ind)
+            else:
+                nodata_code = self.nesting.parent.nodata.code
+                nodata_index = self.nesting.parent.codes().index(nodata_code)
+                if nodata_index:
+                    lc_class_combo.setCurrentIndex(nodata_index)
             self.remap_view.setIndexWidget(
                 self.proxy_model.index(row, self.table_model.parent_label_col()),
                 lc_class_combo,
@@ -941,6 +964,8 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
         self.dlg_agg = None
 
+        self.saved_nesting = None
+
     def showEvent(self, event):
         super().showEvent(event)
 
@@ -958,7 +983,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             super().done(value)
 
     def validate_input(self, value):
-        if not self.dlg_agg:
+        if not (self.dlg_agg or self.saved_nesting):
             QtWidgets.QMessageBox.information(
                 None,
                 self.tr("No definition set"),
@@ -989,6 +1014,8 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         self.ok_clicked()
 
     def clear_dlg_agg(self):
+        if self.dlg_agg is not None:
+            self.saved_nesting = deepcopy(self.dlg_agg.nesting)
         self.dlg_agg = None
 
     def input_changed(self, valid):
@@ -1009,6 +1036,18 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         # Set all of the classes to no data by default, and default to nesting
         # under the current custom legend (which may be the default IPCC legend
         # in any case)
+        if self.saved_nesting is not None:
+            saved_codes = {c.code for c in self.saved_nesting.child.key}
+            current_codes = set(values)
+
+            if saved_codes == current_codes:
+                self.dlg_agg = DlgCalculateLCSetAggregationCustom(
+                    parent=self,
+                    nesting=deepcopy(self.saved_nesting),
+                )
+                self.dlg_agg.finished.connect(self.clear_dlg_agg)
+                return
+
         default_nesting = ipcc_lc_nesting_from_settings()
 
         # From the default nesting class instance, setup the actual nesting
@@ -1021,26 +1060,29 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         # The nodata code in the data being imported needs to be handled.
         # Nest this under the parent nodata code as well.
         if child_nodata_code not in values:
-            values = values + [child_nodata_code]
+            values.append(child_nodata_code)
         nest.update({default_nesting.child.nodata.code: values})
 
         # Update nest based on previously saved values' mapping
         settings_nest = custom_lc_nesting_from_settings()
         if len(settings_nest) > 0:
-            for code, child_keys in nest.items():
-                st_codes = settings_nest.get(str(code), [])
-                if len(st_codes) == 0:
-                    continue
-                code_values = [s for s in st_codes if s in values]
-                nest[code] = code_values
+            for parent_code, child_list in nest.items():
+                stored_codes = settings_nest.get(str(parent_code), [])
+                if stored_codes:
+                    nest[parent_code] = [v for v in stored_codes if v in values]
 
-            # We need to determine those codes that were unused (from
-            # settings) and assign them to nodata.
-            used_codes = [cv for code_values in nest.values() for cv in code_values]
-            unused_codes = list(set(values) - set(used_codes))
-            no_data_values = nest[default_nesting.child.nodata.code]
-            no_data_values.extend(unused_codes)
-            nest[default_nesting.child.nodata.code] = no_data_values
+            nd_key = default_nesting.child.nodata.code
+            assigned_elsewhere = {
+                code
+                for parent, childs in nest.items()
+                if parent != nd_key
+                for code in childs
+            }
+
+            nest[nd_key] = list(set(values) - assigned_elsewhere)
+
+            for parent, childs in nest.items():
+                nest[parent] = list(dict.fromkeys(childs))
 
         nesting = LCLegendNesting(
             parent=default_nesting.child,
@@ -1048,7 +1090,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 name="Default remap",
                 key=[
                     LCClass(value, str(value))
-                    for value in sorted(values)
+                    for value in sorted(set(values))
                     if value != child_nodata_code
                 ],
                 nodata=LCClass(child_nodata_code, "No data"),
@@ -1056,6 +1098,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             nesting=nest,
         )
         self.dlg_agg = DlgCalculateLCSetAggregationCustom(parent=self, nesting=nesting)
+        self.dlg_agg.finished.connect(self.clear_dlg_agg)
 
     def agg_edit(self):
         if self.input_widget.radio_raster_input.isChecked():
@@ -1121,22 +1164,30 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         return int(self.input_widget.lineEdit_nodata.text())
 
     def ok_clicked(self):
+        mapping = self.dlg_agg.nesting if self.dlg_agg else self.saved_nesting
+        if mapping is None:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("No definition set"),
+                self.tr(
+                    'Click "Edit Definition" to define the land cover definition before exporting.'
+                ),
+            )
+            return False
         out_file = self._output_raster_path
 
         if self.input_widget.radio_raster_input.isChecked():
-            remap_ret = self.remap_raster(out_file, self.dlg_agg.nesting.get_list())
+            remap_ret = self.remap_raster(out_file, mapping.get_list())
         else:
             attribute = self.input_widget.comboBox_fieldname.currentText()
             layer = self.input_widget.get_vector_layer()
-            remap_ret = self.remap_vector(
-                layer, out_file, self.dlg_agg.nesting.nesting, attribute
-            )
+            remap_ret = self.remap_vector(layer, out_file, mapping.nesting, attribute)
 
         if not remap_ret:
             return False
 
         # Save nesting definition to settings
-        custom_lc_nesting_to_settings(self.dlg_agg.nesting.nesting)
+        custom_lc_nesting_to_settings(mapping.nesting)
 
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),

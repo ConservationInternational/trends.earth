@@ -1060,25 +1060,29 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         # The nodata code in the data being imported needs to be handled.
         # Nest this under the parent nodata code as well.
         if child_nodata_code not in values:
-            values = values + [child_nodata_code]
+            values.append(child_nodata_code)
         nest.update({default_nesting.child.nodata.code: values})
 
         # Update nest based on previously saved values' mapping
         settings_nest = custom_lc_nesting_from_settings()
         if len(settings_nest) > 0:
-            for code, child_keys in nest.items():
-                st_codes = settings_nest.get(str(code), [])
-                if len(st_codes) == 0:
-                    continue
-                code_values = [s for s in st_codes if s in values]
-                nest[code] = code_values
+            for parent_code, child_list in nest.items():
+                stored_codes = settings_nest.get(str(parent_code), [])
+                if stored_codes:
+                    nest[parent_code] = [v for v in stored_codes if v in values]
 
-            used_codes = [cv for code_values in nest.values() for cv in code_values]
-            unused_codes = list(set(values) - set(used_codes))
+            nd_key = default_nesting.child.nodata.code
+            assigned_elsewhere = {
+                code
+                for parent, childs in nest.items()
+                if parent != nd_key
+                for code in childs
+            }
 
-            no_data_values = nest[default_nesting.child.nodata.code]
-            no_data_values.extend(unused_codes)
-            nest[default_nesting.child.nodata.code] = no_data_values
+            nest[nd_key] = list(set(values) - assigned_elsewhere)
+
+            for parent, childs in nest.items():
+                nest[parent] = list(dict.fromkeys(childs))
 
         nesting = LCLegendNesting(
             parent=default_nesting.child,
@@ -1086,7 +1090,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 name="Default remap",
                 key=[
                     LCClass(value, str(value))
-                    for value in sorted(values)
+                    for value in sorted(set(values))
                     if value != child_nodata_code
                 ],
                 nodata=LCClass(child_nodata_code, "No data"),

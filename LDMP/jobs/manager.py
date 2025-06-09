@@ -15,8 +15,11 @@ import backoff
 import te_algorithms.gdal.land_deg.config as ld_conf
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
-from qgis.core import QgsApplication, QgsTask, QgsVectorLayer
+from qgis.core import Qgis, QgsApplication, QgsTask, QgsVectorLayer
+from qgis.gui import QgsMessageBar
 from qgis.PyQt import QtCore
+from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
+from qgis.utils import iface
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
 from te_schemas import jobs, results
 from te_schemas.algorithms import AlgorithmRunMode
@@ -184,7 +187,12 @@ class LocalJobTask(QgsTask):
             self.job_copy
         )
         self.results = execution_handler(
-            self.job_copy, self.area_of_interest, job_output_path, dataset_output_path
+            self.job_copy,
+            self.area_of_interest,
+            job_output_path,
+            dataset_output_path,
+            self.setProgress,
+            self.cancel,
         )
 
         if self.results is None:
@@ -516,6 +524,35 @@ class JobManager(QtCore.QObject):
 
         job_task = LocalJobTask(job_name, job, area_of_interest)
         job_task.processed_job.connect(self.finish_local_job)
+
+        message_bar_item = QgsMessageBar.createMessage(
+            self.tr(f"Processing: {task_name}")
+        )
+        progress_bar = QProgressBar()
+        progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+        cancel_button = QPushButton()
+        cancel_button.setText("Cancel")
+        message_bar_item.layout().addWidget(progress_bar)
+        message_bar_item.layout().addWidget(cancel_button)
+        message_bar = iface.messageBar()
+        message_bar.pushWidget(message_bar_item, Qgis.Info)
+
+        def _set_progress_bar_value(value: float):
+            if value <= 100:
+                progress_bar.setValue(int(value))
+
+        def cancel_task():
+            job_task.cancel()
+            message_bar.close()
+
+        def close_messages():
+            message_bar = iface.messageBar()
+            message_bar.popWidget(message_bar_item)
+
+        job_task.taskCompleted.connect(close_messages)
+        cancel_button.clicked.connect(cancel_task)
+        job_task.progressChanged.connect(_set_progress_bar_value)
+
         self.tm.addTask(job_task)
 
     def submit_local_job(
@@ -940,7 +977,15 @@ class JobManager(QtCore.QObject):
             previous_status = jobs.JobStatus.DOWNLOADED
         # this already sets the new status on the job
         self._move_job_to_dir(job, target, force_rewrite=force_rewrite)
-        del self.known_jobs[previous_status][job.id]
+
+        if target == jobs.JobStatus.DELETED:
+            # Find which status dictionary actually contains the job
+            for status, jobs_dict in self.known_jobs.items():
+                if job.id in jobs_dict:
+                    del jobs_dict[job.id]
+                    break
+        else:
+            del self.known_jobs[previous_status][job.id]
         self.known_jobs[job.status][job.id] = job
 
     def _download_cloud_results(self, job: jobs.Job) -> typing.Optional[Path]:

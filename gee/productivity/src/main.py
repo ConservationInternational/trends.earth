@@ -161,7 +161,6 @@ def run(params, logger):
         ndvi_gee_dataset = params.get("ndvi_gee_dataset")
         low_biomass = float(params.get("low_biomass"))
         high_biomass = float(params.get("high_biomass"))
-        medium_biomass = float(params.get("medium_biomass"))
         years_interval = int(params.get("years_interval"))
         modis_mode = params.get("modis_mode")
 
@@ -175,7 +174,6 @@ def run(params, logger):
             for idx, geojson in enumerate(geojsons, start=1):
                 lpd_img = productivity_faowocat(
                     low_biomass,
-                    medium_biomass,
                     high_biomass,
                     years_interval,
                     modis_mode,

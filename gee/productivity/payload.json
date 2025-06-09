@@ -1,7 +1,7 @@
 {
     "prod_mode": "FAO-WOCAT",
     "geojsons": "[{\"coordinates\": [[[112.65833727850685, -7.337712277781124], [112.83943758762715, -7.337712277781124], [112.83943758762715, -7.156867287604374], [112.65833727850685, -7.156867287604374], [112.65833727850685, -7.337712277781124]]], \"type\": \"Polygon\"}]",
-    "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2023",
+    "ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2024",
     "low_biomass": 0.4,
     "high_biomass": 0.8,
     "medium_biomass": 0.5,

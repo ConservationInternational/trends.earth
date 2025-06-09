@@ -24,7 +24,7 @@ from qgis.core import (
     QgsSettings,
     QgsTask,
 )
-from qgis.PyQt import QtCore, QtNetwork, QtWidgets
+from qgis.PyQt import QtCore, QtNetwork
 
 from . import auth, conf
 from .constants import API_URL, TIMEOUT

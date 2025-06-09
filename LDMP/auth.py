@@ -12,13 +12,9 @@
 """
 
 import dataclasses
-from logging import ERROR
 
-from pysimplesoap.helpers import duration
-from qgis._core import Qgis
 from qgis.core import QgsApplication, QgsAuthMethodConfig
 from qgis.PyQt import QtCore
-from qgis.utils import iface
 
 from .logger import log
 

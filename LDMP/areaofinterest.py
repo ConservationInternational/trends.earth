@@ -32,6 +32,14 @@ def get_city_geojson() -> typing.Dict:
 
 def get_admin_poly_geojson():
     current_country = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
+    if not current_country:
+        QtWidgets.QMessageBox.critical(
+            None,
+            tr_areaofinterest.tr("Error"),
+            tr_areaofinterest.tr("Choose a region before proceeding."),
+        )
+        qgisiface.mainWindow().findChild(QtWidgets.QDialog).reject()
+        return None
     country_code = conf.ADMIN_BOUNDS_KEY[current_country].code
     admin_polys_filename = f"admin_bounds_polys_{country_code}.json.gz"
     admin_polys = download.read_json(admin_polys_filename, verify=False)
@@ -528,6 +536,9 @@ def open_settings():
 
 
 def prepare_area_of_interest() -> AOI:
+    country_name = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
+    if not country_name:
+        raise RuntimeError("No region selected.")
     if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
         crs_dst = qgis.core.QgsCoordinateReferenceSystem(
             conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS)

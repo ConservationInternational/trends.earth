@@ -523,51 +523,22 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_2">
-                   <property name="text">
-                    <string>Medium</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QDateEdit" name="medium_date_edit">
-                   <property name="readOnly">
-                    <bool>true</bool>
-                   </property>
-                   <property name="dateTime">
-                    <datetime>
-                     <hour>0</hour>
-                     <minute>0</minute>
-                     <second>0</second>
-                     <year>2001</year>
-                     <month>1</month>
-                     <day>24</day>
-                    </datetime>
-                   </property>
-                   <property name="minimumDate">
-                    <date>
-                     <year>2001</year>
-                     <month>1</month>
-                     <day>24</day>
-                    </date>
-                   </property>
-                   <property name="displayFormat">
-                    <string>yyyy</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="0" column="1">
-                  <widget class="QDateEdit" name="low_date_edit">
-                   <property name="minimumDate">
-                    <date>
-                     <year>2000</year>
-                     <month>1</month>
-                     <day>24</day>
-                    </date>
+                  <widget class="QDoubleSpinBox" name="low_value_spinbox">
+                   <property name="minimum">
+                    <double>0.0</double>
                    </property>
-                   <property name="displayFormat">
-                    <string>yyyy</string>
+                   <property name="maximum">
+                    <double>1.0</double>
+                   </property>
+                   <property name="value">
+                    <double>0.4</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.1</double>
+                   </property>
+                   <property name="decimals">
+                    <number>2</number>
                    </property>
                   </widget>
                  </item>
@@ -579,16 +550,21 @@
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QDateEdit" name="high_date_edit">
-                   <property name="minimumDate">
-                    <date>
-                     <year>2002</year>
-                     <month>1</month>
-                     <day>24</day>
-                    </date>
+                  <widget class="QDoubleSpinBox" name="high_value_spinbox">
+                   <property name="minimum">
+                    <double>0.0</double>
                    </property>
-                   <property name="displayFormat">
-                    <string>yyyy</string>
+                   <property name="maximum">
+                    <double>1.0</double>
+                   </property>
+                   <property name="value">
+                    <double>0.8</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.1</double>
+                   </property>
+                   <property name="decimals">
+                    <number>2</number>
                    </property>
                   </widget>
                  </item>

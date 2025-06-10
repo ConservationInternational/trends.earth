@@ -30,6 +30,8 @@ DlgCalculateProdUi, _ = uic.loadUiType(
 )
 
 FAO_WOCAT = "FAO_WOCAT"
+MODIS_MED_FILTER_OPTION = "MODIS (MED filter option)"
+AVHRR_ANNUAL = "AVHRR (GIMMS3g.v1, annual)"
 
 
 class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
@@ -57,13 +59,18 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.start_year_climate = 0
         self.end_year_climate = 9999
         self.start_year_ndvi = 0
+        self.medium_value = 0
         self.end_year_ndvi = 9999
         self.dataset_ndvi_changed()
         self.traj_climate_changed()
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
-        self.mode_te_prod.toggled.connect(self.mode_te_prod_toggled)
-        self.mode_te_prod_toggled()
+
+        self.mode_te_prod.toggled.connect(self.indicator_toggled)
+        self.mode_fao_wocat.toggled.connect(self.indicator_toggled)
+        self.mode_lpd_jrc.toggled.connect(self.indicator_toggled)
+        self.indicator_toggled()
+
         self.resize(self.width(), 711)
         self._finish_initialization()
 
@@ -73,19 +80,16 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
         self.advance_configurations.setCollapsed(True)
 
-        self.low_date_edit.dateChanged.connect(self.biomass_date_update)
-        self.high_date_edit.dateChanged.connect(self.biomass_date_update)
+        self.low_value_spinbox.valueChanged.connect(self.biomass_value_update)
+        self.high_value_spinbox.valueChanged.connect(self.biomass_value_update)
 
-    def biomass_date_update(self):
-        """Biomass date changes slot, handles low and high date inputs,
-        calculates the medium date and updates its corresponding input.
+    def biomass_value_update(self):
+        """Biomass value change slot, handles low and high value inputs,
+        calculates the medium value and updates its corresponding input.
         """
-
-        medium_year = int(
-            (self.low_date_edit.date().year() + self.high_date_edit.date().year()) / 2
-        )
-
-        self.medium_date_edit.setDate(QtCore.QDate(medium_year, 1, 1))
+        self.medium_value = (
+            self.low_value_spinbox.value() + self.high_value_spinbox.value()
+        ) / 2
 
     @property
     def trajectory_functions(self) -> typing.Dict:
@@ -94,26 +98,10 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
     def traj_indic_changed(self):
         self.dataset_climate_update()
 
-    def mode_te_prod_toggled(self):
-        if self.mode_lpd_jrc.isChecked():
-            self.reset_fao_wocat_settings()
-            self.combo_lpd.setEnabled(True)
-            self.advance_configurations.setEnabled(False)
-            self.groupBox_ndvi_dataset.setEnabled(False)
-            self.groupBox_traj.setEnabled(False)
-            self.groupBox_perf.setEnabled(False)
-            self.groupBox_state.setEnabled(False)
-
-        elif self.mode_fao_wocat.isChecked():
-            self.set_fao_wocat_settings()
-            self.combo_lpd.setEnabled(True)
-            self.advance_configurations.setEnabled(True)
-            self.groupBox_ndvi_dataset.setEnabled(True)
-            self.groupBox_traj.setEnabled(True)
-            self.groupBox_perf.setEnabled(True)
-            self.groupBox_state.setEnabled(True)
-
-        else:
+    def indicator_toggled(self, checked: bool = True):
+        if not checked:
+            return
+        if self.mode_te_prod.isChecked():
             self.reset_fao_wocat_settings()
             self.combo_lpd.setEnabled(False)
             self.advance_configurations.setEnabled(True)
@@ -121,22 +109,46 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             self.groupBox_traj.setEnabled(True)
             self.groupBox_perf.setEnabled(True)
             self.groupBox_state.setEnabled(True)
+        elif self.mode_lpd_jrc.isChecked():
+            self.reset_fao_wocat_settings()
+            self.combo_lpd.setEnabled(True)
+            self.advance_configurations.setEnabled(False)
+            self.groupBox_ndvi_dataset.setEnabled(False)
+            self.groupBox_traj.setEnabled(False)
+            self.groupBox_perf.setEnabled(False)
+            self.groupBox_state.setEnabled(False)
+        elif self.mode_fao_wocat.isChecked():
+            self.set_fao_wocat_settings()
+            self.combo_lpd.setEnabled(False)
+            self.advance_configurations.setEnabled(True)
+
+            self.groupBox_ndvi_dataset.setEnabled(True)
+
+            for gb in (self.groupBox_traj, self.groupBox_perf, self.groupBox_state):
+                gb.setVisible(False)
+                gb.setEnabled(False)
 
     def set_fao_wocat_settings(self):
-        ndvi_item = "MODIS (MED filter option)"
+        if hasattr(self, "advance_configurations"):
+            self.advance_configurations.setCollapsed(False)
 
+        dataset_ndvi_options = [
+            self.dataset_ndvi.itemText(i) for i in range(self.dataset_ndvi.count())
+        ]
         for index in range(self.dataset_ndvi.count()):
-            if self.dataset_ndvi.itemText(index) == "AVHRR (GIMMS3g.v1, annual)":
+            if self.dataset_ndvi.itemText(index) == AVHRR_ANNUAL:
                 self.dataset_ndvi.removeItem(index)
-                self.dataset_ndvi.insertItem(index, ndvi_item)
+                if MODIS_MED_FILTER_OPTION not in dataset_ndvi_options:
+                    self.dataset_ndvi.insertItem(index, MODIS_MED_FILTER_OPTION)
+                    self.dataset_ndvi.setCurrentText(MODIS_MED_FILTER_OPTION)
 
         self.groupBox_traj.setVisible(False)
         self.modis_group_box.setVisible(True)
 
         if self.modis_combo_box.count() < 2:
             modis_items = ["MannKendal", "MannKendal + MTID"]
-
             self.modis_combo_box.addItems(modis_items)
+
         self.modis_group_box.setEnabled(True)
 
         self.groupBox_traj_climate.setVisible(False)
@@ -150,10 +162,15 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.period_interval.setVisible(True)
 
     def reset_fao_wocat_settings(self):
+        dataset_ndvi_options = [
+            self.dataset_ndvi.itemText(i) for i in range(self.dataset_ndvi.count())
+        ]
         for index in range(self.dataset_ndvi.count()):
-            if self.dataset_ndvi.itemText(index) == "MODIS (MED filter option)":
+            if self.dataset_ndvi.itemText(index) == MODIS_MED_FILTER_OPTION:
                 self.dataset_ndvi.removeItem(index)
-                self.dataset_ndvi.insertItem(index, "AVHRR (GIMMS3g.v1, annual)")
+                if AVHRR_ANNUAL not in dataset_ndvi_options:
+                    self.dataset_ndvi.insertItem(index, AVHRR_ANNUAL)
+                    self.dataset_ndvi.setCurrentText(AVHRR_ANNUAL)
 
         self.groupBox_traj.setVisible(True)
         self.modis_group_box.setVisible(False)

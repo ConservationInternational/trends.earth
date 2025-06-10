@@ -269,13 +269,9 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         if radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         elif radio_fao_wocat.isChecked():
-            return FAO_WOCAT
+            return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
         else:
-            if "FAO-WOCAT" in cb_lpd.currentText():
-                return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-            elif "JRC" in cb_lpd.currentText():
-                return ProductivityMode.JRC_5_CLASS_LPD.value
-        return None
+            return ProductivityMode.JRC_5_CLASS_LPD.value
 
     def btn_calculate(self):
         if self.mode_te_prod.isChecked() and not (
@@ -350,31 +346,27 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                 self.traj_indic.currentText()
             ]
             payload.update(current_trajectory_function["params"])
-        elif prod_mode == FAO_WOCAT:
-            ndvi_dataset = self.dataset_ndvi.currentText()
+        elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
             modis_mode = self.modis_combo_box.currentText()
             spin = self.period_interval.findChild(QSpinBox, "spinBox")
-            years_interval = spin.value() if spin is not None else 0
+            years_interval = spin.value() if spin is not None else 10
 
             payload.update(
                 {
                     "prod_mode": prod_mode,
-                    "low_biomass": 0.4,
-                    "medium_biomass": 0.6,
-                    "high_biomass": 0.7,
-                    "years_interval": 5,
+                    "low_biomass": self.low_value_spinbox.value(),
+                    "high_biomass": self.high_value_spinbox.value(),
+                    "years_interval": years_interval,
                     "crs": self.aoi.get_crs_dst_wkt(),
                     "ndvi_gee_dataset": ndvi_dataset,
                     "modis_mode": modis_mode,
                 }
             )
-        elif prod_mode in (
-            ProductivityMode.JRC_5_CLASS_LPD.value,
-            ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
-        ):
+        elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
             prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
                 self.combo_lpd.currentText()
             ]
+            prod_data_source = prod_dataset["Data source"]
             prod_asset = prod_dataset["GEE Dataset"]
             prod_start_year = prod_dataset["Start year"]
             prod_end_year = prod_dataset["End year"]
@@ -384,6 +376,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                     "prod_asset": prod_asset,
                     "year_initial": prod_start_year,
                     "year_final": prod_end_year,
+                    "data_source": prod_data_source,
                 }
             )
         else:

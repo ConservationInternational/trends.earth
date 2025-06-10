@@ -20,11 +20,6 @@ from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 from te_schemas import results
 from te_schemas.productivity import ProductivityMode
 
-try:
-    FAO_WOCAT = ProductivityMode.FAO_WOCAT
-except AttributeError:
-    FAO_WOCAT = "FAO-WOCAT"
-
 
 def run(params, logger):
     """."""
@@ -133,16 +128,12 @@ def run(params, logger):
         logger.debug("Serializing")
         return schema.dump(final_output)
 
-    elif prod_mode in (
-        ProductivityMode.JRC_5_CLASS_LPD.value,
-        ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
-    ):
-        if prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+    elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+        data_source = params.get("data_source")
+        if data_source == "Joint Research Commission (JRC)":
             lpd_layer_name = config.JRC_LPD_BAND_NAME
-        elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
-            lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
         else:
-            raise KeyError
+            lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
         prod_asset = params.get("prod_asset")
         year_initial = params.get("year_initial")
         year_final = params.get("year_final")
@@ -157,7 +148,7 @@ def run(params, logger):
             {"year_initial": year_initial, "year_final": year_final}
         )
         return out.export(geojsons, "productivity", crs, logger, EXECUTION_ID, proj)
-    elif prod_mode == FAO_WOCAT:
+    elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
         ndvi_gee_dataset = params.get("ndvi_gee_dataset")
         low_biomass = float(params.get("low_biomass"))
         high_biomass = float(params.get("high_biomass"))

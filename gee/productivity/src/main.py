@@ -129,7 +129,7 @@ def run(params, logger):
         return schema.dump(final_output)
 
     elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
-        data_source = params.get("data_source")
+        data_source = params.get("data_source", "Joint Research Commission (JRC)")
         if data_source == "Joint Research Commission (JRC)":
             lpd_layer_name = config.JRC_LPD_BAND_NAME
         else:

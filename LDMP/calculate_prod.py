@@ -80,6 +80,10 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
         self.advance_configurations.setCollapsed(True)
 
+        self.advance_configurations.collapsedStateChanged.connect(
+            self._adv_conf_collapsed_changed
+        )
+
         self.low_value_spinbox.valueChanged.connect(self.biomass_value_update)
         self.high_value_spinbox.valueChanged.connect(self.biomass_value_update)
 
@@ -90,6 +94,10 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.medium_value = (
             self.low_value_spinbox.value() + self.high_value_spinbox.value()
         ) / 2
+
+    def _adv_conf_collapsed_changed(self, _collapsed: bool):
+        if not _collapsed:
+            self.indicator_toggled()
 
     @property
     def trajectory_functions(self) -> typing.Dict:
@@ -120,16 +128,17 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         elif self.mode_fao_wocat.isChecked():
             self.set_fao_wocat_settings()
             self.combo_lpd.setEnabled(False)
+            self.groupBox_state.setEnabled(True)
             self.advance_configurations.setEnabled(True)
 
             self.groupBox_ndvi_dataset.setEnabled(True)
 
-            for gb in (self.groupBox_traj, self.groupBox_perf, self.groupBox_state):
+            for gb in (self.groupBox_traj, self.groupBox_perf):
                 gb.setVisible(False)
                 gb.setEnabled(False)
 
     def set_fao_wocat_settings(self):
-        if hasattr(self, "advance_configurations"):
+        if self.advance_configurations.isCollapsed():
             self.advance_configurations.setCollapsed(False)
 
         dataset_ndvi_options = [
@@ -142,7 +151,6 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                     self.dataset_ndvi.insertItem(index, MODIS_MED_FILTER_OPTION)
                     self.dataset_ndvi.setCurrentText(MODIS_MED_FILTER_OPTION)
 
-        self.groupBox_traj.setVisible(False)
         self.modis_group_box.setVisible(True)
 
         if self.modis_combo_box.count() < 2:
@@ -154,7 +162,6 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.groupBox_traj_climate.setVisible(False)
         self.initial_biomass_group.setVisible(True)
         self.initial_biomass_group.setEnabled(True)
-        self.groupBox_perf.setVisible(False)
 
         self.groupBox_state_baseline.setVisible(False)
         self.groupBox_state_comparison.setVisible(False)

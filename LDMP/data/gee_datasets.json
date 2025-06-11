@@ -392,6 +392,29 @@
       "Source": "Ziese, Markus; Becker, Andreas; Finger, Peter; Meyer-Christoffer, Anja; Rudolf, Bruno; Schneider, Udo (2011): GPCC First Guess Product at 1.0°: Near Real-Time First Guess monthly Land Surface Precipitation from Rain-Gauges based on SYNOP Data. DOI: 10.5676/DWD_GPCC/FG_M_100 ",
       "Comments": "Full V7 until Jan 2013; V4 monitoring after.",
       "downloadable": true
+    },
+	"CHIRPS v2025": {
+      "Data source": "Trends.Earth team",
+      "Start year": 1981,
+      "End year": 2024,
+      "Spatial resolution": "5 km",
+      "Temporal resolution": "annual",
+      "Min Latitude": "-50",
+      "Max Latitude": "50",
+      "Min Longitude": "-180",
+      "Max Longitude": "180",
+      "Units": "mm/year",
+      "Description": "SPI (gamma distribution) derived from CHIRPS data",
+      "Lags": [9, 12, 24, 28],
+      "Description": "Climate Hazards Group InfraRed Precipitation with Station data (CHIRPS) is a 30+ year quasi-global rainfall dataset. Spanning 50°S-50°N (and all longitudes), starting in 1981 to near-present, CHIRPS incorporates 0.05° resolution satellite imagery with in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring.",
+      "Link to Dataset": "http://chg.geog.ucsb.edu/data/chirps/",
+      "GEE Dataset": "projects/gef-land-degradation/assets/chirps_spi_gamma_monthly_v2025",
+      "Source code": "c05_precip_chirps_int_global_assets",
+      "License": "Public Domain",
+      "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "Source": "Funk, Chris, Pete Peterson, Martin Landsfeld, Diego Pedreros, James Verdin, Shraddhanand Shukla, Gregory Husak, James Rowland, Laura Harrison, Andrew Hoell & Joel Michaelsen.The climate hazards infrared precipitation with stations—a new environmental record for monitoring extremes. Scientific Data 2, 150066. doi:10.1038/sdata.2015.66 2015.",
+      "Comments": "",
+      "downloadable": true
     }
   },
   "Precipitation": {
@@ -420,7 +443,7 @@
       "Data source": "https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html",
       "Start year": 1891,
       "End year": 2019,
-      "Spatial resolution": "5 km",
+      "Spatial resolution": "25 km",
       "Temporal resolution": "annual",
       "Min Latitude": "-90",
       "Max Latitude": "90",

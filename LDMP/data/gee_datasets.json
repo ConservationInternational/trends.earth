@@ -437,7 +437,7 @@
       "Comments": ".",
       "downloadable": true
     },
-	  "UKCEH SPEI": {
+	"UKCEH SPEI": {
       "Data source": "UK Centre for Ecology & Hidrology",
       "Start year": 1980,
       "End year": 2023,
@@ -458,6 +458,7 @@
       "Comments": ".",
       "downloadable": true
     },
+  },
   "Precipitation": {
     "CHIRPS": {
       "Data source": "GEE",

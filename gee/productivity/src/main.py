@@ -164,12 +164,12 @@ def run(params, logger):
         with ThreadPoolExecutor(max_workers=4) as executor:
             for idx, geojson in enumerate(geojsons, start=1):
                 lpd_img = productivity_faowocat(
-                    low_biomass,
-                    high_biomass,
-                    years_interval,
-                    modis_mode,
-                    ndvi_gee_dataset,
-                    logger,
+                    low_biomass=low_biomass,
+                    high_biomass=high_biomass,
+                    years_interval=years_interval,
+                    modis_mode=modis_mode,
+                    prod_asset=ndvi_gee_dataset,
+                    logger=logger,
                 )
                 lpd_img = teimage_v1_to_teimage_v2(lpd_img)
 

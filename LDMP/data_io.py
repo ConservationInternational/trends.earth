@@ -353,7 +353,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
-                creationOptions=["COMPRESS=LZW"],
+                creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
                 callback=self.progress_callback,
             )
         else:
@@ -365,7 +365,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
-                creationOptions=["COMPRESS=LZW"],
+                creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
                 callback=self.progress_callback,
             )
 

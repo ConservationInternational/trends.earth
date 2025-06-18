@@ -51,7 +51,6 @@ def _run_soc(params, logger):
         params.get("year_initial"),
         params.get("year_final"),
         params.get("fl"),
-        LCTransitionDefinitionDeg.Schema().load(params.get("trans_matrix")),
         esa_to_custom_nesting=LCLegendNesting.Schema().load(
             params.get("legend_nesting_esa_to_custom")
         ),

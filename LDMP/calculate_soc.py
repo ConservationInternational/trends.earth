@@ -21,7 +21,6 @@ from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 
 from . import calculate, data_io, lc_setup
 from .jobs.manager import job_manager
-from .lc_setup import get_trans_matrix
 from .logger import log
 
 DlgCalculateSocUi, _ = uic.loadUiType(
@@ -257,7 +256,6 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
                 lc_setup.ipcc_lc_nesting_from_settings()
             ),
-            "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(get_trans_matrix()),
             "fl": self.get_fl(),
         }
         job_manager.submit_local_job_as_qgstask(
@@ -283,7 +281,6 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
                 lc_setup.ipcc_lc_nesting_from_settings()
             ),
-            "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(get_trans_matrix()),
             "task_name": self.execution_name_le.text(),
             "task_notes": self.options_tab.task_notes.toPlainText(),
         }

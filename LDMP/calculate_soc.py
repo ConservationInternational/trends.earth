@@ -17,7 +17,7 @@ from pathlib import Path
 import qgis.gui
 from qgis.PyQt import QtGui, QtWidgets, uic
 from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
-from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
+from te_schemas.land_cover import LCLegendNesting
 
 from . import calculate, data_io, lc_setup
 from .jobs.manager import job_manager

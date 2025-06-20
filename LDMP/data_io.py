@@ -328,7 +328,7 @@ class RasterizeWorker(worker.AbstractWorker):
 
 class RasterImportWorker(worker.AbstractWorker):
     def __init__(
-        self, in_file, out_file, out_res, resample_mode, out_data_type=gdal.GDT_Int16
+        self, in_file, out_file, out_res, resample_mode, out_data_type=gdal.GDT_Byte
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -353,7 +353,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
-                creationOptions=["COMPRESS=LZW"],
+                creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
                 callback=self.progress_callback,
             )
         else:
@@ -365,7 +365,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
-                creationOptions=["COMPRESS=LZW"],
+                creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
                 callback=self.progress_callback,
             )
 
@@ -1294,35 +1294,49 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # Select a single output band
         in_file = self.input_widget.lineEdit_raster_file.text()
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
-        temp_vrt = GetTempFilename(".vrt")
+        temp_tif = GetTempFilename(".tif")
         target_bounds = self.extent_as_list()
+
         if len(target_bounds) == 0:
             log("Target bounds for warping raster not available.")
-            gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
+            gdal.Translate(
+                temp_tif,
+                in_file,
+                bandList=[band_number],
+                outputType=gdal.GDT_Byte,
+            )
         else:
             ext_str = ",".join(map(str, target_bounds))
             log(f"Target bounds for warped raster: {ext_str}")
-            gdal.BuildVRT(
-                temp_vrt, in_file, bandList=[band_number], outputBounds=target_bounds
+            # Ensure target_bounds are in the correct order: [xmin, ymax, xmax, ymin]
+            xmin, ymin, xmax, ymax = target_bounds
+            projwin = [xmin, ymax, xmax, ymin]
+            gdal.Translate(
+                temp_tif,
+                in_file,
+                bandList=[band_number],
+                outputType=gdal.GDT_Byte,
+                projWin=projwin,
             )
 
         log("Importing {} to {}".format(in_file, out_file))
 
         if self.input_widget.groupBox_output_resolution.isChecked():
             out_res = self.get_out_res_wgs84()
-            resample_mode = self.get_resample_mode(temp_vrt)
+            resample_mode = self.get_resample_mode(temp_tif)
         else:
             out_res = None
             resample_mode = gdal.GRA_NearestNeighbour
+
         raster_import_worker = worker.StartWorker(
             RasterImportWorker,
             "importing raster",
-            temp_vrt,
+            temp_tif,
             out_file,
             out_res,
             resample_mode,
         )
-        os.remove(temp_vrt)
+        os.remove(temp_tif)
 
         if not raster_import_worker.success:
             QtWidgets.QMessageBox.critical(

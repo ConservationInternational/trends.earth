@@ -262,27 +262,6 @@
       "Source": "NASA LP DAAC, 2016, MOD13Q1, Version 6. NASA EOSDIS Land Processes DAAC, USGS Earth Resources Observation and Science (EROS) Center, Sioux Falls, South Dakota (https://lpdaac.usgs.gov), accessed [12 15, 2017], at http://dx.doi.org/10.5067/MODIS/MOD13Q1.006",
       "Comments": "",
       "downloadable": false
-    },
-    "MODIS (MED filter option)": {
-      "Data source": "GEE",
-      "Start year": 2001,
-      "End year": 2023,
-      "Spatial Resolution": "250 m",
-      "Temporal resolution": "annual",
-      "Min Latitude": "-90",
-      "Max Latitude": "90",
-      "Min Longitude": "-180",
-      "Max Longitude": "180",
-      "Units": "Median annual NDVI * 10000",
-      "Description": "MODIS NDVI with a median filter applied to each 16‑day composite, aggregated to annual median values to reduce noise.",
-      "Link to Dataset": "https://explorer.earthengine.google.com/#detail/MODIS%2FMOD13Q1",
-      "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_med_2001_2023",
-      "Source code": "c02_ndvi_modis_med_global_assets",
-      "License": "Public Domain",
-      "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
-      "Source": "NASA LP DAAC, 2016, MOD13Q1, Version 6. NASA EOSDIS Land Processes DAAC, USGS Earth Resources Observation and Science (EROS) Center, Sioux Falls, South Dakota.",
-      "Comments": "",
-      "downloadable": true
     }
   },
   "Land Productivity Dynamics": {

@@ -147,7 +147,10 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         for index in range(self.dataset_ndvi.count()):
             if self.dataset_ndvi.itemText(index) == AVHRR_ANNUAL:
                 self.dataset_ndvi.removeItem(index)
-                if MODIS_MED_FILTER_OPTION not in dataset_ndvi_options:
+                if (
+                    MODIS_MED_FILTER_OPTION not in dataset_ndvi_options
+                    and MODIS_MED_FILTER_OPTION in conf.REMOTE_DATASETS["NDVI"]
+                ):
                     self.dataset_ndvi.insertItem(index, MODIS_MED_FILTER_OPTION)
                     self.dataset_ndvi.setCurrentText(MODIS_MED_FILTER_OPTION)
 
@@ -218,13 +221,14 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.update_time_bounds()
 
     def dataset_ndvi_changed(self):
-        this_ndvi_dataset = conf.REMOTE_DATASETS["NDVI"][
-            self.dataset_ndvi.currentText()
-        ]
-        self.start_year_ndvi = this_ndvi_dataset["Start year"]
-        self.end_year_ndvi = this_ndvi_dataset["End year"]
+        if self.dataset_ndvi.currentText() in conf.REMOTE_DATASETS["NDVI"]:
+            this_ndvi_dataset = conf.REMOTE_DATASETS["NDVI"][
+                self.dataset_ndvi.currentText()
+            ]
+            self.start_year_ndvi = this_ndvi_dataset["Start year"]
+            self.end_year_ndvi = this_ndvi_dataset["End year"]
 
-        self.update_time_bounds()
+            self.update_time_bounds()
 
     def update_time_bounds(self):
         # State and performance depend only on NDVI data

@@ -51,7 +51,6 @@ def _run_soc(params, logger):
         params.get("year_initial"),
         params.get("year_final"),
         params.get("fl"),
-        LCTransitionDefinitionDeg.Schema().load(params.get("trans_matrix")),
         esa_to_custom_nesting=LCLegendNesting.Schema().load(
             params.get("legend_nesting_esa_to_custom")
         ),
@@ -158,6 +157,9 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
             logger.debug("Adding population data")
             # Population needs to be saved as floats
             out.add_image(**_get_population(params.get("population"), logger))
+
+            logger.debug("Filtering duplicate layers")
+            out.rmDuplicates()
 
             logger.debug("Exporting results")
 

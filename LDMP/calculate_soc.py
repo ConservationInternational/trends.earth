@@ -17,11 +17,10 @@ from pathlib import Path
 import qgis.gui
 from qgis.PyQt import QtGui, QtWidgets, uic
 from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
-from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
+from te_schemas.land_cover import LCLegendNesting
 
 from . import calculate, data_io, lc_setup
 from .jobs.manager import job_manager
-from .lc_setup import get_trans_matrix
 from .logger import log
 
 DlgCalculateSocUi, _ = uic.loadUiType(
@@ -257,10 +256,11 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
                 lc_setup.ipcc_lc_nesting_from_settings()
             ),
-            "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(get_trans_matrix()),
             "fl": self.get_fl(),
         }
-        job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)
+        job_manager.submit_local_job_as_qgstask(
+            job_params, self.LOCAL_SCRIPT_NAME, self.aoi
+        )
 
     def calculate_on_GEE(self):
         log("inside calculate_on_GEE...")
@@ -281,7 +281,6 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
                 lc_setup.ipcc_lc_nesting_from_settings()
             ),
-            "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(get_trans_matrix()),
             "task_name": self.execution_name_le.text(),
             "task_notes": self.options_tab.task_notes.toPlainText(),
         }

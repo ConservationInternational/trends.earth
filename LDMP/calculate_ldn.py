@@ -992,9 +992,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
                     lc_setup.ipcc_lc_nesting_from_settings()
                 ),
-                "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(
-                    trans_matrix
-                ),  # TODO: Use SOC matrix for the above once defined
             }
 
             pop_dataset = conf.REMOTE_DATASETS["WorldPop"][

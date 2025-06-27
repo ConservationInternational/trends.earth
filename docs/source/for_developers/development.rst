@@ -291,7 +291,7 @@ trends.earth-CLI
 
 The "trends.earth-CLI" Python package is required in order to work with the
 api.trends.earth server. This package is located on GitHub in the
-`trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>`_
+`trends.earth-CLI <https://github.com/ConservationInternational/trends.earth-CLI>`_
 repository.
 
 The first step is to clone this repository onto your machine. We recommend that
@@ -300,7 +300,7 @@ For example, if you had a "Code" folder on your machine, clone both the
 `trends.earth
 <https://github.com/ConservationInternational/trends.earth>`_ repository (the
 code for the QGIS plugin and associated GEE scripts) and also the
-`trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>`_ repository
+`trends.earth-CLI <https://github.com/ConservationInternational/trends.earth-CLI>`_ repository
 into that same folder.
 
 When you setup your system as recommended above, trends.earth-CLI will work

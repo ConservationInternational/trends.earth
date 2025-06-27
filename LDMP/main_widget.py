@@ -20,7 +20,12 @@ from .conf import (
     Setting,
     settings_manager,
 )
-from .data_io import DlgDataIOImportProd, DlgDataIOImportSOC, DlgDataIOLoadTE
+from .data_io import (
+    DlgDataIOImportPopulation,
+    DlgDataIOImportProd,
+    DlgDataIOImportSOC,
+    DlgDataIOLoadTE,
+)
 from .download_data import DlgDownload
 from .jobs import mvc as jobs_mvc
 from .jobs.manager import job_manager
@@ -262,6 +267,12 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         )
         action_import_soil_organic_carbon_dataset.triggered.connect(
             self.import_soil_organic_carbon_dataset
+        )
+        action_import_population_dataset = self.import_menu.addAction(
+            self.tr("Import custom Population dataset...")
+        )
+        action_import_population_dataset.triggered.connect(
+            self.import_population_dataset
         )
         self.import_dataset_pb.setMenu(self.import_menu)
         self.import_dataset_pb.setIcon(
@@ -747,6 +758,11 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     def import_soil_organic_carbon_dataset(self, action: QtWidgets.QAction):
         log("import_soil_organic_carbon_dataset called")
         dialogue = DlgDataIOImportSOC(self)
+        dialogue.exec_()
+
+    def import_population_dataset(self, action: QtWidgets.QAction):
+        log("import_population_dataset called")
+        dialogue = DlgDataIOImportPopulation(self)
         dialogue.exec_()
 
 

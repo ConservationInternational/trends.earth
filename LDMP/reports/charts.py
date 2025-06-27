@@ -1040,7 +1040,12 @@ class SdgSummaryJobAttributes:
                 break
 
         self._data = self._job.results.data
-        self._baseline_results = self._data["report"]["land_condition"]["baseline"]
+        self._baseline_results = (
+            self._data.get("report", {})
+            .get("land_condition", {})
+            .get("baseline", {})
+            .get("period_assessment", {})
+        )
 
     def period(self) -> typing.Tuple[int, int]:
         # Initial year and final year

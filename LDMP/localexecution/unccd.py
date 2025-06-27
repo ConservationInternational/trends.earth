@@ -6,7 +6,6 @@ import tempfile
 from pathlib import Path
 from typing import Dict, Optional
 
-from marshmallow import schema
 from osgeo import ogr
 from te_schemas import reporting
 from te_schemas.error_recode import ErrorRecodePolygons

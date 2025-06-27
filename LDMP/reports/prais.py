@@ -1,7 +1,6 @@
 import collections
 import copy
 import json
-import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
@@ -145,6 +144,7 @@ def build_so_1_1_data(
         return {}, {}
 
     result_data = result.data
+    print(result_data)
     data = copy.deepcopy(result_data)
 
     report_data = data.get("report", {})

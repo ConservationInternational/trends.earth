@@ -1031,11 +1031,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             task_name = self.execution_name_le.text()
 
-            if len(periods.items()) == 2:
-                if task_name:
-                    task_name = f"{task_name} - {period}"
-                else:
-                    task_name = f"{period}"
+            if len(periods.items()) == 1:
+                task_name = f"{period}"
+            else:
+                task_name = f"{task_name} - {period}"
 
             payload.update(
                 {

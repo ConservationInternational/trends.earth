@@ -161,8 +161,8 @@ def build_so_1_1_data(
         "land_cover_degradation_in_baseline_and_progress": [],
     }
 
-    baseline = land_condition.get("baseline", {})
-    progress = land_condition.get("progress", {})
+    baseline = land_condition.get("baseline", {}).get("period_assessment", {})
+    progress = land_condition.get("progress", {}).get("period_assessment", {})
     aoi = metadata.get("area_of_interest", {}).get("geojson", {})
 
     land_cover_section: Dict = baseline.get("land_cover", {})

@@ -24,7 +24,7 @@ from qgis.core import (
     QgsSettings,
     QgsTask,
 )
-from qgis.PyQt import QtCore, QtNetwork, QtWidgets
+from qgis.PyQt import QtCore, QtNetwork
 
 from . import auth, conf
 from .constants import API_URL, TIMEOUT
@@ -291,15 +291,6 @@ class APIClient(QtCore.QObject):
         else:
             if not email or not password:
                 log("API unable to login during login test - check username/password")
-                QtWidgets.QMessageBox.critical(
-                    None,
-                    tr_api.tr("Error"),
-                    tr_api.tr(
-                        "Unable to login to Trends.Earth. Check that "
-                        "username and password are correct."
-                    ),
-                )
-
             return False
 
     @backoff.on_predicate(

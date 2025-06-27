@@ -75,7 +75,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Trends.Earth"
-copyright = "2017-{}, Conservation International".format(date.today().year)
+copyright = "2017-{}, conservation international".format(date.today().year)
 
 locale_dirs = ["../i18n/"]
 gettext_compact = False
@@ -121,6 +121,7 @@ rst_epilog = f"""
    :width: 7em
    :alt: Trends.Earth
 .. |CURRENT| replace:: {version}
+.. |CURRENT_YEAR| replace:: {date.today().year}
 .. |qgisMinVersion| replace:: 3.22
 """
 

@@ -360,7 +360,12 @@ def get_main_sdg_15_3_1_job_params(
 
 
 def compute_ldn(
-    ldn_job: Job, aoi: AOI, job_output_path: Path, dataset_output_path: Path
+    ldn_job: Job,
+    aoi: AOI,
+    job_output_path: Path,
+    dataset_output_path: Path,
+    progress_callback,
+    killed_callback,
 ) -> Job:
     """Calculate final SDG 15.3.1 indicator and save to disk"""
 

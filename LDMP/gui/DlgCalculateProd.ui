@@ -131,7 +131,7 @@
                     </sizepolicy>
                    </property>
                    <property name="text">
-                    <string>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</string>
+                    <string>Pre-calculated land productivity dynamics (from JRC)</string>
                    </property>
                    <property name="checked">
                     <bool>false</bool>

@@ -1,8 +1,8 @@
 name: Update the staging repository with a new plugin version
 on:
   push:
-    branches:
-      - testing
+    tags:
+      - "v*"
 
 jobs:
   staging_repository_update:

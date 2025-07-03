@@ -968,6 +968,21 @@
       ]
     }
   },
+  "Land Productivity Dynamics (FAO-WOCAT)": {
+    "title": "lpd_fao_wocat",
+    "ramp": {
+      "type": "categorical",
+      "shader": "discrete",
+      "items": [
+        { "value": 0, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#9b2779", "label": "lpd_declining" },
+        { "value": 2, "color": "#ED7428", "label": "lpd_earlysigns" },
+        { "value": 3, "color": "#FED652", "label": "lpd_stabbutstress" },
+        { "value": 4, "color": "#B8D779", "label": "lpd_stab" },
+        { "value": 5, "color": "#006500", "label": "lpd_imp" }
+      ]
+    }
+  },
   "Land Productivity Dynamics (from FAO-WOCAT)": {
     "title": "lpd_fao_wocat_title",
     "ramp": {

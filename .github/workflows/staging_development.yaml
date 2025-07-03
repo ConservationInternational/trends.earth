@@ -1,8 +1,8 @@
 name: Update the staging repository with a new plugin version
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - testing
 
 jobs:
   staging_repository_update:
@@ -21,9 +21,9 @@ jobs:
 
       - name: Install packaging tools
         run: |
-         sudo apt-get update
-         sudo apt-get install -y qttools5-dev-tools
-
+          apt-get update
+          apt-get install -y qttools5-dev-tools
+          
       - name: Install build requirements
         run: pip install -r requirements-dev.txt
 

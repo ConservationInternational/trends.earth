@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        
+      - name: Mark GitHub workspace as safe
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+        
       - name: Setup python
         uses: actions/setup-python@v3
         with:

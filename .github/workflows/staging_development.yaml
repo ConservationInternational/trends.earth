@@ -58,7 +58,7 @@ jobs:
         run: |
           cp $GITHUB_WORKSPACE/LDMP.zip $GITHUB_WORKSPACE/docs/repository/$REF_NAME/LDMP.zip
 
-          DOWNLOAD_URL="https://raw.githubusercontent.com/Samweli/trends.earth/refs/heads/release/docs/repository/$REF_NAME/LDMP.zip"
+          DOWNLOAD_URL="https://raw.githubusercontent.com/ConservationInternational/trends.earth/refs/heads/release/docs/repository/$REF_NAME/LDMP.zip"
           echo "$DOWNLOAD_URL"
 
           invoke generate-plugin-repo-xml \

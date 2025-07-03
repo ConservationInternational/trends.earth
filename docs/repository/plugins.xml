@@ -9,8 +9,8 @@
                 <file_name>LDMP.zip</file_name>
                 <icon>trends_earth_logo_square_32x32.png</icon>
                 <author_name><![CDATA[test]]></author_name>
-                <download_url>https://raw.githubusercontent.com/Samweli/trends.earth/refs/heads/release/docs/repository/testing/LDMP.zip</download_url>
-                <update_date>2025-07-03 09:03:31</update_date>
+                <download_url>https://raw.githubusercontent.com/ConservationInternational/trends.earth/refs/heads/release/docs/repository/testing/LDMP.zip</download_url>
+                <update_date>2025-07-03 09:15:50</update_date>
                 <experimental>False</experimental>
                 <deprecated>False</deprecated>
                 <tracker><![CDATA[https://github.com/ConservationInternational/trends.earth/issues]]></tracker>

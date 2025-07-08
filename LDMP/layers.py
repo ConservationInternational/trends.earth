@@ -178,7 +178,7 @@ style_text_dict = {
     ),
     "lpd_declining": tr_layers.tr("Declining"),
     "lpd_earlysigns": tr_layers.tr("Moderate decline"),
-    "lpd_stabbutstress": tr_layers.tr("Stressed"),
+    "lpd_stabbutstress": tr_layers.tr("Stable but stressed"),
     "lpd_stab": tr_layers.tr("Stable"),
     "lpd_imp": tr_layers.tr("Increasing"),
     # SDG Indicator 15.3.1 layer

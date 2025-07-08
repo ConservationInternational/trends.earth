@@ -783,6 +783,8 @@ class JobManager(QtCore.QObject):
             ld_conf.TE_LPD_BAND_NAME,
         ]:
             script = conf.KNOWN_SCRIPTS["productivity"]
+        elif band_name == ld_conf.POPULATION_BAND_NAME:
+            script = conf.KNOWN_SCRIPTS["sdg-15-3-1-sub-indicators"]
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")
         now = dt.datetime.now(tz=dt.timezone.utc)

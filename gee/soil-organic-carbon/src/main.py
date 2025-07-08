@@ -21,7 +21,6 @@ def run(params, logger):
     annual_soc = params.get("download_annual_soc")
     geojsons = json.loads(params.get("geojsons"))
     crs = params.get("crs")
-    trans_matrix = LCTransitionDefinitionDeg.Schema().load(params.get("trans_matrix"))
     esa_to_custom_nesting = LCLegendNesting.Schema().load(
         params.get("legend_nesting_esa_to_custom")
     )
@@ -42,7 +41,6 @@ def run(params, logger):
         year_initial,
         year_final,
         fl,
-        trans_matrix,
         esa_to_custom_nesting,
         ipcc_nesting,
         annual_lc,

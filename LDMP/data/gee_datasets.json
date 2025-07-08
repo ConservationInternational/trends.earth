@@ -375,7 +375,7 @@
       "downloadable": true
   },
  	"UKCEH SPI": {
-      "Data source": "UK Centre for Ecology & Hidrology",
+      "Data source": "UK Centre for Ecology & Hydrology",
       "Start year": 1980,
       "End year": 2023,
       "Spatial resolution": "10 km",
@@ -396,7 +396,7 @@
       "downloadable": true
     },
 	"UKCEH SPEI": {
-      "Data source": "UK Centre for Ecology & Hidrology",
+      "Data source": "UK Centre for Ecology & Hydrology",
       "Start year": 1980,
       "End year": 2023,
       "Spatial resolution": "10 km",

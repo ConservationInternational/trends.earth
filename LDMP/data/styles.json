@@ -969,7 +969,7 @@
     }
   },
   "Land Productivity Dynamics (FAO-WOCAT)": {
-    "title": "lpd_fao_wocat",
+    "title": "lpd_fao_wocat_title",
     "ramp": {
       "type": "categorical",
       "shader": "discrete",

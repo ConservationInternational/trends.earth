@@ -159,12 +159,9 @@
                  </item>
                  <item>
                   <widget class="QRadioButton" name="radio_fao_wocat">
-                      <property name="enabled">
-                          <bool>false</bool>
-                      </property>
-                      <property name="text">
-                          <string>FAO-WOCAT</string>
-                      </property>
+                   <property name="text">
+                    <string>FAO-WOCAT</string>
+                   </property>
                   </widget>
                  </item>
                  <item>

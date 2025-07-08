@@ -655,9 +655,12 @@ class DlgCalculateLCSetAggregationBase(
                 row, self.table_model.child_code_col()
             ).data()
             child_class = nesting.child.classByCode(child_code)
-            new_parent_class = self.remap_view.indexWidget(
+            index_widget = self.remap_view.indexWidget(
                 self.proxy_model.index(row, self.table_model.parent_label_col())
-            ).get_current_class()
+            )
+            if not index_widget:
+                continue
+            new_parent_class = index_widget.get_current_class()
             old_parent = nesting.parent_for_child(child_class)
             if not old_parent:
                 nesting.nesting[nodata_child.code].remove(child_code)

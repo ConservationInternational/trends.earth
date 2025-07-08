@@ -66,6 +66,10 @@ class TimePeriodWidgets:
     label_soc: QtWidgets.QLabel
     year_initial_soc: QtWidgets.QDateEdit
     year_final_soc: QtWidgets.QDateEdit
+    radio_fao_wocat: QtWidgets.QRadioButton
+
+
+MIN_YEARS_FOR_PROD_UPDATE: int = 15
 
 
 class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
@@ -333,6 +337,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.label_baseline_soc,
             self.year_initial_baseline_soc,
             self.year_final_baseline_soc,
+            self.radio_fao_wocat,
         )
 
         self.widgets_progress = TimePeriodWidgets(
@@ -350,6 +355,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.label_progress_soc,
             self.year_initial_progress_soc,
             self.year_final_progress_soc,
+            self.radio_fao_wocat,
         )
 
         self.timeline_years = []
@@ -410,15 +416,31 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_final_baseline.dateChanged.connect(
             lambda: self.update_end_dates(self.widgets_baseline)
         )
+        self.year_initial_baseline_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_baseline)
+        )
+        self.year_final_baseline_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_baseline)
+        )
         self.year_initial_progress.dateChanged.connect(
             lambda: self.update_start_dates(self.widgets_progress)
         )
         self.year_final_progress.dateChanged.connect(
             lambda: self.update_end_dates(self.widgets_progress)
         )
+        self.year_initial_progress_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_progress)
+        )
+        self.year_final_progress_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_progress)
+        )
+
+        self.enforce_prod_date_range(self.widgets_baseline)
+        self.enforce_prod_date_range(self.widgets_progress)
 
         self.radio_lpd_te.toggled.connect(self.toggle_lpd_options)
         self.radio_lpd_precalculated.toggled.connect(self.toggle_lpd_options)
+        self.radio_fao_wocat.toggled.connect(self.toggle_lpd_options)
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
 
@@ -531,17 +553,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
     def set_preset_unccd_default_fao_wocat(self):
         self.checkBox_progress_period.setChecked(True)
-        self.radio_lpd_precalculated.setChecked(True)
-        self.cb_jrc_baseline.setCurrentIndex(
-            self.cb_jrc_baseline.findText(
-                "FAO-WOCAT Land Productivity Dynamics (2001-2015)"
-            )
-        )
-        self.cb_jrc_progress.setCurrentIndex(
-            self.cb_jrc_baseline.findText(
-                "FAO-WOCAT Land Productivity Dynamics (2005-2019)"
-            )
-        )
+        self.radio_fao_wocat.setChecked(True)
         self.radio_time_period_same_baseline.setChecked(True)
         self.radio_time_period_vary_progress.setChecked(True)
         self.year_initial_baseline.setDate(QtCore.QDate(2001, 1, 1))
@@ -581,19 +593,28 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             )
             self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
-    def update_start_dates(self, widgets):
-        widgets.year_initial_prod.setDate(widgets.year_initial.date())
-        widgets.year_initial_lc.setDate(widgets.year_initial.date())
-        widgets.year_initial_soc.setDate(widgets.year_initial.date())
+    def _update_common_dates(self, widgets):
+        year_initial = widgets.year_initial.date()
+        year_final = widgets.year_final.date()
+
+        widgets.year_initial_lc.setDate(year_initial)
+        widgets.year_initial_soc.setDate(year_initial)
+        widgets.year_final_lc.setDate(year_final)
+        widgets.year_final_soc.setDate(year_final)
+
+        # if FAO-WOCAT checked, prod initial date can't be updated
+        if not widgets.radio_fao_wocat.isChecked():
+            widgets.year_initial_prod.setDate(year_initial)
+
+        widgets.year_final_prod.setDate(year_final)
 
         self.update_timeline_graph()
+
+    def update_start_dates(self, widgets):
+        self._update_common_dates(widgets)
 
     def update_end_dates(self, widgets):
-        widgets.year_final_prod.setDate(widgets.year_final.date())
-        widgets.year_final_lc.setDate(widgets.year_final.date())
-        widgets.year_final_soc.setDate(widgets.year_final.date())
-
-        self.update_timeline_graph()
+        self._update_common_dates(widgets)
 
     def toggle_time_period(self, widgets):
         if widgets.radio_time_period_same.isChecked():
@@ -627,15 +648,21 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             widgets.year_initial.setEnabled(False)
             widgets.year_final.setEnabled(False)
+            widgets.year_final_prod.setEnabled(True)
 
             if widgets.radio_lpd_te.isChecked():
                 widgets.label_prod.setEnabled(True)
                 widgets.year_initial_prod.setEnabled(True)
-                widgets.year_final_prod.setEnabled(True)
 
     def toggle_lpd_options(self):
-        is_te = self.radio_lpd_te.isChecked()
-        if not is_te:
+        """
+        Adjust visibility of Land Productivity Dynamics (LPD) widgets
+        according to the chosen LPD mode.
+        """
+        is_precalc = self.radio_lpd_precalculated.isChecked()
+
+        # Main widgets (baseline & first progress period)
+        if is_precalc:
             self.cb_jrc_baseline.show()
             self.label_jrc_baseline.show()
             self.cb_jrc_progress.show()
@@ -646,13 +673,15 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.cb_jrc_progress.hide()
             self.label_jrc_progress.hide()
 
+        # Extra progress‑period widgets
         for _box, w in getattr(self, "extra_progress_boxes", []):
-            w.cb_lpd.setVisible(not is_te)
+            w.cb_lpd.setVisible(is_precalc)
 
             lbl = _box.findChild(QtWidgets.QLabel, "label_jrc_progress")
             if lbl is not None:
-                lbl.setVisible(not is_te)
+                lbl.setVisible(is_precalc)
 
+        # Refresh dependent controls
         self.update_time_bounds(self.widgets_baseline)
         self.update_time_bounds(self.widgets_progress)
         for _box, w in getattr(self, "extra_progress_boxes", []):
@@ -663,6 +692,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         for _box, w in getattr(self, "extra_progress_boxes", []):
             self.toggle_time_period(w)
 
+    # Remove any remaining merge conflict markers in the rest of the file
+
     def update_time_bounds(self, widgets):
         lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
         start_year_lc = lc_dataset["Start year"]
@@ -670,17 +701,16 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         start_year_lc = QtCore.QDate(start_year_lc, 1, 1)
         end_year_lc = QtCore.QDate(end_year_lc, 1, 1)
 
-        if self.radio_lpd_te.isChecked():
-            prod_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
-            start_year_prod = prod_dataset["Start year"]
-            end_year_prod = prod_dataset["End year"]
+        prod_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
+        start_year_prod = prod_dataset["Start year"]
+        end_year_prod = prod_dataset["End year"]
 
-            start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
-            end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
-            start_year = max(start_year_prod, start_year_lc)
-            end_year = min(end_year_prod, end_year_lc)
+        start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
+        end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
+        start_year = max(start_year_prod, start_year_lc)
+        end_year = min(end_year_prod, end_year_lc)
 
-        else:
+        if self.radio_lpd_precalculated.isChecked():
             prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
                 widgets.cb_lpd.currentText()
             ]
@@ -699,21 +729,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_final.setMinimumDate(start_year)
         widgets.year_final.setMaximumDate(end_year)
 
-        if not widgets.radio_lpd_te.isChecked():
-            widgets.year_initial_prod.setDate(start_year_prod)
-            widgets.year_final_prod.setDate(end_year_prod)
-            # Fix the dates for the prod layer to those of the selected LPD layer
-            widgets.year_initial_prod.setMinimumDate(start_year_prod)
-            widgets.year_initial_prod.setMaximumDate(start_year_prod)
-            widgets.year_final_prod.setMinimumDate(end_year_prod)
-            widgets.year_final_prod.setMaximumDate(end_year_prod)
-        else:
-            widgets.year_initial_prod.setDate(start_year_prod)
-            widgets.year_final_prod.setDate(end_year_prod)
-            widgets.year_initial_prod.setMinimumDate(start_year_prod)
-            widgets.year_initial_prod.setMaximumDate(end_year_prod)
-            widgets.year_final_prod.setMinimumDate(start_year_prod)
-            widgets.year_final_prod.setMaximumDate(end_year_prod)
+        widgets.year_initial_prod.setDate(start_year_prod)
+        widgets.year_final_prod.setDate(end_year_prod)
+        widgets.year_initial_prod.setMinimumDate(start_year_lc)
+        widgets.year_initial_prod.setMaximumDate(end_year_lc)
+        widgets.year_final_prod.setMinimumDate(start_year_lc)
+        widgets.year_final_prod.setMaximumDate(end_year_lc)
 
         widgets.year_initial_lc.setMinimumDate(start_year_lc)
         widgets.year_initial_lc.setMaximumDate(end_year_lc)
@@ -793,6 +814,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             grp.findChild(QtWidgets.QLabel, "label_progress_soc"),
             grp.findChild(QtWidgets.QDateEdit, "year_initial_progress_soc"),
             grp.findChild(QtWidgets.QDateEdit, "year_final_progress_soc"),
+            self.radio_fao_wocat,
         )
 
         for de in (
@@ -863,12 +885,37 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     def _get_prod_mode(self, widgets):
         if widgets.radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
-        else:
-            if "FAO-WOCAT" in widgets.cb_lpd.currentText():
-                return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-            elif "JRC" in widgets.cb_lpd.currentText():
-                return ProductivityMode.JRC_5_CLASS_LPD.value
+        elif widgets.radio_fao_wocat.isChecked():
+            return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+        elif widgets.radio_lpd_precalculated.isChecked():
+            return ProductivityMode.JRC_5_CLASS_LPD.value
         return None
+
+    def enforce_prod_date_range(self, widgets):
+        if not widgets.radio_time_period_same.isChecked():
+            return False
+        initial_date = widgets.year_initial_prod.date()
+        final_date = widgets.year_final_prod.date()
+
+        max_final = widgets.year_final.maximumDate()
+        min_final = widgets.year_final.minimumDate()
+        min_initial = widgets.year_initial.minimumDate()
+
+        expected_final = initial_date.addYears(MIN_YEARS_FOR_PROD_UPDATE)
+        expected_initial = final_date.addYears(-MIN_YEARS_FOR_PROD_UPDATE)
+
+        widgets.year_initial_prod.setMinimumDate(min_initial)
+
+        if expected_final <= max_final and initial_date != expected_initial:
+            widgets.year_final_prod.blockSignals(True)
+            widgets.year_final_prod.setDate(expected_final)
+            widgets.year_final_prod.setMinimumDate(min_final)
+            widgets.year_final_prod.setMaximumDate(max_final)
+            widgets.year_final_prod.blockSignals(False)
+        elif expected_initial >= min_initial and final_date != expected_final:
+            widgets.year_initial_prod.blockSignals(True)
+            widgets.year_initial_prod.setDate(expected_initial)
+            widgets.year_initial_prod.blockSignals(False)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -913,12 +960,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             payload["productivity"] = {"mode": prod_mode}
 
             if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-                if (year_final - year_initial) < 10:
+                if (year_final - year_initial) < MIN_YEARS_FOR_PROD_UPDATE:
                     QtWidgets.QMessageBox.warning(
                         None,
                         self.tr("Warning"),
                         self.tr(
-                            "Initial and final year are less 10 years "
+                            f"Initial and final year are less {MIN_YEARS_FOR_PROD_UPDATE} years "
                             f"apart in {period} - results will be more "
                             "reliable if more data (years) are included "
                             "in the analysis."
@@ -951,21 +998,46 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         "asset_climate": None,
                     }
                 )
-            elif prod_mode in (
-                ProductivityMode.JRC_5_CLASS_LPD.value,
-                ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
-            ):
+            elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
                 prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
                     widgets.cb_lpd.currentText()
                 ]
                 prod_asset = prod_dataset["GEE Dataset"]
                 prod_start_year = prod_dataset["Start year"]
                 prod_end_year = prod_dataset["End year"]
+                prod_date_source = prod_dataset["Data source"]
                 payload["productivity"].update(
                     {
                         "asset": prod_asset,
                         "year_initial": prod_start_year,
                         "year_final": prod_end_year,
+                        "data_source": prod_date_source,
+                    }
+                )
+            elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+                ndvi_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"][
+                    "GEE Dataset"
+                ]
+
+                low_biomass = getattr(
+                    ld_config, "FAO_WOCAT_LOW_BIOMASS_THRESHOLD", 0.30
+                )
+                high_biomass = getattr(
+                    ld_config, "FAO_WOCAT_HIGH_BIOMASS_THRESHOLD", 0.50
+                )
+
+                years_interval = (
+                    widgets.year_final_prod.date().year() + 1
+                ) - widgets.year_initial_prod.date().year()
+
+                payload["productivity"].update(
+                    {
+                        "ndvi_gee_dataset": ndvi_dataset,
+                        "low_biomass": low_biomass,
+                        "high_biomass": high_biomass,
+                        "years_interval": years_interval,
+                        "year_initial": widgets.year_initial_prod.date().year(),
+                        "year_final": widgets.year_final_prod.date().year(),
                     }
                 )
             else:

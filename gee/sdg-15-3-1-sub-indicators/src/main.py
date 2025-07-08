@@ -11,6 +11,7 @@ from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
 from te_algorithms.gee.land_cover import land_cover
 from te_algorithms.gee.productivity import (
+    productivity_faowocat,
     productivity_performance,
     productivity_state,
     productivity_trajectory,
@@ -20,6 +21,8 @@ from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 from te_schemas import results
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
+
+FAO_WOCAT_5_CLASS = "Land Productivity Dynamics (FAO-WOCAT)"
 
 
 def _run_lc(params, additional_years, logger):
@@ -65,6 +68,99 @@ def _run_soc(params, logger):
     soc_out.selectBands(["Soil organic carbon (degradation)", "Soil organic carbon"])
 
     return teimage_v1_to_teimage_v2(soc_out)
+
+
+def _run_faowocat_for_period(params, max_workers, execution_id, logger):
+    """Run indicators using on‑the‑fly FAO‑WOCAT 5‑class LPD algorithm."""
+
+    logger.debug("Setting up FAO‑WOCAT parameters")
+    prod_params = params.get("productivity")
+
+    ndvi_ds = prod_params.get("ndvi_gee_dataset")
+    low_bio = prod_params.get("low_biomass")
+    high_bio = prod_params.get("high_biomass")
+    years_interval = prod_params.get("years_interval")
+    modis_mode = prod_params.get("modis_mode")
+
+    lpd_year_initial = 2001
+    lpd_year_final = 2001 + years_interval
+
+    proj = ee.Image(ndvi_ds).projection()
+
+    res = []
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        for idx, geojson in enumerate(params.get("geojsons"), start=1):
+            logger.debug(f"Calculating FAO‑WOCAT LPD for AOI {idx}")
+            out = productivity_faowocat(
+                low_biomass=low_bio,
+                high_biomass=high_bio,
+                years_interval=years_interval,
+                modis_mode=modis_mode,
+                prod_asset=ndvi_ds,
+                logger=logger,
+            )
+
+            out = teimage_v1_to_teimage_v2(out)
+
+            if params.get("annual_lc"):
+                lc_years = list(
+                    range(
+                        params["land_cover"]["year_initial"],
+                        params["land_cover"]["year_final"] + 1,
+                    )
+                )
+            else:
+                lc_years = [
+                    params["land_cover"]["year_initial"],
+                    params["land_cover"]["year_final"],
+                ]
+
+            additional_years = []
+            if lpd_year_initial not in lc_years:
+                additional_years.append(lpd_year_initial)
+            if lpd_year_final not in lc_years:
+                additional_years.append(lpd_year_final)
+
+            out.merge(_run_lc(params.get("land_cover"), additional_years, logger))
+            out.merge(_run_soc(params.get("soil_organic_carbon"), logger))
+
+            out.setAddToMap(
+                [
+                    "Soil organic carbon (degradation)",
+                    "Land cover (degradation)",
+                    FAO_WOCAT_5_CLASS,
+                ]
+            )
+
+            # Population (stored as float)
+            out.add_image(**_get_population(params.get("population"), logger))
+
+            out.rmDuplicates()
+
+            logger.debug("Exporting FAO‑WOCAT result")
+            res.append(
+                executor.submit(
+                    out.export,
+                    geojsons=[geojson],
+                    task_name="sdg_sub_indicators",
+                    crs=params.get("crs"),
+                    logger=logger,
+                    execution_id=f"{execution_id}_{idx}",
+                    filetype=results.RasterFileType(
+                        params.get("filetype", results.RasterFileType.COG.value)
+                    ),
+                    proj=proj,
+                )
+            )
+
+    schema = results.RasterResults.Schema()
+    final_output = schema.load(res[0].result())
+    for n, this_res in enumerate(as_completed(res[1:]), start=1):
+        logger.debug(f"Combining FAO‑WOCAT output with AOI {n}")
+        final_output.combine(schema.load(this_res.result()))
+
+    logger.debug("Serializing FAO‑WOCAT combined result")
+    return schema.dump(final_output)
 
 
 def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
@@ -232,7 +328,7 @@ def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
     if prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
         lpd_layer_name = config.JRC_LPD_BAND_NAME
     elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
-        lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
+        lpd_layer_name = FAO_WOCAT_5_CLASS
     else:
         raise KeyError
 
@@ -314,12 +410,12 @@ def run_period(params, max_workers, EXECUTION_ID, logger):
     ):
         params.update(_gen_metadata_str_te(params))
         out = run_te_for_period(params, max_workers, EXECUTION_ID, logger)
-    elif params["productivity"]["mode"] in (
-        ProductivityMode.JRC_5_CLASS_LPD.value,
-        ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
-    ):
+    elif params["productivity"]["mode"] == ProductivityMode.JRC_5_CLASS_LPD.value:
         params.update(_gen_metadata_str_precalculated_lpd(params))
         out = run_precalculated_lpd_for_period(params, EXECUTION_ID, logger)
+    elif params["productivity"]["mode"] == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+        params.update(_gen_metadata_str_faowocat(params))
+        out = _run_faowocat_for_period(params, max_workers, EXECUTION_ID, logger)
     else:
         raise Exception(
             'Unknown productivity mode "{}" chosen'.format(
@@ -354,6 +450,21 @@ def _gen_metadata_str_precalculated_lpd(params):
         }
     }
 
+    return metadata
+
+
+def _gen_metadata_str_faowocat(params):
+    years_interval = params["productivity"]["years_interval"]
+    metadata = {
+        "visible_metadata": {
+            "one liner": f"{params['script']['name']} ({params['period']['name']}, 2001-{2001 + years_interval})",
+            "full": (
+                f"{params['script']['name']}\n"
+                f"Period: {params['period']['name']} (2001-{2001 + years_interval})"
+                f"Productivity {params['productivity']['mode']}: 2001-{2001 + years_interval}"
+            ),
+        }
+    }
     return metadata
 
 

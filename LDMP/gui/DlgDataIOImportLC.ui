@@ -70,6 +70,16 @@
        </widget>
       </item>
       <item>
+       <widget class="QLabel" name="label_unccd_warning">
+        <property name="text">
+         <string>When preparing data for UNCCD national reporting, countries are strongly encouraged to use a legend with no more than 15 land cover classes.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="checkBox_use_sample">
         <property name="enabled">
          <bool>true</bool>

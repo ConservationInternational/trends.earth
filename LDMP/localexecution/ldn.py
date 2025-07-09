@@ -42,9 +42,11 @@ class SummaryTableLDWidgets:
     combo_layer_pop_male: data_io.WidgetDataIOSelectTELayerExisting
     combo_layer_pop_female: data_io.WidgetDataIOSelectTELayerExisting
     radio_lpd_te: QtWidgets.QRadioButton
+    radio_fao_wocat: QtWidgets.QRadioButton
 
     def __post_init__(self):
         self.radio_lpd_te.toggled.connect(self.radio_lpd_te_toggled)
+        self.radio_fao_wocat.toggled.connect(self.radio_lpd_te_toggled)
         self.radio_lpd_te_toggled()
         self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
 
@@ -63,6 +65,14 @@ class SummaryTableLDWidgets:
             self.combo_layer_lpd.hide()
             self.combo_layer_lpd_label.hide()
         else:
+            if self.radio_fao_wocat.isChecked():
+                self.combo_layer_lpd.set_layer_type(
+                    "Land Productivity Dynamics (from FAO-WOCAT)"
+                )
+            else:
+                self.combo_layer_lpd.set_layer_type(
+                    "Land Productivity Dynamics (from JRC)"
+                )
             self.combo_layer_traj.hide()
             self.combo_layer_traj_label.hide()
             self.combo_layer_perf.hide()

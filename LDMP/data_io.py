@@ -1829,6 +1829,10 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     comboBox_layers: QtWidgets.QComboBox
     layer_list: typing.Optional[typing.List[Band]]
 
+    def set_layer_type(self, layer_type: str):
+        self.setProperty("layer_type", layer_type)
+        self.populate()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)

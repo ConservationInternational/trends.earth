@@ -67,6 +67,7 @@ class TimePeriodWidgets:
     year_initial_soc: QtWidgets.QDateEdit
     year_final_soc: QtWidgets.QDateEdit
     radio_fao_wocat: QtWidgets.QRadioButton
+    radio_lpd_precalculated: QtWidgets.QRadioButton
 
 
 MIN_YEARS_FOR_PROD_UPDATE: int = 15
@@ -338,6 +339,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.year_initial_baseline_soc,
             self.year_final_baseline_soc,
             self.radio_fao_wocat,
+            self.radio_lpd_precalculated,
         )
 
         self.widgets_progress = TimePeriodWidgets(
@@ -356,6 +358,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.year_initial_progress_soc,
             self.year_final_progress_soc,
             self.radio_fao_wocat,
+            self.radio_lpd_precalculated,
         )
 
         self.timeline_years = []
@@ -815,6 +818,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             grp.findChild(QtWidgets.QDateEdit, "year_initial_progress_soc"),
             grp.findChild(QtWidgets.QDateEdit, "year_final_progress_soc"),
             self.radio_fao_wocat,
+            self.radio_lpd_precalculated,
         )
 
         for de in (

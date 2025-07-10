@@ -22,8 +22,6 @@ from te_schemas import results
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
 
-FAO_WOCAT_5_CLASS = "Land Productivity Dynamics (FAO-WOCAT)"
-
 
 def _run_lc(params, additional_years, logger):
     logger.debug("Running land cover indicator.")
@@ -100,6 +98,10 @@ def _run_faowocat_for_period(params, max_workers, execution_id, logger):
                 logger=logger,
             )
 
+            expected = config.FAO_WOCAT_LPD_BAND_NAME
+            for band in getattr(out, "bands", getattr(out, "band_info", [])):
+                band.name = expected
+
             out = teimage_v1_to_teimage_v2(out)
 
             if params.get("annual_lc"):
@@ -128,7 +130,7 @@ def _run_faowocat_for_period(params, max_workers, execution_id, logger):
                 [
                     "Soil organic carbon (degradation)",
                     "Land cover (degradation)",
-                    FAO_WOCAT_5_CLASS,
+                    config.FAO_WOCAT_LPD_BAND_NAME,
                 ]
             )
 
@@ -328,7 +330,7 @@ def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
     if prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
         lpd_layer_name = config.JRC_LPD_BAND_NAME
     elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
-        lpd_layer_name = FAO_WOCAT_5_CLASS
+        lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
     else:
         raise KeyError
 

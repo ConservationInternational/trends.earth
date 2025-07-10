@@ -711,6 +711,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         end_year = min(end_year_prod, end_year_lc)
 
         if self.radio_lpd_precalculated.isChecked():
+            if not widgets.cb_lpd.currentText():
+                widgets.cb_lpd.setCurrentIndex(0)
+
             prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
                 widgets.cb_lpd.currentText()
             ]

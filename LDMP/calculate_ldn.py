@@ -1187,6 +1187,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_male=self.combo_layer_population_baseline_male,
             combo_layer_pop_female=self.combo_layer_population_baseline_female,
             radio_lpd_te=self.radio_lpd_te,
+            radio_fao_wocat=self.radio_fao_wocat,
         )
         self.combo_boxes["progress"] = ldn.SummaryTableLDWidgets(
             combo_datasets=self.combo_datasets_progress,
@@ -1204,6 +1205,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_male=self.combo_layer_population_progress_male,
             combo_layer_pop_female=self.combo_layer_population_progress_female,
             radio_lpd_te=self.radio_lpd_te,
+            radio_fao_wocat=self.radio_fao_wocat,
         )
 
         self.radio_population_baseline_bysex.toggled.connect(
@@ -1467,16 +1469,13 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         return True
 
-    def _get_prod_mode(self, radio_lpd_te, cb_lpd):
+    def _get_prod_mode(self, radio_lpd_te, radio_fao_wocat):
         if radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        elif radio_fao_wocat.isChecked():
+            return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
         else:
-            lpd_band_name = cb_lpd.get_current_band().band_info.name
-            if "FAO-WOCAT" in lpd_band_name:
-                return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-            elif "JRC" in lpd_band_name:
-                return ProductivityMode.JRC_5_CLASS_LPD.value
-        return None
+            return ProductivityMode.JRC_5_CLASS_LPD.value
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -1511,7 +1510,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             return
 
         prod_mode_baseline = self._get_prod_mode(
-            self.radio_lpd_te, self.combo_boxes["progress"].combo_layer_lpd
+            self.radio_lpd_te, self.radio_fao_wocat
         )
 
         periods = [
@@ -1548,7 +1547,7 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         if self.checkBox_progress_period.isChecked():
             prod_mode_progress = self._get_prod_mode(
-                self.radio_lpd_te, self.combo_boxes["progress"].combo_layer_lpd
+                self.radio_lpd_te, self.radio_fao_wocat
             )
 
             if self.radio_population_progress_bysex.isChecked():

@@ -301,12 +301,9 @@ latex_documents = [
     ),
 ]
 
-# latex_elements = {
-#     # The paper size ('letterpaper' or 'a4paper').
-#     "papersize": "a4paper",
-#     "preamble": u"""\\usepackage{fontspec}
-#                     \\setmainfont{lmroman10-regular.otf}""",
-# }
+latex_elements = {
+    "preamble": r"\RequirePackage{xcolor}",
+}
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.

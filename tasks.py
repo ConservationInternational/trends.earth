@@ -449,6 +449,35 @@ def tecli_publish(c, script=None, overwrite=False):
         subprocess.check_call(["invoke", "update-script-ids"])
 
 
+@task
+def list_scripts(c):
+    """
+    List all available GEE scripts (folders with configuration.json).
+    """
+    if not check_tecli_python_version():
+        return
+
+    script_root = c.gee.script_dir
+    try:
+        dirs = next(os.walk(script_root))[1]
+    except StopIteration:
+        print(f"Script directory {script_root} not found.")
+        return
+
+    available_scripts = []
+    for dir in dirs:
+        config_path = os.path.join(script_root, dir, "configuration.json")
+        if os.path.exists(config_path):
+            available_scripts.append(dir)
+
+    if available_scripts:
+        print("Available scripts:")
+        for name in sorted(available_scripts):
+            print(f" - {name}")
+    else:
+        print("No valid scripts found.")
+
+
 @task(
     help={
         "script": "Script name",
@@ -2065,6 +2094,7 @@ ns = Collection(
     testdata_sync,
     rtd_pre_build,
     build_download_page,
+    list_scripts,
 )
 
 ns.configure(

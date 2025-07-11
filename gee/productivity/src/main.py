@@ -11,6 +11,7 @@ import ee
 from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
 from te_algorithms.gee.productivity import (
+    productivity_faowocat,
     productivity_performance,
     productivity_state,
     productivity_trajectory,
@@ -127,16 +128,12 @@ def run(params, logger):
         logger.debug("Serializing")
         return schema.dump(final_output)
 
-    elif prod_mode in (
-        ProductivityMode.JRC_5_CLASS_LPD.value,
-        ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
-    ):
-        if prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+    elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+        data_source = params.get("data_source", "Joint Research Commission (JRC)")
+        if data_source == "Joint Research Commission (JRC)":
             lpd_layer_name = config.JRC_LPD_BAND_NAME
-        elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
-            lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
         else:
-            raise KeyError
+            lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
         prod_asset = params.get("prod_asset")
         year_initial = params.get("year_initial")
         year_final = params.get("year_final")
@@ -151,5 +148,57 @@ def run(params, logger):
             {"year_initial": year_initial, "year_final": year_final}
         )
         return out.export(geojsons, "productivity", crs, logger, EXECUTION_ID, proj)
+    elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+        ndvi_gee_dataset = params.get("ndvi_gee_dataset")
+        low_biomass = float(params.get("low_biomass"))
+        high_biomass = float(params.get("high_biomass"))
+        years_interval = int(params.get("years_interval"))
+        modis_mode = params.get("modis_mode")
+
+        logger.debug(
+            "Running FAO‑WOCAT algorithm "
+            f"(2001–{2001 + years_interval}) using {ndvi_gee_dataset}"
+        )
+
+        res = []
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            for idx, geojson in enumerate(geojsons, start=1):
+                lpd_img = productivity_faowocat(
+                    low_biomass=low_biomass,
+                    high_biomass=high_biomass,
+                    years_interval=years_interval,
+                    modis_mode=modis_mode,
+                    prod_asset=ndvi_gee_dataset,
+                    logger=logger,
+                )
+
+                expected = config.FAO_WOCAT_LPD_BAND_NAME
+                for band in getattr(
+                    lpd_img, "bands", getattr(lpd_img, "band_info", [])
+                ):
+                    band.name = expected
+
+                lpd_img = teimage_v1_to_teimage_v2(lpd_img)
+
+                proj = ee.Image(ndvi_gee_dataset).projection()
+                res.append(
+                    executor.submit(
+                        lpd_img.export,
+                        geojsons=[geojson],
+                        task_name="productivity",
+                        crs=crs,
+                        logger=logger,
+                        execution_id=f"{EXECUTION_ID}_{idx}",
+                        proj=proj,
+                    )
+                )
+        schema = results.RasterResults.Schema()
+        final_output = schema.load(res[0].result())
+        for n, this_res in enumerate(as_completed(res[1:]), start=1):
+            logger.debug(f"Combining FAO‑WOCAT output with AOI {n}")
+            final_output.combine(schema.load(this_res.result()))
+
+        logger.debug("Serializing FAO‑WOCAT result")
+        return schema.dump(final_output)
     else:
         raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))

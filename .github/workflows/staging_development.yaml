@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        
+      - name: Mark GitHub workspace as safe
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+        
       - name: Setup python
         uses: actions/setup-python@v3
         with:
@@ -21,9 +25,9 @@ jobs:
 
       - name: Install packaging tools
         run: |
-         sudo apt-get update
-         sudo apt-get install -y qttools5-dev-tools
-
+          apt-get update
+          apt-get install -y qttools5-dev-tools
+          
       - name: Install build requirements
         run: pip install -r requirements-dev.txt
 
@@ -45,34 +49,31 @@ jobs:
         run: |
           
           echo "REF_NAME=$REF_NAME" >> $GITHUB_ENV
-          mkdir $GITHUB_WORKSPACE/docs/repository/$REF_NAME
+          mkdir -p $GITHUB_WORKSPACE/docs/repository/$REF_NAME
 
       - name: Update custom plugin repository to include latest plugin version
         env:
-          PR_NUMBER: ${{ github.event.number }}
-          ARTIFACT_URL: ${{ steps.artifact-upload-step.outputs.artifact-url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REF_NAME: ${{ github.ref_name }}
-
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cp $GITHUB_WORKSPACE/LDMP.zip $GITHUB_WORKSPACE/docs/
-          repository/$REF_NAME/LDMP.zip   
-          
-          DOWNLOAD_URL=https://raw.githubusercontent.com/Samweli/
-          trends.earth/refs/heads/release/docs/repository/"$REF_NAME"/LDMP.zip
-          
+          cp $GITHUB_WORKSPACE/LDMP.zip $GITHUB_WORKSPACE/docs/repository/$REF_NAME/LDMP.zip
+
+          DOWNLOAD_URL="https://raw.githubusercontent.com/ConservationInternational/trends.earth/refs/heads/release/docs/repository/$REF_NAME/LDMP.zip"
           echo "$DOWNLOAD_URL"
-          
-          invoke generate-plugin-repo-xml  --prerelease --prerelease-url "$DOWNLOAD_URL" 
-          --prerelease-time "$(date +'%Y-%m-%dT%H:%M:%SZ')" --prerelease-filename "LDMP.zip"
+
+          invoke generate-plugin-repo-xml \
+            --prerelease \
+            --prerelease-url "$DOWNLOAD_URL" \
+            --prerelease-time "$(date +'%Y-%m-%dT%H:%M:%SZ')" \
+            --prerelease-filename "LDMP.zip"
+
           echo " " >> docs/repository/plugins.xml
+
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global --add safe.directory /__w/trends.earth/trends.earth
-          
-          
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+
           git add docs/repository
-          git add -f docs/repository/"$REF_NAME"/LDMP.zip
+          git add -f docs/repository/$REF_NAME/LDMP.zip
           git commit -m "Update on the staging repository"
           git push origin release
-

@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to QGIS Plugin",
+      "type": "python",
+      "request": "attach",
+      "connect": {
+        "host": "localhost",
+        "port": 9000
+      },
+      "pathMappings": [
+        {
+          "localRoot": "/Users/user/Documents/Kartoza/trends.earth/LDMP",
+          "remoteRoot": "/Users/user/Library/Application Support/QGIS/QGIS3/profiles/trends.earth/python/plugins/LDMP"
+        }
+      ],
+      "justMyCode": false
+    }
+  ]
+}

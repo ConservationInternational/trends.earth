@@ -301,10 +301,6 @@ latex_documents = [
     ),
 ]
 
-latex_elements = {
-    "preamble": r"\RequirePackage{xcolor}",
-}
-
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
 latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
@@ -333,4 +329,10 @@ latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
 
 latex_engine = "xelatex"
 latex_use_xindy = False
-latex_elements = {"extraclassoptions": "openany,oneside"}
+latex_elements = {
+    "preamble": r"""
+\usepackage{xcolor}
+\usepackage{bidi}
+""",
+    "extraclassoptions": "openany,oneside",
+}

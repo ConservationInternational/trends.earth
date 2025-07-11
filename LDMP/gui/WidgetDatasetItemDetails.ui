@@ -178,7 +178,7 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
       <item>
-       <widget class="QTextBrowser" name="input">
+       <widget class="JsonViewerWidget" name="input">
         <property name="minimumSize">
          <size>
           <width>400</width>
@@ -190,6 +190,9 @@ p, li { white-space: pre-wrap; }
           <width>16777215</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Algorithm input parameters. Right-click for options to expand/collapse or copy as text.</string>
         </property>
        </widget>
       </item>
@@ -201,7 +204,7 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
       <item>
-       <widget class="QTextBrowser" name="output">
+       <widget class="JsonViewerWidget" name="output">
         <property name="minimumSize">
          <size>
           <width>400</width>
@@ -213,6 +216,9 @@ p, li { white-space: pre-wrap; }
           <width>16777215</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Algorithm output results. Right-click for options to expand/collapse or copy as text.</string>
         </property>
        </widget>
       </item>
@@ -280,6 +286,11 @@ p, li { white-space: pre-wrap; }
    <extends>QGroupBox</extends>
    <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>JsonViewerWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>LDMP.json_viewer</header>
   </customwidget>
  </customwidgets>
  <resources/>

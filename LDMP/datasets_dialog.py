@@ -1,6 +1,5 @@
 """Datasets details dialog for Trends.Earth QGIS plugin."""
 
-import json
 import os
 from pathlib import Path
 from zipfile import ZipFile
@@ -12,6 +11,7 @@ from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from . import metadata, metadata_dialog, openFolder, utils
 from .jobs import manager
 from .jobs.models import Job
+from .json_viewer import JsonViewerWidget
 from .logger import log
 
 WidgetDatasetItemDetailsUi, _ = uic.loadUiType(
@@ -34,6 +34,8 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
     id_le: QtWidgets.QLineEdit
     state_le: QtWidgets.QLineEdit
     path_le: QtWidgets.QLineEdit
+    input: JsonViewerWidget
+    output: JsonViewerWidget
 
     def __init__(self, job: Job, parent=None):
         super().__init__(parent)
@@ -90,16 +92,11 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         )
 
         self.comments.setText(self.job.task_notes)
-        self.input.setText(json.dumps(self.job.params, indent=4, sort_keys=True))
+        self.input.set_json_data(self.job.params, collapse_level=1)
 
         if self.job.results is not None:
-            self.output.setText(
-                json.dumps(
-                    Job.Schema(only=["results"]).dump(self.job)["results"],
-                    indent=4,
-                    sort_keys=True,
-                )
-            )
+            results_data = Job.Schema(only=["results"]).dump(self.job)["results"]
+            self.output.set_json_data(results_data, collapse_level=1)
 
         self.bar = qgis.gui.QgsMessageBar()
         self.bar.setSizePolicy(
@@ -175,7 +172,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
         self.metadata_menu.addSeparator()
 
-        if self.job.results is not None:
+        if self.job.results is not None and hasattr(self.job.results, "rasters"):
             for raster in self.job.results.rasters.values():
                 file_path = os.path.splitext(raster.uri.uri)[0] + ".qmd"
                 action = self.metadata_menu.addAction(

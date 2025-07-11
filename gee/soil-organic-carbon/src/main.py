@@ -8,7 +8,7 @@ import random
 
 from te_algorithms.gee.soc import soc
 from te_algorithms.gee.util import teimage_v1_to_teimage_v2
-from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
+from te_schemas.land_cover import LCLegendNesting
 
 
 def run(params, logger):

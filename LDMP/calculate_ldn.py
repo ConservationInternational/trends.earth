@@ -13,6 +13,7 @@
 
 # pylint: disable=import-error
 import typing
+import weakref
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -65,6 +66,11 @@ class TimePeriodWidgets:
     label_soc: QtWidgets.QLabel
     year_initial_soc: QtWidgets.QDateEdit
     year_final_soc: QtWidgets.QDateEdit
+    radio_fao_wocat: QtWidgets.QRadioButton
+    radio_lpd_precalculated: QtWidgets.QRadioButton
+
+
+MIN_YEARS_FOR_PROD_UPDATE: int = 15
 
 
 class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
@@ -72,10 +78,12 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.setMinimumSize(600, 400)
+        self.setMinimumSize(800, 400)
         self.graphic_view.setSizePolicy(
             QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
         )
+
+        self.extra_progress_widgets: list[TimePeriodWidgets] = []
 
         self.scene = QtWidgets.QGraphicsScene()
         self.graphic_view.setScene(self.scene)
@@ -85,7 +93,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         self.progress_period_enabled = False
 
     def set_timeline_data(
-        self, widgets_baseline, widgets_progress, progress_period_enabled
+        self, widgets_baseline, widgets_progress, extra_widgets, progress_period_enabled
     ):
         """
         Receive references to the baseline/progress TimePeriodWidgets from the
@@ -93,6 +101,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         """
         self.widgets_baseline = widgets_baseline
         self.widgets_progress = widgets_progress
+        self.extra_progress_widgets = extra_widgets
         self.progress_period_enabled = progress_period_enabled
 
         self.draw_timeline()
@@ -117,6 +126,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         # Progress period years, if active
         if self.progress_period_enabled:
             widgets.append(self.widgets_progress)
+            widgets.extend(self.extra_progress_widgets)
 
         for widget in widgets:
             baseline_years = [
@@ -152,16 +162,23 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         )
 
         if self.progress_period_enabled:
-            content_start_y += 125
-            self.draw_timeline_graph(
-                widgets=self.widgets_progress,
-                content_start_y=content_start_y,
-                title="Progress period",
-                min_year=min_year,
-                max_year=max_year,
-            )
+            for idx, w in enumerate(
+                [self.widgets_progress] + self.extra_progress_widgets, start=1
+            ):
+                content_start_y += 125
+                self.draw_timeline_graph(
+                    widgets=w,
+                    content_start_y=content_start_y,
+                    title=f"Progress period #{idx}",
+                    min_year=min_year,
+                    max_year=max_year,
+                )
 
         self.draw_x_axis(min_year, max_year)
+
+        bounding = self.scene.itemsBoundingRect()
+        padded = bounding.adjusted(-25, -25, 25, 25)
+        self.scene.setSceneRect(padded)
 
     def draw_x_axis(self, min_year, max_year):
         chart_width = 800
@@ -197,12 +214,6 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
             label = QtWidgets.QGraphicsTextItem(str(year))
             label.setPos(x_pos - 10, axis_y - 25)
             self.scene.addItem(label)
-
-        # Update scene rect
-        self.scene.setSceneRect(
-            -padding, -padding, chart_width + 2 * padding, chart_height + 2 * padding
-        )
-        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
     def draw_timeline_graph(self, title, widgets, content_start_y, min_year, max_year):
         colors = [
@@ -294,11 +305,9 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         the dialog.
         """
         super().resizeEvent(event)
-        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
     def showEvent(self, event):
         super().showEvent(event)
-        self.graphic_view.fitInView(self.scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
 
 class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
@@ -329,6 +338,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.label_baseline_soc,
             self.year_initial_baseline_soc,
             self.year_final_baseline_soc,
+            self.radio_fao_wocat,
+            self.radio_lpd_precalculated,
         )
 
         self.widgets_progress = TimePeriodWidgets(
@@ -346,6 +357,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.label_progress_soc,
             self.year_initial_progress_soc,
             self.year_final_progress_soc,
+            self.radio_fao_wocat,
+            self.radio_lpd_precalculated,
         )
 
         self.timeline_years = []
@@ -406,15 +419,31 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_final_baseline.dateChanged.connect(
             lambda: self.update_end_dates(self.widgets_baseline)
         )
+        self.year_initial_baseline_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_baseline)
+        )
+        self.year_final_baseline_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_baseline)
+        )
         self.year_initial_progress.dateChanged.connect(
             lambda: self.update_start_dates(self.widgets_progress)
         )
         self.year_final_progress.dateChanged.connect(
             lambda: self.update_end_dates(self.widgets_progress)
         )
+        self.year_initial_progress_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_progress)
+        )
+        self.year_final_progress_prod.dateChanged.connect(
+            lambda: self.enforce_prod_date_range(self.widgets_progress)
+        )
+
+        self.enforce_prod_date_range(self.widgets_baseline)
+        self.enforce_prod_date_range(self.widgets_progress)
 
         self.radio_lpd_te.toggled.connect(self.toggle_lpd_options)
         self.radio_lpd_precalculated.toggled.connect(self.toggle_lpd_options)
+        self.radio_fao_wocat.toggled.connect(self.toggle_lpd_options)
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
 
@@ -431,10 +460,19 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.set_preset_unccd_default_fao_wocat
         )
 
+        self.add_period_button.clicked.connect(self.on_add_period_clicked)
+
+        self.extra_progress_boxes: list[
+            tuple[QtWidgets.QGroupBox, TimePeriodWidgets]
+        ] = []
+
         self._finish_initialization()
 
     def update_timeline_graph(self):
         if self.timeline_dlg:
+            self.timeline_dlg.extra_progress_widgets = [
+                w for _, w in self.extra_progress_boxes
+            ]
             self.timeline_dlg.draw_timeline(
                 progress_period_enabled=self.checkBox_progress_period.isChecked()
             )
@@ -456,6 +494,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.timeline_dlg.set_timeline_data(
             widgets_baseline=self.widgets_baseline,
             widgets_progress=self.widgets_progress,
+            extra_widgets=[w for _, w in self.extra_progress_boxes],
             progress_period_enabled=self.checkBox_progress_period.isChecked(),
         )
 
@@ -517,17 +556,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
     def set_preset_unccd_default_fao_wocat(self):
         self.checkBox_progress_period.setChecked(True)
-        self.radio_lpd_precalculated.setChecked(True)
-        self.cb_jrc_baseline.setCurrentIndex(
-            self.cb_jrc_baseline.findText(
-                "FAO-WOCAT Land Productivity Dynamics (2001-2015)"
-            )
-        )
-        self.cb_jrc_progress.setCurrentIndex(
-            self.cb_jrc_baseline.findText(
-                "FAO-WOCAT Land Productivity Dynamics (2005-2019)"
-            )
-        )
+        self.radio_fao_wocat.setChecked(True)
         self.radio_time_period_same_baseline.setChecked(True)
         self.radio_time_period_vary_progress.setChecked(True)
         self.year_initial_baseline.setDate(QtCore.QDate(2001, 1, 1))
@@ -567,19 +596,28 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             )
             self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
-    def update_start_dates(self, widgets):
-        widgets.year_initial_prod.setDate(widgets.year_initial.date())
-        widgets.year_initial_lc.setDate(widgets.year_initial.date())
-        widgets.year_initial_soc.setDate(widgets.year_initial.date())
+    def _update_common_dates(self, widgets):
+        year_initial = widgets.year_initial.date()
+        year_final = widgets.year_final.date()
+
+        widgets.year_initial_lc.setDate(year_initial)
+        widgets.year_initial_soc.setDate(year_initial)
+        widgets.year_final_lc.setDate(year_final)
+        widgets.year_final_soc.setDate(year_final)
+
+        # if FAO-WOCAT checked, prod initial date can't be updated
+        if not widgets.radio_fao_wocat.isChecked():
+            widgets.year_initial_prod.setDate(year_initial)
+
+        widgets.year_final_prod.setDate(year_final)
 
         self.update_timeline_graph()
+
+    def update_start_dates(self, widgets):
+        self._update_common_dates(widgets)
 
     def update_end_dates(self, widgets):
-        widgets.year_final_prod.setDate(widgets.year_final.date())
-        widgets.year_final_lc.setDate(widgets.year_final.date())
-        widgets.year_final_soc.setDate(widgets.year_final.date())
-
-        self.update_timeline_graph()
+        self._update_common_dates(widgets)
 
     def toggle_time_period(self, widgets):
         if widgets.radio_time_period_same.isChecked():
@@ -613,14 +651,21 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             widgets.year_initial.setEnabled(False)
             widgets.year_final.setEnabled(False)
+            widgets.year_final_prod.setEnabled(True)
 
             if widgets.radio_lpd_te.isChecked():
                 widgets.label_prod.setEnabled(True)
                 widgets.year_initial_prod.setEnabled(True)
-                widgets.year_final_prod.setEnabled(True)
 
     def toggle_lpd_options(self):
-        if not self.radio_lpd_te.isChecked():
+        """
+        Adjust visibility of Land Productivity Dynamics (LPD) widgets
+        according to the chosen LPD mode.
+        """
+        is_precalc = self.radio_lpd_precalculated.isChecked()
+
+        # Main widgets (baseline & first progress period)
+        if is_precalc:
             self.cb_jrc_baseline.show()
             self.label_jrc_baseline.show()
             self.cb_jrc_progress.show()
@@ -631,11 +676,26 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.cb_jrc_progress.hide()
             self.label_jrc_progress.hide()
 
+        # Extra progress‑period widgets
+        for _box, w in getattr(self, "extra_progress_boxes", []):
+            w.cb_lpd.setVisible(is_precalc)
+
+            lbl = _box.findChild(QtWidgets.QLabel, "label_jrc_progress")
+            if lbl is not None:
+                lbl.setVisible(is_precalc)
+
+        # Refresh dependent controls
         self.update_time_bounds(self.widgets_baseline)
         self.update_time_bounds(self.widgets_progress)
+        for _box, w in getattr(self, "extra_progress_boxes", []):
+            self.update_time_bounds(w)
 
         self.toggle_time_period(self.widgets_baseline)
         self.toggle_time_period(self.widgets_progress)
+        for _box, w in getattr(self, "extra_progress_boxes", []):
+            self.toggle_time_period(w)
+
+    # Remove any remaining merge conflict markers in the rest of the file
 
     def update_time_bounds(self, widgets):
         lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
@@ -644,17 +704,19 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         start_year_lc = QtCore.QDate(start_year_lc, 1, 1)
         end_year_lc = QtCore.QDate(end_year_lc, 1, 1)
 
-        if self.radio_lpd_te.isChecked():
-            prod_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
-            start_year_prod = prod_dataset["Start year"]
-            end_year_prod = prod_dataset["End year"]
+        prod_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
+        start_year_prod = prod_dataset["Start year"]
+        end_year_prod = prod_dataset["End year"]
 
-            start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
-            end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
-            start_year = max(start_year_prod, start_year_lc)
-            end_year = min(end_year_prod, end_year_lc)
+        start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
+        end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
+        start_year = max(start_year_prod, start_year_lc)
+        end_year = min(end_year_prod, end_year_lc)
 
-        else:
+        if self.radio_lpd_precalculated.isChecked():
+            if not widgets.cb_lpd.currentText():
+                widgets.cb_lpd.setCurrentIndex(0)
+
             prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
                 widgets.cb_lpd.currentText()
             ]
@@ -673,21 +735,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_final.setMinimumDate(start_year)
         widgets.year_final.setMaximumDate(end_year)
 
-        if not widgets.radio_lpd_te.isChecked():
-            widgets.year_initial_prod.setDate(start_year_prod)
-            widgets.year_final_prod.setDate(end_year_prod)
-            # Fix the dates for the prod layer to those of the selected LPD layer
-            widgets.year_initial_prod.setMinimumDate(start_year_prod)
-            widgets.year_initial_prod.setMaximumDate(start_year_prod)
-            widgets.year_final_prod.setMinimumDate(end_year_prod)
-            widgets.year_final_prod.setMaximumDate(end_year_prod)
-        else:
-            widgets.year_initial_prod.setDate(start_year_prod)
-            widgets.year_final_prod.setDate(end_year_prod)
-            widgets.year_initial_prod.setMinimumDate(start_year_prod)
-            widgets.year_initial_prod.setMaximumDate(end_year_prod)
-            widgets.year_final_prod.setMinimumDate(start_year_prod)
-            widgets.year_final_prod.setMaximumDate(end_year_prod)
+        widgets.year_initial_prod.setDate(start_year_prod)
+        widgets.year_final_prod.setDate(end_year_prod)
+        widgets.year_initial_prod.setMinimumDate(start_year_lc)
+        widgets.year_initial_prod.setMaximumDate(end_year_lc)
+        widgets.year_final_prod.setMinimumDate(start_year_lc)
+        widgets.year_final_prod.setMaximumDate(end_year_lc)
 
         widgets.year_initial_lc.setMinimumDate(start_year_lc)
         widgets.year_initial_lc.setMaximumDate(end_year_lc)
@@ -725,10 +778,110 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     def toggle_progress_period(self):
         if self.checkBox_progress_period.isChecked():
             self.groupBox_progress_period.setVisible(True)
+            self.add_period_button.setVisible(True)
         else:
             self.groupBox_progress_period.setVisible(False)
+            self.add_period_button.setVisible(False)
 
         self.update_timeline_graph()
+
+    def _create_progress_period(self) -> tuple[QtWidgets.QGroupBox, TimePeriodWidgets]:
+        """
+        Build an independent copy of the original groupBox_progress_period
+        and return both the box itself and a freshly‑wired TimePeriodWidgets
+        structure that points to the new widgets.
+        """
+        grp = QtWidgets.QGroupBox(parent=self)
+        uic.loadUi(str(Path(__file__).parent / "gui/fragment_progress_period.ui"), grp)
+
+        cb_lpd: QtWidgets.QComboBox = grp.findChild(
+            QtWidgets.QComboBox, "cb_jrc_progress"
+        )
+
+        cb_lpd.addItems([*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()])
+        cb_lpd.setCurrentIndex(0)
+
+        cb_lpd.currentIndexChanged.connect(
+            lambda _ix, wref=weakref.ref(self): wref() and wref().update_time_bounds(w)
+        )
+
+        w = TimePeriodWidgets(
+            grp.findChild(QtWidgets.QRadioButton, "radio_time_period_same_progress"),
+            self.radio_lpd_te,
+            grp.findChild(QtWidgets.QComboBox, "cb_jrc_progress"),
+            grp.findChild(QtWidgets.QDateEdit, "year_initial_progress"),
+            grp.findChild(QtWidgets.QDateEdit, "year_final_progress"),
+            grp.findChild(QtWidgets.QLabel, "label_progress_prod"),
+            grp.findChild(QtWidgets.QDateEdit, "year_initial_progress_prod"),
+            grp.findChild(QtWidgets.QDateEdit, "year_final_progress_prod"),
+            grp.findChild(QtWidgets.QLabel, "label_progress_lc"),
+            grp.findChild(QtWidgets.QDateEdit, "year_initial_progress_lc"),
+            grp.findChild(QtWidgets.QDateEdit, "year_final_progress_lc"),
+            grp.findChild(QtWidgets.QLabel, "label_progress_soc"),
+            grp.findChild(QtWidgets.QDateEdit, "year_initial_progress_soc"),
+            grp.findChild(QtWidgets.QDateEdit, "year_final_progress_soc"),
+            self.radio_fao_wocat,
+            self.radio_lpd_precalculated,
+        )
+
+        for de in (
+            w.year_initial,
+            w.year_final,
+            w.year_initial_prod,
+            w.year_final_prod,
+            w.year_initial_lc,
+            w.year_final_lc,
+            w.year_initial_soc,
+            w.year_final_soc,
+        ):
+            de.dateChanged.connect(self.on_date_changed)
+
+        self.update_time_bounds(w)
+        self.toggle_time_period(w)
+
+        same_btn = w.radio_time_period_same
+        vary_btn = grp.findChild(
+            QtWidgets.QRadioButton, "radio_time_period_vary_progress"
+        )
+
+        same_btn.toggled.connect(
+            lambda _checked, w_local=w: self.toggle_time_period(w_local)
+        )
+        vary_btn.toggled.connect(
+            lambda _checked, w_local=w: self.toggle_time_period(w_local)
+        )
+
+        w.year_initial.dateChanged.connect(lambda _d, ww=w: self.update_start_dates(ww))
+        w.year_final.dateChanged.connect(lambda _d, ww=w: self.update_end_dates(ww))
+
+        return grp, w
+
+    @QtCore.pyqtSlot()
+    def on_add_period_clicked(self):
+        grp, widgets = self._create_progress_period()
+        grp.setTitle(f"Progress period #{len(self.extra_progress_boxes) + 2}")
+
+        wrapper = QtWidgets.QWidget()
+        layout = QtWidgets.QHBoxLayout(wrapper)
+        layout.setContentsMargins(8, 0, 8, 0)
+        layout.addWidget(grp)
+
+        container_layout: QtWidgets.QVBoxLayout = self.verticalLayout_7
+        idx = container_layout.indexOf(
+            self.findChild(QtWidgets.QHBoxLayout, "verticalLayout_9")
+        )
+        container_layout.insertWidget(idx, wrapper)
+
+        self.extra_progress_boxes.append((grp, widgets))
+        self.update_timeline_graph()
+
+        is_te = self.radio_lpd_te.isChecked()
+        for _box, w in getattr(self, "extra_progress_boxes", []):
+            w.cb_lpd.setVisible(not is_te)
+
+            lbl = _box.findChild(QtWidgets.QLabel, "label_jrc_progress")
+            if lbl is not None:
+                lbl.setVisible(not is_te)
 
     def _get_period_years(self, widgets):
         return {
@@ -739,12 +892,37 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     def _get_prod_mode(self, widgets):
         if widgets.radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
-        else:
-            if "FAO-WOCAT" in widgets.cb_lpd.currentText():
-                return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-            elif "JRC" in widgets.cb_lpd.currentText():
-                return ProductivityMode.JRC_5_CLASS_LPD.value
+        elif widgets.radio_fao_wocat.isChecked():
+            return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+        elif widgets.radio_lpd_precalculated.isChecked():
+            return ProductivityMode.JRC_5_CLASS_LPD.value
         return None
+
+    def enforce_prod_date_range(self, widgets):
+        if not widgets.radio_time_period_same.isChecked():
+            return False
+        initial_date = widgets.year_initial_prod.date()
+        final_date = widgets.year_final_prod.date()
+
+        max_final = widgets.year_final.maximumDate()
+        min_final = widgets.year_final.minimumDate()
+        min_initial = widgets.year_initial.minimumDate()
+
+        expected_final = initial_date.addYears(MIN_YEARS_FOR_PROD_UPDATE)
+        expected_initial = final_date.addYears(-MIN_YEARS_FOR_PROD_UPDATE)
+
+        widgets.year_initial_prod.setMinimumDate(min_initial)
+
+        if expected_final <= max_final and initial_date != expected_initial:
+            widgets.year_final_prod.blockSignals(True)
+            widgets.year_final_prod.setDate(expected_final)
+            widgets.year_final_prod.setMinimumDate(min_final)
+            widgets.year_final_prod.setMaximumDate(max_final)
+            widgets.year_final_prod.blockSignals(False)
+        elif expected_initial >= min_initial and final_date != expected_final:
+            widgets.year_initial_prod.blockSignals(True)
+            widgets.year_initial_prod.setDate(expected_initial)
+            widgets.year_initial_prod.blockSignals(False)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -760,15 +938,22 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         periods = {"baseline": self._get_period_years(self.widgets_baseline)}
 
-        if self.checkBox_progress_period.isChecked():
-            periods.update({"progress": self._get_period_years(self.widgets_progress)})
+        progress_period = self._get_period_years(self.widgets_progress)
+        if progress_period:
+            periods["progress_1"] = progress_period
+
+        for i, (_, w) in enumerate(self.extra_progress_boxes, start=1):
+            key = f"progress_{i + 1}"
+            periods[key] = self._get_period_years(w)
 
         crosses_180th, geojsons = self.gee_bounding_box
 
         payloads = []
 
         for (period, values), widgets in zip(
-            periods.items(), (self.widgets_baseline, self.widgets_progress)
+            periods.items(),
+            [self.widgets_baseline, self.widgets_progress]
+            + [w for _, w in self.extra_progress_boxes],
         ):
             payload = {}
             year_initial = values["period_year_initial"]
@@ -782,12 +967,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             payload["productivity"] = {"mode": prod_mode}
 
             if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-                if (year_final - year_initial) < 10:
+                if (year_final - year_initial) < MIN_YEARS_FOR_PROD_UPDATE:
                     QtWidgets.QMessageBox.warning(
                         None,
                         self.tr("Warning"),
                         self.tr(
-                            "Initial and final year are less 10 years "
+                            f"Initial and final year are less {MIN_YEARS_FOR_PROD_UPDATE} years "
                             f"apart in {period} - results will be more "
                             "reliable if more data (years) are included "
                             "in the analysis."
@@ -820,21 +1005,46 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         "asset_climate": None,
                     }
                 )
-            elif prod_mode in (
-                ProductivityMode.JRC_5_CLASS_LPD.value,
-                ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
-            ):
+            elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
                 prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
                     widgets.cb_lpd.currentText()
                 ]
                 prod_asset = prod_dataset["GEE Dataset"]
                 prod_start_year = prod_dataset["Start year"]
                 prod_end_year = prod_dataset["End year"]
+                prod_date_source = prod_dataset["Data source"]
                 payload["productivity"].update(
                     {
                         "asset": prod_asset,
                         "year_initial": prod_start_year,
                         "year_final": prod_end_year,
+                        "data_source": prod_date_source,
+                    }
+                )
+            elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+                ndvi_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"][
+                    "GEE Dataset"
+                ]
+
+                low_biomass = getattr(
+                    ld_config, "FAO_WOCAT_LOW_BIOMASS_THRESHOLD", 0.30
+                )
+                high_biomass = getattr(
+                    ld_config, "FAO_WOCAT_HIGH_BIOMASS_THRESHOLD", 0.50
+                )
+
+                years_interval = (
+                    widgets.year_final_prod.date().year() + 1
+                ) - widgets.year_initial_prod.date().year()
+
+                payload["productivity"].update(
+                    {
+                        "ndvi_gee_dataset": ndvi_dataset,
+                        "low_biomass": low_biomass,
+                        "high_biomass": high_biomass,
+                        "years_interval": years_interval,
+                        "year_initial": widgets.year_initial_prod.date().year(),
+                        "year_final": widgets.year_final_prod.date().year(),
                     }
                 )
             else:
@@ -900,11 +1110,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             task_name = self.execution_name_le.text()
 
-            if len(periods.items()) == 2:
-                if task_name:
-                    task_name = f"{task_name} - {period}"
-                else:
-                    task_name = f"{period}"
+            if len(periods.items()) == 1:
+                task_name = f"{period}"
+            else:
+                task_name = f"{task_name} - {period}"
 
             payload.update(
                 {
@@ -921,8 +1130,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     },
                 }
             )
-
-            log(f"period is: {payload['period']}")
 
             payloads.append(payload)
 
@@ -987,6 +1194,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_male=self.combo_layer_population_baseline_male,
             combo_layer_pop_female=self.combo_layer_population_baseline_female,
             radio_lpd_te=self.radio_lpd_te,
+            radio_fao_wocat=self.radio_fao_wocat,
         )
         self.combo_boxes["progress"] = ldn.SummaryTableLDWidgets(
             combo_datasets=self.combo_datasets_progress,
@@ -1004,6 +1212,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_male=self.combo_layer_population_progress_male,
             combo_layer_pop_female=self.combo_layer_population_progress_female,
             radio_lpd_te=self.radio_lpd_te,
+            radio_fao_wocat=self.radio_fao_wocat,
         )
 
         self.radio_population_baseline_bysex.toggled.connect(
@@ -1267,16 +1476,13 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         return True
 
-    def _get_prod_mode(self, radio_lpd_te, cb_lpd):
+    def _get_prod_mode(self, radio_lpd_te, radio_fao_wocat):
         if radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        elif radio_fao_wocat.isChecked():
+            return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
         else:
-            lpd_band_name = cb_lpd.get_current_band().band_info.name
-            if "FAO-WOCAT" in lpd_band_name:
-                return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-            elif "JRC" in lpd_band_name:
-                return ProductivityMode.JRC_5_CLASS_LPD.value
-        return None
+            return ProductivityMode.JRC_5_CLASS_LPD.value
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -1311,7 +1517,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             return
 
         prod_mode_baseline = self._get_prod_mode(
-            self.radio_lpd_te, self.combo_boxes["progress"].combo_layer_lpd
+            self.radio_lpd_te, self.radio_fao_wocat
         )
 
         periods = [
@@ -1348,7 +1554,7 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         if self.checkBox_progress_period.isChecked():
             prod_mode_progress = self._get_prod_mode(
-                self.radio_lpd_te, self.combo_boxes["progress"].combo_layer_lpd
+                self.radio_lpd_te, self.radio_fao_wocat
             )
 
             if self.radio_population_progress_bysex.isChecked():

@@ -1057,7 +1057,10 @@ class SdgSummaryJobAttributes:
         # indexed by the category name.
         lc_mapping = {}
 
-        legend_parent = self._baseline_results["land_cover"]["legend_nesting"]["parent"]
+        period_node = self._baseline_results.get("period_assessment", {})
+        lc_node = period_node.get("land_cover", {})
+
+        legend_parent = lc_node["legend_nesting"]["parent"]
 
         clr_ramp = _create_indexed_color_ramp("Land cover (7 class)")
 
@@ -1101,45 +1104,41 @@ class SdgSummaryJobAttributes:
         Detailed info about summary SDG 15.3.1 categories for plotting
         purposes.
         """
-        temp_area_infos = []
-        category_pix_value = self.summary_indicator_str_value_mapping()
+        period_node = self._baseline_results.get("period_assessment", {})
+        sdg_node = period_node.get("sdg", {})
+        summary = sdg_node.get("summary", {})
+        areas = summary.get("areas", [])
 
-        total_area = 0
-        areas = self._baseline_results["sdg"]["summary"]["areas"]
+        if not areas:
+            return []
+
+        category_pix_value = self.summary_indicator_str_value_mapping()
         clr_ramp = _create_indexed_color_ramp("SDG 15.3.1 Indicator")
 
-        # Create UniqueValuesInfo for each LDN summary category type.
-        for category_info in areas:
-            name = category_info["name"]
-            area = category_info["area"]
+        total_area = sum(a["area"] for a in areas) or 1
+        value_infos = []
+
+        for cat in areas:
+            name = cat["name"]
+            area = cat["area"]
             pix_val = category_pix_value[name]
-            ramp_item = clr_ramp[pix_val]
-            color = ramp_item.color
+            colour = clr_ramp[pix_val].color
 
-            # Darken stable color
             if pix_val == 0:
-                color = QColor("#ffffca")
+                colour = QColor("#ffffca")
 
-            vi = UniqueValuesInfo(area, ramp_item.label, pix_val, color, -1, -1)
-            total_area += area
-            temp_area_infos.append(vi)
-
-        area_infos = []
-
-        # Update with area percentage computed
-        for tvi in temp_area_infos:
-            area_percent = tvi.area / total_area * 100
-            vi = UniqueValuesInfo(
-                tvi.area,
-                tvi.category_label,
-                tvi.category_value,
-                tvi.color,
-                -1,
-                area_percent,
+            value_infos.append(
+                UniqueValuesInfo(
+                    area,
+                    clr_ramp[pix_val].label,
+                    pix_val,
+                    colour,
+                    -1,
+                    area * 100 / total_area,
+                )
             )
-            area_infos.append(vi)
 
-        return area_infos
+        return value_infos
 
     @classmethod
     def thematic_category_values_by_year(
@@ -1176,9 +1175,10 @@ class SdgSummaryJobAttributes:
         """
         Detailed info about land cover for the given year.
         """
-        lc_areas = self._baseline_results["land_cover"]["land_cover_areas_by_year"][
-            "values"
-        ]
+        period_node = self._baseline_results.get("period_assessment", {})
+        lc_node = period_node.get("land_cover", {})
+
+        lc_areas = lc_node["land_cover_areas_by_year"]["values"]
 
         return self.thematic_category_values_by_year(
             lc_areas, year, self.land_cover_7_class_str_info_mapping()
@@ -1190,9 +1190,10 @@ class SdgSummaryJobAttributes:
         values are grouped by land cover hence we will use the land cover
         classes.
         """
-        soc_areas = self._baseline_results["soil_organic_carbon"]["soc_stock_by_year"][
-            "values"
-        ]
+        period_node = self._baseline_results.get("period_assessment", {})
+        soc_node = period_node.get("soil_organic_carbon", {})
+
+        soc_areas = soc_node["soc_stock_by_year"]["values"]
 
         return self.thematic_category_values_by_year(
             soc_areas, year, self.land_cover_7_class_str_info_mapping()
@@ -1229,9 +1230,9 @@ class SdgSummaryJobAttributes:
         """
         Land cover classes grouped by productivity.
         """
-        prod_groups = self._baseline_results["productivity"][
-            "crosstabs_by_productivity_class"
-        ]
+        period_node = self._baseline_results.get("period_assessment", {})
+        prod_node = period_node.get("productivity", {})
+        prod_groups = prod_node["crosstabs_by_productivity_class"]
 
         category_item_mapping = self.land_cover_7_class_str_info_mapping()
         categories = list(category_item_mapping.keys())[:-1]  # Remove 'No data'

@@ -53,6 +53,9 @@ Ui_DlgDataIOLoadTE, _ = uic.loadUiType(
 Ui_DlgDataIOImportSOC, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDataIOImportSOC.ui")
 )
+Ui_DlgDataIOImportPopulation, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/DlgDataIOImportPopulation.ui")
+)
 Ui_DlgDataIOImportProd, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDataIOImportProd.ui")
 )
@@ -328,7 +331,7 @@ class RasterizeWorker(worker.AbstractWorker):
 
 class RasterImportWorker(worker.AbstractWorker):
     def __init__(
-        self, in_file, out_file, out_res, resample_mode, out_data_type=gdal.GDT_Int16
+        self, in_file, out_file, out_res, resample_mode, out_data_type=gdal.GDT_Byte
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -353,7 +356,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
-                creationOptions=["COMPRESS=LZW"],
+                creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
                 callback=self.progress_callback,
             )
         else:
@@ -365,7 +368,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
-                creationOptions=["COMPRESS=LZW"],
+                creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
                 callback=self.progress_callback,
             )
 
@@ -1294,41 +1297,54 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # Select a single output band
         in_file = self.input_widget.lineEdit_raster_file.text()
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
-        temp_vrt = GetTempFilename(".vrt")
+        temp_tif = GetTempFilename(".tif")
         target_bounds = self.extent_as_list()
+
         if len(target_bounds) == 0:
             log("Target bounds for warping raster not available.")
-            gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
+            gdal.Translate(
+                temp_tif,
+                in_file,
+                bandList=[band_number],
+                outputType=gdal.GDT_Byte,
+            )
         else:
             ext_str = ",".join(map(str, target_bounds))
             log(f"Target bounds for warped raster: {ext_str}")
-            gdal.BuildVRT(
-                temp_vrt, in_file, bandList=[band_number], outputBounds=target_bounds
+            # Ensure target_bounds are in the correct order: [xmin, ymax, xmax, ymin]
+            xmin, ymin, xmax, ymax = target_bounds
+            projwin = [xmin, ymax, xmax, ymin]
+            gdal.Translate(
+                temp_tif,
+                in_file,
+                bandList=[band_number],
+                outputType=gdal.GDT_Byte,
+                projWin=projwin,
             )
 
         log("Importing {} to {}".format(in_file, out_file))
 
         if self.input_widget.groupBox_output_resolution.isChecked():
             out_res = self.get_out_res_wgs84()
-            resample_mode = self.get_resample_mode(temp_vrt)
+            resample_mode = self.get_resample_mode(temp_tif)
         else:
             out_res = None
             resample_mode = gdal.GRA_NearestNeighbour
+
         raster_import_worker = worker.StartWorker(
             RasterImportWorker,
             "importing raster",
-            temp_vrt,
+            temp_tif,
             out_file,
             out_res,
             resample_mode,
         )
-        os.remove(temp_vrt)
+        os.remove(temp_tif)
 
         if not raster_import_worker.success:
             QtWidgets.QMessageBox.critical(
                 self, tr_data_io.tr("Error"), tr_data_io.tr("Raster import failed.")
             )
-
             return False
         else:
             return True
@@ -1340,6 +1356,145 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
     def save_metadata(self, job):
         metadata.init_dataset_metadata(job, self.metadata)
+
+
+class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulation):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def done(self, value):
+        if value == QtWidgets.QDialog.Accepted:
+            self.validate_input(value)
+        else:
+            super().done(value)
+
+    def validate_input(self, value):
+        max_max = 10000000  # Maximum value for population
+        if (
+            self.input_widget.spinBox_data_year.text()
+            == self.input_widget.spinBox_data_year.specialValueText()
+        ):
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr("Enter the year of the input data."),
+            )
+
+            return
+
+        ret = super().validate_input(value)
+
+        if not ret:
+            return
+
+        if self.input_widget.radio_raster_input.isChecked():
+            in_file = self.input_widget.lineEdit_raster_file.text()
+            stats = get_raster_stats(
+                in_file,
+                int(self.input_widget.comboBox_bandnumber.currentText()),
+                max_max=max_max,
+            )
+        else:
+            in_file = self.input_widget.lineEdit_vector_file.text()
+            layer = self.input_widget.get_vector_layer()
+            field = self.input_widget.comboBox_fieldname.currentText()
+            idx = layer.fields().lookupField(field)
+
+            if not layer.fields().field(idx).isNumeric():
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    tr_data_io.tr("Error"),
+                    tr_data_io.tr(
+                        "The chosen field ({}) is not numeric. Choose a numeric field.".format(
+                            field
+                        )
+                    ),
+                )
+
+                return
+            else:
+                stats = get_vector_stats(
+                    self.input_widget.get_vector_layer(), field, max_max=max_max
+                )
+        log("Stats are: {}".format(stats))
+
+        if not stats:
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "The input file ({}) does not appear to be a valid population "
+                    "input file. The file should contain values of soil "
+                    "organic carbon in tonnes / hectare.".format(in_file)
+                ),
+            )
+
+            return
+
+        if stats[0] < 0:
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "The input file ({}) does not appear to be a valid population "
+                    "input file. The minimum value in this file is {}. The no "
+                    "data value should be -32768, and all other values should be >= 0.".format(
+                        in_file, stats[0]
+                    )
+                ),
+            )
+
+            return
+
+        if stats[1] > 10000000:
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "The input file ({}) does not appear to be a valid soil organic "
+                    "carbon input file. The maximum value in this file is {}. "
+                    "The maximum value allowed is {} tonnes / hectare.".format(
+                        in_file, stats[1], max_max
+                    )
+                ),
+            )
+
+            return
+
+        super().done(value)
+
+        self.ok_clicked()
+
+    def ok_clicked(self):
+        out_file = self._output_raster_path
+
+        if self.input_widget.radio_raster_input.isChecked():
+            ret = self.warp_raster(out_file)
+        else:
+            in_file = self.input_widget.lineEdit_vector_file.text()
+            attribute = self.input_widget.comboBox_fieldname.currentText()
+            ret = self.rasterize_vector(in_file, out_file, attribute)
+
+        if not ret:
+            return False
+
+        job = job_manager.create_job_from_dataset(
+            dataset_path=Path(out_file),
+            band_name="Population (number of people)",
+            band_metadata={
+                "year": int(self.input_widget.spinBox_data_year.text()),
+                "source": "custom data",
+                "type": "total",
+            },
+            task_name=tr_data_io.tr(
+                "Population "
+                f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
+            ),
+        )
+        job_manager.import_job(job, Path(out_file))
+        job_manager.move_job_results(job)
+
+        super().save_metadata(job)
 
 
 class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
@@ -1673,6 +1828,10 @@ def _get_usable_bands(
 class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     comboBox_layers: QtWidgets.QComboBox
     layer_list: typing.Optional[typing.List[Band]]
+
+    def set_layer_type(self, layer_type: str):
+        self.setProperty("layer_type", layer_type)
+        self.populate()
 
     def __init__(self, parent=None):
         super().__init__(parent)

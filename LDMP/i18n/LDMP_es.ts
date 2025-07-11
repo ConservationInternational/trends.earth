@@ -1340,7 +1340,7 @@ p, li { white-space: pre-wrap; }
     <name>DlgCalculateOneStep</name>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="20"/>
-        <source>Calulate Standardized Precipitation Index (SPI)</source>
+        <source>Calculate Precipitation Indices</source>
         <translation>Calcular el Índice de Precipitación Estandarizado (SPI, por sus siglas en inglés)</translation>
     </message>
     <message>

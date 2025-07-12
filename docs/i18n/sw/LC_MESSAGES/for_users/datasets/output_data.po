@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-07-11 18:04+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: sw\n"
@@ -22,7 +22,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/datasets/output_data.rst:4
 msgid "Output datasets from Trends.Earth"
@@ -64,270 +64,343 @@ msgid "SDG 15.3.1 Indicator"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:26
-#: ../../source/for_users/datasets/output_data.rst:45
-#: ../../source/for_users/datasets/output_data.rst:57
-#: ../../source/for_users/datasets/output_data.rst:80
-#: ../../source/for_users/datasets/output_data.rst:93
-#: ../../source/for_users/datasets/output_data.rst:105
+#: ../../source/for_users/datasets/output_data.rst:42
+#: ../../source/for_users/datasets/output_data.rst:69
+#: ../../source/for_users/datasets/output_data.rst:81
+#: ../../source/for_users/datasets/output_data.rst:104
 #: ../../source/for_users/datasets/output_data.rst:117
-#: ../../source/for_users/datasets/output_data.rst:131
-#: ../../source/for_users/datasets/output_data.rst:143
-#: ../../source/for_users/datasets/output_data.rst:156
-#: ../../source/for_users/datasets/output_data.rst:175
-#: ../../source/for_users/datasets/output_data.rst:197
-#: ../../source/for_users/datasets/output_data.rst:212
-#: ../../source/for_users/datasets/output_data.rst:235
-#: ../../source/for_users/datasets/output_data.rst:320
-#: ../../source/for_users/datasets/output_data.rst:430
-#: ../../source/for_users/datasets/output_data.rst:443
-#: ../../source/for_users/datasets/output_data.rst:459
-#: ../../source/for_users/datasets/output_data.rst:477
+#: ../../source/for_users/datasets/output_data.rst:129
+#: ../../source/for_users/datasets/output_data.rst:141
+#: ../../source/for_users/datasets/output_data.rst:155
+#: ../../source/for_users/datasets/output_data.rst:167
+#: ../../source/for_users/datasets/output_data.rst:180
+#: ../../source/for_users/datasets/output_data.rst:199
+#: ../../source/for_users/datasets/output_data.rst:221
+#: ../../source/for_users/datasets/output_data.rst:236
+#: ../../source/for_users/datasets/output_data.rst:259
+#: ../../source/for_users/datasets/output_data.rst:344
+#: ../../source/for_users/datasets/output_data.rst:454
+#: ../../source/for_users/datasets/output_data.rst:467
+#: ../../source/for_users/datasets/output_data.rst:483
 #: ../../source/for_users/datasets/output_data.rst:501
-#: ../../source/for_users/datasets/output_data.rst:528
-#: ../../source/for_users/datasets/output_data.rst:550
-#: ../../source/for_users/datasets/output_data.rst:566
+#: ../../source/for_users/datasets/output_data.rst:525
+#: ../../source/for_users/datasets/output_data.rst:552
+#: ../../source/for_users/datasets/output_data.rst:574
+#: ../../source/for_users/datasets/output_data.rst:590
 msgid "Value"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:26
-#: ../../source/for_users/datasets/output_data.rst:45
-#: ../../source/for_users/datasets/output_data.rst:57
-#: ../../source/for_users/datasets/output_data.rst:80
-#: ../../source/for_users/datasets/output_data.rst:93
-#: ../../source/for_users/datasets/output_data.rst:105
+#: ../../source/for_users/datasets/output_data.rst:42
+#: ../../source/for_users/datasets/output_data.rst:69
+#: ../../source/for_users/datasets/output_data.rst:81
+#: ../../source/for_users/datasets/output_data.rst:104
 #: ../../source/for_users/datasets/output_data.rst:117
-#: ../../source/for_users/datasets/output_data.rst:131
-#: ../../source/for_users/datasets/output_data.rst:143
-#: ../../source/for_users/datasets/output_data.rst:156
-#: ../../source/for_users/datasets/output_data.rst:175
-#: ../../source/for_users/datasets/output_data.rst:197
-#: ../../source/for_users/datasets/output_data.rst:212
-#: ../../source/for_users/datasets/output_data.rst:235
-#: ../../source/for_users/datasets/output_data.rst:320
-#: ../../source/for_users/datasets/output_data.rst:430
-#: ../../source/for_users/datasets/output_data.rst:443
-#: ../../source/for_users/datasets/output_data.rst:459
-#: ../../source/for_users/datasets/output_data.rst:461
-#: ../../source/for_users/datasets/output_data.rst:477
-#: ../../source/for_users/datasets/output_data.rst:479
+#: ../../source/for_users/datasets/output_data.rst:129
+#: ../../source/for_users/datasets/output_data.rst:141
+#: ../../source/for_users/datasets/output_data.rst:155
+#: ../../source/for_users/datasets/output_data.rst:167
+#: ../../source/for_users/datasets/output_data.rst:180
+#: ../../source/for_users/datasets/output_data.rst:199
+#: ../../source/for_users/datasets/output_data.rst:221
+#: ../../source/for_users/datasets/output_data.rst:236
+#: ../../source/for_users/datasets/output_data.rst:259
+#: ../../source/for_users/datasets/output_data.rst:344
+#: ../../source/for_users/datasets/output_data.rst:454
+#: ../../source/for_users/datasets/output_data.rst:467
+#: ../../source/for_users/datasets/output_data.rst:483
+#: ../../source/for_users/datasets/output_data.rst:485
 #: ../../source/for_users/datasets/output_data.rst:501
-#: ../../source/for_users/datasets/output_data.rst:528
-#: ../../source/for_users/datasets/output_data.rst:550
-#: ../../source/for_users/datasets/output_data.rst:566
+#: ../../source/for_users/datasets/output_data.rst:503
+#: ../../source/for_users/datasets/output_data.rst:525
+#: ../../source/for_users/datasets/output_data.rst:552
+#: ../../source/for_users/datasets/output_data.rst:574
+#: ../../source/for_users/datasets/output_data.rst:590
 msgid "Meaning"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:28
-#: ../../source/for_users/datasets/output_data.rst:47
-#: ../../source/for_users/datasets/output_data.rst:59
-#: ../../source/for_users/datasets/output_data.rst:82
-#: ../../source/for_users/datasets/output_data.rst:95
-#: ../../source/for_users/datasets/output_data.rst:107
+#: ../../source/for_users/datasets/output_data.rst:44
+#: ../../source/for_users/datasets/output_data.rst:71
+#: ../../source/for_users/datasets/output_data.rst:83
+#: ../../source/for_users/datasets/output_data.rst:106
 #: ../../source/for_users/datasets/output_data.rst:119
-#: ../../source/for_users/datasets/output_data.rst:133
-#: ../../source/for_users/datasets/output_data.rst:145
-#: ../../source/for_users/datasets/output_data.rst:158
-#: ../../source/for_users/datasets/output_data.rst:177
-#: ../../source/for_users/datasets/output_data.rst:199
-#: ../../source/for_users/datasets/output_data.rst:214
-#: ../../source/for_users/datasets/output_data.rst:237
-#: ../../source/for_users/datasets/output_data.rst:322
-#: ../../source/for_users/datasets/output_data.rst:432
-#: ../../source/for_users/datasets/output_data.rst:445
-#: ../../source/for_users/datasets/output_data.rst:461
-#: ../../source/for_users/datasets/output_data.rst:479
+#: ../../source/for_users/datasets/output_data.rst:131
+#: ../../source/for_users/datasets/output_data.rst:143
+#: ../../source/for_users/datasets/output_data.rst:157
+#: ../../source/for_users/datasets/output_data.rst:169
+#: ../../source/for_users/datasets/output_data.rst:182
+#: ../../source/for_users/datasets/output_data.rst:201
+#: ../../source/for_users/datasets/output_data.rst:223
+#: ../../source/for_users/datasets/output_data.rst:238
+#: ../../source/for_users/datasets/output_data.rst:261
+#: ../../source/for_users/datasets/output_data.rst:346
+#: ../../source/for_users/datasets/output_data.rst:456
+#: ../../source/for_users/datasets/output_data.rst:469
+#: ../../source/for_users/datasets/output_data.rst:485
 #: ../../source/for_users/datasets/output_data.rst:503
-#: ../../source/for_users/datasets/output_data.rst:530
-#: ../../source/for_users/datasets/output_data.rst:552
-#: ../../source/for_users/datasets/output_data.rst:568
+#: ../../source/for_users/datasets/output_data.rst:527
+#: ../../source/for_users/datasets/output_data.rst:554
+#: ../../source/for_users/datasets/output_data.rst:576
+#: ../../source/for_users/datasets/output_data.rst:592
 msgid "-32768"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:28
-#: ../../source/for_users/datasets/output_data.rst:47
-#: ../../source/for_users/datasets/output_data.rst:59
-#: ../../source/for_users/datasets/output_data.rst:82
-#: ../../source/for_users/datasets/output_data.rst:95
-#: ../../source/for_users/datasets/output_data.rst:107
+#: ../../source/for_users/datasets/output_data.rst:44
+#: ../../source/for_users/datasets/output_data.rst:71
+#: ../../source/for_users/datasets/output_data.rst:83
+#: ../../source/for_users/datasets/output_data.rst:106
 #: ../../source/for_users/datasets/output_data.rst:119
-#: ../../source/for_users/datasets/output_data.rst:133
-#: ../../source/for_users/datasets/output_data.rst:145
-#: ../../source/for_users/datasets/output_data.rst:158
-#: ../../source/for_users/datasets/output_data.rst:177
-#: ../../source/for_users/datasets/output_data.rst:199
-#: ../../source/for_users/datasets/output_data.rst:214
-#: ../../source/for_users/datasets/output_data.rst:237
-#: ../../source/for_users/datasets/output_data.rst:322
-#: ../../source/for_users/datasets/output_data.rst:432
-#: ../../source/for_users/datasets/output_data.rst:445
-#: ../../source/for_users/datasets/output_data.rst:503
-#: ../../source/for_users/datasets/output_data.rst:530
-#: ../../source/for_users/datasets/output_data.rst:552
-#: ../../source/for_users/datasets/output_data.rst:568
+#: ../../source/for_users/datasets/output_data.rst:131
+#: ../../source/for_users/datasets/output_data.rst:143
+#: ../../source/for_users/datasets/output_data.rst:157
+#: ../../source/for_users/datasets/output_data.rst:169
+#: ../../source/for_users/datasets/output_data.rst:182
+#: ../../source/for_users/datasets/output_data.rst:201
+#: ../../source/for_users/datasets/output_data.rst:223
+#: ../../source/for_users/datasets/output_data.rst:238
+#: ../../source/for_users/datasets/output_data.rst:261
+#: ../../source/for_users/datasets/output_data.rst:346
+#: ../../source/for_users/datasets/output_data.rst:456
+#: ../../source/for_users/datasets/output_data.rst:469
+#: ../../source/for_users/datasets/output_data.rst:527
+#: ../../source/for_users/datasets/output_data.rst:554
+#: ../../source/for_users/datasets/output_data.rst:576
+#: ../../source/for_users/datasets/output_data.rst:592
 msgid "No data"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:30
-#: ../../source/for_users/datasets/output_data.rst:65
-#: ../../source/for_users/datasets/output_data.rst:84
-#: ../../source/for_users/datasets/output_data.rst:201
-#: ../../source/for_users/datasets/output_data.rst:532
+#: ../../source/for_users/datasets/output_data.rst:89
+#: ../../source/for_users/datasets/output_data.rst:108
+#: ../../source/for_users/datasets/output_data.rst:225
+#: ../../source/for_users/datasets/output_data.rst:556
 msgid "-1"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:30
-#: ../../source/for_users/datasets/output_data.rst:84
-#: ../../source/for_users/datasets/output_data.rst:201
+#: ../../source/for_users/datasets/output_data.rst:108
+#: ../../source/for_users/datasets/output_data.rst:225
 msgid "Degradation"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:32
-#: ../../source/for_users/datasets/output_data.rst:67
-#: ../../source/for_users/datasets/output_data.rst:86
-#: ../../source/for_users/datasets/output_data.rst:97
-#: ../../source/for_users/datasets/output_data.rst:203
+#: ../../source/for_users/datasets/output_data.rst:91
+#: ../../source/for_users/datasets/output_data.rst:110
+#: ../../source/for_users/datasets/output_data.rst:121
+#: ../../source/for_users/datasets/output_data.rst:227
 msgid "0"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:32
-#: ../../source/for_users/datasets/output_data.rst:86
-#: ../../source/for_users/datasets/output_data.rst:203
+#: ../../source/for_users/datasets/output_data.rst:110
+#: ../../source/for_users/datasets/output_data.rst:227
 msgid "No change"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:34
-#: ../../source/for_users/datasets/output_data.rst:69
-#: ../../source/for_users/datasets/output_data.rst:160
-#: ../../source/for_users/datasets/output_data.rst:179
-#: ../../source/for_users/datasets/output_data.rst:205
-#: ../../source/for_users/datasets/output_data.rst:216
-#: ../../source/for_users/datasets/output_data.rst:324
-#: ../../source/for_users/datasets/output_data.rst:505
-#: ../../source/for_users/datasets/output_data.rst:534
+#: ../../source/for_users/datasets/output_data.rst:46
+#: ../../source/for_users/datasets/output_data.rst:93
+#: ../../source/for_users/datasets/output_data.rst:184
+#: ../../source/for_users/datasets/output_data.rst:203
+#: ../../source/for_users/datasets/output_data.rst:229
+#: ../../source/for_users/datasets/output_data.rst:240
+#: ../../source/for_users/datasets/output_data.rst:348
+#: ../../source/for_users/datasets/output_data.rst:529
+#: ../../source/for_users/datasets/output_data.rst:558
 msgid "1"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:34
-#: ../../source/for_users/datasets/output_data.rst:205
+#: ../../source/for_users/datasets/output_data.rst:229
 msgid "Improvement"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:39
-msgid "Productivity"
-msgstr "Uzalishaji"
-
-#: ../../source/for_users/datasets/output_data.rst:42
-msgid "Productivity trajectory (trend)"
+msgid "SDG 15.3.1 Indicator (status)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:49
-#: ../../source/for_users/datasets/output_data.rst:109
-#: ../../source/for_users/datasets/output_data.rst:121
-#: ../../source/for_users/datasets/output_data.rst:135
-#: ../../source/for_users/datasets/output_data.rst:147
-#: ../../source/for_users/datasets/output_data.rst:434
-#: ../../source/for_users/datasets/output_data.rst:447
-#: ../../source/for_users/datasets/output_data.rst:463
-#: ../../source/for_users/datasets/output_data.rst:554
-#: ../../source/for_users/datasets/output_data.rst:570
-msgid "Any other value"
+#: ../../source/for_users/datasets/output_data.rst:46
+msgid "Degradation (persistent)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:49
-msgid "Linear trend of annually integrated NDVI, scaled by 10,000"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:54
-msgid "Productivity trajectory (significance)"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:61
-msgid "-3"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:61
-msgid "Significant decline (p > .99)"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:63
-msgid "-2"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:63
-msgid "Significant decline (p > .95)"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:65
-msgid "Significant decline (p > .90)"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:67
-msgid "No significant change"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:69
-msgid "Significant increase (p > .90)"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:71
-#: ../../source/for_users/datasets/output_data.rst:162
-#: ../../source/for_users/datasets/output_data.rst:181
-#: ../../source/for_users/datasets/output_data.rst:218
-#: ../../source/for_users/datasets/output_data.rst:326
-#: ../../source/for_users/datasets/output_data.rst:507
-#: ../../source/for_users/datasets/output_data.rst:536
+#: ../../source/for_users/datasets/output_data.rst:48
+#: ../../source/for_users/datasets/output_data.rst:95
+#: ../../source/for_users/datasets/output_data.rst:186
+#: ../../source/for_users/datasets/output_data.rst:205
+#: ../../source/for_users/datasets/output_data.rst:242
+#: ../../source/for_users/datasets/output_data.rst:350
+#: ../../source/for_users/datasets/output_data.rst:531
+#: ../../source/for_users/datasets/output_data.rst:560
 msgid "2"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:71
-msgid "Significant increase (p > .95)"
+#: ../../source/for_users/datasets/output_data.rst:48
+msgid "Degradation (recent)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:73
-#: ../../source/for_users/datasets/output_data.rst:164
-#: ../../source/for_users/datasets/output_data.rst:183
-#: ../../source/for_users/datasets/output_data.rst:220
-#: ../../source/for_users/datasets/output_data.rst:328
-#: ../../source/for_users/datasets/output_data.rst:509
-#: ../../source/for_users/datasets/output_data.rst:538
+#: ../../source/for_users/datasets/output_data.rst:50
+#: ../../source/for_users/datasets/output_data.rst:97
+#: ../../source/for_users/datasets/output_data.rst:188
+#: ../../source/for_users/datasets/output_data.rst:207
+#: ../../source/for_users/datasets/output_data.rst:244
+#: ../../source/for_users/datasets/output_data.rst:352
+#: ../../source/for_users/datasets/output_data.rst:533
+#: ../../source/for_users/datasets/output_data.rst:562
 msgid "3"
 msgstr ""
 
+#: ../../source/for_users/datasets/output_data.rst:50
+msgid "Degradation (baseline)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:52
+#: ../../source/for_users/datasets/output_data.rst:190
+#: ../../source/for_users/datasets/output_data.rst:209
+#: ../../source/for_users/datasets/output_data.rst:246
+#: ../../source/for_users/datasets/output_data.rst:354
+#: ../../source/for_users/datasets/output_data.rst:535
+#: ../../source/for_users/datasets/output_data.rst:564
+msgid "4"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:52
+#, fuzzy
+msgid "Stability"
+msgstr "Imara"
+
+#: ../../source/for_users/datasets/output_data.rst:54
+#: ../../source/for_users/datasets/output_data.rst:192
+#: ../../source/for_users/datasets/output_data.rst:211
+#: ../../source/for_users/datasets/output_data.rst:248
+#: ../../source/for_users/datasets/output_data.rst:356
+#: ../../source/for_users/datasets/output_data.rst:537
+msgid "5"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:54
+msgid "Improvement (baseline)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:56
+#: ../../source/for_users/datasets/output_data.rst:250
+#: ../../source/for_users/datasets/output_data.rst:358
+#: ../../source/for_users/datasets/output_data.rst:539
+msgid "6"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:56
+msgid "Improvement (recent)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:58
+#: ../../source/for_users/datasets/output_data.rst:252
+#: ../../source/for_users/datasets/output_data.rst:360
+#: ../../source/for_users/datasets/output_data.rst:541
+msgid "7"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:58
+msgid "Improvement (persistent)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:63
+msgid "Productivity"
+msgstr "Uzalishaji"
+
+#: ../../source/for_users/datasets/output_data.rst:66
+msgid "Productivity trajectory (trend)"
+msgstr ""
+
 #: ../../source/for_users/datasets/output_data.rst:73
-msgid "Significant increase (p > .99)"
+#: ../../source/for_users/datasets/output_data.rst:133
+#: ../../source/for_users/datasets/output_data.rst:145
+#: ../../source/for_users/datasets/output_data.rst:159
+#: ../../source/for_users/datasets/output_data.rst:171
+#: ../../source/for_users/datasets/output_data.rst:458
+#: ../../source/for_users/datasets/output_data.rst:471
+#: ../../source/for_users/datasets/output_data.rst:487
+#: ../../source/for_users/datasets/output_data.rst:578
+#: ../../source/for_users/datasets/output_data.rst:594
+msgid "Any other value"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:77
-msgid "Productivity performance (degradation)"
+#: ../../source/for_users/datasets/output_data.rst:73
+msgid "Linear trend of annually integrated NDVI, scaled by 10,000"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:90
-msgid "Productivity performance (ratio)"
+#: ../../source/for_users/datasets/output_data.rst:78
+msgid "Productivity trajectory (significance)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:85
+msgid "-3"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:85
+msgid "Significant decline (p > .99)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:87
+msgid "-2"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:87
+msgid "Significant decline (p > .95)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:89
+msgid "Significant decline (p > .90)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:91
+msgid "No significant change"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:93
+msgid "Significant increase (p > .90)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:95
+msgid "Significant increase (p > .95)"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:97
+msgid "Significant increase (p > .99)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:101
+msgid "Productivity performance (degradation)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:114
+msgid "Productivity performance (ratio)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:121
 msgid ""
 "Ratio of mean NDVI and maximum productivity. See background on "
 "`performance <../background/understanding_indicators15.html#productivity-"
 "performance>`_."
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:102
+#: ../../source/for_users/datasets/output_data.rst:126
 msgid "Productivity performance (units)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:109
+#: ../../source/for_users/datasets/output_data.rst:133
 msgid ""
 "ID number of unit used to calculate performance. See background on "
 "`performance <../background/understanding_indicators15.html#productivity-"
 "performance>`_."
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:114
+#: ../../source/for_users/datasets/output_data.rst:138
 msgid "Productivity state (degradation)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:121
+#: ../../source/for_users/datasets/output_data.rst:145
 msgid ""
 "Change in productivity state classes between baseline and target period, "
 "calculated as the rank in the target period minus the rank in the "
@@ -335,22 +408,22 @@ msgid ""
 "indicate decline."
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:128
+#: ../../source/for_users/datasets/output_data.rst:152
 msgid "Productivity state classes"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:135
+#: ../../source/for_users/datasets/output_data.rst:159
 msgid ""
 "Percentile class for productivity state. See background on `productivity "
 "state <../background/understanding_indicators15.html#productivity-"
 "state>`_."
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:140
+#: ../../source/for_users/datasets/output_data.rst:164
 msgid "Productivity state NDVI mean"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:147
+#: ../../source/for_users/datasets/output_data.rst:171
 msgid ""
 "Mean annually integrated NDVI for the baseline period chosen for "
 "productivity state, scaled by 10,000. See background on `productivity "
@@ -358,808 +431,779 @@ msgid ""
 "state>`_."
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:153
+#: ../../source/for_users/datasets/output_data.rst:177
 msgid "SDG 15.3.1 productivity indicator"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:160
-#: ../../source/for_users/datasets/output_data.rst:179
+#: ../../source/for_users/datasets/output_data.rst:184
+#: ../../source/for_users/datasets/output_data.rst:203
 msgid "Declining"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:162
+#: ../../source/for_users/datasets/output_data.rst:186
 msgid "Early signs of decline"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:164
+#: ../../source/for_users/datasets/output_data.rst:188
 msgid "Stable but stressed"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:166
-#: ../../source/for_users/datasets/output_data.rst:185
-#: ../../source/for_users/datasets/output_data.rst:222
-#: ../../source/for_users/datasets/output_data.rst:330
-#: ../../source/for_users/datasets/output_data.rst:511
-#: ../../source/for_users/datasets/output_data.rst:540
-msgid "4"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:166
-#: ../../source/for_users/datasets/output_data.rst:185
+#: ../../source/for_users/datasets/output_data.rst:190
+#: ../../source/for_users/datasets/output_data.rst:209
 msgid "Stable"
 msgstr "Imara"
 
-#: ../../source/for_users/datasets/output_data.rst:168
-#: ../../source/for_users/datasets/output_data.rst:187
-#: ../../source/for_users/datasets/output_data.rst:224
-#: ../../source/for_users/datasets/output_data.rst:332
-#: ../../source/for_users/datasets/output_data.rst:513
-msgid "5"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:168
-#: ../../source/for_users/datasets/output_data.rst:187
+#: ../../source/for_users/datasets/output_data.rst:192
+#: ../../source/for_users/datasets/output_data.rst:211
 msgid "Increasing"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:172
-msgid "Land Productivity Dynamics - JRC"
+#: ../../source/for_users/datasets/output_data.rst:196
+msgid "Land Productivity Dynamics - (Trends.Earth, JRC, and FAO-WOCAT)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:181
+#: ../../source/for_users/datasets/output_data.rst:205
 msgid "Moderate decline"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:183
+#: ../../source/for_users/datasets/output_data.rst:207
 msgid "Stressed"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:191
+#: ../../source/for_users/datasets/output_data.rst:215
 msgid "Land cover"
 msgstr "Bima ya ardhi"
 
-#: ../../source/for_users/datasets/output_data.rst:194
+#: ../../source/for_users/datasets/output_data.rst:218
 msgid "Land cover (degradation)"
 msgstr "Kifuniko cha ardhi (uharibifu)"
 
-#: ../../source/for_users/datasets/output_data.rst:209
+#: ../../source/for_users/datasets/output_data.rst:233
 msgid "Land cover (7 class)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:216
+#: ../../source/for_users/datasets/output_data.rst:240
 msgid "Tree-covered"
 msgstr "Iliyofunikwa na mti"
 
-#: ../../source/for_users/datasets/output_data.rst:218
+#: ../../source/for_users/datasets/output_data.rst:242
 msgid "Grasslands"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:220
+#: ../../source/for_users/datasets/output_data.rst:244
 msgid "Cropland"
 msgstr "Cropland"
 
-#: ../../source/for_users/datasets/output_data.rst:222
+#: ../../source/for_users/datasets/output_data.rst:246
 msgid "Wetland"
 msgstr "Mazingira"
 
-#: ../../source/for_users/datasets/output_data.rst:224
+#: ../../source/for_users/datasets/output_data.rst:248
 msgid "Artificial"
 msgstr "Bandia"
 
-#: ../../source/for_users/datasets/output_data.rst:226
-#: ../../source/for_users/datasets/output_data.rst:334
-#: ../../source/for_users/datasets/output_data.rst:515
-msgid "6"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:226
+#: ../../source/for_users/datasets/output_data.rst:250
 msgid "Other land"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:228
-#: ../../source/for_users/datasets/output_data.rst:336
-#: ../../source/for_users/datasets/output_data.rst:517
-msgid "7"
-msgstr ""
-
-#: ../../source/for_users/datasets/output_data.rst:228
+#: ../../source/for_users/datasets/output_data.rst:252
 msgid "Water body"
 msgstr "Mwili wa maji"
 
-#: ../../source/for_users/datasets/output_data.rst:232
+#: ../../source/for_users/datasets/output_data.rst:256
 msgid "Land cover (ESA classes)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:239
+#: ../../source/for_users/datasets/output_data.rst:263
 msgid "10"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:239
+#: ../../source/for_users/datasets/output_data.rst:263
 msgid "Cropland, rainfed"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:241
+#: ../../source/for_users/datasets/output_data.rst:265
 msgid "11"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:241
+#: ../../source/for_users/datasets/output_data.rst:265
 msgid "Herbaceous cover"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:243
-#: ../../source/for_users/datasets/output_data.rst:338
+#: ../../source/for_users/datasets/output_data.rst:267
+#: ../../source/for_users/datasets/output_data.rst:362
 msgid "12"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:243
+#: ../../source/for_users/datasets/output_data.rst:267
 msgid "Tree or shrub cover"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:245
+#: ../../source/for_users/datasets/output_data.rst:269
 msgid "20"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:245
+#: ../../source/for_users/datasets/output_data.rst:269
 msgid "Cropland, irrigated or post‐flooding"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:247
+#: ../../source/for_users/datasets/output_data.rst:271
 msgid "30"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:247
+#: ../../source/for_users/datasets/output_data.rst:271
 msgid ""
 "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous "
 "cover) (<50%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:250
+#: ../../source/for_users/datasets/output_data.rst:274
 msgid "40"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:250
+#: ../../source/for_users/datasets/output_data.rst:274
 msgid ""
 "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / "
 "cropland (<50%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:253
+#: ../../source/for_users/datasets/output_data.rst:277
 msgid "50"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:253
+#: ../../source/for_users/datasets/output_data.rst:277
 msgid "Tree cover, broadleaved, evergreen, closed to open (>15%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:255
+#: ../../source/for_users/datasets/output_data.rst:279
 msgid "60"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:255
+#: ../../source/for_users/datasets/output_data.rst:279
 msgid "Tree cover, broadleaved, deciduous, closed to open (>15%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:257
-#: ../../source/for_users/datasets/output_data.rst:398
+#: ../../source/for_users/datasets/output_data.rst:281
+#: ../../source/for_users/datasets/output_data.rst:422
 msgid "61"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:257
+#: ../../source/for_users/datasets/output_data.rst:281
 msgid "Tree cover, broadleaved, deciduous, closed (>40%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:259
-#: ../../source/for_users/datasets/output_data.rst:400
+#: ../../source/for_users/datasets/output_data.rst:283
+#: ../../source/for_users/datasets/output_data.rst:424
 msgid "62"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:259
+#: ../../source/for_users/datasets/output_data.rst:283
 msgid "Tree cover, broadleaved, deciduous, open (15‐40%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:261
+#: ../../source/for_users/datasets/output_data.rst:285
 msgid "70"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:261
+#: ../../source/for_users/datasets/output_data.rst:285
 msgid "Tree cover, needleleaved, evergreen, closed to open (>15%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:263
-#: ../../source/for_users/datasets/output_data.rst:410
+#: ../../source/for_users/datasets/output_data.rst:287
+#: ../../source/for_users/datasets/output_data.rst:434
 msgid "71"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:263
+#: ../../source/for_users/datasets/output_data.rst:287
 msgid "Tree cover, needleleaved, evergreen, closed (>40%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:265
-#: ../../source/for_users/datasets/output_data.rst:412
+#: ../../source/for_users/datasets/output_data.rst:289
+#: ../../source/for_users/datasets/output_data.rst:436
 msgid "72"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:265
+#: ../../source/for_users/datasets/output_data.rst:289
 msgid "Tree cover, needleleaved, evergreen, open (15‐40%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:267
+#: ../../source/for_users/datasets/output_data.rst:291
 msgid "80"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:267
+#: ../../source/for_users/datasets/output_data.rst:291
 msgid "Tree cover, needleleaved, deciduous, closed to open (>15%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:269
+#: ../../source/for_users/datasets/output_data.rst:293
 msgid "81"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:269
+#: ../../source/for_users/datasets/output_data.rst:293
 msgid "Tree cover, needleleaved, deciduous, closed (>40%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:271
+#: ../../source/for_users/datasets/output_data.rst:295
 msgid "82"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:271
+#: ../../source/for_users/datasets/output_data.rst:295
 msgid "Tree cover, needleleaved, deciduous, open (15‐40%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:273
+#: ../../source/for_users/datasets/output_data.rst:297
 msgid "90"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:273
+#: ../../source/for_users/datasets/output_data.rst:297
 msgid "Tree cover, mixed leaf type (broadleaved and needleleaved)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:275
+#: ../../source/for_users/datasets/output_data.rst:299
 msgid "100"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:275
+#: ../../source/for_users/datasets/output_data.rst:299
 msgid "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:277
+#: ../../source/for_users/datasets/output_data.rst:301
 msgid "110"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:277
+#: ../../source/for_users/datasets/output_data.rst:301
 msgid "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:279
+#: ../../source/for_users/datasets/output_data.rst:303
 msgid "120"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:279
+#: ../../source/for_users/datasets/output_data.rst:303
 msgid "Shrubland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:281
+#: ../../source/for_users/datasets/output_data.rst:305
 msgid "121"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:281
+#: ../../source/for_users/datasets/output_data.rst:305
 msgid "Evergreen shrubland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:283
+#: ../../source/for_users/datasets/output_data.rst:307
 msgid "122"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:283
+#: ../../source/for_users/datasets/output_data.rst:307
 msgid "Deciduous shrubland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:285
+#: ../../source/for_users/datasets/output_data.rst:309
 msgid "130"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:285
+#: ../../source/for_users/datasets/output_data.rst:309
 msgid "Grassland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:287
+#: ../../source/for_users/datasets/output_data.rst:311
 msgid "140"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:287
+#: ../../source/for_users/datasets/output_data.rst:311
 msgid "Lichens and mosses"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:289
+#: ../../source/for_users/datasets/output_data.rst:313
 msgid "150"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:289
+#: ../../source/for_users/datasets/output_data.rst:313
 msgid "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:291
+#: ../../source/for_users/datasets/output_data.rst:315
 msgid "151"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:291
+#: ../../source/for_users/datasets/output_data.rst:315
 msgid "Sparse tree (<15%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:293
+#: ../../source/for_users/datasets/output_data.rst:317
 msgid "152"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:293
+#: ../../source/for_users/datasets/output_data.rst:317
 msgid "Sparse shrub (<15%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:295
+#: ../../source/for_users/datasets/output_data.rst:319
 msgid "153"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:295
+#: ../../source/for_users/datasets/output_data.rst:319
 msgid "Sparse herbaceous cover (<15%)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:297
+#: ../../source/for_users/datasets/output_data.rst:321
 msgid "160"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:297
+#: ../../source/for_users/datasets/output_data.rst:321
 msgid "Tree cover, flooded, fresh or brakish water"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:299
+#: ../../source/for_users/datasets/output_data.rst:323
 msgid "170"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:299
+#: ../../source/for_users/datasets/output_data.rst:323
 msgid "Tree cover, flooded, saline water"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:301
+#: ../../source/for_users/datasets/output_data.rst:325
 msgid "180"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:301
+#: ../../source/for_users/datasets/output_data.rst:325
 msgid "Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:303
+#: ../../source/for_users/datasets/output_data.rst:327
 msgid "190"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:303
+#: ../../source/for_users/datasets/output_data.rst:327
 msgid "Urban areas"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:305
+#: ../../source/for_users/datasets/output_data.rst:329
 msgid "200"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:305
+#: ../../source/for_users/datasets/output_data.rst:329
 msgid "Bare areas"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:307
+#: ../../source/for_users/datasets/output_data.rst:331
 msgid "201"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:307
+#: ../../source/for_users/datasets/output_data.rst:331
 msgid "Consolidated bare areas"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:309
+#: ../../source/for_users/datasets/output_data.rst:333
 msgid "202"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:309
+#: ../../source/for_users/datasets/output_data.rst:333
 msgid "Unconsolidated bare areas"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:311
+#: ../../source/for_users/datasets/output_data.rst:335
 msgid "210"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:311
+#: ../../source/for_users/datasets/output_data.rst:335
 msgid "Water bodies"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:313
+#: ../../source/for_users/datasets/output_data.rst:337
 msgid "220"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:313
+#: ../../source/for_users/datasets/output_data.rst:337
 msgid "Permanent snow and ice"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:317
+#: ../../source/for_users/datasets/output_data.rst:341
 msgid "Land cover (transitions)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:324
+#: ../../source/for_users/datasets/output_data.rst:348
 msgid "Tree-covered - Tree-covered (no change)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:326
+#: ../../source/for_users/datasets/output_data.rst:350
 msgid "Grassland - Grassland (no change)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:328
+#: ../../source/for_users/datasets/output_data.rst:352
 msgid "Cropland - Cropland (no change)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:330
+#: ../../source/for_users/datasets/output_data.rst:354
 msgid "Wetland - Wetland (no change)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:332
+#: ../../source/for_users/datasets/output_data.rst:356
 msgid "Artificial - Artificial (no change)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:334
+#: ../../source/for_users/datasets/output_data.rst:358
 msgid "Other land - Other land (no change)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:336
+#: ../../source/for_users/datasets/output_data.rst:360
 msgid "Water body - Water body (no change)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:338
+#: ../../source/for_users/datasets/output_data.rst:362
 msgid "Forest - Grassland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:340
+#: ../../source/for_users/datasets/output_data.rst:364
 msgid "13"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:340
+#: ../../source/for_users/datasets/output_data.rst:364
 msgid "Forest - Cropland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:342
+#: ../../source/for_users/datasets/output_data.rst:366
 msgid "14"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:342
+#: ../../source/for_users/datasets/output_data.rst:366
 msgid "Forest - Wetland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:344
+#: ../../source/for_users/datasets/output_data.rst:368
 msgid "15"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:344
+#: ../../source/for_users/datasets/output_data.rst:368
 msgid "Forest - Artificial"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:346
+#: ../../source/for_users/datasets/output_data.rst:370
 msgid "16"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:346
+#: ../../source/for_users/datasets/output_data.rst:370
 msgid "Forest - Other land"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:348
+#: ../../source/for_users/datasets/output_data.rst:372
 msgid "17"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:348
+#: ../../source/for_users/datasets/output_data.rst:372
 msgid "Forest - Water body"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:350
+#: ../../source/for_users/datasets/output_data.rst:374
 msgid "21"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:350
+#: ../../source/for_users/datasets/output_data.rst:374
 msgid "Grassland - Forest"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:352
+#: ../../source/for_users/datasets/output_data.rst:376
 msgid "23"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:352
+#: ../../source/for_users/datasets/output_data.rst:376
 msgid "Grassland - Cropland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:354
+#: ../../source/for_users/datasets/output_data.rst:378
 msgid "24"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:354
+#: ../../source/for_users/datasets/output_data.rst:378
 msgid "Grassland - Wetland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:356
+#: ../../source/for_users/datasets/output_data.rst:380
 msgid "25"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:356
+#: ../../source/for_users/datasets/output_data.rst:380
 msgid "Grassland - Artificial"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:358
+#: ../../source/for_users/datasets/output_data.rst:382
 msgid "26"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:358
+#: ../../source/for_users/datasets/output_data.rst:382
 msgid "Grassland - Other land"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:360
+#: ../../source/for_users/datasets/output_data.rst:384
 msgid "27"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:360
+#: ../../source/for_users/datasets/output_data.rst:384
 msgid "Grassland - Water body"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:362
+#: ../../source/for_users/datasets/output_data.rst:386
 msgid "31"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:362
+#: ../../source/for_users/datasets/output_data.rst:386
 msgid "Cropland - Forest"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:364
+#: ../../source/for_users/datasets/output_data.rst:388
 msgid "32"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:364
+#: ../../source/for_users/datasets/output_data.rst:388
 msgid "Cropland - Grassland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:366
+#: ../../source/for_users/datasets/output_data.rst:390
 msgid "34"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:366
+#: ../../source/for_users/datasets/output_data.rst:390
 msgid "Cropland - Wetland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:368
+#: ../../source/for_users/datasets/output_data.rst:392
 msgid "35"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:368
+#: ../../source/for_users/datasets/output_data.rst:392
 msgid "Cropland - Artificial"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:370
+#: ../../source/for_users/datasets/output_data.rst:394
 msgid "36"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:370
+#: ../../source/for_users/datasets/output_data.rst:394
 msgid "Cropland - Other land"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:372
+#: ../../source/for_users/datasets/output_data.rst:396
 msgid "37"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:372
+#: ../../source/for_users/datasets/output_data.rst:396
 msgid "Cropland - Water body"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:374
+#: ../../source/for_users/datasets/output_data.rst:398
 msgid "41"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:374
+#: ../../source/for_users/datasets/output_data.rst:398
 msgid "Wetland - Forest"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:376
+#: ../../source/for_users/datasets/output_data.rst:400
 msgid "42"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:376
+#: ../../source/for_users/datasets/output_data.rst:400
 msgid "Wetland - Grassland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:378
+#: ../../source/for_users/datasets/output_data.rst:402
 msgid "43"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:378
+#: ../../source/for_users/datasets/output_data.rst:402
 msgid "Wetland - Cropland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:380
+#: ../../source/for_users/datasets/output_data.rst:404
 msgid "45"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:380
+#: ../../source/for_users/datasets/output_data.rst:404
 msgid "Wetland - Artificial"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:382
+#: ../../source/for_users/datasets/output_data.rst:406
 msgid "46"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:382
+#: ../../source/for_users/datasets/output_data.rst:406
 msgid "Wetland - Other land"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:384
+#: ../../source/for_users/datasets/output_data.rst:408
 msgid "47"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:384
+#: ../../source/for_users/datasets/output_data.rst:408
 msgid "Wetland - Water body"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:386
+#: ../../source/for_users/datasets/output_data.rst:410
 msgid "51"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:386
+#: ../../source/for_users/datasets/output_data.rst:410
 msgid "Artificial - Forest"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:388
+#: ../../source/for_users/datasets/output_data.rst:412
 msgid "52"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:388
+#: ../../source/for_users/datasets/output_data.rst:412
 msgid "Artificial - Grassland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:390
+#: ../../source/for_users/datasets/output_data.rst:414
 msgid "53"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:390
+#: ../../source/for_users/datasets/output_data.rst:414
 msgid "Artificial - Cropland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:392
+#: ../../source/for_users/datasets/output_data.rst:416
 msgid "54"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:392
+#: ../../source/for_users/datasets/output_data.rst:416
 msgid "Artificial - Wetland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:394
+#: ../../source/for_users/datasets/output_data.rst:418
 msgid "56"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:394
+#: ../../source/for_users/datasets/output_data.rst:418
 msgid "Artificial - Other land"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:396
+#: ../../source/for_users/datasets/output_data.rst:420
 msgid "57"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:396
+#: ../../source/for_users/datasets/output_data.rst:420
 msgid "Artificial - Water body"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:398
+#: ../../source/for_users/datasets/output_data.rst:422
 msgid "Other land - Forest"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:400
+#: ../../source/for_users/datasets/output_data.rst:424
 msgid "Other land - Grassland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:402
+#: ../../source/for_users/datasets/output_data.rst:426
 msgid "63"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:402
+#: ../../source/for_users/datasets/output_data.rst:426
 msgid "Other land - Cropland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:404
+#: ../../source/for_users/datasets/output_data.rst:428
 msgid "64"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:404
+#: ../../source/for_users/datasets/output_data.rst:428
 msgid "Other land - Wetland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:406
+#: ../../source/for_users/datasets/output_data.rst:430
 msgid "65"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:406
+#: ../../source/for_users/datasets/output_data.rst:430
 msgid "Other land - Artificial"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:408
+#: ../../source/for_users/datasets/output_data.rst:432
 msgid "67"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:408
+#: ../../source/for_users/datasets/output_data.rst:432
 msgid "Other land - Water body"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:410
+#: ../../source/for_users/datasets/output_data.rst:434
 msgid "Water body - Forest"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:412
+#: ../../source/for_users/datasets/output_data.rst:436
 msgid "Water body - Grassland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:414
+#: ../../source/for_users/datasets/output_data.rst:438
 msgid "73"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:414
+#: ../../source/for_users/datasets/output_data.rst:438
 msgid "Water body - Cropland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:416
+#: ../../source/for_users/datasets/output_data.rst:440
 msgid "74"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:416
+#: ../../source/for_users/datasets/output_data.rst:440
 msgid "Water body - Wetland"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:418
+#: ../../source/for_users/datasets/output_data.rst:442
 msgid "75"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:418
+#: ../../source/for_users/datasets/output_data.rst:442
 msgid "Water body - Artificial"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:420
+#: ../../source/for_users/datasets/output_data.rst:444
 msgid "76"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:420
+#: ../../source/for_users/datasets/output_data.rst:444
 msgid "Water body - Other land"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:424
-#: ../../source/for_users/datasets/output_data.rst:440
+#: ../../source/for_users/datasets/output_data.rst:448
+#: ../../source/for_users/datasets/output_data.rst:464
 msgid "Soil organic carbon"
 msgstr "Mkaa kaboni ya udongo"
 
-#: ../../source/for_users/datasets/output_data.rst:427
+#: ../../source/for_users/datasets/output_data.rst:451
 msgid "Soil organic carbon (degradation)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:434
+#: ../../source/for_users/datasets/output_data.rst:458
 msgid ""
 "Percentage change in soil organic carbon content (0 - 30 cm depth) from "
 "baseline to target year. Positive values indicate increase, negative "
 "values indicate decrease."
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:447
+#: ../../source/for_users/datasets/output_data.rst:471
 msgid "Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:452
+#: ../../source/for_users/datasets/output_data.rst:476
 msgid "Drought hazard, vulnerability, and exposure"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:456
+#: ../../source/for_users/datasets/output_data.rst:480
 msgid "Standardized Precipitation Index (SPI)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:463
+#: ../../source/for_users/datasets/output_data.rst:487
 msgid "Standardized precipitation index, scaled * 1000"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:468
+#: ../../source/for_users/datasets/output_data.rst:492
 msgid "Population at maximum drought"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:470
+#: ../../source/for_users/datasets/output_data.rst:494
 msgid ""
 "As an indicator of population exposure to drought, Trends.Earth's drought"
 " tools produce a layer assessing total population (or male or female "
@@ -1168,11 +1212,11 @@ msgid ""
 " an SPI less than -1.0 (a lag 12 SPI is the default used in the tool)."
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:481
+#: ../../source/for_users/datasets/output_data.rst:505
 msgid "Any negative value"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:481
+#: ../../source/for_users/datasets/output_data.rst:505
 msgid ""
 "A negative value indicates a pixel **was** exposed to drought (defined as"
 " SPI < -1) during a particular (typically four- year) period. The pixel "
@@ -1180,108 +1224,108 @@ msgid ""
 "drought."
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:486
+#: ../../source/for_users/datasets/output_data.rst:510
 msgid "Any positive value"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:486
+#: ../../source/for_users/datasets/output_data.rst:510
 msgid ""
 "A positive value indicates a pixel **was not** exposed to drought during "
 "a particular (typically four-year) period. The pixel value indicates the "
 "maximum population of the pixel during the period."
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:494
+#: ../../source/for_users/datasets/output_data.rst:518
 msgid "Sustainable urbanization (SDG 11.3.1)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:498
-#: ../../source/for_users/datasets/output_data.rst:505
+#: ../../source/for_users/datasets/output_data.rst:522
+#: ../../source/for_users/datasets/output_data.rst:529
 msgid "Urban"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:507
+#: ../../source/for_users/datasets/output_data.rst:531
 msgid "Suburban"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:509
+#: ../../source/for_users/datasets/output_data.rst:533
 msgid "Built-up rural"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:511
+#: ../../source/for_users/datasets/output_data.rst:535
 msgid "Open space (fringe)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:513
+#: ../../source/for_users/datasets/output_data.rst:537
 msgid "Open space (captured)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:515
+#: ../../source/for_users/datasets/output_data.rst:539
 msgid "Open space (rural)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:517
+#: ../../source/for_users/datasets/output_data.rst:541
 msgid "Open space (fringe water)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:519
+#: ../../source/for_users/datasets/output_data.rst:543
 msgid "8"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:519
+#: ../../source/for_users/datasets/output_data.rst:543
 msgid "Open space (captured water)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:521
+#: ../../source/for_users/datasets/output_data.rst:545
 msgid "9"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:521
+#: ../../source/for_users/datasets/output_data.rst:545
 msgid "Open space (rural water)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:525
+#: ../../source/for_users/datasets/output_data.rst:549
 msgid "Urban series"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:532
+#: ../../source/for_users/datasets/output_data.rst:556
 msgid "Water"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:534
+#: ../../source/for_users/datasets/output_data.rst:558
 msgid "Built up by 2000"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:536
+#: ../../source/for_users/datasets/output_data.rst:560
 msgid "Built up by 2005"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:538
+#: ../../source/for_users/datasets/output_data.rst:562
 msgid "Built up by 2010"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:540
+#: ../../source/for_users/datasets/output_data.rst:564
 msgid "Built up by 2015"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:544
+#: ../../source/for_users/datasets/output_data.rst:568
 msgid "Population"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:547
+#: ../../source/for_users/datasets/output_data.rst:571
 msgid "Population density"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:554
-#: ../../source/for_users/datasets/output_data.rst:570
+#: ../../source/for_users/datasets/output_data.rst:578
+#: ../../source/for_users/datasets/output_data.rst:594
 msgid "Population density in persons per sq km"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:558
+#: ../../source/for_users/datasets/output_data.rst:582
 msgid "Population (total, male, or female)"
 msgstr ""
 
-#: ../../source/for_users/datasets/output_data.rst:560
+#: ../../source/for_users/datasets/output_data.rst:584
 msgid ""
 "This output draws on data from the `WorldPop <https://www.worldpop.org>`_"
 " project. Depending on the tool used in Trends.Earth, population outputs "
@@ -1304,5 +1348,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "iconReports"
+#~ msgstr ""
+
+#~ msgid "Land Productivity Dynamics - JRC"
 #~ msgstr ""
 

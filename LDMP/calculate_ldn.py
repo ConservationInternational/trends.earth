@@ -25,7 +25,7 @@ from te_schemas.algorithms import ExecutionScript
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
 
-from . import conf, data_io, lc_setup
+from . import conf, lc_setup
 from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import ldn
@@ -1173,6 +1173,8 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.on_add_progress_period_clicked
         )
 
+        self.combo_boxes = dict()
+
         self._finish_initialization()
 
         self.combo_datasets_baseline.NO_DATASETS_MESSAGE = self.tr(
@@ -1625,60 +1627,61 @@ class DlgCalculateLDNSummaryTableAdmin(
         # Progress
 
         if self.checkBox_progress_period.isChecked():
-            prod_mode_progress = self._get_prod_mode(
-                self.radio_lpd_te, self.radio_fao_wocat
-            )
-
-            if self.radio_population_progress_bysex.isChecked():
-                pop_mode_progress = ldn.PopulationMode.BySex.value
-            else:
-                pop_mode_progress = ldn.PopulationMode.Total.value
-
-            if (
-                not self.validate_layer_selections(
-                    self.combo_boxes["progress"], pop_mode_progress
+            for key, combobox in list(self.combo_boxes.items()):
+                if key == "baseline":
+                    continue
+                prod_mode_progress = self._get_prod_mode(
+                    self.radio_lpd_te, self.radio_fao_wocat
                 )
-                or not self.validate_layer_crs(
-                    self.combo_boxes["progress"], pop_mode_progress
-                )
-                or not self.validate_layer_extents(
-                    self.combo_boxes["progress"], pop_mode_progress
-                )
-            ):
-                log("failed progress layer validation")
 
-                return
+                if self.radio_population_progress_bysex.isChecked():
+                    pop_mode_progress = ldn.PopulationMode.BySex.value
+                else:
+                    pop_mode_progress = ldn.PopulationMode.Total.value
 
-            periods.append(
-                {
-                    "name": "progress",
-                    "params": ldn.get_main_sdg_15_3_1_job_params(
-                        task_name=self.options_tab.task_name.text(),
-                        aoi=self.aoi,
-                        prod_mode=prod_mode_progress,
-                        pop_mode=pop_mode_progress,
-                        period_name="progress",
-                        combo_layer_lc=self.combo_boxes["progress"].combo_layer_lc,
-                        combo_layer_soc=self.combo_boxes["progress"].combo_layer_soc,
-                        combo_layer_traj=self.combo_boxes["progress"].combo_layer_traj,
-                        combo_layer_perf=self.combo_boxes["progress"].combo_layer_perf,
-                        combo_layer_state=self.combo_boxes[
-                            "progress"
-                        ].combo_layer_state,
-                        combo_layer_lpd=self.combo_boxes["progress"].combo_layer_lpd,
-                        combo_layer_pop_total=self.combo_boxes[
-                            "progress"
-                        ].combo_layer_pop_total,
-                        combo_layer_pop_male=self.combo_boxes[
-                            "progress"
-                        ].combo_layer_pop_male,
-                        combo_layer_pop_female=self.combo_boxes[
-                            "progress"
-                        ].combo_layer_pop_female,
-                        task_notes=self.options_tab.task_notes.toPlainText(),
-                    ),
-                }
-            )
+                if (
+                    not self.validate_layer_selections(
+                        self.combo_boxes[key], pop_mode_progress
+                    )
+                    or not self.validate_layer_crs(
+                        self.combo_boxes[key], pop_mode_progress
+                    )
+                    or not self.validate_layer_extents(
+                        self.combo_boxes[key], pop_mode_progress
+                    )
+                ):
+                    log("failed progress layer validation")
+
+                    return
+
+                periods.append(
+                    {
+                        "name": key,
+                        "params": ldn.get_main_sdg_15_3_1_job_params(
+                            task_name=self.options_tab.task_name.text(),
+                            aoi=self.aoi,
+                            prod_mode=prod_mode_progress,
+                            pop_mode=pop_mode_progress,
+                            period_name=key,
+                            combo_layer_lc=self.combo_boxes[key].combo_layer_lc,
+                            combo_layer_soc=self.combo_boxes[key].combo_layer_soc,
+                            combo_layer_traj=self.combo_boxes[key].combo_layer_traj,
+                            combo_layer_perf=self.combo_boxes[key].combo_layer_perf,
+                            combo_layer_state=self.combo_boxes[key].combo_layer_state,
+                            combo_layer_lpd=self.combo_boxes[key].combo_layer_lpd,
+                            combo_layer_pop_total=self.combo_boxes[
+                                key
+                            ].combo_layer_pop_total,
+                            combo_layer_pop_male=self.combo_boxes[
+                                key
+                            ].combo_layer_pop_male,
+                            combo_layer_pop_female=self.combo_boxes[
+                                key
+                            ].combo_layer_pop_female,
+                            task_notes=self.options_tab.task_notes.toPlainText(),
+                        ),
+                    }
+                )
 
         params = {
             "periods": periods,

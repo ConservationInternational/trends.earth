@@ -294,10 +294,53 @@ def _get_population(params, logger):
     """Return WorldPop population data for a given year"""
     logger.debug("Returning population image")
     year = params["year"]
+    asset = params["asset"]
 
-    wp = ee.ImageCollection(params["asset"]).filterDate(
-        f"{year}-01-01", f"{year + 1}-01-01"
-    )
+    # Try to get data for the requested year first
+    wp = ee.ImageCollection(asset).filterDate(f"{year}-01-01", f"{year + 1}-01-01")
+
+    if params.get("fake_data", False):
+        # Check if data exists for the requested year
+        data_exists = wp.size().gt(0)
+
+        # If no data exists and fake_data is enabled, find closest available year
+        def use_closest_year():
+            # Get all available images and extract years
+            all_images = ee.ImageCollection(asset)
+
+            def extract_year(image):
+                date = ee.Date(image.get("system:time_start"))
+                return image.set("year", date.get("year"))
+
+            # Get all available years, sorted
+            images_with_years = all_images.map(extract_year)
+            available_years = (
+                images_with_years.distinct("year").aggregate_array("year").sort()
+            )
+
+            # Find the closest year to our target
+            target_year = ee.Number(year)
+            differences = available_years.map(
+                lambda y: ee.Number(y).subtract(target_year).abs()
+            )
+            min_diff = differences.reduce(ee.Reducer.min())
+            closest_year_index = differences.indexOf(min_diff)
+            closest_year = available_years.get(closest_year_index)
+
+            # Log the substitution
+            logger.warn(
+                f"Population data for year {year} not available. "
+                f"Using closest available year {closest_year.getInfo()}"
+            )
+
+            # Return collection filtered to closest year
+            return ee.ImageCollection(asset).filter(
+                ee.Filter.calendarRange(closest_year, closest_year, "year")
+            )
+
+        # Use conditional logic to select appropriate data
+        wp = ee.ImageCollection(ee.Algorithms.If(data_exists, wp, use_closest_year()))
+
     wp = (
         wp.select("male")
         .toBands()

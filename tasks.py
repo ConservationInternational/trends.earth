@@ -790,38 +790,57 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
                     [pip, "install", "--upgrade", "--target", temp_dir, install_req]
                 )
 
-            # Copy only the actual git packages to ext_libs
+            # Copy all packages from temp directory to ext_libs (git packages + their dependencies)
+            print(f"Contents of temp directory: {os.listdir(temp_dir)}")
             for item in os.listdir(temp_dir):
                 src_path = os.path.join(temp_dir, item)
                 dst_path = os.path.join(ext_libs, item)
 
-                # Only copy if this is one of our expected git packages
-                is_expected_package = any(
+                # Check if this is one of our expected git packages
+                is_git_package = any(
                     item == pkg_name
                     or item == pkg_name.replace("_", "-")
                     or item == pkg_name.replace("-", "_")
                     for pkg_name in git_package_names
                 )
 
-                if is_expected_package:
-                    if os.path.isdir(src_path):
-                        # Skip dist-info directories and other metadata
-                        if not item.endswith(
-                            (".dist-info", ".egg-info", "__pycache__")
-                        ):
-                            if os.path.exists(dst_path):
+                print(f"Checking item '{item}': git_package={is_git_package}")
+
+                if os.path.isdir(src_path):
+                    # Skip dist-info directories and other metadata
+                    if not item.endswith((".dist-info", ".egg-info", "__pycache__")):
+                        # Check if this package already exists in ext_libs (from regular package installation)
+                        if os.path.exists(dst_path):
+                            if is_git_package:
+                                # For git packages, replace the existing version
+                                print(
+                                    f"Replacing existing package {item} with git version"
+                                )
                                 shutil.rmtree(dst_path)
-                            shutil.copytree(src_path, dst_path)
-                            print(f"Copied git package {item} to ext_libs")
+                                shutil.copytree(src_path, dst_path)
+                                print(f"Copied git package {item} to ext_libs")
+                            else:
+                                # For dependencies, only copy if not already installed via regular packages
+                                print(
+                                    f"Dependency {item} already exists in ext_libs, skipping"
+                                )
                         else:
-                            print(f"Skipping git package metadata directory: {item}")
+                            # Package doesn't exist in ext_libs, copy it
+                            shutil.copytree(src_path, dst_path)
+                            if is_git_package:
+                                print(f"Copied git package {item} to ext_libs")
+                            else:
+                                print(
+                                    f"Copied git package dependency {item} to ext_libs"
+                                )
                     else:
-                        # Copy individual files if needed
-                        if not item.startswith(".") and not item.endswith(".pyc"):
-                            shutil.copy2(src_path, dst_path)
-                            print(f"Copied git package file {item} to ext_libs")
+                        print(f"Skipping metadata directory: {item}")
                 else:
-                    print(f"Skipping dependency (not a git package): {item}")
+                    # Copy individual files if needed
+                    if not item.startswith(".") and not item.endswith(".pyc"):
+                        if not os.path.exists(dst_path):
+                            shutil.copy2(src_path, dst_path)
+                            print(f"Copied file {item} to ext_libs")
 
             print(
                 "Git package installation completed. Dependencies were included with the packages."

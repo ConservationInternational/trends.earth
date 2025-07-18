@@ -17,19 +17,18 @@ jobs:
       image: qgis/qgis:release-3_34
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Fix Python command
         run: apt-get install python-is-python3
 
-      - name: Install git
-        run: apt-get update && apt-get install -y git
-
       - name: Install python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v3
 
       - name: Install plugin dependencies
-        run: pip install -r requirements-dev.txt
+        run: |
+          pip install -r requirements-dev.txt
+          pip install -r requirements.txt
 
       - name: Get unique identifier
         id: get-identifier
@@ -37,10 +36,7 @@ jobs:
           echo "PACKAGE_ID=$(python -c "import uuid; print(str(uuid.uuid4())[:4])")" >> $GITHUB_ENV
 
       - name: Set version SHA
-        run: |
-          git config --global --add safe.directory /__w/trends.earth/trends.earth
-          
-          invoke set-version
+        run: invoke set-version
 
       - name: Build zipfile
         shell: bash

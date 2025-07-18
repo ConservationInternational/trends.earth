@@ -719,10 +719,20 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
 
     os.environ["PYTHONPATH"] = ext_libs
 
+    # Separate git packages from regular packages
+    git_packages = []
+    regular_packages = []
+
     for req in runtime + test:
+        if req.strip().startswith(("git+", "hg+", "svn+", "bzr+")) or " @ git+" in req:
+            git_packages.append(req)
+        else:
+            regular_packages.append(req)
+
+    # Install regular packages directly to ext_libs
+    for req in regular_packages:
         # Don't install numpy with pyqtgraph as QGIS already has numpy. So use
         # the --no-deps flag (-N for short) with that package only.
-
         if "pyqtgraph" in req:
             subprocess.check_call(
                 [pip, "install", "--upgrade", "--no-deps", "-t", ext_libs, req]
@@ -730,10 +740,64 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
         else:
             subprocess.check_call([pip, "install", "--upgrade", "-t", ext_libs, req])
 
+    # Install git packages to temporary location, then copy to ext_libs
+    if git_packages:
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            print(f"Installing git packages to temporary directory: {temp_dir}")
+            for req in git_packages:
+                print(f"Installing git package: {req}")
+                subprocess.check_call(
+                    [pip, "install", "--upgrade", "-t", temp_dir, req]
+                )
+
+            # Copy installed git packages to ext_libs
+            for item in os.listdir(temp_dir):
+                src_path = os.path.join(temp_dir, item)
+                dst_path = os.path.join(ext_libs, item)
+
+                if os.path.isdir(src_path):
+                    # Skip dist-info directories and other metadata
+                    if not item.endswith((".dist-info", ".egg-info", "__pycache__")):
+                        if os.path.exists(dst_path):
+                            shutil.rmtree(dst_path)
+                        shutil.copytree(src_path, dst_path)
+                        print(f"Copied git package {item} to ext_libs")
+                    else:
+                        print(f"Skipping metadata directory: {item}")
+                else:
+                    # Copy individual files if needed
+                    if not item.startswith(".") and not item.endswith(".pyc"):
+                        shutil.copy2(src_path, dst_path)
+                        print(f"Copied git package file {item} to ext_libs")
+
     # Remove the .pyc files as these are no allowed on QGIS repo
     pyc_files = Path(ext_libs).rglob("*.pyc")
     for pyc in pyc_files:
         pyc.unlink()
+
+    # Debug: List what's actually in ext_libs after all installations
+    if os.path.exists(ext_libs):
+        print(f"Final contents of ext_libs directory ({ext_libs}):")
+        for item in os.listdir(ext_libs):
+            item_path = os.path.join(ext_libs, item)
+            if os.path.isdir(item_path):
+                print(f"  [DIR] {item}")
+                # Show subdirectories for packages
+                try:
+                    for subitem in os.listdir(item_path)[:5]:  # Limit to first 5 items
+                        print(f"    - {subitem}")
+                    if len(os.listdir(item_path)) > 5:
+                        print(
+                            f"    ... and {len(os.listdir(item_path)) - 5} more items"
+                        )
+                except:
+                    pass
+            else:
+                print(f"  [FILE] {item}")
+    else:
+        print(f"ext_libs directory does not exist: {ext_libs}")
 
     if link:
         for module in c.plugin.ext_libs.local_modules:

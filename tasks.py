@@ -724,10 +724,23 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
     regular_packages = []
 
     for req in runtime + test:
-        if req.strip().startswith(("git+", "hg+", "svn+", "bzr+")) or " @ git+" in req:
+        req_stripped = req.strip()
+        # Check for git packages in various formats
+        if (
+            req_stripped.startswith(("git+", "hg+", "svn+", "bzr+"))
+            or " @ git+" in req_stripped
+            or " @ hg+" in req_stripped
+            or " @ svn+" in req_stripped
+            or " @ bzr+" in req_stripped
+        ):
             git_packages.append(req)
+            print(f"Detected git package: {req}")
         else:
             regular_packages.append(req)
+            print(f"Detected regular package: {req}")
+
+    print(f"Found {len(git_packages)} git packages: {git_packages}")
+    print(f"Found {len(regular_packages)} regular packages: {regular_packages}")
 
     # Install regular packages directly to ext_libs
     for req in regular_packages:
@@ -792,7 +805,7 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
                         print(
                             f"    ... and {len(os.listdir(item_path)) - 5} more items"
                         )
-                except:
+                except (OSError, PermissionError):
                     pass
             else:
                 print(f"  [FILE] {item}")

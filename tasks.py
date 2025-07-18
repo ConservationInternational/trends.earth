@@ -757,61 +757,80 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
     if git_packages:
         import tempfile
 
+        # Extract expected package names from git packages
+        git_package_names = []
+        for req in git_packages:
+            # Extract package name from "package_name @ git+url" format
+            if " @ " in req:
+                package_name = req.split(" @ ")[0].strip()
+            else:
+                # For direct git+url format, extract from URL
+                package_name = (
+                    req.split("/")[-1].replace(".git", "").replace("git+", "")
+                )
+            git_package_names.append(package_name)
+
+        print(f"Expected git package names: {git_package_names}")
+
         with tempfile.TemporaryDirectory() as temp_dir:
             print(f"Installing git packages to temporary directory: {temp_dir}")
             for req in git_packages:
                 print(f"Installing git package: {req}")
-                # Install git packages without -t flag first, then copy
+                # Convert PEP 508 @ syntax to direct git+ URL for better compatibility with --target
+                if " @ " in req:
+                    # Extract the git URL from "package @ git+url" format
+                    git_url = req.split(" @ ")[1]
+                    install_req = git_url
+                else:
+                    install_req = req
+
+                print(f"Using install requirement: {install_req}")
+                # Install git packages using direct git+ URL to temp directory
                 subprocess.check_call(
-                    [pip, "install", "--upgrade", "--target", temp_dir, req]
+                    [pip, "install", "--upgrade", "--target", temp_dir, install_req]
                 )
 
-            # Copy installed git packages to ext_libs
+            # Copy only the actual git packages to ext_libs
             for item in os.listdir(temp_dir):
                 src_path = os.path.join(temp_dir, item)
                 dst_path = os.path.join(ext_libs, item)
 
-                if os.path.isdir(src_path):
-                    # Skip dist-info directories and other metadata
-                    if not item.endswith((".dist-info", ".egg-info", "__pycache__")):
-                        if os.path.exists(dst_path):
-                            shutil.rmtree(dst_path)
-                        shutil.copytree(src_path, dst_path)
-                        print(f"Copied git package {item} to ext_libs")
+                # Only copy if this is one of our expected git packages
+                is_expected_package = any(
+                    item == pkg_name
+                    or item == pkg_name.replace("_", "-")
+                    or item == pkg_name.replace("-", "_")
+                    for pkg_name in git_package_names
+                )
+
+                if is_expected_package:
+                    if os.path.isdir(src_path):
+                        # Skip dist-info directories and other metadata
+                        if not item.endswith(
+                            (".dist-info", ".egg-info", "__pycache__")
+                        ):
+                            if os.path.exists(dst_path):
+                                shutil.rmtree(dst_path)
+                            shutil.copytree(src_path, dst_path)
+                            print(f"Copied git package {item} to ext_libs")
+                        else:
+                            print(f"Skipping git package metadata directory: {item}")
                     else:
-                        print(f"Skipping metadata directory: {item}")
+                        # Copy individual files if needed
+                        if not item.startswith(".") and not item.endswith(".pyc"):
+                            shutil.copy2(src_path, dst_path)
+                            print(f"Copied git package file {item} to ext_libs")
                 else:
-                    # Copy individual files if needed
-                    if not item.startswith(".") and not item.endswith(".pyc"):
-                        shutil.copy2(src_path, dst_path)
-                        print(f"Copied git package file {item} to ext_libs")
+                    print(f"Skipping dependency (not a git package): {item}")
+
+            print(
+                f"Git package installation completed. Dependencies were included with the packages."
+            )
 
     # Remove the .pyc files as these are no allowed on QGIS repo
     pyc_files = Path(ext_libs).rglob("*.pyc")
     for pyc in pyc_files:
         pyc.unlink()
-
-    # Debug: List what's actually in ext_libs after all installations
-    if os.path.exists(ext_libs):
-        print(f"Final contents of ext_libs directory ({ext_libs}):")
-        for item in os.listdir(ext_libs):
-            item_path = os.path.join(ext_libs, item)
-            if os.path.isdir(item_path):
-                print(f"  [DIR] {item}")
-                # Show subdirectories for packages
-                try:
-                    for subitem in os.listdir(item_path)[:5]:  # Limit to first 5 items
-                        print(f"    - {subitem}")
-                    if len(os.listdir(item_path)) > 5:
-                        print(
-                            f"    ... and {len(os.listdir(item_path)) - 5} more items"
-                        )
-                except (OSError, PermissionError):
-                    pass
-            else:
-                print(f"  [FILE] {item}")
-    else:
-        print(f"ext_libs directory does not exist: {ext_libs}")
 
     if link:
         for module in c.plugin.ext_libs.local_modules:

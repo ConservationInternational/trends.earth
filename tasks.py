@@ -824,7 +824,7 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
                     print(f"Skipping dependency (not a git package): {item}")
 
             print(
-                f"Git package installation completed. Dependencies were included with the packages."
+                "Git package installation completed. Dependencies were included with the packages."
             )
 
     # Remove the .pyc files as these are no allowed on QGIS repo

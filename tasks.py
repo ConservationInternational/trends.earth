@@ -761,8 +761,9 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
             print(f"Installing git packages to temporary directory: {temp_dir}")
             for req in git_packages:
                 print(f"Installing git package: {req}")
+                # Install git packages without -t flag first, then copy
                 subprocess.check_call(
-                    [pip, "install", "--upgrade", "-t", temp_dir, req]
+                    [pip, "install", "--upgrade", "--target", temp_dir, req]
                 )
 
             # Copy installed git packages to ext_libs

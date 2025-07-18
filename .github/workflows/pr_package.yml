@@ -22,11 +22,19 @@ jobs:
       - name: Fix Python command
         run: apt-get install python-is-python3
 
+      - name: Install git and configure
+        run: |
+          apt-get update && apt-get install -y git
+          git config --global --add safe.directory /__w/trends.earth/trends.earth
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+
       - name: Install python
         uses: actions/setup-python@v3
 
       - name: Install plugin dependencies
-        run: pip install -r requirements-dev.txt
+        run: |
+          pip install -r requirements-dev.txt
 
       - name: Get unique identifier
         id: get-identifier

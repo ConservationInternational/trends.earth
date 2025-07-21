@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.1.17
+version=2.1.18
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -18,14 +18,31 @@ tags=land degradation, land degradation neutrality, soil carbon, productivity, l
 homepage=https://trends.earth
 category=Plugins
 icon=trends_earth_logo_square_32x32.png
-experimental=False
+experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.1.16 (July 31, 2024)
+changelog=2.1.18 (July 21, 2025)
+  - Add graph comparison for time periods
+  - Enable date filtering for dataset items
+  - Improve metadata tool and land cover class handling
+  - Add support for class name imports and population data import
+  - Integrate FAO-WOCAT tools and fix local task execution
+  - Fix report generation issues for SDG and local tasks
+  - Fix layout, resize, and workflow issues in SDG tools
+  - Improve performance for land cover data import
+  - Add warning messages in land cover import dialog
+  - Fix bugs in SOC process, urban change summary, and matrix resets
+  - Improve workflows for plugin packaging and CI deployment
+  - Add VSCode dev environment and nix-friendly setup
+  - Update datasets (e.g., GEE: UKCEH, SPI, SPEI)
+  - Update to `marshmallow_dataclass` 3.7.1
+  - Various translation updates and formatting improvements
+  - Routine CI and pre-commit updates
+  2.1.16 (July 31, 2024)
   - Bump dependency versions to address #812
   - Fix deprecation of np.float
   - Update datasets to latest versions (MODIS, CHIRPS, ESA CCI, PERSIAN, MODIS

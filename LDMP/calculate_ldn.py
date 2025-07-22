@@ -939,7 +939,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         periods = {"baseline": self._get_period_years(self.widgets_baseline)}
 
         progress_period = self._get_period_years(self.widgets_progress)
-        if progress_period:
+        if self.checkBox_progress_period.isChecked() and progress_period:
             periods["progress_1"] = progress_period
 
         for i, (_, w) in enumerate(self.extra_progress_boxes, start=1):

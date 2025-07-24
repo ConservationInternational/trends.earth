@@ -9,6 +9,7 @@ from pathlib import Path
 import qgis.core
 from osgeo import gdal
 from qgis.PyQt import QtGui, QtWidgets
+from qgis.PyQt.QtCore import QCoreApplication
 
 from .jobs import manager
 from .jobs.models import Job
@@ -115,7 +116,11 @@ def qgis_bin_dir() -> str:
             return ""
 
     elif platform_name in ("linux", "freebsd"):
-        rt_path = "/usr/"
+        qgis_executable_path = QCoreApplication.applicationFilePath()
+        rt_path = os.path.dirname(qgis_executable_path)
+        log(f"QGIS executable path: {rt_path}", warning)
+        return rt_path
+        # rt_path =  "/usr/"
 
     if rt_path:
         return f"{rt_path}bin"

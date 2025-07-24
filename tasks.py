@@ -682,18 +682,24 @@ def _safe_remove_folder(rootdir):
     """
     rootdir = Path(rootdir)
     if rootdir.is_symlink():
+        # If the root directory itself is a symlink, just remove the symlink
         rootdir.rmdir()
     else:
-        folders = [path for path in Path(rootdir).iterdir() if path.is_dir()]
-        for folder in folders:
-            if folder.is_symlink():
-                folder.rmdir()
+        # Process all items in the directory
+        for item in Path(rootdir).iterdir():
+            if item.is_dir():
+                if item.is_symlink():
+                    # Symlinked directory - just remove the link, not the target
+                    item.rmdir()
+                else:
+                    # Regular directory - recursively apply safe removal
+                    _safe_remove_folder(item)
             else:
-                shutil.rmtree(folder)
-        files = [path for path in Path(rootdir).iterdir()]
-        for file in files:
-            file.unlink()
-        shutil.rmtree(rootdir)
+                # File or symlinked file - unlink() works safely for both
+                # as it only removes the link, not the target for symlinks
+                item.unlink()
+        # Finally remove the now-empty root directory
+        rootdir.rmdir()
 
 
 @task(

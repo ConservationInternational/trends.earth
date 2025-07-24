@@ -75,6 +75,11 @@ def update_uris_if_needed(job: Job, job_path):
 def _get_extent_tuple_raster(path):
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log(f"Trying to calculate extent of raster {path}")
+
+    if not os.path.exists(str(path)):
+        log(f"Failed to calculate extent - file does not exist: {path}")
+        return None
+
     ds = gdal.Open(str(path))
     if ds:
         min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()

@@ -4455,7 +4455,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="528"/>
+        <location filename="../jobs/manager.py" line="533"/>
         <source>Processing: {task_name}</source>
         <translation type="unfinished"></translation>
     </message>

@@ -675,7 +675,10 @@ def read_requirements():
 
 def _safe_remove_folder(rootdir):
     """
-    Supports removing a folder that may have symlinks in it
+    Remove a folder safely, handling symlinks appropriately.
+
+    If the root folder is a symlink: remove only the symlink (preserve the original)
+    If the root folder is not a symlink: remove the entire folder and all its contents
 
     Needed on windows to avoid removing the original files linked to within
     each folder
@@ -684,22 +687,11 @@ def _safe_remove_folder(rootdir):
     if rootdir.is_symlink():
         # If the root directory itself is a symlink, just remove the symlink
         rootdir.rmdir()
+        print(f"Removed symlinked directory: {rootdir}")
     else:
-        # Process all items in the directory
-        for item in Path(rootdir).iterdir():
-            if item.is_dir():
-                if item.is_symlink():
-                    # Symlinked directory - just remove the link, not the target
-                    item.rmdir()
-                else:
-                    # Regular directory - recursively apply safe removal
-                    _safe_remove_folder(item)
-            else:
-                # File or symlinked file - unlink() works safely for both
-                # as it only removes the link, not the target for symlinks
-                item.unlink()
-        # Finally remove the now-empty root directory
-        rootdir.rmdir()
+        # Not a symlink, so remove the entire directory tree
+        shutil.rmtree(rootdir)
+        print(f"Removed directory and all contents: {rootdir}")
 
 
 @task(

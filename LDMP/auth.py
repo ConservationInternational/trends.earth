@@ -118,7 +118,15 @@ def remove_current_auth_config(auth_setup):
         )
         return False
 
-    QtCore.QSettings().setValue("trends_earth/{auth_setup.key}", None)
+    QtCore.QSettings().setValue(f"trends_earth/{auth_setup.key}", None)
+
+    # Also clear any stored JWT tokens when removing auth config
+    if auth_setup == TE_API_AUTH_SETUP:
+        settings = QtCore.QSettings()
+        settings.setValue("trendsearth/access_token", None)
+        settings.setValue("trendsearth/refresh_token", None)
+        log("Cleared stored JWT tokens")
+
     return True
 
 

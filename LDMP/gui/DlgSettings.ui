@@ -133,6 +133,25 @@
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="pushButton_logout">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>120</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Logout</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -306,6 +325,7 @@
   <tabstop>pushButton_login</tabstop>
   <tabstop>pushButton_update_profile</tabstop>
   <tabstop>pushButton_forgot_pwd</tabstop>
+  <tabstop>pushButton_logout</tabstop>
   <tabstop>pushButton_delete_user</tabstop>
  </tabstops>
  <resources/>

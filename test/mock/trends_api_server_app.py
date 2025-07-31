@@ -19,8 +19,24 @@ def index():
 @app.route("/auth", methods=["POST"])
 def auth():
     sample_token = "78euwd89"
-    resp = {"access_token": sample_token}
+    sample_refresh_token = "refresh_abc123def456"
+    resp = {"access_token": sample_token, "refresh_token": sample_refresh_token}
 
+    return json.dumps(resp)
+
+
+@app.route("/auth/refresh", methods=["POST"])
+def auth_refresh():
+    sample_token = "new_access_token_xyz789"
+    sample_refresh_token = "new_refresh_token_uvw123"
+    resp = {"access_token": sample_token, "refresh_token": sample_refresh_token}
+
+    return json.dumps(resp)
+
+
+@app.route("/auth/logout", methods=["POST"])
+def auth_logout():
+    resp = {"message": "Logged out successfully"}
     return json.dumps(resp)
 
 

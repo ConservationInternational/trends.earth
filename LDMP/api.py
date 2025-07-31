@@ -11,8 +11,10 @@
  ***************************************************************************/
 """
 
+import base64
 import io
 import json
+import time
 from urllib.parse import quote_plus
 
 import backoff
@@ -32,6 +34,7 @@ from .logger import log
 
 
 class tr_api:
+    @staticmethod
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_api", message)
 
@@ -41,7 +44,16 @@ class tr_api:
 
 
 class RequestTask(QgsTask):
-    def __init__(self, description, url, method, payload, headers, timeout=30):
+    def __init__(
+        self,
+        description,
+        url,
+        method,
+        payload,
+        headers,
+        timeout=30,
+        skip_auth_manager=False,
+    ):
         super().__init__(description, QgsTask.CanCancel)
 
         self.description = description
@@ -51,6 +63,7 @@ class RequestTask(QgsTask):
 
         self.timeout = timeout
         self.headers = headers or {}
+        self.skip_auth_manager = skip_auth_manager
         self.exception = None
         self.resp = None
 
@@ -65,20 +78,22 @@ class RequestTask(QgsTask):
             network_manager.setTimeout(600000)
 
             network_request = QtNetwork.QNetworkRequest(qurl)
-            auth_manager = QgsApplication.authManager()
-            auth_added, _ = auth_manager.updateNetworkRequest(network_request, auth_id)
+
+            # Only use auth manager if not explicitly skipped (e.g., for initial login)
+            if not self.skip_auth_manager:
+                auth_manager = QgsApplication.authManager()
+                auth_manager.updateNetworkRequest(network_request, auth_id)
 
             network_request.setHeader(
                 QtNetwork.QNetworkRequest.ContentTypeHeader, "application/json"
             )
 
             if len(self.headers) > 0:
-                network_request.setRawHeader(
-                    QtCore.QByteArray(b"Authorization"),
-                    QtCore.QByteArray(
-                        bytes(self.headers.get("Authorization"), encoding="utf-8")
-                    ),
-                )
+                for header_name, header_value in self.headers.items():
+                    network_request.setRawHeader(
+                        QtCore.QByteArray(header_name.encode()),
+                        QtCore.QByteArray(header_value.encode()),
+                    )
 
             if self.method == "get":
                 self.resp = network_manager.blockingGet(network_request)
@@ -160,7 +175,8 @@ class RequestTask(QgsTask):
 
     def finished(self, result):
         if result:
-            log("Task completed")
+            # Task completed successfully
+            pass
         else:
             if self.exception is None:
                 log(f"API {self.method} not successful - probably cancelled")
@@ -204,6 +220,103 @@ class APIClient(QtCore.QObject):
         self.url = url
         self.timeout = timeout
 
+    def _decode_jwt_payload(self, token):
+        """Decode JWT payload to extract expiration time"""
+        try:
+            # JWT tokens have 3 parts separated by dots: header.payload.signature
+            parts = token.split(".")
+            if len(parts) != 3:
+                log("Invalid JWT token format")
+                return None
+
+            # Decode the payload (second part)
+            payload = parts[1]
+            # Add padding if needed (JWT base64 encoding may not have padding)
+            padding = 4 - len(payload) % 4
+            if padding != 4:
+                payload += "=" * padding
+
+            decoded_bytes = base64.urlsafe_b64decode(payload)
+            payload_data = json.loads(decoded_bytes.decode("utf-8"))
+
+            return payload_data
+        except Exception as e:
+            log(f"Error decoding JWT payload: {e}")
+            return None
+
+    def _is_token_expired(self, token, buffer_seconds=300):
+        """Check if JWT token is expired or will expire within buffer_seconds"""
+        payload = self._decode_jwt_payload(token)
+        if not payload:
+            return True
+
+        exp = payload.get("exp")
+        if not exp:
+            log("JWT token missing expiration claim")
+            return True
+
+        # Check if token expires within the buffer time (default 5 minutes)
+        current_time = time.time()
+        return current_time >= (exp - buffer_seconds)
+
+    def _store_tokens(self, access_token, refresh_token=None):
+        """Store access and refresh tokens securely"""
+        settings = QgsSettings()
+
+        if access_token:
+            settings.setValue("trendsearth/access_token", access_token)
+            log("Access token stored")
+
+        if refresh_token:
+            settings.setValue("trendsearth/refresh_token", refresh_token)
+            log("Refresh token stored")
+
+    def _get_stored_tokens(self):
+        """Retrieve stored access and refresh tokens"""
+        settings = QgsSettings()
+        access_token = settings.value("trendsearth/access_token", None)
+        refresh_token = settings.value("trendsearth/refresh_token", None)
+
+        return access_token, refresh_token
+
+    def _clear_stored_tokens(self):
+        """Clear stored tokens"""
+        settings = QgsSettings()
+        settings.setValue("trendsearth/access_token", None)
+        settings.setValue("trendsearth/refresh_token", None)
+        log("Stored tokens cleared")
+
+    def _refresh_access_token(self, refresh_token):
+        """Use refresh token to get new access token"""
+        if not refresh_token:
+            log("No refresh token available")
+            return None
+
+        log("Attempting to refresh access token")
+
+        resp = self.call_api(
+            "/auth/refresh",
+            method="post",
+            payload={"refresh_token": refresh_token},
+            use_token=False,  # Don't use token for refresh endpoint
+        )
+
+        if resp:
+            access_token = resp.get("access_token")
+            new_refresh_token = resp.get("refresh_token")  # May get new refresh token
+
+            if access_token:
+                # Store the new tokens
+                self._store_tokens(access_token, new_refresh_token or refresh_token)
+                log("Access token refreshed successfully")
+                return access_token
+            else:
+                log("No access token in refresh response")
+        else:
+            log("Failed to refresh access token")
+
+        return None
+
     def clean_api_response(self, resp):
         if resp is None:
             # Return 'None' unmodified
@@ -219,6 +332,10 @@ class APIClient(QtCore.QObject):
 
                 if "access_token" in response:
                     response["access_token"] = "**REMOVED**"
+
+                if "refresh_token" in response:
+                    response["refresh_token"] = "**REMOVED**"
+
                 response = json.dumps(response, indent=4, sort_keys=True)
             except ValueError:
                 response = resp.text
@@ -226,6 +343,32 @@ class APIClient(QtCore.QObject):
         return response
 
     def login(self, authConfigId=None):
+        # First check if we have valid stored tokens
+        stored_access_token, stored_refresh_token = self._get_stored_tokens()
+
+        # If we have an access token and it's not expired, use it
+        if stored_access_token and not self._is_token_expired(stored_access_token):
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log("Using valid stored access token")
+            return stored_access_token
+
+        # If access token is expired but we have a refresh token, try to refresh
+        if (
+            stored_access_token
+            and stored_refresh_token
+            and self._is_token_expired(stored_access_token)
+        ):
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log("Access token expired, attempting refresh")
+
+            refreshed_token = self._refresh_access_token(stored_refresh_token)
+            if refreshed_token:
+                return refreshed_token
+            else:
+                log("Token refresh failed, clearing stored tokens and logging in fresh")
+                self._clear_stored_tokens()
+
+        # Fall back to fresh login
         authConfig = auth.get_auth_config(
             auth.TE_API_AUTH_SETUP, authConfigId=authConfigId
         )
@@ -236,8 +379,7 @@ class APIClient(QtCore.QObject):
             or not authConfig.config("password")
         ):
             log("API unable to login - setup auth configuration before using")
-
-            return
+            return None
 
         resp = self.call_api(
             "/auth",
@@ -246,28 +388,53 @@ class APIClient(QtCore.QObject):
                 "email": authConfig.config("username"),
                 "password": authConfig.config("password"),
             },
+            use_token=False,  # Don't use token for initial auth
         )
 
         error_message = ""
         if resp:
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(f"Login response received: {resp}")
             try:
-                token = resp.get("access_token", None)
+                access_token = resp.get("access_token", None)
+                refresh_token = resp.get("refresh_token", None)
 
-                if token is None:
+                if access_token is None:
                     log("Unable to read Trends.Earth token in API response")
-                    error_message = tr_api.tr(
-                        "Unable to read token for Trends.Earth "
-                        "server. Check username and password."
+                    log(
+                        f"Response keys: {list(resp.keys()) if resp else 'No response'}"
                     )
+
+                    # Check if this is a 204 response (successful but no content)
+                    if not resp or len(resp) == 0:
+                        error_message = tr_api.tr(
+                            "Authentication succeeded but no tokens returned. "
+                            "The API authentication method may have changed."
+                        )
+                    else:
+                        error_message = tr_api.tr(
+                            "Unable to read token for Trends.Earth "
+                            "server. Check username and password."
+                        )
                     ret = None
+                else:
+                    # Store both tokens
+                    self._store_tokens(access_token, refresh_token)
+                    ret = access_token
+
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log("Successfully logged in and stored tokens")
+                        if refresh_token:
+                            log("Refresh token also stored")
+                        else:
+                            log("No refresh token provided by server")
+
             except KeyError:
                 log("API unable to login - check username and password")
                 error_message = tr_api.tr(
                     "Unable to login to Trends.Earth. Check username and password."
                 )
                 ret = None
-            else:
-                ret = token
         else:
             log("Unable to access Trends.Earth server")
             error_message = tr_api.tr(
@@ -276,10 +443,41 @@ class APIClient(QtCore.QObject):
             ret = None
 
         if error_message:
-            log(tr_api.tr(error_message))
-            # iface.messageBar().pushCritical("Trends.Earth", tr_api.tr(error_message))
+            log(error_message)
+            # iface.messageBar().pushCritical("Trends.Earth", error_message)
 
         return ret
+
+    def logout(self):
+        """Logout user and revoke tokens"""
+        access_token, refresh_token = self._get_stored_tokens()
+
+        # Try to revoke tokens on server if we have them
+        if access_token:
+            try:
+                # Call logout endpoint to revoke the token on server side
+                resp = self.call_api("/auth/logout", method="post", use_token=True)
+                if resp:
+                    log("Server-side logout successful")
+                else:
+                    log("Server-side logout failed, but clearing local tokens anyway")
+            except Exception as e:
+                log(f"Error during server-side logout: {e}")
+
+        # Always clear local tokens and cached user ID
+        self._clear_stored_tokens()
+
+        # Clear cached user ID from settings
+        try:
+            conf.settings_manager.write_value(conf.Setting.USER_ID, None)
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log("Cleared cached user ID")
+        except Exception as e:
+            log(f"Warning: Could not clear cached user ID: {e}")
+
+        log("User logged out and tokens cleared")
+
+        return True
 
     def login_test(self, email, password):
         resp = self.call_api(
@@ -296,8 +494,10 @@ class APIClient(QtCore.QObject):
     @backoff.on_predicate(
         backoff.expo, lambda x: x is None, max_tries=3, on_backoff=backoff_hdlr
     )
-    def _make_request(self, description, **kwargs):
-        api_task = RequestTask(description, **kwargs)
+    def _make_request(self, description, skip_auth_manager=False, **kwargs):
+        api_task = RequestTask(
+            description, skip_auth_manager=skip_auth_manager, **kwargs
+        )
         QgsApplication.taskManager().addTask(api_task)
         result = api_task.waitForFinished((self.timeout + 1) * 1000)
 
@@ -311,9 +511,14 @@ class APIClient(QtCore.QObject):
 
         if "password" in clean_payload:
             clean_payload["password"] = "**REMOVED**"
+
+        if "refresh_token" in clean_payload:
+            clean_payload["refresh_token"] = "**REMOVED**"
+
         return clean_payload
 
     def call_api(self, endpoint, method="get", payload=None, use_token=False):
+        token = None
         if use_token:
             token = self.login()
 
@@ -348,6 +553,7 @@ class APIClient(QtCore.QObject):
                 payload=payload,
                 headers=headers,
                 timeout=self.timeout,
+                skip_auth_manager=(not use_token),  # Skip auth manager for login calls
             )
         else:
             resp = None
@@ -357,8 +563,14 @@ class APIClient(QtCore.QObject):
                 QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
             )
 
-            if status_code == 200:
-                if type(resp) is QtNetwork.QNetworkReply:
+            if status_code in [200, 201, 204]:  # Accept success status codes
+                if status_code == 204:
+                    # 204 No Content - successful but no response body
+                    log(
+                        'API response from "{}" request: {}'.format(method, status_code)
+                    )
+                    ret = {}  # Return empty dict for 204 responses
+                elif type(resp) is QtNetwork.QNetworkReply:
                     ret = resp.readAll()
                     ret = json.load(io.BytesIO(ret))
                 elif type(resp) is QgsNetworkReplyContent:
@@ -367,10 +579,18 @@ class APIClient(QtCore.QObject):
                 else:
                     err_msg = "Unknown object type: {}.".format(str(resp))
                     log(err_msg)
+                    ret = None
             else:
                 desc, status = resp.error(), resp.errorString()
                 err_msg = "Error: {} (status {}).".format(desc, status)
                 log(err_msg)
+
+                # If we get a 401 (Unauthorized) error and we're using a token,
+                # it might mean our token is invalid. Clear stored tokens to force fresh login.
+                if status_code == 401 and use_token:
+                    log("Received 401 error, clearing stored tokens for fresh login")
+                    self._clear_stored_tokens()
+
                 """
                 iface.messageBar().pushCritical(
                     "Trends.Earth", "Error: {} (status {}).".format(desc, status)

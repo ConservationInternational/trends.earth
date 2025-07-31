@@ -1371,18 +1371,38 @@ def _get_access_token():
     return login_reply["access_token"]
 
 
-def _get_user_id() -> uuid.UUID:
+def _get_user_id() -> typing.Optional[uuid.UUID]:
+    # First try to get cached user ID from settings
+    cached_user_id = conf.settings_manager.get_value(conf.Setting.USER_ID)
+    if cached_user_id:
+        try:
+            user_id = uuid.UUID(cached_user_id)
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(f"Using cached user ID: {user_id}")
+            return user_id
+        except (ValueError, TypeError) as e:
+            log(f"Invalid cached user ID, fetching from server: {e}")
+
+    # Fallback to API call if no cached ID or invalid cached ID
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
-        log("Retrieving user id...")
+        log("Retrieving user id from server...")
 
     api_client = api.APIClient(API_URL, TIMEOUT)
 
     get_user_reply = api_client.get_user()
 
     if get_user_reply:
-        user_id = get_user_reply.get("id", None)
-
-        return uuid.UUID(user_id)
+        user_id_str = get_user_reply.get("id", None)
+        if user_id_str:
+            try:
+                user_id = uuid.UUID(user_id_str)
+                # Cache the user ID for future use
+                conf.settings_manager.write_value(conf.Setting.USER_ID, user_id_str)
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(f"Retrieved and cached user ID: {user_id}")
+                return user_id
+            except ValueError as e:
+                log(f"Invalid user ID format from server: {e}")
 
     return None
 
@@ -1427,59 +1447,59 @@ def _delete_job_datasets(job: Job):
 def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.List[Job]:
     """Get a list of remote jobs, as returned by the server"""
     # Note - this is a reimplementation of api.get_execution
+    user_id = _get_user_id()
+    if user_id is None:
+        return []
+
+    query = {
+        "include": "script",
+        "user_id": str(user_id),
+    }
+
+    if end_date is not None:
+        # NOTE: Even though the API query param is called `updated_at`, inspecting the
+        # source code at:
+        #
+        # https://github.com/ConservationInternational/trends.earth-API/blob/
+        # 2421eb0a5d44151d1b17c0c0841b72b55359b258/gefapi/services/
+        # execution_service.py#L45
+        #
+        # we can verify that the server is actually checking for job's end_date
+        query["updated_at"] = end_date.strftime("%Y-%m-%d")
+
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log("Retrieving executions...")
+
+    response = job_manager.api_client.call_api(
+        f"/api/v1/execution?{urllib.parse.urlencode(query)}",
+        method="get",
+        use_token=True,
+    )
+
+    if not response:
+        log("No response from server")
+        return []
+
     try:
-        user_id = _get_user_id()
-        if user_id is None:
-            return []
-    except TypeError:
-        log("Unable to load user id")
-        remote_jobs = []
-    else:
-        query = {
-            "include": "script",
-            "user_id": str(user_id),
-        }
+        raw_jobs = response["data"]
+    except (TypeError, KeyError):
+        log("Invalid response format")
+        return []
 
-        if end_date is not None:
-            # NOTE: Even though the API query param is called `updated_at`, inspecting the
-            # source code at:
-            #
-            # https://github.com/ConservationInternational/trends.earth-API/blob/
-            # 2421eb0a5d44151d1b17c0c0841b72b55359b258/gefapi/services/
-            # execution_service.py#L45
-            #
-            # we can verify that the server is actually checking for job's end_date
-            query["updated_at"] = end_date.strftime("%Y-%m-%d")
-
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log("Retrieving executions...")
-
-        response = job_manager.api_client.call_api(
-            f"/api/v1/execution?{urllib.parse.urlencode(query)}",
-            method="get",
-            use_token=True,
-        )
+    remote_jobs = []
+    for raw_job in raw_jobs:
         try:
-            raw_jobs = response["data"]
-        except TypeError:
-            log("Invalid response format")
-            remote_jobs = []
-        else:
-            remote_jobs = []
+            job = Job.Schema().load(raw_job)
+            job.script.run_mode = AlgorithmRunMode.REMOTE
 
-            for raw_job in raw_jobs:
-                try:
-                    job = Job.Schema().load(raw_job)
-                    job.script.run_mode = AlgorithmRunMode.REMOTE
-
-                    if job is not None:
-                        remote_jobs.append(job)
-                except ValidationError as exc:
-                    log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
-                except RuntimeError as exc:
-                    log(str(exc))
-                except TypeError as exc:
-                    log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
+            if job is not None:
+                remote_jobs.append(job)
+        except ValidationError as exc:
+            log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
+        except RuntimeError as exc:
+            log(str(exc))
+        except TypeError as exc:
+            log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
 
     return remote_jobs
 

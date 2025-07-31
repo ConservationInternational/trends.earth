@@ -68,6 +68,7 @@ class Setting(enum.Enum):
     REMOTE_POLLING_FREQUENCY = "advanced/remote_polling_frequency_seconds"
     DOWNLOAD_RESULTS = "advanced/download_remote_results_automatically"
     OFFLINE_MODE = "advanced/offline_mode"
+    USER_ID = "authentication/user_id"
     BUFFER_CHECKED = "region_of_interest/buffer_checked"
     AREA_FROM_OPTION = "region_of_interest/chosen_method"
     POINT_X = "region_of_interest/point/x"
@@ -137,6 +138,7 @@ class SettingsManager:
         Setting.CITY_KEY: 0,
         Setting.BUFFER_SIZE: 0.0,
         Setting.AREA_NAME: "",
+        Setting.USER_ID: None,
         Setting.JOB_FILE_AGE_LIMIT_DAYS: 15,
         Setting.REPORT_TEMPLATE_SEARCH_PATH: "",
         Setting.REPORT_ORG_LOGO_PATH: FileUtils.te_logo_path(),
@@ -174,10 +176,17 @@ class SettingsManager:
             if result == "" or result is None:
                 result = self.DEFAULT_SETTINGS[key]
         else:
-            type_ = type(self.DEFAULT_SETTINGS[key])
-            result = self._settings.value(
-                f"{self.base_path}/{key.value}", self.DEFAULT_SETTINGS[key], type=type_
-            )
+            default_value = self.DEFAULT_SETTINGS[key]
+            if default_value is None:
+                # For None default values, don't specify a type to avoid QVariant issues
+                result = self._settings.value(
+                    f"{self.base_path}/{key.value}", default_value
+                )
+            else:
+                type_ = type(default_value)
+                result = self._settings.value(
+                    f"{self.base_path}/{key.value}", default_value, type=type_
+                )
 
         return result
 

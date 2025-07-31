@@ -13,6 +13,7 @@ from te_schemas.results import Band as JobBand
 
 from .. import data_io
 from ..jobs.models import Job
+from ..reports.prais import generate_prais_json
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
@@ -378,6 +379,18 @@ def compute_ldn(
 ) -> Job:
     """Calculate final SDG 15.3.1 indicator and save to disk"""
 
-    return summarise_land_degradation(
+    debug_json_path = job_output_path.parent / "debug_result.json"
+
+    result = summarise_land_degradation(
         ldn_job, AOI(aoi.get_geojson()), job_output_path, n_cpus=1
     )
+    with open(debug_json_path, "w", encoding="utf-8") as debug_file:
+        json.dump(
+            result.data,
+            debug_file,
+            indent=2,
+        )
+
+    generate_prais_json(result, ldn_job, job_output_path)
+
+    return result

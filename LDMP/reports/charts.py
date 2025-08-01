@@ -1066,7 +1066,7 @@ class SdgSummaryJobAttributes:
 
         classes = legend_parent["key"]
         for c in classes:
-            cls_name = c["name_long"]
+            cls_name = c["name_short"]
             pix_val = c["code"]
             clr = QColor(c["color"])
 

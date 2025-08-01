@@ -9,6 +9,7 @@ from pathlib import Path
 
 import te_algorithms.gdal.land_deg.config as ld_config
 from te_algorithms.api import util
+from te_algorithms.api.util import BandData
 from te_algorithms.gdal.land_deg.land_deg_recode import (
     rasterize_error_recode,
     recode_errors,
@@ -46,6 +47,35 @@ def calculate_error_recode(
     EXECUTION_ID,
     logger,
 ):
+    """
+    Calculate error recoding for land degradation indicators.
+
+    This function supports both single-period and multi-period land degradation jobs.
+    For multi-period jobs, use the filters parameter to specify which reporting year
+    to target (e.g., [{"field": "reporting_year_final", "value": 2020}]).
+
+    Args:
+        aoi: Area of Interest object defining the spatial bounds for analysis
+        error_polygons (ErrorRecodePolygons): Polygons defining areas to be recoded
+        script_name (str): Name of the script used to generate the input data
+        iso (str): ISO country code for the analysis area
+        band_name (str): Name of the band to be recoded (e.g., "SDG 15.3.1 Indicator (status)")
+        filters (list): List of filter dictionaries to select specific bands based on metadata.
+                       For multi-period jobs, include reporting year filter:
+                       [{"field": "reporting_year_final", "value": 2020}]
+        boundary_dataset (str): Name of the boundary dataset used (e.g., "UN")
+        substr_regexs (list): List of substring regex patterns for job identification
+        write_tifs (bool): Whether to write output as GeoTIFF files to S3
+        EXECUTION_ID (str): Unique identifier for this execution
+        logger: Logger instance for logging messages
+
+    Returns:
+        dict: Serialized RasterResults or JsonResults containing the recoded data
+
+    Raises:
+        IndexError: If no input job is found matching the specified criteria
+        Exception: If no bands are found matching the band_name and filters
+    """
     filename_base = iso
     filename_base += "_" + boundary_dataset
     filename_base += "_" + script_name
@@ -70,6 +100,7 @@ def calculate_error_recode(
         activated=True,
     )
 
+    input_band = None
     try:
         input_band = util.get_band_by_name(
             input_job,
@@ -78,6 +109,13 @@ def calculate_error_recode(
         )
     except IndexError:
         logger.exception(f"Failed to load band name {band_name}")
+        raise
+    except Exception as exc:
+        logger.exception(f"Failed to load band {band_name} with filters {filters}")
+        raise exc
+
+    if input_band is None:
+        raise Exception(f"Failed to load band {band_name}")
 
     recode_params = {
         "write_tifs": write_tifs,
@@ -130,7 +168,33 @@ def calculate_error_recode(
 
 
 def run(params, logger):
-    """."""
+    """
+    Run error recoding for land degradation indicators.
+
+    Supports both single-period and multi-period land degradation jobs.
+    For multi-period jobs, include a reporting year filter in the filters parameter:
+    filters = [{"field": "reporting_year_final", "value": 2020}]
+
+    Args:
+        params (dict): Dictionary containing all required parameters:
+            - aoi: Area of Interest specification
+            - error_polygons: Error polygons for recoding
+            - script_name (str): Name of the script used to generate input data
+            - iso (str): ISO country code
+            - band_name (str): Name of the band to recode
+            - filters (list): Metadata filters for band selection. For multi-period jobs,
+                             include: [{"field": "reporting_year_final", "value": year}]
+            - boundary_dataset (str, optional): Boundary dataset name (default: "UN")
+            - productivity_dataset (str, optional): Productivity dataset mode (default: JRC_5_CLASS_LPD)
+            - write_tifs (bool, optional): Whether to write GeoTIFF outputs (default: False)
+            - substr_regexs (list, optional): Additional regex patterns for job matching
+            - ENV (str, optional): Environment ("dev" for development)
+            - EXECUTION_ID (str, optional): Execution identifier (auto-generated in dev)
+        logger: Logger instance for logging messages
+
+    Returns:
+        dict: Serialized results from the error recoding process
+    """
     logger.debug("Loading parameters.")
 
     # Check the ENV. Are we running this locally or in prod?

@@ -7,6 +7,7 @@ import random
 from typing import Dict
 
 from te_algorithms.api import util
+from te_algorithms.api.util import BandData
 from te_algorithms.gdal.land_deg.land_deg_stats import calculate_statistics
 from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.productivity import ProductivityMode
@@ -27,6 +28,27 @@ def run_stats(
     substr_regexs,
     logger,
 ):
+    """
+    Calculate statistics for land degradation indicators.
+
+    This function supports both single-period and multi-period land degradation jobs.
+    For multi-period jobs, specify the reporting year using filters in the bands parameter:
+    bands = {"name": "Band Name", "filters": [{"field": "reporting_year_final", "value": 2020}]}
+
+    Args:
+        error_polygons: Error polygons for which to calculate statistics
+        script_name (str): Name of the script used to generate input data
+        iso (str): ISO country code
+        bands (Dict): Dictionary of bands to process, each with 'name' and optional 'filters'.
+                     For multi-period jobs, include filters with reporting year:
+                     {"name": "Band Name", "filters": [{"field": "reporting_year_final", "value": year}]}
+        boundary_dataset (str): Boundary dataset name
+        substr_regexs: List of regex patterns for job matching
+        logger: Logger instance for logging messages
+
+    Returns:
+        dict: Serialized JsonResults containing statistics for each band and polygon
+    """
     filename_base = iso
     filename_base += "_" + boundary_dataset
     filename_base += "_" + script_name
@@ -43,12 +65,27 @@ def run_stats(
     try:
         band_datas = []
         for band in bands:
-            band_data = util.get_band_by_name(
-                input_job, band["name"], band.get("filters", None)
-            )
-            band_datas.append({"name": band["name"], "index": band_data.band_number})
-    except IndexError:
-        logger.info(f"Failed to load band {band['name']}")
+            band_data = None
+            try:
+                band_data = util.get_band_by_name(
+                    input_job, band["name"], band.get("filters", None)
+                )
+            except Exception as exc:
+                logger.exception(
+                    f"Failed to load band {band['name']} with filters {band.get('filters')}"
+                )
+                raise exc
+
+            if band_data is not None:
+                band_datas.append(
+                    {"name": band["name"], "index": band_data.band_number}
+                )
+            else:
+                logger.warning(f"Failed to load band {band['name']}, skipping")
+
+    except Exception as exc:
+        logger.error(f"Error processing bands: {exc}")
+        raise exc
 
     logger.info(f"Using band_datas {band_datas}")
 
@@ -64,7 +101,31 @@ def run_stats(
 
 
 def run(params, logger):
-    """."""
+    """
+    Run statistics calculation for land degradation indicators.
+
+    Supports both single-period and multi-period land degradation jobs.
+    For multi-period jobs, include reporting year filters in the bands parameter:
+    bands = [{"name": "Band Name", "filters": [{"field": "reporting_year_final", "value": 2020}]}]
+
+    Args:
+        params (dict): Dictionary containing all required parameters:
+            - error_polygons: Error polygons for statistics calculation
+            - script_name (str): Name of the script used to generate input data
+            - iso (str): ISO country code
+            - bands (list): List of band specifications, each with 'name' and optional 'filters'.
+                           For multi-period jobs, include filters with reporting year:
+                           [{"name": "Band Name", "filters": [{"field": "reporting_year_final", "value": year}]}]
+            - boundary_dataset (str, optional): Boundary dataset name (default: "UN")
+            - productivity_dataset (str, optional): Productivity dataset mode (default: JRC_5_CLASS_LPD)
+            - substr_regexs (list, optional): Additional regex patterns for job matching
+            - ENV (str, optional): Environment ("dev" for development)
+            - EXECUTION_ID (str, optional): Execution identifier (auto-generated in dev)
+        logger: Logger instance for logging messages
+
+    Returns:
+        dict: Serialized JsonResults containing statistics for each band and polygon
+    """
     logger.debug("Loading parameters.")
 
     # Check the ENV. Are we running this locally or in prod?

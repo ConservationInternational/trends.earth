@@ -1169,6 +1169,11 @@ class DlgCalculateLDNSummaryTableAdmin(
         self.setupUi(self)
 
         self.checkBox_progress_period.toggled.connect(self.toggle_progress_period)
+        self.pushButton_progress_period.clicked.connect(
+            self.on_add_progress_period_clicked
+        )
+
+        self.combo_boxes = dict()
 
         self._finish_initialization()
 
@@ -1226,9 +1231,11 @@ class DlgCalculateLDNSummaryTableAdmin(
         self.toggle_pop_options_progress()
         self.changed_region.connect(self.populate_combos)
 
+        self.extra_progress_boxes = dict()
+
     def populate_combos(self):
-        self.combo_boxes["baseline"].populate()
-        self.combo_boxes["progress"].populate()
+        for combo in self.combo_boxes.values():
+            combo.populate()
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -1267,13 +1274,80 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.combo_layer_population_progress_total.setEnabled(True)
             self.label_total_population_progress.setEnabled(True)
 
+    def on_add_progress_period_clicked(self):
+        """
+        Create a new progress period group box and add it to the layout.
+        """
+
+        class DlgAdvancedSettingsProgressPeriod(
+            DlgCalculateBase, DlgCalculateLdnSummaryTableAdminUi
+        ):
+            def __init__(
+                self,
+                iface,
+                script,
+            ):
+                super().__init__(iface, script)
+                self.setupUi(self)
+
+        dlg_instance = DlgAdvancedSettingsProgressPeriod(self.iface, self.script)
+        grp = QtWidgets.QGroupBox()
+        idx = len(self.combo_boxes)
+        grp.setTitle(f"Progress period #{idx}")
+        layout = QtWidgets.QVBoxLayout(grp)
+
+        key = f"progress_{idx}"
+        self.combo_boxes[key] = ldn.SummaryTableLDWidgets(
+            combo_datasets=dlg_instance.combo_datasets_baseline,
+            combo_layer_traj=dlg_instance.combo_layer_traj_progress,
+            combo_layer_traj_label=dlg_instance.combo_layer_traj_label_progress,
+            combo_layer_perf=dlg_instance.combo_layer_perf_progress,
+            combo_layer_perf_label=dlg_instance.combo_layer_perf_label_progress,
+            combo_layer_state=dlg_instance.combo_layer_state_progress,
+            combo_layer_state_label=dlg_instance.combo_layer_state_label_progress,
+            combo_layer_lpd=dlg_instance.combo_layer_lpd_progress,
+            combo_layer_lpd_label=dlg_instance.combo_layer_lpd_label_progress,
+            combo_layer_lc=dlg_instance.combo_layer_lc_progress,
+            combo_layer_soc=dlg_instance.combo_layer_soc_progress,
+            combo_layer_pop_total=dlg_instance.combo_layer_population_progress_total,
+            combo_layer_pop_male=dlg_instance.combo_layer_population_progress_male,
+            combo_layer_pop_female=dlg_instance.combo_layer_population_progress_female,
+            radio_lpd_te=dlg_instance.radio_lpd_te,
+            radio_fao_wocat=dlg_instance.radio_fao_wocat,
+        )
+        self.combo_boxes[key].populate()
+
+        layout.insertWidget(0, dlg_instance.combo_datasets_baseline)
+        count = self.verticalLayout_progress.count()
+        self.verticalLayout_progress.insertWidget(count - 1, grp)
+        dlg_instance.advanced_configuration_progress.setTitle(
+            f"Advanced (progress period) #{idx}"
+        )
+        self.verticalLayout_progress.insertWidget(
+            count, dlg_instance.advanced_configuration_progress
+        )
+        self.extra_progress_boxes[key] = (
+            grp,
+            dlg_instance.advanced_configuration_progress,
+        )
+
     def toggle_progress_period(self):
         if self.checkBox_progress_period.isChecked():
             self.groupBox_progress_period.setVisible(True)
             self.advanced_configuration_progress.setVisible(True)
+            self.pushButton_progress_period.setVisible(True)
         else:
             self.groupBox_progress_period.setVisible(False)
             self.advanced_configuration_progress.setVisible(False)
+            self.pushButton_progress_period.setVisible(False)
+            for grp, settings in self.extra_progress_boxes.items():
+                grp.setParent(None)
+                grp.deleteLater()
+                settings.setParent(None)
+                settings.deleteLater()
+
+            self.combo_boxes = dict(list(self.combo_boxes.items())[:2])
+            self.extra_progress_boxes = dict()
 
     def _validate_layer_selection(self, combo_box, layer_name):
         if len(combo_box.layer_list) == 0:
@@ -1553,60 +1627,61 @@ class DlgCalculateLDNSummaryTableAdmin(
         # Progress
 
         if self.checkBox_progress_period.isChecked():
-            prod_mode_progress = self._get_prod_mode(
-                self.radio_lpd_te, self.radio_fao_wocat
-            )
-
-            if self.radio_population_progress_bysex.isChecked():
-                pop_mode_progress = ldn.PopulationMode.BySex.value
-            else:
-                pop_mode_progress = ldn.PopulationMode.Total.value
-
-            if (
-                not self.validate_layer_selections(
-                    self.combo_boxes["progress"], pop_mode_progress
+            for key, combobox in list(self.combo_boxes.items()):
+                if key == "baseline":
+                    continue
+                prod_mode_progress = self._get_prod_mode(
+                    self.radio_lpd_te, self.radio_fao_wocat
                 )
-                or not self.validate_layer_crs(
-                    self.combo_boxes["progress"], pop_mode_progress
-                )
-                or not self.validate_layer_extents(
-                    self.combo_boxes["progress"], pop_mode_progress
-                )
-            ):
-                log("failed progress layer validation")
 
-                return
+                if self.radio_population_progress_bysex.isChecked():
+                    pop_mode_progress = ldn.PopulationMode.BySex.value
+                else:
+                    pop_mode_progress = ldn.PopulationMode.Total.value
 
-            periods.append(
-                {
-                    "name": "progress",
-                    "params": ldn.get_main_sdg_15_3_1_job_params(
-                        task_name=self.options_tab.task_name.text(),
-                        aoi=self.aoi,
-                        prod_mode=prod_mode_progress,
-                        pop_mode=pop_mode_progress,
-                        period_name="progress",
-                        combo_layer_lc=self.combo_boxes["progress"].combo_layer_lc,
-                        combo_layer_soc=self.combo_boxes["progress"].combo_layer_soc,
-                        combo_layer_traj=self.combo_boxes["progress"].combo_layer_traj,
-                        combo_layer_perf=self.combo_boxes["progress"].combo_layer_perf,
-                        combo_layer_state=self.combo_boxes[
-                            "progress"
-                        ].combo_layer_state,
-                        combo_layer_lpd=self.combo_boxes["progress"].combo_layer_lpd,
-                        combo_layer_pop_total=self.combo_boxes[
-                            "progress"
-                        ].combo_layer_pop_total,
-                        combo_layer_pop_male=self.combo_boxes[
-                            "progress"
-                        ].combo_layer_pop_male,
-                        combo_layer_pop_female=self.combo_boxes[
-                            "progress"
-                        ].combo_layer_pop_female,
-                        task_notes=self.options_tab.task_notes.toPlainText(),
-                    ),
-                }
-            )
+                if (
+                    not self.validate_layer_selections(
+                        self.combo_boxes[key], pop_mode_progress
+                    )
+                    or not self.validate_layer_crs(
+                        self.combo_boxes[key], pop_mode_progress
+                    )
+                    or not self.validate_layer_extents(
+                        self.combo_boxes[key], pop_mode_progress
+                    )
+                ):
+                    log("failed progress layer validation")
+
+                    return
+
+                periods.append(
+                    {
+                        "name": key,
+                        "params": ldn.get_main_sdg_15_3_1_job_params(
+                            task_name=self.options_tab.task_name.text(),
+                            aoi=self.aoi,
+                            prod_mode=prod_mode_progress,
+                            pop_mode=pop_mode_progress,
+                            period_name=key,
+                            combo_layer_lc=self.combo_boxes[key].combo_layer_lc,
+                            combo_layer_soc=self.combo_boxes[key].combo_layer_soc,
+                            combo_layer_traj=self.combo_boxes[key].combo_layer_traj,
+                            combo_layer_perf=self.combo_boxes[key].combo_layer_perf,
+                            combo_layer_state=self.combo_boxes[key].combo_layer_state,
+                            combo_layer_lpd=self.combo_boxes[key].combo_layer_lpd,
+                            combo_layer_pop_total=self.combo_boxes[
+                                key
+                            ].combo_layer_pop_total,
+                            combo_layer_pop_male=self.combo_boxes[
+                                key
+                            ].combo_layer_pop_male,
+                            combo_layer_pop_female=self.combo_boxes[
+                                key
+                            ].combo_layer_pop_female,
+                            task_notes=self.options_tab.task_notes.toPlainText(),
+                        ),
+                    }
+                )
 
         params = {
             "periods": periods,

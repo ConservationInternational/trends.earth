@@ -328,7 +328,7 @@ def _get_population(params, logger):
             closest_year = available_years.get(closest_year_index)
 
             # Log the substitution
-            logger.warn(
+            logger.warning(
                 f"Population data for year {year} not available. "
                 f"Using closest available year {closest_year.getInfo()}"
             )

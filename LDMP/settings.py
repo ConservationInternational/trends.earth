@@ -176,6 +176,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.pushButton_update_profile.clicked.connect(self.update_profile)
         self.pushButton_delete_user.clicked.connect(self.delete)
         self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
+        self.pushButton_logout.clicked.connect(self.logout)
 
         self.groupbox_lc_config.collapsedStateChanged.connect(
             self.collapsed_state_changed
@@ -201,6 +202,14 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.reloadAuthConfigurations()
 
         self.api_client = api.APIClient(API_URL, TIMEOUT)
+
+        # Update login UI state
+        self.update_login_ui_state()
+
+    def showEvent(self, event):
+        """Update UI state when the settings dialog is shown"""
+        super().showEvent(event)
+        self.update_login_ui_state()
 
     def apply(self):
         """This is called on OK click in the QGIS options panel."""
@@ -249,8 +258,27 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
                 f"trends_earth/{auth.TE_API_AUTH_SETUP.key}", None
             )
 
+        # Update UI state based on login status
+        self.update_login_ui_state()
+
+    def update_login_ui_state(self):
+        """Update the UI elements based on current login state"""
+        email = _get_user_email(auth.TE_API_AUTH_SETUP, warn=False)
+        is_logged_in = email is not None
+
+        # Enable logout button only if user is logged in
+        self.pushButton_logout.setEnabled(is_logged_in)
+
+        # Update button text based on login state
+        if is_logged_in:
+            self.pushButton_logout.setText(self.tr("Logout ({})".format(email)))
+        else:
+            self.pushButton_logout.setText(self.tr("Logout"))
+
     def selectDefaultAuthConfiguration(self, authConfigId):
         self.reloadAuthConfigurations()
+        # Update UI state after authentication changes
+        self.update_login_ui_state()
 
     def collapsed_state_changed(self):
         state = self.groupbox_lc_config.isCollapsed()
@@ -263,6 +291,8 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
 
     def register(self):
         self.dlg_settings_register.exec_()
+        # Update UI state after registration dialog closes
+        self.update_login_ui_state()
         #
         # if not authConfigId:
         #     self.message_bar.pushCritical(
@@ -275,10 +305,61 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
 
     def login(self):
         self.dlg_settings_login.exec_()
+        # Update UI state after login dialog closes
+        self.update_login_ui_state()
 
     def forgot_pwd(self):
         dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
         dlg_settings_edit_forgot_password.exec_()
+
+    def logout(self):
+        """Logout the current user from Trends.Earth"""
+        email = _get_user_email(auth.TE_API_AUTH_SETUP, warn=False)
+
+        if not email:
+            QtWidgets.QMessageBox.information(
+                None,
+                self.tr("Information"),
+                self.tr("No user is currently logged in."),
+            )
+            return
+
+        reply = QtWidgets.QMessageBox.question(
+            None,
+            self.tr("Logout"),
+            self.tr(
+                "Are you sure you want to logout user {}? You will need to "
+                "login again to access online features.".format(email)
+            ),
+            QtWidgets.QMessageBox.Yes,
+            QtWidgets.QMessageBox.No,
+        )
+
+        if reply == QtWidgets.QMessageBox.Yes:
+            # Call the API client logout method to revoke tokens on server
+            success = self.api_client.logout()
+
+            if success:
+                # Remove the authentication configuration
+                auth.remove_current_auth_config(auth.TE_API_AUTH_SETUP)
+                self.reloadAuthConfigurations()
+                # Update UI state after logout
+                self.update_login_ui_state()
+
+                QtWidgets.QMessageBox.information(
+                    None,
+                    self.tr("Success"),
+                    self.tr("Successfully logged out user {}.".format(email)),
+                )
+            else:
+                QtWidgets.QMessageBox.warning(
+                    None,
+                    self.tr("Warning"),
+                    self.tr(
+                        "Logout may not have completed successfully on the server, "
+                        "but local authentication has been cleared for user {}."
+                    ).format(email),
+                )
 
     def update_profile(self):
         user = self.api_client.get_user()

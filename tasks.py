@@ -376,14 +376,14 @@ def check_tecli_python_version():
 def tecli_login(c):
     if not check_tecli_python_version():
         return
-    subprocess.check_call(["python", os.path.abspath(c.gee.tecli), "login"])
+    subprocess.check_call([sys.executable, os.path.abspath(c.gee.tecli), "login"])
 
 
 @task
 def tecli_clear(c):
     if not check_tecli_python_version():
         return
-    subprocess.check_call(["python", os.path.abspath(c.gee.tecli), "clear"])
+    subprocess.check_call([sys.executable, os.path.abspath(c.gee.tecli), "clear"])
 
 
 @task(help={"key": "GEE key in JSON format (base64 encoded)"})
@@ -392,7 +392,7 @@ def tecli_config(c, key):
         return
     subprocess.check_call(
         [
-            "python",
+            sys.executable,
             os.path.abspath(c.gee.tecli),
             "config",
             "set",
@@ -429,7 +429,7 @@ def tecli_publish(c, script=None, overwrite=False):
             print("Publishing {}...".format(dir))
             subprocess.check_call(
                 [
-                    "python",
+                    sys.executable,
                     os.path.abspath(c.gee.tecli),
                     "publish",
                     "--public=True",
@@ -505,7 +505,7 @@ def tecli_run(c, script, queryParams=None, payload=None):
                 print("Using given query parameters as input to script.")
                 subprocess.check_call(
                     [
-                        "python",
+                        sys.executable,
                         os.path.abspath(c.gee.tecli),
                         "start",
                         "--queryParams={}".format(queryParams),
@@ -516,7 +516,7 @@ def tecli_run(c, script, queryParams=None, payload=None):
                 print("Using given payload as input to script.")
                 subprocess.check_call(
                     [
-                        "python",
+                        sys.executable,
                         os.path.abspath(c.gee.tecli),
                         "start",
                         "--payload={}".format(os.path.abspath(payload)),
@@ -526,7 +526,8 @@ def tecli_run(c, script, queryParams=None, payload=None):
             else:
                 print("Running script without any input parameters.")
                 subprocess.check_call(
-                    ["python", os.path.abspath(c.gee.tecli), "start"], cwd=script_dir
+                    [sys.executable, os.path.abspath(c.gee.tecli), "start"],
+                    cwd=script_dir,
                 )
 
             n += 1
@@ -603,7 +604,7 @@ def tecli_info(c, script=None):
         ):
             print("Checking info on {}...".format(dir))
             subprocess.check_call(
-                ["python", os.path.abspath(c.gee.tecli), "info"], cwd=script_dir
+                [sys.executable, os.path.abspath(c.gee.tecli), "info"], cwd=script_dir
             )
             n += 1
 
@@ -634,7 +635,7 @@ def tecli_logs(c, script, since=1):
             print("Checking logs for {}...".format(dir))
             subprocess.check_call(
                 [
-                    "python",
+                    sys.executable,
                     os.path.abspath(c.gee.tecli),
                     "logs",
                     f"--since={since}",

@@ -881,14 +881,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self.extra_progress_boxes.append((grp, widgets))
         self.update_timeline_graph()
-
-        is_te = self.radio_lpd_te.isChecked()
-        for _box, w in getattr(self, "extra_progress_boxes", []):
-            w.cb_lpd.setVisible(not is_te)
-
-            lbl = _box.findChild(QtWidgets.QLabel, "label_jrc_progress")
-            if lbl is not None:
-                lbl.setVisible(not is_te)
+        self.toggle_lpd_options()
 
     def _get_period_years(self, widgets):
         return {

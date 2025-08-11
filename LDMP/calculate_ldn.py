@@ -854,6 +854,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         w.year_initial.dateChanged.connect(lambda _d, ww=w: self.update_start_dates(ww))
         w.year_final.dateChanged.connect(lambda _d, ww=w: self.update_end_dates(ww))
 
+        w.year_initial.dateChanged.connect(lambda: self.enforce_prod_date_range(w))
+        w.year_final.dateChanged.connect(lambda: self.enforce_prod_date_range(w))
+
+        self.enforce_prod_date_range(w)
+
         return grp, w
 
     @QtCore.pyqtSlot()

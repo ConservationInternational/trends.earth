@@ -651,6 +651,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             widgets.year_initial.setEnabled(False)
             widgets.year_final.setEnabled(False)
+
+            widgets.year_initial_prod.setEnabled(True)
             widgets.year_final_prod.setEnabled(True)
 
             if widgets.radio_lpd_te.isChecked():

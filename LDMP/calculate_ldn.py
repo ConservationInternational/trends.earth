@@ -70,7 +70,7 @@ class TimePeriodWidgets:
     radio_lpd_precalculated: QtWidgets.QRadioButton
 
 
-MIN_YEARS_FOR_PROD_UPDATE: int = 15
+MIN_YEARS_FOR_PROD_UPDATE: int = 14
 
 
 class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):

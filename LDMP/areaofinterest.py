@@ -536,9 +536,6 @@ def open_settings():
 
 
 def prepare_area_of_interest() -> AOI:
-    country_name = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
-    if not country_name:
-        raise RuntimeError("No region selected.")
     if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
         crs_dst = qgis.core.QgsCoordinateReferenceSystem(
             conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS)
@@ -565,7 +562,12 @@ def prepare_area_of_interest() -> AOI:
     elif is_region:
         geojson, error_msg = validate_country_region()
         if geojson is None:
-            raise RuntimeError(error_msg)
+            qgs_error_message(
+                "Invalid or missing region",
+                tr_areaofinterest.tr(error_msg),
+                60,
+            )
+            return None
         area_of_interest.update_from_geojson(
             geojson=geojson,
             wrap=False,  # FIXME: add the corresponding setting

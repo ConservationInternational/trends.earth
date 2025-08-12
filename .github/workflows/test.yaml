@@ -19,6 +19,7 @@ env:
   IMAGE: qgis/qgis
   WITH_PYTHON_PEP: "true"
   MUTE_LOGS: "true"
+  SERVICE: qgis-testing-environment
 
 jobs:
   test:
@@ -51,13 +52,35 @@ jobs:
           MUTE_LOGS=${MUTE_LOGS}
           WITH_PYTHON_PEP=${WITH_PYTHON_PEP}
           EOF
-      - name: Preparing test environment
+      - name: Start test stack
         run: |
-          cat .env
-          docker pull "${IMAGE}":${{ matrix.qgis_version_tag }}
+          set -euxo pipefail
+          docker pull "${IMAGE}:${{ matrix.qgis_version_tag }}"
           docker compose up -d
+          # simple wait; replace with healthchecks if available
           sleep 60
-
+          docker compose ps
+      - name: Install test dependencies inside container (pytest, python-dotenv)
+        run: |
+          set -euxo pipefail
+          docker compose exec -T "${SERVICE}" sh -lc '
+            if ! command -v pip3 >/dev/null 2>&1; then
+              apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*
+            fi
+            python3 -m pip install --no-cache-dir -U pytest python-dotenv
+          '
       - name: Run test suite
         run: |
-          docker compose exec -T qgis-testing-environment sh -c "qgis_testrunner.sh test_suite.test_package"
+          set -euxo pipefail
+          docker compose exec -T "${SERVICE}" sh -lc 'qgis_testrunner.sh test_suite.test_package'
+      - name: Tear down
+        if: always()
+        run: |
+          docker compose logs > docker-compose-logs.txt || true
+          docker compose down -v || true
+      - name: Upload logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-compose-logs-${{ matrix.qgis_version_tag }}
+          path: docker-compose-logs.txt

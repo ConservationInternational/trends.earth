@@ -7,5 +7,5 @@ marshmallow>=3.21.3,<4.0.0
 marshmallow_dataclass>=8.7.1
 te_schemas @ git+https://github.com/ConservationInternational/trends.earth-schemas.git@master
 te_algorithms @ git+https://github.com/ConservationInternational/trends.earth-algorithms.git@master
-
+psutil==7.0.0
 # test requirements

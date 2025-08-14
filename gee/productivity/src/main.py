@@ -176,12 +176,6 @@ def run(params, logger):
                     year_final=year_final,
                 )
 
-                expected = config.FAO_WOCAT_LPD_BAND_NAME
-                for band in getattr(
-                    lpd_img, "bands", getattr(lpd_img, "band_info", [])
-                ):
-                    band.name = expected
-
                 lpd_img = teimage_v1_to_teimage_v2(lpd_img)
 
                 proj = ee.Image(ndvi_gee_dataset).projection()

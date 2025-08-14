@@ -153,11 +153,13 @@ def run(params, logger):
         low_biomass = float(params.get("low_biomass"))
         high_biomass = float(params.get("high_biomass"))
         years_interval = int(params.get("years_interval"))
+        year_start = int(params.get("year_start"))
+        year_final = int(params.get("year_final"))
         modis_mode = params.get("modis_mode")
 
         logger.debug(
             "Running FAO‑WOCAT algorithm "
-            f"(2001–{2001 + years_interval}) using {ndvi_gee_dataset}"
+            f"({year_start}–{year_final}) using {ndvi_gee_dataset}"
         )
 
         res = []
@@ -170,13 +172,9 @@ def run(params, logger):
                     modis_mode=modis_mode,
                     prod_asset=ndvi_gee_dataset,
                     logger=logger,
+                    year_initial=year_start,
+                    year_final=year_final,
                 )
-
-                expected = config.FAO_WOCAT_LPD_BAND_NAME
-                for band in getattr(
-                    lpd_img, "bands", getattr(lpd_img, "band_info", [])
-                ):
-                    band.name = expected
 
                 lpd_img = teimage_v1_to_teimage_v2(lpd_img)
 

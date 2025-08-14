@@ -291,13 +291,143 @@
               <item>
                <widget class="QGroupBox" name="modis_group_box">
                 <property name="title">
-                 <string>NDIV MODIS QA</string>
+                 <string>NDVI MODIS QA</string>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_12">
                  <item>
                   <widget class="QComboBox" name="modis_combo_box"/>
                  </item>
                 </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_fao_wocat_period">
+                <property name="title">
+                 <string>Period</string>
+                </property>
+                <layout class="QGridLayout" name="fao_wocat_period_layout">
+                    <item row="1" column="0">
+                     <widget class="QDateEdit" name="fao_wocat_year_start">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>35</height>
+                       </size>
+                      </property>
+                      <property name="maximumDate">
+                       <date>
+                        <year>2030</year>
+                        <month>12</month>
+                        <day>31</day>
+                       </date>
+                      </property>
+                      <property name="minimumDate">
+                       <date>
+                        <year>1980</year>
+                        <month>1</month>
+                        <day>1</day>
+                       </date>
+                      </property>
+                      <property name="displayFormat">
+                       <string notr="true">yyyy</string>
+                      </property>
+                      <property name="date">
+                       <date>
+                        <year>2001</year>
+                        <month>1</month>
+                        <day>1</day>
+                       </date>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="fao_wocat_start_year_label">
+                      <property name="font">
+                       <font>
+                        <weight>50</weight>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Starting year:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QLabel" name="fao_wocat_end_year_label">
+                      <property name="font">
+                       <font>
+                        <weight>50</weight>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Ending year:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QDateEdit" name="fao_wocat_year_end">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>35</height>
+                       </size>
+                      </property>
+                      <property name="maximumDateTime">
+                       <datetime>
+                        <hour>23</hour>
+                        <minute>59</minute>
+                        <second>59</second>
+                        <year>2030</year>
+                        <month>12</month>
+                        <day>31</day>
+                       </datetime>
+                      </property>
+                      <property name="minimumDate">
+                       <date>
+                        <year>1980</year>
+                        <month>1</month>
+                        <day>1</day>
+                       </date>
+                      </property>
+                      <property name="displayFormat">
+                       <string notr="true">yyyy</string>
+                      </property>
+                      <property name="date">
+                       <date>
+                        <year>2015</year>
+                        <month>12</month>
+                        <day>31</day>
+                       </date>
+                      </property>
+                     </widget>
+                    </item>
+                 </layout>
                </widget>
               </item>
               <item>
@@ -570,6 +700,12 @@
                  </item>
                 </layout>
                </widget>
+               <property name="title">
+                 <string>Period</string>
+                </property>
+               <property name="flat">
+                 <bool>true</bool>
+               </property>
               </item>
               <item>
                <widget class="QGroupBox" name="groupBox_perf">
@@ -731,7 +867,7 @@
                       <item>
                        <widget class="QSpinBox" name="spinBox">
                         <property name="value">
-                         <number>15</number>
+                         <number>3</number>
                         </property>
                        </widget>
                       </item>

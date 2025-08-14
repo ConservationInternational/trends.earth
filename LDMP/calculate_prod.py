@@ -117,6 +117,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             self.groupBox_traj.setEnabled(True)
             self.groupBox_perf.setEnabled(True)
             self.groupBox_state.setEnabled(True)
+            self.groupBox_fao_wocat_period.setVisible(False)
         elif self.mode_lpd_jrc.isChecked():
             self.reset_fao_wocat_settings()
             self.combo_lpd.setEnabled(True)
@@ -125,8 +126,10 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             self.groupBox_traj.setEnabled(False)
             self.groupBox_perf.setEnabled(False)
             self.groupBox_state.setEnabled(False)
+            self.groupBox_fao_wocat_period.setVisible(False)
         elif self.mode_fao_wocat.isChecked():
             self.set_fao_wocat_settings()
+            self.groupBox_fao_wocat_period.setVisible(True)
             self.combo_lpd.setEnabled(False)
             self.groupBox_state.setEnabled(True)
             self.advance_configurations.setEnabled(True)
@@ -266,6 +269,12 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.traj_year_end.setMinimumDate(start_year_traj)
         self.traj_year_end.setMaximumDate(end_year_traj)
 
+        # Fao wocat period
+        self.fao_wocat_year_start.setMinimumDate(start_year)
+        self.fao_wocat_year_start.setMaximumDate(end_year)
+        self.fao_wocat_year_end.setMinimumDate(start_year)
+        self.fao_wocat_year_end.setMaximumDate(end_year)
+
     def btn_cancel(self):
         self.close()
 
@@ -353,7 +362,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
             modis_mode = self.modis_combo_box.currentText()
             spin = self.period_interval.findChild(QSpinBox, "spinBox")
-            years_interval = spin.value() if spin is not None else 10
+            years_interval = spin.value() if spin is not None else 3
 
             payload.update(
                 {
@@ -361,6 +370,8 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                     "low_biomass": self.low_value_spinbox.value(),
                     "high_biomass": self.high_value_spinbox.value(),
                     "years_interval": years_interval,
+                    "year_start": self.fao_wocat_year_start.date().year(),
+                    "year_final": self.fao_wocat_year_end.date().year(),
                     "crs": self.aoi.get_crs_dst_wkt(),
                     "ndvi_gee_dataset": ndvi_dataset,
                     "modis_mode": modis_mode,

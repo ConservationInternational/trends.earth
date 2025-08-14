@@ -79,9 +79,8 @@ def _run_faowocat_for_period(params, max_workers, execution_id, logger):
     high_bio = prod_params.get("high_biomass")
     years_interval = prod_params.get("years_interval")
     modis_mode = prod_params.get("modis_mode")
-
-    lpd_year_initial = 2001
-    lpd_year_final = 2001 + years_interval
+    lpd_year_initial = int(prod_params.get("year_initial"))
+    lpd_year_final = int(prod_params.get("year_final"))
 
     proj = ee.Image(ndvi_ds).projection()
 
@@ -96,11 +95,9 @@ def _run_faowocat_for_period(params, max_workers, execution_id, logger):
                 modis_mode=modis_mode,
                 prod_asset=ndvi_ds,
                 logger=logger,
+                year_initial=lpd_year_initial,
+                year_final=lpd_year_final,
             )
-
-            expected = config.FAO_WOCAT_LPD_BAND_NAME
-            for band in getattr(out, "bands", getattr(out, "band_info", [])):
-                band.name = expected
 
             out = teimage_v1_to_teimage_v2(out)
 

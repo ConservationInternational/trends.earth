@@ -1033,9 +1033,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     ld_config, "FAO_WOCAT_HIGH_BIOMASS_THRESHOLD", 0.50
                 )
 
-                years_interval = (
-                    widgets.year_final_prod.date().year() + 1
-                ) - widgets.year_initial_prod.date().year()
+                years_interval = 3
 
                 payload["productivity"].update(
                     {

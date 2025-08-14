@@ -538,6 +538,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
             return False
 
         self.aoi = areaofinterest.prepare_area_of_interest()
+        if not self.aoi:
+            return False
         ret = self.aoi.bounding_box_gee_geojson()
 
         if not ret:

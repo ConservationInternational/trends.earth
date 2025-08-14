@@ -70,7 +70,7 @@ class TimePeriodWidgets:
     radio_lpd_precalculated: QtWidgets.QRadioButton
 
 
-MIN_YEARS_FOR_PROD_UPDATE: int = 15
+MIN_YEARS_FOR_PROD_UPDATE: int = 14
 
 
 class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
@@ -651,6 +651,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             widgets.year_initial.setEnabled(False)
             widgets.year_final.setEnabled(False)
+
+            widgets.year_initial_prod.setEnabled(True)
             widgets.year_final_prod.setEnabled(True)
 
             if widgets.radio_lpd_te.isChecked():
@@ -854,6 +856,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         w.year_initial.dateChanged.connect(lambda _d, ww=w: self.update_start_dates(ww))
         w.year_final.dateChanged.connect(lambda _d, ww=w: self.update_end_dates(ww))
 
+        w.year_initial.dateChanged.connect(lambda: self.enforce_prod_date_range(w))
+        w.year_final.dateChanged.connect(lambda: self.enforce_prod_date_range(w))
+
+        self.enforce_prod_date_range(w)
+
         return grp, w
 
     @QtCore.pyqtSlot()
@@ -874,14 +881,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self.extra_progress_boxes.append((grp, widgets))
         self.update_timeline_graph()
-
-        is_te = self.radio_lpd_te.isChecked()
-        for _box, w in getattr(self, "extra_progress_boxes", []):
-            w.cb_lpd.setVisible(not is_te)
-
-            lbl = _box.findChild(QtWidgets.QLabel, "label_jrc_progress")
-            if lbl is not None:
-                lbl.setVisible(not is_te)
+        self.toggle_lpd_options()
 
     def _get_period_years(self, widgets):
         return {

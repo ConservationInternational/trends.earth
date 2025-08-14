@@ -99,6 +99,40 @@ def _make_tar_gz(out_tar_gz, in_files):
             tar.add(in_file, arcname=in_file.name)
 
 
+def _aoi_to_geojson_dict(aoi) -> dict:
+    if hasattr(aoi, "geojson"):
+        gj = getattr(aoi, "geojson")
+        if isinstance(gj, str):
+            return json.loads(gj)
+        return gj
+    raise ValueError("Cannot export AOI to GeoJSON")
+
+
+def _write_aoi_geojson(summary_path, out_path: Path) -> Path:
+    """Write AOI as GeoJSON to out_path and return the path."""
+    aoi = None
+    with open(summary_path) as f:
+        summary = reporting.TrendsEarthLandConditionSummary.Schema().load(json.load(f))
+        aoi = summary.metadata.area_of_interest
+    geojson_dict = _aoi_to_geojson_dict(aoi)
+    with open(out_path, "w") as f:
+        json.dump(geojson_dict, f, indent=2)
+    return out_path
+
+
+def _write_summary_without_aoi(summary_path, out_path: Path) -> Path:
+    """Write summary without AOI."""
+    with open(summary_path) as f:
+        summary = json.load(f)
+
+    if "metadata" in summary:
+        summary["metadata"].pop("area_of_interest")
+
+    with open(out_path, "w") as f:
+        json.dump(summary, f, indent=2)
+    return out_path
+
+
 def _set_affected_areas_only(in_file, out_file, schema):
     with open(in_file) as f:
         summary = schema.load(json.load(f))
@@ -210,8 +244,9 @@ def compute_unccd_report(
 
     with tempfile.TemporaryDirectory() as temp_dir:
         paths = []
+        orig_summary_path_so1_so2 = Path(params["so1_so2_summary_path"])
+
         if params["include_error_recode"]:
-            orig_summary_path_so1_so2 = Path(params["so1_so2_summary_path"])
             new_summary_path_so1_so2 = Path(temp_dir) / orig_summary_path_so1_so2.name
             error_recode_polys = _get_error_recode_polygons(params["error_recode_path"])
             _set_error_recode(
@@ -257,6 +292,20 @@ def compute_unccd_report(
                 paths += [Path(p) for p in params["so1_so2_all_paths"]]
             if params["include_so3"]:
                 paths += [Path(p) for p in params["so3_all_paths"]]
+
+        if orig_summary_path_so1_so2 in paths:
+            aoi_path = _write_aoi_geojson(
+                orig_summary_path_so1_so2,
+                Path(temp_dir)
+                / orig_summary_path_so1_so2.name.replace("summary.json", "aoi.geojson"),
+            )
+            summary_without_aoi_path = _write_summary_without_aoi(
+                orig_summary_path_so1_so2,
+                Path(temp_dir) / orig_summary_path_so1_so2.name,
+            )
+            paths.append(aoi_path)
+            paths.remove(orig_summary_path_so1_so2)
+            paths.append(summary_without_aoi_path)
 
         for path in paths:
             log(f"{path} exists: {path.exists()}")

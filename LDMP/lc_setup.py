@@ -476,7 +476,6 @@ def custom_lc_nesting_from_settings() -> dict:
 
 
 def esa_lc_nesting_to_settings(nesting: LCLegendNesting):
-    log(f"esa_lc_nesting_to_settings {str(nesting.nesting)}")
     conf.settings_manager.write_value(
         conf.Setting.LC_ESA_NESTING, LCLegendNesting.Schema().dumps(nesting)
     )
@@ -484,7 +483,7 @@ def esa_lc_nesting_to_settings(nesting: LCLegendNesting):
 
 def esa_lc_nesting_from_settings() -> LCLegendNesting:
     nesting_str = conf.settings_manager.get_value(conf.Setting.LC_ESA_NESTING)
-    if nesting_str == "":
+    if nesting_str == "" or nesting_str == '{"nesting": {}}':
         return None
 
     return LCLegendNesting.Schema().loads(nesting_str)
@@ -567,9 +566,12 @@ class DlgCalculateLCSetAggregationBase(
 
         self.setupUi(self)
 
+        def _reset_nesting_table():
+            return self.reset_nesting_table(get_default=True)
+
         self.btn_save.clicked.connect(self.btn_save_pressed)
         self.btn_load.clicked.connect(self.btn_load_pressed)
-        self.btn_reset.clicked.connect(self.reset_nesting_table)
+        self.btn_reset.clicked.connect(_reset_nesting_table)
         self.btn_close.clicked.connect(self.btn_close_pressed)
 
         # Setup the class table so that the table is defined when a user first
@@ -681,12 +683,19 @@ class DlgCalculateLCSetAggregationESA(DlgCalculateLCSetAggregationBase):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+    def reset_nesting_table(self, get_default=False):
+        if get_default:
+            self.nesting = get_default_esa_nesting()
+        self.setup_nesting(nesting_input=self.nesting)
+
     def set_nesting(self, nesting):
         self.nesting = nesting
         esa_lc_nesting_to_settings(nesting)
 
     def get_nesting(self):
         self.nesting = esa_lc_nesting_from_settings()
+        if not self.nesting:
+            return get_default_esa_nesting()
         return self.nesting
 
     def setup_nesting(self, nesting_input=None):

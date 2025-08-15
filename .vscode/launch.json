@@ -1,21 +1,32 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Attach to QGIS Plugin",
-      "type": "python",
-      "request": "attach",
-      "connect": {
-        "host": "localhost",
-        "port": 9000
-      },
-      "pathMappings": [
+    "version": "0.2.0",
+    "configurations": [
         {
-          "localRoot": "/Users/user/Documents/Kartoza/trends.earth/LDMP",
-          "remoteRoot": "/Users/user/Library/Application Support/QGIS/QGIS3/profiles/trends.earth/python/plugins/LDMP"
-        }
-      ],
-      "justMyCode": false
-    }
-  ]
+            "name": "QGIS Plugin Debug",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "", // Set the QGIS executable path from an environment variable
+            //"program": "/usr/bin/qgis", // Replace with the actual QGIS executable path
+            "args": ["--project", "/TRENDS.qgs"], // Optional QGIS project
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "/src"
+            }
+        },
+        {
+            "name": "Python: Remote Attach 9000",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 9000
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "/src", // Local path on your machine
+                    "remoteRoot": "/.local/share/QGIS/QGIS3/profiles/TRENDS/python/plugins/LDMP" // Uses /home/timlinux instead of hardcoding username
+                }
+            ]
+        }               
+    ]
 }

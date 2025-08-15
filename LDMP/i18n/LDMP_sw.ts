@@ -452,27 +452,27 @@
 <context>
     <name>DlgAdvancedSettingsProgressPeriod</name>
     <message>
-        <location filename="../calculate_ldn.py" line="1509"/>
+        <location filename="../calculate_ldn.py" line="1507"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1354"/>
+        <location filename="../calculate_ldn.py" line="1352"/>
         <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1422"/>
+        <location filename="../calculate_ldn.py" line="1420"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1500"/>
+        <location filename="../calculate_ldn.py" line="1498"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1509"/>
+        <location filename="../calculate_ldn.py" line="1507"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -800,32 +800,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationBase</name>
     <message>
-        <location filename="../lc_setup.py" line="588"/>
+        <location filename="../lc_setup.py" line="590"/>
         <source>Select a land cover definition file</source>
         <translation type="unfinished">Chagua faili ya ufafanuzi wa bima ya ardhi</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="617"/>
+        <location filename="../lc_setup.py" line="619"/>
         <source>Land cover definition (*.json)</source>
         <translation type="unfinished">Ufafanuzi wa bima ya ardhi (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="630"/>
+        <location filename="../lc_setup.py" line="632"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="601"/>
+        <location filename="../lc_setup.py" line="603"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation type="unfinished">Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="617"/>
+        <location filename="../lc_setup.py" line="619"/>
         <source>Choose where to save this land cover definition</source>
         <translation type="unfinished">Chagua wapi kuokoa ufafanuzi wa bima hii ya ardhi</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="630"/>
+        <location filename="../lc_setup.py" line="632"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation type="unfinished">Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
@@ -833,12 +833,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationCustom</name>
     <message>
-        <location filename="../lc_setup.py" line="868"/>
+        <location filename="../lc_setup.py" line="877"/>
         <source>Warning</source>
         <translation type="unfinished">Onyo</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="868"/>
+        <location filename="../lc_setup.py" line="877"/>
         <source>Some of the parent classes ({unnecessary_parent_codes!r}) in the definition file are not listed in the current class legend. These classes will be ignored.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -846,17 +846,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationESA</name>
     <message>
-        <location filename="../lc_setup.py" line="730"/>
+        <location filename="../lc_setup.py" line="739"/>
         <source>Warning</source>
         <translation type="unfinished">Onyo</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="718"/>
+        <location filename="../lc_setup.py" line="727"/>
         <source>Some of the class codes ({unnecessary_child_codes!r}) in the definition file do not appear in the chosen data file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="730"/>
+        <location filename="../lc_setup.py" line="739"/>
         <source>Some of the class codes ({child_codes_missing_from_input!r}) in the data file do not appear in the chosen definition file.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -944,12 +944,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1755"/>
+        <location filename="../calculate_ldn.py" line="1753"/>
         <source>Coming soon!</source>
         <translation>Inakuja hivi karibuni!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1755"/>
+        <location filename="../calculate_ldn.py" line="1753"/>
         <source>This function coming soon!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1092,7 +1092,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1183"/>
+        <location filename="../calculate_ldn.py" line="1181"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1417,12 +1417,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1088"/>
+        <location filename="../calculate_ldn.py" line="1086"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1088"/>
+        <location filename="../calculate_ldn.py" line="1086"/>
         <source>Final year of the productivity data ({year_final}) must be within three years of the years for which population data is available from the WorldPop dataset ({pop_start_year}-{pop_end_year}).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1580,62 +1580,62 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="306"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="436"/>
         <source>Trend (related to rate of change of  productivity over time)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="324"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="454"/>
         <source>Trend indicator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="352"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="704"/>
         <source>Period</source>
         <translation>Kipindi</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1025"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1161"/>
         <source>Starting year:</source>
         <translation>Kuanzia mwaka:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="897"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1033"/>
         <source>Ending year:</source>
         <translation>Mwaka wa mwisho:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="485"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="615"/>
         <source>Climate dataset</source>
         <translation>Dasaset ya hali ya hewa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="577"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="713"/>
         <source>Performance (a measure of how productivity in an area compares to that of similar areas)</source>
         <translation>Utendaji (kipimo cha jinsi tija katika eneo linalinganisha na ile ya maeneo sawa)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="710"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="846"/>
         <source>State (compares current productivity in an area to past productivity in the same area)</source>
         <translation>Hali (inalinganisha tija ya sasa katika eneo kwa uzalishaji wa zamani katika eneo moja)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="746"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="882"/>
         <source>Initial period</source>
         <translation>Kipindi cha awali</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="882"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1018"/>
         <source>Comparison period</source>
         <translation>Kipindi kulinganisha</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="286"/>
+        <location filename="../calculate_prod.py" line="295"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="286"/>
+        <location filename="../calculate_prod.py" line="295"/>
         <source>Choose one or more productivity sub-indicator to calculate.</source>
         <translation>Chagua moja au zaidi ya kiashiria cha uzalishaji cha kuzalisha.</translation>
     </message>
@@ -1651,36 +1651,36 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="294"/>
-        <source>NDIV MODIS QA</source>
+        <source>NDVI MODIS QA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="516"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="646"/>
         <source>Initial Biomass</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="522"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="652"/>
         <source>Low</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="548"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="678"/>
         <source>High</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="719"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="855"/>
         <source>Period interval</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="727"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="863"/>
         <source>Number of years:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1081"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1217"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2900,7 +2900,7 @@ p, li { white-space: pre-wrap; }
         <translation>Kumbuka: Ikiwa kusoma faili kubwa inashauriwa kuwa chaguzi hapo juu ichunguzwe, kwani itaharakisha mchakato wa kusoma madarasa ya pembejeo kutoka kwa daftari. Walakini, ukigundua kuwa Trends.Earth haigambulii madarasa yote kwenye faili ya uingizaji, inaweza kuwa muhimu kuzima chaguo hili. (Inatumika tu ikiwa pembejeo mbaya imechaguliwa)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1150"/>
+        <location filename="../lc_setup.py" line="1159"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
@@ -2910,17 +2910,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1172"/>
+        <location filename="../lc_setup.py" line="1181"/>
         <source>No definition set</source>
         <translation>Hakuna ufafanuzi uliowekwa</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1172"/>
+        <location filename="../lc_setup.py" line="1181"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation type="unfinished">Bofya &quot;Badilisha Definition&quot; ili kufafanua ufafanuzi wa bima ya ardhi kabla ya kusafirisha.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1004"/>
+        <location filename="../lc_setup.py" line="1013"/>
         <source>Enter the year of the input data.</source>
         <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
@@ -2930,17 +2930,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Hitilafu ya kusoma data. Trends.Earth inasaidia kiwango cha juu cha masomo 60 ya bima ya ardhi</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1150"/>
+        <location filename="../lc_setup.py" line="1159"/>
         <source>Error reading data. Trends.Earth supports a maximum of 38 different land cover classes</source>
         <translation type="unfinished">Hitilafu ya kusoma data. Trends.Earth inasaidia kiwango cha juu cha masomo 60 ya bima ya ardhi {38 ?}</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1195"/>
+        <location filename="../lc_setup.py" line="1204"/>
         <source>Land cover ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1124"/>
+        <location filename="../lc_setup.py" line="1133"/>
         <source>Error reading data. Trends.Earth supports a maximum of {max_classes!s} different land cover classes.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4207,37 +4207,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="1238"/>
+        <location filename="../lc_setup.py" line="1247"/>
         <source>Land cover in initial year </source>
         <translation>Kifuniko cha ardhi katika mwaka wa kwanza</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1368"/>
+        <location filename="../lc_setup.py" line="1377"/>
         <source>Select a transition matrix definition file</source>
         <translation>Chagua faili ya ufafanuzi wa matrix ya mpito</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1399"/>
+        <location filename="../lc_setup.py" line="1408"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Ufafanuzi wa matrix ya mpito (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1412"/>
+        <location filename="../lc_setup.py" line="1421"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1381"/>
+        <location filename="../lc_setup.py" line="1390"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1399"/>
+        <location filename="../lc_setup.py" line="1408"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Chagua wapi kuokoa ufafanuzi wa matrix ya mpito</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1412"/>
+        <location filename="../lc_setup.py" line="1421"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
@@ -5670,7 +5670,7 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_areaofinterest</name>
     <message>
-        <location filename="../areaofinterest.py" line="654"/>
+        <location filename="../areaofinterest.py" line="656"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
@@ -5680,7 +5680,7 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="654"/>
+        <location filename="../areaofinterest.py" line="656"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5741,7 +5741,7 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="556"/>
+        <location filename="../calculate.py" line="558"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
@@ -5801,12 +5801,12 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="544"/>
+        <location filename="../calculate.py" line="546"/>
         <source>Unable to calculate bounding box.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="556"/>
+        <location filename="../calculate.py" line="558"/>
         <source>Choose an output base name.</source>
         <translation type="unfinished"></translation>
     </message>

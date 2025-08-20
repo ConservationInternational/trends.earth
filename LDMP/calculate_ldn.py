@@ -15,7 +15,6 @@
 import typing
 import weakref
 from dataclasses import dataclass
-from functools import partial
 from pathlib import Path
 
 import qgis.gui
@@ -312,6 +311,16 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
 
 
 class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
+    def _connect_enforce_any_touch(
+        self, qde: QtWidgets.QDateEdit, widgets, source: str
+    ):
+        qde.dateChanged.connect(
+            lambda _d: self.enforce_prod_date_range(widgets, source)
+        )
+        qde.editingFinished.connect(
+            lambda: self.enforce_prod_date_range(widgets, source)
+        )
+
     def __init__(
         self,
         iface: qgis.gui.QgisInterface,
@@ -414,35 +423,24 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self, hide_min_year=True, hide_max_year=True
         )
 
-        self.year_initial_baseline.dateChanged.connect(
-            lambda: self.update_start_dates(self.widgets_baseline)
+        self._connect_enforce_any_touch(
+            self.year_initial_baseline, self.widgets_baseline, "year_initial"
         )
-        self.year_final_baseline.dateChanged.connect(
-            lambda: self.update_end_dates(self.widgets_baseline)
+        self._connect_enforce_any_touch(
+            self.year_final_baseline, self.widgets_baseline, "year_final"
         )
-        self.year_initial_baseline.dateChanged.connect(
-            partial(self.enforce_prod_date_range, self.widgets_baseline, "year_initial")
-        )
-        self.year_final_baseline.dateChanged.connect(
-            partial(self.enforce_prod_date_range, self.widgets_baseline, "year_final")
-        )
+
         self.year_initial_baseline_prod.dateChanged.connect(
             lambda: self.enforce_prod_date_range(self.widgets_baseline)
         )
         self.year_final_baseline_prod.dateChanged.connect(
             lambda: self.enforce_prod_date_range(self.widgets_baseline)
         )
-        self.year_initial_progress.dateChanged.connect(
-            lambda: self.update_start_dates(self.widgets_progress)
+        self._connect_enforce_any_touch(
+            self.year_initial_progress, self.widgets_baseline, "year_initial"
         )
-        self.year_final_progress.dateChanged.connect(
-            lambda: self.update_end_dates(self.widgets_progress)
-        )
-        self.year_initial_progress.dateChanged.connect(
-            partial(self.enforce_prod_date_range, self.widgets_progress, "year_initial")
-        )
-        self.year_final_progress.dateChanged.connect(
-            partial(self.enforce_prod_date_range, self.widgets_progress, "year_final")
+        self._connect_enforce_any_touch(
+            self.year_final_progress, self.widgets_progress, "year_final"
         )
         self.year_initial_progress_prod.dateChanged.connect(
             lambda: self.enforce_prod_date_range(self.widgets_progress)
@@ -613,10 +611,20 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         year_initial = widgets.year_initial.date()
         year_final = widgets.year_final.date()
 
-        widgets.year_initial_lc.setDate(year_initial)
-        widgets.year_initial_soc.setDate(year_initial)
-        widgets.year_final_lc.setDate(year_final)
-        widgets.year_final_soc.setDate(year_final)
+        lc_soc_override = (
+            getattr(widgets, "_lc_soc_override", None)
+            if self.radio_lpd_precalculated.isChecked()
+            else None
+        )
+        if lc_soc_override:
+            lc_start, lc_end = lc_soc_override
+        else:
+            lc_start, lc_end = year_initial, year_final
+
+        widgets.year_initial_lc.setDate(lc_start)
+        widgets.year_initial_soc.setDate(lc_start)
+        widgets.year_final_lc.setDate(lc_end)
+        widgets.year_final_soc.setDate(lc_end)
 
         # if FAO-WOCAT checked, prod initial date can't be updated
         if not widgets.radio_fao_wocat.isChecked():
@@ -743,6 +751,26 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
             end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
 
+        # Apply special LC/SOC windows for specific JRC datasets
+        if self.radio_lpd_precalculated.isChecked():
+            label = widgets.cb_lpd.currentText() if hasattr(widgets, "cb_lpd") else ""
+            jrc_overrides = {
+                "JRC Land Productivity Dynamics (2004-2019)": (
+                    QtCore.QDate(2015, 1, 1),
+                    QtCore.QDate(2019, 1, 1),
+                ),
+                "JRC Land Productivity Dynamics (2008-2023)": (
+                    QtCore.QDate(2015, 1, 1),
+                    QtCore.QDate(2023, 1, 1),
+                ),
+            }
+            override = jrc_overrides.get(label)
+            if override:
+                widgets._lc_soc_override = override
+            else:
+                if hasattr(widgets, "_lc_soc_override"):
+                    delattr(widgets, "_lc_soc_override")
+
         widgets.year_initial.setMinimumDate(start_year)
         widgets.year_initial.setMaximumDate(end_year)
         widgets.year_final.setMinimumDate(start_year)
@@ -764,6 +792,14 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_initial_soc.setMaximumDate(end_year)
         widgets.year_final_soc.setMinimumDate(start_year)
         widgets.year_final_soc.setMaximumDate(end_year)
+
+        # If an override exists, set LC/SOC default dates to it now (for both same/vary modes)
+        if hasattr(widgets, "_lc_soc_override") and widgets._lc_soc_override:
+            lc_start, lc_end = widgets._lc_soc_override
+            widgets.year_initial_lc.setDate(lc_start)
+            widgets.year_final_lc.setDate(lc_end)
+            widgets.year_initial_soc.setDate(lc_start)
+            widgets.year_final_soc.setDate(lc_end)
 
         widgets.year_initial.setDate(start_year_prod)
         widgets.year_final.setDate(end_year_prod)
@@ -867,12 +903,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         w.year_initial.dateChanged.connect(lambda _d, ww=w: self.update_start_dates(ww))
         w.year_final.dateChanged.connect(lambda _d, ww=w: self.update_end_dates(ww))
 
-        w.year_initial.dateChanged.connect(
-            lambda _d, ww=w: self.enforce_prod_date_range(ww, "year_initial")
-        )
-        w.year_final.dateChanged.connect(
-            lambda _d, ww=w: self.enforce_prod_date_range(ww, "year_final")
-        )
+        self._connect_enforce_any_touch(w.year_initial, w, "year_initial")
+        self._connect_enforce_any_touch(w.year_final, w, "year_final")
 
         return grp, w
 
@@ -958,8 +990,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             prod_start_widget.blockSignals(True)
             prod_start_widget.setDate(target_start)
             prod_start_widget.blockSignals(False)
-
-            new_prod_end = target_start.addYears(years)
+            if period_start == QtCore.QDate(2001, 1, 1):
+                new_prod_end = target_start.addYears(years - 1)
+            else:
+                new_prod_end = target_start.addYears(years)
             new_prod_end = clamp_qdate(new_prod_end, min_prod_end, max_prod_end)
             prod_end_widget.blockSignals(True)
             prod_end_widget.setDate(new_prod_end)

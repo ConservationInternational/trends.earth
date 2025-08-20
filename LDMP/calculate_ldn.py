@@ -15,7 +15,6 @@
 import typing
 import weakref
 from dataclasses import dataclass
-from functools import partial
 from pathlib import Path
 
 import qgis.gui

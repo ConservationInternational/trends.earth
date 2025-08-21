@@ -52,7 +52,6 @@ class RequestTask(QgsTask):
         payload,
         headers,
         timeout=30,
-        skip_auth_manager=False,
     ):
         super().__init__(description, QgsTask.CanCancel)
 
@@ -63,15 +62,11 @@ class RequestTask(QgsTask):
 
         self.timeout = timeout
         self.headers = headers or {}
-        self.skip_auth_manager = skip_auth_manager
         self.exception = None
         self.resp = None
 
     def run(self):
         try:
-            settings = QgsSettings()
-            auth_id = settings.value("trendsearth/auth")
-
             qurl = QtCore.QUrl(self.url)
 
             network_manager = QgsNetworkAccessManager().instance()
@@ -79,11 +74,7 @@ class RequestTask(QgsTask):
 
             network_request = QtNetwork.QNetworkRequest(qurl)
 
-            # Only use auth manager if not explicitly skipped (e.g., for initial login)
-            if not self.skip_auth_manager:
-                auth_manager = QgsApplication.authManager()
-                auth_manager.updateNetworkRequest(network_request, auth_id)
-
+            # Set content type first
             network_request.setHeader(
                 QtNetwork.QNetworkRequest.ContentTypeHeader, "application/json"
             )
@@ -197,7 +188,20 @@ class RequestTask(QgsTask):
                     )
 
         if self.resp is not None:
-            log(f'API response from "{self.method}" request: {self.resp.error()}')
+            error_code = self.resp.error()
+            status_code = self.resp.attribute(
+                QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
+            )
+
+            log(
+                f'API response from "{self.method}" request: error={error_code}, status={status_code}'
+            )
+
+            # If error code 204 (AuthenticationRequiredError), provide more details
+            if error_code == 204:
+                log(
+                    "Error 204: AuthenticationRequiredError - authentication credentials were not accepted"
+                )
         else:
             log(f'API response from "{self.method}" request was None')
 
@@ -348,8 +352,6 @@ class APIClient(QtCore.QObject):
 
         # If we have an access token and it's not expired, use it
         if stored_access_token and not self._is_token_expired(stored_access_token):
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log("Using valid stored access token")
             return stored_access_token
 
         # If access token is expired but we have a refresh token, try to refresh
@@ -358,9 +360,7 @@ class APIClient(QtCore.QObject):
             and stored_refresh_token
             and self._is_token_expired(stored_access_token)
         ):
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log("Access token expired, attempting refresh")
-
+            log("Access token expired, attempting refresh")
             refreshed_token = self._refresh_access_token(stored_refresh_token)
             if refreshed_token:
                 return refreshed_token
@@ -392,9 +392,7 @@ class APIClient(QtCore.QObject):
         )
 
         error_message = ""
-        if resp:
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log(f"Login response received: {resp}")
+        if resp is not None:
             try:
                 access_token = resp.get("access_token", None)
                 refresh_token = resp.get("refresh_token", None)
@@ -406,28 +404,22 @@ class APIClient(QtCore.QObject):
                     )
 
                     # Check if this is a 204 response (successful but no content)
-                    if not resp or len(resp) == 0:
+                    if resp is not None and len(resp) == 0:
                         error_message = tr_api.tr(
                             "Authentication succeeded but no tokens returned. "
                             "The API authentication method may have changed."
                         )
+                        ret = None
                     else:
                         error_message = tr_api.tr(
                             "Unable to read token for Trends.Earth "
                             "server. Check username and password."
                         )
-                    ret = None
+                        ret = None
                 else:
                     # Store both tokens
                     self._store_tokens(access_token, refresh_token)
                     ret = access_token
-
-                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                        log("Successfully logged in and stored tokens")
-                        if refresh_token:
-                            log("Refresh token also stored")
-                        else:
-                            log("No refresh token provided by server")
 
             except KeyError:
                 log("API unable to login - check username and password")
@@ -470,10 +462,25 @@ class APIClient(QtCore.QObject):
         # Clear cached user ID from settings
         try:
             conf.settings_manager.write_value(conf.Setting.USER_ID, None)
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log("Cleared cached user ID")
         except Exception as e:
             log(f"Warning: Could not clear cached user ID: {e}")
+
+        # Remove QGIS authentication configuration to prevent conflicts with new logins
+        try:
+            auth.remove_current_auth_config(auth.TE_API_AUTH_SETUP)
+            log("Removed QGIS authentication configuration")
+        except Exception as e:
+            log(f"Warning: Could not remove QGIS auth config: {e}")
+
+        # Clear all auth-related settings to ensure clean state
+        try:
+            settings = QgsSettings()
+            settings.setValue("trendsearth/auth", None)
+            settings.setValue(f"trends_earth/{auth.TE_API_AUTH_SETUP.key}", None)
+
+            log("Cleared Trends.Earth authentication settings")
+        except Exception as e:
+            log(f"Warning: Could not clear auth settings: {e}")
 
         log("User logged out and tokens cleared")
 
@@ -494,10 +501,8 @@ class APIClient(QtCore.QObject):
     @backoff.on_predicate(
         backoff.expo, lambda x: x is None, max_tries=3, on_backoff=backoff_hdlr
     )
-    def _make_request(self, description, skip_auth_manager=False, **kwargs):
-        api_task = RequestTask(
-            description, skip_auth_manager=skip_auth_manager, **kwargs
-        )
+    def _make_request(self, description, **kwargs):
+        api_task = RequestTask(description, **kwargs)
         QgsApplication.taskManager().addTask(api_task)
         result = api_task.waitForFinished((self.timeout + 1) * 1000)
 
@@ -523,29 +528,16 @@ class APIClient(QtCore.QObject):
             token = self.login()
 
             if token:
-                if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                    log("API loaded token.")
                 headers = {"Authorization": f"Bearer {token}"}
             else:
                 return None
         else:
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log("API no token required.")
             headers = {}
 
         # Only continue if don't need token or if token load was successful
 
         if (not use_token) or token:
-            # Strip password out of payload for printing to QGIS logs
-
-            if payload:
-                clean_payload = self._clean_payload(payload)
-            else:
-                clean_payload = payload
             log('API calling {} with method "{}"'.format(endpoint, method))
-
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log("API call payload: {}".format(clean_payload))
             resp = self._make_request(
                 "Trends.Earth API call",
                 url=self.url + endpoint,
@@ -553,7 +545,6 @@ class APIClient(QtCore.QObject):
                 payload=payload,
                 headers=headers,
                 timeout=self.timeout,
-                skip_auth_manager=(not use_token),  # Skip auth manager for login calls
             )
         else:
             resp = None
@@ -582,7 +573,28 @@ class APIClient(QtCore.QObject):
                     ret = None
             else:
                 desc, status = resp.error(), resp.errorString()
+
+                # Try to read error response body for more details
+                error_body = None
+                try:
+                    if type(resp) is QtNetwork.QNetworkReply:
+                        error_data = resp.readAll()
+                        if error_data:
+                            error_body = json.load(io.BytesIO(error_data))
+                    elif type(resp) is QgsNetworkReplyContent:
+                        error_data = resp.content()
+                        if error_data:
+                            error_body = json.load(io.BytesIO(error_data))
+                except Exception as e:
+                    log(f"Could not parse error response body: {e}")
+
                 err_msg = "Error: {} (status {}).".format(desc, status)
+                if error_body:
+                    if isinstance(error_body, dict) and "msg" in error_body:
+                        err_msg += f" Server message: {error_body['msg']}"
+                    else:
+                        err_msg += f" Server response: {error_body}"
+
                 log(err_msg)
 
                 # If we get a 401 (Unauthorized) error and we're using a token,

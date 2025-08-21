@@ -969,6 +969,15 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
             )
             self.ok = True
             self.close()
+        else:
+            # Login failed - show error message to user
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Login Failed"),
+                self.tr(
+                    "Invalid username or password. Please check your credentials and try again."
+                ),
+            )
 
 
 class DlgSettingsLoginLandPKS(QtWidgets.QDialog, Ui_DlgSettingsLogin):

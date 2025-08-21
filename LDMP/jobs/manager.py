@@ -1368,7 +1368,12 @@ def _get_access_token():
     api_client = api.APIClient(API_URL, TIMEOUT)
     login_reply = api_client.login()
 
-    return login_reply["access_token"]
+    if isinstance(login_reply, str) and login_reply:
+        # Token-based authentication - login() returns the token directly
+        return login_reply
+    else:
+        # Authentication failed
+        return None
 
 
 def _get_user_id() -> typing.Optional[uuid.UUID]:

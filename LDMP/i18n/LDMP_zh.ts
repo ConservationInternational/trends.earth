@@ -577,27 +577,27 @@
 <context>
     <name>DlgAdvancedSettingsProgressPeriod</name>
     <message>
-        <location filename="../calculate_ldn.py" line="1509"/>
+        <location filename="../calculate_ldn.py" line="1609"/>
         <source>Error</source>
         <translation type="unfinished">错误</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1354"/>
+        <location filename="../calculate_ldn.py" line="1454"/>
         <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
         <translation type="unfinished">您必须先选择{layer_name}图层，然后才能使用 SDG 计算工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1422"/>
+        <location filename="../calculate_ldn.py" line="1522"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation type="unfinished">感兴趣区域并不完全在{check_layer_name}层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1500"/>
+        <location filename="../calculate_ldn.py" line="1600"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished">{model_layer_name}层和{check_layer_name}层的分辨率不匹配。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1509"/>
+        <location filename="../calculate_ldn.py" line="1609"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished">{model_layer_name}层和{check_layer_name}层的坐标系不匹配。</translation>
     </message>
@@ -935,32 +935,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationBase</name>
     <message>
-        <location filename="../lc_setup.py" line="588"/>
+        <location filename="../lc_setup.py" line="591"/>
         <source>Select a land cover definition file</source>
         <translation type="unfinished">选择一个土地覆盖物定义文件</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="617"/>
+        <location filename="../lc_setup.py" line="618"/>
         <source>Land cover definition (*.json)</source>
         <translation type="unfinished">土地覆盖定义（* .json）</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="630"/>
+        <location filename="../lc_setup.py" line="631"/>
         <source>Error</source>
         <translation type="unfinished">错误</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="601"/>
+        <location filename="../lc_setup.py" line="604"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation type="unfinished">无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="617"/>
+        <location filename="../lc_setup.py" line="618"/>
         <source>Choose where to save this land cover definition</source>
         <translation type="unfinished">选择保存此土地覆盖范围定义的位置</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="630"/>
+        <location filename="../lc_setup.py" line="631"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation type="unfinished">无法写入{}。选择一个不同的文件。</translation>
     </message>
@@ -968,12 +968,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationCustom</name>
     <message>
-        <location filename="../lc_setup.py" line="868"/>
+        <location filename="../lc_setup.py" line="881"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="868"/>
+        <location filename="../lc_setup.py" line="881"/>
         <source>Some of the parent classes ({unnecessary_parent_codes!r}) in the definition file are not listed in the current class legend. These classes will be ignored.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -981,17 +981,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCSetAggregationESA</name>
     <message>
-        <location filename="../lc_setup.py" line="730"/>
+        <location filename="../lc_setup.py" line="738"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="718"/>
+        <location filename="../lc_setup.py" line="726"/>
         <source>Some of the class codes ({unnecessary_child_codes!r}) in the definition file do not appear in the chosen data file.</source>
         <translation type="unfinished">定义文件中的某些类代码 ({unnecessary_child_codes!r}) 不会出现在所选数据文件中。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="730"/>
+        <location filename="../lc_setup.py" line="738"/>
         <source>Some of the class codes ({child_codes_missing_from_input!r}) in the data file do not appear in the chosen definition file.</source>
         <translation type="unfinished">数据文件中的某些类代码 ({child_codes_missing_from_input!r}) 不会出现在所选定义文件中。</translation>
     </message>
@@ -1084,12 +1084,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;此工具支持重新计算指标层以纠正已知错误（假阳性或假阴性）。&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1755"/>
+        <location filename="../calculate_ldn.py" line="1855"/>
         <source>Coming soon!</source>
         <translation>快来了！</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1755"/>
+        <location filename="../calculate_ldn.py" line="1855"/>
         <source>This function coming soon!</source>
         <translation>此功能即将推出！</translation>
     </message>
@@ -1257,7 +1257,7 @@ p, li { white-space: pre-wrap; }
         <translation>与已执行任务相关的用户注释。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1183"/>
+        <location filename="../calculate_ldn.py" line="1283"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation>该地区没有可用的数据集（请参阅高级）</translation>
     </message>
@@ -1607,7 +1607,7 @@ p, li { white-space: pre-wrap; }
         <translation>定义土地覆被变化的影响</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="971"/>
+        <location filename="../calculate_ldn.py" line="1073"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1617,22 +1617,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">在{period}中，初始年和最后一年相隔不到 10 年——如果分析中包含更多数据（年），结果将更加可靠。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="514"/>
+        <location filename="../calculate_ldn.py" line="525"/>
         <source>Also reset land cover legend?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="514"/>
+        <location filename="../calculate_ldn.py" line="525"/>
         <source>The UNCCD default data uses a 7 class land cover legend. Do you also want to reset the land cover legend to the UNCCD default? This will mean any changes you may have made to the land cover legend will be lost.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1088"/>
+        <location filename="../calculate_ldn.py" line="1188"/>
         <source>Error</source>
         <translation type="unfinished">错误</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1088"/>
+        <location filename="../calculate_ldn.py" line="1188"/>
         <source>Final year of the productivity data ({year_final}) must be within three years of the years for which population data is available from the WorldPop dataset ({pop_start_year}-{pop_end_year}).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1717,7 +1717,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="971"/>
+        <location filename="../calculate_ldn.py" line="1073"/>
         <source>Initial and final year are less {MIN_YEARS_FOR_PROD_UPDATE} years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1795,62 +1795,62 @@ p, li { white-space: pre-wrap; }
         <translation>选择归一化植被指数（NDVI）数据集的类型</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="306"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="436"/>
         <source>Trend (related to rate of change of  productivity over time)</source>
         <translation>趋势（与生产力随时间变化的比率有关）。</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="324"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="454"/>
         <source>Trend indicator</source>
         <translation>趋势指标</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="352"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="704"/>
         <source>Period</source>
         <translation>期</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1025"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1161"/>
         <source>Starting year:</source>
         <translation>开始年份：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="897"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1033"/>
         <source>Ending year:</source>
         <translation>结束年份：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="485"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="615"/>
         <source>Climate dataset</source>
         <translation>气候数据集</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="577"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="713"/>
         <source>Performance (a measure of how productivity in an area compares to that of similar areas)</source>
         <translation>绩效（衡量一个地区的生产率与相似地区的生产力的比较）</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="710"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="846"/>
         <source>State (compares current productivity in an area to past productivity in the same area)</source>
         <translation>状态（比较一个地区的当前生产力与同一地区过去的生产率）</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="746"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="882"/>
         <source>Initial period</source>
         <translation>初期</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="882"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1018"/>
         <source>Comparison period</source>
         <translation>比较期</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="286"/>
+        <location filename="../calculate_prod.py" line="295"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="286"/>
+        <location filename="../calculate_prod.py" line="295"/>
         <source>Choose one or more productivity sub-indicator to calculate.</source>
         <translation>选择一个或多个生产力子指标进行计算。</translation>
     </message>
@@ -1866,36 +1866,36 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="294"/>
-        <source>NDIV MODIS QA</source>
+        <source>NDVI MODIS QA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="516"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="646"/>
         <source>Initial Biomass</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="522"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="652"/>
         <source>Low</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="548"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="678"/>
         <source>High</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="719"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="855"/>
         <source>Period interval</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="727"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="863"/>
         <source>Number of years:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1081"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1217"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -3158,7 +3158,7 @@ p, li { white-space: pre-wrap; }
         <translation>注意：如果读取大文件，建议选中以上选项，因为它将大大加快从数据集中读取输入类的过程。但是，如果您发现Trends.Earth不能识别输入文件中的所有类，则可能有必要关闭此选项。 （仅在选择栅格输入时适用）</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1150"/>
+        <location filename="../lc_setup.py" line="1160"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -3168,17 +3168,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">选择一个输出文件。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1172"/>
+        <location filename="../lc_setup.py" line="1182"/>
         <source>No definition set</source>
         <translation>没有定义集</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1172"/>
+        <location filename="../lc_setup.py" line="1182"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation type="unfinished">单击“编辑定义”以在导出之前定义土地覆盖定义。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1004"/>
+        <location filename="../lc_setup.py" line="1017"/>
         <source>Enter the year of the input data.</source>
         <translation>输入输入数据的年份。</translation>
     </message>
@@ -3188,17 +3188,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">读数据时出错。 Trends.Earth最多支持60种不同的土地覆盖类别</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1150"/>
+        <location filename="../lc_setup.py" line="1160"/>
         <source>Error reading data. Trends.Earth supports a maximum of 38 different land cover classes</source>
         <translation type="unfinished">读数据时出错。 Trends.Earth最多支持60种不同的土地覆盖类别 {38 ?}</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1195"/>
+        <location filename="../lc_setup.py" line="1205"/>
         <source>Land cover ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1124"/>
+        <location filename="../lc_setup.py" line="1134"/>
         <source>Error reading data. Trends.Earth supports a maximum of {max_classes!s} different land cover classes.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4009,32 +4009,32 @@ p, li { white-space: pre-wrap; }
         <translation>输入你的电子邮箱地址...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1058"/>
+        <location filename="../settings.py" line="1067"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1058"/>
+        <location filename="../settings.py" line="1067"/>
         <source>Enter your email address to reset your password.</source>
         <translation>输入您的电子邮件地址来重置您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1066"/>
+        <location filename="../settings.py" line="1075"/>
         <source>Reset password?</source>
         <translation>重设密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1066"/>
+        <location filename="../settings.py" line="1075"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? Your new password will be emailed to you.</source>
         <translation>您确定要重新设置{self.email.text()}的密码吗？新密码将通过电子邮件发送给您。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1083"/>
+        <location filename="../settings.py" line="1092"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1083"/>
+        <location filename="../settings.py" line="1092"/>
         <source>The password has been reset for {self.email.text()}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
         <translation>{self.email.text()}的密码已重置。检查您的电子邮件以获取新密码，然后返回 Trends.Earth 输入密码。</translation>
     </message>
@@ -4067,37 +4067,37 @@ p, li { white-space: pre-wrap; }
         <translation>组织：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1142"/>
+        <location filename="../settings.py" line="1151"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1124"/>
+        <location filename="../settings.py" line="1133"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1130"/>
+        <location filename="../settings.py" line="1139"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1136"/>
+        <location filename="../settings.py" line="1145"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1142"/>
+        <location filename="../settings.py" line="1151"/>
         <source>Enter your country.</source>
         <translation>进入你的国家。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1156"/>
+        <location filename="../settings.py" line="1165"/>
         <source>Saved</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1156"/>
+        <location filename="../settings.py" line="1165"/>
         <source>Updated information for {}.</source>
         <translation>{}的更新信息。</translation>
     </message>
@@ -4144,31 +4144,41 @@ p, li { white-space: pre-wrap; }
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>以{self.email.text()}登录 Trends.Earth 服务器。&lt;html&gt;&lt;p&gt;欢迎来到 Trends.Earth！&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;加入 Trends.Earth 用户电子邮件组&lt;a/&gt;&lt;/p&gt;&lt;p&gt;确保加入 Trends.Earth 用户电子邮件组，了解关于支持可持续发展目标监测的工具、方法和数据集的更新和问答。</translation>
     </message>
+    <message>
+        <location filename="../settings.py" line="974"/>
+        <source>Login Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="974"/>
+        <source>Invalid username or password. Please check your credentials and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="1001"/>
+        <location filename="../settings.py" line="1010"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="995"/>
+        <location filename="../settings.py" line="1004"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1001"/>
+        <location filename="../settings.py" line="1010"/>
         <source>Enter your password.</source>
         <translation>输入密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1020"/>
+        <location filename="../settings.py" line="1029"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1020"/>
+        <location filename="../settings.py" line="1029"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>以{self.email.text()}成功设置登录到 LandPKS 服务器。</translation>
     </message>
@@ -4509,7 +4519,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="533"/>
+        <location filename="../jobs/manager.py" line="537"/>
         <source>Processing: {task_name}</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4517,37 +4527,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="1238"/>
+        <location filename="../lc_setup.py" line="1248"/>
         <source>Land cover in initial year </source>
         <translation>首年的土地覆被</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1368"/>
+        <location filename="../lc_setup.py" line="1378"/>
         <source>Select a transition matrix definition file</source>
         <translation>选择一个转换矩阵定义文件</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1399"/>
+        <location filename="../lc_setup.py" line="1409"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>转换矩阵定义（* .json）</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1412"/>
+        <location filename="../lc_setup.py" line="1422"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1381"/>
+        <location filename="../lc_setup.py" line="1391"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1399"/>
+        <location filename="../lc_setup.py" line="1409"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>选择保存此过渡矩阵定义的位置</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1412"/>
+        <location filename="../lc_setup.py" line="1422"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
@@ -4555,17 +4565,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LandCoverClassSelectionDialog</name>
     <message>
-        <location filename="../settings.py" line="2256"/>
+        <location filename="../settings.py" line="2265"/>
         <source>&lt;b&gt;Select a parent for each of the below class names&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2301"/>
+        <location filename="../settings.py" line="2310"/>
         <source>Accept</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2303"/>
+        <location filename="../settings.py" line="2312"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4573,37 +4583,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2402"/>
+        <location filename="../settings.py" line="2411"/>
         <source>Class Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2453"/>
+        <location filename="../settings.py" line="2462"/>
         <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2485"/>
+        <location filename="../settings.py" line="2494"/>
         <source>Class name cannot be empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2489"/>
+        <location filename="../settings.py" line="2498"/>
         <source>Invalid color selected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2493"/>
+        <location filename="../settings.py" line="2502"/>
         <source>Parent class cannot be empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2498"/>
+        <location filename="../settings.py" line="2507"/>
         <source>Invalid class code value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2502"/>
+        <location filename="../settings.py" line="2511"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4611,97 +4621,97 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="1685"/>
+        <location filename="../settings.py" line="1694"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1685"/>
+        <location filename="../settings.py" line="1694"/>
         <source>Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1685"/>
+        <location filename="../settings.py" line="1694"/>
         <source>Parent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1784"/>
+        <location filename="../settings.py" line="1793"/>
         <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2050"/>
+        <location filename="../settings.py" line="2059"/>
         <source>Maximum number of classes reached.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1855"/>
+        <location filename="../settings.py" line="1864"/>
         <source>Nothing to save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1862"/>
+        <location filename="../settings.py" line="1871"/>
         <source>Save Land Cover Classes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1886"/>
+        <location filename="../settings.py" line="1895"/>
         <source>Select Land Cover Classes File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1904"/>
+        <location filename="../settings.py" line="1913"/>
         <source>No land cover classes found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1969"/>
+        <location filename="../settings.py" line="1978"/>
         <source>Land Cover Class Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2033"/>
+        <location filename="../settings.py" line="2042"/>
         <source>Invalid row for land cover class</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2038"/>
+        <location filename="../settings.py" line="2047"/>
         <source>Unable to update class.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2057"/>
+        <location filename="../settings.py" line="2066"/>
         <source>Unable to add new class.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2085"/>
+        <location filename="../settings.py" line="2094"/>
         <source>class does not have children assigned to it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2105"/>
+        <location filename="../settings.py" line="2114"/>
         <source>class has not been assigned a parent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2231"/>
+        <location filename="../settings.py" line="2240"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2236"/>
+        <location filename="../settings.py" line="2245"/>
         <source>Delete Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1746"/>
+        <location filename="../settings.py" line="1755"/>
         <source>CSV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1748"/>
+        <location filename="../settings.py" line="1757"/>
         <source>Select csv file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5666,102 +5676,102 @@ p, li { white-space: pre-wrap; }
         <translation>启用 LandPKS 数据访问</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1216"/>
+        <location filename="../settings.py" line="1225"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1216"/>
+        <location filename="../settings.py" line="1225"/>
         <source>You must restart QGIS for these changes to take effect.</source>
         <translation>您必须重新启动 QGIS 才能使这些更改生效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1324"/>
+        <location filename="../settings.py" line="1333"/>
         <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
         <translation>二进制文件&lt;b&gt;已&lt;/b&gt;加载。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1326"/>
+        <location filename="../settings.py" line="1335"/>
         <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
         <translation>二进制文件&lt;b&gt;未&lt;/b&gt;加载。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1336"/>
+        <location filename="../settings.py" line="1345"/>
         <source>No base data directory set</source>
         <translation>没有设置基本数据目录</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1391"/>
+        <location filename="../settings.py" line="1400"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>无法写给{}。尝试其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1366"/>
+        <location filename="../settings.py" line="1375"/>
         <source>Choose a folder</source>
         <translation>选择一个文件夹</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1366"/>
+        <location filename="../settings.py" line="1375"/>
         <source>Choose a folder before downloading binaries.</source>
         <translation>在下载二进制文件之前选择一个文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1501"/>
+        <location filename="../settings.py" line="1510"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1375"/>
+        <location filename="../settings.py" line="1384"/>
         <source>Unable to write to {}. Choose a different folder.</source>
         <translation>无法写给{}。选择其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1414"/>
+        <location filename="../settings.py" line="1423"/>
         <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
         <translation>无法写给{}。检查您是否有权写入此文件夹，并且您没有尝试覆盖当前在 QGIS 中加载的二进制文件。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1426"/>
+        <location filename="../settings.py" line="1435"/>
         <source>Unable to read binaries from {}. Check that binaries were downloaded successfully.</source>
         <translation>无法从{}读取二进制文件。检查二进制文件是否已成功下载。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1441"/>
+        <location filename="../settings.py" line="1450"/>
         <source>Error downloading binaries.</source>
         <translation>下载二进制文件时出错。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1451"/>
+        <location filename="../settings.py" line="1460"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1447"/>
+        <location filename="../settings.py" line="1456"/>
         <source>Downloaded binaries.</source>
         <translation>下载的二进制文件。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1451"/>
+        <location filename="../settings.py" line="1460"/>
         <source>All binaries up to date.</source>
         <translation>所有二进制文件都是最新的。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1471"/>
+        <location filename="../settings.py" line="1480"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation>选择包含 Trends.Earth 二进制文件的文件夹</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1483"/>
+        <location filename="../settings.py" line="1492"/>
         <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
         <translation>选择其他的文件夹——无法在 Trends.Earth QGIS 插件安装文件夹中安装二进制文件。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1501"/>
+        <location filename="../settings.py" line="1510"/>
         <source>Cannot read {folder_path!r}. Choose a different folder.</source>
         <translation>无法读取{folder_path!r}。选择其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1300"/>
+        <location filename="../settings.py" line="1309"/>
         <source>Offline mode is enabled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5824,27 +5834,27 @@ p, li { white-space: pre-wrap; }
         <translation>在输出目录中记录警告</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1571"/>
+        <location filename="../settings.py" line="1580"/>
         <source>Select Report Template Search Path</source>
         <translation>选择报告模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1581"/>
+        <location filename="../settings.py" line="1590"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>需要重新启动 QGIS 才能使更改生效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1583"/>
+        <location filename="../settings.py" line="1592"/>
         <source>Template Search Path</source>
         <translation>模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1593"/>
+        <location filename="../settings.py" line="1602"/>
         <source>All Images</source>
         <translation>所有图片</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1608"/>
+        <location filename="../settings.py" line="1617"/>
         <source>Select Organization Logo</source>
         <translation>选择组织徽标</translation>
     </message>
@@ -5936,17 +5946,17 @@ for running algorithms and their results.</source>
 <context>
     <name>self.parent</name>
     <message>
-        <location filename="../settings.py" line="2262"/>
+        <location filename="../settings.py" line="2271"/>
         <source>The class name value that will imported, should not exceed 120 characters. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2267"/>
+        <location filename="../settings.py" line="2276"/>
         <source>Select the parent for the corresponding class name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2324"/>
+        <location filename="../settings.py" line="2333"/>
         <source>Maximum number of codes reached.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5954,7 +5964,7 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_api</name>
     <message>
-        <location filename="../api.py" line="190"/>
+        <location filename="../api.py" line="181"/>
         <source>Unable to login to Trends.Earth server. Check your internet connection.</source>
         <translation>无法登录 Trends.Earth 服务器。检查您的互联网连接。</translation>
     </message>
@@ -5964,17 +5974,17 @@ for running algorithms and their results.</source>
         <translation type="obsolete">无法连接到 Trends.Earth 服务器。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="415"/>
+        <location filename="../api.py" line="414"/>
         <source>Unable to read token for Trends.Earth server. Check username and password.</source>
         <translation>无法读取 Trends.Earth 服务器的令牌。检查用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="434"/>
+        <location filename="../api.py" line="426"/>
         <source>Unable to login to Trends.Earth. Check username and password.</source>
         <translation>无法登录 Trends.Earth。检查用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="440"/>
+        <location filename="../api.py" line="432"/>
         <source>Unable to access Trends.Earth server. Check your internet connection</source>
         <translation>无法访问 Trends.Earth 服务器。检查您的互联网连接</translation>
     </message>
@@ -5989,12 +5999,12 @@ for running algorithms and their results.</source>
         <translation type="obsolete">无法登录 Trends.Earth。检查用户名和密码是否正确。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="195"/>
+        <location filename="../api.py" line="186"/>
         <source>Unable to connect to Trends.Earth server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="410"/>
+        <location filename="../api.py" line="408"/>
         <source>Authentication succeeded but no tokens returned. The API authentication method may have changed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6002,7 +6012,7 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_areaofinterest</name>
     <message>
-        <location filename="../areaofinterest.py" line="654"/>
+        <location filename="../areaofinterest.py" line="656"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -6012,7 +6022,7 @@ for running algorithms and their results.</source>
         <translation>第 {} 行中的几何图形无效。在处理之前检查所有输入 geom_jsons 是否有效。尝试使用工具栏“矢量”菜单上的检查有效性工具，以获取关于哪些功能无效的更多信息（在“矢量”——“几何工具”——“检查有效性”下）。</translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="654"/>
+        <location filename="../areaofinterest.py" line="656"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation>错误 - 图层不在地理坐标系中。无法将图层包裹在180度经线。</translation>
     </message>
@@ -6088,7 +6098,7 @@ for running algorithms and their results.</source>
         <translation>选择包含数据的文件夹</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="556"/>
+        <location filename="../calculate.py" line="558"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -6148,12 +6158,12 @@ for running algorithms and their results.</source>
         <translation>当前区域：{region}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="544"/>
+        <location filename="../calculate.py" line="546"/>
         <source>Unable to calculate bounding box.</source>
         <translation>无法计算边界框。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="556"/>
+        <location filename="../calculate.py" line="558"/>
         <source>Choose an output base name.</source>
         <translation>选择一个输出基础名。</translation>
     </message>

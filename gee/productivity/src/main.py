@@ -54,79 +54,67 @@ def run(params, logger):
         ndvi_gee_dataset = params.get("ndvi_gee_dataset")
         climate_gee_dataset = params.get("climate_gee_dataset")
 
-        res = []
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            for n, geojson in enumerate(geojsons, start=1):
-                this_out = None
+        # Calculate productivity components globally (not per geojson) for unified percentiles
+        global_output = None
+        proj = ee.Image(ndvi_gee_dataset).projection()
 
-                if calc_traj:
-                    traj = productivity_trajectory(
-                        int(prod_traj_year_initial),
-                        int(prod_traj_year_final),
-                        prod_traj_method,
-                        ndvi_gee_dataset,
-                        climate_gee_dataset,
-                        logger,
-                    )
+        if calc_traj:
+            logger.debug("Calculating productivity trajectory...")
+            traj = productivity_trajectory(
+                int(prod_traj_year_initial),
+                int(prod_traj_year_final),
+                prod_traj_method,
+                ndvi_gee_dataset,
+                climate_gee_dataset,
+                logger,
+            )
+            global_output = traj
 
-                    if not this_out:
-                        this_out = traj
+        if calc_perf:
+            logger.debug(
+                "Calculating productivity performance with unified percentiles across all geojsons..."
+            )
+            perf = productivity_performance(
+                prod_perf_year_initial,
+                prod_perf_year_final,
+                ndvi_gee_dataset,
+                geojsons,  # Pass all geojsons for unified percentile calculation
+                logger,
+            )
 
-                if calc_perf:
-                    perf = productivity_performance(
-                        prod_perf_year_initial,
-                        prod_perf_year_final,
-                        ndvi_gee_dataset,
-                        geojson,
-                        logger,
-                    )
+            if not global_output:
+                global_output = perf
+            else:
+                global_output.merge(perf)
 
-                    if not this_out:
-                        this_out = perf
-                    else:
-                        this_out.merge(perf)
+        if calc_state:
+            logger.debug("Calculating productivity state...")
+            state = productivity_state(
+                prod_state_year_bl_start,
+                prod_state_year_bl_end,
+                prod_state_year_tg_start,
+                prod_state_year_tg_end,
+                ndvi_gee_dataset,
+                logger,
+            )
 
-                if calc_state:
-                    state = productivity_state(
-                        prod_state_year_bl_start,
-                        prod_state_year_bl_end,
-                        prod_state_year_tg_start,
-                        prod_state_year_tg_end,
-                        ndvi_gee_dataset,
-                        logger,
-                    )
+            if not global_output:
+                global_output = state
+            else:
+                global_output.merge(state)
 
-                    if not this_out:
-                        this_out = state
-                    else:
-                        this_out.merge(state)
+        logger.debug("Converting output to TEImageV2 format")
+        global_output = teimage_v1_to_teimage_v2(global_output)
 
-                logger.debug("Converting output to TEImageV2 format")
-                this_out = teimage_v1_to_teimage_v2(this_out)
-                proj = ee.Image(ndvi_gee_dataset).projection()
-                res.append(
-                    executor.submit(
-                        this_out.export,
-                        geojsons=[geojson],
-                        task_name="productivity",
-                        crs=crs,
-                        logger=logger,
-                        execution_id=f"{EXECUTION_ID}_{n}",
-                        proj=proj,
-                    )
-                )
-
-        final_output = None
-        schema = results.RasterResults.Schema()
-        # Deserialize the data that was prepared for output from the
-        # productivity functions, so that new urls can be appended if need
-        # be from the next result (next geojson)
-        final_output = schema.load(res[0].result())
-        for n, this_res in enumerate(as_completed(res[1:]), start=1):
-            logger.debug(f"Combining main output with output {n}")
-            final_output.combine(schema.load(this_res.result()))
-        logger.debug("Serializing")
-        return schema.dump(final_output)
+        logger.debug("Exporting global productivity results")
+        return global_output.export(
+            geojsons=geojsons,
+            task_name="productivity",
+            crs=crs,
+            logger=logger,
+            execution_id=EXECUTION_ID,
+            proj=proj,
+        )
 
     elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
         data_source = params.get("data_source", "Joint Research Commission (JRC)")

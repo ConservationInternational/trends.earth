@@ -7,13 +7,12 @@ import random
 from typing import Dict
 
 from te_algorithms.api import util
-from te_algorithms.api.util import BandData
 from te_algorithms.gdal.land_deg.land_deg_stats import calculate_statistics
 from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.productivity import ProductivityMode
 from te_schemas.results import JsonResults
 
-S3_PREFIX_RAW_DATA = "prais4-raw"
+S3_PREFIX_RAW_DATA = "prais5-raw"
 S3_BUCKET_INPUT = "trends.earth-private"
 S3_REGION = "us-east-1"
 S3_BUCKET_USER_DATA = "trends.earth-users"
@@ -58,6 +57,11 @@ def run_stats(
         input_job = util.get_job_json_from_s3(
             s3_prefix=s3_prefix, s3_bucket=S3_BUCKET_INPUT, substr_regexs=substr_regexs
         )
+        if input_job is None:
+            raise IndexError(
+                f"No job found for prefix {s3_prefix} "
+                f" with substr_regexs {substr_regexs}"
+            )
     except IndexError as exc:
         logger.error(f"Failed to load input job from prefix {s3_prefix}: {exc}")
         raise exc
@@ -142,7 +146,7 @@ def run(params, logger):
     bands = params["bands"]
     boundary_dataset = params.get("boundary_dataset", "UN")
     productivity_dataset = params.get(
-        "productivity_dataset", ProductivityMode.JRC_5_CLASS_LPD.value
+        "productivity_dataset", ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
     )
 
     substr_regexs = params.get("substr_regexs", [])

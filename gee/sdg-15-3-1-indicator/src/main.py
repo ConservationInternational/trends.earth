@@ -1,5 +1,30 @@
 """
 Code for calculating final SDG 15.3.1 indicator.
+
+Optional productivity bands:
+  To include additional productivity bands (trajectory trend, performance ratio/units,
+  state classes, NDVI means) in the output, set the parameter 'include_productivity_bands'
+  to True in the input parameters. This option is only available when using Trends.Earth
+  productivity calculations (ProductivityMode.TRENDS_EARTH_5_CLASS_LPD).
+
+  Additional bands included:
+  - Productivity trajectory (significance): Significance values from productivity trajectory analysis
+  - Productivity state (degradation): Degradation values from productivity state analysis
+  - Productivity performance (degradation): Degradation values from productivity performance analysis
+
+  Example usage:
+    params = {
+        'include_productivity_bands': True,  # Enable additional productivity bands
+        'baseline_period': {
+            'productivity': {
+                'mode': ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value,
+                # ... other productivity params
+            },
+            # ... other baseline period params
+        },
+        # ... other params
+    }
+    result = run(params, logger)
 """
 
 # Copyright 2017 Conservation International
@@ -155,7 +180,7 @@ def _calc_sdg_status(sdg_bl, sdg_tg, baseline_year_initial, period_year_final):
     )
 
 
-def _setup_output(prod5, lc, soc, sdg, params):
+def _setup_output(prod5, lc, soc, sdg, params, extra_prod_bands=None):
     prod_mode = params["productivity"]["mode"]
     if prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
         lpd_band_name = config.JRC_LPD_BAND_NAME
@@ -184,42 +209,56 @@ def _setup_output(prod5, lc, soc, sdg, params):
 
     sdg = sdg.rename(f"SDG_Indicator_15_3_1_{lpd_year_initial}-{lpd_year_final}")
 
+    # Build the base image with core bands
+    base_image = sdg.addBands(prod5).addBands(lc).addBands(soc)
+
+    # Build the base band info list
+    base_band_infos = [
+        BandInfo(
+            config.SDG_BAND_NAME,
+            add_to_map=True,
+            metadata={
+                "year_initial": params["period"]["year_initial"],
+                "year_final": params["period"]["year_final"],
+            },
+        ),
+        BandInfo(
+            lpd_band_name,
+            add_to_map=False,
+            metadata={
+                "year_initial": params["productivity"]["traj_year_initial"],
+                "year_final": params["productivity"]["traj_year_final"],
+            },
+        ),
+        BandInfo(
+            config.LC_DEG_BAND_NAME,
+            add_to_map=False,
+            metadata={
+                "year_initial": params["land_cover"]["year_initial"],
+                "year_final": params["land_cover"]["year_final"],
+            },
+        ),
+        BandInfo(
+            config.SOC_DEG_BAND_NAME,
+            add_to_map=False,
+            metadata={
+                "year_initial": params["soil_organic_carbon"]["year_initial"],
+                "year_final": params["soil_organic_carbon"]["year_final"],
+            },
+        ),
+    ]
+
+    # Add extra productivity bands if provided and if include_productivity_bands is enabled
+    include_productivity_bands = params.get("include_productivity_bands", False)
+    if include_productivity_bands and extra_prod_bands is not None:
+        # Add the extra productivity bands to the image
+        for band_data in extra_prod_bands:
+            base_image = base_image.addBands(band_data["image"])
+            base_band_infos.append(band_data["band_info"])
+
     out = TEImage(
-        sdg.addBands(prod5).addBands(lc).addBands(soc).unmask(-32768).int16(),
-        [
-            BandInfo(
-                config.SDG_BAND_NAME,
-                add_to_map=True,
-                metadata={
-                    "year_initial": params["period"]["year_initial"],
-                    "year_final": params["period"]["year_final"],
-                },
-            ),
-            BandInfo(
-                lpd_band_name,
-                add_to_map=False,
-                metadata={
-                    "year_initial": params["productivity"]["traj_year_initial"],
-                    "year_final": params["productivity"]["traj_year_final"],
-                },
-            ),
-            BandInfo(
-                config.LC_DEG_BAND_NAME,
-                add_to_map=False,
-                metadata={
-                    "year_initial": params["land_cover"]["year_initial"],
-                    "year_final": params["land_cover"]["year_final"],
-                },
-            ),
-            BandInfo(
-                config.SOC_DEG_BAND_NAME,
-                add_to_map=False,
-                metadata={
-                    "year_initial": params["soil_organic_carbon"]["year_initial"],
-                    "year_final": params["soil_organic_carbon"]["year_final"],
-                },
-            ),
-        ],
+        base_image.unmask(-32768).int16(),
+        base_band_infos,
     )
 
     out = teimage_v1_to_teimage_v2(out)
@@ -290,7 +329,71 @@ def _run_te_period(params, all_geojsons, logger):
     deg_soc = _run_soc_deg(params.get("soil_organic_carbon"), logger)
     deg_sdg = _calc_deg_sdg(deg_prod5, deg_lc, deg_soc)
 
-    return _setup_output(deg_prod5, deg_lc, deg_soc, deg_sdg, params)
+    # Collect extra productivity bands if include_productivity_bands is enabled
+    extra_prod_bands = None
+    include_productivity_bands = params.get("include_productivity_bands", False)
+    if include_productivity_bands:
+        logger.debug("Including additional productivity bands in output")
+        extra_prod_bands = []
+
+        # Get the three core productivity bands: significance, state degradation, and performance degradation
+        # These are the same bands used in setAddToMap for the sub-indicators script
+
+        # Get trajectory significance band (already extracted above)
+        if prod_traj_signif:
+            extra_prod_bands.append(
+                {
+                    "image": prod_traj_signif[0],
+                    "band_info": BandInfo(
+                        config.TRAJ_BAND_NAME,
+                        add_to_map=False,
+                        metadata={
+                            "year_initial": prod_params.get("traj_year_initial"),
+                            "year_final": prod_params.get("traj_year_final"),
+                        },
+                    ),
+                }
+            )
+
+        # Get performance degradation band (already extracted above)
+        if prod_perf_deg:
+            extra_prod_bands.append(
+                {
+                    "image": prod_perf_deg[0],
+                    "band_info": BandInfo(
+                        config.PERF_BAND_NAME,
+                        add_to_map=False,
+                        metadata={
+                            "year_initial": prod_params.get("perf_year_initial"),
+                            "year_final": prod_params.get("perf_year_final"),
+                        },
+                    ),
+                }
+            )
+
+        # Get state degradation band (already extracted above)
+        if prod_state_classes:
+            extra_prod_bands.append(
+                {
+                    "image": prod_state_classes[0],
+                    "band_info": BandInfo(
+                        config.STATE_BAND_NAME,
+                        add_to_map=False,
+                        metadata={
+                            "year_bl_start": prod_params.get("state_year_bl_start"),
+                            "year_bl_end": prod_params.get("state_year_bl_end"),
+                            "year_tg_start": prod_params.get("state_year_tg_start"),
+                            "year_tg_end": prod_params.get("state_year_tg_end"),
+                        },
+                    ),
+                }
+            )
+
+        logger.debug(
+            f"Added {len(extra_prod_bands)} extra productivity bands to output"
+        )
+
+    return _setup_output(deg_prod5, deg_lc, deg_soc, deg_sdg, params, extra_prod_bands)
 
 
 def _get_sdg(out):
@@ -360,7 +463,15 @@ def _run_precalculated_lpd_period(params, logger):
     deg_soc = _run_soc_deg(params.get("soil_organic_carbon"), logger)
     deg_sdg = _calc_deg_sdg(deg_prod5, deg_lc, deg_soc)
 
-    return _setup_output(deg_prod5, deg_lc, deg_soc, deg_sdg, params)
+    # For precalculated LPD, no extra productivity bands are available
+    # Log a warning if user requested them
+    if params.get("include_productivity_bands", False):
+        logger.warning(
+            "include_productivity_bands parameter ignored for precalculated LPD mode. "
+            "Extra productivity bands are only available with Trends.Earth productivity calculations."
+        )
+
+    return _setup_output(deg_prod5, deg_lc, deg_soc, deg_sdg, params, None)
 
 
 def run_precalculated_lpd(params, EXECUTION_ID, logger):
@@ -437,7 +548,18 @@ def run_all_periods(params, EXECUTION_ID, logger):
 
 
 def run(params, logger):
-    """."""
+    """Run SDG 15.3.1 indicator calculation.
+
+    Args:
+        params: Dictionary of parameters including:
+            - include_productivity_bands (bool, optional): If True, includes additional
+              productivity bands in the output. Only works with Trends.Earth productivity
+              calculations. Default is False.
+        logger: Logger instance for debug output.
+
+    Returns:
+        TEImageV2 object containing SDG indicator and related bands.
+    """
     logger.debug("Loading parameters.")
 
     # Check the ENV. Are we running this locally or in prod?

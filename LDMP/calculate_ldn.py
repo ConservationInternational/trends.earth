@@ -311,14 +311,24 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
 
 
 class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
+    def _on_common_period_changed(self, widgets, source):
+        if source == "year_initial":
+            self.update_start_dates(widgets)
+        elif source == "year_final":
+            self.update_end_dates(widgets)
+        else:
+            self.update_start_dates(widgets)
+            self.update_end_dates(widgets)
+        self.enforce_prod_date_range(widgets, source)
+
     def _connect_enforce_any_touch(
         self, qde: QtWidgets.QDateEdit, widgets, source: str
     ):
         qde.dateChanged.connect(
-            lambda _d: self.enforce_prod_date_range(widgets, source)
+            lambda _d: self._on_common_period_changed(widgets, source)
         )
         qde.editingFinished.connect(
-            lambda: self.enforce_prod_date_range(widgets, source)
+            lambda: self._on_common_period_changed(widgets, source)
         )
 
     def __init__(
@@ -437,7 +447,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             lambda: self.enforce_prod_date_range(self.widgets_baseline)
         )
         self._connect_enforce_any_touch(
-            self.year_initial_progress, self.widgets_baseline, "year_initial"
+            self.year_initial_progress, self.widgets_progress, "year_initial"
         )
         self._connect_enforce_any_touch(
             self.year_final_progress, self.widgets_progress, "year_final"
@@ -626,7 +636,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_final_lc.setDate(lc_end)
         widgets.year_final_soc.setDate(lc_end)
 
-        # if FAO-WOCAT checked, prod initial date can't be updated
         if not widgets.radio_fao_wocat.isChecked():
             widgets.year_initial_prod.setDate(year_initial)
 

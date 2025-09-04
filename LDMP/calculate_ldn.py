@@ -1421,8 +1421,8 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_total=dlg_instance.combo_layer_population_progress_total,
             combo_layer_pop_male=dlg_instance.combo_layer_population_progress_male,
             combo_layer_pop_female=dlg_instance.combo_layer_population_progress_female,
-            radio_lpd_te=dlg_instance.radio_lpd_te,
-            radio_fao_wocat=dlg_instance.radio_fao_wocat,
+            radio_lpd_te=self.radio_lpd_te,
+            radio_fao_wocat=self.radio_fao_wocat,
         )
         self.combo_boxes[key].populate()
 

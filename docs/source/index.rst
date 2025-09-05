@@ -56,3 +56,10 @@ University with additional funding from the Global Environment Facility (GEF).
   :caption: General Information
 
   General Information <general/index>
+
+.. toctree::
+  :maxdepth: 1
+  :caption: Legal
+
+  Privacy Policy <privacy>
+  Terms of Use <terms>

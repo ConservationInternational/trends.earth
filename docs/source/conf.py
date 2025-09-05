@@ -1,6 +1,6 @@
 #
 # LDMP documentation build configuration file, created by
-# sphinx-quickstart on Sun Feb 12 17:11:03 2012.
+# sphinx-quickscopyright = "2017-{}, Conservation International. <a href='https://www.conservation.org/privacy'>Privacy Policy</a>".format(date.today().year)art on Sun Feb 12 17:11:03 2012.
 #
 # This file is execfile()d with the current directory set to its containing dir.
 #
@@ -75,7 +75,9 @@ master_doc = "index"
 
 # General information about the project.
 project = "Trends.Earth"
-copyright = "2017-{}, conservation international".format(date.today().year)
+copyright = "2017-{}, Conservation International. <a href='https://www.conservation.org/privacy'>Privacy Policy</a>".format(
+    date.today().year
+)
 
 locale_dirs = ["../i18n/"]
 gettext_compact = False
@@ -171,7 +173,19 @@ html_theme = "sphinx_rtd_theme"
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-# html_theme_options = {}
+html_theme_options = {
+    "display_version": True,
+    "prev_next_buttons_location": "bottom",
+    "style_external_links": False,
+    "vcs_pageview_mode": "",
+    "style_nav_header_background": "#646464",
+    # Toc options
+    "collapse_navigation": True,
+    "sticky_navigation": True,
+    "navigation_depth": 4,
+    "includehidden": True,
+    "titles_only": False,
+}
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -231,7 +245,7 @@ html_css_files = ["custom.css"]
 # html_show_sphinx = True
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
-# html_show_copyright = True
+html_show_copyright = True
 
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the

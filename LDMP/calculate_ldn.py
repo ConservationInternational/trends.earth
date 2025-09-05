@@ -1078,7 +1078,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             payload["productivity"] = {"mode": prod_mode}
 
             if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-                if (year_final - year_initial) < MIN_YEARS_FOR_PROD_UPDATE:
+                if (
+                    year_final - year_initial
+                ) < MIN_YEARS_FOR_PROD_UPDATE and year_initial != 2001:
                     QtWidgets.QMessageBox.warning(
                         None,
                         self.tr("Warning"),
@@ -1727,7 +1729,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                     combo_layer_pop_female=self.combo_boxes[
                         "baseline"
                     ].combo_layer_pop_female,
-                    task_notes=self.options_tab.task_notes.toPlainText(),
+                    task_notes=self.task_notes.toPlainText(),
                 ),
             }
         ]
@@ -1767,7 +1769,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                     {
                         "name": key,
                         "params": ldn.get_main_sdg_15_3_1_job_params(
-                            task_name=self.options_tab.task_name.text(),
+                            task_name=self.execution_name_le.text(),
                             aoi=self.aoi,
                             prod_mode=prod_mode_progress,
                             pop_mode=pop_mode_progress,
@@ -1787,15 +1789,15 @@ class DlgCalculateLDNSummaryTableAdmin(
                             combo_layer_pop_female=self.combo_boxes[
                                 key
                             ].combo_layer_pop_female,
-                            task_notes=self.options_tab.task_notes.toPlainText(),
+                            task_notes=self.task_notes.toPlainText(),
                         ),
                     }
                 )
 
         params = {
             "periods": periods,
-            "task_name": self.options_tab.task_name.text(),
-            "task_notes": self.options_tab.task_notes.toPlainText(),
+            "task_name": self.execution_name_le.text(),
+            "task_notes": self.task_notes.toPlainText(),
         }
 
         self.close()

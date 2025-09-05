@@ -128,9 +128,38 @@ def _write_summary_without_aoi(summary_path, out_path: Path) -> Path:
     if "metadata" in summary:
         summary["metadata"].pop("area_of_interest")
 
+    summary = _rename_progress_to_report_sections(summary)
+
     with open(out_path, "w") as f:
         json.dump(summary, f, indent=2)
     return out_path
+
+
+def _rename_progress_to_report_sections(summary: dict) -> dict:
+    """Rename keys like 'progress', 'progress_2', ... to 'report_1', 'report_2', ..."""
+
+    def _rename_in_section(section_dict):
+        if not isinstance(section_dict, dict):
+            return section_dict
+        new_section = {}
+        progress_entries = []
+        for k, v in section_dict.items():
+            m = re.match(r"^progress(?:_(\d+))?$", str(k), flags=re.IGNORECASE)
+            if m:
+                idx = int(m.group(1)) if m.group(1) else 1
+                progress_entries.append((idx, v))
+            else:
+                new_section[k] = v
+        if progress_entries:
+            progress_entries.sort(key=lambda x: x[0])
+            for idx, val in progress_entries:
+                new_section[f"report_{idx}"] = val
+        return new_section
+
+    for top_key in ("land_condition", "affected_population"):
+        if top_key in summary and isinstance(summary[top_key], dict):
+            summary[top_key] = _rename_in_section(summary[top_key])
+    return summary
 
 
 def _set_affected_areas_only(in_file, out_file, schema):
@@ -138,6 +167,8 @@ def _set_affected_areas_only(in_file, out_file, schema):
         summary = schema.load(json.load(f))
     summary.metadata.affected_areas_only = True
     out_json = json.loads(schema.dumps(summary))
+    # Rename progress* keys to report_* in relevant sections
+    out_json = _rename_progress_to_report_sections(out_json)
     with open(out_file, "w") as f:
         json.dump(out_json, f, indent=4)
     return out_file
@@ -223,6 +254,8 @@ def _set_error_recode(in_file, out_file, error_recode_polys):
     out_json = json.loads(
         reporting.TrendsEarthLandConditionSummary.Schema().dumps(summary)
     )
+    # Rename progress* keys to report_* in relevant sections
+    out_json = _rename_progress_to_report_sections(out_json)
     with open(out_file, "w") as f:
         json.dump(out_json, f, indent=4)
     return out_file

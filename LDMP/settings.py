@@ -1726,6 +1726,8 @@ class LandCoverCustomClassesManager(
         )
         self.btn_import.setIcon(import_icon)
         self.btn_import.clicked.connect(self.import_lclr_classes)
+        self.btn_import.setText(self.tr("Import CSV"))
+        self.btn_import.setToolTip(self.tr("Import land cover classes from a CSV file"))
 
     def import_lclr_classes(self):
         data_dir = settings_manager.get_value(Setting.CSV_FILE_DIR)
@@ -1746,17 +1748,18 @@ class LandCoverCustomClassesManager(
                 class_names.append(row["Class Name"])
 
         dialog = LandCoverClassSelectionDialog(class_names, parent=self)
+        dialog.setWindowTitle(self.tr("Import Land Cover Classes"))
 
         if dialog.exec_() == QtWidgets.QDialog.Accepted:
             dialog.set_selected_classes()
 
     def _show_path_selector(self, file_dir: str) -> str:
         """Show file selector dialog for selecting a csv file."""
-        filter_tr = self.tr("CSV")
+        filter_tr = self.tr("CSV files")
 
         layer_path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
-            self.tr("Select csv file"),
+            self.tr("Select CSV file with land cover classes"),
             file_dir,
             f"{filter_tr} (*.csv)",
             options=QtWidgets.QFileDialog.DontResolveSymlinks,

@@ -996,7 +996,8 @@ class JobManager(QtCore.QObject):
                     del jobs_dict[job.id]
                     break
         else:
-            del self.known_jobs[previous_status][job.id]
+            if job.id in self.known_jobs.get(previous_status, {}):
+                del self.known_jobs[previous_status][job.id]
         self.known_jobs[job.status][job.id] = job
 
     def _download_cloud_results(self, job: jobs.Job) -> typing.Optional[Path]:

@@ -311,14 +311,24 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
 
 
 class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
+    def _on_common_period_changed(self, widgets, source):
+        if source == "year_initial":
+            self.update_start_dates(widgets)
+        elif source == "year_final":
+            self.update_end_dates(widgets)
+        else:
+            self.update_start_dates(widgets)
+            self.update_end_dates(widgets)
+        self.enforce_prod_date_range(widgets, source)
+
     def _connect_enforce_any_touch(
         self, qde: QtWidgets.QDateEdit, widgets, source: str
     ):
         qde.dateChanged.connect(
-            lambda _d: self.enforce_prod_date_range(widgets, source)
+            lambda _d: self._on_common_period_changed(widgets, source)
         )
         qde.editingFinished.connect(
-            lambda: self.enforce_prod_date_range(widgets, source)
+            lambda: self._on_common_period_changed(widgets, source)
         )
 
     def __init__(
@@ -437,7 +447,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             lambda: self.enforce_prod_date_range(self.widgets_baseline)
         )
         self._connect_enforce_any_touch(
-            self.year_initial_progress, self.widgets_baseline, "year_initial"
+            self.year_initial_progress, self.widgets_progress, "year_initial"
         )
         self._connect_enforce_any_touch(
             self.year_final_progress, self.widgets_progress, "year_final"
@@ -626,7 +636,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_final_lc.setDate(lc_end)
         widgets.year_final_soc.setDate(lc_end)
 
-        # if FAO-WOCAT checked, prod initial date can't be updated
         if not widgets.radio_fao_wocat.isChecked():
             widgets.year_initial_prod.setDate(year_initial)
 
@@ -1069,7 +1078,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             payload["productivity"] = {"mode": prod_mode}
 
             if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-                if (year_final - year_initial) < MIN_YEARS_FOR_PROD_UPDATE:
+                if (
+                    year_final - year_initial
+                ) < MIN_YEARS_FOR_PROD_UPDATE and year_initial != 2001:
                     QtWidgets.QMessageBox.warning(
                         None,
                         self.tr("Warning"),
@@ -1412,8 +1423,8 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_total=dlg_instance.combo_layer_population_progress_total,
             combo_layer_pop_male=dlg_instance.combo_layer_population_progress_male,
             combo_layer_pop_female=dlg_instance.combo_layer_population_progress_female,
-            radio_lpd_te=dlg_instance.radio_lpd_te,
-            radio_fao_wocat=dlg_instance.radio_fao_wocat,
+            radio_lpd_te=self.radio_lpd_te,
+            radio_fao_wocat=self.radio_fao_wocat,
         )
         self.combo_boxes[key].populate()
 
@@ -1718,7 +1729,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                     combo_layer_pop_female=self.combo_boxes[
                         "baseline"
                     ].combo_layer_pop_female,
-                    task_notes=self.options_tab.task_notes.toPlainText(),
+                    task_notes=self.task_notes.toPlainText(),
                 ),
             }
         ]
@@ -1758,7 +1769,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                     {
                         "name": key,
                         "params": ldn.get_main_sdg_15_3_1_job_params(
-                            task_name=self.options_tab.task_name.text(),
+                            task_name=self.execution_name_le.text(),
                             aoi=self.aoi,
                             prod_mode=prod_mode_progress,
                             pop_mode=pop_mode_progress,
@@ -1778,15 +1789,15 @@ class DlgCalculateLDNSummaryTableAdmin(
                             combo_layer_pop_female=self.combo_boxes[
                                 key
                             ].combo_layer_pop_female,
-                            task_notes=self.options_tab.task_notes.toPlainText(),
+                            task_notes=self.task_notes.toPlainText(),
                         ),
                     }
                 )
 
         params = {
             "periods": periods,
-            "task_name": self.options_tab.task_name.text(),
-            "task_notes": self.options_tab.task_notes.toPlainText(),
+            "task_name": self.execution_name_le.text(),
+            "task_notes": self.task_notes.toPlainText(),
         }
 
         self.close()

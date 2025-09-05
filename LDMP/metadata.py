@@ -5,6 +5,7 @@ from pathlib import Path
 import lxml.etree as ET
 import qgis.core
 from qgis.PyQt import QtXml
+from te_schemas.results import EmptyResults
 
 from .jobs import manager
 from .jobs.models import Job
@@ -25,6 +26,7 @@ def save_qmd(file_path, metadata):
     if not metadata.writeMetadataXml(root_node, document):
         log("Could not save metadata")
 
+    Path(file_path).parent.mkdir(parents=True, exist_ok=True)
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(document.toString(2))
 
@@ -83,8 +85,9 @@ def init_dataset_metadata(job: Job, metadata: qgis.core.QgsLayerMetadata = None)
     file_path = os.path.splitext(manager.job_manager.get_job_file_path(job))[0] + ".qmd"
     save_qmd(file_path, md)
 
-    for u in job.results.get_all_uris():
-        init_layer_metadata(u.uri, md)
+    if not isinstance(job.results, EmptyResults):
+        for u in job.results.get_all_uris():
+            init_layer_metadata(u.uri, md)
 
 
 def init_layer_metadata(uri, metadata):

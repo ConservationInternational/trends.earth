@@ -704,25 +704,55 @@ class APIClient(QtCore.QObject):
     #         use_token=True,
     #     )
 
-    def get_execution(self, id=None, date=None):
+    def get_execution(self, date=None):
         log("Fetching executions")
-        query = ["include=script"]
 
-        if id:
-            query.append("user_id={}".format(quote_plus(id)))
+        # Collect all executions across all pages
+        all_executions = []
+        page = 1
+        per_page = 100  # Maximum allowed per page
 
-        if date:
-            query.append("updated_at={}".format(date))
-        query = "?" + "&".join(query)
+        while True:
+            query = ["include=script", f"page={page}", f"per_page={per_page}"]
 
-        resp = self.call_api(
-            "/api/v1/execution{}".format(query), method="get", use_token=True
-        )
+            if date:
+                query.append("updated_at={}".format(date))
+            query = "?" + "&".join(query)
 
-        if not resp:
-            return None
-        else:
-            return resp["data"]
+            # Always use the user-specific endpoint to ensure we only get
+            # executions from the active user, regardless of admin privileges
+            resp = self.call_api(
+                "/api/v1/execution/user{}".format(query), method="get", use_token=True
+            )
+
+            if not resp:
+                log(f"No response from API on page {page}, stopping pagination")
+                break
+
+            # Add executions from this page
+            page_executions = resp.get("data", [])
+            all_executions.extend(page_executions)
+
+            # Check if we have more pages
+            current_page = resp.get("page", page)
+            total_items = resp.get("total", 0)
+            current_per_page = resp.get("per_page", per_page)
+
+            log(
+                f"Page {current_page}: fetched {len(page_executions)} executions (total so far: {len(all_executions)}/{total_items})"
+            )
+
+            # If we got fewer items than per_page, or we've reached the end
+            if (
+                len(page_executions) < current_per_page
+                or (current_page * current_per_page) >= total_items
+            ):
+                break
+
+            page += 1
+
+        log(f"Fetched {len(all_executions)} executions across {page} pages")
+        return all_executions
 
     def get_script(self, id=None):
         if id:

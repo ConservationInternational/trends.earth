@@ -1,0 +1,29 @@
+# Environment variables (contains sensitive credentials)
+.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Data files (optional - uncomment if you don't want to track data)
+# *.tif
+# *.geojson
+# *.shp
+# *.csv
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDE files
+.vscode/settings.json
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

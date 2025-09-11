@@ -9,7 +9,6 @@ from pathlib import Path
 
 import te_algorithms.gdal.land_deg.config as ld_config
 from te_algorithms.api import util
-from te_algorithms.api.util import BandData
 from te_algorithms.gdal.land_deg.land_deg_recode import (
     rasterize_error_recode,
     recode_errors,
@@ -20,7 +19,7 @@ from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.productivity import ProductivityMode
 from te_schemas.results import Band, JsonResults, RasterResults
 
-S3_PREFIX_RAW_DATA = "prais4-raw"
+S3_PREFIX_RAW_DATA = "prais5-raw"
 S3_BUCKET_INPUT = "trends.earth-private"
 S3_REGION = "us-east-1"
 S3_BUCKET_USER_DATA = "trends.earth-users"
@@ -76,15 +75,23 @@ def calculate_error_recode(
         IndexError: If no input job is found matching the specified criteria
         Exception: If no bands are found matching the band_name and filters
     """
+    logger.debug("Entering calculate_error_recode function")
     filename_base = iso
     filename_base += "_" + boundary_dataset
     filename_base += "_" + script_name
     s3_prefix = f"{S3_PREFIX_RAW_DATA}/" + filename_base
     logger.info(f"Looking for prefix {s3_prefix}")
+    logger.debug(f"Searching with substr_regexs: {substr_regexs}")
     try:
         input_job = util.get_job_json_from_s3(
             s3_prefix=s3_prefix, s3_bucket=S3_BUCKET_INPUT, substr_regexs=substr_regexs
         )
+        if input_job is None:
+            raise IndexError(
+                f"No job found for prefix {s3_prefix} "
+                f" with substr_regexs {substr_regexs}"
+            )
+        logger.debug(f"Found input job: {input_job.id}")
     except IndexError as exc:
         logger.error(f"Failed to load input job from prefix {s3_prefix}: {exc}")
         raise exc
@@ -92,6 +99,7 @@ def calculate_error_recode(
     error_recode_tif = tempfile.NamedTemporaryFile(
         suffix="_error_recode.tif", delete=False
     ).name
+    logger.debug(f"Created temporary file for error recode raster: {error_recode_tif}")
     rasterize_error_recode(error_recode_tif, input_job.results.uri.uri, error_polygons)
     error_recode_band = Band(
         name=ERROR_RECODE_BAND_NAME,
@@ -101,6 +109,7 @@ def calculate_error_recode(
     )
 
     input_band = None
+    logger.debug(f"Searching for band '{band_name}' with filters: {filters}")
     try:
         input_band = util.get_band_by_name(
             input_job,
@@ -116,6 +125,9 @@ def calculate_error_recode(
 
     if input_band is None:
         raise Exception(f"Failed to load band {band_name}")
+    logger.debug(
+        f"Found input band: {input_band.band.name} (band number {input_band.band_number})"
+    )
 
     recode_params = {
         "write_tifs": write_tifs,
@@ -134,10 +146,13 @@ def calculate_error_recode(
         "aoi": AOI.Schema().dump(aoi),
     }
 
+    logger.debug(f"Recode parameters: {recode_params}")
     logger.info("Starting error recoding calculation")
     with tempfile.TemporaryDirectory() as temp_dir:
         recode_params["output_path"] = Path(temp_dir) / input_job.results.uri.uri.stem
+        logger.debug(f"Set output path to: {recode_params['output_path']}")
         results = recode_errors(recode_params)
+        logger.debug("recode_errors function finished.")
 
         # Save the input job to results as well
         results.data = {
@@ -148,6 +163,7 @@ def calculate_error_recode(
 
         if write_tifs:
             logger.info("Writing tifs")
+            logger.debug(f"Writing results to S3 with EXECUTION_ID: {EXECUTION_ID}")
             results = util.write_results_to_s3_cog(
                 results,
                 aoi,
@@ -155,6 +171,7 @@ def calculate_error_recode(
                 s3_prefix="prais-4",
                 s3_bucket=S3_BUCKET_USER_DATA,
             )
+            logger.debug("Finished writing tifs to S3.")
 
     if isinstance(results, RasterResults):
         results = RasterResults.Schema().dump(results)
@@ -164,6 +181,7 @@ def calculate_error_recode(
     else:
         raise Exception
 
+    logger.debug("calculate_error_recode function finished, returning results.")
     return results
 
 
@@ -196,6 +214,7 @@ def run(params, logger):
         dict: Serialized results from the error recoding process
     """
     logger.debug("Loading parameters.")
+    logger.debug(f"Initial params: {params}")
 
     # Check the ENV. Are we running this locally or in prod?
 
@@ -206,20 +225,29 @@ def run(params, logger):
     logger.debug(f"Execution ID is {EXECUTION_ID}")
 
     aoi = AOI(params["aoi"])
+    logger.debug("AOI loaded.")
     error_polygons = ErrorRecodePolygons.Schema().load(params["error_polygons"])
+    logger.debug("Error polygons loaded.")
     script_name = params["script_name"]
     iso = params["iso"]
     band_name = params["band_name"]
     filters = params["filters"]
     boundary_dataset = params.get("boundary_dataset", "UN")
     productivity_dataset = params.get(
-        "productivity_dataset", ProductivityMode.JRC_5_CLASS_LPD.value
+        "productivity_dataset", ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
     )
     write_tifs = params.get("write_tifs", False)
 
     substr_regexs = params.get("substr_regexs", [])
     substr_regexs.append(productivity_dataset)
+    logger.debug(
+        f"Final parameters for calculate_error_recode: "
+        f"iso={iso}, script_name={script_name}, band_name={band_name}, "
+        f"filters={filters}, boundary_dataset={boundary_dataset}, "
+        f"substr_regexs={substr_regexs}, write_tifs={write_tifs}"
+    )
 
+    logger.debug("Calling calculate_error_recode.")
     return calculate_error_recode(
         aoi,
         error_polygons,

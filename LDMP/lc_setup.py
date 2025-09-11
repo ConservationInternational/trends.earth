@@ -580,6 +580,7 @@ class DlgCalculateLCSetAggregationBase(
             self.nesting = nesting
         else:
             self.nesting = self.get_nesting()
+        self._initial_nesting = deepcopy(self.nesting)
         self.setup_nesting(self.nesting)
 
     def btn_close_pressed(self):
@@ -608,9 +609,7 @@ class DlgCalculateLCSetAggregationBase(
         else:
             return
         nesting = read_lc_nesting_file(f)
-
         if nesting:
-            log(f"Loaded nesting from {f}")
             self.setup_nesting(nesting)
 
     def btn_save_pressed(self):
@@ -853,6 +852,11 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
     def __init__(self, parent=None, nesting=None):
         super().__init__(parent, nesting)
 
+    def reset_nesting_table(self, get_default=False):
+        if get_default:
+            self.nesting = deepcopy(self._initial_nesting)
+        self.setup_nesting(nesting_input=self.nesting)
+
     def set_nesting(self, nesting):
         self.nesting = nesting
 
@@ -1026,8 +1030,6 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         self.ok_clicked()
 
     def clear_dlg_agg(self):
-        if self.dlg_agg is not None:
-            self.saved_nesting = deepcopy(self.dlg_agg.nesting)
         self.dlg_agg = None
 
     def input_changed(self, valid):
@@ -1110,7 +1112,6 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             nesting=nest,
         )
         self.dlg_agg = DlgCalculateLCSetAggregationCustom(parent=self, nesting=nesting)
-        self.dlg_agg.finished.connect(self.clear_dlg_agg)
 
     def agg_edit(self):
         if self.input_widget.radio_raster_input.isChecked():

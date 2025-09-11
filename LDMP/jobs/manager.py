@@ -430,6 +430,10 @@ class JobManager(QtCore.QObject):
         self._refresh_local_downloaded_jobs()
         self._refresh_local_generated_jobs()
 
+        log(
+            f"JobManager refresh completed - found {len(relevant_remote_jobs)} relevant remote jobs"
+        )
+
         self._state_update_mutex.unlock()
 
         if emit_signal:
@@ -992,7 +996,8 @@ class JobManager(QtCore.QObject):
                     del jobs_dict[job.id]
                     break
         else:
-            del self.known_jobs[previous_status][job.id]
+            if job.id in self.known_jobs.get(previous_status, {}):
+                del self.known_jobs[previous_status][job.id]
         self.known_jobs[job.status][job.id] = job
 
     def _download_cloud_results(self, job: jobs.Job) -> typing.Optional[Path]:
@@ -1368,7 +1373,12 @@ def _get_access_token():
     api_client = api.APIClient(API_URL, TIMEOUT)
     login_reply = api_client.login()
 
-    return login_reply["access_token"]
+    if isinstance(login_reply, str) and login_reply:
+        # Token-based authentication - login() returns the token directly
+        return login_reply
+    else:
+        # Authentication failed
+        return None
 
 
 def _get_user_id() -> typing.Optional[uuid.UUID]:
@@ -1451,27 +1461,16 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
     if user_id is None:
         return []
 
-    query = {
-        "include": "script",
-        "user_id": str(user_id),
-    }
+    query = {"include": "script"}
 
     if end_date is not None:
-        # NOTE: Even though the API query param is called `updated_at`, inspecting the
-        # source code at:
-        #
-        # https://github.com/ConservationInternational/trends.earth-API/blob/
-        # 2421eb0a5d44151d1b17c0c0841b72b55359b258/gefapi/services/
-        # execution_service.py#L45
-        #
-        # we can verify that the server is actually checking for job's end_date
         query["updated_at"] = end_date.strftime("%Y-%m-%d")
 
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log("Retrieving executions...")
 
     response = job_manager.api_client.call_api(
-        f"/api/v1/execution?{urllib.parse.urlencode(query)}",
+        f"/api/v1/execution/user?{urllib.parse.urlencode(query)}",
         method="get",
         use_token=True,
     )
@@ -1482,11 +1481,13 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
 
     try:
         raw_jobs = response["data"]
+        log(f"API returned {len(raw_jobs)} executions")
     except (TypeError, KeyError):
         log("Invalid response format")
         return []
 
     remote_jobs = []
+    log(f"Processing {len(raw_jobs)} raw jobs from API response")
     for raw_job in raw_jobs:
         try:
             job = Job.Schema().load(raw_job)
@@ -1494,13 +1495,18 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
 
             if job is not None:
                 remote_jobs.append(job)
+                log(f"Successfully processed job {job.id} - {job.task_name}")
         except ValidationError as exc:
-            log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
+            log(
+                f"Could not retrieve remote job {raw_job.get('id', 'unknown')}: {str(exc)}"
+            )
+            log(f"Raw job data keys: {list(raw_job.keys())}")
         except RuntimeError as exc:
             log(str(exc))
         except TypeError as exc:
             log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
 
+    log(f"Successfully processed {len(remote_jobs)} out of {len(raw_jobs)} remote jobs")
     return remote_jobs
 
 

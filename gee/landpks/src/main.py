@@ -214,7 +214,7 @@ def plot_image_to_file(d, title, legend=None):
 def landtrend_get_data(year_start, year_end, geojson):
     # geospatial datasets
     lcover = "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2022"
-    vegindex = "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2023"
+    vegindex = "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2024"
     precip = "users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2023"
 
     point = ee.Geometry(geojson)

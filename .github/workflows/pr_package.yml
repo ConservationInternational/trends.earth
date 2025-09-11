@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Fix Python command
-        run: apt-get install python-is-python3
+        run: apt-get update && apt-get install -y python-is-python3
 
       - name: Install git and configure
         run: |
@@ -30,12 +30,32 @@ jobs:
           git config --global user.name "GitHub Action"
 
       - name: Install python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Upgrade pip tooling
+        run: |
+          python -m pip --version
+          python -m pip install --upgrade pip setuptools wheel build
 
       - name: Install plugin dependencies
+        env:
+          PIP_ALWAYS_USE_PEP517: '1'
         run: |
-          pip install -r requirements-dev.txt
-          pip install -r requirements.txt
+          pip install --no-cache-dir -r requirements-dev.txt
+
+      - name: Verify te_algorithms import
+        run: |
+          python - <<'PY'
+          import sys
+          try:
+              import te_algorithms
+              print('te_algorithms imported, version:', getattr(te_algorithms, '__version__', 'unknown'))
+          except Exception as e:
+              print('Failed to import te_algorithms:', e)
+              sys.exit(1)
+          PY
 
       - name: Get unique identifier
         id: get-identifier

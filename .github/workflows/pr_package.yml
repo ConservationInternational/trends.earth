@@ -44,6 +44,7 @@ jobs:
           PIP_ALWAYS_USE_PEP517: '1'
         run: |
           pip install --no-cache-dir -r requirements-dev.txt
+          pip install --no-cache-dir -r requirements.txt
 
       - name: Verify te_algorithms import
         run: |

@@ -13,11 +13,14 @@ def calculate_error_recode_stats(band_datas, feature, parent, context):
     band_datas = json.loads(band_datas)
     ogr_geom = ogr.CreateGeometryFromWkt(feature.geometry().asWkt())
 
-    stats = {
-        band["out_name"]: get_stats_for_geom(
-            band["path"], band["name"], band["index"], ogr_geom, -32768
+    stats = {}
+    for band in band_datas:
+        band_info = [{"name": band["name"], "index": band["index"]}]
+        band_stats = get_stats_for_geom(
+            band["path"], band_info, ogr_geom, nodata_value=-32768
         )
-        for band in band_datas
-    }
+
+        # Extract the single band's stats (since we only passed one band)
+        stats[band["out_name"]] = band_stats[band["name"]]
 
     return json.dumps(stats)

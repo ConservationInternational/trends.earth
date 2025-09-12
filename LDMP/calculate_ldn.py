@@ -970,6 +970,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
           year_final_prod = year_initial + MIN_YEARS_FOR_PROD_UPDATE.
         - If the user updates the period end (year_final), set
           year_initial_prod = year_final - MIN_YEARS_FOR_PROD_UPDATE.
+
+        Returns True if any date widget was changed
         """
         if not widgets.radio_time_period_same.isChecked():
             return False
@@ -993,45 +995,59 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             return qdate
 
         years = MIN_YEARS_FOR_PROD_UPDATE
+        changed = False
 
-        if source == "year_initial":
-            target_start = clamp_qdate(period_start, min_prod_start, max_prod_start)
-            prod_start_widget.blockSignals(True)
-            prod_start_widget.setDate(target_start)
-            prod_start_widget.blockSignals(False)
-            if period_start == QtCore.QDate(2001, 1, 1):
-                new_prod_end = target_start.addYears(years - 1)
+        with (
+            QtCore.QSignalBlocker(prod_start_widget),
+            QtCore.QSignalBlocker(prod_end_widget),
+        ):
+            if source == "year_initial":
+                target_start = clamp_qdate(period_start, min_prod_start, max_prod_start)
+                if prod_start_widget.date() != target_start:
+                    prod_start_widget.setDate(target_start)
+                    changed = True
+
+                end_delta = (
+                    years - 1 if target_start == QtCore.QDate(2001, 1, 1) else years
+                )
+                new_prod_end = clamp_qdate(
+                    target_start.addYears(end_delta), min_prod_end, max_prod_end
+                )
+                if prod_end_widget.date() != new_prod_end:
+                    prod_end_widget.setDate(new_prod_end)
+                    changed = True
+
+            elif source == "year_final":
+                target_end = clamp_qdate(period_end, min_prod_end, max_prod_end)
+                if prod_end_widget.date() != target_end:
+                    prod_end_widget.setDate(target_end)
+                    changed = True
+
+                new_prod_start = clamp_qdate(
+                    target_end.addYears(-years), min_prod_start, max_prod_start
+                )
+                if prod_start_widget.date() != new_prod_start:
+                    prod_start_widget.setDate(new_prod_start)
+                    changed = True
+
             else:
-                new_prod_end = target_start.addYears(years)
-            new_prod_end = clamp_qdate(new_prod_end, min_prod_end, max_prod_end)
-            prod_end_widget.blockSignals(True)
-            prod_end_widget.setDate(new_prod_end)
-            prod_end_widget.blockSignals(False)
-            return True
+                current_start = clamp_qdate(
+                    prod_start_widget.date(), min_prod_start, max_prod_start
+                )
+                if prod_start_widget.date() != current_start:
+                    prod_start_widget.setDate(current_start)
+                    changed = True
 
-        if source == "year_final":
-            target_end = clamp_qdate(period_end, min_prod_end, max_prod_end)
-            prod_end_widget.blockSignals(True)
-            prod_end_widget.setDate(target_end)
-            prod_end_widget.blockSignals(False)
+                end_delta = years - 1
+                expected_end = clamp_qdate(
+                    current_start.addYears(end_delta), min_prod_end, max_prod_end
+                )
+                if prod_end_widget.date() != expected_end:
+                    prod_end_widget.setDate(expected_end)
+                    changed = True
 
-            new_prod_start = target_end.addYears(-years)
-            new_prod_start = clamp_qdate(new_prod_start, min_prod_start, max_prod_start)
-            prod_start_widget.blockSignals(True)
-            prod_start_widget.setDate(new_prod_start)
-            prod_start_widget.blockSignals(False)
-            return True
-
-        current_prod_start = prod_start_widget.date()
-        if not source:
-            expected_prod_end = current_prod_start.addYears(years - 1)
-        else:
-            expected_prod_end = current_prod_start.addYears(years)
-        expected_prod_end = clamp_qdate(expected_prod_end, min_prod_end, max_prod_end)
-
-        prod_end_widget.blockSignals(True)
-        prod_end_widget.setDate(expected_prod_end)
-        prod_end_widget.blockSignals(False)
+        if changed:
+            self.update_timeline_graph()
 
         return True
 

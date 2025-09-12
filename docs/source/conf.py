@@ -75,9 +75,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Trends.Earth"
-copyright = "2017-{}, Conservation International. <a href='https://www.conservation.org/privacy'>Privacy Policy</a>".format(
-    date.today().year
-)
+copyright = "2017-{}, Conservation International".format(date.today().year)
 
 locale_dirs = ["../i18n/"]
 gettext_compact = False
@@ -165,6 +163,8 @@ html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "")
 # Tell Jinja2 templates the build is running on Read the Docs
 if os.environ.get("READTHEDOCS", "") == "True":
     html_context = {"READTHEDOCS": True}
+else:
+    html_context = {}
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
@@ -213,6 +213,7 @@ html_show_sourcelink = False
 # Note the underscore SHOULD be used below as this is how the static folder is
 # named by sphinx on generation.
 html_css_files = ["custom.css"]
+html_js_files = ["footer-links.js"]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.

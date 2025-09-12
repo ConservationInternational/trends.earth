@@ -324,12 +324,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     def _connect_enforce_any_touch(
         self, qde: QtWidgets.QDateEdit, widgets, source: str
     ):
-        qde.dateChanged.connect(
-            lambda _d: self._on_common_period_changed(widgets, source)
-        )
-        qde.editingFinished.connect(
-            lambda: self._on_common_period_changed(widgets, source)
-        )
+        timer = QtCore.QTimer(qde)
+        timer.setSingleShot(True)
+        timer.setInterval(300)
+        le = qde.lineEdit()
+        le.textEdited.connect(lambda _t: timer.start())
+        timer.timeout.connect(lambda: self._on_common_period_changed(widgets, source))
 
     def __init__(
         self,

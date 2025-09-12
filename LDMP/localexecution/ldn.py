@@ -57,22 +57,33 @@ class SummaryTableLDWidgets:
     def radio_lpd_te_toggled(self):
         if self.radio_lpd_te.isChecked():
             self.combo_layer_traj.show()
+            self.combo_layer_traj.set_prod_mode(
+                ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+            )
             self.combo_layer_traj_label.show()
             self.combo_layer_perf.show()
+            self.combo_layer_perf.set_prod_mode(
+                ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+            )
             self.combo_layer_perf_label.show()
             self.combo_layer_state.show()
             self.combo_layer_state_label.show()
+            self.combo_layer_state.set_prod_mode(
+                ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+            )
             self.combo_layer_lpd.hide()
             self.combo_layer_lpd_label.hide()
         else:
             if self.radio_fao_wocat.isChecked():
-                self.combo_layer_lpd.set_layer_type(
-                    "Land Productivity Dynamics (from FAO-WOCAT)"
+                self.combo_layer_lpd.set_prod_mode(
+                    ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
                 )
+                self.combo_layer_lpd.set_layer_type(ld_config.FAO_WOCAT_LPD_BAND_NAME)
             else:
-                self.combo_layer_lpd.set_layer_type(
-                    "Land Productivity Dynamics (from JRC)"
+                self.combo_layer_lpd.set_prod_mode(
+                    ProductivityMode.JRC_5_CLASS_LPD.value
                 )
+                self.combo_layer_lpd.set_layer_type(ld_config.JRC_LPD_BAND_NAME)
             self.combo_layer_traj.hide()
             self.combo_layer_traj_label.hide()
             self.combo_layer_perf.hide()

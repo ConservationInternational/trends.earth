@@ -28,6 +28,7 @@ from osgeo import gdal, osr
 from qgis.PyQt import QtCore, QtWidgets, uic
 from qgis.PyQt.QtCore import QSettings
 from te_schemas.jobs import JobStatus
+from te_schemas.productivity import ProductivityMode
 from te_schemas.results import Band as JobBand
 from te_schemas.results import RasterType, ResultType
 
@@ -1779,6 +1780,13 @@ def _get_layers(node):
     return layer
 
 
+PROD_MODE_FOR_BAND = {
+    ld_conf.FAO_WOCAT_LPD_BAND_NAME: ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+    ld_conf.JRC_LPD_BAND_NAME: ProductivityMode.JRC_5_CLASS_LPD.value,
+    ld_conf.TE_LPD_BAND_NAME: ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value,
+}
+
+
 @functools.lru_cache(
     maxsize=None
 )  # not using functools.cache, as it was only introduced in Python 3.9
@@ -1788,6 +1796,7 @@ def _get_usable_bands(
     filter_field: str = None,
     filter_value: str = None,
     aoi=None,
+    prod_mode=None,
 ) -> typing.List[Band]:
     result = []
 
@@ -1799,29 +1808,60 @@ def _get_usable_bands(
             ResultType(job.results.type) == ResultType.RASTER_RESULTS
         )
 
-        if is_available and is_of_interest and is_valid_type:
-            for band_index, band_info in enumerate(job.results.get_bands(), start=1):
-                if job.results.uri is not None and (
-                    band_info.name == band_name or band_name == "any"
-                ):
-                    if aoi is not None:
-                        if not _check_dataset_overlap_raster(aoi, job.results):
-                            continue
-                    if (
-                        filter_field is None
-                        or filter_value is None
-                        or band_info.metadata[filter_field] == filter_value
-                    ):
-                        result.append(
-                            Band(
-                                job=job,
-                                path=job.results.uri.uri,
-                                band_index=band_index,
-                                band_info=band_info,
-                            )
-                        )
-    result.sort(key=lambda ub: ub.job.start_date, reverse=True)
+        expected_mode = prod_mode
+        params = job.params or {}
+        job_mode = None
+        if "prod_mode" in params:
+            job_mode = params.get("prod_mode")
+        elif "productivity" in params:
+            job_mode = params.get("productivity", {}).get("mode")
 
+        # Normalize enums to raw values
+        if isinstance(job_mode, ProductivityMode):
+            job_mode_value = job_mode.value
+        else:
+            job_mode_value = job_mode
+
+        if expected_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+            # TE mode: accept everything except FAO/WOCAT or JRC jobs
+            is_valid_prod_mode = job_mode_value not in (
+                ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+                ProductivityMode.JRC_5_CLASS_LPD.value,
+            )
+        elif expected_mode is None:
+            is_valid_prod_mode = True
+        else:
+            is_valid_prod_mode = job_mode_value == expected_mode
+
+        if not (
+            is_available and is_of_interest and is_valid_type and is_valid_prod_mode
+        ):
+            continue
+
+        for band_index, band_info in enumerate(job.results.get_bands(), start=1):
+            if job.results.uri is None:
+                continue
+            if not (band_info.name == band_name or band_name == "any"):
+                continue
+            if aoi is not None and not _check_dataset_overlap_raster(aoi, job.results):
+                continue
+            if (
+                filter_field
+                and filter_value
+                and band_info.metadata.get(filter_field) != filter_value
+            ):
+                continue
+
+            result.append(
+                Band(
+                    job=job,
+                    path=job.results.uri.uri,
+                    band_index=band_index,
+                    band_info=band_info,
+                )
+            )
+
+    result.sort(key=lambda ub: ub.job.start_date, reverse=True)
     return result
 
 
@@ -1832,6 +1872,9 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     def set_layer_type(self, layer_type: str):
         self.setProperty("layer_type", layer_type)
         self.populate()
+
+    def set_prod_mode(self, prod_mode: str):
+        self.setProperty("prod_mode", prod_mode)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -1844,6 +1887,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     def populate(self, selected_job_id=None):
         aoi = areaofinterest.prepare_area_of_interest()
         layer_types = self.property("layer_type").split(";")
+        prod_mode = self.property("prod_mode")
         usable_bands = []
         for layer_type in layer_types:
             usable_bands.extend(
@@ -1853,6 +1897,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
                     filter_field=self.property("layer_filter_field"),
                     filter_value=self.property("layer_filter_value"),
                     aoi=aoi,
+                    prod_mode=prod_mode,
                 )
             )
         self.layer_list = usable_bands

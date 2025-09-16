@@ -55,7 +55,7 @@ class TrendsEarthAPIClient:
             base_url = os.getenv("API_BASE_URL")
 
             if not username or not password:
-                print("❌ Missing API credentials in environment variables")
+                print("Missing API credentials in environment variables")
                 print("Please set the following environment variables:")
                 print("- API_USERNAME: Your API username/email")
                 print("- API_PASSWORD: Your API password")
@@ -65,12 +65,12 @@ class TrendsEarthAPIClient:
             # Update API URL if provided in environment
             if base_url:
                 self.api_url = base_url.rstrip("/")
-                print(f"🌐 Using API URL from environment: {self.api_url}")
+                print(f"Using API URL from environment: {self.api_url}")
 
             return self.authenticate(username, password)
 
         except Exception as e:
-            logging.error(f"❌ Error loading environment credentials: {e}")
+            logging.error(f"Error loading environment credentials: {e}")
             return False
 
     def authenticate(self, email: str, password: str) -> bool:
@@ -85,14 +85,14 @@ class TrendsEarthAPIClient:
             True if authentication successful, False otherwise
         """
         if not email or not password:
-            print("❌ Cannot authenticate: Missing email or password")
+            print("Cannot authenticate: Missing email or password")
             return False
 
         auth_url = f"{self.api_url}/auth"
         auth_data = {"email": email, "password": password}
 
         try:
-            print("🔐 Authenticating with Trends.Earth API...")
+            print("Authenticating with Trends.Earth API...")
             print(f"   Using email: {email}")
 
             response = self.session.post(auth_url, json=auth_data)
@@ -122,22 +122,22 @@ class TrendsEarthAPIClient:
                             "Content-Type": "application/json",
                         }
                     )
-                    print("✅ Successfully authenticated with Trends.Earth API")
-                    logging.info("✅ Successfully authenticated with Trends.Earth API")
+                    print("Successfully authenticated with Trends.Earth API")
+                    logging.info("Successfully authenticated with Trends.Earth API")
                     return True
                 else:
-                    print("❌ No access token received")
+                    print("No access token received")
                     print(f"Response: {auth_result}")
                     return False
             else:
-                print(f"❌ Authentication failed: {response.status_code}")
+                print(f"Authentication failed: {response.status_code}")
                 print(f"Response: {response.text}")
-                logging.error(f"❌ Authentication failed: {response.status_code}")
+                logging.error(f"Authentication failed: {response.status_code}")
                 return False
 
         except Exception as e:
-            print(f"❌ Authentication error: {str(e)}")
-            logging.error(f"❌ Error authenticating: {e}")
+            print(f"Authentication error: {str(e)}")
+            logging.error(f"Error authenticating: {e}")
             return False
 
     def is_token_expired(self) -> bool:
@@ -162,14 +162,14 @@ class TrendsEarthAPIClient:
             True if refresh successful, False otherwise
         """
         if not self.refresh_token:
-            print("❌ No refresh token available")
+            print("No refresh token available")
             return False
 
         refresh_url = f"{self.api_url}/auth/refresh"
         refresh_data = {"refresh_token": self.refresh_token}
 
         try:
-            print("🔄 Refreshing access token...")
+            print("Refreshing access token...")
 
             response = self.session.post(refresh_url, json=refresh_data)
 
@@ -202,21 +202,21 @@ class TrendsEarthAPIClient:
                             "Content-Type": "application/json",
                         }
                     )
-                    print("✅ Successfully refreshed access token")
-                    logging.info("✅ Successfully refreshed access token")
+                    print("Successfully refreshed access token")
+                    logging.info("Successfully refreshed access token")
                     return True
                 else:
-                    print("❌ No access token received from refresh")
+                    print("No access token received from refresh")
                     return False
             else:
-                print(f"❌ Token refresh failed: {response.status_code}")
+                print(f"Token refresh failed: {response.status_code}")
                 print(f"Response: {response.text}")
-                logging.error(f"❌ Token refresh failed: {response.status_code}")
+                logging.error(f"Token refresh failed: {response.status_code}")
                 return False
 
         except Exception as e:
-            print(f"❌ Token refresh error: {str(e)}")
-            logging.error(f"❌ Error refreshing token: {e}")
+            print(f"Token refresh error: {str(e)}")
+            logging.error(f"Error refreshing token: {e}")
             return False
 
     def ensure_valid_token(self) -> bool:
@@ -227,13 +227,13 @@ class TrendsEarthAPIClient:
             True if we have a valid token, False otherwise
         """
         if not self.access_token:
-            print("❌ No access token available")
+            print("No access token available")
             return False
 
         if self.is_token_expired():
-            print("🔄 Access token expired, attempting to refresh...")
+            print("Access token expired, attempting to refresh...")
             if not self.refresh_access_token():
-                print("❌ Failed to refresh token, re-authentication required")
+                print("Failed to refresh token, re-authentication required")
                 return False
 
         return True
@@ -273,7 +273,7 @@ class TrendsEarthAPIClient:
 
             # Check if we got a 401 and try to refresh token
             if response.status_code == 401 and self.refresh_token:
-                print("🔄 Received 401, attempting token refresh...")
+                print("Received 401, attempting token refresh...")
                 if self.refresh_access_token():
                     # Retry the request with refreshed token
                     response = self.session.post(script_url, json=params, timeout=60)
@@ -282,23 +282,23 @@ class TrendsEarthAPIClient:
                 job_data = response.json()
                 job_id = job_data.get("data", {}).get("id")
                 if job_id:
-                    logging.info(f"✅ Job submitted successfully (ID: {job_id})")
+                    logging.info(f"Job submitted successfully (ID: {job_id})")
                     return job_id
                 else:
-                    print("❌ No job ID returned from API")
+                    print("No job ID returned from API")
                     return None
             else:
                 logging.error(
-                    f"❌ Job submission failed: {response.status_code} - {response.text}"
+                    f"Job submission failed: {response.status_code} - {response.text}"
                 )
                 print(
-                    f"❌ Job submission failed: {response.status_code} - {response.text}"
+                    f"Job submission failed: {response.status_code} - {response.text}"
                 )
                 return None
 
         except Exception as e:
-            logging.error(f"❌ Error submitting job: {e}")
-            print(f"❌ Error submitting job: {e}")
+            logging.error(f"Error submitting job: {e}")
+            print(f"Error submitting job: {e}")
             return None
 
     def get_jobs(
@@ -331,7 +331,7 @@ class TrendsEarthAPIClient:
 
             # Check if we got a 401 and try to refresh token
             if response.status_code == 401 and self.refresh_token:
-                print("🔄 Received 401, attempting token refresh...")
+                print("Received 401, attempting token refresh...")
                 if self.refresh_access_token():
                     # Retry the request with refreshed token
                     response = self.session.get(
@@ -353,11 +353,11 @@ class TrendsEarthAPIClient:
 
                 return jobs
             else:
-                logging.error(f"❌ Failed to get jobs: {response.status_code}")
+                logging.error(f"Failed to get jobs: {response.status_code}")
                 return []
 
         except Exception as e:
-            logging.error(f"❌ Error getting jobs: {e}")
+            logging.error(f"Error getting jobs: {e}")
             return []
 
     def get_job_status(self, execution_id: str) -> Optional[Dict]:
@@ -380,7 +380,7 @@ class TrendsEarthAPIClient:
 
             # Check if we got a 401 and try to refresh token
             if response.status_code == 401 and self.refresh_token:
-                print("🔄 Received 401, attempting token refresh...")
+                print("Received 401, attempting token refresh...")
                 if self.refresh_access_token():
                     # Retry the request with refreshed token
                     response = self.session.get(
@@ -390,11 +390,11 @@ class TrendsEarthAPIClient:
             if response.status_code == 200:
                 return response.json().get("data")
             else:
-                print(f"❌ Failed to get job status: {response.status_code}")
+                print(f"Failed to get job status: {response.status_code}")
                 return None
 
         except Exception as e:
-            print(f"❌ Error getting job status: {e}")
+            print(f"Error getting job status: {e}")
             return None
 
     def monitor_job(self, execution_id: str, max_minutes: int = 10) -> Optional[Dict]:
@@ -419,19 +419,19 @@ class TrendsEarthAPIClient:
             print(f"Status: {status}")
 
             if status in ["SUCCESS", "FINISHED"]:
-                print("✅ Job completed successfully!")
+                print("Job completed successfully!")
                 return job_data
             elif status in ["FAILED", "ERROR"]:
-                print("❌ Job failed!")
+                print("Job failed!")
                 return job_data
             elif status in ["CANCELLED", "CANCELED"]:
-                print("⚠️ Job was cancelled!")
+                print("Job was cancelled!")
                 return job_data
 
             # Check timeout
             elapsed_minutes = (time.time() - start_time) / 60
             if elapsed_minutes >= max_minutes:
-                print(f"⏰ Monitoring timeout after {max_minutes} minutes")
+                print(f"Monitoring timeout after {max_minutes} minutes")
                 return job_data
 
             # Wait before next check
@@ -457,7 +457,7 @@ class TrendsEarthAPIClient:
         task_name = job_dict.get("params", {}).get("task_name", "unknown")
 
         if not job_id:
-            print("❌ Job ID not found in job dictionary")
+            print("Job ID not found in job dictionary")
             return None
 
         # Create output directory
@@ -474,7 +474,7 @@ class TrendsEarthAPIClient:
 
             # Check if we got a 401 and try to refresh token
             if response.status_code == 401 and self.refresh_token:
-                print("🔄 Received 401, attempting token refresh...")
+                print("Received 401, attempting token refresh...")
                 if self.refresh_access_token():
                     # Retry the request with refreshed token
                     response = self.session.get(
@@ -488,7 +488,7 @@ class TrendsEarthAPIClient:
                 with open(download_file, "wb") as f:
                     f.write(response.content)
 
-                print(f"✅ Downloaded: {download_file}")
+                print(f"Downloaded: {download_file}")
 
                 # Save job metadata
                 metadata_file = job_dir / "job_metadata.json"
@@ -496,11 +496,11 @@ class TrendsEarthAPIClient:
 
                 return job_dir
             else:
-                print(f"❌ Download failed: {response.status_code}")
+                print(f"Download failed: {response.status_code}")
                 return None
 
         except Exception as e:
-            print(f"❌ Error downloading job: {e}")
+            print(f"Error downloading job: {e}")
             return None
 
 
@@ -512,7 +512,7 @@ def print_job_summary(jobs: List[Dict]) -> None:
         jobs: List of job dictionaries
     """
     if not jobs:
-        print("📭 No jobs found")
+        print("No jobs found")
         return
 
     # Count by status
@@ -521,16 +521,17 @@ def print_job_summary(jobs: List[Dict]) -> None:
         status = job.get("status", "UNKNOWN")
         status_counts[status] = status_counts.get(status, 0) + 1
 
-    print(f"📊 Job Summary ({len(jobs)} total):")
+    print(f"Job Summary ({len(jobs)} total):")
     for status, count in sorted(status_counts.items()):
-        emoji = {
-            "FINISHED": "✅",
-            "RUNNING": "🔄",
-            "PENDING": "⏳",
-            "FAILED": "❌",
-            "READY": "📋",
-        }.get(status, "❓")
-        print(f"   {emoji} {status}: {count}")
+        status_indicators = {
+            "FINISHED": "[DONE]",
+            "RUNNING": "[RUNNING]",
+            "PENDING": "[PENDING]",
+            "FAILED": "[FAILED]",
+            "READY": "[READY]",
+        }
+        indicator = status_indicators.get(status, "[UNKNOWN]")
+        print(f"   {indicator} {status}: {count}")
 
 
 def print_job_details(
@@ -547,7 +548,7 @@ def print_job_details(
     if not jobs:
         return
 
-    print(f"\n📋 Job Details (showing up to {max_jobs}):")
+    print(f"\nJob Details (showing up to {max_jobs}):")
 
     for i, job in enumerate(jobs[:max_jobs]):
         task_name = job.get("params", {}).get("task_name", "Unknown")
@@ -584,6 +585,6 @@ def save_job_metadata(job_dict: Dict, output_path: Union[str, Path]) -> None:
     try:
         with open(output_path, "w") as f:
             json.dump(job_dict, f, indent=2, default=str)
-        print(f"✅ Saved metadata: {output_path}")
+        print(f"Saved metadata: {output_path}")
     except Exception as e:
-        print(f"❌ Error saving metadata: {e}")
+        print(f"Error saving metadata: {e}")

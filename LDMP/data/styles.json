@@ -998,6 +998,19 @@
       ]
     }
   },
+  "Land Productivity Degradation (from FAO-WOCAT)": {
+    "title": "lpd_fao_wocat_degradation_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "discrete",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -1, "color": "#9b2779", "label": "prod_fao_wocat_deg_dec" },
+        { "value": 0, "color": "#ffffe0", "label": "prod_fao_wocat_deg_zero" },
+        { "value": 1, "color": "#006500", "label": "prod_fao_wocat_deg_inc" }
+      ]
+    }
+  },
   "Forest loss": {
     "title": "f_loss_hansen_title",
     "ramp": {

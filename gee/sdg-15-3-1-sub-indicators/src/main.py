@@ -127,8 +127,6 @@ def _run_faowocat_for_period(params, max_workers, execution_id, logger):
                 [
                     "Soil organic carbon (degradation)",
                     "Land cover (degradation)",
-                    "Productivity trajectory (significance)",
-                    "Productivity state (degradation)",
                     config.FAO_WOCAT_LPD_BAND_NAME,
                 ]
             )

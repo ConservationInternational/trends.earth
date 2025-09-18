@@ -30,7 +30,7 @@ msgstr "المتصفح"
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:7
 msgid "Trends.Earth Browser Application"
-msgstr "تطبيق المتصفح لاتجاهات.الأرض"
+msgstr "تطبيق المتصفح لTrends.Earth"
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:8
 msgid "**Coming soon!**"
@@ -43,5 +43,5 @@ msgstr "**قادم قريبًا**"
 #~ msgstr "أيقونة التقارير"
 
 #~ msgid "Trends.Earth"
-#~ msgstr "اتجاهات.الأرض"
+#~ msgstr "Trends.Earth"
 

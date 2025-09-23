@@ -12,9 +12,10 @@
 """
 
 # pylint: disable=import-error
+import json
 import typing
 import weakref
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 import qgis.gui
@@ -68,6 +69,518 @@ class TimePeriodWidgets:
     year_final_soc: QtWidgets.QDateEdit
     radio_fao_wocat: QtWidgets.QRadioButton
     radio_lpd_precalculated: QtWidgets.QRadioButton
+
+
+@dataclass
+class LDNPresetPeriod:
+    """Base class for period configuration for LDN calculations."""
+
+    year_initial: int
+    year_final: int
+    year_initial_lc: int
+    year_final_lc: int
+    year_initial_soc: int
+    year_final_soc: int
+    time_period_same: bool
+
+    def to_dict(self) -> dict:
+        """Convert to dictionary for JSON serialization."""
+        data = asdict(self)
+        data["period_type"] = self.__class__.__name__
+        return data
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "LDNPresetPeriod":
+        """Create from dictionary for JSON deserialization."""
+        # Remove period_type from data to avoid constructor issues
+        data_copy = data.copy()
+        period_type = data_copy.pop("period_type", cls.__name__)
+
+        # Route to appropriate subclass based on period_type
+        if period_type == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+            return TrendsEarthPeriod(**data_copy)
+        elif period_type == ProductivityMode.JRC_5_CLASS_LPD.value:
+            return JRCPeriod(**data_copy)
+        elif period_type == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+            return FAOWOCATPeriod(**data_copy)
+        else:
+            return cls(**data_copy)
+
+
+@dataclass
+class TrendsEarthPeriod(LDNPresetPeriod):
+    """Period configuration for Trends.Earth productivity mode"""
+
+    year_initial_prod: int
+    year_final_prod: int
+    period_type: str = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+
+
+@dataclass
+class JRCPeriod(LDNPresetPeriod):
+    """Period configuration for JRC pre-calculated productivity mode."""
+
+    year_initial_prod: int
+    year_final_prod: int
+    jrc_dataset: str = ""
+    period_type: str = ProductivityMode.JRC_5_CLASS_LPD.value
+
+
+@dataclass
+class FAOWOCATPeriod(LDNPresetPeriod):
+    """Period configuration for FAO-WOCAT productivity mode."""
+
+    year_initial_prod: int
+    year_final_prod: int
+    period_type: str = ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+
+
+@dataclass
+class LDNPreset:
+    """Represents a complete preset configuration for LDN calculations."""
+
+    name: str
+    description: str = ""
+    progress_periods_enabled: bool = True
+    productivity_mode: str = (
+        ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+    )  # ProductivityMode values
+    baseline_period: typing.Optional[LDNPresetPeriod] = None
+    progress_periods: typing.Optional[list[LDNPresetPeriod]] = None
+    reset_legend: bool = True
+    is_built_in: bool = False
+
+    def __post_init__(self):
+        """Initialize default values for mutable fields."""
+        if self.progress_periods is None:
+            self.progress_periods = []
+
+    def _create_period_for_mode(self, **kwargs) -> LDNPresetPeriod:
+        """Create appropriate period type based on productivity mode."""
+        # Remove period_type if it's in kwargs to avoid conflicts
+        kwargs.pop("period_type", None)
+
+        if self.productivity_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+            return TrendsEarthPeriod(**kwargs)
+        elif self.productivity_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+            return JRCPeriod(**kwargs)
+        elif self.productivity_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+            return FAOWOCATPeriod(**kwargs)
+        else:
+            # Default to base class for unknown modes
+            return LDNPresetPeriod(**kwargs)
+
+    def to_dict(self) -> dict:
+        """Convert to dictionary for JSON serialization."""
+        data = asdict(self)
+        if self.baseline_period:
+            data["baseline_period"] = self.baseline_period.to_dict()
+        data["progress_periods"] = [
+            period.to_dict() for period in (self.progress_periods or [])
+        ]
+        return data
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "LDNPreset":
+        """Create from dictionary for JSON deserialization."""
+        data = data.copy()  # Don't modify original
+        if "baseline_period" in data and data["baseline_period"]:
+            data["baseline_period"] = LDNPresetPeriod.from_dict(data["baseline_period"])
+        if "progress_periods" in data:
+            data["progress_periods"] = [
+                LDNPresetPeriod.from_dict(p) for p in data["progress_periods"]
+            ]
+        return cls(**data)
+
+
+class LDNPresetManager:
+    """Manages LDN presets including built-in and user-defined presets."""
+
+    SETTINGS_KEY = "LDMP/ldn_presets"
+
+    def __init__(self):
+        # Use default QSettings to match other LDMP plugin usage patterns
+        self.settings = QtCore.QSettings()
+        self._built_in_presets = self._create_built_in_presets()
+        self._user_presets = self._load_user_presets()
+
+    def _create_built_in_presets(self) -> list[LDNPreset]:
+        """Create the built-in UNCCD presets."""
+        presets = []
+
+        presets.append(
+            LDNPreset(
+                name="UNCCD Reporting (2026 reporting cycle - Default Data, Trends.Earth)",
+                description="Default UNCCD reporting period using Trends.Earth land productivity dynamics",
+                progress_periods_enabled=True,
+                productivity_mode=ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value,
+                baseline_period=TrendsEarthPeriod(
+                    year_initial=2000,
+                    year_final=2015,
+                    year_initial_lc=2000,
+                    year_final_lc=2015,
+                    year_initial_soc=2000,
+                    year_final_soc=2015,
+                    time_period_same=False,
+                    year_initial_prod=2001,
+                    year_final_prod=2015,
+                ),
+                progress_periods=[
+                    TrendsEarthPeriod(
+                        year_initial=2015,
+                        year_final=2019,
+                        year_initial_lc=2015,
+                        year_final_lc=2019,
+                        year_initial_soc=2015,
+                        year_final_soc=2019,
+                        time_period_same=False,
+                        year_initial_prod=2004,
+                        year_final_prod=2019,
+                    ),
+                    TrendsEarthPeriod(
+                        year_initial=2015,
+                        year_final=2023,
+                        year_initial_lc=2015,
+                        year_final_lc=2022,
+                        year_initial_soc=2015,
+                        year_final_soc=2022,
+                        time_period_same=False,
+                        year_initial_prod=2008,
+                        year_final_prod=2023,
+                    ),
+                ],
+                reset_legend=True,
+                is_built_in=True,
+            )
+        )
+
+        presets.append(
+            LDNPreset(
+                name="UNCCD Reporting (2026 reporting cycle, JRC)",
+                description="Default UNCCD reporting period using JRC data",
+                progress_periods_enabled=True,
+                productivity_mode=ProductivityMode.JRC_5_CLASS_LPD.value,
+                baseline_period=JRCPeriod(
+                    year_initial=2000,
+                    year_final=2015,
+                    year_initial_lc=2000,
+                    year_final_lc=2015,
+                    year_initial_soc=2000,
+                    year_final_soc=2015,
+                    time_period_same=False,
+                    year_initial_prod=2000,
+                    year_final_prod=2015,
+                    jrc_dataset="JRC Land Productivity Dynamics (2000-2015)",
+                ),
+                progress_periods=[
+                    JRCPeriod(
+                        year_initial=2015,
+                        year_final=2019,
+                        year_initial_lc=2015,
+                        year_final_lc=2019,
+                        year_initial_soc=2015,
+                        year_final_soc=2019,
+                        time_period_same=False,
+                        year_initial_prod=2004,
+                        year_final_prod=2019,
+                        jrc_dataset="JRC Land Productivity Dynamics (2004-2019)",
+                    ),
+                    JRCPeriod(
+                        year_initial=2015,
+                        year_final=2023,
+                        year_initial_lc=2015,
+                        year_final_lc=2022,
+                        year_initial_soc=2015,
+                        year_final_soc=2022,
+                        time_period_same=False,
+                        year_initial_prod=2008,
+                        year_final_prod=2023,
+                        jrc_dataset="JRC Land Productivity Dynamics (2008-2023)",
+                    ),
+                ],
+                reset_legend=True,
+                is_built_in=True,
+            )
+        )
+
+        presets.append(
+            LDNPreset(
+                name="UNCCD Reporting (2026 reporting cycle, FAO-WOCAT)",
+                description="Default UNCCD reporting period using FAO-WOCAT data",
+                progress_periods_enabled=True,
+                productivity_mode=ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+                baseline_period=FAOWOCATPeriod(
+                    year_initial=2000,
+                    year_final=2015,
+                    year_initial_lc=2000,
+                    year_final_lc=2015,
+                    year_initial_soc=2000,
+                    year_final_soc=2015,
+                    time_period_same=False,
+                    year_initial_prod=2001,
+                    year_final_prod=2015,
+                ),
+                progress_periods=[
+                    FAOWOCATPeriod(
+                        year_initial=2015,
+                        year_final=2019,
+                        year_initial_lc=2015,
+                        year_final_lc=2019,
+                        year_initial_soc=2015,
+                        year_final_soc=2019,
+                        time_period_same=False,
+                        year_initial_prod=2004,
+                        year_final_prod=2019,
+                    ),
+                    FAOWOCATPeriod(
+                        year_initial=2015,
+                        year_final=2023,
+                        year_initial_lc=2015,
+                        year_final_lc=2022,
+                        year_initial_soc=2015,
+                        year_final_soc=2022,
+                        time_period_same=False,
+                        year_initial_prod=2008,
+                        year_final_prod=2023,
+                    ),
+                ],
+                reset_legend=True,
+                is_built_in=True,
+            )
+        )
+
+        return presets
+
+    def _load_user_presets(self) -> list[LDNPreset]:
+        """Load user-defined presets from QSettings."""
+        presets = []
+        presets_data = self.settings.value(self.SETTINGS_KEY, [])
+
+        if isinstance(presets_data, str):
+            try:
+                presets_data = json.loads(presets_data)
+            except (json.JSONDecodeError, TypeError):
+                presets_data = []
+
+        for preset_data in presets_data:
+            try:
+                preset = LDNPreset.from_dict(preset_data)
+                presets.append(preset)
+            except (TypeError, KeyError) as e:
+                log(f"Failed to load preset: {e}")
+
+        return presets
+
+    def _save_user_presets(self):
+        """Save user-defined presets to QSettings."""
+        presets_data = [preset.to_dict() for preset in self._user_presets]
+        self.settings.setValue(self.SETTINGS_KEY, json.dumps(presets_data))
+        self.settings.sync()  # Force write to disk
+
+    def get_all_presets(self) -> list[LDNPreset]:
+        """Get all presets (built-in and user-defined)."""
+        return self._built_in_presets + self._user_presets
+
+    def get_preset_by_name(self, name: str) -> typing.Optional[LDNPreset]:
+        """Get a preset by name."""
+        for preset in self.get_all_presets():
+            if preset.name == name:
+                return preset
+        return None
+
+    def add_user_preset(self, preset: LDNPreset):
+        """Add a new user-defined preset."""
+        preset.is_built_in = False
+        self._user_presets.append(preset)
+        self._save_user_presets()
+
+    def update_user_preset(self, name: str, preset: LDNPreset):
+        """Update an existing user-defined preset."""
+        for i, existing_preset in enumerate(self._user_presets):
+            if existing_preset.name == name:
+                preset.is_built_in = False
+                self._user_presets[i] = preset
+                self._save_user_presets()
+                return True
+        return False
+
+    def delete_user_preset(self, name: str) -> bool:
+        """Delete a user-defined preset."""
+        for i, preset in enumerate(self._user_presets):
+            if preset.name == name:
+                del self._user_presets[i]
+                self._save_user_presets()
+                return True
+        return False
+
+    def export_presets(
+        self, file_path: str, preset_names: typing.Optional[list[str]] = None
+    ):
+        """Export presets to JSON file."""
+        if preset_names is None:
+            presets_to_export = self.get_all_presets()
+        else:
+            presets_to_export = [
+                p
+                for p in [self.get_preset_by_name(name) for name in preset_names]
+                if p is not None
+            ]
+
+        export_data = {
+            "version": "1.0",
+            "presets": [preset.to_dict() for preset in presets_to_export],
+        }
+
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(export_data, f, indent=2, ensure_ascii=False)
+
+    def import_presets(self, file_path: str) -> tuple[int, list[str]]:
+        """Import presets from JSON file. Returns (count_imported, errors)."""
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                import_data = json.load(f)
+
+            if not isinstance(import_data, dict) or "presets" not in import_data:
+                return 0, ["Invalid preset file format"]
+
+            imported_count = 0
+            errors = []
+
+            for preset_data in import_data["presets"]:
+                try:
+                    preset = LDNPreset.from_dict(preset_data)
+                    # Check if preset with same name exists
+                    existing = self.get_preset_by_name(preset.name)
+                    if existing and existing.is_built_in:
+                        errors.append(
+                            f"Cannot overwrite built-in preset: {preset.name}"
+                        )
+                        continue
+                    elif existing:
+                        self.update_user_preset(preset.name, preset)
+                    else:
+                        self.add_user_preset(preset)
+                    imported_count += 1
+                except (TypeError, KeyError) as e:
+                    errors.append(f"Failed to import preset: {e}")
+
+            return imported_count, errors
+
+        except (IOError, json.JSONDecodeError) as e:
+            return 0, [f"Failed to read preset file: {e}"]
+
+
+class PresetSaveDialog(QtWidgets.QDialog):
+    """Dialog for saving a new preset."""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Save Preset")
+        self.setModal(True)
+        self.resize(400, 150)
+
+        layout = QtWidgets.QVBoxLayout(self)
+
+        # Name input
+        layout.addWidget(QtWidgets.QLabel("Preset Name:"))
+        self.name_edit = QtWidgets.QLineEdit()
+        layout.addWidget(self.name_edit)
+
+        # Description input
+        layout.addWidget(QtWidgets.QLabel("Description (optional):"))
+        self.description_edit = QtWidgets.QTextEdit()
+        self.description_edit.setMaximumHeight(60)
+        layout.addWidget(self.description_edit)
+
+        # Buttons
+        button_box = QtWidgets.QDialogButtonBox(
+            QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
+        )
+        button_box.accepted.connect(self.accept)
+        button_box.rejected.connect(self.reject)
+        layout.addWidget(button_box)
+
+        # Validation
+        button_box.button(QtWidgets.QDialogButtonBox.Ok).setEnabled(False)
+        self.name_edit.textChanged.connect(self._validate)
+
+    def _validate(self):
+        """Enable OK button only if name is provided."""
+        ok_button = self.findChild(QtWidgets.QDialogButtonBox).button(
+            QtWidgets.QDialogButtonBox.Ok
+        )
+        ok_button.setEnabled(bool(self.name_edit.text().strip()))
+
+    def get_name(self) -> str:
+        """Get the preset name."""
+        return self.name_edit.text().strip()
+
+    def get_description(self) -> str:
+        """Get the preset description."""
+        return self.description_edit.toPlainText().strip()
+
+
+class PresetExportDialog(QtWidgets.QDialog):
+    """Dialog for selecting presets to export."""
+
+    def __init__(self, presets: list[LDNPreset], parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Export Presets")
+        self.setModal(True)
+        self.resize(400, 300)
+
+        layout = QtWidgets.QVBoxLayout(self)
+
+        layout.addWidget(QtWidgets.QLabel("Select presets to export:"))
+
+        # Preset list with checkboxes
+        self.preset_list = QtWidgets.QListWidget()
+        for preset in presets:
+            item = QtWidgets.QListWidgetItem(preset.name)
+            item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+            item.setCheckState(QtCore.Qt.Checked)
+            item.setData(QtCore.Qt.UserRole, preset.name)
+            self.preset_list.addItem(item)
+
+        layout.addWidget(self.preset_list)
+
+        # Select all/none buttons
+        button_layout = QtWidgets.QHBoxLayout()
+        select_all_btn = QtWidgets.QPushButton("Select All")
+        select_none_btn = QtWidgets.QPushButton("Select None")
+        select_all_btn.clicked.connect(self._select_all)
+        select_none_btn.clicked.connect(self._select_none)
+        button_layout.addWidget(select_all_btn)
+        button_layout.addWidget(select_none_btn)
+        button_layout.addStretch()
+        layout.addLayout(button_layout)
+
+        # Dialog buttons
+        button_box = QtWidgets.QDialogButtonBox(
+            QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
+        )
+        button_box.accepted.connect(self.accept)
+        button_box.rejected.connect(self.reject)
+        layout.addWidget(button_box)
+
+    def _select_all(self):
+        """Select all presets."""
+        for i in range(self.preset_list.count()):
+            self.preset_list.item(i).setCheckState(QtCore.Qt.Checked)
+
+    def _select_none(self):
+        """Deselect all presets."""
+        for i in range(self.preset_list.count()):
+            self.preset_list.item(i).setCheckState(QtCore.Qt.Unchecked)
+
+    def get_selected_presets(self) -> list[str]:
+        """Get the names of selected presets."""
+        selected = []
+        for i in range(self.preset_list.count()):
+            item = self.preset_list.item(i)
+            if item.checkState() == QtCore.Qt.Checked:
+                selected.append(item.data(QtCore.Qt.UserRole))
+        return selected
 
 
 MIN_YEARS_FOR_PROD_UPDATE: int = 15
@@ -471,15 +984,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.checkBox_progress_period.toggled.connect(self.toggle_progress_period)
         self.toggle_progress_period()
 
-        self.button_preset_unccd_default_jrc.clicked.connect(
-            self.set_preset_unccd_default_jrc
-        )
-        self.button_preset_unccd_default_te.clicked.connect(
-            self.set_preset_unccd_default_te
-        )
-        self.button_preset_unccd_default_fao_wocat.clicked.connect(
-            self.set_preset_unccd_default_fao_wocat
-        )
+        # Initialize preset system
+        self.preset_manager = LDNPresetManager()
+        self._setup_preset_ui()
 
         self.add_period_button.clicked.connect(self.on_add_period_clicked)
 
@@ -549,97 +1056,535 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         else:
             return False
 
-    def set_preset_unccd_default_jrc(self):
-        self.checkBox_progress_period.setChecked(True)
-        self.radio_lpd_precalculated.setChecked(True)
-        self.cb_jrc_baseline.setCurrentIndex(
-            self.cb_jrc_baseline.findText("JRC Land Productivity Dynamics (2000-2015)")
+    def _setup_preset_ui(self):
+        """Initialize the preset UI components."""
+        # Populate the combobox with presets
+        self.comboBox_presets.clear()
+        presets = self.preset_manager.get_all_presets()
+        for i, preset in enumerate(presets):
+            display_name = f"{preset.name}"
+            if preset.is_built_in:
+                display_name += " (Built-in)"
+            self.comboBox_presets.addItem(display_name, preset.name)
+            # Set tooltip with description if available
+            if preset.description:
+                self.comboBox_presets.setItemData(
+                    i, preset.description, QtCore.Qt.ToolTipRole
+                )
+
+        # Connect preset UI signals
+        self.comboBox_presets.currentTextChanged.connect(
+            self._on_preset_selection_changed
         )
-        self.cb_jrc_progress.setCurrentIndex(
-            self.cb_jrc_baseline.findText("JRC Land Productivity Dynamics (2005-2019)")
+        self.button_apply_preset.clicked.connect(self.on_apply_preset)
+        self.button_save_preset.clicked.connect(self.on_save_preset)
+        self.button_delete_preset.clicked.connect(self.on_delete_preset)
+        self.button_export_presets.clicked.connect(self.on_export_presets)
+        self.button_import_presets.clicked.connect(self.on_import_presets)
+
+        # Update UI state
+        self._update_preset_ui_state()
+
+    def _update_preset_ui_state(self):
+        """Update the enabled state of preset buttons."""
+        has_selection = self.comboBox_presets.currentIndex() >= 0
+        current_preset_name = (
+            self.comboBox_presets.currentData() if has_selection else None
         )
-        self.radio_time_period_same_baseline.setChecked(True)
-        self.radio_time_period_vary_progress.setChecked(True)
-        self.year_initial_baseline.setDate(QtCore.QDate(2000, 1, 1))
-        self.year_final_baseline.setDate(QtCore.QDate(2015, 1, 1))
-        self.year_initial_progress.setDate(QtCore.QDate(2005, 1, 1))
-        self.year_final_progress.setDate(QtCore.QDate(2019, 1, 1))
-        self.year_initial_progress_lc.setDate(QtCore.QDate(2015, 1, 1))
-        self.year_final_progress_lc.setDate(QtCore.QDate(2019, 1, 1))
-        self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
-        self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
-        if self._ask_reset_legend():
-            lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
-            self.lc_setup_widget.aggregation_dialog.reset_nesting_table(
-                get_default=True
-            )
-            self.lc_define_deg_widget.set_trans_matrix(get_default=True)
-
-    def set_preset_unccd_default_fao_wocat(self):
-        self.checkBox_progress_period.setChecked(True)
-        self.radio_fao_wocat.setChecked(True)
-        self.radio_time_period_same_baseline.setChecked(True)
-        self.radio_time_period_vary_progress.setChecked(True)
-        self.year_initial_baseline.setDate(QtCore.QDate(2001, 1, 1))
-        self.year_final_baseline.setDate(QtCore.QDate(2015, 1, 1))
-        self.year_initial_progress.setDate(QtCore.QDate(2005, 1, 1))
-        self.year_final_progress.setDate(QtCore.QDate(2019, 1, 1))
-        self.year_initial_progress_lc.setDate(QtCore.QDate(2015, 1, 1))
-        self.year_final_progress_lc.setDate(QtCore.QDate(2019, 1, 1))
-        self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
-        self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
-
-        if self._ask_reset_legend():
-            lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
-            self.lc_setup_widget.aggregation_dialog.reset_nesting_table(
-                get_default=True
-            )
-            self.lc_define_deg_widget.set_trans_matrix(get_default=True)
-
-    def set_preset_unccd_default_te(self):
-        self.checkBox_progress_period.setChecked(True)
-        self.radio_lpd_te.setChecked(True)
-        self.radio_time_period_same_baseline.setChecked(True)
-        self.radio_time_period_vary_progress.setChecked(True)
-        self.year_initial_baseline.setDate(QtCore.QDate(2001, 1, 1))
-        self.year_final_baseline.setDate(QtCore.QDate(2015, 1, 1))
-        self.year_initial_progress.setDate(QtCore.QDate(2005, 1, 1))
-        self.year_final_progress.setDate(QtCore.QDate(2019, 1, 1))
-        self.year_initial_progress_lc.setDate(QtCore.QDate(2015, 1, 1))
-        self.year_final_progress_lc.setDate(QtCore.QDate(2019, 1, 1))
-        self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
-        self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
-
-        if self._ask_reset_legend():
-            lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
-            self.lc_setup_widget.aggregation_dialog.reset_nesting_table(
-                get_default=True
-            )
-            self.lc_define_deg_widget.set_trans_matrix(get_default=True)
-
-    def _update_common_dates(self, widgets):
-        year_initial = widgets.year_initial.date()
-        year_final = widgets.year_final.date()
-
-        lc_soc_override = (
-            getattr(widgets, "_lc_soc_override", None)
-            if self.radio_lpd_precalculated.isChecked()
+        current_preset = (
+            self.preset_manager.get_preset_by_name(current_preset_name)
+            if current_preset_name
             else None
         )
-        if lc_soc_override:
-            lc_start, lc_end = lc_soc_override
+
+        self.button_apply_preset.setEnabled(has_selection)
+        self.button_delete_preset.setEnabled(
+            has_selection and current_preset and not current_preset.is_built_in
+        )
+
+        # Update the description tooltip
+        self._update_preset_description()
+
+    def _on_preset_selection_changed(self):
+        """Handle preset selection changes."""
+        self._update_preset_description()
+        self._update_preset_ui_state()
+
+    def _update_preset_description(self):
+        """Update the combobox tooltip with the current preset's description."""
+        preset_name = self.comboBox_presets.currentData()
+        if preset_name:
+            preset = self.preset_manager.get_preset_by_name(preset_name)
+            if preset and preset.description:
+                self.comboBox_presets.setToolTip(preset.description)
+            else:
+                self.comboBox_presets.setToolTip("")
         else:
-            lc_start, lc_end = year_initial, year_final
+            self.comboBox_presets.setToolTip("")
 
-        widgets.year_initial_lc.setDate(lc_start)
-        widgets.year_initial_soc.setDate(lc_start)
-        widgets.year_final_lc.setDate(lc_end)
-        widgets.year_final_soc.setDate(lc_end)
+    def on_apply_preset(self):
+        """Apply the selected preset."""
+        preset_name = self.comboBox_presets.currentData()
+        if not preset_name:
+            return
 
-        if not widgets.radio_fao_wocat.isChecked():
-            widgets.year_initial_prod.setDate(year_initial)
+        preset = self.preset_manager.get_preset_by_name(preset_name)
+        if not preset:
+            QtWidgets.QMessageBox.warning(
+                self, "Error", f"Preset '{preset_name}' not found."
+            )
+            return
 
-        widgets.year_final_prod.setDate(year_final)
+        self.apply_preset(preset)
+
+    def apply_preset(self, preset: LDNPreset):
+        """Apply a preset to the dialog controls."""
+        # Set progress periods enabled state
+        self.checkBox_progress_period.setChecked(preset.progress_periods_enabled)
+
+        # Set productivity mode
+        if preset.productivity_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+            self.radio_lpd_precalculated.setChecked(True)
+            # Get JRC dataset from baseline period if it's a JRCPeriod
+            if preset.baseline_period and isinstance(preset.baseline_period, JRCPeriod):
+                if preset.baseline_period.jrc_dataset:
+                    idx = self.cb_jrc_baseline.findText(
+                        preset.baseline_period.jrc_dataset
+                    )
+                    if idx >= 0:
+                        self.cb_jrc_baseline.setCurrentIndex(idx)
+            # Get JRC dataset from first progress period if it's a JRCPeriod
+            if preset.progress_periods and isinstance(
+                preset.progress_periods[0], JRCPeriod
+            ):
+                if preset.progress_periods[0].jrc_dataset:
+                    idx = self.cb_jrc_progress.findText(
+                        preset.progress_periods[0].jrc_dataset
+                    )
+                    if idx >= 0:
+                        self.cb_jrc_progress.setCurrentIndex(idx)
+        elif preset.productivity_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+            self.radio_fao_wocat.setChecked(True)
+        else:  # ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+            self.radio_lpd_te.setChecked(True)
+
+        # Apply baseline period
+        if preset.baseline_period:
+            self._apply_period_to_widgets(
+                preset.baseline_period, self.widgets_baseline, is_baseline=True
+            )
+
+        # Clear existing extra periods
+        self._clear_extra_periods()
+
+        # Apply progress periods
+        for i, period in enumerate(preset.progress_periods or []):
+            if i == 0:
+                # Apply first progress period to the main progress widgets
+                self._apply_period_to_widgets(
+                    period, self.widgets_progress, is_baseline=False
+                )
+            else:
+                # Add extra periods for subsequent ones
+                self._add_extra_period_from_preset(period)
+
+        # Reset legend if requested
+        if preset.reset_legend and self._ask_reset_legend():
+            lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
+            self.lc_setup_widget.aggregation_dialog.reset_nesting_table(
+                get_default=True
+            )
+            self.lc_define_deg_widget.set_trans_matrix(get_default=True)
+
+    def _apply_period_to_widgets(
+        self, period: LDNPresetPeriod, widgets: TimePeriodWidgets, is_baseline: bool
+    ):
+        """Apply a period configuration to widget controls."""
+        # Set the time period radio button state
+        # For radio buttons in a group, setting one to checked automatically unchecks the others
+        if period.time_period_same:
+            widgets.radio_time_period_same.setChecked(True)
+        else:
+            # Find the "vary" radio button in the same parent widget group
+            parent_widget = widgets.radio_time_period_same.parent()
+            if parent_widget:
+                # Look for any other radio button in the same parent that isn't the "same" button
+                radio_buttons = parent_widget.findChildren(QtWidgets.QRadioButton)
+                for radio_btn in radio_buttons:
+                    if radio_btn != widgets.radio_time_period_same:
+                        # This should be the "vary" button - check it
+                        radio_btn.setChecked(True)
+                        break
+                else:
+                    # Fallback: just uncheck the "same" button
+                    widgets.radio_time_period_same.setChecked(False)
+
+        widgets.year_initial.setDate(QtCore.QDate(period.year_initial, 1, 1))
+        widgets.year_final.setDate(QtCore.QDate(period.year_final, 1, 1))
+
+        # Only set productivity dates if the period type supports them
+        year_initial_prod = getattr(period, "year_initial_prod", period.year_initial)
+        year_final_prod = getattr(period, "year_final_prod", period.year_final)
+        widgets.year_initial_prod.setDate(QtCore.QDate(year_initial_prod, 1, 1))
+        widgets.year_final_prod.setDate(QtCore.QDate(year_final_prod, 1, 1))
+
+        widgets.year_initial_lc.setDate(QtCore.QDate(period.year_initial_lc, 1, 1))
+        widgets.year_final_lc.setDate(QtCore.QDate(period.year_final_lc, 1, 1))
+        widgets.year_initial_soc.setDate(QtCore.QDate(period.year_initial_soc, 1, 1))
+        widgets.year_final_soc.setDate(QtCore.QDate(period.year_final_soc, 1, 1))
+
+    def _clear_extra_periods(self):
+        """Remove all extra progress period widgets."""
+        for group_box, _ in self.extra_progress_boxes:
+            group_box.setParent(None)
+        self.extra_progress_boxes.clear()
+
+    def _add_extra_period_from_preset(self, period: LDNPresetPeriod):
+        """Add an extra progress period from a preset."""
+        # Create the extra progress period UI components
+        grp, widgets = self._create_progress_period()
+        grp.setTitle(f"Progress period #{len(self.extra_progress_boxes) + 2}")
+
+        # Apply the period data to the widgets
+        self._apply_period_to_widgets(period, widgets, is_baseline=False)
+
+        # Set the JRC dataset if this is a JRCPeriod
+        if isinstance(period, JRCPeriod) and period.jrc_dataset:
+            idx = widgets.cb_lpd.findText(period.jrc_dataset)
+            if idx >= 0:
+                widgets.cb_lpd.setCurrentIndex(idx)
+
+        # Add to the UI layout
+        wrapper = QtWidgets.QWidget()
+        layout = QtWidgets.QHBoxLayout(wrapper)
+        layout.setContentsMargins(8, 0, 8, 0)
+        layout.addWidget(grp)
+
+        container_layout: QtWidgets.QVBoxLayout = self.verticalLayout_7
+        idx = container_layout.indexOf(
+            self.findChild(QtWidgets.QHBoxLayout, "verticalLayout_9")
+        )
+        container_layout.insertWidget(idx, wrapper)
+
+        self.extra_progress_boxes.append((grp, widgets))
+
+        # Update UI state based on current productivity mode
+        is_precalc = self.radio_lpd_precalculated.isChecked()
+        widgets.cb_lpd.setVisible(is_precalc)
+        lbl = grp.findChild(QtWidgets.QLabel, "label_jrc_progress")
+        if lbl is not None:
+            lbl.setVisible(is_precalc)
+
+    def on_save_preset(self):
+        """Save current configuration as a new preset."""
+        dialog = PresetSaveDialog(self)
+        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+            name = dialog.get_name()
+            description = dialog.get_description()
+
+            if self.preset_manager.get_preset_by_name(name):
+                reply = QtWidgets.QMessageBox.question(
+                    self,
+                    "Preset Exists",
+                    f"A preset named '{name}' already exists. Overwrite it?",
+                    QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+                )
+                if reply != QtWidgets.QMessageBox.Yes:
+                    return
+
+            preset = self._create_preset_from_current_settings(name, description)
+
+            existing = self.preset_manager.get_preset_by_name(name)
+            if existing and not existing.is_built_in:
+                self.preset_manager.update_user_preset(name, preset)
+            else:
+                self.preset_manager.add_user_preset(preset)
+
+            self._refresh_preset_list()
+            self._select_preset_by_name(name)
+
+    def _create_preset_from_current_settings(
+        self, name: str, description: str
+    ) -> LDNPreset:
+        """Create a preset from current dialog settings."""
+        # Determine productivity mode
+        if self.radio_lpd_precalculated.isChecked():
+            productivity_mode = ProductivityMode.JRC_5_CLASS_LPD.value
+        elif self.radio_fao_wocat.isChecked():
+            productivity_mode = ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+        else:
+            productivity_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+
+        # Create a temporary preset to use its _create_period_for_mode method
+        temp_preset = LDNPreset(
+            name="temp",
+            productivity_mode=productivity_mode,
+        )
+
+        # Get baseline period
+        baseline_period = self._extract_period_from_widgets(
+            self.widgets_baseline, temp_preset, is_baseline=True
+        )
+
+        # Get progress periods - now unified!
+        progress_periods = []
+        if self.checkBox_progress_period.isChecked():
+            # Add the main progress period
+            progress_periods.append(
+                self._extract_period_from_widgets(
+                    self.widgets_progress, temp_preset, is_baseline=False
+                )
+            )
+            # Add any extra periods
+            for _, widgets in self.extra_progress_boxes:
+                progress_periods.append(
+                    self._extract_period_from_widgets(
+                        widgets, temp_preset, is_baseline=False
+                    )
+                )
+
+        return LDNPreset(
+            name=name,
+            description=description,
+            progress_periods_enabled=self.checkBox_progress_period.isChecked(),
+            productivity_mode=productivity_mode,
+            baseline_period=baseline_period,
+            progress_periods=progress_periods,
+            reset_legend=True,
+            is_built_in=False,
+        )
+
+    def _extract_period_from_widgets(
+        self, widgets: TimePeriodWidgets, preset: LDNPreset, is_baseline: bool = False
+    ) -> LDNPresetPeriod:
+        """Extract period configuration from widgets using appropriate period type."""
+        period_args = {
+            "year_initial": widgets.year_initial.date().year(),
+            "year_final": widgets.year_final.date().year(),
+            "year_initial_lc": widgets.year_initial_lc.date().year(),
+            "year_final_lc": widgets.year_final_lc.date().year(),
+            "year_initial_soc": widgets.year_initial_soc.date().year(),
+            "year_final_soc": widgets.year_final_soc.date().year(),
+            "time_period_same": widgets.radio_time_period_same.isChecked(),
+        }
+
+        # Add mode-specific fields
+        if preset.productivity_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+            # TrendsEarthPeriod uses standard productivity date fields (derived values calculated at runtime)
+            period_args.update(
+                {
+                    "year_initial_prod": widgets.year_initial_prod.date().year(),
+                    "year_final_prod": widgets.year_final_prod.date().year(),
+                }
+            )
+        elif preset.productivity_mode in [
+            ProductivityMode.JRC_5_CLASS_LPD.value,
+            ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+        ]:
+            # JRC and FAO-WOCAT periods use standard productivity dates
+            period_args.update(
+                {
+                    "year_initial_prod": widgets.year_initial_prod.date().year(),
+                    "year_final_prod": widgets.year_final_prod.date().year(),
+                }
+            )
+
+        # Add JRC dataset for JRC periods
+        if preset.productivity_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+            # Use appropriate dataset based on whether this is baseline or progress period
+            if is_baseline:
+                jrc_dataset = self.cb_jrc_baseline.currentText()
+            else:
+                # For progress periods, check if this widget has its own JRC combobox (extra periods)
+                # or use the main progress combobox (main progress period)
+                if hasattr(widgets, "cb_lpd") and widgets.cb_lpd:
+                    jrc_dataset = widgets.cb_lpd.currentText()
+                else:
+                    jrc_dataset = self.cb_jrc_progress.currentText()
+            period_args.update(
+                {
+                    "jrc_dataset": jrc_dataset,
+                }
+            )
+
+        return preset._create_period_for_mode(**period_args)
+
+    def _calculate_trends_earth_productivity_params(
+        self, year_initial_prod: int, year_final_prod: int
+    ) -> dict:
+        """Calculate TrendsEarth-specific productivity parameters from basic productivity dates.
+
+        Args:
+            year_initial_prod: Initial productivity year
+            year_final_prod: Final productivity year
+
+        Returns:
+            Dictionary with TrendsEarth productivity parameters
+        """
+        # Default method
+        traj_method = "ndvi_trend"
+
+        # For trajectory analysis, use the provided productivity period
+        traj_year_initial = year_initial_prod
+        traj_year_final = year_final_prod
+
+        # For state analysis, use the original TrendsEarth logic:
+        # Have productivity state consider the last 3 years for the current
+        # period, and the years preceding those last 3 for the baseline
+        state_year_bl_start = year_initial_prod
+        state_year_bl_end = year_final_prod - 3
+        state_year_tg_start = state_year_bl_end + 1
+        state_year_tg_end = year_final_prod  # This should equal year_final
+
+        # For performance analysis, use the same years as trajectory/productivity
+        perf_year_initial = year_initial_prod
+        perf_year_final = year_final_prod
+
+        return {
+            "traj_method": traj_method,
+            "traj_year_initial": traj_year_initial,
+            "traj_year_final": traj_year_final,
+            "state_year_bl_start": state_year_bl_start,
+            "state_year_bl_end": state_year_bl_end,
+            "state_year_tg_start": state_year_tg_start,
+            "state_year_tg_end": state_year_tg_end,
+            "perf_year_initial": perf_year_initial,
+            "perf_year_final": perf_year_final,
+        }
+
+    def on_delete_preset(self):
+        """Delete the selected user preset."""
+        preset_name = self.comboBox_presets.currentData()
+        if not preset_name:
+            return
+
+        preset = self.preset_manager.get_preset_by_name(preset_name)
+        if not preset or preset.is_built_in:
+            QtWidgets.QMessageBox.warning(
+                self, "Error", "Cannot delete built-in presets."
+            )
+            return
+
+        reply = QtWidgets.QMessageBox.question(
+            self,
+            "Delete Preset",
+            f"Are you sure you want to delete the preset '{preset_name}'?",
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+        )
+
+        if reply == QtWidgets.QMessageBox.Yes:
+            self.preset_manager.delete_user_preset(preset_name)
+            self._refresh_preset_list()
+
+    def on_export_presets(self):
+        """Export presets to JSON file."""
+        dialog = PresetExportDialog(self.preset_manager.get_all_presets(), self)
+        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+            selected_presets = dialog.get_selected_presets()
+            file_path, _ = QtWidgets.QFileDialog.getSaveFileName(
+                self, "Export Presets", "ldn_presets.json", "JSON Files (*.json)"
+            )
+
+            if file_path:
+                try:
+                    self.preset_manager.export_presets(file_path, selected_presets)
+                    QtWidgets.QMessageBox.information(
+                        self, "Export Successful", f"Presets exported to {file_path}"
+                    )
+                except Exception as e:
+                    QtWidgets.QMessageBox.critical(
+                        self, "Export Failed", f"Failed to export presets: {e}"
+                    )
+
+    def on_import_presets(self):
+        """Import presets from JSON file."""
+        file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self, "Import Presets", "", "JSON Files (*.json)"
+        )
+
+        if file_path:
+            try:
+                count, errors = self.preset_manager.import_presets(file_path)
+                message = f"Successfully imported {count} presets."
+                if errors:
+                    message += "\n\nErrors:\n" + "\n".join(errors)
+
+                QtWidgets.QMessageBox.information(self, "Import Results", message)
+                self._refresh_preset_list()
+            except Exception as e:
+                QtWidgets.QMessageBox.critical(
+                    self, "Import Failed", f"Failed to import presets: {e}"
+                )
+
+    def _refresh_preset_list(self):
+        """Refresh the preset combobox."""
+        current_selection = self.comboBox_presets.currentData()
+        self.comboBox_presets.clear()
+
+        presets = self.preset_manager.get_all_presets()
+        for i, preset in enumerate(presets):
+            display_name = f"{preset.name}"
+            if preset.is_built_in:
+                display_name += " (Built-in)"
+            self.comboBox_presets.addItem(display_name, preset.name)
+            # Set tooltip with description if available
+            if preset.description:
+                self.comboBox_presets.setItemData(
+                    i, preset.description, QtCore.Qt.ToolTipRole
+                )
+
+        # Restore selection if possible
+        if current_selection:
+            self._select_preset_by_name(current_selection)
+
+        self._update_preset_ui_state()
+
+    def _select_preset_by_name(self, name: str):
+        """Select a preset by name in the combobox."""
+        for i in range(self.comboBox_presets.count()):
+            if self.comboBox_presets.itemData(i) == name:
+                self.comboBox_presets.setCurrentIndex(i)
+                break
+
+    def _update_common_dates(self, widgets):
+        if widgets.radio_time_period_same.isChecked():
+            # Same period mode: use common dates for all indicators
+            year_initial = widgets.year_initial.date()
+            year_final = widgets.year_final.date()
+
+            lc_soc_override = (
+                getattr(widgets, "_lc_soc_override", None)
+                if self.radio_lpd_precalculated.isChecked()
+                else None
+            )
+            if lc_soc_override:
+                lc_start, lc_end = lc_soc_override
+            else:
+                lc_start, lc_end = year_initial, year_final
+
+            widgets.year_initial_lc.setDate(lc_start)
+            widgets.year_initial_soc.setDate(lc_start)
+            widgets.year_final_lc.setDate(lc_end)
+            widgets.year_final_soc.setDate(lc_end)
+
+            if not widgets.radio_fao_wocat.isChecked():
+                widgets.year_initial_prod.setDate(year_initial)
+
+            widgets.year_final_prod.setDate(year_final)
+        else:
+            # Vary by indicator mode: don't override individual indicator dates
+            # Only apply LC/SOC overrides if they exist
+            lc_soc_override = (
+                getattr(widgets, "_lc_soc_override", None)
+                if self.radio_lpd_precalculated.isChecked()
+                else None
+            )
+            if lc_soc_override:
+                lc_start, lc_end = lc_soc_override
+                widgets.year_initial_lc.setDate(lc_start)
+                widgets.year_initial_soc.setDate(lc_start)
+                widgets.year_final_lc.setDate(lc_end)
+                widgets.year_final_soc.setDate(lc_end)
 
         self.update_timeline_graph()
 
@@ -650,6 +1595,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self._update_common_dates(widgets)
 
     def toggle_time_period(self, widgets):
+        # First, update the time bounds based on the new radio button state
+        self.update_time_bounds(widgets)
+
+        # Check if we're in JRC mode - if so, productivity widgets should remain disabled
+        is_precalc = self.radio_lpd_precalculated.isChecked()
+
         if widgets.radio_time_period_same.isChecked():
             widgets.label_lc.setEnabled(False)
             widgets.year_initial_lc.setEnabled(False)
@@ -663,8 +1614,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             widgets.year_final.setEnabled(True)
 
             widgets.label_prod.setEnabled(False)
-            widgets.year_initial_prod.setEnabled(False)
-            widgets.year_final_prod.setEnabled(False)
+            # Only disable productivity widgets if not in JRC mode (they're already disabled in JRC mode)
+            if not is_precalc:
+                widgets.year_initial_prod.setEnabled(False)
+                widgets.year_final_prod.setEnabled(False)
 
             widgets.year_initial.setEnabled(True)
 
@@ -682,10 +1635,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             widgets.year_initial.setEnabled(False)
             widgets.year_final.setEnabled(False)
 
-            widgets.year_initial_prod.setEnabled(True)
-            widgets.year_final_prod.setEnabled(True)
+            # Only enable productivity widgets if not in JRC mode
+            if not is_precalc:
+                widgets.year_initial_prod.setEnabled(True)
+                widgets.year_final_prod.setEnabled(True)
 
-            if widgets.radio_lpd_te.isChecked():
+            if widgets.radio_lpd_te.isChecked() and not is_precalc:
                 widgets.label_prod.setEnabled(True)
                 widgets.year_initial_prod.setEnabled(True)
 
@@ -708,6 +1663,23 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.cb_jrc_progress.hide()
             self.label_jrc_progress.hide()
 
+        # Make productivity date controls disabled when JRC mode is selected
+        # (users can still configure LC and SOC periods, but productivity is fixed by JRC dataset)
+        productivity_widgets = [
+            # Baseline productivity widgets
+            self.widgets_baseline.year_initial_prod,
+            self.widgets_baseline.year_final_prod,
+            # Progress productivity widgets
+            self.widgets_progress.year_initial_prod,
+            self.widgets_progress.year_final_prod,
+        ]
+
+        for widget in productivity_widgets:
+            if widget:
+                widget.setEnabled(
+                    not is_precalc
+                )  # Disable in JRC mode, enable otherwise
+
         # Extra progress‑period widgets
         for _box, w in getattr(self, "extra_progress_boxes", []):
             w.cb_lpd.setVisible(is_precalc)
@@ -715,6 +1687,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             lbl = _box.findChild(QtWidgets.QLabel, "label_jrc_progress")
             if lbl is not None:
                 lbl.setVisible(is_precalc)
+
+            # Disable productivity date controls in extra progress periods too
+            if w.year_initial_prod:
+                w.year_initial_prod.setEnabled(not is_precalc)
+            if w.year_final_prod:
+                w.year_final_prod.setEnabled(not is_precalc)
 
         # Refresh dependent controls
         self.update_time_bounds(self.widgets_baseline)
@@ -740,8 +1718,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
         end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
-        start_year = max(start_year_prod, start_year_lc)
-        end_year = min(end_year_prod, end_year_lc)
 
         if self.radio_lpd_precalculated.isChecked():
             if not widgets.cb_lpd.currentText():
@@ -752,11 +1728,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             ]
             start_year_prod = prod_dataset["Start year"]
             end_year_prod = prod_dataset["End year"]
-
-            # Don't need to consider prod dates in below lims when using JRC, but do use
-            # them to set default time period
-            start_year = start_year_lc
-            end_year = end_year_lc
             start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
             end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
 
@@ -780,27 +1751,60 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 if hasattr(widgets, "_lc_soc_override"):
                     delattr(widgets, "_lc_soc_override")
 
-        widgets.year_initial.setMinimumDate(start_year)
-        widgets.year_initial.setMaximumDate(end_year)
-        widgets.year_final.setMinimumDate(start_year)
-        widgets.year_final.setMaximumDate(end_year)
+        # Check radio button state to determine how to calculate bounds
+        if widgets.radio_time_period_same.isChecked():
+            # Same period mode: use unified bounds across all datasets
+            start_year = max(start_year_prod, start_year_lc)
+            end_year = min(end_year_prod, end_year_lc)
 
+            # Set unified bounds for all widgets
+            widgets.year_initial.setMinimumDate(start_year)
+            widgets.year_initial.setMaximumDate(end_year)
+            widgets.year_final.setMinimumDate(start_year)
+            widgets.year_final.setMaximumDate(end_year)
+
+            widgets.year_initial_prod.setMinimumDate(start_year)
+            widgets.year_initial_prod.setMaximumDate(end_year)
+            widgets.year_final_prod.setMinimumDate(start_year)
+            widgets.year_final_prod.setMaximumDate(end_year)
+
+            widgets.year_initial_lc.setMinimumDate(start_year)
+            widgets.year_initial_lc.setMaximumDate(end_year)
+            widgets.year_final_lc.setMinimumDate(start_year)
+            widgets.year_final_lc.setMaximumDate(end_year)
+
+            widgets.year_initial_soc.setMinimumDate(start_year)
+            widgets.year_initial_soc.setMaximumDate(end_year)
+            widgets.year_final_soc.setMinimumDate(start_year)
+            widgets.year_final_soc.setMaximumDate(end_year)
+        else:
+            # Vary by indicator mode: calculate independent bounds for each dataset type
+
+            # Productivity bounds (for both year_initial/year_final and year_initial_prod/year_final_prod)
+            widgets.year_initial.setMinimumDate(start_year_prod)
+            widgets.year_initial.setMaximumDate(end_year_prod)
+            widgets.year_final.setMinimumDate(start_year_prod)
+            widgets.year_final.setMaximumDate(end_year_prod)
+
+            widgets.year_initial_prod.setMinimumDate(start_year_prod)
+            widgets.year_initial_prod.setMaximumDate(end_year_prod)
+            widgets.year_final_prod.setMinimumDate(start_year_prod)
+            widgets.year_final_prod.setMaximumDate(end_year_prod)
+
+            # LC/SOC bounds (independent calculation)
+            widgets.year_initial_lc.setMinimumDate(start_year_lc)
+            widgets.year_initial_lc.setMaximumDate(end_year_lc)
+            widgets.year_final_lc.setMinimumDate(start_year_lc)
+            widgets.year_final_lc.setMaximumDate(end_year_lc)
+
+            widgets.year_initial_soc.setMinimumDate(start_year_lc)
+            widgets.year_initial_soc.setMaximumDate(end_year_lc)
+            widgets.year_final_soc.setMinimumDate(start_year_lc)
+            widgets.year_final_soc.setMaximumDate(end_year_lc)
+
+        # Set default dates for productivity (always use productivity dataset dates)
         widgets.year_initial_prod.setDate(start_year_prod)
         widgets.year_final_prod.setDate(end_year_prod)
-        widgets.year_initial_prod.setMinimumDate(start_year)
-        widgets.year_initial_prod.setMaximumDate(end_year)
-        widgets.year_final_prod.setMinimumDate(start_year)
-        widgets.year_final_prod.setMaximumDate(end_year)
-
-        widgets.year_initial_lc.setMinimumDate(start_year)
-        widgets.year_initial_lc.setMaximumDate(end_year)
-        widgets.year_final_lc.setMinimumDate(start_year)
-        widgets.year_final_lc.setMaximumDate(end_year)
-
-        widgets.year_initial_soc.setMinimumDate(start_year)
-        widgets.year_initial_soc.setMaximumDate(end_year)
-        widgets.year_final_soc.setMinimumDate(start_year)
-        widgets.year_final_soc.setMaximumDate(end_year)
 
         # If an override exists, set LC/SOC default dates to it now (for both same/vary modes)
         if hasattr(widgets, "_lc_soc_override") and widgets._lc_soc_override:
@@ -1108,29 +2112,17 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         ),
                     )
 
-                # Have productivity state consider the last 3 years for the
-                # current
-                # period, and the years preceding those last 3 for the baseline
-                prod_state_year_bl_start = year_initial
-                prod_state_year_bl_end = year_final - 3
-                prod_state_year_tg_start = prod_state_year_bl_end + 1
-                prod_state_year_tg_end = prod_state_year_bl_end + 3
-                assert prod_state_year_tg_end == year_final
+                # Calculate TrendsEarth productivity parameters using helper function
+                trends_earth_params = self._calculate_trends_earth_productivity_params(
+                    year_initial, year_final
+                )
 
                 payload["productivity"].update(
                     {
                         "asset_productivity": conf.REMOTE_DATASETS["NDVI"][
                             "MODIS (MOD13Q1, annual)"
                         ]["GEE Dataset"],
-                        "traj_method": "ndvi_trend",
-                        "traj_year_initial": year_initial,
-                        "traj_year_final": year_final,
-                        "perf_year_initial": year_initial,
-                        "perf_year_final": year_final,
-                        "state_year_bl_start": prod_state_year_bl_start,
-                        "state_year_bl_end": prod_state_year_bl_end,
-                        "state_year_tg_start": prod_state_year_tg_start,
-                        "state_year_tg_end": prod_state_year_tg_end,
+                        **trends_earth_params,
                         "asset_climate": None,
                     }
                 )

@@ -90,7 +90,7 @@
               <item>
                <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
                 <property name="title">
-                 <string>Presets for UNCCD 2016-2019 reporting period</string>
+                 <string>Presets</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -98,45 +98,79 @@
                 <property name="collapsed">
                  <bool>false</bool>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <layout class="QVBoxLayout" name="verticalLayout_presets">
                  <item>
-                  <widget class="QPushButton" name="button_preset_unccd_default_jrc">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>UNCCD Default Data</string>
-                   </property>
-                  </widget>
+                  <layout class="QHBoxLayout" name="horizontalLayout_presets">
+                   <item>
+                    <widget class="QLabel" name="label_preset_selection">
+                     <property name="text">
+                      <string>Select preset:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="comboBox_presets">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="button_preset_unccd_default_te">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>Trends.Earth Default Data</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="button_preset_unccd_default_fao_wocat">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>FAO-WOCAT Default Data</string>
-                   </property>
-                  </widget>
+                  <layout class="QHBoxLayout" name="horizontalLayout_preset_actions">
+                   <item>
+                    <widget class="QPushButton" name="button_apply_preset">
+                     <property name="text">
+                      <string>Apply Preset</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="button_save_preset">
+                     <property name="text">
+                      <string>Save Current as Preset</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="button_delete_preset">
+                     <property name="text">
+                      <string>Delete Preset</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="button_export_presets">
+                     <property name="text">
+                      <string>Export...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="button_import_presets">
+                     <property name="text">
+                      <string>Import...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_presets">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </widget>

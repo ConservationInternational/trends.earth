@@ -681,7 +681,7 @@
               <item>
                <widget class="QCheckBox" name="checkBox_progress_period">
                 <property name="text">
-                 <string>Include progress period (for comparison to baseline)</string>
+                 <string>Include reporting period (for comparison to baseline)</string>
                 </property>
                </widget>
               </item>
@@ -694,7 +694,7 @@
                  </sizepolicy>
                 </property>
                 <property name="title">
-                 <string>Progress period #1</string>
+                 <string>Reporting period #1</string>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_3">
                  <item row="7" column="3">
@@ -1089,7 +1089,7 @@
              <item>
               <widget class="QPushButton" name="add_period_button">
                <property name="text">
-                <string>Add progress period</string>
+                <string>Add reporting period</string>
                </property>
               </widget>
              </item>

@@ -9,7 +9,7 @@
    </sizepolicy>
   </property>
   <property name="title">
-   <string>Progress period #1</string>
+   <string>Reporting period #1</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="7" column="3">

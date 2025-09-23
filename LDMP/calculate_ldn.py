@@ -636,7 +636,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
         years = []
         widgets = [self.widgets_baseline]
 
-        # Progress period years, if active
+        # Reporting period years, if active
         if self.progress_period_enabled:
             widgets.append(self.widgets_progress)
             widgets.extend(self.extra_progress_widgets)
@@ -682,7 +682,7 @@ class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
                 self.draw_timeline_graph(
                     widgets=w,
                     content_start_y=content_start_y,
-                    title=f"Progress period #{idx}",
+                    title=f"Reporting period #{idx}",
                     min_year=min_year,
                     max_year=max_year,
                 )
@@ -1139,7 +1139,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
     def apply_preset(self, preset: LDNPreset):
         """Apply a preset to the dialog controls."""
-        # Set progress periods enabled state
+        # Set reporting periods enabled state
         self.checkBox_progress_period.setChecked(preset.progress_periods_enabled)
 
         # Set productivity mode
@@ -1153,7 +1153,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     )
                     if idx >= 0:
                         self.cb_jrc_baseline.setCurrentIndex(idx)
-            # Get JRC dataset from first progress period if it's a JRCPeriod
+            # Get JRC dataset from first reporting period if it's a JRCPeriod
             if preset.progress_periods and isinstance(
                 preset.progress_periods[0], JRCPeriod
             ):
@@ -1177,10 +1177,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         # Clear existing extra periods
         self._clear_extra_periods()
 
-        # Apply progress periods
+        # Apply reporting periods
         for i, period in enumerate(preset.progress_periods or []):
             if i == 0:
-                # Apply first progress period to the main progress widgets
+                # Apply first reporting period to the main progress widgets
                 self._apply_period_to_widgets(
                     period, self.widgets_progress, is_baseline=False
                 )
@@ -1234,16 +1234,16 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_final_soc.setDate(QtCore.QDate(period.year_final_soc, 1, 1))
 
     def _clear_extra_periods(self):
-        """Remove all extra progress period widgets."""
+        """Remove all extra reporting period widgets."""
         for group_box, _ in self.extra_progress_boxes:
             group_box.setParent(None)
         self.extra_progress_boxes.clear()
 
     def _add_extra_period_from_preset(self, period: LDNPresetPeriod):
-        """Add an extra progress period from a preset."""
-        # Create the extra progress period UI components
+        """Add an extra reporting period from a preset."""
+        # Create the extra reporting period UI components
         grp, widgets = self._create_progress_period()
-        grp.setTitle(f"Progress period #{len(self.extra_progress_boxes) + 2}")
+        grp.setTitle(f"Reporting period #{len(self.extra_progress_boxes) + 2}")
 
         # Apply the period data to the widgets
         self._apply_period_to_widgets(period, widgets, is_baseline=False)
@@ -1326,10 +1326,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.widgets_baseline, temp_preset, is_baseline=True
         )
 
-        # Get progress periods - now unified!
+        # Get reporting periods - now unified!
         progress_periods = []
         if self.checkBox_progress_period.isChecked():
-            # Add the main progress period
+            # Add the main reporting period
             progress_periods.append(
                 self._extract_period_from_widgets(
                     self.widgets_progress, temp_preset, is_baseline=False
@@ -1391,12 +1391,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         # Add JRC dataset for JRC periods
         if preset.productivity_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
-            # Use appropriate dataset based on whether this is baseline or progress period
+            # Use appropriate dataset based on whether this is baseline or reporting period
             if is_baseline:
                 jrc_dataset = self.cb_jrc_baseline.currentText()
             else:
-                # For progress periods, check if this widget has its own JRC combobox (extra periods)
-                # or use the main progress combobox (main progress period)
+                # For reporting periods, check if this widget has its own JRC combobox (extra periods)
+                # or use the main progress combobox (main reporting period)
                 if hasattr(widgets, "cb_lpd") and widgets.cb_lpd:
                     jrc_dataset = widgets.cb_lpd.currentText()
                 else:
@@ -1651,7 +1651,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         """
         is_precalc = self.radio_lpd_precalculated.isChecked()
 
-        # Main widgets (baseline & first progress period)
+        # Main widgets (baseline & first reporting period)
         if is_precalc:
             self.cb_jrc_baseline.show()
             self.label_jrc_baseline.show()
@@ -1688,7 +1688,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             if lbl is not None:
                 lbl.setVisible(is_precalc)
 
-            # Disable productivity date controls in extra progress periods too
+            # Disable productivity date controls in extra reporting periods too
             if w.year_initial_prod:
                 w.year_initial_prod.setEnabled(not is_precalc)
             if w.year_final_prod:
@@ -1924,7 +1924,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     @QtCore.pyqtSlot()
     def on_add_period_clicked(self):
         grp, widgets = self._create_progress_period()
-        grp.setTitle(f"Progress period #{len(self.extra_progress_boxes) + 2}")
+        grp.setTitle(f"Reporting period #{len(self.extra_progress_boxes) + 2}")
 
         wrapper = QtWidgets.QWidget()
         layout = QtWidgets.QHBoxLayout(wrapper)
@@ -2395,7 +2395,7 @@ class DlgCalculateLDNSummaryTableAdmin(
 
     def on_add_progress_period_clicked(self):
         """
-        Create a new progress period group box and add it to the layout.
+        Create a new reporting period group box and add it to the layout.
         """
 
         class DlgAdvancedSettingsProgressPeriod(
@@ -2412,7 +2412,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         dlg_instance = DlgAdvancedSettingsProgressPeriod(self.iface, self.script)
         grp = QtWidgets.QGroupBox()
         idx = len(self.combo_boxes)
-        grp.setTitle(f"Progress period #{idx}")
+        grp.setTitle(f"Reporting period #{idx}")
         layout = QtWidgets.QVBoxLayout(grp)
 
         key = f"progress_{idx}"
@@ -2440,7 +2440,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         count = self.verticalLayout_progress.count()
         self.verticalLayout_progress.insertWidget(count - 1, grp)
         dlg_instance.advanced_configuration_progress.setTitle(
-            f"Advanced (progress period) #{idx}"
+            f"Advanced (reporting period) #{idx}"
         )
         self.verticalLayout_progress.insertWidget(
             count, dlg_instance.advanced_configuration_progress

@@ -34,6 +34,8 @@ import ee
 from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.land_cover import land_cover_deg
 from te_algorithms.gee.productivity import (
+    calc_prod3,
+    calc_prod5,
     productivity_performance,
     productivity_state,
     productivity_trajectory,
@@ -84,70 +86,8 @@ def _run_soc_deg(params, logger):
     )
 
 
-def _calc_prod5(traj_signif, perf_deg, state_classes):
-    # Trajectory significance layer is coded as:
-    # -3: 99% signif decline
-    # -2: 95% signif decline
-    # -1: 90% signif decline
-    #  0: stable
-    #  1: 90% signif increase
-    #  2: 95% signif increase
-    #  3: 99% signif increase
-    # -1 and 1 are not signif at 95%, so stable
-    traj_deg = (
-        traj_signif.where(traj_signif.gte(-1).And(traj_signif.lte(1)), 0)
-        .where(traj_signif.gte(-3).And(traj_signif.lt(-1)), -1)
-        .where(traj_signif.gt(1).And(traj_signif.lte(3)), 1)
-    )
-
-    # Recode state into deg, stable, imp. Note the >= -10 is so no data
-    # isn't coded as degradation. More than two changes in class is defined
-    # as degradation in state.
-    state_deg = (
-        state_classes.where(state_classes.gt(-2).And(state_classes.lt(2)), 0)
-        .where(state_classes.gte(-10).And(state_classes.lte(-2)), -1)
-        .where(state_classes.gte(2), 1)
-    )
-
-    return (
-        traj_deg.where(traj_deg.eq(-1), 1)
-        .where(traj_deg.eq(0), 4)
-        .where(traj_deg.eq(1), 5)
-        .where(
-            traj_deg.eq(0).And(state_deg.eq(0)).And(perf_deg.eq(-1)),
-            3,
-        )
-        .where(
-            traj_deg.eq(1).And(state_deg.eq(-1)).And(perf_deg.eq(-1)),
-            2,
-        )
-        .where(
-            traj_deg.eq(0).And(state_deg.eq(-1)).And(perf_deg.eq(0)),
-            2,
-        )
-        .where(
-            traj_deg.eq(0).And(state_deg.eq(-1)).And(perf_deg.eq(-1)),
-            1,
-        )
-        .where(
-            traj_deg.eq(NODATA_VALUE)
-            .Or(state_deg.eq(NODATA_VALUE))
-            .Or(perf_deg.eq(NODATA_VALUE)),
-            NODATA_VALUE,
-        )
-    )
-
-
-def _calc_prod3(prod5):
-    return (
-        prod5.where(prod5.eq(1).Or(prod5.eq(2)), -1)
-        .where(prod5.eq(3).Or(prod5.eq(4)), 0)
-        .where(prod5.eq(5), 1)
-    )
-
-
 def _calc_deg_sdg(deg_prod5, deg_lc, deg_soc):
-    deg_prod3 = _calc_prod3(deg_prod5)
+    deg_prod3 = calc_prod3(deg_prod5)
     deg_sdg = deg_prod3.where(deg_lc.eq(-1).Or(deg_soc.eq(-1)), -1)
     deg_sdg = deg_sdg.where(deg_sdg.eq(0).And(deg_lc.eq(1).Or(deg_soc.eq(1))), 1)
     deg_sdg = deg_sdg.where(
@@ -324,7 +264,7 @@ def _run_te_period(params, all_geojsons, logger):
     )
 
     ### Calculate productivity trend degradation
-    deg_prod5 = _calc_prod5(prod_traj_signif, prod_perf_deg, prod_state_classes)
+    deg_prod5 = calc_prod5(prod_traj_signif, prod_perf_deg, prod_state_classes)
     deg_lc = _run_lc_deg(params.get("land_cover"), logger)
     deg_soc = _run_soc_deg(params.get("soil_organic_carbon"), logger)
     deg_sdg = _calc_deg_sdg(deg_prod5, deg_lc, deg_soc)

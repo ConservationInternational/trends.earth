@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-09-22 04:05+0000\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ar\n"
@@ -22,7 +22,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/index.rst:42
 msgid "Trends.Earth User Guide"
@@ -44,7 +44,19 @@ msgstr "دليل المطورين"
 msgid "General Information"
 msgstr "معلومات عامة"
 
-#: ../../source/index.rst:-1
+#: ../../source/index.rst:60
+msgid "Privacy Policy"
+msgstr ""
+
+#: ../../source/index.rst:60
+msgid "Terms of Use"
+msgstr ""
+
+#: ../../source/index.rst:60
+msgid "Legal"
+msgstr ""
+
+#: ../../source/index.rst:3
 msgid "trends.earth"
 msgstr "trends.earth"
 
@@ -91,13 +103,13 @@ msgid ""
 "official national reports for submission to the United Nations Convention"
 " to Combat Desertification (UNCCD)."
 msgstr ""
-"Trends.Earth هي أداة مجانية ومفتوحة المصدر لفهم تغيُّر الأرض: كيف ولماذا"
-" تحدث التغييرات على الأرض. تتيح Trends.Earth للمستخدمين الاعتماد على "
-"أفضل المعلومات المتاحة من مجموعة من المصادر - من البيانات المتاحة عالميًا"
-" إلى الخرائط المحلية المخصصة. تستخدم مجموعة واسعة من المستخدمين "
-"Trends.Earth في المشاريع في إجراءات تتراوح من التخطيط ورصد جهود "
-"الاستعادة، إلى تتبع التحضر، وتطوير التقارير الوطنية الرسمية لتقديمها إلى "
-"اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD)."
+"Trends.Earth هي أداة مجانية ومفتوحة المصدر لفهم تغيُّر الأرض: كيف ولماذا "
+"تحدث التغييرات على الأرض. تتيح Trends.Earth للمستخدمين الاعتماد على أفضل "
+"المعلومات المتاحة من مجموعة من المصادر - من البيانات المتاحة عالميًا إلى "
+"الخرائط المحلية المخصصة. تستخدم مجموعة واسعة من المستخدمين Trends.Earth "
+"في المشاريع في إجراءات تتراوح من التخطيط ورصد جهود الاستعادة، إلى تتبع "
+"التحضر، وتطوير التقارير الوطنية الرسمية لتقديمها إلى اتفاقية الأمم "
+"المتحدة لمكافحة التصحر (UNCCD)."
 
 #: ../../source/index.rst:30
 msgid ""
@@ -126,5 +138,4 @@ msgstr ""
 
 #~ msgid "Trends.Earth"
 #~ msgstr "Trends.Earth\n"
-
 

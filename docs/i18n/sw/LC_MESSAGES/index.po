@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-09-22 04:05+0000\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-"
 "roglich@conservation.org>, 2022\n"
@@ -22,7 +22,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/index.rst:42
 msgid "Trends.Earth User Guide"
@@ -44,7 +44,19 @@ msgstr ""
 msgid "General Information"
 msgstr ""
 
-#: ../../source/index.rst:-1
+#: ../../source/index.rst:60
+msgid "Privacy Policy"
+msgstr ""
+
+#: ../../source/index.rst:60
+msgid "Terms of Use"
+msgstr ""
+
+#: ../../source/index.rst:60
+msgid "Legal"
+msgstr ""
+
+#: ../../source/index.rst:3
 msgid "trends.earth"
 msgstr "trends.earth"
 

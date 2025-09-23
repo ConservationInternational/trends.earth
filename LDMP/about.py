@@ -27,10 +27,20 @@ class DlgAbout(QtWidgets.QDialog, Ui_DlgAbout):
 
         self.setupUi(self)
 
-        # Add version number to about dialog
-        version = "{}<br>(revision {}, {})".format(
-            __version__, __revision__, __release_date__
-        )
-        self.textBrowser.setText(
-            self.textBrowser.text().replace("VERSION_NUMBER", version)
+        # Add version number to about dialog with clickable revision link
+        github_repo_url = "https://github.com/ConservationInternational/trends.earth"
+        if __revision__ and __revision__ != "unknown":
+            revision_link = (
+                f'<a href="{github_repo_url}/commit/{__revision__}">{__revision__}</a>'
+            )
+            version = "{}<br>(revision {}, {})".format(
+                __version__, revision_link, __release_date__
+            )
+        else:
+            # Fallback for unknown revision
+            version = "{}<br>(revision {}, {})".format(
+                __version__, __revision__, __release_date__
+            )
+        self.textBrowser.setHtml(
+            self.textBrowser.toHtml().replace("VERSION_NUMBER", version)
         )

@@ -750,7 +750,9 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
                 [pip, "install", "--upgrade", "--no-deps", "-t", ext_libs, req]
             )
         else:
-            subprocess.check_call([pip, "install", "--upgrade", "-t", ext_libs, req])
+            subprocess.check_call(
+                [pip, "install", "--no-cache-dir", "--upgrade", "-t", ext_libs, req]
+            )
 
     # Install git packages to temporary location, then copy to ext_libs
     if git_packages:
@@ -1884,11 +1886,24 @@ def zipfile_build(
 def _make_zip(zipFile, c):
     src_dir = c.plugin.source_dir
 
-    for root, dirs, files in os.walk(src_dir):
+    for root, dirs, files in os.walk(
+        c.plugin.source_dir, topdown=True, followlinks=False
+    ):
+        # relpath as your current code expects
+        relpath = os.path.relpath(root, os.path.dirname(c.plugin.source_dir))
+
+        # Prune symlinked directories so os.walk does not descend into them
+        dirs[:] = [d for d in dirs if not os.path.islink(os.path.join(root, d))]
+
         for f in _filter_excludes(root, files, c):
-            relpath = os.path.relpath(root)
-            zipFile.write(os.path.join(root, f), os.path.join(relpath, f))
-        _filter_excludes(root, dirs, c)
+            src_path = os.path.join(root, f)
+
+            # Skip symlinked files (prevents loops like LDMP/LDMP)
+            if os.path.islink(src_path):
+                print(f"Skipping symlink: {os.path.relpath(src_path)}")
+                continue
+
+            zipFile.write(src_path, os.path.join(relpath, f))
 
     # Include the license file within the plugin zipfile (it is in root of
     # repo, so otherwise would be skipped)

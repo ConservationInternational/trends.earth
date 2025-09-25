@@ -1196,6 +1196,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             )
             self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
+        self.update_timeline_graph()
+
     def _apply_period_to_widgets(
         self, period: LDNPresetPeriod, widgets: TimePeriodWidgets, is_baseline: bool
     ):
@@ -1901,6 +1903,17 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.update_time_bounds(w)
         self.toggle_time_period(w)
 
+        is_precalc_now = self.radio_lpd_precalculated.isChecked()
+        w.cb_lpd.setVisible(is_precalc_now)
+        lbl_now = grp.findChild(QtWidgets.QLabel, "label_jrc_progress")
+        if lbl_now is not None:
+            lbl_now.setVisible(is_precalc_now)
+
+        if w.year_initial_prod:
+            w.year_initial_prod.setEnabled(not is_precalc_now)
+        if w.year_final_prod:
+            w.year_final_prod.setEnabled(not is_precalc_now)
+
         same_btn = w.radio_time_period_same
         vary_btn = grp.findChild(
             QtWidgets.QRadioButton, "radio_time_period_vary_progress"
@@ -1948,6 +1961,13 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if lbl is not None:
             lbl.setVisible(is_precalc)
 
+        if widgets.year_initial_prod:
+            widgets.year_initial_prod.setEnabled(not is_precalc)
+        if widgets.year_final_prod:
+            widgets.year_final_prod.setEnabled(not is_precalc)
+
+        self.toggle_lpd_options()
+
         self.enforce_prod_date_range(widgets)
 
     def _get_period_years(self, widgets):
@@ -1978,6 +1998,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         Returns True if any date widget was changed
         """
         if not widgets.radio_time_period_same.isChecked():
+            return False
+
+        if widgets.radio_lpd_precalculated.isChecked():
             return False
 
         period_start = widgets.year_initial.date()

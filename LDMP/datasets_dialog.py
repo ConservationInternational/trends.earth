@@ -80,7 +80,11 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
 
         # Hide inappropriate buttons for failed and cancelled jobs
         # Failed or cancelled jobs should only show the open folder and info buttons
-        if self.job.status in (JobStatus.FAILED, JobStatus.CANCELLED):
+        if self.job.status in (
+            JobStatus.FAILED,
+            JobStatus.CANCELLED,
+            JobStatus.EXPIRED,
+        ):
             self.export_btn.hide()
             # Keep open_directory_btn (folder icon) and delete_btn (info/delete icon) visible
 

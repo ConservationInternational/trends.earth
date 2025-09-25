@@ -231,6 +231,7 @@ class JobManager(QtCore.QObject):
     _known_ready_jobs: typing.Dict[uuid.UUID, Job]
     _known_pending_jobs: typing.Dict[uuid.UUID, Job]
     _known_cancelled_jobs: typing.Dict[uuid.UUID, Job]
+    _known_expired_jobs: typing.Dict[uuid.UUID, Job]
 
     refreshed_local_state: QtCore.pyqtSignal = QtCore.pyqtSignal()
     refreshed_from_remote: QtCore.pyqtSignal = QtCore.pyqtSignal()
@@ -260,6 +261,7 @@ class JobManager(QtCore.QObject):
             jobs.JobStatus.READY: self._known_ready_jobs,
             jobs.JobStatus.PENDING: self._known_pending_jobs,
             jobs.JobStatus.CANCELLED: self._known_cancelled_jobs,
+            jobs.JobStatus.EXPIRED: self._known_expired_jobs,
         }
 
     @property
@@ -273,6 +275,7 @@ class JobManager(QtCore.QObject):
             jobs.JobStatus.FAILED,
             jobs.JobStatus.DOWNLOADED,  # This includes both DOWNLOADED and GENERATED_LOCALLY jobs
             jobs.JobStatus.CANCELLED,
+            jobs.JobStatus.EXPIRED,
         )
         result = []
 
@@ -311,6 +314,13 @@ class JobManager(QtCore.QObject):
         )
 
     @property
+    def expired_jobs_dir(self) -> Path:
+        return (
+            Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR))
+            / "expired-jobs"
+        )
+
+    @property
     def datasets_dir(self) -> Path:
         return Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "datasets"
 
@@ -327,6 +337,7 @@ class JobManager(QtCore.QObject):
         self._known_ready_jobs = {}
         self._known_pending_jobs = {}
         self._known_cancelled_jobs = {}
+        self._known_expired_jobs = {}
 
     def refresh_local_state(self):
         """Update dataset manager's in-memory cache by scanning the local filesystem
@@ -373,6 +384,7 @@ class JobManager(QtCore.QObject):
         # downloaded (or are old and failed)
         self._get_local_finished_jobs()
         self._get_local_failed_jobs()
+        self._get_local_expired_jobs()
 
         self._state_update_mutex.unlock()
 
@@ -445,6 +457,7 @@ class JobManager(QtCore.QObject):
         self._refresh_local_downloaded_jobs()
         self._refresh_remote_failed_jobs(relevant_remote_jobs)
         self._refresh_remote_jobs_by_status(relevant_remote_jobs)
+        self._get_local_expired_jobs()
 
         log(
             f"JobManager refresh completed - found {len(relevant_remote_jobs)} relevant remote jobs"
@@ -1218,6 +1231,7 @@ class JobManager(QtCore.QObject):
             jobs.JobStatus.FAILED: self.failed_jobs_dir,
             jobs.JobStatus.RUNNING: self.running_jobs_dir,
             jobs.JobStatus.DELETED: self.deleted_jobs_dir,
+            jobs.JobStatus.EXPIRED: self.expired_jobs_dir,
             jobs.JobStatus.DOWNLOADED: self.datasets_dir,
             jobs.JobStatus.GENERATED_LOCALLY: self.datasets_dir,
         }[status]
@@ -1275,10 +1289,12 @@ class JobManager(QtCore.QObject):
                 if job_age.days > self._relevant_job_age_threshold_days:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
-                            f"Removing job {finished_job.id!r} as it is no longer possible to "
-                            f"download its results..."
+                            f"Transitioning job {finished_job.id!r} to EXPIRED status "
+                            f"as it is no longer possible to download its results..."
                         )
-                    self._remove_job_metadata_file(finished_job)
+                    self._change_job_status(
+                        finished_job, jobs.JobStatus.EXPIRED, force_rewrite=True
+                    )
                 else:
                     self._known_finished_jobs[finished_job.id] = finished_job
 
@@ -1311,6 +1327,20 @@ class JobManager(QtCore.QObject):
 
         return self._known_failed_jobs
 
+    def _get_local_expired_jobs(self) -> typing.Dict[uuid.UUID, Job]:
+        """Synchronize the in-memory cache and filesystem with regard to expired jobs.
+
+        This method takes care of checking the local filesystem directory for expired
+        jobs and updates the in-memory cache. Expired jobs are kept for historical
+        purposes and to show users what jobs have expired.
+        """
+
+        self._known_expired_jobs = {
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.EXPIRED)
+        }
+
+        return self._known_expired_jobs
+
     def get_job_file_path(self, job: Job) -> Path:
         if job.status in (
             jobs.JobStatus.RUNNING,
@@ -1322,6 +1352,8 @@ class JobManager(QtCore.QObject):
             base = self.failed_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.FINISHED:
             base = self.finished_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
+        elif job.status == jobs.JobStatus.EXPIRED:
+            base = self.expired_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.DELETED:
             base = self.deleted_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status in (

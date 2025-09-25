@@ -176,12 +176,6 @@ style_text_dict = {
     "lpd_fao_wocat_title": tr_layers.tr(
         "Land productivity dynamics (FAO-WOCAT, {year_initial}-{year_final})"
     ),
-    "lpd_fao_wocat_degradation_title": tr_layers.tr(
-        "Land productivity degradation (FAO-WOCAT, {year_initial}-{year_final})"
-    ),
-    "prod_fao_wocat_deg_dec": tr_layers.tr("Degradation"),
-    "prod_fao_wocat_deg_zero": tr_layers.tr("Stable"),
-    "prod_fao_wocat_deg_inc": tr_layers.tr("Improvement"),
     "lpd_fao_wocat": tr_layers.tr("Land productivity dynamics (from FAO-WOCAT)"),
     "lpd_from_fao_wocat": tr_layers.tr("Land Productivity Dynamics (from FAO-WOCAT)"),
     "lpd_declining": tr_layers.tr("Declining"),

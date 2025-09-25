@@ -258,24 +258,7 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="metadata_btn">
-       <property name="text">
-        <string>Dataset metadata</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="load_btn">
-       <property name="text">
-        <string>Load Dataset</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../icons/mActionIdentify.svg</normaloff>../icons/mActionIdentify.svg</iconset>
-       </property>
-      </widget>
-     </item>
+
     </layout>
    </item>
   </layout>

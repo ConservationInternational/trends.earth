@@ -412,7 +412,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.download_tb.hide()
             self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
             self.metadata_pb.setEnabled(self.has_loadable_result())
-        elif self.job.status in [JobStatus.FAILED, JobStatus.CANCELLED]:
+        elif self.job.status in [
+            JobStatus.FAILED,
+            JobStatus.CANCELLED,
+            JobStatus.EXPIRED,
+        ]:
             self._hide_buttons_failed_cancelled()
         else:
             # For unknown statuses, disable main actions

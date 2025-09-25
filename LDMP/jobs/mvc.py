@@ -694,6 +694,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             JobStatus.GENERATED_LOCALLY: ("LOCAL", "#CC942C"),
             JobStatus.FAILED: ("FAILED", "#EC2121"),
             JobStatus.CANCELLED: ("CANCELLED", "#E2810A"),
+            JobStatus.EXPIRED: ("EXPIRED", "#727272"),
         }
 
         return status_mapping.get(job_status, ("UNKNOWN", "#4E4E4E"))

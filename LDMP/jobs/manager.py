@@ -754,9 +754,8 @@ class JobManager(QtCore.QObject):
 
         self._move_job_to_dir(job, job.status, force_rewrite=True)
 
-        if job.status == jobs.JobStatus.PENDING:
-            status = jobs.JobStatus.RUNNING
-        elif job.status == jobs.JobStatus.GENERATED_LOCALLY:
+        # Handle special case where GENERATED_LOCALLY is tracked as DOWNLOADED in cache
+        if job.status == jobs.JobStatus.GENERATED_LOCALLY:
             status = jobs.JobStatus.DOWNLOADED
         else:
             status = job.status
@@ -1027,11 +1026,8 @@ class JobManager(QtCore.QObject):
         job.results.vector.uri = URI(uri=output_path)
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
-        status = job.status
-
-        if status == jobs.JobStatus.PENDING:
-            status = jobs.JobStatus.RUNNING
-        self.known_jobs[status][job.id] = job
+        # Track jobs in their actual status - PENDING and RUNNING are different states
+        self.known_jobs[job.status][job.id] = job
 
     def _change_job_status(
         self, job: Job, target: jobs.JobStatus, force_rewrite: bool = True
@@ -1039,9 +1035,8 @@ class JobManager(QtCore.QObject):
         """Modify a job's status both in the in-memory cache and on the filesystem"""
         previous_status = job.status
 
-        if previous_status == jobs.JobStatus.PENDING:
-            previous_status = jobs.JobStatus.RUNNING
-        elif previous_status == jobs.JobStatus.GENERATED_LOCALLY:
+        # Handle special case where GENERATED_LOCALLY is treated as DOWNLOADED for cache management
+        if previous_status == jobs.JobStatus.GENERATED_LOCALLY:
             previous_status = jobs.JobStatus.DOWNLOADED
         # this already sets the new status on the job
         self._move_job_to_dir(job, target, force_rewrite=force_rewrite)
@@ -1258,6 +1253,9 @@ class JobManager(QtCore.QObject):
             jobs.JobStatus.FINISHED: self.finished_jobs_dir,
             jobs.JobStatus.FAILED: self.failed_jobs_dir,
             jobs.JobStatus.RUNNING: self.running_jobs_dir,
+            jobs.JobStatus.PENDING: self.running_jobs_dir,
+            jobs.JobStatus.READY: self.running_jobs_dir,
+            jobs.JobStatus.CANCELLED: self.failed_jobs_dir,
             jobs.JobStatus.DELETED: self.deleted_jobs_dir,
             jobs.JobStatus.EXPIRED: self.expired_jobs_dir,
             jobs.JobStatus.DOWNLOADED: self.datasets_dir,
@@ -1285,7 +1283,9 @@ class JobManager(QtCore.QObject):
 
                     job = Job.Schema().load(raw_job)
                     set_results_extents(job)
-                    result.append(job)
+                    # Only include jobs that match the requested status
+                    if job.status == status:
+                        result.append(job)
                 except (OSError, IOError, PermissionError) as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Failed to read file {job_metadata_path!r}: {exc}")
@@ -1446,19 +1446,70 @@ class JobManager(QtCore.QObject):
 
     def _refresh_remote_jobs_by_status(self, remote_jobs: typing.List[Job]) -> None:
         """Update in-memory cache with READY, PENDING, and CANCELLED jobs from remote server"""
-        # Initialize all caches
-        self._known_ready_jobs = {}
-        self._known_pending_jobs = {}
-        self._known_cancelled_jobs = {}
+        # Preserve existing local jobs first, then merge with remote
+        # This prevents newly submitted jobs from disappearing during refresh
 
-        # Single loop to populate all caches
+        # Start with existing local jobs for each status
+        local_ready_jobs = self._get_local_jobs(jobs.JobStatus.READY)
+        local_pending_jobs = self._get_local_jobs(jobs.JobStatus.PENDING)
+        local_cancelled_jobs = self._get_local_jobs(jobs.JobStatus.CANCELLED)
+
+        # Initialize caches with existing local jobs
+        self._known_ready_jobs = {j.id: j for j in local_ready_jobs}
+        self._known_pending_jobs = {j.id: j for j in local_pending_jobs}
+        self._known_cancelled_jobs = {j.id: j for j in local_cancelled_jobs}
+
+        # Process remote jobs and merge/update
+        remote_ids_by_status = {
+            jobs.JobStatus.READY: set(),
+            jobs.JobStatus.PENDING: set(),
+            jobs.JobStatus.CANCELLED: set(),
+        }
+
         for remote_job in remote_jobs:
             if remote_job.status == jobs.JobStatus.READY:
                 self._known_ready_jobs[remote_job.id] = remote_job
+                remote_ids_by_status[jobs.JobStatus.READY].add(remote_job.id)
             elif remote_job.status == jobs.JobStatus.PENDING:
                 self._known_pending_jobs[remote_job.id] = remote_job
+                remote_ids_by_status[jobs.JobStatus.PENDING].add(remote_job.id)
             elif remote_job.status == jobs.JobStatus.CANCELLED:
                 self._known_cancelled_jobs[remote_job.id] = remote_job
+                remote_ids_by_status[jobs.JobStatus.CANCELLED].add(remote_job.id)
+
+        # Only remove local jobs if they appear in the remote list with a different status
+        # This indicates they've actually changed status remotely
+        all_remote_job_ids = {job.id for job in remote_jobs}
+
+        for local_job in local_ready_jobs:
+            if (
+                local_job.id in all_remote_job_ids
+                and local_job.id not in remote_ids_by_status[jobs.JobStatus.READY]
+            ):
+                # Job exists remotely but with different status - it has changed
+                if local_job.id in self._known_ready_jobs:
+                    del self._known_ready_jobs[local_job.id]
+                    self._remove_job_metadata_file(local_job)
+
+        for local_job in local_pending_jobs:
+            if (
+                local_job.id in all_remote_job_ids
+                and local_job.id not in remote_ids_by_status[jobs.JobStatus.PENDING]
+            ):
+                # Job exists remotely but with different status - it has changed
+                if local_job.id in self._known_pending_jobs:
+                    del self._known_pending_jobs[local_job.id]
+                    self._remove_job_metadata_file(local_job)
+
+        for local_job in local_cancelled_jobs:
+            if (
+                local_job.id in all_remote_job_ids
+                and local_job.id not in remote_ids_by_status[jobs.JobStatus.CANCELLED]
+            ):
+                # Job exists remotely but with different status - it has changed
+                if local_job.id in self._known_cancelled_jobs:
+                    del self._known_cancelled_jobs[local_job.id]
+                    self._remove_job_metadata_file(local_job)
 
     def _refresh_remote_failed_jobs(self, remote_jobs: typing.List[Job]) -> None:
         """Update in-memory cache with FAILED jobs from remote server"""

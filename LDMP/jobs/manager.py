@@ -250,6 +250,34 @@ class JobManager(QtCore.QObject):
         self._state_update_mutex = QtCore.QMutex()
         self.api_client = api.APIClient(API_URL, TIMEOUT)
 
+    def _is_json_file_safe(self, file_path: Path) -> bool:
+        """
+        Safely check if a JSON file can be read without causing crashes.
+        Returns True if the file appears safe to process, False otherwise.
+        """
+        try:
+            # Check basic file properties
+            if not file_path.exists() or file_path.stat().st_size == 0:
+                return False
+
+            # Try to read file content as text first to detect encoding issues
+            with file_path.open(encoding=self._encoding, errors="strict") as fh:
+                content = fh.read(1024)  # Read first 1KB to check for obvious issues
+                if not content.strip():
+                    return False
+
+                # Check if it starts like a JSON object/array
+                content_start = content.strip()[:10]
+                if not (content_start.startswith("{") or content_start.startswith("[")):
+                    return False
+
+            return True
+        except (OSError, IOError, UnicodeDecodeError, MemoryError):
+            return False
+        except Exception:
+            # Any other unexpected error also means the file is not safe
+            return False
+
     @property
     def known_jobs(self):
         return {
@@ -1238,25 +1266,54 @@ class JobManager(QtCore.QObject):
         result = []
 
         for job_metadata_path in base_dir.glob("**/*.json"):
-            with job_metadata_path.open(encoding=self._encoding) as fh:
+            try:
+                if not self._is_json_file_safe(job_metadata_path):
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log(f"Skipping unsafe or corrupted file {job_metadata_path!r}")
+                    continue
+
                 try:
-                    raw_job = json.load(fh)
+                    with job_metadata_path.open(encoding=self._encoding) as fh:
+                        raw_job = json.load(fh)
+
+                    if not isinstance(raw_job, dict):
+                        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                            log(
+                                f"File {job_metadata_path!r} does not contain a valid JSON object"
+                            )
+                        continue
+
                     job = Job.Schema().load(raw_job)
                     set_results_extents(job)
-                except (KeyError, json.decoder.JSONDecodeError):
-                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                        log(
-                            f"Unable to decode file {job_metadata_path!r} as valid json"
-                        )
-                except ValidationError:
-                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                        log(
-                            f"Unable to decode file {job_metadata_path!r} - validation error decoding job"
-                        )
-                except RuntimeError as exc:
-                    log(str(exc))
-                else:
                     result.append(job)
+                except (OSError, IOError, PermissionError) as exc:
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log(f"Failed to read file {job_metadata_path!r}: {exc}")
+                except (KeyError, json.decoder.JSONDecodeError) as exc:
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log(
+                            f"Unable to decode file {job_metadata_path!r} as valid json: {exc}"
+                        )
+                except ValidationError as exc:
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log(
+                            f"Unable to decode file {job_metadata_path!r} - validation error: {exc}"
+                        )
+                except (ValueError, TypeError, AttributeError, MemoryError) as exc:
+                    # Catch additional errors that could cause crashes
+                    log(
+                        f"Error processing file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
+                    )
+                except RuntimeError as exc:
+                    log(f"Runtime error processing file {job_metadata_path!r}: {exc}")
+            except (OSError, IOError, PermissionError) as exc:
+                # Handle file system errors
+                log(f"File system error accessing {job_metadata_path!r}: {exc}")
+            except Exception as exc:
+                # Catch-all to prevent crashes from unexpected errors
+                log(
+                    f"Unexpected error processing {job_metadata_path!r}: {type(exc).__name__}: {exc}"
+                )
 
         return result
 

@@ -843,6 +843,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         le = qde.lineEdit()
         le.textEdited.connect(lambda _t: timer.start())
         timer.timeout.connect(lambda: self._on_common_period_changed(widgets, source))
+        qde.dateChanged.connect(
+            lambda _d: self._on_common_period_changed(widgets, source)
+        )
 
     def __init__(
         self,

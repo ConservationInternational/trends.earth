@@ -63,16 +63,21 @@ class Job(JobBase):
             if params_script:
                 script = ExecutionScript.Schema().load(params_script)
             elif script_id:
-                script = _get_job_script(script_id)
-
-                if script is None:
-                    log(f"Failed to get script by id for {script_id}")
-                    script = get_job_local_script(data["script_name"])
-                else:
-                    log(f"Failed to get script by id for {script_id}")
-                    script = ExecutionScript(
-                        script_id, run_mode=AlgorithmRunMode.NOT_APPLICABLE
-                    )
+                try:
+                    script = _get_job_script(script_id)
+                except IndexError:
+                    # Fallback: try to get script by name from data if available
+                    script_name = data.get("script_name")
+                    if script_name:
+                        script = get_job_local_script(script_name)
+                        if not script:
+                            script = ExecutionScript(
+                                script_id, run_mode=AlgorithmRunMode.NOT_APPLICABLE
+                            )
+                    else:
+                        script = ExecutionScript(
+                            script_id, run_mode=AlgorithmRunMode.NOT_APPLICABLE
+                        )
             else:
                 script = ExecutionScript(
                     "Unknown script", run_mode=AlgorithmRunMode.NOT_APPLICABLE
@@ -114,8 +119,13 @@ class Job(JobBase):
             job_name_parts.append(self.task_name)
         elif self.local_context.area_of_interest_name:
             job_name_parts.append(self.local_context.area_of_interest_name)
-        elif self.script.name:
-            job_name_parts.append(self.script.name)
+        elif self.script:
+            # Use name for display (shorter), fallback to name_readable if name not available
+            script_display_name = (
+                self.script.name if self.script.name else self.script.name_readable
+            )
+            if script_display_name:
+                job_name_parts.append(script_display_name)
         return " - ".join(job_name_parts)
 
 
@@ -139,7 +149,8 @@ def get_remote_scripts():
 
 
 def get_job_local_script(script_name: str) -> ExecutionScript:
-    return conf.KNOWN_SCRIPTS.get(script_name, None)
+    result = conf.KNOWN_SCRIPTS.get(script_name, None)
+    return result
 
 
 def _get_script_by_id_from_remote(script_id: str) -> ExecutionScript:
@@ -156,7 +167,6 @@ def _get_script_by_id_from_remote(script_id: str) -> ExecutionScript:
         try:
             script = [s for s in remote_scripts if str(s.slug) == str(script_id)][0]
         except IndexError:
-            log(f"script {script_id!r} is not known on remote")
             raise IndexError
     script = ExecutionScript.Schema().load(RemoteScript.Schema().dump(script))
 
@@ -165,9 +175,11 @@ def _get_script_by_id_from_remote(script_id: str) -> ExecutionScript:
 
 def _get_script_by_id_from_local(script_id: str) -> ExecutionScript:
     try:
-        script = [s for s in conf.KNOWN_SCRIPTS.values() if s.id == script_id][0]
+        script = [
+            s for s in conf.KNOWN_SCRIPTS.values() if str(s.id) == str(script_id)
+        ][0]
+        return script
     except IndexError:
-        log(f"script {script_id!r} is not known locally")
         raise IndexError
 
     return script
@@ -175,13 +187,11 @@ def _get_script_by_id_from_local(script_id: str) -> ExecutionScript:
 
 def _get_job_script(script_id: uuid.UUID) -> ExecutionScript:
     try:
-        script = _get_script_by_id_from_local(script_id)
+        script = _get_script_by_id_from_local(str(script_id))
     except IndexError:
-        log(f"script {script_id!r} is not known locally - checking remote")
         try:
-            script = _get_script_by_id_from_remote(script_id)
+            script = _get_script_by_id_from_remote(str(script_id))
         except IndexError:
-            log(f"script {script_id!r} is not known")
             raise IndexError
 
     return script

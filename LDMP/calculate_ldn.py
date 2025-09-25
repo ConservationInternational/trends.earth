@@ -1196,6 +1196,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             )
             self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
+        self.update_timeline_graph()
+
     def _apply_period_to_widgets(
         self, period: LDNPresetPeriod, widgets: TimePeriodWidgets, is_baseline: bool
     ):

@@ -228,6 +228,9 @@ class JobManager(QtCore.QObject):
     _known_failed_jobs: typing.Dict[uuid.UUID, Job]
     _known_deleted_jobs: typing.Dict[uuid.UUID, Job]
     _known_downloaded_jobs: typing.Dict[uuid.UUID, Job]
+    _known_ready_jobs: typing.Dict[uuid.UUID, Job]
+    _known_pending_jobs: typing.Dict[uuid.UUID, Job]
+    _known_cancelled_jobs: typing.Dict[uuid.UUID, Job]
 
     refreshed_local_state: QtCore.pyqtSignal = QtCore.pyqtSignal()
     refreshed_from_remote: QtCore.pyqtSignal = QtCore.pyqtSignal()
@@ -254,16 +257,25 @@ class JobManager(QtCore.QObject):
             jobs.JobStatus.FAILED: self._known_failed_jobs,
             jobs.JobStatus.DELETED: self._known_deleted_jobs,
             jobs.JobStatus.DOWNLOADED: self._known_downloaded_jobs,
+            jobs.JobStatus.READY: self._known_ready_jobs,
+            jobs.JobStatus.PENDING: self._known_pending_jobs,
+            jobs.JobStatus.CANCELLED: self._known_cancelled_jobs,
         }
 
     @property
     def relevant_jobs(self) -> typing.List[Job]:
+        """Return a list of all jobs that are relevant to show to the user"""
         relevant_statuses = (
+            jobs.JobStatus.READY,
+            jobs.JobStatus.PENDING,
             jobs.JobStatus.RUNNING,
             jobs.JobStatus.FINISHED,
             jobs.JobStatus.FAILED,
-            jobs.JobStatus.DOWNLOADED,
+            jobs.JobStatus.DOWNLOADED,  # This includes both DOWNLOADED and GENERATED_LOCALLY jobs
+            jobs.JobStatus.CANCELLED,
         )
+        result = []
+
         result = []
 
         for status in relevant_statuses:
@@ -312,6 +324,9 @@ class JobManager(QtCore.QObject):
         self._known_failed_jobs = {}
         self._known_deleted_jobs = {}
         self._known_downloaded_jobs = {}
+        self._known_ready_jobs = {}
+        self._known_pending_jobs = {}
+        self._known_cancelled_jobs = {}
 
     def refresh_local_state(self):
         """Update dataset manager's in-memory cache by scanning the local filesystem
@@ -428,7 +443,8 @@ class JobManager(QtCore.QObject):
         self._refresh_local_running_jobs(relevant_remote_jobs)
         self._refresh_local_finished_jobs(relevant_remote_jobs)
         self._refresh_local_downloaded_jobs()
-        self._refresh_local_generated_jobs()
+        self._refresh_remote_failed_jobs(relevant_remote_jobs)
+        self._refresh_remote_jobs_by_status(relevant_remote_jobs)
 
         log(
             f"JobManager refresh completed - found {len(relevant_remote_jobs)} relevant remote jobs"
@@ -1154,13 +1170,11 @@ class JobManager(QtCore.QObject):
         return self._known_finished_jobs
 
     def _refresh_local_downloaded_jobs(self):
+        # Include both DOWNLOADED and GENERATED_LOCALLY jobs since they're stored in the same directory
+        downloaded_jobs = self._get_local_jobs(jobs.JobStatus.DOWNLOADED)
+        generated_locally_jobs = self._get_local_jobs(jobs.JobStatus.GENERATED_LOCALLY)
         self._known_downloaded_jobs = {
-            j.id: j for j in self._get_local_jobs(jobs.JobStatus.DOWNLOADED)
-        }
-
-    def _refresh_local_generated_jobs(self):
-        self._known_downloaded_jobs = {
-            j.id: j for j in self._get_local_jobs(jobs.JobStatus.GENERATED_LOCALLY)
+            j.id: j for j in downloaded_jobs + generated_locally_jobs
         }
 
     def _refresh_local_deleted_jobs(self):
@@ -1298,9 +1312,13 @@ class JobManager(QtCore.QObject):
         return self._known_failed_jobs
 
     def get_job_file_path(self, job: Job) -> Path:
-        if job.status in (jobs.JobStatus.RUNNING, jobs.JobStatus.PENDING):
+        if job.status in (
+            jobs.JobStatus.RUNNING,
+            jobs.JobStatus.PENDING,
+            jobs.JobStatus.READY,
+        ):
             base = self.running_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
-        elif job.status == jobs.JobStatus.FAILED:
+        elif job.status in (jobs.JobStatus.FAILED, jobs.JobStatus.CANCELLED):
             base = self.failed_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.FINISHED:
             base = self.finished_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
@@ -1336,6 +1354,42 @@ class JobManager(QtCore.QObject):
 
         if old_path.exists():
             old_path.unlink()  # not using the `missing_ok` param as it was introduced only in Python 3.8
+
+    def _refresh_remote_jobs_by_status(self, remote_jobs: typing.List[Job]) -> None:
+        """Update in-memory cache with READY, PENDING, and CANCELLED jobs from remote server"""
+        # Initialize all caches
+        self._known_ready_jobs = {}
+        self._known_pending_jobs = {}
+        self._known_cancelled_jobs = {}
+
+        # Single loop to populate all caches
+        for remote_job in remote_jobs:
+            if remote_job.status == jobs.JobStatus.READY:
+                self._known_ready_jobs[remote_job.id] = remote_job
+            elif remote_job.status == jobs.JobStatus.PENDING:
+                self._known_pending_jobs[remote_job.id] = remote_job
+            elif remote_job.status == jobs.JobStatus.CANCELLED:
+                self._known_cancelled_jobs[remote_job.id] = remote_job
+
+    def _refresh_remote_failed_jobs(self, remote_jobs: typing.List[Job]) -> None:
+        """Update in-memory cache with FAILED jobs from remote server"""
+        # Start with local failed jobs from disk
+        self._known_failed_jobs = {
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.FAILED)
+        }
+        local_ids = self._known_failed_jobs.keys()
+        deleted_ids = self._known_deleted_jobs.keys()
+        remote_failed = [j for j in remote_jobs if j.status == jobs.JobStatus.FAILED]
+
+        for remote_job in remote_failed:
+            if remote_job.id in deleted_ids:
+                continue  # this job has previously been deleted by the user
+            elif remote_job.id in local_ids:
+                continue  # we already know about this job
+            else:
+                # this is a new failed job that we are interested in
+                self._known_failed_jobs[remote_job.id] = remote_job
+                self.write_job_metadata_file(remote_job)
 
 
 def _get_local_job_output_paths(job: Job) -> typing.Tuple[Path, Path]:

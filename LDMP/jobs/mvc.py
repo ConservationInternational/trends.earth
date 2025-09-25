@@ -254,10 +254,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     metadata_pb: QtWidgets.QPushButton
     open_directory_tb: QtWidgets.QToolButton
     plot_tb: QtWidgets.QToolButton
-    progressBar: QtWidgets.QProgressBar
     load_tb: QtWidgets.QToolButton
     edit_tb: QtWidgets.QToolButton
     report_pb: QtWidgets.QPushButton
+    status_frame: QtWidgets.QFrame
+    status_label: QtWidgets.QLabel
 
     def __init__(self, job: Job, main_dock: "MainWidget", parent=None):
         super().__init__(parent)
@@ -266,6 +267,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.main_dock = main_dock
         # allows hiding background prerendered pixmap
         self.setAutoFillBackground(True)
+
+        # Flag to track if widget is being destroyed
+        self._is_being_destroyed = False
 
         self.load_data_menu_setup()
         self.add_to_canvas_pb.setMenu(self.load_data_menu)
@@ -279,8 +283,6 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.delete_tb.clicked.connect(self.delete_dataset)
         self.load_tb.clicked.connect(self.load_layer)
 
-        self.load_vector_menu_setup()
-        self.load_tb.setMenu(self.load_vector_menu)
         self.edit_tb.clicked.connect(self.edit_layer)
 
         self.delete_tb.setIcon(
@@ -314,9 +316,16 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.plot_tb.hide()
 
         self.report_pb.setIcon(FileUtils.get_icon("report.svg"))
-        self._report_handler = DatasetReportHandler(
-            self.report_pb, self.job, self.main_dock.iface
-        )
+
+        # Initialize report handler with error handling
+        try:
+            self._report_handler = DatasetReportHandler(
+                self.report_pb, self.job, self.main_dock.iface
+            )
+        except Exception as e:
+            # If report handler fails to initialize, create a dummy one to prevent crashes
+            print(f"Warning: Failed to initialize report handler: {e}")
+            self._report_handler = None
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
 
@@ -342,79 +351,162 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             notes_text = f"{job_start_date}"
         self.notes_la.setText(notes_text)
 
+        # Setup status bar
+        status_text, status_color = self._get_status_display_info(self.job.status)
+        self._setup_status_bar(status_text, status_color)
+
         self.download_tb.setEnabled(False)
 
         self.delete_tb.setEnabled(True)
 
         offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
-        # set visibility of progress bar and download button
-        if self.job.is_vector():
-            self.download_tb.hide()
-            self.add_to_canvas_pb.hide()
-            self.open_details_tb.hide()
-            self.progressBar.hide()
-        elif self.job.is_file():
-            self.download_tb.hide()
-            self.add_to_canvas_pb.hide()
-            self.metadata_pb.hide()
-            self.load_tb.hide()
-            self.edit_tb.hide()
-            self.progressBar.hide()
-        else:
-            self.load_tb.hide()
-            self.edit_tb.hide()
 
-            if self.job.status in (JobStatus.RUNNING, JobStatus.PENDING):
-                self.progressBar.setMinimum(0)
-                self.progressBar.setMaximum(0)
-                self.progressBar.setFormat("Processing...")
-                self.progressBar.show()
+        # Reset download button to default state before status handling
+        self.download_tb.setStyleSheet("")  # Clear any previous styling
+        self.download_tb.setText("")  # Clear any previous text
+
+        # Set up the status bar display
+        status_text, status_color = self._get_status_display_info(self.job.status)
+        self._setup_status_bar(status_text, status_color)
+
+        # Handle specific status behavior
+        if self.job.status in [JobStatus.RUNNING, JobStatus.PENDING, JobStatus.READY]:
+            # Jobs that aren't completed yet - disable main actions
+            self._disable_main_action_buttons()
+            if self.job.status in [JobStatus.RUNNING, JobStatus.PENDING]:
+                self._handle_time_series_result()
+        elif self.job.status == JobStatus.FINISHED:
+            result_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
+
+            if result_auto_download:
                 self.download_tb.hide()
-                self.add_to_canvas_pb.setEnabled(False)
-                if isinstance(self.job.results, TimeSeriesTableResult):
-                    self.download_tb.hide()
-                    self.plot_tb.show()
-                    self.add_to_canvas_pb.hide()
-                    self.metadata_pb.hide()
-                    self.open_directory_tb.hide()
-            elif self.job.status == JobStatus.FINISHED:
-                self.progressBar.hide()
-                result_auto_download = settings_manager.get_value(
-                    Setting.DOWNLOAD_RESULTS
+            else:
+                self.download_tb.show()
+
+                if offline_mode:
+                    # Disable the download button so that the user cannot download
+                    self.download_tb.setEnabled(False)
+                else:
+                    self.download_tb.setEnabled(True)
+
+                self.download_tb.clicked.connect(
+                    functools.partial(manager.job_manager.download_job_results, job)
                 )
 
-                if result_auto_download:
-                    self.download_tb.hide()
-                else:
-                    self.download_tb.show()
+            # Hide buttons that don't make sense for finished but not downloaded jobs
+            self.add_to_canvas_pb.setEnabled(False)
+            self.metadata_pb.setEnabled(
+                False
+            )  # Disable metadata for finished jobs (remote URLs cause errors)
+            self.load_tb.hide()  # Hide the load vector button
+            self.edit_tb.hide()  # Hide the edit button
 
-                    if offline_mode:
-                        # Disable the download button so that the user cannot download
-                        self.download_tb.setEnabled(False)
-                    else:
-                        self.download_tb.setEnabled(True)
-
-                    self.download_tb.clicked.connect(
-                        functools.partial(manager.job_manager.download_job_results, job)
-                    )
-
-                self.add_to_canvas_pb.setEnabled(False)
-                self.metadata_pb.setEnabled(False)
-                if isinstance(self.job.results, TimeSeriesTableResult):
-                    self.plot_tb.setEnabled(True)
-                    self.plot_tb.show()
-                    self.download_tb.hide()
-                    self.add_to_canvas_pb.hide()
-                    self.metadata_pb.hide()
-                    self.open_directory_tb.hide()
-            elif self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
-                self.progressBar.hide()
+            if isinstance(self.job.results, TimeSeriesTableResult):
+                self.plot_tb.setEnabled(True)
+                self.plot_tb.show()
                 self.download_tb.hide()
-                self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
-                self.metadata_pb.setEnabled(self.has_loadable_result())
+                self.add_to_canvas_pb.hide()
+                self.metadata_pb.hide()
+                self.open_directory_tb.hide()
+        elif self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
+            self.download_tb.hide()
+            self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
+            self.metadata_pb.setEnabled(self.has_loadable_result())
+        elif self.job.status in [JobStatus.FAILED, JobStatus.CANCELLED]:
+            self._hide_buttons_failed_cancelled()
+        else:
+            # For unknown statuses, disable main actions
+            self.download_tb.hide()
+            self._disable_main_action_buttons()
+
+        # Apply job type specific visibility for completed jobs only
+        if self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
+            if self.job.is_vector():
+                self.download_tb.hide()
+                self.add_to_canvas_pb.hide()
+                self.open_details_tb.hide()
+            elif self.job.is_file():
+                # File jobs need most buttons hidden
+                self.download_tb.hide()
+                self.add_to_canvas_pb.hide()
+                self.metadata_pb.hide()
+                self.load_tb.hide()
+                self.edit_tb.hide()
+            else:
+                # Raster jobs - hide vector-specific buttons
+                self.load_tb.hide()
+                self.edit_tb.hide()
+
+        # Set up dual loading menu for appropriate jobs
+        # Only show dual menu for downloaded/local jobs that have both vector and raster results
+        if (
+            self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
+            and self._has_both_vector_and_raster_results()
+        ):
+            self.load_vector_menu_setup()
+            self.load_tb.setMenu(self.load_vector_menu)
 
         # Initialize dataset report handler
-        self._report_handler.init()
+        if self._report_handler:
+            try:
+                self._report_handler.init()
+            except Exception as e:
+                print(f"Warning: Failed to initialize report handler: {e}")
+                self._report_handler = None
+
+    def _has_both_vector_and_raster_results(self):
+        """Check if this job has both vector and raster results available."""
+        # Only show dual menu for jobs that are actually downloaded/available locally
+        if self.job.status not in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
+            return False
+
+        if not (hasattr(self.job, "results") and self.job.results):
+            return False
+
+        # Check for vector results with actual accessible URI
+        has_vector = (
+            hasattr(self.job.results, "vector")
+            and self.job.results.vector
+            and hasattr(self.job.results.vector, "uri")
+            and self.job.results.vector.uri
+        )
+
+        # Check for raster results (can be in urls or rasters)
+        has_raster = (hasattr(self.job.results, "urls") and self.job.results.urls) or (
+            hasattr(self.job.results, "rasters") and self.job.results.rasters
+        )
+
+        # Only return true if we have both types AND they're actually accessible
+        if has_vector and has_raster:
+            # Additional check: make sure the vector URI actually points to a file
+            # (not just a placeholder or remote URL)
+            try:
+                vector_uri = str(self.job.results.vector.uri.uri)
+                # If it's a local file path or accessible resource, show dual menu
+                if vector_uri and not vector_uri.startswith("http"):
+                    return True
+            except (AttributeError, TypeError):
+                pass
+
+        return False
+
+    def _disable_main_action_buttons(self):
+        """Helper method to disable main action buttons for jobs that can't be used."""
+        self.add_to_canvas_pb.setEnabled(False)
+        self.metadata_pb.setEnabled(False)
+        self.load_tb.hide()
+        self.edit_tb.hide()
+
+    def _hide_all_action_buttons(self):
+        """Helper method to hide all action buttons for failed/cancelled jobs."""
+        self.add_to_canvas_pb.setEnabled(False)
+        self.add_to_canvas_pb.hide()
+        self.metadata_pb.setEnabled(False)
+        self.metadata_pb.hide()
+        self.load_tb.hide()
+        self.edit_tb.hide()
+        self.report_pb.hide()
+        self.download_tb.hide()
 
     def has_loadable_result(self):
         result = False
@@ -507,9 +599,122 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         dlg_plot.plot_data(data["time"], data["y"], labels)
         dlg_plot.exec_()
 
-    def set_widget_title(self, widget: QtWidgets.QWidget, base_title: str = None):
+    def _setup_status_bar(self, status_text: str, color: str):
+        """Set up the colored status bar with status text."""
+        # Set the status frame background color
+        self.status_frame.setStyleSheet(f"""
+            QFrame#status_frame {{
+                background-color: {color};
+                border: none;
+            }}
+        """)
+
+        # Set the status label text and styling
+        self.status_label.setText(status_text)
+        self.status_label.setStyleSheet("""
+            QLabel#status_label {
+                color: white;
+                border: none;
+                border-radius: 0px;
+                font-weight: bold;
+                font-size: 12pt;
+                padding: 1px;
+                background-color: transparent;
+            }
+        """)
+
+        # Create a custom rotated text approach
+        # We'll override the paintEvent to draw rotated text
+        self._setup_rotated_label(status_text)
+
+    def _setup_rotated_label(self, status_text: str):
+        """Set up the status label with rotated text."""
+
+        # Create a custom paint event for the status label
+        def paintEvent(event):
+            painter = QtGui.QPainter(self.status_label)
+
+            # Enable high-quality text rendering
+            painter.setRenderHint(QtGui.QPainter.Antialiasing, True)
+            painter.setRenderHint(QtGui.QPainter.TextAntialiasing, True)
+            painter.setRenderHint(QtGui.QPainter.SmoothPixmapTransform, True)
+            painter.setRenderHint(QtGui.QPainter.HighQualityAntialiasing, True)
+
+            # Get the label's rectangle
+            rect = self.status_label.rect()
+
+            # Set up the font and color with better settings
+            font = QtGui.QFont("Arial", 8)  # Use specific font and size
+            font.setBold(True)
+            font.setHintingPreference(QtGui.QFont.PreferFullHinting)
+            painter.setFont(font)
+
+            # Use a proper QPen for better text rendering
+            pen = QtGui.QPen(QtGui.QColor("white"))
+            pen.setWidth(1)
+            painter.setPen(pen)
+
+            # Save the current transformation
+            painter.save()
+
+            # Get text metrics for proper positioning
+            font_metrics = painter.fontMetrics()
+            text_width = font_metrics.horizontalAdvance(status_text)
+            text_height = font_metrics.height()
+
+            # Move to center and rotate
+            center = rect.center()
+            painter.translate(center.x(), center.y())
+            painter.rotate(-90)  # 90 degrees counterclockwise
+
+            # Draw text centered at origin
+            text_x = -text_width // 2
+            text_y = text_height // 4  # Adjust for baseline
+
+            painter.drawText(text_x, text_y, status_text)
+
+            # Restore transformation
+            painter.restore()
+            painter.end()
+
+        # Override the paintEvent of the status_label
+        self.status_label.paintEvent = paintEvent
+
+        # Clear the label text since we're drawing it manually
+        self.status_label.setText("")
+
+    def _get_status_display_info(self, job_status: JobStatus):
+        """Get the display text and color for a job status."""
+        status_mapping = {
+            JobStatus.RUNNING: ("RUNNING", "#2196F3"),
+            JobStatus.PENDING: ("PENDING", "#9C27B0"),
+            JobStatus.READY: ("READY", "#9C27B0"),
+            JobStatus.FINISHED: ("FINISHED", "#4CAF50"),
+            JobStatus.DOWNLOADED: ("DOWNLOADED", "#8F5D00"),
+            JobStatus.GENERATED_LOCALLY: ("LOCAL", "#CC942C"),
+            JobStatus.FAILED: ("FAILED", "#EC2121"),
+            JobStatus.CANCELLED: ("CANCELLED", "#E2810A"),
+        }
+
+        return status_mapping.get(job_status, ("UNKNOWN", "#4E4E4E"))
+
+    def _handle_time_series_result(self):
+        """Helper method to handle TimeSeriesTableResult specific UI changes."""
+        if isinstance(self.job.results, TimeSeriesTableResult):
+            self.plot_tb.show()
+            self.add_to_canvas_pb.hide()
+            self.metadata_pb.hide()
+            self.open_directory_tb.hide()
+
+    def _hide_buttons_failed_cancelled(self):
+        """Helper method to hide buttons on FAILED/CANCELLED jobs."""
+        self._hide_all_action_buttons()
+
+    def set_widget_title(
+        self, widget: QtWidgets.QWidget, base_title: typing.Optional[str] = None
+    ):
         # Convenient function for setting the title of a widget.
-        if not base_title:
+        if base_title is None:
             base_title = widget.windowTitle()
 
         if self.job.task_name:
@@ -636,9 +841,16 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def report_handler(self):
         """
         Returns handler with helper methods for generating and viewing
-        reports.
+        reports. Returns None if widget is being destroyed.
         """
-        return self._report_handler
+        if not self.is_widget_valid():
+            return None
+
+        try:
+            return self._report_handler
+        except RuntimeError:
+            # Widget or report handler has been deleted
+            return None
 
     def load_vector_menu_setup(self):
         self.load_vector_menu = QtWidgets.QMenu()
@@ -671,3 +883,31 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 layers.add_layer(
                     str(data["path"]), int(data["band"]), JobBand.Schema().dump(band)
                 )
+
+    def closeEvent(self, event):
+        """Handle widget cleanup when being closed/destroyed."""
+        self._is_being_destroyed = True
+
+        # Clean up report handler to prevent accessing deleted widgets
+        if hasattr(self, "_report_handler") and self._report_handler:
+            try:
+                # Clear the button reference in the report handler to prevent access to deleted widget
+                self._report_handler._rpt_btn = None
+            except (RuntimeError, AttributeError):
+                # Widget may already be deleted, that's ok
+                pass
+
+        super().closeEvent(event)
+
+    def is_widget_valid(self):
+        """Check if this widget and its UI elements are still valid."""
+        if self._is_being_destroyed:
+            return False
+
+        try:
+            # Try to access a basic property to see if widget is still valid
+            _ = self.isVisible()
+            return True
+        except RuntimeError:
+            # Widget has been deleted
+            return False

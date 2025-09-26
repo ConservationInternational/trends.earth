@@ -1,6 +1,7 @@
 import datetime as dt
 import json
 import logging
+import math
 import os
 import re
 import shutil
@@ -98,27 +99,47 @@ def _get_extent_tuple_raster(path):
 def _get_extent_tuple_vector(path):
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log(f"Trying to calculate extent of vector {path}")
-    rect = QgsVectorLayer(str(path), "vector file", "ogr").extent()
-    if rect:
-        xmin = rect.xMinimum()
-        xmax = rect.xMaximum()
-        ymin = rect.yMinimum()
-        ymax = rect.yMaximum()
-        if any([(val > 180 or val < -180) for val in [xmin, xmax]]) or any(
-            [(val > 90 or val < -90) for val in [ymin, ymax]]
-        ):
-            # If there are not yet any features, then the extent will be set as ranging
-            # from -infinite to infinite - so catch this with above check
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log(f"Failed to calculate extent for {path} - appears undefined")
-            return None
-        else:
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log(f"Calculated extent for {path} - {(xmin, ymin, xmax, ymax)}")
-            return (xmin, ymin, xmax, ymax)
-    else:
-        log("Failed to calculate extent - couldn't open dataset")
+
+    layer = QgsVectorLayer(str(path), "vector file", "ogr")
+    rect = layer.extent()
+
+    try:
+        is_empty = hasattr(rect, "isEmpty") and rect.isEmpty()
+    except Exception:
+        is_empty = False
+
+    if (not rect) or is_empty:
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f"Failed to calculate extent for {path} - extent empty/undefined")
         return None
+
+    xmin = rect.xMinimum()
+    xmax = rect.xMaximum()
+    ymin = rect.yMinimum()
+    ymax = rect.yMaximum()
+
+    vals = [xmin, ymin, xmax, ymax]
+    if any(
+        (v is None) or (isinstance(v, float) and (math.isnan(v) or math.isinf(v)))
+        for v in vals
+    ):
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f"Failed to calculate extent for {path} - NaN/Inf in extent {vals}")
+        return None
+
+    if any((val > 180 or val < -180) for val in [xmin, xmax]) or any(
+        (val > 90 or val < -90) for val in [ymin, ymax]
+    ):
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(
+                f"Failed to calculate extent for {path} - appears undefined/out of bounds "
+                f"({xmin}, {ymin}, {xmax}, {ymax})"
+            )
+        return None
+
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log(f"Calculated extent for {path} - {(xmin, ymin, xmax, ymax)}")
+    return (xmin, ymin, xmax, ymax)
 
 
 def _set_results_extents_raster(job):
@@ -940,6 +961,8 @@ class JobManager(QtCore.QObject):
             }
 
         self._init_error_recode_layer(job)
+        if not hasattr(job.results, "extent") or job.results.extent is None:
+            set_results_extents(job)
         self.write_job_metadata_file(job)
         self.known_jobs[job.status][job.id] = job
         self.imported_job.emit(job)
@@ -1024,6 +1047,34 @@ class JobManager(QtCore.QObject):
                 output_path,
             )
         job.results.vector.uri = URI(uri=output_path)
+        vec_extent = _get_extent_tuple_vector(output_path)
+
+        if vec_extent is not None:
+            job.results.extent = vec_extent
+        else:
+
+            def _union(ext1, ext2):
+                if ext1 is None:
+                    return ext2
+                if ext2 is None:
+                    return ext1
+                xmin = min(ext1[0], ext2[0])
+                ymin = min(ext1[1], ext2[1])
+                xmax = max(ext1[2], ext2[2])
+                ymax = max(ext1[3], ext2[3])
+                return (xmin, ymin, xmax, ymax)
+
+            union_extent = None
+            for key in ("prod", "lc", "soil", "sdg"):
+                param = job.params.get(key)
+                if param and param.get("path"):
+                    try:
+                        rext = _get_extent_tuple_raster(Path(param["path"]))
+                    except Exception:
+                        rext = None
+                    union_extent = _union(union_extent, rext)
+
+            job.results.extent = union_extent
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
         # Track jobs in their actual status - PENDING and RUNNING are different states

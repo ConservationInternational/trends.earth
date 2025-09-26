@@ -242,9 +242,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="open_directory_tb">
+             <widget class="QToolButton" name="view_logs_tb">
               <property name="toolTip">
-               <string>Open dataset directory</string>
+               <string>View execution logs</string>
               </property>
               <property name="text">
                <string>...</string>
@@ -309,7 +309,7 @@
   <tabstop>download_tb</tabstop>
   <tabstop>add_to_canvas_pb</tabstop>
   <tabstop>open_details_tb</tabstop>
-  <tabstop>open_directory_tb</tabstop>
+  <tabstop>view_logs_tb</tabstop>
   <tabstop>delete_tb</tabstop>
  </tabstops>
  <resources/>

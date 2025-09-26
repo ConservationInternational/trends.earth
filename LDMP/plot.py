@@ -16,7 +16,7 @@ from pathlib import Path
 import numpy as np
 import pyqtgraph as pg
 import qgis.gui
-from qgis.PyQt import QtWidgets, uic
+from qgis.PyQt import QtCore, QtWidgets, uic
 
 UiDlgPlot, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgPlot.ui"))
 
@@ -63,8 +63,23 @@ def polyfit(x, y, degree):
 
 
 class DlgPlotTimeries(DlgPlot):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, job_id=None):
         super().__init__(parent)
+        self.job_id = job_id
+
+        # Register with dialog manager if job_id provided
+        if job_id:
+            from .dialog_manager import dialog_manager
+
+            self.dialog_id = f"timeseries_{str(job_id)}"
+            dialog_manager.register_dialog(self.dialog_id, self)
+
+            # Make it a standalone window for persistence
+            self.setWindowFlags(
+                QtCore.Qt.Window
+                | QtCore.Qt.WindowCloseButtonHint
+                | QtCore.Qt.WindowMinMaxButtonsHint
+            )
 
     def plot_data(self, x, y, labels, autoSI=False):
         line = pg.PlotCurveItem(x, y, pen="b", brush="w")
@@ -96,6 +111,16 @@ class DlgPlotTimeries(DlgPlot):
 
         if labels:
             self.plot_window.setLabels(**labels)
+
+    def closeEvent(self, event):
+        """Handle dialog close event."""
+        # Unregister from dialog manager when closing
+        if hasattr(self, "dialog_id"):
+            from .dialog_manager import dialog_manager
+
+            dialog_manager.unregister_dialog(self.dialog_id)
+        # Accept the close event
+        event.accept()
 
 
 class DlgPlotBars(DlgPlot):

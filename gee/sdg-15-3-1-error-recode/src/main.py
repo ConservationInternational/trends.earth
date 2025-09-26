@@ -80,7 +80,6 @@ def _recode_band(recode_params, write_tifs, aoi, execution_id, logger):
 
 
 def calculate_error_recode(
-    aoi,
     error_polygons,
     script_name,
     iso,
@@ -94,7 +93,6 @@ def calculate_error_recode(
     Calculate error recoding for land degradation indicators.
 
     Args:
-        aoi: Area of Interest object defining the spatial bounds for analysis
         error_polygons (ErrorRecodePolygons): Polygons defining areas to be recoded
         script_name (str): Name of the script used to generate the input data
         iso (str): ISO country code for the analysis area
@@ -131,6 +129,10 @@ def calculate_error_recode(
     except IndexError as exc:
         logger.error(f"Failed to load input job from prefix {s3_prefix}: {exc}")
         raise exc
+
+    aoi = AOI(
+        input_job.results.data["report"]["metadata"]["area_of_interest"]["geojson"]
+    )
 
     # Rasterize the error recode polygons
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -295,7 +297,6 @@ def run(params, logger):
 
     Args:
         params (dict): Dictionary containing all required parameters:
-            - aoi: Area of Interest specification
             - error_polygons: Error polygons for recoding
             - iso (str): ISO country code
             - boundary_dataset (str, optional): Boundary dataset name (default: "UN")
@@ -319,8 +320,6 @@ def run(params, logger):
         EXECUTION_ID = params.get("EXECUTION_ID", None)
     logger.debug(f"Execution ID is {EXECUTION_ID}")
 
-    aoi = AOI(params["aoi"])
-    logger.debug("AOI loaded.")
     error_polygons = ErrorRecodePolygons.Schema().load(params["error_polygons"])
     logger.debug("Error polygons loaded.")
     iso = params["iso"]
@@ -335,7 +334,6 @@ def run(params, logger):
 
     logger.debug("Calling calculate_error_recode.")
     return calculate_error_recode(
-        aoi,
         error_polygons,
         "sdg-15-3-1-summary-2-1-17",
         iso,

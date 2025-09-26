@@ -12,7 +12,7 @@ from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
 from te_schemas.results import RasterResults, TimeSeriesTableResult
 
-from .. import layers, metadata, metadata_dialog, openFolder, utils
+from .. import layers, metadata, metadata_dialog, utils
 from ..conf import Setting, settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
@@ -252,7 +252,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     name_la: QtWidgets.QLabel
     open_details_tb: QtWidgets.QToolButton
     metadata_pb: QtWidgets.QPushButton
-    open_directory_tb: QtWidgets.QToolButton
+    view_logs_tb: QtWidgets.QToolButton
     plot_tb: QtWidgets.QToolButton
     load_tb: QtWidgets.QToolButton
     edit_tb: QtWidgets.QToolButton
@@ -279,7 +279,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.metadata_pb.setMenu(self.metadata_menu)
 
         self.open_details_tb.clicked.connect(self.show_details)
-        self.open_directory_tb.clicked.connect(self.open_job_directory)
+        self.view_logs_tb.clicked.connect(self.view_execution_logs)
         self.delete_tb.clicked.connect(self.delete_dataset)
         self.load_tb.clicked.connect(self.load_layer)
 
@@ -291,9 +291,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.open_details_tb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionPropertiesWidget.svg"))
         )
-        self.open_directory_tb.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "mActionFileOpen.svg"))
-        )
+        self.view_logs_tb.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, "document.svg")))
         self.metadata_pb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "editmetadata.svg"))
         )
@@ -326,8 +324,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             # If report handler fails to initialize, create a dummy one to prevent crashes
             print(f"Warning: Failed to initialize report handler: {e}")
             self._report_handler = None
-        # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
-        # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
+        # self.add_to_canvas_pb.setFixedSize(self.view_logs_tb.size())
+        # self.add_to_canvas_pb.setMinimumSize(self.view_logs_tb.size())
 
         if self.job.is_vector():
             self.edit_tb.setEnabled(False)
@@ -407,7 +405,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 self.download_tb.hide()
                 self.add_to_canvas_pb.hide()
                 self.metadata_pb.hide()
-                self.open_directory_tb.hide()
+                # Show logs button for remote jobs (finished jobs that aren't local)
+                if self.job.status != JobStatus.GENERATED_LOCALLY:
+                    self.view_logs_tb.show()
+                else:
+                    self.view_logs_tb.hide()
         elif self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
             self.download_tb.hide()
             self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
@@ -440,6 +442,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 # Raster jobs - hide vector-specific buttons
                 self.load_tb.hide()
                 self.edit_tb.hide()
+
+        # Control logs button visibility - only show for non-locally generated jobs
+        if self.job.status == JobStatus.GENERATED_LOCALLY:
+            self.view_logs_tb.hide()
+        else:
+            self.view_logs_tb.show()
 
         # Set up dual loading menu for appropriate jobs
         # Only show dual menu for downloaded/local jobs that have both vector and raster results
@@ -542,11 +550,28 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         metadata.save_qmd(file_path, ds_metadata)
         self.main_dock.resume_scheduler()
 
-    def open_job_directory(self):
-        job_directory = manager.job_manager.get_job_file_path(self.job).parent
-        # NOTE: not using QDesktopServices.openUrl here, since it seems to not be
-        # working correctly (as of Jun 2021 on Ubuntu)
-        openFolder(str(job_directory))
+    def view_execution_logs(self):
+        """Open the execution logs dialog as a non-blocking dialog."""
+        from ..dialog_manager import dialog_manager
+        from ..execution_logs_dialog import DlgExecutionLogs
+
+        # Create unique dialog ID for this job
+        dialog_id = f"logs_{str(self.job.id)}"
+
+        # Check if dialog already exists and is visible
+        existing_dialog = dialog_manager.get_dialog(dialog_id)
+        if existing_dialog and not existing_dialog.isHidden():
+            # Bring existing dialog to front
+            existing_dialog.raise_()
+            existing_dialog.activateWindow()
+            return
+
+        # Create and show the dialog as non-blocking
+        # Use None as parent to make it a top-level window
+        self.logs_dialog = DlgExecutionLogs(self.job, parent=None)
+        self.logs_dialog.show()
+        self.logs_dialog.raise_()
+        self.logs_dialog.activateWindow()
 
     def load_data_menu_setup(self):
         self.load_data_menu = QtWidgets.QMenu()
@@ -580,11 +605,25 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.edit_tb.setEnabled(True)
 
     def show_time_series_plot(self):
+        """Show the time series plot dialog as a non-blocking, persistent dialog."""
+        from ..dialog_manager import dialog_manager
+
         table = self.job.results.table
         if len(table) == 0:
             self.main_dock.iface.messageBar().pushMessage(
                 self.tr("Time series table is empty"), level=1, duration=5
             )
+            return
+
+        # Create unique dialog ID for this job's timeseries
+        dialog_id = f"timeseries_{str(self.job.id)}"
+
+        # Check if dialog already exists and is visible
+        existing_dialog = dialog_manager.get_dialog(dialog_id)
+        if existing_dialog and not existing_dialog.isHidden():
+            # Bring existing dialog to front
+            existing_dialog.raise_()
+            existing_dialog.activateWindow()
             return
 
         data = [x for x in table if x["name"] == "mean"][0]
@@ -593,7 +632,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             task_name = self.job.task_name
         else:
             task_name = ""
-        dlg_plot = DlgPlotTimeries(self.main_dock.iface.mainWindow())
+
+        # Create dialog as top-level window with job_id for dialog manager
+        dlg_plot = DlgPlotTimeries(parent=None, job_id=self.job.id)
         self.set_widget_title(dlg_plot, base_title)
         labels = {
             "title": task_name,
@@ -601,7 +642,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             "left": [self.tr("Integrated NDVI"), self.tr("NDVI x 10000")],
         }
         dlg_plot.plot_data(data["time"], data["y"], labels)
-        dlg_plot.exec_()
+
+        # Show as non-blocking dialog
+        dlg_plot.show()
+        dlg_plot.raise_()
+        dlg_plot.activateWindow()
+
+        # Store reference to prevent garbage collection
+        self.timeseries_dialog = dlg_plot
 
     def _setup_status_bar(self, status_text: str, color: str):
         """Set up the colored status bar with status text."""
@@ -709,7 +757,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.plot_tb.show()
             self.add_to_canvas_pb.hide()
             self.metadata_pb.hide()
-            self.open_directory_tb.hide()
+            # Show logs button for remote jobs only
+            if self.job.status != JobStatus.GENERATED_LOCALLY:
+                self.view_logs_tb.show()
+            else:
+                self.view_logs_tb.hide()
 
     def _hide_buttons_failed_cancelled(self):
         """Helper method to hide buttons on FAILED/CANCELLED jobs."""

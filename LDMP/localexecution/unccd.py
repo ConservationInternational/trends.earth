@@ -243,9 +243,7 @@ def _get_error_recode_polygons(in_file):
         out_ds = driver.CreateDataSource(str(tmp_path))
         if out_ds is None:
             raise RuntimeError("Failed to create temporary GeoJSON data source")
-        layer_out = out_ds.CopyLayer(layer_in, "error_recode")
-        # Cleanly close handles
-        layer_out = None
+        out_ds.CopyLayer(layer_in, "error_recode")
         out_ds = None
         ds_in = None
         with open(tmp_path, "r") as f:

@@ -1,3 +1,3 @@
 # API related constants
-API_URL = "https://api2.trends.earth"
+API_URL = "https://api.trends.earth"
 TIMEOUT = 30

@@ -11,7 +11,7 @@ import os
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import requests
 
@@ -588,3 +588,40 @@ def save_job_metadata(job_dict: Dict, output_path: Union[str, Path]) -> None:
         print(f"Saved metadata: {output_path}")
     except Exception as e:
         print(f"Error saving metadata: {e}")
+
+
+def get_tiff_files(file_list: List[Path]) -> Tuple[List[Path], List[Path]]:
+    """
+    Filter files to find TIFF files.
+
+    Args:
+        file_list: List of file paths to filter
+
+    Returns:
+        Tuple of (all_files, tiff_files) where tiff_files are the .tif/.tiff files
+    """
+    tiff_files = []
+    for file_path in file_list:
+        if file_path.suffix.lower() in [".tif", ".tiff"]:
+            tiff_files.append(file_path)
+
+    return file_list, tiff_files
+
+
+def convert_subcells_to_geojson(sub_cells) -> List[Dict]:
+    """
+    Convert shapely polygons to geojson format.
+
+    Args:
+        sub_cells: List of shapely polygon objects
+
+    Returns:
+        List of GeoJSON dictionaries
+    """
+    from shapely.geometry import mapping
+
+    geojsons = []
+    for sub_cell in sub_cells:
+        geojson = json.loads(json.dumps(mapping(sub_cell)))
+        geojsons.append(geojson)
+    return geojsons

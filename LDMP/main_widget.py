@@ -297,9 +297,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.pushButton_download.clicked.connect(self.download_data)
 
-        self.pushButton_load.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "document.svg"))
-        )
+        self.pushButton_load.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, "globe.svg")))
         self.pushButton_load.clicked.connect(self.load_base_map)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 

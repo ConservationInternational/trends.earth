@@ -266,12 +266,16 @@ class LCClassComboBox(QtWidgets.QComboBox):
                 continue
 
             color = lcc.color
-            self.setItemData(n, QtGui.QColor(color), QtCore.Qt.BackgroundRole)
-
-            if color == "#000000":
-                self.setItemData(n, QtGui.QColor("#FFFFFF"), QtCore.Qt.ForegroundRole)
-            else:
-                self.setItemData(n, QtGui.QColor("#000000"), QtCore.Qt.ForegroundRole)
+            if color:
+                self.setItemData(n, QtGui.QColor(color), QtCore.Qt.BackgroundRole)
+                if color == "#000000":
+                    self.setItemData(
+                        n, QtGui.QColor("#FFFFFF"), QtCore.Qt.ForegroundRole
+                    )
+                else:
+                    self.setItemData(
+                        n, QtGui.QColor("#000000"), QtCore.Qt.ForegroundRole
+                    )
 
         self.index_changed()
 
@@ -447,7 +451,6 @@ def ipcc_lc_nesting_to_settings(nesting: LCLegendNesting):
     nesting_dict_str_keys = {str(k): vs for k, vs in nesting.nesting.items()}
     _nesting = deepcopy(nesting)
     _nesting.nesting = nesting_dict_str_keys
-    log(f"ipcc_lc_nesting_to_settings {str(nesting_dict_str_keys)}")
     conf.settings_manager.write_value(
         conf.Setting.LC_IPCC_NESTING, LCLegendNesting.Schema().dumps(_nesting)
     )

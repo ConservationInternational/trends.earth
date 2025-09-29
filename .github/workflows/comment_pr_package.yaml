@@ -46,7 +46,7 @@ jobs:
               unzip -o artifacts/pr_number.zip -d artifacts >/dev/null
             fi
           fi
-          echo "PR_NUMBER=$(cat artifacts/pr_number.txt)" >> $GITHUB_ENV
+          echo "PR_NUMBER=$(cat artifacts/pr_number.txt | tr -d '\n')" >> $GITHUB_ENV
 
       - name: Download artifact URL artifact
         id: dl-url
@@ -68,7 +68,7 @@ jobs:
               unzip -o artifacts/artifact_url.zip -d artifacts >/dev/null
             fi
           fi
-          echo "ARTIFACT_URL=$(cat artifacts/artifact_url.txt)" >> $GITHUB_ENV
+          echo "ARTIFACT_URL=$(cat artifacts/artifact_url.txt | tr -d '\n')" >> $GITHUB_ENV
 
       - name: Compose comment body
         id: body

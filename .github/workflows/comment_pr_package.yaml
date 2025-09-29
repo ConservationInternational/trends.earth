@@ -85,6 +85,14 @@ jobs:
           🔗 **Download Plugin Zip:** ${ARTIFACT_URL}
 
           _Built from branch **${HEAD_BRANCH}**, commit **${HEAD_SHA}**_
+          
+          ### 📌 **Next Steps**  
+          - 📥 **Download and test** the plugin built from this pull request.  
+          - 🔄 **Review the changes** and validate functionality.  
+          - 📝 **Provide feedback on this pull request!**  
+          ---
+          ### **🛠 Powered by GitHub Actions & gh API**  
+          
           EOF
 
       - name: Find existing bot comment (by marker)

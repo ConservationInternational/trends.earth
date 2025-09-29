@@ -51,7 +51,13 @@ jobs:
 
       - name: Get unique identifier
         id: get-identifier
-        run: echo "PACKAGE_ID=$(python -c \"import uuid; print(str(uuid.uuid4())[:4])\")" >> $GITHUB_ENV
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, uuid
+          with open(os.environ['GITHUB_ENV'], 'a') as f:
+              f.write(f"PACKAGE_ID={uuid.uuid4().hex[:4]}\n")
+          PY
 
       - name: Set version SHA
         run: invoke set-version

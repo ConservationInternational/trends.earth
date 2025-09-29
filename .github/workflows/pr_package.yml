@@ -2,13 +2,8 @@ name: Create plugin package in the PR
 
 on:
   pull_request:
-    types:
-      - edited
-      - opened
-      - reopened
-      - synchronize
-    branches:
-      - main
+    types: [edited, opened, reopened, synchronize]
+    branches: [main]
 
 jobs:
   create-package:
@@ -19,32 +14,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Fix Python command
-        run: apt-get update && apt-get install -y python-is-python3
-
-      - name: Install git and configure
+      - name: Install OS packages and configure git
         run: |
-          apt-get update && apt-get install -y git
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            git python3-venv unzip build-essential
           git config --global --add safe.directory /__w/trends.earth/trends.earth
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
 
-      - name: Install python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Upgrade pip tooling
+      - name: Create virtualenv and upgrade pip
         run: |
-          python -m pip --version
-          python -m pip install --upgrade pip setuptools wheel build
+          python3 -m venv .venv
+          echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
+          .venv/bin/python -m pip --version
+          .venv/bin/python -m pip install --upgrade pip setuptools wheel build
 
       - name: Install plugin dependencies
         env:
           PIP_ALWAYS_USE_PEP517: '1'
         run: |
-          pip install --no-cache-dir -r requirements-dev.txt
-          pip install --no-cache-dir -r requirements.txt
+          .venv/bin/pip install --no-cache-dir -r requirements-dev.txt
+          .venv/bin/pip install --no-cache-dir -r requirements.txt
 
       - name: Verify te_algorithms import
         run: |
@@ -60,8 +51,7 @@ jobs:
 
       - name: Get unique identifier
         id: get-identifier
-        run: |
-          echo "PACKAGE_ID=$(python -c "import uuid; print(str(uuid.uuid4())[:4])")" >> $GITHUB_ENV
+        run: echo "PACKAGE_ID=$(python -c \"import uuid; print(str(uuid.uuid4())[:4])\")" >> $GITHUB_ENV
 
       - name: Set version SHA
         run: invoke set-version
@@ -71,22 +61,20 @@ jobs:
         run: |
           SAFE_REF_NAME="${{ github.event.pull_request.head.ref }}"
           SAFE_REF_NAME="${SAFE_REF_NAME//\//_}"
-          invoke zipfile-build  --filename LDMP-${SAFE_REF_NAME}_${{ env.PACKAGE_ID }}.zip
+          invoke zipfile-build --filename "LDMP-${SAFE_REF_NAME}_${{ env.PACKAGE_ID }}.zip"
           echo "REF_NAME=${SAFE_REF_NAME}" >> $GITHUB_ENV
 
       - name: Plugin path details
         id: get-zip-details
+        shell: bash
         run: |
           ls
-          
-          unzip -o $GITHUB_WORKSPACE/LDMP-"$REF_NAME"_"$PACKAGE_ID".zip -d build
-          
-          mkdir build/LDMP-"$REF_NAME"_"$PACKAGE_ID"
-          
-          mv build/LDMP build/LDMP-"$REF_NAME"_"$PACKAGE_ID/LDMP"
-
-          echo "ZIP_PATH=$GITHUB_WORKSPACE/build/LDMP-"$REF_NAME"_"$PACKAGE_ID"" >> $GITHUB_ENV
-          echo "ZIP_NAME=LDMP-"$REF_NAME"_"$PACKAGE_ID"">> $GITHUB_ENV
+          unzip -o "$GITHUB_WORKSPACE/LDMP-${REF_NAME}_${PACKAGE_ID}.zip" -d build
+          ZIPDIR="build/LDMP-${REF_NAME}_${PACKAGE_ID}"
+          mkdir -p "${ZIPDIR}"
+          mv build/LDMP "${ZIPDIR}/LDMP"
+          echo "ZIP_PATH=$GITHUB_WORKSPACE/${ZIPDIR}" >> $GITHUB_ENV
+          echo "ZIP_NAME=LDMP-${REF_NAME}_${PACKAGE_ID}" >> $GITHUB_ENV
 
       - name: Uploading plugin build
         id: artifact-upload-step
@@ -101,8 +89,8 @@ jobs:
           PR_NUMBER: ${{ github.event.number }}
           ARTIFACT_URL: ${{ steps.artifact-upload-step.outputs.artifact-url }}
         run: |
-          echo $ARTIFACT_URL > artifact_url.txt
-          echo $PR_NUMBER > pr_number.txt
+          echo "$ARTIFACT_URL" > artifact_url.txt
+          echo "$PR_NUMBER" > pr_number.txt
 
       - name: Upload the artifact url
         uses: actions/upload-artifact@v4

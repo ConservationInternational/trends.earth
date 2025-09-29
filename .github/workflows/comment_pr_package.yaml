@@ -72,6 +72,9 @@ jobs:
 
       - name: Compose comment body
         id: body
+        env:
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           cat > body.md <<EOF
           <!-- LDMP_PLUGIN_BUILD_COMMENT -->
@@ -81,7 +84,7 @@ jobs:
 
           🔗 **Download Plugin Zip:** ${ARTIFACT_URL}
 
-          _Built from branch **${{ github.event.workflow_run.head_branch }}**, commit **${{ github.event.workflow_run.head_sha }}**_
+          _Built from branch **${HEAD_BRANCH}**, commit **${HEAD_SHA}**_
           EOF
 
       - name: Find existing bot comment (by marker)

@@ -1557,25 +1557,18 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             year_initial = widgets.year_initial.date()
             year_final = widgets.year_final.date()
 
-            lc_soc_override = (
-                getattr(widgets, "_lc_soc_override", None)
-                if self.radio_lpd_precalculated.isChecked()
-                else None
-            )
-            if lc_soc_override:
-                lc_start, lc_end = lc_soc_override
-            else:
-                lc_start, lc_end = year_initial, year_final
+            lc_start, lc_end = year_initial, year_final
 
             widgets.year_initial_lc.setDate(lc_start)
             widgets.year_initial_soc.setDate(lc_start)
             widgets.year_final_lc.setDate(lc_end)
             widgets.year_final_soc.setDate(lc_end)
 
-            if not widgets.radio_fao_wocat.isChecked():
-                widgets.year_initial_prod.setDate(year_initial)
+            if not self.radio_lpd_precalculated.isChecked():
+                if not widgets.radio_fao_wocat.isChecked():
+                    widgets.year_initial_prod.setDate(year_initial)
 
-            widgets.year_final_prod.setDate(year_final)
+                widgets.year_final_prod.setDate(year_final)
         else:
             # Vary by indicator mode: don't override individual indicator dates
             # Only apply LC/SOC overrides if they exist

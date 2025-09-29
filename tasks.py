@@ -747,10 +747,21 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
         # the --no-deps flag (-N for short) with that package only.
         if "pyqtgraph" in req:
             subprocess.check_call(
-                [pip, "install", "--upgrade", "--no-deps", "-t", ext_libs, req]
+                [
+                    pip,
+                    "install",
+                    "--upgrade",
+                    "--no-cache-dir",
+                    "--no-deps",
+                    "-t",
+                    ext_libs,
+                    req,
+                ]
             )
         else:
-            subprocess.check_call([pip, "install", "--upgrade", "-t", ext_libs, req])
+            subprocess.check_call(
+                [pip, "install", "--upgrade", "--no-cache-dir", "-t", ext_libs, req]
+            )
 
     # Install git packages to temporary location, then copy to ext_libs
     if git_packages:
@@ -786,7 +797,15 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
                 print(f"Using install requirement: {install_req}")
                 # Install git packages using direct git+ URL to temp directory
                 subprocess.check_call(
-                    [pip, "install", "--upgrade", "--target", temp_dir, install_req]
+                    [
+                        pip,
+                        "install",
+                        "--upgrade",
+                        "--no-cache-dir",
+                        "--target",
+                        temp_dir,
+                        install_req,
+                    ]
                 )
 
             # Copy all packages from temp directory to ext_libs (git packages + their dependencies)
@@ -1884,11 +1903,27 @@ def zipfile_build(
 def _make_zip(zipFile, c):
     src_dir = c.plugin.source_dir
 
-    for root, dirs, files in os.walk(src_dir):
-        for f in _filter_excludes(root, files, c):
-            relpath = os.path.relpath(root)
-            zipFile.write(os.path.join(root, f), os.path.join(relpath, f))
-        _filter_excludes(root, dirs, c)
+    for root, dirs, files in os.walk(c.plugin.source_dir):
+        relpath = os.path.relpath(root)
+
+        # Apply project excludes first
+        files = _filter_excludes(root, files, c)
+        dirs = _filter_excludes(root, dirs, c)
+
+        # Do not descend into symlinked directories
+        for d in list(dirs):
+            d_path = os.path.join(root, d)
+            if os.path.islink(d_path):
+                print(f"Skipping symlinked directory: {d_path}")
+                dirs.remove(d)
+
+        # Write regular files only; skip symlinks
+        for f in files:
+            src_path = os.path.join(root, f)
+            if os.path.islink(src_path):
+                print(f"Skipping symlink: {src_path}")
+                continue
+            zipFile.write(src_path, os.path.join(relpath, f))
 
     # Include the license file within the plugin zipfile (it is in root of
     # repo, so otherwise would be skipped)

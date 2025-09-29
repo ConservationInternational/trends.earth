@@ -2,121 +2,118 @@ name: Add comment on a pull request about the plugin package
 # Based on work from https://github.com/orgs/community/discussions/51403#discussioncomment-5535167
 on:
   workflow_run:
-    types:
-      - completed
-    workflows:
-      - 'Create plugin package in the PR'
+    types: [completed]
+    workflows: ['Create plugin package in the PR']
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
 
 jobs:
   comment:
     if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for 10 seconds
-        run: sleep 10
-
-      - name: List all available artifact
+      - name: Ensure jq and gh are available
         run: |
-          echo "Listing all artifacts for the past workflow run"
+          if ! command -v jq >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y jq
+          fi
+          gh --version || true
 
-          # Get the past workflow run ID
-          run_id=${{ github.event.workflow_run.id }}
-          repo=${{ github.repository }}
+      - name: Wait briefly for artifacts to finalize
+        run: sleep 8
 
-          response=$(curl -s \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/$repo/actions/runs/$run_id/artifacts")
-
-          # Extract artifact names from the response
-          artifact_names=$(echo "$response" | jq -r '.artifacts[].name')
-
-          # Display the artifact names
-          echo "Artifacts:"
-          echo "$artifact_names"
-
-      - name: Download artifacts
+      - name: Download PR number artifact
+        id: dl-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p artifacts
-          
-          # Get the past workflow run ID
-          run_id=${{ github.event.workflow_run.id }}
-          repo=${{ github.repository }}
-          
-          # Fetch all artifact download URLs
-          ARTIFACT_URLS=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-               "https://api.github.com/repos/$repo/actions/runs/$run_id/artifacts" \
-            | jq -r '.artifacts[] | select(.expired == false) | .archive_download_url')
-          
-          # Download each artifact using artifact ID
-          echo "$ARTIFACT_URLS" | while read -r url; do
-            ARTIFACT_ID=$(echo "$url" | cut -d'/' -f9)  # Extract artifact ID from URL
-            echo "Downloading artifact ID: $ARTIFACT_ID"
-            curl -L -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -o "artifacts/${ARTIFACT_ID}.zip" "$url"
-          done
+          # Try gh first (extracts automatically)
+          gh run download ${{ github.event.workflow_run.id }} --name pr_number --dir artifacts || true
+          # Fallback to API if needed
+          if [ ! -f artifacts/pr_number.txt ]; then
+            curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/artifacts" \
+              | jq -r '.artifacts[] | select(.name=="pr_number" and .expired==false) | .archive_download_url' \
+              > artifacts/pr_number_url.txt
+            URL=$(cat artifacts/pr_number_url.txt)
+            if [ -n "$URL" ]; then
+              curl -L -H "Authorization: Bearer $GH_TOKEN" -o artifacts/pr_number.zip "$URL"
+              unzip -o artifacts/pr_number.zip -d artifacts >/dev/null
+            fi
+          fi
+          echo "PR_NUMBER=$(cat artifacts/pr_number.txt | tr -d '\n')" >> $GITHUB_ENV
 
-          echo "all artifacts: $ARTIFACT_URLS"
-
-      - name: Extract all artifacts
-        run: |
-          for zip in artifacts/*.zip; do
-            unzip -o "$zip" -d artifacts
-          done
-
-      - name: List extracted Files
-        run: ls -lah artifacts
-
-      - name: Read the pr number artifact
-        id: pr_number_reader
-        run: |
-          PR_NUMBER=$(cat artifacts/pr_number.txt)
-          echo "PR number: $PR_NUMBER"
-          echo "::set-output name=pr_number::$PR_NUMBER"
-
-      - name: Read the artifact URL
-        id: artifact_url_reader
-        run: |
-          ARTIFACT_URL=$(cat artifacts/artifact_url.txt)
-          echo "Artifact URL: $ARTIFACT_URL"
-          echo "::set-output name=artifact_url::$ARTIFACT_URL"
-
-      - name: Find existing comment
-        id: find-comment
-        run: |
-          COMMENT_ID=$(gh api repos/${{ github.repository }}/issues/${{ steps.pr_number_reader.outputs.pr_number }}/comments --jq '.[] | select(.user.login=="github-actions[bot]") | .id')
-          echo "comment-id=$COMMENT_ID" >> $GITHUB_ENV
+      - name: Download artifact URL artifact
+        id: dl-url
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Update or create comment
-        env:
-          ARTIFACT_URL: "${{ steps.artifact_url_reader.outputs.artifact_url }}"
-          HEAD_SHA: "${{ github.event.head_sha }}"
-          COMMENT_ID: "${{ env.comment-id }}"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BODY="## 🚀 **Plugin Build Successful!** ✅
+          mkdir -p artifacts
+          # Try gh first (extracts automatically)
+          gh run download ${{ github.event.workflow_run.id }} --name artifact_url --dir artifacts || true
+          # Fallback to API if needed
+          if [ ! -f artifacts/artifact_url.txt ]; then
+            curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/artifacts" \
+              | jq -r '.artifacts[] | select(.name=="artifact_url" and .expired==false) | .archive_download_url' \
+              > artifacts/artifact_url_url.txt
+            URL=$(cat artifacts/artifact_url_url.txt)
+            if [ -n "$URL" ]; then
+              curl -L -H "Authorization: Bearer $GH_TOKEN" -o artifacts/artifact_url.zip "$URL"
+              unzip -o artifacts/artifact_url.zip -d artifacts >/dev/null
+            fi
+          fi
+          echo "ARTIFACT_URL=$(cat artifacts/artifact_url.txt | tr -d '\n')" >> $GITHUB_ENV
 
-          A new **plugin build** has been successfully generated for the changes in this pull request! 🎉  
+      - name: Compose comment body
+        id: body
+        env:
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          cat > body.md <<EOF
+          <!-- LDMP_PLUGIN_BUILD_COMMENT -->
+          ## 🚀 **Plugin Build Successful!** ✅
 
-          🔗 **[Download Plugin Zip](${ARTIFACT_URL}) 📥**  
+          A new **plugin build** has been successfully generated for the changes in this pull request! 🎉
 
+          🔗 **Download Plugin Zip:** ${ARTIFACT_URL}
+
+          _Built from branch **${HEAD_BRANCH}**, commit **${HEAD_SHA}**_
+          
           ### 📌 **Next Steps**  
           - 📥 **Download and test** the plugin built from this pull request.  
           - 🔄 **Review the changes** and validate functionality.  
           - 📝 **Provide feedback on this pull request!**  
-
           ---
           ### **🛠 Powered by GitHub Actions & gh API**  
-          "
+          
+          EOF
 
-          if [ -z "$COMMENT_ID" ]; then
-            gh api repos/${{ github.repository }}/issues/${{ steps.pr_number_reader.outputs.pr_number }}/comments \
-              -f body="$BODY"
-          else
+      - name: Find existing bot comment (by marker)
+        id: find_comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CID=$(gh api repos/${{ github.repository }}/issues/${PR_NUMBER}/comments \
+            --jq '.[] | select(.user.login=="github-actions[bot]" and (.body|contains("<!-- LDMP_PLUGIN_BUILD_COMMENT -->"))) | .id' || true)
+          echo "COMMENT_ID=$CID" >> $GITHUB_ENV
+          echo "comment_id=$CID" >> $GITHUB_OUTPUT
+
+      - name: Update or create comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -n "$COMMENT_ID" ]; then
             gh api repos/${{ github.repository }}/issues/comments/$COMMENT_ID \
               --method PATCH \
-              -f body="$BODY"
+              -f body@=body.md
+          else
+            gh api repos/${{ github.repository }}/issues/${PR_NUMBER}/comments \
+              -f body@=body.md
           fi

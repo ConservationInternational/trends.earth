@@ -1,0 +1,142 @@
+{
+  "type": "FeatureCollection",
+  "name": "Kenya Error Corrections",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "51a6dcaf-5aaf-4ef6-8663-2afcbde57b7b",
+        "location_name": "Drought recovery misclassified as degradation",
+        "area_km_sq": 45.2,
+        "process_driving_change": "Natural drought recovery period misinterpreted as land degradation",
+        "basis_for_judgement": "Rainfall data and ground surveys confirm natural recovery cycle",
+        "recode_deg_to": 0,
+        "recode_stable_to": null,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "baseline"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.2,
+              -1.5
+            ],
+            [
+              36.8,
+              -1.5
+            ],
+            [
+              36.8,
+              -0.9
+            ],
+            [
+              36.2,
+              -0.9
+            ],
+            [
+              36.2,
+              -1.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "94562f3a-898c-4637-a17f-317d0e9de8aa",
+        "location_name": "Community reforestation project",
+        "area_km_sq": 12.8,
+        "process_driving_change": "Community-led tree planting not detected as improvement",
+        "basis_for_judgement": "NGO monitoring reports and satellite imagery validation",
+        "recode_deg_to": 1,
+        "recode_stable_to": 1,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "baseline",
+          "reporting_2"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              37.1,
+              -0.3
+            ],
+            [
+              37.4,
+              -0.3
+            ],
+            [
+              37.4,
+              0.1
+            ],
+            [
+              37.1,
+              0.1
+            ],
+            [
+              37.1,
+              -0.3
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "f8d58188-253c-40b1-a8fc-50600c66d944",
+        "location_name": "Sustainable agriculture transition",
+        "area_km_sq": 23.5,
+        "process_driving_change": "Shift to climate-smart agriculture practices showing improvement",
+        "basis_for_judgement": "Agricultural extension records and farmer interviews",
+        "recode_deg_to": 1,
+        "recode_stable_to": null,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "reporting_2"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              35.8,
+              -2.1
+            ],
+            [
+              36.3,
+              -2.1
+            ],
+            [
+              36.3,
+              -1.7
+            ],
+            [
+              35.8,
+              -1.7
+            ],
+            [
+              35.8,
+              -2.1
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

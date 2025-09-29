@@ -1,0 +1,142 @@
+{
+  "type": "FeatureCollection",
+  "name": "Antigua and Barbuda Error Corrections",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "83930a25-f4b4-4bbc-ac01-83aaec8be237",
+        "location_name": "False degradation - mining misclassified",
+        "area_km_sq": 0.04,
+        "process_driving_change": "Open pit mining misclassified as degradation",
+        "basis_for_judgement": "Ground truth verification shows managed mining operation",
+        "recode_deg_to": 0,
+        "recode_stable_to": null,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "baseline"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -61.85,
+              17.05
+            ],
+            [
+              -61.8,
+              17.05
+            ],
+            [
+              -61.8,
+              17.1
+            ],
+            [
+              -61.85,
+              17.1
+            ],
+            [
+              -61.85,
+              17.05
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "ea204715-ca85-43c9-9d9a-922aca89fc0e",
+        "location_name": "Restoration success not captured",
+        "area_km_sq": 0.02,
+        "process_driving_change": "Successful restoration not detected by algorithm",
+        "basis_for_judgement": "Field monitoring shows vegetation recovery",
+        "recode_deg_to": 1,
+        "recode_stable_to": 1,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "baseline",
+          "reporting_2"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -61.82,
+              17.08
+            ],
+            [
+              -61.78,
+              17.08
+            ],
+            [
+              -61.78,
+              17.12
+            ],
+            [
+              -61.82,
+              17.12
+            ],
+            [
+              -61.82,
+              17.08
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "61813ebd-dc45-4e04-ab4f-32a321c725c6",
+        "location_name": "Data quality issue",
+        "area_km_sq": 0.01,
+        "process_driving_change": "Cloud contamination in satellite data",
+        "basis_for_judgement": "Visual inspection shows persistent cloud cover",
+        "recode_deg_to": -32768,
+        "recode_stable_to": -32768,
+        "recode_imp_to": -32768,
+        "periods_affected": [
+          "reporting_2"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -61.88,
+              17.15
+            ],
+            [
+              -61.84,
+              17.15
+            ],
+            [
+              -61.84,
+              17.18
+            ],
+            [
+              -61.88,
+              17.18
+            ],
+            [
+              -61.88,
+              17.15
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

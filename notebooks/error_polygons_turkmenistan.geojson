@@ -1,0 +1,142 @@
+{
+  "type": "FeatureCollection",
+  "name": "Turkmenistan Error Corrections",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "0de6ce0a-4024-444f-8bb0-97de126a3097",
+        "location_name": "Irrigation infrastructure improvement",
+        "area_km_sq": 156.7,
+        "process_driving_change": "New irrigation canals and water management showing as improvement",
+        "basis_for_judgement": "Government infrastructure reports and water authority data",
+        "recode_deg_to": 1,
+        "recode_stable_to": 1,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "reporting_2"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              58.5,
+              37.8
+            ],
+            [
+              59.2,
+              37.8
+            ],
+            [
+              59.2,
+              38.3
+            ],
+            [
+              58.5,
+              38.3
+            ],
+            [
+              58.5,
+              37.8
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "fdd927e4-1bc4-45e1-9328-45040ffb1d08",
+        "location_name": "Desert stabilization project",
+        "area_km_sq": 89.3,
+        "process_driving_change": "Sand dune stabilization and vegetation establishment",
+        "basis_for_judgement": "Ministry of Environment monitoring and field verification",
+        "recode_deg_to": 0,
+        "recode_stable_to": null,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "baseline",
+          "reporting_2"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              60.1,
+              39.2
+            ],
+            [
+              60.8,
+              39.2
+            ],
+            [
+              60.8,
+              39.7
+            ],
+            [
+              60.1,
+              39.7
+            ],
+            [
+              60.1,
+              39.2
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "c640f6fe-c5fd-40be-b0b7-4f2de59fa2e8",
+        "location_name": "Natural gas extraction area",
+        "area_km_sq": 34.6,
+        "process_driving_change": "Industrial activity misclassified due to soil disturbance",
+        "basis_for_judgement": "Energy sector reports showing managed extraction with restoration",
+        "recode_deg_to": -32768,
+        "recode_stable_to": -32768,
+        "recode_imp_to": -32768,
+        "periods_affected": [
+          "baseline"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              57.8,
+              40.1
+            ],
+            [
+              58.3,
+              40.1
+            ],
+            [
+              58.3,
+              40.4
+            ],
+            [
+              57.8,
+              40.4
+            ],
+            [
+              57.8,
+              40.1
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

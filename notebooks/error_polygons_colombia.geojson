@@ -1,0 +1,186 @@
+{
+  "type": "FeatureCollection",
+  "name": "Colombia Error Corrections",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "44bcd1f3-89a8-474c-b094-91ca9fd5c7b5",
+        "location_name": "Post-conflict forest recovery",
+        "area_km_sq": 78.4,
+        "process_driving_change": "Natural forest regeneration in former conflict zones",
+        "basis_for_judgement": "SINCHI monitoring and peace process environmental reports",
+        "recode_deg_to": 1,
+        "recode_stable_to": 1,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "reporting_2"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -74.2,
+              2.8
+            ],
+            [
+              -73.6,
+              2.8
+            ],
+            [
+              -73.6,
+              3.4
+            ],
+            [
+              -74.2,
+              3.4
+            ],
+            [
+              -74.2,
+              2.8
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "5dea1144-d595-4a4a-824e-10f4be73186f",
+        "location_name": "Sustainable coffee cultivation",
+        "area_km_sq": 25.1,
+        "process_driving_change": "Shade-grown coffee transition improving forest cover",
+        "basis_for_judgement": "FNC (Coffee Federation) sustainability reports and field surveys",
+        "recode_deg_to": 1,
+        "recode_stable_to": null,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "baseline",
+          "reporting_2"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.8,
+              4.2
+            ],
+            [
+              -75.4,
+              4.2
+            ],
+            [
+              -75.4,
+              4.6
+            ],
+            [
+              -75.8,
+              4.6
+            ],
+            [
+              -75.8,
+              4.2
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "a4b163c9-c33e-4b02-b92d-84a6c23d154a",
+        "location_name": "Artisanal mining area with restoration",
+        "area_km_sq": 15.7,
+        "process_driving_change": "Small-scale mining with concurrent ecosystem restoration",
+        "basis_for_judgement": "Ministry of Mines environmental compliance reports",
+        "recode_deg_to": 0,
+        "recode_stable_to": null,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "baseline"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -76.5,
+              6.1
+            ],
+            [
+              -76.2,
+              6.1
+            ],
+            [
+              -76.2,
+              6.3
+            ],
+            [
+              -76.5,
+              6.3
+            ],
+            [
+              -76.5,
+              6.1
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uuid": "db189db5-cc0f-4685-b6b2-d973a139b334",
+        "location_name": "Wetland conservation success",
+        "area_km_sq": 42.3,
+        "process_driving_change": "Wetland restoration and protection program results",
+        "basis_for_judgement": "Instituto Humboldt biodiversity monitoring and water quality data",
+        "recode_deg_to": 1,
+        "recode_stable_to": 1,
+        "recode_imp_to": null,
+        "periods_affected": [
+          "baseline",
+          "reporting_2"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -73.9,
+              5.7
+            ],
+            [
+              -73.4,
+              5.7
+            ],
+            [
+              -73.4,
+              6.1
+            ],
+            [
+              -73.9,
+              6.1
+            ],
+            [
+              -73.9,
+              5.7
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -817,60 +817,6 @@
       ]
     }
   },
-  "Land Productivity Dynamics (from Trends.Earth)": {
-    "title": "sdg_prod_combined_title",
-    "ramp": {
-      "type": "categorical",
-      "shader": "exact",
-      "items": [
-        { "value": -32768, "color": "#000000", "label": "nodata" },
-        {
-          "value": 1,
-          "color": "#9b2779",
-          "label": "sdg_prod_combined_declining"
-        },
-        {
-          "value": 2,
-          "color": "#c0749b",
-          "label": "sdg_prod_combined_earlysigns"
-        },
-        {
-          "value": 3,
-          "color": "#e1b9bd",
-          "label": "sdg_prod_combined_stabbutstress"
-        },
-        { "value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab" },
-        { "value": 5, "color": "#006500", "label": "sdg_prod_combined_imp" }
-      ]
-    }
-  },
-  "Land Productivity Dynamics (from TE)": {
-    "title": "sdg_prod_combined_title",
-    "ramp": {
-      "type": "categorical",
-      "shader": "exact",
-      "items": [
-        { "value": -32768, "color": "#000000", "label": "nodata" },
-        {
-          "value": 1,
-          "color": "#9b2779",
-          "label": "sdg_prod_combined_declining"
-        },
-        {
-          "value": 2,
-          "color": "#c0749b",
-          "label": "sdg_prod_combined_earlysigns"
-        },
-        {
-          "value": 3,
-          "color": "#e1b9bd",
-          "label": "sdg_prod_combined_stabbutstress"
-        },
-        { "value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab" },
-        { "value": 5, "color": "#006500", "label": "sdg_prod_combined_imp" }
-      ]
-    }
-  },
   "Productivity degradation (comparison)": {
     "title": "prod_deg_comp_title",
     "ramp": {
@@ -911,7 +857,7 @@
       ]
     }
   },
-  "SDG 15.3.1 Indicator (LPD)": {
+  "Land Productivity Dynamics (from Trends.Earth)": {
     "title": "sdg_prod_combined_title",
     "ramp": {
       "type": "categorical",
@@ -925,31 +871,16 @@
         },
         {
           "value": 2,
-          "color": "#ED7428",
+          "color": "#c0749b",
           "label": "sdg_prod_combined_earlysigns"
         },
         {
           "value": 3,
-          "color": "#FED652",
+          "color": "#e1b9bd",
           "label": "sdg_prod_combined_stabbutstress"
         },
-        { "value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab" },
+        { "value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab" },
         { "value": 5, "color": "#006500", "label": "sdg_prod_combined_imp" }
-      ]
-    }
-  },
-  "Land Productivity Dynamics (LPD)": {
-    "title": "lpd_title",
-    "ramp": {
-      "type": "categorical",
-      "shader": "exact",
-      "items": [
-        { "value": -32768, "color": "#000000", "label": "nodata" },
-        { "value": 1, "color": "#9b2779", "label": "lpd_declining" },
-        { "value": 2, "color": "#ED7428", "label": "lpd_earlysigns" },
-        { "value": 3, "color": "#FED652", "label": "lpd_stabbutstress" },
-        { "value": 4, "color": "#B8D779", "label": "lpd_stab" },
-        { "value": 5, "color": "#006500", "label": "lpd_imp" }
       ]
     }
   },
@@ -961,24 +892,9 @@
       "items": [
         { "value": 0, "color": "#000000", "label": "nodata" },
         { "value": 1, "color": "#9b2779", "label": "lpd_declining" },
-        { "value": 2, "color": "#ED7428", "label": "lpd_earlysigns" },
-        { "value": 3, "color": "#FED652", "label": "lpd_stabbutstress" },
-        { "value": 4, "color": "#B8D779", "label": "lpd_stab" },
-        { "value": 5, "color": "#006500", "label": "lpd_imp" }
-      ]
-    }
-  },
-  "Land Productivity Dynamics (FAO-WOCAT)": {
-    "title": "lpd_fao_wocat_title",
-    "ramp": {
-      "type": "categorical",
-      "shader": "discrete",
-      "items": [
-        { "value": 0, "color": "#000000", "label": "nodata" },
-        { "value": 1, "color": "#9b2779", "label": "lpd_declining" },
-        { "value": 2, "color": "#ED7428", "label": "lpd_earlysigns" },
-        { "value": 3, "color": "#FED652", "label": "lpd_stabbutstress" },
-        { "value": 4, "color": "#B8D779", "label": "lpd_stab" },
+        { "value": 2, "color": "#c0749b", "label": "lpd_earlysigns" },
+        { "value": 3, "color": "#e1b9bd", "label": "lpd_stabbutstress" },
+        { "value": 4, "color": "#ffffe0", "label": "lpd_stab" },
         { "value": 5, "color": "#006500", "label": "lpd_imp" }
       ]
     }
@@ -991,9 +907,9 @@
       "items": [
         { "value": 0, "color": "#000000", "label": "nodata" },
         { "value": 1, "color": "#9b2779", "label": "lpd_declining" },
-        { "value": 2, "color": "#ED7428", "label": "lpd_earlysigns" },
-        { "value": 3, "color": "#FED652", "label": "lpd_stabbutstress" },
-        { "value": 4, "color": "#B8D779", "label": "lpd_stab" },
+        { "value": 2, "color": "#c0749b", "label": "lpd_earlysigns" },
+        { "value": 3, "color": "#e1b9bd", "label": "lpd_stabbutstress" },
+        { "value": 4, "color": "#ffffe0", "label": "lpd_stab" },
         { "value": 5, "color": "#006500", "label": "lpd_imp" }
       ]
     }

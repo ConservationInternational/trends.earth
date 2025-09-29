@@ -1,6 +1,7 @@
 import datetime as dt
 import json
 import logging
+import math
 import os
 import re
 import shutil
@@ -98,27 +99,47 @@ def _get_extent_tuple_raster(path):
 def _get_extent_tuple_vector(path):
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log(f"Trying to calculate extent of vector {path}")
-    rect = QgsVectorLayer(str(path), "vector file", "ogr").extent()
-    if rect:
-        xmin = rect.xMinimum()
-        xmax = rect.xMaximum()
-        ymin = rect.yMinimum()
-        ymax = rect.yMaximum()
-        if any([(val > 180 or val < -180) for val in [xmin, xmax]]) or any(
-            [(val > 90 or val < -90) for val in [ymin, ymax]]
-        ):
-            # If there are not yet any features, then the extent will be set as ranging
-            # from -infinite to infinite - so catch this with above check
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log(f"Failed to calculate extent for {path} - appears undefined")
-            return None
-        else:
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log(f"Calculated extent for {path} - {(xmin, ymin, xmax, ymax)}")
-            return (xmin, ymin, xmax, ymax)
-    else:
-        log("Failed to calculate extent - couldn't open dataset")
+
+    layer = QgsVectorLayer(str(path), "vector file", "ogr")
+    rect = layer.extent()
+
+    try:
+        is_empty = hasattr(rect, "isEmpty") and rect.isEmpty()
+    except Exception:
+        is_empty = False
+
+    if (not rect) or is_empty:
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f"Failed to calculate extent for {path} - extent empty/undefined")
         return None
+
+    xmin = rect.xMinimum()
+    xmax = rect.xMaximum()
+    ymin = rect.yMinimum()
+    ymax = rect.yMaximum()
+
+    vals = [xmin, ymin, xmax, ymax]
+    if any(
+        (v is None) or (isinstance(v, float) and (math.isnan(v) or math.isinf(v)))
+        for v in vals
+    ):
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f"Failed to calculate extent for {path} - NaN/Inf in extent {vals}")
+        return None
+
+    if any((val > 180 or val < -180) for val in [xmin, xmax]) or any(
+        (val > 90 or val < -90) for val in [ymin, ymax]
+    ):
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(
+                f"Failed to calculate extent for {path} - appears undefined/out of bounds "
+                f"({xmin}, {ymin}, {xmax}, {ymax})"
+            )
+        return None
+
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log(f"Calculated extent for {path} - {(xmin, ymin, xmax, ymax)}")
+    return (xmin, ymin, xmax, ymax)
 
 
 def _set_results_extents_raster(job):
@@ -228,6 +249,10 @@ class JobManager(QtCore.QObject):
     _known_failed_jobs: typing.Dict[uuid.UUID, Job]
     _known_deleted_jobs: typing.Dict[uuid.UUID, Job]
     _known_downloaded_jobs: typing.Dict[uuid.UUID, Job]
+    _known_ready_jobs: typing.Dict[uuid.UUID, Job]
+    _known_pending_jobs: typing.Dict[uuid.UUID, Job]
+    _known_cancelled_jobs: typing.Dict[uuid.UUID, Job]
+    _known_expired_jobs: typing.Dict[uuid.UUID, Job]
 
     refreshed_local_state: QtCore.pyqtSignal = QtCore.pyqtSignal()
     refreshed_from_remote: QtCore.pyqtSignal = QtCore.pyqtSignal()
@@ -246,6 +271,34 @@ class JobManager(QtCore.QObject):
         self._state_update_mutex = QtCore.QMutex()
         self.api_client = api.APIClient(API_URL, TIMEOUT)
 
+    def _is_json_file_safe(self, file_path: Path) -> bool:
+        """
+        Safely check if a JSON file can be read without causing crashes.
+        Returns True if the file appears safe to process, False otherwise.
+        """
+        try:
+            # Check basic file properties
+            if not file_path.exists() or file_path.stat().st_size == 0:
+                return False
+
+            # Try to read file content as text first to detect encoding issues
+            with file_path.open(encoding=self._encoding, errors="strict") as fh:
+                content = fh.read(1024)  # Read first 1KB to check for obvious issues
+                if not content.strip():
+                    return False
+
+                # Check if it starts like a JSON object/array
+                content_start = content.strip()[:10]
+                if not (content_start.startswith("{") or content_start.startswith("[")):
+                    return False
+
+            return True
+        except (OSError, IOError, UnicodeDecodeError, MemoryError):
+            return False
+        except Exception:
+            # Any other unexpected error also means the file is not safe
+            return False
+
     @property
     def known_jobs(self):
         return {
@@ -254,16 +307,27 @@ class JobManager(QtCore.QObject):
             jobs.JobStatus.FAILED: self._known_failed_jobs,
             jobs.JobStatus.DELETED: self._known_deleted_jobs,
             jobs.JobStatus.DOWNLOADED: self._known_downloaded_jobs,
+            jobs.JobStatus.READY: self._known_ready_jobs,
+            jobs.JobStatus.PENDING: self._known_pending_jobs,
+            jobs.JobStatus.CANCELLED: self._known_cancelled_jobs,
+            jobs.JobStatus.EXPIRED: self._known_expired_jobs,
         }
 
     @property
     def relevant_jobs(self) -> typing.List[Job]:
+        """Return a list of all jobs that are relevant to show to the user"""
         relevant_statuses = (
+            jobs.JobStatus.READY,
+            jobs.JobStatus.PENDING,
             jobs.JobStatus.RUNNING,
             jobs.JobStatus.FINISHED,
             jobs.JobStatus.FAILED,
-            jobs.JobStatus.DOWNLOADED,
+            jobs.JobStatus.DOWNLOADED,  # This includes both DOWNLOADED and GENERATED_LOCALLY jobs
+            jobs.JobStatus.CANCELLED,
+            jobs.JobStatus.EXPIRED,
         )
+        result = []
+
         result = []
 
         for status in relevant_statuses:
@@ -299,6 +363,13 @@ class JobManager(QtCore.QObject):
         )
 
     @property
+    def expired_jobs_dir(self) -> Path:
+        return (
+            Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR))
+            / "expired-jobs"
+        )
+
+    @property
     def datasets_dir(self) -> Path:
         return Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "datasets"
 
@@ -312,6 +383,10 @@ class JobManager(QtCore.QObject):
         self._known_failed_jobs = {}
         self._known_deleted_jobs = {}
         self._known_downloaded_jobs = {}
+        self._known_ready_jobs = {}
+        self._known_pending_jobs = {}
+        self._known_cancelled_jobs = {}
+        self._known_expired_jobs = {}
 
     def refresh_local_state(self):
         """Update dataset manager's in-memory cache by scanning the local filesystem
@@ -358,6 +433,7 @@ class JobManager(QtCore.QObject):
         # downloaded (or are old and failed)
         self._get_local_finished_jobs()
         self._get_local_failed_jobs()
+        self._get_local_expired_jobs()
 
         self._state_update_mutex.unlock()
 
@@ -428,7 +504,9 @@ class JobManager(QtCore.QObject):
         self._refresh_local_running_jobs(relevant_remote_jobs)
         self._refresh_local_finished_jobs(relevant_remote_jobs)
         self._refresh_local_downloaded_jobs()
-        self._refresh_local_generated_jobs()
+        self._refresh_remote_failed_jobs(relevant_remote_jobs)
+        self._refresh_remote_jobs_by_status(relevant_remote_jobs)
+        self._get_local_expired_jobs()
 
         log(
             f"JobManager refresh completed - found {len(relevant_remote_jobs)} relevant remote jobs"
@@ -697,9 +775,8 @@ class JobManager(QtCore.QObject):
 
         self._move_job_to_dir(job, job.status, force_rewrite=True)
 
-        if job.status == jobs.JobStatus.PENDING:
-            status = jobs.JobStatus.RUNNING
-        elif job.status == jobs.JobStatus.GENERATED_LOCALLY:
+        # Handle special case where GENERATED_LOCALLY is tracked as DOWNLOADED in cache
+        if job.status == jobs.JobStatus.GENERATED_LOCALLY:
             status = jobs.JobStatus.DOWNLOADED
         else:
             status = job.status
@@ -884,6 +961,8 @@ class JobManager(QtCore.QObject):
             }
 
         self._init_error_recode_layer(job)
+        if not hasattr(job.results, "extent") or job.results.extent is None:
+            set_results_extents(job)
         self.write_job_metadata_file(job)
         self.known_jobs[job.status][job.id] = job
         self.imported_job.emit(job)
@@ -968,13 +1047,38 @@ class JobManager(QtCore.QObject):
                 output_path,
             )
         job.results.vector.uri = URI(uri=output_path)
+        vec_extent = _get_extent_tuple_vector(output_path)
+
+        if vec_extent is not None:
+            job.results.extent = vec_extent
+        else:
+
+            def _union(ext1, ext2):
+                if ext1 is None:
+                    return ext2
+                if ext2 is None:
+                    return ext1
+                xmin = min(ext1[0], ext2[0])
+                ymin = min(ext1[1], ext2[1])
+                xmax = max(ext1[2], ext2[2])
+                ymax = max(ext1[3], ext2[3])
+                return (xmin, ymin, xmax, ymax)
+
+            union_extent = None
+            for key in ("prod", "lc", "soil", "sdg"):
+                param = job.params.get(key)
+                if param and param.get("path"):
+                    try:
+                        rext = _get_extent_tuple_raster(Path(param["path"]))
+                    except Exception:
+                        rext = None
+                    union_extent = _union(union_extent, rext)
+
+            job.results.extent = union_extent
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
-        status = job.status
-
-        if status == jobs.JobStatus.PENDING:
-            status = jobs.JobStatus.RUNNING
-        self.known_jobs[status][job.id] = job
+        # Track jobs in their actual status - PENDING and RUNNING are different states
+        self.known_jobs[job.status][job.id] = job
 
     def _change_job_status(
         self, job: Job, target: jobs.JobStatus, force_rewrite: bool = True
@@ -982,9 +1086,8 @@ class JobManager(QtCore.QObject):
         """Modify a job's status both in the in-memory cache and on the filesystem"""
         previous_status = job.status
 
-        if previous_status == jobs.JobStatus.PENDING:
-            previous_status = jobs.JobStatus.RUNNING
-        elif previous_status == jobs.JobStatus.GENERATED_LOCALLY:
+        # Handle special case where GENERATED_LOCALLY is treated as DOWNLOADED for cache management
+        if previous_status == jobs.JobStatus.GENERATED_LOCALLY:
             previous_status = jobs.JobStatus.DOWNLOADED
         # this already sets the new status on the job
         self._move_job_to_dir(job, target, force_rewrite=force_rewrite)
@@ -1154,13 +1257,11 @@ class JobManager(QtCore.QObject):
         return self._known_finished_jobs
 
     def _refresh_local_downloaded_jobs(self):
+        # Include both DOWNLOADED and GENERATED_LOCALLY jobs since they're stored in the same directory
+        downloaded_jobs = self._get_local_jobs(jobs.JobStatus.DOWNLOADED)
+        generated_locally_jobs = self._get_local_jobs(jobs.JobStatus.GENERATED_LOCALLY)
         self._known_downloaded_jobs = {
-            j.id: j for j in self._get_local_jobs(jobs.JobStatus.DOWNLOADED)
-        }
-
-    def _refresh_local_generated_jobs(self):
-        self._known_downloaded_jobs = {
-            j.id: j for j in self._get_local_jobs(jobs.JobStatus.GENERATED_LOCALLY)
+            j.id: j for j in downloaded_jobs + generated_locally_jobs
         }
 
     def _refresh_local_deleted_jobs(self):
@@ -1203,32 +1304,67 @@ class JobManager(QtCore.QObject):
             jobs.JobStatus.FINISHED: self.finished_jobs_dir,
             jobs.JobStatus.FAILED: self.failed_jobs_dir,
             jobs.JobStatus.RUNNING: self.running_jobs_dir,
+            jobs.JobStatus.PENDING: self.running_jobs_dir,
+            jobs.JobStatus.READY: self.running_jobs_dir,
+            jobs.JobStatus.CANCELLED: self.failed_jobs_dir,
             jobs.JobStatus.DELETED: self.deleted_jobs_dir,
+            jobs.JobStatus.EXPIRED: self.expired_jobs_dir,
             jobs.JobStatus.DOWNLOADED: self.datasets_dir,
             jobs.JobStatus.GENERATED_LOCALLY: self.datasets_dir,
         }[status]
         result = []
 
         for job_metadata_path in base_dir.glob("**/*.json"):
-            with job_metadata_path.open(encoding=self._encoding) as fh:
+            try:
+                if not self._is_json_file_safe(job_metadata_path):
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log(f"Skipping unsafe or corrupted file {job_metadata_path!r}")
+                    continue
+
                 try:
-                    raw_job = json.load(fh)
+                    with job_metadata_path.open(encoding=self._encoding) as fh:
+                        raw_job = json.load(fh)
+
+                    if not isinstance(raw_job, dict):
+                        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                            log(
+                                f"File {job_metadata_path!r} does not contain a valid JSON object"
+                            )
+                        continue
+
                     job = Job.Schema().load(raw_job)
                     set_results_extents(job)
-                except (KeyError, json.decoder.JSONDecodeError):
+                    # Only include jobs that match the requested status
+                    if job.status == status:
+                        result.append(job)
+                except (OSError, IOError, PermissionError) as exc:
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log(f"Failed to read file {job_metadata_path!r}: {exc}")
+                except (KeyError, json.decoder.JSONDecodeError) as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
-                            f"Unable to decode file {job_metadata_path!r} as valid json"
+                            f"Unable to decode file {job_metadata_path!r} as valid json: {exc}"
                         )
-                except ValidationError:
+                except ValidationError as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
-                            f"Unable to decode file {job_metadata_path!r} - validation error decoding job"
+                            f"Unable to decode file {job_metadata_path!r} - validation error: {exc}"
                         )
+                except (ValueError, TypeError, AttributeError, MemoryError) as exc:
+                    # Catch additional errors that could cause crashes
+                    log(
+                        f"Error processing file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
+                    )
                 except RuntimeError as exc:
-                    log(str(exc))
-                else:
-                    result.append(job)
+                    log(f"Runtime error processing file {job_metadata_path!r}: {exc}")
+            except (OSError, IOError, PermissionError) as exc:
+                # Handle file system errors
+                log(f"File system error accessing {job_metadata_path!r}: {exc}")
+            except Exception as exc:
+                # Catch-all to prevent crashes from unexpected errors
+                log(
+                    f"Unexpected error processing {job_metadata_path!r}: {type(exc).__name__}: {exc}"
+                )
 
         return result
 
@@ -1261,10 +1397,12 @@ class JobManager(QtCore.QObject):
                 if job_age.days > self._relevant_job_age_threshold_days:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
-                            f"Removing job {finished_job.id!r} as it is no longer possible to "
-                            f"download its results..."
+                            f"Transitioning job {finished_job.id!r} to EXPIRED status "
+                            f"as it is no longer possible to download its results..."
                         )
-                    self._remove_job_metadata_file(finished_job)
+                    self._change_job_status(
+                        finished_job, jobs.JobStatus.EXPIRED, force_rewrite=True
+                    )
                 else:
                     self._known_finished_jobs[finished_job.id] = finished_job
 
@@ -1297,13 +1435,33 @@ class JobManager(QtCore.QObject):
 
         return self._known_failed_jobs
 
+    def _get_local_expired_jobs(self) -> typing.Dict[uuid.UUID, Job]:
+        """Synchronize the in-memory cache and filesystem with regard to expired jobs.
+
+        This method takes care of checking the local filesystem directory for expired
+        jobs and updates the in-memory cache. Expired jobs are kept for historical
+        purposes and to show users what jobs have expired.
+        """
+
+        self._known_expired_jobs = {
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.EXPIRED)
+        }
+
+        return self._known_expired_jobs
+
     def get_job_file_path(self, job: Job) -> Path:
-        if job.status in (jobs.JobStatus.RUNNING, jobs.JobStatus.PENDING):
+        if job.status in (
+            jobs.JobStatus.RUNNING,
+            jobs.JobStatus.PENDING,
+            jobs.JobStatus.READY,
+        ):
             base = self.running_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
-        elif job.status == jobs.JobStatus.FAILED:
+        elif job.status in (jobs.JobStatus.FAILED, jobs.JobStatus.CANCELLED):
             base = self.failed_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.FINISHED:
             base = self.finished_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
+        elif job.status == jobs.JobStatus.EXPIRED:
+            base = self.expired_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.DELETED:
             base = self.deleted_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status in (
@@ -1336,6 +1494,93 @@ class JobManager(QtCore.QObject):
 
         if old_path.exists():
             old_path.unlink()  # not using the `missing_ok` param as it was introduced only in Python 3.8
+
+    def _refresh_remote_jobs_by_status(self, remote_jobs: typing.List[Job]) -> None:
+        """Update in-memory cache with READY, PENDING, and CANCELLED jobs from remote server"""
+        # Preserve existing local jobs first, then merge with remote
+        # This prevents newly submitted jobs from disappearing during refresh
+
+        # Start with existing local jobs for each status
+        local_ready_jobs = self._get_local_jobs(jobs.JobStatus.READY)
+        local_pending_jobs = self._get_local_jobs(jobs.JobStatus.PENDING)
+        local_cancelled_jobs = self._get_local_jobs(jobs.JobStatus.CANCELLED)
+
+        # Initialize caches with existing local jobs
+        self._known_ready_jobs = {j.id: j for j in local_ready_jobs}
+        self._known_pending_jobs = {j.id: j for j in local_pending_jobs}
+        self._known_cancelled_jobs = {j.id: j for j in local_cancelled_jobs}
+
+        # Process remote jobs and merge/update
+        remote_ids_by_status = {
+            jobs.JobStatus.READY: set(),
+            jobs.JobStatus.PENDING: set(),
+            jobs.JobStatus.CANCELLED: set(),
+        }
+
+        for remote_job in remote_jobs:
+            if remote_job.status == jobs.JobStatus.READY:
+                self._known_ready_jobs[remote_job.id] = remote_job
+                remote_ids_by_status[jobs.JobStatus.READY].add(remote_job.id)
+            elif remote_job.status == jobs.JobStatus.PENDING:
+                self._known_pending_jobs[remote_job.id] = remote_job
+                remote_ids_by_status[jobs.JobStatus.PENDING].add(remote_job.id)
+            elif remote_job.status == jobs.JobStatus.CANCELLED:
+                self._known_cancelled_jobs[remote_job.id] = remote_job
+                remote_ids_by_status[jobs.JobStatus.CANCELLED].add(remote_job.id)
+
+        # Only remove local jobs if they appear in the remote list with a different status
+        # This indicates they've actually changed status remotely
+        all_remote_job_ids = {job.id for job in remote_jobs}
+
+        for local_job in local_ready_jobs:
+            if (
+                local_job.id in all_remote_job_ids
+                and local_job.id not in remote_ids_by_status[jobs.JobStatus.READY]
+            ):
+                # Job exists remotely but with different status - it has changed
+                if local_job.id in self._known_ready_jobs:
+                    del self._known_ready_jobs[local_job.id]
+                    self._remove_job_metadata_file(local_job)
+
+        for local_job in local_pending_jobs:
+            if (
+                local_job.id in all_remote_job_ids
+                and local_job.id not in remote_ids_by_status[jobs.JobStatus.PENDING]
+            ):
+                # Job exists remotely but with different status - it has changed
+                if local_job.id in self._known_pending_jobs:
+                    del self._known_pending_jobs[local_job.id]
+                    self._remove_job_metadata_file(local_job)
+
+        for local_job in local_cancelled_jobs:
+            if (
+                local_job.id in all_remote_job_ids
+                and local_job.id not in remote_ids_by_status[jobs.JobStatus.CANCELLED]
+            ):
+                # Job exists remotely but with different status - it has changed
+                if local_job.id in self._known_cancelled_jobs:
+                    del self._known_cancelled_jobs[local_job.id]
+                    self._remove_job_metadata_file(local_job)
+
+    def _refresh_remote_failed_jobs(self, remote_jobs: typing.List[Job]) -> None:
+        """Update in-memory cache with FAILED jobs from remote server"""
+        # Start with local failed jobs from disk
+        self._known_failed_jobs = {
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.FAILED)
+        }
+        local_ids = self._known_failed_jobs.keys()
+        deleted_ids = self._known_deleted_jobs.keys()
+        remote_failed = [j for j in remote_jobs if j.status == jobs.JobStatus.FAILED]
+
+        for remote_job in remote_failed:
+            if remote_job.id in deleted_ids:
+                continue  # this job has previously been deleted by the user
+            elif remote_job.id in local_ids:
+                continue  # we already know about this job
+            else:
+                # this is a new failed job that we are interested in
+                self._known_failed_jobs[remote_job.id] = remote_job
+                self.write_job_metadata_file(remote_job)
 
 
 def _get_local_job_output_paths(job: Job) -> typing.Tuple[Path, Path]:

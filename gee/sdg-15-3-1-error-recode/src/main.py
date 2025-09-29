@@ -3,6 +3,7 @@ Code for calculating all three SDG 15.3.1 sub-indicators.
 """
 
 # Copyright 2017 Conservation International
+import os
 import random
 import tempfile
 from pathlib import Path
@@ -32,14 +33,56 @@ RECODE_SCRIPT = algorithms.ExecutionScript.Schema().load(
     }
 )
 
+_band_key = {
+    "baseline": {
+        "name": "SDG 15.3.1 Indicator",
+        "filters": [{"field": "year_final", "value": 2015}],
+    },
+    "reporting_1": {
+        "name": "SDG 15.3.1 Indicator",
+        "filters": [{"field": "year_final", "value": 2019}],
+    },
+    "reporting_2": {
+        "name": "SDG 15.3.1 Indicator",
+        "filters": [{"field": "year_final", "value": 2023}],
+    },
+}
+
+
+def _recode_band(recode_params, write_tifs, aoi, execution_id, logger):
+    logger.info("Starting error recoding calculation")
+    with tempfile.TemporaryDirectory() as temp_dir:
+        input_job_data = recode_params["input_job"]
+        output_path_stem = Path(input_job_data.get("results_uri", "output")).stem
+
+        recode_params["output_path"] = Path(temp_dir) / output_path_stem
+        logger.debug(f"Set output path to: {recode_params['output_path']}")
+        results = recode_errors(recode_params)
+        logger.debug("recode_errors function finished.")
+
+        results.data = {
+            "report": results.data,
+            "input_job": input_job_data,
+        }
+
+        if write_tifs:
+            logger.info("Writing tifs")
+            logger.debug(f"Writing results to S3 with EXECUTION_ID: {execution_id}")
+            results = util.write_results_to_s3_cog(
+                results,
+                aoi,
+                filename_base=execution_id,
+                s3_prefix="prais5-recode",
+                s3_bucket=S3_BUCKET_USER_DATA,
+            )
+            logger.debug("Finished writing tifs to S3.")
+        return results
+
 
 def calculate_error_recode(
-    aoi,
     error_polygons,
     script_name,
     iso,
-    band_name,
-    filters,
     boundary_dataset,
     substr_regexs,
     write_tifs,
@@ -49,19 +92,10 @@ def calculate_error_recode(
     """
     Calculate error recoding for land degradation indicators.
 
-    This function supports both single-period and multi-period land degradation jobs.
-    For multi-period jobs, use the filters parameter to specify which reporting year
-    to target (e.g., [{"field": "reporting_year_final", "value": 2020}]).
-
     Args:
-        aoi: Area of Interest object defining the spatial bounds for analysis
         error_polygons (ErrorRecodePolygons): Polygons defining areas to be recoded
         script_name (str): Name of the script used to generate the input data
         iso (str): ISO country code for the analysis area
-        band_name (str): Name of the band to be recoded (e.g., "SDG 15.3.1 Indicator (status)")
-        filters (list): List of filter dictionaries to select specific bands based on metadata.
-                       For multi-period jobs, include reporting year filter:
-                       [{"field": "reporting_year_final", "value": 2020}]
         boundary_dataset (str): Name of the boundary dataset used (e.g., "UN")
         substr_regexs (list): List of substring regex patterns for job identification
         write_tifs (bool): Whether to write output as GeoTIFF files to S3
@@ -75,10 +109,10 @@ def calculate_error_recode(
         IndexError: If no input job is found matching the specified criteria
         Exception: If no bands are found matching the band_name and filters
     """
+
+    # Get input job
     logger.debug("Entering calculate_error_recode function")
-    filename_base = iso
-    filename_base += "_" + boundary_dataset
-    filename_base += "_" + script_name
+    filename_base = iso + "_" + boundary_dataset + "_" + script_name
     s3_prefix = f"{S3_PREFIX_RAW_DATA}/" + filename_base
     logger.info(f"Looking for prefix {s3_prefix}")
     logger.debug(f"Searching with substr_regexs: {substr_regexs}")
@@ -96,93 +130,161 @@ def calculate_error_recode(
         logger.error(f"Failed to load input job from prefix {s3_prefix}: {exc}")
         raise exc
 
-    error_recode_tif = tempfile.NamedTemporaryFile(
-        suffix="_error_recode.tif", delete=False
-    ).name
-    logger.debug(f"Created temporary file for error recode raster: {error_recode_tif}")
-    rasterize_error_recode(error_recode_tif, input_job.results.uri.uri, error_polygons)
-    error_recode_band = Band(
-        name=ERROR_RECODE_BAND_NAME,
-        metadata={},
-        no_data_value=int(ld_config.NODATA_VALUE),
-        activated=True,
+    aoi = AOI(
+        input_job.results.data["report"]["metadata"]["area_of_interest"]["geojson"]
     )
 
-    input_band = None
-    logger.debug(f"Searching for band '{band_name}' with filters: {filters}")
-    try:
-        input_band = util.get_band_by_name(
-            input_job,
-            band_name,
-            filters,
-        )
-    except IndexError:
-        logger.exception(f"Failed to load band name {band_name}")
-        raise
-    except Exception as exc:
-        logger.exception(f"Failed to load band {band_name} with filters {filters}")
-        raise exc
-
-    if input_band is None:
-        raise Exception(f"Failed to load band {band_name}")
-    logger.debug(
-        f"Found input band: {input_band.band.name} (band number {input_band.band_number})"
-    )
-
-    recode_params = {
-        "write_tifs": write_tifs,
-        "local_context": jobs.JobLocalContext.Schema().dump(input_job.local_context),
-        "task_name": input_job.task_name,
-        "metadata": input_band.band.metadata,
-        "task_notes": input_job.task_notes,
-        "layer_input_band_path": str(input_job.results.uri.uri),
-        "layer_input_band": Band.Schema().dump(input_band.band),
-        "layer_input_band_index": input_band.band_number,
-        "layer_error_recode_path": str(error_recode_tif),
-        "layer_error_recode_band": Band.Schema().dump(error_recode_band),
-        "layer_error_recode_band_index": 1,
-        "error_polygons": ErrorRecodePolygons.Schema().dump(error_polygons),
-        "input_job": jobs.Job.Schema().dump(input_job),
-        "aoi": AOI.Schema().dump(aoi),
-    }
-
-    logger.debug(f"Recode parameters: {recode_params}")
-    logger.info("Starting error recoding calculation")
+    # Rasterize the error recode polygons
     with tempfile.TemporaryDirectory() as temp_dir:
-        recode_params["output_path"] = Path(temp_dir) / input_job.results.uri.uri.stem
-        logger.debug(f"Set output path to: {recode_params['output_path']}")
-        results = recode_errors(recode_params)
-        logger.debug("recode_errors function finished.")
+        error_recode_tif = os.path.join(temp_dir, f"{EXECUTION_ID}_error_recode.vrt")
+        logger.debug(
+            f"Created temporary file for error recode raster: {error_recode_tif}"
+        )
+        try:
+            rasterize_error_recode(
+                Path(error_recode_tif), input_job.results.uri.uri, error_polygons
+            )
+            logger.debug(
+                f"Successfully created error recode raster: {error_recode_tif}"
+            )
 
-        # Save the input job to results as well
-        results.data = {
-            "report": results.data,
-            "input_job": jobs.Job.Schema().dump(input_job),
-            "input_band_index": input_band.band_number,
+            # Verify the file was created and exists
+            if not os.path.exists(error_recode_tif):
+                raise FileNotFoundError(
+                    f"Error recode file was not created: {error_recode_tif}"
+                )
+
+        except Exception as exc:
+            logger.error(f"Failed to rasterize error recode polygons: {exc}")
+            raise
+
+        # Create band definition for the error recode raster (first band)
+        error_recode_band = Band(
+            name=ERROR_RECODE_BAND_NAME,
+            metadata={},
+            no_data_value=int(ld_config.NODATA_VALUE),
+            activated=True,
+        )
+
+        # Continue with processing inside the temp directory context
+        # Determine which bands to process based on periods_affected values in error_polygons
+        periods_to_process = set()
+        for polygon in error_polygons.features:
+            if (
+                hasattr(polygon.properties, "periods_affected")
+                and polygon.properties.periods_affected
+            ):
+                for period in polygon.properties.periods_affected:
+                    periods_to_process.add(period)
+
+        if not periods_to_process:
+            raise Exception(
+                "No periods specified in error polygons; at least one period is required."
+            )
+        # Convert to a dictionary
+        periods_to_process = {period: {} for period in periods_to_process}
+
+        logger.debug(
+            f"Periods to process based on error polygons: {periods_to_process}"
+        )
+
+        for period, value in periods_to_process.items():
+            band_name = _band_key[period]["name"]
+            filters = _band_key[period]["filters"]
+
+            try:
+                input_band = util.get_band_by_name(
+                    input_job,
+                    band_name,
+                    filters,
+                )
+            except IndexError:
+                logger.exception(f"Failed to load band name {band_name}")
+                raise
+            except Exception as exc:
+                logger.exception(
+                    f"Failed to load band {band_name} with filters {filters}"
+                )
+                raise exc
+
+            if input_band is None:
+                raise Exception(f"Failed to load band {band_name}")
+            logger.debug(
+                f"Found input band: {input_band.band.name} (band number {input_band.band_number})"
+            )
+            value["band"] = input_band.band
+            value["band_number"] = input_band.band_number
+
+        # Build recode_params with multi-band support
+        # Include only essential input job metadata to reduce memory/size
+        input_job_metadata = {
+            "id": input_job.id,
+            "task_name": input_job.task_name,
+            "task_notes": input_job.task_notes,
+            "created": getattr(input_job, "created", None),
+            "results_uri": str(input_job.results.uri.uri)
+            if input_job.results and input_job.results.uri
+            else None,
         }
 
-        if write_tifs:
-            logger.info("Writing tifs")
-            logger.debug(f"Writing results to S3 with EXECUTION_ID: {EXECUTION_ID}")
-            results = util.write_results_to_s3_cog(
-                results,
-                aoi,
-                filename_base=EXECUTION_ID,
-                s3_prefix="prais-4",
-                s3_bucket=S3_BUCKET_USER_DATA,
+        recode_params = {
+            "write_tifs": write_tifs,
+            "local_context": jobs.JobLocalContext.Schema().dump(
+                input_job.local_context
+            ),
+            "task_name": input_job.task_name,
+            "metadata": periods_to_process["baseline"]["band"].metadata,
+            "task_notes": input_job.task_notes,
+            "layer_baseline_band_path": str(input_job.results.uri.uri),
+            "layer_baseline_band": Band.Schema().dump(
+                periods_to_process["baseline"]["band"]
+            ),
+            "layer_baseline_band_index": periods_to_process["baseline"]["band_number"],
+            "layer_error_recode_path": str(error_recode_tif),
+            "layer_error_recode_band": Band.Schema().dump(error_recode_band),
+            "error_polygons": ErrorRecodePolygons.Schema().dump(error_polygons),
+            "input_job": input_job_metadata,  # Use minimal metadata instead of full job
+            "aoi": aoi.geojson,
+        }
+
+        if "reporting_1" in periods_to_process:
+            recode_params.update(
+                {
+                    "layer_reporting_1_band_path": str(input_job.results.uri.uri),
+                    "layer_reporting_1_band": Band.Schema().dump(
+                        periods_to_process["reporting_1"]["band"]
+                    ),
+                    "layer_reporting_1_band_index": periods_to_process["reporting_1"][
+                        "band_number"
+                    ],
+                }
             )
-            logger.debug("Finished writing tifs to S3.")
 
-    if isinstance(results, RasterResults):
-        results = RasterResults.Schema().dump(results)
+        if "reporting_2" in periods_to_process:
+            recode_params.update(
+                {
+                    "layer_reporting_2_band_path": str(input_job.results.uri.uri),
+                    "layer_reporting_2_band": Band.Schema().dump(
+                        periods_to_process["reporting_2"]["band"]
+                    ),
+                    "layer_reporting_2_band_index": periods_to_process["reporting_2"][
+                        "band_number"
+                    ],
+                }
+            )
 
-    elif isinstance(results, JsonResults):
-        results = JsonResults.Schema().dump(results)
-    else:
-        raise Exception
+        results = _recode_band(recode_params, write_tifs, aoi, EXECUTION_ID, logger)
 
-    logger.debug("calculate_error_recode function finished, returning results.")
-    return results
+        if isinstance(results, RasterResults):
+            results = RasterResults.Schema().dump(results)
+
+        elif isinstance(results, JsonResults):
+            results = JsonResults.Schema().dump(results)
+        else:
+            raise Exception
+
+        logger.debug("calculate_error_recode function finished, returning results.")
+        return results
 
 
 def run(params, logger):
@@ -195,15 +297,10 @@ def run(params, logger):
 
     Args:
         params (dict): Dictionary containing all required parameters:
-            - aoi: Area of Interest specification
             - error_polygons: Error polygons for recoding
-            - script_name (str): Name of the script used to generate input data
             - iso (str): ISO country code
-            - band_name (str): Name of the band to recode
-            - filters (list): Metadata filters for band selection. For multi-period jobs,
-                             include: [{"field": "reporting_year_final", "value": year}]
             - boundary_dataset (str, optional): Boundary dataset name (default: "UN")
-            - productivity_dataset (str, optional): Productivity dataset mode (default: JRC_5_CLASS_LPD)
+            - productivity_dataset (str, optional): Productivity dataset mode (default: TRENDS_EARTH_5_CLASS_LPD)
             - write_tifs (bool, optional): Whether to write GeoTIFF outputs (default: False)
             - substr_regexs (list, optional): Additional regex patterns for job matching
             - ENV (str, optional): Environment ("dev" for development)
@@ -214,7 +311,6 @@ def run(params, logger):
         dict: Serialized results from the error recoding process
     """
     logger.debug("Loading parameters.")
-    logger.debug(f"Initial params: {params}")
 
     # Check the ENV. Are we running this locally or in prod?
 
@@ -224,14 +320,9 @@ def run(params, logger):
         EXECUTION_ID = params.get("EXECUTION_ID", None)
     logger.debug(f"Execution ID is {EXECUTION_ID}")
 
-    aoi = AOI(params["aoi"])
-    logger.debug("AOI loaded.")
     error_polygons = ErrorRecodePolygons.Schema().load(params["error_polygons"])
     logger.debug("Error polygons loaded.")
-    script_name = params["script_name"]
     iso = params["iso"]
-    band_name = params["band_name"]
-    filters = params["filters"]
     boundary_dataset = params.get("boundary_dataset", "UN")
     productivity_dataset = params.get(
         "productivity_dataset", ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
@@ -240,21 +331,12 @@ def run(params, logger):
 
     substr_regexs = params.get("substr_regexs", [])
     substr_regexs.append(productivity_dataset)
-    logger.debug(
-        f"Final parameters for calculate_error_recode: "
-        f"iso={iso}, script_name={script_name}, band_name={band_name}, "
-        f"filters={filters}, boundary_dataset={boundary_dataset}, "
-        f"substr_regexs={substr_regexs}, write_tifs={write_tifs}"
-    )
 
     logger.debug("Calling calculate_error_recode.")
     return calculate_error_recode(
-        aoi,
         error_polygons,
-        script_name,
+        "sdg-15-3-1-summary-2-1-17",
         iso,
-        band_name,
-        filters,
         boundary_dataset,
         substr_regexs,
         write_tifs,

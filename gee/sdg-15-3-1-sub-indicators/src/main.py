@@ -11,13 +11,14 @@ from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
 from te_algorithms.gee.land_cover import land_cover
 from te_algorithms.gee.productivity import (
+    calc_prod5,
     productivity_faowocat,
     productivity_performance,
     productivity_state,
     productivity_trajectory,
 )
 from te_algorithms.gee.soc import soc
-from te_algorithms.gee.util import teimage_v1_to_teimage_v2
+from te_algorithms.gee.util import TEImageV2, teimage_v1_to_teimage_v2
 from te_schemas import results
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
@@ -127,8 +128,6 @@ def _run_faowocat_for_period(params, max_workers, execution_id, logger):
                 [
                     "Soil organic carbon (degradation)",
                     "Land cover (degradation)",
-                    "Productivity trajectory (significance)",
-                    "Productivity state (degradation)",
                     config.FAO_WOCAT_LPD_BAND_NAME,
                 ]
             )
@@ -205,6 +204,25 @@ def run_te_for_period(params, EXECUTION_ID, logger):
         )
     )
 
+    # Calculate 5-class productivity layer from sub-indicators
+    logger.debug("Calculating 5-class productivity layer")
+    prod_traj_signif = out.getImages(
+        ["Productivity trajectory (significance)"],
+    )
+    prod_perf_deg = out.getImages(
+        ["Productivity performance (degradation)"],
+    )
+    prod_state_classes = out.getImages(
+        ["Productivity state (degradation)"],
+    )
+    deg_prod5 = calc_prod5(prod_traj_signif, prod_perf_deg, prod_state_classes)
+
+    # Rename the prod5 band to match the naming convention
+    prod_mode = params.get("productivity", {}).get("mode", "TRENDS_EARTH_5_CLASS_LPD")
+    prod_year_initial = params.get("productivity")["traj_year_initial"]
+    prod_year_final = params.get("productivity")["traj_year_final"]
+    deg_prod5 = deg_prod5.rename(f"{prod_mode}_{prod_year_initial}-{prod_year_final}")
+
     if params.get("annual_lc"):
         lc_years = [
             *range(
@@ -236,14 +254,30 @@ def run_te_for_period(params, EXECUTION_ID, logger):
 
     out.merge(_run_soc(params.get("soil_organic_carbon"), logger))
 
+    # Add the 5-class productivity layer to the output
+    logger.debug("Adding 5-class productivity layer to output")
+    prod5_teimage_v2 = TEImageV2()
+    prod5_teimage_v2.add_image(
+        deg_prod5.unmask(-32768).int16(),
+        [
+            results.Band(
+                config.TE_LPD_BAND_NAME,
+                metadata={
+                    "year_initial": prod_year_initial,
+                    "year_final": prod_year_final,
+                },
+            )
+        ],
+        results.DataType.INT16,
+    )
+    out.merge(prod5_teimage_v2)
+
     logger.debug("Setting up layers to add to the map.")
     out.setAddToMap(
         [
             "Soil organic carbon (degradation)",
             "Land cover (degradation)",
-            "Productivity trajectory (significance)",
-            "Productivity state (degradation)",
-            "Productivity performance (degradation)",
+            config.TE_LPD_BAND_NAME,
         ]
     )
 

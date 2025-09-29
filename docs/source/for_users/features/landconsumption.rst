@@ -45,7 +45,7 @@ Assessing changes in SDG 11.3.1. over time requires a significant amount of info
 .. image:: ../../../resources/en/documentation/understanding_indicators11/sdg11_data_needs.png
    :align: center
    
-`Figure 2: Trends.Earth works-flow to computing SDG 11.3.1. Global 30m impervious surface indices have been pre-computed and are available for the users to explore in the` `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ `where the user defines built-up extent by simply assigning a series of thresholds.`
+Figure 2: Trends.Earth works-flow to computing SDG 11.3.1. Global 30m impervious surface indices have been pre-computed and are available for the users to explore in the `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ where the user defines built-up extent by simply assigning a series of thresholds.
 
 Land consumption
 ----------------

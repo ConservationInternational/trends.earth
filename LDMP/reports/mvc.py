@@ -50,6 +50,16 @@ class DatasetReportHandler:
         # Connect signal for report task completion
         report_generator_manager.task_completed.connect(self.on_task_completed)
 
+    def _safe_button_access(self, action_func):
+        """Safely access the button with error handling for deleted widgets."""
+        if self._rpt_btn is not None:
+            try:
+                return action_func(self._rpt_btn)
+            except RuntimeError:
+                # Button has been deleted, clear the reference
+                self._rpt_btn = None
+        return None
+
     @property
     def report_button(self) -> QPushButton:
         return self._rpt_btn
@@ -76,13 +86,13 @@ class DatasetReportHandler:
         self._open_layouts_action.setToolTip(self.tr("Open report layouts in QGIS"))
         self._open_layouts_action.triggered.connect(self.open_designer)
 
-        self._rpt_btn.setMenu(self._rpt_menu)
+        self._safe_button_access(lambda btn: btn.setMenu(self._rpt_menu))
 
         # Check report configuration based on the nature of the job
         if self._job.is_vector():
             # To be used to generate reports for vector results in the
             # future. For now, the process exits.
-            self._rpt_btn.setVisible(False)
+            self._safe_button_access(lambda btn: btn.setVisible(False))
             return
         else:
             scope = self._job.script.name
@@ -91,7 +101,7 @@ class DatasetReportHandler:
         configs = template_manager.configs_by_scope_name(scope, single_scope_configs)
 
         if len(configs) == 0:
-            self._rpt_btn.setVisible(False)
+            self._safe_button_access(lambda btn: btn.setVisible(False))
             return
         else:
             self._rpt_config = configs[0]
@@ -106,7 +116,9 @@ class DatasetReportHandler:
     def update_report_status(self) -> bool:
         # Enable/disable report button based on job and results status.
         rpt_status = self.check_job_report_status()
-        self._rpt_btn.setEnabled(rpt_status)
+
+        # Safely update button status
+        self._safe_button_access(lambda btn: btn.setEnabled(rpt_status))
 
         return rpt_status
 

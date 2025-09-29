@@ -4,7 +4,7 @@ import re
 import tarfile
 import tempfile
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 from osgeo import ogr
 from te_schemas import reporting
@@ -14,6 +14,56 @@ from te_schemas.results import URI, FileResults
 from .. import areaofinterest, data_io
 from ..jobs.models import Job
 from ..logger import log
+
+
+def _infer_periods_affected_from_summary(summary_path: Path) -> List[str]:
+    """Infer which periods exist in the SO1/SO2 summary and map them to the
+    allowed names required by ErrorRecodeProperties.periods_affected
+    ("baseline", "reporting_1", "reporting_2").
+    """
+    try:
+        with open(summary_path, "r") as f:
+            summary = json.load(f)
+    except Exception:
+        # Fall back to baseline only if we cannot read the summary
+        return ["baseline"]
+
+    periods: List[str] = []
+    lc = summary.get("land_condition", {})
+    if not isinstance(lc, dict):
+        return ["baseline"]
+
+    if "baseline" in lc or True:
+        if "baseline" not in periods:
+            periods.append("baseline")
+
+    import re as _re
+
+    for key in lc.keys():
+        sk = str(key).lower()
+        m_prog = _re.match(r"^progress(?:_(\d+))?$", sk)
+        m_report = _re.match(r"^report_(\d+)$", sk)
+        m_reporting = _re.match(r"^reporting_(\d+)$", sk)
+        if m_prog:
+            idx = int(m_prog.group(1)) if m_prog.group(1) else 1
+            val = f"reporting_{idx}"
+        elif m_report:
+            idx = int(m_report.group(1))
+            val = f"reporting_{idx}"
+        elif m_reporting:
+            idx = int(m_reporting.group(1))
+            val = f"reporting_{idx}"
+        else:
+            continue
+        if val not in periods:
+            periods.append(val)
+
+    reporting = [p for p in periods if p.startswith("reporting_")]
+    if len(reporting) > 2:
+        reporting = reporting[:2]
+        periods = [p for p in periods if p == "baseline"] + reporting
+
+    return periods or ["baseline"]
 
 
 @dataclasses.dataclass()
@@ -174,16 +224,126 @@ def _set_affected_areas_only(in_file, out_file, schema):
     return out_file
 
 
-def _get_error_recode_polygons(in_file):
+def _get_error_recode_polygons(in_file, periods_affected=None):
     ds_in = ogr.Open(in_file)
-    layer_in = ds_in.GetLayer()
-    with tempfile.NamedTemporaryFile(suffix=".geojson") as temp:
-        out_ds = ogr.GetDriverByName("GeoJSON").CreateDataSource(temp.name)
-        layer_out = out_ds.CopyLayer(layer_in, "error_recode")
-        del layer_out
-        del out_ds
-        with open(temp.name) as f:
-            polys = ErrorRecodePolygons.Schema().load(json.load(f))
+    if ds_in is None:
+        raise RuntimeError(f"Unable to open vector dataset: {in_file}")
+
+    layer_in = ds_in.GetLayerByName("error_recode")
+    if layer_in is None:
+        chosen = None
+        try:
+            layer_count = ds_in.GetLayerCount()
+        except Exception:
+            layer_count = 0
+        for i in range(layer_count):
+            try:
+                lyr = ds_in.GetLayerByIndex(i)
+            except Exception:
+                lyr = None
+            if lyr is None:
+                continue
+            try:
+                if lyr.GetFeatureCount() > 0:
+                    chosen = lyr
+                    break
+            except Exception:
+                continue
+        if chosen is None and layer_count > 0:
+            try:
+                chosen = ds_in.GetLayerByIndex(0)
+            except Exception:
+                chosen = None
+        layer_in = chosen
+
+    if layer_in is None:
+        raise RuntimeError(f"No readable layers found in: {in_file}")
+
+    try:
+        src_name = layer_in.GetName()
+    except Exception:
+        src_name = "<unknown>"
+
+    try:
+        feat_count = layer_in.GetFeatureCount()
+    except Exception:
+        feat_count = -1
+
+    if feat_count == 0:
+        log(f"Error recode source layer '{src_name}' has 0 features")
+        empty_fc = {
+            "type": "FeatureCollection",
+            "name": "error_recode",
+            "crs": {
+                "type": "name",
+                "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"},
+            },
+            "features": [],
+        }
+        return ErrorRecodePolygons.Schema().load(empty_fc)
+
+    with tempfile.TemporaryDirectory() as td:
+        tmp_path = Path(td) / "error_recode.geojson"
+        driver = ogr.GetDriverByName("GeoJSON")
+        if tmp_path.exists():
+            try:
+                driver.DeleteDataSource(str(tmp_path))
+            except Exception:
+                pass
+        out_ds = driver.CreateDataSource(str(tmp_path))
+        if out_ds is None:
+            raise RuntimeError("Failed to create temporary GeoJSON data source")
+        out_ds.CopyLayer(layer_in, "error_recode")
+        out_ds = None
+        ds_in = None
+        with open(tmp_path, "r") as f:
+            as_json = json.load(f)
+            try:
+                for feat in as_json.get("features", []):
+                    props = feat.get("properties")
+                    if props is None:
+                        feat["properties"] = {}
+                        props = feat["properties"]
+                    val = props.get("periods_affected")
+                    if isinstance(val, str):
+                        val_list = [val]
+                    elif isinstance(val, (list, tuple)):
+                        val_list = [x for x in val if isinstance(x, str)]
+                    else:
+                        val_list = []
+                    val_list = [x for x in val_list if "baseline" in x or "report" in x]
+                    if not val_list:
+                        if periods_affected:
+                            props["periods_affected"] = periods_affected
+                        else:
+                            props["periods_affected"] = ["baseline"]
+                    else:
+                        props["periods_affected"] = val_list
+            except Exception:
+                pass
+            polys = ErrorRecodePolygons.Schema().load(as_json)
+
+    try:
+        parsed_count = len(polys.features)
+    except Exception:
+        parsed_count = -1
+
+    if feat_count > 0 and parsed_count == 0:
+        layer_names = []
+        try:
+            ds_check = ogr.Open(in_file)
+            if ds_check:
+                for i in range(ds_check.GetLayerCount()):
+                    try:
+                        layer_names.append(ds_check.GetLayerByIndex(i).GetName())
+                    except Exception:
+                        continue
+        except Exception:
+            pass
+        raise RuntimeError(
+            f"Layer '{src_name}' in '{in_file}' reported {feat_count} features "
+            f"but parsed 0. Available layers: {layer_names}. "
+        )
     return polys
 
 
@@ -191,73 +351,130 @@ def _set_error_recode(in_file, out_file, error_recode_polys):
     with open(in_file) as f:
         summary = reporting.TrendsEarthLandConditionSummary.Schema().load(json.load(f))
 
-    # Add polygons
-    summary.land_condition["integrated"].error_recode = error_recode_polys
+    lc = summary.land_condition
+    key_to_norm = {}
+    norm_to_key = {}
 
-    # Keys fields in the summary json to those in the error recode polygons
-    field_key = {
-        "No data": "nodata_pct",
-        "Degraded": "degraded_pct",
-        "Stable": "stable_pct",
-        "Improved": "improved_pct",
-    }
-
-    sdg_areas = {
-        item.name: item.area for item in summary.land_condition["integrated"].sdg.areas
-    }
-    total_area_initial = sum(sdg_areas.values())
-    for feat in error_recode_polys.features:
-        for recode_from, recode_to in zip(
-            ["Degraded", "Stable", "Improved"],
-            [
-                feat.properties.recode_deg_to,
-                feat.properties.recode_stable_to,
-                feat.properties.recode_imp_to,
-            ],
-        ):
-            # *.01 to convert hectares to sq km, and /100 to convert from
-            # percent to a fraction
-            area = (
-                feat.properties.stats["sdg"]["area_ha"]
-                * 0.01
-                * (feat.properties.stats["sdg"][field_key[recode_from]] / 100)
-            )
-            if recode_to is None:
+    for k in lc.keys():
+        sk = str(k).lower()
+        if sk == "baseline":
+            norm = "baseline"
+        else:
+            m_prog = re.match(r"^progress(?:_(\d+))?$", sk)
+            m_report = re.match(r"^report_(\d+)$", sk)
+            m_reporting = re.match(r"^reporting_(\d+)$", sk)
+            if m_prog:
+                idx = int(m_prog.group(1)) if m_prog.group(1) else 1
+                norm = f"reporting_{idx}"
+            elif m_report:
+                idx = int(m_report.group(1))
+                norm = f"reporting_{idx}"
+            elif m_reporting:
+                idx = int(m_reporting.group(1))
+                norm = f"reporting_{idx}"
+            else:
                 continue
-            elif recode_to == -32768:
-                sdg_areas[recode_from] -= area
-                sdg_areas["No data"] += area
-            elif recode_to == -1:
-                sdg_areas[recode_from] -= area
-                sdg_areas["Degraded"] += area
-            elif recode_to == 0:
-                sdg_areas[recode_from] -= area
-                sdg_areas["Stable"] += area
-            elif recode_to == 1:
-                sdg_areas[recode_from] -= area
-                sdg_areas["Improved"] += area
+        key_to_norm[k] = norm
+        if norm not in norm_to_key:
+            norm_to_key[norm] = k
 
-    assert all(value >= 0 for value in sdg_areas.values()), (
-        f"sdg_areas should all be greater than zero, but values are {sdg_areas}"
-    )
-    total_area_final = sum(sdg_areas.values())
-    assert abs(total_area_initial - total_area_final) < 0.001, (
-        f"total_area_initial ({total_area_initial}) differs "
-        f"from total_area_final ({total_area_final})"
-    )
+    affected_periods = set()
+    for feat in getattr(error_recode_polys, "features", []):
+        props = getattr(feat, "properties", None)
+        pa = getattr(props, "periods_affected", None) if props is not None else None
+        if pa:
+            for p in pa:
+                affected_periods.add(str(p))
 
-    summary.land_condition["integrated"].sdg_error_recode = reporting.AreaList(
-        "SDG Indicator 15.3.1 (progress since baseline), with errors recoded",
-        "sq km",
-        [reporting.Area(name, area) for name, area in sdg_areas.items()],
-    )
+    if not affected_periods:
+        affected_periods.add("baseline")
+
+    def _apply_recode_to_period(actual_key: str, normalized_name: str):
+        period = lc[actual_key]
+        pa_obj = getattr(period, "period_assessment", None)
+        if pa_obj is None or getattr(pa_obj, "sdg", None) is None:
+            return
+
+        pa_obj.error_recode = error_recode_polys
+
+        field_key = {
+            "No data": "nodata_pct",
+            "Degraded": "degraded_pct",
+            "Stable": "stable_pct",
+            "Improved": "improved_pct",
+        }
+
+        sdg_areas = {item.name: item.area for item in pa_obj.sdg.summary.areas}
+        total_area_initial = sum(sdg_areas.values())
+
+        for feat in error_recode_polys.features:
+            feat_props = getattr(feat, "properties", None)
+            feat_periods = (
+                getattr(feat_props, "periods_affected", []) if feat_props else []
+            )
+            feat_periods = [str(p) for p in feat_periods]
+            if normalized_name not in feat_periods:
+                continue
+
+            for recode_from, recode_to in zip(
+                ["Degraded", "Stable", "Improved"],
+                [
+                    feat_props.recode_deg_to,
+                    feat_props.recode_stable_to,
+                    feat_props.recode_imp_to,
+                ],
+            ):
+                area = (
+                    feat_props.stats["sdg"]["area_ha"]
+                    * 0.01
+                    * (feat_props.stats["sdg"][field_key[recode_from]] / 100)
+                )
+                if recode_to is None:
+                    continue
+                elif recode_to == -32768:
+                    sdg_areas[recode_from] -= area
+                    sdg_areas["No data"] += area
+                elif recode_to == -1:
+                    sdg_areas[recode_from] -= area
+                    sdg_areas["Degraded"] += area
+                elif recode_to == 0:
+                    sdg_areas[recode_from] -= area
+                    sdg_areas["Stable"] += area
+                elif recode_to == 1:
+                    sdg_areas[recode_from] -= area
+                    sdg_areas["Improved"] += area
+
+        # Validate area accounting and persist error-recode summary for this period
+        assert all(value >= 0 for value in sdg_areas.values()), (
+            f"sdg_areas should all be greater than zero, but values are {sdg_areas}"
+        )
+        total_area_final = sum(sdg_areas.values())
+        assert abs(total_area_initial - total_area_final) < 0.001, (
+            f"total_area_initial ({total_area_initial}) differs "
+            f"from total_area_final ({total_area_final})"
+        )
+
+        pa_obj.sdg_error_recode = reporting.AreaList(
+            "SDG Indicator 15.3.1 (progress since baseline), with errors recoded",
+            "sq km",
+            [reporting.Area(name, area) for name, area in sdg_areas.items()],
+        )
+
+    # Apply to each affected period that exists in the summary
+    for norm_name in sorted(affected_periods):
+        actual_key = norm_to_key.get(norm_name)
+        if actual_key is None:
+            continue
+        _apply_recode_to_period(actual_key, norm_name)
+
     out_json = json.loads(
         reporting.TrendsEarthLandConditionSummary.Schema().dumps(summary)
     )
-    # Rename progress* keys to report_* in relevant sections
     out_json = _rename_progress_to_report_sections(out_json)
+
     with open(out_file, "w") as f:
         json.dump(out_json, f, indent=4)
+
     return out_file
 
 
@@ -281,14 +498,21 @@ def compute_unccd_report(
 
         if params["include_error_recode"]:
             new_summary_path_so1_so2 = Path(temp_dir) / orig_summary_path_so1_so2.name
-            error_recode_polys = _get_error_recode_polygons(params["error_recode_path"])
+            inferred_periods = _infer_periods_affected_from_summary(
+                orig_summary_path_so1_so2
+            )
+
+            error_recode_polys = _get_error_recode_polygons(
+                params["error_recode_path"], inferred_periods
+            )
+
             _set_error_recode(
                 orig_summary_path_so1_so2, new_summary_path_so1_so2, error_recode_polys
             )
             # Make sure this modified file is used as basis for the SO1/SO2 summary
             # below (if affected_only is set)
             params["so1_so2_summary_path"] = str(new_summary_path_so1_so2)
-            # Make sure this mofified file is used if affected_areas_only is NOT set
+            # Make sure this modified file is used if affected_areas_only is NOT set
             for i in range(len(params["so1_so2_all_paths"])):
                 if params["so1_so2_all_paths"][i] == str(orig_summary_path_so1_so2):
                     log(
@@ -326,7 +550,23 @@ def compute_unccd_report(
             if params["include_so3"]:
                 paths += [Path(p) for p in params["so3_all_paths"]]
 
-        if orig_summary_path_so1_so2 in paths:
+        if params.get("include_error_recode") and params.get("include_so1_so2"):
+            so1_so2_summary_name = Path(params["so1_so2_summary_path"]).name
+            cand = next((p for p in paths if p.name == so1_so2_summary_name), None)
+            if cand is not None:
+                aoi_path = _write_aoi_geojson(
+                    cand,
+                    Path(temp_dir)
+                    / so1_so2_summary_name.replace("summary.json", "aoi.geojson"),
+                )
+                summary_without_aoi_path = _write_summary_without_aoi(
+                    cand,
+                    Path(temp_dir) / so1_so2_summary_name,
+                )
+                paths.append(aoi_path)
+                paths.remove(cand)
+                paths.append(summary_without_aoi_path)
+        elif orig_summary_path_so1_so2 in paths:
             aoi_path = _write_aoi_geojson(
                 orig_summary_path_so1_so2,
                 Path(temp_dir)

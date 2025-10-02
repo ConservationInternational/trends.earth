@@ -128,15 +128,19 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         # Date filtering logic
         matches_date = True
         if self.start_date and self.end_date:
-            job_start_date = QtCore.QDateTime.fromString(
-                job.start_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
-            )
-            job_end_date = QtCore.QDateTime.fromString(
-                job.end_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
-            )
-            matches_date = (
-                job_start_date >= self.start_date and job_end_date <= self.end_date
-            )
+            # Include jobs with missing dates by default (skip date filtering for them)
+            if job.start_date is None or job.end_date is None:
+                matches_date = True
+            else:
+                job_start_date = QtCore.QDateTime.fromString(
+                    job.start_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
+                )
+                job_end_date = QtCore.QDateTime.fromString(
+                    job.end_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
+                )
+                matches_date = (
+                    job_start_date >= self.start_date and job_end_date <= self.end_date
+                )
 
         return matches_filter and matches_type and matches_date
 

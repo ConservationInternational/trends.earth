@@ -127,20 +127,21 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
         # Date filtering logic
         matches_date = True
-        if self.start_date and self.end_date:
-            # Include jobs with missing dates by default (skip date filtering for them)
-            if job.start_date is None or job.end_date is None:
-                matches_date = True
-            else:
-                job_start_date = QtCore.QDateTime.fromString(
-                    job.start_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
-                )
-                job_end_date = QtCore.QDateTime.fromString(
-                    job.end_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
-                )
-                matches_date = (
-                    job_start_date >= self.start_date and job_end_date <= self.end_date
-                )
+        if (
+            self.start_date
+            and self.end_date
+            and job.start_date is not None
+            and job.end_date is not None
+        ):
+            job_start_date = QtCore.QDateTime.fromString(
+                job.start_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
+            )
+            job_end_date = QtCore.QDateTime.fromString(
+                job.end_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
+            )
+            matches_date = (
+                job_start_date >= self.start_date and job_end_date <= self.end_date
+            )
 
         return matches_filter and matches_type and matches_date
 
@@ -343,9 +344,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.name_la.setText(self.job.visible_name)
 
         area_name = self.job.local_context.area_of_interest_name
-        job_start_date = utils.utc_to_local(self.job.start_date).strftime(
-            "%Y-%m-%d %H:%M"
-        )
+
+        # Handle missing start_date gracefully
+        if self.job.start_date is not None:
+            job_start_date = utils.utc_to_local(self.job.start_date).strftime(
+                "%Y-%m-%d %H:%M"
+            )
+        else:
+            job_start_date = "Date unknown"
 
         if area_name:
             notes_text = f"{area_name} ({job_start_date})"

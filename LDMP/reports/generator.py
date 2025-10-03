@@ -882,7 +882,20 @@ class ReportProcessHandlerTask(QgsTask):
             # Kill qgis_process associated with the given process id
             pid = self._process.pid
             if os.name == "nt":
-                subprocess.Popen(f"TASKKILL /F /PID {pid} /T", shell=True)
+                # Create the TASKKILL subprocess and wait for it to complete
+                kill_process = subprocess.Popen(
+                    f"TASKKILL /F /PID {pid} /T",
+                    shell=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                )
+                # Wait for the kill command to complete to avoid ResourceWarning
+                try:
+                    kill_process.communicate(timeout=5)
+                except subprocess.TimeoutExpired:
+                    # If TASKKILL hangs, terminate it forcefully
+                    kill_process.kill()
+                    kill_process.communicate()
             else:
                 try:
                     os.kill(pid, signal.SIGKILL)

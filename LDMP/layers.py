@@ -326,7 +326,7 @@ def round_to_n(x, sf=3):
         return 0
     else:
         if x.size == 1:
-            return np.round(x, -int(floor(log10(x))) + (sf - 1))
+            return float(np.round(x, -int(floor(log10(x))) + (sf - 1)))
         else:
             return np.around(x, -int(floor(log10(x))) + (sf - 1))
 
@@ -417,7 +417,7 @@ def _get_cutoff(
             if max_cutoff < 0:
                 return 0
             else:
-                return round_to_n(max_cutoff, 2)
+                return round_to_n(float(max_cutoff), 2)
 
         elif cutoffs.size == 1:
             if cutoffs < 0:
@@ -426,7 +426,7 @@ def _get_cutoff(
 
                 return 0
             else:
-                return round_to_n(cutoffs, 2)
+                return round_to_n(cutoffs.item(), 2)
         else:
             # We only get here if cutoffs is not size 1 or 2, which should
             # never happen, so raise

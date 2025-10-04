@@ -10,4 +10,12 @@ ln -sf /tests_directory/LDMP /root/.local/share/QGIS/QGIS3/profiles/default/pyth
 ## Updating trends.earth-schemas and trends.earth-algorithms versions in the requirements-testing file
 #invoke set-version -v $(cat version.txt) --testing
 
-pip3 install -r /tests_directory/requirements-testing.txt
+# Upgrade pip to fix UNKNOWN package issue with pyproject.toml-only packages
+# Older pip versions (< 24.0) don't properly handle PEP-517 builds from git/source
+# See: https://stackoverflow.com/questions/78034052/unknown-project-name-and-version-number-for-my-own-pip-package
+pip3 install --upgrade pip
+
+# Install dependencies with --ignore-installed flag to handle distutils-installed packages
+# The QGIS container has blinker 1.4 installed via distutils which can't be uninstalled
+# Flask requires a newer blinker, so we ignore the old system package
+pip3 install --no-cache-dir --ignore-installed blinker -r /tests_directory/requirements-testing.txt

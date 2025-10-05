@@ -67,6 +67,7 @@ jobs:
             if ! command -v pip3 >/dev/null 2>&1; then
               apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*
             fi
+            python3 -m pip install --no-cache-dir --upgrade pip setuptools packaging
             python3 -m pip install --no-cache-dir -U pytest python-dotenv
           '
       - name: Run test suite

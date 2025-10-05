@@ -31,7 +31,6 @@ jobs:
       matrix:
         qgis_version_tag:
           - release-3_22
-          - release-3_26
           - release-3_34
           - release-3_36
 

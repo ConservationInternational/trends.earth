@@ -344,9 +344,10 @@ latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
 latex_engine = "xelatex"
 latex_use_xindy = False
 latex_elements = {
-    "preamble": r"""
-\usepackage{xcolor}
-\usepackage{bidi}
-""",
+    # For Arabic documents, polyglossia automatically loads the bidi package which
+    # requires xcolor to be loaded BEFORE it. However, Sphinx's sphinx.sty loads
+    # xcolor AFTER polyglossia. Solution: Use 'extrapackages' to load xcolor early,
+    # right after the document class and before polyglossia.
+    "extrapackages": r"\usepackage{xcolor}",
     "extraclassoptions": "openany,oneside",
 }

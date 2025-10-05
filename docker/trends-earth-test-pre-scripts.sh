@@ -14,13 +14,12 @@ ln -sf /tests_directory/LDMP /root/.local/share/QGIS/QGIS3/profiles/default/pyth
 # Older pip versions (< 24.0) don't properly handle PEP-517 builds from git/source
 # See: https://stackoverflow.com/questions/78034052/unknown-project-name-and-version-number-for-my-own-pip-package
 # Also upgrade setuptools and packaging to fix canonicalize_version() compatibility issues in QGIS 3.26
-pip3 install --no-cache-dir --upgrade pip setuptools packaging
+python3 -m pip install --no-cache-dir --upgrade pip setuptools packaging
 
-# Install dependencies into a virtual environment to isolate from system packages
+# Install dependencies using python3 -m pip to ensure we use the upgraded pip
 # The QGIS 3.26 container has packages with invalid version strings (e.g., '0.8.0-final0')
-# that cause pip's dependency resolver to fail even with --ignore-installed
-# Using a venv completely isolates from the problematic system packages
-python3 -m venv --system-site-packages /tmp/test-venv
-source /tmp/test-venv/bin/activate
-pip install --no-cache-dir --upgrade pip setuptools packaging
-pip install --no-cache-dir -r /tests_directory/requirements-testing.txt
+# Using python3 -m pip ensures we use the upgraded pip with better version parsing
+# that doesn't choke on non-PEP-440 version strings in system packages
+# The QGIS container has blinker 1.4 installed via distutils which can't be uninstalled
+# Flask requires a newer blinker, so we install with --ignore-installed
+python3 -m pip install --no-cache-dir --ignore-installed blinker -r /tests_directory/requirements-testing.txt

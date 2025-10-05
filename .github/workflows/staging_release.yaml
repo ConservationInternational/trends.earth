@@ -20,6 +20,15 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v4
 
+      - name: Upgrade pip for PEP-517 support
+        run: |
+          python -m pip --version
+          # Upgrade pip to >=24.0 to fix UNKNOWN package name issue with pyproject.toml-only packages
+          # Older pip versions don't properly handle PEP-517 builds from git/source
+          # See: https://stackoverflow.com/questions/78034052/unknown-project-name-and-version-number-for-my-own-pip-package
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip --version
+
       - name: Install plugin dependencies
         run: pip install -r requirements-dev.txt
 

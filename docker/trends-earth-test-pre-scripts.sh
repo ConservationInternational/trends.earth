@@ -13,7 +13,8 @@ ln -sf /tests_directory/LDMP /root/.local/share/QGIS/QGIS3/profiles/default/pyth
 # Upgrade pip to fix UNKNOWN package issue with pyproject.toml-only packages
 # Older pip versions (< 24.0) don't properly handle PEP-517 builds from git/source
 # See: https://stackoverflow.com/questions/78034052/unknown-project-name-and-version-number-for-my-own-pip-package
-pip3 install --upgrade pip
+# Also upgrade setuptools and packaging to fix canonicalize_version() compatibility issues in QGIS 3.26
+pip3 install --upgrade pip setuptools packaging
 
 # Install dependencies with --ignore-installed flag to handle distutils-installed packages
 # The QGIS container has blinker 1.4 installed via distutils which can't be uninstalled

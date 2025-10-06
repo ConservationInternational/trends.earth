@@ -60,7 +60,11 @@ def delete_dataset(job: Job) -> int:
     if job.local_context.area_of_interest_name:
         name_fragments.append(job.local_context.area_of_interest_name)
     if job.start_date:
-        name_fragments.append(job.start_date.strftime("%Y%m%d%H%M"))
+        try:
+            if hasattr(job.start_date, "strftime"):
+                name_fragments.append(job.start_date.strftime("%Y%m%d%H%M"))
+        except (AttributeError, ValueError, TypeError):
+            pass  # Skip date if it can't be formatted
     name_fragments.append(str(job.id))
     message_box.setText(
         f"You are about to delete job {separator.join(name_fragments)!r}"

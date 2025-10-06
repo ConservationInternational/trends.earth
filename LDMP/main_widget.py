@@ -331,16 +331,24 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.setWindowTitle(DOCK_TITLE_OFFLINE)
 
     def refresh_after_cache_update(self):
+        # Close any open persistent editor BEFORE changing the model
+        # to avoid access violations with dangling QModelIndex pointers
         current_dataset_index = self.datasets_tv_delegate.current_index
 
-        if current_dataset_index is not None:
-            has_open_editor = self.datasets_tv.isPersistentEditorOpen(
-                current_dataset_index
-            )
+        if current_dataset_index is not None and current_dataset_index.isValid():
+            try:
+                has_open_editor = self.datasets_tv.isPersistentEditorOpen(
+                    current_dataset_index
+                )
 
-            if has_open_editor:
-                self.datasets_tv.closePersistentEditor(current_dataset_index)
-            self.datasets_tv_delegate.current_index = None
+                if has_open_editor:
+                    self.datasets_tv.closePersistentEditor(current_dataset_index)
+            except (RuntimeError, AttributeError):
+                # Handle cases where the index or editor is no longer valid
+                pass
+            finally:
+                # Always reset the current index
+                self.datasets_tv_delegate.current_index = None
 
         maybe_download_finished_results()
         model = jobs_mvc.JobsModel(job_manager)
@@ -664,7 +672,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
                 previous_index = self.datasets_tv_delegate.current_index
                 index_changed = index != previous_index
 
-                if previous_index is not None:
+                if previous_index is not None and previous_index.isValid():
                     previously_open = self.datasets_tv.isPersistentEditorOpen(
                         previous_index
                     )
@@ -707,7 +715,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
                 previous_index = self.algorithms_tv_delegate.current_index
                 index_changed = index != previous_index
 
-                if previous_index is not None:
+                if previous_index is not None and previous_index.isValid():
                     previously_open = self.algorithms_tv.isPersistentEditorOpen(
                         previous_index
                     )

@@ -100,13 +100,23 @@ class Band:
             name_info_parts = [self.job.task_name]
         else:
             name_info_parts = []
-        name_info_parts.extend(
-            [
-                self.job.local_context.area_of_interest_name,
-                layers.get_band_title(JobBand.Schema().dump(self.band_info)),
-                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M"),
-            ]
+        # Add area name and band title
+        name_info_parts.append(self.job.local_context.area_of_interest_name)
+        name_info_parts.append(
+            layers.get_band_title(JobBand.Schema().dump(self.band_info))
         )
+
+        # Add date with defensive handling
+        if self.job.start_date:
+            try:
+                if hasattr(self.job.start_date, "strftime"):
+                    name_info_parts.append(
+                        utils.utc_to_local(self.job.start_date).strftime(
+                            "%Y-%m-%d %H:%M"
+                        )
+                    )
+            except (AttributeError, ValueError, TypeError):
+                pass  # Skip date if it can't be formatted
 
         return " - ".join(name_info_parts)
 
@@ -115,18 +125,28 @@ class Band:
             hover_info_parts = [self.job.task_name]
         else:
             hover_info_parts = []
-        hover_info_parts.extend(
-            [
-                self.job.local_context.area_of_interest_name + "\n",
-                layers.get_band_title(JobBand.Schema().dump(self.band_info)) + "\n",
-                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
-                + "\n",
-                # TODO: figure out a way to cleanup the metadata so it is
-                # presentable and useful - likely need to have each script
-                # contain a dictionary of metadata fields that should be
-                # shown to the user by default
-            ]
+        hover_info_parts.append(self.job.local_context.area_of_interest_name + "\n")
+        hover_info_parts.append(
+            layers.get_band_title(JobBand.Schema().dump(self.band_info)) + "\n"
         )
+
+        # Add date with defensive handling
+        if self.job.start_date:
+            try:
+                if hasattr(self.job.start_date, "strftime"):
+                    hover_info_parts.append(
+                        utils.utc_to_local(self.job.start_date).strftime(
+                            "%Y-%m-%d %H:%M"
+                        )
+                        + "\n"
+                    )
+            except (AttributeError, ValueError, TypeError):
+                pass  # Skip date if it can't be formatted
+
+        # TODO: figure out a way to cleanup the metadata so it is
+        # presentable and useful - likely need to have each script
+        # contain a dictionary of metadata fields that should be
+        # shown to the user by default
 
 
 @dataclasses.dataclass()
@@ -136,25 +156,39 @@ class Dataset:
 
     def get_name_info(self):
         name_info_parts = []
-        name_info_parts.extend(
-            [
-                self.job.local_context.area_of_interest_name,
-                self.job.visible_name,
-                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M"),
-            ]
-        )
+        name_info_parts.append(self.job.local_context.area_of_interest_name)
+        name_info_parts.append(self.job.visible_name)
+
+        # Add date with defensive handling
+        if self.job.start_date:
+            try:
+                if hasattr(self.job.start_date, "strftime"):
+                    name_info_parts.append(
+                        utils.utc_to_local(self.job.start_date).strftime(
+                            "%Y-%m-%d %H:%M"
+                        )
+                    )
+            except (AttributeError, ValueError, TypeError):
+                pass  # Skip date if it can't be formatted
 
         return " - ".join(name_info_parts)
 
     def get_hover_info(self):
         hover_info_parts = []
-        hover_info_parts.extend(
-            [
-                self.job.visible_name + " - ",
-                self.job.local_context.area_of_interest_name + "\n",
-                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M"),
-            ]
-        )
+        hover_info_parts.append(self.job.visible_name + " - ")
+        hover_info_parts.append(self.job.local_context.area_of_interest_name + "\n")
+
+        # Add date with defensive handling
+        if self.job.start_date:
+            try:
+                if hasattr(self.job.start_date, "strftime"):
+                    hover_info_parts.append(
+                        utils.utc_to_local(self.job.start_date).strftime(
+                            "%Y-%m-%d %H:%M"
+                        )
+                    )
+            except (AttributeError, ValueError, TypeError):
+                pass  # Skip date if it can't be formatted
 
         return "".join(hover_info_parts)
 

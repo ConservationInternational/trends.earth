@@ -45,9 +45,25 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.name_le.setText(self.job.task_name)
         self.id_le.setText(str(self.job.id))
         self.state_le.setText(self.job.status.value)
-        self.created_at_le.setText(
-            str(utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M"))
-        )
+
+        # Add date with defensive handling
+        if self.job.start_date:
+            try:
+                if hasattr(self.job.start_date, "strftime"):
+                    self.created_at_le.setText(
+                        str(
+                            utils.utc_to_local(self.job.start_date).strftime(
+                                "%Y-%m-%d %H:%M"
+                            )
+                        )
+                    )
+                else:
+                    self.created_at_le.setText("Date unknown")
+            except (AttributeError, ValueError, TypeError):
+                self.created_at_le.setText("Date unknown")
+        else:
+            self.created_at_le.setText("Date unknown")
+
         self.delete_btn.clicked.connect(self.delete_dataset)
         self.open_directory_btn.clicked.connect(self.open_job_directory)
         self.export_btn.clicked.connect(self.export_dataset)

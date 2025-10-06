@@ -101,6 +101,7 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         self.current_sort_field = current_sort_field
         self.start_date = None
         self.end_date = None
+        self.type_filter = TypeFilter.ALL  # Initialize with default value
 
     def set_date_filter(self, start_date, end_date):
         self.start_date = start_date
@@ -127,21 +128,32 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
         # Date filtering logic
         matches_date = True
-        if (
-            self.start_date
-            and self.end_date
-            and job.start_date is not None
-            and job.end_date is not None
-        ):
-            job_start_date = QtCore.QDateTime.fromString(
-                job.start_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
-            )
-            job_end_date = QtCore.QDateTime.fromString(
-                job.end_date.strftime("%Y-%m-%d %H:%M:%S"), "yyyy-MM-dd HH:mm:ss"
-            )
-            matches_date = (
-                job_start_date >= self.start_date and job_end_date <= self.end_date
-            )
+        # Only apply date filtering if we have all required dates
+        # Use try-except to handle any unexpected None values or type issues defensively
+        if self.start_date and self.end_date:
+            try:
+                if (
+                    job.start_date is not None
+                    and job.end_date is not None
+                    and hasattr(job.start_date, "strftime")
+                    and hasattr(job.end_date, "strftime")
+                ):
+                    job_start_date = QtCore.QDateTime.fromString(
+                        job.start_date.strftime("%Y-%m-%d %H:%M:%S"),
+                        "yyyy-MM-dd HH:mm:ss",
+                    )
+                    job_end_date = QtCore.QDateTime.fromString(
+                        job.end_date.strftime("%Y-%m-%d %H:%M:%S"),
+                        "yyyy-MM-dd HH:mm:ss",
+                    )
+                    matches_date = (
+                        job_start_date >= self.start_date
+                        and job_end_date <= self.end_date
+                    )
+            except (AttributeError, ValueError, TypeError):
+                # If any error occurs during date conversion, don't filter by date
+                # This handles cases where job dates might be None or invalid
+                pass
 
         return matches_filter and matches_type and matches_date
 
@@ -345,11 +357,17 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
         area_name = self.job.local_context.area_of_interest_name
 
-        # Handle missing start_date gracefully
+        # Handle missing start_date gracefully with defensive checks
         if self.job.start_date is not None:
-            job_start_date = utils.utc_to_local(self.job.start_date).strftime(
-                "%Y-%m-%d %H:%M"
-            )
+            try:
+                if hasattr(self.job.start_date, "strftime"):
+                    job_start_date = utils.utc_to_local(self.job.start_date).strftime(
+                        "%Y-%m-%d %H:%M"
+                    )
+                else:
+                    job_start_date = "Date unknown"
+            except (AttributeError, ValueError, TypeError):
+                job_start_date = "Date unknown"
         else:
             job_start_date = "Date unknown"
 

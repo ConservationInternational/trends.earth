@@ -554,6 +554,7 @@ def prepare_area_of_interest() -> AOI:
             "Calculations for cities require a buffer. This can be set in the Trend.Earth settings.",
             60,
         )
+        return None
     elif is_city:
         geojson = get_city_geojson()
         area_of_interest.update_from_geojson(

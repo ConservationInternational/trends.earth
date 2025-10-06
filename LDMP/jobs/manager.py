@@ -142,55 +142,63 @@ def _get_extent_tuple_vector(path):
     return (xmin, ymin, xmax, ymax)
 
 
-def _set_results_extents_raster(job):
+def _set_results_extents_raster(job, force=False):
     for raster in job.results.rasters.values():
         if raster.type == results.RasterType.ONE_FILE_RASTER:
-            if not hasattr(raster, "extent") or raster.extent is None:
+            if force or not hasattr(raster, "extent") or raster.extent is None:
                 raster.extent = _get_extent_tuple_raster(raster.uri.uri)
                 if conf.settings_manager.get_value(conf.Setting.DEBUG):
                     log(
-                        f"set job {job.id} {raster.datatype} {raster.type} "
+                        f"{'Force ' if force else ''}set job {job.id} {raster.datatype} {raster.type} "
                         f"extent to {raster.extent}"
                     )
         elif raster.type == results.RasterType.TILED_RASTER:
-            if not hasattr(raster, "extents") or raster.extents is None:
+            if force or not hasattr(raster, "extents") or raster.extents is None:
                 raster.extents = []
                 for raster_tile_uri in raster.tile_uris:
                     raster.extents.append(_get_extent_tuple_raster(raster_tile_uri.uri))
                 if conf.settings_manager.get_value(conf.Setting.DEBUG):
                     log(
-                        f"set job {job.id} {raster.datatype} {raster.type} "
+                        f"{'Force ' if force else ''}set job {job.id} {raster.datatype} {raster.type} "
                         f"extents to {raster.extents}"
                     )
         else:
             raise RuntimeError(f"Unknown raster type {raster.type!r}")
 
 
-def _set_results_extents_vector(job):
+def _set_results_extents_vector(job, force=False):
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
-        log(f"Setting extents for job {job.id}")
-    if not hasattr(job.results, "extent") or job.results.extent is None:
+        log(f"{'Force ' if force else ''}Setting extents for job {job.id}")
+    if force or not hasattr(job.results, "extent") or job.results.extent is None:
         job.results.extent = _get_extent_tuple_vector(job.results.vector.uri.uri)
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(
-                f"set job {job.id} {job.results.type} {job.results.vector.type} "
+                f"{'Force ' if force else ''}set job {job.id} {job.results.type} {job.results.vector.type} "
                 f"extent to {job.results.extent}"
             )
 
 
-def set_results_extents(job):
+def set_results_extents(job, force=False):
+    """
+    Set or recalculate extents for job results.
+
+    Args:
+        job: The job whose results extents should be set
+        force: If True, recalculate extents even if they already exist.
+               Useful for fixing missing or corrupted extent data.
+    """
     if not job.results:
         return
     if job.results.type == results.ResultType.RASTER_RESULTS and job.status in [
         jobs.JobStatus.DOWNLOADED,
         jobs.JobStatus.GENERATED_LOCALLY,
     ]:
-        _set_results_extents_raster(job)
+        _set_results_extents_raster(job, force=force)
     elif job.results.type == results.ResultType.VECTOR_RESULTS and job.status in [
         jobs.JobStatus.DOWNLOADED,
         jobs.JobStatus.GENERATED_LOCALLY,
     ]:
-        _set_results_extents_vector(job)
+        _set_results_extents_vector(job, force=force)
 
 
 class LocalJobTask(QgsTask):

@@ -14,6 +14,7 @@
 import dataclasses
 import functools
 import json
+import math
 import os
 import typing
 import uuid
@@ -708,7 +709,27 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
                 raw_job = json.loads(path.read_text())
                 job = Job.Schema().load(raw_job)
                 update_uris_if_needed(job, path)
-                set_results_extents(job)
+
+                # Check if extents need to be recalculated
+                needs_recalc = False
+                if job.results and hasattr(job.results, "rasters"):
+                    for raster in job.results.rasters.values():
+                        if hasattr(raster, "extent") and raster.extent is None:
+                            needs_recalc = True
+                            break
+                        elif hasattr(raster, "extents") and (
+                            raster.extents is None or None in raster.extents
+                        ):
+                            needs_recalc = True
+                            break
+
+                # Recalculate extents if needed
+                if needs_recalc:
+                    log("Detected missing extents, recalculating...")
+                    set_results_extents(job, force=True)
+                else:
+                    set_results_extents(job)
+
             except (json.JSONDecodeError, KeyError):
                 error_message = tr_data_io.tr(
                     "Could not parse the selected file into a valid JSON"
@@ -2014,7 +2035,19 @@ class WidgetDataIOSelectTELayerImport(
 def _extent_as_geom(extent: typing.Tuple[float, float, float, float]):
     if extent is None:
         return None
-    return qgis.core.QgsGeometry.fromRect(qgis.core.QgsRectangle(*extent))
+    # Validate that extent is a tuple/list with valid numeric values
+    try:
+        if not extent or len(extent) != 4:
+            return None
+        # Check for None, NaN, or Inf values in extent
+        if any(
+            v is None or (isinstance(v, float) and (math.isnan(v) or math.isinf(v)))
+            for v in extent
+        ):
+            return None
+        return qgis.core.QgsGeometry.fromRect(qgis.core.QgsRectangle(*extent))
+    except (TypeError, ValueError):
+        return None
 
 
 def _check_band_overlap(aoi, raster):
@@ -2035,8 +2068,18 @@ def _check_band_overlap(aoi, raster):
 
 
 def _check_dataset_overlap_raster(aoi, raster_results):
+    extents = raster_results.get_extents()
+
+    # Check if we have any extents at all
+    if not extents:
+        log(
+            "Warning: No valid extents found for raster results. "
+            "Extents may need to be recalculated. Use set_results_extents(job, force=True) to recalculate."
+        )
+        return False
+
     frac = 0
-    for extent in raster_results.get_extents():
+    for extent in extents:
         extent_geom = _extent_as_geom(extent)
         if extent_geom is not None:
             this_frac = aoi.calc_frac_overlap(extent_geom)

@@ -2012,28 +2012,35 @@ class WidgetDataIOSelectTELayerImport(
     maxsize=None
 )  # not using functools.cache, as it was only introduced in Python 3.9
 def _extent_as_geom(extent: typing.Tuple[float, float, float, float]):
+    if extent is None:
+        return None
     return qgis.core.QgsGeometry.fromRect(qgis.core.QgsRectangle(*extent))
 
 
 def _check_band_overlap(aoi, raster):
     if raster.type == RasterType.ONE_FILE_RASTER:
-        if aoi.calc_frac_overlap(_extent_as_geom(raster.extent)) >= 0.99:
+        extent_geom = _extent_as_geom(raster.extent)
+        if extent_geom is not None and aoi.calc_frac_overlap(extent_geom) >= 0.99:
             return True
     elif raster.type == RasterType.TILED_RASTER:
         frac = 0
         for extent in raster.extents:
-            frac += aoi.calc_frac_overlap(_extent_as_geom(extent))
+            extent_geom = _extent_as_geom(extent)
+            if extent_geom is not None:
+                frac += aoi.calc_frac_overlap(extent_geom)
         if frac >= 0.99:
             return True
-        else:
-            return False
+    else:
+        return False
 
 
 def _check_dataset_overlap_raster(aoi, raster_results):
     frac = 0
     for extent in raster_results.get_extents():
-        this_frac = aoi.calc_frac_overlap(_extent_as_geom(extent))
-        frac += this_frac
+        extent_geom = _extent_as_geom(extent)
+        if extent_geom is not None:
+            this_frac = aoi.calc_frac_overlap(extent_geom)
+            frac += this_frac
     if frac >= 0.99:
         return True
     else:

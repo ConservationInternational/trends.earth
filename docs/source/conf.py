@@ -344,21 +344,18 @@ latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
 latex_engine = "xelatex"
 latex_use_xindy = False
 latex_elements = {
-    # For Arabic documents, polyglossia automatically loads the bidi package which
-    # requires xcolor to be loaded BEFORE it. The bidi package ERROR occurs because:
-    # Loading order in Sphinx's LaTeX template:
-    # 1. \documentclass{sphinxmanual/sphinxhowto}
-    # 2. cmap.sty
-    # 3. fontspec.sty
-    # 4. amsmath.sty
-    # 5. polyglossia.sty -> loads bidi.sty for Arabic
-    # 6. [ALL user configuration hooks insert HERE]
-    # 7. sphinx.sty -> loads xcolor.sty (TOO LATE!)
+    # NOTE: Arabic PDF generation is currently disabled in tasks.py due to an
+    # unsolvable package ordering issue:
+    # - Sphinx's LaTeX template loads: documentclass → cmap → fontspec → amsmath
+    # - For Arabic, polyglossia automatically loads bidi.sty (for RTL support)
+    # - sphinx.sty then loads xcolor.sty
+    # - ERROR: bidi requires xcolor to be loaded BEFORE it
     #
-    # Solution: Use 'passoptionstopackages' to load xcolor with options BEFORE
-    # the documentclass. This is inserted at the very top of the .tex file,
-    # before anything else. Then xcolor will already be loaded when bidi checks.
-    "passoptionstopackages": r"\PassOptionsToPackage{dvipsnames,svgnames}{xcolor}",
-    "preamble": r"\usepackage{xcolor}",
+    # All Sphinx configuration hooks (passoptionstopackages, preamble, fontpkg,
+    # extrapackages) insert AFTER polyglossia has already loaded bidi, making it
+    # impossible to satisfy bidi's requirement.
+    #
+    # This is a known limitation. Arabic HTML docs work fine; only PDFs are affected.
+    # Workaround: tasks.py skips PDF generation for Arabic language builds.
     "extraclassoptions": "openany,oneside",
 }

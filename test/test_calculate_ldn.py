@@ -32,6 +32,10 @@ class CalculateLDNOneStep(unittest.TestCase):
         self.server = Process(target=self.app_server.run)
         self.server.start()
 
+        # Wait for server to be ready before continuing
+        if not self.app_server.wait_until_ready(timeout=10):
+            raise RuntimeError("Mock API server failed to start within timeout")
+
         self.api_client = APIClient(self.app_server.url, 30)
         self.response = None
         self.error = None

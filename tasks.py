@@ -1334,29 +1334,38 @@ def docs_build(
 
         if pdf:
             # Build PDF, by first making latex from sphinx, then pdf from that
-            tex_dir = f"{c.sphinx.builddir}/latex/{language}"
-            subprocess.check_call(
-                c.sphinx.sphinx_build.split()
-                + ["-b", "latex", "-a"]
-                + SPHINX_OPTS.split()
-                + [f"{tex_dir}"]
-            )
+            # TEMPORARY: Skip Arabic PDFs due to bidi/xcolor package ordering issue
+            # See https://github.com/sphinx-doc/sphinx/issues (xcolor must load before bidi)
+            # Sphinx's LaTeX template loads polyglossia (which loads bidi for RTL languages)
+            # before any user configuration hooks, making it impossible to load xcolor first.
+            if language == "ar":
+                print(
+                    f"Skipping PDF generation for '{language}' due to known bidi/xcolor LaTeX packaging issue"
+                )
+            else:
+                tex_dir = f"{c.sphinx.builddir}/latex/{language}"
+                subprocess.check_call(
+                    c.sphinx.sphinx_build.split()
+                    + ["-b", "latex", "-a"]
+                    + SPHINX_OPTS.split()
+                    + [f"{tex_dir}"]
+                )
 
-            tex_files = [
-                Path(tex_file).name for tex_file in glob.glob(f"{tex_dir}/*.tex")
-            ]
-            for tex_file in tex_files:
-                for _ in range(3):
-                    # Run multiple times to ensure crossreferences are right
-                    subprocess.check_call(["xelatex", tex_file], cwd=tex_dir)
-                # Move the PDF to the html folder so it will be uploaded with the
-                # site
-                pdf_file = os.path.splitext(tex_file)[0] + ".pdf"
-                out_dir = f"{c.sphinx.builddir}/html/{language}/pdfs"
+                tex_files = [
+                    Path(tex_file).name for tex_file in glob.glob(f"{tex_dir}/*.tex")
+                ]
+                for tex_file in tex_files:
+                    for _ in range(3):
+                        # Run multiple times to ensure crossreferences are right
+                        subprocess.check_call(["xelatex", tex_file], cwd=tex_dir)
+                    # Move the PDF to the html folder so it will be uploaded with the
+                    # site
+                    pdf_file = os.path.splitext(tex_file)[0] + ".pdf"
+                    out_dir = f"{c.sphinx.builddir}/html/{language}/pdfs"
 
-                if not os.path.exists(out_dir):
-                    os.makedirs(out_dir)
-                shutil.move(f"{tex_dir}/{pdf_file}", f"{out_dir}/{pdf_file}")
+                    if not os.path.exists(out_dir):
+                        os.makedirs(out_dir)
+                    shutil.move(f"{tex_dir}/{pdf_file}", f"{out_dir}/{pdf_file}")
 
                 if upload:
                     data = open(f"{out_dir}/{pdf_file}", "rb")

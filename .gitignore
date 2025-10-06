@@ -28,7 +28,7 @@ aws_credentials.json
 */ext-src_32/*
 LDMP/gui/*.py
 LDMP/resources.py
-LDMP/version.json
+LDMP/_version.py
 LDMP/data_prep_scripts/*
 docs/.vscode/*
 docs/build/*

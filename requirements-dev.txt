@@ -13,3 +13,5 @@ PyQt5
 black[jupyter]
 flake8
 reorder-python-imports
+setuptools>=64
+setuptools-scm>=8

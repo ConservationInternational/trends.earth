@@ -408,11 +408,13 @@ def _get_cutoff(
             )
         )
     md = np.ma.masked_where(data_sample == no_data_value, data_sample)
-    md = np.ma.masked_where(md == 0, md)
 
-    if md.size == 0:
-        # If all of the values are no data, return 0
-        log("All values are no data")
+    if mask_zeros:
+        md = np.ma.masked_where(md == 0, md)
+
+    if md.size == 0 or md.compressed().size == 0:
+        # If all of the values are no data or masked, return 0
+        log("All values are no data or masked")
 
         return 0
     else:

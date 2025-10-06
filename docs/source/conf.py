@@ -345,13 +345,17 @@ latex_engine = "xelatex"
 latex_use_xindy = False
 latex_elements = {
     # For Arabic documents, polyglossia automatically loads the bidi package which
-    # requires xcolor to be loaded BEFORE it. However, Sphinx's sphinx.sty normally loads
-    # xcolor AFTER polyglossia. Solution: Use 'preamble' to pre-declare xcolor before
-    # the document class packages are loaded. The preamble content actually gets inserted
-    # right after the document class but before other packages in the LaTeX template.
-    # Using \RequirePackage instead of \usepackage allows loading before \documentclass effects.
-    "preamble": r"""
-\RequirePackage{xcolor}
+    # requires xcolor to be loaded BEFORE it. The bidi package ERROR occurs because:
+    # 1. Sphinx document class loads
+    # 2. Polyglossia loads (for Arabic) -> loads bidi
+    # 3. sphinx.sty loads xcolor (TOO LATE!)
+    #
+    # Solution: Load xcolor immediately after document class using 'fontpkg' which
+    # is inserted right after \documentclass and before fontspec/polyglossia.
+    # We must use \PassOptionsToPackage to prevent sphinx.sty from trying to load it again.
+    "fontpkg": r"""
+\usepackage{xcolor}
+\expandafter\let\csname ver@xcolor.sty\endcsname\fmtversion
 """,
     "extraclassoptions": "openany,oneside",
 }

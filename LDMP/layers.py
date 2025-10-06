@@ -320,15 +320,22 @@ with open(
 def round_to_n(x, sf=3):
     "Function to round a positive value to n significant figures"
 
-    if np.isnan(x):
-        return x
-    elif x == 0:
-        return 0
-    else:
-        if x.size == 1:
-            return float(np.round(x, -int(floor(log10(x))) + (sf - 1)))
+    # Handle both scalar values and numpy arrays
+    is_scalar = isinstance(x, (int, float)) or (hasattr(x, "size") and x.size == 1)
+
+    if is_scalar:
+        if np.isnan(x):
+            return x
+        elif x == 0:
+            return 0
         else:
-            return np.around(x, -int(floor(log10(x))) + (sf - 1))
+            return float(np.round(x, -int(floor(log10(abs(x)))) + (sf - 1)))
+    else:
+        # For arrays, use vectorized operations
+        if x == 0:
+            return 0
+        else:
+            return np.around(x, -int(floor(log10(abs(x)))) + (sf - 1))
 
 
 def get_sample(f, band_number, n=1e6):

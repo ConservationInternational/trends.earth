@@ -11,7 +11,6 @@
  ***************************************************************************/
 """
 
-import json
 import os
 import re
 import site
@@ -34,21 +33,32 @@ locale = QtCore.QLocale(QgsApplication.locale())
 translator.load(locale, "LDMP", "_", directory=i18n_dir, suffix=".qm")
 trans_result = QtCore.QCoreApplication.installTranslator(translator)
 
+# Get version and git information from setuptools-scm generated file
 try:
-    with open(os.path.join(plugin_dir, "version.json")) as f:
-        version_info = json.load(f)
-except FileNotFoundError:
-    # Will happen for a dev version if user downloads directly from github and installs
-    # without using invoke script
-    version_info = {
-        "version": "99.99.99",
-        "revision": "unknown",
-        "release_date": "2099/01/01 00:00:00Z",
-    }
-__version__ = version_info["version"]
-__version_major__ = re.sub(r"([0-9]+)(\.[0-9]+)+$", r"\g<1>", __version__)
-__revision__ = version_info["revision"]
-__release_date__ = version_info["release_date"]
+    from LDMP._version import __git_date__, __git_sha__, __version__
+
+    __revision__ = __git_sha__
+    __release_date__ = __git_date__
+    __version_major__ = re.sub(r"([0-9]+)(\.[0-9]+)+.*$", r"\g<1>", __version__)
+except ImportError:
+    # _version.py doesn't exist - likely running from source without building
+    __version__ = "unknown"
+    __revision__ = "unknown"
+    __git_sha__ = "unknown"
+    __git_date__ = "unknown"
+    __release_date__ = "unknown"
+    __version_major__ = "0"
+
+    # Show user-friendly error message in QGIS
+    from qgis.core import Qgis, QgsMessageLog
+
+    QgsMessageLog.logMessage(
+        "Trends.Earth plugin version could not be determined. "
+        "If you're running from source, please run 'invoke set-version' to generate version information. "
+        "See SETUPTOOLS_SCM_GUIDE.md for details.",
+        "Trends.Earth",
+        Qgis.Warning,
+    )
 
 
 def _add_at_front_of_path(d):

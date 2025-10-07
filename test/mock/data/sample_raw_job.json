@@ -1,5 +1,5 @@
 {
-  "e1d37da1-8391-4c9b-b962-472942c788e1": {
+  "sdg-15-3-1-sub-indicators": {
     "data": {
       "end_date": "2022-12-05T12:42:27.164470",
       "id": "0eea9b1b-f86b-4770-bd52-a8d357a21459",
@@ -31,10 +31,10 @@
       },
       "progress": 0,
       "results": {},
-      "script_id": "47b99c3d-f5b5-4df3-81e7-324a17a6e147",
+      "script_id": "24fcb5ca-19c5-4797-83a6-94045ece7d92",
       "script": {
         "description": "Calculate all three SDG 15.3.1 sub-indicators in one step",
-        "id": "47b99c3d-f5b5-4df3-81e7-324a17a6e147",
+        "id": "24fcb5ca-19c5-4797-83a6-94045ece7d92",
         "name": "sdg-15-3-1-sub-indicators",
         "name_readable": "SDG 15.3.1 sub-indicators",
         "run_mode": "remote",
@@ -91,7 +91,7 @@
       "user_id": "b1d45524-7dbc-4e36-801b-5f9b70f6dc77"
     }
   },
-  "7e4ba147-d898-4723-93e8-4de2c18e527c": {
+  "productivity": {
     "data": {
       "end_date": "2022-12-05T12:48:27.164470",
       "id": "2dea9b1b-f86b-4770-bd52-a8d357a21461",
@@ -123,10 +123,10 @@
       },
       "progress": 0,
       "results": {},
-      "script_id": "e25d2a72-2274-45fa-9b69-74e87873054e",
+      "script_id": "971d2649-be9d-452a-a8c9-1647ce50e0d8",
       "script": {
         "description": "Calculate land productivity",
-        "id": "e25d2a72-2274-45fa-9b69-74e87873054e",
+        "id": "971d2649-be9d-452a-a8c9-1647ce50e0d8",
         "name": "productivity",
         "name_readable": "Land productivity",
         "run_mode": "remote",
@@ -137,7 +137,7 @@
       "user_id": "c1d45524-7dbc-4e36-801b-5f9b70f6dc77"
     }
   },
-  "6e80627c-48b2-4271-a847-7f9498547f1a": {
+  "land-cover": {
     "data": {
       "end_date": "2022-12-05T12:51:27.164470",
       "id": "3dea9b1b-f86b-4770-bd52-a8d357a21462",
@@ -169,10 +169,10 @@
       },
       "progress": 0,
       "results": {},
-      "script_id": "277f87e6-5362-4533-ab1d-c28251576884",
+      "script_id": "3824c1b0-3e9f-4a0e-a094-2eacc2dfd107",
       "script": {
         "description": "Calculate land cover change",
-        "id": "277f87e6-5362-4533-ab1d-c28251576884",
+        "id": "3824c1b0-3e9f-4a0e-a094-2eacc2dfd107",
         "name": "land-cover",
         "name_readable": "Land cover change",
         "run_mode": "remote",
@@ -183,7 +183,7 @@
       "user_id": "d1d45524-7dbc-4e36-801b-5f9b70f6dc77"
     }
   },
-  "c630eea1-5b26-4fa9-a8aa-b13f2795990d": {
+  "soil-organic-carbon": {
     "data": {
       "end_date": "2022-12-05T12:54:27.164470",
       "id": "4dea9b1b-f86b-4770-bd52-a8d357a21463",
@@ -215,10 +215,10 @@
       },
       "progress": 0,
       "results": {},
-      "script_id": "c630eea1-5b26-4fa9-a8aa-b13f2795990d",
+      "script_id": "ae54f9c0-fd00-4ed6-b059-e1cfb1c35712",
       "script": {
         "description": "Calculate soil organic carbon",
-        "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
+        "id": "ae54f9c0-fd00-4ed6-b059-e1cfb1c35712",
         "name": "soil-organic-carbon",
         "name_readable": "Soil organic carbon",
         "run_mode": "remote",
@@ -261,10 +261,10 @@
       },
       "progress": 0,
       "results": {},
-      "script_id": "c630eea1-5b26-4fa9-a8aa-b13f2795990d",
+      "script_id": "local-land-cover",
       "script": {
         "description": "Calculate local land cover",
-        "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
+        "id": "local-land-cover",
         "name": "local-land-cover",
         "name_readable": "Local land cover",
         "run_mode": "local",
@@ -307,10 +307,10 @@
       },
       "progress": 0,
       "results": {},
-      "script_id": "c630eea1-5b26-4fa9-a8aa-b13f2795990d",
+      "script_id": "local-soil-organic-carbon",
       "script": {
         "description": "Calculate soil organic carbon",
-        "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
+        "id": "local-soil-organic-carbon",
         "name": "local-soil-organic-carbon",
         "name_readable": "Local soil organic carbon",
         "run_mode": "local",

@@ -209,14 +209,32 @@ def set_version(c, modules=False, gee=False):
     )
 
     # Set in Sphinx docs conf.py
+    # For the 'version' field, use only the main X.Y.Z version (strip dev/post/rc)
+    # For the 'release' field, use the full version with dev/post/rc
     print("Setting version to {} in sphinx conf.py".format(version_to_write))
-    sphinx_regex = re.compile(
-        r'(((version)|(release)) = ")[0-9]+([.][0-9]+)+(\.?(dev|post|rc)[0-9]+)*',
+
+    # Strip dev/post/rc suffixes for the main version number
+    version_main = re.sub(r"\.(dev|post|rc).*$", "", version_to_write)
+
+    # Update 'version' field with just the main version (e.g., "2.1.19")
+    sphinx_version_regex = re.compile(
+        r'(version = ")[0-9]+([.][0-9]+)+(\.?(dev|post|rc)[0-9]+)*',
         re.IGNORECASE,
     )
     _replace(
         os.path.join(c.sphinx.sourcedir, "conf.py"),
-        sphinx_regex,
+        sphinx_version_regex,
+        r"\g<1>" + version_main,
+    )
+
+    # Update 'release' field with the full version (e.g., "2.1.19.dev111")
+    sphinx_release_regex = re.compile(
+        r'(release = ")[0-9]+([.][0-9]+)+(\.?(dev|post|rc)[0-9]+)*',
+        re.IGNORECASE,
+    )
+    _replace(
+        os.path.join(c.sphinx.sourcedir, "conf.py"),
+        sphinx_release_regex,
         r"\g<1>" + version_to_write,
     )
 
@@ -248,12 +266,55 @@ def set_version(c, modules=False, gee=False):
                 filepath = os.path.join(subdir, file)
 
                 if file == "configuration.json":
-                    # Validate the version matches the regex
-                    print("Setting version to {} in {}".format(v_gee_clean, filepath))
+                    # Check if version is actually changing before clearing ID
+                    import json
+
+                    version_changed = False
+                    try:
+                        with open(filepath, "r") as f:
+                            config_content = f.read()
+                            config_data = json.loads(config_content)
+
+                        # Extract current version from the name field
+                        current_name = config_data.get("name", "")
+                        current_version_match = re.search(
+                            r"[0-9]+(_[0-9]+)+", current_name
+                        )
+                        current_version = (
+                            current_version_match.group(0)
+                            if current_version_match
+                            else None
+                        )
+
+                        # Check if version is changing
+                        if current_version != v_gee:
+                            version_changed = True
+                            print(
+                                "Setting version to {} in {} (was {})".format(
+                                    v_gee_clean, filepath, current_version
+                                )
+                            )
+                        else:
+                            print(
+                                "Version {} already set in {} - leaving ID unchanged".format(
+                                    v_gee_clean, filepath
+                                )
+                            )
+                    except Exception as e:
+                        # If we can't read the file, assume version is changing
+                        print(
+                            "Setting version to {} in {} (unable to check existing version: {})".format(
+                                v_gee_clean, filepath, e
+                            )
+                        )
+                        version_changed = True
+
                     # Update the version string
                     _replace(filepath, gee_script_name_regex, r"\g<1> " + v_gee + '"')
-                    # Clear the ID since a new one will be assigned due to the new name
-                    _replace(filepath, gee_id_regex, "")
+
+                    # Only clear the ID if the version actually changed
+                    if version_changed:
+                        _replace(filepath, gee_id_regex, "")
                 elif file == "requirements.txt":
                     print("Setting version to {} in {}".format(v_gee_clean, filepath))
 
@@ -288,8 +349,9 @@ def set_version(c, modules=False, gee=False):
             r'("version": ")[0-9]+([-._][0-9]+)+(\.?(dev|post|rc)[0-9]+)*',
             re.IGNORECASE,
         )
+        scripts_json_path = os.path.join(c.plugin.source_dir, "data", "scripts.json")
         _replace(
-            os.path.join(c.plugin.source_dir, "data", "scripts.json"),
+            scripts_json_path,
             scripts_regex,
             r"\g<1>" + (v_gee_clean if gee else version_to_write),
         )

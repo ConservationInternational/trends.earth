@@ -12,7 +12,7 @@ import sys
 import zipfile
 from datetime import datetime
 from pathlib import Path, PurePath
-from tempfile import TemporaryDirectory, mkstemp
+from tempfile import mkstemp
 
 import boto3
 import requests
@@ -989,7 +989,7 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
         "clean": "remove existing install folder first",
         "version": "what version of QGIS to install to",
         "profile": "what profile to install to (only applies to QGIS3",
-        "fast": "Skip compiling numba files",
+        "fast": "Deprecated parameter (previously used for numba compilation)",
         "link": "Symlink folder to QGIS profile directory",
     }
 )
@@ -2050,10 +2050,6 @@ def _make_zip(zipFile, c):
     }
 )
 def zipfile_deploy(c, qgis, clean=True, pip="pip", tag=False, filename=None):
-    binaries_sync(c)
-    binaries_deploy(c, qgis=qgis)
-    print("Binaries uploaded")
-
     filename = zipfile_build(c, pip=pip, clean=clean, tag=tag, filename=filename)
     client = _get_s3_client()
 
@@ -2192,20 +2188,6 @@ def _check_hash(expected, filename):
         return False
 
 
-@task(help={"extensions": "Which file extensions to sync"})
-def binaries_sync(c, extensions=None):
-    if not extensions:
-        extensions = c.plugin.numba.binary_extensions
-    patterns = [os.path.join(c.plugin.numba.binary_folder, "*" + p) for p in extensions]
-    _s3_sync(
-        c,
-        c.sphinx.zipfile_deploy_s3_bucket,
-        "plugin_binaries",
-        c.plugin.numba.binary_folder,
-        patterns,
-    )
-
-
 @task
 def testdata_sync(c):
     _s3_sync(
@@ -2215,109 +2197,6 @@ def testdata_sync(c):
         "LDMP/test/integration/fixtures",
         c.plugin.testdata_patterns,
     )
-
-
-def find_binaries(c, folder, version=None):
-    files = []
-
-    for pattern in c.plugin.numba.binary_extensions:
-        if version:
-            files.append(
-                [
-                    f
-                    for f in os.listdir(folder)
-                    if re.search(f"{version}.*{pattern}$", f)
-                ]
-            )
-        else:
-            files.append(
-                [
-                    f
-                    for f in os.listdir(folder)
-                    if re.search(r".*{}$".format(pattern), f)
-                ]
-            )
-    # Return a flattened list
-
-    return [item for sublist in files for item in sublist]
-
-
-@task(help={"qgis": "QGIS version to target"})
-def binaries_deploy(c, qgis):
-    # Copy down any missing binaries
-    binaries_sync(c)
-
-    v = get_version(c).replace(".", "-")
-    qgis = qgis.replace(".", "-")
-    zipfile_basename = f"trends_earth_binaries_{v}_{qgis}"
-    files = find_binaries(c, c.plugin.numba.binary_folder, v)
-    with TemporaryDirectory() as tmpdir:
-        # Make module dir within the tmp dir, inside a folder containing the
-        # version string - this is needed to allow clean unzipping of the
-        # modules later on machines that might have multiple versions of the
-        # binaries installed in the same folder
-        moduledir = os.path.join(tmpdir, zipfile_basename, "trends_earth_binaries")
-        os.makedirs(moduledir)
-        with open(os.path.join(moduledir, "__init__.py"), "w"):
-            pass
-        # Copy binaries to temp folder for later zipping
-
-        for f in files:
-            # Strip version string from files before placing them in zipfile
-            out_path_no_v = os.path.join(
-                moduledir, re.sub("_[0-9]+-[0-9]+(-[0-9]+)?", "", os.path.basename(f))
-            )
-            shutil.copy(os.path.join(c.plugin.numba.binary_folder, f), out_path_no_v)
-
-        # Save to zipfile
-        out_zip = os.path.join(c.plugin.numba.binary_folder, zipfile_basename + ".zip")
-
-        if os.path.exists(out_zip):
-            os.remove(out_zip)
-        with zipfile.ZipFile(out_zip, "w", zipfile.ZIP_DEFLATED) as zf:
-            for root, dirs, files in os.walk(tmpdir):
-                for f in files:
-                    zf.write(
-                        os.path.join(root, f),
-                        os.path.relpath(os.path.join(root, f), tmpdir),
-                    )
-
-    # Upload the newly generated zipfile
-    binaries_sync(c, [".zip"])
-
-
-@task(
-    help={
-        "clean": "Clean out dependencies before packaging",
-        "python": "Python to use for setup and compiling",
-    }
-)
-def binaries_compile(c, clean=False, python="python"):
-    print("Compiling exported numba functions...")
-    n = 0
-
-    if not os.path.exists(c.plugin.numba.binary_folder):
-        os.makedirs(c.plugin.numba.binary_folder)
-
-    for numba_file in c.plugin.numba.aot_files:
-        (base, ext) = os.path.splitext(os.path.basename(numba_file))
-        subprocess.check_call([python, numba_file])
-        n += 1
-
-    v = get_version(c).replace(".", "-")
-
-    for folder in {os.path.dirname(f) for f in c.plugin.numba.aot_files}:
-        files = find_binaries(c, folder)
-
-        for f in files:
-            # Add version strings to the compiled files so they won't overwrite
-            # files from other Trends.Earth versions when synced to S3
-            module_name_regex = re.compile(r"([a-zA-Z0-9_])\.(.*)")
-            out_file = module_name_regex.sub(rf"\g<1>_{v}.\g<2>", os.path.basename(f))
-            out_path_with_v = os.path.join(c.plugin.numba.binary_folder, out_file)
-            shutil.move(os.path.join(folder, f), out_path_with_v)
-
-    print("Compiled {} numba files.".format(n))
 
 
 ###############################################################################
@@ -2346,9 +2225,6 @@ ns = Collection(
     tecli_logs,
     zipfile_build,
     zipfile_deploy,
-    binaries_compile,
-    binaries_sync,
-    binaries_deploy,
     release_github,
     update_script_ids,
     testdata_sync,
@@ -2367,22 +2243,11 @@ ns.configure(
             "data_dir": "LDMP/data",
             "i18n_dir": "LDMP/i18n",
             "translations": ["fr", "es", "sw", "pt", "ar", "ru", "zh", "fa"],
-            "numba": {
-                "aot_files": [
-                    "LDMP/localexecution/ldn_numba.py",
-                    "LDMP/localexecution/drought_numba.py",
-                    "LDMP/localexecution/util_numba.py",
-                ],
-                "binary_extensions": [".so", ".pyd"],
-                "binary_folder": "LDMP/binaries",
-                "binary_list": "LDMP/data/binaries.txt",
-            },
             "testdata_patterns": ["LDMP/test/integration/fixtures/*"],
             "package_dir": "build",
             "tests": ["LDMP/test"],
             "excludes": [
                 "LDMP/data_prep_scripts",
-                "LDMP/binaries",
                 "docs",
                 "gee",
                 "util",

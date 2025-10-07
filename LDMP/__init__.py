@@ -68,20 +68,6 @@ def _add_at_front_of_path(d):
     sys.path.extend(remainder)
 
 
-# Put binaries folder (if available) near the front of the path (important on
-# Linux)
-binaries_folder = QtCore.QSettings().value(
-    "trends_earth/advanced/binaries_folder", None
-)
-te_version = __version__.replace(".", "-")
-qgis_version = re.match(r"^[0-9]*\.[0-9]*", Qgis.QGIS_VERSION)[0].replace(".", "-")
-binaries_name = f"trends_earth_binaries_{te_version}_{qgis_version}"
-
-if binaries_folder:
-    binaries_path = Path(binaries_folder) / f"{binaries_name}"
-    logger.log(f"Adding {binaries_path} to path")
-    _add_at_front_of_path(str(binaries_path))
-
 # Put ext-libs folder near the front of the path (important on Linux)
 _add_at_front_of_path(str(Path(plugin_dir) / "ext-libs"))
 
@@ -136,24 +122,6 @@ if conf.settings_manager.get_value(conf.Setting.DEBUG):
     Path(logfilename).parent.mkdir(parents=True, exist_ok=True)
 
     logging.basicConfig(filename=logfilename, level=logging.DEBUG, format=formatter)
-
-
-def binaries_available():
-    ret = True
-    debug_enabled = conf.settings_manager.get_value(conf.Setting.DEBUG)
-    try:
-        from trends_earth_binaries import ldn_numba  # noqa: E402, F401
-
-        if debug_enabled:
-            logger.log("Numba-compiled version of ldn_numba available.")
-    except (ModuleNotFoundError, ImportError, RuntimeError) as e:
-        if debug_enabled:
-            logger.log(
-                "Numba-compiled version of ldn_numba not available: {}".format(e)
-            )
-        ret = False
-
-    return ret
 
 
 def openFolder(path):

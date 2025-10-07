@@ -57,8 +57,7 @@ class Setting(enum.Enum):
     FILTER_END_DATE = "filters/end_date"
 
     DEBUG = "advanced/debug"
-    BINARIES_ENABLED = "advanced/binaries_enabled"
-    BINARIES_DIR = "advanced/binaries_folder"
+
     FILTER_JOBS_BY_BASE_DIR = "advanced/FILTER_JOBS_BY_BASE_DIR"
     BASE_DIR = "advanced/base_data_directory"
     CUSTOM_CRS_ENABLED = "region_of_interest/custom_crs_enabled"
@@ -112,8 +111,6 @@ class SettingsManager:
         Setting.DEBUG: False,
         Setting.FILTER_JOBS_BY_BASE_DIR: True,
         Setting.OFFLINE_MODE: False,
-        Setting.BINARIES_ENABLED: False,
-        Setting.BINARIES_DIR: str(Path.home()),
         Setting.BASE_DIR: str(Path.home() / _base_data_path),
         Setting.DEFINITIONS_DIRECTORY: str(
             Path.home() / _base_data_path / "definitions"

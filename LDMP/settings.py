@@ -14,7 +14,6 @@
 import csv
 import os
 import typing
-import zipfile
 from enum import Flag, auto
 from pathlib import Path
 
@@ -26,7 +25,7 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 
-from . import api, auth, binaries_available, binaries_name, conf, download, openFolder
+from . import api, auth, conf, download, openFolder
 from .conf import (
     DOCK_TITLE,
     DOCK_TITLE_OFFLINE,
@@ -1175,8 +1174,6 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     _settings_base_path: str = "trends_earth/advanced"
     _qgis_settings = qgis.core.QgsSettings()
 
-    binaries_gb = QtWidgets.QGroupBox
-    binaries_dir_le = QtWidgets.QLineEdit
     debug_checkbox: QtWidgets.QCheckBox
     filter_jobs_by_basedir_checkbox: QtWidgets.QCheckBox
     polling_frequency_gb: QtWidgets.QGroupBox
@@ -1199,34 +1196,17 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         self.dlg_settings_login_landpks = DlgSettingsLoginLandPKS()
 
         self.pushButton_login_landpks.clicked.connect(self.login_landpks)
-        self.binaries_browse_button.clicked.connect(self.binary_folder_browse)
-        self.binaries_gb.toggled.connect(self.binaries_toggle)
-        self.binaries_download_button.clicked.connect(self.binaries_download)
         self.qgsFileWidget_base_directory.fileChanged.connect(
             self.base_directory_changed
         )
         self.pushButton_open_base_directory.clicked.connect(self.open_base_directory)
         self.cb_offline_mode.stateChanged.connect(self.set_offline_mode_states)
 
-        # Flag that can be used to indicate if binary state has changed (i.e.
-        # if new binaries have been downloaded)
-        self.binary_state_changed = False
-
         # TODO: re-enable this one LandPKS login is working
         self.landpks_gb.hide()
 
     def closeEvent(self, event):
         super().closeEvent(event)
-
-        if (
-            self.binaries_gb.isChecked() != self.binaries_checkbox_initial
-            or self.binary_state_changed
-        ):
-            QtWidgets.QMessageBox.warning(
-                None,
-                self.tr("Warning"),
-                self.tr("You must restart QGIS for these changes to take effect."),
-            )
 
     def update_settings(self):
         """Store the current value of each setting in QgsSettings"""
@@ -1245,10 +1225,6 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             Setting.FILTER_JOBS_BY_BASE_DIR,
             self.filter_jobs_by_basedir_checkbox.isChecked(),
         )
-        settings_manager.write_value(
-            Setting.BINARIES_ENABLED, self.binaries_gb.isChecked()
-        )
-        settings_manager.write_value(Setting.BINARIES_DIR, self.binaries_dir_le.text())
         settings_manager.write_value(
             Setting.OFFLINE_MODE, self.cb_offline_mode.isChecked()
         )
@@ -1270,9 +1246,6 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         )
         self.filter_jobs_by_basedir_checkbox.setChecked(
             settings_manager.get_value(Setting.FILTER_JOBS_BY_BASE_DIR)
-        )
-        self.binaries_dir_le.setText(
-            settings_manager.get_value(Setting.BINARIES_DIR) or ""
         )
         self.qgsFileWidget_base_directory.setFilePath(
             settings_manager.get_value(Setting.BASE_DIR) or ""
@@ -1323,22 +1296,6 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         super().showEvent(event)
         self.show_settings()
         self.set_offline_mode_states()
-        binaries_checked = settings_manager.get_value(Setting.BINARIES_ENABLED)
-        # TODO: Have this actually check if they are enabled in summary_numba
-        # and calculate_numba. Right now this doesn't really check if they are
-        # enabled, just that they are available. Which should be the same
-        # thing, but might not always be...
-
-        if binaries_available() and binaries_checked:
-            self.binaries_label.setText(self.tr("Binaries <b>are</b> loaded."))
-        else:
-            self.binaries_label.setText(self.tr("Binaries <b>are not</b> loaded."))
-        # Set a flag that will be used to indicate whether the status of using
-        # binaries or not has changed (needed to allow displaying a message to
-        # the user that they need to restart when this setting is changed)
-        self.binaries_checkbox_initial = binaries_checked
-        self.binaries_gb.setChecked(binaries_checked)
-        self.binaries_toggle()
 
     def base_directory_changed(self, new_base_directory):
         if not new_base_directory:
@@ -1367,155 +1324,6 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     def open_base_directory(self):
         openFolder(self.qgsFileWidget_base_directory.filePath())
-
-    def binaries_download(self):
-        out_folder = os.path.join(self.binaries_dir_le.text())
-
-        if out_folder == "":
-            QtWidgets.QMessageBox.information(
-                None,
-                self.tr("Choose a folder"),
-                self.tr("Choose a folder before downloading binaries."),
-            )
-
-            return
-
-        if not os.access(out_folder, os.W_OK):
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "Unable to write to {}. Choose a different folder.".format(
-                        out_folder
-                    )
-                ),
-            )
-
-            return
-
-        try:
-            if not os.path.exists(out_folder):
-                os.makedirs(out_folder)
-        except PermissionError:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "Unable to write to {}. Try a different folder.".format(out_folder)
-                ),
-            )
-
-            return None
-
-        zip_filename = f"{binaries_name}.zip"
-        zip_url = (
-            "https://s3.amazonaws.com/trends.earth/plugin_binaries/" + zip_filename
-        )
-        downloads = download.download_files([zip_url], out_folder)
-
-        if not downloads:
-            return None
-
-        try:
-            with zipfile.ZipFile(os.path.join(out_folder, zip_filename), "r") as zf:
-                zf.extractall(out_folder)
-        except PermissionError:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.".format(
-                        out_folder
-                    )
-                ),
-            )
-
-            return None
-        except FileNotFoundError:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "Unable to read binaries from {}. Check that binaries were downloaded successfully.".format(
-                        out_folder
-                    )
-                ),
-            )
-
-            return None
-
-        os.remove(os.path.join(out_folder, zip_filename))
-
-        if downloads is None:
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Error downloading binaries.")
-            )
-        else:
-            if len(downloads) > 0:
-                self.binary_state_changed = True
-                QtWidgets.QMessageBox.information(
-                    None, self.tr("Success"), self.tr("Downloaded binaries.")
-                )
-            else:
-                QtWidgets.QMessageBox.critical(
-                    None,
-                    self.tr("Success"),
-                    self.tr("All binaries up to date."),
-                )
-
-    def binaries_toggle(self):
-        state = self.binaries_gb.isChecked()
-        settings_manager.write_value(Setting.BINARIES_ENABLED, state)
-        self.binaries_dir_le.setEnabled(state)
-        self.binaries_browse_button.setEnabled(state)
-        self.binaries_download_button.setEnabled(state)
-        self.binaries_label.setEnabled(state)
-
-    def binary_folder_browse(self):
-        initial_path = self.binaries_dir_le.text()
-
-        if not initial_path:
-            initial_path = str(Path.home())
-
-        folder_path = QtWidgets.QFileDialog.getExistingDirectory(
-            self,
-            self.tr("Select folder containing Trends.Earth binaries"),
-            initial_path,
-        )
-
-        if folder_path:
-            plugin_folder = os.path.normpath(
-                os.path.realpath(os.path.dirname(__file__))
-            )
-
-            if is_subdir(folder_path, plugin_folder):
-                QtWidgets.QMessageBox.critical(
-                    None,
-                    self.tr("Error"),
-                    self.tr(
-                        "Choose a different folder - cannot install binaries within "
-                        "the Trends.Earth QGIS plugin installation folder."
-                    ),
-                )
-
-                return False
-
-            if os.access(folder_path, os.W_OK):
-                settings_manager.write_value(Setting.BINARIES_DIR, folder_path)
-                self.binaries_dir_le.setText(folder_path)
-                self.binary_state_changed = True
-
-                return True
-            else:
-                QtWidgets.QMessageBox.critical(
-                    None,
-                    self.tr("Error"),
-                    self.tr(f"Cannot read {folder_path!r}. Choose a different folder."),
-                )
-
-                return False
-        else:
-            return False
 
 
 class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):

@@ -25,9 +25,6 @@ dynamic = ["version"]
 [tool.setuptools]
 packages = ["LDMP"]
 
-[tool.setuptools.dynamic]
-version = {attr = "LDMP.__version__"}
-
 [tool.setuptools-scm]
 # Enable setuptools-scm for version management from git tags
 version_scheme = "guess-next-dev"

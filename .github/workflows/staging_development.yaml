@@ -12,13 +12,15 @@ jobs:
       image: qgis/qgis:release-3_34
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # Fetch all history including tags for setuptools-scm
         
       - name: Mark GitHub workspace as safe
         run: git config --global --add safe.directory $GITHUB_WORKSPACE
         
       - name: Setup python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v6
         with:
           python-version: "3.9"
           architecture: "x64"
@@ -47,10 +49,11 @@ jobs:
         run: invoke zipfile-build  --filename LDMP.zip
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
         with:
           ref: release
           clean: false
+          fetch-depth: 0  # Fetch all history including tags for setuptools-scm
 
       - name: Make directory
         env:

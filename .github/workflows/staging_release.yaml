@@ -12,13 +12,15 @@ jobs:
       image: qgis/qgis:release-3_34
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # Fetch all history including tags for setuptools-scm
 
       - name: Fix Python command
         run: apt-get install python-is-python3
 
       - name: Install python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
 
       - name: Upgrade pip for PEP-517 support
         run: |
@@ -33,9 +35,10 @@ jobs:
         run: pip install -r requirements-dev.txt
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
         with:
           ref: release
+          fetch-depth: 0  # Fetch all history including tags for setuptools-scm
       - name: Update custom plugin repository to include latest plugin releases
         run: |
           invoke generate-plugin-repo-xml

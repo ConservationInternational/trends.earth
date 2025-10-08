@@ -1877,13 +1877,8 @@ def _get_usable_bands(
         else:
             job_mode_value = job_mode
 
-        if expected_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-            # TE mode: accept everything except FAO/WOCAT or JRC jobs
-            is_valid_prod_mode = job_mode_value not in (
-                ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
-                ProductivityMode.JRC_5_CLASS_LPD.value,
-            )
-        elif expected_mode is None:
+        # Check if productivity mode matches (or if no filtering is needed)
+        if expected_mode is None:
             is_valid_prod_mode = True
         else:
             is_valid_prod_mode = job_mode_value == expected_mode
@@ -2105,7 +2100,9 @@ def _check_dataset_overlap_vector(aoi, vector_results):
     maxsize=None
 )  # not using functools.cache, as it was only introduced in Python 3.9
 def get_usable_datasets(
-    dataset_name: typing.Optional[str] = "any", aoi=None
+    dataset_name: typing.Optional[str] = "any",
+    aoi=None,
+    productivity_mode: typing.Optional[str] = None,
 ) -> typing.List[Dataset]:
     result = []
 
@@ -2123,6 +2120,30 @@ def get_usable_datasets(
             continue
 
         if is_available and is_valid_type:
+            # Filter by productivity mode if specified
+            expected_mode = productivity_mode
+            params = job.params or {}
+            job_mode = None
+            if "prod_mode" in params:
+                job_mode = params.get("prod_mode")
+            elif "productivity" in params:
+                job_mode = params.get("productivity", {}).get("mode")
+
+            # Normalize enums to raw values
+            if isinstance(job_mode, ProductivityMode):
+                job_mode_value = job_mode.value
+            else:
+                job_mode_value = job_mode
+
+            # Check if productivity mode matches (or if no filtering is needed)
+            if expected_mode is None:
+                is_valid_prod_mode = True
+            else:
+                is_valid_prod_mode = job_mode_value == expected_mode
+
+            if not is_valid_prod_mode:
+                continue
+
             if (
                 ResultType(job.results.type) == ResultType.RASTER_RESULTS
                 and (aoi is None or _check_dataset_overlap_raster(aoi, job.results))
@@ -2224,9 +2245,17 @@ class WidgetDataIOSelectTEDatasetExisting(
 
         self.NO_DATASETS_MESSAGE = tr_data_io.tr("No datasets available in this region")
 
+    def set_prod_mode(self, prod_mode: str):
+        """Set the productivity mode filter and repopulate the dataset list"""
+        self.setProperty("productivity_mode", prod_mode)
+        self.populate()
+
     def populate(self):
         aoi = areaofinterest.prepare_area_of_interest()
-        usable_datasets = get_usable_datasets(self.property("dataset_type"), aoi=aoi)
+        productivity_mode = self.property("productivity_mode")
+        usable_datasets = get_usable_datasets(
+            self.property("dataset_type"), aoi=aoi, productivity_mode=productivity_mode
+        )
         self.dataset_list = usable_datasets
         # Ensure selected_job_changed is called only once when adding items to
         # combobox

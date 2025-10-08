@@ -50,6 +50,15 @@ class SummaryTableLDWidgets:
         self.radio_lpd_te_toggled()
         self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
 
+    def get_selected_prod_mode(self) -> str:
+        """Get the currently selected productivity mode"""
+        if self.radio_lpd_te.isChecked():
+            return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        elif self.radio_fao_wocat.isChecked():
+            return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+        else:
+            return ProductivityMode.JRC_5_CLASS_LPD.value
+
     def populate(self):
         self.populate_layer_combo_boxes()
         self.combo_datasets.populate()
@@ -92,6 +101,9 @@ class SummaryTableLDWidgets:
             self.combo_layer_state_label.hide()
             self.combo_layer_lpd.show()
             self.combo_layer_lpd_label.show()
+
+        # Update the baseline dataset combo box to filter by productivity mode
+        self.combo_datasets.set_prod_mode(self.get_selected_prod_mode())
 
     def populate_layer_combo_boxes(self):
         self.combo_layer_lpd.populate()

@@ -440,8 +440,12 @@ def set_version(c, modules=False, gee=False, version=None):
 def release_github(c):
     v = get_version(c)
 
-    # TODO: Add zipfile as an asset
-    # https://docs.github.com/en/rest/reference/repos#upload-a-release-asset
+    # Build the plugin zipfile
+    print("Building plugin zipfile for release...")
+    zipfile_path = zipfile_build(c, clean=True, version=3, tests=False)
+    zipfile_name = os.path.basename(zipfile_path)
+
+    print(f"Plugin zipfile created at: {zipfile_path}")
 
     # Make release
     payload = {
@@ -454,6 +458,7 @@ def release_github(c):
     res = s.get("https://github.com")
     cookies = dict(res.cookies)
 
+    print("Creating GitHub release...")
     r = requests.post(
         "{}/repos/{}/{}/releases".format(
             c.github.api_url, c.github.repo_owner, c.github.repo_name
@@ -463,8 +468,30 @@ def release_github(c):
         cookies=cookies,
     )
     r.raise_for_status()
-    # TODO: Link asset to release. See:
-    # https://docs.github.com/en/rest/reference/repos#update-a-release-asset
+
+    release_data = r.json()
+    release_id = release_data["id"]
+    upload_url = release_data["upload_url"].replace("{?name,label}", "")
+
+    print(f"Release created with ID: {release_id}")
+    print(f"Uploading asset: {zipfile_name}")
+
+    # Upload the zipfile as a release asset
+    with open(zipfile_path, "rb") as f:
+        asset_data = f.read()
+
+    headers = {
+        "Authorization": "token {}".format(c.github.token),
+        "Content-Type": "application/zip",
+    }
+
+    upload_response = requests.post(
+        upload_url, params={"name": zipfile_name}, headers=headers, data=asset_data
+    )
+    upload_response.raise_for_status()
+
+    print(f"Successfully uploaded {zipfile_name} to release v{v}")
+    print(f"Release URL: {release_data['html_url']}")
 
 
 @task(

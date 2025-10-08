@@ -1,3 +1,3 @@
-git+https://github.com/conservationinternational/trends.earth-algorithms.git#egg=te_algorithms[api]
-git+https://github.com/ConservationInternational/trends.earth-schemas.git
+git+https://github.com/conservationinternational/trends.earth-algorithms.git@v2.1.20#egg=te_algorithms[api]
+git+https://github.com/ConservationInternational/trends.earth-schemas.git@v2.1.20
 GDAL==3.11.3

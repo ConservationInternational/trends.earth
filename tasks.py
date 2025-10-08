@@ -140,18 +140,50 @@ def _replace(file_path, regex, subst):
     help={
         "modules": "Also set versions for any modules specified in ext_libs.local_modules",
         "gee": "Also set versions for gee scripts",
+        "version": "Manually specify a version number (e.g., '2.1.20'). If not provided, version is determined from git tags.",
     }
 )
-def set_version(c, modules=False, gee=False):
+def set_version(c, modules=False, gee=False, version=None):
     """
     Generate _version.py with git information and update metadata.txt.
 
-    Version is always determined automatically from git tags using setuptools-scm.
+    By default, version is determined automatically from git tags using setuptools-scm.
+    You can manually override this by providing the --version parameter.
+
+    Version behavior based on last digit:
+    - Even number (e.g., 2.1.18): Stable release - experimental=False, use tagged versions
+    - Odd number (e.g., 2.1.19): Development release - experimental=True, use master branch
     """
 
-    # Get version from setuptools-scm (git tags) - this is the ONLY source of truth
-    version_to_write = get_version(c)
-    print(f"Using version {version_to_write} from git tags")
+    # Get version - either from manual parameter or git tags
+    if version:
+        version_to_write = version
+        print(f"Using manually specified version: {version_to_write}")
+    else:
+        version_to_write = get_version(c)
+        print(f"Using version {version_to_write} from git tags")
+
+    # Extract the last numeric component to determine if even or odd
+    # For versions like "2.1.19" or "2.1.18rc1" or "2.1.19.dev115"
+    # Strip dev/post/rc suffixes (with or without dot separator)
+    version_clean = re.sub(r"(\.?(dev|post|rc).*$)", "", version_to_write)
+    version_parts = version_clean.split(".")
+    try:
+        last_number = int(version_parts[-1])
+        is_even_version = (last_number % 2) == 0
+    except (ValueError, IndexError):
+        # If we can't parse, default to odd (experimental)
+        is_even_version = False
+        last_number = None
+
+    if is_even_version:
+        print(
+            f"Even version detected ({last_number}) - Setting experimental=False, using tagged versions"
+        )
+    else:
+        print(
+            f"Odd version detected ({last_number}) - Setting experimental=True, using master branch"
+        )
 
     # Always generate _version.py with git information captured at build time
     print("Generating LDMP/_version.py with git information")
@@ -175,8 +207,8 @@ def set_version(c, modules=False, gee=False):
 
     # Parse version tuple
     try:
-        version_parts = version_to_write.replace("rc", ".").split(".")
-        version_tuple = tuple(int(p) for p in version_parts if p.isdigit())
+        version_parts_tuple = version_to_write.replace("rc", ".").split(".")
+        version_tuple = tuple(int(p) for p in version_parts_tuple if p.isdigit())
     except Exception:
         version_tuple = (0, 0, 0)
 
@@ -206,6 +238,18 @@ def set_version(c, modules=False, gee=False):
         os.path.join(c.plugin.source_dir, "metadata.txt"),
         metadata_regex,
         r"\g<1>" + version_to_write,
+    )
+
+    # Update experimental flag based on even/odd version
+    metadata_experimental_regex = re.compile(
+        r"^(experimental=)(True|False)", re.MULTILINE | re.IGNORECASE
+    )
+    experimental_value = "False" if is_even_version else "True"
+    print(f"Setting experimental={experimental_value} in metadata.txt")
+    _replace(
+        os.path.join(c.plugin.source_dir, "metadata.txt"),
+        metadata_experimental_regex,
+        r"\g<1>" + experimental_value,
     )
 
     # Set in Sphinx docs conf.py
@@ -238,8 +282,13 @@ def set_version(c, modules=False, gee=False):
         r"\g<1>" + version_to_write,
     )
 
+    # Match trends.earth-algorithms.git and trends.earth-schemas.git with optional @version or #egg
+    # This handles:
+    #   - git+https://github.com/.../trends.earth-algorithms.git@master
+    #   - git+https://github.com/.../trends.earth-algorithms.git
+    #   - git+https://github.com/.../trends.earth-algorithms.git#egg=te_algorithms[api]
     requirements_txt_regex = re.compile(
-        "((trends.earth-schemas.git@)|(trends.earth-algorithms.git@))([.0-9a-z]*)"
+        "((trends.earth-schemas.git)|(trends.earth-algorithms.git))(@[.0-9a-z]*)?(#egg=[a-z_\\[\\]]+)?"
     )
 
     if gee:
@@ -318,20 +367,20 @@ def set_version(c, modules=False, gee=False):
                 elif file == "requirements.txt":
                     print("Setting version to {} in {}".format(v_gee_clean, filepath))
 
-                    # With setuptools-scm:
-                    # - Exact tag (e.g., "2.1.18") → use tagged version in dependencies
-                    # - RC tag (e.g., "2.1.18rc1") → use tagged version in dependencies
-                    # - Post-release (e.g., "2.1.18.post105") → use master (development)
-                    if "post" in version_to_write or "dev" in version_to_write:
-                        # Development version (commits after a tag) - use master
-                        _replace(filepath, requirements_txt_regex, r"\g<1>master")
-                    else:
-                        # Tagged release (exact version or RC) - use tagged version
+                    # Use even/odd version logic:
+                    # - Even version (e.g., 2.1.18) → use tagged version in dependencies
+                    # - Odd version (e.g., 2.1.19) → use master branch
+                    # Note: Group 5 preserves #egg=... suffix if present
+                    if is_even_version:
+                        # Stable release - use tagged version
                         _replace(
                             filepath,
                             requirements_txt_regex,
-                            r"\g<1>v" + v_gee_clean,
+                            r"\g<1>@v" + v_gee_clean + r"\g<5>",
                         )
+                    else:
+                        # Development release - use master branch
+                        _replace(filepath, requirements_txt_regex, r"\g<1>@master\g<5>")
                 elif file == "__init__.py":
                     print("Setting version to {} in {}".format(v_gee_clean, filepath))
                     init_version_regex = re.compile(
@@ -364,18 +413,20 @@ def set_version(c, modules=False, gee=False):
             )
         )
 
-        # With setuptools-scm:
-        # - Exact tag (e.g., "2.1.18") → use tagged version in dependencies
-        # - RC tag (e.g., "2.1.18rc1") → use tagged version in dependencies
-        # - Post-release (e.g., "2.1.18.post105") → use master (development)
-        if "post" in version_to_write or "dev" in version_to_write:
-            # Development version (commits after a tag) - use master
-            _replace(requirements_file, requirements_txt_regex, r"\g<1>master")
-        else:
-            # Tagged release (exact version or RC) - use tagged version
+        # Use even/odd version logic:
+        # - Even version (e.g., 2.1.18) → use tagged version in dependencies
+        # - Odd version (e.g., 2.1.19) → use master branch
+        # Note: Group 5 preserves #egg=... suffix if present
+        if is_even_version:
+            # Stable release - use tagged version
             _replace(
-                requirements_file, requirements_txt_regex, r"\g<1>v" + version_to_write
+                requirements_file,
+                requirements_txt_regex,
+                r"\g<1>@v" + version_to_write + r"\g<5>",
             )
+        else:
+            # Development release - use master branch
+            _replace(requirements_file, requirements_txt_regex, r"\g<1>@master\g<5>")
 
     if modules:
         for module in c.plugin.ext_libs.local_modules:
@@ -417,10 +468,27 @@ def release_github(c):
 
 
 @task(
-    help={"modules": "Also set tag for any modules specified in ext_libs.local_modules"}
+    help={
+        "modules": "Also set tag for any modules specified in ext_libs.local_modules",
+        "version": "Manual version string (e.g., '2.1.20'). If not provided, auto-detect from git tags.",
+    }
 )
-def set_tag(c, modules=False):
-    v = get_version(c)
+def set_tag(c, modules=False, version=None):
+    """
+    Create and push a git tag for the current version.
+
+    Args:
+        modules: If True, also set tags for te_algorithms and te_schemas
+        version: Optional manual version string (e.g., "2.1.20"). If not provided,
+                 version is determined automatically from git tags using setuptools-scm.
+    """
+    if version:
+        v = version
+        print(f"Using manually specified version: {v}")
+    else:
+        v = get_version(c)
+        print(f"Using version {v} from git tags")
+
     ret = subprocess.run(
         ["git", "diff-index", "HEAD", "--"], capture_output=True, text=True
     )
@@ -510,9 +578,8 @@ def tecli_publish(c, script=None, overwrite=False):
 
     if not script and not overwrite:
         ret = query_yes_no(
-            "WARNING: this will overwrite all scripts on the server with version {}.\nDo you wish to continue?".format(
-                get_version(c)
-            )
+            "WARNING: this will overwrite all scripts on the server with versions equal to the local "
+            "scripts.\nDo you wish to continue?"
         )
 
         if not ret:

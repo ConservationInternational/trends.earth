@@ -2116,6 +2116,24 @@ def zipfile_build(
 
     plugin_setup(c, clean=clean, pip=pip)
 
+    # Remove all .pyc files from source directory (QGIS plugin repo rejects them)
+    print("Removing .pyc files from source directory...")
+    pyc_count = 0
+    for root, dirs, files in os.walk(c.plugin.source_dir):
+        for file in files:
+            if file.endswith(".pyc"):
+                pyc_path = os.path.join(root, file)
+                try:
+                    os.remove(pyc_path)
+                    pyc_count += 1
+                except OSError as e:
+                    print(f"Warning: Could not remove {pyc_path}: {e}")
+
+    if pyc_count > 0:
+        print(f"Removed {pyc_count} .pyc files")
+    else:
+        print("No .pyc files found to remove")
+
     # Make sure compiled versions of translation files are included
     lrelease(c)
 
@@ -2162,11 +2180,14 @@ def _make_zip(zipFile, c):
                 print(f"Skipping symlinked directory: {d_path}")
                 dirs.remove(d)
 
-        # Write regular files only; skip symlinks
+        # Write regular files only; skip symlinks and .pyc files
         for f in files:
             src_path = os.path.join(root, f)
             if os.path.islink(src_path):
                 print(f"Skipping symlink: {src_path}")
+                continue
+            # Skip .pyc files - QGIS plugin repository rejects them for security
+            if f.endswith(".pyc"):
                 continue
             zipFile.write(src_path, os.path.join(relpath, f))
 

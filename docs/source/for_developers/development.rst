@@ -948,21 +948,127 @@ emailing us at `trends.earth@conservation.org
 Releasing a new plugin version
 ______________________________
 
-There are several steps to making a new public release of the plugin:
+Overview
+--------
 
-  - Update changelog in `LDMP\metadata.txt`
-  - Run `invoke set-version -v X.Y.Z -m` (where X.Y.Z is the new version)
-    to set the new version number for both `trends.earth` and subcomponents
-    (`trends.earth-schemas` and `trends.earth-algorithms`)
-  - Ensure all changes are commited, and then tag the new versions and push
-    those tags to github by running `invoke set-tag -m`
-  - Ensure that all new versions and tags are pushed to github
-  - Publish release on QGIS repository
-  - Publish on github with - Run `invoke release-github`
+Releasing a new version of Trends.Earth involves updating version numbers,
+creating git tags, building the plugin package, and publishing it to both
+GitHub and the QGIS plugin repository. The process is streamlined through
+invoke tasks that automate most of these steps.
 
-.. note:: If you want to make a release after updating the scripts that call
-   the Trends.Earth API (so if either the code under the `gee` folder changes,
-   or if `trends.earth-schemas` or `trends.earth-algorithms` have changed, then
-   you need to add a `-g` flag to the above command. After running `invoke
-   set-version` with the `-g` flag you will also need to run `invoke
-   tecli-publish`, in order to push the updated scripts to the API.
+Release workflow
+----------------
+
+Follow these steps in order to create a new public release:
+
+**1. Update the changelog**
+
+First, update the changelog in ``LDMP\metadata.txt`` with details about what has
+changed in this version. Include the version number and release date, followed
+by bullet points describing new features, bug fixes, and other changes.
+
+**2. Set the version number**
+
+Run the ``set-version`` task to update version numbers throughout the codebase::
+
+   invoke set-version -v X.Y.Z -m
+
+Where X.Y.Z is the new version number (e.g., 2.1.20). The ``-m`` flag ensures
+that version numbers are also updated in the dependent modules
+(``trends.earth-schemas`` and ``trends.earth-algorithms``).
+
+This command will:
+  - Update ``LDMP/metadata.txt`` with the new version
+  - Generate ``LDMP/_version.py`` with git information
+  - Update version in documentation (``docs/source/conf.py``)
+  - Set the ``experimental`` flag based on even/odd version numbers (even =
+    stable, odd = development)
+  - Update dependency references in requirements files
+
+.. note:: For stable releases (even version numbers like 2.1.18), the
+   ``set-version`` task will update dependency references to use tagged
+   versions. For development releases (odd version numbers like 2.1.19), it
+   will use the master branch.
+
+**3. Update GEE scripts (if applicable)**
+
+If you have made changes to the Google Earth Engine scripts (in the ``gee``
+folder) or to ``trends.earth-schemas`` or ``trends.earth-algorithms``, add the
+``-g`` flag when running ``set-version``::
+
+   invoke set-version -v X.Y.Z -m -g
+
+This will update version numbers in all GEE script configuration files. After
+updating the versions, you must publish them to the Trends.Earth
+API server::
+
+   invoke tecli-publish
+
+This uploads all GEE scripts to api.trends.earth so they are available to
+plugin users. You must be an administrator to run this command successfully.
+
+**4. Commit all changes**
+
+Ensure all modified files are committed to git::
+
+   git add -A
+   git commit -m "Release version X.Y.Z"
+
+**5. Create and push git tags**
+
+Create git tags for the new version and push them to GitHub::
+
+   invoke set-tag -m
+
+The ``-m`` flag ensures tags are also created for the dependent modules. This
+command will:
+  - Create an annotated git tag (e.g., ``v2.1.20``)
+  - Push the tag to the GitHub repository
+  - Optionally tag dependent modules if ``-m`` is specified
+
+If you have uncommitted changes, the task will prompt you to commit them first.
+
+**6. Create GitHub release**
+
+Run the ``release-github`` task to create a release on GitHub with the plugin
+zipfile attached::
+
+   invoke release-github
+
+This command will:
+  - Build a clean plugin zipfile (e.g., ``LDMP_2.1.20.zip``) with all
+    dependencies
+  - Remove all ``.pyc`` files to comply with QGIS repository security
+    requirements
+  - Create a GitHub release with plugin zipfile attached as a downloadable asset
+
+.. note:: You will need a GitHub personal access token with ``repo`` scope
+   configured in your ``invoke.yaml`` file for this command to work. See the
+   error messages if authentication fails for instructions on creating a token.
+
+**7. Publish to QGIS repository**
+
+Finally, manually upload the plugin to the QGIS plugin repository:
+
+  1. Download the plugin zipfile (e.g., ``LDMP_2.1.20.zip``) from the GitHub
+     release you just created (it will be listed under "Assets")
+  2. Log in to the `QGIS plugin repository
+     <https://plugins.qgis.org/plugins/>`_
+  3. Navigate to your plugin management page
+  4. Upload the new version using the zip file
+
+The QGIS repository will validate the zipfile and make it available to users
+through the QGIS plugin manager.
+
+Version numbering conventions
+-----------------------------
+
+Trends.Earth follows these version numbering conventions:
+
+  - **Even numbers** (e.g., 2.1.18, 2.1.20): Stable releases intended for
+    public use
+  - **Odd numbers** (e.g., 2.1.19, 2.1.21): Development releases for testing
+    new features
+
+Development versions are never published to the QGIS repository and are used
+only by the development team for testing.

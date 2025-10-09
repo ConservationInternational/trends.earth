@@ -583,7 +583,8 @@ class PresetExportDialog(QtWidgets.QDialog):
         return selected
 
 
-MIN_YEARS_FOR_PROD_UPDATE: int = 15
+MIN_YEARS_FOR_PROD_UPDATE: int = 12
+MIN_YEARS_FOR_MANN_KENDALL: int = 4  # Minimum years required for Mann-Kendall test
 
 
 class DlgTimelinePeriodGraph(QtWidgets.QDialog, DlgTimelinePeriodGraphUi):
@@ -2117,6 +2118,20 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             payload["productivity"] = {"mode": prod_mode}
 
             if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+                # Critical check: Mann-Kendall test requires at least 4 years
+                if (year_final - year_initial) < MIN_YEARS_FOR_MANN_KENDALL:
+                    QtWidgets.QMessageBox.critical(
+                        None,
+                        self.tr("Error"),
+                        self.tr(
+                            f"Land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data "
+                            f"for the Mann-Kendall trend test. The {period} period ({year_initial} - {year_final}) "
+                            f"only spans {year_final - year_initial} years. Please select a longer time period."
+                        ),
+                    )
+                    return
+
+                # Warning for suboptimal period length
                 if (
                     year_final - year_initial
                 ) < MIN_YEARS_FOR_PROD_UPDATE and year_initial != 2001:
@@ -2162,6 +2177,19 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     }
                 )
             elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+                # Critical check: FAO WOCAT also uses Mann-Kendall test which requires at least 4 years
+                if (year_final - year_initial) < MIN_YEARS_FOR_MANN_KENDALL:
+                    QtWidgets.QMessageBox.critical(
+                        None,
+                        self.tr("Error"),
+                        self.tr(
+                            f"FAO WOCAT land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data "
+                            f"for the Mann-Kendall trend test. The {period} period ({year_initial} - {year_final}) "
+                            f"only spans {year_final - year_initial} years. Please select a longer time period."
+                        ),
+                    )
+                    return
+
                 ndvi_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"][
                     "GEE Dataset"
                 ]

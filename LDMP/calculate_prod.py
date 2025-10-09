@@ -33,6 +33,9 @@ FAO_WOCAT = "FAO_WOCAT"
 MODIS_MED_FILTER_OPTION = "MODIS (MED filter option)"
 AVHRR_ANNUAL = "AVHRR (GIMMS3g.v1, annual)"
 
+# Minimum years required for different productivity methods
+MIN_YEARS_FOR_MANN_KENDALL: int = 4  # Mann-Kendall test minimum requirement
+
 
 class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
     mb: qgis.gui.QgsMessageBar
@@ -308,8 +311,6 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         if not ret:
             return
 
-        self.close()
-
         ndvi_dataset = conf.REMOTE_DATASETS["NDVI"][self.dataset_ndvi.currentText()][
             "GEE Dataset"
         ]
@@ -334,6 +335,26 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         )
 
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+            # Validate trajectory period if trajectory is selected
+            # (trajectory uses Mann-Kendall test which requires at least 4 years)
+            if self.groupBox_traj.isChecked():
+                traj_years = (
+                    self.traj_year_end.date().year()
+                    - self.traj_year_start.date().year()
+                )
+                if traj_years < MIN_YEARS_FOR_MANN_KENDALL:
+                    QtWidgets.QMessageBox.critical(
+                        None,
+                        self.tr("Error"),
+                        self.tr(
+                            f"Productivity trajectory requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data "
+                            f"for the Mann-Kendall trend test. The selected period "
+                            f"({self.traj_year_start.date().year()} - {self.traj_year_end.date().year()}) "
+                            f"only spans {traj_years} years. Please select a longer time period."
+                        ),
+                    )
+                    return
+
             payload.update(
                 {
                     "prod_mode": prod_mode,
@@ -360,6 +381,24 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             ]
             payload.update(current_trajectory_function["params"])
         elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+            # Validate FAO WOCAT period (also uses Mann-Kendall test)
+            fao_years = (
+                self.fao_wocat_year_end.date().year()
+                - self.fao_wocat_year_start.date().year()
+            )
+            if fao_years < MIN_YEARS_FOR_MANN_KENDALL:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        f"FAO WOCAT land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data "
+                        f"for the Mann-Kendall trend test. The selected period "
+                        f"({self.fao_wocat_year_start.date().year()} - {self.fao_wocat_year_end.date().year()}) "
+                        f"only spans {fao_years} years. Please select a longer time period."
+                    ),
+                )
+                return
+
             modis_mode = self.modis_combo_box.currentText()
             spin = self.period_interval.findChild(QSpinBox, "spinBox")
             years_interval = spin.value() if spin is not None else 3
@@ -396,6 +435,8 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             )
         else:
             raise ValueError("Unknown prod_mode {prod_mode}")
+
+        self.close()
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
 

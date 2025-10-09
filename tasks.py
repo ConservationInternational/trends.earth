@@ -2144,11 +2144,12 @@ def zipfile_build(
             os.makedirs(package_dir)
     else:
         os.makedirs(package_dir, exist_ok=True)
-    # package_file =  os.path.join(package_dir, '{}_{}.zip'.format(c.plugin.name, get_version()))
 
     if not filename:
+        # Use plugin version in filename instead of QGIS version
+        plugin_version = get_version(c)
         filename = os.path.join(
-            package_dir, "{}_QGIS{}.zip".format(c.plugin.name, version)
+            package_dir, "{}_{}.zip".format(c.plugin.name, plugin_version)
         )
 
     print(f"Removing untracked datafiles from {c.plugin.data_dir}...")

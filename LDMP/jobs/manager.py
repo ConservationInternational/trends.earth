@@ -1322,7 +1322,27 @@ class JobManager(QtCore.QObject):
         }[status]
         result = []
 
-        for job_metadata_path in base_dir.glob("**/*.json"):
+        # Check if directory exists and is accessible before attempting to glob
+        # This prevents segfaults from filesystem issues (missing dir, permissions, network issues, etc.)
+        if not base_dir.exists() or not base_dir.is_dir():
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(f"Base directory does not exist or is not accessible: {base_dir}")
+            return result
+
+        try:
+            job_paths = list(base_dir.glob("**/*.json"))
+        except (OSError, PermissionError, RuntimeError) as exc:
+            # Catch filesystem errors that could cause crashes during directory traversal
+            log(f"Error scanning directory {base_dir}: {type(exc).__name__}: {exc}")
+            return result
+        except Exception as exc:
+            # Catch any unexpected errors to prevent crashes
+            log(
+                f"Unexpected error scanning directory {base_dir}: {type(exc).__name__}: {exc}"
+            )
+            return result
+
+        for job_metadata_path in job_paths:
             try:
                 if not self._is_json_file_safe(job_metadata_path):
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):

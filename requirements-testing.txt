@@ -1,5 +1,5 @@
-git+https://github.com/ConservationInternational/trends.earth-schemas.git@v2.1.20
-git+https://github.com/ConservationInternational/trends.earth-algorithms.git@v2.1.20
+git+https://github.com/ConservationInternational/trends.earth-schemas.git@master
+git+https://github.com/ConservationInternational/trends.earth-algorithms.git@master
 boto3
 black[jupyter]
 flask

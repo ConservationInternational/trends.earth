@@ -2093,7 +2093,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             periods["progress_1"] = progress_period
 
         for i, (_, w) in enumerate(self.extra_progress_boxes, start=1):
-            key = f"progress_{i + 1}"
+            key = f"reporting_{i + 1}"
             periods[key] = self._get_period_years(w)
 
         crosses_180th, geojsons = self.gee_bounding_box
@@ -2434,7 +2434,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         grp.setTitle(f"Reporting period #{idx}")
         layout = QtWidgets.QVBoxLayout(grp)
 
-        key = f"progress_{idx}"
+        key = f"reporting_{idx}"
         self.combo_boxes[key] = ldn.SummaryTableLDWidgets(
             combo_datasets=dlg_instance.combo_datasets_baseline,
             combo_layer_traj=dlg_instance.combo_layer_traj_progress,

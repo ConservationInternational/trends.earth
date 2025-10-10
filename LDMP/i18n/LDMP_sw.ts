@@ -442,27 +442,27 @@
 <context>
     <name>DlgAdvancedSettingsProgressPeriod</name>
     <message>
-        <location filename="../calculate_ldn.py" line="2647"/>
+        <location filename="../calculate_ldn.py" line="2675"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2492"/>
+        <location filename="../calculate_ldn.py" line="2520"/>
         <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2560"/>
+        <location filename="../calculate_ldn.py" line="2588"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2638"/>
+        <location filename="../calculate_ldn.py" line="2666"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2647"/>
+        <location filename="../calculate_ldn.py" line="2675"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -934,12 +934,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2893"/>
+        <location filename="../calculate_ldn.py" line="2921"/>
         <source>Coming soon!</source>
         <translation>Inakuja hivi karibuni!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2893"/>
+        <location filename="../calculate_ldn.py" line="2921"/>
         <source>This function coming soon!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1082,7 +1082,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2321"/>
+        <location filename="../calculate_ldn.py" line="2349"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1367,27 +1367,27 @@ p, li { white-space: pre-wrap; }
         <translation>Fafanua Athari za Mabadiliko ya Jalada la Ardhi</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2123"/>
+        <location filename="../calculate_ldn.py" line="2138"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1045"/>
+        <location filename="../calculate_ldn.py" line="1046"/>
         <source>Also reset land cover legend?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1045"/>
+        <location filename="../calculate_ldn.py" line="1046"/>
         <source>The UNCCD default data uses a 7 class land cover legend. Do you also want to reset the land cover legend to the UNCCD default? This will mean any changes you may have made to the land cover legend will be lost.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2226"/>
+        <location filename="../calculate_ldn.py" line="2254"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2226"/>
+        <location filename="../calculate_ldn.py" line="2254"/>
         <source>Final year of the productivity data ({year_final}) must be within three years of the years for which population data is available from the WorldPop dataset ({pop_start_year}-{pop_end_year}).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1445,7 +1445,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2123"/>
+        <location filename="../calculate_ldn.py" line="2138"/>
         <source>Initial and final year are less {MIN_YEARS_FOR_PROD_UPDATE} years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1526,6 +1526,11 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1092"/>
         <source>Add reporting period</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_ldn.py" line="2182"/>
+        <source>FAO WOCAT land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The {period} period ({year_initial} - {year_final}) only spans {year_final - year_initial} years. Please select a longer time period.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1647,12 +1652,12 @@ p, li { white-space: pre-wrap; }
         <translation>Kipindi kulinganisha</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="295"/>
+        <location filename="../calculate_prod.py" line="390"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="295"/>
+        <location filename="../calculate_prod.py" line="298"/>
         <source>Choose one or more productivity sub-indicator to calculate.</source>
         <translation>Chagua moja au zaidi ya kiashiria cha uzalishaji cha kuzalisha.</translation>
     </message>
@@ -1740,6 +1745,16 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If observed mean NDVI is lower than 50% than the maximum productivity, that pixel is considered potentially degraded for this indicator.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Performance&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="346"/>
+        <source>Productivity trajectory requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The selected period ({self.traj_year_start.date().year()} - {self.traj_year_end.date().year()}) only spans {traj_years} years. Please select a longer time period.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="390"/>
+        <source>FAO WOCAT land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The selected period ({self.fao_wocat_year_start.date().year()} - {self.fao_wocat_year_end.date().year()}) only spans {fao_years} years. Please select a longer time period.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6042,7 +6057,7 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2188"/>
+        <location filename="../data_io.py" line="2209"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
@@ -6167,17 +6182,17 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1940"/>
+        <location filename="../data_io.py" line="1935"/>
         <source>No layers available in this region</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2188"/>
+        <location filename="../data_io.py" line="2209"/>
         <source>Select a layer to load.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2225"/>
+        <location filename="../data_io.py" line="2246"/>
         <source>No datasets available in this region</source>
         <translation type="unfinished"></translation>
     </message>

@@ -74,6 +74,37 @@ def qmd_to_iso(qmd_path):
     return Path(temp_file)
 
 
+def _iter_result_uris(results):
+    """Return an iterable of URI objects for a results instance.
+
+    Priority:
+    1. If the object implements get_all_uris(), delegate to it (modern schemas).
+    2. Otherwise, fall back to concatenating its 'uri' (if present) and
+       'other_uris' (if present). This maintains backward compatibility with
+       older schema versions while keeping the helper intentionally minimal.
+
+    This helper deliberately no longer inspects internal raster/vector
+    structures; callers only need the top-level exported files (e.g., for
+    metadata export or packaging). RasterResults already exposes all relevant
+    URIs via get_all_uris().
+    """
+    get_all = getattr(results, "get_all_uris", None)
+    if callable(get_all):
+        try:
+            return get_all()
+        except Exception:  # pragma: no cover - defensive guard
+            pass
+
+    uris = []
+    primary = getattr(results, "uri", None)
+    if primary is not None:
+        uris.append(primary)
+    others = getattr(results, "other_uris", None)
+    if others:
+        uris.extend(others)
+    return uris
+
+
 def init_dataset_metadata(job: Job, metadata: qgis.core.QgsLayerMetadata = None):
     md = read_dataset_metadata(job)
     if metadata is None:
@@ -86,8 +117,16 @@ def init_dataset_metadata(job: Job, metadata: qgis.core.QgsLayerMetadata = None)
     save_qmd(file_path, md)
 
     if not isinstance(job.results, EmptyResults):
-        for u in job.results.get_all_uris():
-            init_layer_metadata(u.uri, md)
+        for u in _iter_result_uris(job.results):
+            # Each u is expected to be a te_schemas.results.URI object
+            uri_path = getattr(u, "uri", None) or getattr(u, "path", None)
+            if uri_path is None:
+                continue
+            suffix = Path(str(uri_path)).suffix.lower()
+            if suffix not in {".tif", ".vrt"}:
+                # Only attempt layer metadata for raster-like outputs
+                continue
+            init_layer_metadata(uri_path, md)
 
 
 def init_layer_metadata(uri, metadata):
@@ -119,8 +158,14 @@ def update_dataset_metadata(
     save_qmd(file_path, metadata)
 
     if updateLayers:
-        for u in job.results.get_all_uris():
-            update_layer_metadata(u.uri, metadata)
+        for u in _iter_result_uris(job.results):
+            uri_path = getattr(u, "uri", None) or getattr(u, "path", None)
+            if uri_path is None:
+                continue
+            suffix = Path(str(uri_path)).suffix.lower()
+            if suffix not in {".tif", ".vrt"}:
+                continue
+            update_layer_metadata(uri_path, metadata)
 
 
 def update_layer_metadata(uri, metadata):
@@ -206,8 +251,13 @@ def export_dataset_metadata(job: Job):
     else:
         md_paths.append(qmd_to_iso(md_path))
 
-    for u in job.results.get_all_uris():
-        file_path = u.uri
+    for u in _iter_result_uris(job.results):
+        file_path = getattr(u, "uri", None) or getattr(u, "path", None)
+        if file_path is None:
+            continue
+        suffix = Path(str(file_path)).suffix.lower()
+        if suffix not in {".tif", ".vrt"}:
+            continue
         md_path = os.path.splitext(file_path)[0] + ".qmd"
         if not os.path.exists(md_path):
             log("Could not find dataset metadata file {}".format(md_path))

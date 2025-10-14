@@ -77,22 +77,38 @@ def _get_extent_tuple_raster(path):
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log(f"Trying to calculate extent of raster {path}")
 
-    if not os.path.exists(str(path)):
-        log(f"Failed to calculate extent - file does not exist: {path}")
+    try:
+        if not os.path.exists(str(path)):
+            log(f"Failed to calculate extent - file does not exist: {path}")
+            return None
+
+        # Use GDAL error handling to prevent crashes
+        ds = None
+        try:
+            ds = gdal.Open(str(path))
+            if ds:
+                min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()
+                cols = ds.RasterXSize
+                rows = ds.RasterYSize
+
+                extent = (min_x, max_y + rows * yres, min_x + cols * xres, max_y)
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(f"Calculated extent {[*extent]}")
+                return extent
+            else:
+                log("Failed to calculate extent - couldn't open dataset")
+                return None
+        finally:
+            # Ensure GDAL dataset is properly closed to prevent memory leaks
+            if ds is not None:
+                ds = None
+    except (OSError, IOError, RuntimeError, MemoryError) as exc:
+        log(f"Failed to calculate extent for {path} - {type(exc).__name__}: {exc}")
         return None
-
-    ds = gdal.Open(str(path))
-    if ds:
-        min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()
-        cols = ds.RasterXSize
-        rows = ds.RasterYSize
-
-        extent = (min_x, max_y + rows * yres, min_x + cols * xres, max_y)
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(f"Calculated extent {[*extent]}")
-        return extent
-    else:
-        log("Failed to calculate extent - couldn't open dataset")
+    except Exception as exc:
+        log(
+            f"Unexpected error calculating extent for {path} - {type(exc).__name__}: {exc}"
+        )
         return None
 
 
@@ -100,41 +116,62 @@ def _get_extent_tuple_vector(path):
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log(f"Trying to calculate extent of vector {path}")
 
-    layer = QgsVectorLayer(str(path), "vector file", "ogr")
-    rect = layer.extent()
-
     try:
-        is_empty = hasattr(rect, "isEmpty") and rect.isEmpty()
-    except Exception:
-        is_empty = False
+        # Check if file exists before attempting to load
+        if not os.path.exists(str(path)):
+            log(f"Failed to calculate extent - file does not exist: {path}")
+            return None
 
-    if (not rect) or is_empty:
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(f"Failed to calculate extent for {path} - extent empty/undefined")
+        layer = QgsVectorLayer(str(path), "vector file", "ogr")
+
+        # Check if layer is valid before accessing extent
+        if not layer.isValid():
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(f"Failed to calculate extent - invalid layer: {path}")
+            return None
+
+        rect = layer.extent()
+
+        try:
+            is_empty = hasattr(rect, "isEmpty") and rect.isEmpty()
+        except Exception:
+            is_empty = False
+
+        if (not rect) or is_empty:
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(f"Failed to calculate extent for {path} - extent empty/undefined")
+            return None
+
+        xmin = rect.xMinimum()
+        xmax = rect.xMaximum()
+        ymin = rect.yMinimum()
+        ymax = rect.yMaximum()
+
+        vals = [xmin, ymin, xmax, ymax]
+        if any(
+            (v is None) or (isinstance(v, float) and (math.isnan(v) or math.isinf(v)))
+            for v in vals
+        ):
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(f"Failed to calculate extent for {path} - NaN/Inf in extent {vals}")
+            return None
+
+        if any((val > 180 or val < -180) for val in [xmin, xmax]) or any(
+            (val > 90 or val < -90) for val in [ymin, ymax]
+        ):
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(
+                    f"Failed to calculate extent for {path} - appears undefined/out of bounds "
+                    f"({xmin}, {ymin}, {xmax}, {ymax})"
+                )
+            return None
+    except (OSError, IOError, RuntimeError, MemoryError) as exc:
+        log(f"Failed to calculate extent for {path} - {type(exc).__name__}: {exc}")
         return None
-
-    xmin = rect.xMinimum()
-    xmax = rect.xMaximum()
-    ymin = rect.yMinimum()
-    ymax = rect.yMaximum()
-
-    vals = [xmin, ymin, xmax, ymax]
-    if any(
-        (v is None) or (isinstance(v, float) and (math.isnan(v) or math.isinf(v)))
-        for v in vals
-    ):
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(f"Failed to calculate extent for {path} - NaN/Inf in extent {vals}")
-        return None
-
-    if any((val > 180 or val < -180) for val in [xmin, xmax]) or any(
-        (val > 90 or val < -90) for val in [ymin, ymax]
-    ):
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(
-                f"Failed to calculate extent for {path} - appears undefined/out of bounds "
-                f"({xmin}, {ymin}, {xmax}, {ymax})"
-            )
+    except Exception as exc:
+        log(
+            f"Unexpected error calculating extent for {path} - {type(exc).__name__}: {exc}"
+        )
         return None
 
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
@@ -285,23 +322,54 @@ class JobManager(QtCore.QObject):
         Returns True if the file appears safe to process, False otherwise.
         """
         try:
-            # Check basic file properties
-            if not file_path.exists() or file_path.stat().st_size == 0:
+            # Check basic file properties first
+            if not file_path.exists():
                 return False
 
-            # Try to read file content as text first to detect encoding issues
-            with file_path.open(encoding=self._encoding, errors="strict") as fh:
-                content = fh.read(1024)  # Read first 1KB to check for obvious issues
-                if not content.strip():
+            # Get file stats safely
+            try:
+                stat_info = file_path.stat()
+                if stat_info.st_size == 0:
                     return False
+            except (OSError, IOError, PermissionError):
+                # File exists but can't get stats - not safe
+                return False
 
-                # Check if it starts like a JSON object/array
-                content_start = content.strip()[:10]
-                if not (content_start.startswith("{") or content_start.startswith("[")):
-                    return False
+            # Try to read file content with multiple fallback strategies
+            content = None
+
+            # First attempt with strict encoding
+            try:
+                with file_path.open(encoding=self._encoding, errors="strict") as fh:
+                    content = fh.read(
+                        1024
+                    )  # Read first 1KB to check for obvious issues
+            except (UnicodeDecodeError, PermissionError, OSError, IOError):
+                # Try with error replacement if strict fails
+                try:
+                    with file_path.open(
+                        encoding=self._encoding, errors="replace"
+                    ) as fh:
+                        content = fh.read(1024)
+                except (PermissionError, OSError, IOError):
+                    # Try with different encoding as last resort
+                    try:
+                        with file_path.open(encoding="utf-8", errors="replace") as fh:
+                            content = fh.read(1024)
+                    except (PermissionError, OSError, IOError):
+                        # File is locked or inaccessible
+                        return False
+
+            if not content or not content.strip():
+                return False
+
+            # Check if it starts like a JSON object/array
+            content_start = content.strip()[:10]
+            if not (content_start.startswith("{") or content_start.startswith("[")):
+                return False
 
             return True
-        except (OSError, IOError, UnicodeDecodeError, MemoryError):
+        except (OSError, IOError, UnicodeDecodeError, MemoryError, PermissionError):
             return False
         except Exception:
             # Any other unexpected error also means the file is not safe
@@ -577,7 +645,15 @@ class JobManager(QtCore.QObject):
             job = None
         else:
             job = Job.Schema().load(raw_job)
-            set_results_extents(job)
+
+            # Safely set result extents to prevent crashes from file access issues
+            try:
+                set_results_extents(job)
+            except Exception as exc:
+                log(
+                    f"Failed to set extents for job {job.id}: {type(exc).__name__}: {exc}"
+                )
+
             self.write_job_metadata_file(job)
             self._update_known_jobs_with_newly_submitted_job(job)
             self.submitted_remote_job.emit(job)
@@ -779,7 +855,13 @@ class JobManager(QtCore.QObject):
     def import_job(self, job: Job, job_path):
         update_uris_if_needed(job, job_path)
 
-        set_results_extents(job)
+        # Safely set result extents to prevent crashes from file access issues
+        try:
+            set_results_extents(job)
+        except Exception as exc:
+            log(
+                f"Failed to set extents for imported job {job.id}: {type(exc).__name__}: {exc}"
+            )
 
         self._move_job_to_dir(job, job.status, force_rewrite=True)
 
@@ -970,7 +1052,13 @@ class JobManager(QtCore.QObject):
 
         self._init_error_recode_layer(job)
         if not hasattr(job.results, "extent") or job.results.extent is None:
-            set_results_extents(job)
+            # Safely set result extents to prevent crashes from file access issues
+            try:
+                set_results_extents(job)
+            except Exception as exc:
+                log(
+                    f"Failed to set extents for job {job.id}: {type(exc).__name__}: {exc}"
+                )
         self.write_job_metadata_file(job)
         self.known_jobs[job.status][job.id] = job
         self.imported_job.emit(job)
@@ -1344,9 +1432,18 @@ class JobManager(QtCore.QObject):
 
         for job_metadata_path in job_paths:
             try:
-                if not self._is_json_file_safe(job_metadata_path):
-                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                        log(f"Skipping unsafe or corrupted file {job_metadata_path!r}")
+                try:
+                    if not self._is_json_file_safe(job_metadata_path):
+                        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                            log(
+                                f"Skipping unsafe or corrupted file {job_metadata_path!r}"
+                            )
+                        continue
+                except Exception as exc:
+                    # If _is_json_file_safe itself crashes, skip this file entirely
+                    log(
+                        f"Error checking safety of file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
+                    )
                     continue
 
                 try:
@@ -1361,7 +1458,22 @@ class JobManager(QtCore.QObject):
                         continue
 
                     job = Job.Schema().load(raw_job)
-                    set_results_extents(job)
+
+                    # Safely set result extents to prevent crashes from file access issues
+                    try:
+                        set_results_extents(job)
+                    except (OSError, IOError, RuntimeError, MemoryError) as exc:
+                        # Log GDAL/QGIS file access errors but don't crash the whole plugin
+                        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                            log(
+                                f"Failed to set extents for job {job.id}: {type(exc).__name__}: {exc}"
+                            )
+                    except Exception as exc:
+                        # Catch any other unexpected errors from extent calculation
+                        log(
+                            f"Unexpected error setting extents for job {job.id}: {type(exc).__name__}: {exc}"
+                        )
+
                     # Only include jobs that match the requested status
                     if job.status == status:
                         result.append(job)

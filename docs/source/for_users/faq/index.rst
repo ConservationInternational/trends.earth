@@ -22,16 +22,6 @@ answering questions based on their unique background and experiences. The group
 will also be used for announcements on tool updates and capacity building 
 efforts.
 
-How do I find more information on the project?
-------------------------------------------------------------------
-
-More information on the toolbox can be found at `trends.earth 
-<http://trends.earth>`_ and reports are available on the `Vital Signs Project 
-website <http://vitalsigns.org/gef-ldmp/project-description-and-timeline>`_ You 
-can also add your contact info at `Vital Signs LD Email Distribution List 
-<http://vitalsigns.org/gef-ldmp/email-distribution-list>`_ to stay in touch 
-with any advancements with the projects’ distribution list.
-
 How can I provide feedback on the tool?
 ------------------------------------------------------------------
 

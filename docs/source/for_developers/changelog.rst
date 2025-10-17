@@ -3,6 +3,37 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.1.20 (October 10, 2025) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.20>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Add preset functionality for SDG 15.3.1 sub-indicator calculations, with defaults matching latest UNCCD reporting cycle
+  - Improve handling of failed or pending executions - all executions now always show in the datasets window unless deleted
+  - Support viewing job logs for remote executions
+  - Sync with latest te_schemas and te_algorithms versions, including better parallel processing support from latest te_algorithms
+  - Fix handling of FAO-WOCAT/JRC/Trends.Earth LPD dataset selection in SDG 15.3.1 sub-indicator calculation
+  - Optimize trends.earth-API interactions (using refresh tokens, and removing unnecessary requests)
+  - Use setuptools-scm to dynamically identify versions (most relevant for those running development versions of trends.earth)
+  - Bump googleearthengine-api to 1.6.6
+
+`2.1.18 (August 5, 2025) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.18>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - fix: key error with reporting period default selection by @merydian in #943
+  - fix: error in Sub-indicators for SDG 15.3.1 with progress periods by @merydian in #945
+  - Update translations by @github-actions[bot] in #946
+  - [pre-commit.ci] pre-commit autoupdate by @pre-commit-ci[bot] in #929
+  - Fix progress period included even when it is not checked by @dimasciput in #954
+  - Added nix shell for NixOS dev workflow streamlining by @timlinux in #950
+  - Qgis process by @timlinux in #955
+  - Final tweaks for experimental 2.1.18 by @timlinux in #956
+  - [pre-commit.ci] pre-commit autoupdate by @pre-commit-ci[bot] in #948
+  - Try to fig plugin setup issue by @azvoleff in #951
+  - Update translations by @github-actions[bot] in #958
+  - Add support multiple progress periods for SDG 15.3.1 by @merydian in #961
+  - Make reports work in FAO-WOCAT productivity mode for SDG 15.3.1 local task by @merydian in #963
+  - Update translations by @github-actions[bot] in #964
+  - Add support for CHIRPS and UK-CEH precipitation datasets in drought tools
+
 `2.1.16 (July 31, 2024) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.16>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

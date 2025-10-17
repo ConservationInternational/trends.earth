@@ -269,13 +269,3 @@ Reports
   durable  
   <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-shared/VitalSigns_LDMP/LDMP_Guidance_FRE_C1_R1_PRINT.pdf>`_
 - `Comments on the GEF STAR Allocation Algorithm and Suggestions for Alternatives <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-shared/VitalSigns_LDMP/LDMP_Olsson_et_al_Comments_on_GBI.pdf>`_
-
-.. _fact_sheets:
-
-Fact sheets
-+++++++++++++
-
-- `Conceptual Fact Sheet for Trends.Earth 
-  <http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_
-- `Technical Fact Sheet for Trends.Earth 
-  <http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_

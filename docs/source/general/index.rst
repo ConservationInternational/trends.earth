@@ -257,17 +257,18 @@ Reports
   <http://ggim.un.org/documents/Report_Global_and_Complementary_Geospatial_Data_for_SDGs.pdf>`_
 - `Using Spectral Vegetation Indices to Measure Gross Primary Productivity as 
   an Indicator of Land Degradation 
-  <http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>`_
+  <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-shared/VitalSigns_LDMP/LDMP_Report1_C1_R3_WEB_HR.pdf>`_
 - `Evaluation of approaches for incorporating higher-resolution data for 
   disaggregation or targeted analysis 
-  <http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>`_
+  <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-shared/VitalSigns_LDMP/LDMP_Report%202_C1_R1_PRINT.pdf>`_
 - `Disentangling the effects of climate and land use on land degradation 
-  <http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_
+  <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-shared/VitalSigns_LDMP/LDMP_Report%205_C1_R1_PRINT.pdf>`_
 - `Monitoring and assessing land degradation to support sustainable development 
-  <http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>`_ 
+  <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-shared/VitalSigns_LDMP/LDMP_Guidance_ENG_C1_R1_PRINT.pdf>`_ 
 - `(French) Suivre et évaluer la dégradation des terres pour soutenir le développement 
   durable  
-  <http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_
+  <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-shared/VitalSigns_LDMP/LDMP_Guidance_FRE_C1_R1_PRINT.pdf>`_
+- `Comments on the GEF STAR Allocation Algorithm and Suggestions for Alternatives <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-shared/VitalSigns_LDMP/LDMP_Olsson_et_al_Comments_on_GBI.pdf>`_
 
 .. _fact_sheets:
 

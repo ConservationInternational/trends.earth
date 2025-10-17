@@ -1022,6 +1022,7 @@ Create git tags for the new version and push them to GitHub::
 
 The ``-m`` flag ensures tags are also created for the dependent modules. This
 command will:
+
   - Create an annotated git tag (e.g., ``v2.1.20``)
   - Push the tag to the GitHub repository
   - Optionally tag dependent modules if ``-m`` is specified
@@ -1036,6 +1037,7 @@ zipfile attached::
    invoke release-github
 
 This command will:
+
   - Build a clean plugin zipfile (e.g., ``LDMP_2.1.20.zip``) with all
     dependencies
   - Remove all ``.pyc`` files to comply with QGIS repository security

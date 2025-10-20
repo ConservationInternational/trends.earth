@@ -170,19 +170,22 @@ def _write_aoi_geojson(summary_path, out_path: Path) -> Path:
     return out_path
 
 
-def _write_summary_without_aoi(summary_path, out_path: Path) -> Path:
-    """Write summary without AOI."""
-    with open(summary_path) as f:
-        summary = json.load(f)
+# TODO: Below is removed for now in order to maintain backwards compatibility
+# with Prais, which expects to find the AOI within the metadata
+#
+# def _write_summary_without_aoi(summary_path, out_path: Path) -> Path:
+#     """Write summary without AOI."""
+#     with open(summary_path) as f:
+#         summary = json.load(f)
 
-    if "metadata" in summary:
-        summary["metadata"].pop("area_of_interest")
+#     if "metadata" in summary:
+#         summary["metadata"].pop("area_of_interest")
 
-    summary = _rename_progress_to_report_sections(summary)
+#     summary = _rename_progress_to_report_sections(summary)
 
-    with open(out_path, "w") as f:
-        json.dump(summary, f, indent=2)
-    return out_path
+#     with open(out_path, "w") as f:
+#         json.dump(summary, f, indent=2)
+#     return out_path
 
 
 def _rename_progress_to_report_sections(summary: dict) -> dict:
@@ -559,26 +562,30 @@ def compute_unccd_report(
                     Path(temp_dir)
                     / so1_so2_summary_name.replace("summary.json", "aoi.geojson"),
                 )
-                summary_without_aoi_path = _write_summary_without_aoi(
-                    cand,
-                    Path(temp_dir) / so1_so2_summary_name,
-                )
                 paths.append(aoi_path)
-                paths.remove(cand)
-                paths.append(summary_without_aoi_path)
+                # Still write AOI within summary for Prais backwards compatibility
+                #
+                # summary_without_aoi_path = _write_summary_without_aoi(
+                #     cand,
+                #     Path(temp_dir) / so1_so2_summary_name,
+                # )
+                # paths.remove(cand)
+                # paths.append(summary_without_aoi_path)
         elif orig_summary_path_so1_so2 in paths:
             aoi_path = _write_aoi_geojson(
                 orig_summary_path_so1_so2,
                 Path(temp_dir)
                 / orig_summary_path_so1_so2.name.replace("summary.json", "aoi.geojson"),
             )
-            summary_without_aoi_path = _write_summary_without_aoi(
-                orig_summary_path_so1_so2,
-                Path(temp_dir) / orig_summary_path_so1_so2.name,
-            )
             paths.append(aoi_path)
-            paths.remove(orig_summary_path_so1_so2)
-            paths.append(summary_without_aoi_path)
+            # Still write AOI within summary for Prais backwards compatibility
+            #
+            # summary_without_aoi_path = _write_summary_without_aoi(
+            #     orig_summary_path_so1_so2,
+            #     Path(temp_dir) / orig_summary_path_so1_so2.name,
+            # )
+            # paths.remove(orig_summary_path_so1_so2)
+            # paths.append(summary_without_aoi_path)
 
         for path in paths:
             log(f"{path} exists: {path.exists()}")

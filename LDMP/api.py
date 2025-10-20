@@ -563,10 +563,20 @@ class APIClient(QtCore.QObject):
                     ret = {}  # Return empty dict for 204 responses
                 elif type(resp) is QtNetwork.QNetworkReply:
                     ret = resp.readAll()
-                    ret = json.load(io.BytesIO(ret))
+                    try:
+                        ret = json.load(io.BytesIO(ret))
+                    except json.JSONDecodeError as e:
+                        log(f"Failed to parse JSON response: {e}")
+                        log(f"Response content (first 500 chars): {ret[:500]}")
+                        ret = None
                 elif type(resp) is QgsNetworkReplyContent:
                     ret = resp.content()
-                    ret = json.load(io.BytesIO(ret))
+                    try:
+                        ret = json.load(io.BytesIO(ret))
+                    except json.JSONDecodeError as e:
+                        log(f"Failed to parse JSON response: {e}")
+                        log(f"Response content (first 500 chars): {ret[:500]}")
+                        ret = None
                 else:
                     err_msg = "Unknown object type: {}.".format(str(resp))
                     log(err_msg)
@@ -576,24 +586,57 @@ class APIClient(QtCore.QObject):
 
                 # Try to read error response body for more details
                 error_body = None
+                error_text = None
                 try:
                     if type(resp) is QtNetwork.QNetworkReply:
                         error_data = resp.readAll()
                         if error_data:
-                            error_body = json.load(io.BytesIO(error_data))
+                            error_text = bytes(error_data).decode(
+                                "utf-8", errors="replace"
+                            )
+                            error_body = json.loads(error_text)
                     elif type(resp) is QgsNetworkReplyContent:
                         error_data = resp.content()
                         if error_data:
-                            error_body = json.load(io.BytesIO(error_data))
+                            error_text = bytes(error_data).decode(
+                                "utf-8", errors="replace"
+                            )
+                            error_body = json.loads(error_text)
+                except json.JSONDecodeError:
+                    # Response is not JSON (e.g., HTML error page from 502)
+                    if error_text:
+                        log(
+                            f"Non-JSON error response (first 500 chars): {error_text[:500]}"
+                        )
                 except Exception as e:
                     log(f"Could not parse error response body: {e}")
 
-                err_msg = "Error: {} (status {}).".format(desc, status)
-                if error_body:
-                    if isinstance(error_body, dict) and "msg" in error_body:
-                        err_msg += f" Server message: {error_body['msg']}"
-                    else:
-                        err_msg += f" Server response: {error_body}"
+                # Provide user-friendly error messages for common transient errors
+                if status_code in [502, 503, 504]:
+                    # Bad Gateway, Service Unavailable, Gateway Timeout
+                    err_msg = tr_api.tr(
+                        "The Trends.Earth server is temporarily unavailable (error {status}). "
+                        "This is usually a temporary issue. Please try again in a few moments."
+                    ).format(status=status_code)
+                elif status_code == 500:
+                    # Internal Server Error
+                    err_msg = tr_api.tr(
+                        "The Trends.Earth server encountered an internal error (error 500). "
+                        "Please try again. If the problem persists, contact the Trends.Earth team."
+                    )
+                elif status_code == 401 and use_token:
+                    # Unauthorized - token issue
+                    err_msg = tr_api.tr(
+                        "Authentication failed. Please check your login credentials."
+                    )
+                else:
+                    # Generic error message
+                    err_msg = "Error: {} (status {}).".format(desc, status)
+                    if error_body:
+                        if isinstance(error_body, dict) and "msg" in error_body:
+                            err_msg += f" Server message: {error_body['msg']}"
+                        else:
+                            err_msg += f" Server response: {error_body}"
 
                 log(err_msg)
 

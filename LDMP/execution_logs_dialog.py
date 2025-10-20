@@ -151,12 +151,29 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
         response = requests.get(url, headers=headers, timeout=30)
 
         if response.status_code == 200:
-            data = response.json()
-            return data.get("data", [])
+            try:
+                data = response.json()
+                return data.get("data", [])
+            except ValueError as e:
+                log(f"Failed to parse JSON response: {e}")
+                log(f"Response content (first 500 chars): {response.text[:500]}")
+                raise Exception(
+                    "Server returned invalid response. Please try again later."
+                )
         elif response.status_code == 404:
             raise Exception("Execution not found on server")
         elif response.status_code == 401:
             raise Exception("Authentication failed. Please log in again.")
+        elif response.status_code in [502, 503, 504]:
+            raise Exception(
+                f"The Trends.Earth server is temporarily unavailable (error {response.status_code}). "
+                "Please try again in a few minutes."
+            )
+        elif response.status_code == 500:
+            raise Exception(
+                "The Trends.Earth server encountered an internal error. "
+                "Please try again. If the problem persists, contact the Trends.Earth team."
+            )
         else:
             raise Exception(
                 f"API request failed: {response.status_code} - {response.text}"

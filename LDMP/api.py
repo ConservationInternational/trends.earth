@@ -12,6 +12,7 @@
 """
 
 import base64
+import gzip
 import io
 import json
 import time
@@ -44,6 +45,9 @@ class tr_api:
 
 
 class RequestTask(QgsTask):
+    # Compress request bodies larger than this size (in bytes)
+    COMPRESSION_THRESHOLD = 1024  # 1KB
+
     def __init__(
         self,
         description,
@@ -64,6 +68,31 @@ class RequestTask(QgsTask):
         self.headers = headers or {}
         self.exception = None
         self.resp = None
+
+    def _compress_request_if_needed(self, request_data, network_request):
+        """
+        Compress request data if it exceeds the threshold.
+
+        Args:
+            request_data: The raw request data bytes
+            network_request: The QNetworkRequest to add headers to
+
+        Returns:
+            Compressed or original request data
+        """
+        if len(request_data) > self.COMPRESSION_THRESHOLD:
+            original_size = len(request_data)
+            request_data = gzip.compress(request_data)
+            compressed_size = len(request_data)
+            compression_ratio = (1 - compressed_size / original_size) * 100
+            log(
+                f"Compressed request body: {original_size} -> {compressed_size} bytes "
+                f"({compression_ratio:.1f}% reduction)"
+            )
+            network_request.setRawHeader(
+                QtCore.QByteArray(b"Content-Encoding"), QtCore.QByteArray(b"gzip")
+            )
+        return request_data
 
     def run(self):
         try:
@@ -107,11 +136,21 @@ class RequestTask(QgsTask):
                     else request_data
                 )
 
+                # Compress large request bodies
+                request_data = self._compress_request_if_needed(
+                    request_data, network_request
+                )
+
                 self.resp = network_manager.blockingPost(network_request, request_data)
 
             elif self.method == "update":
                 doc = QtCore.QJsonDocument(self.payload)
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
+
+                # Compress large request bodies
+                request_data = self._compress_request_if_needed(
+                    request_data, network_request
+                )
 
                 self.resp = network_manager.sendCustomRequest(
                     network_request, b"UPDATE", request_data
@@ -137,6 +176,11 @@ class RequestTask(QgsTask):
             elif self.method == "patch":
                 doc = QtCore.QJsonDocument(self.payload)
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
+
+                # Compress large request bodies
+                request_data = self._compress_request_if_needed(
+                    request_data, network_request
+                )
 
                 self.resp = network_manager.sendCustomRequest(
                     network_request, b"PATCH", request_data

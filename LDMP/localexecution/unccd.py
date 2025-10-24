@@ -19,7 +19,7 @@ from ..logger import log
 def _infer_periods_affected_from_summary(summary_path: Path) -> List[str]:
     """Infer which periods exist in the SO1/SO2 summary and map them to the
     allowed names required by ErrorRecodeProperties.periods_affected
-    ("baseline", "reporting_1", "reporting_2").
+    ("baseline", "report_1", "report_2").
     """
     try:
         with open(summary_path, "r") as f:
@@ -42,26 +42,30 @@ def _infer_periods_affected_from_summary(summary_path: Path) -> List[str]:
     for key in lc.keys():
         sk = str(key).lower()
         m_prog = _re.match(r"^progress(?:_(\d+))?$", sk)
-        m_report = _re.match(r"^report_(\d+)$", sk)
-        m_reporting = _re.match(r"^reporting_(\d+)$", sk)
+        m_report = _re.match(r"^report(?:_(\d+))?$", sk)
+        m_reporting = _re.match(r"^reporting(?:_(\d+))?$", sk)
+        m_period = _re.match(r"^period(?:_(\d+))?$", sk)
         if m_prog:
             idx = int(m_prog.group(1)) if m_prog.group(1) else 1
-            val = f"reporting_{idx}"
+            val = f"report_{idx}"
         elif m_report:
-            idx = int(m_report.group(1))
-            val = f"reporting_{idx}"
+            idx = int(m_report.group(1)) if m_report.group(1) else 1
+            val = f"report_{idx}"
         elif m_reporting:
-            idx = int(m_reporting.group(1))
-            val = f"reporting_{idx}"
+            idx = int(m_reporting.group(1)) if m_reporting.group(1) else 1
+            val = f"report_{idx}"
+        elif m_period:
+            idx = int(m_period.group(1)) if m_period.group(1) else 1
+            val = f"report_{idx}"
         else:
             continue
         if val not in periods:
             periods.append(val)
 
-    reporting = [p for p in periods if p.startswith("reporting_")]
-    if len(reporting) > 2:
-        reporting = reporting[:2]
-        periods = [p for p in periods if p == "baseline"] + reporting
+    report_entries = [p for p in periods if p.startswith("report_")]
+    if len(report_entries) > 2:
+        report_entries = report_entries[:2]
+        periods = [p for p in periods if p == "baseline"] + report_entries
 
     return periods or ["baseline"]
 
@@ -189,7 +193,8 @@ def _write_aoi_geojson(summary_path, out_path: Path) -> Path:
 
 
 def _rename_progress_to_report_sections(summary: dict) -> dict:
-    """Rename keys like 'progress', 'progress_2', ... to 'report_1', 'report_2', ..."""
+    """Rename keys like 'progress', 'progress_2', ... to 'report_1', 'report_2', ...
+    ensuring 'baseline' is preserved and progress periods use 'report_N' naming."""
 
     def _rename_in_section(section_dict):
         if not isinstance(section_dict, dict):
@@ -197,12 +202,27 @@ def _rename_progress_to_report_sections(summary: dict) -> dict:
         new_section = {}
         progress_entries = []
         for k, v in section_dict.items():
-            m = re.match(r"^progress(?:_(\d+))?$", str(k), flags=re.IGNORECASE)
-            if m:
-                idx = int(m.group(1)) if m.group(1) else 1
-                progress_entries.append((idx, v))
-            else:
+            # Keep baseline as-is
+            if str(k).lower() == "baseline":
                 new_section[k] = v
+            else:
+                # Check for progress, report, or reporting patterns
+                m_prog = re.match(r"^progress(?:_(\d+))?$", str(k), flags=re.IGNORECASE)
+                m_report = re.match(r"^report(?:_(\d+))?$", str(k), flags=re.IGNORECASE)
+                m_reporting = re.match(
+                    r"^reporting(?:_(\d+))?$", str(k), flags=re.IGNORECASE
+                )
+                if m_prog:
+                    idx = int(m_prog.group(1)) if m_prog.group(1) else 1
+                    progress_entries.append((idx, v))
+                elif m_report:
+                    idx = int(m_report.group(1)) if m_report.group(1) else 1
+                    progress_entries.append((idx, v))
+                elif m_reporting:
+                    idx = int(m_reporting.group(1)) if m_reporting.group(1) else 1
+                    progress_entries.append((idx, v))
+                else:
+                    new_section[k] = v
         if progress_entries:
             progress_entries.sort(key=lambda x: x[0])
             for idx, val in progress_entries:
@@ -364,17 +384,21 @@ def _set_error_recode(in_file, out_file, error_recode_polys):
             norm = "baseline"
         else:
             m_prog = re.match(r"^progress(?:_(\d+))?$", sk)
-            m_report = re.match(r"^report_(\d+)$", sk)
-            m_reporting = re.match(r"^reporting_(\d+)$", sk)
+            m_report = re.match(r"^report(?:_(\d+))?$", sk)
+            m_reporting = re.match(r"^reporting(?:_(\d+))?$", sk)
+            m_period = re.match(r"^period(?:_(\d+))?$", sk)
             if m_prog:
                 idx = int(m_prog.group(1)) if m_prog.group(1) else 1
-                norm = f"reporting_{idx}"
+                norm = f"report_{idx}"
             elif m_report:
-                idx = int(m_report.group(1))
-                norm = f"reporting_{idx}"
+                idx = int(m_report.group(1)) if m_report.group(1) else 1
+                norm = f"report_{idx}"
             elif m_reporting:
-                idx = int(m_reporting.group(1))
-                norm = f"reporting_{idx}"
+                idx = int(m_reporting.group(1)) if m_reporting.group(1) else 1
+                norm = f"report_{idx}"
+            elif m_period:
+                idx = int(m_period.group(1)) if m_period.group(1) else 1
+                norm = f"report_{idx}"
             else:
                 continue
         key_to_norm[k] = norm

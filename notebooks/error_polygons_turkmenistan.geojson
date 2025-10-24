@@ -20,7 +20,7 @@
         "recode_stable_to": 1,
         "recode_imp_to": null,
         "periods_affected": [
-          "reporting_2"
+          "report_2"
         ]
       },
       "geometry": {
@@ -64,7 +64,7 @@
         "recode_imp_to": null,
         "periods_affected": [
           "baseline",
-          "reporting_2"
+          "report_2"
         ]
       },
       "geometry": {

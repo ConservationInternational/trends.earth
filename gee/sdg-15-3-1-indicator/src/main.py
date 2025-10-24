@@ -88,8 +88,8 @@ def _run_soc_deg(params, logger):
 
 def _calc_deg_sdg(deg_prod5, deg_lc, deg_soc):
     deg_prod3 = calc_prod3(deg_prod5)
-    deg_sdg = deg_prod3.where(deg_lc.eq(-1).Or(deg_soc.eq(-1)), -1)
-    deg_sdg = deg_sdg.where(deg_sdg.eq(0).And(deg_lc.eq(1).Or(deg_soc.eq(1))), 1)
+    deg_sdg = deg_prod3.where(deg_lc.eq(-1).Or(deg_soc.lt(-10)), -1)
+    deg_sdg = deg_sdg.where(deg_sdg.eq(0).And(deg_lc.eq(1).Or(deg_soc.gt(10))), 1)
     deg_sdg = deg_sdg.where(
         deg_prod3.eq(NODATA_VALUE)
         .Or(deg_lc.eq(NODATA_VALUE))

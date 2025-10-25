@@ -36,6 +36,7 @@ from te_algorithms.gee.land_cover import land_cover_deg
 from te_algorithms.gee.productivity import (
     calc_prod3,
     calc_prod5,
+    productivity_faowocat,
     productivity_performance,
     productivity_state,
     productivity_trajectory,
@@ -166,8 +167,8 @@ def _setup_output(prod5, lc, soc, sdg, params, extra_prod_bands=None):
             lpd_band_name,
             add_to_map=False,
             metadata={
-                "year_initial": params["productivity"]["traj_year_initial"],
-                "year_final": params["productivity"]["traj_year_final"],
+                "year_initial": lpd_year_initial,
+                "year_final": lpd_year_final,
             },
         ),
         BandInfo(
@@ -336,6 +337,85 @@ def _run_te_period(params, all_geojsons, logger):
     return _setup_output(deg_prod5, deg_lc, deg_soc, deg_sdg, params, extra_prod_bands)
 
 
+def _run_fao_wocat_period(params, logger):
+    """Run FAO-WOCAT productivity calculations for a given period"""
+    logger.debug("Starting _run_fao_wocat_period processing")
+    prod_params = params.get("productivity")
+
+    ndvi_gee_dataset = prod_params.get("ndvi_gee_dataset")
+    low_biomass = float(prod_params.get("low_biomass", 0.4))
+    high_biomass = float(prod_params.get("high_biomass", 0.7))
+    years_interval = int(prod_params.get("years_interval", 3))
+    year_initial = int(prod_params.get("year_initial"))
+    year_final = int(prod_params.get("year_final"))
+    modis_mode = prod_params.get("modis_mode", "MannKendal + MTID")
+
+    logger.debug(f"Computing FAO-WOCAT productivity ({year_initial}-{year_final})...")
+    logger.debug(f"Using dataset: {ndvi_gee_dataset}")
+    logger.debug(
+        f"Parameters: low_biomass={low_biomass}, high_biomass={high_biomass}, years_interval={years_interval}"
+    )
+
+    fao_wocat_result = productivity_faowocat(
+        low_biomass=low_biomass,
+        high_biomass=high_biomass,
+        years_interval=years_interval,
+        modis_mode=modis_mode,
+        prod_asset=ndvi_gee_dataset,
+        logger=logger,
+        year_initial=year_initial,
+        year_final=year_final,
+    )
+
+    # Extract the productivity degradation layer (5-class LPD)
+    deg_prod5 = fao_wocat_result.getImages(config.FAO_WOCAT_LPD_BAND_NAME)
+    if not deg_prod5:
+        raise RuntimeError(
+            "FAO-WOCAT productivity calculation did not produce expected LPD band"
+        )
+
+    # Calculate land cover and SOC degradation
+    deg_lc = _run_lc_deg(params.get("land_cover"), logger)
+    deg_soc = _run_soc_deg(params.get("soil_organic_carbon"), logger)
+    deg_sdg = _calc_deg_sdg(deg_prod5, deg_lc, deg_soc)
+
+    # For FAO-WOCAT, no extra productivity bands are available
+    if params.get("include_productivity_bands", False):
+        logger.warning(
+            "include_productivity_bands parameter ignored for FAO-WOCAT mode. "
+            "Extra productivity bands are only available with Trends.Earth productivity calculations."
+        )
+
+    return _setup_output(deg_prod5, deg_lc, deg_soc, deg_sdg, params, None)
+
+
+def _run_jrc_period(params, logger):
+    """Run JRC precalculated productivity for a given period"""
+    logger.debug("Starting _run_jrc_period processing")
+    prod_params = params.get("productivity")
+
+    # Get JRC asset
+    jrc_asset = prod_params.get("asset")
+    logger.debug(f"Using JRC asset: {jrc_asset}")
+
+    # Load precalculated JRC LPD data
+    deg_prod5 = ee.Image(jrc_asset)
+
+    # Calculate land cover and SOC degradation
+    deg_lc = _run_lc_deg(params.get("land_cover"), logger)
+    deg_soc = _run_soc_deg(params.get("soil_organic_carbon"), logger)
+    deg_sdg = _calc_deg_sdg(deg_prod5, deg_lc, deg_soc)
+
+    # For JRC precalculated LPD, no extra productivity bands are available
+    if params.get("include_productivity_bands", False):
+        logger.warning(
+            "include_productivity_bands parameter ignored for JRC mode. "
+            "Extra productivity bands are only available with Trends.Earth productivity calculations."
+        )
+
+    return _setup_output(deg_prod5, deg_lc, deg_soc, deg_sdg, params, None)
+
+
 def _get_sdg(out):
     # _run_te_period returns a TEImageV2, so the getImages function returns a list of images
     sdg_image = out.getImages(config.SDG_BAND_NAME)
@@ -397,33 +477,72 @@ def run_te(params, EXECUTION_ID, logger):
     )
 
 
-def _run_precalculated_lpd_period(params, logger):
-    deg_prod5 = ee.Image(params.get("productivity").get("asset"))
-    deg_lc = _run_lc_deg(params.get("land_cover"), logger)
-    deg_soc = _run_soc_deg(params.get("soil_organic_carbon"), logger)
-    deg_sdg = _calc_deg_sdg(deg_prod5, deg_lc, deg_soc)
+def run_fao_wocat(params, EXECUTION_ID, logger):
+    """Run indicators using FAO-WOCAT productivity calculations"""
+    # Use NDVI dataset for projection
+    proj = ee.Image(
+        params["baseline_period"]["productivity"]["ndvi_gee_dataset"]
+    ).projection()
 
-    # For precalculated LPD, no extra productivity bands are available
-    # Log a warning if user requested them
-    if params.get("include_productivity_bands", False):
-        logger.warning(
-            "include_productivity_bands parameter ignored for precalculated LPD mode. "
-            "Extra productivity bands are only available with Trends.Earth productivity calculations."
-        )
-
-    return _setup_output(deg_prod5, deg_lc, deg_soc, deg_sdg, params, None)
-
-
-def run_precalculated_lpd(params, EXECUTION_ID, logger):
-    """Run indicators using precalculated LPD for productivity"""
-    proj = ee.Image(params["baseline_period"]["productivity"]["asset"]).projection()
-
-    out = _run_precalculated_lpd_period(params["baseline_period"], logger)
+    logger.debug("Running FAO-WOCAT productivity calculations")
+    out = _run_fao_wocat_period(params["baseline_period"], logger)
     baseline_sdg = _get_sdg(out)
     baseline_year_initial = params["baseline_period"]["period"]["year_initial"]
     baseline_year_final = params["baseline_period"]["period"]["year_final"]
+
     for period_params in params["status_periods"]:
-        period_out = _run_precalculated_lpd_period(period_params, logger)
+        period_out = _run_fao_wocat_period(period_params, logger)
+
+        period_out.add_image(
+            _calc_sdg_status(
+                baseline_sdg,
+                _get_sdg(period_out),
+                baseline_year_initial,
+                period_params["period"]["year_final"],
+            ),
+            [
+                results.Band(
+                    name=config.SDG_STATUS_BAND_NAME,
+                    add_to_map=True,
+                    metadata={
+                        "baseline_year_initial": baseline_year_initial,
+                        "baseline_year_final": baseline_year_final,
+                        "reporting_year_initial": period_params["period"][
+                            "year_initial"
+                        ],
+                        "reporting_year_final": period_params["period"]["year_final"],
+                    },
+                )
+            ],
+        )
+        out.merge(period_out)
+
+    return out.export(
+        geojsons=params.get("geojsons"),
+        task_name="sdg_indicator",
+        crs=params.get("crs"),
+        logger=logger,
+        execution_id=EXECUTION_ID,
+        filetype=results.RasterFileType(
+            params.get("filetype", results.RasterFileType.COG.value)
+        ),
+        proj=proj,
+    )
+
+
+def run_jrc(params, EXECUTION_ID, logger):
+    """Run indicators using JRC precalculated LPD for productivity"""
+    baseline_asset = params["baseline_period"]["productivity"]["asset"]
+    proj = ee.Image(baseline_asset).projection()
+
+    logger.debug("Running JRC precalculated productivity")
+    out = _run_jrc_period(params["baseline_period"], logger)
+    baseline_sdg = _get_sdg(out)
+    baseline_year_initial = params["baseline_period"]["period"]["year_initial"]
+    baseline_year_final = params["baseline_period"]["period"]["year_final"]
+
+    for period_params in params["status_periods"]:
+        period_out = _run_jrc_period(period_params, logger)
 
         period_out.add_image(
             _calc_sdg_status(
@@ -466,23 +585,16 @@ def run_all_periods(params, EXECUTION_ID, logger):
     """Run indicators for a given period, using FAO-WOCAT, JRC, or Trends.Earth"""
 
     baseline_params = params["baseline_period"]
+    prod_mode = baseline_params["productivity"]["mode"]
 
-    if (
-        baseline_params["productivity"]["mode"]
-        == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
-    ):
+    if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
         out = run_te(params, EXECUTION_ID, logger)
-    elif baseline_params["productivity"]["mode"] in (
-        ProductivityMode.JRC_5_CLASS_LPD.value,
-        ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
-    ):
-        out = run_precalculated_lpd(params, EXECUTION_ID, logger)
+    elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+        out = run_fao_wocat(params, EXECUTION_ID, logger)
+    elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+        out = run_jrc(params, EXECUTION_ID, logger)
     else:
-        raise Exception(
-            'Unknown productivity mode "{}" chosen'.format(
-                params["productivity"]["mode"]
-            )
-        )
+        raise Exception(f'Unknown productivity mode "{prod_mode}" chosen')
 
     return out
 

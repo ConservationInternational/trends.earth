@@ -1,8 +1,8 @@
 {
 	"productivity": {
 		"mode": "JRC-LPD-5",
-		"asset": "users/geflanddegradation/toolbox_datasets/jrc_lpd_2001_2015",
-		"year_initial": 2001,
+		"asset": "users/geflanddegradation/toolbox_datasets/lpd_jrc_baseline_2000_2015_1km",
+		"year_initial": 2000,
 		"year_final": 2015
 	}
 }

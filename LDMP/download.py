@@ -71,8 +71,10 @@ class Country:
     @classmethod
     def deserialize(cls, name: str, raw_country: typing.Dict):
         regions = {}
-        for admin_level1_name, details in raw_country.get("admin1").items():
-            regions[admin_level1_name] = details["code"]
+        admin1_data = raw_country.get("admin1", {})
+        if admin1_data:
+            for admin_level1_name, details in admin1_data.items():
+                regions[admin_level1_name] = details["code"]
 
         return cls(
             name=name,
@@ -271,21 +273,328 @@ def download_files(urls, out_folder):
 
 
 def get_admin_bounds() -> typing.Dict[str, Country]:
-    raw_admin_bounds = read_json("admin_bounds_key.json.gz", verify=False)
+    """
+    Get administrative boundaries from API or fallback to cached file.
+
+    Returns:
+        Dictionary mapping country names to Country objects
+    """
+    try:
+        # Load boundaries from API using intelligent caching
+
+        api_boundaries = _get_boundaries_from_api()
+        if api_boundaries:
+            log("Loaded administrative boundaries from Trends.Earth API")
+            return api_boundaries
+        else:
+            log("Failed to load boundaries from API")
+            return {}
+    except Exception as e:
+        log(f"Error loading boundaries from API: {e}")
+        return {}
+
+
+def _get_boundaries_from_api() -> typing.Optional[typing.Dict[str, Country]]:
+    """
+    Download and cache administrative boundaries from Trends.Earth API using intelligent caching.
+
+    Uses server-side timestamps to determine cache validity. Only checks server for
+    updates monthly to minimize API overhead.
+
+    Returns:
+        Dictionary mapping country names to Country objects, or None on error
+    """
+    from . import api
+    from .boundaries_cache import get_boundaries_cache
+
+    cache = get_boundaries_cache()
+    release_type = "gbOpen"  # Default release type
+
+    # Check if we should query server for updates (monthly check)
+    should_check_server = cache.should_check_server_for_updates(release_type)
+    server_last_updated = None
+
+    if should_check_server:
+        try:
+            # Get server's last updated timestamp
+            server_info = api.default_api_client.get_boundaries_last_updated(
+                release_type
+            )
+            if server_info:
+                server_last_updated = server_info.get("last_updated")
+                log(f"Server last updated boundaries: {server_last_updated}")
+
+                # Mark that we've checked the server
+                cache.mark_server_checked(release_type)
+            else:
+                log("Could not get server last updated timestamp")
+        except Exception as e:
+            log(f"Error checking server for updates: {e}")
+
+    # Try to load from cache with server timestamp validation
+    cached_data = cache.load_boundaries_list(release_type, server_last_updated)
+    if cached_data:
+        log("Using valid cached boundaries list from API")
+        return _convert_api_boundaries_to_countries(cached_data)
+
+    # Fetch fresh data from API
+    try:
+        log("Fetching fresh boundaries list from API")
+        api_response = api.default_api_client.get_boundaries_list(release_type)
+        if not api_response:
+            log("No boundaries data received from API")
+            return None
+
+        boundaries_list = api_response.get("boundaries", [])
+        server_timestamp = api_response.get("last_updated")
+
+        if not boundaries_list:
+            log("Empty boundaries list received from API")
+            return None
+
+        # Cache the boundaries list with server timestamp
+        cache.save_boundaries_list(boundaries_list, release_type, server_timestamp)
+
+        log(
+            f"Retrieved and cached {len(boundaries_list)} countries from API with timestamp {server_timestamp}"
+        )
+        return _convert_api_boundaries_to_countries(boundaries_list)
+
+    except Exception as e:
+        log(f"Error fetching boundaries from API: {e}")
+        return None
+
+
+def _convert_api_boundaries_to_countries(
+    boundaries_list: typing.List[typing.Dict],
+) -> typing.Dict[str, Country]:
+    """
+    Convert API boundaries list to Country objects dictionary.
+
+    Args:
+        boundaries_list: List of boundary data from API
+
+    Returns:
+        Dictionary mapping country names to Country objects
+    """
     countries_regions = {}
-    for country_name, raw_country in raw_admin_bounds.items():
-        countries_regions[country_name] = Country.deserialize(country_name, raw_country)
+
+    for boundary in boundaries_list:
+        country_name = boundary.get("boundaryName")
+        country_iso = boundary.get("boundaryISO")
+
+        if not country_name or not country_iso:
+            continue
+
+        # Build admin1 regions dictionary
+        admin1_regions = {}
+        admin1_units = boundary.get("admin1_units", [])
+        for unit in admin1_units:
+            shape_name = unit.get("shapeName")
+            shape_id = unit.get("shapeID")
+            if shape_name and shape_id:
+                admin1_regions[shape_name] = shape_id
+
+        # Create Country object with API data
+        country = Country(
+            name=country_name,
+            code=country_iso,
+            crs="EPSG:4326",  # GeoBoundaries uses WGS84
+            wrap=False,  # Default for most countries
+            level1_regions=admin1_regions,
+        )
+
+        countries_regions[country_name] = country
+
     return countries_regions
+
+
+def _extract_admin_unit_from_geojson(
+    full_geojson: typing.Dict, target_shape_id: str
+) -> typing.Optional[typing.Dict]:
+    """
+    Extract a specific admin unit from a full country-level GeoJSON by shape ID.
+
+    Args:
+        full_geojson: Complete GeoJSON containing all admin units for a country
+        target_shape_id: The shape ID of the specific admin unit to extract
+
+    Returns:
+        GeoJSON containing only the requested admin unit, or None if not found
+    """
+    if not full_geojson or "features" not in full_geojson:
+        return None
+
+    # Find the feature with the matching shape ID
+    matching_features = []
+    for feature in full_geojson.get("features", []):
+        properties = feature.get("properties", {})
+        shape_id = properties.get("shapeID") or properties.get("shapeName")
+
+        if shape_id == target_shape_id:
+            matching_features.append(feature)
+
+    if not matching_features:
+        log(f"Admin unit with shape ID '{target_shape_id}' not found in GeoJSON")
+        return None
+
+    # Create new GeoJSON with only the matching feature(s)
+    extracted_geojson = {"type": "FeatureCollection", "features": matching_features}
+
+    # Copy any other top-level properties from the original
+    for key, value in full_geojson.items():
+        if key not in ["type", "features"]:
+            extracted_geojson[key] = value
+
+    log(f"Extracted admin unit '{target_shape_id}' from cached country-level GeoJSON")
+    return extracted_geojson
+
+
+def download_boundary_geojson(
+    country_code: str, admin_level: int = 0, shape_id: typing.Optional[str] = None
+) -> typing.Optional[typing.Dict]:
+    """
+    Download boundary GeoJSON from API for a specific country and admin level using intelligent caching.
+
+    For admin level 1, downloads all admin1 units for the country in a single GeoJSON
+    and extracts the specific unit by shape_id if requested. This is more efficient
+    since GeoBoundaries provides all admin1 units in one response.
+
+    Args:
+        country_code: ISO 3-letter country code (e.g., 'USA', 'BRA')
+        admin_level: Administrative level (0 for country, 1 for states/provinces)
+        shape_id: Specific shape ID for admin1 units (optional, extracts from full dataset)
+
+    Returns:
+        GeoJSON dictionary or None on error
+    """
+    from . import api
+    from .boundaries_cache import get_boundaries_cache
+
+    cache = get_boundaries_cache()
+    release_type = "gbOpen"  # Default release type
+
+    # For admin1, always use country-level cache key (without shape_id)
+    # since GeoBoundaries returns all admin1 units for the country
+    cache_key = f"{country_code}_adm{admin_level}"
+
+    # Check if we should query server for updates (monthly check)
+    should_check_server = cache.should_check_server_for_updates(release_type)
+    server_last_updated = None
+
+    if should_check_server:
+        try:
+            # Get server's last updated timestamp
+            server_info = api.default_api_client.get_boundaries_last_updated(
+                release_type
+            )
+            if server_info:
+                server_last_updated = server_info.get("last_updated")
+                log(f"Server last updated boundaries: {server_last_updated}")
+
+                # Mark that we've checked the server
+                cache.mark_server_checked(release_type)
+            else:
+                log("Could not get server last updated timestamp")
+        except Exception as e:
+            log(f"Error checking server for updates: {e}")
+
+    # Try to load from cache with server timestamp validation
+    # For admin1, always load the full country-level GeoJSON (no shape_id in cache key)
+    cached_geojson = cache.load_boundary_geojson(
+        country_code, admin_level, None, server_last_updated
+    )
+    if cached_geojson:
+        log(f"Using valid cached boundary data for {cache_key}")
+
+        # If requesting a specific admin1 unit, extract it from the full GeoJSON
+        if admin_level == 1 and shape_id:
+            return _extract_admin_unit_from_geojson(cached_geojson, shape_id)
+
+        return cached_geojson
+
+    # Get boundaries list to find download URL
+    try:
+        log(f"Fetching fresh boundary data for {cache_key}")
+        api_response = api.default_api_client.get_boundaries_list(release_type)
+        if not api_response:
+            log("Could not get boundaries list from API")
+            return None
+
+        boundaries_list = api_response.get("boundaries", [])
+        server_timestamp = api_response.get("last_updated")
+
+        if not boundaries_list:
+            log("Empty boundaries list received from API")
+            return None
+
+        # Find the country
+        country_boundary = None
+        for boundary in boundaries_list:
+            if boundary.get("boundaryISO") == country_code:
+                country_boundary = boundary
+                break
+
+        if not country_boundary:
+            log(f"Country {country_code} not found in boundaries list")
+            return None
+
+        # Get the appropriate download URL
+        if admin_level == 0:
+            download_url = country_boundary.get("adm0_geojson_url")
+        else:
+            download_url = country_boundary.get("adm1_geojson_url")
+
+        if not download_url:
+            log(f"No GeoJSON download URL found for {country_code} ADM{admin_level}")
+            return None
+
+        # Download the GeoJSON
+        log(f"Downloading boundary GeoJSON from {download_url}")
+
+        import requests
+
+        # Request compression to reduce download size
+        headers = {
+            "Accept-Encoding": "gzip, deflate, br",
+            "User-Agent": "trends.earth/1.0",
+        }
+
+        response = requests.get(download_url, timeout=60, headers=headers)
+        response.raise_for_status()
+
+        geojson_data = response.json()
+
+        # Cache the full GeoJSON (without shape_id filtering)
+        # For admin1, this contains ALL admin1 units for the country
+        cache.save_boundary_geojson(
+            geojson_data, country_code, admin_level, None, server_timestamp
+        )
+
+        log(
+            f"Downloaded and cached boundary data for {cache_key} with timestamp {server_timestamp}"
+        )
+
+        # If requesting a specific admin1 unit, extract it from the full GeoJSON
+        if admin_level == 1 and shape_id:
+            return _extract_admin_unit_from_geojson(geojson_data, shape_id)
+
+        return geojson_data
+
+    except Exception as e:
+        log(f"Error downloading boundary GeoJSON: {e}")
+        return None
 
 
 def get_cities() -> typing.Dict[str, typing.Dict[str, City]]:
     cities_key = read_json("cities.json.gz", verify=False)
     countries_cities = {}
-    for country_code, city_details in cities_key.items():
-        country_cities = {}
-        for wof_id, further_details in city_details.items():
-            country_cities[wof_id] = City.deserialize(wof_id, further_details)
-        countries_cities[country_code] = country_cities
+    if cities_key:
+        for country_code, city_details in cities_key.items():
+            country_cities = {}
+            for wof_id, further_details in city_details.items():
+                country_cities[wof_id] = City.deserialize(wof_id, further_details)
+            countries_cities[country_code] = country_cities
     return countries_cities
 
 

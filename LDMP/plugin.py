@@ -176,6 +176,14 @@ class LDMPPlugin:
         self.initProcessing()
         QgsExpression.registerFunction(calculate_error_recode_stats)
 
+        # Perform QSettings migration for safe upgrade from legacy boundary system
+        try:
+            from . import boundaries_management
+
+            boundaries_management.validate_and_migrate_boundary_settings()
+        except Exception as e:
+            log(f"Warning: QSettings migration failed: {e}")
+
         """
         Moved the initialization here so that the processing can be 
         initialized first thereby enabling the plugin to be used in 

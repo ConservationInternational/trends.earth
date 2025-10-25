@@ -42,8 +42,8 @@ Estimate potential impacts of restoration
    :align: center
 
 .. note::
-    The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth 
-    are in the `public domain`_. The boundaries and names used, and the 
+    The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth 
+    are under the CC BY 4.0 license. The boundaries and names used, and the 
     designations used, in Trends.Earth do not imply official endorsement or 
     acceptance by Conservation International Foundation, or by its partner 
     organizations and contributors.
@@ -52,9 +52,10 @@ Estimate potential impacts of restoration
     choose an official boundary provided by the designated office of their 
     country.
 
-.. _Natural Earth Administrative Boundaries: http://www.naturalearthdata.com
+.. _geoBoundaries Administrative Boundaries: https://www.geoboundaries.org
 
-.. _Public Domain: https://creativecommons.org/publicdomain/zero/1.0
+.. _CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+
 
  - Use your own area file: If you want to use your own area of analysis, make sure the **Area from file** option is highlighted. Then click **Browse** and navigate to the folder in your computer where you have the file stored. 
 

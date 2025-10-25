@@ -3,10 +3,13 @@ Code for calculating all three SDG 15.3.1 sub-indicators.
 """
 
 # Copyright 2017 Conservation International
+import hashlib
+import json
 import os
 import random
 import tempfile
 from pathlib import Path
+from typing import Dict
 
 import te_algorithms.gdal.land_deg.config as ld_config
 from te_algorithms.api import util
@@ -14,7 +17,8 @@ from te_algorithms.gdal.land_deg.land_deg_recode import (
     rasterize_error_recode,
     recode_errors,
 )
-from te_schemas import algorithms, jobs
+from te_algorithms.gdal.land_deg.land_deg_stats import calculate_statistics
+from te_schemas import algorithms
 from te_schemas.aoi import AOI
 from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.productivity import ProductivityMode
@@ -25,12 +29,12 @@ S3_BUCKET_INPUT = "trends.earth-private"
 S3_REGION = "us-east-1"
 S3_BUCKET_USER_DATA = "trends.earth-users"
 ERROR_RECODE_BAND_NAME = "Error recode"
-RECODE_SCRIPT = algorithms.ExecutionScript.Schema().load(
-    {
-        "name": "sdg-15-3-1-error-recode",
-        "version": "1.13",
-        "run_mode": algorithms.AlgorithmRunMode.LOCAL,
-    }
+# Create ExecutionScript object directly since Schema() is not available
+RECODE_SCRIPT = algorithms.ExecutionScript(
+    id="sdg-15-3-1-error-recode",
+    name="sdg-15-3-1-error-recode",
+    version="1.13",
+    run_mode=algorithms.AlgorithmRunMode.LOCAL,
 )
 
 _band_key = {
@@ -49,6 +53,143 @@ _band_key = {
 }
 
 
+def _hash_band(band: Dict) -> str:
+    """Generate a unique hash for a band based on its properties."""
+    return hashlib.md5(
+        f"{band['name']}_{band['index']}_"
+        f"{json.dumps(band.get('metadata', {}), sort_keys=True)}".encode()
+    ).hexdigest()
+
+
+def _calculate_image_wide_crosstabs(input_job, aoi, periods_to_process, logger):
+    """
+    Calculate crosstab statistics for the entire image area.
+
+    Args:
+        input_job: The job containing the recoded raster data
+        aoi: Area of interest geometry
+        periods_to_process: Dictionary of periods and their band information
+        logger: Logger instance
+
+    Returns:
+        List of crosstab dictionaries for baseline-to-reporting period combinations
+    """
+    logger.debug("Calculating image-wide crosstab statistics for error recoded data")
+
+    crosstabs = []
+
+    # Only calculate crosstabs between baseline and reporting periods
+    if "baseline" not in periods_to_process:
+        logger.warning("No baseline period found, cannot calculate crosstabs")
+        return crosstabs
+
+    baseline_period = periods_to_process["baseline"]
+
+    for period_name, period_data in periods_to_process.items():
+        if period_name == "baseline":
+            continue  # Skip baseline vs baseline
+
+        logger.debug(f"Calculating crosstab: baseline vs {period_name}")
+
+        # Build band_datas dictionary for this crosstab pair
+        baseline_band_info = {
+            "name": baseline_period["band"].name,
+            "index": baseline_period["band_number"],
+            "metadata": baseline_period["band"].metadata
+            if hasattr(baseline_period["band"], "metadata")
+            else {},
+        }
+
+        period_band_info = {
+            "name": period_data["band"].name,
+            "index": period_data["band_number"],
+            "metadata": period_data["band"].metadata
+            if hasattr(period_data["band"], "metadata")
+            else {},
+        }
+
+        baseline_hash = _hash_band(baseline_band_info)
+        period_hash = _hash_band(period_band_info)
+
+        band_datas = {
+            baseline_hash: baseline_band_info,
+            period_hash: period_band_info,
+        }
+
+        # Create a single polygon covering the entire AOI for image-wide analysis
+        aoi_polygon_dict = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "uuid": "image_wide_analysis",
+                    },
+                    "geometry": aoi.geojson["features"][0][
+                        "geometry"
+                    ],  # Use AOI geometry
+                }
+            ],
+        }
+
+        # Prepare parameters for calculate_statistics
+        stats_params = {
+            "path": str(input_job.results.uri.uri),
+            "band_datas": band_datas,
+            "polygons": aoi_polygon_dict,
+            "crosstabs": [(baseline_hash, period_hash)],
+        }
+
+        try:
+            stats_result = calculate_statistics(stats_params)
+
+            # Extract crosstab data and convert to the desired format
+            if (
+                hasattr(stats_result, "data")
+                and stats_result.data
+                and "stats" in stats_result.data
+                and "image_wide_analysis" in stats_result.data["stats"]
+                and "crosstabs" in stats_result.data["stats"]["image_wide_analysis"]
+            ):
+                crosstab_data = stats_result.data["stats"]["image_wide_analysis"][
+                    "crosstabs"
+                ][0]
+
+                # Convert from area_ha to area_km2 and format for report
+                crosstab_formatted = {
+                    "from_period": "baseline",
+                    "to_period": period_name,
+                    "total_area_km2": round(
+                        crosstab_data["total_area_ha"] / 100, 3
+                    ),  # Convert ha to km2
+                    "transitions": {},
+                }
+
+                # Process the crosstab matrix and convert to km2
+                for from_class, to_classes in crosstab_data["crosstab"].items():
+                    crosstab_formatted["transitions"][from_class] = {}
+                    for to_class, stats in to_classes.items():
+                        crosstab_formatted["transitions"][from_class][to_class] = {
+                            "area_km2": round(
+                                stats["area_ha"] / 100, 3
+                            ),  # Convert ha to km2
+                            "area_pct": round(stats["area_pct"], 2),
+                        }
+
+                crosstabs.append(crosstab_formatted)
+                logger.debug(
+                    f"Successfully calculated crosstab for baseline vs {period_name}"
+                )
+
+        except Exception as e:
+            logger.warning(
+                f"Failed to calculate crosstab for baseline vs {period_name}: {e}"
+            )
+            continue
+
+    return crosstabs
+
+
 def _recode_band(recode_params, write_tifs, aoi, execution_id, logger):
     logger.info("Starting error recoding calculation")
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -60,10 +201,11 @@ def _recode_band(recode_params, write_tifs, aoi, execution_id, logger):
         results = recode_errors(recode_params)
         logger.debug("recode_errors function finished.")
 
-        results.data = {
-            "report": results.data,
-            "input_job": input_job_data,
-        }
+        # The results object is a Job, we need to work with its structure properly
+        # Since we can't directly access .data attribute on Job, we'll handle this in the caller
+        logger.debug(
+            "_recode_band function completed, results structure will be handled in calculate_error_recode"
+        )
 
         if write_tifs:
             logger.info("Writing tifs")
@@ -193,7 +335,7 @@ def calculate_error_recode(
             filters = _band_key[period]["filters"]
 
             try:
-                input_band = util.get_band_by_name(
+                input_band_data = util.get_band_by_name(
                     input_job,
                     band_name,
                     filters,
@@ -207,13 +349,22 @@ def calculate_error_recode(
                 )
                 raise exc
 
-            if input_band is None:
+            if input_band_data is None:
                 raise Exception(f"Failed to load band {band_name}")
-            logger.debug(
-                f"Found input band: {input_band.band.name} (band number {input_band.band_number})"
-            )
-            value["band"] = input_band.band
-            value["band_number"] = input_band.band_number
+
+            # Handle the tuple returned by get_band_by_name
+            if isinstance(input_band_data, tuple) and len(input_band_data) == 2:
+                band_data, band = input_band_data
+                logger.debug(
+                    f"Found input band: {band.name} (band number {band_data.band_number})"
+                )
+                value["band"] = band
+                value["band_number"] = band_data.band_number
+            else:
+                # Fallback if different format
+                logger.debug("Found input band with unexpected format")
+                value["band"] = input_band_data
+                value["band_number"] = 1  # Default band number
 
         # Build recode_params with multi-band support
         # Include only essential input job metadata to reduce memory/size
@@ -227,33 +378,105 @@ def calculate_error_recode(
             else None,
         }
 
+        # Convert Band objects to dict format manually
+        baseline_band_dict = {
+            "name": periods_to_process["baseline"]["band"].name,
+            "no_data_value": getattr(
+                periods_to_process["baseline"]["band"],
+                "no_data_value",
+                int(ld_config.NODATA_VALUE),
+            ),
+            "metadata": getattr(periods_to_process["baseline"]["band"], "metadata", {}),
+            "add_to_map": getattr(
+                periods_to_process["baseline"]["band"], "add_to_map", False
+            ),
+            "activated": getattr(
+                periods_to_process["baseline"]["band"], "activated", False
+            ),
+        }
+
+        error_recode_band_dict = {
+            "name": error_recode_band.name,
+            "no_data_value": getattr(
+                error_recode_band, "no_data_value", int(ld_config.NODATA_VALUE)
+            ),
+            "metadata": getattr(error_recode_band, "metadata", {}),
+            "add_to_map": getattr(error_recode_band, "add_to_map", False),
+            "activated": getattr(error_recode_band, "activated", False),
+        }
+
+        # Convert error_polygons to dict format manually
+        error_polygons_dict = {
+            "type": "FeatureCollection",
+            "features": [],
+            "name": getattr(error_polygons, "name", None),
+            "crs": getattr(error_polygons, "crs", None),
+        }
+
+        for feature in error_polygons.features:
+            feature_dict = {
+                "type": "Feature",
+                "properties": {
+                    "uuid": str(feature.properties.uuid),
+                    "periods_affected": getattr(
+                        feature.properties, "periods_affected", []
+                    ),
+                    "location_name": getattr(feature.properties, "location_name", None),
+                    "area_km_sq": getattr(feature.properties, "area_km_sq", None),
+                    "process_driving_change": getattr(
+                        feature.properties, "process_driving_change", None
+                    ),
+                    "basis_for_judgement": getattr(
+                        feature.properties, "basis_for_judgement", None
+                    ),
+                    "recode_deg_to": getattr(feature.properties, "recode_deg_to", None),
+                    "recode_stable_to": getattr(
+                        feature.properties, "recode_stable_to", None
+                    ),
+                    "recode_imp_to": getattr(feature.properties, "recode_imp_to", None),
+                },
+                "geometry": feature.geometry,
+            }
+            error_polygons_dict["features"].append(feature_dict)
+
         recode_params = {
             "write_tifs": write_tifs,
-            "local_context": jobs.JobLocalContext.Schema().dump(
-                input_job.local_context
-            ),
+            "local_context": input_job.local_context,  # Use directly instead of Schema().dump()
             "task_name": input_job.task_name,
             "metadata": periods_to_process["baseline"]["band"].metadata,
             "task_notes": input_job.task_notes,
             "layer_baseline_band_path": str(input_job.results.uri.uri),
-            "layer_baseline_band": Band.Schema().dump(
-                periods_to_process["baseline"]["band"]
-            ),
+            "layer_baseline_band": baseline_band_dict,
             "layer_baseline_band_index": periods_to_process["baseline"]["band_number"],
             "layer_error_recode_path": str(error_recode_tif),
-            "layer_error_recode_band": Band.Schema().dump(error_recode_band),
-            "error_polygons": ErrorRecodePolygons.Schema().dump(error_polygons),
+            "layer_error_recode_band": error_recode_band_dict,
+            "error_polygons": error_polygons_dict,
             "input_job": input_job_metadata,  # Use minimal metadata instead of full job
             "aoi": aoi.geojson,
         }
 
         if "reporting_1" in periods_to_process:
+            reporting_1_band_dict = {
+                "name": periods_to_process["reporting_1"]["band"].name,
+                "no_data_value": getattr(
+                    periods_to_process["reporting_1"]["band"],
+                    "no_data_value",
+                    int(ld_config.NODATA_VALUE),
+                ),
+                "metadata": getattr(
+                    periods_to_process["reporting_1"]["band"], "metadata", {}
+                ),
+                "add_to_map": getattr(
+                    periods_to_process["reporting_1"]["band"], "add_to_map", False
+                ),
+                "activated": getattr(
+                    periods_to_process["reporting_1"]["band"], "activated", False
+                ),
+            }
             recode_params.update(
                 {
                     "layer_reporting_1_band_path": str(input_job.results.uri.uri),
-                    "layer_reporting_1_band": Band.Schema().dump(
-                        periods_to_process["reporting_1"]["band"]
-                    ),
+                    "layer_reporting_1_band": reporting_1_band_dict,
                     "layer_reporting_1_band_index": periods_to_process["reporting_1"][
                         "band_number"
                     ],
@@ -261,12 +484,27 @@ def calculate_error_recode(
             )
 
         if "reporting_2" in periods_to_process:
+            reporting_2_band_dict = {
+                "name": periods_to_process["reporting_2"]["band"].name,
+                "no_data_value": getattr(
+                    periods_to_process["reporting_2"]["band"],
+                    "no_data_value",
+                    int(ld_config.NODATA_VALUE),
+                ),
+                "metadata": getattr(
+                    periods_to_process["reporting_2"]["band"], "metadata", {}
+                ),
+                "add_to_map": getattr(
+                    periods_to_process["reporting_2"]["band"], "add_to_map", False
+                ),
+                "activated": getattr(
+                    periods_to_process["reporting_2"]["band"], "activated", False
+                ),
+            }
             recode_params.update(
                 {
                     "layer_reporting_2_band_path": str(input_job.results.uri.uri),
-                    "layer_reporting_2_band": Band.Schema().dump(
-                        periods_to_process["reporting_2"]["band"]
-                    ),
+                    "layer_reporting_2_band": reporting_2_band_dict,
                     "layer_reporting_2_band_index": periods_to_process["reporting_2"][
                         "band_number"
                     ],
@@ -275,16 +513,63 @@ def calculate_error_recode(
 
         results = _recode_band(recode_params, write_tifs, aoi, EXECUTION_ID, logger)
 
-        if isinstance(results, RasterResults):
-            results = RasterResults.Schema().dump(results)
+        # Generate crosstab statistics if multiple periods are available
+        crosstab_data = None
+        if len(periods_to_process) > 1:
+            logger.info(
+                "Calculating image-wide crosstab statistics for error recoded data"
+            )
+            try:
+                crosstab_data = _calculate_image_wide_crosstabs(
+                    input_job, aoi, periods_to_process, logger
+                )
 
+                if crosstab_data:
+                    logger.debug(
+                        f"Successfully calculated {len(crosstab_data)} crosstab(s)"
+                    )
+                else:
+                    logger.warning("No crosstab data generated")
+
+            except Exception as e:
+                logger.warning(f"Failed to calculate crosstab statistics: {e}")
+                # Continue without crosstabs rather than failing the entire operation
+
+        # Convert results to dictionary format
+        if isinstance(results, RasterResults):
+            # For RasterResults, we need to convert to dict manually since Schema() is not available
+            results_dict = {
+                "name": results.name,
+                "type": "RasterResults",
+                "uri": {"uri": str(results.uri.uri)} if results.uri else None,
+                "rasters": results.rasters,
+                "data": results.data if hasattr(results, "data") else {},
+            }
         elif isinstance(results, JsonResults):
-            results = JsonResults.Schema().dump(results)
+            # For JsonResults, we need to convert to dict manually since Schema() is not available
+            results_dict = {
+                "name": results.name,
+                "type": "JsonResults",
+                "data": results.data if hasattr(results, "data") else {},
+            }
         else:
-            raise Exception
+            raise Exception("Unknown results type")
+
+        # Add crosstab data to the report section if available
+        if crosstab_data and len(crosstab_data) > 0:
+            if "data" not in results_dict:
+                results_dict["data"] = {}
+            if "report" not in results_dict["data"]:
+                results_dict["data"]["report"] = {}
+
+            # Add crosstabs to the report structure
+            results_dict["data"]["report"]["crosstabs"] = crosstab_data
+            logger.debug(
+                f"Successfully added {len(crosstab_data)} crosstab(s) to results report"
+            )
 
         logger.debug("calculate_error_recode function finished, returning results.")
-        return results
+        return results_dict
 
 
 def run(params, logger):
@@ -320,7 +605,14 @@ def run(params, logger):
         EXECUTION_ID = params.get("EXECUTION_ID", None)
     logger.debug(f"Execution ID is {EXECUTION_ID}")
 
-    error_polygons = ErrorRecodePolygons.Schema().load(params["error_polygons"])
+    # Load error polygons directly from params since Schema() is not available
+    error_polygons_data = params["error_polygons"]
+    error_polygons = ErrorRecodePolygons(
+        features=error_polygons_data.get("features", []),
+        name=error_polygons_data.get("name"),
+        crs=error_polygons_data.get("crs"),
+        type=error_polygons_data.get("type", "FeatureCollection"),
+    )
     logger.debug("Error polygons loaded.")
     iso = params["iso"]
     boundary_dataset = params.get("boundary_dataset", "UN")

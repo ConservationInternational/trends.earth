@@ -74,10 +74,15 @@ class Setting(enum.Enum):
     POINT_Y = "region_of_interest/point/y"
     VECTOR_FILE_PATH = "region_of_interest/vector_file"
     VECTOR_FILE_DIR = "region_of_interest/vector_file_dir"
+    # Legacy name-based settings (deprecated - use ID-based settings below)
     COUNTRY_NAME = "region_of_interest/country/country_name"
     REGION_NAME = "region_of_interest/country/region_name"
     CITY_NAME = "region_of_interest/country/city_name"
     CITY_KEY = "region_of_interest/current_cities_key"
+    # ID-based boundary settings (primary storage)
+    COUNTRY_ID = "region_of_interest/country/country_id"
+    REGION_ID = "region_of_interest/country/region_id"
+    CITY_ID = "region_of_interest/country/city_id"
     BUFFER_SIZE = "region_of_interest/buffer_size"
     AREA_NAME = "region_of_interest/area_settings_name"
     JOB_FILE_AGE_LIMIT_DAYS = "advanced/deleted_datasets_age_limit"
@@ -133,6 +138,10 @@ class SettingsManager:
         Setting.REGION_NAME: "",
         Setting.CITY_NAME: "",
         Setting.CITY_KEY: 0,
+        # ID-based boundary settings (primary storage)
+        Setting.COUNTRY_ID: "",
+        Setting.REGION_ID: "",
+        Setting.CITY_ID: "",
         Setting.BUFFER_SIZE: 0.0,
         Setting.AREA_NAME: "",
         Setting.USER_ID: None,

@@ -22,38 +22,113 @@ class tr_areaofinterest:
 
 
 def get_city_geojson() -> typing.Dict:
-    current_country = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
-    country_code = conf.ADMIN_BOUNDS_KEY[current_country].code
+    from . import conf
+
+    # Get country using ID-based system
+    settings_manager = conf.settings_manager
+    boundaries = download.get_admin_bounds()
+    if not boundaries:
+        raise ValueError("No boundary data available")
+
+    country_id = settings_manager.get_value(conf.Setting.COUNTRY_ID)
+    if not country_id:
+        raise ValueError("No country selected in settings")
+
+    # Find country by ID
+    country_info = None
+    for name, country in boundaries.items():
+        if country.code == country_id:
+            country_info = (name, country_id)
+            break
+
+    if not country_info:
+        raise ValueError("Selected country not found in boundary data")
+
+    country_name, country_code = country_info
+
+    # Get city ID (preferred) or fall back to city name lookup
+    city_id = conf.settings_manager.get_value(conf.Setting.CITY_ID)
+    if city_id:
+        return conf.CITIES[country_code][str(city_id)].geojson
+
+    # Fallback: lookup city by name
     current_city = conf.settings_manager.get_value(conf.Setting.CITY_NAME)
     current_country_cities = conf.settings_manager.get_value(conf.Setting.CITY_KEY)
-    wof_id = current_country_cities[current_city]
-    return conf.CITIES[country_code][str(wof_id)].geojson
+    if (
+        current_city
+        and current_country_cities
+        and current_city in current_country_cities
+    ):
+        wof_id = current_country_cities[current_city]
+        return conf.CITIES[country_code][str(wof_id)].geojson
+
+    raise ValueError(f"City not found in settings for country {country_name}")
 
 
 def get_admin_poly_geojson():
-    current_country = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
-    if not current_country:
-        QtWidgets.QMessageBox.critical(
-            None,
-            tr_areaofinterest.tr("Error"),
-            tr_areaofinterest.tr("Choose a region before proceeding."),
-        )
-        qgisiface.mainWindow().findChild(QtWidgets.QDialog).reject()
+    from . import conf
+
+    # Get country using ID-based system
+    settings_manager = conf.settings_manager
+    boundaries = download.get_admin_bounds()
+    if not boundaries:
         return None
-    country_code = conf.ADMIN_BOUNDS_KEY[current_country].code
-    admin_polys_filename = f"admin_bounds_polys_{country_code}.json.gz"
-    admin_polys = download.read_json(admin_polys_filename, verify=False)
-    if not admin_polys:
+
+    country_id = settings_manager.get_value(conf.Setting.COUNTRY_ID)
+    if not country_id:
         return None
-    current_region = conf.settings_manager.get_value(conf.Setting.REGION_NAME)
-    if (not current_region) or (current_region == "All regions"):
-        result = admin_polys["geojson"]
-    else:
-        region_code = conf.ADMIN_BOUNDS_KEY[current_country].level1_regions[
-            current_region
-        ]
-        result = admin_polys["admin1"][region_code]["geojson"]
-    return result
+
+    # Find country by ID
+    country_info = None
+    for name, country in boundaries.items():
+        if country.code == country_id:
+            country_info = (name, country_id)
+            break
+
+    if not country_info:
+        return None
+
+    country_name, country_code = country_info
+
+    # Get region using ID-based system
+    region_id = settings_manager.get_value(conf.Setting.REGION_ID)
+    current_region = None
+
+    if region_id:
+        # Look up region name by ID
+        country_obj = boundaries.get(country_name)
+        if country_obj:
+            for name, rid in country_obj.level1_regions.items():
+                if rid == region_id:
+                    current_region = name
+                    break
+
+    # Try API-based boundary download first
+    try:
+        if (not current_region) or (current_region == "All regions"):
+            # Get country-level (ADM0) boundaries
+            admin_polys = download.download_boundary_geojson(
+                country_code, admin_level=0
+            )
+        else:
+            # Get specific admin1 region using ID
+            if region_id:
+                admin_polys = download.download_boundary_geojson(
+                    country_code, admin_level=1, shape_id=region_id
+                )
+            else:
+                # Fallback to country level if region not found
+                admin_polys = download.download_boundary_geojson(
+                    country_code, admin_level=0
+                )
+
+        if admin_polys:
+            return admin_polys
+    except Exception as e:
+        from .logger import log
+
+        log(f"Error downloading boundaries from API: {e}")
+        return None
 
 
 def validate_country_region() -> typing.Tuple[typing.Optional[typing.Dict], str]:

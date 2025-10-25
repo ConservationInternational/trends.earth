@@ -82,8 +82,8 @@ Select a country from the **First level** drop-down list. Sub-national analysis 
 **Second level** selections to identify a province or city for your region of interest.
 
 .. note::
-    The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth 
-    are in the `public domain`_. The boundaries and names used, and the 
+    The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth 
+    are under the CC BY 4.0 license. The boundaries and names used, and the 
     designations used, in Trends.Earth do not imply official endorsement or 
     acceptance by Conservation International Foundation, or by its partner 
     organizations and contributors.
@@ -92,9 +92,10 @@ Select a country from the **First level** drop-down list. Sub-national analysis 
     choose an official boundary provided by the designated office of their 
     country.
 
-.. _Natural Earth Administrative Boundaries: http://www.naturalearthdata.com
+.. _geoBoundaries Administrative Boundaries: https://www.geoboundaries.org
 
-.. _Public Domain: https://creativecommons.org/publicdomain/zero/1.0
+.. _CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+
 
 Point
 ~~~~~~
@@ -172,9 +173,9 @@ to the settings under this category, will be applied in subsequent report genera
 **d. Disclaimer Text** - Disclaimer statement that applies to one or more elements in the reports such as data.
      The default statement reads:
 
-`The provided boundaries are from Natural Earth, and are in the public domain. The boundaries, names and
-designations used in Trends.Earth do not imply official endorsement or acceptance by Conservation
-International Foundation, or by its partner organizations and contributors.`
+`The provided boundaries are from geoBoundaries (www.geoboundaries.org), and areunder the CC BY 4.0 license.
+The boundaries, names and designations used in Trends.Earth do not imply official endorsement or acceptance 
+by Conservation International Foundation, or by its partner organizations and contributors.`
 
 It is available as a QGIS layout variable named :code:`te_report_disclaimer`.
 

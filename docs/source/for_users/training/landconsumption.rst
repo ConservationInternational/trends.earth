@@ -121,7 +121,20 @@ If you are using your own polygon for analysis, we recommend you do not use buff
    :align: center
 
 .. note::
-    The provided boundaries are from `Natural Earth <http://www.naturalearthdata.com>`_, and are in the `public domain <https://creativecommons.org/publicdomain>`_. The boundaries and names  used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors. If using Trends.Earth for official purposes, it is recommended that users choose an official boundary provided by the designated office of their country.
+    The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth 
+    are under the CC BY 4.0 license. The boundaries and names used, and the 
+    designations used, in Trends.Earth do not imply official endorsement or 
+    acceptance by Conservation International Foundation, or by its partner 
+    organizations and contributors.
+
+    If using Trends.Earth for official purposes, it is recommended that users 
+    choose an official boundary provided by the designated office of their 
+    country.
+
+.. _geoBoundaries Administrative Boundaries: https://www.geoboundaries.org
+
+.. _CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+
 
 8. On the Options tab you have to assign a name the task and some notes on how you customized the parameters for your analysis for future reference.
 

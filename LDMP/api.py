@@ -854,5 +854,73 @@ class APIClient(QtCore.QObject):
         else:
             return None
 
+    def get_boundaries_list(self, release_type="gbOpen"):
+        """
+        Get hierarchical list of all boundaries with download URLs.
+
+        Args:
+            release_type: geoBoundaries release type (gbOpen, gbHumanitarian, gbAuthoritative)
+
+        Returns:
+            Dictionary with boundaries list and metadata, or None on error
+
+        Response format:
+        {
+            "boundaries": [
+                {
+                    "boundaryISO": "USA",
+                    "boundaryName": "United States",
+                    "releaseType": "gbOpen",
+                    "adm0_geojson_url": "https://...",
+                    "adm0_topojson_url": "https://...",
+                    "adm1_geojson_url": "https://...",
+                    "adm1_topojson_url": "https://...",
+                    "admin1_units": [
+                        {"shapeID": "...", "shapeName": "California"},
+                        ...
+                    ]
+                },
+                ...
+            ],
+            "last_updated": "2025-01-26T10:30:00.000000",
+            "release_type": "gbOpen"
+        }
+        """
+        query = f"?release_type={release_type}"
+        resp = self.call_api(
+            f"/api/v1/data/boundaries/list{query}", "get", use_token=True
+        )
+
+        if resp:
+            return resp
+        else:
+            return None
+
+    def get_boundaries_last_updated(self, release_type="gbOpen"):
+        """
+        Get the most recent modification timestamp across all boundaries.
+
+        Args:
+            release_type: geoBoundaries release type (gbOpen, gbHumanitarian, gbAuthoritative)
+
+        Returns:
+            Dictionary with last updated timestamp, or None on error
+
+        Response format:
+        {
+            "last_updated": "2025-01-26T10:30:00.000000",
+            "release_type": "gbOpen"
+        }
+        """
+        query = f"?release_type={release_type}"
+        resp = self.call_api(
+            f"/api/v1/data/boundaries/last-updated{query}", "get", use_token=True
+        )
+
+        if resp:
+            return resp.get("data", {})
+        else:
+            return None
+
 
 default_api_client = APIClient(API_URL, TIMEOUT)

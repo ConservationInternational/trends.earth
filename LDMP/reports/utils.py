@@ -126,9 +126,9 @@ def default_report_disclaimer() -> str:
     future.
     """
     return (
-        "The provided boundaries are from Natural Earth, and are in the "
-        "public domain. The boundaries, names and designations used in "
-        "Trends.Earth  do not imply official endorsement or acceptance by "
-        "Conservation International Foundation, or by its partner "
-        "organizations and contributors. Map produced from:"
+        "The provided boundaries are from geoBoundaries (www.geoboundaries.org),"
+        "and are under a CC BY 4.0 license. The boundaries, names and "
+        "designations used in Trends.Earth  do not imply official endorsement "
+        "or acceptance by Conservation International Foundation, or by its "
+        "partner organizations and contributors. Map produced from:"
     )

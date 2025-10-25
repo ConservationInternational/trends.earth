@@ -145,6 +145,7 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
         headers = {
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
+            "Accept-Encoding": "gzip, deflate, br",
         }
 
         log(f"Fetching logs from: {url}")

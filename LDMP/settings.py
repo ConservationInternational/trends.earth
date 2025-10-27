@@ -209,6 +209,8 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         """Update UI state when the settings dialog is shown"""
         super().showEvent(event)
         self.update_login_ui_state()
+        # Reload area widget settings to ensure boundary selection is restored
+        self.area_widget.load_settings()
 
     def apply(self):
         """This is called on OK click in the QGIS options panel."""
@@ -444,7 +446,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         self.canvas = iface.mapCanvas()
         self.vector_file = None
-        self.current_cities_key = None
+        self.current_cities_key: typing.Dict[str, str] = {}
         self.hide_on_choose_point = True
 
         self.admin_bounds_key = download.get_admin_bounds()
@@ -457,10 +459,19 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if not self.cities:
             raise ValueError("Cities list not available")
 
-        # Populate
-        self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
-        self.populate_admin_1()
-        self.populate_cities()
+        self.country_name_to_code: typing.Dict[str, str] = {}
+        self.country_code_to_country: typing.Dict[str, download.Country] = {}
+        self.country_code_to_name: typing.Dict[str, str] = {}
+
+        self.area_admin_0.clear()
+        for name in sorted(self.admin_bounds_key.keys()):
+            country = self.admin_bounds_key[name]
+            self.area_admin_0.addItem(name, country.code)
+            self.country_name_to_code[name] = country.code
+            self.country_code_to_country[country.code] = country
+            self.country_code_to_name[country.code] = name
+
+        # Connect signal handlers BEFORE populating to avoid triggering during init
         self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
         self.area_admin_0.currentIndexChanged.connect(self.populate_cities)
         self.area_admin_0.currentIndexChanged.connect(self.generate_name_setting)
@@ -474,6 +485,13 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_fromfile_file.textChanged.connect(self.generate_name_setting)
         self.buffer_size_km.valueChanged.connect(self.generate_name_setting)
         self.checkbox_buffer.toggled.connect(self.generate_name_setting)
+
+        # Initial population first
+        self.populate_admin_1()
+        self.populate_cities()
+
+        # Load settings after initial population
+        self.load_settings()
 
         self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
         self.area_fromadmin.clicked.connect(self.area_type_toggle)
@@ -499,18 +517,18 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.choose_point_tool = qgis.gui.QgsMapToolEmitPoint(self.canvas)
         self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
 
-        self.load_settings()
         self.generate_name_setting()
 
     def load_settings(self):
         area_from_option = settings_manager.get_value(Setting.AREA_FROM_OPTION)
 
-        if area_from_option == "country_region" or area_from_option == "country_city":
+        if area_from_option in {"country_region", "country_city"}:
             self.area_fromadmin.setChecked(True)
         elif area_from_option == "point":
             self.area_frompoint.setChecked(True)
         elif area_from_option == "vector_layer":
             self.area_fromfile.setChecked(True)
+
         self.area_frompoint_point_x.setText(
             str(settings_manager.get_value(Setting.POINT_X))
         )
@@ -522,74 +540,53 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         )
         self.area_type_toggle()
 
-        # Load country from ID-based storage
-        boundaries = download.get_admin_bounds()
-        country_id = settings_manager.get_value(conf.Setting.COUNTRY_ID)
-        admin_0 = None
-
-        if country_id and boundaries:
-            # Find country by ID
-            for name, country in boundaries.items():
-                if country.code == country_id:
-                    admin_0 = name
-                    break
-
-        if admin_0:
-            self.area_admin_0.setCurrentIndex(self.area_admin_0.findText(admin_0))
-            self.populate_admin_1()
-
         if area_from_option == "country_region":
             self.radioButton_secondLevel_region.setChecked(True)
         elif area_from_option == "country_city":
             self.radioButton_secondLevel_city.setChecked(True)
         self.radioButton_secondLevel_toggle()
 
-        # Load region from ID-based storage
-        region_id = settings_manager.get_value(conf.Setting.REGION_ID)
-        secondLevel_area_admin_1 = None
+        country_id = settings_manager.get_value(Setting.COUNTRY_ID) or ""
+        legacy_country_name = settings_manager.get_value(Setting.COUNTRY_NAME)
+        if not country_id and legacy_country_name:
+            country_id = self.country_name_to_code.get(legacy_country_name, "")
 
-        if region_id and admin_0 and boundaries:
-            # Look up region name by ID
-            country_obj = boundaries.get(admin_0)
-            if country_obj:
-                for name, rid in country_obj.level1_regions.items():
-                    if rid == region_id:
-                        secondLevel_area_admin_1 = name
-                        break
+        with QtCore.QSignalBlocker(self.area_admin_0):
+            target_index = -1
+            if country_id:
+                target_index = self.area_admin_0.findData(country_id)
+            if target_index == -1 and legacy_country_name:
+                target_index = self.area_admin_0.findText(legacy_country_name)
+            if target_index == -1:
+                target_index = 0
+            self.area_admin_0.setCurrentIndex(target_index)
 
-        # Handle "All regions" special case
-        if not secondLevel_area_admin_1:
-            country_id = settings_manager.get_value(Setting.COUNTRY_ID)
-            region_id = settings_manager.get_value(Setting.REGION_ID)
-            if country_id and not region_id:
-                # Country selected but no specific region = "All regions"
-                secondLevel_area_admin_1 = "All regions"
+        current_country_id = self.area_admin_0.currentData()
 
-        if secondLevel_area_admin_1:
-            if secondLevel_area_admin_1 == "All regions":
-                # all regions is always stored untranslated in qsettings (to avoid
-                # issues if user changes language) so need to convert to translated
-                # version prior to searching for the value in the combo box
-                secondLevel_area_admin_1 = TR_ALL_REGIONS
-            self.secondLevel_area_admin_1.setCurrentIndex(
-                self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1)
+        region_id = settings_manager.get_value(Setting.REGION_ID) or ""
+        legacy_region_name = settings_manager.get_value(Setting.REGION_NAME)
+        if not region_id and legacy_region_name:
+            region_id = self._region_id_from_name(
+                current_country_id, legacy_region_name
             )
-        # Load city from ID-based storage
-        city_id = settings_manager.get_value(Setting.CITY_ID)
-        secondLevel_city = None
 
-        if city_id and country_id:
-            # Look up city name from cities data
-            if hasattr(conf, "CITIES") and country_id in conf.CITIES:
-                city_data = conf.CITIES[country_id].get(str(city_id))
-                if city_data:
-                    secondLevel_city = city_data.name_en
+        self._populate_admin_1_for_country(current_country_id, region_id or None)
 
-        if secondLevel_city:
-            self.populate_cities()
-            self.secondLevel_city.setCurrentIndex(
-                self.secondLevel_city.findText(secondLevel_city)
-            )
+        city_id = settings_manager.get_value(Setting.CITY_ID) or ""
+        legacy_city_name = settings_manager.get_value(Setting.CITY_NAME)
+        legacy_city_mapping = settings_manager.get_value(Setting.CITY_KEY)
+        if not city_id and legacy_city_name and isinstance(legacy_city_mapping, dict):
+            legacy_city_id = legacy_city_mapping.get(legacy_city_name)
+            if legacy_city_id:
+                city_id = str(legacy_city_id)
+        if not city_id and legacy_city_name:
+            city_id = self._city_id_from_name(current_country_id, legacy_city_name)
+
+        if area_from_option == "country_city":
+            self._populate_cities_for_country(current_country_id, city_id or None)
+        else:
+            self._populate_cities_for_country(current_country_id, None)
+
         buffer_size = settings_manager.get_value(Setting.BUFFER_SIZE)
 
         if buffer_size:
@@ -597,40 +594,113 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         buffer_checked = settings_manager.get_value(Setting.BUFFER_CHECKED)
         self.checkbox_buffer.setChecked(buffer_checked)
         self.area_settings_name.setText(settings_manager.get_value(Setting.AREA_NAME))
+        self.generate_name_setting()
 
     def populate_cities(self):
-        self.secondLevel_city.clear()
+        country_code = self.area_admin_0.currentData()
+        self._populate_cities_for_country(country_code, None)
 
-        # Get country information safely
-        country_name = self.area_admin_0.currentText()
-        if not country_name or country_name not in self.admin_bounds_key:
-            log(f"No boundary data available for country: {country_name}")
-            return
+    def _populate_cities_for_country(
+        self,
+        country_code: typing.Optional[str],
+        selected_city_id: typing.Optional[str],
+    ) -> None:
+        with QtCore.QSignalBlocker(self.secondLevel_city):
+            self.secondLevel_city.clear()
+            self.current_cities_key = {}
 
-        country_code = self.admin_bounds_key[country_name].code
-        self.current_cities_key = {}
+            if not country_code:
+                return
 
-        # Check if cities data exists for this country
-        if country_code in self.cities:
-            for wof_id, city in self.cities[country_code].items():
+            country_cities = self.cities.get(country_code)
+            if not country_cities:
+                return
+
+            sorted_cities = sorted(
+                country_cities.values(), key=lambda city: city.name_en
+            )
+
+            for city in sorted_cities:
+                wof_id = str(city.wof_id)
+                self.secondLevel_city.addItem(city.name_en, wof_id)
                 self.current_cities_key[city.name_en] = wof_id
-            self.secondLevel_city.addItems(sorted(self.current_cities_key.keys()))
-        else:
-            # No cities data available for this country
-            log(f"No cities data available for country code: {country_code}")
+
+            if self.secondLevel_city.count() == 0:
+                return
+
+            target_index = 0
+            if selected_city_id:
+                target_index = self.secondLevel_city.findData(str(selected_city_id))
+            if target_index == -1:
+                target_index = 0
+            self.secondLevel_city.setCurrentIndex(target_index)
 
     def populate_admin_1(self):
-        self.secondLevel_area_admin_1.clear()
-        self.secondLevel_area_admin_1.addItems([TR_ALL_REGIONS])
+        country_code = self.area_admin_0.currentData()
+        self._populate_admin_1_for_country(country_code, None)
 
-        # Get country information safely
-        country_name = self.area_admin_0.currentText()
-        if country_name and country_name in self.admin_bounds_key:
-            level1_regions = self.admin_bounds_key[country_name].level1_regions
-            if level1_regions:
-                self.secondLevel_area_admin_1.addItems(sorted(level1_regions.keys()))
+    def _populate_admin_1_for_country(
+        self,
+        country_code: typing.Optional[str],
+        selected_region_id: typing.Optional[str],
+    ) -> None:
+        with QtCore.QSignalBlocker(self.secondLevel_area_admin_1):
+            self.secondLevel_area_admin_1.clear()
+            self.secondLevel_area_admin_1.addItem(TR_ALL_REGIONS, "")
 
-        self.secondLevel_area_admin_1.setCurrentIndex(0)
+            if not country_code:
+                self.secondLevel_area_admin_1.setCurrentIndex(0)
+                return
+
+            country = self.country_code_to_country.get(country_code)
+            if country and country.level1_regions:
+                for region_name in sorted(country.level1_regions.keys()):
+                    region_code = country.level1_regions[region_name]
+                    self.secondLevel_area_admin_1.addItem(region_name, region_code)
+
+            target_index = 0
+            if selected_region_id:
+                target_index = self.secondLevel_area_admin_1.findData(
+                    str(selected_region_id)
+                )
+            if target_index == -1:
+                target_index = 0
+            self.secondLevel_area_admin_1.setCurrentIndex(target_index)
+
+    def _region_id_from_name(
+        self, country_code: typing.Optional[str], region_name: typing.Optional[str]
+    ) -> str:
+        if not country_code or not region_name:
+            return ""
+
+        if region_name in {"All regions", TR_ALL_REGIONS}:
+            return ""
+
+        country = self.country_code_to_country.get(country_code)
+        if not country or not country.level1_regions:
+            return ""
+
+        for name, region_code in country.level1_regions.items():
+            if name == region_name:
+                return region_code
+
+        return ""
+
+    def _city_id_from_name(
+        self, country_code: typing.Optional[str], city_name: typing.Optional[str]
+    ) -> str:
+        if not country_code or not city_name:
+            return ""
+
+        country_cities = self.cities.get(country_code)
+        if not country_cities:
+            return ""
+
+        for wof_id, city in country_cities.items():
+            if city.name_en == city_name:
+                return str(wof_id)
+
+        return ""
 
     def area_type_toggle(self):
         # if self.area_frompoint.isChecked():
@@ -842,75 +912,53 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         country_id = ""
         region_id = ""
         city_id = ""
-        point = (0, 0)
-        vector_path = ""
+        point = (
+            self.area_frompoint_point_x.text(),
+            self.area_frompoint_point_y.text(),
+        )
+        vector_path = self.area_fromfile_file.text()
 
         if self.area_fromadmin.isChecked():
-            country_name = self.area_admin_0.currentText()
-
-            # Get country ID from boundary data
-            if country_name and country_name in self.admin_bounds_key:
-                country_id = self.admin_bounds_key[country_name].code
+            current_country_data = self.area_admin_0.currentData()
+            if current_country_data is not None:
+                country_id = str(current_country_data)
 
             if self.radioButton_secondLevel_region.isChecked():
                 area_name = "country_region"
-                region_name = self.secondLevel_area_admin_1.currentText()
-                if region_name != TR_ALL_REGIONS:
-                    # Get region ID from boundary data
-                    if (
-                        country_name
-                        and country_name in self.admin_bounds_key
-                        and region_name
-                        in self.admin_bounds_key[country_name].level1_regions
-                    ):
-                        region_id = self.admin_bounds_key[country_name].level1_regions[
-                            region_name
-                        ]
-                # Note: "All regions" has no specific ID, so region_id stays empty
+                current_region_data = self.secondLevel_area_admin_1.currentData()
+                if current_region_data:
+                    region_id = str(current_region_data)
+                city_id = ""
             else:
                 area_name = "country_city"
-                city_name = self.secondLevel_city.currentText()
-
-                # Get city ID from current cities key
-                if (
-                    city_name
-                    and hasattr(self, "current_cities_key")
-                    and self.current_cities_key
-                ):
-                    city_id = self.current_cities_key.get(city_name, "")
-
+                current_city_data = self.secondLevel_city.currentData()
+                if current_city_data:
+                    city_id = str(current_city_data)
+                region_id = ""
         elif self.area_frompoint.isChecked():
             area_name = "point"
-            point = (
-                self.area_frompoint_point_x.text(),
-                self.area_frompoint_point_y.text(),
-            )
         elif self.area_fromfile.isChecked():
             area_name = "vector_layer"
-            vector_path = self.area_fromfile_file.text()
         else:
             raise RuntimeError("Invalid area type")
 
         settings_manager.write_value(Setting.AREA_FROM_OPTION, area_name)
 
-        # Save only IDs (primary storage) - names will be looked up dynamically
         settings_manager.write_value(Setting.COUNTRY_ID, country_id)
         settings_manager.write_value(Setting.REGION_ID, region_id)
         settings_manager.write_value(Setting.CITY_ID, city_id)
+
         settings_manager.write_value(Setting.POINT_X, point[0])
         settings_manager.write_value(Setting.POINT_Y, point[1])
         settings_manager.write_value(Setting.VECTOR_FILE_PATH, vector_path)
-        settings_manager.write_value(
-            Setting.VECTOR_FILE_DIR, str(Path(vector_path).parent)
-        )
+        vector_dir = str(Path(vector_path).parent) if vector_path else ""
+        settings_manager.write_value(Setting.VECTOR_FILE_DIR, vector_dir)
         settings_manager.write_value(
             Setting.BUFFER_CHECKED, self.checkbox_buffer.isChecked()
         )
         settings_manager.write_value(Setting.BUFFER_SIZE, self.buffer_size_km.value())
         settings_manager.write_value(Setting.AREA_NAME, self.area_settings_name.text())
 
-        if self.current_cities_key is not None:
-            settings_manager.write_value(Setting.CITY_KEY, self.current_cities_key)
         log("area settings have been saved")
 
 

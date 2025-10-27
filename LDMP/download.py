@@ -18,12 +18,14 @@ import json
 import os
 import typing
 import zipfile
+from contextlib import contextmanager
 from functools import partial
 from pathlib import Path
 
 from qgis.core import (
-    QgsBlockingNetworkRequest,
+    Qgis,
     QgsFileDownloader,
+    QgsNetworkAccessManager,
     QgsNetworkReplyContent,
 )
 from qgis.PyQt import QtCore, QtNetwork, QtWidgets
@@ -90,7 +92,8 @@ class Country:
 
 
 class tr_download:
-    def tr(message):
+    @staticmethod
+    def tr(message: str) -> str:
         return QtCore.QCoreApplication.translate("tr_download", message)
 
 
@@ -161,6 +164,45 @@ class BoundaryTimestampManager:
 
 # Global timestamp manager instance
 _timestamp_manager = None
+
+
+@contextmanager
+def _boundary_download_feedback(
+    message: str,
+) -> typing.Iterator[typing.Optional[QtWidgets.QProgressBar]]:
+    """Show progress feedback while downloading large boundary files."""
+
+    app = QtWidgets.QApplication.instance()
+    message_widget = None
+    message_bar = None
+    progress: typing.Optional[QtWidgets.QProgressBar] = None
+
+    if iface:
+        message_bar = iface.messageBar()
+        if message_bar:
+            message_widget = message_bar.createMessage(
+                tr_download.tr("Downloading boundaries"), message
+            )
+            progress = QtWidgets.QProgressBar()
+            if progress is not None:
+                progress.setMaximum(0)
+                progress.setMinimum(0)
+                progress.setTextVisible(False)
+                progress.setFormat("%p%")
+                message_widget.layout().addWidget(progress)
+            message_bar.pushWidget(message_widget, Qgis.Info)
+
+    try:
+        if app:
+            app.setOverrideCursor(QtCore.Qt.WaitCursor)
+            app.processEvents()
+        yield progress
+    finally:
+        if app:
+            app.restoreOverrideCursor()
+            app.processEvents()
+        if message_bar and message_widget:
+            message_bar.popWidget(message_widget)
 
 
 def get_timestamp_manager() -> BoundaryTimestampManager:
@@ -418,7 +460,7 @@ def _get_boundaries_from_api() -> typing.Optional[typing.Dict[str, Country]]:
             log("No boundaries data received from API")
             return None
 
-        boundaries_list = api_response.get("boundaries", [])
+        boundaries_list = api_response.get("boundaries") or api_response.get("data", [])
         server_timestamp = api_response.get("last_updated")
 
         if not boundaries_list:
@@ -500,15 +542,31 @@ def _extract_admin_unit_from_geojson(
 
     # Find the feature with the matching shape ID
     matching_features = []
+    normalized_target = str(target_shape_id).strip().lower()
+
     for feature in full_geojson.get("features", []):
         properties = feature.get("properties", {})
         shape_id = properties.get("shapeID") or properties.get("shapeName")
 
-        if shape_id == target_shape_id:
+        if shape_id is None:
+            continue
+
+        if str(shape_id).strip().lower() == normalized_target:
             matching_features.append(feature)
 
     if not matching_features:
-        log(f"Admin unit with shape ID '{target_shape_id}' not found in GeoJSON")
+        available_ids = [
+            str((f.get("properties") or {}).get("shapeID"))
+            for f in full_geojson.get("features", [])
+            if (f.get("properties") or {}).get("shapeID")
+        ]
+        sample_ids = ", ".join(available_ids[:5])
+        log(
+            "Admin unit with shape ID '{}' not found in GeoJSON. Sample IDs: {}".format(
+                target_shape_id,
+                sample_ids or "<none>",
+            )
+        )
         return None
 
     # Create new GeoJSON with only the matching feature(s)
@@ -586,7 +644,7 @@ def download_boundary_geojson(
             log("Could not get boundaries list from API")
             return None
 
-        boundaries_list = api_response.get("boundaries", [])
+        boundaries_list = api_response.get("boundaries") or api_response.get("data", [])
         server_timestamp = api_response.get("last_updated")
 
         if not boundaries_list:
@@ -606,50 +664,103 @@ def download_boundary_geojson(
 
         # Get the appropriate download URL
         if admin_level == 0:
-            download_url = country_boundary.get("adm0_geojson_url")
+            download_url = country_boundary.get(
+                "adm0_geojson_url"
+            ) or country_boundary.get("gjDownloadURL")
         else:
-            download_url = country_boundary.get("adm1_geojson_url")
+            download_url = country_boundary.get(
+                "adm1_geojson_url"
+            ) or country_boundary.get("gjDownloadURL")
 
         if not download_url:
             log(f"No GeoJSON download URL found for {country_code} ADM{admin_level}")
             return None
 
-        # Download the GeoJSON
-        log(f"Downloading boundary GeoJSON from {download_url}")
+        download_message = (
+            f"{country_code} ADM{admin_level}"
+            if admin_level == 0
+            else f"{country_code} {shape_id}"
+        )
 
-        # Use QgsBlockingNetworkRequest for synchronous download
+        manager = QgsNetworkAccessManager.instance()
+        request = QtNetwork.QNetworkRequest(QtCore.QUrl(download_url))
+        request.setRawHeader(b"User-Agent", b"trends.earth/1.0")
+        request.setRawHeader(b"Accept-Encoding", b"gzip, deflate")
 
-        request = QgsBlockingNetworkRequest()
+        reply = manager.get(request)
+        loop = QtCore.QEventLoop()
 
-        # Set custom headers
-        url = QtCore.QUrl(download_url)
-        network_request = QtNetwork.QNetworkRequest(url)
-        network_request.setRawHeader(b"User-Agent", b"trends.earth/1.0")
-        network_request.setRawHeader(b"Accept-Encoding", b"gzip, deflate, br")
+        geojson_data: typing.Optional[typing.Dict] = None
 
-        # Perform the request with timeout (in milliseconds)
-        error_code = request.get(network_request, timeout=60000)
+        with _boundary_download_feedback(
+            tr_download.tr("Downloading boundaries for {}...").format(download_message)
+        ) as progress_bar:
 
-        if error_code != QgsBlockingNetworkRequest.NoError:
-            log(f"Network error downloading boundary: {request.errorMessage()}")
-            return None
+            def _update_progress(bytes_received: int, bytes_total: int) -> None:
+                if not progress_bar:
+                    return
+                if bytes_total > 0:
+                    if progress_bar.maximum() != bytes_total:
+                        progress_bar.setMaximum(int(bytes_total))
+                        progress_bar.setTextVisible(True)
+                    progress_bar.setValue(int(bytes_received))
+                    received_mb = bytes_received / (1024 * 1024)
+                    total_mb = bytes_total / (1024 * 1024)
+                    progress_bar.setFormat(f"{received_mb:.1f}/{total_mb:.1f} MB")
+                else:
+                    progress_bar.setMaximum(0)
+                    progress_bar.setValue(0)
+                    progress_bar.setTextVisible(False)
 
-        # Get the response content
-        reply = request.reply()
+            reply.downloadProgress.connect(_update_progress)
+
+            def _on_finished() -> None:
+                loop.quit()
+
+            reply.finished.connect(_on_finished)
+
+            if reply.isFinished():
+                _on_finished()
+            else:
+                loop.exec_()
+
+            try:
+                reply.downloadProgress.disconnect(_update_progress)
+            except TypeError:
+                pass
+            try:
+                reply.finished.disconnect(_on_finished)
+            except TypeError:
+                pass
+
         if reply.error() != QtNetwork.QNetworkReply.NoError:
             log(f"Network reply error: {reply.errorString()}")
+            reply.deleteLater()
             return None
 
-        # Parse JSON response
-        content = reply.content()
+        raw_bytes = bytes(reply.readAll())
+
         try:
-            geojson_data = json.loads(content.data().decode("utf-8"))
-        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+            encoding = bytes(reply.rawHeader(b"Content-Encoding")).decode("utf-8")
+        except Exception:
+            encoding = ""
+
+        try:
+            if "gzip" in encoding.lower():
+                raw_bytes = gzip.decompress(raw_bytes)
+            geojson_text = raw_bytes.decode("utf-8")
+            geojson_data = json.loads(geojson_text)
+        except (OSError, json.JSONDecodeError, UnicodeDecodeError) as e:
             log(f"Error parsing GeoJSON response: {e}")
+            reply.deleteLater()
+            return None
+        finally:
+            reply.deleteLater()
+
+        if geojson_data is None:
             return None
 
         # Cache the full GeoJSON (without shape_id filtering)
-        # For admin1, this contains ALL admin1 units for the country
         cache.save_boundary_geojson(
             geojson_data, country_code, admin_level, None, server_timestamp
         )
@@ -658,7 +769,6 @@ def download_boundary_geojson(
             f"Downloaded and cached boundary data for {cache_key} with timestamp {server_timestamp}"
         )
 
-        # If requesting a specific admin1 unit, extract it from the full GeoJSON
         if admin_level == 1 and shape_id:
             return _extract_admin_unit_from_geojson(geojson_data, shape_id)
 

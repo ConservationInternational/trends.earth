@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: pt\n"
@@ -23,7 +23,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/features/carbonemissions.rst:4
 msgid "Carbon emissions from deforestation"
@@ -100,7 +100,7 @@ msgstr ""
 "específica a analisar. De forma a definir uma área de floresta para a "
 "linha de base, este irá atribuir um limite para definir florestas."
 
-#: ../../source/for_users/features/carbonemissions.rst:33
+#: ../../source/for_users/features/carbonemissions.rst:31
 msgid ""
 "The definition of canopy cover should be changed to accommodate the "
 "specific area of interest."
@@ -132,9 +132,10 @@ msgstr ""
 "carregado."
 
 #: ../../source/for_users/features/carbonemissions.rst:41
+#, fuzzy
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
+"are under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
@@ -155,7 +156,7 @@ msgstr ""
 " os usuários escolham um limite oficial fornecido pelo escritório "
 "designado de seu país."
 
-#: ../../source/for_users/features/carbonemissions.rst:55
+#: ../../source/for_users/features/carbonemissions.rst:56
 msgid ""
 "Users can set up ***Advanced configuration** to use a different biomass "
 "dataset, or upload a custom biomass dataset and to select the method for "
@@ -167,13 +168,13 @@ msgstr ""
 "calcular a proporção \"root to shoot\" (raiz ao broto) para a biomassa "
 "debaixo do solo."
 
-#: ../../source/for_users/features/carbonemissions.rst:61
+#: ../../source/for_users/features/carbonemissions.rst:62
 msgid "The table below list the biomass datasets available in Trends.Earth:"
 msgstr ""
 "A tabela abaixo lista os conjuntos de dados de biomassa disponíveis na "
 "Trends.Earth:"
 
-#: ../../source/for_users/features/carbonemissions.rst:66
+#: ../../source/for_users/features/carbonemissions.rst:67
 msgid ""
 "The results provide annual breakdowns of forest cover, forest loss, "
 "carbon (tC) stored and carbon emissions (tCO2) for the region, "
@@ -190,75 +191,75 @@ msgstr ""
 "da análise. O primeiro é o conjunto de dados que visualiza as mudança "
 "estimada na biomassa:"
 
-#: ../../source/for_users/features/carbonemissions.rst:73
+#: ../../source/for_users/features/carbonemissions.rst:74
 msgid "The second is the forest loss layer for the region:"
 msgstr "O segundo é a camada de perda de floresta para a região:"
 
-#: ../../source/for_users/features/carbonemissions.rst:78
+#: ../../source/for_users/features/carbonemissions.rst:79
 msgid "**Citations:**"
 msgstr "**Citações:**"
 
-#: ../../source/for_users/features/carbonemissions.rst:80
-msgid ""
-"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, "
-"O. L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. "
-"An integrated pan-tropical biomass map using multiple reference datasets."
-" Global Change Biology, 22, pp. 1406–1420."
-msgstr ""
-"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, "
-"O. L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. "
-"An integrated pan-tropical biomass map using multiple reference datasets."
-" Global Change Biology, 22, pp. 1406–1420."
-
 #: ../../source/for_users/features/carbonemissions.rst:81
 msgid ""
-"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
-"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
-"Gatti, R. et al., 2014. Comparative analysis and fusion for improved "
-"global biomass mapping.  Global Vegetation Monitoring and Modeling,  3 – "
-"7 February 2014, Avignon (France)."
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, "
+"O. L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. "
+"An integrated pan-tropical biomass map using multiple reference datasets."
+" Global Change Biology, 22, pp. 1406–1420."
 msgstr ""
-"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
-"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
-"Gatti, R. et al., 2014. Comparative analysis and fusion for improved "
-"global biomass mapping.  Global Vegetation Monitoring and Modeling,  3 – "
-"7 February 2014, Avignon (France)."
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, "
+"O. L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. "
+"An integrated pan-tropical biomass map using multiple reference datasets."
+" Global Change Biology, 22, pp. 1406–1420."
 
 #: ../../source/for_users/features/carbonemissions.rst:82
 msgid ""
-"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. "
-"A. Houghton, 2017. \"Tropical forests are a net carbon source based on "
-"aboveground measurements of gain and loss.\" 358 (6360): 230-234. "
-"https://www.science.org/doi/10.1126/science.aam5962"
+"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
+"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
+"Gatti, R. et al., 2014. Comparative analysis and fusion for improved "
+"global biomass mapping.  Global Vegetation Monitoring and Modeling,  3 – "
+"7 February 2014, Avignon (France)."
 msgstr ""
-"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. "
-"A. Houghton, 2017. \"Tropical forests are a net carbon source based on "
-"aboveground measurements of gain and loss.\" 358 (6360): 230-234. "
-"https://www.science.org/doi/10.1126/science.aam5962"
+"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
+"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
+"Gatti, R. et al., 2014. Comparative analysis and fusion for improved "
+"global biomass mapping.  Global Vegetation Monitoring and Modeling,  3 – "
+"7 February 2014, Avignon (France)."
 
 #: ../../source/for_users/features/carbonemissions.rst:83
 msgid ""
-"Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
-"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and"
-" R. A. Houghton. Estimated carbon dioxide emissions from tropical "
-"deforestation improved by carbon-density maps. 2012 Nature Climate "
-"Change, https://doi.org/10.1038/NCLIMATE1354"
+"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. "
+"A. Houghton, 2017. \"Tropical forests are a net carbon source based on "
+"aboveground measurements of gain and loss.\" 358 (6360): 230-234. "
+"https://www.science.org/doi/10.1126/science.aam5962"
 msgstr ""
-"Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
-"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and"
-" R. A. Houghton. Estimated carbon dioxide emissions from tropical "
-"deforestation improved by carbon-density maps. 2012 Nature Climate "
-"Change, https://doi.org/10.1038/NCLIMATE1354"
+"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. "
+"A. Houghton, 2017. \"Tropical forests are a net carbon source based on "
+"aboveground measurements of gain and loss.\" 358 (6360): 230-234. "
+"https://www.science.org/doi/10.1126/science.aam5962"
 
 #: ../../source/for_users/features/carbonemissions.rst:84
 msgid ""
+"Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
+"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and"
+" R. A. Houghton. Estimated carbon dioxide emissions from tropical "
+"deforestation improved by carbon-density maps. 2012 Nature Climate "
+"Change, https://doi.org/10.1038/NCLIMATE1354"
+msgstr ""
+"Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
+"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and"
+" R. A. Houghton. Estimated carbon dioxide emissions from tropical "
+"deforestation improved by carbon-density maps. 2012 Nature Climate "
+"Change, https://doi.org/10.1038/NCLIMATE1354"
+
+#: ../../source/for_users/features/carbonemissions.rst:85
+msgid ""
 "Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. "
 "2019. “Classifying Drivers of Global Forest Loss.” Science."
 msgstr ""
 "Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. "
 "2019. “Classifying Drivers of Global Forest Loss.” Science."
 
-#: ../../source/for_users/features/carbonemissions.rst:85
+#: ../../source/for_users/features/carbonemissions.rst:86
 msgid ""
 "Hansen, M. C., S. V. Stehman, and P. V. Potapov. \"Quantification of "
 "global gross forest cover.\" PNAS. 107 (19) 8650-8655. "
@@ -268,7 +269,7 @@ msgstr ""
 "global gross forest cover.\" PNAS. 107 (19) 8650-8655. "
 "https://www.pnas.org/doi/10.1073/pnas.0912668107"
 
-#: ../../source/for_users/features/carbonemissions.rst:86
+#: ../../source/for_users/features/carbonemissions.rst:87
 msgid ""
 "Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. "
 "Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. "
@@ -284,33 +285,33 @@ msgstr ""
 "Science 342 (15 November): 850–53. Dados disponíveis online em: "
 "https://earthenginepartners.appspot.com/science-2013-global-forest."
 
-#: ../../source/for_users/features/carbonemissions.rst:87
-msgid ""
-"Intergovernmental Panel on Climate Change (IPCC), 2006. IPCC Guidelines "
-"for National Greenhouse Gas Inventories � Volume 4. Egglestone, H.S., L. "
-"Buendia, K. Miwa, T. Ngara and K. Tanabe (Eds)."
-msgstr ""
-"Intergovernmental Panel on Climate Change (IPCC), 2006. IPCC Guidelines "
-"for National Greenhouse Gas Inventories � Volume 4. Egglestone, H.S., L. "
-"Buendia, K. Miwa, T. Ngara and K. Tanabe (Eds)."
-
 #: ../../source/for_users/features/carbonemissions.rst:88
 msgid ""
-"Intergovernmental Panel on Climate Change (IPCC), IPCC/IGES, Hayama, "
-"Japan. http://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html"
+"Intergovernmental Panel on Climate Change (IPCC), 2006. IPCC Guidelines "
+"for National Greenhouse Gas Inventories � Volume 4. Egglestone, H.S., L. "
+"Buendia, K. Miwa, T. Ngara and K. Tanabe (Eds)."
 msgstr ""
-"Intergovernmental Panel on Climate Change (IPCC), IPCC/IGES, Hayama, "
-"Japan. http://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html"
+"Intergovernmental Panel on Climate Change (IPCC), 2006. IPCC Guidelines "
+"for National Greenhouse Gas Inventories � Volume 4. Egglestone, H.S., L. "
+"Buendia, K. Miwa, T. Ngara and K. Tanabe (Eds)."
 
 #: ../../source/for_users/features/carbonemissions.rst:89
 msgid ""
+"Intergovernmental Panel on Climate Change (IPCC), IPCC/IGES, Hayama, "
+"Japan. http://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html"
+msgstr ""
+"Intergovernmental Panel on Climate Change (IPCC), IPCC/IGES, Hayama, "
+"Japan. http://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html"
+
+#: ../../source/for_users/features/carbonemissions.rst:90
+msgid ""
 "Mokany, K., R. Raison, A.S. Prokushkin. Critical analysis of root: shoot "
 "ratios in terrestrial biomesGlob. Chang. Biol., 12 (1) (2006), pp. 84-96"
 msgstr ""
 "Mokany, K., R. Raison, A.S. Prokushkin. Critical analysis of root: shoot "
 "ratios in terrestrial biomesGlob. Chang. Biol., 12 (1) (2006), pp. 84-96"
 
-#: ../../source/for_users/features/carbonemissions.rst:90
+#: ../../source/for_users/features/carbonemissions.rst:91
 msgid ""
 "Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
 "R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., "
@@ -324,7 +325,7 @@ msgstr ""
 "northern hemisphere: Spatially explicit estimates for 2010 derived from "
 "Envisat ASAR. Remote Sensing of Environment, 168, pp. 316-334."
 
-#: ../../source/for_users/features/carbonemissions.rst:91
+#: ../../source/for_users/features/carbonemissions.rst:92
 msgid ""
 "University of Maryland and World Resources Institute. \"Global Primary "
 "Forest Loss\". Accessed through Global Forest Watch: "

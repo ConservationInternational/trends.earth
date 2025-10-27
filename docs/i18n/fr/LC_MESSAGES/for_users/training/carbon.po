@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: fr\n"
@@ -24,7 +24,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/training/carbon.rst:4
 msgid "Forest and Carbon Change Tool"
@@ -96,7 +96,7 @@ msgstr ""
 "dues à la déforestation. Définissez le pourcentage de couverture arborée "
 "considéré comme étant de la forêt pour la zone qui vous intéresse."
 
-#: ../../source/for_users/training/carbon.rst:39
+#: ../../source/for_users/training/carbon.rst:37
 msgid ""
 "The definition of canopy cover should be changed to accommodate the "
 "specific area of interest."
@@ -124,9 +124,10 @@ msgstr ""
 "intéresse."
 
 #: ../../source/for_users/training/carbon.rst:50
+#, fuzzy
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
+"are under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
@@ -147,7 +148,7 @@ msgstr ""
 "de choisir une frontière officielle fournie par le bureau désigné de "
 "votre pays."
 
-#: ../../source/for_users/training/carbon.rst:64
+#: ../../source/for_users/training/carbon.rst:65
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, "
 "make sure the **Area from file** option is highlighted. Then click "
@@ -159,11 +160,11 @@ msgstr ""
 "en surbrillance. Cliquez ensuite sur **Parcourir** et naviguez jusqu'au "
 "dossier de votre ordinateur où vous avez stocké le fichier."
 
-#: ../../source/for_users/training/carbon.rst:66
+#: ../../source/for_users/training/carbon.rst:67
 msgid "Add a descriptive name and notes for the analysis"
 msgstr "Ajoutez un nom descriptif et des notes pour l'analyse"
 
-#: ../../source/for_users/training/carbon.rst:68
+#: ../../source/for_users/training/carbon.rst:69
 msgid ""
 "Select the **Advanced configuration** menu to select the biomass dataset,"
 " and method for calculating the root to shoot ratio (below ground "
@@ -174,7 +175,7 @@ msgstr ""
 "racines/tiges (biomasse souterraine). Sélectionnez « Planifier "
 "l'exécution à distance »."
 
-#: ../../source/for_users/training/carbon.rst:74
+#: ../../source/for_users/training/carbon.rst:75
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
 "successfully submitted. The analysis will be run in Google servers and "
@@ -187,11 +188,11 @@ msgstr ""
 " de la zone étudiée (les grandes zones ont tendance à prendre plus de "
 "temps)."
 
-#: ../../source/for_users/training/carbon.rst:77
+#: ../../source/for_users/training/carbon.rst:78
 msgid "Change in carbon summary table"
 msgstr "Tableau récapitulatif des changements en matière de carbone"
 
-#: ../../source/for_users/training/carbon.rst:79
+#: ../../source/for_users/training/carbon.rst:80
 msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
@@ -199,7 +200,7 @@ msgstr ""
 "Allez dans l'onglet « Ensembles de données » pour « Ajouter des couches "
 "par défaut à partir de cet ensemble de données à la carte »."
 
-#: ../../source/for_users/training/carbon.rst:84
+#: ../../source/for_users/training/carbon.rst:85
 msgid ""
 "In order to view the defined area of interest with reference data, select"
 " the **Load Base Map** in the **Datasets** tab."
@@ -208,7 +209,7 @@ msgstr ""
 "référence, sélectionnez l'option « Charger la carte de base » dans "
 "l'onglet « Ensembles de données »."
 
-#: ../../source/for_users/training/carbon.rst:95
+#: ../../source/for_users/training/carbon.rst:96
 msgid ""
 "In the **Calculate change in total carbon - Above and below ground "
 "emissions, and deforestation** menu under **Change in carbon summary "
@@ -230,7 +231,7 @@ msgstr ""
 "fournissez des noms et des notes descriptives et sélectionnez « Exécuter "
 "localement »."
 
-#: ../../source/for_users/training/carbon.rst:101
+#: ../../source/for_users/training/carbon.rst:102
 msgid ""
 "A spreadsheet comparing the final outputs is saved in your "
 "**trends_earth_data*** folder under your user account on your computer "

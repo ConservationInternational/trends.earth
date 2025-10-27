@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
@@ -19,7 +19,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/features/carbonemissions.rst:4
 msgid "Carbon emissions from deforestation"
@@ -72,7 +72,7 @@ msgid ""
 "area, they will assign a threshold to define forests."
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:33
+#: ../../source/for_users/features/carbonemissions.rst:31
 msgid ""
 "The definition of canopy cover should be changed to accommodate the "
 "specific area of interest."
@@ -95,8 +95,8 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonemissions.rst:41
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
+"are under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
@@ -109,18 +109,18 @@ msgid ""
 "country."
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:55
+#: ../../source/for_users/features/carbonemissions.rst:56
 msgid ""
 "Users can set up ***Advanced configuration** to use a different biomass "
 "dataset, or upload a custom biomass dataset and to select the method for "
 "calculating the root to shoot ratio for below ground biomass."
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:61
+#: ../../source/for_users/features/carbonemissions.rst:62
 msgid "The table below list the biomass datasets available in Trends.Earth:"
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:66
+#: ../../source/for_users/features/carbonemissions.rst:67
 msgid ""
 "The results provide annual breakdowns of forest cover, forest loss, "
 "carbon (tC) stored and carbon emissions (tCO2) for the region, "
@@ -130,15 +130,15 @@ msgid ""
 "the estimated change in biomass:"
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:73
+#: ../../source/for_users/features/carbonemissions.rst:74
 msgid "The second is the forest loss layer for the region:"
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:78
+#: ../../source/for_users/features/carbonemissions.rst:79
 msgid "**Citations:**"
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:80
+#: ../../source/for_users/features/carbonemissions.rst:81
 msgid ""
 "Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, "
 "O. L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. "
@@ -146,7 +146,7 @@ msgid ""
 " Global Change Biology, 22, pp. 1406–1420."
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:81
+#: ../../source/for_users/features/carbonemissions.rst:82
 msgid ""
 "Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
 "Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
@@ -155,7 +155,7 @@ msgid ""
 "7 February 2014, Avignon (France)."
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:82
+#: ../../source/for_users/features/carbonemissions.rst:83
 msgid ""
 "Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. "
 "A. Houghton, 2017. \"Tropical forests are a net carbon source based on "
@@ -163,7 +163,7 @@ msgid ""
 "https://www.science.org/doi/10.1126/science.aam5962"
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:83
+#: ../../source/for_users/features/carbonemissions.rst:84
 msgid ""
 "Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
 "Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and"
@@ -172,20 +172,20 @@ msgid ""
 "Change, https://doi.org/10.1038/NCLIMATE1354"
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:84
+#: ../../source/for_users/features/carbonemissions.rst:85
 msgid ""
 "Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. "
 "2019. “Classifying Drivers of Global Forest Loss.” Science."
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:85
+#: ../../source/for_users/features/carbonemissions.rst:86
 msgid ""
 "Hansen, M. C., S. V. Stehman, and P. V. Potapov. \"Quantification of "
 "global gross forest cover.\" PNAS. 107 (19) 8650-8655. "
 "https://www.pnas.org/doi/10.1073/pnas.0912668107"
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:86
+#: ../../source/for_users/features/carbonemissions.rst:87
 msgid ""
 "Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. "
 "Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. "
@@ -195,26 +195,26 @@ msgid ""
 "https://earthenginepartners.appspot.com/science-2013-global-forest."
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:87
+#: ../../source/for_users/features/carbonemissions.rst:88
 msgid ""
 "Intergovernmental Panel on Climate Change (IPCC), 2006. IPCC Guidelines "
 "for National Greenhouse Gas Inventories � Volume 4. Egglestone, H.S., L. "
 "Buendia, K. Miwa, T. Ngara and K. Tanabe (Eds)."
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:88
+#: ../../source/for_users/features/carbonemissions.rst:89
 msgid ""
 "Intergovernmental Panel on Climate Change (IPCC), IPCC/IGES, Hayama, "
 "Japan. http://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html"
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:89
+#: ../../source/for_users/features/carbonemissions.rst:90
 msgid ""
 "Mokany, K., R. Raison, A.S. Prokushkin. Critical analysis of root: shoot "
 "ratios in terrestrial biomesGlob. Chang. Biol., 12 (1) (2006), pp. 84-96"
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:90
+#: ../../source/for_users/features/carbonemissions.rst:91
 msgid ""
 "Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
 "R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., "
@@ -223,7 +223,7 @@ msgid ""
 "Envisat ASAR. Remote Sensing of Environment, 168, pp. 316-334."
 msgstr ""
 
-#: ../../source/for_users/features/carbonemissions.rst:91
+#: ../../source/for_users/features/carbonemissions.rst:92
 msgid ""
 "University of Maryland and World Resources Institute. \"Global Primary "
 "Forest Loss\". Accessed through Global Forest Watch: "
@@ -237,5 +237,17 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Trends.Earth"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The `Natural Earth Administrative Boundaries`_"
+#~ " provided in Trends.Earth are in the"
+#~ " `public domain`_. The boundaries and "
+#~ "names used, and the designations used,"
+#~ " in Trends.Earth do not imply "
+#~ "official endorsement or acceptance by "
+#~ "Conservation International Foundation, or by"
+#~ " its partner organizations and "
+#~ "contributors."
 #~ msgstr ""
 

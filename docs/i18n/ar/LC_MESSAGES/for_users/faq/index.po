@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ar\n"
@@ -23,7 +23,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/faq/index.rst:4
 msgid "Frequently asked questions"
@@ -73,31 +73,10 @@ msgstr ""
 "بناء القدرات."
 
 #: ../../source/for_users/faq/index.rst:26
-msgid "How do I find more information on the project?"
-msgstr "كيف أجد المزيد من المعلومات حول المشروع؟"
-
-#: ../../source/for_users/faq/index.rst:28
-msgid ""
-"More information on the toolbox can be found at `trends.earth "
-"<http://trends.earth>`_ and reports are available on the `Vital Signs "
-"Project website <http://vitalsigns.org/gef-ldmp/project-description-and-"
-"timeline>`_ You can also add your contact info at `Vital Signs LD Email "
-"Distribution List <http://vitalsigns.org/gef-ldmp/email-distribution-"
-"list>`_ to stay in touch with any advancements with the projects’ "
-"distribution list."
-msgstr ""
-"يمكن العثور على مزيد من المعلومات حول صندوق الأدوات على `trends.earth "
-"<http://trends.earth>` وتتوفر التقارير على موقع مشروع `Vital Signs "
-"<http://vitalsigns.org/gef-ldmp/project-description-and-timeline>`_ يمكنك"
-" أيضاً إضافة معلومات الاتصال الخاصة بك على `Vital Signs LD Email "
-"Distribution List <http://vitalsigns.org/gef-ldmp/email-distribution-"
-"list>`_ للبقاء على اتصال مع أي تطورات مع قائمة توزيع المشاريع."
-
-#: ../../source/for_users/faq/index.rst:36
 msgid "How can I provide feedback on the tool?"
 msgstr "كيف يمكنني تقديم ملاحظات حول الأداة؟"
 
-#: ../../source/for_users/faq/index.rst:38
+#: ../../source/for_users/faq/index.rst:28
 msgid ""
 "There are three ways to give feedback, emailing the project team, "
 "visiting the project site and messaging through the anonymous form or "
@@ -118,15 +97,15 @@ msgstr ""
 " Trends.earth.  انقر فوق Trends.earth وقم بتقييم مربع الأدوات عن طريق "
 "تحديد عدد النجوم التي ترغب في منحها الملحق ، 5 نجوم تكون راضية للغاية."
 
-#: ../../source/for_users/faq/index.rst:48
+#: ../../source/for_users/faq/index.rst:38
 msgid "Installation of Trends.Earth"
 msgstr "تركيب Trends.Earth"
 
-#: ../../source/for_users/faq/index.rst:52
+#: ../../source/for_users/faq/index.rst:42
 msgid "What version of Quantum GIS (QGIS) do I need for the toolbox?"
 msgstr "ما هو إصدار Quantum GIS (QGIS) الذي أحتاج إليه لمربع الأدوات؟"
 
-#: ../../source/for_users/faq/index.rst:54
+#: ../../source/for_users/faq/index.rst:44
 msgid ""
 "To download QGIS, please go to the QGIS Downloads page. As of February "
 "2018, version 3.0 was released. Please use version 2.18 for the "
@@ -138,11 +117,11 @@ msgstr ""
 "المساعدTrend.earth. سيتم إصدار نسخة متوافقة مع أحدث إصدار في التكرارات "
 "المستقبلية للمشروع."
 
-#: ../../source/for_users/faq/index.rst:60
+#: ../../source/for_users/faq/index.rst:50
 msgid "Do I need to download a 32-bit or 64 bit version of QGIS?"
 msgstr "هل أحتاج إلى تنزيل إصدار 32 بت أو 64 بت من QGIS؟"
 
-#: ../../source/for_users/faq/index.rst:62
+#: ../../source/for_users/faq/index.rst:52
 msgid ""
 "We recommend downloading 64-bit version (2.18), but you may need to "
 "download the 32-bit version for 32-bit operating systems. To find out if "
@@ -157,11 +136,11 @@ msgstr ""
 "لوحة التحكم وسيظهر لك نافذة توضح نوع النظام، على سبيل المثال نوع النظام: "
 "نظام تشغيل 64 بت، معالج مستند إلى x64."
 
-#: ../../source/for_users/faq/index.rst:69
+#: ../../source/for_users/faq/index.rst:59
 msgid "Windows 7 or Windows Vista:"
 msgstr "نظام التشغيل ويندوز 7 أو ويندوز فيستا:"
 
-#: ../../source/for_users/faq/index.rst:71
+#: ../../source/for_users/faq/index.rst:61
 msgid ""
 "Open System by clicking the Start button , right-clicking Computer, and "
 "then clicking Properties."
@@ -169,33 +148,33 @@ msgstr ""
 "افتح \"النظام\" بالنقر فوق الزر \"ابدأ\" ، والنقر بزر الماوس الأيمن فوق "
 "الكمبيوتر ، ثم النقر فوق \"خصائص\"."
 
-#: ../../source/for_users/faq/index.rst:73
+#: ../../source/for_users/faq/index.rst:63
 msgid "Under System, you can view the system type."
 msgstr "ضمن النظام ، يمكنك عرض نوع النظام."
 
-#: ../../source/for_users/faq/index.rst:75
+#: ../../source/for_users/faq/index.rst:65
 msgid "Windows 8 or Windows 10:"
 msgstr "نظام التشغيل ويندوز 8 أو ويندوز 10:"
 
-#: ../../source/for_users/faq/index.rst:77
+#: ../../source/for_users/faq/index.rst:67
 msgid "From the Start screen, type This PC."
 msgstr "من شاشة البدء ، اكتب This PC."
 
-#: ../../source/for_users/faq/index.rst:78
+#: ../../source/for_users/faq/index.rst:68
 msgid "Right Click (or tap and hold) This PC, and click Properties."
 msgstr ""
 "انقر بزر الماوس الأيمن (أو انقر مع الاستمرار) على جهاز الكمبيوتر هذا ، "
 "وانقر فوق خصائص."
 
-#: ../../source/for_users/faq/index.rst:80
+#: ../../source/for_users/faq/index.rst:70
 msgid "Mac:"
 msgstr "Mac:"
 
-#: ../../source/for_users/faq/index.rst:82
+#: ../../source/for_users/faq/index.rst:72
 msgid "Click the Apple icon in the top left and select \"About this Mac\"."
 msgstr "انقر فوق أيقونة آبل في الجزء العلوي الأيسر وحدد \"نظام التشغيل Mac هذا\"."
 
-#: ../../source/for_users/faq/index.rst:83
+#: ../../source/for_users/faq/index.rst:73
 msgid ""
 "For more advanced details click \"More Info...\" in the About This Mac "
 "window."
@@ -203,11 +182,11 @@ msgstr ""
 "لمزيد من التفاصيل المتقدمة، انقر على \"مزيد من المعلومات ...\" في نوافذ "
 "\"حول نظام التشغيل Mac هذا\"."
 
-#: ../../source/for_users/faq/index.rst:86
+#: ../../source/for_users/faq/index.rst:76
 msgid "How do I install the plugin?"
 msgstr "كيف أقوم بتثبيت البرنامج المساعد؟"
 
-#: ../../source/for_users/faq/index.rst:88
+#: ../../source/for_users/faq/index.rst:78
 msgid ""
 "Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
 "install plugins. On the side menu, select All to view the plugins "
@@ -219,11 +198,11 @@ msgstr ""
 "المتوفرة في QGIS. ابحث عن Trends.earth وحدد تثبيت البرنامج المساعد في "
 "الجزء السفلي من النافذة."
 
-#: ../../source/for_users/faq/index.rst:93
+#: ../../source/for_users/faq/index.rst:83
 msgid "How do I upgrade the plugin?"
 msgstr "كيف أقوم بترقية البرنامج المساعد؟"
 
-#: ../../source/for_users/faq/index.rst:95
+#: ../../source/for_users/faq/index.rst:85
 msgid ""
 "If you have already installed the plugin, navigate to Plugins on the menu"
 " bar, and select Manage and install plugins. On the side menu, select "
@@ -237,11 +216,11 @@ msgstr ""
 "الكمبيوتر الخاص بك. في الجزء السفلي من النافذة، حدد ترقية الكل لترقية "
 "مربع الأدوات إلى أحدث إصدار."
 
-#: ../../source/for_users/faq/index.rst:101
+#: ../../source/for_users/faq/index.rst:91
 msgid "How do I uninstall the plugin?"
 msgstr "كيف أقوم بإلغاء تثبيت المكون الإضافي؟"
 
-#: ../../source/for_users/faq/index.rst:103
+#: ../../source/for_users/faq/index.rst:93
 msgid ""
 "If you would like to uninstall the plugin, normally you can do so with "
 "the QGIS plugins manager. To access the tool, choose \"Plugins\" and then"
@@ -257,7 +236,7 @@ msgstr ""
 "الأيسر. ثم انقر فوق \"Trends.Earth\" في قائمة المكونات الإضافية، ثم انقر "
 "فوق \"إلغاء تثبيت البرنامج المساعد\" لإلغاء تثبيته."
 
-#: ../../source/for_users/faq/index.rst:110
+#: ../../source/for_users/faq/index.rst:100
 msgid ""
 "If you encounter an error uninstalling the plugin, it is also possible to"
 " remove it manually. To manually remove the plugin:"
@@ -265,11 +244,11 @@ msgstr ""
 "إذا واجهت خطأ أثناء إلغاء تثبيت المكون الإضافي، فمن الممكن أيضاً إزالته "
 "يدوياً. لإزالة المكون الإضافي يدوياً:"
 
-#: ../../source/for_users/faq/index.rst:113
+#: ../../source/for_users/faq/index.rst:103
 msgid "Open QGIS"
 msgstr "افتح QGIS"
 
-#: ../../source/for_users/faq/index.rst:114
+#: ../../source/for_users/faq/index.rst:104
 msgid ""
 "Navigate to where the plugin is installed by selecting \"Open Active "
 "Profile Folder\" from the menu under \"Settings\" - \"User Profiles\" on "
@@ -279,7 +258,7 @@ msgstr ""
 "التعريف النشط\" من القائمة ضمن \"الإعدادات\" - \"ملفات تعريف المستخدمين\""
 " في شريط القائمة."
 
-#: ../../source/for_users/faq/index.rst:116
+#: ../../source/for_users/faq/index.rst:106
 msgid ""
 "Quit QGIS. You may not be able to uninstall the plugin if QGIS is not "
 "closed."
@@ -287,7 +266,7 @@ msgstr ""
 "قم بإنهاء QGIS. قد لا تتمكن من إلغاء تثبيت المكون الإضافي إذا لم يتم "
 "إغلاق QGIS."
 
-#: ../../source/for_users/faq/index.rst:118
+#: ../../source/for_users/faq/index.rst:108
 msgid ""
 "In the file browser window that opened, double click on \"python\", and "
 "then double click on \"plugins\". Delete the LDMP folder within that "
@@ -297,15 +276,15 @@ msgstr ""
 "ثم انقر نقراً مزدوجاً فوق \"المكونات الإضافية\". احذف مجلد LDMP داخل هذا "
 "الدليل."
 
-#: ../../source/for_users/faq/index.rst:120
+#: ../../source/for_users/faq/index.rst:110
 msgid "Restart QGIS."
 msgstr "أعد تشغيل QGIS."
 
-#: ../../source/for_users/faq/index.rst:122
+#: ../../source/for_users/faq/index.rst:112
 msgid "OR"
 msgstr "أو"
 
-#: ../../source/for_users/faq/index.rst:124
+#: ../../source/for_users/faq/index.rst:114
 msgid ""
 "Navigate to the AppData folder under user account and find the plugins "
 "info under the directory. For example: "
@@ -316,11 +295,11 @@ msgstr ""
 "C:\\مستندات\\مستخدم\\AppData\\تجوال\\QGIS\\QGIS3\\\n"
 "ملفات شخصية\\إفتراضي\\بايثون\\المكونات الإضافية"
 
-#: ../../source/for_users/faq/index.rst:129
+#: ../../source/for_users/faq/index.rst:119
 msgid "Datasets"
 msgstr "مجموعات البيانات"
 
-#: ../../source/for_users/faq/index.rst:132
+#: ../../source/for_users/faq/index.rst:122
 msgid ""
 "Refer to the :ref:`input_data` section for more information on data "
 "sources used in Trends.Earth."
@@ -328,11 +307,11 @@ msgstr ""
 "راجع: المرجع: قسم `input_data` لمزيد من المعلومات حول مصادر البيانات "
 "المستخدمة في Trends.Earth."
 
-#: ../../source/for_users/faq/index.rst:135
+#: ../../source/for_users/faq/index.rst:125
 msgid "When will you update datasets for the current year?"
 msgstr "متى ستقوم بتحديث مجموعات البيانات للعام الحالي؟"
 
-#: ../../source/for_users/faq/index.rst:137
+#: ../../source/for_users/faq/index.rst:127
 msgid ""
 "Trends.Earth uses publicly available data, as such the most up to date "
 "datasets will be added to the toolbox as soon as the original data "
@@ -344,11 +323,11 @@ msgstr ""
 "الأصليين بنشرها للجمهور. إذا لاحظت أنه قد فاتنا أي تحديث، يرجى إخبارنا "
 "بذلك."
 
-#: ../../source/for_users/faq/index.rst:142
+#: ../../source/for_users/faq/index.rst:132
 msgid "Is there an option to download the original data?"
 msgstr "هل يوجد خيار لتنزيل البيانات الأصلية؟ "
 
-#: ../../source/for_users/faq/index.rst:144
+#: ../../source/for_users/faq/index.rst:134
 msgid ""
 "Users can download the original data using the Download option within the"
 " toolbox."
@@ -356,11 +335,11 @@ msgstr ""
 "يمكن للمستخدمين تنزيل البيانات الأصلية باستخدام خيار التنزيل داخل مربع "
 "الأدوات."
 
-#: ../../source/for_users/faq/index.rst:148
+#: ../../source/for_users/faq/index.rst:138
 msgid "Will the toolbox support higher resolution datasets?"
 msgstr "هل يدعم صندوق الأدوات مجموعات البيانات ذات الدقة العالية؟"
 
-#: ../../source/for_users/faq/index.rst:150
+#: ../../source/for_users/faq/index.rst:140
 msgid ""
 "The toolbox currently supports AVHRR (8km) and MODIS (250m) data for "
 "primary productivity analysis, and ESA LCC CCI (300m) for land cover "
@@ -370,11 +349,11 @@ msgstr ""
 "لتحليل الإنتاجية الأولية، و ESA LCC CCI (300 متر) لتحليل تغير الغطاء "
 "الأرضي."
 
-#: ../../source/for_users/faq/index.rst:154
+#: ../../source/for_users/faq/index.rst:144
 msgid "Can the toolbox support analysis with national-level datasets?"
 msgstr "هل يمكن أن يدعم صندوق الأدوات تحليل بقواعد بيانات على المستوى الوطني؟"
 
-#: ../../source/for_users/faq/index.rst:156
+#: ../../source/for_users/faq/index.rst:146
 msgid ""
 "This is a common request from users, and one the team is working on. "
 "Trends.Earth will allow loading of national-level soil carbon and land "
@@ -389,11 +368,11 @@ msgstr ""
 "الموجودة التي قد تكون ذات جودة أعلى على المستوى الوطني من قواعد البيانات "
 "العالمية التي هي الخيار الافتراضي في الأداة."
 
-#: ../../source/for_users/faq/index.rst:163
+#: ../../source/for_users/faq/index.rst:153
 msgid "Methods"
 msgstr "الأساليب"
 
-#: ../../source/for_users/faq/index.rst:166
+#: ../../source/for_users/faq/index.rst:156
 msgid ""
 "Refer to the :ref:`background_landdegradation` section for more "
 "background on analyses available in Trends.Earth."
@@ -401,11 +380,11 @@ msgstr ""
 "راجع :ref:`background_landdegradation` للمزيد من المعلومات الأساسية عن "
 "التحليلات المتاحة على Trends.Earth."
 
-#: ../../source/for_users/faq/index.rst:169
+#: ../../source/for_users/faq/index.rst:159
 msgid "Who was the default time period for the analysis determined?"
 msgstr "ما هي الفترة الزمنية الافتراضية للتحليل المحدد؟"
 
-#: ../../source/for_users/faq/index.rst:171
+#: ../../source/for_users/faq/index.rst:161
 #, python-format
 msgid ""
 "The default time period of analysis is from years 2001 to 2015. These "
@@ -422,15 +401,15 @@ msgstr ""
 " وهي وثيقة تقدم توصيات مفصلة لقياس تدهور الأراضي وقد تم تبنيها من قبل "
 "اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD)."
 
-#: ../../source/for_users/faq/index.rst:178
+#: ../../source/for_users/faq/index.rst:168
 msgid "Productivity"
 msgstr "إنتاجية"
 
-#: ../../source/for_users/faq/index.rst:181
+#: ../../source/for_users/faq/index.rst:171
 msgid "How does the result provided by state differs from trajectory?"
 msgstr "كيف تختلف النتيجة التي تقدمها الدولة عن المسار؟"
 
-#: ../../source/for_users/faq/index.rst:183
+#: ../../source/for_users/faq/index.rst:173
 msgid ""
 "The trajectory analysis uses linear regressions and non-parametric tests "
 "to identify long term significant trends in primary productivity. This "
@@ -446,11 +425,11 @@ msgstr ""
 " على تسجيل هذه التغييرات الحديثة من خلال مقارنة وسيلة طويلة الأجل مع "
 "الفترة الأخيرة."
 
-#: ../../source/for_users/faq/index.rst:192
+#: ../../source/for_users/faq/index.rst:182
 msgid "Land cover"
 msgstr "الغطاء الأرضي"
 
-#: ../../source/for_users/faq/index.rst:195
+#: ../../source/for_users/faq/index.rst:185
 msgid ""
 "Currently, the land cover aggregation is done following the UNCCD "
 "guidelines, but that classification does not take into account country "
@@ -462,7 +441,7 @@ msgstr ""
 " الخصائص على المستوى القطري. هل يمكن السماح للمستخدم بتحديد معايير "
 "التجميع؟"
 
-#: ../../source/for_users/faq/index.rst:197
+#: ../../source/for_users/faq/index.rst:187
 msgid ""
 "Users are able to make these changes using the advanced settings in the "
 "land cover GUI so that appropriate aggregations occur depending on the "
@@ -471,11 +450,11 @@ msgstr ""
 "يمكن للمستخدمين إجراء هذه التغييرات باستخدام الإعدادات المتقدمة في واجهة "
 "المستخدم الرسومية للغطاء الأرضي بحيث تظهر التجميعات المناسبة حسب بلدك."
 
-#: ../../source/for_users/faq/index.rst:202
+#: ../../source/for_users/faq/index.rst:192
 msgid "How can we isolate woody plant encroachment within the toolbox?"
 msgstr "كيف يمكننا عزل زحف النباتات الخشبية من خلال صندوق الأدوات؟"
 
-#: ../../source/for_users/faq/index.rst:204
+#: ../../source/for_users/faq/index.rst:194
 msgid ""
 "This can be altered using the land cover change matrix in the toolbox. "
 "For every transition, the user can mark the change as stable, improvement"
@@ -488,11 +467,11 @@ msgstr ""
 " عملية تحول. التحول من الأراضي العشبية/المراعي إلى أراضي شجيرات قد يشير "
 "إلى زحف النباتات الخشبية ويمكن تمييز هذا التحول كمؤشر على التدهور."
 
-#: ../../source/for_users/faq/index.rst:211
+#: ../../source/for_users/faq/index.rst:201
 msgid "Carbon stocks"
 msgstr "مخزونات الكربون"
 
-#: ../../source/for_users/faq/index.rst:214
+#: ../../source/for_users/faq/index.rst:204
 msgid ""
 "Why use soil organic carbon (SOC) instead of above and below-ground "
 "carbon to  measure carbon stocks?"
@@ -500,7 +479,7 @@ msgstr ""
 "لماذا نستخدم الكربون العضوي في التربة (SOC) بدلاً من الكربون الموجود فوق "
 "وتحت الأرض لقياس مخزون الكربون؟"
 
-#: ../../source/for_users/faq/index.rst:216
+#: ../../source/for_users/faq/index.rst:206
 #, python-format
 msgid ""
 "The original proposed indicator is Carbon Stocks, which would include "
@@ -523,7 +502,7 @@ msgstr ""
 " المنشورة من قِبل اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) باستخدام "
 "الكربون العضوي في التربة (SOC) كوكيل لمخزون الكربون للوقت الحالي."
 
-#: ../../source/for_users/faq/index.rst:225
+#: ../../source/for_users/faq/index.rst:215
 msgid ""
 "Is it possible to measure identify processes of degradation linked to "
 "salinization using this tool?"
@@ -531,7 +510,7 @@ msgstr ""
 "هل من الممكن قياس وتحديد عمليات التدهور المرتبطة بالملوحة باستخدام هذه "
 "الأداة؟"
 
-#: ../../source/for_users/faq/index.rst:227
+#: ../../source/for_users/faq/index.rst:217
 msgid ""
 "Not directly. If salinization caused a reduction in primary productivity,"
 " that decrease would be identified by the productivity indicators, but "
@@ -541,15 +520,15 @@ msgstr ""
 "تحديد هذا الانخفاض من خلال مؤشرات الإنتاجية، ولكن سيتعين على المستخدمين "
 "استخدام معرفتهم المحلية لتحديد الأسباب."
 
-#: ../../source/for_users/faq/index.rst:232
+#: ../../source/for_users/faq/index.rst:222
 msgid "Land degradation outputs"
 msgstr "نواتج تدهور الأراضي"
 
-#: ../../source/for_users/faq/index.rst:235
+#: ../../source/for_users/faq/index.rst:225
 msgid "How were the layers combined to define the final land degradation layer?"
 msgstr "كيف تم تجميع الطبقات لتحديد طبقة تدهور الأراضي النهائية؟"
 
-#: ../../source/for_users/faq/index.rst:237
+#: ../../source/for_users/faq/index.rst:227
 msgid ""
 "Performance, state, and trajectory (the three indicators of change in "
 "productivity_) are combined following a modified version of the good "
@@ -569,7 +548,7 @@ msgstr ""
 "أي من المؤشرات الثلاثة عند بكسل معين، فسيتم تعيين هذا البكسل باعتباره "
 "\"متدهوراً\"."
 
-#: ../../source/for_users/faq/index.rst:246
+#: ../../source/for_users/faq/index.rst:236
 msgid ""
 "Why do I see areas the data says are improving or degrading when I know "
 "they are not?"
@@ -577,7 +556,7 @@ msgstr ""
 "لماذا أرى أماكن تقول البيانات إنها تتحسن أو تتدهور وأنا أعرف أنها ليست "
 "كذلك؟"
 
-#: ../../source/for_users/faq/index.rst:248
+#: ../../source/for_users/faq/index.rst:238
 msgid ""
 "The final output should be interpreted as showing areas potentially "
 "degraded. The indicator of land degradation is based on changes in "
@@ -605,7 +584,7 @@ msgstr ""
 "العالمية التي لا يمكن تطبيقها في جميع المقاييس والمناطق الجغرافية. ستتم "
 "إضافة خاصية لاستخدام البيانات المحلية قريباً."
 
-#: ../../source/for_users/faq/index.rst:262
+#: ../../source/for_users/faq/index.rst:252
 msgid ""
 "All of the sub-indicators are measuring vegetation: how does this "
 "contribute to understanding and identifying land degradation?"
@@ -613,7 +592,7 @@ msgstr ""
 "تقيس جميع المؤشرات الفرعية الغطاء النباتي: كيف يساهم ذلك في فهم وتحديد "
 "تدهور الأراضي؟"
 
-#: ../../source/for_users/faq/index.rst:264
+#: ../../source/for_users/faq/index.rst:254
 msgid ""
 "Vegetation is a key component of most ecosystems, and serve as a good "
 "proxy for their overall functioning and health. The three sub-indicators "
@@ -645,15 +624,15 @@ msgstr ""
 "وعمليات المسح، هناك إجماع على أن هذا هو أفضل نهج في هذه الفترة الزمنية "
 "وعلى الصعيد العالمي."
 
-#: ../../source/for_users/faq/index.rst:279
+#: ../../source/for_users/faq/index.rst:269
 msgid "Future plans"
 msgstr "خطط مستقبلية"
 
-#: ../../source/for_users/faq/index.rst:282
+#: ../../source/for_users/faq/index.rst:272
 msgid "When will there be an offline version of the toolbox?"
 msgstr "متى سيكون هناك إصدار من صندوق الأدوات غير متصل بالإنترنت؟"
 
-#: ../../source/for_users/faq/index.rst:284
+#: ../../source/for_users/faq/index.rst:274
 msgid ""
 "The final toolbox will be available as both as an offline and online "
 "version. The online version allows users to access current datasets more "
@@ -676,11 +655,11 @@ msgstr ""
 "متصلة بالإنترنت من صندوق الأدوات وتزويد البلدان بالبيانات المتعلقة "
 "للتقرير على المستوى الوطني داخل بلدان المشروع التجريبي."
 
-#: ../../source/for_users/faq/index.rst:295
+#: ../../source/for_users/faq/index.rst:285
 msgid "Will you create a trends.earth toolbox for ESRI users?"
 msgstr "هل ستقومون بإنشاء صندوق أدوات trends.earth لمستخدمي ESRI؟"
 
-#: ../../source/for_users/faq/index.rst:297
+#: ../../source/for_users/faq/index.rst:287
 msgid ""
 "The toolbox is currently available as a plugin to QGIS, an open source "
 "software package. This allows users around the world free access to the "
@@ -696,4 +675,33 @@ msgstr ""
 
 #~ msgid "iconReports"
 #~ msgstr "iconتقارير"
+
+#~ msgid "How do I find more information on the project?"
+#~ msgstr "كيف أجد المزيد من المعلومات حول المشروع؟"
+
+#~ msgid ""
+#~ "More information on the toolbox can "
+#~ "be found at `trends.earth "
+#~ "<http://trends.earth>`_ and reports are "
+#~ "available on the `Vital Signs Project"
+#~ " website <http://vitalsigns.org/gef-ldmp/project-"
+#~ "description-and-timeline>`_ You can also"
+#~ " add your contact info at `Vital "
+#~ "Signs LD Email Distribution List "
+#~ "<http://vitalsigns.org/gef-ldmp/email-distribution-"
+#~ "list>`_ to stay in touch with any"
+#~ " advancements with the projects’ "
+#~ "distribution list."
+#~ msgstr ""
+#~ "يمكن العثور على مزيد من المعلومات "
+#~ "حول صندوق الأدوات على `trends.earth "
+#~ "<http://trends.earth>` وتتوفر التقارير على "
+#~ "موقع مشروع `Vital Signs <http://vitalsigns.org"
+#~ "/gef-ldmp/project-description-and-timeline>`_ "
+#~ "يمكنك أيضاً إضافة معلومات الاتصال الخاصة"
+#~ " بك على `Vital Signs LD Email "
+#~ "Distribution List <http://vitalsigns.org/gef-ldmp"
+#~ "/email-distribution-list>`_ للبقاء على "
+#~ "اتصال مع أي تطورات مع قائمة توزيع"
+#~ " المشاريع."
 

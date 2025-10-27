@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
@@ -19,7 +19,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/training/settings.rst:4
 msgid "Settings"
@@ -146,8 +146,8 @@ msgstr ""
 
 #: ../../source/for_users/training/settings.rst:85
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
+"are under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
@@ -160,87 +160,87 @@ msgid ""
 "country."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:100
+#: ../../source/for_users/training/settings.rst:101
 msgid "Point"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:101
+#: ../../source/for_users/training/settings.rst:102
 msgid ""
 "Select this option to manually add coordinates or select a point on the "
 "map canvas."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:104
+#: ../../source/for_users/training/settings.rst:105
 msgid "Area from file"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:105
+#: ../../source/for_users/training/settings.rst:106
 msgid ""
 "Select this option to upload a point or polygon of your choice. Supported"
 " formats includes shapefile, kml, kmz and geojson."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:109
+#: ../../source/for_users/training/settings.rst:110
 msgid ""
 "Select **Apply a buffer to the chosen area** if you experience issues "
 "with geometries or want to"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:110
+#: ../../source/for_users/training/settings.rst:111
 msgid "add a buffer around a point entered in the city or coordinates options."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:114
+#: ../../source/for_users/training/settings.rst:115
 msgid "Custom land cover classes"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:115
+#: ../../source/for_users/training/settings.rst:116
 msgid ""
 "Add, remove, or edit landcover classes. The landcover scheme can be "
 "exported using the **Save** option, and loaded from an existing file "
 "using the **Load** button."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:121
+#: ../../source/for_users/training/settings.rst:122
 msgid ""
 "The landcover class editor will open when the user clicks on the **Add "
 "class** or select a class in the table. Changes can be applied to the "
 "following parameters:"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:124
+#: ../../source/for_users/training/settings.rst:125
 msgid "**Name**: Title of the class"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:126
+#: ../../source/for_users/training/settings.rst:127
 msgid "**Parent**: Parent class of the selected class"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:128
+#: ../../source/for_users/training/settings.rst:129
 msgid "**Color**: Legend color for the class"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:130
+#: ../../source/for_users/training/settings.rst:131
 msgid "**Code**: Unique ID given to the class"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:132
+#: ../../source/for_users/training/settings.rst:133
 msgid "Click **Done** once the changes has been made."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:140
+#: ../../source/for_users/training/settings.rst:141
 msgid "Reports"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:141
+#: ../../source/for_users/training/settings.rst:142
 msgid "This contains configuration options for the Reports module."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:148
+#: ../../source/for_users/training/settings.rst:149
 msgid "Template Search Path"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:149
+#: ../../source/for_users/training/settings.rst:150
 msgid ""
 "An additional directory containing report templates (qpt files). If there"
 " are templates with the same name to those in "
@@ -248,18 +248,18 @@ msgid ""
 "prioritize and use the ones in the search path."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:153
+#: ../../source/for_users/training/settings.rst:154
 msgid "Common Report Information"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:154
+#: ../../source/for_users/training/settings.rst:155
 msgid ""
 "Common contextual information that can be modified to suit the reporting "
 "context. Any changes to the settings under this category, will be applied"
 " in subsequent report generation tasks."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:158
+#: ../../source/for_users/training/settings.rst:159
 msgid ""
 "These are only applicable in those report templates where the "
 "corresponding variables are used. For the default templates (that ship "
@@ -267,13 +267,13 @@ msgid ""
 "variables are used."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:164
+#: ../../source/for_users/training/settings.rst:163
 msgid ""
 "**a. Organization Logo** - This is a path to an image file that can be "
 "used as a logo in the reports. By default,"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:163
+#: ../../source/for_users/training/settings.rst:164
 msgid ""
 "it points to `trends_earth_logo_bl_small.png` that ships with the "
 "toolbox. It is available as a QGIS layout variable named "
@@ -286,7 +286,7 @@ msgid ""
 "organization. It is empty by default. It is"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:167
+#: ../../source/for_users/training/settings.rst:168
 msgid ""
 "available as a QGIS layout variable named "
 ":code:`te_report_organization_name`."
@@ -298,7 +298,7 @@ msgid ""
 "reports. It is empty by default. It is"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:170
+#: ../../source/for_users/training/settings.rst:171
 msgid "available as a QGIS layout variable named :code:`te_report_footer`."
 msgstr ""
 
@@ -308,30 +308,30 @@ msgid ""
 " elements in the reports such as data."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:173
+#: ../../source/for_users/training/settings.rst:174
 msgid "The default statement reads:"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:175
+#: ../../source/for_users/training/settings.rst:176
 msgid ""
-"`The provided boundaries are from Natural Earth, and are in the public "
-"domain. The boundaries, names and designations used in Trends.Earth do "
-"not imply official endorsement or acceptance by Conservation "
-"International Foundation, or by its partner organizations and "
-"contributors.`"
+"`The provided boundaries are from geoBoundaries (www.geoboundaries.org), "
+"and areunder the CC BY 4.0 license. The boundaries, names and "
+"designations used in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors.`"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:179
+#: ../../source/for_users/training/settings.rst:180
 msgid ""
 "It is available as a QGIS layout variable named "
 ":code:`te_report_disclaimer`."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:182
+#: ../../source/for_users/training/settings.rst:183
 msgid "Log warnings in output directory"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:183
+#: ../../source/for_users/training/settings.rst:184
 msgid ""
 "When checked, the output report folder will contain a html file with "
 "details of any warning or errors that arose during the report generation "
@@ -339,73 +339,73 @@ msgid ""
 "unchecked."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:189
+#: ../../source/for_users/training/settings.rst:190
 msgid "Advanced"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:191
+#: ../../source/for_users/training/settings.rst:192
 msgid ""
 "Select the `Advanced` drop-down list to view more options within the "
 "Trends.Earth toolbox."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:197
+#: ../../source/for_users/training/settings.rst:198
 msgid "Base data directory"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:198
+#: ../../source/for_users/training/settings.rst:199
 msgid ""
 "All data will be saved in the Base Data Folder. To change where data from"
 " Trends.Earth is stored select *...* button next to the Base data "
 "directory and select a folder to store your data."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:201
+#: ../../source/for_users/training/settings.rst:202
 msgid ""
 "There are several check boxes to set your preference under the Base data "
 "directory selection."
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:203
+#: ../../source/for_users/training/settings.rst:204
 msgid "Check the boxes to:"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:205
+#: ../../source/for_users/training/settings.rst:206
 msgid "Filter remote jobs according to local base directory"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:207
+#: ../../source/for_users/training/settings.rst:208
 msgid "Enable debug mode - saves detailed logging information from your session"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:209
+#: ../../source/for_users/training/settings.rst:210
 msgid "Download remotely-generated datasets automatically"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:211
-#: ../../source/for_users/training/settings.rst:216
+#: ../../source/for_users/training/settings.rst:212
+#: ../../source/for_users/training/settings.rst:217
 msgid "Do not check this if you have limited bandwidth or are working offline"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:213
+#: ../../source/for_users/training/settings.rst:214
 msgid "Poll remote processing server periodically"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:215
+#: ../../source/for_users/training/settings.rst:216
 msgid ""
 "This sets the frequency that the server will check for finished analyses "
 "to download automatically"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:218
+#: ../../source/for_users/training/settings.rst:219
 msgid "Use binaries for faster processing: Select folder to store binaries"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:222
+#: ../../source/for_users/training/settings.rst:223
 msgid "LandPKS login information"
 msgstr ""
 
-#: ../../source/for_users/training/settings.rst:223
+#: ../../source/for_users/training/settings.rst:224
 msgid "**Coming soon**"
 msgstr ""
 
@@ -461,5 +461,28 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Trends.Earth"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The `Natural Earth Administrative Boundaries`_"
+#~ " provided in Trends.Earth are in the"
+#~ " `public domain`_. The boundaries and "
+#~ "names used, and the designations used,"
+#~ " in Trends.Earth do not imply "
+#~ "official endorsement or acceptance by "
+#~ "Conservation International Foundation, or by"
+#~ " its partner organizations and "
+#~ "contributors."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`The provided boundaries are from "
+#~ "Natural Earth, and are in the "
+#~ "public domain. The boundaries, names and"
+#~ " designations used in Trends.Earth do "
+#~ "not imply official endorsement or "
+#~ "acceptance by Conservation International "
+#~ "Foundation, or by its partner "
+#~ "organizations and contributors.`"
 #~ msgstr ""
 

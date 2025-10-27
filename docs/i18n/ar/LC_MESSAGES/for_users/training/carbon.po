@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ar\n"
@@ -23,7 +23,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/training/carbon.rst:4
 msgid "Forest and Carbon Change Tool"
@@ -90,7 +90,7 @@ msgstr ""
 "والسنوات المستهدفة لرصد فقدان الغطاء الشجري وانبعاثات الكربون من إزالة "
 "الغابات. حدد النسبة المئوية للغطاء الشجري الذي يعتبر غابة لمنطقة اهتمامك."
 
-#: ../../source/for_users/training/carbon.rst:39
+#: ../../source/for_users/training/carbon.rst:37
 msgid ""
 "The definition of canopy cover should be changed to accommodate the "
 "specific area of interest."
@@ -113,9 +113,10 @@ msgid "Select **Change region** to define the area of interest."
 msgstr "اختر **تغيير المنطقة** لتحديد المنطقة محل الاهتمام."
 
 #: ../../source/for_users/training/carbon.rst:50
+#, fuzzy
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
+"are under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
@@ -135,7 +136,7 @@ msgstr ""
 "إذا كنت تستخدم Trends.Earth لأغراض رسمية ، فمن المستحسن أن يختار "
 "المستخدمون حدًا رسميًا يوفره المكتب المعين لبلدهم."
 
-#: ../../source/for_users/training/carbon.rst:64
+#: ../../source/for_users/training/carbon.rst:65
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, "
 "make sure the **Area from file** option is highlighted. Then click "
@@ -146,11 +147,11 @@ msgstr ""
 " ، فتأكد من تحديد خيار ** المنطقة من الملف **. ثم انقر فوق ** تصفح ** "
 "وانتقل إلى المجلد في جهاز الكمبيوتر الخاص بك حيث تم تخزين الملف."
 
-#: ../../source/for_users/training/carbon.rst:66
+#: ../../source/for_users/training/carbon.rst:67
 msgid "Add a descriptive name and notes for the analysis"
 msgstr "أضف اسماً وصفياً وملاحظات للتحليل"
 
-#: ../../source/for_users/training/carbon.rst:68
+#: ../../source/for_users/training/carbon.rst:69
 msgid ""
 "Select the **Advanced configuration** menu to select the biomass dataset,"
 " and method for calculating the root to shoot ratio (below ground "
@@ -160,7 +161,7 @@ msgstr ""
 "وطريقة حساب نسبة الجذر إلى التصوير (الكتلة الحيوية تحت الأرض) حدد **جدولة"
 " التنفيذ عن بُعد**"
 
-#: ../../source/for_users/training/carbon.rst:74
+#: ../../source/for_users/training/carbon.rst:75
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
 "successfully submitted. The analysis will be run in Google servers and "
@@ -171,11 +172,11 @@ msgstr ""
 "تشغيل التحليل في خوادم Google ويمكن أن يستغرق ما بين 5 إلى 15 دقيقة وفقًا"
 " لحجم منطقة الدراسة (تميل المناطق الأكبر إلى أن تستغرق وقتًا أطول)."
 
-#: ../../source/for_users/training/carbon.rst:77
+#: ../../source/for_users/training/carbon.rst:78
 msgid "Change in carbon summary table"
 msgstr "التغيير في جدول ملخص الكربون"
 
-#: ../../source/for_users/training/carbon.rst:79
+#: ../../source/for_users/training/carbon.rst:80
 msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
@@ -183,7 +184,7 @@ msgstr ""
 "انتقل إلى علامة التبويب **مجموعات البيانات** لكي تقوم بـ **إضافة طبقات "
 "افتراضية من مجموعة البيانات هذه إلى الخريطة**."
 
-#: ../../source/for_users/training/carbon.rst:84
+#: ../../source/for_users/training/carbon.rst:85
 msgid ""
 "In order to view the defined area of interest with reference data, select"
 " the **Load Base Map** in the **Datasets** tab."
@@ -191,7 +192,7 @@ msgstr ""
 "لعرض منطقة الاهتمام المحددة بالبيانات المرجعية، حدد **تحميل الخريطة "
 "الأساسية** في علامة التبويب **مجموعات البيانات**."
 
-#: ../../source/for_users/training/carbon.rst:95
+#: ../../source/for_users/training/carbon.rst:96
 msgid ""
 "In the **Calculate change in total carbon - Above and below ground "
 "emissions, and deforestation** menu under **Change in carbon summary "
@@ -211,7 +212,7 @@ msgstr ""
 "المنطقة هي نفس منطقة الاهتمام، وقدم أسماء وملاحظات وصفية وحدد **التنفيذ "
 "محلياً**."
 
-#: ../../source/for_users/training/carbon.rst:101
+#: ../../source/for_users/training/carbon.rst:102
 msgid ""
 "A spreadsheet comparing the final outputs is saved in your "
 "**trends_earth_data*** folder under your user account on your computer "

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-11 18:04+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: zh\n"
@@ -635,74 +635,85 @@ msgstr ""
 "E.，2019。用于可持续发展目标的全球和补充（非权威）地理空间数据：作用和应用。本报告由全球数据工作组和替代数据源工作组联合编写并由跨机构地理空间信息工作组和可持续发展目标指标专家组发布。<http://ggim.un.org/documents/Report_Global_and_Complementary_Geospatial_Data_for_SDGs.pdf>’_"
 
 #: ../../source/general/index.rst:258
+#, fuzzy
 msgid ""
 "`Using Spectral Vegetation Indices to Measure Gross Primary Productivity "
-"as an Indicator of Land Degradation "
-"<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>`_"
+"as an Indicator of Land Degradation <https://s3.dualstack.us-"
+"east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Report1_C1_R3_WEB_HR.pdf>`_"
 msgstr ""
 "‘利用光谱植被指数测量初级生产总量作为土地退化指标 "
 "<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>’_"
 
 #: ../../source/general/index.rst:261
+#, fuzzy
 msgid ""
 "`Evaluation of approaches for incorporating higher-resolution data for "
-"disaggregation or targeted analysis "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>`_"
+"disaggregation or targeted analysis <https://s3.dualstack.us-"
+"east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Report%202_C1_R1_PRINT.pdf>`_"
 msgstr ""
 "‘纳入高分辨率数据进行分类或针对性分析方法的评估 "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>’_"
 
 #: ../../source/general/index.rst:264
+#, fuzzy
 msgid ""
 "`Disentangling the effects of climate and land use on land degradation "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_"
+"<https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Report%205_C1_R1_PRINT.pdf>`_"
 msgstr ""
 "‘阐明气候和土地利用对土地退化的影响 "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>’_"
 
 #: ../../source/general/index.rst:266
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "`Monitoring and assessing land degradation to support sustainable "
-"development "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>`_"
+"development <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Guidance_ENG_C1_R1_PRINT.pdf>`_"
 msgstr ""
 "‘监测和评估土地退化以支持可持续发展 "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>’_"
 
 #: ../../source/general/index.rst:268
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "`(French) Suivre et évaluer la dégradation des terres pour soutenir le "
-"développement durable "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_"
+"développement durable <https://s3.dualstack.us-"
+"east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Guidance_FRE_C1_R1_PRINT.pdf>`_"
 msgstr ""
 "‘（法语）监测和评估土地退化以支持可持续发展 "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>’_"
 
-#: ../../source/general/index.rst:275
-msgid "Fact sheets"
-msgstr "相关资料"
-
-#: ../../source/general/index.rst:277
+#: ../../source/general/index.rst:271
 msgid ""
-"`Conceptual Fact Sheet for Trends.Earth "
-"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
+"`Comments on the GEF STAR Allocation Algorithm and Suggestions for "
+"Alternatives <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Olsson_et_al_Comments_on_GBI.pdf>`_"
 msgstr ""
-"‘Trends.Earth 概念说明书 "
-"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>’_"
-
-#: ../../source/general/index.rst:279
-msgid ""
-"`Technical Fact Sheet for Trends.Earth "
-"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
-msgstr ""
-"‘Trends.Earth 技术资料表 "
-"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>’_"
 
 #~ msgid "iconCalculator"
 #~ msgstr "图标计算器"
 
 #~ msgid "iconReports"
 #~ msgstr "图标报告"
+
+#~ msgid "Fact sheets"
+#~ msgstr "相关资料"
+
+#~ msgid ""
+#~ "`Conceptual Fact Sheet for Trends.Earth "
+#~ "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
+#~ msgstr ""
+#~ "‘Trends.Earth 概念说明书 "
+#~ "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>’_"
+
+#~ msgid ""
+#~ "`Technical Fact Sheet for Trends.Earth "
+#~ "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
+#~ msgstr ""
+#~ "‘Trends.Earth 技术资料表 "
+#~ "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>’_"
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: zh\n"
@@ -22,7 +22,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/training/carbon.rst:4
 msgid "Forest and Carbon Change Tool"
@@ -80,7 +80,7 @@ msgid ""
 "considered forest for your area of interest."
 msgstr "将出现一个窗口，您可以在其中选择碳分析的参数。选择监测树木覆盖损失、毁林造成的碳排放的初始年份和目标年份。为您的感兴趣区域定义被视为森林的树木覆盖百分比。"
 
-#: ../../source/for_users/training/carbon.rst:39
+#: ../../source/for_users/training/carbon.rst:37
 msgid ""
 "The definition of canopy cover should be changed to accommodate the "
 "specific area of interest."
@@ -101,9 +101,10 @@ msgid "Select **Change region** to define the area of interest."
 msgstr "选择 **更改区域** 以定义感兴趣区域。"
 
 #: ../../source/for_users/training/carbon.rst:50
+#, fuzzy
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
+"are under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
@@ -116,7 +117,7 @@ msgid ""
 "country."
 msgstr "如果使用Trends.Earth作为官方用途，建议用户选择其国家指定办公室提供的官方边界。"
 
-#: ../../source/for_users/training/carbon.rst:64
+#: ../../source/for_users/training/carbon.rst:65
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, "
 "make sure the **Area from file** option is highlighted. Then click "
@@ -124,18 +125,18 @@ msgid ""
 " file stored."
 msgstr "使用您自己的区域文件：如果您想使用自己的分析区域，请确保突出显示**文件区域**选项。然后单击**浏览**并导航到计算机中存储文件的文件夹。"
 
-#: ../../source/for_users/training/carbon.rst:66
+#: ../../source/for_users/training/carbon.rst:67
 msgid "Add a descriptive name and notes for the analysis"
 msgstr "为分析添加描述性名称和注释"
 
-#: ../../source/for_users/training/carbon.rst:68
+#: ../../source/for_users/training/carbon.rst:69
 msgid ""
 "Select the **Advanced configuration** menu to select the biomass dataset,"
 " and method for calculating the root to shoot ratio (below ground "
 "biomass) Select **Schedule remote exectution**"
 msgstr "选择 **高级配置** 菜单以选择生物量数据集，以及计算根冠比（地下生物量）的方法。选择**安排远程执行**"
 
-#: ../../source/for_users/training/carbon.rst:74
+#: ../../source/for_users/training/carbon.rst:75
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
 "successfully submitted. The analysis will be run in Google servers and "
@@ -143,23 +144,23 @@ msgid ""
 "area (larger areas tend to take longer)."
 msgstr "将暂时显示浅蓝色条，表示任务已成功提交。该分析将在Google服务器中运行，可能需要5到15分钟，具体取决于研究区域的大小（较大的区域往往需要更长的时间）。"
 
-#: ../../source/for_users/training/carbon.rst:77
+#: ../../source/for_users/training/carbon.rst:78
 msgid "Change in carbon summary table"
 msgstr "碳变化汇总表"
 
-#: ../../source/for_users/training/carbon.rst:79
+#: ../../source/for_users/training/carbon.rst:80
 msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
 msgstr "转到**数据集**选项卡，以**将此数据集中的默认图层添加到地图**。"
 
-#: ../../source/for_users/training/carbon.rst:84
+#: ../../source/for_users/training/carbon.rst:85
 msgid ""
 "In order to view the defined area of interest with reference data, select"
 " the **Load Base Map** in the **Datasets** tab."
 msgstr "要使用参考数据查看定义的感兴趣区域，请在 **数据集** 选项卡中选择 **加载基本地图**。"
 
-#: ../../source/for_users/training/carbon.rst:95
+#: ../../source/for_users/training/carbon.rst:96
 msgid ""
 "In the **Calculate change in total carbon - Above and below ground "
 "emissions, and deforestation** menu under **Change in carbon summary "
@@ -173,7 +174,7 @@ msgid ""
 "notes and select **Execute locally**."
 msgstr "这些层将预先填充在数据层下拉列表中。确认此区域是同一个感兴趣区域，提供描述性名称和注释，并选择**本地执行**。"
 
-#: ../../source/for_users/training/carbon.rst:101
+#: ../../source/for_users/training/carbon.rst:102
 msgid ""
 "A spreadsheet comparing the final outputs is saved in your "
 "**trends_earth_data*** folder under your user account on your computer "

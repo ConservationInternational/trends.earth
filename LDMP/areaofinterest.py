@@ -133,10 +133,12 @@ def get_admin_poly_geojson():
 
 def validate_country_region() -> typing.Tuple[typing.Optional[typing.Dict], str]:
     error_msg = ""
-    country_name = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
-    if not country_name:
+    # Check for country using ID-based system (not legacy COUNTRY_NAME)
+    country_id = conf.settings_manager.get_value(conf.Setting.COUNTRY_ID)
+    if not country_id:
         geojson = None
         error_msg = "Choose a first level administrative boundary."
+        return geojson, error_msg
 
     geojson = get_admin_poly_geojson()
     if not geojson:
@@ -638,11 +640,16 @@ def prepare_area_of_interest() -> AOI:
     elif is_region:
         geojson, error_msg = validate_country_region()
         if geojson is None:
-            qgs_error_message(
-                "Invalid or missing region",
-                tr_areaofinterest.tr(error_msg),
-                60,
-            )
+            # Only show error message if a country was actually attempted to be selected
+            # Don't show error during initialization or when settings haven't been configured yet
+            country_id = conf.settings_manager.get_value(conf.Setting.COUNTRY_ID)
+            if country_id or conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME):
+                # User has attempted to configure a region but something went wrong
+                qgs_error_message(
+                    "Invalid or missing region",
+                    tr_areaofinterest.tr(error_msg),
+                    60,
+                )
             return None
         area_of_interest.update_from_geojson(
             geojson=geojson,

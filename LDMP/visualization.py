@@ -526,18 +526,28 @@ def download_base_map(
 
     document = None
 
-    ret = download.extract_zipfile("trends.earth_basemap_data.zip", verify=False)
+    data_dir = Path(__file__).parent / "data"
+    basemap_qlr = data_dir / "basemap.qlr"
+    admin0_shp = data_dir / "ne_10m_admin_0_countries.shp"
+    admin1_shp = data_dir / "ne_10m_admin_1_states_provinces.shp"
+
+    needs_extraction = not (
+        basemap_qlr.exists() and admin0_shp.exists() and admin1_shp.exists()
+    )
+
+    if needs_extraction:
+        ret = download.extract_zipfile("trends.earth_basemap_data.zip", verify=False)
+    else:
+        ret = True
 
     if ret:
-        f = open(os.path.join(os.path.dirname(__file__), "data", "basemap.qlr"))
-        lyr_def_content = f.read()
-        f.close()
+        lyr_def_path = data_dir / "basemap.qlr"
+        with lyr_def_path.open("r", encoding="utf-8") as f:
+            lyr_def_content = f.read()
 
         # The basemap data, when downloaded, is stored in the data
         # subfolder of the plugin directory
-        lyr_def_content = lyr_def_content.replace(
-            "DATA_FOLDER", os.path.join(os.path.dirname(__file__), "data")
-        )
+        lyr_def_content = lyr_def_content.replace("DATA_FOLDER", str(data_dir))
 
         if use_mask:
             current_country = conf.ADMIN_BOUNDS_KEY[country_name]

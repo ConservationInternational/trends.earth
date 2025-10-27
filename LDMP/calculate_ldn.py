@@ -2367,7 +2367,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             radio_lpd_te=self.radio_lpd_te,
             radio_fao_wocat=self.radio_fao_wocat,
         )
-        self.combo_boxes["progress"] = ldn.SummaryTableLDWidgets(
+        self.combo_boxes["report_1"] = ldn.SummaryTableLDWidgets(
             combo_datasets=self.combo_datasets_progress,
             combo_layer_traj=self.combo_layer_traj_progress,
             combo_layer_traj_label=self.combo_layer_traj_label_progress,
@@ -2458,11 +2458,18 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         dlg_instance = DlgAdvancedSettingsProgressPeriod(self.iface, self.script)
         grp = QtWidgets.QGroupBox()
-        idx = len(self.combo_boxes)
-        grp.setTitle(f"Reporting period #{idx}")
+        # Calculate the next report period number
+        # Base combo boxes are "baseline" and "report_1", so we start from report_2
+        existing_report_numbers = [
+            int(key.split("_")[1])
+            for key in self.combo_boxes.keys()
+            if key.startswith("report_")
+        ]
+        next_idx = max(existing_report_numbers, default=0) + 1
+        grp.setTitle(f"Reporting period #{next_idx}")
         layout = QtWidgets.QVBoxLayout(grp)
 
-        key = f"reporting_{idx}"
+        key = f"report_{next_idx}"
         self.combo_boxes[key] = ldn.SummaryTableLDWidgets(
             combo_datasets=dlg_instance.combo_datasets_baseline,
             combo_layer_traj=dlg_instance.combo_layer_traj_progress,
@@ -2487,7 +2494,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         count = self.verticalLayout_progress.count()
         self.verticalLayout_progress.insertWidget(count - 1, grp)
         dlg_instance.advanced_configuration_progress.setTitle(
-            f"Advanced (reporting period) #{idx}"
+            f"Advanced (reporting period) #{next_idx}"
         )
         self.verticalLayout_progress.insertWidget(
             count, dlg_instance.advanced_configuration_progress
@@ -2512,7 +2519,11 @@ class DlgCalculateLDNSummaryTableAdmin(
                 settings.setParent(None)
                 settings.deleteLater()
 
-            self.combo_boxes = dict(list(self.combo_boxes.items())[:2])
+            # Keep only baseline and report_1 combo boxes
+            base_keys = ["baseline", "report_1"]
+            self.combo_boxes = {
+                k: v for k, v in self.combo_boxes.items() if k in base_keys
+            }
             self.extra_progress_boxes = dict()
 
     def _validate_layer_selection(self, combo_box, layer_name):

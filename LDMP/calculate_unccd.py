@@ -232,9 +232,14 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
 
             return
 
+        task_name = self.execution_name_le.text().strip()
+        if not task_name:
+            # Fall back to a readable script name so jobs get a meaningful label
+            task_name = self.script.name_readable or self.script.name
+
         params = {
-            "task_name": self.options_tab.task_name.text(),
-            "task_notes": self.options_tab.task_notes.toPlainText(),
+            "task_name": task_name,
+            "task_notes": self.task_notes.toPlainText(),
             "include_so1_so2": self.groupbox_so1_so2.isChecked(),
             "include_so3": self.groupbox_so3.isChecked(),
             "include_error_recode": self.error_recode_gb.isChecked(),
@@ -242,14 +247,14 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
         }
         params.update(
             unccd.get_main_unccd_report_job_params(
-                task_name=self.options_tab.task_name.text(),
+                task_name=task_name,
                 combo_dataset_so1_so2=self.combo_boxes.combo_dataset_so1_so2,
                 combo_dataset_so3=self.combo_boxes.combo_dataset_so3,
                 combo_dataset_error_recode=self.combo_boxes.combo_dataset_error_recode,
                 include_so1_so2=self.groupbox_so1_so2.isChecked(),
                 include_so3=self.groupbox_so3.isChecked(),
                 include_error_recode=self.error_recode_gb.isChecked(),
-                task_notes=self.options_tab.task_notes.toPlainText(),
+                task_notes=self.task_notes.toPlainText(),
             )
         )
 

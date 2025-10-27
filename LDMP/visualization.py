@@ -11,6 +11,7 @@
  ***************************************************************************/
 """
 
+import json
 import os
 import typing
 from pathlib import Path
@@ -147,31 +148,75 @@ def admin_one_name_from_code(country_name: str, sub_code: str) -> str:
 
 
 def get_admin_bbox(
-    country_name: str, admin_one: str = None, is_admin_one_region: bool = True
+    country_code: str,
+    admin_one_identifier: typing.Optional[str] = None,
+    is_admin_one_region: bool = True,
 ) -> QgsGeometry:
     """
-    Returns the geometry of the given country or sub-national city or region
-    else None if not found or if there is an issue in reading the relevant
-    data source layer(s).
-    If 'admin_one' is a region then 'is_admin_one_region' should be True
-    (default) else if it is a city then 'is_admin_one_region' should be False.
+    Returns the geometry for the selected country, region, or city based on
+    their stored identifiers. If ``is_admin_one_region`` is False, the
+    ``admin_one_identifier`` is treated as a city id.
+
+    Uses GeoBoundaries API for boundary data instead of old Natural Earth approach.
     """
+    # For regions, use GeoBoundaries API which provides current, accurate boundaries
+    if admin_one_identifier and is_admin_one_region:
+        try:
+            # Download boundary GeoJSON for the specific region
+            geojson = download.download_boundary_geojson(
+                country_code, admin_level=1, shape_id=admin_one_identifier
+            )
+            if geojson and geojson.get("features"):
+                # Convert GeoJSON to QgsGeometry
+                # Use the first feature (should only be one after extraction)
+                feature_geojson = geojson["features"][0]
+                geom = QgsGeometry.fromJson(json.dumps(feature_geojson["geometry"]))
+                if not geom.isEmpty():
+                    return geom
+        except Exception as e:
+            log(f"Error loading region geometry from GeoBoundaries: {e}")
+            # Fall through to legacy method
+
+    # For country-level or as fallback, use legacy Natural Earth shapefiles
     if not os.path.exists(country_data_path()):
         return None
 
-    # Get the country code as defined in 'download.get_admin_bounds()'. We
-    # need this since some country names are partially abbreviated and in
-    # such a case, it will not be possible to locate them in the national
-    # data shapefile.
+    # Look up the country entry using the stored ISO/code identifier.
     admin_bounds = download.get_admin_bounds()
-    country_info = admin_bounds.get(country_name, None)
+    country_info = None
+    for country in admin_bounds.values():
+        if country.code == country_code:
+            country_info = country
+            break
+
     if not country_info:
         return None
 
-    country_code = country_info.code
-
     # Country-level bounds
-    if not admin_one:
+    if not admin_one_identifier:
+        # Try GeoBoundaries first for country-level
+        try:
+            geojson = download.download_boundary_geojson(country_code, admin_level=0)
+            if geojson and geojson.get("features"):
+                # Merge all features into one geometry
+                geom_parts = []
+                for feature in geojson["features"]:
+                    feat_geom = QgsGeometry.fromJson(json.dumps(feature["geometry"]))
+                    if not feat_geom.isEmpty():
+                        geom_parts.append(feat_geom)
+
+                if geom_parts:
+                    if len(geom_parts) == 1:
+                        return geom_parts[0]
+                    else:
+                        # Combine multiple parts
+                        combined = QgsGeometry.unaryUnion(geom_parts)
+                        if not combined.isEmpty():
+                            return combined
+        except Exception as e:
+            log(f"Error loading country geometry from GeoBoundaries: {e}")
+
+        # Fallback to Natural Earth shapefile
         nl = QgsVectorLayer(country_data_path())
         if not nl.isValid():
             return None
@@ -186,50 +231,36 @@ def get_admin_bbox(
 
         return feat.geometry()
 
-    else:
+    # Handle cities (non-region admin_one_identifier)
+    if not is_admin_one_region:
+        country_cities = download.get_cities().get(country_code, None)
+        if country_cities is None:
+            return None
+
+        city = country_cities.get(str(admin_one_identifier))
+        if city is None:
+            return None
+
+        wof_id = city.wof_id
+        pl = QgsVectorLayer(places_data_path())
+        if not pl.isValid():
+            return None
+
+        feat_request = QgsFeatureRequest()
+        feat_exp = f"\"wof_id\"='{wof_id}'"
+        feat_request.setFilterExpression(feat_exp)
+        feat_iter = pl.getFeatures(feat_request)
+        feat = next(feat_iter, None)
+        if feat is None:
+            return None
+
+        # Get the ADM1 region name from city data
+        admin_one_attr_val = feat["ADM1NAME"]
+        admin_one_attr = "name"
+
         snl = QgsVectorLayer(sub_national_data_path())
         if not snl.isValid():
             return None
-
-        # Attribute name to get matching feature in admin1 layer
-        admin_one_attr = ""
-        admin_one_attr_val = ""
-
-        # City-level - get region from populated places layer
-        if not is_admin_one_region:
-            country_cities = download.get_cities().get(country_name, None)
-            if country_cities is None:
-                return None
-
-            # Get wof_id corresponding to the given city name
-            wof_ids = [
-                ci.wof_id for ci in country_cities.values() if ci.name_en == admin_one
-            ]
-            if len(wof_ids) == 0:
-                return None
-
-            # Get 'adm1name' from wof_id in populated places layer
-            wof_id = wof_ids[0]
-            pl = QgsVectorLayer(places_data_path())
-            if not pl.isValid():
-                return None
-
-            feat_request = QgsFeatureRequest()
-            feat_exp = f"\"wof_id\"='{wof_id}'"
-            feat_request.setFilterExpression(feat_exp)
-            feat_iter = pl.getFeatures(feat_request)
-            feat = next(feat_iter, None)
-            if feat is None:
-                return None
-
-            admin_one_attr_val = feat["ADM1NAME"]
-            admin_one_attr = "name"
-
-        # Region-level
-        else:
-            # Use region code to retrieve feature
-            admin_one_attr_val = country_info.level1_regions.get(admin_one, None)
-            admin_one_attr = "adm1_code"
 
         feat_request = QgsFeatureRequest()
         feat_exp = f"\"{admin_one_attr}\"='{admin_one_attr_val}'"
@@ -240,6 +271,9 @@ def get_admin_bbox(
             return None
 
         return feat.geometry()
+
+    # Should not reach here
+    return None
 
 
 def country_data_path() -> str:

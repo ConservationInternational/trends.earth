@@ -35,34 +35,34 @@ def get_city_geojson() -> typing.Dict:
         raise ValueError("No country selected in settings")
 
     # Find country by ID
-    country_info = None
+    country_entry = None
+    country_name = ""
     for name, country in boundaries.items():
         if country.code == country_id:
-            country_info = (name, country_id)
+            country_entry = country
+            country_name = name
             break
 
-    if not country_info:
+    if not country_entry:
         raise ValueError("Selected country not found in boundary data")
 
-    country_name, country_code = country_info
+    country_code = country_entry.code
 
-    # Get city ID (preferred) or fall back to city name lookup
     city_id = conf.settings_manager.get_value(conf.Setting.CITY_ID)
-    if city_id:
-        return conf.CITIES[country_code][str(city_id)].geojson
+    if not city_id:
+        raise ValueError("No city selected in settings")
 
-    # Fallback: lookup city by name
-    current_city = conf.settings_manager.get_value(conf.Setting.CITY_NAME)
-    current_country_cities = conf.settings_manager.get_value(conf.Setting.CITY_KEY)
-    if (
-        current_city
-        and current_country_cities
-        and current_city in current_country_cities
-    ):
-        wof_id = current_country_cities[current_city]
-        return conf.CITIES[country_code][str(wof_id)].geojson
+    country_cities = conf.CITIES.get(country_code)
+    if not country_cities:
+        raise ValueError(f"No city data available for country {country_name}")
 
-    raise ValueError(f"City not found in settings for country {country_name}")
+    city = country_cities.get(str(city_id))
+    if not city:
+        raise ValueError(
+            f"City with id '{city_id}' not found for country {country_name}"
+        )
+
+    return city.geojson
 
 
 def get_admin_poly_geojson():
@@ -79,49 +79,42 @@ def get_admin_poly_geojson():
         return None
 
     # Find country by ID
-    country_info = None
-    for name, country in boundaries.items():
+    country_entry = None
+    for country in boundaries.values():
         if country.code == country_id:
-            country_info = (name, country_id)
+            country_entry = country
             break
 
-    if not country_info:
+    if not country_entry:
         return None
 
-    country_name, country_code = country_info
+    country_code = country_entry.code
 
     # Get region using ID-based system
     region_id = settings_manager.get_value(conf.Setting.REGION_ID)
-    current_region = None
-
-    if region_id:
-        # Look up region name by ID
-        country_obj = boundaries.get(country_name)
-        if country_obj:
-            for name, rid in country_obj.level1_regions.items():
-                if rid == region_id:
-                    current_region = name
-                    break
 
     # Try API-based boundary download first
     try:
-        if (not current_region) or (current_region == "All regions"):
-            # Get country-level (ADM0) boundaries
+        if not region_id:
+            log(
+                f"Loading ADM0 boundary for country {country_code} (no region selected)"
+            )
             admin_polys = download.download_boundary_geojson(
                 country_code, admin_level=0
             )
         else:
-            # Get specific admin1 region using ID
-            if region_id:
-                admin_polys = download.download_boundary_geojson(
-                    country_code, admin_level=1, shape_id=region_id
-                )
-            else:
-                # Region is required but not found - raise error
+            valid_regions = {
+                str(value).strip().lower()
+                for value in country_entry.level1_regions.values()
+            }
+            if str(region_id).strip().lower() not in valid_regions:
                 raise ValueError(
-                    f"Region '{current_region}' selected but no region ID found. "
-                    f"Please reselect the region in settings."
+                    f"Region id '{region_id}' not valid for country {country_code}."
                 )
+            log(f"Loading ADM1 boundary for country {country_code}, region {region_id}")
+            admin_polys = download.download_boundary_geojson(
+                country_code, admin_level=1, shape_id=region_id
+            )
 
         if admin_polys:
             return admin_polys
@@ -665,7 +658,7 @@ def prepare_area_of_interest() -> AOI:
             # Only show error message if a country was actually attempted to be selected
             # Don't show error during initialization or when settings haven't been configured yet
             country_id = conf.settings_manager.get_value(conf.Setting.COUNTRY_ID)
-            if country_id or conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME):
+            if country_id:
                 # User has attempted to configure a region but something went wrong
                 qgs_error_message(
                     "Invalid or missing region",

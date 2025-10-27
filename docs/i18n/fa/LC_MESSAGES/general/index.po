@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-11 18:04+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
@@ -504,53 +504,46 @@ msgstr ""
 #: ../../source/general/index.rst:258
 msgid ""
 "`Using Spectral Vegetation Indices to Measure Gross Primary Productivity "
-"as an Indicator of Land Degradation "
-"<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>`_"
+"as an Indicator of Land Degradation <https://s3.dualstack.us-"
+"east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Report1_C1_R3_WEB_HR.pdf>`_"
 msgstr ""
 
 #: ../../source/general/index.rst:261
 msgid ""
 "`Evaluation of approaches for incorporating higher-resolution data for "
-"disaggregation or targeted analysis "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>`_"
+"disaggregation or targeted analysis <https://s3.dualstack.us-"
+"east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Report%202_C1_R1_PRINT.pdf>`_"
 msgstr ""
 
 #: ../../source/general/index.rst:264
 msgid ""
 "`Disentangling the effects of climate and land use on land degradation "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_"
+"<https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Report%205_C1_R1_PRINT.pdf>`_"
 msgstr ""
 
 #: ../../source/general/index.rst:266
-#, python-format
 msgid ""
 "`Monitoring and assessing land degradation to support sustainable "
-"development "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>`_"
+"development <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Guidance_ENG_C1_R1_PRINT.pdf>`_"
 msgstr ""
 
 #: ../../source/general/index.rst:268
-#, python-format
 msgid ""
 "`(French) Suivre et évaluer la dégradation des terres pour soutenir le "
-"développement durable "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_"
+"développement durable <https://s3.dualstack.us-"
+"east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Guidance_FRE_C1_R1_PRINT.pdf>`_"
 msgstr ""
 
-#: ../../source/general/index.rst:275
-msgid "Fact sheets"
-msgstr ""
-
-#: ../../source/general/index.rst:277
+#: ../../source/general/index.rst:271
 msgid ""
-"`Conceptual Fact Sheet for Trends.Earth "
-"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
-msgstr ""
-
-#: ../../source/general/index.rst:279
-msgid ""
-"`Technical Fact Sheet for Trends.Earth "
-"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
+"`Comments on the GEF STAR Allocation Algorithm and Suggestions for "
+"Alternatives <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Olsson_et_al_Comments_on_GBI.pdf>`_"
 msgstr ""
 
 #~ msgid "iconCalculator"
@@ -563,5 +556,51 @@ msgstr ""
 #~ "Trends.Earth. Conservation International. Available"
 #~ " online at: `http://trends.earth "
 #~ "<http://trends.earth>`_. 2022."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`Using Spectral Vegetation Indices to "
+#~ "Measure Gross Primary Productivity as an"
+#~ " Indicator of Land Degradation "
+#~ "<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`Evaluation of approaches for incorporating"
+#~ " higher-resolution data for disaggregation"
+#~ " or targeted analysis "
+#~ "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`Disentangling the effects of climate "
+#~ "and land use on land degradation "
+#~ "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`Monitoring and assessing land degradation "
+#~ "to support sustainable development "
+#~ "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`(French) Suivre et évaluer la "
+#~ "dégradation des terres pour soutenir le"
+#~ " développement durable "
+#~ "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_"
+#~ msgstr ""
+
+#~ msgid "Fact sheets"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`Conceptual Fact Sheet for Trends.Earth "
+#~ "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`Technical Fact Sheet for Trends.Earth "
+#~ "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
 #~ msgstr ""
 

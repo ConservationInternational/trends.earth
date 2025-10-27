@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-11 18:04+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ar\n"
@@ -64,8 +64,8 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth/issues>`_ for "
 "|trends.earth|."
 msgstr ""
-"تواصل مع فريق 'Trends.Earth <mailto:trends.earth@conservation.org>'_ إذا"
-" كان لديك أي تعليقات أو اقتراحات. إذا كانت لديك أخطاء محددة للإبلاغ عنها "
+"تواصل مع فريق 'Trends.Earth <mailto:trends.earth@conservation.org>'_ إذا "
+"كان لديك أي تعليقات أو اقتراحات. إذا كانت لديك أخطاء محددة للإبلاغ عنها "
 "أو تودّ إدخال تحسينات على الأداة التي ترغب في اقتراحها، فيمكنك أيضًا "
 "إرسالها في `` متعقب المشكلات على Github "
 "<https://github.com/ConservationInternational/trends.earth/issues> `_ "
@@ -92,8 +92,8 @@ msgid ""
 "Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
 "Schnader, Anna Tengberg, and Alex Zvoleff."
 msgstr ""
-"يتضمن المساهمون في التوثيق و|trends.earth|ينغوه جينيسيس، ولينارت أولسون،"
-" وماريانو غونزاليس روغليش، ومونيكا نون، وتريستان شنادر، وآنا تنجبيرغ، "
+"يتضمن المساهمون في التوثيق و|trends.earth|ينغوه جينيسيس، ولينارت أولسون، "
+"وماريانو غونزاليس روغليش، ومونيكا نون، وتريستان شنادر، وآنا تنجبيرغ، "
 "وأليكس زفوليف."
 
 #: ../../source/general/index.rst:40
@@ -710,10 +710,12 @@ msgstr ""
 " `_"
 
 #: ../../source/general/index.rst:258
+#, fuzzy
 msgid ""
 "`Using Spectral Vegetation Indices to Measure Gross Primary Productivity "
-"as an Indicator of Land Degradation "
-"<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>`_"
+"as an Indicator of Land Degradation <https://s3.dualstack.us-"
+"east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Report1_C1_R3_WEB_HR.pdf>`_"
 msgstr ""
 "'استخدام مؤشرات الغطاء النباتي الطيفي لقياس الإنتاجية الأولية الإجمالية "
 "كمؤشر على تدهور الأراضي "
@@ -721,67 +723,58 @@ msgstr ""
 " _"
 
 #: ../../source/general/index.rst:261
+#, fuzzy
 msgid ""
 "`Evaluation of approaches for incorporating higher-resolution data for "
-"disaggregation or targeted analysis "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>`_"
+"disaggregation or targeted analysis <https://s3.dualstack.us-"
+"east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Report%202_C1_R1_PRINT.pdf>`_"
 msgstr ""
 "'تقييم مناهج دمج البيانات عالية الدقة من أجل التصنيف أو التحليل المستهدف "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>'"
 " _"
 
 #: ../../source/general/index.rst:264
+#, fuzzy
 msgid ""
 "`Disentangling the effects of climate and land use on land degradation "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_"
+"<https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Report%205_C1_R1_PRINT.pdf>`_"
 msgstr ""
 "'تحليل تأثيرات المناخ واستخدام الأراضي على تدهور الأراضي "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>'"
 " _"
 
 #: ../../source/general/index.rst:266
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "`Monitoring and assessing land degradation to support sustainable "
-"development "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>`_"
+"development <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Guidance_ENG_C1_R1_PRINT.pdf>`_"
 msgstr ""
 "\"رصد وتقييم تدهور الأراضي لدعم التنمية المستدامة "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>'"
 " _"
 
 #: ../../source/general/index.rst:268
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "`(French) Suivre et évaluer la dégradation des terres pour soutenir le "
-"développement durable "
-"<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_"
+"développement durable <https://s3.dualstack.us-"
+"east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Guidance_FRE_C1_R1_PRINT.pdf>`_"
 msgstr ""
 "`(الفرنسية) Suivre et évaluer la dégradation des terres pour soutenir le "
 "développement durable "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_"
 "\n"
 
-#: ../../source/general/index.rst:275
-msgid "Fact sheets"
-msgstr "صحائف الحقائق"
-
-#: ../../source/general/index.rst:277
+#: ../../source/general/index.rst:271
 msgid ""
-"`Conceptual Fact Sheet for Trends.Earth "
-"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
+"`Comments on the GEF STAR Allocation Algorithm and Suggestions for "
+"Alternatives <https://s3.dualstack.us-east-1.amazonaws.com/trends.earth-"
+"shared/VitalSigns_LDMP/LDMP_Olsson_et_al_Comments_on_GBI.pdf>`_"
 msgstr ""
-"'صحيفة الحقائق المفاهيمية لTrends.Earth "
-"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`"
-" _"
-
-#: ../../source/general/index.rst:279
-msgid ""
-"`Technical Fact Sheet for Trends.Earth "
-"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
-msgstr ""
-"'صحيفة الحقائق التقنية لTrends.Earth "
-"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>'_"
 
 #~ msgid "iconCalculator"
 #~ msgstr "أيقونة الآلة الحاسبة"
@@ -789,5 +782,21 @@ msgstr ""
 #~ msgid "iconReports"
 #~ msgstr "أيقونة التقارير"
 
+#~ msgid "Fact sheets"
+#~ msgstr "صحائف الحقائق"
 
+#~ msgid ""
+#~ "`Conceptual Fact Sheet for Trends.Earth "
+#~ "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
+#~ msgstr ""
+#~ "'صحيفة الحقائق المفاهيمية لTrends.Earth "
+#~ "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`"
+#~ " _"
+
+#~ msgid ""
+#~ "`Technical Fact Sheet for Trends.Earth "
+#~ "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
+#~ msgstr ""
+#~ "'صحيفة الحقائق التقنية لTrends.Earth "
+#~ "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>'_"
 

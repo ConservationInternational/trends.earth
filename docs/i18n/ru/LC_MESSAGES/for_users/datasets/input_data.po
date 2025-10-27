@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-05 04:02+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ru\n"
@@ -24,7 +24,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.15.0\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/datasets/input_data.rst:4
 msgid "Input Data Used in Trends.Earth"
@@ -148,7 +148,6 @@ msgstr "Глобальный"
 #: ../../source/for_users/datasets/input_data.rst:53
 #: ../../source/for_users/datasets/input_data.rst:67
 #: ../../source/for_users/datasets/input_data.rst:103
-#: ../../source/for_users/datasets/input_data.rst:114
 msgid "`Public Domain`_"
 msgstr "`Общественное достояние`_"
 
@@ -323,17 +322,25 @@ msgid "Administrative Boundaries"
 msgstr "Административные границы"
 
 #: ../../source/for_users/datasets/input_data.rst:114
-msgid "`Natural Earth Administrative Boundaries`_"
+#, fuzzy
+msgid "`geoBoundaries Administrative Boundaries`_"
 msgstr "\"Природные административные границы Земли\"_"
 
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "10/50m"
 msgstr "10/50 м"
 
+#: ../../source/for_users/datasets/input_data.rst:114
+#: ../../source/for_users/datasets/input_data.rst:138
+#, fuzzy
+msgid "`CC BY 4.0`_"
+msgstr "`CC by-SA 4.0`_"
+
 #: ../../source/for_users/datasets/input_data.rst:118
+#, fuzzy
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
+"are under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
@@ -372,11 +379,6 @@ msgstr "2000-2014"
 #, fuzzy
 msgid "100m"
 msgstr "10/50 м"
-
-#: ../../source/for_users/datasets/input_data.rst:138
-#, fuzzy
-msgid "`CC BY 4.0`_"
-msgstr "`CC by-SA 4.0`_"
 
 #: ../../source/for_users/datasets/input_data.rst:142
 msgid ""

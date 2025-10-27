@@ -437,11 +437,57 @@ class TrendsEarthAPIClient:
             # Wait before next check
             time.sleep(30)
 
+    def _extract_filename_from_url(self, url: str, default_name: str) -> str:
+        """
+        Extract clean filename from URL, removing query parameters.
+
+        Args:
+            url: Full URL with possible query parameters
+            default_name: Default filename if extraction fails
+
+        Returns:
+            Clean filename without query parameters
+        """
+        from urllib.parse import unquote, urlparse
+
+        # Parse the URL to separate path from query parameters
+        parsed = urlparse(url)
+        path = parsed.path
+
+        # Get the filename from the path
+        if "/" in path:
+            filename = path.split("/")[-1]
+            # URL decode the filename in case it has encoded characters
+            filename = unquote(filename)
+        else:
+            filename = default_name
+
+        return filename if filename else default_name
+
+    def _generate_base_filename(self, task_name: str, job_id: str) -> str:
+        """
+        Generate base filename for downloaded files.
+
+        Subclasses can override this for custom naming schemes.
+
+        Args:
+            task_name: Task name from job params
+            job_id: Job ID
+
+        Returns:
+            Base filename string
+        """
+        # Simple default naming using sanitized task name and job ID prefix
+        sanitized_name = task_name.replace(" ", "_").replace("/", "_")[:50]
+        return f"{sanitized_name}-{job_id[:8]}"
+
     def download_job(
         self, job_dict: Dict, output_dir: Union[str, Path]
     ) -> Optional[Path]:
         """
-        Download a completed job's results.
+        Download a completed job's TIFF results by parsing URLs from execution results.
+
+        The TIFF files are stored in the 'results' field of the execution data.
 
         Args:
             job_dict: Job dictionary from API
@@ -460,48 +506,207 @@ class TrendsEarthAPIClient:
             print("Job ID not found in job dictionary")
             return None
 
-        # Create output directory
+        # Use the output directory directly (no job-specific subdirectory)
         output_dir = Path(output_dir)
-        job_dir = output_dir / f"{task_name}_{job_id}"
-        job_dir.mkdir(parents=True, exist_ok=True)
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        base_name = self._generate_base_filename(task_name, job_id)
 
         try:
-            # Download job data
-            response = self.session.get(
-                f"{self.api_url}/api/v1/download/{job_id}",
-                timeout=300,  # 5 minutes timeout for downloads
-            )
+            # Get execution results which contain TIFF file URLs
+            job_results = job_dict.get("results", {})
 
-            # Check if we got a 401 and try to refresh token
-            if response.status_code == 401 and self.refresh_token:
-                print("Received 401, attempting token refresh...")
-                if self.refresh_access_token():
-                    # Retry the request with refreshed token
-                    response = self.session.get(
-                        f"{self.api_url}/api/v1/download/{job_id}",
-                        timeout=300,  # 5 minutes timeout for downloads
-                    )
+            if not job_results:
+                print("No results found in job data")
+                return None
 
-            if response.status_code == 200:
-                # Save the downloaded content
-                download_file = job_dir / f"{task_name}_{job_id}.zip"
-                with open(download_file, "wb") as f:
-                    f.write(response.content)
+            downloaded_files = []
 
-                print(f"Downloaded: {download_file}")
+            # Check for main VRT file first (combines all rasters)
+            if "uri" in job_results and job_results["uri"]:
+                main_uri = job_results["uri"]
+                if isinstance(main_uri, dict) and "uri" in main_uri:
+                    file_url = main_uri["uri"]
+                    # Use standardized naming
+                    filename = f"{base_name}-main.vrt"
+                    local_path = output_dir / filename
 
-                # Save job metadata
-                metadata_file = job_dir / "job_metadata.json"
-                save_job_metadata(job_dict, metadata_file)
+                    if self._download_tiff_file(file_url, local_path):
+                        downloaded_files.append(local_path)
+                        print(f"Downloaded main VRT: {filename}")
 
-                return job_dir
+            # Check for RasterResults structure
+            if "rasters" in job_results:
+                rasters = job_results["rasters"]
+                print(f"Found {len(rasters)} raster datasets")
+
+                for key, raster_data in rasters.items():
+                    print(f"Processing raster: {key}")
+
+                    # Check for VRT file in this raster (for TiledRaster)
+                    if "uri" in raster_data and raster_data["uri"]:
+                        raster_uri = raster_data["uri"]
+                        if isinstance(raster_uri, dict) and "uri" in raster_uri:
+                            file_url = raster_uri["uri"]
+                            # Use standardized naming with raster key
+                            filename = f"{base_name}-{key}.vrt"
+                            local_path = output_dir / filename
+
+                            if self._download_tiff_file(file_url, local_path):
+                                downloaded_files.append(local_path)
+                                print(f"Downloaded raster VRT: {filename}")
+
+                    # Handle TiledRaster (multiple TIFF files)
+                    if (
+                        raster_data.get("type") == "Tiled raster"
+                        and "tile_uris" in raster_data
+                    ):
+                        tile_uris = raster_data["tile_uris"]
+                        print(f"  Found {len(tile_uris)} tiles")
+
+                        for i, tile_uri in enumerate(tile_uris):
+                            if isinstance(tile_uri, dict) and "uri" in tile_uri:
+                                file_url = tile_uri["uri"]
+                                # Use standardized naming: base_name-key_subcell-number.tif
+                                # Tile index starts at 0, but subcell numbering starts at 1
+                                subcell_num = i + 1
+                                filename = f"{base_name}-{key}_{subcell_num}.tif"
+                                local_path = output_dir / filename
+
+                                if self._download_tiff_file(file_url, local_path):
+                                    downloaded_files.append(local_path)
+
+                    # Handle single Raster (one TIFF file)
+                    elif (
+                        raster_data.get("type") == "One file raster"
+                        and "uri" in raster_data
+                    ):
+                        uri_data = raster_data["uri"]
+                        if isinstance(uri_data, dict) and "uri" in uri_data:
+                            file_url = uri_data["uri"]
+                            # Use standardized naming with raster key
+                            filename = f"{base_name}-{key}.tif"
+                            local_path = output_dir / filename
+
+                            if self._download_tiff_file(file_url, local_path):
+                                downloaded_files.append(local_path)
+
+            # Check for older CloudResults structure (urls field)
+            elif "urls" in job_results:
+                urls = job_results["urls"]
+                print(f"Found {len(urls)} cloud result URLs")
+
+                for i, url_data in enumerate(urls):
+                    if isinstance(url_data, dict) and "url" in url_data:
+                        file_url = url_data["url"]
+                        # Use standardized naming with index
+                        filename = f"{base_name}-result_{i + 1}.tif"
+                        local_path = output_dir / filename
+
+                        if self._download_tiff_file(file_url, local_path):
+                            downloaded_files.append(local_path)
+
+            # Save job metadata with standardized naming
+            metadata_file = output_dir / f"{base_name}-metadata.json"
+            save_job_metadata(job_dict, metadata_file)
+
+            if downloaded_files:
+                print(f"Successfully downloaded {len(downloaded_files)} files")
+                return output_dir
             else:
-                print(f"Download failed: {response.status_code}")
+                print("No TIFF files were downloaded")
                 return None
 
         except Exception as e:
             print(f"Error downloading job: {e}")
             return None
+
+    def _download_tiff_file(self, file_url: str, local_path: Path) -> bool:
+        """
+        Download a single TIFF file from URL.
+
+        Args:
+            file_url: URL to download from
+            local_path: Local file path to save to
+
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            print(f"    Downloading: {file_url}")
+
+            # Handle different URL schemes
+            if file_url.startswith(("http://", "https://")):
+                import re
+
+                import requests
+
+                # Try downloading the URL as-is first
+                try:
+                    # Use plain requests.get with minimal configuration
+                    response = requests.get(file_url, stream=True, timeout=300)
+                    response.raise_for_status()
+
+                    with open(local_path, "wb") as f:
+                        for chunk in response.iter_content(chunk_size=8192):
+                            if chunk:
+                                f.write(chunk)
+
+                except requests.exceptions.HTTPError as e:
+                    # If download fails with Google Cloud Storage URLs, try stripping generation parameter
+                    if (
+                        "https://www.googleapis.com/download/storage" in file_url
+                        or "storage.googleapis.com" in file_url
+                    ):
+                        print(
+                            f"    Download failed with {e}, trying to strip generation parameter..."
+                        )
+
+                        # Strip generation parameter from URL
+                        url_stripped = re.sub(
+                            r"([&?])generation=\d+(&|$)",
+                            lambda m: "?"
+                            if m.group(1) == "?" and m.group(2) == "&"
+                            else m.group(2),
+                            file_url,
+                        )
+
+                        print(f"    Retrying with: {url_stripped}")
+                        response = requests.get(url_stripped, stream=True, timeout=300)
+                        response.raise_for_status()
+
+                        with open(local_path, "wb") as f:
+                            for chunk in response.iter_content(chunk_size=8192):
+                                if chunk:
+                                    f.write(chunk)
+                    else:
+                        # Re-raise if not a Google Cloud Storage URL
+                        raise
+
+                print(f"    Downloaded: {local_path.name}")
+                return True
+
+            elif file_url.startswith("gs://"):
+                raise ValueError(
+                    f"Google Cloud Storage URLs are not supported: {file_url}. "
+                    "Install and configure gsutil or implement GCS authentication."
+                )
+
+            elif file_url.startswith("s3://"):
+                raise ValueError(
+                    f"Amazon S3 URLs are not supported: {file_url}. "
+                    "Install boto3 and configure AWS credentials or implement S3 authentication."
+                )
+
+            else:
+                raise ValueError(
+                    f"Unsupported URL scheme: {file_url}. "
+                    "Only HTTP/HTTPS URLs are currently supported."
+                )
+
+        except Exception as e:
+            print(f"    Failed to download {file_url}: {e}")
+            return False
 
 
 def print_job_summary(jobs: List[Dict]) -> None:

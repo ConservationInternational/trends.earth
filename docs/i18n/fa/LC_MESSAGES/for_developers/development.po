@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-11 18:04+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
@@ -993,6 +993,7 @@ msgid "Contributing to the documentation"
 msgstr ""
 
 #: ../../source/for_developers/development.rst:721
+#: ../../source/for_developers/development.rst:952
 msgid "Overview"
 msgstr ""
 
@@ -1319,47 +1320,245 @@ msgstr ""
 msgid "Releasing a new plugin version"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:951
-msgid "There are several steps to making a new public release of the plugin:"
-msgstr ""
-
-#: ../../source/for_developers/development.rst:953
-msgid "Update changelog in `LDMP\\metadata.txt`"
-msgstr ""
-
 #: ../../source/for_developers/development.rst:954
 msgid ""
-"Run `invoke set-version -v X.Y.Z -m` (where X.Y.Z is the new version) to "
-"set the new version number for both `trends.earth` and subcomponents "
-"(`trends.earth-schemas` and `trends.earth-algorithms`)"
-msgstr ""
-
-#: ../../source/for_developers/development.rst:957
-msgid ""
-"Ensure all changes are commited, and then tag the new versions and push "
-"those tags to github by running `invoke set-tag -m`"
-msgstr ""
-
-#: ../../source/for_developers/development.rst:959
-msgid "Ensure that all new versions and tags are pushed to github"
+"Releasing a new version of Trends.Earth involves updating version "
+"numbers, creating git tags, building the plugin package, and publishing "
+"it to both GitHub and the QGIS plugin repository. The process is "
+"streamlined through invoke tasks that automate most of these steps."
 msgstr ""
 
 #: ../../source/for_developers/development.rst:960
-msgid "Publish release on QGIS repository"
+msgid "Release workflow"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:961
-msgid "Publish on github with - Run `invoke release-github`"
+#: ../../source/for_developers/development.rst:962
+msgid "Follow these steps in order to create a new public release:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:963
+#: ../../source/for_developers/development.rst:964
+msgid "**1. Update the changelog**"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:966
 msgid ""
-"If you want to make a release after updating the scripts that call the "
-"Trends.Earth API (so if either the code under the `gee` folder changes, "
-"or if `trends.earth-schemas` or `trends.earth-algorithms` have changed, "
-"then you need to add a `-g` flag to the above command. After running "
-"`invoke set-version` with the `-g` flag you will also need to run `invoke"
-" tecli-publish`, in order to push the updated scripts to the API."
+"First, update the changelog in ``LDMP\\metadata.txt`` with details about "
+"what has changed in this version. Include the version number and release "
+"date, followed by bullet points describing new features, bug fixes, and "
+"other changes."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:970
+msgid "**2. Set the version number**"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:972
+msgid ""
+"Run the ``set-version`` task to update version numbers throughout the "
+"codebase::"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:976
+msgid ""
+"Where X.Y.Z is the new version number (e.g., 2.1.20). The ``-m`` flag "
+"ensures that version numbers are also updated in the dependent modules "
+"(``trends.earth-schemas`` and ``trends.earth-algorithms``)."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:980
+#: ../../source/for_developers/development.rst:1039
+msgid "This command will:"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:981
+msgid "Update ``LDMP/metadata.txt`` with the new version"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:982
+msgid "Generate ``LDMP/_version.py`` with git information"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:983
+msgid "Update version in documentation (``docs/source/conf.py``)"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:984
+msgid ""
+"Set the ``experimental`` flag based on even/odd version numbers (even = "
+"stable, odd = development)"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:986
+msgid "Update dependency references in requirements files"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:988
+msgid ""
+"For stable releases (even version numbers like 2.1.18), the ``set-"
+"version`` task will update dependency references to use tagged versions. "
+"For development releases (odd version numbers like 2.1.19), it will use "
+"the master branch."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:993
+msgid "**3. Update GEE scripts (if applicable)**"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:995
+msgid ""
+"If you have made changes to the Google Earth Engine scripts (in the "
+"``gee`` folder) or to ``trends.earth-schemas`` or ``trends.earth-"
+"algorithms``, add the ``-g`` flag when running ``set-version``::"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1001
+msgid ""
+"This will update version numbers in all GEE script configuration files. "
+"After updating the versions, you must publish them to the Trends.Earth "
+"API server::"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1007
+msgid ""
+"This uploads all GEE scripts to api.trends.earth so they are available to"
+" plugin users. You must be an administrator to run this command "
+"successfully."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1010
+msgid "**4. Commit all changes**"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1012
+msgid "Ensure all modified files are committed to git::"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1017
+msgid "**5. Create and push git tags**"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1019
+msgid "Create git tags for the new version and push them to GitHub::"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1023
+msgid ""
+"The ``-m`` flag ensures tags are also created for the dependent modules. "
+"This command will:"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1026
+msgid "Create an annotated git tag (e.g., ``v2.1.20``)"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1027
+msgid "Push the tag to the GitHub repository"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1028
+msgid "Optionally tag dependent modules if ``-m`` is specified"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1030
+msgid ""
+"If you have uncommitted changes, the task will prompt you to commit them "
+"first."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1032
+msgid "**6. Create GitHub release**"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1034
+msgid ""
+"Run the ``release-github`` task to create a release on GitHub with the "
+"plugin zipfile attached::"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1041
+msgid ""
+"Build a clean plugin zipfile (e.g., ``LDMP_2.1.20.zip``) with all "
+"dependencies"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1043
+msgid ""
+"Remove all ``.pyc`` files to comply with QGIS repository security "
+"requirements"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1045
+msgid ""
+"Create a GitHub release with plugin zipfile attached as a downloadable "
+"asset"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1047
+msgid ""
+"You will need a GitHub personal access token with ``repo`` scope "
+"configured in your ``invoke.yaml`` file for this command to work. See the"
+" error messages if authentication fails for instructions on creating a "
+"token."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1051
+msgid "**7. Publish to QGIS repository**"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1053
+msgid "Finally, manually upload the plugin to the QGIS plugin repository:"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1055
+msgid ""
+"Download the plugin zipfile (e.g., ``LDMP_2.1.20.zip``) from the GitHub "
+"release you just created (it will be listed under \"Assets\")"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1057
+msgid ""
+"Log in to the `QGIS plugin repository "
+"<https://plugins.qgis.org/plugins/>`_"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1059
+msgid "Navigate to your plugin management page"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1060
+msgid "Upload the new version using the zip file"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1062
+msgid ""
+"The QGIS repository will validate the zipfile and make it available to "
+"users through the QGIS plugin manager."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1066
+msgid "Version numbering conventions"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1068
+msgid "Trends.Earth follows these version numbering conventions:"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1070
+msgid ""
+"**Even numbers** (e.g., 2.1.18, 2.1.20): Stable releases intended for "
+"public use"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1072
+msgid ""
+"**Odd numbers** (e.g., 2.1.19, 2.1.21): Development releases for testing "
+"new features"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1075
+msgid ""
+"Development versions are never published to the QGIS repository and are "
+"used only by the development team for testing."
 msgstr ""
 
 #~ msgid ""
@@ -1574,5 +1773,52 @@ msgstr ""
 #~ " also the `trends.earth-CLI "
 #~ "<https://github.com/Vizzuality/trends.earth-CLI>`_ "
 #~ "repository into that same folder."
+#~ msgstr ""
+
+#~ msgid "There are several steps to making a new public release of the plugin:"
+#~ msgstr ""
+
+#~ msgid "Update changelog in `LDMP\\metadata.txt`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Run `invoke set-version -v X.Y.Z "
+#~ "-m` (where X.Y.Z is the new "
+#~ "version) to set the new version "
+#~ "number for both `trends.earth` and "
+#~ "subcomponents (`trends.earth-schemas` and "
+#~ "`trends.earth-algorithms`)"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Ensure all changes are commited, and "
+#~ "then tag the new versions and push"
+#~ " those tags to github by running "
+#~ "`invoke set-tag -m`"
+#~ msgstr ""
+
+#~ msgid "Ensure that all new versions and tags are pushed to github"
+#~ msgstr ""
+
+#~ msgid "Publish release on QGIS repository"
+#~ msgstr ""
+
+#~ msgid "Publish on github with - Run `invoke release-github`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you want to make a release "
+#~ "after updating the scripts that call "
+#~ "the Trends.Earth API (so if either "
+#~ "the code under the `gee` folder "
+#~ "changes, or if `trends.earth-schemas` or"
+#~ " `trends.earth-algorithms` have changed, "
+#~ "then you need to add a `-g` "
+#~ "flag to the above command. After "
+#~ "running `invoke set-version` with the"
+#~ " `-g` flag you will also need "
+#~ "to run `invoke tecli-publish`, in "
+#~ "order to push the updated scripts "
+#~ "to the API."
 #~ msgstr ""
 

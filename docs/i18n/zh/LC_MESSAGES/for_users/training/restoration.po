@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: zh\n"
@@ -22,7 +22,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/training/restoration.rst:4
 msgid "Potential Carbon Sequestration under Restoration"
@@ -83,9 +83,10 @@ msgid "Select **Change region** to define the area of interest."
 msgstr "选择 **更改区域** 以定义感兴趣区域。"
 
 #: ../../source/for_users/training/restoration.rst:45
+#, fuzzy
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
+"are under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
@@ -98,7 +99,7 @@ msgid ""
 "country."
 msgstr "如果使用Trends.Earth作为官方用途，建议用户选择其国家指定办公室提供的官方边界。"
 
-#: ../../source/for_users/training/restoration.rst:59
+#: ../../source/for_users/training/restoration.rst:60
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, "
 "make sure the **Area from file** option is highlighted. Then click "
@@ -106,15 +107,15 @@ msgid ""
 " file stored."
 msgstr "使用您自己的区域文件：如果您想使用自己的分析区域，请确保突出显示**文件区域**选项。然后单击**浏览**并导航到计算机中存储文件的文件夹。"
 
-#: ../../source/for_users/training/restoration.rst:61
+#: ../../source/for_users/training/restoration.rst:62
 msgid "Add a descriptive name and notes for the analysis"
 msgstr "为分析添加描述性名称和注释"
 
-#: ../../source/for_users/training/restoration.rst:63
+#: ../../source/for_users/training/restoration.rst:64
 msgid "Select **Schedule remote exectution**"
 msgstr "选择**安排远程执行**"
 
-#: ../../source/for_users/training/restoration.rst:68
+#: ../../source/for_users/training/restoration.rst:69
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
 "successfully submitted. The analysis will be run in Google servers and "
@@ -122,23 +123,23 @@ msgid ""
 "area (larger areas tend to take longer)."
 msgstr "将暂时显示浅蓝色条，表示任务已成功提交。该分析将在Google服务器中运行，可能需要5到15分钟，具体取决于研究区域的大小（较大的区域往往需要更长的时间）。"
 
-#: ../../source/for_users/training/restoration.rst:71
+#: ../../source/for_users/training/restoration.rst:72
 msgid "Table summarizing likely changes in biomass"
 msgstr "总结生物量可能变化的表格"
 
-#: ../../source/for_users/training/restoration.rst:73
+#: ../../source/for_users/training/restoration.rst:74
 msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
 msgstr "转到**数据集**选项卡以**将此数据集中的默认图层添加到地图**。"
 
-#: ../../source/for_users/training/restoration.rst:78
+#: ../../source/for_users/training/restoration.rst:79
 msgid ""
 "In order to view the defined area of interest with reference data, select"
 " the **Load Base Map** in the **Datasets** tab."
 msgstr "要使用参考数据查看定义的感兴趣区域，请在 **数据集** 选项卡中选择 **加载基本地图**。"
 
-#: ../../source/for_users/training/restoration.rst:86
+#: ../../source/for_users/training/restoration.rst:87
 msgid ""
 "Go back to the **Algorithms** tab in Trends.Earth plugin in QGIS, under "
 "the **Experimental** menu, select **Potential change in biomass due to "
@@ -156,7 +157,7 @@ msgid ""
 "notes and select **Execute locally**."
 msgstr "这些层将预先填充在数据层下拉列表中。确认此区域是同一感兴趣区域，提供描述性名称和注释并选择**本地执行**。"
 
-#: ../../source/for_users/training/restoration.rst:94
+#: ../../source/for_users/training/restoration.rst:95
 msgid ""
 "A spreadsheet comparing the final outputs is saved in your "
 "**trends_earth_data*** folder under your user account on your computer "

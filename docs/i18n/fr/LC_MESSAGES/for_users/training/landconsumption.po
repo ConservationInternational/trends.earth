@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: fr\n"
@@ -23,7 +23,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/training/landconsumption.rst:4
 msgid "Land Consumption (SDG 11.3.1)"
@@ -289,7 +289,7 @@ msgid "iconCalculator"
 msgstr "iconCalculator"
 
 #: ../../source/for_users/training/landconsumption.rst:77
-#: ../../source/for_users/training/landconsumption.rst:163
+#: ../../source/for_users/training/landconsumption.rst:176
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on "
 "**Urban change and land consumption indicators (SDG indicator 11.3.1)** "
@@ -417,15 +417,13 @@ msgstr ""
 "zone d'analyse et le calcul de la zone finale."
 
 #: ../../source/for_users/training/landconsumption.rst:124
+#, fuzzy
 msgid ""
-"The provided boundaries are from `Natural Earth "
-"<http://www.naturalearthdata.com>`_, and are in the `public domain "
-"<https://creativecommons.org/publicdomain>`_. The boundaries and names  "
-"used, and the designations used, in Trends.Earth do not imply official "
-"endorsement or acceptance by Conservation International Foundation, or by"
-" its partner organizations and contributors. If using Trends.Earth for "
-"official purposes, it is recommended that users choose an official "
-"boundary provided by the designated office of their country."
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
+"are under the CC BY 4.0 license. The boundaries and names used, and the "
+"designations used, in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors."
 msgstr ""
 "Les délimitations fournies proviennent de `Natural Earth "
 "<http://www.naturalearthdata.com>`_, et se trouvent dans le `domaine "
@@ -437,7 +435,14 @@ msgstr ""
 "à des fins officielles, il est recommandé aux utilisateurs de choisir une"
 " délimitation officielle fournie par le bureau désigné de leur pays."
 
-#: ../../source/for_users/training/landconsumption.rst:126
+#: ../../source/for_users/training/landconsumption.rst:130
+msgid ""
+"If using Trends.Earth for official purposes, it is recommended that users"
+" choose an official boundary provided by the designated office of their "
+"country."
+msgstr ""
+
+#: ../../source/for_users/training/landconsumption.rst:139
 msgid ""
 "On the Options tab you have to assign a name the task and some notes on "
 "how you customized the parameters for your analysis for future reference."
@@ -446,7 +451,7 @@ msgstr ""
 "quelques notes sur la façon dont vous avez personnalisé les paramètres de"
 " votre analyse pour référence future."
 
-#: ../../source/for_users/training/landconsumption.rst:128
+#: ../../source/for_users/training/landconsumption.rst:141
 msgid ""
 "When all the parameters have been defined, click \"Calculate\", and the "
 "task will be submitted to Google Earth Engine for computing."
@@ -454,7 +459,7 @@ msgstr ""
 "Lorsque tous les paramètres ont été définis, cliquez sur « Calculer » et "
 "la tâche sera soumise à Google Earth Engine pour le calcul"
 
-#: ../../source/for_users/training/landconsumption.rst:133
+#: ../../source/for_users/training/landconsumption.rst:146
 msgid ""
 "The analysis for cities takes approximately 30 min to run, depending on "
 "the size of the area and the servers usage. To check the status of the "
@@ -467,7 +472,7 @@ msgstr ""
 "d'outils|trends.earth|. Lorsque les fenêtres s'ouvrent, cliquez sur "
 "**Actualiser la liste**."
 
-#: ../../source/for_users/training/landconsumption.rst:141
+#: ../../source/for_users/training/landconsumption.rst:154
 msgid ""
 "When the Google Earth Engine task has completed and you received the "
 "email, click \"Refresh List\" and the status will show FINISHED."
@@ -476,7 +481,7 @@ msgstr ""
 "l'e-mail, cliquez sur « Actualiser la liste » et l'état s'affichera comme"
 " TERMINÉ."
 
-#: ../../source/for_users/training/landconsumption.rst:146
+#: ../../source/for_users/training/landconsumption.rst:159
 msgid ""
 "To download the results, click on the task and select \"Download "
 "results\" at the bottom of the window. A pop up window will open for you "
@@ -487,7 +492,7 @@ msgstr ""
 " qui va s'afficher va vous permettre de sélectionner l'endroit où vous "
 "souhaitez enregistrer la couche et de lui attribuer un nom."
 
-#: ../../source/for_users/training/landconsumption.rst:151
+#: ../../source/for_users/training/landconsumption.rst:164
 msgid ""
 "Then click \"Save\". The layer will be saved on your computer and "
 "automatically loaded into your current QGIS project."
@@ -496,11 +501,11 @@ msgstr ""
 " ordinateur et sera automatiquement chargée dans votre projet QGIS "
 "actuel."
 
-#: ../../source/for_users/training/landconsumption.rst:157
+#: ../../source/for_users/training/landconsumption.rst:170
 msgid "Step 2: Urban change"
 msgstr "Étape 2 : Changement urbain"
 
-#: ../../source/for_users/training/landconsumption.rst:158
+#: ../../source/for_users/training/landconsumption.rst:171
 msgid ""
 "You have now downloaded the dataset to your local computer, but we still "
 "need to estimate the change over time in order to compute the SDG "
@@ -512,13 +517,13 @@ msgstr ""
 "temps afin de calculer l'indicateur ODD 11.3.1. Pour cela, sélectionnez "
 "l'icône « Calculer » (|iconCalculator|) du plugin Trends.Earth dans QGIS."
 
-#: ../../source/for_users/training/landconsumption.rst:168
+#: ../../source/for_users/training/landconsumption.rst:181
 msgid "Select Step 2: Calculate urban change summary table for city."
 msgstr ""
 "Sélectionnez l'Étape 2 : Calculer le tableau récapitulatif des "
 "changements urbains pour la ville."
 
-#: ../../source/for_users/training/landconsumption.rst:173
+#: ../../source/for_users/training/landconsumption.rst:186
 msgid ""
 "Input: Load an existing .json file if it has not been populated within "
 "the drop-down list automatically from your QGIS project."
@@ -526,7 +531,7 @@ msgstr ""
 "Entrée : Chargez un fichier .json existant s'il n'a pas été rempli "
 "automatiquement dans la liste déroulante à partir de votre projet QGIS."
 
-#: ../../source/for_users/training/landconsumption.rst:179
+#: ../../source/for_users/training/landconsumption.rst:192
 msgid ""
 "Output: Select browse to navigate to a file on your computer and save the"
 " json file and excel table."
@@ -534,11 +539,11 @@ msgstr ""
 "Sortie : sélectionnez « Parcourir » pour accéder à un fichier sur votre "
 "ordinateur et pour enregistrer le fichier .json et le tableau Excel.   "
 
-#: ../../source/for_users/training/landconsumption.rst:184
+#: ../../source/for_users/training/landconsumption.rst:197
 msgid "Area: Define the area for your analysis"
 msgstr "Zone : Définissez la zone de votre analyse"
 
-#: ../../source/for_users/training/landconsumption.rst:189
+#: ../../source/for_users/training/landconsumption.rst:202
 msgid ""
 "Options: Enter a task name and notes for the analysis. This final step is"
 " calculated locally on your computer, it will load automatically in your "
@@ -548,7 +553,7 @@ msgstr ""
 "dernière étape est calculée localement sur votre ordinateur, elle se "
 "chargera automatiquement dans votre fenêtre de projet QGIS."
 
-#: ../../source/for_users/training/landconsumption.rst:194
+#: ../../source/for_users/training/landconsumption.rst:207
 msgid ""
 "View results: A window will appear when the processing is complete. "
 "Select **OK**."
@@ -556,7 +561,7 @@ msgstr ""
 "Afficher les résultats : une fenêtre apparaît lorsque le traitement est "
 "terminé. Sélectionnez **OK**."
 
-#: ../../source/for_users/training/landconsumption.rst:199
+#: ../../source/for_users/training/landconsumption.rst:212
 msgid ""
 "After clicking OK, the four annual urban extent maps with their "
 "corresponding zoning will load into the QGIS project."
@@ -565,7 +570,7 @@ msgstr ""
 "urbaine avec leur zonage correspondant seront chargées dans le projet "
 "QGIS."
 
-#: ../../source/for_users/training/landconsumption.rst:202
+#: ../../source/for_users/training/landconsumption.rst:215
 msgid ""
 "If you selected the buffer option for running the analysis, you may "
 "notice that the results do not seem to display a perfectly circular "
@@ -582,7 +587,7 @@ msgstr ""
 " éloignée de l'équateur, plus cela provoquera une distorsion apparente, "
 "mais vous ne devez pas vous en inquiéter, les résultats sont corrects."
 
-#: ../../source/for_users/training/landconsumption.rst:207
+#: ../../source/for_users/training/landconsumption.rst:220
 msgid ""
 "To explore the summary table, navigate to the folder in your computer "
 "where you saved the excel file and double click on it to open. If an "
@@ -594,7 +599,7 @@ msgstr ""
 "dessus pour l'ouvrir. Si une fenêtre d'erreur apparaît, sélectionnez "
 "**Oui** et le résumé s'ouvrira."
 
-#: ../../source/for_users/training/landconsumption.rst:218
+#: ../../source/for_users/training/landconsumption.rst:231
 msgid ""
 "In this table you'll find the area of the different city land cover "
 "classes (urban, suburban, fringe open space, capture open space and "
@@ -607,7 +612,7 @@ msgstr ""
 " trouverez également la population pour chacune des années analysées "
 "(2000, 2005, 2010 et 2015) et l'ODD 11.3.1 final."
 
-#: ../../source/for_users/training/landconsumption.rst:221
+#: ../../source/for_users/training/landconsumption.rst:234
 msgid ""
 "In order to improve the Impervious Surface Index and the guidance we "
 "provide to users, it would be very useful for us to learn the parameters "
@@ -626,11 +631,11 @@ msgstr ""
 " cela ne vous prendra pas plus de 30 secondes à remplir et votre retour "
 "nous sera très précieux pour améliorer l'outil. Merci !"
 
-#: ../../source/for_users/training/landconsumption.rst:225
+#: ../../source/for_users/training/landconsumption.rst:238
 msgid "Extra: Water frequency parameter"
 msgstr "Extra : paramètre de fréquence des eaux"
 
-#: ../../source/for_users/training/landconsumption.rst:227
+#: ../../source/for_users/training/landconsumption.rst:240
 msgid ""
 "On this tutorial we did not explore the effect of the third parameter the"
 " `Urban Mapper page "
@@ -648,7 +653,7 @@ msgstr ""
 "les endroits où la dynamique  de la capture de l'eau est importante pour "
 "comprendre comment une ville évolue."
 
-#: ../../source/for_users/training/landconsumption.rst:229
+#: ../../source/for_users/training/landconsumption.rst:242
 msgid ""
 "The water Frequency parameter should be interpreted as follows: A pixel "
 "needs to be covered by water for at least X percent of the time for it to"
@@ -663,7 +668,7 @@ msgstr ""
 "d'eau et plus il y aura des terres (c'est-à-dire des zones bâties le cas "
 "échéant)."
 
-#: ../../source/for_users/training/landconsumption.rst:231
+#: ../../source/for_users/training/landconsumption.rst:244
 msgid ""
 "To explore one of such cases, navigate to the `Urban Mapper page "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
@@ -673,7 +678,7 @@ msgstr ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_ et allons à **Dubaï**."
 
-#: ../../source/for_users/training/landconsumption.rst:236
+#: ../../source/for_users/training/landconsumption.rst:249
 msgid ""
 "One of the main feature we'll notice is a set of islands. However, when "
 "we click **Run Analysis**, the dataset seems to miss them"
@@ -682,7 +687,7 @@ msgstr ""
 "ensemble d'îles. Cependant, lorsque nous cliquons sur **Exécuter "
 "l'analyse**, le jeu de données ne semble pas le prendre en compte"
 
-#: ../../source/for_users/training/landconsumption.rst:241
+#: ../../source/for_users/training/landconsumption.rst:254
 msgid ""
 "If we change the Water Frequency parameter from 25 to 80, we can start "
 "seeing the recently built-up areas in the water (ISI = 30, NTL = 10, WFR "
@@ -692,7 +697,7 @@ msgstr ""
 "nous pouvons commencer à voir les zones récemment bâties dans l'eau (ISI "
 "= 30, NTL = 10, WFR = 80). Mais il nous manque encore quelques portions."
 
-#: ../../source/for_users/training/landconsumption.rst:246
+#: ../../source/for_users/training/landconsumption.rst:259
 msgid ""
 "In this case, it seems like portions of these newly constructed islands "
 "don't have much lights on them. So if we set the NTL threshold to a lower"

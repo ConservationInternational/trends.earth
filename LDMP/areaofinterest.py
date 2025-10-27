@@ -117,17 +117,39 @@ def get_admin_poly_geojson():
                     country_code, admin_level=1, shape_id=region_id
                 )
             else:
-                # Fallback to country level if region not found
-                admin_polys = download.download_boundary_geojson(
-                    country_code, admin_level=0
+                # Region is required but not found - raise error
+                raise ValueError(
+                    f"Region '{current_region}' selected but no region ID found. "
+                    f"Please reselect the region in settings."
                 )
 
         if admin_polys:
             return admin_polys
+    except ImportError as e:
+        log(f"Missing required module for boundary download: {e}")
+        log("Ensure 'requests' module is installed: pip install requests")
+        return None
+    except (ConnectionError, TimeoutError) as e:
+        log(f"Network error downloading boundaries from API: {e}")
+        log("Check your internet connection and try again")
+        return None
+    except json.JSONDecodeError as e:
+        log(f"Invalid JSON response from boundary API: {e}")
+        log("The API may be experiencing issues, please try again later")
+        return None
+    except KeyError as e:
+        log(f"Unexpected API response format: missing key {e}")
+        log("The API structure may have changed")
+        return None
+    except ValueError as e:
+        log(f"Invalid boundary data received: {e}")
+        return None
     except Exception as e:
-        from .logger import log
+        log(f"Unexpected error downloading boundaries from API: {e}")
+        # Log full traceback for debugging
+        import traceback
 
-        log(f"Error downloading boundaries from API: {e}")
+        log(f"Traceback: {traceback.format_exc()}")
         return None
 
 

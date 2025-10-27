@@ -21,7 +21,11 @@ import zipfile
 from functools import partial
 from pathlib import Path
 
-from qgis.core import QgsFileDownloader, QgsNetworkReplyContent
+from qgis.core import (
+    QgsBlockingNetworkRequest,
+    QgsFileDownloader,
+    QgsNetworkReplyContent,
+)
 from qgis.PyQt import QtCore, QtNetwork, QtWidgets
 from qgis.utils import iface
 
@@ -88,6 +92,83 @@ class Country:
 class tr_download:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_download", message)
+
+
+class BoundaryTimestampManager:
+    """
+    Manages server timestamp fetching for boundary operations.
+
+    Caches the timestamp for a single session to avoid redundant API calls
+    when multiple boundary operations occur in quick succession.
+    """
+
+    def __init__(self):
+        self._cached_timestamp: typing.Optional[str] = None
+        self._release_type: typing.Optional[str] = None
+
+    def get_server_timestamp(
+        self, release_type: str = "gbOpen", force_refresh: bool = False
+    ) -> typing.Optional[str]:
+        """
+        Get cached server timestamp or fetch if needed.
+
+        Args:
+            release_type: geoBoundaries release type
+            force_refresh: Force fetch even if cached
+
+        Returns:
+            Server timestamp string or None
+        """
+        # Return cached timestamp if same release type and not forcing refresh
+        if (
+            not force_refresh
+            and self._cached_timestamp is not None
+            and self._release_type == release_type
+        ):
+            log(
+                f"Using cached server timestamp: {self._cached_timestamp} (release: {release_type})"
+            )
+            return self._cached_timestamp
+
+        # Fetch fresh timestamp from API
+        try:
+            from . import api
+
+            server_info = api.default_api_client.get_boundaries_last_updated(
+                release_type
+            )
+            if server_info:
+                timestamp = server_info.get("last_updated")
+                if timestamp:
+                    self._cached_timestamp = timestamp
+                    self._release_type = release_type
+                    log(
+                        f"Fetched server timestamp: {timestamp} (release: {release_type})"
+                    )
+                    return timestamp
+            else:
+                log("Could not get server last updated timestamp")
+                return None
+        except Exception as e:
+            log(f"Error fetching server timestamp: {e}")
+            return None
+
+    def clear_cache(self):
+        """Clear cached timestamp to force fresh fetch on next call."""
+        self._cached_timestamp = None
+        self._release_type = None
+
+
+# Global timestamp manager instance
+_timestamp_manager = None
+
+
+def get_timestamp_manager() -> BoundaryTimestampManager:
+    """Get the global timestamp manager instance."""
+    global _timestamp_manager
+    if _timestamp_manager is None:
+        _timestamp_manager = BoundaryTimestampManager()
+    return _timestamp_manager
 
 
 def local_check_hash_against_etag(path: Path, expected: str) -> bool:
@@ -315,21 +396,13 @@ def _get_boundaries_from_api() -> typing.Optional[typing.Dict[str, Country]]:
     server_last_updated = None
 
     if should_check_server:
-        try:
-            # Get server's last updated timestamp
-            server_info = api.default_api_client.get_boundaries_last_updated(
-                release_type
-            )
-            if server_info:
-                server_last_updated = server_info.get("last_updated")
-                log(f"Server last updated boundaries: {server_last_updated}")
+        # Use shared timestamp manager to avoid redundant API calls
+        timestamp_mgr = get_timestamp_manager()
+        server_last_updated = timestamp_mgr.get_server_timestamp(release_type)
 
-                # Mark that we've checked the server
-                cache.mark_server_checked(release_type)
-            else:
-                log("Could not get server last updated timestamp")
-        except Exception as e:
-            log(f"Error checking server for updates: {e}")
+        if server_last_updated:
+            # Mark that we've checked the server
+            cache.mark_server_checked(release_type)
 
     # Try to load from cache with server timestamp validation
     cached_data = cache.load_boundaries_list(release_type, server_last_updated)
@@ -483,21 +556,13 @@ def download_boundary_geojson(
     server_last_updated = None
 
     if should_check_server:
-        try:
-            # Get server's last updated timestamp
-            server_info = api.default_api_client.get_boundaries_last_updated(
-                release_type
-            )
-            if server_info:
-                server_last_updated = server_info.get("last_updated")
-                log(f"Server last updated boundaries: {server_last_updated}")
+        # Use shared timestamp manager to avoid redundant API calls
+        timestamp_mgr = get_timestamp_manager()
+        server_last_updated = timestamp_mgr.get_server_timestamp(release_type)
 
-                # Mark that we've checked the server
-                cache.mark_server_checked(release_type)
-            else:
-                log("Could not get server last updated timestamp")
-        except Exception as e:
-            log(f"Error checking server for updates: {e}")
+        if server_last_updated:
+            # Mark that we've checked the server
+            cache.mark_server_checked(release_type)
 
     # Try to load from cache with server timestamp validation
     # For admin1, always load the full country-level GeoJSON (no shape_id in cache key)
@@ -552,18 +617,36 @@ def download_boundary_geojson(
         # Download the GeoJSON
         log(f"Downloading boundary GeoJSON from {download_url}")
 
-        import requests
+        # Use QgsBlockingNetworkRequest for synchronous download
 
-        # Request compression to reduce download size
-        headers = {
-            "Accept-Encoding": "gzip, deflate, br",
-            "User-Agent": "trends.earth/1.0",
-        }
+        request = QgsBlockingNetworkRequest()
 
-        response = requests.get(download_url, timeout=60, headers=headers)
-        response.raise_for_status()
+        # Set custom headers
+        url = QtCore.QUrl(download_url)
+        network_request = QtNetwork.QNetworkRequest(url)
+        network_request.setRawHeader(b"User-Agent", b"trends.earth/1.0")
+        network_request.setRawHeader(b"Accept-Encoding", b"gzip, deflate, br")
 
-        geojson_data = response.json()
+        # Perform the request with timeout (in milliseconds)
+        error_code = request.get(network_request, timeout=60000)
+
+        if error_code != QgsBlockingNetworkRequest.NoError:
+            log(f"Network error downloading boundary: {request.errorMessage()}")
+            return None
+
+        # Get the response content
+        reply = request.reply()
+        if reply.error() != QtNetwork.QNetworkReply.NoError:
+            log(f"Network reply error: {reply.errorString()}")
+            return None
+
+        # Parse JSON response
+        content = reply.content()
+        try:
+            geojson_data = json.loads(content.data().decode("utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+            log(f"Error parsing GeoJSON response: {e}")
+            return None
 
         # Cache the full GeoJSON (without shape_id filtering)
         # For admin1, this contains ALL admin1 units for the country

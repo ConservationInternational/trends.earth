@@ -12,7 +12,6 @@
 """
 
 import json
-import os
 import time
 import typing
 from datetime import datetime, timezone
@@ -37,10 +36,11 @@ class BoundariesCache:
             cache_dir: Directory to store cache files. Defaults to plugin data directory.
         """
         if cache_dir is None:
-            cache_dir = os.path.join(os.path.dirname(__file__), "data")
+            self.cache_dir = Path(__file__).parent / "data"
+        else:
+            self.cache_dir = Path(cache_dir)
 
-        self.cache_dir = Path(cache_dir)
-        self.cache_dir.mkdir(exist_ok=True)
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
 
         # Check server for updates only monthly (30 days)
         self.server_check_ttl = 30 * 24 * 3600  # 30 days

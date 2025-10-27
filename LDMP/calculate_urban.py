@@ -290,9 +290,15 @@ class DlgCalculateUrbanSummaryTable(
         pop_indices_years.sort(key=lambda entry: entry[1])
         if len(urban_indices_years) != len(pop_indices_years):
             raise RuntimeError("Urban files and pop files do not have the same length")
+        task_name = self.execution_name_le.text().strip()
+        if not task_name:
+            task_name = self.script.name_readable or self.script.name
+
+        task_notes = self.task_notes.toPlainText()
+
         job_params = {
-            "task_name": self.options_tab.task_name.text(),
-            "task_notes": self.options_tab.task_notes.toPlainText(),
+            "task_name": task_name,
+            "task_notes": task_notes,
             "urban_layer_path": str(urban_usable_info.path),
             "urban_layer_band_indexes": [entry[0] for entry in urban_indices_years],
             "urban_layer_pop_band_indexes": [entry[0] for entry in pop_indices_years],

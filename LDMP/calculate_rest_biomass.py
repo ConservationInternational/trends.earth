@@ -153,8 +153,12 @@ class DlgCalculateRestBiomassSummaryTable(
             self.combo_layer_biomass_diff
         )
 
-        params["task_name"] = self.options_tab.task_name.text()
-        params["task_notes"] = self.options_tab.task_notes.toPlainText()
+        task_name = self.execution_name_le.text().strip()
+        if not task_name:
+            task_name = self.script.name_readable or self.script.name
+
+        params["task_name"] = task_name
+        params["task_notes"] = self.task_notes.toPlainText()
 
         self.close()
 

@@ -423,6 +423,13 @@ def _get_sdg(out):
     return sdg_image[0]
 
 
+def _get_lc_deg(out):
+    # _run_te_period returns a TEImageV2, so the getImages function returns a list of images
+    sdg_image = out.getImages(config.LC_DEG_BAND_NAME)
+    assert len(sdg_image) == 1
+    return sdg_image[0]
+
+
 def run_te(params, EXECUTION_ID, logger):
     """Run indicators using Trends.Earth productivity"""
     proj = ee.Image(
@@ -434,6 +441,7 @@ def run_te(params, EXECUTION_ID, logger):
 
     out = _run_te_period(params["baseline_period"], all_geojsons, logger)
     baseline_sdg = _get_sdg(out)
+    LC_DEG_BAND_NAME
     baseline_year_initial = params["baseline_period"]["period"]["year_initial"]
     baseline_year_final = params["baseline_period"]["period"]["year_final"]
 
@@ -532,12 +540,11 @@ def run_fao_wocat(params, EXECUTION_ID, logger):
 
 def run_jrc(params, EXECUTION_ID, logger):
     """Run indicators using JRC precalculated LPD for productivity"""
-    baseline_asset = params["baseline_period"]["productivity"]["asset"]
-    proj = ee.Image(baseline_asset).projection()
-
     logger.debug("Running JRC precalculated productivity")
     out = _run_jrc_period(params["baseline_period"], logger)
     baseline_sdg = _get_sdg(out)
+    # JRC layer is at 1km - assign output resolution that of land cover data (~300m)
+    proj = _get_lc_deg(out).projection()
     baseline_year_initial = params["baseline_period"]["period"]["year_initial"]
     baseline_year_final = params["baseline_period"]["period"]["year_final"]
 

@@ -1789,11 +1789,14 @@ This page lists data packages containing national-level default datasets (produc
 following accepted best practices for calculating the UNCCD Indicators for land degradation
 and drought vulnerability and exposure.
 
-These datatasets can be directly imported into Trends.Earth, and may be useful to countries
-reporting to the UNCCD on Strategic Objectives 1, 2, and 3 (including SDG Indicator 15.3.1).
+These zipfiles are designed to be imported directly into Trends.Earth, and may be useful to countries
+reporting to the UNCCD on Strategic Objectives 1, 2, and 3 (including SDG Indicator 15.3.1). Global datasets
+are also available as Cloud-optimized GeoTIFFs (COGs) and as Google Earth Engine Assets. See the
+[Trends.Earth SDG Indicator 15.3.1 Datasets page on Zenodo](https://zenodo.org/records/17079487) for
+more details on these datasets.
+
 
 The methods used to produce the estimates of land degradation in these files are consistent with [Version 2.0 of the Good Practice Guidance for SDG Indicator 15.3.1](https://www.unccd.int/resources/manuals-and-guides/good-practice-guidance-sdg-indicator-1531-proportion-land-degraded). Calculations of land condition are consistent with the [addendum to that guidance](https://www.unccd.int/resources/manuals-and-guides/addendum-good-practice-guidance-sdg-indicator-1531-proportion-land). Calculations of drought vulnerability and exposure are consistent with the [Good Practice Guidance for National Reporting on UNCCD Strategic Objective 3](https://www.unccd.int/resources/manuals-and-guides/good-practice-guidance-national-reporting-unccd-strategic-objective-3).
-
 
 **This site and the products of Trends.Earth are made available under the terms of the
 Creative Commons Attribution 4.0 International License [(CC BY 4.0)]((https://creativecommons.org/licenses/by/4.0/)). The boundaries and

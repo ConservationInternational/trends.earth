@@ -1785,14 +1785,25 @@ def _make_drought_download_row(c, iso, data):
 def build_download_page(c):
     out_txt = """# Downloads
 
-This page lists data packages containing default datasets that can be used in
-Trends.Earth.
+This page lists data packages containing national-level default datasets (produced by Trends.Earth),
+following accepted best practices for calculating the UNCCD Indicators for land degradation
+and drought vulnerability and exposure.
+
+These datatasets can be directly imported into Trends.Earth, and may be useful to countries
+reporting to the UNCCD on Strategic Objectives 1, 2, and 3 (including SDG Indicator 15.3.1).
+
+The methods used to produce the estimates of land degradation in these files are consistent with [Version 2.0 of the Good Practice Guidance for SDG Indicator 15.3.1](https://www.unccd.int/resources/manuals-and-guides/good-practice-guidance-sdg-indicator-1531-proportion-land-degraded). Calculations of land condition are consistent with the [addendum to that guidance](https://www.unccd.int/resources/manuals-and-guides/addendum-good-practice-guidance-sdg-indicator-1531-proportion-land). Calculations of drought vulnerability and exposure are consistent with the [Good Practice Guidance for National Reporting on UNCCD Strategic Objective 3](https://www.unccd.int/resources/manuals-and-guides/good-practice-guidance-national-reporting-unccd-strategic-objective-3).
+
 
 **This site and the products of Trends.Earth are made available under the terms of the
-Creative Commons Attribution 4.0 International License (CC BY 4.0). The boundaries and
+Creative Commons Attribution 4.0 International License [(CC BY 4.0)]((https://creativecommons.org/licenses/by/4.0/)). The boundaries and
 names used, and the designations used, do not imply official endorsement or acceptance
 by Conservation International Foundation, or its partner organizations and
 contributors.**
+
+The below packages use data from [geoBoundaries](https://www.geoboundaries.org/) to define
+country borders. These boundaries are made available by geoBoundaries under the
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
 ## SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)
 
@@ -1833,6 +1844,9 @@ the default Trends.Earth method, and from FAO-WOCAT).
             continue
 
     for iso, values in sdg_links.items():
+        if values == {}:
+            # Skip empty entries
+            continue
         out_txt += _make_sdg_download_row(c, iso, values)
 
     out_txt += """
@@ -1863,6 +1877,9 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
             continue
 
     for iso, values in drought_links.items():
+        if values == {}:
+            # Skip empty entries
+            continue
         out_txt += _make_drought_download_row(c, iso, values)
 
     with open(
@@ -2440,7 +2457,7 @@ ns.configure(
         "data_downloads": {
             "downloads_page": "docs/source/for_users/downloads/index.md",
             "s3_bucket": "data.trends.earth",
-            "s3_prefix": "unccd_reporting/2016-2019/packages/",
+            "s3_prefix": "unccd_reporting/2016-2023/packages/",
         },
         "github": {
             "api_url": "https://api.github.com",

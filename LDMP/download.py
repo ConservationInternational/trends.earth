@@ -409,11 +409,19 @@ def get_admin_bounds() -> typing.Dict[str, Country]:
         if api_boundaries:
             log("Loaded administrative boundaries from Trends.Earth API")
             return api_boundaries
-        else:
-            log("Failed to load boundaries from API")
-            return {}
+
+        log("Falling back to cached administrative boundaries bundle")
+        cached_boundaries = _get_boundaries_from_local_cache()
+        if cached_boundaries:
+            return cached_boundaries
+
+        log("No administrative boundaries available from API or cache", Qgis.Critical)
+        return {}
     except Exception as e:
         log(f"Error loading boundaries from API: {e}")
+        cached_boundaries = _get_boundaries_from_local_cache()
+        if cached_boundaries:
+            return cached_boundaries
         return {}
 
 
@@ -477,6 +485,38 @@ def _get_boundaries_from_api() -> typing.Optional[typing.Dict[str, Country]]:
 
     except Exception as e:
         log(f"Error fetching boundaries from API: {e}")
+        return None
+
+
+def _get_boundaries_from_local_cache() -> typing.Optional[typing.Dict[str, Country]]:
+    """Load administrative boundaries from the packaged cache file."""
+
+    from .boundaries_cache import get_boundaries_cache
+
+    try:
+        cache = get_boundaries_cache()
+        cache_file = cache.get_boundaries_list_cache_file("gbOpen")
+
+        if not cache_file.exists():
+            log(f"Boundaries cache file not found: {cache_file}")
+            return None
+
+        with cache_file.open("r", encoding="utf-8") as handle:
+            data = json.load(handle)
+
+        if isinstance(data, dict):
+            boundaries_list = data.get("data") or data.get("boundaries")
+        else:
+            boundaries_list = data
+
+        if not boundaries_list:
+            log("Packaged boundaries cache is empty or malformed", Qgis.Warning)
+            return None
+
+        log("Loaded administrative boundaries from packaged cache")
+        return _convert_api_boundaries_to_countries(boundaries_list)
+    except Exception as exc:
+        log(f"Error loading boundaries from packaged cache: {exc}", Qgis.Warning)
         return None
 
 

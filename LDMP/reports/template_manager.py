@@ -2,9 +2,8 @@
 
 import json
 import os
+import shutil
 import typing
-from distutils.dir_util import copy_tree
-from distutils.errors import DistutilsFileError
 from enum import Enum
 
 from marshmallow.exceptions import ValidationError
@@ -184,9 +183,9 @@ class TemplateManager:
             return False
 
         try:
-            _ = copy_tree(self._template_dir, self._data_report_dir)
-        except DistutilsFileError as dfe:
-            msg = f"Unable to copy report configuration. {dfe!s}"
+            shutil.copytree(self._template_dir, self._data_report_dir)
+        except OSError as exc:
+            msg = f"Unable to copy report configuration. {exc!s}"
             log(msg, Qgis.Warning)
             return False
 

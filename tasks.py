@@ -10,7 +10,7 @@ import stat
 import subprocess
 import sys
 import zipfile
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path, PurePath
 from tempfile import mkstemp
 
@@ -2365,6 +2365,111 @@ def _check_hash(expected, filename):
         return False
 
 
+def _get_api_token(c):
+    base_url = getattr(c.trends_earth_api, "url", None)
+    if base_url is None:
+        raise RuntimeError("Trends.Earth API base URL is not configured.")
+
+    email = getattr(c.trends_earth_api, "email", None) or os.environ.get(
+        "TRENDS_EARTH_API_USER"
+    )
+    password = getattr(c.trends_earth_api, "password", None) or os.environ.get(
+        "TRENDS_EARTH_API_PASSWORD"
+    )
+
+    if not email or not password:
+        raise RuntimeError(
+            "Trends.Earth API credentials are not configured. "
+            "Set c.trends_earth_api.user/password or provide the "
+            "TRENDS_EARTH_API_USER and TRENDS_EARTH_API_PASSWORD environment variables."
+        )
+
+    try:
+        auth_response = requests.post(
+            f"{base_url}/auth", json={"email": email, "password": password}
+        )
+        auth_response.raise_for_status()
+    except requests.exceptions.RequestException as exc:
+        raise RuntimeError("Failed to authenticate with Trends.Earth API.") from exc
+
+    try:
+        auth_payload = auth_response.json()
+    except ValueError as exc:
+        raise RuntimeError("Authentication response was not valid JSON.") from exc
+
+    token = auth_payload.get("access_token")
+    if not token:
+        raise RuntimeError("Authentication response did not include an access token.")
+    return token
+
+
+@task(
+    help={
+        "release_type": "geoBoundaries release type to download (default: gbOpen)",
+        "output": "Optional output path for the saved JSON (defaults to LDMP/data)",
+    }
+)
+def download_boundaries_cache(c, release_type="gbOpen", output=None):
+    """Download and cache the boundaries list JSON used by the plugin."""
+
+    print("Authenticating with Trends.Earth API...")
+
+    token = _get_api_token(c)
+    base_url = getattr(c.trends_earth_api, "url", None)
+    if base_url is None:
+        raise RuntimeError("Trends.Earth API base URL is not configured.")
+
+    endpoint = f"{base_url}/api/v1/data/boundaries/list"
+
+    headers = {
+        "Accept": "application/json",
+        "Authorization": f"Bearer {token}",
+    }
+
+    print(f"Requesting boundaries list from {endpoint} (release_type={release_type})")
+    response = requests.get(
+        endpoint, params={"release_type": release_type}, headers=headers
+    )
+
+    response.raise_for_status()
+    payload = response.json()
+
+    boundaries_list = payload.get("boundaries") or payload.get("data")
+    if not boundaries_list:
+        raise RuntimeError("Boundaries list response did not contain any data.")
+
+    last_updated = payload.get("last_updated") or (
+        (payload.get("meta") or {}).get("last_updated")
+    )
+
+    cache_payload = {
+        "_cache_metadata": {
+            "cached_at": datetime.now(timezone.utc).isoformat(),
+            "server_last_updated": last_updated,
+        },
+        "data": boundaries_list,
+    }
+
+    if output:
+        target_path = Path(output).resolve()
+    else:
+        target_path = (
+            Path(c.plugin.source_dir) / "data" / f"boundaries_list_{release_type}.json"
+        ).resolve()
+
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    if target_path.exists():
+        print(f"Overwriting existing file at {target_path}")
+
+    with target_path.open("w", encoding="utf-8") as handle:
+        json.dump(cache_payload, handle, indent=2)
+
+    print(
+        f"Saved boundaries list ({release_type}) to {target_path}."
+        + (f" Last updated timestamp: {last_updated}." if last_updated else "")
+    )
+
+
 @task
 def testdata_sync(c):
     _s3_sync(
@@ -2407,6 +2512,7 @@ ns = Collection(
     testdata_sync,
     rtd_pre_build,
     build_download_page,
+    download_boundaries_cache,
     list_scripts,
 )
 
@@ -2434,6 +2540,11 @@ ns.configure(
             ],
             # skip certain files inadvertently found by exclude pattern globbing
             "skip_exclude": [],
+        },
+        "trends_earth_api": {
+            "url": "https://api.trends.earth",
+            "email": None,
+            "password": None,
         },
         "schemas": {
             "setup_dir": "LDMP/schemas",

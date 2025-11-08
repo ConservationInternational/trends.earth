@@ -188,49 +188,25 @@ perform a clean install of the plugin using the ``-c`` flag.
    entirely functional on QGIS3 - the plugin was originally designed for QGIS2
    and is still being tested on QGIS3.
 
-Syncing and deploying changes to the binaries
----------------------------------------------
+Updating the cached boundaries list
+-----------------------------------
 
-To speed the computations in Trends.Earth, some of the tools allow making use
-of pre-compiled binaries that have been compiled using `numba
-<https://numba.pydata.org>`_. Numba is an open source compiler that can compile
-Python and NumPy code, making it faster than when it is run as ordinary Python.
-To avoid users of Trends.Earth needing to download Numba and all of its
-dependencies, the Trends.Earth team makes pre-compiled binaries available for
-download if users choose to install them.
+When the geoBoundaries dataset is refreshed, update the cached list bundled
+with the plugin by running::
 
-To generate pre-compiled binaries for the OS, bitness (32/64 bit) and Python
-version you are running on your machine, use::
+   invoke download-boundaries-cache
 
-    invoke binaries-compile
+The task authenticates against the Trends.Earth API. Configure credentials by
+adding an ``invoke.yaml`` file in the repository root with entries such as:
 
-.. note::
-  You will need a C++ compiler for the above command to work. On
-  Windows, see `this github page
-  <https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_
-  for details on how to
-  install the Microsoft Visual C++ compiler needed for your Python version. On
-  MacOS, you will most likely need to install Xcode. On Linux, install the
-  appropriate version of GCC.
+.. code-block:: yaml
 
-To make binaries publicly available, they are distributed through an Amazon Web
-services S3 bucket. To upload the binaries generated with the above command to
-the bucket, run::
+   trends_earth_api:
+       user: "you@example.com"
+       password: "your-password"
 
-    invoke binaries-sync
-
-.. note:: The above command will fail if you do not have keys allowing write
-   access to the ``trends.earth`` bucket on S3.
-
-The above command will sync each individual binary file to S3. However, users
-of the toolbox download the binaries as a single zipfile tied to the version of
-the plugin that they are using. To generate that zipfile so that it can be
-accessed by Trends.Earth users, run::
-
-    invoke binaries-deploy
-
-.. note:: The above command will fail if you do not have keys allowing write
-   access to the ``trends.earth`` bucket on S3.
+You can also supply credentials via the ``TRENDS_EARTH_API_USER`` and
+``TRENDS_EARTH_API_PASSWORD`` environment variables before invoking the task.
 
 
 Building a plugin ZIP file

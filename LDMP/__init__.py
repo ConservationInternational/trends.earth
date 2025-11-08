@@ -62,10 +62,25 @@ except ImportError:
 
 
 def _add_at_front_of_path(d):
-    """add a folder at front of path"""
-    sys.path, remainder = sys.path[:1], sys.path[1:]
-    site.addsitedir(d)
-    sys.path.extend(remainder)
+    """Add a folder at the very front of sys.path while honoring .pth files."""
+
+    if not d:
+        return
+
+    resolved = os.path.realpath(os.fspath(Path(d)))
+
+    # site.addsitedir processes .pth files and ensures the directory exists.
+    site.addsitedir(resolved)
+
+    # Remove any duplicate entries to force our entry to the front of the path
+    def _canonical(path_entry):
+        try:
+            return os.path.realpath(path_entry)
+        except OSError:
+            return path_entry
+
+    sys.path[:] = [p for p in sys.path if _canonical(p) != resolved]
+    sys.path.insert(0, resolved)
 
 
 # Put ext-libs folder near the front of the path (important on Linux)

@@ -11,6 +11,7 @@ from typing import Dict
 from marshmallow import Schema, ValidationError, fields, validate, validates_schema
 from te_algorithms.api import util
 from te_algorithms.gdal.land_deg.land_deg_stats import calculate_statistics
+from te_schemas import schema_for  # type: ignore[attr-defined]
 from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.productivity import ProductivityMode
 from te_schemas.results import JsonResults
@@ -30,7 +31,7 @@ class SDGStatsParametersSchema(Schema):
     """
 
     polygons = fields.Nested(
-        ErrorRecodePolygons.Schema,
+        ErrorRecodePolygons.Schema,  # type: ignore[attr-defined]
         required=True,
         metadata={
             "description": "Error polygons for statistics calculation. Must be valid ErrorRecodePolygons data that will be automatically validated and deserialized."
@@ -262,11 +263,11 @@ def run_stats(
     params = {
         "path": str(input_job.results.uri.uri),
         "band_datas": stats_band_datas,
-        "polygons": ErrorRecodePolygons.Schema().dump(polygons),
+        "polygons": schema_for(ErrorRecodePolygons).dump(polygons),
         "crosstabs": crosstab_band_datas if crosstab_band_datas else None,
     }
 
-    return JsonResults.Schema().dump(calculate_statistics(params))
+    return schema_for(JsonResults).dump(calculate_statistics(params))
 
 
 def run(params, logger):

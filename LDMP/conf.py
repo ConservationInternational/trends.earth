@@ -7,6 +7,7 @@ import typing
 from pathlib import Path
 
 import qgis.core
+from marshmallow_dataclass import class_schema
 from qgis.PyQt import QtCore
 from te_schemas.algorithms import ExecutionScript
 
@@ -207,13 +208,17 @@ class SettingsManager:
                 self.write_value(setting, self.DEFAULT_SETTINGS[setting])
 
 
+ExecutionScriptSchema = class_schema(ExecutionScript)
+
+
 def _load_script_config(
     script_config: typing.Dict,
 ) -> typing.Dict[str, ExecutionScript]:
     result = {}
+    schema = ExecutionScriptSchema()
 
     for raw_config in script_config:
-        script = ExecutionScript.Schema().load(raw_config)
+        script = schema.load(raw_config)
         result[script.name] = script
 
     return result

@@ -2219,22 +2219,22 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             payload["land_cover"] = {
                 "year_initial": widgets.year_initial_lc.date().year(),
                 "year_final": widgets.year_final_lc.date().year(),
-                "legend_nesting_esa_to_custom": LCLegendNesting.Schema().dump(
+                "legend_nesting_esa_to_custom": LCLegendNesting.schema().dump(
                     lc_setup.esa_lc_nesting_from_settings()
                 ),
-                "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
+                "legend_nesting_custom_to_ipcc": LCLegendNesting.schema().dump(
                     lc_setup.ipcc_lc_nesting_from_settings()
                 ),
-                "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(trans_matrix),
+                "trans_matrix": LCTransitionDefinitionDeg.schema().dump(trans_matrix),
             }
             payload["soil_organic_carbon"] = {
                 "year_initial": widgets.year_initial_soc.date().year(),
                 "year_final": widgets.year_final_soc.date().year(),
                 "fl": 0.80,
-                "legend_nesting_esa_to_custom": LCLegendNesting.Schema().dump(
+                "legend_nesting_esa_to_custom": LCLegendNesting.schema().dump(
                     lc_setup.esa_lc_nesting_from_settings()
                 ),
-                "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
+                "legend_nesting_custom_to_ipcc": LCLegendNesting.schema().dump(
                     lc_setup.ipcc_lc_nesting_from_settings()
                 ),
             }
@@ -2288,7 +2288,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     "crosses_180th": crosses_180th,
                     "task_name": task_name,
                     "task_notes": self.task_notes.toPlainText(),
-                    "script": ExecutionScript.Schema().dump(self.script),
+                    "script": ExecutionScript.schema().dump(self.script),
                     "period": {
                         "name": period,
                         "year_initial": year_initial,
@@ -2977,22 +2977,23 @@ class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi)
         #         "crosses_180th": crosses_180th,
         #         "task_name": self.execution_name_le.text(),
         #         "task_notes": self.task_notes.toPlainText(),
-        #         "script": ExecutionScript.Schema().dump(self.script),
-        #         "year_initial": year_initial,
-        #         "year_final": year_final,
-        #     }
-        # )
-        #
-        # self.close()
-        #
-        # resp = job_manager.submit_remote_job(payload, self.script.id)
-        #
-        # if resp:
-        #     main_msg = "Submitted"
-        #     description = "UNCCD default data task submitted to Trends.Earth server."
-        # else:
-        #     main_msg = "Error"
-        #     description = "Unable to UNCCD default data task to Trends.Earth server."
-        # self.mb.pushMessage(
-        #     self.tr(main_msg), self.tr(description), level=0, duration=5
-        # )
+
+    #         "script": ExecutionScript.schema().dump(self.script),
+    #         "year_initial": year_initial,
+    #         "year_final": year_final,
+    #     }
+    # )
+    #
+    # self.close()
+    #
+    # resp = job_manager.submit_remote_job(payload, self.script.id)
+    #
+    # if resp:
+    #     main_msg = "Submitted"
+    #     description = "UNCCD default data task submitted to Trends.Earth server."
+    # else:
+    #     main_msg = "Error"
+    #     description = "Unable to UNCCD default data task to Trends.Earth server."
+    # self.mb.pushMessage(
+    #     self.tr(main_msg), self.tr(description), level=0, duration=5
+    # )

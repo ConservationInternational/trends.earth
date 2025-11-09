@@ -8,6 +8,7 @@ import uuid
 
 import marshmallow_dataclass
 from marshmallow import pre_load
+from te_schemas import schema_for
 from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 from te_schemas.jobs import Job as JobBase
 from te_schemas.jobs import RemoteScript
@@ -61,7 +62,7 @@ class Job(JobBase):
 
         if not data.get("script"):
             if params_script:
-                script = ExecutionScript.Schema().load(params_script)
+                script = ExecutionScript.schema().load(params_script)
             elif script_id:
                 try:
                     script = _get_job_script(script_id)
@@ -83,7 +84,7 @@ class Job(JobBase):
                     "Unknown script", run_mode=AlgorithmRunMode.NOT_APPLICABLE
                 )
 
-            data["script"] = ExecutionScript.Schema().dump(script)
+            data["script"] = ExecutionScript.schema().dump(script)
 
         script_name_regex = re.compile("([0-9a-zA-Z -]*)(?: *)([0-9]+(_[0-9]+)+)")
         matches = script_name_regex.search(data["script"].get("name"))
@@ -145,7 +146,8 @@ def get_remote_scripts():
     if raw_remote is None:
         return
     else:
-        return [RemoteScript.Schema().load(r) for r in raw_remote]
+        schema = schema_for(RemoteScript)
+        return [schema.load(r) for r in raw_remote]
 
 
 def get_job_local_script(script_name: str) -> ExecutionScript:
@@ -168,7 +170,8 @@ def _get_script_by_id_from_remote(script_id: str) -> ExecutionScript:
             script = [s for s in remote_scripts if str(s.slug) == str(script_id)][0]
         except IndexError:
             raise IndexError
-    script = ExecutionScript.Schema().load(RemoteScript.Schema().dump(script))
+    remote_schema = schema_for(RemoteScript)
+    script = ExecutionScript.schema().load(remote_schema.dump(script))
 
     return script
 

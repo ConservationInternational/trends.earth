@@ -10,9 +10,10 @@ import stat
 import subprocess
 import sys
 import zipfile
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path, PurePath
-from tempfile import mkstemp
+from tempfile import NamedTemporaryFile, mkstemp
 
 import boto3
 import requests
@@ -910,6 +911,45 @@ def read_requirements():
     return not_comments(lines, 0, idx), not_comments(lines, idx + 1, None)
 
 
+def _pinned_constraints(requirements):
+    pinned = []
+    for requirement in requirements:
+        req = requirement.strip()
+        if not req:
+            continue
+        if "==" not in req:
+            continue
+        if any(
+            req.startswith(prefix) for prefix in ("git+", "hg+", "svn+", "bzr+", "--")
+        ):
+            continue
+        if " @ " in req:
+            continue
+        pinned.append(req)
+    return pinned
+
+
+@contextmanager
+def _temporary_constraint_file(requirements):
+    pinned = _pinned_constraints(requirements)
+    if not pinned:
+        yield None
+        return
+
+    with NamedTemporaryFile("w", delete=False, encoding="utf-8") as handle:
+        handle.write("\n".join(pinned))
+        handle.flush()
+        path = handle.name
+
+    try:
+        yield path
+    finally:
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+
+
 def _safe_remove_folder(rootdir):
     """
     Remove a folder safely, handling symlinks appropriately.
@@ -954,36 +994,42 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
 
     os.environ["PYTHONPATH"] = ext_libs
 
-    # Separate git packages from regular packages
-    git_packages = []
-    regular_packages = []
+    all_requirements = runtime + test
 
-    for req in runtime + test:
-        req_stripped = req.strip()
-        # Check for git packages in various formats
-        if (
-            req_stripped.startswith(("git+", "hg+", "svn+", "bzr+"))
-            or " @ git+" in req_stripped
-            or " @ hg+" in req_stripped
-            or " @ svn+" in req_stripped
-            or " @ bzr+" in req_stripped
-        ):
-            git_packages.append(req)
-            print(f"Detected git package: {req}")
-        else:
-            regular_packages.append(req)
-            print(f"Detected regular package: {req}")
+    with _temporary_constraint_file(all_requirements) as constraint_path:
+        constraint_args = []
+        if constraint_path:
+            constraint_args = ["--constraint", constraint_path]
 
-    print(f"Found {len(git_packages)} git packages: {git_packages}")
-    print(f"Found {len(regular_packages)} regular packages: {regular_packages}")
+        # Separate git packages from regular packages
+        git_packages = []
+        regular_packages = []
 
-    # Install regular packages directly to ext_libs
-    for req in regular_packages:
-        # Don't install numpy with pyqtgraph as QGIS already has numpy. So use
-        # the --no-deps flag (-N for short) with that package only.
-        if "pyqtgraph" in req:
-            subprocess.check_call(
-                [
+        for req in all_requirements:
+            req_stripped = req.strip()
+            # Check for git packages in various formats
+            if (
+                req_stripped.startswith(("git+", "hg+", "svn+", "bzr+"))
+                or " @ git+" in req_stripped
+                or " @ hg+" in req_stripped
+                or " @ svn+" in req_stripped
+                or " @ bzr+" in req_stripped
+            ):
+                git_packages.append(req)
+                print(f"Detected git package: {req}")
+            else:
+                regular_packages.append(req)
+                print(f"Detected regular package: {req}")
+
+        print(f"Found {len(git_packages)} git packages: {git_packages}")
+        print(f"Found {len(regular_packages)} regular packages: {regular_packages}")
+
+        # Install regular packages directly to ext_libs
+        for req in regular_packages:
+            # Don't install numpy with pyqtgraph as QGIS already has numpy. So use
+            # the --no-deps flag (-N for short) with that package only.
+            if "pyqtgraph" in req:
+                cmd = [
                     pip,
                     "install",
                     "--upgrade",
@@ -991,114 +1037,125 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
                     "--no-deps",
                     "-t",
                     ext_libs,
-                    req,
                 ]
-            )
-        else:
-            subprocess.check_call(
-                [pip, "install", "--upgrade", "--no-cache-dir", "-t", ext_libs, req]
-            )
-
-    # Install git packages to temporary location, then copy to ext_libs
-    if git_packages:
-        import tempfile
-
-        # Extract expected package names from git packages
-        git_package_names = []
-        for req in git_packages:
-            # Extract package name from "package_name @ git+url" format
-            if " @ " in req:
-                package_name = req.split(" @ ")[0].strip()
+                cmd.extend(constraint_args)
+                cmd.append(req)
+                subprocess.check_call(cmd)
             else:
-                # For direct git+url format, extract from URL
-                package_name = (
-                    req.split("/")[-1].replace(".git", "").replace("git+", "")
-                )
-            git_package_names.append(package_name)
+                cmd = [
+                    pip,
+                    "install",
+                    "--upgrade",
+                    "--no-cache-dir",
+                    "-t",
+                    ext_libs,
+                ]
+                cmd.extend(constraint_args)
+                cmd.append(req)
+                subprocess.check_call(cmd)
 
-        print(f"Expected git package names: {git_package_names}")
+        # Install git packages to temporary location, then copy to ext_libs
+        if git_packages:
+            import tempfile
 
-        with tempfile.TemporaryDirectory() as temp_dir:
-            print(f"Installing git packages to temporary directory: {temp_dir}")
+            # Extract expected package names from git packages
+            git_package_names = []
             for req in git_packages:
-                print(f"Installing git package: {req}")
-                # Convert PEP 508 @ syntax to direct git+ URL for better compatibility with --target
+                # Extract package name from "package_name @ git+url" format
                 if " @ " in req:
-                    # Extract the git URL from "package @ git+url" format
-                    git_url = req.split(" @ ")[1]
-                    install_req = git_url
+                    package_name = req.split(" @ ")[0].strip()
                 else:
-                    install_req = req
+                    # For direct git+url format, extract from URL
+                    package_name = (
+                        req.split("/")[-1].replace(".git", "").replace("git+", "")
+                    )
+                git_package_names.append(package_name)
 
-                print(f"Using install requirement: {install_req}")
-                # Install git packages using direct git+ URL to temp directory
-                subprocess.check_call(
-                    [
+            print(f"Expected git package names: {git_package_names}")
+
+            with tempfile.TemporaryDirectory() as temp_dir:
+                print(f"Installing git packages to temporary directory: {temp_dir}")
+                for req in git_packages:
+                    print(f"Installing git package: {req}")
+                    # Convert PEP 508 @ syntax to direct git+ URL for better compatibility with --target
+                    if " @ " in req:
+                        # Extract the git URL from "package @ git+url" format
+                        git_url = req.split(" @ ")[1]
+                        install_req = git_url
+                    else:
+                        install_req = req
+
+                    print(f"Using install requirement: {install_req}")
+                    # Install git packages using direct git+ URL to temp directory
+                    cmd = [
                         pip,
                         "install",
                         "--upgrade",
                         "--no-cache-dir",
                         "--target",
                         temp_dir,
-                        install_req,
                     ]
-                )
+                    cmd.extend(constraint_args)
+                    cmd.append(install_req)
+                    subprocess.check_call(cmd)
 
-            # Copy all packages from temp directory to ext_libs (git packages + their dependencies)
-            print(f"Contents of temp directory: {os.listdir(temp_dir)}")
-            for item in os.listdir(temp_dir):
-                src_path = os.path.join(temp_dir, item)
-                dst_path = os.path.join(ext_libs, item)
+                # Copy all packages from temp directory to ext_libs (git packages + their dependencies)
+                print(f"Contents of temp directory: {os.listdir(temp_dir)}")
+                for item in os.listdir(temp_dir):
+                    src_path = os.path.join(temp_dir, item)
+                    dst_path = os.path.join(ext_libs, item)
 
-                # Check if this is one of our expected git packages
-                is_git_package = any(
-                    item == pkg_name
-                    or item == pkg_name.replace("_", "-")
-                    or item == pkg_name.replace("-", "_")
-                    for pkg_name in git_package_names
-                )
+                    # Check if this is one of our expected git packages
+                    is_git_package = any(
+                        item == pkg_name
+                        or item == pkg_name.replace("_", "-")
+                        or item == pkg_name.replace("-", "_")
+                        for pkg_name in git_package_names
+                    )
 
-                print(f"Checking item '{item}': git_package={is_git_package}")
+                    print(f"Checking item '{item}': git_package={is_git_package}")
 
-                if os.path.isdir(src_path):
-                    # Skip dist-info directories and other metadata
-                    if not item.endswith((".dist-info", ".egg-info", "__pycache__")):
-                        # Check if this package already exists in ext_libs (from regular package installation)
-                        if os.path.exists(dst_path):
-                            if is_git_package:
-                                # For git packages, replace the existing version
-                                print(
-                                    f"Replacing existing package {item} with git version"
-                                )
-                                shutil.rmtree(dst_path)
+                    if os.path.isdir(src_path):
+                        # Skip dist-info directories and other metadata
+                        if not item.endswith(
+                            (".dist-info", ".egg-info", "__pycache__")
+                        ):
+                            # Check if this package already exists in ext_libs (from regular package installation)
+                            if os.path.exists(dst_path):
+                                if is_git_package:
+                                    # For git packages, replace the existing version
+                                    print(
+                                        f"Replacing existing package {item} with git version"
+                                    )
+                                    shutil.rmtree(dst_path)
+                                    shutil.copytree(src_path, dst_path)
+                                    print(f"Copied git package {item} to ext_libs")
+                                else:
+                                    # For dependencies, only copy if not already installed via regular packages
+                                    print(
+                                        f"Dependency {item} already exists in ext_libs, skipping"
+                                    )
+                            else:
+                                # Package doesn't exist in ext_libs, copy it
                                 shutil.copytree(src_path, dst_path)
-                                print(f"Copied git package {item} to ext_libs")
-                            else:
-                                # For dependencies, only copy if not already installed via regular packages
-                                print(
-                                    f"Dependency {item} already exists in ext_libs, skipping"
-                                )
+                                if is_git_package:
+                                    print(f"Copied git package {item} to ext_libs")
+                                else:
+                                    print(
+                                        f"Copied git package dependency {item} to ext_libs"
+                                    )
                         else:
-                            # Package doesn't exist in ext_libs, copy it
-                            shutil.copytree(src_path, dst_path)
-                            if is_git_package:
-                                print(f"Copied git package {item} to ext_libs")
-                            else:
-                                print(
-                                    f"Copied git package dependency {item} to ext_libs"
-                                )
+                            print(f"Skipping metadata directory: {item}")
                     else:
-                        print(f"Skipping metadata directory: {item}")
-                else:
-                    # Copy individual files if needed
-                    if not item.startswith(".") and not item.endswith(".pyc"):
-                        if not os.path.exists(dst_path):
-                            shutil.copy2(src_path, dst_path)
-                            print(f"Copied file {item} to ext_libs")
+                        # Copy individual files if needed
+                        if not item.startswith(".") and not item.endswith(".pyc"):
+                            if not os.path.exists(dst_path):
+                                shutil.copy2(src_path, dst_path)
+                                print(f"Copied file {item} to ext_libs")
 
-            print(
-                "Git package installation completed. Dependencies were included with the packages."
-            )
+                print(
+                    "Git package installation completed. Dependencies were included with the packages."
+                )
 
     # Remove the .pyc files as these are no allowed on QGIS repo
     pyc_files = Path(ext_libs).rglob("*.pyc")

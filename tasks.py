@@ -1825,9 +1825,9 @@ def _make_download_link(c, title, key, data):
 def _make_sdg_download_row(c, iso, data):
     return (
         f"| {iso} | "
-        + f"{_make_download_link(c, f'{iso} (JRC LPD)', 'JRC-LPD-5', data)} | "
         + f"{_make_download_link(c, f'{iso} (Trends.Earth LPD)', 'TrendsEarth-LPD-5', data)} | "
-        + f"{_make_download_link(c, f'{iso} (FAO-WOCAT LPD)', 'FAO-WOCAT-LPD-5', data)} |\n"
+        + f"{_make_download_link(c, f'{iso} (FAO-WOCAT LPD)', 'FAO-WOCAT-LPD-5', data)} | "
+        + f"{_make_download_link(c, f'{iso} (JRC LPD)', 'JRC-LPD-5', data)} |\n"
     )
 
 
@@ -1873,7 +1873,7 @@ carbon. These datasets can be used to support reporting on UNCCD Strategic Objec
 and 2. Note that there are three different LPD datasets available (from JRC, from
 the default Trends.Earth method, and from FAO-WOCAT).
 
-| Country | SDG 15.3.1 using JRC LPD | SDG 15.3.1 using Trends.Earth LPD  | SDG 15.3.1 using FAO-WOCAT LPD |
+| Country | SDG 15.3.1 using Trends.Earth LPD | SDG 15.3.1 using FAO-WOCAT LPD | SDG 15.3.1 using JRC LPD |
 |---------|---------|--------------------|---------------|
 """
 

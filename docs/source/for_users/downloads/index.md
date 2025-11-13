@@ -43,6 +43,60 @@ the default Trends.Earth method, and from FAO-WOCAT).
 | ARM |  | [ARM (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ARM_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) | [ARM (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ARM_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | ASM |  | [ASM (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ASM_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) | [ASM (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ASM_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | ATG | [ATG (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ATG_GeoBoundaries_SDG15_JRC-LPD-5.tar.gz) |  | [ATG (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ATG_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
+| AUT |  | [AUT (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AUT_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| AZE |  | [AZE (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AZE_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BDI |  | [BDI (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BDI_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BEL |  | [BEL (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BEL_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BEN |  | [BEN (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BEN_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BES |  | [BES (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BES_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BFA |  | [BFA (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BFA_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BGD |  | [BGD (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BGD_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BGR |  | [BGR (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BGR_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BHR |  | [BHR (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BHR_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BHS |  | [BHS (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BHS_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BIH |  | [BIH (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BIH_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BLM |  | [BLM (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BLM_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BLR |  | [BLR (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BLR_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BLZ |  | [BLZ (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BLZ_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BMU |  | [BMU (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BMU_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BOL |  | [BOL (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BOL_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BRB |  | [BRB (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BRB_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BRN |  | [BRN (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BRN_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BTN |  | [BTN (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BTN_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| BWA |  | [BWA (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BWA_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CAF |  | [CAF (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CAF_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CHE |  | [CHE (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CHE_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CIV |  | [CIV (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CIV_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CMR |  | [CMR (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CMR_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| COG |  | [COG (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/COG_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| COK |  | [COK (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/COK_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| COL |  | [COL (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/COL_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| COM |  | [COM (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/COM_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CPV |  | [CPV (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CPV_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CRI |  | [CRI (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CRI_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CUB |  | [CUB (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CUB_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CUW |  | [CUW (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CUW_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CYM |  | [CYM (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CYM_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CYP |  | [CYP (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CYP_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| CZE |  | [CZE (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CZE_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| DEU |  | [DEU (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/DEU_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| DJI |  | [DJI (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/DJI_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| DMA |  | [DMA (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/DMA_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| DOM |  | [DOM (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/DOM_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| ECU |  | [ECU (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ECU_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| EGY |  | [EGY (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/EGY_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| ERI |  | [ERI (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ERI_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| EST |  | [EST (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/EST_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| ETH |  | [ETH (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ETH_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| FIN |  | [FIN (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FIN_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| FJI |  | [FJI (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FJI_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| FLK |  | [FLK (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FLK_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| FRO |  | [FRO (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FRO_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| GAB |  | [GAB (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GAB_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| GIB |  | [GIB (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GIB_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| GIN |  | [GIN (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GIN_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| GNB |  | [GNB (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GNB_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
+| GRC |  | [GRC (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GRC_GeoBoundaries_SDG15_TrendsEarth-LPD-5.tar.gz) |  |
 
 
 ## Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)
@@ -54,9 +108,54 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
 |---------|--------------------------------|
 | ABW | [ABW (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ABW_GeoBoundaries_Drought.tar.gz) |
 | AFG | [AFG (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AFG_GeoBoundaries_Drought.tar.gz) |
+| AGO | [AGO (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AGO_GeoBoundaries_Drought.tar.gz) |
 | AIA | [AIA (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AIA_GeoBoundaries_Drought.tar.gz) |
 | ALB | [ALB (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ALB_GeoBoundaries_Drought.tar.gz) |
 | AND | [AND (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AND_GeoBoundaries_Drought.tar.gz) |
 | ARE | [ARE (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ARE_GeoBoundaries_Drought.tar.gz) |
 | ARM | [ARM (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ARM_GeoBoundaries_Drought.tar.gz) |
 | ASM | [ASM (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ASM_GeoBoundaries_Drought.tar.gz) |
+| AUT | [AUT (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AUT_GeoBoundaries_Drought.tar.gz) |
+| AZE | [AZE (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AZE_GeoBoundaries_Drought.tar.gz) |
+| BDI | [BDI (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BDI_GeoBoundaries_Drought.tar.gz) |
+| BEL | [BEL (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BEL_GeoBoundaries_Drought.tar.gz) |
+| BEN | [BEN (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BEN_GeoBoundaries_Drought.tar.gz) |
+| BES | [BES (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BES_GeoBoundaries_Drought.tar.gz) |
+| BFA | [BFA (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BFA_GeoBoundaries_Drought.tar.gz) |
+| BGD | [BGD (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BGD_GeoBoundaries_Drought.tar.gz) |
+| BGR | [BGR (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BGR_GeoBoundaries_Drought.tar.gz) |
+| BHR | [BHR (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BHR_GeoBoundaries_Drought.tar.gz) |
+| BHS | [BHS (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BHS_GeoBoundaries_Drought.tar.gz) |
+| BIH | [BIH (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BIH_GeoBoundaries_Drought.tar.gz) |
+| BLM | [BLM (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BLM_GeoBoundaries_Drought.tar.gz) |
+| BLZ | [BLZ (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BLZ_GeoBoundaries_Drought.tar.gz) |
+| BMU | [BMU (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BMU_GeoBoundaries_Drought.tar.gz) |
+| BRB | [BRB (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BRB_GeoBoundaries_Drought.tar.gz) |
+| BRN | [BRN (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BRN_GeoBoundaries_Drought.tar.gz) |
+| BTN | [BTN (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BTN_GeoBoundaries_Drought.tar.gz) |
+| BWA | [BWA (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BWA_GeoBoundaries_Drought.tar.gz) |
+| CHE | [CHE (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CHE_GeoBoundaries_Drought.tar.gz) |
+| CIV | [CIV (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CIV_GeoBoundaries_Drought.tar.gz) |
+| COM | [COM (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/COM_GeoBoundaries_Drought.tar.gz) |
+| CPV | [CPV (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CPV_GeoBoundaries_Drought.tar.gz) |
+| CRI | [CRI (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CRI_GeoBoundaries_Drought.tar.gz) |
+| CUW | [CUW (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CUW_GeoBoundaries_Drought.tar.gz) |
+| CYM | [CYM (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CYM_GeoBoundaries_Drought.tar.gz) |
+| CYP | [CYP (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CYP_GeoBoundaries_Drought.tar.gz) |
+| DJI | [DJI (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/DJI_GeoBoundaries_Drought.tar.gz) |
+| DMA | [DMA (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/DMA_GeoBoundaries_Drought.tar.gz) |
+| DOM | [DOM (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/DOM_GeoBoundaries_Drought.tar.gz) |
+| EST | [EST (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/EST_GeoBoundaries_Drought.tar.gz) |
+| FLK | [FLK (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FLK_GeoBoundaries_Drought.tar.gz) |
+| FRO | [FRO (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FRO_GeoBoundaries_Drought.tar.gz) |
+| GAB | [GAB (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GAB_GeoBoundaries_Drought.tar.gz) |
+| GEO | [GEO (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GEO_GeoBoundaries_Drought.tar.gz) |
+| GGY | [GGY (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GGY_GeoBoundaries_Drought.tar.gz) |
+| GHA | [GHA (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GHA_GeoBoundaries_Drought.tar.gz) |
+| GIB | [GIB (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GIB_GeoBoundaries_Drought.tar.gz) |
+| GIN | [GIN (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GIN_GeoBoundaries_Drought.tar.gz) |
+| GLP | [GLP (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GLP_GeoBoundaries_Drought.tar.gz) |
+| GMB | [GMB (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GMB_GeoBoundaries_Drought.tar.gz) |
+| GNB | [GNB (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GNB_GeoBoundaries_Drought.tar.gz) |
+| GRC | [GRC (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GRC_GeoBoundaries_Drought.tar.gz) |
+| GUY | [GUY (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GUY_GeoBoundaries_Drought.tar.gz) |

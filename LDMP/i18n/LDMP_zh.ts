@@ -4134,7 +4134,7 @@ p, li { white-space: pre-wrap; }
         <translation>国家/地区：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEditUpdate.ui" line="163"/>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="188"/>
         <source>Organization:</source>
         <translation>组织：</translation>
     </message>
@@ -4172,6 +4172,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../settings.py" line="1287"/>
         <source>Updated information for {}.</source>
         <translation>{}的更新信息。</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="150"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4263,22 +4268,22 @@ p, li { white-space: pre-wrap; }
         <translation>注册新用户</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="39"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="64"/>
         <source>Email:</source>
         <translation>电子邮件：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="71"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="96"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="141"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="166"/>
         <source>Country/Region:</source>
         <translation>国家/地区：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="154"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="179"/>
         <source>Organization:</source>
         <translation>组织：</translation>
     </message>
@@ -4316,6 +4321,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../settings.py" line="1016"/>
         <source>User registered. Your password has been emailed to {self.email.text()}. Enter that password in Trends.Earth settings to finish setting up the plugin.</source>
         <translation>用户已注册。您的密码已通过电子邮件发送至{self.email.text()}。在 Trends.Earth 设置中输入此密码以完成插件设置。</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="32"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 04:09+0000\n"
+"POT-Creation-Date: 2025-11-17 04:06+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
@@ -143,11 +143,11 @@ msgid "`Public Domain`_"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:18
-msgid "`MOD13Q1-coll6`_"
+msgid "`MOD13Q1-coll6.1`_"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:18
-msgid "2001-2016"
+msgid "2001-2024"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:18
@@ -216,7 +216,7 @@ msgid "`CHIRPS`_"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:51
-msgid "1981-2016"
+msgid "1981-2024"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:51
@@ -232,7 +232,7 @@ msgid "`PERSIANN-CDR`_"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:53
-msgid "1983-2015"
+msgid "1983-2024"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:53
@@ -248,7 +248,7 @@ msgid "Evapotranspiration"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:67
-msgid "MOD16A2_"
+msgid "MOD16A2GF_"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:67
@@ -268,7 +268,7 @@ msgid "`ESA CCI Land Cover`_"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:79
-msgid "1992-2018"
+msgid "1992-2022"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:79
@@ -276,7 +276,9 @@ msgid "300 m"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:79
-msgid "`CC by-SA 3.0`_"
+#: ../../source/for_users/datasets/input_data.rst:114
+#: ../../source/for_users/datasets/input_data.rst:138
+msgid "`CC BY 4.0`_"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:86
@@ -318,11 +320,6 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "10/50m"
-msgstr ""
-
-#: ../../source/for_users/datasets/input_data.rst:114
-#: ../../source/for_users/datasets/input_data.rst:138
-msgid "`CC BY 4.0`_"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:118
@@ -415,5 +412,26 @@ msgstr ""
 #~ "Conservation International Foundation, or by"
 #~ " its partner organizations and "
 #~ "contributors."
+#~ msgstr ""
+
+#~ msgid "`MOD13Q1-coll6`_"
+#~ msgstr ""
+
+#~ msgid "2001-2016"
+#~ msgstr ""
+
+#~ msgid "1981-2016"
+#~ msgstr ""
+
+#~ msgid "1983-2015"
+#~ msgstr ""
+
+#~ msgid "MOD16A2_"
+#~ msgstr ""
+
+#~ msgid "1992-2018"
+#~ msgstr ""
+
+#~ msgid "`CC by-SA 3.0`_"
 #~ msgstr ""
 

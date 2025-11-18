@@ -1842,7 +1842,7 @@ def _make_drought_download_row(c, iso, data):
 def build_download_page(c):
     out_txt = """# Downloads
 
-This page lists data packages containing national-level default datasets (produced by Trends.Earth),
+This page lists data packages containing national-level datasets (produced by Trends.Earth),
 following accepted best practices for calculating the UNCCD Indicators for land degradation
 and drought vulnerability and exposure.
 
@@ -1916,7 +1916,7 @@ the default Trends.Earth method, and from FAO-WOCAT).
 The below datasets can be used to support assessing drought hazard, vulnerability, and
 exposure, and for reporting on UNCCD Strategic Objective 3.
 
-| Country | Drought indicators (2000-2019) |
+| Country | Drought indicators (2000-2023) |
 |---------|--------------------------------|
 """
 

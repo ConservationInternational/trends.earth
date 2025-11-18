@@ -4133,7 +4133,7 @@ p, li { white-space: pre-wrap; }
         <translation>Страна / Регион:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEditUpdate.ui" line="163"/>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="188"/>
         <source>Organization:</source>
         <translation>Организация:</translation>
     </message>
@@ -4171,6 +4171,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../settings.py" line="1287"/>
         <source>Updated information for {}.</source>
         <translation>Обновлена ​​информация для {}.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="150"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4262,22 +4267,22 @@ p, li { white-space: pre-wrap; }
         <translation>Регистрация нового пользователя</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="39"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="64"/>
         <source>Email:</source>
         <translation>Эл. адрес:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="71"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="96"/>
         <source>Name:</source>
         <translation>Имя:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="141"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="166"/>
         <source>Country/Region:</source>
         <translation>Страна / Регион:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="154"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="179"/>
         <source>Organization:</source>
         <translation>Организация:</translation>
     </message>
@@ -4315,6 +4320,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../settings.py" line="1016"/>
         <source>User registered. Your password has been emailed to {self.email.text()}. Enter that password in Trends.Earth settings to finish setting up the plugin.</source>
         <translation>Пользователь зарегистрирован. Ваш пароль был отправлен по электронной почте {self.email.text()}. Введите этот пароль в настройках Trends.Earth, чтобы завершить настройку плагина.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="32"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 04:09+0000\n"
+"POT-Creation-Date: 2025-11-17 04:06+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: pt\n"
@@ -152,11 +152,13 @@ msgid "`Public Domain`_"
 msgstr "`Domínio público`_"
 
 #: ../../source/for_users/datasets/input_data.rst:18
-msgid "`MOD13Q1-coll6`_"
+#, fuzzy
+msgid "`MOD13Q1-coll6.1`_"
 msgstr "`MOD13Q1-coll6`_"
 
 #: ../../source/for_users/datasets/input_data.rst:18
-msgid "2001-2016"
+#, fuzzy
+msgid "2001-2024"
 msgstr "2001-2016"
 
 #: ../../source/for_users/datasets/input_data.rst:18
@@ -225,7 +227,8 @@ msgid "`CHIRPS`_"
 msgstr "`CHIRPS`_"
 
 #: ../../source/for_users/datasets/input_data.rst:51
-msgid "1981-2016"
+#, fuzzy
+msgid "1981-2024"
 msgstr "1981-2016"
 
 #: ../../source/for_users/datasets/input_data.rst:51
@@ -241,7 +244,8 @@ msgid "`PERSIANN-CDR`_"
 msgstr "`PERSIANN-CDR`_"
 
 #: ../../source/for_users/datasets/input_data.rst:53
-msgid "1983-2015"
+#, fuzzy
+msgid "1983-2024"
 msgstr "1983-2015"
 
 #: ../../source/for_users/datasets/input_data.rst:53
@@ -257,7 +261,8 @@ msgid "Evapotranspiration"
 msgstr "Evapotranspiração"
 
 #: ../../source/for_users/datasets/input_data.rst:67
-msgid "MOD16A2_"
+#, fuzzy
+msgid "MOD16A2GF_"
 msgstr "MOD16A2_"
 
 #: ../../source/for_users/datasets/input_data.rst:67
@@ -277,7 +282,8 @@ msgid "`ESA CCI Land Cover`_"
 msgstr "`ESA CCI Land Cover`_"
 
 #: ../../source/for_users/datasets/input_data.rst:79
-msgid "1992-2018"
+#, fuzzy
+msgid "1992-2022"
 msgstr "1992-2018"
 
 #: ../../source/for_users/datasets/input_data.rst:79
@@ -285,8 +291,11 @@ msgid "300 m"
 msgstr "300 m"
 
 #: ../../source/for_users/datasets/input_data.rst:79
-msgid "`CC by-SA 3.0`_"
-msgstr "`CC by-SA 3.0`_"
+#: ../../source/for_users/datasets/input_data.rst:114
+#: ../../source/for_users/datasets/input_data.rst:138
+#, fuzzy
+msgid "`CC BY 4.0`_"
+msgstr "`CC by-SA 4.0`_"
 
 #: ../../source/for_users/datasets/input_data.rst:86
 msgid "Soil carbon"
@@ -329,12 +338,6 @@ msgstr "`Natural Earth Administrative Boundaries`_"
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "10/50m"
 msgstr "10/50m"
-
-#: ../../source/for_users/datasets/input_data.rst:114
-#: ../../source/for_users/datasets/input_data.rst:138
-#, fuzzy
-msgid "`CC BY 4.0`_"
-msgstr "`CC by-SA 4.0`_"
 
 #: ../../source/for_users/datasets/input_data.rst:118
 #, fuzzy
@@ -423,4 +426,7 @@ msgstr ""
 
 #~ msgid "`WorldPop 100m Global Population grid`_"
 #~ msgstr ""
+
+#~ msgid "`CC by-SA 3.0`_"
+#~ msgstr "`CC by-SA 3.0`_"
 

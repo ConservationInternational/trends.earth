@@ -57,3 +57,6 @@ Changes
 .vscode-extensions
 core
 trendsearth_api_credentials.json
+LDMP/data/boundary_*.json
+LDMP/data/server_check_*.json
+invoke*.yaml

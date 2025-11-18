@@ -1870,8 +1870,8 @@ country borders. These boundaries are made available by geoBoundaries under the
 The below datasets can be used to support assessing SDG Indicator 15.3.1, and include
 indicators of change in land productivity dynamics (LPD), land cover, and soil organic
 carbon. These datasets can be used to support reporting on UNCCD Strategic Objectives 1
-and 2. Note that there are three different LPD datasets available (from JRC, from
-the default Trends.Earth method, and from FAO-WOCAT).
+and 2. Note that there are three different LPD datasets available (from
+the default Trends.Earth method, from FAO-WOCAT, and from JRC).
 
 | Country | SDG 15.3.1 using Trends.Earth LPD | SDG 15.3.1 using FAO-WOCAT LPD | SDG 15.3.1 using JRC LPD |
 |---------|---------|--------------------|---------------|

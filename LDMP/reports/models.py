@@ -360,9 +360,6 @@ class ReportConfiguration:
     template_info: typing.Optional[ReportTemplateInfo]
     output_options: typing.Optional[ReportOutputOptions]
 
-    class Meta:
-        ordered = True
-
     def __init__(
         self, template_info: ReportTemplateInfo, output_options: ReportOutputOptions
     ) -> None:

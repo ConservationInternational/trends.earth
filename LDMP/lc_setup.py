@@ -1634,7 +1634,6 @@ class LCClassInfo:
     parent: LCClass = None
 
     class Meta:
-        ordered = True
         load_only = ["idx"]
 
 

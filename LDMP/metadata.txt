@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.1.21.dev3
+version=2.1.21.dev55
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -25,7 +25,13 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.1.20 (October 10, 2025)
+changelog=2.2.0 (Upcoming)
+  - Switch default boundary dataset from Natural Earth to geoBoundaries
+  - Ensure custom execution names propagate through UNCCD report, drought vulnerability, urban change, restoration biomass, and total carbon summary workflows
+  - Optimize basemap preparation by speeding up archive extraction and reducing duplicative operations
+  - Compress API requests and harden retry logic to reduce transient failures when communicating with trends.earth APIs
+  - Refresh documentation links and remove outdated fact sheets
+ 2.1.20 (October 10, 2025)
   - Add preset functionality for SDG 15.3.1 sub-indicator calculations, with defaults matching latest UNCCD reporting cycle
   - Improve handling of failed or pending executions - all executions now always show in the datasets window unless deleted
   - Support viewing job logs for remote executions

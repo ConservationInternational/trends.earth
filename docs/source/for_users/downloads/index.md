@@ -1,6 +1,6 @@
 # Downloads
 
-This page lists data packages containing national-level default datasets (produced by Trends.Earth),
+This page lists data packages containing national-level datasets (produced by Trends.Earth),
 following accepted best practices for calculating the UNCCD Indicators for land degradation
 and drought vulnerability and exposure.
 
@@ -28,8 +28,8 @@ country borders. These boundaries are made available by geoBoundaries under the
 The below datasets can be used to support assessing SDG Indicator 15.3.1, and include
 indicators of change in land productivity dynamics (LPD), land cover, and soil organic
 carbon. These datasets can be used to support reporting on UNCCD Strategic Objectives 1
-and 2. Note that there are three different LPD datasets available (from JRC, from
-the default Trends.Earth method, and from FAO-WOCAT).
+and 2. Note that there are three different LPD datasets available (from
+the default Trends.Earth method, from FAO-WOCAT, and from JRC).
 
 | Country | SDG 15.3.1 using Trends.Earth LPD | SDG 15.3.1 using FAO-WOCAT LPD | SDG 15.3.1 using JRC LPD |
 |---------|---------|--------------------|---------------|
@@ -92,7 +92,7 @@ the default Trends.Earth method, and from FAO-WOCAT).
 | FJI | [FJI (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FJI_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz) | [FJI (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FJI_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz) |  |
 | FLK | [FLK (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FLK_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz) | [FLK (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FLK_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz) |  |
 | FRO | [FRO (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FRO_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz) | [FRO (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FRO_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz) |  |
-| FSM | [FSM (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FSM_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz) |  |  |
+| FSM | [FSM (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FSM_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz) | [FSM (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FSM_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz) |  |
 | GAB | [GAB (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GAB_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz) | [GAB (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GAB_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz) |  |
 | GEO | [GEO (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GEO_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz) | [GEO (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GEO_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz) |  |
 | GGY | [GGY (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GGY_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz) | [GGY (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GGY_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz) |  |
@@ -238,7 +238,7 @@ the default Trends.Earth method, and from FAO-WOCAT).
 The below datasets can be used to support assessing drought hazard, vulnerability, and
 exposure, and for reporting on UNCCD Strategic Objective 3.
 
-| Country | Drought indicators (2000-2019) |
+| Country | Drought indicators (2000-2023) |
 |---------|--------------------------------|
 | ABW | [ABW (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ABW_GeoBoundaries_Drought.tar.gz) |
 | AFG | [AFG (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AFG_GeoBoundaries_Drought.tar.gz) |

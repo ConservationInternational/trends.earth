@@ -7,7 +7,7 @@ and drought vulnerability and exposure.
 These zipfiles are designed to be imported directly into Trends.Earth, and may be useful to countries
 reporting to the UNCCD on Strategic Objectives 1, 2, and 3 (including SDG Indicator 15.3.1). Global datasets
 are also available as Cloud-optimized GeoTIFFs (COGs) and as Google Earth Engine assets. See the
-[Trends.Earth SDG Indicator 15.3.1 Datasets page on Zenodo](https://zenodo.org/records/17079487) for
+[Trends.Earth SDG Indicator 15.3.1 Datasets page on Zenodo](https://doi.org/10.5281/zenodo.16573473) for
 more details on these datasets.
 
 

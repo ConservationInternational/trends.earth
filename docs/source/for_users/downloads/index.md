@@ -444,6 +444,7 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
 | QAT | [QAT (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/QAT_GeoBoundaries_Drought_UNCCD-legend.tar.gz) |
 | REU | [REU (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/REU_GeoBoundaries_Drought_UNCCD-legend.tar.gz) |
 | ROU | [ROU (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ROU_GeoBoundaries_Drought_UNCCD-legend.tar.gz) |
+| RUS | [RUS (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/RUS_GeoBoundaries_Drought_UNCCD-legend.tar.gz) |
 | RWA | [RWA (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/RWA_GeoBoundaries_Drought_UNCCD-legend.tar.gz) |
 | SAU | [SAU (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/SAU_GeoBoundaries_Drought_UNCCD-legend.tar.gz) |
 | SDN | [SDN (Drought)](https://data.trends.earth/unccd_reporting/2016-2023/packages/SDN_GeoBoundaries_Drought_UNCCD-legend.tar.gz) |

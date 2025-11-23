@@ -1834,7 +1834,8 @@ def _make_sdg_download_row(c, iso, data):
 def _make_drought_download_row(c, iso, data):
     return (
         f"| {iso} | "
-        + f"{_make_download_link(c, f'{iso} (Drought)', 'Drought', data)} |\n"
+        + f"{_make_download_link(c, f'{iso} (UK-CEH)', 'Drought-UK-CEH', data)} | "
+        + f"{_make_download_link(c, f'{iso} (CHIRPS)', 'Drought-CHIRPS', data)} |\n"
     )
 
 
@@ -1916,8 +1917,8 @@ the default Trends.Earth method, from FAO-WOCAT, and from JRC).
 The below datasets can be used to support assessing drought hazard, vulnerability, and
 exposure, and for reporting on UNCCD Strategic Objective 3.
 
-| Country | Drought indicators (2000-2023) |
-|---------|--------------------------------|
+| Country | Drought indicators (UK-CEH SPI) | Drought indicators (CHIRPS SPI) |
+|---------|----------------------------------|----------------------------------|
 """
 
     drought_links = {}
@@ -1931,8 +1932,17 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
         if iso not in drought_links:
             drought_links[iso] = {}
 
-        if re.search("Drought", filename):
-            drought_links[iso]["Drought"] = filename
+        if re.search("Drought_SPI-12-CHIRPS", filename) or re.search(
+            "Drought.*SPI-12-CHIRPS", filename
+        ):
+            drought_links[iso]["Drought-CHIRPS"] = filename
+        elif re.search("Drought_SPI-12-UKCEH", filename) or re.search(
+            "Drought.*SPI-12-UKCEH", filename
+        ):
+            drought_links[iso]["Drought-UK-CEH"] = filename
+        elif re.search("Drought", filename):
+            # Default drought files without SPI suffix are UK-CEH (legacy)
+            drought_links[iso]["Drought-UK-CEH"] = filename
         else:
             continue
 

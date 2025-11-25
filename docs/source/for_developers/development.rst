@@ -974,9 +974,18 @@ folder) or to ``trends.earth-schemas`` or ``trends.earth-algorithms``, add the
 
    invoke set-version -v X.Y.Z -m -g
 
-This will update version numbers in all GEE script configuration files. After
-updating the versions, you must publish them to the Trends.Earth
-API server::
+This will update version numbers in all GEE script configuration files. Before
+publishing, create release tags for the dependent repositories so the GEE
+scripts resolve the correct versions::
+
+   # In trends.earth-schemas (where x.y.z is the new version number
+   invoke set-tag -v x.y.z
+
+   # In trends.earth-algorithms (where x.y.z is the new version number)
+   invoke set-tag -v x.y.z
+
+Once both dependencies are tagged, publish the updated scripts to the
+Trends.Earth API server::
 
    invoke tecli-publish
 
@@ -992,18 +1001,13 @@ Ensure all modified files are committed to git::
 
 **5. Create and push git tags**
 
-Create git tags for the new version and push them to GitHub::
+After committing the release changes in this repository, run ``invoke set-tag``::
 
-   invoke set-tag -m
+   invoke set-tag -v x.y.z # (where x.y.z is the new version number
 
-The ``-m`` flag ensures tags are also created for the dependent modules. This
-command will:
-
-  - Create an annotated git tag (e.g., ``v2.1.20``)
-  - Push the tag to the GitHub repository
-  - Optionally tag dependent modules if ``-m`` is specified
-
-If you have uncommitted changes, the task will prompt you to commit them first.
+This creates the plugin's annotated git tag (e.g., ``v2.1.20``) and pushes it
+to GitHub. If you have uncommitted changes, the task will prompt you to commit
+them first.
 
 **6. Create GitHub release**
 

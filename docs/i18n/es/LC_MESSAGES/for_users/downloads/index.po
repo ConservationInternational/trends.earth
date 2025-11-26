@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-24 04:12+0000\n"
+"POT-Creation-Date: 2025-11-26 04:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1823,6 +1823,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[FRA (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/FRA_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "FRO"
 msgstr ""
 
@@ -1913,6 +1920,13 @@ msgid ""
 "[GBR (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/GBR_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GBR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/GBR_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -2434,6 +2448,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[IDN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/IDN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "IMN"
 msgstr ""
 
@@ -2677,6 +2698,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[JPN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/JPN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "KAZ"
 msgstr ""
 
@@ -2692,6 +2720,13 @@ msgid ""
 "[KAZ (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/KAZ_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[KAZ (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/KAZ_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3288,6 +3323,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[MEX (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MEX_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "MHL"
 msgstr ""
 
@@ -3356,6 +3398,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[MLI (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MLI_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "MLT"
 msgstr ""
 
@@ -3371,6 +3420,13 @@ msgid ""
 "[MLT (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/MLT_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MLT (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MLT_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3392,6 +3448,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[MMR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MMR_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "MNE"
 msgstr ""
 
@@ -3407,6 +3470,13 @@ msgid ""
 "[MNE (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/MNE_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MNE (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MNE_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3428,6 +3498,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[MNG (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MNG_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "MNP"
 msgstr ""
 
@@ -3443,6 +3520,13 @@ msgid ""
 "[MNP (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/MNP_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MNP (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MNP_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3464,6 +3548,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[MOZ (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MOZ_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "MRT"
 msgstr ""
 
@@ -3479,6 +3570,13 @@ msgid ""
 "[MRT (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/MRT_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MRT (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MRT_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3500,6 +3598,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[MSR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MSR_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "MTQ"
 msgstr ""
 
@@ -3515,6 +3620,13 @@ msgid ""
 "[MTQ (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/MTQ_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MTQ (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MTQ_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3536,6 +3648,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[MUS (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MUS_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "MWI"
 msgstr ""
 
@@ -3551,6 +3670,13 @@ msgid ""
 "[MWI (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/MWI_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MWI (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MWI_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3572,6 +3698,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[MYS (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MYS_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "MYT"
 msgstr ""
 
@@ -3587,6 +3720,13 @@ msgid ""
 "[MYT (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/MYT_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MYT (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/MYT_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3608,6 +3748,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[NAM (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NAM_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "NCL"
 msgstr ""
 
@@ -3623,6 +3770,13 @@ msgid ""
 "[NCL (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/NCL_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NCL (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NCL_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3644,6 +3798,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[NER (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NER_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "NGA"
 msgstr ""
 
@@ -3659,6 +3820,13 @@ msgid ""
 "[NGA (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/NGA_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NGA (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NGA_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3680,6 +3848,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[NIC (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NIC_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "NIU"
 msgstr ""
 
@@ -3695,6 +3870,13 @@ msgid ""
 "[NIU (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/NIU_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NIU (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NIU_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3716,6 +3898,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[NLD (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NLD_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "NOR"
 msgstr ""
 
@@ -3731,6 +3920,13 @@ msgid ""
 "[NOR (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/NOR_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NOR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NOR_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3752,6 +3948,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[NPL (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NPL_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "NRU"
 msgstr ""
 
@@ -3767,6 +3970,13 @@ msgid ""
 "[NRU (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/NRU_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NRU (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NRU_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3788,6 +3998,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[NZL (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/NZL_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "OMN"
 msgstr ""
 
@@ -3803,6 +4020,13 @@ msgid ""
 "[OMN (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/OMN_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[OMN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/OMN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3824,6 +4048,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[PAK (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PAK_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "PAN"
 msgstr ""
 
@@ -3839,6 +4070,13 @@ msgid ""
 "[PAN (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/PAN_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PAN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PAN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3860,6 +4098,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[PCN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PCN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "PER"
 msgstr ""
 
@@ -3875,6 +4120,13 @@ msgid ""
 "[PER (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/PER_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PER (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PER_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3896,6 +4148,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[PHL (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PHL_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "PLW"
 msgstr ""
 
@@ -3911,6 +4170,13 @@ msgid ""
 "[PLW (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/PLW_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PLW (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PLW_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3932,6 +4198,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[PNG (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PNG_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "POL"
 msgstr ""
 
@@ -3947,6 +4220,13 @@ msgid ""
 "[POL (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/POL_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[POL (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/POL_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3968,6 +4248,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[PRK (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PRK_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "PRT"
 msgstr ""
 
@@ -3983,6 +4270,13 @@ msgid ""
 "[PRT (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/PRT_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PRT (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PRT_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4004,6 +4298,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[PRY (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PRY_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "PSE"
 msgstr ""
 
@@ -4019,6 +4320,13 @@ msgid ""
 "[PSE (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/PSE_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PSE (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PSE_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4040,6 +4348,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[PYF (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/PYF_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "QAT"
 msgstr ""
 
@@ -4055,6 +4370,13 @@ msgid ""
 "[QAT (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/QAT_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[QAT (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/QAT_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4076,6 +4398,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[REU (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/REU_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "ROU"
 msgstr ""
 
@@ -4091,6 +4420,13 @@ msgid ""
 "[ROU (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/ROU_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ROU (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ROU_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4112,6 +4448,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[RUS (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/RUS_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "RWA"
 msgstr ""
 
@@ -4127,6 +4470,13 @@ msgid ""
 "[RWA (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/RWA_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[RWA (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/RWA_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4148,6 +4498,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[SAU (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SAU_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "SDN"
 msgstr ""
 
@@ -4163,6 +4520,13 @@ msgid ""
 "[SDN (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/SDN_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SDN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SDN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4184,6 +4548,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[SEN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SEN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "SGP"
 msgstr ""
 
@@ -4199,6 +4570,13 @@ msgid ""
 "[SGP (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/SGP_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SGP (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SGP_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4220,6 +4598,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[SHN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SHN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "SLB"
 msgstr ""
 
@@ -4235,6 +4620,13 @@ msgid ""
 "[SLB (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/SLB_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SLB (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SLB_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4256,6 +4648,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[SLE (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SLE_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "SLV"
 msgstr ""
 
@@ -4271,6 +4670,13 @@ msgid ""
 "[SLV (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/SLV_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SLV (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SLV_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4292,6 +4698,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[SMR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SMR_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "SOM"
 msgstr ""
 
@@ -4307,6 +4720,13 @@ msgid ""
 "[SOM (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/SOM_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SOM (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SOM_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4328,6 +4748,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[SRB (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SRB_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "SSD"
 msgstr ""
 
@@ -4343,6 +4770,13 @@ msgid ""
 "[SSD (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/SSD_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SSD (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SSD_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4364,6 +4798,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[STP (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/STP_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "SUR"
 msgstr ""
 
@@ -4379,6 +4820,13 @@ msgid ""
 "[SUR (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/SUR_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SUR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SUR_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4400,6 +4848,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[SVK (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SVK_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "SVN"
 msgstr ""
 
@@ -4415,6 +4870,13 @@ msgid ""
 "[SVN (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/SVN_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SVN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SVN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4436,6 +4898,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[SWE (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SWE_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "SWZ"
 msgstr ""
 
@@ -4451,6 +4920,13 @@ msgid ""
 "[SWZ (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/SWZ_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SWZ (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SWZ_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4472,6 +4948,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[SYC (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SYC_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "SYR"
 msgstr ""
 
@@ -4487,6 +4970,13 @@ msgid ""
 "[SYR (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/SYR_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SYR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/SYR_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4508,6 +4998,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[TCA (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TCA_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "TCD"
 msgstr ""
 
@@ -4523,6 +5020,13 @@ msgid ""
 "[TCD (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/TCD_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TCD (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TCD_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4544,6 +5048,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[TGO (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TGO_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "THA"
 msgstr ""
 
@@ -4559,6 +5070,13 @@ msgid ""
 "[THA (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/THA_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[THA (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/THA_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4580,6 +5098,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[TJK (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TJK_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "TKL"
 msgstr ""
 
@@ -4595,6 +5120,13 @@ msgid ""
 "[TKL (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/TKL_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TKL (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TKL_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4616,6 +5148,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[TKM (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TKM_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "TLS"
 msgstr ""
 
@@ -4631,6 +5170,13 @@ msgid ""
 "[TLS (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/TLS_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TLS (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TLS_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4652,6 +5198,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[TON (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TON_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "TTO"
 msgstr ""
 
@@ -4667,6 +5220,13 @@ msgid ""
 "[TTO (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/TTO_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TTO (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TTO_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4688,6 +5248,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[TUN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TUN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "TUR"
 msgstr ""
 
@@ -4703,6 +5270,13 @@ msgid ""
 "[TUR (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/TUR_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TUR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TUR_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4742,6 +5316,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[TWN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TWN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "TZA"
 msgstr ""
 
@@ -4757,6 +5338,13 @@ msgid ""
 "[TZA (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/TZA_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TZA (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/TZA_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4796,6 +5384,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[UKR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/UKR_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "URY"
 msgstr ""
 
@@ -4811,6 +5406,13 @@ msgid ""
 "[URY (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/URY_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[URY (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/URY_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4850,6 +5452,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[UZB (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/UZB_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "VAT"
 msgstr ""
 
@@ -4865,6 +5474,13 @@ msgid ""
 "[VAT (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/VAT_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[VAT (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/VAT_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4904,6 +5520,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[VEN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/VEN_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "VGB"
 msgstr ""
 
@@ -4919,6 +5542,13 @@ msgid ""
 "[VGB (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/VGB_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[VGB (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/VGB_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -4958,6 +5588,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[VNM (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/VNM_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "VUT"
 msgstr ""
 
@@ -4973,6 +5610,13 @@ msgid ""
 "[VUT (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/VUT_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[VUT (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/VUT_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5012,6 +5656,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[WSM (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/WSM_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "XKX"
 msgstr ""
 
@@ -5030,6 +5681,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[XKX (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/XKX_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "YEM"
 msgstr ""
 
@@ -5038,6 +5696,13 @@ msgid ""
 "[YEM (Trends.Earth "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/YEM_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[YEM (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/YEM_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5059,6 +5724,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[ZAF (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ZAF_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "ZMB"
 msgstr ""
 
@@ -5067,6 +5739,13 @@ msgid ""
 "[ZMB (Trends.Earth "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/ZMB_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ZMB (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ZMB_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5080,6 +5759,13 @@ msgid ""
 "/ZWE_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ZWE (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ZWE_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz)"
+msgstr ""
+
 #: ../../source/for_users/downloads/index.md:267
 msgid "Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)"
 msgstr ""
@@ -5089,6 +5775,26 @@ msgid ""
 "The below datasets can be used to support assessing drought hazard, "
 "vulnerability, and exposure, and for reporting on UNCCD Strategic "
 "Objective 3."
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:272
+msgid ""
+"These data are processed in accordance with the [Good Practice Guidance "
+"for National Reporting on UNCCD Strategic Objective "
+"3](https://www.unccd.int/resources/manuals-and-guides/good-practice-"
+"guidance-national-reporting-unccd-strategic-objective-3). Two variations "
+"of the data are provided. Both are based on the Standardized "
+"Precipitation Index (SPI) for a 12-month accumulation period. One version"
+" uses an SPI dataset from the UK-CEH, the other uis an SPI dataset "
+"dervied by the Trends.Earth team from the "
+"[CHIRPS](https://www.chc.ucsb.edu/data/chirps) precipitation dataset."
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:274
+msgid ""
+"CHIRPS is a gridded precipitation dataset spanning 50°S-50°N, starting in"
+" 1981, that merges in-situ with satellite data to produce a timeseries "
+"grid."
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5107,8 +5813,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[ABW "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ABW_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[AFG (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AFG_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[AFG "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/AFG_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5119,8 +5839,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[AGO "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/AGO_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[AIA (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AIA_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[AIA "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/AIA_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5131,14 +5865,35 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[ALB "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ALB_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[AND (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AND_GeoBoundaries_Drought.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[AND "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/AND_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[ARE (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ARE_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ARE "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ARE_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5156,8 +5911,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[ARM "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ARM_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[ASM (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ASM_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ASM "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ASM_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5165,6 +5934,13 @@ msgid ""
 "[ATG (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/ATG_GeoBoundaries_Drought_UNCCD-legend.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ATG "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ATG_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5182,8 +5958,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[AUT "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/AUT_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[AZE (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/AZE_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[AZE "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/AZE_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5194,8 +5984,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BDI "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BDI_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[BEL (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BEL_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BEL "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BEL_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5206,8 +6010,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BEN "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BEN_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[BES (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BES_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BES "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BES_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5218,8 +6036,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BFA "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BFA_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[BGD (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BGD_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BGD "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BGD_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5230,8 +6062,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BGR "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BGR_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[BHR (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BHR_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BHR "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BHR_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5242,8 +6088,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BHS "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BHS_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[BIH (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BIH_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BIH "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BIH_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5254,8 +6114,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BLM "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BLM_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[BLR (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BLR_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BLR "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BLR_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5266,14 +6140,35 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BLZ "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BLZ_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[BMU (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BMU_GeoBoundaries_Drought.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BMU "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BMU_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[BOL (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BOL_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BOL "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BOL_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5291,8 +6186,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BRB "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BRB_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[BRN (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BRN_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BRN "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BRN_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5303,14 +6212,35 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BTN "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BTN_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[BWA (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/BWA_GeoBoundaries_Drought.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[BWA "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/BWA_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[CAF (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CAF_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CAF "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CAF_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5324,6 +6254,13 @@ msgstr ""
 msgid ""
 "[CHE (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CHE_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CHE "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CHE_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5348,8 +6285,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[CIV "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CIV_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[CMR (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CMR_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CMR "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CMR_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5367,8 +6318,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[COG "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/COG_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[COK (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/COK_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COK "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/COK_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5379,8 +6344,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[COL "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/COL_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[COM (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/COM_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COM "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/COM_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5391,8 +6370,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[CPV "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CPV_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[CRI (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CRI_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CRI "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CRI_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5403,8 +6396,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[CUB "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CUB_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[CUW (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CUW_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CUW "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CUW_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5415,8 +6422,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[CYM "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CYM_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[CYP (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/CYP_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CYP "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CYP_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5427,8 +6448,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[CZE "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/CZE_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[DEU (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/DEU_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[DEU "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/DEU_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5439,8 +6474,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[DJI "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/DJI_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[DMA (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/DMA_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[DMA "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/DMA_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5458,6 +6507,13 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[DOM "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/DOM_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[DZA (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/DZA_GeoBoundaries_Drought_UNCCD-legend.tar.gz)"
@@ -5471,14 +6527,35 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[ECU "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ECU_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[EGY (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/EGY_GeoBoundaries_Drought.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[EGY "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/EGY_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[ERI (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ERI_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ERI "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ERI_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5496,14 +6573,35 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[EST "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/EST_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[ETH (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ETH_GeoBoundaries_Drought.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[ETH "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/ETH_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[FIN (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FIN_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[FIN "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/FIN_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5515,8 +6613,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[FJI "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/FJI_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[FLK (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/FLK_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[FLK "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/FLK_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5534,6 +6646,13 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[FRO "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/FRO_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[FSM (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
 "/FSM_GeoBoundaries_Drought_UNCCD-legend.tar.gz)"
@@ -5541,8 +6660,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[FSM "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/FSM_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[GAB (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GAB_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GAB "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/GAB_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5560,8 +6693,22 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[GEO "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/GEO_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[GGY (UK-"
 "CEH)](https://data.trends.earth/unccd_reporting/2016-2023/packages/GGY_GeoBoundaries_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GGY "
+"(CHIRPS)](https://data.trends.earth/unccd_reporting/2016-2023/packages"
+"/GGY_GeoBoundaries_Drought_UNCCD-legend_SPI-12-CHIRPS.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md

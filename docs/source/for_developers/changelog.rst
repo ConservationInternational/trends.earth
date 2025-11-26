@@ -3,14 +3,15 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`2.2.0 (Upcoming) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.0>`_
+`2.2.0 (November 24, 2025) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.0>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
-  - Switch default boundary dataset from Natural Earth to geoBoundaries
+  - Switch default boundary dataset from Natural Earth to geoBoundaries (basemaps still use Natural Earth)
   - Ensure custom execution names propagate through UNCCD report, drought vulnerability, urban change, restoration biomass, and total carbon summary workflows
   - Optimize basemap preparation by speeding up archive extraction and reducing duplicative operations
-  - Compress API requests and harden retry logic to reduce transient failures when communicating with trends.earth APIs
+  - Compress API requests and harden retry logic to reduce transient failures when communicating with trends.earth API
   - Refresh documentation links and remove outdated fact sheets
+  - Update datasets available on https://data.trends.earth
 
 `2.1.20 (October 10, 2025) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.1.20>`_
 -----------------------------------------------------------------------------------------------------------------------------

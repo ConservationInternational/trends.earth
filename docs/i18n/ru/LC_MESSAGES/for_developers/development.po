@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-12 04:04+0000\n"
+"POT-Creation-Date: 2025-11-26 04:06+0000\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ru\n"
@@ -1893,7 +1893,7 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_developers/development.rst:956
-#: ../../source/for_developers/development.rst:1015
+#: ../../source/for_developers/development.rst:1019
 msgid "This command will:"
 msgstr ""
 
@@ -1941,86 +1941,77 @@ msgstr ""
 #: ../../source/for_developers/development.rst:977
 msgid ""
 "This will update version numbers in all GEE script configuration files. "
-"After updating the versions, you must publish them to the Trends.Earth "
-"API server::"
+"Before publishing, create release tags for the dependent repositories so "
+"the GEE scripts resolve the correct versions::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:983
+#: ../../source/for_developers/development.rst:987
+msgid ""
+"Once both dependencies are tagged, publish the updated scripts to the "
+"Trends.Earth API server::"
+msgstr ""
+
+#: ../../source/for_developers/development.rst:992
 msgid ""
 "This uploads all GEE scripts to api.trends.earth so they are available to"
 " plugin users. You must be an administrator to run this command "
 "successfully."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:986
+#: ../../source/for_developers/development.rst:995
 msgid "**4. Commit all changes**"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:988
+#: ../../source/for_developers/development.rst:997
 msgid "Ensure all modified files are committed to git::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:993
+#: ../../source/for_developers/development.rst:1002
 msgid "**5. Create and push git tags**"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:995
-msgid "Create git tags for the new version and push them to GitHub::"
-msgstr ""
-
-#: ../../source/for_developers/development.rst:999
-msgid ""
-"The ``-m`` flag ensures tags are also created for the dependent modules. "
-"This command will:"
-msgstr ""
-
-#: ../../source/for_developers/development.rst:1002
-msgid "Create an annotated git tag (e.g., ``v2.1.20``)"
-msgstr ""
-
-#: ../../source/for_developers/development.rst:1003
-msgid "Push the tag to the GitHub repository"
-msgstr ""
-
 #: ../../source/for_developers/development.rst:1004
-msgid "Optionally tag dependent modules if ``-m`` is specified"
-msgstr ""
-
-#: ../../source/for_developers/development.rst:1006
 msgid ""
-"If you have uncommitted changes, the task will prompt you to commit them "
-"first."
+"After committing the release changes in this repository, run ``invoke "
+"set-tag``::"
 msgstr ""
 
 #: ../../source/for_developers/development.rst:1008
+msgid ""
+"This creates the plugin's annotated git tag (e.g., ``v2.1.20``) and "
+"pushes it to GitHub. If you have uncommitted changes, the task will "
+"prompt you to commit them first."
+msgstr ""
+
+#: ../../source/for_developers/development.rst:1012
 msgid "**6. Create GitHub release**"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1010
+#: ../../source/for_developers/development.rst:1014
 msgid ""
 "Run the ``release-github`` task to create a release on GitHub with the "
 "plugin zipfile attached::"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1017
+#: ../../source/for_developers/development.rst:1021
 msgid ""
 "Build a clean plugin zipfile (e.g., ``LDMP_2.1.20.zip``) with all "
 "dependencies"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1019
+#: ../../source/for_developers/development.rst:1023
 msgid ""
 "Remove all ``.pyc`` files to comply with QGIS repository security "
 "requirements"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1021
+#: ../../source/for_developers/development.rst:1025
 msgid ""
 "Create a GitHub release with plugin zipfile attached as a downloadable "
 "asset"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1023
+#: ../../source/for_developers/development.rst:1027
 msgid ""
 "You will need a GitHub personal access token with ``repo`` scope "
 "configured in your ``invoke.yaml`` file for this command to work. See the"
@@ -2028,62 +2019,62 @@ msgid ""
 "token."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1027
+#: ../../source/for_developers/development.rst:1031
 msgid "**7. Publish to QGIS repository**"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1029
+#: ../../source/for_developers/development.rst:1033
 msgid "Finally, manually upload the plugin to the QGIS plugin repository:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1031
+#: ../../source/for_developers/development.rst:1035
 msgid ""
 "Download the plugin zipfile (e.g., ``LDMP_2.1.20.zip``) from the GitHub "
 "release you just created (it will be listed under \"Assets\")"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1033
+#: ../../source/for_developers/development.rst:1037
 msgid ""
 "Log in to the `QGIS plugin repository "
 "<https://plugins.qgis.org/plugins/>`_"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1035
+#: ../../source/for_developers/development.rst:1039
 msgid "Navigate to your plugin management page"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1036
+#: ../../source/for_developers/development.rst:1040
 #, fuzzy
 msgid "Upload the new version using the zip file"
 msgstr "Внедрение файла ZIP разрабатываемой версии "
 
-#: ../../source/for_developers/development.rst:1038
+#: ../../source/for_developers/development.rst:1042
 msgid ""
 "The QGIS repository will validate the zipfile and make it available to "
 "users through the QGIS plugin manager."
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1042
+#: ../../source/for_developers/development.rst:1046
 msgid "Version numbering conventions"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1044
+#: ../../source/for_developers/development.rst:1048
 msgid "Trends.Earth follows these version numbering conventions:"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1046
+#: ../../source/for_developers/development.rst:1050
 msgid ""
 "**Even numbers** (e.g., 2.1.18, 2.1.20): Stable releases intended for "
 "public use"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1048
+#: ../../source/for_developers/development.rst:1052
 msgid ""
 "**Odd numbers** (e.g., 2.1.19, 2.1.21): Development releases for testing "
 "new features"
 msgstr ""
 
-#: ../../source/for_developers/development.rst:1051
+#: ../../source/for_developers/development.rst:1055
 msgid ""
 "Development versions are never published to the QGIS repository and are "
 "used only by the development team for testing."
@@ -2291,4 +2282,36 @@ msgstr ""
 #~ "сгенерировать этот файл zip, чтобы "
 #~ "пользователи Trends.Earth могли его оценить,"
 #~ " запустите::"
+
+#~ msgid ""
+#~ "This will update version numbers in "
+#~ "all GEE script configuration files. "
+#~ "After updating the versions, you must"
+#~ " publish them to the Trends.Earth API"
+#~ " server::"
+#~ msgstr ""
+
+#~ msgid "Create git tags for the new version and push them to GitHub::"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The ``-m`` flag ensures tags are "
+#~ "also created for the dependent modules."
+#~ " This command will:"
+#~ msgstr ""
+
+#~ msgid "Create an annotated git tag (e.g., ``v2.1.20``)"
+#~ msgstr ""
+
+#~ msgid "Push the tag to the GitHub repository"
+#~ msgstr ""
+
+#~ msgid "Optionally tag dependent modules if ``-m`` is specified"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you have uncommitted changes, the "
+#~ "task will prompt you to commit "
+#~ "them first."
+#~ msgstr ""
 

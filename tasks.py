@@ -1920,7 +1920,7 @@ the default Trends.Earth method, from FAO-WOCAT, and from JRC).
 The below datasets can be used to support assessing drought hazard, vulnerability, and
 exposure, and for reporting on UNCCD Strategic Objective 3.
 
-These data are processed in accordance with the [Good Practice Guidance for National Reporting on UNCCD Strategic Objective 3](https://www.unccd.int/resources/manuals-and-guides/good-practice-guidance-national-reporting-unccd-strategic-objective-3). Two variations of the data are provided. Both are based on the Standardized Precipitation Index (SPI) for a 12-month accumulation period. One version uses an SPI dataset from the UK-CEH, the other uis an SPI dataset dervied by the Trends.Earth team from the [CHIRPS](https://www.chc.ucsb.edu/data/chirps) precipitation dataset.
+These data are processed in accordance with the [Good Practice Guidance for National Reporting on UNCCD Strategic Objective 3](https://www.unccd.int/resources/manuals-and-guides/good-practice-guidance-national-reporting-unccd-strategic-objective-3). Two variations of the data are provided. Both are based on the Standardized Precipitation Index (SPI) for a 12-month accumulation period. One version uses the [Global Multi-Index Drought (GMID) dataset from the UK-CEH](https://eidc.ac.uk/), the other uses an SPI dataset derived by the Trends.Earth team from the [CHIRPS](https://www.chc.ucsb.edu/data/chirps) precipitation dataset.
 
  CHIRPS is a gridded precipitation dataset spanning 50°S-50°N, starting in 1981, that merges in-situ with satellite data to produce a timeseries grid.
  

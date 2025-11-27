@@ -1880,9 +1880,13 @@ the default Trends.Earth method, from FAO-WOCAT, and from JRC).
 
     client = _get_s3_client()
 
-    objects = client.list_objects(
+    paginator = client.get_paginator("list_objects_v2")
+    objects = []
+
+    for page in paginator.paginate(
         Bucket=c.data_downloads.s3_bucket, Prefix=c.data_downloads.s3_prefix
-    )["Contents"]
+    ):
+        objects.extend(page.get("Contents", []))
 
     sdg_links = {}
     for item in objects:

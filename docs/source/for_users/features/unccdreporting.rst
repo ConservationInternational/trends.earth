@@ -259,7 +259,7 @@ infrastructure, or economic, social, or cultural assets in places and settings t
 
 In order to assess the SO 3 indicators, |trends.earth| uses information from 3 sub-indicators:
 
-- Standardized Precipitation Index (SPI)
+- Standardized Precipitation Index (SPI), alternatively the Standardized Precipitation Evapotranspiration Index (SPEI)
 - Gridded global population dataset
 - Drought Vulnerability Index (DVI)
 

@@ -14,18 +14,11 @@ needs to be installed on your computer.
 Download QGIS
 ~~~~~~~~~~~~~~
 
-To install the plugin, you must have QGIS version |qgisMinVersion| or higher. Download
-the appropriate installer depending on your operating system:
+Download QGIS
+To install the plugin, you must have QGIS version |qgisMinVersion| or higher. 
+For that, access the `QGIS Download <https://qgis.org/download/>`_ page and select the appropriate installer 
+depending on your operating system (i.e. Windows, MacOS, Linux).
 
-   * Windows: `Download Windows installer from here 
-     <https://qgis.org/en/site/forusers/download.html#windows>`_.
-
-   * MacOS: `Download MacOS installer from here 
-     <https://qgis.org/en/site/forusers/download.html#mac>`_.
-
-   * Linux: `Download Linux installer from here, or from the repository for 
-     your Linux distribution 
-     <https://qgis.org/en/site/forusers/download.html#linux>`_.
 
 Install QGIS
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,8 +94,6 @@ details, see the `README
 <https://github.com/ConservationInternational/trends.earth#development-version>`_ 
 for |trends.earth|.
 
-.. toctree::
-   :maxdepth: 2
 
 .. _registration:
 
@@ -126,22 +117,12 @@ Trends.Earth registration
    :align: center
 
 4. After registering, you will receive an email from api@trends.earth with your password. If you don't see the email in your inbox after 15-20 seconds, 
-please check your spam folder in case the email was sent there. Once you receive this email , click on the "Edit selected configuration" icon in the "Settings" dialog: 
+please check your spam folder in case the email was sent there. Once you receive this email , click on "Enter username and password (step 2)". Enter the password you received from api@trends.earth and click "OK": : 
 
-.. image:: ../../../resources/en/documentation/settings/settings_dialog_highlight_edit_selected_configuration.png
+.. image:: ../../../resources/en/documentation/settings/login_to_trendsearth.png
    :align: center
 
-5. This will bring up the "Authentication" dialog asking for your password. Enter the password you received from api@trends.earth and click "Save":
-
-.. image:: ../../../resources/en/documentation/settings/authenication_dialog.png
-   :align: center
-
-6. From the "Settings" dialog  click on "Test connection": 
-
-.. image:: ../../../resources/en/documentation/settings/settings_dialog_highlight_test_connection.png
-   :align: center
-
-7. You will see a message indicating you have successfully been logged in:
+5. You will see a message indicating you have successfully been logged in:
 
 .. image:: ../../../resources/en/documentation/settings/login_success.png
    :align: center

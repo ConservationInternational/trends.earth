@@ -1,7 +1,7 @@
 {
   "_cache_metadata": {
-    "cached_at": "2025-11-08T14:38:57.781579+00:00",
-    "server_last_updated": "2025-10-24T20:25:02.759197"
+    "cached_at": "2025-12-09T16:37:07.341147+00:00",
+    "server_last_updated": "2025-12-09T16:34:52.841834"
   },
   "data": [
     {
@@ -5458,6 +5458,161 @@
       ],
       "boundaryISO": "ISL",
       "boundaryName": "Iceland",
+      "releaseType": "gbOpen"
+    },
+    {
+      "adm0_geojson_url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/IND/ADM0/geoBoundaries-IND-ADM0.geojson",
+      "adm0_topojson_url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/IND/ADM0/geoBoundaries-IND-ADM0.topojson",
+      "adm1_geojson_url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/IND/ADM1/geoBoundaries-IND-ADM1.geojson",
+      "adm1_topojson_url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/IND/ADM1/geoBoundaries-IND-ADM1.topojson",
+      "admin1_units": [
+        {
+          "shapeID": "1811400B21325138943523",
+          "shapeName": "Andaman and Nicobar Islands"
+        },
+        {
+          "shapeID": "1811400B84418948762846",
+          "shapeName": "Andhra Pradesh"
+        },
+        {
+          "shapeID": "1811400B16134215155042",
+          "shapeName": "Arun\u0101chal Pradesh"
+        },
+        {
+          "shapeID": "1811400B78322693766699",
+          "shapeName": "Assam"
+        },
+        {
+          "shapeID": "1811400B26595099860318",
+          "shapeName": "Bih\u0101r"
+        },
+        {
+          "shapeID": "1811400B77692474244036",
+          "shapeName": "Chand\u012bgarh"
+        },
+        {
+          "shapeID": "1811400B70654311394581",
+          "shapeName": "Chhatt\u012bsgarh"
+        },
+        {
+          "shapeID": "1811400B51283975314925",
+          "shapeName": "D\u0101dra and Nagar Haveli and Dam\u0101n and Diu"
+        },
+        {
+          "shapeID": "1811400B23625213884851",
+          "shapeName": "Delhi"
+        },
+        {
+          "shapeID": "1811400B6111924962807",
+          "shapeName": "Goa"
+        },
+        {
+          "shapeID": "1811400B80305611676067",
+          "shapeName": "Gujar\u0101t"
+        },
+        {
+          "shapeID": "1811400B68407848780347",
+          "shapeName": "Hary\u0101na"
+        },
+        {
+          "shapeID": "1811400B21086746745937",
+          "shapeName": "Him\u0101chal Pradesh"
+        },
+        {
+          "shapeID": "1811400B42025667129192",
+          "shapeName": "Jammu and Kashm\u012br"
+        },
+        {
+          "shapeID": "1811400B52412412689061",
+          "shapeName": "Jh\u0101rkhand"
+        },
+        {
+          "shapeID": "1811400B56841107211215",
+          "shapeName": "Karn\u0101taka"
+        },
+        {
+          "shapeID": "1811400B45534780755480",
+          "shapeName": "Kerala"
+        },
+        {
+          "shapeID": "1811400B23769854471902",
+          "shapeName": "Lad\u0101kh"
+        },
+        {
+          "shapeID": "1811400B55669546485086",
+          "shapeName": "Lakshadweep"
+        },
+        {
+          "shapeID": "1811400B75807316846587",
+          "shapeName": "Madhya Pradesh"
+        },
+        {
+          "shapeID": "1811400B15614733245507",
+          "shapeName": "Mah\u0101r\u0101shtra"
+        },
+        {
+          "shapeID": "1811400B97532436596698",
+          "shapeName": "Manipur"
+        },
+        {
+          "shapeID": "1811400B28404458933503",
+          "shapeName": "Megh\u0101laya"
+        },
+        {
+          "shapeID": "1811400B49281905528064",
+          "shapeName": "Mizoram"
+        },
+        {
+          "shapeID": "1811400B74762431478096",
+          "shapeName": "N\u0101g\u0101land"
+        },
+        {
+          "shapeID": "1811400B82358585030651",
+          "shapeName": "Odisha"
+        },
+        {
+          "shapeID": "1811400B81659894240990",
+          "shapeName": "Puducherry"
+        },
+        {
+          "shapeID": "1811400B91946361694107",
+          "shapeName": "Punjab"
+        },
+        {
+          "shapeID": "1811400B37341166588993",
+          "shapeName": "R\u0101jasth\u0101n"
+        },
+        {
+          "shapeID": "1811400B15456792557830",
+          "shapeName": "Sikkim"
+        },
+        {
+          "shapeID": "1811400B21167269026319",
+          "shapeName": "Tamil N\u0101du"
+        },
+        {
+          "shapeID": "1811400B25711494603400",
+          "shapeName": "Telang\u0101na"
+        },
+        {
+          "shapeID": "1811400B57209440839078",
+          "shapeName": "Tripura"
+        },
+        {
+          "shapeID": "1811400B3558497485804",
+          "shapeName": "Uttar\u0101khand"
+        },
+        {
+          "shapeID": "1811400B11231190780494",
+          "shapeName": "Uttar Pradesh"
+        },
+        {
+          "shapeID": "1811400B32673734874058",
+          "shapeName": "West Bengal"
+        }
+      ],
+      "boundaryISO": "IND",
+      "boundaryName": "India",
       "releaseType": "gbOpen"
     },
     {

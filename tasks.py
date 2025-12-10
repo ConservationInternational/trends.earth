@@ -1944,7 +1944,10 @@ the default Trends.Earth method, from FAO-WOCAT, and from JRC).
         else:
             continue
 
-    for iso, values in sdg_links.items():
+    # Sort by country name instead of ISO code
+    sorted_isos = sorted(sdg_links.keys(), key=lambda iso: country_names.get(iso, iso))
+    for iso in sorted_isos:
+        values = sdg_links[iso]
         if values == {}:
             # Skip empty entries
             continue
@@ -1991,7 +1994,12 @@ These data are processed in accordance with the [Good Practice Guidance for Nati
         else:
             continue
 
-    for iso, values in drought_links.items():
+    # Sort by country name instead of ISO code
+    sorted_isos = sorted(
+        drought_links.keys(), key=lambda iso: country_names.get(iso, iso)
+    )
+    for iso in sorted_isos:
+        values = drought_links[iso]
         if values == {}:
             # Skip empty entries
             continue

@@ -1810,6 +1810,38 @@ def changelog_build(c):
         metadata = fout.writelines(out_txt)
 
 
+def _load_country_names():
+    """Load country names from boundaries list JSON file."""
+    boundaries_file = os.path.join(
+        os.path.dirname(__file__), "LDMP", "data", "boundaries_list_gbOpen.json"
+    )
+    try:
+        with open(boundaries_file, "r", encoding="utf-8") as f:
+            boundaries_data = json.load(f)
+
+        # Create a mapping from ISO code to country name
+        iso_to_name = {}
+        for country in boundaries_data.get("data", []):
+            iso_code = country.get("boundaryISO")
+            country_name = country.get("boundaryName")
+            if iso_code and country_name:
+                iso_to_name[iso_code] = country_name
+
+        return iso_to_name
+    except Exception as e:
+        print(f"Warning: Could not load country names from boundaries list: {e}")
+        return {}
+
+
+def _get_country_display_name(iso_code, country_names):
+    """Get display name for country as 'Country Name (ISO)' or just 'ISO' if name not found."""
+    country_name = country_names.get(iso_code)
+    if country_name:
+        return f"{country_name} ({iso_code})"
+    else:
+        return iso_code
+
+
 def _make_download_link(c, title, key, data):
     filename = data.get(key, "")
     if filename:
@@ -1822,18 +1854,20 @@ def _make_download_link(c, title, key, data):
         return ""
 
 
-def _make_sdg_download_row(c, iso, data):
+def _make_sdg_download_row(c, iso, data, country_names):
+    display_name = _get_country_display_name(iso, country_names)
     return (
-        f"| {iso} | "
+        f"| {display_name} | "
         + f"{_make_download_link(c, f'{iso} (Trends.Earth LPD)', 'TrendsEarth-LPD-5', data)} | "
         + f"{_make_download_link(c, f'{iso} (FAO-WOCAT LPD)', 'FAO-WOCAT-LPD-5', data)} | "
         + f"{_make_download_link(c, f'{iso} (JRC LPD)', 'JRC-LPD-5', data)} |\n"
     )
 
 
-def _make_drought_download_row(c, iso, data):
+def _make_drought_download_row(c, iso, data, country_names):
+    display_name = _get_country_display_name(iso, country_names)
     return (
-        f"| {iso} | "
+        f"| {display_name} | "
         + f"{_make_download_link(c, f'{iso} (UK-CEH)', 'Drought-UK-CEH', data)} | "
         + f"{_make_download_link(c, f'{iso} (CHIRPS)', 'Drought-CHIRPS', data)} |\n"
     )
@@ -1877,6 +1911,9 @@ the default Trends.Earth method, from FAO-WOCAT, and from JRC).
 |---------|---------|--------------------|---------------|
 """
 
+    # Load country names from boundaries list
+    country_names = _load_country_names()
+
     client = _get_s3_client()
 
     paginator = client.get_paginator("list_objects_v2")
@@ -1911,7 +1948,7 @@ the default Trends.Earth method, from FAO-WOCAT, and from JRC).
         if values == {}:
             # Skip empty entries
             continue
-        out_txt += _make_sdg_download_row(c, iso, values)
+        out_txt += _make_sdg_download_row(c, iso, values, country_names)
 
     out_txt += """
 
@@ -1958,7 +1995,7 @@ These data are processed in accordance with the [Good Practice Guidance for Nati
         if values == {}:
             # Skip empty entries
             continue
-        out_txt += _make_drought_download_row(c, iso, values)
+        out_txt += _make_drought_download_row(c, iso, values, country_names)
 
     with open(
         os.path.join(os.path.dirname(__file__), c.data_downloads.downloads_page), "w"

@@ -193,7 +193,13 @@ def _set_results_extents_raster(job, force=False):
             if force or not hasattr(raster, "extents") or raster.extents is None:
                 raster.extents = []
                 for raster_tile_uri in raster.tile_uris:
-                    raster.extents.append(_get_extent_tuple_raster(raster_tile_uri.uri))
+                    extent = _get_extent_tuple_raster(raster_tile_uri.uri)
+                    if extent is None:
+                        raise RuntimeError(
+                            f"Failed to calculate extent for tile {raster_tile_uri.uri} in job {job.id}. "
+                            f"File may be missing, corrupted, or inaccessible."
+                        )
+                    raster.extents.append(extent)
                 if conf.settings_manager.get_value(conf.Setting.DEBUG):
                     log(
                         f"{'Force ' if force else ''}set job {job.id} {raster.datatype} {raster.type} "
@@ -1463,11 +1469,9 @@ class JobManager(QtCore.QObject):
                     try:
                         set_results_extents(job)
                     except (OSError, IOError, RuntimeError, MemoryError) as exc:
-                        # Log GDAL/QGIS file access errors but don't crash the whole plugin
-                        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                            log(
-                                f"Failed to set extents for job {job.id}: {type(exc).__name__}: {exc}"
-                            )
+                        log(
+                            f"Failed to set extents for job {job.id} during loading: {type(exc).__name__}: {exc}"
+                        )
                     except Exception as exc:
                         # Catch any other unexpected errors from extent calculation
                         log(

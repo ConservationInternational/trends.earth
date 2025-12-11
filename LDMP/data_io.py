@@ -1893,7 +1893,9 @@ def _get_usable_bands(
                 continue
             if not (band_info.name == band_name or band_name == "any"):
                 continue
-            if aoi is not None and not _check_dataset_overlap_raster(aoi, job.results):
+            if aoi is not None and not _check_dataset_overlap_raster(
+                aoi, job.results, job.visible_name, job
+            ):
                 continue
             if (
                 filter_field
@@ -2051,6 +2053,9 @@ def _check_band_overlap(aoi, raster):
         if extent_geom is not None and aoi.calc_frac_overlap(extent_geom) >= 0.99:
             return True
     elif raster.type == RasterType.TILED_RASTER:
+        # Sum overlap fractions for tiled rasters
+        # Note: This can sum to >1.0 if tiles overlap, but ensures coverage check passes
+        # even if individual tiles don't fully cover AOI
         frac = 0
         for extent in raster.extents:
             extent_geom = _extent_as_geom(extent)
@@ -2062,23 +2067,49 @@ def _check_band_overlap(aoi, raster):
         return False
 
 
-def _check_dataset_overlap_raster(aoi, raster_results):
+def _check_dataset_overlap_raster(aoi, raster_results, dataset_name=None, job=None):
+    dataset_label = f" for dataset '{dataset_name}'" if dataset_name else ""
     extents = raster_results.get_extents()
 
-    # Check if we have any extents at all
+    # Check if we have any extents at all - if missing, try to recalculate them
     if not extents:
-        log(
-            "Warning: No valid extents found for raster results. "
-            "Extents may need to be recalculated. Use set_results_extents(job, force=True) to recalculate."
-        )
-        return False
+        if job is not None:
+            from . import jobs
 
+            try:
+                jobs.manager.set_results_extents(job, force=True)
+                extents = raster_results.get_extents()
+            except Exception as e:
+                log(
+                    f"Failed to recalculate extents{dataset_label}: {type(e).__name__}: {e}"
+                )
+
+        if not extents:
+            log(
+                f"Warning: No valid extents found for raster results{dataset_label}. "
+                "This job will be excluded from the dataset dropdown."
+            )
+            return False
+
+    # Sum overlap fractions across all extents
+    # Note: This can sum to >1.0 if extents overlap, which is intentional to ensure
+    # jobs pass the filter even if individual extents don't fully cover the AOI
     frac = 0
+    valid_extent_count = 0
     for extent in extents:
         extent_geom = _extent_as_geom(extent)
         if extent_geom is not None:
             this_frac = aoi.calc_frac_overlap(extent_geom)
             frac += this_frac
+            valid_extent_count += 1
+
+    if valid_extent_count == 0:
+        log(
+            f"Warning: All {len(extents)} extent(s) resulted in None geometry{dataset_label}. "
+            "This may indicate invalid extent values (None, NaN, or Inf)."
+        )
+        return False
+
     if frac >= 0.99:
         return True
     else:
@@ -2146,7 +2177,12 @@ def get_usable_datasets(
 
             if (
                 ResultType(job.results.type) == ResultType.RASTER_RESULTS
-                and (aoi is None or _check_dataset_overlap_raster(aoi, job.results))
+                and (
+                    aoi is None
+                    or _check_dataset_overlap_raster(
+                        aoi, job.results, job.visible_name, job
+                    )
+                )
                 and job.script.name == dataset_name
                 and job.results.uri is not None
             ):

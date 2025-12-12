@@ -4600,7 +4600,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="699"/>
+        <location filename="../jobs/manager.py" line="705"/>
         <source>Processing: {task_name}</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6562,7 +6562,7 @@ for running algorithms and their results.</source>
         <translation>Растровый файл (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2209"/>
+        <location filename="../data_io.py" line="2245"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
@@ -6687,17 +6687,17 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1935"/>
+        <location filename="../data_io.py" line="1937"/>
         <source>No layers available in this region</source>
         <translation>Нет доступных слоев в этой области</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2209"/>
+        <location filename="../data_io.py" line="2245"/>
         <source>Select a layer to load.</source>
         <translation>Выбрать уровень для загрузки.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2246"/>
+        <location filename="../data_io.py" line="2282"/>
         <source>No datasets available in this region</source>
         <translation>Нет доступных наборов данных в этой области</translation>
     </message>

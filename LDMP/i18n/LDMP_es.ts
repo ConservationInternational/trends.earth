@@ -4655,7 +4655,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="699"/>
+        <location filename="../jobs/manager.py" line="705"/>
         <source>Processing: {task_name}</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6619,7 +6619,7 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
         <translation>Archivo renderizado (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2209"/>
+        <location filename="../data_io.py" line="2245"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -6744,17 +6744,17 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
         <translation>El archivo de entrada ({}) no parece ser un archivo de entrada de productividad válido. Trends.Earth cargará el archivo de todos modos, pero revise el mapa una vez que se haya cargado para garantizar que los valores tengan sentido. Los únicos valores permitidos en un archivo de entrada de productividad son -32768, 1, 2, 3, 4 y 5. Hay {} valor (es) en el archivo de entrada que no fueron reconocidos.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1935"/>
+        <location filename="../data_io.py" line="1937"/>
         <source>No layers available in this region</source>
         <translation>No hay capas disponibles en esta región</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2209"/>
+        <location filename="../data_io.py" line="2245"/>
         <source>Select a layer to load.</source>
         <translation>Seleccione una capa para cargar.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2246"/>
+        <location filename="../data_io.py" line="2282"/>
         <source>No datasets available in this region</source>
         <translation>No hay conjuntos de datos disponibles en esta región</translation>
     </message>

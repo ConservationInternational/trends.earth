@@ -4601,7 +4601,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="699"/>
+        <location filename="../jobs/manager.py" line="705"/>
         <source>Processing: {task_name}</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6564,7 +6564,7 @@ for running algorithms and their results.</source>
         <translation>光栅文件 (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2209"/>
+        <location filename="../data_io.py" line="2245"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -6689,17 +6689,17 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1935"/>
+        <location filename="../data_io.py" line="1937"/>
         <source>No layers available in this region</source>
         <translation>此地区没有可用的图层</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2209"/>
+        <location filename="../data_io.py" line="2245"/>
         <source>Select a layer to load.</source>
         <translation>选择要加载的图层。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2246"/>
+        <location filename="../data_io.py" line="2282"/>
         <source>No datasets available in this region</source>
         <translation>此地区没有可用的数据集</translation>
     </message>

@@ -4598,7 +4598,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="699"/>
+        <location filename="../jobs/manager.py" line="705"/>
         <source>Processing: {task_name}</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6558,7 +6558,7 @@ for running algorithms and their results.</source>
         <translation>Ficheiro Raster (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2209"/>
+        <location filename="../data_io.py" line="2245"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
@@ -6683,17 +6683,17 @@ for running algorithms and their results.</source>
         <translation>O arquivo de entrada ({}) não parece ser um arquivo de entrada de produtividade válido. O Trends.Earth carregará o arquivo de qualquer maneira, mas revisará o mapa depois que ele for carregado para garantir que os valores façam sentido. Os únicos valores permitidos em um arquivo de entrada de produtividade são -32768, 1, 2, 3, 4 e 5. Existem {} valor (es) no arquivo de entrada que não foram reconhecidos.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1935"/>
+        <location filename="../data_io.py" line="1937"/>
         <source>No layers available in this region</source>
         <translation>Sem estratos disponíveis nesta região</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2209"/>
+        <location filename="../data_io.py" line="2245"/>
         <source>Select a layer to load.</source>
         <translation>Selecione uma camada para carregar.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2246"/>
+        <location filename="../data_io.py" line="2282"/>
         <source>No datasets available in this region</source>
         <translation>Não existem bases de dados disponíveis nesta região</translation>
     </message>

@@ -4602,7 +4602,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="699"/>
+        <location filename="../jobs/manager.py" line="705"/>
         <source>Processing: {task_name}</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6560,7 +6560,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Fichier de données tramées (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2209"/>
+        <location filename="../data_io.py" line="2245"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -6685,17 +6685,17 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Le fichier d'entrée ({}) ne semble pas être un fichier d'entrée de productivité valide. Le fichier sera chargé par Trends.Earth, mais sera examiné pour s'assurer de la validité des valeurs. Les seules valeurs autorisées dans un fichier d'entrée de productivité sont -32768, 1, 2, 3, 4 et 5. Des {} valeur (s) dans le fichier d'entrée n'ont pas été reconnues.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1935"/>
+        <location filename="../data_io.py" line="1937"/>
         <source>No layers available in this region</source>
         <translation>Aucune couche disponible dans cette région</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2209"/>
+        <location filename="../data_io.py" line="2245"/>
         <source>Select a layer to load.</source>
         <translation>Sélectionner une couche à charger.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2246"/>
+        <location filename="../data_io.py" line="2282"/>
         <source>No datasets available in this region</source>
         <translation>Aucun ensemble de données disponible dans cette région</translation>
     </message>

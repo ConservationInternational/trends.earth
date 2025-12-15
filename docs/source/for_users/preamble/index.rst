@@ -2,30 +2,33 @@
 
 Preamble
 ===================
-Trends.Earth is a platform to monitor land change using earth observations. It is now available 
-as a browser-based tool in addition to the plugin to desktop QGIS spatial-analytical 
-software.
+Trends.Earth is a toolkit designed to monitor land change using Earth observation data. 
+Trends.Earth is available as plugin to desktop QGIS spatial-analytical GIS software.
 
 The tool allows users to assess time series of key indicators of land change to produce maps and 
 other graphics that can support monitoring and reporting, and to track the impact of sustainable 
 land management. The tool supports monitoring progress on land degradation neutrality (SDG 15.3.1), 
 land consumption (SDG 11.3.1), modeling carbon emissions from deforestation, and modeling potential 
 carbon sequestration from restoration activities. Trends.Earth supports monitoring and reporting on 
-Sustainable Development Goals (SDGs) 15.3.1 (area of degraded land) and 11.3.1 (ration of land 
-consumption rate to population growth) by providing a platform for analyzing data for reporting 
-commitments to the United Nations Convention to Combat Desertification (UNCCD) and UN-Habitat. 
+Sustainable Development Goals (SDGs) 15.3.1 (Proportion of land that is degraded over total land area (%)) 
+and 11.3.1 (ration of land consumption rate to population growth) by providing a platform for analyzing 
+data for reporting commitments to the United Nations Convention to Combat Desertification (UNCCD) and 
+UN-Habitat. 
 
-The development of Trends.Earth was funded by the Global Environment Facility and NASA, 
-led by Conservation International and its partners. `Conservation International`_  
-works to spotlight and secure the critical benefits that nature provides to humanity. 
+The development of Trends.Earth was funded by the Global Environment Facility (GEF) and the United
+States National Aeronautics and Space Agency (NASA), led by Conservation International and its partners. 
+`Conservation International`_ works to spotlight and secure the critical benefits that nature provides to humanity. 
 
 **Monitor land change**
 
 Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a platform
-from `Conservation International`_ for monitoring land change using earth observations
+from `Conservation International`_ for monitoring land change using Earth observations
 in an innovative desktop and cloud-based system.
 
+Lear more at:
+
 .. _Conservation International: http://www.conservation.org/trendsearth
+.. _Trends.Earth: https://docs.trends.earth/en/latest/
 
 **Track achievement of the sustainable development goals**
 

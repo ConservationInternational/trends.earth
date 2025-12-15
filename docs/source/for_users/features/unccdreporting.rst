@@ -259,7 +259,7 @@ infrastructure, or economic, social, or cultural assets in places and settings t
 
 In order to assess the SO 3 indicators, |trends.earth| uses information from 3 sub-indicators:
 
-- Standardized Precipitation Index (SPI)
+- Standardized Precipitation Index (SPI), alternatively the Standardized Precipitation Evapotranspiration Index (SPEI)
 - Gridded global population dataset
 - Drought Vulnerability Index (DVI)
 
@@ -400,7 +400,7 @@ Step 3. Calculating the proportion of land within each drought intensity class.
 The equation to estimate the percentage of land within drought intensity classes takes the land area under the each drought intensity class identified
 in the previous step over the the total land area, as follows:
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/so3_level2_equation.PNG
+.. image:: ../../../resources/en/documentation/understanding_indicators15/so3_level2_equation.png
    :align: center
  
 Where:

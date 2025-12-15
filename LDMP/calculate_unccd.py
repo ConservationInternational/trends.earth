@@ -1,4 +1,4 @@
-﻿"""
+"""
 /***************************************************************************
  LDMP - A QGIS plugin
  This plugin supports monitoring and reporting of land degradation to the UNCCD
@@ -10,23 +10,16 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 # pylint: disable=import-error
-import datetime
 import typing
 from pathlib import Path
 
 import qgis.gui
-from PyQt5 import QtCore
-from PyQt5 import QtWidgets
-from PyQt5 import uic
-from qgis.core import QgsGeometry
+from qgis.PyQt import QtCore, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
-from te_schemas.land_cover import LCLegendNesting
-from te_schemas.land_cover import LCTransitionDefinitionDeg
 
 from . import conf
-from . import data_io
-from . import lc_setup
 from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import unccd
@@ -92,7 +85,7 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
         self.close()
         return
 
-        ret = super(DlgCalculateUNCCD, self).btn_calculate()
+        ret = super().btn_calculate()
 
         if not ret:
             return
@@ -239,21 +232,29 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
 
             return
 
+        task_name = self.execution_name_le.text().strip()
+        if not task_name:
+            # Fall back to a readable script name so jobs get a meaningful label
+            task_name = self.script.name_readable or self.script.name
+
         params = {
-            "task_name": self.options_tab.task_name.text(),
-            "task_notes": self.options_tab.task_notes.toPlainText(),
+            "task_name": task_name,
+            "task_notes": self.task_notes.toPlainText(),
             "include_so1_so2": self.groupbox_so1_so2.isChecked(),
             "include_so3": self.groupbox_so3.isChecked(),
+            "include_error_recode": self.error_recode_gb.isChecked(),
             "affected_only": self.checkBox_affected_areas_only.isChecked(),
         }
         params.update(
             unccd.get_main_unccd_report_job_params(
-                task_name=self.options_tab.task_name.text(),
+                task_name=task_name,
                 combo_dataset_so1_so2=self.combo_boxes.combo_dataset_so1_so2,
                 combo_dataset_so3=self.combo_boxes.combo_dataset_so3,
+                combo_dataset_error_recode=self.combo_boxes.combo_dataset_error_recode,
                 include_so1_so2=self.groupbox_so1_so2.isChecked(),
                 include_so3=self.groupbox_so3.isChecked(),
-                task_notes=self.options_tab.task_notes.toPlainText(),
+                include_error_recode=self.error_recode_gb.isChecked(),
+                task_notes=self.task_notes.toPlainText(),
             )
         )
 

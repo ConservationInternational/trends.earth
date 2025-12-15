@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,38 +10,41 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 import json
 import math
 import os
 import re
 import typing
-from builtins import str
-from math import floor
-from math import log10
+from math import floor, log10
 from operator import attrgetter
 from pathlib import Path
 
 import numpy as np
 from osgeo import gdal
-from qgis.core import Qgis
-from qgis.core import QgsColorRampShader
-from qgis.core import QgsDefaultValue
-from qgis.core import QgsProcessingFeedback
-from qgis.core import QgsProject
-from qgis.core import QgsProviderRegistry
-from qgis.core import QgsProviderSublayerDetails
-from qgis.core import QgsRasterLayer
-from qgis.core import QgsRasterShader
-from qgis.core import QgsSingleBandPseudoColorRenderer
+from qgis.core import (
+    Qgis,
+    QgsColorRampShader,
+    QgsDefaultValue,
+    QgsProcessingFeedback,
+    QgsProject,
+    QgsProviderRegistry,
+    QgsProviderSublayerDetails,
+    QgsRasterLayer,
+    QgsRasterShader,
+    QgsSingleBandPseudoColorRenderer,
+    QgsVectorLayer,
+)
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QColor
 from qgis.utils import iface
+from te_schemas.land_cover import LCLegendNesting
 
 from .logger import log
 
 
-class tr_layers(object):
+class tr_layers:
     def tr(message):
         return QCoreApplication.translate("tr_layers", message)
 
@@ -53,12 +55,12 @@ class tr_layers(object):
 style_text_dict = {
     # Shared
     "nodata": tr_layers.tr("No data"),
-    # Productivity trajectory
+    # Land productivity trend
     "prod_traj_trend_title": tr_layers.tr(
-        "Productivity trajectory ({year_initial} to {year_final}, NDVI x 10000 / yr)"
+        "Land productivity trend ({year_initial} to {year_final}, NDVI x 10000 / yr)"
     ),
     "prod_traj_signif_title": tr_layers.tr(
-        "Productivity trajectory degradation ({year_initial} to {year_final})"
+        "Land productivity trend degradation ({year_initial} to {year_final})"
     ),
     "prod_traj_signif_dec_95": tr_layers.tr(
         "Degradation (significant decrease, p < .05)"
@@ -67,32 +69,32 @@ style_text_dict = {
     "prod_traj_signif_inc_95": tr_layers.tr(
         "Improvement (significant increase, p < .05)"
     ),
-    # Productivity performance
+    # Land productivity performance
     "prod_perf_deg_title": tr_layers.tr(
-        "Productivity performance degradation ({year_initial} to {year_final})"
+        "Land productivity performance degradation ({year_initial} to {year_final})"
     ),
     "prod_perf_deg_potential_deg": tr_layers.tr("Degradation"),
     "prod_perf_deg_not_potential_deg": tr_layers.tr("Not degradation"),
     "prod_perf_ratio_title": tr_layers.tr(
-        "Productivity performance ({year_initial} to {year_final}, ratio)"
+        "Land productivity performance ({year_initial} to {year_final}, ratio)"
     ),
     "prod_perf_units_title": tr_layers.tr(
-        "Productivity performance ({year_initial}, units)"
+        "Land productivity performance ({year_initial}, units)"
     ),
-    # Productivity state
+    # Land productivity state
     "prod_state_change_title": tr_layers.tr(
-        "Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})"
+        "Land productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})"
     ),
     "prod_state_change_potential_deg": tr_layers.tr("Degradation"),
     "prod_state_change_stable": tr_layers.tr("Stable"),
     "prod_state_change_potential_improvement": tr_layers.tr("Improvement"),
     "prod_state_classes_title": tr_layers.tr(
-        "Productivity state classes ({year_initial}-{year_final})"
+        "Land productivity state classes ({year_initial}-{year_final})"
     ),
-    # Productivity progress comparison (not the real progress taking into
+    # Land productivity progress comparison (not the real progress taking into
     # account magnitude)
     "prod_deg_comp_title": tr_layers.tr(
-        "Productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
+        "Land productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
     ),
     "prod_deg_comp_deg": tr_layers.tr("Degradation"),
     "prod_deg_comp_stable": tr_layers.tr("Stable"),
@@ -100,7 +102,7 @@ style_text_dict = {
     # Land cover degradation comparison (not the real progress taking into
     # account magnitude)
     "lc_deg_comp_title": tr_layers.tr(
-        "Land cover degradation comparison ({year_initial} to {year_final})"
+        "Land cover degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
     ),
     "lc_deg_comp_deg": tr_layers.tr("Degradation"),
     "lc_deg_comp_stable": tr_layers.tr("Stable"),
@@ -112,6 +114,7 @@ style_text_dict = {
     "lc_deg_deg": tr_layers.tr("Degradation"),
     "lc_deg_stable": tr_layers.tr("Stable"),
     "lc_deg_imp": tr_layers.tr("Improvement"),
+    "lc_title": tr_layers.tr("Land cover ({year})"),
     "lc_7class_title": tr_layers.tr("Land cover ({year}, 7 class)"),
     "lc_esa_title": tr_layers.tr("Land cover ({year}, ESA CCI classes)"),
     "lc_7class_mode_title": tr_layers.tr(
@@ -173,24 +176,39 @@ style_text_dict = {
     "lpd_fao_wocat_title": tr_layers.tr(
         "Land productivity dynamics (FAO-WOCAT, {year_initial}-{year_final})"
     ),
+    "lpd_fao_wocat": tr_layers.tr("Land productivity dynamics (from FAO-WOCAT)"),
+    "lpd_from_fao_wocat": tr_layers.tr("Land Productivity Dynamics (from FAO-WOCAT)"),
     "lpd_declining": tr_layers.tr("Declining"),
     "lpd_earlysigns": tr_layers.tr("Moderate decline"),
-    "lpd_stabbutstress": tr_layers.tr("Stressed"),
+    "lpd_stabbutstress": tr_layers.tr("Stable but stressed"),
     "lpd_stab": tr_layers.tr("Stable"),
     "lpd_imp": tr_layers.tr("Increasing"),
-    # SDG 15.3.1 indicator layer
+    # SDG Indicator 15.3.1 layer
     "combined_sdg_title": tr_layers.tr(
-        "SDG 15.3.1 Indicator ({year_initial}-{year_final})"
+        "SDG Indicator 15.3.1 ({year_initial}-{year_final})"
     ),
     "combined_sdg_deg_deg": tr_layers.tr("Degradation"),
     "combined_sdg_deg_stable": tr_layers.tr("Stable"),
     "combined_sdg_deg_imp": tr_layers.tr("Improvement"),
-    "sdg_status_title": tr_layers.tr(
-        "SDG 15.3.1 Indicator ({baseline_year_initial}-{baseline_year_final} updated with {progress_year_initial}-{progress_year_final})"
+    "status_sdg_title": tr_layers.tr(
+        "SDG Indicator 15.3.1 (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
     ),
-    "sdg_status_deg": tr_layers.tr("Degradation"),
-    "sdg_status_stable": tr_layers.tr("Stable"),
-    "sdg_status_imp": tr_layers.tr("Improvement"),
+    "status_prod_title": tr_layers.tr(
+        "Land productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
+    ),
+    "status_lc_title": tr_layers.tr(
+        "Land cover degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
+    ),
+    "status_soc_title": tr_layers.tr(
+        "Soil organic carbon degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})"
+    ),
+    "status_sdg_deg_persistent": tr_layers.tr("Degradation (persistent)"),
+    "status_sdg_deg_recent": tr_layers.tr("Degradation (recent)"),
+    "status_sdg_deg_baseline": tr_layers.tr("Degradation (baseline)"),
+    "status_sdg_stability": tr_layers.tr("Stability"),
+    "status_sdg_imp_baseline": tr_layers.tr("Improvement (baseline)"),
+    "status_sdg_imp_recent": tr_layers.tr("Improvement (recent)"),
+    "status_sdg_imp_persistent": tr_layers.tr("Improvement (persistent)"),
     "sdg_progress_title": tr_layers.tr(
         "SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
     ),
@@ -295,22 +313,29 @@ style_text_dict = {
 
 with open(
     os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "styles.json")
-) as script_file:
-    styles = json.load(script_file)
+) as style_file:
+    styles = json.load(style_file)
 
 
 def round_to_n(x, sf=3):
     "Function to round a positive value to n significant figures"
 
-    if np.isnan(x):
-        return x
-    elif x == 0:
-        return 0
-    else:
-        if x.size == 1:
-            return np.round(x, -int(floor(log10(x))) + (sf - 1))
+    # Handle both scalar values and numpy arrays
+    is_scalar = isinstance(x, (int, float)) or (hasattr(x, "size") and x.size == 1)
+
+    if is_scalar:
+        if np.isnan(x):
+            return x
+        elif x == 0:
+            return 0
         else:
-            return np.around(x, -int(floor(log10(x))) + (sf - 1))
+            return float(np.round(x, -int(floor(log10(abs(x)))) + (sf - 1)))
+    else:
+        # For arrays, use vectorized operations
+        if x == 0:
+            return 0
+        else:
+            return np.around(x, -int(floor(log10(abs(x)))) + (sf - 1))
 
 
 def get_sample(f, band_number, n=1e6):
@@ -338,7 +363,7 @@ def get_sample(f, band_number, n=1e6):
             f"to a ({xsize_new}, {ysize_new}) array"
         )
 
-        return b.ReadAsArray().astype(np.float)
+        return b.ReadAsArray().astype(float)
     else:
         log(
             f"Resampling from a ({xsize}, {ysize}) array "
@@ -346,17 +371,17 @@ def get_sample(f, band_number, n=1e6):
         )
         log(
             "Resampling to "
-            f'/vsimem/resample_{Path(f).with_suffix(".tif").name}, from {f}'
+            f"/vsimem/resample_{Path(f).with_suffix('.tif').name}, from {f}"
         )
         ds_resamp = gdal.Translate(
-            f'/vsimem/{Path(f).with_suffix(".tif").name}',
+            f"/vsimem/{Path(f).with_suffix('.tif').name}",
             f,
             bandList=[band_number],
             width=xsize_new,
             height=ysize_new,
         )
 
-        return ds_resamp.ReadAsArray().astype(np.float)
+        return ds_resamp.ReadAsArray().astype(float)
 
 
 # def _set_statistics(
@@ -383,11 +408,13 @@ def _get_cutoff(
             )
         )
     md = np.ma.masked_where(data_sample == no_data_value, data_sample)
-    md = np.ma.masked_where(md == 0, md)
 
-    if md.size == 0:
-        # If all of the values are no data, return 0
-        log("All values are no data")
+    if mask_zeros:
+        md = np.ma.masked_where(md == 0, md)
+
+    if md.size == 0 or md.compressed().size == 0:
+        # If all of the values are no data or masked, return 0
+        log("All values are no data or masked")
 
         return 0
     else:
@@ -399,7 +426,7 @@ def _get_cutoff(
             if max_cutoff < 0:
                 return 0
             else:
-                return round_to_n(max_cutoff, 2)
+                return round_to_n(float(max_cutoff), 2)
 
         elif cutoffs.size == 1:
             if cutoffs < 0:
@@ -408,7 +435,7 @@ def _get_cutoff(
 
                 return 0
             else:
-                return round_to_n(cutoffs, 2)
+                return round_to_n(cutoffs.item(), 2)
         else:
             # We only get here if cutoffs is not size 1 or 2, which should
             # never happen, so raise
@@ -419,8 +446,7 @@ def _get_cutoff(
             )
 
 
-def create_categorical_color_ramp(style_config: typing.Dict):
-    ramp_items = style_config["ramp"]["items"]
+def create_categorical_color_ramp(ramp_items):
     result = []
 
     for item in ramp_items:
@@ -433,9 +459,17 @@ def create_categorical_color_ramp(style_config: typing.Dict):
     return result
 
 
-def _create_categorical_with_dynamic_ramp_color_ramp(
-    style_config: typing.Dict, band_info
-):
+def create_categorical_color_ramp_from_legend(nesting):
+    nesting = LCLegendNesting.Schema().loads(nesting)
+    return create_categorical_color_ramp(nesting.child.get_ramp_items())
+
+
+def create_categorical_transitions_color_ramp_from_legend(nesting):
+    nesting = LCLegendNesting.Schema().loads(nesting)
+    return create_categorical_color_ramp(nesting.child.get_transitions_ramp_items())
+
+
+def create_categorical_with_dynamic_ramp_color_ramp(style_config, band_info):
     ramp_items = style_config["ramp"]["items"]
     result = []
 
@@ -559,9 +593,17 @@ def _create_color_ramp(
     ramp_type = style_config["ramp"]["type"]
 
     if ramp_type == "categorical":
-        result = create_categorical_color_ramp(style_config)
+        result = create_categorical_color_ramp(style_config["ramp"]["items"])
+    elif ramp_type == "categorical from legend":
+        result = create_categorical_color_ramp_from_legend(
+            band_info["metadata"]["nesting"]
+        )
+    elif ramp_type == "categorical transitions from legend":
+        result = create_categorical_transitions_color_ramp_from_legend(
+            band_info["metadata"]["nesting"]
+        )
     elif ramp_type == "categorical with dynamic ramp":
-        result = _create_categorical_with_dynamic_ramp_color_ramp(
+        result = create_categorical_with_dynamic_ramp_color_ramp(
             style_config, band_info
         )
     elif ramp_type == "zero-centered stretch":
@@ -585,7 +627,7 @@ def _create_color_ramp(
 
 
 def _get_qgis_version():
-    qgis_version_match = re.match("(^[0-9]*)\.([0-9]*)", Qgis.QGIS_VERSION)
+    qgis_version_match = re.match(r"(^[0-9]*)\.([0-9]*)", Qgis.QGIS_VERSION)
 
     return int(qgis_version_match[1]), int(qgis_version_match[2])
 
@@ -611,7 +653,7 @@ def add_layer(
             ),
         )
         log(
-            'No style found for "{}" in {}'.format(
+            'No style found for "{}" (band {} in {})'.format(
                 band_info["name"], band_number, layer_path
             )
         )
@@ -731,19 +773,6 @@ def tr_style_text(label, band_info=None):
             return str(label)
 
 
-def get_band_infos(data_file, name=None):
-    json_file = os.path.splitext(data_file)[0] + ".json"
-    m = get_file_metadata(json_file)
-
-    if m:
-        if name:
-            return [bi for bi in m["bands"] if bi["name"] == name]
-        else:
-            return m["bands"]
-    else:
-        return None
-
-
 def get_band_title(band_info):
     style = styles.get(band_info["name"], None)
     result = band_info["name"]
@@ -797,7 +826,7 @@ def delete_layer_by_filename(f: str) -> bool:
     return result
 
 
-def add_vector_layer(layer_path: str, name: str):
+def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
     sublayers = (
         QgsProviderRegistry.instance()
         .providerMetadata("ogr")
@@ -814,8 +843,8 @@ def add_vector_layer(layer_path: str, name: str):
         if layer.isValid():
             found = False
             layers = QgsProject.instance().mapLayers()
-            for l in layers.values():
-                if l.source().split("|")[0] == layer.source().split("|")[0]:
+            for lyr in layers.values():
+                if lyr.source().split("|")[0] == layer.source().split("|")[0]:
                     found = True
             if not found:
                 layer.setName(name)
@@ -823,28 +852,28 @@ def add_vector_layer(layer_path: str, name: str):
     else:
         found = False
         layers = QgsProject.instance().mapLayers()
-        for l in layers.values():
-            if l.source().split("|")[0] == layer_path:
+        for lyr in layers.values():
+            if lyr.source().split("|")[0] == layer_path:
                 found = True
         if not found:
             layer = iface.addVectorLayer(layer_path, name, "ogr")
 
+    return layer
+
 
 def set_default_stats_value(v_path, band_datas):
-    log(f'setting default stats value function')
+    log("setting default stats value function")
     layer = None
-    for l in QgsProject.instance().mapLayers().values():
-        if l.source().split("|")[0] == v_path:
-            layer = l
+    for lyr in QgsProject.instance().mapLayers().values():
+        if lyr.source().split("|")[0] == v_path:
+            layer = lyr
             break
     if layer is None:
         return
-    idx = layer.fields().lookupField('stats')
+    idx = layer.fields().lookupField("stats")
     layer.setDefaultValueDefinition(
         idx,
-        QgsDefaultValue(
-            f"calculate_error_recode_stats('{json.dumps(band_datas)}')"
-        )
+        QgsDefaultValue(f"calculate_error_recode_stats('{json.dumps(band_datas)}')"),
     )
     res = layer.listStylesInDatabase()
     if res[0] > 0:
@@ -855,9 +884,9 @@ def set_default_stats_value(v_path, band_datas):
 
 def edit(layer):
     layers = QgsProject.instance().mapLayers()
-    for l in layers.values():
-        if l.source().split("|")[0] == layer:
-            if l.isEditable():
-                l.commitChanges()
+    for lyr in layers.values():
+        if lyr.source().split("|")[0] == layer:
+            if lyr.isEditable():
+                lyr.commitChanges()
             else:
-                l.startEditing()
+                lyr.startEditing()

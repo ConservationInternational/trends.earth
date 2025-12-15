@@ -10,20 +10,18 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 import json
 from pathlib import Path
 
 import qgis.core
 import qgis.gui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
-from . import calculate
-from . import data_io
+from . import calculate, data_io
 from .jobs.manager import job_manager
 from .localexecution import biomassrestoration
-
 
 DlgCalculateRestBiomassDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateRestBiomassData.ui")
@@ -31,9 +29,6 @@ DlgCalculateRestBiomassDataUi, _ = uic.loadUiType(
 DlgCalculateRestBiomassSummaryTableUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateRestBiomassSummaryTable.ui")
 )
-
-
-from te_schemas.schemas import BandInfo, BandInfoSchema
 
 
 class DlgCalculateRestBiomassData(
@@ -51,13 +46,13 @@ class DlgCalculateRestBiomassData(
         self._finish_initialization()
 
     def showEvent(self, event):
-        super(DlgCalculateRestBiomassData, self).showEvent(event)
+        super().showEvent(event)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateRestBiomassData, self).btn_calculate()
+        ret = super().btn_calculate()
         if not ret:
             return
         self.calculate_on_GEE()
@@ -158,8 +153,12 @@ class DlgCalculateRestBiomassSummaryTable(
             self.combo_layer_biomass_diff
         )
 
-        params["task_name"] = self.options_tab.task_name.text()
-        params["task_notes"] = self.options_tab.task_notes.toPlainText()
+        task_name = self.execution_name_le.text().strip()
+        if not task_name:
+            task_name = self.script.name_readable or self.script.name
+
+        params["task_name"] = task_name
+        params["task_notes"] = self.task_notes.toPlainText()
 
         self.close()
 

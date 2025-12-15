@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -11,15 +10,13 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 import json
 from pathlib import Path
 
 import qgis.gui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
-from qgis.PyQt.QtCore import QDate
-from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtCore import QTextCodec
+from qgis.PyQt import QtWidgets, uic
+from qgis.PyQt.QtCore import QDate, Qt
 from te_schemas.algorithms import ExecutionScript
 
 from .calculate import (
@@ -28,12 +25,10 @@ from .calculate import (
 from .conf import KNOWN_SCRIPTS
 from .jobs.manager import job_manager
 from .logger import log
-from .settings import AreaWidget
-from .settings import AreaWidgetSection
-
+from .settings import AreaWidget, AreaWidgetSection
 
 Ui_DlgTimeseries, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgTimeSeries.ui")
+    str(Path(__file__).parent / "gui/DlgTimeseries.ui")
 )
 
 
@@ -96,15 +91,15 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.area_widget = AreaWidget()
         self.area_widget.hide_on_choose_point = False
         self.area_widget.set_section_visibility(
-            AreaWidgetSection.FILE
-            | AreaWidgetSection.BUFFER
-            | AreaWidgetSection.NAME
-            | AreaWidgetSection.DISCLAIMER
+            AreaWidgetSection.FILE | AreaWidgetSection.NAME
         )
         self.vl_aoi.addWidget(self.area_widget)
 
+        self.task_name.setText(self.get_plot_title())
+
     def traj_indic_changed(self):
         self.dataset_climate_update()
+        self.task_name.setText(self.get_plot_title())
 
     def dataset_climate_update(self):
         self.traj_climate.clear()
@@ -140,6 +135,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                 self.traj_climate.currentText()
             ]["End year"]
         self.update_time_bounds()
+        self.task_name.setText(self.get_plot_title())
 
     def dataset_ndvi_changed(self):
         this_ndvi_dataset = self.datasets["NDVI"][self.dataset_ndvi.currentText()]
@@ -164,12 +160,11 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             )
 
         self.update_time_bounds()
+        self.task_name.setText(self.get_plot_title())
 
     def update_time_bounds(self):
         # TODO: need to also account for GAEZ and/or CCI data dates for
         # stratification
-        start_year = QDate(self.start_year_ndvi, 1, 1)
-        end_year = QDate(self.end_year_ndvi, 12, 31)
 
         # Trajectory - needs to also account for climate data
         start_year_traj = QDate(
@@ -246,6 +241,18 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         else:
             self.hide()
 
+    def get_plot_title(self):
+        if self.traj_climate.currentText() != "":
+            return (
+                f"{self.traj_indic.currentText()} "
+                f" - {self.dataset_ndvi.currentText()}, "
+                f"{self.traj_climate.currentText()}"
+            )
+        else:
+            return (
+                f"{self.traj_indic.currentText()} - {self.dataset_ndvi.currentText()}"
+            )
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -259,15 +266,15 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         # Limit area that can be processed
         aoi_area = self.aoi.get_area() / (1000 * 1000)
-        log(u"AOI area is: {:n}".format(aoi_area))
-        if aoi_area > 1e7:
+        if aoi_area > 1e6:
+            log("AOI area is: {:n} - blocking processing".format(aoi_area))
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr(
                     "The bounding box of the requested area (approximately "
                     "{:.6n} sq km) is too large. The timeseries tool can "
-                    "process a maximum area of 10 million sq km at a time. "
+                    "process a maximum area of 1 million sq km at a time. "
                     "Choose a smaller area to process.".format(aoi_area)
                 ),
             )
@@ -277,7 +284,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             climate_gee_dataset = self.climate_datasets[
                 self.traj_climate.currentText()
             ]["GEE Dataset"]
-            log("climate_gee_dataset {}".format(climate_gee_dataset))
         else:
             climate_gee_dataset = None
 

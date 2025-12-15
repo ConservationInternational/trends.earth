@@ -33,8 +33,8 @@ for 8 different restoration activities.
 The years of intervention and region is then selected using the pre-existing national/sub-national boundaries, a coordinate or a custom uploaded dataset.
 
 .. note::
-    The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth 
-    are in the `public domain`_. The boundaries and names used, and the 
+    The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth 
+    are under the CC BY 4.0 license. The boundaries and names used, and the 
     designations used, in Trends.Earth do not imply official endorsement or 
     acceptance by Conservation International Foundation, or by its partner 
     organizations and contributors.
@@ -43,7 +43,7 @@ The years of intervention and region is then selected using the pre-existing nat
     choose an official boundary provided by the designated office of their 
     country.
 
-.. _Natural Earth Administrative Boundaries: http://www.naturalearthdata.com
+.. _geoBoundaries Administrative Boundaries: https://www.geoboundaries.org
 
 .. _Public Domain: https://creativecommons.org/publicdomain/zero/1.0
 

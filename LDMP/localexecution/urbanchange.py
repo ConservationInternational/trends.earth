@@ -6,20 +6,12 @@ import numpy as np
 import openpyxl
 import qgis.core
 from osgeo import gdal
+from te_schemas.results import URI, DataType, Raster, RasterFileType, RasterResults
 from te_schemas.results import Band as JobBand
-from te_schemas.results import DataType
-from te_schemas.results import Raster
-from te_schemas.results import RasterFileType
-from te_schemas.results import RasterResults
-from te_schemas.results import URI
 
 import LDMP.logger
-from .. import areaofinterest
-from .. import calculate
-from .. import calculate_urban
-from .. import summary
-from .. import utils
-from .. import worker
+
+from .. import areaofinterest, calculate, summary, utils, worker
 from ..jobs.models import Job
 
 
@@ -136,10 +128,10 @@ def compute_urban_change_summary_table(
 
     urban_change_job.results = RasterResults(
         name="urban_change_summary",
-        uri=URI(uri=output_path, type="local"),
+        uri=URI(uri=output_path),
         rasters={
             DataType.INT16.value: Raster(
-                uri=URI(uri=output_path, type="local"),
+                uri=URI(uri=output_path),
                 bands=bands,
                 datatype=DataType.INT16,
                 filetype=RasterFileType.GEOTIFF,
@@ -163,7 +155,7 @@ def save_summary_table(areas, populations, out_file):
         workbook.save(out_file)
         LDMP.logger.log("Summary table saved to {}".format(out_file))
 
-    except IOError as exc:
+    except OSError as exc:
         raise RuntimeError(
             f"Error saving output table - check that {out_file!r} is accessible and "
             f"not already open. - {str(exc)}"

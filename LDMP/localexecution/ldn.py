@@ -2,9 +2,7 @@ import dataclasses
 import enum
 import json
 from pathlib import Path
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Dict, List, Optional, Union
 
 import te_algorithms.gdal.land_deg.config as ld_config
 from qgis.PyQt import QtWidgets
@@ -14,9 +12,7 @@ from te_schemas.productivity import ProductivityMode
 from te_schemas.results import Band as JobBand
 
 from .. import data_io
-from .. import tr
 from ..jobs.models import Job
-from ..logger import log
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
@@ -46,11 +42,22 @@ class SummaryTableLDWidgets:
     combo_layer_pop_male: data_io.WidgetDataIOSelectTELayerExisting
     combo_layer_pop_female: data_io.WidgetDataIOSelectTELayerExisting
     radio_lpd_te: QtWidgets.QRadioButton
+    radio_fao_wocat: QtWidgets.QRadioButton
 
     def __post_init__(self):
         self.radio_lpd_te.toggled.connect(self.radio_lpd_te_toggled)
+        self.radio_fao_wocat.toggled.connect(self.radio_lpd_te_toggled)
         self.radio_lpd_te_toggled()
         self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
+
+    def get_selected_prod_mode(self) -> str:
+        """Get the currently selected productivity mode"""
+        if self.radio_lpd_te.isChecked():
+            return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        elif self.radio_fao_wocat.isChecked():
+            return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+        else:
+            return ProductivityMode.JRC_5_CLASS_LPD.value
 
     def populate(self):
         self.populate_layer_combo_boxes()
@@ -59,14 +66,33 @@ class SummaryTableLDWidgets:
     def radio_lpd_te_toggled(self):
         if self.radio_lpd_te.isChecked():
             self.combo_layer_traj.show()
+            self.combo_layer_traj.set_prod_mode(
+                ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+            )
             self.combo_layer_traj_label.show()
             self.combo_layer_perf.show()
+            self.combo_layer_perf.set_prod_mode(
+                ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+            )
             self.combo_layer_perf_label.show()
             self.combo_layer_state.show()
             self.combo_layer_state_label.show()
+            self.combo_layer_state.set_prod_mode(
+                ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+            )
             self.combo_layer_lpd.hide()
             self.combo_layer_lpd_label.hide()
         else:
+            if self.radio_fao_wocat.isChecked():
+                self.combo_layer_lpd.set_prod_mode(
+                    ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+                )
+                self.combo_layer_lpd.set_layer_type(ld_config.FAO_WOCAT_LPD_BAND_NAME)
+            else:
+                self.combo_layer_lpd.set_prod_mode(
+                    ProductivityMode.JRC_5_CLASS_LPD.value
+                )
+                self.combo_layer_lpd.set_layer_type(ld_config.JRC_LPD_BAND_NAME)
             self.combo_layer_traj.hide()
             self.combo_layer_traj_label.hide()
             self.combo_layer_perf.hide()
@@ -75,6 +101,9 @@ class SummaryTableLDWidgets:
             self.combo_layer_state_label.hide()
             self.combo_layer_lpd.show()
             self.combo_layer_lpd_label.show()
+
+        # Update the baseline dataset combo box to filter by productivity mode
+        self.combo_datasets.set_prod_mode(self.get_selected_prod_mode())
 
     def populate_layer_combo_boxes(self):
         self.combo_layer_lpd.populate()
@@ -122,7 +151,6 @@ def _get_ld_input_period(
     year_initial_field: str = "year_initial",
     year_final_field: str = "year_final",
 ) -> LdnInputInfo:
-
     band_info = data_selection_widget.get_current_band().band_info
 
     return {
@@ -133,10 +161,15 @@ def _get_ld_input_period(
 
 def _get_ld_inputs(
     data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
-    aux_band_name: str,
+    aux_band_name: Union[str, list],
     sort_property: str = "year",
 ) -> LdnInputInfo:
     """Used to get main band and set of aux bands associated with a combo box"""
+    if isinstance(aux_band_name, str):
+        # Some aux_bands may have multiple potential names (this happens with land
+        # cover for example, which can be "Land cover (7 class)" or just "Land cover").
+        # This function assumes a list, so convert a single band name to a length 1 list.
+        aux_band_name = [aux_band_name]
     usable_band_info = data_selection_widget.get_current_band()
     main_band = usable_band_info.band_info
     main_band_index = usable_band_info.band_index
@@ -145,7 +178,7 @@ def _get_ld_inputs(
     for band_index, job_band in enumerate(
         usable_band_info.job.results.get_bands(), start=1
     ):
-        if job_band.name == aux_band_name:
+        if job_band.name in aux_band_name:
             aux_bands.append((job_band, band_index))
     sorted_aux_bands = sorted(aux_bands, key=lambda i: i[0].metadata[sort_property])
     aux_bands = [info[0] for info in sorted_aux_bands]
@@ -153,7 +186,7 @@ def _get_ld_inputs(
     years = [i[0].metadata[sort_property] for i in sorted_aux_bands]
 
     return LdnInputInfo(
-        path=usable_band_info.job.results.uri.uri,
+        path=usable_band_info.path,
         main_band=main_band,
         main_band_index=main_band_index,
         aux_bands=aux_bands,
@@ -173,7 +206,7 @@ def _get_pop_inputs(
     if pop_mode == PopulationMode.Total.value:
         total_pop_band_info = total_pop_selection_widget.get_current_band()
         bands = [total_pop_band_info.band_info]
-        paths = [total_pop_band_info.job.results.uri.uri]
+        paths = [total_pop_band_info.path]
         band_indices = [total_pop_band_info.band_index]
         years = [total_pop_band_info.band_info.metadata["year"]]
 
@@ -182,8 +215,8 @@ def _get_pop_inputs(
         female_pop_band_info = female_pop_selection_widget.get_current_band()
         bands = [male_pop_band_info.band_info, female_pop_band_info.band_info]
         paths = [
-            male_pop_band_info.job.results.uri.uri,
-            female_pop_band_info.job.results.uri.uri,
+            male_pop_band_info.path,
+            female_pop_band_info.path,
         ]
         band_indices = [male_pop_band_info.band_index, female_pop_band_info.band_index]
         years = [
@@ -215,7 +248,7 @@ def _get_ld_input_aux_band(
     aux_band = aux_bands[0]
 
     return {
-        "path": usable_band_info.job.results.uri.uri,
+        "path": usable_band_info.path,
         "band": aux_band[0],
         "band_index": aux_band[1],
     }
@@ -238,7 +271,6 @@ def get_main_sdg_15_3_1_job_params(
     combo_layer_pop_female: data_io.WidgetDataIOSelectTELayerExisting,
     task_notes: Optional[str] = "",
 ) -> Dict:
-
     land_cover_inputs = _get_ld_inputs(combo_layer_lc, ld_config.LC_BAND_NAME)
     land_cover_transition_input = _get_ld_input_aux_band(
         combo_layer_lc, ld_config.LC_TRANS_BAND_NAME
@@ -360,7 +392,12 @@ def get_main_sdg_15_3_1_job_params(
 
 
 def compute_ldn(
-    ldn_job: Job, aoi: AOI, job_output_path: Path, dataset_output_path: Path
+    ldn_job: Job,
+    aoi: AOI,
+    job_output_path: Path,
+    dataset_output_path: Path,
+    progress_callback,
+    killed_callback,
 ) -> Job:
     """Calculate final SDG 15.3.1 indicator and save to disk"""
 

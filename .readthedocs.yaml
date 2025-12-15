@@ -1,7 +1,11 @@
 version: 2
 
+#formats:
+#  - pdf
+#  - epub
+
 build:
-  os: ubuntu-20.04
+  os: ubuntu-22.04
   tools:
     python: "3.9"
   jobs:
@@ -9,8 +13,8 @@ build:
       - python -m invoke rtd-pre-build
 
 sphinx:
-   configuration: docs/source/conf.py
+  configuration: docs/source/conf.py
 
 python:
-   install:
-   - requirements: requirements-dev.txt
+  install:
+    - requirements: requirements-dev.txt

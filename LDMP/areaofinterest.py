@@ -5,48 +5,155 @@ from pathlib import Path
 
 import qgis.core
 import qgis.gui
-from osgeo import gdal
-from osgeo import ogr
+from osgeo import gdal, ogr
+from qgis.core import Qgis
+from qgis.PyQt import QtWidgets
+from qgis.PyQt.QtCore import QCoreApplication
+from qgis.utils import iface as qgisiface
 
-from . import conf
-from . import download
+from . import conf, download
 from .layers import _get_qgis_version
 from .logger import log
 
 
+class tr_areaofinterest:
+    def tr(message):
+        return QCoreApplication.translate("tr_areaofinterest", message)
+
+
 def get_city_geojson() -> typing.Dict:
-    current_country = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
-    country_code = conf.ADMIN_BOUNDS_KEY[current_country].code
-    current_city = conf.settings_manager.get_value(conf.Setting.CITY_NAME)
-    current_country_cities = conf.settings_manager.get_value(conf.Setting.CITY_KEY)
-    wof_id = current_country_cities[current_city]
-    return conf.CITIES[country_code][str(wof_id)].geojson
+    from . import conf
+
+    # Get country using ID-based system
+    settings_manager = conf.settings_manager
+    boundaries = download.get_admin_bounds()
+    if not boundaries:
+        raise ValueError("No boundary data available")
+
+    country_id = settings_manager.get_value(conf.Setting.COUNTRY_ID)
+    if not country_id:
+        raise ValueError("No country selected in settings")
+
+    # Find country by ID
+    country_entry = None
+    country_name = ""
+    for name, country in boundaries.items():
+        if country.code == country_id:
+            country_entry = country
+            country_name = name
+            break
+
+    if not country_entry:
+        raise ValueError("Selected country not found in boundary data")
+
+    country_code = country_entry.code
+
+    city_id = conf.settings_manager.get_value(conf.Setting.CITY_ID)
+    if not city_id:
+        raise ValueError("No city selected in settings")
+
+    country_cities = conf.CITIES.get(country_code)
+    if not country_cities:
+        raise ValueError(f"No city data available for country {country_name}")
+
+    city = country_cities.get(str(city_id))
+    if not city:
+        raise ValueError(
+            f"City with id '{city_id}' not found for country {country_name}"
+        )
+
+    return city.geojson
 
 
 def get_admin_poly_geojson():
-    current_country = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
-    country_code = conf.ADMIN_BOUNDS_KEY[current_country].code
-    admin_polys_filename = f"admin_bounds_polys_{country_code}.json.gz"
-    admin_polys = download.read_json(admin_polys_filename, verify=False)
-    if not admin_polys:
+    from . import conf
+
+    # Get country using ID-based system
+    settings_manager = conf.settings_manager
+    boundaries = download.get_admin_bounds()
+    if not boundaries:
         return None
-    current_region = conf.settings_manager.get_value(conf.Setting.REGION_NAME)
-    if not current_region or current_region == conf.TR_ALL_REGIONS:
-        result = admin_polys["geojson"]
-    else:
-        region_code = conf.ADMIN_BOUNDS_KEY[current_country].level1_regions[
-            current_region
-        ]
-        result = admin_polys["admin1"][region_code]["geojson"]
-    return result
+
+    country_id = settings_manager.get_value(conf.Setting.COUNTRY_ID)
+    if not country_id:
+        return None
+
+    # Find country by ID
+    country_entry = None
+    for country in boundaries.values():
+        if country.code == country_id:
+            country_entry = country
+            break
+
+    if not country_entry:
+        return None
+
+    country_code = country_entry.code
+
+    # Get region using ID-based system
+    region_id = settings_manager.get_value(conf.Setting.REGION_ID)
+
+    # Try API-based boundary download first
+    try:
+        if not region_id:
+            log(
+                f"Loading ADM0 boundary for country {country_code} (no region selected)"
+            )
+            admin_polys = download.download_boundary_geojson(
+                country_code, admin_level=0
+            )
+        else:
+            valid_regions = {
+                str(value).strip().lower()
+                for value in country_entry.level1_regions.values()
+            }
+            if str(region_id).strip().lower() not in valid_regions:
+                raise ValueError(
+                    f"Region id '{region_id}' not valid for country {country_code}."
+                )
+            log(f"Loading ADM1 boundary for country {country_code}, region {region_id}")
+            admin_polys = download.download_boundary_geojson(
+                country_code, admin_level=1, shape_id=region_id
+            )
+
+        if admin_polys:
+            return admin_polys
+    except ImportError as e:
+        log(f"Missing required module for boundary download: {e}")
+        log("Ensure 'requests' module is installed: pip install requests")
+        return None
+    except (ConnectionError, TimeoutError) as e:
+        log(f"Network error downloading boundaries from API: {e}")
+        log("Check your internet connection and try again")
+        return None
+    except json.JSONDecodeError as e:
+        log(f"Invalid JSON response from boundary API: {e}")
+        log("The API may be experiencing issues, please try again later")
+        return None
+    except KeyError as e:
+        log(f"Unexpected API response format: missing key {e}")
+        log("The API structure may have changed")
+        return None
+    except ValueError as e:
+        log(f"Invalid boundary data received: {e}")
+        return None
+    except Exception as e:
+        log(f"Unexpected error downloading boundaries from API: {e}")
+        # Log full traceback for debugging
+        import traceback
+
+        log(f"Traceback: {traceback.format_exc()}")
+        return None
 
 
 def validate_country_region() -> typing.Tuple[typing.Optional[typing.Dict], str]:
     error_msg = ""
-    country_name = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
-    if not country_name:
+    # Check for country using ID-based system (not legacy COUNTRY_NAME)
+    country_id = conf.settings_manager.get_value(conf.Setting.COUNTRY_ID)
+    if not country_id:
         geojson = None
         error_msg = "Choose a first level administrative boundary."
+        return geojson, error_msg
 
     geojson = get_admin_poly_geojson()
     if not geojson:
@@ -70,7 +177,7 @@ def validate_vector_path() -> typing.Tuple[Path, str]:
     return vector_path, error_msg
 
 
-class AOI(object):
+class AOI:
     def __init__(self, crs_dst):
         self.crs_dst = crs_dst
 
@@ -79,8 +186,8 @@ class AOI(object):
 
     def update_from_file(self, f, wrap=False):
         log('Setting up AOI from file at {}"'.format(f))
-        l = qgis.core.QgsVectorLayer(f, "calculation boundary", "ogr")
-        if not l.isValid():
+        lyr = qgis.core.QgsVectorLayer(f, "calculation boundary", "ogr")
+        if not lyr.isValid():
             raise RuntimeError(
                 f"Unable to load area of interest from {f}. There may be a problem "
                 f"with the file or coordinate system. Try manually loading this file "
@@ -89,25 +196,25 @@ class AOI(object):
                 f"trends.earth@conservation.org."
             )
         if (
-            l.wkbType() == qgis.core.QgsWkbTypes.Polygon
-            or l.wkbType() == qgis.core.QgsWkbTypes.PolygonZ
-            or l.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon
-            or l.wkbType() == qgis.core.QgsWkbTypes.MultiPolygonZ
+            lyr.wkbType() == qgis.core.QgsWkbTypes.Polygon
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.PolygonZ
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.MultiPolygonZ
         ):
             self.datatype = "polygon"
         elif (
-            l.wkbType() == qgis.core.QgsWkbTypes.Point
-            or l.wkbType() == qgis.core.QgsWkbTypes.PointZ
-            or l.wkbType() == qgis.core.QgsWkbTypes.MultiPoint
-            or l.wkbType() == qgis.core.QgsWkbTypes.MultiPointZ
+            lyr.wkbType() == qgis.core.QgsWkbTypes.Point
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.PointZ
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.MultiPoint
+            or lyr.wkbType() == qgis.core.QgsWkbTypes.MultiPointZ
         ):
             self.datatype = "point"
         else:
             raise RuntimeError(
                 f"Failed to process area of interest - unknown geometry "
-                f"type: {l.wkbType()}"
+                f"type: {lyr.wkbType()}"
             )
-        self.l = _transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
+        self.l = _transform_layer(lyr, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
     def update_from_geojson(
         self, geojson, crs_src="epsg:4326", datatype="polygon", wrap=False
@@ -115,7 +222,7 @@ class AOI(object):
         log("Setting up AOI with geojson. Wrap is {}.".format(wrap))
         self.datatype = datatype
         # Note geojson is assumed to be in 4326
-        l = qgis.core.QgsVectorLayer(
+        lyr = qgis.core.QgsVectorLayer(
             "{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src),
             "calculation boundary",
             "memory",
@@ -125,33 +232,20 @@ class AOI(object):
         feats_out = []
         for i in range(0, layer_in.GetFeatureCount()):
             feat_in = layer_in.GetFeature(i)
-            feat = qgis.core.QgsFeature(l.fields())
+            feat = qgis.core.QgsFeature(lyr.fields())
             geom = qgis.core.QgsGeometry()
             geom.fromWkb(feat_in.geometry().ExportToWkb())
             feat.setGeometry(geom)
             feats_out.append(feat)
-        l.dataProvider().addFeatures(feats_out)
-        l.commitChanges()
-        if not l.isValid():
+        lyr.dataProvider().addFeatures(feats_out)
+        lyr.commitChanges()
+        if not lyr.isValid():
             raise RuntimeError("Failed to add geojson to temporary layer.")
-        self.l = _transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
+        self.l = _transform_layer(lyr, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
-    def meridian_split(self, out_type="extent", out_format="geojson", warn=True):
-        """
-        Return list of bounding boxes in WGS84 as geojson for GEE
+    def get_unary_geometry(self):
+        "Calculate a single feature that is the union of all the features in layer"
 
-        Returns multiple geometries as needed to avoid having an extent
-        crossing the 180th meridian
-        """
-
-        if out_type not in ["extent", "layer"]:
-            raise ValueError('Unrecognized out_type "{}"'.format(out_type))
-        if out_format not in ["geojson", "wkt"]:
-            raise ValueError('Unrecognized out_format "{}"'.format(out_format))
-
-        # Calculate a single feature that is the union of all the features in
-        # this layer - that way there is a single feature to intersect with
-        # each hemisphere.
         geometries = []
         n = 1
         for f in self.get_layer_wgs84().getFeatures():
@@ -167,7 +261,28 @@ class AOI(object):
                 )
             geometries.append(geom)
             n += 1
-        union = qgis.core.QgsGeometry.unaryUnion(geometries)
+        return qgis.core.QgsGeometry.unaryUnion(geometries)
+
+    @functools.lru_cache(
+        maxsize=None
+    )  # not using functools.cache, as it was only introduced in Python 3.9
+    def meridian_split(self, out_type="extent", out_format="geojson", warn=True):
+        """
+        Return list of bounding boxes in WGS84 as geojson for GEE
+
+        Returns multiple geometries as needed to avoid having an extent
+        crossing the 180th meridian
+        """
+
+        # log("In meridian_split")
+        # log(traceback.extract_tb().format()().format())
+
+        if out_type not in ["extent", "layer"]:
+            raise ValueError('Unrecognized out_type "{}"'.format(out_type))
+        if out_format not in ["geojson", "wkt"]:
+            raise ValueError('Unrecognized out_format "{}"'.format(out_format))
+
+        union = self.get_unary_geometry()
 
         log(
             "Calculating east and west intersections to test if AOI crosses 180th meridian."
@@ -207,10 +322,10 @@ class AOI(object):
             # original layer (or extent) if the area of the combined pieces
             # from both hemispheres is not significantly smaller than that of
             # the original polygon.
-            log("AOI being processed in one piece " "(does not cross 180th meridian)")
+            log("AOI being processed in one piece (does not cross 180th meridian)")
             return (False, [pieces_union_txt])
         else:
-            log("AOI crosses 180th meridian - " "splitting AOI into two geojsons.")
+            log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
             return (True, pieces_txt)
 
     def get_aligned_output_bounds(self, f):
@@ -434,6 +549,7 @@ class AOI(object):
         in_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
         in_geom_area = in_geom.GetArea()
         if in_geom_area == 0:
+            aoi_geom = ogr.CreateGeometryFromWkt(aoi_wkts)
             if aoi_geom.Within(in_geom):
                 return False
 
@@ -459,8 +575,8 @@ class AOI(object):
                     log("Invalid feature in row {}.".format(n))
                     QtWidgets.QMessageBox.critical(
                         None,
-                        tr_calculate.tr("Error"),
-                        tr_calculate.tr(
+                        tr_areaofinterest.tr("Error"),
+                        tr_areaofinterest.tr(
                             "Invalid geometry in row {}. "
                             "Check that all input geom_jsons "
                             "are valid before processing. "
@@ -480,6 +596,37 @@ class AOI(object):
         return geojson
 
 
+def qgs_error_message(error_title="Error", error_desciption="", timeout=0):
+    """Displays an error message on the QGIS message bar. A button is included which will open
+    the settings for the plugin.
+
+    :param error_title: Error message title
+    :type error_title: str
+
+    :param error_desciption: Error message description
+    :type error_desciption: str
+
+    :param timeout: Message bar timeout in seconds. 0 is infinite.
+    :type timeout: int
+    """
+
+    message_bar = qgisiface.messageBar()
+
+    msg_widget = message_bar.createMessage(error_title, error_desciption)
+
+    settings_btn = QtWidgets.QPushButton(msg_widget)
+    settings_btn.setText("Settings")
+    settings_btn.pressed.connect(open_settings)
+    msg_widget.layout().addWidget(settings_btn)
+
+    message_bar.pushWidget(msg_widget, level=Qgis.Info, duration=timeout)
+
+
+def open_settings():
+    """Opens the QGIS settings panel. The Trends.Earth tab will be selected."""
+    qgisiface.showOptionsDialog(currentPage=conf.OPTIONS_TITLE)
+
+
 def prepare_area_of_interest() -> AOI:
     if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
         crs_dst = qgis.core.QgsCoordinateReferenceSystem(
@@ -494,7 +641,12 @@ def prepare_area_of_interest() -> AOI:
     is_city = area_method == conf.AreaSetting.COUNTRY_CITY.value
     is_region = area_method == conf.AreaSetting.COUNTRY_REGION.value
     if is_city and not has_buffer:
-        raise RuntimeError("Calculations for cities require a buffer")
+        qgs_error_message(
+            "Buffer required",
+            "Calculations for cities require a buffer. This can be set in the Trend.Earth settings.",
+            60,
+        )
+        return None
     elif is_city:
         geojson = get_city_geojson()
         area_of_interest.update_from_geojson(
@@ -503,9 +655,20 @@ def prepare_area_of_interest() -> AOI:
     elif is_region:
         geojson, error_msg = validate_country_region()
         if geojson is None:
-            raise RuntimeError(error_msg)
+            # Only show error message if a country was actually attempted to be selected
+            # Don't show error during initialization or when settings haven't been configured yet
+            country_id = conf.settings_manager.get_value(conf.Setting.COUNTRY_ID)
+            if country_id:
+                # User has attempted to configure a region but something went wrong
+                qgs_error_message(
+                    "Invalid or missing region",
+                    tr_areaofinterest.tr(error_msg),
+                    60,
+                )
+            return None
         area_of_interest.update_from_geojson(
-            geojson=geojson, wrap=False  # FIXME: add the corresponding setting
+            geojson=geojson,
+            wrap=False,  # FIXME: add the corresponding setting
         )
     elif area_method == conf.AreaSetting.VECTOR_LAYER.value:
         vector_path, error_msg = validate_vector_path()
@@ -576,23 +739,24 @@ def get_aligned_output_bounds(f, wkt_bounding_boxes):
     return out
 
 
-def _transform_layer(l, crs_dst, datatype="polygon", wrap=False):
+def _transform_layer(lyr, crs_dst, datatype="polygon", wrap=False):
     # Transform CRS of a layer while optionally wrapping geometries
     # across the 180th meridian
     log(
         'Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(
-            l.crs().toProj(), crs_dst.toProj(), wrap, datatype
+            lyr.crs().toProj(), crs_dst.toProj(), wrap, datatype
         )
     )
 
-    crs_src_string = l.crs().toProj()
+    crs_src_string = lyr.crs().toProj()
     if wrap:
-        if not l.crs().isGeographic():
+        if not lyr.crs().isGeographic():
             QtWidgets.QMessageBox.critical(
                 None,
-                tr_calculate.tr("Error"),
-                tr_calculate.tr(
-                    "Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."
+                tr_areaofinterest.tr("Error"),
+                tr_areaofinterest.tr(
+                    "Error - layer is not in a geographic coordinate system. "
+                    "Cannot wrap layer across 180th meridian."
                 ),
             )
             log(
@@ -614,7 +778,7 @@ def _transform_layer(l, crs_dst, datatype="polygon", wrap=False):
         "memory",
     )
     feats = []
-    for f in l.getFeatures():
+    for f in lyr.getFeatures():
         geom = f.geometry()
         if wrap:
             n = 0

@@ -1,0 +1,16 @@
+{
+	"productivity": {
+		"asset_climate": null,
+		"mode": "TrendsEarth-LPD-5",
+		"perf_year_final": 2019,
+		"perf_year_initial": 2004,
+		"asset_productivity": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2024",
+		"state_year_bl_end": 2016,
+		"state_year_bl_start": 2004,
+		"state_year_tg_end": 2019,
+		"state_year_tg_start": 2017,
+		"traj_method": "ndvi_trend",
+		"traj_year_final": 2019,
+		"traj_year_initial": 2004
+	}
+}

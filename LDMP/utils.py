@@ -4,15 +4,12 @@ import subprocess
 import sys
 import tempfile
 import typing
-from datetime import datetime
-from datetime import timezone
-from functools import reduce
 from pathlib import Path
 
 import qgis.core
 from osgeo import gdal
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
+from qgis.PyQt import QtGui, QtWidgets
+from qgis.PyQt.QtCore import QCoreApplication
 
 from .jobs import manager
 from .jobs.models import Job
@@ -63,7 +60,11 @@ def delete_dataset(job: Job) -> int:
     if job.local_context.area_of_interest_name:
         name_fragments.append(job.local_context.area_of_interest_name)
     if job.start_date:
-        name_fragments.append(job.start_date.strftime("%Y%m%d%H%M"))
+        try:
+            if hasattr(job.start_date, "strftime"):
+                name_fragments.append(job.start_date.strftime("%Y%m%d%H%M"))
+        except (AttributeError, ValueError, TypeError):
+            pass  # Skip date if it can't be formatted
     name_fragments.append(str(job.id))
     message_box.setText(
         f"You are about to delete job {separator.join(name_fragments)!r}"
@@ -103,7 +104,7 @@ def qgis_bin_dir() -> str:
     platform_name = sys.platform
     lib_path = app.libexecPath()
     rt_path = ""
-    warning, info = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
+    warning, _ = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
     msg = "QGIS 'bin' directory could not be determined."
 
     if platform_name == "win32":
@@ -119,7 +120,11 @@ def qgis_bin_dir() -> str:
             return ""
 
     elif platform_name in ("linux", "freebsd"):
-        rt_path = "/usr/"
+        qgis_executable_path = QCoreApplication.applicationFilePath()
+        rt_path = os.path.dirname(qgis_executable_path)
+        log(f"QGIS executable path: {rt_path}", warning)
+        return rt_path
+        # rt_path =  "/usr/"
 
     if rt_path:
         return f"{rt_path}bin"
@@ -177,7 +182,7 @@ def qgis_process_path() -> str:
     (or script) could not be found.
     """
     platform_name = sys.platform
-    warning, info = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
+    warning, _ = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
     proc_script_path = ""
 
     rt_bin_dir = qgis_bin_dir()
@@ -209,7 +214,7 @@ def qgis_process_path() -> str:
 
     # Check execution permissions
     if not os.access(proc_script_path, os.X_OK):
-        log(f"User does not have execute permission " f"for '{proc_script_path}'.")
+        log(f"User does not have execute permission for '{proc_script_path}'.")
         return ""
 
     return proc_script_path

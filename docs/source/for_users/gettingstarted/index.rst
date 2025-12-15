@@ -8,7 +8,7 @@ Getting Started
    :maxdepth: 2
    :caption: Getting Started
 
-   QGIS <qgis_version>
+   Installing Trends.Earth <qgis_version>
    Browser <browser_version>
    
 

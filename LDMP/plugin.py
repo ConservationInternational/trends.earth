@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,41 +10,45 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 import os
-from builtins import object
 
-from qgis.core import Qgis
-from qgis.core import QgsApplication
-from qgis.core import QgsExpression
-from qgis.core import QgsMasterLayoutInterface
-from qgis.core import QgsMessageLog
+from qgis.core import QgsApplication, QgsExpression, QgsMasterLayoutInterface
 from qgis.gui import QgsLayoutDesignerInterface
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import QCoreApplication, QLocale, Qt
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction
-from qgis.PyQt.QtWidgets import QApplication
-from qgis.PyQt.QtWidgets import QMenu
-from qgis.PyQt.QtWidgets import QMessageBox
-from qgis.PyQt.QtWidgets import QToolButton
+from qgis.PyQt.QtWidgets import QAction, QMenu, QToolButton
 
-from . import about
-from . import conf
-from . import main_widget
+from . import about, conf, main_widget
 from .charts import calculate_error_recode_stats
+from .conf import OPTIONS_TITLE
 from .jobs.manager import job_manager
-from .maptools import BufferMapTool
-from .maptools import PolygonMapTool
+from .lc_setup import LccInfoUtils
+from .logger import log
+from .maptools import BufferMapTool, PolygonMapTool
 from .processing_provider.provider import Provider
 from .reports.expressions import ReportExpressionUtils
 from .reports.template_manager import template_manager
-from .settings import DlgSettings
+from .settings import TrendsEarthOptionsFactory
 from .timeseries import show_time_series
 from .utils import FileUtils
 from .visualization import download_base_map
 
+# Need to reset the land cover legends if the locale has changed (in order to ensure
+# class names with the proper translation are used)
+CURRENT_LOCALE = QLocale(QgsApplication.locale()).name()
+PRIOR_LOCALE = conf.settings_manager.get_value(conf.Setting.PRIOR_LOCALE)
+log(f"CURRENT_LOCALE is {CURRENT_LOCALE}, PRIOR_LOCALE is {PRIOR_LOCALE}")
+if CURRENT_LOCALE != PRIOR_LOCALE:
+    conf.settings_manager.write_value(conf.Setting.PRIOR_LOCALE, CURRENT_LOCALE)
 
-class LDMPPlugin(object):
+
+class tr_plugin:
+    def tr(message):
+        return QCoreApplication.translate("tr_plugin", message)
+
+
+class LDMPPlugin:
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
@@ -63,7 +66,7 @@ class LDMPPlugin(object):
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QMenu(self.tr(u"&Trends.Earth"))
+        self.menu = QMenu(tr_plugin.tr("&Trends.Earth"))
         self.menu.setIcon(
             QIcon(
                 os.path.join(
@@ -80,6 +83,7 @@ class LDMPPlugin(object):
         self.start_action = None
         self.dock_widget = None
         self.time_series_dlg = None
+        self.options_factory = None
 
     def initProcessing(self):
         self.provider = Provider()
@@ -172,6 +176,14 @@ class LDMPPlugin(object):
         self.initProcessing()
         QgsExpression.registerFunction(calculate_error_recode_stats)
 
+        # Perform QSettings migration for safe upgrade from legacy boundary system
+        try:
+            from . import boundaries_management
+
+            boundaries_management.validate_and_migrate_boundary_settings()
+        except Exception as e:
+            log(f"Warning: QSettings migration failed: {e}")
+
         """
         Moved the initialization here so that the processing can be 
         initialized first thereby enabling the plugin to be used in 
@@ -181,7 +193,7 @@ class LDMPPlugin(object):
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
 
-        self.toolbar = self.iface.addToolBar(u"trends.earth")
+        self.toolbar = self.iface.addToolBar("trends.earth")
         self.toolbar.setObjectName("trends_earth_toolbar")
         self.toolButton = QToolButton()
         self.toolButton.setMenu(QMenu())
@@ -193,6 +205,13 @@ class LDMPPlugin(object):
         # Initialize reports module
         self.init_reports()
 
+        # Check if custom land cover classes exist, if not use default to UNCCD. Need to
+        # re-read defaults if locale has changed in order to handle translation
+        if CURRENT_LOCALE != PRIOR_LOCALE:
+            LccInfoUtils.set_default_unccd_classes(force_update=True)
+        else:
+            LccInfoUtils.set_default_unccd_classes(force_update=False)
+
         """Create Main manu icon and plugins menu entries."""
         self.start_action = self.add_action(
             os.path.join(
@@ -201,25 +220,25 @@ class LDMPPlugin(object):
             text="Trends.Earth",
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr("Trends.Earth dock interface"),
+            status_tip=tr_plugin.tr("Trends.Earth dock interface"),
             set_as_default_action=True,
         )
         self.start_action.setCheckable(True)
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "wrench.svg"),
-            text=self.tr("Settings"),
+            text=tr_plugin.tr("Settings"),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr("Trends.Earth Settings"),
+            status_tip=tr_plugin.tr("Trends.Earth Settings"),
         )
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "info.svg"),
-            text=self.tr("About"),
+            text=tr_plugin.tr("About"),
             callback=self.run_about,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr("About trends.earth"),
+            status_tip=tr_plugin.tr("About Trends.Earth"),
         )
 
         self.action_polygon = QAction(
@@ -228,7 +247,7 @@ class LDMPPlugin(object):
                     os.path.dirname(__file__), "icons", "mActionCapturePolygon.svg"
                 )
             ),
-            self.tr("Digitize polygon"),
+            tr_plugin.tr("Digitize polygon"),
             self.iface.mainWindow(),
         )
         self.action_polygon.triggered.connect(self.activate_polygon_tool)
@@ -241,7 +260,7 @@ class LDMPPlugin(object):
                     os.path.dirname(__file__), "icons", "mActionCaptureBuffer.svg"
                 )
             ),
-            self.tr(u"Buffer tool"),
+            tr_plugin.tr("Buffer tool"),
             self.iface.mainWindow(),
         )
         self.action_buffer.triggered.connect(self.activate_buffer_tool)
@@ -258,21 +277,25 @@ class LDMPPlugin(object):
 
         self.ndvi_action = QAction(
             FileUtils.get_icon("chart.svg"),
-            self.tr("Plot time series"),
+            tr_plugin.tr("Plot time series"),
             self.iface.mainWindow(),
         )
         self.ndvi_action.setCheckable(True)
-        self.ndvi_action.setToolTip(self.tr("Plot time series"))
+        self.ndvi_action.setToolTip(tr_plugin.tr("Plot time series"))
         self.ndvi_action.triggered.connect(self.run_ndvi)
 
         self.toolbar.addActions(
             [self.action_polygon, self.action_buffer, self.ndvi_action]
         )
 
+        # Adds the settings to the QGIS options panel
+        self.options_factory = TrendsEarthOptionsFactory()
+        self.iface.registerOptionsWidgetFactory(self.options_factory)
+
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
-            self.iface.removePluginRasterMenu(self.tr(u"&trends.earth"), action)
+            self.iface.removePluginRasterMenu(tr_plugin.tr("&Trends.Earth"), action)
             self.iface.removeToolBarIcon(action)
         # remove the menu
         self.raster_menu.removeAction(self.menu.menuAction())
@@ -292,6 +315,9 @@ class LDMPPlugin(object):
                 self.dock_widget.visibilityChanged.connect(
                     self.on_dock_visibility_changed
                 )
+
+                self.options_factory.set_dock_widget(self.dock_widget)
+
             self.dock_widget.show()
         else:
             if self.dock_widget is not None and self.dock_widget.isVisible():
@@ -308,17 +334,21 @@ class LDMPPlugin(object):
 
     def run_settings(self):
         old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        dialog = DlgSettings(self.iface.mainWindow())
-        dialog.exec_()
+
+        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
         if old_base_dir != new_base_dir:
             job_manager.clear_known_jobs()
-            if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
+            if (
+                hasattr(self, "dock_widget")
+                and self.dock_widget is not None
+                and self.dock_widget.isVisible()
+            ):
                 self.dock_widget.refresh_after_cache_update()
 
     def run_about(self):
-        self.dlg_about.show()
-        result = self.dlg_about.exec_()
+        self.dlg_about.exec_()
 
     def activate_polygon_tool(self):
         self.iface.mapCanvas().setMapTool(self.polygon_tool)

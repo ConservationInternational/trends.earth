@@ -1,4 +1,5 @@
 """Configuration utilities for Trends.Earth QGIS plugin."""
+
 import enum
 import json
 import os
@@ -11,7 +12,6 @@ from te_schemas.algorithms import ExecutionScript
 
 from . import download
 from .algorithms import models as algorithm_models
-from .logger import log
 from .reports.utils import default_report_disclaimer
 from .utils import FileUtils
 
@@ -25,7 +25,18 @@ tr_conf = tr_conf()
 
 
 TR_ALL_REGIONS = tr_conf.tr("All regions")
-log(f"TR_ALL_REGIONS translated as {TR_ALL_REGIONS}")
+
+OPTIONS_ICON = "trends_earth_logo_square_32x32.ico"
+OPTIONS_TITLE = "Trends.Earth"
+
+# Degradation Landcover matrix size settings
+# If there are equal to less than this value rows than the row height will be decreased
+RESIZE_NUM_ROWS = 5
+# This is the minimum row height value. 40 is the cell font minimum
+MINIMUM_ROW_HEIGHT = 40
+
+DOCK_TITLE = "Trends.Earth"
+DOCK_TITLE_OFFLINE = "Trends.Earth (offline mode)"
 
 
 class AreaSetting(enum.Enum):
@@ -39,27 +50,39 @@ class Setting(enum.Enum):
     LOCAL_POLLING_FREQUENCY = "private/local_polling_frequency_seconds"
     UPDATE_FREQUENCY_MILLISECONDS = "private/update_frequency_milliseconds"
     UNKNOWN_AREA_OF_INTEREST = "private/unknown_area_of_interest"
+    PRIOR_LOCALE = "private/prior_locale"
+
+    DATE_FILTER_ENABLED = "filters/date_filter_enabled"
+    FILTER_START_DATE = "filters/start_date"
+    FILTER_END_DATE = "filters/end_date"
 
     DEBUG = "advanced/debug"
-    BINARIES_ENABLED = "advanced/binaries_enabled"
-    BINARIES_DIR = "advanced/binaries_folder"
+
     FILTER_JOBS_BY_BASE_DIR = "advanced/FILTER_JOBS_BY_BASE_DIR"
     BASE_DIR = "advanced/base_data_directory"
     CUSTOM_CRS_ENABLED = "region_of_interest/custom_crs_enabled"
     CUSTOM_CRS = "region_of_interest/custom_crs"
+    CSV_FILE_DIR = "advanced/csv_file_dir"
     POLL_REMOTE = "advanced/poll_remote_server"
     REMOTE_POLLING_FREQUENCY = "advanced/remote_polling_frequency_seconds"
     DOWNLOAD_RESULTS = "advanced/download_remote_results_automatically"
+    OFFLINE_MODE = "advanced/offline_mode"
+    USER_ID = "authentication/user_id"
     BUFFER_CHECKED = "region_of_interest/buffer_checked"
     AREA_FROM_OPTION = "region_of_interest/chosen_method"
     POINT_X = "region_of_interest/point/x"
     POINT_Y = "region_of_interest/point/y"
     VECTOR_FILE_PATH = "region_of_interest/vector_file"
     VECTOR_FILE_DIR = "region_of_interest/vector_file_dir"
+    # Legacy name-based settings (deprecated - use ID-based settings below)
     COUNTRY_NAME = "region_of_interest/country/country_name"
     REGION_NAME = "region_of_interest/country/region_name"
     CITY_NAME = "region_of_interest/country/city_name"
     CITY_KEY = "region_of_interest/current_cities_key"
+    # ID-based boundary settings (primary storage)
+    COUNTRY_ID = "region_of_interest/country/country_id"
+    REGION_ID = "region_of_interest/country/region_id"
+    CITY_ID = "region_of_interest/country/city_id"
     BUFFER_SIZE = "region_of_interest/buffer_size"
     AREA_NAME = "region_of_interest/area_settings_name"
     JOB_FILE_AGE_LIMIT_DAYS = "advanced/deleted_datasets_age_limit"
@@ -70,6 +93,13 @@ class Setting(enum.Enum):
     REPORT_FOOTER = "report/footer"
     REPORT_DISCLAIMER = "report/disclaimer"
     REPORT_LOG_WARNING = "report/log_warning"
+    LC_CLASSES = "land_cover/user_classes"
+    LC_MAX_CLASSES = "land_cover/max_classes_v3"
+    LC_LAST_DIR = "land_cover/last_dir"
+    LC_IPCC_NESTING = "land_cover/ipcc_nesting"
+    LC_ESA_NESTING = "land_cover/esa_nesting"
+    LC_CUSTOM_IMPORT_NESTING = "land_cover/custom_import_nesting"
+    IMPORT_AREA_TOLERANCE = "import/extent_tolerance"
 
 
 class SettingsManager:
@@ -81,11 +111,11 @@ class SettingsManager:
         Setting.UPDATE_FREQUENCY_MILLISECONDS: 10000,
         Setting.LOCAL_POLLING_FREQUENCY: 30,
         Setting.UNKNOWN_AREA_OF_INTEREST: "unknown-area",
+        Setting.PRIOR_LOCALE: "unknown",
         Setting.REMOTE_POLLING_FREQUENCY: 3 * 60,
         Setting.DEBUG: False,
         Setting.FILTER_JOBS_BY_BASE_DIR: True,
-        Setting.BINARIES_ENABLED: False,
-        Setting.BINARIES_DIR: str(Path.home()),
+        Setting.OFFLINE_MODE: False,
         Setting.BASE_DIR: str(Path.home() / _base_data_path),
         Setting.DEFINITIONS_DIRECTORY: str(
             Path.home() / _base_data_path / "definitions"
@@ -94,18 +124,27 @@ class SettingsManager:
         Setting.CUSTOM_CRS: "epsg:4326",
         Setting.POLL_REMOTE: True,
         Setting.DOWNLOAD_RESULTS: True,
+        Setting.DATE_FILTER_ENABLED: False,
+        Setting.FILTER_START_DATE: "",
+        Setting.FILTER_END_DATE: "",
         Setting.BUFFER_CHECKED: False,
         Setting.AREA_FROM_OPTION: AreaSetting.COUNTRY_REGION.value,
         Setting.POINT_X: 0.0,
         Setting.POINT_Y: 0.0,
         Setting.VECTOR_FILE_PATH: "",
         Setting.VECTOR_FILE_DIR: "",
+        Setting.CSV_FILE_DIR: "",
         Setting.COUNTRY_NAME: "",
         Setting.REGION_NAME: "",
         Setting.CITY_NAME: "",
         Setting.CITY_KEY: 0,
+        # ID-based boundary settings (primary storage)
+        Setting.COUNTRY_ID: "",
+        Setting.REGION_ID: "",
+        Setting.CITY_ID: "",
         Setting.BUFFER_SIZE: 0.0,
         Setting.AREA_NAME: "",
+        Setting.USER_ID: None,
         Setting.JOB_FILE_AGE_LIMIT_DAYS: 15,
         Setting.REPORT_TEMPLATE_SEARCH_PATH: "",
         Setting.REPORT_ORG_LOGO_PATH: FileUtils.te_logo_path(),
@@ -113,6 +152,13 @@ class SettingsManager:
         Setting.REPORT_FOOTER: "",
         Setting.REPORT_DISCLAIMER: default_report_disclaimer(),
         Setting.REPORT_LOG_WARNING: False,
+        Setting.LC_CLASSES: "",
+        Setting.LC_MAX_CLASSES: 45,
+        Setting.LC_LAST_DIR: "",
+        Setting.LC_IPCC_NESTING: "",
+        Setting.LC_ESA_NESTING: "",
+        Setting.LC_CUSTOM_IMPORT_NESTING: "",
+        Setting.IMPORT_AREA_TOLERANCE: 0.95,
     }
 
     def __init__(self):
@@ -128,11 +174,25 @@ class SettingsManager:
             result = self.DEFAULT_SETTINGS[key]
         elif key == Setting.UPDATE_FREQUENCY_MILLISECONDS:
             result = self.DEFAULT_SETTINGS[key]
-        else:
+        elif key == Setting.BASE_DIR:
             type_ = type(self.DEFAULT_SETTINGS[key])
             result = self._settings.value(
                 f"{self.base_path}/{key.value}", self.DEFAULT_SETTINGS[key], type=type_
             )
+            if result == "" or result is None:
+                result = self.DEFAULT_SETTINGS[key]
+        else:
+            default_value = self.DEFAULT_SETTINGS[key]
+            if default_value is None:
+                # For None default values, don't specify a type to avoid QVariant issues
+                result = self._settings.value(
+                    f"{self.base_path}/{key.value}", default_value
+                )
+            else:
+                type_ = type(default_value)
+                result = self._settings.value(
+                    f"{self.base_path}/{key.value}", default_value, type=type_
+                )
 
         return result
 
@@ -224,23 +284,23 @@ _ALGORITHM_CONFIG = [
                     }
                 ],
             },
-            {
-                "id": "7f7df50d-6069-4028-9252-878fcc5d86d7",
-                "name": tr_conf.tr("SDG 15.3.1 error recode (false positive/negative)"),
-                "description": (
-                    tr_conf.tr(
-                        "Correct any known errors (false positives or negatives) "
-                        "in an SDG 15.3.1 Indicator layer. This can be used to correct "
-                        "misclassifications using expert knowledge or field data."
-                    )
-                ),
-                "scripts": [
-                    {
-                        "script": KNOWN_SCRIPTS["unccd-report"],
-                        "parametrization_dialogue": "LDMP.calculate_ldn.DlgCalculateLDNErrorRecode",
-                    },
-                ],
-            },
+            # {
+            #     "id": "7f7df50d-6069-4028-9252-878fcc5d86d7",
+            #     "name": tr_conf.tr("SDG 15.3.1 error recode (false positive/negative)"),
+            #     "description": (
+            #         tr_conf.tr(
+            #             "Correct any known errors (false positives or negatives) "
+            #             "in an SDG 15.3.1 Indicator layer. This can be used to correct "
+            #             "misclassifications using expert knowledge or field data."
+            #         )
+            #     ),
+            #     "scripts": [
+            #         {
+            #             "script": KNOWN_SCRIPTS["unccd-report"],
+            #             "parametrization_dialogue": "LDMP.calculate_ldn.DlgCalculateLDNErrorRecode",
+            #         },
+            #     ],
+            # },
             {
                 "id": "e25d2a72-2274-45fa-9b69-74e87873054e",
                 "name": tr_conf.tr("Land productivity"),
@@ -261,8 +321,7 @@ _ALGORITHM_CONFIG = [
                 "id": "277f87e6-5362-4533-ab1d-c28251576884",
                 "name": tr_conf.tr("Land cover change"),
                 "description": tr_conf.tr(
-                    "Land cover is the physical material at the surface of "
-                    "the earth. "
+                    "Land cover is the physical material at the surface of the earth. "
                 ),
                 "scripts": [
                     {
@@ -280,7 +339,7 @@ _ALGORITHM_CONFIG = [
                 "name": tr_conf.tr("Soil Organic Carbon"),
                 "description": (
                     tr_conf.tr(
-                        "Soil organic carbon is a measure of soil organic " "matter"
+                        "Soil organic carbon is a measure of soil organic matter"
                     )
                 ),
                 "scripts": [
@@ -430,7 +489,7 @@ _ALGORITHM_CONFIG = [
                         "id": "a753f2c9-be4c-4d97-9e21-09b8882e8899",
                         "name": tr_conf.tr("Change in carbon summary table"),
                         "description": tr_conf.tr(
-                            "Calculate table summarizing change in " "total carbon"
+                            "Calculate table summarizing change in total carbon"
                         ),
                         "scripts": [
                             {
@@ -449,7 +508,7 @@ _ALGORITHM_CONFIG = [
                         "id": "61839d52-0d81-428d-90e6-83ea5ed3c032",
                         "name": tr_conf.tr("Estimate potential impacts of restoration"),
                         "description": tr_conf.tr(
-                            "Estimate potential change in biomass due to " "restoration"
+                            "Estimate potential change in biomass due to restoration"
                         ),
                         "scripts": [
                             {

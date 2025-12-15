@@ -1,5 +1,6 @@
 .Rhistory
 .RData
+.env
 LDMP.zip
 aws_credentials.json
 *.mo
@@ -17,7 +18,6 @@ aws_credentials.json
 *.so
 *.pyd
 *.gz
-*.geojson
 .Rproj.user
 *.pyc
 *build/*
@@ -28,7 +28,7 @@ aws_credentials.json
 */ext-src_32/*
 LDMP/gui/*.py
 LDMP/resources.py
-LDMP/version.json
+LDMP/_version.py
 LDMP/data_prep_scripts/*
 docs/.vscode/*
 docs/build/*
@@ -36,9 +36,10 @@ docs/source/.doctrees/*
 docs/source/static/*
 docs/source/_build/*
 LDMP/binaries/*
-LDMP/test/fixtures/*
-LDMP/test/integration/fixtures/*
-LDMP/test/unit/fixtures/*
+test/fixtures/*
+test/integration/fixtures/*
+test/unit/fixtures/*
+LDMP/schemas
 invoke.yaml
 trends.earth_admin_user_credentials.json
 trends.earth_test_user_credentials.json
@@ -47,3 +48,15 @@ trends.earth_test_user_credentials.json
 venv
 LDMP/data/ne_10m_*
 LDMP/data/trends.earth_basemap_data.zip
+/invoke_old.yaml
+/tx.exe
+gee_key.json
+Changes
+.venv
+.vscode
+.vscode-extensions
+core
+trendsearth_api_credentials.json
+LDMP/data/boundary_*.json
+LDMP/data/server_check_*.json
+invoke*.yaml

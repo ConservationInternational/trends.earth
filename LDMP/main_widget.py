@@ -6,32 +6,34 @@ from pathlib import Path
 
 import qgis.core
 import qgis.gui
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import AlgorithmRunMode
 from te_schemas.jobs import JobStatus
 
 from .algorithms import models as algorithm_models
 from .algorithms import mvc as algorithms_mvc
-from .conf import ALGORITHM_TREE
-from .conf import KNOWN_SCRIPTS
-from .conf import Setting
-from .conf import settings_manager
-from .data_io import DlgDataIOImportProd
-from .data_io import DlgDataIOImportSOC
-from .data_io import DlgDataIOLoadTE
+from .conf import (
+    ALGORITHM_TREE,
+    DOCK_TITLE,
+    DOCK_TITLE_OFFLINE,
+    KNOWN_SCRIPTS,
+    Setting,
+    settings_manager,
+)
+from .data_io import (
+    DlgDataIOImportPopulation,
+    DlgDataIOImportProd,
+    DlgDataIOImportSOC,
+    DlgDataIOLoadTE,
+)
 from .download_data import DlgDownload
 from .jobs import mvc as jobs_mvc
 from .jobs.manager import job_manager
-from .jobs.models import Job
-from .jobs.models import SortField
-from .jobs.models import TypeFilter
+from .jobs.models import Job, SortField, TypeFilter
 from .landpks import DlgLandPKSDownload
 from .lc_setup import DlgDataIOImportLC
 from .logger import log
-from .utils import FileUtils
+from .select_dataset import DlgSelectDataset
 from .utils import load_object
 from .visualization import DlgVisualizationBasemap
 
@@ -122,6 +124,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.message_bar_sort_filter = None
 
+        self.proxy_model = None
+
         job_manager.refreshed_local_state.connect(self.refresh_after_cache_update)
         job_manager.refreshed_from_remote.connect(self.refresh_after_cache_update)
         job_manager.downloaded_job_results.connect(self.refresh_after_cache_update)
@@ -155,6 +159,61 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.timer.start(
             settings_manager.get_value(Setting.UPDATE_FREQUENCY_MILLISECONDS)
         )
+
+        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
+        if offline_mode:
+            self.pushButton_download.setEnabled(False)
+            self.setWindowTitle(DOCK_TITLE_OFFLINE)
+        else:
+            self.pushButton_download.setEnabled(True)
+            self.setWindowTitle(DOCK_TITLE)
+
+        date_filter_enabled = settings_manager.get_value(Setting.DATE_FILTER_ENABLED)
+
+        if not date_filter_enabled:
+            date_filter_enabled = False
+
+        self.date_filter_group.setChecked(date_filter_enabled)
+
+        settings_start_date = settings_manager.get_value(Setting.FILTER_START_DATE)
+        settings_end_date = settings_manager.get_value(Setting.FILTER_END_DATE)
+        if settings_start_date != "" and settings_end_date != "":
+            start_date = QtCore.QDateTime.fromString(
+                settings_start_date, "yyyy-MM-dd HH:mm:ss"
+            )
+            end_date = QtCore.QDateTime.fromString(
+                settings_end_date, "yyyy-MM-dd HH:mm:ss"
+            )
+
+            self.start_dte.setDateTime(start_date)
+            self.end_dte.setDateTime(end_date)
+
+        self.date_filter_group.toggled.connect(self.date_filter_group_toggled)
+        date_filter_enabled = functools.partial(self.date_filter_changed, False)
+
+        self.start_dte.dateChanged.connect(date_filter_enabled)
+        self.end_dte.dateChanged.connect(date_filter_enabled)
+
+    def date_filter_group_toggled(self, value):
+        settings_manager.write_value(Setting.DATE_FILTER_ENABLED, value)
+        self.date_filter_changed(disabled=not value)
+
+    def date_filter_changed(self, disabled=False):
+        settings_manager.write_value(
+            Setting.FILTER_START_DATE,
+            self.start_dte.dateTime().toString("yyyy-MM-dd HH:mm:ss"),
+        )
+
+        settings_manager.write_value(
+            Setting.FILTER_END_DATE,
+            self.end_dte.dateTime().toString("yyyy-MM-dd HH:mm:ss"),
+        )
+
+        start_date = self.start_dte.dateTime() if not disabled else None
+        end_date = self.end_dte.dateTime() if not disabled else None
+
+        if self.proxy_model:
+            self.proxy_model.set_date_filter(start_date, end_date)
 
     def setup_datasets_page_gui(self):
         self.pushButton_refresh.setIcon(
@@ -209,6 +268,12 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         action_import_soil_organic_carbon_dataset.triggered.connect(
             self.import_soil_organic_carbon_dataset
         )
+        action_import_population_dataset = self.import_menu.addAction(
+            self.tr("Import custom Population dataset...")
+        )
+        action_import_population_dataset.triggered.connect(
+            self.import_population_dataset
+        )
         self.import_dataset_pb.setMenu(self.import_menu)
         self.import_dataset_pb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionSharingImport.svg"))
@@ -219,20 +284,20 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.tr("Download raw dataset used in Trends.Earth...")
         )
         action_download_raw.triggered.connect(self.download_data)
-        action_download_landpks = self.download_menu.addAction(
-            self.tr("Download Land Potential Knowledge System (LandPKS) data...")
-        )
-        action_download_landpks.triggered.connect(self.download_landpks)
-        self.pushButton_download.setMenu(self.download_menu)
-        self.pushButton_download.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg"))
-        )
+
+        # TODO: re-enable this one LandPKS login is working
+        # action_download_landpks = self.download_menu.addAction(
+        #     self.tr("Download Land Potential Knowledge System (LandPKS) data...")
+        # )
+        # action_download_landpks.triggered.connect(self.download_landpks)
+        # self.pushButton_download.setMenu(self.download_menu)
+        # self.pushButton_download.setIcon(
+        #     QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg"))
+        # )
 
         self.pushButton_download.clicked.connect(self.download_data)
 
-        self.pushButton_load.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "document.svg"))
-        )
+        self.pushButton_load.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, "globe.svg")))
         self.pushButton_load.clicked.connect(self.load_base_map)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 
@@ -257,23 +322,41 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # self.datasets_tv.clicked.connect(self._manage_datasets_tree_view)
         self.datasets_tv.entered.connect(self._manage_datasets_tree_view)
 
+        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
+        if offline_mode:
+            self.pushButton_download.setEnabled(False)
+            self.setWindowTitle(DOCK_TITLE)
+        else:
+            self.pushButton_download.setEnabled(True)
+            self.setWindowTitle(DOCK_TITLE_OFFLINE)
+
     def refresh_after_cache_update(self):
+        # Close any open persistent editor BEFORE changing the model
+        # to avoid access violations with dangling QModelIndex pointers
         current_dataset_index = self.datasets_tv_delegate.current_index
 
-        if current_dataset_index is not None:
-            has_open_editor = self.datasets_tv.isPersistentEditorOpen(
-                current_dataset_index
-            )
+        if current_dataset_index is not None and current_dataset_index.isValid():
+            try:
+                has_open_editor = self.datasets_tv.isPersistentEditorOpen(
+                    current_dataset_index
+                )
 
-            if has_open_editor:
-                self.datasets_tv.closePersistentEditor(current_dataset_index)
-            self.datasets_tv_delegate.current_index = None
+                if has_open_editor:
+                    self.datasets_tv.closePersistentEditor(current_dataset_index)
+            except (RuntimeError, AttributeError):
+                # Handle cases where the index or editor is no longer valid
+                pass
+            finally:
+                # Always reset the current index
+                self.datasets_tv_delegate.current_index = None
 
         maybe_download_finished_results()
         model = jobs_mvc.JobsModel(job_manager)
         # self.datasets_tv.setModel(model)
         self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
         self.type_filter_changed(TypeFilter.ALL)
+        self.date_filter_changed(disabled=not self.date_filter_group.isChecked())
+
         self.filter_changed("")
         action = self.filter_menu.actions()[0]
         action.setChecked(True)
@@ -319,7 +402,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             if _should_run(local_frequency, self.last_refreshed_local_state):
                 # lets check if we also need to update from remote, as that takes
                 # precedence
-                if settings_manager.get_value(Setting.POLL_REMOTE):
+                if not settings_manager.get_value(
+                    Setting.OFFLINE_MODE
+                ) and settings_manager.get_value(Setting.POLL_REMOTE):
                     remote_frequency = settings_manager.get_value(
                         Setting.REMOTE_POLLING_FREQUENCY
                     )
@@ -522,8 +607,20 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.tabWidget.setCurrentIndex(self._SUB_INDICATORS_TAB_PAGE)
 
     def create_error_recode(self):
-        log("create_error_recode called")
-        job_manager.create_error_recode()
+        dlg = DlgSelectDataset(self, validate_all=True)
+        win_title = f"{dlg.windowTitle()} - {self.tr('False positive/negative')}"
+        dlg.setWindowTitle(win_title)
+        if dlg.exec_() == QtWidgets.QDialog.Accepted:
+            self.pause_scheduler()
+
+            prod = dlg.prod_band()
+            lc = dlg.lc_band()
+            soil = dlg.soil_band()
+            sdg = dlg.sdg_band()
+            task_name = dlg.task_name
+            job_manager.create_error_recode(task_name, lc, soil, prod, sdg)
+
+            self.resume_scheduler()
 
     def update_refresh_button_status(self):
         if self.remote_refresh_running:
@@ -575,7 +672,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
                 previous_index = self.datasets_tv_delegate.current_index
                 index_changed = index != previous_index
 
-                if previous_index is not None:
+                if previous_index is not None and previous_index.isValid():
                     previously_open = self.datasets_tv.isPersistentEditorOpen(
                         previous_index
                     )
@@ -618,7 +715,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
                 previous_index = self.algorithms_tv_delegate.current_index
                 index_changed = index != previous_index
 
-                if previous_index is not None:
+                if previous_index is not None and previous_index.isValid():
                     previously_open = self.algorithms_tv.isPersistentEditorOpen(
                         previous_index
                     )
@@ -669,11 +766,17 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         dialogue = DlgDataIOImportSOC(self)
         dialogue.exec_()
 
+    def import_population_dataset(self, action: QtWidgets.QAction):
+        log("import_population_dataset called")
+        dialogue = DlgDataIOImportPopulation(self)
+        dialogue.exec_()
+
 
 def maybe_download_finished_results():
+    offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
     dataset_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
 
-    if dataset_auto_download:
+    if not offline_mode and dataset_auto_download:
         if len(job_manager.known_jobs[JobStatus.FINISHED]) > 0:
             log("downloading results...")
             job_manager.download_available_results()

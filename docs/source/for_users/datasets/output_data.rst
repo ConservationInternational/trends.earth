@@ -35,6 +35,30 @@ SDG 15.3.1 Indicator
 +--------+-------------+
 
 
+SDG 15.3.1 Indicator (status)
+-----------------------------
+
++--------+--------------------------+
+| Value  | Meaning                  |
++========+==========================+
+| -32768 | No data                  |
++--------+--------------------------+
+| 1      | Degradation (persistent) |
++--------+--------------------------+
+| 2      | Degradation (recent)     |
++--------+--------------------------+
+| 3      | Degradation (baseline)   |
++--------+--------------------------+
+| 4      | Stability                |
++--------+--------------------------+
+| 5      | Improvement (baseline)   |
++--------+--------------------------+
+| 6      | Improvement (recent)     |
++--------+--------------------------+
+| 7      | Improvement (persistent) |
++--------+--------------------------+
+
+
 Productivity
 --------------------------------
 
@@ -168,8 +192,8 @@ SDG 15.3.1 productivity indicator
 | 5      | Increasing             |
 +--------+------------------------+
 
-Land Productivity Dynamics - JRC
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Land Productivity Dynamics - (Trends.Earth, JRC, and FAO-WOCAT)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +--------+------------------+
 | Value  | Meaning          |
@@ -478,7 +502,7 @@ in the tool).
 +====================+===============================================================+
 | -32768             | Meaning                                                       |
 +--------------------+---------------------------------------------------------------+
-| Any negative value | A positive value indicates a pixel **was** exposed to drought |
+| Any negative value | A negative value indicates a pixel **was** exposed to drought |
 |                    | (defined as SPI < -1) during a particular (typically four-    |
 |                    | year) period. The pixel value indicates the population of     |
 |                    | the pixel at the time of maximum drought.                     |

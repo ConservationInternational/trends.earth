@@ -6,7 +6,7 @@ Land Degradation
 Land Degradation Sub-indicators
 --------------------------------
 
-- **Objective**: Learn how to run SDG 15.3.1 sub-indicators (changes in land productivity, land cover and soil organic carbon) using Trends.Earth and the default data: Trends.Earth (trajectory, performance and state) for land productivity, ESA CCI for land cover, and SoilGrids for soil organic carbon. In this tutorial we will use Colombia as an example, but you can choose any study area.
+- **Objective**: Learn how to run SDG 15.3.1 sub-indicators (changes in land productivity, land cover and soil organic carbon) using Trends.Earth and the default data: Trends.Earth (trend, performance and state) for land productivity, ESA CCI for land cover, and SoilGrids for soil organic carbon. In this tutorial we will use Belize as an example, but you can choose any study area.
 
 - **Estimated time of completion**: 35 minutes
 
@@ -28,25 +28,23 @@ Land Degradation Sub-indicators
 .. note::
     Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
 
-3. In the **SDG15.3.1 Indicator (one-step) | Land Degradation** dialog, select the **Trends.Earth land productivity** data. Select also the **Include progress period (for comparison to baseline)** check box to set the progress period for reporting period. 
+3. In the **SDG15.3.1 Indicator (one-step) | Land Degradation** dialog, select the **Trends.Earth land productivity dynamics** data. Select also the **Include reporting period (for comparison to baseline)** check box to set the progress period for the first reporting period. If you want to add yet another reporting period, click on **Add reporting period**
 
 .. image:: ../../../resources/en/training/t03/all_subindicators.png
    :align: center
 
 4. Type in the Execution name and notes.
 
-5. Select **Schedule remote execution** button.
+5. Click on **Schedule remote execution** button.
 
-6. A light blue bar will temporarily show, indicating that the task was successfully submitted. The analysis will be run in Google servers and could take between 5 and 15 minutes depending on the size of the study area (larger areas tend to take longer).
+6. A light blue bar will temporarily show, indicating that the task was successfully submitted. The analysis will be run in Google servers and could take between a few to several minutes depending on the size of the study area (larger areas tend to take longer).
 
 .. image:: ../../../resources/en/training/t03/submitted.png
    :align: center  
 
 
 .. note::
-    Refer to the :ref:`tut_land_degradation` section of this manual to learn about custom sub-indicators
-	or :ref:`background_landdegradation` section of this manual to learn about the Trends.Earth productivity 
-	indicators developed following the `UNCCD Good Practice Guidance (GPG) <https://www.unccd.int/sites/default/files/relevant-links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_.
+    Refer to the :ref:`tut_land_degradation` section of this manual to learn about custom sub-indicators or :ref:`background_landdegradation` section of this manual to learn about the Trends.Earth productivity indicators developed following the `UNCCD Good Practice Guidance (GPG) <https://www.unccd.int/sites/default/files/relevant-links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_.
 
 
 7. In the **Trends.Earth** panel, select the **Datasets** window. The task submitted will appear 
@@ -56,6 +54,14 @@ Land Degradation Sub-indicators
     Refer to the :ref:`tut_settings` section of this manual to learn more about **Advanced settings**
 
 - Click on the Refresh button if the analysis does not appear in the menu. 
+
+.. image:: ../../../resources/en/training/t03/manual_refresh.png
+   :align: center 
+
+.. note::
+    If you are preparing data for reporting to the UNCCD, **Trends.Earth** offers **Presets** that allow you to easily apply the official UNCCD reporting periods by the selecting the prefered option for the land productivity dynamics dataset. Select the preset of preference (i.e. Default Data, Trends.Earth; 2026 reporting cycle, JRC; 2026 reporting cycle, FAO-WOCAT) and click on **Apply Preset**. Other options available are to **Save Current as Preset** for saving a custom preset of preference; **Delete Preset** for deleting a previously saved preset; **Export** a preset to a JSON file; and **Import** a JSON file defining a preset.
+.. image:: ../../../resources/en/training/t03/presets.png
+   :align: center
 
 8. Once the task is done, select the add layer drop-down button to **Add default layers from this dataset to the map**
 
@@ -89,7 +95,7 @@ Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3
 
 2. The **Trends.Earth** panel will open. In the **Algorithm** window, click on **SDG 15.3.1- Land Degradation** and select **Execute locally** under **Indicator for SDG 15.3.1**.
 
-.. image:: ../../../resources/en/documentation/calculate/so1_sdg1531_indicator.PNG
+.. image:: ../../../resources/en/documentation/calculate/so1_sdg1531_indicator.png
    :align: center
 
 3. The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
@@ -99,18 +105,23 @@ Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3
 .. note::
     Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
 	
-.. image:: ../../../resources/en/training/t03/final_subindicator.png
+.. image:: ../../../resources/en/training/t03/final_subindicator1.png
    :align: center
+.. image:: ../../../resources/en/training/t03/final_subindicator2.png
+   :align: center
+.. image:: ../../../resources/en/training/t03/final_subindicator3.png
+   :align: center
+
    
 -If you have the sub-indicators loaded into the QGIS map, the tool will recognize them and they will show up pre-filled in each corresponding section.
 
 .. note::
-	If you have more than one layer loaded into the map per sub-indicator (for example, land cover change computed with default and also with custom data) make sure to check that the one being used to compute the final SDG is the one you want.
+	Maje sure to carefully verify that the available layers are correctly pre-filled to the corresponding fields.
 
 4. Click on **Advanced** to expand it and show advanced options then select the **Population (required to calculate populations exposed by degradation)** check box to calculate `UNCCD's SO 2-3, proportion of population exposed to land degradation disaggregated by sex <https://prais4-reporting-manual.readthedocs.io/en/latest/SO2.html#so-2-3-trends-in-population-exposure-to-land-degradation-disaggregated-by-sex>`_. Make sure to check the **Population** box both for **Baseline** and **Progress Period** in case you are interested in having summary results for both periods.
    |trends.earth| provides access the **WorldPop** dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
 
-.. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.PNG
+.. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.png
    :align: center
    
 5. Select **Execute locally** button.
@@ -150,6 +161,8 @@ SDG 15.3.1 Land Degradation Summary
 
 .. image:: ../../../resources/en/training/t05/sdg_open_dataset_directory.png
    :align: center
+.. image:: ../../../resources/en/training/t05/sdg_open_dataset_directory2.png
+   :align: center
 
 - The directory where the summary table was saved along with the geospatial data will open. You will see two summary tables in case both Baseline and Progress period SDG 15.3.1 were calculated
 
@@ -165,14 +178,14 @@ SDG 15.3.1 Land Degradation Summary
 .. image:: ../../../resources/en/training/t06/table_sdg.png
    :align: center
 
-3. In the **Productivity** tab you will find at the top, a similar summary as previously explained, but in this case representing the results of the land productivity sub-indicator alone.
+4. In the **Productivity** tab you will find at the top, a similar summary as previously explained, but in this case representing the results of the land productivity sub-indicator alone.
 
    In the sections below you will find two tables, each containing area information (in sq. km) for each of the land cover transitions found in the study are during the period analyzed broken by each of the 5 final land productivity classes: Increasing, Stable, Stable but stressed, Early signs of decline, and Declining.
    
 .. image:: ../../../resources/en/training/t06/table_productivity.png
    :align: center
 
-4. In the **Soil organic carbon** tab you will find at the top, a similar summary as previously explained, but in this case representing the results of the soil organic carbon sub-indicator alone.   
+5. In the **Soil organic carbon** tab you will find at the top, a similar summary as previously explained, but in this case representing the results of the soil organic carbon sub-indicator alone.   
 
    In the sections below you will find two tables:
  
@@ -182,7 +195,7 @@ SDG 15.3.1 Land Degradation Summary
 .. image:: ../../../resources/en/training/t06/table_soc.png
    :align: center
    
-5. In the **Land cover** tab you will find at the top, a similar summary as previously explained, but in this case representing the results of the land cover change sub-indicator alone.      
+6. In the **Land cover** tab you will find at the top, a similar summary as previously explained, but in this case representing the results of the land cover change sub-indicator alone.      
    
    In the sections below you will find two tables:
  
@@ -192,12 +205,12 @@ SDG 15.3.1 Land Degradation Summary
 .. image:: ../../../resources/en/training/t06/table_landcover.png
    :align: center
    
-6. In the **Population** tab you will find a summary of population affected by land degradation classes, with absolute and percent values reported.      
+7. In the **Population** tab you will find a summary of population affected by land degradation classes, with absolute and percent values reported.      
      
 .. image:: ../../../resources/en/training/t06/table_population.png
    :align: center
 
-7. In the **UNCCD SO1-1** tab you will find five tables containing similar information as the one presented in the previous tabs, but in this case specifically formatted to match the reporting template required by the UNCCD. Each table indicates at the top the page number and section of the template the information is referring to.
+8. In the **UNCCD SO1-1** tab you will find five tables containing similar information as the one presented in the previous tabs, but in this case specifically formatted to match the reporting template required by the UNCCD. Each table indicates at the top the page number and section of the template the information is referring to.
    
 .. image:: ../../../resources/en/training/t06/table_unccd.png
    :align: center
@@ -227,7 +240,7 @@ For the productivity data to be used in Trends.Earth the file need to be coded i
    - Increasing = 5
    - No data = 0 or -32768
 
-   If your layer is not coded in such a way, please do the necessary adjustments/reclassification prior to using Trends.Earth.
+   If your layer is not coded in such a way, please do the necessary adjustments/reclassification prior to importing it into Trends.Earth.
  
 1. To load a **custom productivity data** click on the **Datasets** window, and then click on **Import dataset**.
 
@@ -367,7 +380,7 @@ Calculating Land Cover sub-indicator with custom data
 
 1. Now that both land cover datasets have been imported into Trends.Earth, the land cover change analysis tool needs to be run. In the **Algorithm window**, click on **Execute locally** under **Land cover change**.
    
-.. image:: ../../../resources/en/training/t08/trends_earth_calculate_custom_land_cover.PNG
+.. image:: ../../../resources/en/training/t08/trends_earth_calculate_custom_land_cover.png
    :align: center   
    
 .. image:: ../../../resources/en/training/t08/call_lc_change_locally.png
@@ -527,108 +540,6 @@ Calculating soil organic carbon sub-indicator with custom data
     Refer to the :ref:`indicator-soc` tutorial for instructions on how to use 
     the imported soil organic carbon data to compute the final SDG 15.3.1 after 
     integration with land cover and land productivity.
-.. _tut_unccd_calculate_SO3:
-
-Strategic Objective 3
---------------------------------
-
-Default data for UNCCD SO 3
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- **Objective**: : Learn how to calculate SO 3 indicators of drought Hazard, Exposure and Vulnerability using Trends.Earth and the default data: monthly precipitation dataset from the Global Precipitation Climatology Center -GPC, gridded population count from WorldPop and Vulnerability to drought from the European Commission's Joint Research Centre - JRC. In this tutorial we will use Colombia as an example, but you can choose any study area.
-
-- **Estimated time of completion**: 15 minutes
-
-- **Internet access**: Required
-
-1. In the **Algorithm** window, click on **Drought - Vulnerability and exposure** and select **Execute remotely** under **Drought vulnerability**.
-
-.. image:: ../../../resources/en/documentation/calculate/so3_drought_vulnerability_exposure.PNG
-   :align: center
-
--  The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
-
-.. note::
-    Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
-
-3. Set the **Initial** and **Final** year and the **Lag(months)** that will be applied to the Precipitation Dataset for calculating drought Hazard and Exposure. Select the **Include JRC Vulnerability Index** check box to calculate drought Vulnerability for the region of interest. The default Precipitation dataset is the Global Precipitation Climatology Centre (GPCC) v2020 at roughly 27 sq km spatial resolution. Soon users will have the option to select the CHIRPS dataset from the Climate Hazard Group – although featuring finer spatial resolution, at approximately 5 sq km, the CHIRPS dataset does not offer complete global coverage, extending from 50 South to 50 North. Type in an **Execution name** and make sure to leave some notes about this step for future reference.
-
-.. image:: ../../../resources/en/documentation/calculate/so3_indicators.png
-   :align: center
-
-4. Select **Schedule remote execution** button.
-
-.. note::
-    Refer to the :ref:`background_unccdreporting` section of this manual to learn about drought Hazard, Exposure and Vulnerability.
-
-5. In the **Trends.Earth** panel, select the **Datasets** tab. The task submitted will appear in the menu if the **Download remotely-generated datasets automatically** is checked in settings.
-
-.. note::
-    Refer to the :ref:`tut_settings` section of this manual to learn more about **Advanced settings**
-
-. Select the Refresh button if the analysis does not appear in the menu. 
-
-6. Select the add layer drop-down button to **Add default layers from this layer to the map**
-
-.. image:: ../../../resources/en/documentation/load_data/add_drought_subindicator_to_map.png
-   :align: center
-
-7. The default data: Standardized Precipitation Index for all epochs, JRC's Drought Vulnerability Index for 2018, and population disaggregated by gender, will be added to the map for the region of interest.
-
-.. image:: ../../../resources/en/documentation/load_data/drought_vulnerabitlity_map.png
-   :align: center
-
-.. _tut_unccd_reporting_SO3:
-
-Summarizing SO 3 indicators for reporting to UNCCD
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- **Objective**: Learn to integrate the drought indicators in alingment with UNCCD SO3 reporting requirements. 
-
-- **Estimated time of completion**: 15 minutes
-
-- **Internet access**: Not required
-
-.. note::
-    You will need to have previously calculated the indicators of drought hazard, exposure and vulnerability. If you have not, please refer to the previous step on this tutorial.
-
-1. Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth icon.
-
-2. The **Trends.Earth** panel will open. In the **Algorithm** window, click on click on **Drought - Vulnerability and exposure** and select **Execute locally** under **Drought vulnerability summary table**.
-
-.. image:: ../../../resources/en/documentation/calculate/so3_drought_calculate_summary.png
-   :align: center
-
-The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
-
-.. note::
-    Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
-
-3. Select the **Drought dataset (hazard and exposure)** from the drop-down list 
-
-4. Make sure to check the **Drought dataset for vulnerability** box so this dataset set is also included in the summary calculation.
-   If you have the drought indicator datasets loaded to the QGIS map canvas, Trends.Earth will automatically select them
-   
-.. image:: ../../../resources/en/documentation/calculate/summarise_so3.png
-   :align: center
-
-5. Select **Execute locally** button.
-
-5. In the **Trends.Earth** panel, select the **Datasets** tab. The task submitted will appear 
-   in the menu if the **Download remotely-generated datasets automatically** is checked in settings.
-
-.. note::
-    Refer to the :ref:`tut_settings` section of this manual to learn more about **Advanced settings**
-
-   Select the Refresh button if the analysis does not appear in the menu. 
-
-6. Select the add layer drop-down button to **Add default layers from this layer to the map**
-
-.. image:: ../../../resources/en/documentation/data_download/download_datasets.png
-   :align: center
-
-7. The data for SO 3 Indicators will be added to the map for the region of interest.
-
 
 Exploring NDVI (Plot Data)
 --------------------------------

@@ -5,30 +5,24 @@ from pathlib import Path
 import numpy as np
 import openpyxl
 import qgis.core
-from openpyxl.styles import Alignment
-from openpyxl.styles import Font
+from openpyxl.styles import Alignment, Font
 from osgeo import gdal
-from te_schemas.results import Band
-from te_schemas.results import DataType
-from te_schemas.results import Raster
-from te_schemas.results import RasterFileType
-from te_schemas.results import RasterResults
-from te_schemas.results import URI
+from te_schemas.results import (
+    URI,
+    Band,
+    DataType,
+    Raster,
+    RasterFileType,
+    RasterResults,
+)
 
-from .. import areaofinterest
-from .. import calculate
-from .. import data_io
-from .. import summary
-from .. import utils
-from .. import logger
-from .. import worker
+from .. import areaofinterest, calculate, data_io, logger, summary, utils, worker
 from ..jobs.models import Job
 
 
 def get_main_restoration_job_params(
     combo_layer_biomass_diff: data_io.WidgetDataIOSelectTELayerExisting,
 ):
-
     band = combo_layer_biomass_diff.get_current_band()
 
     restoration_years = band.job.params["length_yr"]
@@ -75,15 +69,13 @@ def compute_biomass_restoration(
             )
         output_biomass_diff_tifs.append(output_biomass_diff_tif)
 
-        logger.log(
-            "Saving clipped biomass file to {}".format(output_biomass_diff_tif)
-        )
+        logger.log("Saving clipped biomass file to {}".format(output_biomass_diff_tif))
         geojson = calculate.json_geom_to_geojson(
             qgis.core.QgsGeometry.fromWkt(wkts[n]).asJson()
         )
         clip_worker = worker.StartWorker(
             calculate.ClipWorker,
-            f"masking layers (part {n+1} of {len(wkts)})",
+            f"masking layers (part {n + 1} of {len(wkts)})",
             in_file,
             str(output_biomass_diff_tif),
             geojson,
@@ -96,7 +88,7 @@ def compute_biomass_restoration(
             logger.log("Calculating summary table...")
             rest_summary_worker = worker.StartWorker(
                 RestBiomassSummaryWorker,
-                f"calculating summary table (part {n+1} of {len(wkts)})",
+                f"calculating summary table (part {n + 1} of {len(wkts)})",
                 str(output_biomass_diff_tif),
             )
 
@@ -145,10 +137,10 @@ def compute_biomass_restoration(
 
     biomass_job.results = RasterResults(
         name="biomass_restoration_summary",
-        uri=URI(uri=output_path, type="local"),
+        uri=URI(uri=output_path),
         rasters={
             DataType.INT16.value: Raster(
-                uri=URI(uri=output_path, type="local"),
+                uri=URI(uri=output_path),
                 bands=output_bands,
                 datatype=DataType.INT16,
                 filetype=RasterFileType.GEOTIFF,
@@ -225,7 +217,7 @@ def _save_summary_table(
     try:
         workbook.save(out_file)
         logger.log("Summary table saved to {}".format(out_file))
-    except IOError as exc:
+    except OSError as exc:
         raise RuntimeError(
             f"Error saving output table - check that {out_file} is accessible and "
             f"not already open. - {str(exc)}"

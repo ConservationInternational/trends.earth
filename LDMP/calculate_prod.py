@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,25 +10,31 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
 import json
 import typing
 from pathlib import Path
 
 import qgis.gui
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from PyQt5.QtWidgets import QSpinBox
+from qgis.PyQt import QtCore, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 from te_schemas.productivity import ProductivityMode
 
-from . import calculate
-from . import conf
+from . import calculate, conf
 from .jobs.manager import job_manager
 from .logger import log
 
 DlgCalculateProdUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateProd.ui")
 )
+
+FAO_WOCAT = "FAO_WOCAT"
+MODIS_MED_FILTER_OPTION = "MODIS (MED filter option)"
+AVHRR_ANNUAL = "AVHRR (GIMMS3g.v1, annual)"
+
+# Minimum years required for different productivity methods
+MIN_YEARS_FOR_MANN_KENDALL: int = 4  # Mann-Kendall test minimum requirement
 
 
 class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
@@ -57,13 +62,18 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.start_year_climate = 0
         self.end_year_climate = 9999
         self.start_year_ndvi = 0
+        self.medium_value = 0
         self.end_year_ndvi = 9999
         self.dataset_ndvi_changed()
         self.traj_climate_changed()
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
-        self.mode_te_prod.toggled.connect(self.mode_te_prod_toggled)
-        self.mode_te_prod_toggled()
+
+        self.mode_te_prod.toggled.connect(self.indicator_toggled)
+        self.mode_fao_wocat.toggled.connect(self.indicator_toggled)
+        self.mode_lpd_jrc.toggled.connect(self.indicator_toggled)
+        self.indicator_toggled()
+
         self.resize(self.width(), 711)
         self._finish_initialization()
 
@@ -73,6 +83,25 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
         self.advance_configurations.setCollapsed(True)
 
+        self.advance_configurations.collapsedStateChanged.connect(
+            self._adv_conf_collapsed_changed
+        )
+
+        self.low_value_spinbox.valueChanged.connect(self.biomass_value_update)
+        self.high_value_spinbox.valueChanged.connect(self.biomass_value_update)
+
+    def biomass_value_update(self):
+        """Biomass value change slot, handles low and high value inputs,
+        calculates the medium value and updates its corresponding input.
+        """
+        self.medium_value = (
+            self.low_value_spinbox.value() + self.high_value_spinbox.value()
+        ) / 2
+
+    def _adv_conf_collapsed_changed(self, _collapsed: bool):
+        if not _collapsed:
+            self.indicator_toggled()
+
     @property
     def trajectory_functions(self) -> typing.Dict:
         return self.script.additional_configuration["trajectory functions"]
@@ -80,23 +109,98 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
     def traj_indic_changed(self):
         self.dataset_climate_update()
 
-    def mode_te_prod_toggled(self):
-        if self.mode_lpd_jrc.isChecked():
-            self.combo_lpd.setEnabled(True)
-            self.advance_configurations.setEnabled(False)
-            self.groupBox_ndvi_dataset.setEnabled(False)
-            self.groupBox_traj.setEnabled(False)
-            self.groupBox_perf.setEnabled(False)
-            self.groupBox_state.setEnabled(False)
-            self.advance_configurations.setCollapsed(True)
-        else:
+    def indicator_toggled(self, checked: bool = True):
+        if not checked:
+            return
+        if self.mode_te_prod.isChecked():
+            self.reset_fao_wocat_settings()
             self.combo_lpd.setEnabled(False)
             self.advance_configurations.setEnabled(True)
             self.groupBox_ndvi_dataset.setEnabled(True)
             self.groupBox_traj.setEnabled(True)
             self.groupBox_perf.setEnabled(True)
             self.groupBox_state.setEnabled(True)
-            self.advance_configurations.setCollapsed(True)
+            self.groupBox_fao_wocat_period.setVisible(False)
+        elif self.mode_lpd_jrc.isChecked():
+            self.reset_fao_wocat_settings()
+            self.combo_lpd.setEnabled(True)
+            self.advance_configurations.setEnabled(False)
+            self.groupBox_ndvi_dataset.setEnabled(False)
+            self.groupBox_traj.setEnabled(False)
+            self.groupBox_perf.setEnabled(False)
+            self.groupBox_state.setEnabled(False)
+            self.groupBox_fao_wocat_period.setVisible(False)
+        elif self.mode_fao_wocat.isChecked():
+            self.set_fao_wocat_settings()
+            self.groupBox_fao_wocat_period.setVisible(True)
+            self.combo_lpd.setEnabled(False)
+            self.groupBox_state.setEnabled(True)
+            self.advance_configurations.setEnabled(True)
+
+            self.groupBox_ndvi_dataset.setEnabled(True)
+
+            for gb in (self.groupBox_traj, self.groupBox_perf):
+                gb.setVisible(False)
+                gb.setEnabled(False)
+
+    def set_fao_wocat_settings(self):
+        if self.advance_configurations.isCollapsed():
+            self.advance_configurations.setCollapsed(False)
+
+        dataset_ndvi_options = [
+            self.dataset_ndvi.itemText(i) for i in range(self.dataset_ndvi.count())
+        ]
+        for index in range(self.dataset_ndvi.count()):
+            if self.dataset_ndvi.itemText(index) == AVHRR_ANNUAL:
+                self.dataset_ndvi.removeItem(index)
+                if (
+                    MODIS_MED_FILTER_OPTION not in dataset_ndvi_options
+                    and MODIS_MED_FILTER_OPTION in conf.REMOTE_DATASETS["NDVI"]
+                ):
+                    self.dataset_ndvi.insertItem(index, MODIS_MED_FILTER_OPTION)
+                    self.dataset_ndvi.setCurrentText(MODIS_MED_FILTER_OPTION)
+
+        self.modis_group_box.setVisible(True)
+
+        if self.modis_combo_box.count() < 2:
+            modis_items = ["MannKendal", "MannKendal + MTID"]
+            self.modis_combo_box.addItems(modis_items)
+
+        self.modis_group_box.setEnabled(True)
+
+        self.groupBox_traj_climate.setVisible(False)
+        self.initial_biomass_group.setVisible(True)
+        self.initial_biomass_group.setEnabled(True)
+
+        self.groupBox_state_baseline.setVisible(False)
+        self.groupBox_state_comparison.setVisible(False)
+
+        self.period_interval.setVisible(True)
+
+    def reset_fao_wocat_settings(self):
+        dataset_ndvi_options = [
+            self.dataset_ndvi.itemText(i) for i in range(self.dataset_ndvi.count())
+        ]
+        for index in range(self.dataset_ndvi.count()):
+            if self.dataset_ndvi.itemText(index) == MODIS_MED_FILTER_OPTION:
+                self.dataset_ndvi.removeItem(index)
+                if AVHRR_ANNUAL not in dataset_ndvi_options:
+                    self.dataset_ndvi.insertItem(index, AVHRR_ANNUAL)
+                    self.dataset_ndvi.setCurrentText(AVHRR_ANNUAL)
+
+        self.groupBox_traj.setVisible(True)
+        self.modis_group_box.setVisible(False)
+        self.modis_group_box.setEnabled(False)
+
+        self.groupBox_traj_climate.setVisible(True)
+        self.initial_biomass_group.setVisible(False)
+        self.initial_biomass_group.setEnabled(False)
+        self.groupBox_perf.setVisible(True)
+
+        self.groupBox_state_baseline.setVisible(True)
+        self.groupBox_state_comparison.setVisible(True)
+
+        self.period_interval.setVisible(False)
 
     def dataset_climate_update(self):
         self.traj_climate.clear()
@@ -123,13 +227,14 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.update_time_bounds()
 
     def dataset_ndvi_changed(self):
-        this_ndvi_dataset = conf.REMOTE_DATASETS["NDVI"][
-            self.dataset_ndvi.currentText()
-        ]
-        self.start_year_ndvi = this_ndvi_dataset["Start year"]
-        self.end_year_ndvi = this_ndvi_dataset["End year"]
+        if self.dataset_ndvi.currentText() in conf.REMOTE_DATASETS["NDVI"]:
+            this_ndvi_dataset = conf.REMOTE_DATASETS["NDVI"][
+                self.dataset_ndvi.currentText()
+            ]
+            self.start_year_ndvi = this_ndvi_dataset["Start year"]
+            self.end_year_ndvi = this_ndvi_dataset["End year"]
 
-        self.update_time_bounds()
+            self.update_time_bounds()
 
     def update_time_bounds(self):
         # State and performance depend only on NDVI data
@@ -167,18 +272,22 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.traj_year_end.setMinimumDate(start_year_traj)
         self.traj_year_end.setMaximumDate(end_year_traj)
 
+        # Fao wocat period
+        self.fao_wocat_year_start.setMinimumDate(start_year)
+        self.fao_wocat_year_start.setMaximumDate(end_year)
+        self.fao_wocat_year_end.setMinimumDate(start_year)
+        self.fao_wocat_year_end.setMaximumDate(end_year)
+
     def btn_cancel(self):
         self.close()
 
-    def _get_prod_mode(self, radio_lpd_te, cb_lpd):
+    def _get_prod_mode(self, radio_lpd_te, radio_fao_wocat, cb_lpd):
         if radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        elif radio_fao_wocat.isChecked():
+            return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
         else:
-            if "FAO-WOCAT" in cb_lpd.currentText():
-                return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-            elif "JRC" in cb_lpd.currentText():
-                return ProductivityMode.JRC_5_CLASS_LPD.value
-        return None
+            return ProductivityMode.JRC_5_CLASS_LPD.value
 
     def btn_calculate(self):
         if self.mode_te_prod.isChecked() and not (
@@ -197,12 +306,10 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateProd, self).btn_calculate()
+        ret = super().btn_calculate()
 
         if not ret:
             return
-
-        self.close()
 
         ndvi_dataset = conf.REMOTE_DATASETS["NDVI"][self.dataset_ndvi.currentText()][
             "GEE Dataset"
@@ -212,7 +319,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             climate_gee_dataset = self.climate_datasets[
                 self.traj_climate.currentText()
             ]["GEE Dataset"]
-            log(u"climate_gee_dataset {}".format(climate_gee_dataset))
+            log("climate_gee_dataset {}".format(climate_gee_dataset))
         else:
             climate_gee_dataset = None
 
@@ -223,9 +330,31 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             "task_notes": self.task_notes.toPlainText(),
         }
 
-        prod_mode = self._get_prod_mode(self.mode_te_prod, self.combo_lpd)
+        prod_mode = self._get_prod_mode(
+            self.mode_te_prod, self.mode_fao_wocat, self.combo_lpd
+        )
 
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+            # Validate trajectory period if trajectory is selected
+            # (trajectory uses Mann-Kendall test which requires at least 4 years)
+            if self.groupBox_traj.isChecked():
+                traj_years = (
+                    self.traj_year_end.date().year()
+                    - self.traj_year_start.date().year()
+                )
+                if traj_years < MIN_YEARS_FOR_MANN_KENDALL:
+                    QtWidgets.QMessageBox.critical(
+                        None,
+                        self.tr("Error"),
+                        self.tr(
+                            f"Productivity trajectory requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data "
+                            f"for the Mann-Kendall trend test. The selected period "
+                            f"({self.traj_year_start.date().year()} - {self.traj_year_end.date().year()}) "
+                            f"only spans {traj_years} years. Please select a longer time period."
+                        ),
+                    )
+                    return
+
             payload.update(
                 {
                     "prod_mode": prod_mode,
@@ -251,14 +380,47 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                 self.traj_indic.currentText()
             ]
             payload.update(current_trajectory_function["params"])
+        elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+            # Validate FAO WOCAT period (also uses Mann-Kendall test)
+            fao_years = (
+                self.fao_wocat_year_end.date().year()
+                - self.fao_wocat_year_start.date().year()
+            )
+            if fao_years < MIN_YEARS_FOR_MANN_KENDALL:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        f"FAO WOCAT land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data "
+                        f"for the Mann-Kendall trend test. The selected period "
+                        f"({self.fao_wocat_year_start.date().year()} - {self.fao_wocat_year_end.date().year()}) "
+                        f"only spans {fao_years} years. Please select a longer time period."
+                    ),
+                )
+                return
 
-        elif prod_mode in (
-            ProductivityMode.JRC_5_CLASS_LPD.value,
-            ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
-        ):
+            modis_mode = self.modis_combo_box.currentText()
+            spin = self.period_interval.findChild(QSpinBox, "spinBox")
+            years_interval = spin.value() if spin is not None else 3
+
+            payload.update(
+                {
+                    "prod_mode": prod_mode,
+                    "low_biomass": self.low_value_spinbox.value(),
+                    "high_biomass": self.high_value_spinbox.value(),
+                    "years_interval": years_interval,
+                    "year_start": self.fao_wocat_year_start.date().year(),
+                    "year_final": self.fao_wocat_year_end.date().year(),
+                    "crs": self.aoi.get_crs_dst_wkt(),
+                    "ndvi_gee_dataset": ndvi_dataset,
+                    "modis_mode": modis_mode,
+                }
+            )
+        elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
             prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
                 self.combo_lpd.currentText()
             ]
+            prod_data_source = prod_dataset["Data source"]
             prod_asset = prod_dataset["GEE Dataset"]
             prod_start_year = prod_dataset["Start year"]
             prod_end_year = prod_dataset["End year"]
@@ -268,10 +430,13 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                     "prod_asset": prod_asset,
                     "year_initial": prod_start_year,
                     "year_final": prod_end_year,
+                    "data_source": prod_data_source,
                 }
             )
         else:
             raise ValueError("Unknown prod_mode {prod_mode}")
+
+        self.close()
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
 

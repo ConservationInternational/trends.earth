@@ -1,22 +1,18 @@
 """Datasets details dialog for Trends.Earth QGIS plugin."""
-import json
+
 import os
 from pathlib import Path
 from zipfile import ZipFile
 
 import qgis.core
 import qgis.gui
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
+from te_schemas.jobs import JobStatus
 
-from . import metadata
-from . import metadata_dialog
-from . import openFolder
-from . import utils
+from . import metadata, openFolder, utils
 from .jobs import manager
 from .jobs.models import Job
+from .json_viewer import JsonViewerWidget
 from .logger import log
 
 WidgetDatasetItemDetailsUi, _ = uic.loadUiType(
@@ -33,30 +29,41 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
     created_at_le: QtWidgets.QLineEdit
     delete_btn: QtWidgets.QPushButton
     export_btn: QtWidgets.QPushButton
-    metadata_btn: QtWidgets.QPushButton
-    load_btn: QtWidgets.QPushButton
     name_le: QtWidgets.QLineEdit
     id_le: QtWidgets.QLineEdit
     state_le: QtWidgets.QLineEdit
     path_le: QtWidgets.QLineEdit
+    input: JsonViewerWidget
+    output: JsonViewerWidget
 
     def __init__(self, job: Job, parent=None):
-        super(DatasetDetailsDialogue, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
-
-        self.metadata_menu = QtWidgets.QMenu()
-        self.metadata_menu.aboutToShow.connect(self.prepare_metadata_menu)
-        self.metadata_btn.setMenu(self.metadata_menu)
 
         self.job = job
 
         self.name_le.setText(self.job.task_name)
         self.id_le.setText(str(self.job.id))
         self.state_le.setText(self.job.status.value)
-        self.created_at_le.setText(
-            str(utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M"))
-        )
-        self.load_btn.clicked.connect(self.load_dataset)
+
+        # Add date with defensive handling
+        if self.job.start_date:
+            try:
+                if hasattr(self.job.start_date, "strftime"):
+                    self.created_at_le.setText(
+                        str(
+                            utils.utc_to_local(self.job.start_date).strftime(
+                                "%Y-%m-%d %H:%M"
+                            )
+                        )
+                    )
+                else:
+                    self.created_at_le.setText("Date unknown")
+            except (AttributeError, ValueError, TypeError):
+                self.created_at_le.setText("Date unknown")
+        else:
+            self.created_at_le.setText("Date unknown")
+
         self.delete_btn.clicked.connect(self.delete_dataset)
         self.open_directory_btn.clicked.connect(self.open_job_directory)
         self.export_btn.clicked.connect(self.export_dataset)
@@ -77,45 +84,38 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
                 path_le_text = f"{empty_paths_msg} yet"
         else:
             path_le_text = f"{empty_paths_msg} yet"
-        self.load_btn.setEnabled(main_uri_exist)
         self.export_btn.setEnabled(main_uri_exist)
         self.path_le.setText(path_le_text)
-        self.load_btn.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddRasterLayer.svg"))
-        )
         self.open_directory_btn.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionFileOpen.svg"))
         )
         self.export_btn.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, "export_zip.svg")))
-        self.metadata_btn.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "editmetadata.svg"))
-        )
         self.delete_btn.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionDeleteSelected.svg"))
         )
 
+        # Hide inappropriate buttons for failed and cancelled jobs
+        # Failed or cancelled jobs should only show the open folder and info buttons
+        if self.job.status in (
+            JobStatus.FAILED,
+            JobStatus.CANCELLED,
+            JobStatus.EXPIRED,
+        ):
+            self.export_btn.hide()
+            # Keep open_directory_btn (folder icon) and delete_btn (info/delete icon) visible
+
         self.comments.setText(self.job.task_notes)
-        self.input.setText(json.dumps(self.job.params, indent=4, sort_keys=True))
+        self.input.set_json_data(self.job.params, collapse_level=1)
 
         if self.job.results is not None:
-            self.output.setText(
-                json.dumps(
-                    Job.Schema(only=["results"]).dump(self.job)["results"],
-                    indent=4,
-                    sort_keys=True,
-                )
-            )
+            results_data = Job.Schema(only=["results"]).dump(self.job)["results"]
+            self.output.set_json_data(results_data, collapse_level=1)
 
         self.bar = qgis.gui.QgsMessageBar()
         self.bar.setSizePolicy(
             QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed
         )
         self.layout().insertWidget(0, self.bar, alignment=QtCore.Qt.AlignTop)
-
-    def load_dataset(self):
-        if self.job.results is not None:
-            manager.job_manager.display_default_job_results(self.job)
-            self.accept()
 
     def open_job_directory(self):
         log(f"Open directory button clicked for job {self.job.task_name!r}")
@@ -139,11 +139,17 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         target_zip_name = f"{current_job_file_path.stem}.zip"
         target_path = manager.job_manager.exports_dir / target_zip_name
         metadata_paths = metadata.export_dataset_metadata(self.job)
-        paths_to_zip = (
-            [uri.uri for uri in self.job.results.get_all_uris()]
-            + [current_job_file_path]
-            + metadata_paths
-        )
+        # Gather all result file paths robustly (supports older/newer te_schemas)
+        from . import metadata as metadata_module
+
+        result_uris = []
+        if self.job.results is not None:
+            for u in metadata_module._iter_result_uris(self.job.results):
+                uri_path = getattr(u, "uri", None) or getattr(u, "path", None)
+                if uri_path is not None:
+                    result_uris.append(uri_path)
+
+        paths_to_zip = result_uris + [current_job_file_path] + metadata_paths
         try:
             with ZipFile(target_path, "w") as zip:
                 for path in paths_to_zip:
@@ -160,30 +166,3 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
             self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info)
         finally:
             self.export_btn.setEnabled(True)
-
-    def show_metadata(self, file_path):
-        ds_metadata = metadata.read_qmd(file_path)
-        dlg = metadata_dialog.DlgDatasetMetadata(self)
-        dlg.set_metadata(ds_metadata)
-        dlg.exec_()
-        ds_metadata = dlg.get_metadata()
-        metadata.save_qmd(file_path, ds_metadata)
-
-    def prepare_metadata_menu(self):
-        self.metadata_menu.clear()
-
-        file_path = (
-            os.path.splitext(manager.job_manager.get_job_file_path(self.job))[0]
-            + ".qmd"
-        )
-        action = self.metadata_menu.addAction(self.tr("Dataset metadata"))
-        action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
-        self.metadata_menu.addSeparator()
-
-        if self.job.results is not None:
-            for raster in self.job.results.rasters.values():
-                file_path = os.path.splitext(raster.uri.uri)[0] + ".qmd"
-                action = self.metadata_menu.addAction(
-                    self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1])
-                )
-                action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))

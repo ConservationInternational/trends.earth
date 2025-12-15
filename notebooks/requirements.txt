@@ -1,0 +1,14 @@
+requests>=2.31.0
+python-dotenv>=1.0.0
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+rasterio>=1.3.0
+folium>=0.14.0
+geopandas>=0.13.0
+jupyter>=1.0.0
+notebook>=6.5.0
+ipykernel>=6.23.0
+jupyterlab>=4.0.0
+ipywidgets>=8.0.0

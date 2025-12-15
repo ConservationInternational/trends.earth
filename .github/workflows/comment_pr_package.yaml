@@ -1,0 +1,123 @@
+name: Add comment on a pull request about the plugin package
+# Based on work from https://github.com/orgs/community/discussions/51403#discussioncomment-5535167
+on:
+  workflow_run:
+    types: [completed]
+    workflows: ['Create plugin package in the PR']
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  comment:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+      - name: Ensure jq and gh are available
+        run: |
+          if ! command -v jq >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y jq
+          fi
+          gh --version || true
+
+      - name: Wait briefly for artifacts to finalize
+        run: sleep 8
+
+      - name: Download PR number artifact
+        id: dl-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p artifacts
+          # Try gh first (extracts automatically)
+          gh run download ${{ github.event.workflow_run.id }} --name pr_number --dir artifacts || true
+          # Fallback to API if needed
+          if [ ! -f artifacts/pr_number.txt ]; then
+            curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/artifacts" \
+              | jq -r '.artifacts[] | select(.name=="pr_number" and .expired==false) | .archive_download_url' \
+              > artifacts/pr_number_url.txt
+            URL=$(cat artifacts/pr_number_url.txt)
+            if [ -n "$URL" ]; then
+              curl -L -H "Authorization: Bearer $GH_TOKEN" -o artifacts/pr_number.zip "$URL"
+              unzip -o artifacts/pr_number.zip -d artifacts >/dev/null
+            fi
+          fi
+          echo "PR_NUMBER=$(cat artifacts/pr_number.txt | tr -d '\n')" >> $GITHUB_ENV
+
+      - name: Download artifact URL artifact
+        id: dl-url
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p artifacts
+          # Try gh first (extracts automatically)
+          gh run download ${{ github.event.workflow_run.id }} --name artifact_url --dir artifacts || true
+          # Fallback to API if needed
+          if [ ! -f artifacts/artifact_url.txt ]; then
+            curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/artifacts" \
+              | jq -r '.artifacts[] | select(.name=="artifact_url" and .expired==false) | .archive_download_url' \
+              > artifacts/artifact_url_url.txt
+            URL=$(cat artifacts/artifact_url_url.txt)
+            if [ -n "$URL" ]; then
+              curl -L -H "Authorization: Bearer $GH_TOKEN" -o artifacts/artifact_url.zip "$URL"
+              unzip -o artifacts/artifact_url.zip -d artifacts >/dev/null
+            fi
+          fi
+          echo "ARTIFACT_URL=$(cat artifacts/artifact_url.txt | tr -d '\n')" >> $GITHUB_ENV
+
+      - name: Compose comment body
+        id: body
+        env:
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          cat > body.md <<EOF
+          <!-- LDMP_PLUGIN_BUILD_COMMENT -->
+          ## 🚀 **Plugin Build Successful!** ✅
+
+          A new **plugin build** has been successfully generated for the changes in this pull request! 🎉
+
+          🔗 **Download Plugin Zip:** ${ARTIFACT_URL}
+
+          _Built from branch **${HEAD_BRANCH}**, commit **${HEAD_SHA}**_
+          
+          ### 📌 **Next Steps**  
+          - 📥 **Download and test** the plugin built from this pull request.  
+          - 🔄 **Review the changes** and validate functionality.  
+          - 📝 **Provide feedback on this pull request!**  
+          ---
+          ### **🛠 Powered by GitHub Actions & gh API**  
+          
+          EOF
+
+      - name: Find existing bot comment (by marker)
+        id: find_comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CID=$(gh api repos/${{ github.repository }}/issues/${PR_NUMBER}/comments \
+            --jq '.[] | select(.user.login=="github-actions[bot]" and (.body|contains("<!-- LDMP_PLUGIN_BUILD_COMMENT -->"))) | .id' || true)
+          echo "COMMENT_ID=$CID" >> $GITHUB_ENV
+          echo "comment_id=$CID" >> $GITHUB_OUTPUT
+
+      - name: Update or create comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -n "$COMMENT_ID" ]; then
+            gh api repos/${{ github.repository }}/issues/comments/$COMMENT_ID \
+              --method PATCH \
+              -f body@=body.md
+          else
+            gh api repos/${{ github.repository }}/issues/${PR_NUMBER}/comments \
+              -f body@=body.md
+          fi

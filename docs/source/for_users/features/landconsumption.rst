@@ -45,7 +45,7 @@ Assessing changes in SDG 11.3.1. over time requires a significant amount of info
 .. image:: ../../../resources/en/documentation/understanding_indicators11/sdg11_data_needs.png
    :align: center
    
-`Figure 2: Trends.Earth works-flow to computing SDG 11.3.1. Global 30m impervious surface indices have been pre-computed and are available for the users to explore in the` `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ `where the user defines built-up extent by simply assigning a series of thresholds.`
+Figure 2: Trends.Earth works-flow to computing SDG 11.3.1. Global 30m impervious surface indices have been pre-computed and are available for the users to explore in the `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ where the user defines built-up extent by simply assigning a series of thresholds.
 
 Land consumption
 ----------------
@@ -191,7 +191,7 @@ The final outputs of the SDG 11.3.1 computations in |trends.earth| will be:
 
 2. A table which summarizes the area calculations for the different spaces within the city space (urban, suburban, and the different classes of open space), and also the corresponding population numbers. In this table the SDG 11.3.1 will also be computed automatically, and a trend of the indicator over time will be provided.
 
-.. image:: ../../../resources/en/training/t12/summary_table_sdg11.PNG
+.. image:: ../../../resources/en/training/t12/summary_table_sdg11.png
    :align: center 
 
 `Figure 11: One of the final outputs of the SDG 11.3.1 analysis in |trends.earth| is a tabular outputs displaying the area, population and the indicator for SDG 11.3.1 for the city analyzed.`

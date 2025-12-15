@@ -1,0 +1,741 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 2.0rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-27 04:09+0000\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language: ru\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-"
+"international/teams/80165/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/for_users/faq/index.rst:4
+msgid "Frequently asked questions"
+msgstr "Часто задаваемые вопросы"
+
+#: ../../source/for_users/faq/index.rst:6
+msgid ""
+"This page lists some Frequently Asked Questions (FAQs) for the "
+"|trends.earth| tool."
+msgstr ""
+"На этой странице прводятся некоторые часто задаваемые вопросы (ЧаВо) по "
+"инстурменту |trends.earth|."
+
+#: ../../../<rst_epilog>:6
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../source/for_users/faq/index.rst:9
+msgid "General Questions"
+msgstr "Общие вопросы"
+
+#: ../../source/for_users/faq/index.rst:12
+msgid "Is there a user group I can share experiences with and learn from?"
+msgstr ""
+"Есть ли группа пользователей, с которой я могу поделиться опытом и "
+"чему-то научиться?"
+
+#: ../../source/for_users/faq/index.rst:14
+msgid ""
+"Yes, we recently created a `Google group for Trends.Earth users "
+"<https://groups.google.com/forum/#!forum/trends_earth_users>`_ so please "
+"`join <https://groups.google.com/forum/#!forum/trends_earth_users/join>`_"
+" and participate! We aim for this group to be a forum for users to post "
+"questions about the tool, methods, and datasets in support of Sustainable"
+" Development Goals monitoring. The |trends.earth| team will monitor the "
+"group and answer questions as needed, but we'll get the most out of this "
+"community if users support each other by answering questions based on "
+"their unique background and experiences. The group will also be used for "
+"announcements on tool updates and capacity building efforts."
+msgstr ""
+"Да, недавно мы создали группу Google для пользователей "
+"Trends.Earth<https://groups.google.com/forum/#!forum/trends_earth_users>`_,"
+" поэтому, пожалуйста, присоединяйтесь к "
+"<https://groups.google.com/forum/#!forum/trends_earth_users/join>`_ и "
+"участвуйте! Мы стремимся к тому, чтобы эта группа стала форумом, на "
+"котором пользователи могут задавать вопросы об инструменте, методах и "
+"наборах данных в поддержку мониторинга Целей устойчивого развития. "
+"Команда |trends.earth| будет следить за группой и отвечать на вопросы по "
+"мере необходимости, но мы получим максимальную отдачу от этого "
+"сообщества, если пользователи будут поддерживать друг друга, отвечая на "
+"вопросы, основанные на их уникальном опыте и опыте. Группа также будет "
+"использоваться для объявлений об обновлениях инструментов и в усилиях по "
+"наращиванию потенциала."
+
+#: ../../source/for_users/faq/index.rst:26
+msgid "How can I provide feedback on the tool?"
+msgstr "Как оставить отзыв об инструменте?"
+
+#: ../../source/for_users/faq/index.rst:28
+msgid ""
+"There are three ways to give feedback, emailing the project team, "
+"visiting the project site and messaging through the anonymous form or "
+"rate the toolbox in the plugins menu of QGIS. The project technical team "
+"can address questions through trends.earth@conservation.org. Users can "
+"rate the toolbox by opening Plugins in QGIS and selecting Manage and "
+"Install Plugins. Select All in the side bar and navigate to trends.earth "
+"plugin. Click on trends.earth and rate the toolbox by selecting the "
+"number of stars you would like to give the plugin, 5 stars being highly "
+"satisfied."
+msgstr ""
+"Есть три способа оставить отзыв: написать команде проекта по электронной "
+"почте, посетить сайт проекта и отправить сообщение через анонимную форму "
+"или оценить набор инструментов в меню плагинов QGIS. В техническую группу"
+" проекта можно обращаться с вопросами по адресу "
+"trend.earth@conservation.org. Пользователи могут оценить набор "
+"инструментов, открыв «Плагины» в QGIS и выбрав «Управление и установка "
+"плагинов». Выберите «Все» на боковой панели и перейдите к плагину "
+"trend.earth. Нажмите наtrends.earth и оцените набор инструментов, выбрав "
+"количество звезд, которое вы хотели бы поставить плагину. 5 звезд "
+"означают, что вы очень довольны."
+
+#: ../../source/for_users/faq/index.rst:38
+msgid "Installation of Trends.Earth"
+msgstr "Установка Trends.Earth"
+
+#: ../../source/for_users/faq/index.rst:42
+msgid "What version of Quantum GIS (QGIS) do I need for the toolbox?"
+msgstr "Какая версия Quantum GIS (QGIS) нужна для набора инструментов?"
+
+#: ../../source/for_users/faq/index.rst:44
+msgid ""
+"To download QGIS, please go to the QGIS Downloads page. As of February "
+"2018, version 3.0 was released. Please use version 2.18 for the "
+"trends.earth plugin. A version compatible with the latest version will be"
+" released in future iterations of the project."
+msgstr ""
+"Чтобы загрузить QGIS, перейдите на страницу загрузок QGIS. По состоянию "
+"на февраль 2018 года выпущена версия 3.0. Пожалуйста, используйте версию "
+"2.18 для плагина trend.earth. Версия, совместимая с последней версией, "
+"будет выпущена в будущих итерациях проекта."
+
+#: ../../source/for_users/faq/index.rst:50
+msgid "Do I need to download a 32-bit or 64 bit version of QGIS?"
+msgstr "Нужно ли загружать 32-битную или 64-битную версию QGIS?"
+
+#: ../../source/for_users/faq/index.rst:52
+msgid ""
+"We recommend downloading 64-bit version (2.18), but you may need to "
+"download the 32-bit version for 32-bit operating systems. To find out if "
+"your computer is running a 32-bit or 64-bit version of Windows,  search "
+"for System or msinfo32. This is found in the Control Panel and will bring"
+" up a window that says the system type e.g. System type: 64-bit Operating"
+" System, x64-based processor."
+msgstr ""
+"Мы рекомендуем загрузить 64-разрядную версию (2.18), но вам может "
+"потребоваться загрузить 32-разрядную версию для 32-разрядных операционных"
+" систем. Чтобы узнать, работает ли на вашем компьютере 32-разрядная или "
+"64-разрядная версия Windows, выполните поиск по термину \"Система\" или "
+"msinfo32. Эти данные можно найти в панели управления, и появится окно с "
+"указанием типа системы, например. Тип системы: 64-разрядная операционная "
+"система, процессор на базе x64."
+
+#: ../../source/for_users/faq/index.rst:59
+msgid "Windows 7 or Windows Vista:"
+msgstr "Windows 7 или Windows Vista:"
+
+#: ../../source/for_users/faq/index.rst:61
+msgid ""
+"Open System by clicking the Start button , right-clicking Computer, and "
+"then clicking Properties."
+msgstr ""
+"Откройте систему, нажав кнопку «Пуск», щелкнув правой кнопкой мыши "
+"«Компьютер», а затем «Свойства»."
+
+#: ../../source/for_users/faq/index.rst:63
+msgid "Under System, you can view the system type."
+msgstr "В разделе «Система» вы можете просмотреть тип системы."
+
+#: ../../source/for_users/faq/index.rst:65
+msgid "Windows 8 or Windows 10:"
+msgstr "Windows 8 или Windows 10:"
+
+#: ../../source/for_users/faq/index.rst:67
+msgid "From the Start screen, type This PC."
+msgstr "На Начальном экране введите этот ПК."
+
+#: ../../source/for_users/faq/index.rst:68
+msgid "Right Click (or tap and hold) This PC, and click Properties."
+msgstr ""
+"Щелкните правой кнопкой мыши (или коснитесь и удерживайте) на этом ПК и "
+"нажмите «Свойства»."
+
+#: ../../source/for_users/faq/index.rst:70
+msgid "Mac:"
+msgstr "Mac:"
+
+#: ../../source/for_users/faq/index.rst:72
+msgid "Click the Apple icon in the top left and select \"About this Mac\"."
+msgstr "Щелкните значок Apple в левом верхнем углу и выберите «Об этом Mac»."
+
+#: ../../source/for_users/faq/index.rst:73
+msgid ""
+"For more advanced details click \"More Info...\" in the About This Mac "
+"window."
+msgstr ""
+"Для получения более подробной информации нажмите «Подробнее…» в окне «Об "
+"этом Mac»."
+
+#: ../../source/for_users/faq/index.rst:76
+msgid "How do I install the plugin?"
+msgstr "Как установить плагин?"
+
+#: ../../source/for_users/faq/index.rst:78
+msgid ""
+"Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
+"install plugins. On the side menu, select All to view the plugins "
+"available in QGIS. Search for trends.earth and select Install plugin at "
+"the bottom of the window."
+msgstr ""
+"Откройте QGIS, перейдите к «Плагины» в строке меню и выберите «Управление"
+" и установка плагинов». В боковом меню выберите «Все», чтобы просмотреть "
+"плагины, доступные в QGIS. Найдите Trends.earth и выберите «Установить "
+"плагин» в нижней части окна."
+
+#: ../../source/for_users/faq/index.rst:83
+msgid "How do I upgrade the plugin?"
+msgstr "Как обновить плагин?"
+
+#: ../../source/for_users/faq/index.rst:85
+msgid ""
+"If you have already installed the plugin, navigate to Plugins on the menu"
+" bar, and select Manage and install plugins. On the side menu, select "
+"Installed to view the plugins that you have installed in your computer. "
+"At the bottom of the window, select Upgrade all to upgrade the toolbox to"
+" the latest version."
+msgstr ""
+"Если вы уже установили плагины, перейдите к разделу «Плагины» в строке "
+"меню и выберите «Управление и установка плагинов». В боковом меню "
+"выберите «Установлено», чтобы просмотреть плагины, установленные на вашем"
+" компьютере. В нижней части окна выберите «Обновить все», чтобы обновить "
+"набор инструментов до последней версии."
+
+#: ../../source/for_users/faq/index.rst:91
+msgid "How do I uninstall the plugin?"
+msgstr "Как удалить плагин?"
+
+#: ../../source/for_users/faq/index.rst:93
+msgid ""
+"If you would like to uninstall the plugin, normally you can do so with "
+"the QGIS plugins manager. To access the tool, choose \"Plugins\" and then"
+" \"Manage and Install Plugins...\" from the QGIS menu bar. From the "
+"plugin manager screen, select \"Installed\" from the menu on the left-"
+"hand side. Then click on \"Trends.Earth\" in the list of plugins, and on "
+"\"Uninstall Plugin\" to uninstall it."
+msgstr ""
+"Если вы хотите удалить плагин, обычно это можно сделать с помощью "
+"менеджера плагинов QGIS. Чтобы получить доступ к инструменту, выберите "
+"«Плагины», а затем «Управление и установка плагинов...» в строке меню "
+"QGIS. На экране диспетчера плагинов выберите «Установлено» в меню слева. "
+"Затем нажмите «Trends.Earth» в списке плагинов и «Удалить плагин», чтобы "
+"удалить его."
+
+#: ../../source/for_users/faq/index.rst:100
+msgid ""
+"If you encounter an error uninstalling the plugin, it is also possible to"
+" remove it manually. To manually remove the plugin:"
+msgstr ""
+"Если вы столкнулись с ошибкой при удалении плагина, его также можно "
+"удалить вручную. Чтобы вручную удалить плагин:"
+
+#: ../../source/for_users/faq/index.rst:103
+msgid "Open QGIS"
+msgstr "Откройте QGIS"
+
+#: ../../source/for_users/faq/index.rst:104
+msgid ""
+"Navigate to where the plugin is installed by selecting \"Open Active "
+"Profile Folder\" from the menu under \"Settings\" - \"User Profiles\" on "
+"the menu bar."
+msgstr ""
+"Перейдите туда, где установлен плагин, выбрав «Открыть папку активного "
+"профиля» в меню «Настройки» — «Профили пользователей» в строке меню."
+
+#: ../../source/for_users/faq/index.rst:106
+msgid ""
+"Quit QGIS. You may not be able to uninstall the plugin if QGIS is not "
+"closed."
+msgstr ""
+"Выйдите из QGIS. Возможно, вы не сможете удалить плагин, если QGIS не "
+"закрыт."
+
+#: ../../source/for_users/faq/index.rst:108
+msgid ""
+"In the file browser window that opened, double click on \"python\", and "
+"then double click on \"plugins\". Delete the LDMP folder within that "
+"directory."
+msgstr ""
+"В открывшемся окне браузера файлов дважды нажмите на python, а затем "
+"дважды на «плагины». Удалите папку LDMP в этом каталоге."
+
+#: ../../source/for_users/faq/index.rst:110
+msgid "Restart QGIS."
+msgstr "Перезапустите QGIS."
+
+#: ../../source/for_users/faq/index.rst:112
+msgid "OR"
+msgstr "ИЛИ"
+
+#: ../../source/for_users/faq/index.rst:114
+msgid ""
+"Navigate to the AppData folder under user account and find the plugins "
+"info under the directory. For example: "
+"C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
+msgstr ""
+"Перейдите в папку AppData под учетной записью пользователя и найдите "
+"информацию о плагинах в каталоге. Например: "
+"C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
+
+#: ../../source/for_users/faq/index.rst:119
+msgid "Datasets"
+msgstr "Наборы данных"
+
+#: ../../source/for_users/faq/index.rst:122
+msgid ""
+"Refer to the :ref:`input_data` section for more information on data "
+"sources used in Trends.Earth."
+msgstr ""
+"Обратитесь к разделу :ref:`input_data` для получения дополнительной "
+"информации об источниках данных, используемых в Trends.Earth."
+
+#: ../../source/for_users/faq/index.rst:125
+msgid "When will you update datasets for the current year?"
+msgstr "Когда вы обновите наборы данных за текущий год?"
+
+#: ../../source/for_users/faq/index.rst:127
+msgid ""
+"Trends.Earth uses publicly available data, as such the most up to date "
+"datasets will be added to the toolbox as soon as the original data "
+"providers make them public. If you notice any update that we missed, "
+"please do let us know."
+msgstr ""
+"Trends.Earth использует общедоступные данные, поэтому самые актуальные "
+"наборы данных будут добавлены в панель инструментов, как только "
+"поставщики исходных данных сделают их общедоступными. Если вы заметили "
+"какие-либо обновления, которые мы пропустили, пожалуйста, сообщите нам об"
+" этом."
+
+#: ../../source/for_users/faq/index.rst:132
+msgid "Is there an option to download the original data?"
+msgstr "Есть ли возможность скачать исходные данные?"
+
+#: ../../source/for_users/faq/index.rst:134
+msgid ""
+"Users can download the original data using the Download option within the"
+" toolbox."
+msgstr ""
+"Пользователи могут скачивать исходные данные, используя опцию \"Скачать\""
+" в панели инструментов."
+
+#: ../../source/for_users/faq/index.rst:138
+msgid "Will the toolbox support higher resolution datasets?"
+msgstr ""
+"Будет ли панель инструментов поддерживать наборы данных с более высоким "
+"разрешением?"
+
+#: ../../source/for_users/faq/index.rst:140
+msgid ""
+"The toolbox currently supports AVHRR (8km) and MODIS (250m) data for "
+"primary productivity analysis, and ESA LCC CCI (300m) for land cover "
+"change analysis."
+msgstr ""
+"В настоящее время панель инструментов поддерживает данные AVHRR (8 км) и "
+"MODIS (250 м) для первичного анализа продуктивности, а также ESA LCC CCI "
+"(300 м) для анализа изменений земляного покрова."
+
+#: ../../source/for_users/faq/index.rst:144
+msgid "Can the toolbox support analysis with national-level datasets?"
+msgstr ""
+"Может ли панель инструментов поддерживать анализ с использованием наборов"
+" данных национального уровня?"
+
+#: ../../source/for_users/faq/index.rst:146
+msgid ""
+"This is a common request from users, and one the team is working on. "
+"Trends.Earth will allow loading of national-level soil carbon and land "
+"cover datasets before the end of March, 2018. This will allow users to "
+"take advantage of existing datasets that might be of higher quality at a "
+"national-level than the global datasets that are the defaults in the "
+"tool."
+msgstr ""
+"Это распространенный вопрос от пользователей, над которым работает "
+"команда. Trends.Earth позволит скачивать наборы данных национального "
+"уровня о почвенном углероде и земляном покрове до конца марта 2018 года. "
+"Это позволит пользователям использовать преимущества существующих наборов"
+" данных, которые могут быть более высокого качества на национальном "
+"уровне, чем глобальные наборы данных, используемые в панели инструментов "
+"по умолчанию."
+
+#: ../../source/for_users/faq/index.rst:153
+msgid "Methods"
+msgstr "Методы"
+
+#: ../../source/for_users/faq/index.rst:156
+msgid ""
+"Refer to the :ref:`background_landdegradation` section for more "
+"background on analyses available in Trends.Earth."
+msgstr ""
+"Обратитесь к разделу :ref:`background_landdegradation` для получения "
+"дополнительной информации об анализе, доступном в Trends.Earth."
+
+#: ../../source/for_users/faq/index.rst:159
+msgid "Who was the default time period for the analysis determined?"
+msgstr "Кем был определен период времени для анализа по умолчанию ?"
+
+#: ../../source/for_users/faq/index.rst:161
+#, python-format
+msgid ""
+"The default time period of analysis is from years 2001 to 2015. These "
+"were recommended by the `Good Practice Guidelines "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.,"
+" a document that provides detailed recommendations for measuring land "
+"degradation and has been adopted by the UNCCD."
+msgstr ""
+"Период времени анализа по умолчанию: с 2001 по 2015 год. Он был "
+"рекомендован в \"Руководстве по передовому опыту "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>\"_.,"
+" документе, который содержит подробные рекомендации по измерению "
+"деградации земель, а также был принят КБОООН."
+
+#: ../../source/for_users/faq/index.rst:168
+msgid "Productivity"
+msgstr "производительность"
+
+#: ../../source/for_users/faq/index.rst:171
+msgid "How does the result provided by state differs from trajectory?"
+msgstr "Чем результат, предоставляемый государством, отличается от траектории?"
+
+#: ../../source/for_users/faq/index.rst:173
+msgid ""
+"The trajectory analysis uses linear regressions and non-parametric tests "
+"to identify long term significant trends in primary productivity. This "
+"method however, is not able to capture more recent changes in primary "
+"productivity, which could be signals of short term processes of "
+"improvement or degradation. By comparing a long term mean to the most "
+"recent period, state is able to capture such recent changes."
+msgstr ""
+"Траекторный анализ использует линейные регрессии и непараметрические "
+"тесты для выявления долгосрочных существенных тенденций в первичной "
+"продуктивности. Однако этот метод не способен зафиксировать более поздние"
+" изменения в первичной продуктивности, которые могут быть сигналами "
+"краткосрочных процессов улучшения или деградации. Сравнивая долгосрочное "
+"среднее значение с самым последним периодом, государство может "
+"зафиксировать такого рода недавние изменения."
+
+#: ../../source/for_users/faq/index.rst:182
+msgid "Land cover"
+msgstr "Растительного покрова"
+
+#: ../../source/for_users/faq/index.rst:185
+msgid ""
+"Currently, the land cover aggregation is done following the UNCCD "
+"guidelines, but that classification does not take into account country "
+"level characteristics. Could it be possible to allow the user to define "
+"the aggregation criteria?"
+msgstr ""
+"В настоящее время агрегирование данных о земляном покрове производится в "
+"соответствии с руководством КБОООН, но эта классификация не учитывает "
+"особенности на уровне стран. Можно ли разрешить пользователю определять "
+"критерии агрегирования?"
+
+#: ../../source/for_users/faq/index.rst:187
+msgid ""
+"Users are able to make these changes using the advanced settings in the "
+"land cover GUI so that appropriate aggregations occur depending on the "
+"context of your country."
+msgstr ""
+"Пользователи могут вносить эти изменения, используя расширенные настройки"
+" в графическом интерфейсе земляного покрова, чтобы соответствующие "
+"агрегирования происходили в зависимости от контекста вашей страны."
+
+#: ../../source/for_users/faq/index.rst:192
+msgid "How can we isolate woody plant encroachment within the toolbox?"
+msgstr "Как мы можем изолировать закустаривание в панели инструментов?"
+
+#: ../../source/for_users/faq/index.rst:194
+msgid ""
+"This can be altered using the land cover change matrix in the toolbox. "
+"For every transition, the user can mark the change as stable, improvement"
+" or degraded. The transition from grassland/rangeland to shrubland may "
+"indicate woody encroachment and this transition can be marked as an "
+"indicator of degradation."
+msgstr ""
+"Это можно изменить с помощью матрицы изменений земляного покрова в панели"
+" инструментов. Для каждого перехода пользователь может отметить изменение"
+" как стабильное, с улучшением или c деградацией. Переход от пастбищ к "
+"местности, покрытой кустарниками, может указывать на закустаривание, и "
+"этот переход может быть отмечен как показатель деградации."
+
+#: ../../source/for_users/faq/index.rst:201
+msgid "Carbon stocks"
+msgstr "Запасы углерода"
+
+#: ../../source/for_users/faq/index.rst:204
+msgid ""
+"Why use soil organic carbon (SOC) instead of above and below-ground "
+"carbon to  measure carbon stocks?"
+msgstr ""
+"Зачем использовать почвенный органический углерод (SOC) вместо надземного"
+" и подземного углерода для измерения запасов углерода?"
+
+#: ../../source/for_users/faq/index.rst:206
+#, python-format
+msgid ""
+"The original proposed indicator is Carbon Stocks, which would include "
+"above and below ground biomass. However, given the lack of consistently "
+"generated and comparable dataset which assess carbon stocks in woody "
+"plants (including shrubs), grasses, croplands, and other land cover types"
+" both above and below ground, the `Good Practice Guidelines "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
+" published by the UNCCD recommends for the time being to use SOC as a "
+"proxy."
+msgstr ""
+"Первоначально предлагаемым показателем были запасы углерода, которые "
+"включали бы наземную и подземную биомассу. Однако, учитывая отсутствие "
+"последовательно генерируемых и сопоставимых наборов данных, которые "
+"оценивают запасы углерода в древесных растениях (включая кустарники), "
+"травах, пахотных землях и других типах земляного покрова как над землей, "
+"так и под землей, в \"Руководстве по передовому опыту "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>\"_,"
+" опубликованном КБОООН, пока рекомендуется использовать почвенный "
+"органический углерод в качестве показателя."
+
+#: ../../source/for_users/faq/index.rst:215
+msgid ""
+"Is it possible to measure identify processes of degradation linked to "
+"salinization using this tool?"
+msgstr ""
+"Можно ли с помощью этого инструмента измерить и выявить процессы "
+"деградации, связанные с засолением?"
+
+#: ../../source/for_users/faq/index.rst:217
+msgid ""
+"Not directly. If salinization caused a reduction in primary productivity,"
+" that decrease would be identified by the productivity indicators, but "
+"the users would have to use their local knowledge to assign the causes."
+msgstr ""
+"Не напрямую. Если засоление привело к снижению первичной продуктивности, "
+"это снижение будет определено показателями продуктивности, но "
+"пользователям придется использовать свои знания местности для определения"
+" причин."
+
+#: ../../source/for_users/faq/index.rst:222
+msgid "Land degradation outputs"
+msgstr "Результаты деградации земель"
+
+#: ../../source/for_users/faq/index.rst:225
+msgid "How were the layers combined to define the final land degradation layer?"
+msgstr ""
+"Как были объединены слои для определения окончательного слоя деградации "
+"земель?"
+
+#: ../../source/for_users/faq/index.rst:227
+msgid ""
+"Performance, state, and trajectory (the three indicators of change in "
+"productivity_) are combined following a modified version of the good "
+"practice guidance developed by the UNCCD (in section SDG Indicator 15.3.1"
+" of this manual a table is presented). Productivity, soil carbon, and "
+"land cover chance (the three sub-indicators of SDG 15.3.1) are combined "
+"using a “one out, all out” principle. In other words: if there is a "
+"decline in any of the three indicators at a particular pixel, then that "
+"pixel is mapped as being “degraded”."
+msgstr ""
+"Производительность, состояние и траектория (три показателя изменения "
+"продуктивности_) объединены в соответствии с измененной версией "
+"руководства по передовому опыту, разработанного КБОООН (в разделе "
+"Показатель ЦУР 15.3.1 настоящего руководства представлена таблица). "
+"Продуктивность, почвенный углерод и изменение земляного покрова (три "
+"подпоказателя ЦУР 15.3.1) объединяются по принципу \"нет одного, нет "
+"ничего\". Другими словами: если наблюдается снижение любого из трех "
+"показателей в конкретном пикселе, то этот пиксель отображается как "
+"\"деградировавший\"."
+
+#: ../../source/for_users/faq/index.rst:236
+msgid ""
+"Why do I see areas the data says are improving or degrading when I know "
+"they are not?"
+msgstr ""
+"Почему я вижу области, которые, судя по данным, улучшаются или "
+"деградируют, хотя я знаю, что это не так?"
+
+#: ../../source/for_users/faq/index.rst:238
+msgid ""
+"The final output should be interpreted as showing areas potentially "
+"degraded. The indicator of land degradation is based on changes in "
+"productivity, land cover and soil organic carbon. Several factor could "
+"lead to the identification of patterns of degradation which do not seem "
+"to correlate to what is happening on the ground, the date of analysis "
+"being a very important one. If the climatic conditions at the beginning "
+"of the analysis were particularly wet, for example, trends from that "
+"moment on could show significant decreases in primary productivity, and "
+"degradation. The user can use Trends.Earth to address some of this issues"
+" correcting by the effect of climate. The resolution of the data could "
+"potentially be another limitation. Trends.Earth by default uses global "
+"datasets which will not be the most relevant at all scales and "
+"geographies. A functionality to use local data will be added shortly."
+msgstr ""
+"Конечный результат следует интерпретировать как показ областей, "
+"потенциально подверженных деградации. Показатель деградации земель "
+"основан на изменениях продуктивности, земляного покрова и органического "
+"углерода почвы. Несколько факторов могут привести к выявлению моделей "
+"деградации, которые, по-видимому, не коррелируют с тем, что происходит на"
+" местах, причем дата анализа очень важна. Например, если климатические "
+"условия во время начала анализа были особенно влажными, тенденции с этого"
+" момента могут свидетельствовать о значительном снижении первичной "
+"продуктивности и деградации. Пользователь может использовать Trends.Earth"
+" для решения некоторых из этих проблем, связанных с воздействием климата."
+" Разрешение данных потенциально может быть еще одним ограничением. "
+"Trends.Earth по умолчанию использует глобальные наборы данных, которые не"
+" будут наиболее релевантными во всех масштабах и географических регионах."
+" В ближайшее время будет добавлена функция использования локальных "
+"данных."
+
+#: ../../source/for_users/faq/index.rst:252
+msgid ""
+"All of the sub-indicators are measuring vegetation: how does this "
+"contribute to understanding and identifying land degradation?"
+msgstr ""
+"Все подпоказатели измеряют растительность: как это способствует пониманию"
+" и выявлению деградации земель?"
+
+#: ../../source/for_users/faq/index.rst:254
+msgid ""
+"Vegetation is a key component of most ecosystems, and serve as a good "
+"proxy for their overall functioning and health. The three sub-indicators "
+"used for SDG 15.3.1 measure different aspects of land cover, which do "
+"relate to vegetation. Primary productivity directly measures the change "
+"in amount of biomass present in one area, but it does not inform us if "
+"that change is positive or not (not all increases in plant biomass should"
+" be interpreted as improvement). Land cover fills that gap by "
+"interpreting the landscape from a thematic perspective looking at what "
+"was there before and what is there now. It does include vegetation, but "
+"also bare land, urban and water. Finally, the soil organic carbon "
+"indicator uses the land cover map to inform the changes in soil organic "
+"carbon over time. This method is not ideal, but given the current state "
+"of global soil science and surveying, there is consensus that it this "
+"point in time and globally, this is the best approach."
+msgstr ""
+"Растительность является ключевым компонентом большинства экосистем и "
+"служит хорошим показателем их общего функционирования и состояния. Три "
+"подпоказателя, используемые для ЦУР 15.3.1, измеряют различные аспекты "
+"земляного покрова, которые связаны с растительностью. Первичная "
+"продуктивность напрямую измеряет изменение количества биомассы, "
+"присутствующей в одной области, но она не сообщает нам, является ли это "
+"изменение положительным или нет (не все увеличения биомассы растений "
+"следует интерпретировать как улучшение). Земляной покров заполняет этот "
+"пробел, интерпретируя ландшафт с тематической точки зрения, рассматривая "
+"то, что было там раньше, и то, что есть сейчас. Он включает в себя "
+"растительность, а также голую землю, города и воду. Наконец, показатель "
+"органического углерода почвы использует карту земляного покрова для "
+"информирования об изменениях органического углерода почвы с течением "
+"времени. Этот метод не идеален, но, учитывая текущее состояние мирового "
+"почвоведения и геодезии, существует консенсус в отношении того, что на "
+"данный момент времени и в глобальном масштабе это наилучший подход."
+
+#: ../../source/for_users/faq/index.rst:269
+msgid "Future plans"
+msgstr "Планы на будущее"
+
+#: ../../source/for_users/faq/index.rst:272
+msgid "When will there be an offline version of the toolbox?"
+msgstr "Когда появится автономная версия панели инструментов?"
+
+#: ../../source/for_users/faq/index.rst:274
+msgid ""
+"The final toolbox will be available as both as an offline and online "
+"version. The online version allows users to access current datasets more "
+"easily, while also allowing users to leverage Google Earth Engine to "
+"provide computing in the cloud. An offline version allows users to access"
+" data and perform analyses where internet connectivity may be limited, "
+"but it does have the disadvantage of requiring users to have enough local"
+" computing capacity to run analyses locally. The technical team intends "
+"to build the offline version of the toolbox and provide countries with "
+"data relevant for reporting at the national level within the pilot "
+"project countries."
+msgstr ""
+"Окончательная панель инструментов будет доступна как в автономной, так и "
+"в онлайн-версии. Онлайн-версия позволяет пользователям проще получать "
+"доступ к текущим наборам данных, а также использовать Google Earth Engine"
+" для проведения вычислений в облаке. Автономная версия позволяет "
+"пользователям получать доступ к данным и выполнять анализы там, где "
+"подключение к Интернету может быть ограничено, но у нее есть недостаток, "
+"заключающийся в том, что пользователям требуется достаточно локальных "
+"вычислительных мощностей для проведения анализа локально. Техническая "
+"группа намерена создать автономную версию панели инструментов и "
+"предоставить странам данные, необходимые для отчетности на национальном "
+"уровне в странах пилотного проекта."
+
+#: ../../source/for_users/faq/index.rst:285
+msgid "Will you create a trends.earth toolbox for ESRI users?"
+msgstr "Создадите ли вы панель инструментов Trends.Earth для пользователей ESRI?"
+
+#: ../../source/for_users/faq/index.rst:287
+msgid ""
+"The toolbox is currently available as a plugin to QGIS, an open source "
+"software package. This allows users around the world free access to the "
+"toolbox. There are currently no plans to build a toolbox within ArcGIS or"
+" ArcPro."
+msgstr ""
+"В настоящее время панель инструментов доступна в качестве плагина к QGIS,"
+" программному пакету с открытым исходным кодом. Это позволяет "
+"пользователям по всему миру получить бесплатный доступ к панели "
+"инструментов. В настоящее время нет планов по созданию панели "
+"инструментов в ArcGIS или ArcPro."
+
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
+
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
+
+#~ msgid "How do I find more information on the project?"
+#~ msgstr "Как найти дополнительную информацию о проекте?"
+
+#~ msgid ""
+#~ "More information on the toolbox can "
+#~ "be found at `trends.earth "
+#~ "<http://trends.earth>`_ and reports are "
+#~ "available on the `Vital Signs Project"
+#~ " website <http://vitalsigns.org/gef-ldmp/project-"
+#~ "description-and-timeline>`_ You can also"
+#~ " add your contact info at `Vital "
+#~ "Signs LD Email Distribution List "
+#~ "<http://vitalsigns.org/gef-ldmp/email-distribution-"
+#~ "list>`_ to stay in touch with any"
+#~ " advancements with the projects’ "
+#~ "distribution list."
+#~ msgstr ""
+#~ "Дополнительную информацию о наборе "
+#~ "инструментов можно найти на сайте "
+#~ "`trends.earth<http://trends.earth>`_, а отчеты "
+#~ "доступны на веб-сайте проекта Vital "
+#~ "Signs <http://vitalsigns.org/gef-ldmp/project-"
+#~ "description-and-timeline>`_. Вы также "
+#~ "можете добавить свою контактную информацию "
+#~ "в список рассылки электронной почты "
+#~ "Vital Signs LD <http://vitalsigns.org/gef-ldmp"
+#~ "/email-distribution-list>`_ чтобы быть в"
+#~ " курсе любых изменений в списке "
+#~ "рассылки проектов."
+

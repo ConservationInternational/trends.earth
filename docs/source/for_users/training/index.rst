@@ -9,6 +9,7 @@ Training Manual
 
    Settings <settings>
    Land Degradation <landdegradation>
+   Drought <drought>
    UNCCD Reporting <unccdreporting>
    Land Consumption <landconsumption>
    Carbon <carbon>
@@ -16,3 +17,5 @@ Training Manual
    Dataset Metadata <metadata>
    False Positives/Negatives <errorrecode>
    Dataset Reports <reports>
+   Adding a Basemap <basemap>
+   Computing Pyramids <pyramids>

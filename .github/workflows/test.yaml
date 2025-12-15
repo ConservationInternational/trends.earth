@@ -1,0 +1,85 @@
+# Runs tests on QGIS 3.16, 3.22 LTR, 3.26 and master branch
+name: Continous Integration
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - main
+
+env:
+  # Global environment variable
+  IMAGE: qgis/qgis
+  WITH_PYTHON_PEP: "true"
+  MUTE_LOGS: "true"
+  SERVICE: qgis-testing-environment
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Running tests on QGIS ${{ matrix.qgis_version_tag }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        qgis_version_tag:
+          - release-3_22
+          - release-3_34
+          - release-3_36
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          submodules: recursive
+
+      - name: Preparing docker compose environment
+        env:
+          QGIS_VERSION_TAG: ${{ matrix.qgis_version_tag }}
+        run: |
+          cat << EOF > .env
+          QGIS_VERSION_TAG=${QGIS_VERSION_TAG}
+          IMAGE=${IMAGE}
+          ON_TRAVIS=true
+          MUTE_LOGS=${MUTE_LOGS}
+          WITH_PYTHON_PEP=${WITH_PYTHON_PEP}
+          EOF
+      - name: Start test stack
+        run: |
+          set -euxo pipefail
+          docker pull "${IMAGE}:${{ matrix.qgis_version_tag }}"
+          docker compose up -d
+          # simple wait; replace with healthchecks if available
+          sleep 60
+          docker compose ps
+      - name: Install test dependencies inside container (pytest, python-dotenv)
+        run: |
+          set -euxo pipefail
+          docker compose exec -T "${SERVICE}" sh -lc '
+            if ! command -v pip3 >/dev/null 2>&1; then
+              apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*
+            fi
+            python3 -m pip install --no-cache-dir -U pytest python-dotenv
+          '
+      - name: Run test suite
+        run: |
+          set -euxo pipefail
+          docker compose exec -T "${SERVICE}" sh -lc 'qgis_testrunner.sh test_suite.test_package'
+      - name: Tear down
+        if: always()
+        run: |
+          docker compose logs > docker-compose-logs.txt || true
+          docker compose down -v || true
+      - name: Upload logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-compose-logs-${{ matrix.qgis_version_tag }}
+          path: docker-compose-logs.txt

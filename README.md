@@ -2,32 +2,39 @@
 
 [![Trends.Earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_600width.png)](http://trends.earth)
 
-[![Build
-Status](https://travis-ci.org/ConservationInternational/trends.earth.svg?branch=master)](https://travis-ci.org/ConservationInternational/trends.earth)
-[![Documentation Status](https://readthedocs.org/projects/trendsearth/badge/?version=latest)](https://trendsearth.readthedocs.io/en/latest/?badge=latest)
+[![Documentation](https://readthedocs.org/projects/trendsearth/badge/?version=latest)](https://trendsearth.readthedocs.io/en/latest/?badge=latest)
+[![Zipfile](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml)
+[![Translations](https://github.com/ConservationInternational/trends.earth/actions/workflows/translation_update.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/translation_update.yaml)
+[![Tests](https://github.com/ConservationInternational/trends.earth/actions/workflows/test.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/test.yaml)
+[![Documentation PDFs](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_docs_pdfs.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_docs_pdfs.yaml)
 
-`Trends.Earth` (formerly the Land Degradation Monitoring Toolbox) is a tool for
-monitoring land change. `Trends.Earth` is a [QGIS](http://www.qgis.org) plugin
-that supports monitoring of land change, including changes in productivity,
-land cover, and soil organic carbon. The tool can support monitoring land
-degradation for reporting to the Global Environment Facility (GEF) and United
-Nations Convention to Combat Desertification (UNCCD), as well as tracking
-progress towards achievement of Sustainable Development Goal (SDG) target 15.3,
-Land Degradation Neutrality (LDN).
 
-`Trends.Earth` was produced as an output of the GEF-funded project [“Enabling
-the use of global data sources to assess and monitor land degradation at
-multiple scales”](http://vitalsigns.org/gef-ldmp). The project aims to provide
-guidance on robust methods and a tool for assessing, monitoring status, and
-estimating trends in land degradation using remote sensing technology.
+`Trends.Earth` is a free and open source tool to understand land change: the how and why
+behind changes on the ground. Trends.Earth allows users to draw on the best available
+information from across a range of sources - from globally available data to customized
+local maps. A broad range of users are applying Trends.Earth for projects ranging from
+planning and monitoring restoration efforts, to tracking urbanization, to developing
+official national reports for submission to the United Nations Convention to Combat
+Desertification (UNCCD).
 
-The Land Degradation Monitoring Project is a collaboration of Conservation
-International, the National Aeronautics and Space Administration (NASA), and
-Lund University.
+`Trends.Earth` is a [QGIS](http://www.qgis.org) plugin that supports monitoring of land
+change, including trends in urbanization, and changes in productivity, land cover, and
+soil organic carbon. The tool can support monitoring land degradation for reporting to
+the Global Environment Facility (GEF) and United Nations Convention to Combat
+Desertification (UNCCD), as well as tracking progress towards achievement of Sustainable
+Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
+
+`Trends.Earth` was produced by a partnership of Conservation International, Lund
+University, and the National Aeronautics and Space Administration (NASA), with
+the support of the Global Environment Facility (GEF). It was further developed
+through a partnership with Conservation International, University of Bern,
+University of Colorado in partnership with USDA and USAID, University of California -
+Santa Barbara in partnership with University of North Carolina - Wilmington and Brown
+University with additional funding from the Global Environment Facility (GEF).
 
 ## Documentation
 
-See the [user guide](http://trends.earth/docs/en) for information on how to use
+See the [user guide](http://trends.earth) for information on how to use
 the plugin.
 
 ## Installation of stable version of plugin
@@ -47,17 +54,18 @@ plugin repository](http://plugins.qgis.org/plugins/LDMP/).
 
 Download a stable version of `Trends.Earth` from
 [the list of available releases on
-GitHub](https://github.com/ConservationInternational/trends.earth/releases).
-
-Now follow the instructions below on [installing the plugin from a
+GitHub](https://github.com/ConservationInternational/trends.earth/releases). Then follow
+the instructions below on [installing the plugin from a
 zipfile](#installing-plugin-from-a-zipfile).
 
 ## Installation of development version of plugin
 
-If you are interested in using the development version of the plugin, with the
-very latest (but not as well tested) features, or in contributing to the
-development of it, you will want to install the development version. There are
-two ways to install the development version:
+If you are interested in using the development version of the
+plugin, with the very latest (but not as well tested) features, or in contributing to
+the development of it, you will want to install the development version. Note
+that the development version is more likely to contain bugs or other issues
+that have yet to be resolved. There are two ways to install the development
+version:
 
 - Using a packaged version (zipfile)
 
@@ -69,18 +77,16 @@ of the plugin.
 
 ### Development version from zipfile
 
-First download the latest Trends.Earth zipfile. QGIS3+ is required for the
-latest versions of Trends.Earth. The QGIS2 version is no longer supported
-(support ended in March 2020).
-
-- [Download the latest `Trends.Earth` zipfile for QGIS3](https://s3.amazonaws.com/trends.earth/sharing/LDMP_QGIS3.zip).
-
-In case you want to use a previous version of `Trends.Earth` (e.g. versions that work with QGIS2),
-please refer to this [repository](https://github.com/ConservationInternational/trends.earth/releases)
-where all `Trends.Earth` releases are available.
-
-Now follow the instructions below on [installing the plugin from a
+[Download the latest `Trends.Earth`
+zipfile](https://s3.amazonaws.com/trends.earth/sharing/LDMP_main.zip). Then
+follow the instructions below on [installing the plugin from a
 zipfile](#installing-plugin-from-a-zipfile).
+
+QGIS3+ is required for the latest versions of Trends.Earth. The QGIS2 version is no
+longer supported (support ended in March 2020). If you want to use a previous version of
+`Trends.Earth` (e.g. versions that work with QGIS2), please refer to this
+[repository](https://github.com/ConservationInternational/trends.earth/releases) where
+all `Trends.Earth` releases are available.
 
 ### Development version from source
 
@@ -88,7 +94,7 @@ Open a terminal window and clone the latest version of the repository from
 Github:
 
 ```
-git clone --recurse-submodules https://github.com/ConservationInternational/trends.earth
+git clone https://github.com/ConservationInternational/trends.earth
 ```
 
 Navigate to the root folder of the newly cloned repository, and install
@@ -103,12 +109,6 @@ for the project:
 
 ```
 invoke plugin-setup
-```
-
-Once `invoke plugin-setup` has run, you need to be sure all dependencies are setup with command:
-
-```
-invoke  set-version -v <version number as in version.txt>
 ```
 
 then you can install the plugin using invoke:
@@ -131,8 +131,7 @@ might be necessary to install the plugin from a zipfile if you need to install
 it offline, or if you need the latest features.
 
 To install from a zipfile, first download a zipfile of the
-[stable](#stable-version-from-zipfile) or
-[development](#development-version-from-zipfile) version. The zipfile might be
+[stable](#stable-version-from-zipfile) version. The zipfile might be
 named `LDMP.zip`or `LDMP_QGIS3.zip` depending on what
 version you are installing.
 
@@ -175,7 +174,7 @@ the developers can look into it.
 When you report an issue, be sure to provide enough information to allow us to
 be able to reproduce it. In particular, be sure to specify:
 
-- What you were doing with the plugin when the problem or error ocurred (for
+- What you were doing with the plugin when the problem or error occurred (for
   example "I clicked on 'Download Results' and got an error messaging saying
   `describe what the message said`".
 - The operating system you are using, version of the plugin are you using, and
@@ -187,13 +186,13 @@ be able to reproduce it. In particular, be sure to specify:
   location you were analyzing with the tool (for example: "I selected Argentina
   from the dropdown menu"). If you used your own shapefile, please send us the
   file you used.
-- If you got a message saying "An error has ocurred while executing Python
+- If you got a message saying "An error has occurred while executing Python
   code", send us either the text of the message, or a a screenshot of the error
   message. **Also, send us the content of the Trends.Earth log messages
   panel.** To access the Trends.Earth log messages panel, select "View", then
   "Panels", then "Log Messages" from within QGIS. Copy and paste the text from
   that panel and include it in your issue report. It will make it easiest for
-  us to track things down (as their will be fewer log messages) if you do this
+  us to track things down (as there will be fewer log messages) if you do this
   after first starting a new QGIS session and immediately reproducing the
   error.
 

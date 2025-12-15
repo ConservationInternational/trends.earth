@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,23 +10,26 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+
+import json
 import os
 import typing
 from pathlib import Path
 
 from qgis import processing
-from qgis.core import QgsLayerDefinition
-from qgis.core import QgsProject
-from qgis.core import QgsReadWriteContext
-from qgis.core import QgsRectangle
-from qgis.core import QgsVectorLayer
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import QtXml
-from qgis.PyQt import uic
+from qgis.core import (
+    QgsFeatureRequest,
+    QgsGeometry,
+    QgsLayerDefinition,
+    QgsProject,
+    QgsReadWriteContext,
+    QgsRectangle,
+    QgsVectorLayer,
+)
+from qgis.PyQt import QtWidgets, QtXml, uic
 from qgis.utils import iface
 
-from . import conf
-from . import download
+from . import conf, download
 from .logger import log
 from .utils import FileUtils
 
@@ -59,7 +61,7 @@ def set_fill_style(maplayers, id, style="no"):
                     elem.setAttribute("v", style)
 
 
-class zoom_to_admin_poly(object):
+class zoom_to_admin_poly:
     def __init__(self, admin_code, admin_1=False):
         self.admin_code = admin_code
         if admin_1:
@@ -145,6 +147,158 @@ def admin_one_name_from_code(country_name: str, sub_code: str) -> str:
     return admin_one_name
 
 
+def get_admin_bbox(
+    country_code: str,
+    admin_one_identifier: typing.Optional[str] = None,
+    is_admin_one_region: bool = True,
+) -> QgsGeometry:
+    """
+    Returns the geometry for the selected country, region, or city based on
+    their stored identifiers. If ``is_admin_one_region`` is False, the
+    ``admin_one_identifier`` is treated as a city id.
+
+    Uses GeoBoundaries API for boundary data instead of old Natural Earth approach.
+    """
+    # For regions, use GeoBoundaries API which provides current, accurate boundaries
+    if admin_one_identifier and is_admin_one_region:
+        try:
+            # Download boundary GeoJSON for the specific region
+            geojson = download.download_boundary_geojson(
+                country_code, admin_level=1, shape_id=admin_one_identifier
+            )
+            if geojson and geojson.get("features"):
+                # Convert GeoJSON to QgsGeometry
+                # Use the first feature (should only be one after extraction)
+                feature_geojson = geojson["features"][0]
+                geom = QgsGeometry.fromJson(json.dumps(feature_geojson["geometry"]))
+                if not geom.isEmpty():
+                    return geom
+        except Exception as e:
+            log(f"Error loading region geometry from GeoBoundaries: {e}")
+            # Fall through to legacy method
+
+    # For country-level or as fallback, use legacy Natural Earth shapefiles
+    if not os.path.exists(country_data_path()):
+        return None
+
+    # Look up the country entry using the stored ISO/code identifier.
+    admin_bounds = download.get_admin_bounds()
+    country_info = None
+    for country in admin_bounds.values():
+        if country.code == country_code:
+            country_info = country
+            break
+
+    if not country_info:
+        return None
+
+    # Country-level bounds
+    if not admin_one_identifier:
+        # Try GeoBoundaries first for country-level
+        try:
+            geojson = download.download_boundary_geojson(country_code, admin_level=0)
+            if geojson and geojson.get("features"):
+                # Merge all features into one geometry
+                geom_parts = []
+                for feature in geojson["features"]:
+                    feat_geom = QgsGeometry.fromJson(json.dumps(feature["geometry"]))
+                    if not feat_geom.isEmpty():
+                        geom_parts.append(feat_geom)
+
+                if geom_parts:
+                    if len(geom_parts) == 1:
+                        return geom_parts[0]
+                    else:
+                        # Combine multiple parts
+                        combined = QgsGeometry.unaryUnion(geom_parts)
+                        if not combined.isEmpty():
+                            return combined
+        except Exception as e:
+            log(f"Error loading country geometry from GeoBoundaries: {e}")
+
+        # Fallback to Natural Earth shapefile
+        nl = QgsVectorLayer(country_data_path())
+        if not nl.isValid():
+            return None
+
+        feat_request = QgsFeatureRequest()
+        feat_exp = f"\"ISO_A3\"='{country_code}'"
+        feat_request.setFilterExpression(feat_exp)
+        feat_iter = nl.getFeatures(feat_request)
+        feat = next(feat_iter, None)
+        if feat is None:
+            return None
+
+        return feat.geometry()
+
+    # Handle cities (non-region admin_one_identifier)
+    if not is_admin_one_region:
+        country_cities = download.get_cities().get(country_code, None)
+        if country_cities is None:
+            return None
+
+        city = country_cities.get(str(admin_one_identifier))
+        if city is None:
+            return None
+
+        wof_id = city.wof_id
+        pl = QgsVectorLayer(places_data_path())
+        if not pl.isValid():
+            return None
+
+        feat_request = QgsFeatureRequest()
+        feat_exp = f"\"wof_id\"='{wof_id}'"
+        feat_request.setFilterExpression(feat_exp)
+        feat_iter = pl.getFeatures(feat_request)
+        feat = next(feat_iter, None)
+        if feat is None:
+            return None
+
+        # Get the ADM1 region name from city data
+        admin_one_attr_val = feat["ADM1NAME"]
+        admin_one_attr = "name"
+
+        snl = QgsVectorLayer(sub_national_data_path())
+        if not snl.isValid():
+            return None
+
+        feat_request = QgsFeatureRequest()
+        feat_exp = f"\"{admin_one_attr}\"='{admin_one_attr_val}'"
+        feat_request.setFilterExpression(feat_exp)
+        feat_iter = snl.getFeatures(feat_request)
+        feat = next(feat_iter, None)
+        if feat is None:
+            return None
+
+        return feat.geometry()
+
+    # Should not reach here
+    return None
+
+
+def country_data_path() -> str:
+    """
+    Returns the path for the vector file containing country data.
+    """
+    return f"{FileUtils.plugin_dir()}/data/ne_10m_admin_0_countries.shp"
+
+
+def sub_national_data_path() -> str:
+    """
+    Returns the path for the vector file containing sub-national data.
+    """
+    root_dir = FileUtils.plugin_dir()
+    return f"{root_dir}/data/ne_10m_admin_1_states_provinces.shp"
+
+
+def places_data_path() -> str:
+    """
+    Returns the path for the vector file containing data on populated places.
+    """
+    root_dir = FileUtils.plugin_dir()
+    return f"{root_dir}/data/ne_10m_populated_places.shp"
+
+
 class ExtractAdministrativeArea:
     """
     Uses a heuristic approach to try get the country name (and possibly
@@ -156,12 +310,8 @@ class ExtractAdministrativeArea:
 
     def __init__(self, extent: QgsRectangle):
         self._extent = extent
-        self._national_data_path = (
-            f"{FileUtils.plugin_dir()}/data/" f"ne_10m_admin_0_countries.shp"
-        )
-        self._sub_national_data_path = (
-            f"{FileUtils.plugin_dir()}/data/" f"ne_10m_admin_1_states_provinces.shp"
-        )
+        self._national_data_path = country_data_path()
+        self._sub_national_data_path = sub_national_data_path()
         self._extent_layer = None
         self._national_layer = None
         self._sub_nat_layer = None
@@ -376,18 +526,28 @@ def download_base_map(
 
     document = None
 
-    ret = download.extract_zipfile("trends.earth_basemap_data.zip", verify=False)
+    data_dir = Path(__file__).parent / "data"
+    basemap_qlr = data_dir / "basemap.qlr"
+    admin0_shp = data_dir / "ne_10m_admin_0_countries.shp"
+    admin1_shp = data_dir / "ne_10m_admin_1_states_provinces.shp"
+
+    needs_extraction = not (
+        basemap_qlr.exists() and admin0_shp.exists() and admin1_shp.exists()
+    )
+
+    if needs_extraction:
+        ret = download.extract_zipfile("trends.earth_basemap_data.zip", verify=False)
+    else:
+        ret = True
 
     if ret:
-        f = open(os.path.join(os.path.dirname(__file__), "data", "basemap.qlr"), "rt")
-        lyr_def_content = f.read()
-        f.close()
+        lyr_def_path = data_dir / "basemap.qlr"
+        with lyr_def_path.open("r", encoding="utf-8") as f:
+            lyr_def_content = f.read()
 
         # The basemap data, when downloaded, is stored in the data
         # subfolder of the plugin directory
-        lyr_def_content = lyr_def_content.replace(
-            "DATA_FOLDER", os.path.join(os.path.dirname(__file__), "data")
-        )
+        lyr_def_content = lyr_def_content.replace("DATA_FOLDER", str(data_dir))
 
         if use_mask:
             current_country = conf.ADMIN_BOUNDS_KEY[country_name]
@@ -461,7 +621,7 @@ class DlgVisualizationCreateMap(QtWidgets.QDialog, DlgVisualizationCreateMapUi):
             os.path.dirname(__file__), "data", "map_template_{}.qpt".format(orientation)
         )
 
-        with open(template, "rt") as f:
+        with open(template) as f:
             new_composer_content = f.read()
         document = QtXml.QDomDocument()
         document.setContent(new_composer_content)

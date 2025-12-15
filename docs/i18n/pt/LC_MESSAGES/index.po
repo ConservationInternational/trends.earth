@@ -4,68 +4,118 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-22 14:58-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2025-09-22 04:05+0000\n"
+"PO-Revision-Date: 2022-06-26 18:04+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language: pt\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-"
+"international/teams/80165/pt/)\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.17.0\n"
 
-#: ../../source/index.rst:36
+#: ../../source/index.rst:42
 msgid "Trends.Earth User Guide"
-msgstr ""
+msgstr "Manual de Utilização da Trends.Earth"
 
-#: ../../source/index.rst:36
+#: ../../source/index.rst:42
 msgid "User Guide"
-msgstr ""
-
-#: ../../source/index.rst:42
-msgid "Trends.Earth Developers Guide"
-msgstr ""
-
-#: ../../source/index.rst:42
-msgid "Developers Guide"
-msgstr ""
+msgstr "Guia de Utilizador"
 
 #: ../../source/index.rst:48
+msgid "Trends.Earth Developers Guide"
+msgstr "Guia para Programadores Trends.Earth"
+
+#: ../../source/index.rst:48
+msgid "Developers Guide"
+msgstr "Guia dos Programadores"
+
+#: ../../source/index.rst:54
 msgid "General Information"
+msgstr "Informação Geral"
+
+#: ../../source/index.rst:60
+msgid "Privacy Policy"
 msgstr ""
 
-#: ../../../<rst_epilog>:37 ../../source/index.rst:4
-msgid "Trends.Earth"
+#: ../../source/index.rst:60
+msgid "Terms of Use"
 msgstr ""
 
+#: ../../source/index.rst:60
+msgid "Legal"
+msgstr ""
+
+#: ../../source/index.rst:3
 msgid "trends.earth"
-msgstr ""
+msgstr "trends.earth"
 
-#: ../../source/index.rst:17
-msgid ":index_path:`English<en>`"
-msgstr ""
+#: ../../source/index.rst:14
+msgid ":index_path:`عربى <ar>`"
+msgstr ":index_path:`عربى <ar>`"
 
-#: ../../source/index.rst:17
-msgid ":index_path:`Spanish <es>`"
-msgstr ""
+#: ../../source/index.rst:14
+msgid ":index_path:`中国人 <zh>`"
+msgstr ":index_path:`中国人 <zh>`"
 
-#: ../../source/index.rst:17
-msgid ":index_path:`French <fr>`"
-msgstr ""
+#: ../../source/index.rst:14
+msgid ":index_path:`English <en>`"
+msgstr ":index_path:`English <en>`"
 
-#: ../../source/index.rst:17
-msgid ":index_path:`Swahili <sw>`"
-msgstr ""
+#: ../../source/index.rst:14
+msgid ":index_path:`Español <es>`"
+msgstr ":index_path:`Español <es>`"
 
-#: ../../source/index.rst:17
+#: ../../source/index.rst:14
+msgid ":index_path:`Français <fr>`"
+msgstr ":index_path:`Français <fr>`"
+
+#: ../../source/index.rst:14
 msgid ":index_path:`Português <pt>`"
-msgstr ""
+msgstr ":index_path:`Português <pt>`"
 
-#: ../../source/index.rst:20
+#: ../../source/index.rst:14
+msgid ":index_path:`русский <ru>`"
+msgstr ":index_path:`русский <ru>`"
+
+#: ../../source/index.rst:14
+msgid ":index_path:`Kiswahili <sw>`"
+msgstr ":index_path:`Kiswahili <sw>`"
+
+#: ../../source/index.rst:22
+msgid ""
+"Trends.Earth is a free and open source tool to understand land change: "
+"the how and why behind changes on the ground. Trends.Earth allows users "
+"to draw on the best available information from across a range of sources "
+"- from globally available data to customized local maps. A broad range of"
+" users are applying Trends.Earth for projects ranging from planning and "
+"monitoring restoration efforts, to tracking urbanization, to developing "
+"official national reports for submission to the United Nations Convention"
+" to Combat Desertification (UNCCD)."
+msgstr ""
+"A Trends.Earth é uma ferramenta grátis e 'open source' para estudar as "
+"alterações dos solos: o como e porquê por detrás das alterações no solo. "
+"A Trends.Earth permite aos utilizadores utilizar a melhor informação "
+"disponível a partir de uma gama de fontes - desde dados disponíveis "
+"globalmente até mapas locais personalizados. Uma grande variedade de "
+"utilizadores estão a aplicar a Trends.Earth para projetos, como o "
+"planeamento e seguimento de esforços de recuperação, a monitorização da "
+"urbanizações e a criação de relatórios nacionais oficiais para serem "
+"submetidos à Convenção das Nações Unidas para o Combate à Desertificação "
+"(UNCCD)."
+
+#: ../../source/index.rst:30
 msgid ""
 "Trends.Earth was produced by a partnership of Conservation International,"
 " Lund University, and the National Aeronautics and Space Administration "
@@ -76,113 +126,22 @@ msgid ""
 "University of North Carolina - Wilmington and Brown University with "
 "additional funding from the Global Environment Facility (GEF)."
 msgstr ""
+"A Trends.Earth foi produzida por uma parceria entre a Conservation "
+"International, a Universidade de Lund e a Administração Nacional da "
+"Aeronáutica e do Espaço (NASA), com o apoio do Fundo para o Ambiente "
+"Mundial (GEF). Foi adicionalmente desenvolvida através de uma parceria "
+"entre a Conservation International, a Universidade de Berna e a "
+"Universidade do Colorado, em parceria com a USDA e USAID, Universidade da"
+" Califórnia - Santa Bárbara em parceria com a Universidade da Carolina do"
+" Norte - Wilmington e a Universidade de Brown, com financiamento "
+"adicional do Fundo para o Ambiente Mundial (GEF)."
 
-#: ../../source/index.rst:54
-msgid ""
-"`Download this documentation as a PDF for offline use "
-"<pdfs/Trends.Earth.pdf>`_"
-msgstr ""
+#~ msgid "iconCalculator"
+#~ msgstr "iconCalculator"
 
-#: ../../../<rst_epilog>:2
-msgid "iconCalculator"
-msgstr ""
+#~ msgid "iconReports"
+#~ msgstr "iconReports"
 
-#: ../../../<rst_epilog>:4
-msgid "iconChart"
-msgstr ""
-
-#: ../../../<rst_epilog>:6
-msgid "iconClipboard"
-msgstr ""
-
-#: ../../../<rst_epilog>:8
-msgid "iconCloudDownload"
-msgstr ""
-
-#: ../../../<rst_epilog>:10
-msgid "iconCog"
-msgstr ""
-
-#: ../../../<rst_epilog>:12
-msgid "iconDeletedataset"
-msgstr ""
-
-#: ../../../<rst_epilog>:14
-msgid "iconGlobe"
-msgstr ""
-
-#: ../../../<rst_epilog>:16
-msgid "iconGraph"
-msgstr ""
-
-#: ../../../<rst_epilog>:18
-msgid "iconInfo"
-msgstr ""
-
-#: ../../../<rst_epilog>:20
-msgid "iconLoaddataset"
-msgstr ""
-
-#: ../../../<rst_epilog>:21
-msgid "iconMarkMarker"
-msgstr ""
-
-#: ../../../<rst_epilog>:23
-msgid "iconOpendatasetdirectory"
-msgstr ""
-
-#: ../../../<rst_epilog>:25
-msgid "iconViewdatasetdetails"
-msgstr ""
-
-#: ../../../<rst_epilog>:27
-msgid "iconWrench"
-msgstr ""
-
-#: ../../../<rst_epilog>:29
-msgid "iconFolder"
-msgstr ""
-
-#: ../../../<rst_epilog>:31
-msgid "iconReports"
-msgstr ""
-
-#: ../../../<rst_epilog>:33
-msgid "iconTrendsEarth"
-msgstr ""
-
-#: ../../../<rst_epilog>:35
-msgid "iconVisualization"
-msgstr ""
-
-#: ../../../<rst_epilog>
-msgid "logoCI"
-msgstr ""
-
-#: ../../../<rst_epilog>
-msgid "logoLund"
-msgstr ""
-
-#: ../../../<rst_epilog>
-msgid "logoNASA"
-msgstr ""
-
-#: ../../../<rst_epilog>
-msgid "logoGEF"
-msgstr ""
-
-#~ msgid "`English <../en/index.html>`_"
-#~ msgstr ""
-
-#~ msgid "`Español <../es/index.html>`_"
-#~ msgstr ""
-
-#~ msgid "`Francais <../fr/index.html>`_"
-#~ msgstr ""
-
-#~ msgid "`Swahili <../sw/index.html>`_"
-#~ msgstr ""
-
-#~ msgid "`Português <../pt/index.html>`_"
-#~ msgstr ""
+#~ msgid "Trends.Earth"
+#~ msgstr "Trends.Earth"
 

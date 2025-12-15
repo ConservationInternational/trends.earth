@@ -21,7 +21,7 @@ False positive/negative layers
 
 - Select the Refresh button if no datasets appear in the menu.
 
-3. Press the **Create** button at the bottom of the **Trends.Earth** menu and then select **False positive layer**
+3. Press the **Create** button at the bottom of the **Trends.Earth** menu and then select **False positive/negative layer**
 
 .. image:: ../../../resources/en/documentation/error_recode/create_button.png
    :align: center
@@ -46,24 +46,19 @@ False positive/negative layers
 .. image:: ../../../resources/en/documentation/error_recode/add_button.png
    :align: center
 
-7. If this is first time when layer added to QGIS canvas a dialog asking for indicator layers will be shown
+7. If this is the first time a false positive/negative layer is added to QGIS canvas a dialog asking for indicator layers will be shown
 
 .. image:: ../../../resources/en/documentation/error_recode/layers_selector.png
    :align: center
 
-In this dialog it is necessary to select indicator layers which will be used to calculate charts. This is one-time action, choice made in this dialog will be preserved and used in all subsequent edits of this specific vector dataset.
+In this dialog it is necessary to correctly select corresponding indicator layers which will be used to calculate charts - **special attention when selecting
+the layer for SDG 15.3.1 indicator, make sure to select the SDG 15.3.1 Indicator that has been updated with the respective progress period**.
+This is a one-time action, choice made in this dialog will be preserved and used in all subsequent edits of this specific vector dataset.
 
-8. Once the dataset added to the canvas in editing mode, polygons can be created using either **Polygon** tool
+8. Once the dataset added to the canvas in editing mode, polygons can be created using either **Polygon** tool or **Buffer** tool which can be found on the **Trends.Earth** toolbar.
 
-.. image:: ../../../resources/en/documentation/error_recode/layers_selector.png
+.. image:: ../../../resources/en/documentation/error_recode/polygon_buffer_tool.png
    :align: center
-
-or **Buffer** tool
-
-.. image:: ../../../resources/en/documentation/error_recode/layers_selector.png
-   :align: center
-
-which can be found on the **Trends.Earth** toolbar.
 
 9. The **Polygon** tool used to digitize polygons manually, using the same point-and-click approach as native QGIS digitizing tools do. When **Polygon** tool is selected and digitizing started in the top-right corner of the QGIS map canvas a widget showing area of the polygon will be displayed.
 
@@ -79,5 +74,6 @@ which can be found on the **Trends.Earth** toolbar.
 
 .. image:: ../../../resources/en/documentation/error_recode/attribute_form.png
    :align: center
+
 
 In addition to various attributes this form also contains indicators chart calculated based on the rasters selected in the step 7.

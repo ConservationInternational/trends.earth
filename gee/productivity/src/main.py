@@ -1,21 +1,21 @@
 """
 Code for calculating vegetation productivity.
 """
-# Copyright 2017 Conservation International
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
+# Copyright 2017 Conservation International
 import json
 import random
-from builtins import str
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import ee
 from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
-from te_algorithms.gee.productivity import productivity_performance
-from te_algorithms.gee.productivity import productivity_state
-from te_algorithms.gee.productivity import productivity_trajectory
+from te_algorithms.gee.productivity import (
+    productivity_faowocat,
+    productivity_performance,
+    productivity_state,
+    productivity_trajectory,
+)
 from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 from te_schemas import results
 from te_schemas.productivity import ProductivityMode
@@ -54,104 +54,137 @@ def run(params, logger):
         ndvi_gee_dataset = params.get("ndvi_gee_dataset")
         climate_gee_dataset = params.get("climate_gee_dataset")
 
-        outs = []
+        # Calculate productivity components globally (not per geojson) for unified percentiles
+        global_output = None
+        proj = ee.Image(ndvi_gee_dataset).projection()
 
-        for geojson in geojsons:
-            this_out = None
+        if calc_traj:
+            logger.debug("Calculating productivity trajectory...")
+            traj = productivity_trajectory(
+                int(prod_traj_year_initial),
+                int(prod_traj_year_final),
+                prod_traj_method,
+                ndvi_gee_dataset,
+                climate_gee_dataset,
+                logger,
+            )
+            global_output = traj
 
-            if calc_traj:
-                traj = productivity_trajectory(
-                    int(prod_traj_year_initial),
-                    int(prod_traj_year_final),
-                    prod_traj_method,
-                    ndvi_gee_dataset,
-                    climate_gee_dataset,
-                    logger,
-                )
-
-                if not this_out:
-                    this_out = traj
-
-            if calc_perf:
-                perf = productivity_performance(
-                    prod_perf_year_initial,
-                    prod_perf_year_final,
-                    ndvi_gee_dataset,
-                    geojson,
-                    logger,
-                )
-
-                if not this_out:
-                    this_out = perf
-                else:
-                    this_out.merge(perf)
-
-            if calc_state:
-                state = productivity_state(
-                    prod_state_year_bl_start,
-                    prod_state_year_bl_end,
-                    prod_state_year_tg_start,
-                    prod_state_year_tg_end,
-                    ndvi_gee_dataset,
-                    logger,
-                )
-
-                if not this_out:
-                    this_out = state
-                else:
-                    this_out.merge(state)
-
-            logger.debug("Converting output to TEImageV2 format")
-            this_out = teimage_v1_to_teimage_v2(this_out)
-            proj = ee.Image(ndvi_gee_dataset).projection()
-            outs.append(
-                this_out.export(
-                    [geojson], "productivity", crs, logger, EXECUTION_ID, proj
-                )
+        if calc_perf:
+            logger.debug(
+                "Calculating productivity performance with unified percentiles across all geojsons..."
+            )
+            perf = productivity_performance(
+                prod_perf_year_initial,
+                prod_perf_year_final,
+                ndvi_gee_dataset,
+                geojsons,  # Pass all geojsons for unified percentile calculation
+                logger,
             )
 
-        # First need to deserialize the data that was prepared for output from
-        # the productivity functions, so that new urls can be appended
-        schema = results.RasterResults.Schema()
-        logger.debug("Deserializing")
-        final_output = schema.load(outs[0])
+            if not global_output:
+                global_output = perf
+            else:
+                global_output.merge(perf)
 
-        for o in outs[1:]:
-            this_out = schema.load(o)
+        if calc_state:
+            logger.debug("Calculating productivity state...")
+            state = productivity_state(
+                prod_state_year_bl_start,
+                prod_state_year_bl_end,
+                prod_state_year_tg_start,
+                prod_state_year_tg_end,
+                ndvi_gee_dataset,
+                logger,
+            )
 
-            for datatype, raster in this_out.data.items():
-                final_output.data[datatype].uri.extend(raster.uri)
+            if not global_output:
+                global_output = state
+            else:
+                global_output.merge(state)
 
-        # Now serialize the output again and return it
-        logger.debug("Serializing")
+        logger.debug("Converting output to TEImageV2 format")
+        global_output = teimage_v1_to_teimage_v2(global_output)
 
-        return schema.dump(final_output)
+        logger.debug("Exporting global productivity results")
+        return global_output.export(
+            geojsons=geojsons,
+            task_name="productivity",
+            crs=crs,
+            logger=logger,
+            execution_id=EXECUTION_ID,
+            proj=proj,
+        )
 
-    elif prod_mode in (
-        ProductivityMode.JRC_5_CLASS_LPD.value,
-        ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
-    ):
-        if prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+    elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+        data_source = params.get("data_source", "Joint Research Commission (JRC)")
+        if data_source == "Joint Research Commission (JRC)":
             lpd_layer_name = config.JRC_LPD_BAND_NAME
-        elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
-            lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
         else:
-            raise KeyError
+            lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
         prod_asset = params.get("prod_asset")
         year_initial = params.get("year_initial")
         year_final = params.get("year_final")
         out = download(prod_asset, lpd_layer_name, "one time", None, None, logger)
         proj = ee.Image(prod_asset).projection()
-        out.image = out.image.int16().rename(
+        assert len(out.images) == 1, "multiple bands returned - should be 1"
+        (image,) = out.images.values()
+        image.image = image.image.int16().rename(
             f"{'prod_mode'}_{year_initial}-{year_final}"
         )
-        out.band_info[0].metadata.update(
+        image.bands[0].metadata.update(
             {"year_initial": year_initial, "year_final": year_final}
         )
-
-        logger.debug("Converting output to TEImageV2 format")
-        out = teimage_v1_to_teimage_v2(out)
-
         return out.export(geojsons, "productivity", crs, logger, EXECUTION_ID, proj)
+    elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+        ndvi_gee_dataset = params.get("ndvi_gee_dataset")
+        low_biomass = float(params.get("low_biomass"))
+        high_biomass = float(params.get("high_biomass"))
+        years_interval = int(params.get("years_interval"))
+        year_start = int(params.get("year_start"))
+        year_final = int(params.get("year_final"))
+        modis_mode = params.get("modis_mode")
+
+        logger.debug(
+            "Running FAO‑WOCAT algorithm "
+            f"({year_start}–{year_final}) using {ndvi_gee_dataset}"
+        )
+
+        res = []
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            for idx, geojson in enumerate(geojsons, start=1):
+                lpd_img = productivity_faowocat(
+                    low_biomass=low_biomass,
+                    high_biomass=high_biomass,
+                    years_interval=years_interval,
+                    modis_mode=modis_mode,
+                    prod_asset=ndvi_gee_dataset,
+                    logger=logger,
+                    year_initial=year_start,
+                    year_final=year_final,
+                )
+
+                lpd_img = teimage_v1_to_teimage_v2(lpd_img)
+
+                proj = ee.Image(ndvi_gee_dataset).projection()
+                res.append(
+                    executor.submit(
+                        lpd_img.export,
+                        geojsons=[geojson],
+                        task_name="productivity",
+                        crs=crs,
+                        logger=logger,
+                        execution_id=f"{EXECUTION_ID}_{idx}",
+                        proj=proj,
+                    )
+                )
+        schema = results.RasterResults.Schema()
+        final_output = schema.load(res[0].result())
+        for n, this_res in enumerate(as_completed(res[1:]), start=1):
+            logger.debug(f"Combining FAO‑WOCAT output with AOI {n}")
+            final_output.combine(schema.load(this_res.result()))
+
+        logger.debug("Serializing FAO‑WOCAT result")
+        return schema.dump(final_output)
     else:
         raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))

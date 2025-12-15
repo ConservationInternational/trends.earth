@@ -1,5 +1,7 @@
 """Data models for the reporting framework."""
+
 import hashlib
+import json
 import os
 import re
 import typing
@@ -8,9 +10,7 @@ from dataclasses import field
 from enum import Enum
 from uuid import uuid4
 
-from marshmallow import post_load
 from marshmallow_dataclass import dataclass
-from qgis.PyQt.QtCore import QFileInfo
 
 from ..jobs.models import Job
 
@@ -148,10 +148,13 @@ class ItemScopeMapping:
         self.name = name
         self.type_id_mapping = kwargs.pop("type_id_mapping", dict())
 
+    def __hash__(self):
+        return hash(self.name + json.dumps(self.type_id_mapping, sort_keys=True))
+
     def add_item_mapping(self, item_type: str, item_id: str) -> None:
         """Group item ids in a list based on their type."""
         str_item_type = str(item_type)
-        if not str_item_type in self.type_id_mapping:
+        if str_item_type not in self.type_id_mapping:
             self.type_id_mapping[str_item_type] = []
 
         items = self.type_id_mapping[str_item_type]
@@ -260,6 +263,9 @@ class ReportTemplateInfo:
         self._abs_full_landscape_path = ""
         self._absolute_paths = None
 
+    def __hash__(self):
+        return hash([self.id, self.item_scopes])
+
     def add_scope_mapping(self, item_scope: ItemScopeMapping) -> None:
         self.item_scopes.append(item_scope)
 
@@ -270,9 +276,8 @@ class ReportTemplateInfo:
         # set absolute paths for portrait and landscape templates
         # Prioritize matching paths in the user folder, if not found then
         # revert to the plugin one.
-        concat_path = lambda template_dir, file_name: os.path.normpath(
-            f"{template_dir}{os.sep}{file_name}"
-        )
+        def concat_path(template_dir, file_name):
+            return os.path.normpath(f"{template_dir}{os.sep}{file_name}")
 
         # First check user-defined directory
         if user_templates_dir is not None:
@@ -364,6 +369,9 @@ class ReportConfiguration:
         self.template_info = template_info
         self.output_options = output_options
 
+    def __hash__(self):
+        return hash([self.template_info, self.output_options])
+
     def update_paths(self, root_template_dir, user_template_dir=None):
         # Convenience function for updating absolute paths for template files.
         self.template_info.update_paths(root_template_dir, user_template_dir)
@@ -389,6 +397,9 @@ class ReportTaskContext:
         self.jobs = jobs or []
         self.root_report_dir = root_report_dir or None
 
+    def __hash__(self) -> int:
+        return hash(self.id())
+
     def display_name(self) -> str:
         # Friendly name for the task that can be used in the UI.
         jobs_num = len(self.jobs)
@@ -406,6 +417,3 @@ class ReportTaskContext:
         attrs_hash.update(attrs_bytes)
 
         return attrs_hash.hexdigest()
-
-    def __hash__(self) -> int:
-        return hash(self.id())

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,8 +10,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-# pylint: disable=import-error
-import json
+
 import os
 import re
 import site
@@ -21,10 +19,11 @@ import sys
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
-from qgis.core import Qgis
-from qgis.core import QgsApplication
+from qgis.core import Qgis, QgsApplication
 from qgis.PyQt import QtCore
 from qgis.utils import iface
+
+from . import logger
 
 # initialize translation
 plugin_dir = os.path.dirname(os.path.realpath(__file__))
@@ -34,36 +33,55 @@ locale = QtCore.QLocale(QgsApplication.locale())
 translator.load(locale, "LDMP", "_", directory=i18n_dir, suffix=".qm")
 trans_result = QtCore.QCoreApplication.installTranslator(translator)
 
-from . import logger
+# Get version and git information from setuptools-scm generated file
+try:
+    from LDMP._version import __git_date__, __git_sha__, __version__
 
-with open(os.path.join(plugin_dir, "version.json")) as f:
-    version_info = json.load(f)
-__version__ = version_info["version"]
-__version_major__ = re.sub(r"([0-9]+)(\.[0-9]+)+$", r"\g<1>", __version__)
-__revision__ = version_info["revision"]
-__release_date__ = version_info["release_date"]
+    __revision__ = __git_sha__
+    __release_date__ = __git_date__
+    __version_major__ = re.sub(r"([0-9]+)(\.[0-9]+)+.*$", r"\g<1>", __version__)
+except ImportError:
+    # _version.py doesn't exist - likely running from source without building
+    __version__ = "unknown"
+    __revision__ = "unknown"
+    __git_sha__ = "unknown"
+    __git_date__ = "unknown"
+    __release_date__ = "unknown"
+    __version_major__ = "0"
+
+    # Show user-friendly error message in QGIS
+    from qgis.core import Qgis, QgsMessageLog
+
+    QgsMessageLog.logMessage(
+        "Trends.Earth plugin version could not be determined. "
+        "If you're running from source, please run 'invoke set-version' to generate version information. "
+        "See SETUPTOOLS_SCM_GUIDE.md for details.",
+        "Trends.Earth",
+        Qgis.Warning,
+    )
 
 
 def _add_at_front_of_path(d):
-    """add a folder at front of path"""
-    sys.path, remainder = sys.path[:1], sys.path[1:]
-    site.addsitedir(d)
-    sys.path.extend(remainder)
+    """Add a folder at the very front of sys.path while honoring .pth files."""
 
+    if not d:
+        return
 
-# Put binaries folder (if available) near the front of the path (important on
-# Linux)
-binaries_folder = QtCore.QSettings().value(
-    "trends_earth/advanced/binaries_folder", None
-)
-te_version = __version__.replace(".", "-")
-qgis_version = re.match("^[0-9]*\.[0-9]*", Qgis.QGIS_VERSION)[0].replace(".", "-")
-binaries_name = f"trends_earth_binaries_{te_version}_{qgis_version}"
+    resolved = os.path.realpath(os.fspath(Path(d)))
 
-if binaries_folder:
-    binaries_path = Path(binaries_folder) / f"{binaries_name}"
-    logger.log(f"Adding {binaries_path} to path")
-    _add_at_front_of_path(str(binaries_path))
+    # site.addsitedir processes .pth files and ensures the directory exists.
+    site.addsitedir(resolved)
+
+    # Remove any duplicate entries to force our entry to the front of the path
+    def _canonical(path_entry):
+        try:
+            return os.path.realpath(path_entry)
+        except OSError:
+            return path_entry
+
+    sys.path[:] = [p for p in sys.path if _canonical(p) != resolved]
+    sys.path.insert(0, resolved)
+
 
 # Put ext-libs folder near the front of the path (important on Linux)
 _add_at_front_of_path(str(Path(plugin_dir) / "ext-libs"))
@@ -79,7 +97,7 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :type iface: QgsInterface
     """
 
-    from LDMP.plugin import LDMPPlugin  # noqa: autoimport
+    from LDMP.plugin import LDMPPlugin  # noqa: E402
 
     return LDMPPlugin(iface)
 
@@ -106,10 +124,10 @@ else:
         "FAILED while trying to install translator for {}.".format(locale.name())
     )
 
-from . import conf  # noqa: autoimport
+from . import conf  # noqa: E402
 
 if conf.settings_manager.get_value(conf.Setting.DEBUG):
-    import logging  # noqa: autoimport
+    import logging  # noqa: E402
 
     formatter = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logfilename = (
@@ -119,24 +137,6 @@ if conf.settings_manager.get_value(conf.Setting.DEBUG):
     Path(logfilename).parent.mkdir(parents=True, exist_ok=True)
 
     logging.basicConfig(filename=logfilename, level=logging.DEBUG, format=formatter)
-
-
-def binaries_available():
-    ret = True
-    debug_enabled = conf.settings_manager.get_value(conf.Setting.DEBUG)
-    try:
-        from trends_earth_binaries import ldn_numba  # noqa: autoimport
-
-        if debug_enabled:
-            logger.log("Numba-compiled version of ldn_numba available.")
-    except (ModuleNotFoundError, ImportError, RuntimeError) as e:
-        if debug_enabled:
-            logger.log(
-                "Numba-compiled version of ldn_numba not available: {}".format(e)
-            )
-        ret = False
-
-    return ret
 
 
 def openFolder(path):

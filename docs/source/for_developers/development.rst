@@ -16,18 +16,26 @@ GitHub repository.
 
 The |trends.earth| QGIS plugin is supported by a number of different Python
 scripts that allow calculation of the various indicators on Google Earth Engine
-(GEE). These scripts sit in the "gee" sub-folder of that GitHub repository. The
-GEE scripts are supported by the `landdegradation` Python module, which
-includes code for processing inputs and outputs for the plugin, as well as
-other common functions supporting calculation of NDVI integrals, statistical
-significance, and other shared code. The code for this module is available in
-the `landdegradation
-<https://github.com/ConservationInternational/landdegradation>`_ repository on
-GitHub.
+(GEE). These scripts sit in the "gee" sub-folder of that GitHub repository.
+
+The plugin is also supported by a number of other modules:
+
+- The `trends.earth-algorithms` module includes code for
+  processing inputs and outputs for the plugin, as well as other common
+  functions supporting calculation of NDVI integrals, statistical significance,
+  and other shared code. The code for this module is available in the
+  `landdegradation
+  <https://github.com/ConservationInternational/trends.earth-algorithms>`_
+  repository on GitHub.
+
+- The `trends.earth-schemas` module includes code for managing the schemas used
+  for data input/output from `trends.earth`, including handling land cover
+  classes, job parameters, structuring reports for UNCCD, and other related
+  functions
 
 Further details are below on how to contribute to Trends.Earth by working on
-the plugin code, by modifying the processing code, or by contributing to
-translating the website and plugin.
+the plugin GUI code, by modifying the processing code, or by contributing to
+translation of the website and plugin.
 
 Modifying the QGIS Plugin code
 ______________________________
@@ -47,20 +55,6 @@ are under active development. The plugin officially supports QGIS3 and the
 majority of development is occurring on the "develop" branch. The "qgis2"
 branch is the older version of the plugin, and supports QGIS2 version 2.18+.
 
-The first time you download the trends.earth code, you will also need to clone
-the "schemas" submodule that is located within it, under "LDMP\\schemas". If
-you are using TortoiseGit on Windows, you can right-click anywhere within the
-trends.earth folder and choose "TortoiseGit" and then "Submodule Update...".
-Clicking ok in the window that comes up will checkout the schemas submodule. If
-you prefer, you can also do this from the command line by running the below two
-commands in shell::
-
-   git submodule init
-   git submodule update
-
-Once you are done you should see files within the "LDMP\\schemas" folder within
-the trends.earth folder.
-
 Installing dependencies
 -----------------------
 
@@ -74,7 +68,7 @@ QGIS, you will also need a local version of Python that you can setup with the
 software needed to manage the plugin. The easiest way to manage multiple
 versions of Python is through the `Anaconda distribution
 <https://www.anaconda.com>`_. For work developing the plugin, Python
-3 is required. To download Python 3.7 (recommended) though Anaconda,
+3 is required. To download Python 3.7 (recommended) through Anaconda,
 `see this page <https://www.anaconda.com/distribution/#download-section>`_.
 
 Python dependencies
@@ -194,49 +188,25 @@ perform a clean install of the plugin using the ``-c`` flag.
    entirely functional on QGIS3 - the plugin was originally designed for QGIS2
    and is still being tested on QGIS3.
 
-Syncing and deploying changes to the binaries
----------------------------------------------
+Updating the cached boundaries list
+-----------------------------------
 
-To speed the computations in Trends.Earth, some of the tools allow making use
-of pre-compiled binaries that have been compiled using `numba
-<https://numba.pydata.org>`_. Numba is an open source compiler that can compile
-Python and NumPy code, making it faster than when it is run as ordinary Python.
-To avoid users of Trends.Earth needing to download Numba and all of its
-dependencies, the Trends.Earth team makes pre-compiled binaries available for
-download if users choose to install them.
+When the geoBoundaries dataset is refreshed, update the cached list bundled
+with the plugin by running::
 
-To generate pre-compiled binaries for the OS, bitness (32/64 bit) and Python
-version you are running on your machine, use::
+   invoke download-boundaries-cache
 
-    invoke binaries-compile
+The task authenticates against the Trends.Earth API. Configure credentials by
+adding an ``invoke.yaml`` file in the repository root with entries such as:
 
-.. note::
-  You will need a C++ compiler for the above command to work. On
-  Windows, see `this github page
-  <https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_
-  for details on how to
-  install the Microsoft Visual C++ compiler needed for you Python version. On
-  MacOS, you will most likely need to install Xcode. On Linux, install the
-  appropriate version of GCC.
+.. code-block:: yaml
 
-To make binaries publicly available, they are distributed through an Amazon Web
-services S3 bucket. To upload the binaries generated with the above command to
-the bucket, run::
+   trends_earth_api:
+       user: "you@example.com"
+       password: "your-password"
 
-    invoke binaries-sync
-
-.. note:: The above command will fail if you do not have keys allowing write
-   access to the ``trends.earth`` bucket on S3.
-
-The above command will sync each individual binary file to S3. However, users
-of the toolbox download the binaries as a single zipfile tied to the version of
-the plugin that they are using. To generate that zipfile so that it can be
-accessed by Trends.Earth users, run::
-
-    invoke binaries-deploy
-
-.. note:: The above command will fail if you do not have keys allowing write
-   access to the ``trends.earth`` bucket on S3.
+You can also supply credentials via the ``TRENDS_EARTH_API_USER`` and
+``TRENDS_EARTH_API_PASSWORD`` environment variables before invoking the task.
 
 
 Building a plugin ZIP file
@@ -263,7 +233,7 @@ before they are available in the publicly released version of the plugin.
 Deploying the development version ZIP file
 ------------------------------------------
 
-The Trends.Earth GitHub page gives a link a ZIP file that allows users who may
+The Trends.Earth GitHub page gives a link to a ZIP file that allows users who may
 not be developers to access the development version of Trends.Earth. To create
 a ZIP file and make it available on that page (the ZIP file is stored on S3),
 run::
@@ -297,7 +267,7 @@ trends.earth-CLI
 
 The "trends.earth-CLI" Python package is required in order to work with the
 api.trends.earth server. This package is located on GitHub in the
-`trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>`_
+`trends.earth-CLI <https://github.com/ConservationInternational/trends.earth-CLI>`_
 repository.
 
 The first step is to clone this repository onto your machine. We recommend that
@@ -306,7 +276,7 @@ For example, if you had a "Code" folder on your machine, clone both the
 `trends.earth
 <https://github.com/ConservationInternational/trends.earth>`_ repository (the
 code for the QGIS plugin and associated GEE scripts) and also the
-`trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>`_ repository
+`trends.earth-CLI <https://github.com/ConservationInternational/trends.earth-CLI>`_ repository
 into that same folder.
 
 When you setup your system as recommended above, trends.earth-CLI will work
@@ -422,7 +392,7 @@ plugin.
 Editing vector layer templates
 _________________________________
 
-Trends.Earth allow users to digitize new vector features to delineate areas
+Trends.Earth allows users to digitize new vector features to delineate areas
 of special interest.
 
 For now only "false positive/negative" layers are supported, but more
@@ -433,12 +403,12 @@ there are 6 template files, one for each UN official language. The ISO
 language code is added as a suffix to the file name. This is necessary to
 provide localized labels in the attribute forms. When creation of the
 vector layer is requested QGIS will look for the template file
-taking QGIS locale into accont, as a fall-back option English version
+taking QGIS locale into account, as a fall-back option English version
 of the template file is used.
 
 To change schema of the layer it is necessary to change corresponding
 template files in the ``data/error_recode`` folder of the plugin
-installation directory. Also template file contains a buil-in default
+installation directory. Also template file contains a built-in default
 styling and attribute form configuration which will be automatically
 applied to the layer when loading into QGIS.
 
@@ -495,7 +465,7 @@ Calculation of area percentage is done with custom expression function,
 its code can be found in the file ``charts.py`` in the plugin root
 directory. Function optimized to work with large polygons and uses
 following workflow. For a given geometry find a bbox and extract raster
-susbset using this bbox. Perform in-memory geometry rasterization and
+subset using this bbox. Perform in-memory geometry rasterization and
 apply it as a mask to raster. Then count number of pixels which have
 specific value and calculate percentage. As pixel counting is built
 on numpy array functions it is very fast even for big polygons.
@@ -934,8 +904,8 @@ when available.
 
 .. note:: There is another folder, ``docs\\source\\static``, that is used to
    hold resources temporarily while running the scripts that build the
-   Trends.Earth documenation. You may have images listed under that folder if
-   you have ever built the documenation on that machine. **This folder should
+   Trends.Earth documentation. You may have images listed under that folder if
+   you have ever built the documentation on that machine. **This folder should
    never be used to add new resources** - new resources should always go under
    ``docs\\resources\\en`` or, for translated images, the appropriate
    language-specific folder under ``docs\\resources``.
@@ -950,3 +920,133 @@ can request to join `our team through transifex
 <https://www.transifex.com/conservation-international/trendsearth>`_, or by
 emailing us at `trends.earth@conservation.org
 <mailto:trends.earth@conservation.org>`_.
+
+Releasing a new plugin version
+______________________________
+
+Overview
+--------
+
+Releasing a new version of Trends.Earth involves updating version numbers,
+creating git tags, building the plugin package, and publishing it to both
+GitHub and the QGIS plugin repository. The process is streamlined through
+invoke tasks that automate most of these steps.
+
+Release workflow
+----------------
+
+Follow these steps in order to create a new public release:
+
+**1. Update the changelog**
+
+First, update the changelog in ``LDMP\metadata.txt`` with details about what has
+changed in this version. Include the version number and release date, followed
+by bullet points describing new features, bug fixes, and other changes.
+
+**2. Set the version number**
+
+Run the ``set-version`` task to update version numbers throughout the codebase::
+
+   invoke set-version -v X.Y.Z -m
+
+Where X.Y.Z is the new version number (e.g., 2.1.20). The ``-m`` flag ensures
+that version numbers are also updated in the dependent modules
+(``trends.earth-schemas`` and ``trends.earth-algorithms``).
+
+This command will:
+  - Update ``LDMP/metadata.txt`` with the new version
+  - Generate ``LDMP/_version.py`` with git information
+  - Update version in documentation (``docs/source/conf.py``)
+  - Set the ``experimental`` flag based on even/odd version numbers (even =
+    stable, odd = development)
+  - Update dependency references in requirements files
+
+.. note:: For stable releases (even version numbers like 2.1.18), the
+   ``set-version`` task will update dependency references to use tagged
+   versions. For development releases (odd version numbers like 2.1.19), it
+   will use the master branch.
+
+**3. Update GEE scripts (if applicable)**
+
+If you have made changes to the Google Earth Engine scripts (in the ``gee``
+folder) or to ``trends.earth-schemas`` or ``trends.earth-algorithms``, add the
+``-g`` flag when running ``set-version``::
+
+   invoke set-version -v X.Y.Z -m -g
+
+This will update version numbers in all GEE script configuration files. After
+updating the versions, you must publish them to the Trends.Earth
+API server::
+
+   invoke tecli-publish
+
+This uploads all GEE scripts to api.trends.earth so they are available to
+plugin users. You must be an administrator to run this command successfully.
+
+**4. Commit all changes**
+
+Ensure all modified files are committed to git::
+
+   git add -A
+   git commit -m "Release version X.Y.Z"
+
+**5. Create and push git tags**
+
+Create git tags for the new version and push them to GitHub::
+
+   invoke set-tag -m
+
+The ``-m`` flag ensures tags are also created for the dependent modules. This
+command will:
+
+  - Create an annotated git tag (e.g., ``v2.1.20``)
+  - Push the tag to the GitHub repository
+  - Optionally tag dependent modules if ``-m`` is specified
+
+If you have uncommitted changes, the task will prompt you to commit them first.
+
+**6. Create GitHub release**
+
+Run the ``release-github`` task to create a release on GitHub with the plugin
+zipfile attached::
+
+   invoke release-github
+
+This command will:
+
+  - Build a clean plugin zipfile (e.g., ``LDMP_2.1.20.zip``) with all
+    dependencies
+  - Remove all ``.pyc`` files to comply with QGIS repository security
+    requirements
+  - Create a GitHub release with plugin zipfile attached as a downloadable asset
+
+.. note:: You will need a GitHub personal access token with ``repo`` scope
+   configured in your ``invoke.yaml`` file for this command to work. See the
+   error messages if authentication fails for instructions on creating a token.
+
+**7. Publish to QGIS repository**
+
+Finally, manually upload the plugin to the QGIS plugin repository:
+
+  1. Download the plugin zipfile (e.g., ``LDMP_2.1.20.zip``) from the GitHub
+     release you just created (it will be listed under "Assets")
+  2. Log in to the `QGIS plugin repository
+     <https://plugins.qgis.org/plugins/>`_
+  3. Navigate to your plugin management page
+  4. Upload the new version using the zip file
+
+The QGIS repository will validate the zipfile and make it available to users
+through the QGIS plugin manager.
+
+Version numbering conventions
+-----------------------------
+
+Trends.Earth follows these version numbering conventions:
+
+  - **Even numbers** (e.g., 2.1.18, 2.1.20): Stable releases intended for
+    public use
+  - **Odd numbers** (e.g., 2.1.19, 2.1.21): Development releases for testing
+    new features
+
+Development versions are never published to the QGIS repository and are used
+only by the development team for testing.

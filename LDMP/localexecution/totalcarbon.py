@@ -9,21 +9,14 @@ import processing
 import qgis.core
 from openpyxl.drawing.image import Image
 from osgeo import gdal
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from te_schemas.results import FileResults
-from te_schemas.results import URI
+from qgis.PyQt import QtCore, QtWidgets
+from te_schemas.results import URI, FileResults
 
-from .. import areaofinterest
-from .. import calculate
-from .. import GetTempFilename
-from .. import logger
-from .. import summary
-from .. import utils
+from .. import GetTempFilename, areaofinterest, calculate, logger, summary, utils
 from ..jobs.models import Job
 
 
-class tr_calculate_tc(object):
+class tr_calculate_tc:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_calculate_tc", message)
 
@@ -57,7 +50,7 @@ def compute_total_carbon_summary_table(
 
     tc_job.results = FileResults(
         name="total_carbon_summary",
-        uri=URI(uri=summary_table_output_path, type="local"),
+        uri=URI(uri=summary_table_output_path),
     )
     tc_job.end_date = dt.datetime.now(dt.timezone.utc)
     tc_job.progress = 100
@@ -164,7 +157,6 @@ class SummaryTask(qgis.core.QgsTask):
                 area_missing = summary_task["AREA_MISSING"]
                 area_site = summary_task["AREA_SITE"]
             else:
-
                 forest_loss = forest_loss + summary.np_array_from_str(
                     summary_task["FOREST_LOSS"]
                 )
@@ -270,7 +262,7 @@ def write_excel_summary(
     try:
         wb.save(out_file)
 
-    except IOError as exc:
+    except OSError as exc:
         logger.log(f"Error saving {out_file}: {str(exc)}")
         return False
 

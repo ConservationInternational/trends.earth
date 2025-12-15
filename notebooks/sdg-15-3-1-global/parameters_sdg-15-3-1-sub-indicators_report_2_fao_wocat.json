@@ -1,0 +1,12 @@
+{
+	"productivity": {
+		"mode": "FAO-WOCAT-LPD-5",
+		"ndvi_gee_dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2024",
+		"low_biomass": 0.4,
+		"high_biomass": 0.7,
+		"years_interval": 3,
+		"modis_mode": "MannKendal + MTID",
+		"year_initial": 2008,
+		"year_final": 2023
+	}
+}

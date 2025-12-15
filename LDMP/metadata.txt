@@ -2,23 +2,22 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=1.99.11
+version=2.1.21.dev3
 author=Conservation International
 email=trends.earth@conservation.org
 
-about=trends.earth (formerly the Land Degradation Monitoring Toolbox) is a tool for analyzing land change. trends.earth supports monitoring changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
+about=Trends.Earth is a tool for analyzing land change. Trends.Earth supports monitoring changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
 
 tracker=https://github.com/ConservationInternational/trends.earth/issues
 
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Tags are comma separated with spaces allowed
-tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals
+tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals, ldmp
 
-homepage=http://trends.earth
+homepage=https://trends.earth
 category=Plugins
 icon=trends_earth_logo_square_32x32.png
-# experimental flag
 experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version)
@@ -26,8 +25,128 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-# Uncomment the following line and add your changelog:
-changelog=1.0.6 (July 15, 2021)
+changelog=2.1.20 (October 10, 2025)
+  - Add preset functionality for SDG 15.3.1 sub-indicator calculations, with defaults matching latest UNCCD reporting cycle
+  - Improve handling of failed or pending executions - all executions now always show in the datasets window unless deleted
+  - Support viewing job logs for remote executions
+  - Sync with latest te_schemas and te_algorithms versions, including better parallel processing support from latest te_algorithms
+  - Fix handling of FAO-WOCAT/JRC/Trends.Earth LPD dataset selection in SDG 15.3.1 sub-indicator calculation
+  - Optimize trends.earth-API interactions (using refresh tokens, and removing unnecessary requests)
+  - Use setuptools-scm to dynamically identify versions (most relevant for those running development versions of trends.earth)
+  - Bump googleearthengine-api to 1.6.6
+ 2.1.18 (August 5, 2025)
+  - fix: key error with reporting period default selection by @merydian in #943
+  - fix: error in Sub-indicators for SDG 15.3.1 with progress periods by @merydian in #945
+  - Update translations by @github-actions[bot] in #946
+  - [pre-commit.ci] pre-commit autoupdate by @pre-commit-ci[bot] in #929
+  - Fix progress period included even when it is not checked by @dimasciput in #954
+  - Added nix shell for NixOS dev workflow streamlining by @timlinux in #950
+  - Qgis process by @timlinux in #955
+  - Final tweaks for experimental 2.1.18 by @timlinux in #956
+  - [pre-commit.ci] pre-commit autoupdate by @pre-commit-ci[bot] in #948
+  - Try to fig plugin setup issue by @azvoleff in #951
+  - Update translations by @github-actions[bot] in #958
+  - Add support multiple progress periods for SDG 15.3.1 by @merydian in #961
+  - Make reports work in FAO-WOCAT productivity mode for SDG 15.3.1 local task by @merydian in #963
+  - Update translations by @github-actions[bot] in #964
+  - Add support for CHIRPS and UK-CEH precipitation datasets in drought tools
+ 2.1.16 (July 31, 2024)
+  - Bump dependency versions to address #812
+  - Fix deprecation of np.float
+  - Update datasets to latest versions (MODIS, CHIRPS, ESA CCI, PERSIAN, MODIS
+    ET, Hansen Global Forest Change)
+  - Switch to ruff for code formatting/linting
+  - For SDG 15.3.1 sub-indicators task, when population data is needed default
+    to a dataset matching the final year of the productivity data, or within
+    three years of that date if an exact match is not possible
+  - Various dependency version updates
+  2.1.14 (February 24, 2023)
+  - Improve land productivity import tool, including support for JRC,
+    FAO-WOCAT, or Trends.Earth data, and option to specify initial and final
+    years
+  2.1.12 (February 17, 2023)
+  - Improve data download tool, including support for downloading WorldPop
+    population data used in UNCCD reporting
+  2.1.10 (February 7, 2023)
+  - Fix error when using shapefiles/geojsons to define aoi (#768)
+  - Ensure user settings are retained and not reset by offline mode checks
+  - Update translations
+  2.1.8 (January 25, 2023)
+    - Output JSON field for Prais containing updated false positive/negative
+      calculations.
+    - Fixes #752 - false positive/negative datasets not showing up in
+      non-English versions
+  2.1.6 (December 8, 2022)
+    - Bumps maximum number of land cover classes to 45 (useful particularly for
+      users seeking to use Corine legend)
+    - Fix issue that was arising on Mac/Linux due to missing QgsPanelWidget ui
+      file
+    - Various more minor bug fixes
+  2.1.6 (November 21, 2022)
+    - Fixes #691 (issue that arose if the base data directory was cleared).
+      When base directory is cleared plugin will now reset the value to the
+      default.
+    - Fix python error coming up when settings window was closed while datasets
+      screen was not open.
+  2.1.2 (November 18, 2022)
+    - Fixes #724 - ensure max number of land cover classes is set to 38 by
+      default (ignoring the previously set default value in qsettings, which
+      used to be 32).
+    - Fixes #722 - file name casing when code refers to
+      land_cover_transition_matrix_unccd.json.
+    - Fixes #726 - make dataset year visible in datasets window for imported
+      datasets
+  2.1.0 (November 11, 2022)
+    - Moved plugin settings to live within main QGIS plugin settings window
+    - Bumped marshmallow-dataclass to 8.5.10 and marshmallow to 3.18.0. This
+      necessitated changes in trends.earth-schemas, so it is possible some old
+      jobs may not load in this new version (suggest re-running them if need
+      be).
+  2.0.7 (October 31, 2022)
+    - Enable Excel table generation for SDG 15.3.1 when using custom
+      classes - all the various minor bugs should now be worked out.
+    - Limit report generation to 3 tries - then quit trying to generate reports
+      until next restart (prevents Trends.Earth continually spawing processes
+      for report generation when they are failing).
+  2.0.5 (October 19, 2022)
+    - Fix SDG summary generation when using JRC LPD or WOCAT LPD.
+  2.0.3 (October 19, 2022)
+    - Allow bypassing reset of land cover legend when choosing defaults in
+      the SDG tool.
+    - Disable excel generation when child legend does not have 7 classes.
+    - Fix report generation when using custom legend.
+  2.0.1 (October 13, 2022)
+    - Added ability to completely customize the land cover legend used in
+      Trends.Earth, including the number, name, color, and coding of each 
+      class in the legend. This applies to all calculatons using land cover
+      data, including the SDG 15.3.1 tool, and the productivity, soil organic
+      carbon, and land cover indicator tools.
+    - Reworked land cover import tool to allow importing data and assigning
+      classes to custom legend.
+    - Misc minor bug fixes.
+    - Add ability to include false positive/negative dataset in UNCCD report.
+      Next release will include further functionality to apply and report on
+      false positive/negatives.
+    - This experimental release disables the creation of Excel output tables
+      for the SDG 15.3.1 tool. This functionality will be present in the next
+      (stable) release.
+  2.0 (July 20, 2022)
+    - All new interface with simplified navigation screens and dataset loading
+    - Updated documentation and website
+    - Trends.Earth is now translated into all the official UN languages, as well as
+      Portuguese. Swahili and Farsi translations (for the new interface) are planned as
+      well.
+    - New functions to support latest UNCCD reporting cycle (including direct support
+      for exporting results for upload to UNCCD PRAIS system)
+    - New functions to support assessing drought hazard, vulnerability, and
+      exposure
+    - New timeseries tool functions (now supports plotting restrend, WUE, etc.)
+  1.0.10 (July 7, 2022)
+    - Address bug with TransformDirection related to changes in QGIS 3.22+
+  1.0.8 (October 15, 2021)
+    - Address bug in saving final layer for SDG calculation (related to issues 
+      #500, and #505)
+  1.0.6 (July 15, 2021)
     - Remove trends.earth-schemas as a submodule and install through setup.py 
       (much cleaner for version tracking, development, etc.)
     - Fix bug in loading 2020 NDVI data in GEE code (asset name wasn't set 

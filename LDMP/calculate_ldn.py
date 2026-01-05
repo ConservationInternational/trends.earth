@@ -1666,7 +1666,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.label_jrc_progress.hide()
 
         # Make productivity date controls disabled when JRC mode is selected
-        # (users can still configure LC and SOC periods, but productivity is fixed by dataset)
+        # (users can still configure LC and SOC periods, but productivity dates are fixed)
         productivity_widgets = [
             # Baseline productivity widgets
             self.widgets_baseline.year_initial_prod,

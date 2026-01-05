@@ -441,7 +441,6 @@ def run_te(params, EXECUTION_ID, logger):
 
     out = _run_te_period(params["baseline_period"], all_geojsons, logger)
     baseline_sdg = _get_sdg(out)
-    LC_DEG_BAND_NAME
     baseline_year_initial = params["baseline_period"]["period"]["year_initial"]
     baseline_year_final = params["baseline_period"]["period"]["year_final"]
 

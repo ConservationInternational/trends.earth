@@ -131,7 +131,7 @@
                     </sizepolicy>
                    </property>
                    <property name="text">
-                    <string>Pre-calculated land productivity dynamics (from JRC)</string>
+                    <string>JRC land productivity dynamics (pre-calculated)</string>
                    </property>
                    <property name="checked">
                     <bool>false</bool>

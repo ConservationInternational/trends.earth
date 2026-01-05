@@ -914,6 +914,21 @@
       ]
     }
   },
+  "Land Productivity Dynamics (custom)": {
+    "title": "lpd_custom_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "discrete",
+      "items": [
+        { "value": 0, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#9b2779", "label": "lpd_declining" },
+        { "value": 2, "color": "#c0749b", "label": "lpd_earlysigns" },
+        { "value": 3, "color": "#e1b9bd", "label": "lpd_stabbutstress" },
+        { "value": 4, "color": "#ffffe0", "label": "lpd_stab" },
+        { "value": 5, "color": "#006500", "label": "lpd_imp" }
+      ]
+    }
+  },
   "Forest loss": {
     "title": "f_loss_hansen_title",
     "ramp": {

@@ -1205,6 +1205,13 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         # Save nesting definition to settings
         custom_lc_nesting_to_settings(mapping.nesting)
 
+        # Use custom layer name if provided, otherwise use default
+        layer_name = self.layer_name_le.text().strip()
+        if not layer_name:
+            layer_name = self.tr(
+                "Land cover "
+                f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
+            )
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),
             band_name="Land cover",
@@ -1215,10 +1222,8 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 ),
                 "source": "custom data",
             },
-            task_name=self.tr(
-                "Land cover "
-                f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
-            ),
+            task_name=layer_name,
+            task_notes=self.task_notes.toPlainText(),
         )
         job_manager.import_job(job, Path(out_file))
         job_manager.move_job_results(job)

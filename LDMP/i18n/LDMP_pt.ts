@@ -1293,7 +1293,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="101"/>
-        <source>Pre-calculated land productivity dynamics (from JRC)</source>
+        <source>JRC land productivity dynamics (pre-calculated)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1673,7 +1673,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="204"/>
-        <source>Pre-calculated land productivity dynamics (from JRC)</source>
+        <source>JRC land productivity dynamics (pre-calculated)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1923,7 +1923,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="134"/>
-        <source>Pre-calculated land productivity dynamics (from JRC)</source>
+        <source>JRC land productivity dynamics (pre-calculated)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

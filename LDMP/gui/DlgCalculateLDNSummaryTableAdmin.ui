@@ -98,7 +98,17 @@
               <item>
                <widget class="QRadioButton" name="radio_lpd_precalculated">
                 <property name="text">
-                 <string>Pre-calculated land productivity dynamics (from JRC)</string>
+                 <string>JRC land productivity dynamics (pre-calculated)</string>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radio_lpd_custom">
+                <property name="text">
+                 <string>Custom imported land productivity dynamics</string>
                 </property>
                 <property name="checked">
                  <bool>false</bool>

@@ -43,10 +43,13 @@ class SummaryTableLDWidgets:
     combo_layer_pop_female: data_io.WidgetDataIOSelectTELayerExisting
     radio_lpd_te: QtWidgets.QRadioButton
     radio_fao_wocat: QtWidgets.QRadioButton
+    radio_lpd_custom: QtWidgets.QRadioButton = None
 
     def __post_init__(self):
         self.radio_lpd_te.toggled.connect(self.radio_lpd_te_toggled)
         self.radio_fao_wocat.toggled.connect(self.radio_lpd_te_toggled)
+        if self.radio_lpd_custom is not None:
+            self.radio_lpd_custom.toggled.connect(self.radio_lpd_te_toggled)
         self.radio_lpd_te_toggled()
         self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
 
@@ -56,6 +59,8 @@ class SummaryTableLDWidgets:
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         elif self.radio_fao_wocat.isChecked():
             return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+        elif self.radio_lpd_custom is not None and self.radio_lpd_custom.isChecked():
+            return ProductivityMode.CUSTOM_5_CLASS_LPD.value
         else:
             return ProductivityMode.JRC_5_CLASS_LPD.value
 
@@ -88,7 +93,16 @@ class SummaryTableLDWidgets:
                     ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
                 )
                 self.combo_layer_lpd.set_layer_type(ld_config.FAO_WOCAT_LPD_BAND_NAME)
+            elif (
+                self.radio_lpd_custom is not None
+                and self.radio_lpd_custom.isChecked()
+            ):
+                self.combo_layer_lpd.set_prod_mode(
+                    ProductivityMode.CUSTOM_5_CLASS_LPD.value
+                )
+                self.combo_layer_lpd.set_layer_type(ld_config.CUSTOM_LPD_BAND_NAME)
             else:
+                # JRC precalculated
                 self.combo_layer_lpd.set_prod_mode(
                     ProductivityMode.JRC_5_CLASS_LPD.value
                 )
@@ -359,6 +373,7 @@ def get_main_sdg_15_3_1_job_params(
     elif prod_mode in (
         ProductivityMode.JRC_5_CLASS_LPD.value,
         ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+        ProductivityMode.CUSTOM_5_CLASS_LPD.value,
     ):
         lpd_band_info = combo_layer_lpd.get_current_band()
         lpd_band = lpd_band_info.band_info

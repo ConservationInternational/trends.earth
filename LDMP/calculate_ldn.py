@@ -69,6 +69,8 @@ class TimePeriodWidgets:
     year_final_soc: QtWidgets.QDateEdit
     radio_fao_wocat: QtWidgets.QRadioButton
     radio_lpd_precalculated: QtWidgets.QRadioButton
+    radio_lpd_custom: QtWidgets.QRadioButton = None
+    cb_custom_lpd: QtWidgets.QComboBox = None
 
 
 @dataclass
@@ -1651,6 +1653,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         is_precalc = self.radio_lpd_precalculated.isChecked()
 
         # Main widgets (baseline & first reporting period)
+        # JRC/FAO-WOCAT combo boxes
         if is_precalc:
             self.cb_jrc_baseline.show()
             self.label_jrc_baseline.show()
@@ -1663,7 +1666,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.label_jrc_progress.hide()
 
         # Make productivity date controls disabled when JRC mode is selected
-        # (users can still configure LC and SOC periods, but productivity is fixed by JRC dataset)
+        # (users can still configure LC and SOC periods, but productivity is fixed by dataset)
         productivity_widgets = [
             # Baseline productivity widgets
             self.widgets_baseline.year_initial_prod,
@@ -1980,6 +1983,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
         elif widgets.radio_lpd_precalculated.isChecked():
             return ProductivityMode.JRC_5_CLASS_LPD.value
+        elif (
+            widgets.radio_lpd_custom is not None
+            and widgets.radio_lpd_custom.isChecked()
+        ):
+            return ProductivityMode.CUSTOM_5_CLASS_LPD.value
         return None
 
     def enforce_prod_date_range(self, widgets, source=None):
@@ -2366,6 +2374,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_female=self.combo_layer_population_baseline_female,
             radio_lpd_te=self.radio_lpd_te,
             radio_fao_wocat=self.radio_fao_wocat,
+            radio_lpd_custom=self.radio_lpd_custom,
         )
         self.combo_boxes["report_1"] = ldn.SummaryTableLDWidgets(
             combo_datasets=self.combo_datasets_progress,
@@ -2384,6 +2393,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_female=self.combo_layer_population_progress_female,
             radio_lpd_te=self.radio_lpd_te,
             radio_fao_wocat=self.radio_fao_wocat,
+            radio_lpd_custom=self.radio_lpd_custom,
         )
 
         self.radio_population_baseline_bysex.toggled.connect(
@@ -2487,6 +2497,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_female=dlg_instance.combo_layer_population_progress_female,
             radio_lpd_te=self.radio_lpd_te,
             radio_fao_wocat=self.radio_fao_wocat,
+            radio_lpd_custom=self.radio_lpd_custom,
         )
         self.combo_boxes[key].populate()
 
@@ -2732,6 +2743,8 @@ class DlgCalculateLDNSummaryTableAdmin(
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         elif radio_fao_wocat.isChecked():
             return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+        elif self.radio_lpd_custom is not None and self.radio_lpd_custom.isChecked():
+            return ProductivityMode.CUSTOM_5_CLASS_LPD.value
         else:
             return ProductivityMode.JRC_5_CLASS_LPD.value
 

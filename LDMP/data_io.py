@@ -1669,6 +1669,13 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         if not ret:
             return False
 
+        # Use custom layer name if provided, otherwise use default
+        layer_name = self.layer_name_le.text().strip()
+        if not layer_name:
+            layer_name = tr_data_io.tr(
+                "Soil organic carbon "
+                f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
+            )
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),
             band_name="Soil organic carbon",
@@ -1676,10 +1683,8 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
                 "year": int(self.input_widget.spinBox_data_year.text()),
                 "source": "custom data",
             },
-            task_name=tr_data_io.tr(
-                "Soil organic carbon "
-                f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
-            ),
+            task_name=layer_name,
+            task_notes=self.task_notes.toPlainText(),
         )
         job_manager.import_job(job, Path(out_file))
         job_manager.move_job_results(job)
@@ -1784,6 +1789,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
     def populate_data_types(self):
         for datatype in [
+            ld_conf.CUSTOM_LPD_BAND_NAME,
             ld_conf.JRC_LPD_BAND_NAME,
             ld_conf.FAO_WOCAT_LPD_BAND_NAME,
             ld_conf.TE_LPD_BAND_NAME,
@@ -1803,6 +1809,12 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         if not ret:
             return False
 
+        # Use custom layer name if provided, otherwise use default
+        layer_name = self.layer_name_le.text().strip()
+        if not layer_name:
+            layer_name = self.tr(
+                f"Land productivity (imported - {self.datatype_cb.currentText()})"
+            )
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),
             band_name=self.datatype_cb.currentText(),
@@ -1810,9 +1822,8 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
                 "year_initial": int(self.spinBox_year_initial.text()),
                 "year_final": int(self.spinBox_year_final.text()),
             },
-            task_name=self.tr(
-                f"Land productivity (imported - {self.datatype_cb.currentText()})"
-            ),
+            task_name=layer_name,
+            task_notes=self.task_notes.toPlainText(),
         )
         job_manager.import_job(job, Path(out_file))
         job_manager.move_job_results(job)
@@ -1839,6 +1850,7 @@ PROD_MODE_FOR_BAND = {
     ld_conf.FAO_WOCAT_LPD_BAND_NAME: ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
     ld_conf.JRC_LPD_BAND_NAME: ProductivityMode.JRC_5_CLASS_LPD.value,
     ld_conf.TE_LPD_BAND_NAME: ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value,
+    ld_conf.CUSTOM_LPD_BAND_NAME: ProductivityMode.CUSTOM_5_CLASS_LPD.value,
 }
 
 
@@ -1871,6 +1883,15 @@ def _get_usable_bands(
         elif "productivity" in params:
             job_mode = params.get("productivity", {}).get("mode")
 
+        # For imported datasets, infer productivity mode from band name
+        # if not explicitly set in params. This handles backward compatibility
+        # with datasets imported before prod_mode was stored in job params.
+        if job_mode is None and job.results:
+            for band_info in job.results.get_bands():
+                if band_info.name in PROD_MODE_FOR_BAND:
+                    job_mode = PROD_MODE_FOR_BAND[band_info.name]
+                    break
+
         # Normalize enums to raw values
         if isinstance(job_mode, ProductivityMode):
             job_mode_value = job_mode.value
@@ -1878,7 +1899,12 @@ def _get_usable_bands(
             job_mode_value = job_mode
 
         # Check if productivity mode matches (or if no filtering is needed)
+        # Custom LPD datasets are always included when filtering by any
+        # productivity mode, since they represent user-imported data that can
+        # be used in place of any LPD source
         if expected_mode is None:
+            is_valid_prod_mode = True
+        elif job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value:
             is_valid_prod_mode = True
         else:
             is_valid_prod_mode = job_mode_value == expected_mode
@@ -1937,6 +1963,8 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         self.NO_LAYERS_MESSAGE = tr_data_io.tr("No layers available in this region")
 
     def populate(self, selected_job_id=None):
+        # Clear cache to ensure fresh results when jobs are added/modified
+        _get_usable_bands.cache_clear()
         aoi = areaofinterest.prepare_area_of_interest()
         layer_types = self.property("layer_type").split(";")
         prod_mode = self.property("prod_mode")
@@ -2160,6 +2188,15 @@ def get_usable_datasets(
             elif "productivity" in params:
                 job_mode = params.get("productivity", {}).get("mode")
 
+            # For imported datasets, infer productivity mode from band name
+            # if not explicitly set in params. This handles backward compatibility
+            # with datasets imported before prod_mode was stored in job params.
+            if job_mode is None and job.results:
+                for band_info in job.results.get_bands():
+                    if band_info.name in PROD_MODE_FOR_BAND:
+                        job_mode = PROD_MODE_FOR_BAND[band_info.name]
+                        break
+
             # Normalize enums to raw values
             if isinstance(job_mode, ProductivityMode):
                 job_mode_value = job_mode.value
@@ -2167,7 +2204,12 @@ def get_usable_datasets(
                 job_mode_value = job_mode
 
             # Check if productivity mode matches (or if no filtering is needed)
+            # Custom LPD datasets are always included when filtering by any
+            # productivity mode, since they represent user-imported data that can
+            # be used in place of any LPD source
             if expected_mode is None:
+                is_valid_prod_mode = True
+            elif job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value:
                 is_valid_prod_mode = True
             else:
                 is_valid_prod_mode = job_mode_value == expected_mode

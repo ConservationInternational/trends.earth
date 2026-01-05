@@ -24,6 +24,7 @@ from qgis.utils import iface
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
 from te_schemas import jobs, results
 from te_schemas.algorithms import AlgorithmRunMode
+from te_schemas.productivity import ProductivityMode
 from te_schemas.results import (
     URI,
     DataType,
@@ -950,21 +951,29 @@ class JobManager(QtCore.QObject):
         band_name: str,
         band_metadata: typing.Dict,
         task_name: str,
+        task_notes: str = "",
     ) -> Job:
         band_info = JobBand(
             name=band_name, no_data_value=-32768.0, metadata=band_metadata.copy()
         )
 
+        # Mapping of LPD band names to productivity modes
+        lpd_band_to_prod_mode = {
+            ld_conf.JRC_LPD_BAND_NAME: ProductivityMode.JRC_5_CLASS_LPD.value,
+            ld_conf.FAO_WOCAT_LPD_BAND_NAME: ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+            ld_conf.TE_LPD_BAND_NAME: ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value,
+            ld_conf.CUSTOM_LPD_BAND_NAME: ProductivityMode.CUSTOM_5_CLASS_LPD.value,
+        }
+
+        # Determine script and params based on band name
+        params = {}
         if band_name in ["Land cover", "Land cover (7 class)"]:
             script = conf.KNOWN_SCRIPTS["local-land-cover"]
         elif band_name == "Soil organic carbon":
             script = conf.KNOWN_SCRIPTS["local-soil-organic-carbon"]
-        elif band_name in [
-            ld_conf.JRC_LPD_BAND_NAME,
-            ld_conf.FAO_WOCAT_LPD_BAND_NAME,
-            ld_conf.TE_LPD_BAND_NAME,
-        ]:
+        elif band_name in lpd_band_to_prod_mode:
             script = conf.KNOWN_SCRIPTS["productivity"]
+            params["prod_mode"] = lpd_band_to_prod_mode[band_name]
         elif band_name == ld_conf.POPULATION_BAND_NAME:
             script = conf.KNOWN_SCRIPTS["sdg-15-3-1-sub-indicators"]
         else:
@@ -981,7 +990,7 @@ class JobManager(QtCore.QObject):
         }
         job = Job(
             id=uuid.uuid4(),
-            params={},
+            params=params,
             progress=100,
             start_date=dt.datetime.now(dt.timezone.utc),
             status=jobs.JobStatus.GENERATED_LOCALLY,
@@ -992,7 +1001,7 @@ class JobManager(QtCore.QObject):
                 uri=URI(uri=dataset_path),
             ),
             task_name=task_name,
-            task_notes="",
+            task_notes=task_notes,
             script=script,
             end_date=now,
         )

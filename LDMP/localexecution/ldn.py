@@ -94,8 +94,7 @@ class SummaryTableLDWidgets:
                 )
                 self.combo_layer_lpd.set_layer_type(ld_config.FAO_WOCAT_LPD_BAND_NAME)
             elif (
-                self.radio_lpd_custom is not None
-                and self.radio_lpd_custom.isChecked()
+                self.radio_lpd_custom is not None and self.radio_lpd_custom.isChecked()
             ):
                 self.combo_layer_lpd.set_prod_mode(
                     ProductivityMode.CUSTOM_5_CLASS_LPD.value

@@ -454,7 +454,7 @@ class TestCheckDatasetOverlapRaster(unittest.TestCase):
             mock_log.assert_called_once()
             log_message = mock_log.call_args[0][0]
             self.assertIn("No valid extents found", log_message)
-            self.assertIn("set_results_extents(job, force=True)", log_message)
+            self.assertIn("excluded from the dataset dropdown", log_message)
 
     def test_check_dataset_overlap_works_with_valid_extents(self):
         """Test that function works normally with valid extents"""

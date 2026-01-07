@@ -21,6 +21,7 @@ NDVI
 .. _AVHRR/GIMMS: https://glam1.gsfc.nasa.gov
 .. _MOD13Q1-coll6.1:
    https://www.earthdata.nasa.gov/data/catalog/lpcloud-mod13q1-061
+.. _Public Domain: https://creativecommons.org/publicdomain/zero/1.0
 .. _data:
 
 Soil Moisture
@@ -127,8 +128,6 @@ Administrative Boundaries
 
 .. _geoBoundaries Administrative Boundaries: https://www.geoboundaries.org
 
-.. _CC BY 4.0: https://creativecommons.org/licenses/by/4.0
-
 Population
 --------------------------------
 
@@ -160,4 +159,3 @@ Population
 
 .. _UNCCD: https://www.unccd.int
 .. _WorldPop: https://www.worldpop.org
-.. _CC BY 4.0: https://creativecommons.org/licenses/by/4.0

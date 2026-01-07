@@ -1,7 +1,7 @@
 # Downloads
 
 This page lists data packages containing national-level datasets (produced by Trends.Earth),
-following accepted best practices for calculating the UNCCD Indicators for [land degradation](#sdg-indicator-15-3-1-unccd-strategic-objectives-1-and-2)
+following accepted best practices for calculating the UNCCD Indicators for [land degradation](#sdg-indicator-1531-unccd-strategic-objectives-1-and-2)
 and [drought vulnerability and exposure](#drought-hazard-vulnerability-and-exposure-unccd-strategic-objective-3).
 
 These zipfiles are designed to be imported directly into Trends.Earth, and may be useful to countries
@@ -13,7 +13,7 @@ more details on these datasets.
 The methods used to produce the estimates of land degradation in these files are consistent with [Version 2.0 of the Good Practice Guidance for SDG Indicator 15.3.1](https://www.unccd.int/resources/manuals-and-guides/good-practice-guidance-sdg-indicator-1531-proportion-land-degraded). Calculations of land condition are consistent with the [addendum to that guidance](https://www.unccd.int/resources/manuals-and-guides/addendum-good-practice-guidance-sdg-indicator-1531-proportion-land). Calculations of drought vulnerability and exposure are consistent with the [Good Practice Guidance for National Reporting on UNCCD Strategic Objective 3](https://www.unccd.int/resources/manuals-and-guides/good-practice-guidance-national-reporting-unccd-strategic-objective-3).
 
 **This site and the products of Trends.Earth are made available under the terms of the
-Creative Commons Attribution 4.0 International License [(CC BY 4.0)]((https://creativecommons.org/licenses/by/4.0/)). The boundaries and
+Creative Commons Attribution 4.0 International License [(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). The boundaries and
 names used, and the designations used, do not imply official endorsement or acceptance
 by Conservation International Foundation, or its partner organizations and
 contributors.**

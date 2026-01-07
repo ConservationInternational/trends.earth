@@ -22,6 +22,7 @@ The below packages use data from [geoBoundaries](https://www.geoboundaries.org/)
 country borders. These boundaries are made available by geoBoundaries under the
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
+(sdg-indicator-1531-unccd-strategic-objectives-1-and-2)=
 ## SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)
 
 The below datasets can be used to support assessing SDG Indicator 15.3.1, and include
@@ -264,6 +265,7 @@ the default Trends.Earth method, from FAO-WOCAT, and from JRC).
 | Zimbabwe (ZWE) | [ZWE (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ZWE_GeoBoundaries_SDG15_TrendsEarth-LPD-5_UNCCD-legend.tar.gz) | [ZWE (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ZWE_GeoBoundaries_SDG15_FAO-WOCAT-LPD-5_UNCCD-legend.tar.gz) | [ZWE (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2023/packages/ZWE_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz) |
 
 
+(drought-hazard-vulnerability-and-exposure-unccd-strategic-objective-3)=
 ## Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)
 
 The below datasets can be used to support assessing drought hazard, vulnerability, and

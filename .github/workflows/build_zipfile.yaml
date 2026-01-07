@@ -37,4 +37,7 @@ jobs:
       - name: Set version SHA
         run: invoke set-version
       - name: Build zipfile
-        run: invoke zipfile-deploy --filename LDMP_$GITHUB_REF_NAME.zip -q 3.22
+        run: |
+          # Sanitize branch name by replacing / with - to avoid path issues
+          SAFE_REF_NAME=$(echo "$GITHUB_REF_NAME" | tr '/' '-')
+          invoke zipfile-deploy --filename LDMP_${SAFE_REF_NAME}.zip -q 3.22

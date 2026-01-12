@@ -5,7 +5,7 @@ Dataset Metadata
 
 - **Objective**: Learn how to edit and view dataset metadata.
 
-- **Estimated time of completion**: 40 minutes
+- **Estimated time of completion**: 15 minutes
 
 - **Internet access**: Not needed
 
@@ -21,6 +21,9 @@ Dataset Metadata
 
 - Select the Refresh button if no datasets appear in the menu.
 
+.. image:: ../../../resources/en/training/03/manual_refresh.png
+   :align: center
+
 3. Press the Edit metadata button to open a drop-down menu with available options
 
 .. image:: ../../../resources/en/documentation/metadata/metadata_button.png
@@ -33,9 +36,3 @@ Dataset Metadata
 
 5. Fill in the necessary information or edit existing data in the dialog fields and press OK button to save your changes. Metadata will be saved in the QGIS QMD format, in a separate file for each raster in the dataset folder.
 
-6. Metadata also can be viewed/edited from the Dataset details dialog via the same Metadata button, as described in the step 3 above.
-
-.. image:: ../../../resources/en/documentation/metadata/dataset_details.png
-   :align: center
-
-7. When exporting dataset to the ZIP archive from the Dataset details dialog all existing metadata in the QMD format will be automatically converted to ISO XML format and packaged together with the layers.

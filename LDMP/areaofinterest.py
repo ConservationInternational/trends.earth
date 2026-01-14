@@ -721,6 +721,44 @@ def prepare_area_of_interest() -> AOI:
     return area_of_interest
 
 
+def try_prepare_area_of_interest() -> typing.Optional["AOI"]:
+    """
+    Safe wrapper for prepare_area_of_interest() that returns None instead of
+    raising exceptions when no valid area of interest is configured.
+
+    Use this when you want to gracefully handle the case where no region
+    is selected, rather than showing an error to the user.
+
+    Returns:
+        AOI object if valid, None if not configured or invalid.
+    """
+    try:
+        return prepare_area_of_interest()
+    except (RuntimeError, ValueError):
+        return None
+
+
+def try_get_aoi_geometry() -> typing.Optional[qgis.core.QgsGeometry]:
+    """
+    Safe wrapper that returns the AOI geometry or None if not available.
+
+    Use this when you need the geometry and want to handle the no-region
+    case gracefully.
+
+    Returns:
+        QgsGeometry if valid AOI exists, None otherwise.
+    """
+    aoi = try_prepare_area_of_interest()
+    if aoi is None:
+        return None
+
+    geom = aoi.get_unary_geometry()
+    if geom is None or not geom.isGeosValid():
+        return None
+
+    return geom
+
+
 def get_aligned_output_bounds(f, wkt_bounding_boxes):
     out = []
     for wkt in wkt_bounding_boxes:

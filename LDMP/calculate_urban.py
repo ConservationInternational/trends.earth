@@ -243,15 +243,9 @@ class DlgCalculateUrbanSummaryTable(
 
         ######################################################################
         # Check that all needed input layers are selected
-        if len(self.combo_layer_urban_series.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "You must add an urban series layer to your map before you can "
-                    "use the urban change summary tool."
-                ),
-            )
+        if self.combo_layer_urban_series.show_validation_error(
+            self, "urban series", "the urban change summary tool"
+        ):
             return
 
         #######################################################################

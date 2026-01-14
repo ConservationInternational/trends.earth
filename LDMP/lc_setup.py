@@ -1574,11 +1574,15 @@ class LandCoverSetupLocalExecutionWidget(
 
     def get_initial_year(self):
         usable_band_info = self.initial_year_layer_cb.get_current_band()
+        if usable_band_info is None:
+            return None
 
         return usable_band_info.band_info.metadata["year"]
 
     def get_final_year(self):
         usable_band_info = self.target_year_layer_cb.get_current_band()
+        if usable_band_info is None:
+            return None
 
         return usable_band_info.band_info.metadata["year"]
 

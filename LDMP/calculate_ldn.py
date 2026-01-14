@@ -2538,18 +2538,9 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.extra_progress_boxes = dict()
 
     def _validate_layer_selection(self, combo_box, layer_name):
-        if len(combo_box.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    f"You must select a {layer_name} layer "
-                    "before you can use the SDG calculation tool."
-                ),
-            )
-            return False
-        else:
-            return True
+        return not combo_box.show_validation_error(
+            self, layer_name, "the SDG calculation tool"
+        )
 
     def validate_layer_selections(self, combo_boxes, pop_mode):
         """validate all needed layers are selected"""

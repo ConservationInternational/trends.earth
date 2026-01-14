@@ -166,15 +166,9 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             )
             return
 
-        if len(self.comboBox_custom_soc.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "You must add a soil organic carbon layer to your map before you "
-                    "can run the calculation."
-                ),
-            )
+        if self.comboBox_custom_soc.show_validation_error(
+            self, "soil organic carbon", "the calculation"
+        ):
             return
 
         year_initial = self.lc_setup_widget.get_initial_year()

@@ -630,25 +630,13 @@ class DlgCalculateTCSummaryTable(
 
         ######################################################################
         # Check that all needed input layers are selected
-        if len(self.combo_layer_f_loss.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "You must add a forest loss layer to your map before you can use "
-                    "the carbon change summary tool."
-                ),
-            )
+        if self.combo_layer_f_loss.show_validation_error(
+            self, "forest loss", "the carbon change summary tool"
+        ):
             return
-        if len(self.combo_layer_tc.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "You must add a total carbon layer to your map before you can "
-                    "use the carbon change summary tool."
-                ),
-            )
+        if self.combo_layer_tc.show_validation_error(
+            self, "total carbon", "the carbon change summary tool"
+        ):
             return
         #######################################################################
         # Check that the layers cover the full extent needed

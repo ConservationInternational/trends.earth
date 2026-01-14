@@ -26,7 +26,7 @@ from qgis.gui import (
 from qgis.PyQt import QtCore, QtGui, QtWidgets
 from qgis.utils import iface
 
-from .areaofinterest import prepare_area_of_interest
+from .areaofinterest import try_get_aoi_geometry
 from .jobs.manager import job_manager
 
 if TYPE_CHECKING:
@@ -171,8 +171,8 @@ class TEMapToolMixin:
         intersect with the base layer.
         """
         if self._geom_engine is None:
-            geom = prepare_area_of_interest().get_unary_geometry()
-            if geom is None or not geom.isGeosValid():
+            geom = try_get_aoi_geometry()
+            if geom is None:
                 return
 
             self._geom_engine = QgsGeometry.createGeometryEngine(geom.constGet())

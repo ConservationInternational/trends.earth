@@ -677,18 +677,40 @@ def download_boundary_geojson(
         return cached_geojson
 
     # Get boundaries list to find download URL
+    # Try API first, then fall back to cached boundaries list
     try:
         log(f"Fetching fresh boundary data for {cache_key}")
         api_response = api.default_api_client.get_boundaries_list(release_type)
-        if not api_response:
-            log("Could not get boundaries list from API")
-            return None
+        if api_response:
+            boundaries_list = api_response.get("boundaries") or api_response.get(
+                "data", []
+            )
+            server_timestamp = api_response.get("last_updated")
+        else:
+            log("API unavailable, using cached boundaries list for download URLs")
+            boundaries_list = None
+            server_timestamp = None
 
-        boundaries_list = api_response.get("boundaries") or api_response.get("data", [])
-        server_timestamp = api_response.get("last_updated")
+        # If API failed, try to load boundaries list from cache
+        if not boundaries_list:
+            cache_file = cache.get_boundaries_list_cache_file(release_type)
+            if cache_file.exists():
+                try:
+                    with cache_file.open("r", encoding="utf-8") as handle:
+                        cached_data = json.load(handle)
+                    if isinstance(cached_data, dict):
+                        boundaries_list = cached_data.get("data") or cached_data.get(
+                            "boundaries"
+                        )
+                    else:
+                        boundaries_list = cached_data
+                    log("Loaded boundaries list from cache for download URLs")
+                except Exception as cache_err:
+                    log(f"Error loading cached boundaries list: {cache_err}")
+                    boundaries_list = None
 
         if not boundaries_list:
-            log("Empty boundaries list received from API")
+            log("Could not get boundaries list from API or cache")
             return None
 
         # Find the country

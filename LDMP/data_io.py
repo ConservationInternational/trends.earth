@@ -12,6 +12,7 @@
 """
 
 import dataclasses
+import enum
 import functools
 import json
 import math
@@ -43,7 +44,11 @@ from . import (
     utils,
     worker,
 )
-from .areaofinterest import prepare_area_of_interest
+from .areaofinterest import (
+    prepare_area_of_interest,
+    try_get_aoi_geometry,
+    try_prepare_area_of_interest,
+)
 from .jobs.manager import job_manager, set_results_extents, update_uris_if_needed
 from .jobs.models import Job
 from .logger import log
@@ -87,6 +92,28 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
 class tr_data_io:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_data_io", message)
+
+
+class LayerValidationStatus(enum.Enum):
+    """Status of layer selection validation."""
+
+    VALID = "valid"
+    NO_REGION = "no_region"
+    NO_LAYERS = "no_layers"
+
+
+# Shared message constants for layer/dataset selection widgets
+# These are lazily evaluated to ensure translation system is initialized
+def _get_no_region_message() -> str:
+    return tr_data_io.tr("Select a region first")
+
+
+def _get_no_layers_message() -> str:
+    return tr_data_io.tr("No layers available in this region")
+
+
+def _get_no_datasets_message() -> str:
+    return tr_data_io.tr("No datasets available in this region")
 
 
 @dataclasses.dataclass()
@@ -1017,10 +1044,27 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         self.msg_bar = qgis.gui.QgsMessageBar()
         self.verticalLayout.insertWidget(0, self.msg_bar)
 
-        # Region selector
+        # Clip to region checkbox and region selector container
+        self._clip_to_region_container = QtWidgets.QWidget()
+        clip_layout = QtWidgets.QVBoxLayout(self._clip_to_region_container)
+        clip_layout.setContentsMargins(0, 0, 0, 0)
+        clip_layout.setSpacing(5)
+
+        self.checkbox_clip_to_region = QtWidgets.QCheckBox(
+            tr_data_io.tr("Clip to region")
+        )
+        self.checkbox_clip_to_region.setChecked(True)
+        self.checkbox_clip_to_region.stateChanged.connect(
+            self._on_clip_to_region_changed
+        )
+        clip_layout.addWidget(self.checkbox_clip_to_region)
+
+        # Region selector (inside the container, below checkbox)
         self.region_selector = RegionSelector()
         self.region_selector.region_changed.connect(self.on_region_changed)
-        self.verticalLayout.insertWidget(1, self.region_selector)
+        clip_layout.addWidget(self.region_selector)
+
+        self.verticalLayout.insertWidget(1, self._clip_to_region_container)
 
         self.input_widget = ImportSelectFileInputWidget()
         self.input_widget.inputFileChanged.connect(self.on_input_file_changed)
@@ -1039,6 +1083,18 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # Output raster file - this should be moved once a job has been
         # created by calling job_manager.move_job_results().
         self._output_raster_path = GetTempFilename(".tif")
+
+    def _on_clip_to_region_changed(self, state):
+        """Handle clip to region checkbox state change."""
+        is_checked = state == QtCore.Qt.Checked
+        self.region_selector.setEnabled(is_checked)
+        # Re-validate overlap when checkbox state changes
+        if self.input_widget.selected_file_type():
+            self.validate_overlap()
+
+    def is_clip_to_region_enabled(self) -> bool:
+        """Returns True if clip to region is enabled."""
+        return self.checkbox_clip_to_region.isChecked()
 
     def on_region_changed(self, region_info):
         """
@@ -1061,11 +1117,26 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         that the output will be expanded or clipped if the extents are not
         the same. Messaging will be sent if the child dialog contains a
         'msg_bar' attribute of type QMessageBar.
+
+        Returns True if validation passes (or clipping is disabled).
         """
         self.msg_bar.clearWidgets()
 
-        region_geom = prepare_area_of_interest().get_unary_geometry()
-        if region_geom is None or not region_geom.isGeosValid():
+        # If clip to region is disabled, skip validation - full extent will be used
+        if not self.is_clip_to_region_enabled():
+            return True
+
+        region_geom = try_get_aoi_geometry()
+        if region_geom is None:
+            if user_warning:
+                self.msg_bar.pushMessage(
+                    tr_data_io.tr("Warning"),
+                    tr_data_io.tr(
+                        "No region selected. Select a region or uncheck "
+                        "'Clip to region' to import the full dataset."
+                    ),
+                    level=qgis.core.Qgis.MessageLevel.Warning,
+                )
             return False
 
         file_type = self.input_widget.selected_file_type()
@@ -1139,11 +1210,15 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
     def extent_as_list(self) -> list:
         """
         Returns the list containing xmin, ymin, xmax, ymax of the
-        region geom extent or an empty list if the extent could not be
-        determined.
+        region geom extent or an empty list if clipping is disabled or
+        the extent could not be determined.
         """
-        geom = prepare_area_of_interest().get_unary_geometry()
-        if geom is None or not geom.isGeosValid():
+        # If clip to region is disabled, return empty list (use full extent)
+        if not self.is_clip_to_region_enabled():
+            return []
+
+        geom = try_get_aoi_geometry()
+        if geom is None:
             return []
 
         bbox = geom.boundingBox()
@@ -1153,7 +1228,30 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         return [bbox.xMinimum(), bbox.yMinimum(), bbox.xMaximum(), bbox.yMaximum()]
 
+    def validate_region_selection(self) -> bool:
+        """
+        Validates that a region is selected if clip to region is enabled.
+
+        Returns True if validation passes, False otherwise (with error message shown).
+        """
+        if self.is_clip_to_region_enabled():
+            if try_get_aoi_geometry() is None:
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    tr_data_io.tr("Error"),
+                    tr_data_io.tr(
+                        "No region is selected. Either select a region or uncheck "
+                        "'Clip to region' to import the full dataset extent."
+                    ),
+                )
+                return False
+        return True
+
     def validate_input(self, value):
+        # First check region selection if clipping is enabled
+        if not self.validate_region_selection():
+            return
+
         if self.input_widget.radio_raster_input.isChecked():
             if self.input_widget.lineEdit_raster_file.text() == "":
                 QtWidgets.QMessageBox.critical(
@@ -1960,12 +2058,21 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
         self.layer_list = None
 
-        self.NO_LAYERS_MESSAGE = tr_data_io.tr("No layers available in this region")
+        self.NO_LAYERS_MESSAGE = _get_no_layers_message()
+        self.NO_REGION_MESSAGE = _get_no_region_message()
 
     def populate(self, selected_job_id=None):
         # Clear cache to ensure fresh results when jobs are added/modified
         _get_usable_bands.cache_clear()
-        aoi = areaofinterest.prepare_area_of_interest()
+        aoi = try_prepare_area_of_interest()
+
+        if aoi is None:
+            # No valid region selected - show message and disable selection
+            self.layer_list = []
+            self.comboBox_layers.clear()
+            self.comboBox_layers.addItem(self.NO_REGION_MESSAGE)
+            return
+
         layer_types = self.property("layer_type").split(";")
         prod_mode = self.property("prod_mode")
         usable_bands = []
@@ -1995,20 +2102,96 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         if not self.set_index_from_text(old_text):
             self.comboBox_layers.setCurrentIndex(0)
 
+    def has_valid_selection(self) -> bool:
+        """Check if a valid layer is currently selected.
+
+        Returns False if no region is selected, no layers are available,
+        or the current selection is a placeholder message.
+        """
+        return self.get_validation_status() == LayerValidationStatus.VALID
+
+    def get_validation_status(self) -> "LayerValidationStatus":
+        """Get the current validation status of the layer selection.
+
+        Returns:
+            LayerValidationStatus indicating why selection is invalid or VALID if OK.
+        """
+        if not self.layer_list:
+            return LayerValidationStatus.NO_REGION
+        current_text = self.comboBox_layers.currentText()
+        if current_text == self.NO_REGION_MESSAGE:
+            return LayerValidationStatus.NO_REGION
+        if current_text == self.NO_LAYERS_MESSAGE:
+            return LayerValidationStatus.NO_LAYERS
+        return LayerValidationStatus.VALID
+
+    def show_validation_error(
+        self,
+        parent: QtWidgets.QWidget,
+        layer_name: str,
+        tool_name: str = "this tool",
+    ) -> bool:
+        """Show an appropriate error message if the layer selection is invalid.
+
+        Args:
+            parent: Parent widget for the message box.
+            layer_name: Human-readable name for the layer type (e.g., "land cover").
+            tool_name: Name of the tool requiring the layer (e.g., "SDG calculation tool").
+
+        Returns:
+            True if an error was shown (selection invalid), False if selection is valid.
+        """
+        status = self.get_validation_status()
+        if status == LayerValidationStatus.VALID:
+            return False
+
+        if status == LayerValidationStatus.NO_REGION:
+            QtWidgets.QMessageBox.critical(
+                parent,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "Please select a region in the Trends.Earth settings "
+                    f"before using {tool_name}."
+                ),
+            )
+        else:  # NO_LAYERS
+            QtWidgets.QMessageBox.critical(
+                parent,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    f"You must select a {layer_name} layer "
+                    f"before you can use {tool_name}."
+                ),
+            )
+        return True
+
     def get_current_extent(self):
         band = self.get_current_band()
+        if band is None:
+            return None
 
         return qgis.core.QgsRasterLayer(str(band.path), "raster file", "gdal").extent()
 
     def get_current_data_file(self) -> Path:
-        return self.get_current_band().path
+        band = self.get_current_band()
+        if band is None:
+            return None
+        return band.path
 
     def get_layer(self) -> qgis.core.QgsRasterLayer:
-        return qgis.core.QgsRasterLayer(
-            str(self.get_current_data_file()), "raster file", "gdal"
-        )
+        data_file = self.get_current_data_file()
+        if data_file is None:
+            return None
+        return qgis.core.QgsRasterLayer(str(data_file), "raster file", "gdal")
 
-    def get_current_band(self) -> Band:
+    def get_current_band(self) -> typing.Optional[Band]:
+        """Get the currently selected band.
+
+        Returns None if no valid selection exists (no region selected,
+        no layers available, or placeholder message selected).
+        """
+        if not self.has_valid_selection():
+            return None
         return self.layer_list[self.comboBox_layers.currentIndex()]
 
     def set_index_from_job_id(self, job_id):
@@ -2031,8 +2214,10 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         return False
 
     def get_vrt(self):
-        f = GetTempFilename(".vrt")
         band = self.get_current_band()
+        if band is None:
+            return None
+        f = GetTempFilename(".vrt")
         gdal.BuildVRT(f, str(band.path), bandList=[band.band_index])
 
         return f
@@ -2321,7 +2506,8 @@ class WidgetDataIOSelectTEDatasetExisting(
 
         self.comboBox_datasets.currentIndexChanged.connect(self.selected_job_changed)
 
-        self.NO_DATASETS_MESSAGE = tr_data_io.tr("No datasets available in this region")
+        self.NO_DATASETS_MESSAGE = _get_no_datasets_message()
+        self.NO_REGION_MESSAGE = _get_no_region_message()
 
     def set_prod_mode(self, prod_mode: str):
         """Set the productivity mode filter and repopulate the dataset list"""
@@ -2329,7 +2515,22 @@ class WidgetDataIOSelectTEDatasetExisting(
         self.populate()
 
     def populate(self):
-        aoi = areaofinterest.prepare_area_of_interest()
+        aoi = try_prepare_area_of_interest()
+
+        # Handle case where no region is selected
+        if aoi is None:
+            self.dataset_list = []
+            self.comboBox_datasets.currentIndexChanged.disconnect(
+                self.selected_job_changed
+            )
+            self.comboBox_datasets.clear()
+            self.comboBox_datasets.addItem(self.NO_REGION_MESSAGE)
+            self.comboBox_datasets.setCurrentIndex(0)
+            self.comboBox_datasets.currentIndexChanged.connect(
+                self.selected_job_changed
+            )
+            return
+
         productivity_mode = self.property("productivity_mode")
         usable_datasets = get_usable_datasets(
             self.property("dataset_type"), aoi=aoi, productivity_mode=productivity_mode
@@ -2389,8 +2590,15 @@ class WidgetDataIOSelectTEDatasetExisting(
                 )
 
     def get_bands(self, band_name) -> Band:
-        aoi = areaofinterest.prepare_area_of_interest()
-        return _get_usable_bands(band_name, self.get_current_dataset().job.id, aoi=aoi)
+        aoi = try_prepare_area_of_interest()
+        if aoi is None:
+            return []
+
+        current_dataset = self.get_current_dataset()
+        if current_dataset is None:
+            return []
+
+        return _get_usable_bands(band_name, current_dataset.job.id, aoi=aoi)
 
     def set_index_from_text(self, text):
         if self.dataset_list:

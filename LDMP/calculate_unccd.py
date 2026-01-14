@@ -192,18 +192,9 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
             return True
 
     def _validate_layer_selection(self, combo_box, layer_name):
-        if len(combo_box.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    f"You must select a {layer_name} layer "
-                    "before you can use the UNCCD reporting tool."
-                ),
-            )
-            return False
-        else:
-            return True
+        return not combo_box.show_validation_error(
+            self, layer_name, "the UNCCD reporting tool"
+        )
 
     def validate_data_selections(self, combo_boxes):
         """validate all needed datasets are selected"""

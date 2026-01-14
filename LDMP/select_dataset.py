@@ -6,6 +6,7 @@ from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from qgis.utils import iface
 
 from .conf import OPTIONS_TITLE, Setting, settings_manager
+from .data_io import LayerValidationStatus
 
 Ui_DlgSelectDS, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgSelectDS.ui")
@@ -94,18 +95,30 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
             "combo_soil": self.tr("Soil Organic Carbon Degradation"),
         }
         warning_msg = self.tr("No dataset or layer selected.")
+        no_region_msg = self.tr("Please select a region first.")
 
         for combo_name, lbl in dataset_layer_refs.items():
             combo_widget = getattr(self, combo_name)
 
-            try:
-                no_ds_layer_msg = combo_widget.NO_DATASETS_MESSAGE
-            except AttributeError:
-                no_ds_layer_msg = combo_widget.NO_LAYERS_MESSAGE
-
-            if combo_widget.currentText() == no_ds_layer_msg:
-                self._notify_warning(lbl, warning_msg)
-                if status:
+            # Check validation status using the centralized method if available
+            if hasattr(combo_widget, "get_validation_status"):
+                validation_status = combo_widget.get_validation_status()
+                if validation_status == LayerValidationStatus.NO_REGION:
+                    self._notify_warning(lbl, no_region_msg)
+                    status = False
+                    continue
+                elif validation_status == LayerValidationStatus.NO_LAYERS:
+                    self._notify_warning(lbl, warning_msg)
+                    status = False
+                    continue
+            else:
+                # Fallback for dataset combos without get_validation_status
+                try:
+                    no_ds_layer_msg = combo_widget.NO_DATASETS_MESSAGE
+                except AttributeError:
+                    no_ds_layer_msg = getattr(combo_widget, "NO_LAYERS_MESSAGE", None)
+                if no_ds_layer_msg and combo_widget.currentText() == no_ds_layer_msg:
+                    self._notify_warning(lbl, warning_msg)
                     status = False
 
         return status

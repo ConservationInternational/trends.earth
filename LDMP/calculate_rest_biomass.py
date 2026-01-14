@@ -125,15 +125,9 @@ class DlgCalculateRestBiomassSummaryTable(
 
         ######################################################################
         # Check that all needed input layers are selected
-        if len(self.combo_layer_biomass_diff.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "You must add a biomass layer to your map before you can use "
-                    "the summary tool."
-                ),
-            )
+        if self.combo_layer_biomass_diff.show_validation_error(
+            self, "biomass", "the summary tool"
+        ):
             return
         #######################################################################
         # Check that the layers cover the full extent needed

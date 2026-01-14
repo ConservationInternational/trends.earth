@@ -110,30 +110,22 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         )
 
     def calculate_locally(self):
-        if len(self.lc_setup_widget.initial_year_layer_cb.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "You must add an initial land cover layer to your map before you "
-                    "can run the calculation."
-                ),
-            )
+        if self.lc_setup_widget.initial_year_layer_cb.show_validation_error(
+            self, "initial land cover", "the calculation"
+        ):
             return
 
-        if len(self.lc_setup_widget.target_year_layer_cb.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "You must add a final land cover layer to your map before you "
-                    "can run the calculation."
-                ),
-            )
+        if self.lc_setup_widget.target_year_layer_cb.show_validation_error(
+            self, "final land cover", "the calculation"
+        ):
             return
 
         year_initial = self.lc_setup_widget.get_initial_year()
         year_final = self.lc_setup_widget.get_final_year()
+
+        # Safety check - should not happen if validation above passed
+        if year_initial is None or year_final is None:
+            return
 
         if int(year_initial) >= int(year_final):
             QtWidgets.QMessageBox.information(

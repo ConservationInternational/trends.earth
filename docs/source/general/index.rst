@@ -119,6 +119,11 @@ The below peer-reviewed publications either use or relate to |trends.earth|.
 
 * Alamanos, A. and Linnane, S., 2021. Estimating SDG Indicators in Data-Scarce Areas: 
   The Transition to the Use of New Technologies and Multidisciplinary Studies. Earth, 2(3), pp.635-652.
+* Cherif, I., Kolintziki, E. and Alexandridis, T.K., 2023. Monitoring of land degradation in Greece 
+  and Tunisia using trends. Earth with a focus on cereal croplands. Remote Sensing, 15(7), p.1766.
+* Di Leginio, M., Agrillo, A., Congedo, L., Munafo, M., Riitano, N., Terribile, F. and Manna, P., 2024. 
+  Analysis of trends in productivity metrics in assessing land degradation: A case study in the Campania region of southern Italy. 
+  Ecological Indicators, 161, p.111962.
 * Dong, J., Metternicht, G., Hostert, P., Fensholt, R., Chowdhury, R.R., 2019.
   Remote sensing and geospatial technologies in support of a normative land system
   science: status and prospects. Curr. Opin. Environ. Sustain. 38, 44–52.
@@ -126,6 +131,9 @@ The below peer-reviewed publications either use or relate to |trends.earth|.
 * Easdale, M.H., Fariña, C., Hara, S., Pérez León, N., Umaña, F., Tittonell, P., Bruzzone,
   O., 2019. Trend-cycles of vegetation dynamics as a tool for land degradation
   assessment and monitoring. Ecol. Indic. 107, 105545. https://doi.org/10.1016/j.ecolind.2019.105545
+* Ferroni, F., Micalizzi, K., Attorre, F., Sun, X. and Cioffi, F., 2025. Remote Sensing for SDG 15.3: 
+  Advancing Sustainable Cocoa Agriculture in Ghana Using Trends. Earth. MDPI.International Conference on 
+  Advanced Remote Sensing (ICARS 2025) session Remote Sensing for Agriculture, Water and Food Security
 * Giuliani, G., Chatenoux, B., Benvenuti, A., Lacroix, P., Santoro, M., Mazzetti, P., 2020a. 
   Monitoring land degradation at national level using satellite Earth Observation time-series data to 
   support SDG15 – exploring the potential of data cube. Big Earth Data 4, 3–22. 
@@ -139,6 +147,10 @@ The below peer-reviewed publications either use or relate to |trends.earth|.
   Trends.Earth and the World Overview of Conservation Approaches and Technologies sustainable
   land management database. Environ. Sci. Policy 93, 34–42. 
   https://doi.org/10.1016/j.envsci.2018.12.019
+* Jalem, D.K., 2023. Spatio-Temporal Assessment of Land Degradation Neutrality (LDN) status in 
+  Chhattisgarh, India (2001–2022) Using Trends. Earth. Educational Administration: Theory and Practice, 30(1), pp.5887-5897.
+* Janer, I.C. and Jimenez, F., 2022. Land-use changes by Old Colonies Mennonites in Mexico with Sentinel 2 and Trends Earth. 
+  European Journal of Agriculture and Food Sciences, 4(3), pp.17-23.
 * Jiang, L., Bao, A., Jiapaer, G., Liu, R., Yuan, Y. and Yu, T., 2022. Monitoring land degradation and assessing its drivers 
   to support sustainable development goal 15.3 in Central Asia. Science of The Total Environment, 807, p.150868.
   https://doi.org/10.1016/j.scitotenv.2021.150868
@@ -204,6 +216,9 @@ The below peer-reviewed publications either use or relate to |trends.earth|.
   implications for degradation monitoring. African Journal of Range & Forage 
   Science 35, 209–221 (2018). 
   https://doi.org/10.2989/10220119.2018.1516237
+* Torres, R.A.C., Wang, J., Zhang, J., Liu, L. and Lan, Y., 2024. Temporal analysis of land degradation and urban expansion 
+  in central Yunnan Province using remote sensing for supporting sustainable development goals 11/15. 
+  Ecological Indicators, 163, p.112058.
 * Trifonova, T.A., Mishchenko, N.V., Shutov, P.S. et al. Estimation of the Dynamics of Production Processes 
   in Landscapes of the South Taiga Subzone of the Eastern European Plain by Remote Sensing Data. 
   Moscow Univ. Soil Sci. Bull. 76, 11–18 (2021). 
@@ -216,6 +231,12 @@ The below peer-reviewed publications either use or relate to |trends.earth|.
   Experiences from the South African land degradation neutrality target setting process. 
   Environ. Sci. Policy 101, 54–62. 
   https://doi.org/10.1016/j.envsci.2019.07.003
+* Xoxo, S., Mantel, S., De Vos, A., Mahlaba, B., Le Maitre, D. and Tanner, J., 2022. Towards SDG 15.3: 
+  The biome context as the appropriate degradation monitoring dimension. 
+  Environmental Science & Policy, 136, pp.400-412.
+* Zimba, H.M., Banda, K.E., Mbewe, S. and Nyambe, I.A., 2024. Integrated use of the CA–Markov model 
+  and the Trends. Earth module to enhance the assessment of land cover degradation. 
+  Environmental Systems Research, 13(1), p.25.
 
 .. _academic_dissertations:
 
@@ -226,6 +247,8 @@ Academic dissertations
   and drought mitigation in the Tsitsa River Catchment (Masters dissertation, Rhodes University).
 - Owuor, G.O., 2021. Monitoring Land Degradation Neutrality using Geospatial Techniques in Support of Sustainable Land Management: 
   A Case Study of Narok County (Doctoral dissertation, University of Nairobi).
+- Tran, T.D.C, 2020. Land degradation in Switzerland. An application of the Trends.Earth model.
+  (Complementary Certificate in Geomatic, Faculté des Sciences de la Société, Université de Genève)
 
 .. _other_resources:
   

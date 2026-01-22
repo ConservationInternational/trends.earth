@@ -42,11 +42,11 @@ _band_key = {
         "name": "SDG 15.3.1 Indicator",
         "filters": [{"field": "year_final", "value": 2015}],
     },
-    "reporting_1": {
+    "report_1": {
         "name": "SDG 15.3.1 Indicator",
         "filters": [{"field": "year_final", "value": 2019}],
     },
-    "reporting_2": {
+    "report_2": {
         "name": "SDG 15.3.1 Indicator",
         "filters": [{"field": "year_final", "value": 2023}],
     },
@@ -59,6 +59,24 @@ def _hash_band(band: Dict) -> str:
         f"{band['name']}_{band['index']}_"
         f"{json.dumps(band.get('metadata', {}), sort_keys=True)}".encode()
     ).hexdigest()
+
+
+def _band_to_dict(band) -> Dict:
+    """Convert a Band object to a dictionary format.
+
+    Args:
+        band: A Band object with name, no_data_value, metadata, add_to_map, and activated attributes.
+
+    Returns:
+        A dictionary representation of the band.
+    """
+    return {
+        "name": band.name,
+        "no_data_value": getattr(band, "no_data_value", int(ld_config.NODATA_VALUE)),
+        "metadata": getattr(band, "metadata", {}),
+        "add_to_map": getattr(band, "add_to_map", False),
+        "activated": getattr(band, "activated", False),
+    }
 
 
 def _calculate_image_wide_crosstabs(input_job, aoi, periods_to_process, logger):
@@ -339,6 +357,7 @@ def calculate_error_recode(
                     input_job,
                     band_name,
                     filters,
+                    return_band=True,
                 )
             except IndexError:
                 logger.exception(f"Failed to load band name {band_name}")
@@ -378,32 +397,9 @@ def calculate_error_recode(
             else None,
         }
 
-        # Convert Band objects to dict format manually
-        baseline_band_dict = {
-            "name": periods_to_process["baseline"]["band"].name,
-            "no_data_value": getattr(
-                periods_to_process["baseline"]["band"],
-                "no_data_value",
-                int(ld_config.NODATA_VALUE),
-            ),
-            "metadata": getattr(periods_to_process["baseline"]["band"], "metadata", {}),
-            "add_to_map": getattr(
-                periods_to_process["baseline"]["band"], "add_to_map", False
-            ),
-            "activated": getattr(
-                periods_to_process["baseline"]["band"], "activated", False
-            ),
-        }
-
-        error_recode_band_dict = {
-            "name": error_recode_band.name,
-            "no_data_value": getattr(
-                error_recode_band, "no_data_value", int(ld_config.NODATA_VALUE)
-            ),
-            "metadata": getattr(error_recode_band, "metadata", {}),
-            "add_to_map": getattr(error_recode_band, "add_to_map", False),
-            "activated": getattr(error_recode_band, "activated", False),
-        }
+        # Convert Band objects to dict format
+        baseline_band_dict = _band_to_dict(periods_to_process["baseline"]["band"])
+        error_recode_band_dict = _band_to_dict(error_recode_band)
 
         # Convert error_polygons to dict format manually
         error_polygons_dict = {
@@ -455,57 +451,27 @@ def calculate_error_recode(
             "aoi": aoi.geojson,
         }
 
-        if "reporting_1" in periods_to_process:
-            reporting_1_band_dict = {
-                "name": periods_to_process["reporting_1"]["band"].name,
-                "no_data_value": getattr(
-                    periods_to_process["reporting_1"]["band"],
-                    "no_data_value",
-                    int(ld_config.NODATA_VALUE),
-                ),
-                "metadata": getattr(
-                    periods_to_process["reporting_1"]["band"], "metadata", {}
-                ),
-                "add_to_map": getattr(
-                    periods_to_process["reporting_1"]["band"], "add_to_map", False
-                ),
-                "activated": getattr(
-                    periods_to_process["reporting_1"]["band"], "activated", False
-                ),
-            }
+        if "report_1" in periods_to_process:
             recode_params.update(
                 {
                     "layer_reporting_1_band_path": str(input_job.results.uri.uri),
-                    "layer_reporting_1_band": reporting_1_band_dict,
-                    "layer_reporting_1_band_index": periods_to_process["reporting_1"][
+                    "layer_reporting_1_band": _band_to_dict(
+                        periods_to_process["report_1"]["band"]
+                    ),
+                    "layer_reporting_1_band_index": periods_to_process["report_1"][
                         "band_number"
                     ],
                 }
             )
 
-        if "reporting_2" in periods_to_process:
-            reporting_2_band_dict = {
-                "name": periods_to_process["reporting_2"]["band"].name,
-                "no_data_value": getattr(
-                    periods_to_process["reporting_2"]["band"],
-                    "no_data_value",
-                    int(ld_config.NODATA_VALUE),
-                ),
-                "metadata": getattr(
-                    periods_to_process["reporting_2"]["band"], "metadata", {}
-                ),
-                "add_to_map": getattr(
-                    periods_to_process["reporting_2"]["band"], "add_to_map", False
-                ),
-                "activated": getattr(
-                    periods_to_process["reporting_2"]["band"], "activated", False
-                ),
-            }
+        if "report_2" in periods_to_process:
             recode_params.update(
                 {
                     "layer_reporting_2_band_path": str(input_job.results.uri.uri),
-                    "layer_reporting_2_band": reporting_2_band_dict,
-                    "layer_reporting_2_band_index": periods_to_process["reporting_2"][
+                    "layer_reporting_2_band": _band_to_dict(
+                        periods_to_process["report_2"]["band"]
+                    ),
+                    "layer_reporting_2_band_index": periods_to_process["report_2"][
                         "band_number"
                     ],
                 }
@@ -535,23 +501,11 @@ def calculate_error_recode(
                 logger.warning(f"Failed to calculate crosstab statistics: {e}")
                 # Continue without crosstabs rather than failing the entire operation
 
-        # Convert results to dictionary format
+        # Convert results to dictionary format using marshmallow Schema serialization
         if isinstance(results, RasterResults):
-            # For RasterResults, we need to convert to dict manually since Schema() is not available
-            results_dict = {
-                "name": results.name,
-                "type": "RasterResults",
-                "uri": {"uri": str(results.uri.uri)} if results.uri else None,
-                "rasters": results.rasters,
-                "data": results.data if hasattr(results, "data") else {},
-            }
+            results_dict = RasterResults.Schema().dump(results)
         elif isinstance(results, JsonResults):
-            # For JsonResults, we need to convert to dict manually since Schema() is not available
-            results_dict = {
-                "name": results.name,
-                "type": "JsonResults",
-                "data": results.data if hasattr(results, "data") else {},
-            }
+            results_dict = JsonResults.Schema().dump(results)
         else:
             raise Exception("Unknown results type")
 
@@ -605,14 +559,9 @@ def run(params, logger):
         EXECUTION_ID = params.get("EXECUTION_ID", None)
     logger.debug(f"Execution ID is {EXECUTION_ID}")
 
-    # Load error polygons directly from params since Schema() is not available
+    # Load and deserialize error polygons using the schema
     error_polygons_data = params["error_polygons"]
-    error_polygons = ErrorRecodePolygons(
-        features=error_polygons_data.get("features", []),
-        name=error_polygons_data.get("name"),
-        crs=error_polygons_data.get("crs"),
-        type=error_polygons_data.get("type", "FeatureCollection"),
-    )
+    error_polygons = ErrorRecodePolygons.Schema().load(error_polygons_data)
     logger.debug("Error polygons loaded.")
     iso = params["iso"]
     boundary_dataset = params.get("boundary_dataset", "UN")

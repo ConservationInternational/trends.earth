@@ -215,9 +215,9 @@ style_text_dict = {
     "sdg_progress_title": tr_layers.tr(
         "SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
     ),
-    # Error recode polygons
-    "error_recode_polygons_title": tr_layers.tr(
-        "Error recode polygons (periods affected)"
+    # Error recode periods
+    "error_recode_periods_title": tr_layers.tr(
+        "Error recode periods (periods affected)"
     ),
     "error_recode_no_change": tr_layers.tr("No change"),
     "error_recode_baseline_only": tr_layers.tr("Baseline only"),

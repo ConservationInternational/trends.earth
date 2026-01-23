@@ -1165,15 +1165,46 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
     if link:
         for module in c.plugin.ext_libs.local_modules:
             ln = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module["name"]
+            target_path = module["path"]
+
+            # Validate that the target path exists
+            if not os.path.exists(target_path):
+                raise ValueError(
+                    f"Symlink target path does not exist: {target_path}\n"
+                    f"Check your invoke.yaml configuration for local_modules.\n"
+                    f"Expected to find module '{module['name']}' at: {target_path}"
+                )
 
             if os.path.islink(ln):
-                print(f"{ln} is already a link (to {os.readlink(ln)})")
+                existing_target = os.readlink(ln)
+                # Check if existing symlink points to a valid location
+                if not os.path.exists(ln):
+                    print(
+                        f"WARNING: Existing symlink {ln} is broken "
+                        f"(points to non-existent: {existing_target})"
+                    )
+                    print(
+                        f"Removing broken symlink and creating new one to {target_path}"
+                    )
+                    os.remove(ln)
+                    os.symlink(target_path, ln)
+                elif existing_target != target_path:
+                    print(
+                        f"WARNING: Symlink {ln} points to {existing_target} "
+                        f"but config specifies {target_path}"
+                    )
+                    print(f"Updating symlink to point to {target_path}")
+                    os.remove(ln)
+                    os.symlink(target_path, ln)
+                else:
+                    print(f"{ln} is already correctly linked to {existing_target}")
             else:
                 print(
                     "Linking local repo of {} to plugin ext_libs".format(module["name"])
                 )
-                shutil.rmtree(ln)
-                os.symlink(module["path"], ln)
+                if os.path.exists(ln):
+                    shutil.rmtree(ln)
+                os.symlink(target_path, ln)
 
 
 @task(

@@ -47,7 +47,11 @@ def load_error_polygons_from_geojson(geojson_path):
 
 
 def create_error_recode_params(
-    iso_code, geojson_path, boundary_dataset="UN", write_tifs=True
+    iso_code,
+    geojson_path,
+    boundary_dataset="UN",
+    write_tifs=True,
+    include_polygon_geojson=False,
 ):
     """
     Create parameters dictionary for SDG 15.3.1 error recode job.
@@ -62,6 +66,10 @@ def create_error_recode_params(
         Administrative boundary dataset to use (default: "UN")
     write_tifs : bool, optional
         Whether to write output as GeoTIFF files (default: True)
+    include_polygon_geojson : bool, optional
+        Whether to include the original error polygons GeoJSON as a
+        VectorResults in the output (default: False). When True, the
+        algorithm returns both RasterResults and VectorResults.
 
     Returns:
     --------
@@ -80,6 +88,7 @@ def create_error_recode_params(
         "iso": iso_code.upper(),
         "boundary_dataset": boundary_dataset,
         "write_tifs": write_tifs,
+        "include_polygon_geojson": include_polygon_geojson,
         "error_polygons": error_polygons,
     }
 

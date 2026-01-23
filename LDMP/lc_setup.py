@@ -433,7 +433,7 @@ def get_default_ipcc_nesting():
         )
     )
     nesting.child = deepcopy(nesting.parent)
-    nesting.nesting = {c.code: c.code for c in nesting.parent.key}
+    nesting.nesting = {c.code: [c.code] for c in nesting.parent.key}
     return nesting
 
 

@@ -215,6 +215,18 @@ style_text_dict = {
     "sdg_progress_title": tr_layers.tr(
         "SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
     ),
+    # Error recode polygons
+    "error_recode_polygons_title": tr_layers.tr(
+        "Error recode polygons (periods affected)"
+    ),
+    "error_recode_no_change": tr_layers.tr("No change"),
+    "error_recode_baseline_only": tr_layers.tr("Baseline only"),
+    "error_recode_report1_only": tr_layers.tr("Report 1 only"),
+    "error_recode_baseline_report1": tr_layers.tr("Baseline + Report 1"),
+    "error_recode_report2_only": tr_layers.tr("Report 2 only"),
+    "error_recode_baseline_report2": tr_layers.tr("Baseline + Report 2"),
+    "error_recode_report1_report2": tr_layers.tr("Report 1 + Report 2"),
+    "error_recode_all_periods": tr_layers.tr("All periods"),
     # Forest loss
     "f_loss_hansen_title": tr_layers.tr("Forest loss ({year_initial} to {year_final})"),
     "f_loss_hansen_water": tr_layers.tr("Water"),

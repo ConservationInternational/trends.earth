@@ -48,22 +48,39 @@ ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 class UpdateWorker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
 
+    def __init__(self):
+        super().__init__()
+        self._killed = False
+
     def run(self):
-        self.work()
+        if not self._killed:
+            self.work()
         self.finished.emit()
 
     def work(self):
         raise NotImplementedError
 
+    def kill(self):
+        """Signal the worker to stop at the next opportunity."""
+        self._killed = True
+
 
 class LocalPeriodicUpdateWorker(UpdateWorker):
+    def __init__(self):
+        super().__init__()
+
     def work(self):
-        job_manager.refresh_local_state()
+        if not self._killed:
+            job_manager.refresh_local_state()
 
 
 class RemoteStateRefreshWorker(UpdateWorker):
+    def __init__(self):
+        super().__init__()
+
     def work(self):
-        job_manager.refresh_from_remote_state()
+        if not self._killed:
+            job_manager.refresh_from_remote_state()
 
 
 class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
@@ -197,6 +214,59 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     def date_filter_group_toggled(self, value):
         settings_manager.write_value(Setting.DATE_FILTER_ENABLED, value)
         self.date_filter_changed(disabled=not value)
+
+    def closeEvent(self, event):
+        """Handle widget close event to properly cleanup background threads.
+
+        This prevents access violations when QGIS closes while marshmallow
+        schema operations are running in background threads.
+        """
+        # Stop the timer first to prevent new threads from starting
+        if hasattr(self, "timer") and self.timer is not None:
+            self.timer.stop()
+
+        # Kill workers first to signal them to stop processing
+        if self.pu_worker is not None:
+            try:
+                self.pu_worker.kill()
+            except RuntimeError:
+                pass
+
+        if self.rs_worker is not None:
+            try:
+                self.rs_worker.kill()
+            except RuntimeError:
+                pass
+
+        # Wait for local update thread to finish
+        if self.pu_thread is not None:
+            try:
+                if self.pu_thread.isRunning():
+                    self.pu_thread.quit()
+                    # Wait with timeout to avoid hanging on close
+                    if not self.pu_thread.wait(5000):  # 5 second timeout
+                        log("Warning: Local update thread did not stop cleanly")
+            except RuntimeError:
+                # C++ object already deleted
+                pass
+            self.pu_thread = None
+            self.pu_worker = None
+
+        # Wait for remote update thread to finish
+        if self.rs_thread is not None:
+            try:
+                if self.rs_thread.isRunning():
+                    self.rs_thread.quit()
+                    # Wait with timeout to avoid hanging on close
+                    if not self.rs_thread.wait(5000):  # 5 second timeout
+                        log("Warning: Remote update thread did not stop cleanly")
+            except RuntimeError:
+                # C++ object already deleted
+                pass
+            self.rs_thread = None
+            self.rs_worker = None
+
+        super().closeEvent(event)
 
     def date_filter_changed(self, disabled=False):
         settings_manager.write_value(
@@ -429,6 +499,22 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         if self.refreshing_local_state:
             return
 
+        # Ensure any previous thread is properly cleaned up before creating a new one
+        # This prevents access violations when marshmallow schema operations are
+        # interrupted by premature thread destruction
+        if self.pu_thread is not None:
+            try:
+                if self.pu_thread.isRunning():
+                    # Thread is still running, skip this update cycle
+                    return
+                # Wait for thread to fully finish cleanup
+                self.pu_thread.wait()
+            except RuntimeError:
+                # C++ object already deleted, safe to proceed
+                pass
+            self.pu_thread = None
+            self.pu_worker = None
+
         def _update_local_refreshing_state():
             self.refreshing_local_state = True
 
@@ -439,8 +525,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.pu_thread.started.connect(_update_local_refreshing_state)
         self.pu_worker.finished.connect(self.pu_thread.quit)
         self.pu_thread.finished.connect(self._on_finish_updating_local_state)
-        self.pu_worker.finished.connect(self.pu_worker.deleteLater)
-        self.pu_thread.finished.connect(self.pu_thread.deleteLater)
 
         if settings_manager.get_value(Setting.DEBUG):
             log("updating local state...")
@@ -453,17 +537,36 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # Slot raised when job_manager has finished refreshing the local state.
         self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
         self.refreshing_local_state = False
+        # Clear references to allow garbage collection - must be done here
+        # before any deleteLater would execute to avoid accessing deleted objects
+        self.pu_thread = None
+        self.pu_worker = None
 
     def _run_remote_update_worker(self):
         # Create thread worker for refreshing remote state.
+
+        # Ensure any previous thread is properly cleaned up before creating a new one
+        # This prevents access violations when marshmallow schema operations are
+        # interrupted by premature thread destruction
+        if self.rs_thread is not None:
+            try:
+                if self.rs_thread.isRunning():
+                    # Thread is still running, skip this update cycle
+                    return
+                # Wait for thread to fully finish cleanup
+                self.rs_thread.wait()
+            except RuntimeError:
+                # C++ object already deleted, safe to proceed
+                pass
+            self.rs_thread = None
+            self.rs_worker = None
+
         self.rs_thread = QtCore.QThread()
         self.rs_worker = RemoteStateRefreshWorker()
         self.rs_worker.moveToThread(self.rs_thread)
         self.rs_thread.started.connect(self.rs_worker.run)
         self.rs_worker.finished.connect(self.rs_thread.quit)
         self.rs_thread.finished.connect(self._on_finish_updating_remote_state)
-        self.rs_worker.finished.connect(self.rs_worker.deleteLater)
-        self.rs_thread.finished.connect(self.rs_thread.deleteLater)
 
         if settings_manager.get_value(Setting.DEBUG):
             log("updating remote state...")
@@ -478,6 +581,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.last_refreshed_remote_state = dt.datetime.now(tz=dt.timezone.utc)
         self.set_remote_refresh_running(False)
         self.update_refresh_button_status()
+        # Clear references to allow garbage collection - must be done here
+        # before any deleteLater would execute to avoid accessing deleted objects
+        self.rs_thread = None
+        self.rs_worker = None
 
     def clean_empty_directories(self):
         """Remove any Job or Dataset empty folder. Job or Dataset folder can be empty

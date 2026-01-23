@@ -1386,5 +1386,23 @@
       "max": { "color": "#006500" },
       "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
     }
+  },
+  "Error recode polygons": {
+    "title": "error_recode_polygons_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 0, "color": "#e0e0e0", "label": "error_recode_no_change" },
+        { "value": 1, "color": "#2166ac", "label": "error_recode_baseline_only" },
+        { "value": 2, "color": "#a6d96a", "label": "error_recode_report1_only" },
+        { "value": 3, "color": "#1a9641", "label": "error_recode_baseline_report1" },
+        { "value": 4, "color": "#fdae61", "label": "error_recode_report2_only" },
+        { "value": 5, "color": "#d73027", "label": "error_recode_baseline_report2" },
+        { "value": 6, "color": "#f46d43", "label": "error_recode_report1_report2" },
+        { "value": 7, "color": "#7b3294", "label": "error_recode_all_periods" }
+      ]
+    }
   }
 }

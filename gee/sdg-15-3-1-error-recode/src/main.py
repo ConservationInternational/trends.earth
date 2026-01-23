@@ -27,7 +27,7 @@ from te_schemas.results import Band, JsonResults, RasterResults
 S3_PREFIX_RAW_DATA = "prais5-raw"
 S3_BUCKET_INPUT = "trends.earth-private"
 S3_REGION = "us-east-1"
-S3_BUCKET_USER_DATA = "trends.earth-users"
+S3_BUCKET_USER_DATA = "trends-earth-users"
 ERROR_RECODE_BAND_NAME = "Error recode"
 # Create ExecutionScript object directly since Schema() is not available
 RECODE_SCRIPT = algorithms.ExecutionScript(
@@ -327,26 +327,47 @@ def calculate_error_recode(
         )
 
         # Continue with processing inside the temp directory context
-        # Determine which bands to process based on periods_affected values in error_polygons
-        periods_to_process = set()
+        # Determine which periods are directly affected by error polygons
+        periods_affected = set()
         for polygon in error_polygons.features:
             if (
                 hasattr(polygon.properties, "periods_affected")
                 and polygon.properties.periods_affected
             ):
                 for period in polygon.properties.periods_affected:
-                    periods_to_process.add(period)
+                    periods_affected.add(period)
 
-        if not periods_to_process:
+        if not periods_affected:
             raise Exception(
                 "No periods specified in error polygons; at least one period is required."
             )
-        # Convert to a dictionary
-        periods_to_process = {period: {} for period in periods_to_process}
 
-        logger.debug(
-            f"Periods to process based on error polygons: {periods_to_process}"
-        )
+        logger.debug(f"Periods directly affected by recoding: {periods_affected}")
+
+        # Determine which periods to include in output:
+        # - If baseline is affected, all periods need to be in output (baseline changes affect status calculations)
+        # - If report_1 is affected, report_2 also needs to be included (report_1 changes affect report_2 context)
+        # - If only report_2 is affected, only report_2 is included in output
+        if "baseline" in periods_affected:
+            periods_to_output = {"baseline", "report_1", "report_2"}
+        elif "report_1" in periods_affected:
+            periods_to_output = {"report_1", "report_2"}
+        else:
+            periods_to_output = periods_affected.copy()
+
+        # Determine which periods to load for processing:
+        # - Always need baseline for internal calculations (status maps require baseline reference)
+        # - Plus any directly affected periods
+        periods_to_load = periods_affected.copy()
+        periods_to_load.add("baseline")  # Always need baseline for status calculations
+        # Also need to load any period that will be in output
+        periods_to_load.update(periods_to_output)
+
+        # Convert to a dictionary for band loading
+        periods_to_process = {period: {} for period in periods_to_load}
+
+        logger.debug(f"Periods to load for processing: {periods_to_process}")
+        logger.debug(f"Periods to include in output: {periods_to_output}")
 
         for period, value in periods_to_process.items():
             band_name = _band_key[period]["name"]
@@ -449,8 +470,11 @@ def calculate_error_recode(
             "error_polygons": error_polygons_dict,
             "input_job": input_job_metadata,  # Use minimal metadata instead of full job
             "aoi": aoi.geojson,
+            # Control which periods appear in output (summaries and rasters)
+            "periods_to_output": list(periods_to_output),
         }
 
+        # Include report_1 band if it's in output or needed for processing
         if "report_1" in periods_to_process:
             recode_params.update(
                 {
@@ -464,6 +488,7 @@ def calculate_error_recode(
                 }
             )
 
+        # Include report_2 band if it's in output or needed for processing
         if "report_2" in periods_to_process:
             recode_params.update(
                 {
@@ -479,15 +504,25 @@ def calculate_error_recode(
 
         results = _recode_band(recode_params, write_tifs, aoi, EXECUTION_ID, logger)
 
-        # Generate crosstab statistics if multiple periods are available
+        # Generate crosstab statistics if baseline and at least one reporting period are in output
+        # Crosstabs show transitions from baseline to reporting periods, so they require both
         crosstab_data = None
-        if len(periods_to_process) > 1:
+        has_baseline_in_output = "baseline" in periods_to_output
+        has_reporting_in_output = (
+            "report_1" in periods_to_output or "report_2" in periods_to_output
+        )
+
+        if has_baseline_in_output and has_reporting_in_output:
             logger.info(
                 "Calculating image-wide crosstab statistics for error recoded data"
             )
+            # Filter periods_to_process to only include periods that are in output
+            periods_for_crosstab = {
+                k: v for k, v in periods_to_process.items() if k in periods_to_output
+            }
             try:
                 crosstab_data = _calculate_image_wide_crosstabs(
-                    input_job, aoi, periods_to_process, logger
+                    input_job, aoi, periods_for_crosstab, logger
                 )
 
                 if crosstab_data:
@@ -498,8 +533,11 @@ def calculate_error_recode(
                     logger.warning("No crosstab data generated")
 
             except Exception as e:
-                logger.warning(f"Failed to calculate crosstab statistics: {e}")
-                # Continue without crosstabs rather than failing the entire operation
+                logger.exception(f"Failed to calculate crosstab statistics: {e}")
+        else:
+            logger.debug(
+                "Skipping crosstab calculation - requires both baseline and reporting periods in output"
+            )
 
         # Convert results to dictionary format using marshmallow Schema serialization
         if isinstance(results, RasterResults):

@@ -12,6 +12,7 @@
 """
 
 import dataclasses
+import datetime
 import enum
 import functools
 import json
@@ -733,8 +734,13 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
 
         if path.is_file():
             try:
-                raw_job = json.loads(path.read_text())
-                job = Job.Schema().load(raw_job)
+                raw_data = json.loads(path.read_text())
+
+                # Check if this is a results-only JSON (not a full Job)
+                # by looking for the "type" field with a known ResultType value
+                raw_data = self._wrap_results_only_json(raw_data, path)
+
+                job = Job.Schema().load(raw_data)
                 update_uris_if_needed(job, path)
 
                 # Check if extents need to be recalculated
@@ -763,6 +769,69 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
                 )
 
         return job, error_message
+
+    def _wrap_results_only_json(self, raw_data: dict, path: Path) -> dict:
+        """
+        Wrap a results-only JSON in a Job structure if needed.
+
+        If the JSON contains only results data (identified by having a "type"
+        field with a known ResultType value), wrap it in a minimal Job structure
+        with reasonable defaults.
+
+        Args:
+            raw_data: The parsed JSON data
+            path: Path to the JSON file (used for generating defaults)
+
+        Returns:
+            Either the original data (if already a Job) or wrapped in Job structure
+        """
+        # Known result type values that indicate this is a results-only JSON
+        result_type_values = {rt.value for rt in ResultType}
+
+        # Check if this looks like a results-only JSON
+        if raw_data.get("type") in result_type_values:
+            log(
+                f"Detected results-only JSON with type '{raw_data.get('type')}', "
+                "wrapping in Job structure"
+            )
+
+            # Extract name from results for task_name, or use filename
+            results_name = raw_data.get("name", "")
+            task_name = results_name if results_name else path.stem
+
+            # Try to infer area of interest name from filename or results
+            aoi_name = path.stem.replace("_", " ").replace("-", " ")
+
+            # Generate current timestamp
+            now = datetime.datetime.now(datetime.timezone.utc)
+            timestamp = now.isoformat()
+
+            # Build the wrapped Job structure
+            wrapped = {
+                "id": str(uuid.uuid4()),
+                "params": {},
+                "progress": 100,
+                "start_date": timestamp,
+                "end_date": timestamp,
+                "status": "GENERATED_LOCALLY",
+                "local_context": {
+                    "base_dir": str(path.parent),
+                    "area_of_interest_name": aoi_name,
+                },
+                "results": raw_data,
+                "task_name": task_name,
+                "task_notes": f"Imported from results file: {path.name}",
+                "script": {
+                    "id": "imported-results",
+                    "name": "Imported Results",
+                    "name_readable": "Imported Results",
+                    "run_mode": "local",
+                },
+            }
+            return wrapped
+
+        # Not a results-only JSON, return as-is
+        return raw_data
 
     def ok_clicked(self):
         log("Importing job...")

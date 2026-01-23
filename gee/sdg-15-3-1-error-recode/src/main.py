@@ -22,7 +22,7 @@ from te_schemas import algorithms
 from te_schemas.aoi import AOI
 from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.productivity import ProductivityMode
-from te_schemas.results import Band, JsonResults, RasterResults
+from te_schemas.results import Band, JsonResults, RasterResults, VectorResults
 
 S3_PREFIX_RAW_DATA = "prais5-raw"
 S3_BUCKET_INPUT = "trends.earth-private"
@@ -208,13 +208,16 @@ def _calculate_image_wide_crosstabs(input_job, aoi, periods_to_process, logger):
     return crosstabs
 
 
-def _recode_band(recode_params, write_tifs, aoi, execution_id, logger):
+def _recode_band(
+    recode_params, write_tifs, aoi, execution_id, logger, include_polygon_geojson=False
+):
     logger.info("Starting error recoding calculation")
     with tempfile.TemporaryDirectory() as temp_dir:
         input_job_data = recode_params["input_job"]
         output_path_stem = Path(input_job_data.get("results_uri", "output")).stem
 
         recode_params["output_path"] = Path(temp_dir) / output_path_stem
+        recode_params["include_polygon_geojson"] = include_polygon_geojson
         logger.debug(f"Set output path to: {recode_params['output_path']}")
         results = recode_errors(recode_params)
         logger.debug("recode_errors function finished.")
@@ -228,13 +231,48 @@ def _recode_band(recode_params, write_tifs, aoi, execution_id, logger):
         if write_tifs:
             logger.info("Writing tifs")
             logger.debug(f"Writing results to S3 with EXECUTION_ID: {execution_id}")
-            results = util.write_results_to_s3_cog(
-                results,
-                aoi,
-                filename_base=execution_id,
-                s3_prefix="prais5-recode",
-                s3_bucket=S3_BUCKET_USER_DATA,
-            )
+            # Handle both single results and list of results
+            if isinstance(results, list):
+                # Process each result in the list
+                processed_results = []
+                for result in results:
+                    if isinstance(result, RasterResults):
+                        processed_result = util.write_results_to_s3_cog(
+                            result,
+                            aoi,
+                            filename_base=execution_id,
+                            s3_prefix="prais5-recode",
+                            s3_bucket=S3_BUCKET_USER_DATA,
+                        )
+                        processed_results.append(processed_result)
+                    elif isinstance(result, VectorResults):
+                        # Upload GeoJSON to S3 using utility function
+                        from pathlib import Path as PathLib
+
+                        from te_schemas.results import URI
+
+                        geojson_path = PathLib(result.uri.uri)
+                        s3_filename = f"{execution_id}_error_polygons.geojson"
+                        s3_uri = util.push_geojson_to_s3(
+                            geojson_path,
+                            s3_prefix="prais5-recode",
+                            s3_bucket=S3_BUCKET_USER_DATA,
+                            filename=s3_filename,
+                        )
+                        # Update the VectorResults URI to point to S3
+                        result.uri = URI(uri=s3_uri)
+                        result.vector.uri = URI(uri=s3_uri)
+                        processed_results.append(result)
+                        logger.debug(f"Uploaded GeoJSON to {s3_uri}")
+                results = processed_results
+            else:
+                results = util.write_results_to_s3_cog(
+                    results,
+                    aoi,
+                    filename_base=execution_id,
+                    s3_prefix="prais5-recode",
+                    s3_bucket=S3_BUCKET_USER_DATA,
+                )
             logger.debug("Finished writing tifs to S3.")
         return results
 
@@ -248,6 +286,7 @@ def calculate_error_recode(
     write_tifs,
     EXECUTION_ID,
     logger,
+    include_polygon_geojson=False,
 ):
     """
     Calculate error recoding for land degradation indicators.
@@ -261,9 +300,11 @@ def calculate_error_recode(
         write_tifs (bool): Whether to write output as GeoTIFF files to S3
         EXECUTION_ID (str): Unique identifier for this execution
         logger: Logger instance for logging messages
+        include_polygon_geojson (bool): Whether to include the error polygons GeoJSON in results
 
     Returns:
-        dict: Serialized RasterResults or JsonResults containing the recoded data
+        dict: Serialized RasterResults or JsonResults containing the recoded data,
+              or list of results if include_polygon_geojson is True
 
     Raises:
         IndexError: If no input job is found matching the specified criteria
@@ -502,7 +543,14 @@ def calculate_error_recode(
                 }
             )
 
-        results = _recode_band(recode_params, write_tifs, aoi, EXECUTION_ID, logger)
+        results = _recode_band(
+            recode_params,
+            write_tifs,
+            aoi,
+            EXECUTION_ID,
+            logger,
+            include_polygon_geojson,
+        )
 
         # Generate crosstab statistics if baseline and at least one reporting period are in output
         # Crosstabs show transitions from baseline to reporting periods, so they require both
@@ -540,10 +588,29 @@ def calculate_error_recode(
             )
 
         # Convert results to dictionary format using marshmallow Schema serialization
-        if isinstance(results, RasterResults):
+        # Handle both single results and list of results (when include_polygon_geojson is True)
+        if isinstance(results, list):
+            # Find the RasterResults to use as primary for crosstab data
+            raster_results = None
+            results_list = []
+            for result in results:
+                if isinstance(result, RasterResults):
+                    results_list.append(RasterResults.Schema().dump(result))
+                    raster_results = results_list[-1]
+                elif isinstance(result, VectorResults):
+                    results_list.append(VectorResults.Schema().dump(result))
+                elif isinstance(result, JsonResults):
+                    results_list.append(JsonResults.Schema().dump(result))
+                else:
+                    logger.warning(f"Unknown result type in list: {type(result)}")
+            results_dict = raster_results  # Use raster for crosstab addition
+            final_results = results_list
+        elif isinstance(results, RasterResults):
             results_dict = RasterResults.Schema().dump(results)
+            final_results = results_dict
         elif isinstance(results, JsonResults):
             results_dict = JsonResults.Schema().dump(results)
+            final_results = results_dict
         else:
             raise Exception("Unknown results type")
 
@@ -561,7 +628,7 @@ def calculate_error_recode(
             )
 
         logger.debug("calculate_error_recode function finished, returning results.")
-        return results_dict
+        return final_results
 
 
 def run(params, logger):
@@ -607,6 +674,7 @@ def run(params, logger):
         "productivity_dataset", ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
     )
     write_tifs = params.get("write_tifs", False)
+    include_polygon_geojson = params.get("include_polygon_geojson", False)
 
     substr_regexs = params.get("substr_regexs", [])
     substr_regexs.append(productivity_dataset)
@@ -621,4 +689,5 @@ def run(params, logger):
         write_tifs,
         EXECUTION_ID,
         logger,
+        include_polygon_geojson,
     )

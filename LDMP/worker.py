@@ -112,7 +112,16 @@ def start_worker(worker, iface, message, with_progress=True):
 
 
 def worker_killed(result, thread, worker, iface, message_bar_item):
-    pass
+    # Clean up the thread properly when worker is killed to prevent access violations
+    # from marshmallow schema operations being interrupted
+    message_bar = iface.messageBar()
+    _pop_message_bar_widget(message_bar, message_bar_item)
+
+    # clean up the worker and thread
+    worker.deleteLater()
+    thread.quit()
+    thread.wait()
+    thread.deleteLater()
 
 
 def _pop_message_bar_widget(message_bar, widget):

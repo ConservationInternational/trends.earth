@@ -1901,10 +1901,12 @@ class LccInfoUtils:
 
         reference_nesting = get_default_esa_nesting()
 
-        parents = []
         children = []
-        nesting_map = dict()
+        # Initialize nesting_map with ALL IPCC parent codes (with empty lists)
+        # This ensures SOC calculations can iterate over all IPCC transitions
+        # even if some IPCC classes have no custom children assigned
         nodata = reference_nesting.parent.nodata
+        nesting_map = {c.code: [] for c in reference_nesting.parent.key}
         no_data_children = []
         for lcci in ref_lcc_infos:
             parent = lcci.parent
@@ -1914,11 +1916,7 @@ class LccInfoUtils:
                 no_data_children.append(child.code)
                 continue
 
-            if parent not in parents:
-                parents.append(parent)
-            if parent.code not in nesting_map:
-                nesting_map[parent.code] = []
-            nesting_map.get(parent.code).append(child.code)
+            nesting_map[parent.code].append(child.code)
 
         child_nodata = None
         if len(no_data_children) == 0:
@@ -1927,7 +1925,8 @@ class LccInfoUtils:
         else:
             nesting_map[nodata.code] = no_data_children
 
-        reference_nesting.parent.key = parents
+        # Keep ALL original IPCC parent classes - don't filter to only those with children
+        # reference_nesting.parent.key is left unchanged from get_default_esa_nesting()
         reference_nesting.child.key = children
         reference_nesting.child.name = LccInfoUtils.CUSTOM_LEGEND_NAME
         reference_nesting.child.nodata = child_nodata

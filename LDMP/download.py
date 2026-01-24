@@ -230,6 +230,105 @@ def local_check_hash_against_etag(path: Path, expected: str) -> bool:
     return result
 
 
+def verify_file_against_etag(
+    path: typing.Union[str, Path], etag: "te_schemas.results.Etag"
+) -> bool:
+    """
+    Verify a downloaded file against an etag, handling different cloud storage types.
+
+    Supports:
+    - AWS_MD5: Standard MD5 hex hash
+    - AWS_MULTIPART: Multipart upload etag (cannot verify client-side, logs warning)
+    - GCS_MD5: Base64-encoded MD5 hash
+    - GCS_CRC32C: CRC32C checksum (not currently supported, logs warning)
+
+    Args:
+        path: Path to the file to verify
+        etag: Etag object containing hash and type
+
+    Returns:
+        True if verification passed or was skipped, False if verification failed
+    """
+    import base64
+    import binascii
+
+    from te_schemas.results import EtagType
+
+    path = Path(path)
+
+    if not path.exists():
+        log(f"Cannot verify etag for missing file: {path}")
+        return False
+
+    etag_type = etag.type
+    expected_hash = etag.hash
+
+    # Handle AWS multipart - cannot verify client-side without part info
+    if etag_type == EtagType.AWS_MULTIPART:
+        log(
+            f"Skipping verification for {path} - AWS multipart etag cannot be "
+            "verified client-side"
+        )
+        return True
+
+    # Handle GCS CRC32C - would need crcmod library which may not be available
+    if etag_type == EtagType.GCS_CRC32C:
+        log(
+            f"Skipping verification for {path} - GCS CRC32C verification not "
+            "currently supported"
+        )
+        return True
+
+    # Calculate file MD5
+    try:
+        file_md5 = hashlib.md5(path.read_bytes())
+    except IOError as e:
+        log(f"Error reading file for verification: {e}")
+        return False
+
+    # Handle AWS MD5 - hex encoded
+    if etag_type == EtagType.AWS_MD5:
+        file_hash = file_md5.hexdigest()
+        if file_hash == expected_hash:
+            log(f"File hash verified (AWS MD5) for {path}")
+            return True
+        else:
+            log(
+                f"Failed verification of file hash for {path}. "
+                f"Expected {expected_hash}, but got {file_hash}"
+            )
+            return False
+
+    # Handle GCS MD5 - base64 encoded
+    if etag_type == EtagType.GCS_MD5:
+        # Convert our hex hash to base64 for comparison
+        file_hash_b64 = base64.b64encode(file_md5.digest()).decode("ascii")
+        if file_hash_b64 == expected_hash:
+            log(f"File hash verified (GCS MD5) for {path}")
+            return True
+        else:
+            # Also try comparing as hex in case hash was already decoded
+            file_hash_hex = file_md5.hexdigest()
+            try:
+                expected_hex = binascii.hexlify(base64.b64decode(expected_hash)).decode(
+                    "ascii"
+                )
+                if file_hash_hex == expected_hex:
+                    log(f"File hash verified (GCS MD5 decoded) for {path}")
+                    return True
+            except (ValueError, binascii.Error):
+                pass
+
+            log(
+                f"Failed verification of file hash for {path}. "
+                f"Expected {expected_hash}, but got {file_hash_b64}"
+            )
+            return False
+
+    log(f"Unknown etag type {etag_type} for {path}, skipping verification")
+    return True
+
+
 def check_hash_against_etag(url, filename, expected=None):
     if not expected:
         h = APIClient(API_URL, TIMEOUT).get_header(url)

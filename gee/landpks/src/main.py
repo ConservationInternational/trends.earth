@@ -668,6 +668,24 @@ def run(params, logger):
 
     if not geojson["type"].lower() == "point":
         raise InvalidParameter('geojson must be of type "Point"')
+
+    # Validate coordinates are within acceptable bounds for Web Mercator projection
+    # Web Mercator (EPSG:3857) cannot represent latitudes beyond ~85.06 degrees
+    # We use 85 as a safe limit to allow for buffering operations
+    coords = geojson.get("coordinates", [])
+    if len(coords) >= 2:
+        longitude, latitude = coords[0], coords[1]
+        if abs(latitude) > 85:
+            raise InvalidParameter(
+                f"Latitude {latitude} is too close to the poles. "
+                "Coordinates must be within -85 to 85 degrees latitude "
+                "for proper map projection."
+            )
+        if abs(longitude) > 180:
+            raise InvalidParameter(
+                f"Longitude {longitude} is out of range. "
+                "Longitude must be within -180 to 180 degrees."
+            )
     # Check the ENV. Are we running this locally or in prod?
 
     if params.get("ENV") == "dev":

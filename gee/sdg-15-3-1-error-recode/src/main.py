@@ -249,8 +249,6 @@ def _recode_band(
                         # Upload GeoJSON to S3 using utility function
                         from pathlib import Path as PathLib
 
-                        from te_schemas.results import URI
-
                         geojson_path = PathLib(result.uri.uri)
                         s3_filename = f"{execution_id}_error_polygons.geojson"
                         s3_uri = util.push_geojson_to_s3(
@@ -259,11 +257,10 @@ def _recode_band(
                             s3_bucket=S3_BUCKET_USER_DATA,
                             filename=s3_filename,
                         )
-                        # Update the VectorResults URI to point to S3
-                        result.uri = URI(uri=s3_uri)
-                        result.vector.uri = URI(uri=s3_uri)
+                        # Update the VectorResults URI to point to S3 (includes etag)
+                        result.vector.uri = s3_uri
                         processed_results.append(result)
-                        logger.debug(f"Uploaded GeoJSON to {s3_uri}")
+                        logger.debug(f"Uploaded GeoJSON to {s3_uri.uri}")
                 results = processed_results
             else:
                 results = util.write_results_to_s3_cog(

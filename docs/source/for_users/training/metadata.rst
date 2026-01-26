@@ -21,7 +21,7 @@ Dataset Metadata
 
 - Select the Refresh button if no datasets appear in the menu.
 
-.. image:: ../../../resources/en/training/03/manual_refresh.png
+.. image:: ../../../resources/en/training/t03/manual_refresh.png
    :align: center
 
 3. Press the Edit metadata button to open a drop-down menu with available options

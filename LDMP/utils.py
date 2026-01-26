@@ -77,8 +77,16 @@ def delete_dataset(job: Job) -> int:
     message_box.setIcon(QtWidgets.QMessageBox.Information)
     result = QtWidgets.QMessageBox.Res = message_box.exec_()
     if result == QtWidgets.QMessageBox.Yes:
-        if job.results is not None and hasattr(job.results, "uri"):
-            remove_layer_from_qgis(job.results.uri)
+        # Remove layers for all results (handles both single and list results)
+        if job.results is not None:
+            results_list = (
+                job._get_results_list()
+                if hasattr(job, "_get_results_list")
+                else [job.results]
+            )
+            for res in results_list:
+                if hasattr(res, "uri") and res.uri:
+                    remove_layer_from_qgis(res.uri)
 
         manager.job_manager.delete_job(job)
     return result

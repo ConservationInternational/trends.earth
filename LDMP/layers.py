@@ -44,6 +44,38 @@ from te_schemas.land_cover import LCLegendNesting
 from .logger import log
 
 
+def convert_vsis3_to_vsicurl(path: str) -> str:
+    """Convert /vsis3/ paths to /vsicurl/ for public S3 access.
+
+    /vsis3/ requires AWS credentials, but /vsicurl/ can access public S3 files
+    via HTTPS without credentials.
+
+    Args:
+        path: The path to convert (must be a /vsis3/ path)
+
+    Returns:
+        The converted path using /vsicurl/ if it was a /vsis3/ path,
+        otherwise returns the original path unchanged.
+    """
+    if path.startswith("/vsis3/"):
+        # Extract bucket and key from /vsis3/bucket/key format
+        vsis3_prefix = "/vsis3/"
+        remainder = path[len(vsis3_prefix) :]
+        parts = remainder.split("/", 1)
+        if len(parts) >= 2:
+            bucket = parts[0]
+            key = parts[1]
+            # Convert to HTTPS S3 URL format and wrap with /vsicurl/
+            https_url = f"https://{bucket}.s3.amazonaws.com/{key}"
+            return f"/vsicurl/{https_url}"
+    return path
+
+
+def is_vsis3_path(path: str) -> bool:
+    """Check if a path is a /vsis3/ path."""
+    return path.startswith("/vsis3/")
+
+
 class tr_layers:
     def tr(message):
         return QCoreApplication.translate("tr_layers", message)
@@ -653,6 +685,11 @@ def add_layer(
     band_info: typing.Dict,
     activated: str = "default",
 ):
+    """Add a raster layer to the map.
+
+    For /vsis3/ paths, tries the original path first (for private buckets with
+    AWS credentials), then falls back to /vsicurl/ for public bucket access.
+    """
     # You can use an existing raster layer and call this function for styling
     try:
         style = styles[band_info["name"]]
@@ -676,16 +713,24 @@ def add_layer(
         return False
 
     title = get_band_title(band_info)
+
+    # For /vsis3/ paths, try original path first, then vsicurl fallback
+    effective_path = layer_path
     layer = iface.addRasterLayer(layer_path, title)
-    # # Initialize statistics for this layer
-    # _set_statistics(band_number, band_info["no_data_value"], layer_path)
+
+    if (not layer or not layer.isValid()) and is_vsis3_path(layer_path):
+        # Try vsicurl fallback for public bucket access
+        vsicurl_path = convert_vsis3_to_vsicurl(layer_path)
+        log(f"Failed to load {layer_path} via vsis3, trying vsicurl: {vsicurl_path}")
+        layer = iface.addRasterLayer(vsicurl_path, title)
+        effective_path = vsicurl_path
 
     if not layer or not layer.isValid():
         log(f"Failed to add layer {layer_path}, band number {band_number}")
 
         return False
 
-    return style_layer(layer_path, layer, band_number, style, band_info, activated)
+    return style_layer(effective_path, layer, band_number, style, band_info, activated)
 
 
 def style_layer(
@@ -841,7 +886,11 @@ def delete_layer_by_filename(f: str) -> bool:
     return result
 
 
-def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
+def _try_load_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
+    """Attempt to load a vector layer from the given path.
+
+    Returns the layer if successful, None otherwise.
+    """
     sublayers = (
         QgsProviderRegistry.instance()
         .providerMetadata("ogr")
@@ -864,6 +913,9 @@ def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
             if not found:
                 layer.setName(name)
                 QgsProject.instance().addMapLayer(layer)
+                return layer
+            else:
+                return layer  # Layer already exists
     else:
         found = False
         layers = QgsProject.instance().mapLayers()
@@ -872,8 +924,39 @@ def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
                 found = True
         if not found:
             layer = iface.addVectorLayer(layer_path, name, "ogr")
+            if layer and layer.isValid():
+                return layer
 
-    return layer
+    return None
+
+
+def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
+    """Add a vector layer to the map.
+
+    For /vsis3/ paths, tries the original path first (for private buckets with
+    AWS credentials), then falls back to /vsicurl/ for public bucket access.
+    """
+    # First, check if layer already exists
+    existing_layers = QgsProject.instance().mapLayers()
+    for lyr in existing_layers.values():
+        if lyr.source().split("|")[0] == layer_path:
+            return lyr
+
+    # For /vsis3/ paths, try original path first, then vsicurl fallback
+    if is_vsis3_path(layer_path):
+        # Try /vsis3/ first (works with AWS credentials for private buckets)
+        layer = _try_load_vector_layer(layer_path, name)
+        if layer and layer.isValid():
+            return layer
+
+        # Fall back to /vsicurl/ for public bucket access
+        vsicurl_path = convert_vsis3_to_vsicurl(layer_path)
+        log(f"Failed to load {layer_path} via vsis3, trying vsicurl: {vsicurl_path}")
+        layer = _try_load_vector_layer(vsicurl_path, name)
+        return layer
+    else:
+        # Non-S3 paths, just load directly
+        return _try_load_vector_layer(layer_path, name)
 
 
 def set_default_stats_value(v_path, band_datas):

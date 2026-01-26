@@ -400,7 +400,15 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.pushButton_download.setEnabled(True)
             self.setWindowTitle(DOCK_TITLE_OFFLINE)
 
-    def refresh_after_cache_update(self):
+    def refresh_after_cache_update(self, *args):
+        # Accept *args to handle signals with varying signatures:
+        # - QgsProject.layersRemoved emits layer_ids (list of str)
+        # - job_manager.downloaded_job_results emits Job
+        # - job_manager.deleted_job emits Job
+        # - job_manager.refreshed_local_state emits nothing
+        # - job_manager.refreshed_from_remote emits nothing
+        # Using *args avoids access violation crashes on Windows caused by
+        # signal/slot signature mismatches
         # Close any open persistent editor BEFORE changing the model
         # to avoid access violations with dangling QModelIndex pointers
         current_dataset_index = self.datasets_tv_delegate.current_index

@@ -23,7 +23,7 @@ from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from qgis.utils import iface
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
 from te_schemas import jobs, results
-from te_schemas.algorithms import AlgorithmRunMode
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 from te_schemas.productivity import ProductivityMode
 from te_schemas.results import (
     URI,
@@ -53,6 +53,29 @@ class tr_manager:
         return QtCore.QCoreApplication.translate("tr_manager", message)
 
 
+def _get_etag(uri: typing.Optional[results.URI]) -> typing.Optional[results.Etag]:
+    """Extract the Etag from a URI if available."""
+    if uri is None or uri.etag is None:
+        return None
+    return uri.etag
+
+
+def _find_error_recode_result(job: Job) -> typing.Optional[VectorResults]:
+    """Find the error recode VectorResults from a job's results.
+
+    Returns:
+        The VectorResults with ERROR_RECODE type, or None if not found.
+    """
+    for result in job._get_results_list():
+        if isinstance(result, VectorResults):
+            if (
+                result.vector is not None
+                and result.vector.type == VectorType.ERROR_RECODE
+            ):
+                return result
+    return None
+
+
 def is_gdal_vsi_path(path: Path):
     return re.match(r"(\\)|(/)vsi(s3)|(gs)", str(path)) is not None
 
@@ -62,16 +85,19 @@ def update_uris_if_needed(job: Job, job_path):
     # First check if the data is in the same folder as the job file and relative to
     # it. If it is, update the various uris so they are  can still be found after
     # moving the job file
-    if (
-        hasattr(job.results, "uri")
-        and job.results.uri
-        and not is_gdal_vsi_path(job.results.uri.uri)  # ignore gdal virtual fs
-        and (not job.results.uri.uri.is_absolute() or not job.results.uri.uri.exists())
-    ):
-        # If the path doesn't exist, but the filename does exist in the
-        # same folder as the job, the below function will assume that is what
-        # is meant
-        job.results.update_uris(job_path)
+    # Handle both single results and list of results
+    results_list = job._get_results_list() if job.results else []
+    for result in results_list:
+        if (
+            hasattr(result, "uri")
+            and result.uri
+            and not is_gdal_vsi_path(result.uri.uri)  # ignore gdal virtual fs
+            and (not result.uri.uri.is_absolute() or not result.uri.uri.exists())
+        ):
+            # If the path doesn't exist, but the filename does exist in the
+            # same folder as the job, the below function will assume that is what
+            # is meant
+            result.update_uris(job_path)
 
 
 def _get_extent_tuple_raster(path):
@@ -79,14 +105,23 @@ def _get_extent_tuple_raster(path):
         log(f"Trying to calculate extent of raster {path}")
 
     try:
-        if not os.path.exists(str(path)):
+        path_str = str(path)
+        # For VSI paths (/vsis3/, /vsicurl/, etc), use GDAL's VSIStatL
+        if path_str.startswith("/vsi"):
+            stat_info = gdal.VSIStatL(path_str)
+            if stat_info is None:
+                log(
+                    f"Failed to calculate extent - VSI file does not exist or not accessible: {path}"
+                )
+                return None
+        elif not os.path.exists(path_str):
             log(f"Failed to calculate extent - file does not exist: {path}")
             return None
 
         # Use GDAL error handling to prevent crashes
         ds = None
         try:
-            ds = gdal.Open(str(path))
+            ds = gdal.Open(path_str)
             if ds:
                 min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()
                 cols = ds.RasterXSize
@@ -118,12 +153,23 @@ def _get_extent_tuple_vector(path):
         log(f"Trying to calculate extent of vector {path}")
 
     try:
+        path_str = str(path)
         # Check if file exists before attempting to load
-        if not os.path.exists(str(path)):
+        # For VSI paths (/vsis3/, /vsicurl/, etc), use GDAL's VSIStatL
+        if path_str.startswith("/vsi"):
+            from osgeo import gdal
+
+            stat_info = gdal.VSIStatL(path_str)
+            if stat_info is None:
+                log(
+                    f"Failed to calculate extent - VSI file does not exist or not accessible: {path}"
+                )
+                return None
+        elif not os.path.exists(path_str):
             log(f"Failed to calculate extent - file does not exist: {path}")
             return None
 
-        layer = QgsVectorLayer(str(path), "vector file", "ogr")
+        layer = QgsVectorLayer(path_str, "vector file", "ogr")
 
         # Check if layer is valid before accessing extent
         if not layer.isValid():
@@ -180,8 +226,8 @@ def _get_extent_tuple_vector(path):
     return (xmin, ymin, xmax, ymax)
 
 
-def _set_results_extents_raster(job, force=False):
-    for raster in job.results.rasters.values():
+def _set_results_extents_raster(raster_result, job, force=False):
+    for raster in raster_result.rasters.values():
         if raster.type == results.RasterType.ONE_FILE_RASTER:
             if force or not hasattr(raster, "extent") or raster.extent is None:
                 raster.extent = _get_extent_tuple_raster(raster.uri.uri)
@@ -210,16 +256,27 @@ def _set_results_extents_raster(job, force=False):
             raise RuntimeError(f"Unknown raster type {raster.type!r}")
 
 
-def _set_results_extents_vector(job, force=False):
+def _set_results_extents_vector(vector_result, job, force=False):
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log(f"{'Force ' if force else ''}Setting extents for job {job.id}")
-    if force or not hasattr(job.results, "extent") or job.results.extent is None:
-        job.results.extent = _get_extent_tuple_vector(job.results.vector.uri.uri)
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(
-                f"{'Force ' if force else ''}set job {job.id} {job.results.type} {job.results.vector.type} "
-                f"extent to {job.results.extent}"
-            )
+    if force or not hasattr(vector_result, "extent") or vector_result.extent is None:
+        # Use the main uri, or fall back to vector.uri for error recode types
+        uri_to_use = vector_result.uri
+        if uri_to_use is None and vector_result.vector is not None:
+            uri_to_use = vector_result.vector.uri
+
+        if uri_to_use is not None and uri_to_use.uri is not None:
+            vector_result.extent = _get_extent_tuple_vector(uri_to_use.uri)
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                vector_type_str = (
+                    vector_result.vector.type.value
+                    if vector_result.vector
+                    else "unknown"
+                )
+                log(
+                    f"{'Force ' if force else ''}set job {job.id} {vector_result.type} {vector_type_str} "
+                    f"extent to {vector_result.extent}"
+                )
 
 
 def set_results_extents(job, force=False):
@@ -233,16 +290,20 @@ def set_results_extents(job, force=False):
     """
     if not job.results:
         return
-    if job.results.type == results.ResultType.RASTER_RESULTS and job.status in [
-        jobs.JobStatus.DOWNLOADED,
-        jobs.JobStatus.GENERATED_LOCALLY,
-    ]:
-        _set_results_extents_raster(job, force=force)
-    elif job.results.type == results.ResultType.VECTOR_RESULTS and job.status in [
-        jobs.JobStatus.DOWNLOADED,
-        jobs.JobStatus.GENERATED_LOCALLY,
-    ]:
-        _set_results_extents_vector(job, force=force)
+
+    # Handle both single results and list of results
+    results_list = job._get_results_list()
+    for result in results_list:
+        if isinstance(result, RasterResults) and job.status in [
+            jobs.JobStatus.DOWNLOADED,
+            jobs.JobStatus.GENERATED_LOCALLY,
+        ]:
+            _set_results_extents_raster(result, job, force=force)
+        elif isinstance(result, VectorResults) and job.status in [
+            jobs.JobStatus.DOWNLOADED,
+            jobs.JobStatus.GENERATED_LOCALLY,
+        ]:
+            _set_results_extents_vector(result, job, force=force)
 
 
 class LocalJobTask(QgsTask):
@@ -491,16 +552,27 @@ class JobManager(QtCore.QObject):
         # move any downloaded jobs with missing local paths back to FINISHED
 
         for j_id, j in frozen_known_downloaded_jobs.items():
-            if (
-                j.results.uri
-                and not is_gdal_vsi_path(j.results.uri.uri)
-                and not j.results.uri.uri.exists()
-            ):
+            # Check each result for missing local paths
+            has_missing_path = False
+            for res in j._get_results_list():
+                if (
+                    hasattr(res, "uri")
+                    and res.uri
+                    and not is_gdal_vsi_path(res.uri.uri)
+                    and not res.uri.uri.exists()
+                ):
+                    has_missing_path = True
+                    # Clear the URI for this result
+                    if isinstance(res, VectorResults):
+                        res.vector.uri = None
+                    else:
+                        res.uri = None
+
+            if has_missing_path:
                 log(
                     f"job {j_id} currently marked as DOWNLOADED but has "
                     "missing paths, so moving back to FINISHED status"
                 )
-                j.results.uri = None
                 self._change_job_status(j, jobs.JobStatus.FINISHED, force_rewrite=True)
         # Refresh again to pickup the changes back in the original dictionary
         self._refresh_local_downloaded_jobs()
@@ -772,33 +844,54 @@ class JobManager(QtCore.QObject):
         self.processed_local_job.emit(job)
 
     def download_job_results(self, job: Job) -> Job:
-        handler = {
-            ResultType.RASTER_RESULTS: self._download_cloud_results,
-            ResultType.TIME_SERIES_TABLE: self._download_timeseries_table,
-        }.get(job.results.type)
+        if job.results is None:
+            log(f"Job {job.id} has no results")
+            return None
 
         if job.status == jobs.JobStatus.DOWNLOADED:
             # TODO:  We should never get here, but we do sometimes... Need to debug
             # more to figure out why
             return None
 
-        if handler:
-            handler: typing.Callable
-            output_uri = handler(job)
+        # Get list of results (handles both single result and list of results)
+        results_list = job._get_results_list()
+        if not results_list:
+            log(f"Job {job.id} has empty results list")
+            return None
 
-            if output_uri is not None:
-                job.results.uri = output_uri
-                log(f"job.results.uri is {job.results.uri}")
-                self._change_job_status(
-                    job, jobs.JobStatus.DOWNLOADED, force_rewrite=True
-                )
-                self.downloaded_job_results.emit(job)
-            else:
-                return None
+        # Download each result
+        all_downloads_successful = True
+        for result in results_list:
+            handler = {
+                ResultType.RASTER_RESULTS: self._download_cloud_results,
+                ResultType.TIME_SERIES_TABLE: self._download_timeseries_table,
+                ResultType.VECTOR_RESULTS: self._download_vector_results,
+            }.get(result.type)
+
+            if handler is not None:
+                output_uri = handler(job, result)
+
+                if output_uri is not None:
+                    # For RasterResults, set uri on the result object
+                    # For VectorResults, uri is set internally via vector.uri
+                    if result.type == ResultType.RASTER_RESULTS:
+                        result.uri = output_uri
+                    log(f"result.uri is {result.uri}")
+                elif result.type != ResultType.TIME_SERIES_TABLE:
+                    # TIME_SERIES_TABLE returns None normally (data in job file)
+                    all_downloads_successful = False
+                    log(
+                        f"Failed to download result of type {result.type} for job {job.id}"
+                    )
+            elif result.type != ResultType.TIME_SERIES_TABLE:
+                # Unknown result type - log but don't fail
+                log(f"No handler for result type {result.type}")
+
+        if all_downloads_successful:
+            self._change_job_status(job, jobs.JobStatus.DOWNLOADED, force_rewrite=True)
+            self.downloaded_job_results.emit(job)
         else:
-            # TODO: show a message noting that can't download this job type,
-            # then disable the download button
-            pass
+            return None
 
         metadata.init_dataset_metadata(job)
 
@@ -832,31 +925,47 @@ class JobManager(QtCore.QObject):
             self.downloaded_available_jobs_results.emit()
 
     def display_default_job_results(self, job: Job):
-        if job.results.uri.uri.suffix in [".tif", ".vrt"]:
-            for band_index, band in enumerate(job.results.get_bands(), start=1):
-                if band.add_to_map:
-                    layers.add_layer(
-                        str(job.results.uri.uri),
-                        band_index,
-                        JobBand.Schema().dump(band),
-                    )
+        # Handle list of results
+        for result in job._get_results_list():
+            if isinstance(result, RasterResults):
+                if result.uri.uri.suffix in [".tif", ".vrt"]:
+                    for band_index, band in enumerate(result.get_bands(), start=1):
+                        if band.add_to_map:
+                            layers.add_layer(
+                                str(result.uri.uri),
+                                band_index,
+                                JobBand.Schema().dump(band),
+                            )
+            elif isinstance(result, VectorResults):
+                layer_path = result.uri.uri
+                layers.add_vector_layer(str(layer_path), result.name)
 
     def display_selected_job_results(self, job: Job, band_numbers):
-        if job.results.uri.uri.suffix in [".tif", ".vrt"]:
-            for n, band in enumerate(job.results.get_bands(), start=1):
+        # For now, only handle raster results with band selection
+        raster_result = job.get_first_result_by_type(RasterResults)
+        if raster_result and raster_result.uri.uri.suffix in [".tif", ".vrt"]:
+            for n, band in enumerate(raster_result.get_bands(), start=1):
                 if n in band_numbers:
                     layers.add_layer(
-                        str(job.results.uri.uri), n, JobBand.Schema().dump(band)
+                        str(raster_result.uri.uri), n, JobBand.Schema().dump(band)
                     )
 
     def display_error_recode_layer(self, job: Job):
-        layer_path = job.results.vector.uri.uri
-        layer = layers.add_vector_layer(str(layer_path), job.results.name)
+        vector_result = _find_error_recode_result(job)
+        if vector_result is None:
+            log(f"No error recode vector result found for job {job.id}")
+            return
+        layer_path = vector_result.uri.uri
+        layer = layers.add_vector_layer(str(layer_path), vector_result.name)
         if layer is not None:
             layer.setCustomProperty("job_id", str(job.id))
 
     def edit_error_recode_layer(self, job: Job):
-        layer_path = job.results.vector.uri.uri
+        vector_result = _find_error_recode_result(job)
+        if vector_result is None:
+            log(f"No error recode vector result found for job {job.id}")
+            return
+        layer_path = vector_result.uri.uri
         layers.edit(str(layer_path))
 
     def import_job(self, job: Job, job_path):
@@ -888,59 +997,61 @@ class JobManager(QtCore.QObject):
         Move the datasets in results to the same folder as the job, where
         applicable.
         """
-        if not hasattr(job.results, "uri") or not job.results.uri:
-            return
-
         if job.status not in (
             jobs.JobStatus.GENERATED_LOCALLY,
             jobs.JobStatus.DOWNLOADED,
         ):
             return
 
-        results_uri = job.results.uri.uri
-        if not results_uri:
-            return
-
+        job_path = self.get_job_file_path(job)
         moved_files = {}
 
-        # Job results
-        job_path = self.get_job_file_path(job)
-        dest_path = Path(
-            f"{job_path.parent}/{job_path.stem}{job.results.uri.uri.suffix}"
-        ).resolve()
-        if results_uri.exists() and not dest_path.exists():
-            log(f"Updating results URI from {results_uri!s} to {dest_path!s}")
-            target_path = shutil.copy(results_uri, dest_path)
-            moved_files[results_uri] = target_path
-            job.results.uri.uri = target_path
+        # Process each result in the job
+        for result in job._get_results_list():
+            if not hasattr(result, "uri") or not result.uri:
+                continue
 
-        # Result layers
-        uris = None
+            results_uri = result.uri.uri
+            if not results_uri:
+                continue
 
-        if job.results.type == ResultType.RASTER_RESULTS:
-            uris = job.results.get_main_uris()
-        elif job.results.type == ResultType.VECTOR_RESULTS:
-            uris = [job.results.vector.uri]
-        elif job.results.type == ResultType.FILE_RESULTS:
-            uris = job.results.other_uris
+            # Move main result file
+            dest_path = Path(
+                f"{job_path.parent}/{job_path.stem}_{result.name}{result.uri.uri.suffix}"
+            ).resolve()
+            if results_uri.exists() and not dest_path.exists():
+                log(f"Updating results URI from {results_uri!s} to {dest_path!s}")
+                target_path = shutil.copy(results_uri, dest_path)
+                moved_files[results_uri] = target_path
+                result.uri.uri = target_path
 
-        if uris:
-            for uri in uris:
-                if not uri:
-                    continue
+            # Result layers - type-specific handling
+            uris = None
 
-                # File had already been moved so just update the uri
-                if uri.uri in moved_files:
-                    uri.uri = moved_files[uri.uri]
-                    continue
+            if isinstance(result, RasterResults):
+                uris = result.get_main_uris()
+            elif isinstance(result, VectorResults):
+                uris = [result.uri]
+            elif hasattr(result, "other_uris"):
+                uris = result.other_uris
 
-                # Copy the rest
-                new_path = Path(f"{job_path.parent}/{uri.uri.name}").resolve()
-                if uri.uri.exists() and not new_path.exists():
-                    shutil.copy(uri.uri, new_path)
-                    uri.uri = new_path
-                else:
-                    uri.uri = None
+            if uris:
+                for uri in uris:
+                    if not uri:
+                        continue
+
+                    # File had already been moved so just update the uri
+                    if uri.uri in moved_files:
+                        uri.uri = moved_files[uri.uri]
+                        continue
+
+                    # Copy the rest
+                    new_path = Path(f"{job_path.parent}/{uri.uri.name}").resolve()
+                    if uri.uri.exists() and not new_path.exists():
+                        shutil.copy(uri.uri, new_path)
+                        uri.uri = new_path
+                    else:
+                        uri.uri = None
 
         self._remove_job_metadata_file(job)
         self.write_job_metadata_file(job)
@@ -1022,12 +1133,16 @@ class JobManager(QtCore.QObject):
             local_context=_get_local_context(),
             results=VectorResults(
                 name="False positive/negative",
-                type=ResultType.VECTOR_RESULTS,
                 vector=VectorFalsePositive(
                     uri=None,
                     type=VectorType.ERROR_RECODE,
                 ),
-                uri=None,
+                type=ResultType.VECTOR_RESULTS,
+            ),
+            script=ExecutionScript(
+                id="sdg-15-3-1-error-recode",
+                name="sdg-15-3-1-error-recode",
+                run_mode=AlgorithmRunMode.LOCAL,
             ),
             task_name=task_name,
             task_notes="",
@@ -1108,7 +1223,9 @@ class JobManager(QtCore.QObject):
 
         log("setting default stats value")
 
-        layers.set_default_stats_value(str(job.results.vector.uri.uri), band_datas)
+        vector_result = job.get_first_result_by_type(VectorResults)
+        if vector_result:
+            layers.set_default_stats_value(str(vector_result.uri.uri), band_datas)
         self.edit_error_recode_layer(job)
 
     def get_vector_result_jobs(self) -> List[Job]:
@@ -1157,6 +1274,7 @@ class JobManager(QtCore.QObject):
                 ),
                 output_path,
             )
+        # Set the vector.uri for error recode results
         job.results.vector.uri = URI(uri=output_path)
         vec_extent = _get_extent_tuple_vector(output_path)
 
@@ -1214,16 +1332,22 @@ class JobManager(QtCore.QObject):
                 del self.known_jobs[previous_status][job.id]
         self.known_jobs[job.status][job.id] = job
 
-    def _download_cloud_results(self, job: jobs.Job) -> typing.Optional[Path]:
+    def _download_cloud_results(
+        self, job: jobs.Job, raster_result: RasterResults
+    ) -> typing.Optional[results.URI]:
         base_output_path = self.get_downloaded_dataset_base_file_path(job)
+        # Add result name to base path to support multiple results
+        result_base_path = (
+            base_output_path.parent / f"{base_output_path.name}_{raster_result.name}"
+        )
 
         out_rasters = {}
 
-        if len([*job.results.rasters.values()]) == 0:
-            log(f"No results to download for {job.id}")
+        if len([*raster_result.rasters.values()]) == 0:
+            log(f"No rasters to download for {job.id} result {raster_result.name}")
 
-        for key, raster in job.results.rasters.items():
-            file_out_base = f"{base_output_path.name}_{key}"
+        for key, raster in raster_result.rasters.items():
+            file_out_base = f"{result_base_path.name}_{key}"
 
             if raster.type == results.RasterType.TILED_RASTER:
                 tile_uris = []
@@ -1232,11 +1356,12 @@ class JobManager(QtCore.QObject):
                     out_file = (
                         base_output_path.parent / f"{file_out_base}_{uri_number}.tif"
                     )
-                    result = _download_result(
-                        uri.uri,
+                    download_result = _download_result(
+                        str(uri.uri),
                         base_output_path.parent / f"{file_out_base}_{uri_number}.tif",
+                        expected_etag=_get_etag(uri),
                     )
-                    if not result:
+                    if not download_result:
                         return None
                     tile_uris.append(results.URI(uri=out_file))
 
@@ -1257,11 +1382,12 @@ class JobManager(QtCore.QObject):
                 )
             else:
                 out_file = base_output_path.parent / f"{file_out_base}.tif"
-                result = _download_result(
-                    raster.uri.uri,
+                download_result = _download_result(
+                    str(raster.uri.uri),
                     out_file,
+                    expected_etag=_get_etag(raster.uri),
                 )
-                if not result:
+                if not download_result:
                     return None
                 raster_uri = results.URI(uri=out_file)
                 raster.uri = raster_uri
@@ -1273,29 +1399,81 @@ class JobManager(QtCore.QObject):
                     type=results.RasterType.ONE_FILE_RASTER,
                 )
 
-        job.results.rasters = out_rasters
+        raster_result.rasters = out_rasters
 
-        # Setup the main uri. This could be a vrt (if job.results.rasters
+        # Setup the main uri. This could be a vrt (if raster_result.rasters
         # has more than one Raster, or if it has one or more TiledRasters)
 
-        if len(job.results.rasters) > 1 or (
-            len(job.results.rasters) == 1
-            and [*job.results.rasters.values()][0].type
+        if len(raster_result.rasters) > 1 or (
+            len(raster_result.rasters) == 1
+            and [*raster_result.rasters.values()][0].type
             == results.RasterType.TILED_RASTER
         ):
-            vrt_file = base_output_path.parent / f"{base_output_path.name}.vrt"
+            vrt_file = base_output_path.parent / f"{result_base_path.name}.vrt"
             main_raster_file_paths = [raster.uri.uri for raster in out_rasters.values()]
             combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
-            job.results.uri = results.URI(uri=vrt_file)
+            raster_result.uri = results.URI(uri=vrt_file)
         else:
-            job.results.uri = [*job.results.rasters.values()][0].uri
+            raster_result.uri = [*raster_result.rasters.values()][0].uri
 
-        _set_results_extents_raster(job)
+        _set_results_extents_raster(raster_result, job)
 
-        log(f"job.results.uri in download function is {job.results.uri!r}")
-        return job.results.uri
+        log(f"raster_result.uri in download function is {raster_result.uri!r}")
+        return raster_result.uri
 
-    def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:
+    def _download_vector_results(
+        self, job: Job, vector_result: VectorResults
+    ) -> typing.Optional[results.URI]:
+        """Download vector results (GeoJSON, GeoPackage, etc.) from cloud storage."""
+        if vector_result.uri is None or vector_result.uri.uri is None:
+            log(
+                f"No URI to download for vector result {vector_result.name} in job {job.id}"
+            )
+            return None
+
+        source_uri = str(vector_result.uri.uri)
+
+        # Check if this is already a local file (not a URL)
+        if not source_uri.startswith(("http://", "https://", "/vsi")):
+            # Already local, just return the existing URI
+            log(f"Vector result {vector_result.name} already local: {source_uri}")
+            return vector_result.uri
+
+        base_output_path = self.get_downloaded_dataset_base_file_path(job)
+        # Determine file extension from source URI
+        if source_uri.endswith(".gpkg"):
+            ext = ".gpkg"
+        elif source_uri.endswith(".geojson"):
+            ext = ".geojson"
+        else:
+            # Default to gpkg
+            ext = ".gpkg"
+
+        out_file = (
+            base_output_path.parent
+            / f"{base_output_path.name}_{vector_result.name}{ext}"
+        )
+
+        download_success = _download_result(
+            source_uri, out_file, expected_etag=_get_etag(vector_result.uri)
+        )
+        if not download_success:
+            log(
+                f"Failed to download vector result {vector_result.name} for job {job.id}"
+            )
+            return None
+
+        # Update the vector's URI to the downloaded file
+        vector_result.vector.uri = results.URI(uri=out_file)
+
+        _set_results_extents_vector(vector_result, job)
+
+        log(f"vector_result.uri in download function is {vector_result.uri!r}")
+        return vector_result.uri
+
+    def _download_timeseries_table(
+        self, job: Job, result: "results.TimeSeriesTableResult"
+    ) -> typing.Optional[results.URI]:
         """
         Plot data already contained in the Job file as such no additional
         output file.
@@ -1829,7 +2007,22 @@ def backoff_hdlr(details):
 @backoff.on_predicate(
     backoff.expo, lambda x: x is None, max_tries=5, on_backoff=backoff_hdlr
 )
-def _download_result(url: str, output_path: Path) -> bool:
+def _download_result(
+    url: str,
+    output_path: Path,
+    expected_etag: typing.Optional[results.Etag] = None,
+) -> bool:
+    """Download a file and optionally verify its hash against an expected etag.
+
+    Args:
+        url: URL to download from
+        output_path: Local path to save the file
+        expected_etag: Optional Etag object to verify file integrity. Supports
+            AWS MD5, AWS multipart, GCS MD5, and GCS CRC32C etag types.
+
+    Returns:
+        True if download succeeded and hash verified (if provided), False otherwise.
+    """
     output_path.parent.mkdir(parents=True, exist_ok=True)
     download_worker = ldmp_download.Download(url, str(output_path))
     download_worker.start()
@@ -1837,6 +2030,14 @@ def _download_result(url: str, output_path: Path) -> bool:
 
     if not result:
         output_path.unlink(missing_ok=True)
+        return result
+
+    # Verify file integrity if etag was provided
+    if result and expected_etag is not None:
+        if not ldmp_download.verify_file_against_etag(output_path, expected_etag):
+            log(f"File verification failed for {output_path}, deleting...")
+            output_path.unlink(missing_ok=True)
+            return False
 
     return result
 

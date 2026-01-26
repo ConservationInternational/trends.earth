@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-11 14:14+0000\n"
+"POT-Creation-Date: 2026-01-26 04:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgid ""
 "This page lists data packages containing national-level datasets "
 "(produced by Trends.Earth), following accepted best practices for "
 "calculating the UNCCD Indicators for [land degradation](#sdg-"
-"indicator-15-3-1-unccd-strategic-objectives-1-and-2) and [drought "
+"indicator-1531-unccd-strategic-objectives-1-and-2) and [drought "
 "vulnerability and exposure](#drought-hazard-vulnerability-and-exposure-"
 "unccd-strategic-objective-3)."
 msgstr ""
@@ -62,8 +62,8 @@ msgstr ""
 msgid ""
 "**This site and the products of Trends.Earth are made available under the"
 " terms of the Creative Commons Attribution 4.0 International License [(CC"
-" BY 4.0)]((https://creativecommons.org/licenses/by/4.0/)). The boundaries"
-" and names used, and the designations used, do not imply official "
+" BY 4.0)](https://creativecommons.org/licenses/by/4.0/). The boundaries "
+"and names used, and the designations used, do not imply official "
 "endorsement or acceptance by Conservation International Foundation, or "
 "its partner organizations and contributors.**"
 msgstr ""
@@ -76,11 +76,11 @@ msgid ""
 "[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license."
 msgstr ""
 
-#: ../../source/for_users/downloads/index.md:25
+#: ../../source/for_users/downloads/index.md:26
 msgid "SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)"
 msgstr ""
 
-#: ../../source/for_users/downloads/index.md:27
+#: ../../source/for_users/downloads/index.md:28
 msgid ""
 "The below datasets can be used to support assessing SDG Indicator 15.3.1,"
 " and include indicators of change in land productivity dynamics (LPD), "
@@ -5856,18 +5856,18 @@ msgid ""
 "/ZWE_GeoBoundaries_SDG15_JRC-LPD-5_UNCCD-legend.tar.gz)"
 msgstr ""
 
-#: ../../source/for_users/downloads/index.md:267
+#: ../../source/for_users/downloads/index.md:269
 msgid "Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)"
 msgstr ""
 
-#: ../../source/for_users/downloads/index.md:269
+#: ../../source/for_users/downloads/index.md:271
 msgid ""
 "The below datasets can be used to support assessing drought hazard, "
 "vulnerability, and exposure, and for reporting on UNCCD Strategic "
 "Objective 3."
 msgstr ""
 
-#: ../../source/for_users/downloads/index.md:272
+#: ../../source/for_users/downloads/index.md:274
 msgid ""
 "These data are processed in accordance with the [Good Practice Guidance "
 "for National Reporting on UNCCD Strategic Objective "
@@ -5881,7 +5881,7 @@ msgid ""
 " precipitation dataset."
 msgstr ""
 
-#: ../../source/for_users/downloads/index.md:274
+#: ../../source/for_users/downloads/index.md:276
 msgid ""
 "CHIRPS is a gridded precipitation dataset spanning 50°S-50°N, starting in"
 " 1981, that merges in-situ with satellite data to produce a timeseries "
@@ -16748,5 +16748,30 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "XKX"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This page lists data packages containing"
+#~ " national-level datasets (produced by "
+#~ "Trends.Earth), following accepted best "
+#~ "practices for calculating the UNCCD "
+#~ "Indicators for [land degradation](#sdg-"
+#~ "indicator-15-3-1-unccd-strategic-objectives-1-and-2) "
+#~ "and [drought vulnerability and exposure"
+#~ "](#drought-hazard-vulnerability-and-exposure-"
+#~ "unccd-strategic-objective-3)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "**This site and the products of "
+#~ "Trends.Earth are made available under "
+#~ "the terms of the Creative Commons "
+#~ "Attribution 4.0 International License [(CC "
+#~ "BY 4.0)]((https://creativecommons.org/licenses/by/4.0/)). "
+#~ "The boundaries and names used, and "
+#~ "the designations used, do not imply "
+#~ "official endorsement or acceptance by "
+#~ "Conservation International Foundation, or its"
+#~ " partner organizations and contributors.**"
 #~ msgstr ""
 

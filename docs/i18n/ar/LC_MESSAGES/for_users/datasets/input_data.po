@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-17 04:06+0000\n"
+"POT-Creation-Date: 2026-01-26 04:25+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ar\n"
@@ -49,62 +49,62 @@ msgid "NDVI"
 msgstr "NDVI"
 
 #: ../../source/for_users/datasets/input_data.rst:14
-#: ../../source/for_users/datasets/input_data.rst:30
-#: ../../source/for_users/datasets/input_data.rst:45
-#: ../../source/for_users/datasets/input_data.rst:65
-#: ../../source/for_users/datasets/input_data.rst:77
-#: ../../source/for_users/datasets/input_data.rst:89
-#: ../../source/for_users/datasets/input_data.rst:101
-#: ../../source/for_users/datasets/input_data.rst:112
-#: ../../source/for_users/datasets/input_data.rst:136
+#: ../../source/for_users/datasets/input_data.rst:31
+#: ../../source/for_users/datasets/input_data.rst:46
+#: ../../source/for_users/datasets/input_data.rst:66
+#: ../../source/for_users/datasets/input_data.rst:78
+#: ../../source/for_users/datasets/input_data.rst:90
+#: ../../source/for_users/datasets/input_data.rst:102
+#: ../../source/for_users/datasets/input_data.rst:113
+#: ../../source/for_users/datasets/input_data.rst:135
 msgid "Sensor/Dataset"
 msgstr "جهاز الاستشعار / مجموعة البيانات"
 
 #: ../../source/for_users/datasets/input_data.rst:14
-#: ../../source/for_users/datasets/input_data.rst:30
-#: ../../source/for_users/datasets/input_data.rst:45
-#: ../../source/for_users/datasets/input_data.rst:65
-#: ../../source/for_users/datasets/input_data.rst:77
-#: ../../source/for_users/datasets/input_data.rst:89
-#: ../../source/for_users/datasets/input_data.rst:101
-#: ../../source/for_users/datasets/input_data.rst:112
-#: ../../source/for_users/datasets/input_data.rst:136
+#: ../../source/for_users/datasets/input_data.rst:31
+#: ../../source/for_users/datasets/input_data.rst:46
+#: ../../source/for_users/datasets/input_data.rst:66
+#: ../../source/for_users/datasets/input_data.rst:78
+#: ../../source/for_users/datasets/input_data.rst:90
+#: ../../source/for_users/datasets/input_data.rst:102
+#: ../../source/for_users/datasets/input_data.rst:113
+#: ../../source/for_users/datasets/input_data.rst:135
 msgid "Temporal"
 msgstr "زمني"
 
 #: ../../source/for_users/datasets/input_data.rst:14
-#: ../../source/for_users/datasets/input_data.rst:30
-#: ../../source/for_users/datasets/input_data.rst:45
-#: ../../source/for_users/datasets/input_data.rst:65
-#: ../../source/for_users/datasets/input_data.rst:77
-#: ../../source/for_users/datasets/input_data.rst:89
-#: ../../source/for_users/datasets/input_data.rst:101
-#: ../../source/for_users/datasets/input_data.rst:112
-#: ../../source/for_users/datasets/input_data.rst:136
+#: ../../source/for_users/datasets/input_data.rst:31
+#: ../../source/for_users/datasets/input_data.rst:46
+#: ../../source/for_users/datasets/input_data.rst:66
+#: ../../source/for_users/datasets/input_data.rst:78
+#: ../../source/for_users/datasets/input_data.rst:90
+#: ../../source/for_users/datasets/input_data.rst:102
+#: ../../source/for_users/datasets/input_data.rst:113
+#: ../../source/for_users/datasets/input_data.rst:135
 msgid "Spatial"
 msgstr "مكاني"
 
 #: ../../source/for_users/datasets/input_data.rst:14
-#: ../../source/for_users/datasets/input_data.rst:30
-#: ../../source/for_users/datasets/input_data.rst:45
-#: ../../source/for_users/datasets/input_data.rst:65
-#: ../../source/for_users/datasets/input_data.rst:77
-#: ../../source/for_users/datasets/input_data.rst:89
-#: ../../source/for_users/datasets/input_data.rst:101
-#: ../../source/for_users/datasets/input_data.rst:112
-#: ../../source/for_users/datasets/input_data.rst:136
+#: ../../source/for_users/datasets/input_data.rst:31
+#: ../../source/for_users/datasets/input_data.rst:46
+#: ../../source/for_users/datasets/input_data.rst:66
+#: ../../source/for_users/datasets/input_data.rst:78
+#: ../../source/for_users/datasets/input_data.rst:90
+#: ../../source/for_users/datasets/input_data.rst:102
+#: ../../source/for_users/datasets/input_data.rst:113
+#: ../../source/for_users/datasets/input_data.rst:135
 msgid "Extent"
 msgstr "مدى"
 
 #: ../../source/for_users/datasets/input_data.rst:14
-#: ../../source/for_users/datasets/input_data.rst:30
-#: ../../source/for_users/datasets/input_data.rst:45
-#: ../../source/for_users/datasets/input_data.rst:65
-#: ../../source/for_users/datasets/input_data.rst:77
-#: ../../source/for_users/datasets/input_data.rst:89
-#: ../../source/for_users/datasets/input_data.rst:101
-#: ../../source/for_users/datasets/input_data.rst:112
-#: ../../source/for_users/datasets/input_data.rst:136
+#: ../../source/for_users/datasets/input_data.rst:31
+#: ../../source/for_users/datasets/input_data.rst:46
+#: ../../source/for_users/datasets/input_data.rst:66
+#: ../../source/for_users/datasets/input_data.rst:78
+#: ../../source/for_users/datasets/input_data.rst:90
+#: ../../source/for_users/datasets/input_data.rst:102
+#: ../../source/for_users/datasets/input_data.rst:113
+#: ../../source/for_users/datasets/input_data.rst:135
 msgid "License"
 msgstr "رخصة"
 
@@ -117,35 +117,35 @@ msgid "1982-2015"
 msgstr "1982-2015"
 
 #: ../../source/for_users/datasets/input_data.rst:16
-#: ../../source/for_users/datasets/input_data.rst:103
+#: ../../source/for_users/datasets/input_data.rst:104
 msgid "8 km"
 msgstr "8 كم"
 
 #: ../../source/for_users/datasets/input_data.rst:16
 #: ../../source/for_users/datasets/input_data.rst:18
-#: ../../source/for_users/datasets/input_data.rst:32
-#: ../../source/for_users/datasets/input_data.rst:34
-#: ../../source/for_users/datasets/input_data.rst:47
-#: ../../source/for_users/datasets/input_data.rst:49
-#: ../../source/for_users/datasets/input_data.rst:67
-#: ../../source/for_users/datasets/input_data.rst:79
-#: ../../source/for_users/datasets/input_data.rst:91
-#: ../../source/for_users/datasets/input_data.rst:103
-#: ../../source/for_users/datasets/input_data.rst:114
-#: ../../source/for_users/datasets/input_data.rst:138
+#: ../../source/for_users/datasets/input_data.rst:33
+#: ../../source/for_users/datasets/input_data.rst:35
+#: ../../source/for_users/datasets/input_data.rst:48
+#: ../../source/for_users/datasets/input_data.rst:50
+#: ../../source/for_users/datasets/input_data.rst:68
+#: ../../source/for_users/datasets/input_data.rst:80
+#: ../../source/for_users/datasets/input_data.rst:92
+#: ../../source/for_users/datasets/input_data.rst:104
+#: ../../source/for_users/datasets/input_data.rst:115
+#: ../../source/for_users/datasets/input_data.rst:137
 msgid "Global"
 msgstr "عالمي"
 
 #: ../../source/for_users/datasets/input_data.rst:16
 #: ../../source/for_users/datasets/input_data.rst:18
-#: ../../source/for_users/datasets/input_data.rst:32
-#: ../../source/for_users/datasets/input_data.rst:34
-#: ../../source/for_users/datasets/input_data.rst:47
-#: ../../source/for_users/datasets/input_data.rst:49
-#: ../../source/for_users/datasets/input_data.rst:51
-#: ../../source/for_users/datasets/input_data.rst:53
-#: ../../source/for_users/datasets/input_data.rst:67
-#: ../../source/for_users/datasets/input_data.rst:103
+#: ../../source/for_users/datasets/input_data.rst:33
+#: ../../source/for_users/datasets/input_data.rst:35
+#: ../../source/for_users/datasets/input_data.rst:48
+#: ../../source/for_users/datasets/input_data.rst:50
+#: ../../source/for_users/datasets/input_data.rst:52
+#: ../../source/for_users/datasets/input_data.rst:54
+#: ../../source/for_users/datasets/input_data.rst:68
+#: ../../source/for_users/datasets/input_data.rst:104
 msgid "`Public Domain`_"
 msgstr "`النطاق العام`_"
 
@@ -160,184 +160,185 @@ msgid "2001-2024"
 msgstr "2001-2016"
 
 #: ../../source/for_users/datasets/input_data.rst:18
-#: ../../source/for_users/datasets/input_data.rst:91
+#: ../../source/for_users/datasets/input_data.rst:92
 msgid "250 m"
 msgstr "250 م"
 
-#: ../../source/for_users/datasets/input_data.rst:27
+#: ../../source/for_users/datasets/input_data.rst:28
 msgid "Soil Moisture"
 msgstr "رطوبة التربة"
 
-#: ../../source/for_users/datasets/input_data.rst:32
+#: ../../source/for_users/datasets/input_data.rst:33
 msgid "`MERRA 2`_"
 msgstr "`MERRA 2`_"
 
-#: ../../source/for_users/datasets/input_data.rst:32
+#: ../../source/for_users/datasets/input_data.rst:33
 msgid "1980-2016"
 msgstr "1980-2016"
 
-#: ../../source/for_users/datasets/input_data.rst:32
+#: ../../source/for_users/datasets/input_data.rst:33
 msgid "0.5° x 0.625°"
 msgstr "0.5 درجة × 0.625 درجة"
 
-#: ../../source/for_users/datasets/input_data.rst:34
+#: ../../source/for_users/datasets/input_data.rst:35
 msgid "`ERA I`_"
 msgstr "`العصر الأول`_"
 
-#: ../../source/for_users/datasets/input_data.rst:34
+#: ../../source/for_users/datasets/input_data.rst:35
 msgid "1979-2016"
 msgstr "1979-2016"
 
-#: ../../source/for_users/datasets/input_data.rst:34
+#: ../../source/for_users/datasets/input_data.rst:35
 msgid "0.75° x 0.75°"
 msgstr "0.75 درجة × 0.75 درجة"
 
-#: ../../source/for_users/datasets/input_data.rst:42
+#: ../../source/for_users/datasets/input_data.rst:43
 msgid "Precipitation and Drought"
 msgstr "هطول الأمطار والجفاف"
 
-#: ../../source/for_users/datasets/input_data.rst:47
+#: ../../source/for_users/datasets/input_data.rst:48
 msgid "`GPCP v2.3 1 month`_"
 msgstr "`GPCP v2.3 1 شهر`_"
 
-#: ../../source/for_users/datasets/input_data.rst:47
+#: ../../source/for_users/datasets/input_data.rst:48
 msgid "1979-2019"
 msgstr "1979-2019"
 
-#: ../../source/for_users/datasets/input_data.rst:47
+#: ../../source/for_users/datasets/input_data.rst:48
 msgid "2.5° x 2.5°"
 msgstr "2.5 درجة × 2.5 درجة"
 
-#: ../../source/for_users/datasets/input_data.rst:49
+#: ../../source/for_users/datasets/input_data.rst:50
 msgid "`GPCC V6`_"
 msgstr "`GPCC V6`_"
 
-#: ../../source/for_users/datasets/input_data.rst:49
+#: ../../source/for_users/datasets/input_data.rst:50
 msgid "1891-2019"
 msgstr "1891-2019"
 
-#: ../../source/for_users/datasets/input_data.rst:49
+#: ../../source/for_users/datasets/input_data.rst:50
 msgid "1° x 1°"
 msgstr "1 درجة × 1 درجة"
 
-#: ../../source/for_users/datasets/input_data.rst:51
+#: ../../source/for_users/datasets/input_data.rst:52
 msgid "`CHIRPS`_"
 msgstr "`CHIRPS`_"
 
-#: ../../source/for_users/datasets/input_data.rst:51
+#: ../../source/for_users/datasets/input_data.rst:52
 #, fuzzy
 msgid "1981-2024"
 msgstr "1981-2016"
 
-#: ../../source/for_users/datasets/input_data.rst:51
+#: ../../source/for_users/datasets/input_data.rst:52
 msgid "5 km"
 msgstr "5 كم"
 
-#: ../../source/for_users/datasets/input_data.rst:51
+#: ../../source/for_users/datasets/input_data.rst:52
 msgid "50N-50S"
 msgstr "50 شمال - 50 جنوب"
 
-#: ../../source/for_users/datasets/input_data.rst:53
+#: ../../source/for_users/datasets/input_data.rst:54
 msgid "`PERSIANN-CDR`_"
 msgstr "`PERSIANN-CDR`_"
 
-#: ../../source/for_users/datasets/input_data.rst:53
+#: ../../source/for_users/datasets/input_data.rst:54
 #, fuzzy
 msgid "1983-2024"
 msgstr "1983-2015"
 
-#: ../../source/for_users/datasets/input_data.rst:53
+#: ../../source/for_users/datasets/input_data.rst:54
 msgid "25 km"
 msgstr "25 كم"
 
-#: ../../source/for_users/datasets/input_data.rst:53
+#: ../../source/for_users/datasets/input_data.rst:54
 msgid "60N-60S"
 msgstr "60 شمال - 60 جنوب"
 
-#: ../../source/for_users/datasets/input_data.rst:62
+#: ../../source/for_users/datasets/input_data.rst:63
 msgid "Evapotranspiration"
 msgstr "التبخر"
 
-#: ../../source/for_users/datasets/input_data.rst:67
+#: ../../source/for_users/datasets/input_data.rst:68
 #, fuzzy
 msgid "MOD16A2GF_"
 msgstr "MOD16A2_"
 
-#: ../../source/for_users/datasets/input_data.rst:67
-msgid "2000-2014"
-msgstr "2000-2014"
+#: ../../source/for_users/datasets/input_data.rst:68
+#, fuzzy
+msgid "2000-2024"
+msgstr "2001-2016"
 
-#: ../../source/for_users/datasets/input_data.rst:67
+#: ../../source/for_users/datasets/input_data.rst:68
 msgid "1 km"
 msgstr "1 كم"
 
-#: ../../source/for_users/datasets/input_data.rst:74
+#: ../../source/for_users/datasets/input_data.rst:75
 msgid "Land cover"
 msgstr "الغطاء الأرضي"
 
-#: ../../source/for_users/datasets/input_data.rst:79
+#: ../../source/for_users/datasets/input_data.rst:80
 msgid "`ESA CCI Land Cover`_"
 msgstr "`ESA CCI الغطاء الأرضي`_"
 
-#: ../../source/for_users/datasets/input_data.rst:79
+#: ../../source/for_users/datasets/input_data.rst:80
 #, fuzzy
 msgid "1992-2022"
 msgstr "1992-2018"
 
-#: ../../source/for_users/datasets/input_data.rst:79
+#: ../../source/for_users/datasets/input_data.rst:80
 msgid "300 m"
 msgstr "300 م"
 
-#: ../../source/for_users/datasets/input_data.rst:79
-#: ../../source/for_users/datasets/input_data.rst:114
-#: ../../source/for_users/datasets/input_data.rst:138
+#: ../../source/for_users/datasets/input_data.rst:80
+#: ../../source/for_users/datasets/input_data.rst:115
+#: ../../source/for_users/datasets/input_data.rst:137
 #, fuzzy
 msgid "`CC BY 4.0`_"
 msgstr "`CC by-SA 4.0`_"
 
-#: ../../source/for_users/datasets/input_data.rst:86
+#: ../../source/for_users/datasets/input_data.rst:87
 msgid "Soil carbon"
 msgstr "كربون التربة"
 
-#: ../../source/for_users/datasets/input_data.rst:91
+#: ../../source/for_users/datasets/input_data.rst:92
 msgid "`Soil Grids (ISRIC)`_"
 msgstr "`شبكات التربة(ISRIC)`_"
 
-#: ../../source/for_users/datasets/input_data.rst:91
-#: ../../source/for_users/datasets/input_data.rst:114
+#: ../../source/for_users/datasets/input_data.rst:92
+#: ../../source/for_users/datasets/input_data.rst:115
 msgid "Present"
 msgstr "الحالي"
 
-#: ../../source/for_users/datasets/input_data.rst:91
+#: ../../source/for_users/datasets/input_data.rst:92
 msgid "`CC by-SA 4.0`_"
 msgstr "`CC by-SA 4.0`_"
 
-#: ../../source/for_users/datasets/input_data.rst:98
+#: ../../source/for_users/datasets/input_data.rst:99
 msgid "Agroecological Zones"
 msgstr "مناطق الزراعة الإيكولوجية"
 
-#: ../../source/for_users/datasets/input_data.rst:103
+#: ../../source/for_users/datasets/input_data.rst:104
 msgid "`FAO - IIASA Global Agroecological Zones (GAEZ)`_"
 msgstr "`FAO - IIASA Global Agroecological Zones (GAEZ)`_"
 
-#: ../../source/for_users/datasets/input_data.rst:103
+#: ../../source/for_users/datasets/input_data.rst:104
 msgid "2000"
 msgstr "2000"
 
-#: ../../source/for_users/datasets/input_data.rst:109
+#: ../../source/for_users/datasets/input_data.rst:110
 msgid "Administrative Boundaries"
 msgstr "الحدود الإدارية"
 
-#: ../../source/for_users/datasets/input_data.rst:114
+#: ../../source/for_users/datasets/input_data.rst:115
 #, fuzzy
 msgid "`geoBoundaries Administrative Boundaries`_"
 msgstr "`الحدود الإدارية للأرض الطبيعية`_"
 
-#: ../../source/for_users/datasets/input_data.rst:114
+#: ../../source/for_users/datasets/input_data.rst:115
 msgid "10/50m"
 msgstr "10/50 م"
 
-#: ../../source/for_users/datasets/input_data.rst:118
+#: ../../source/for_users/datasets/input_data.rst:119
 #, fuzzy
 msgid ""
 "The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
@@ -352,7 +353,7 @@ msgstr ""
 "المصادقة أو القبول الرسمي من قبل مؤسسة Conservation International ، أو من"
 " قبل المنظمات الشريكة والمساهمين."
 
-#: ../../source/for_users/datasets/input_data.rst:124
+#: ../../source/for_users/datasets/input_data.rst:125
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users"
 " choose an official boundary provided by the designated office of their "
@@ -361,25 +362,25 @@ msgstr ""
 "إذا كنت تستخدم Trends.Earth لأغراض رسمية ، فمن المستحسن أن يختار "
 "المستخدمون حدًا رسميًا يوفره المكتب المعين لبلدهم."
 
-#: ../../source/for_users/datasets/input_data.rst:133
+#: ../../source/for_users/datasets/input_data.rst:132
 msgid "Population"
 msgstr "السكان"
 
-#: ../../source/for_users/datasets/input_data.rst:138
+#: ../../source/for_users/datasets/input_data.rst:137
 msgid "`WorldPop`_ 100m Global Population grid"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:138
+#: ../../source/for_users/datasets/input_data.rst:137
 #, fuzzy
 msgid "2000-2020"
 msgstr "2000-2014"
 
-#: ../../source/for_users/datasets/input_data.rst:138
+#: ../../source/for_users/datasets/input_data.rst:137
 #, fuzzy
 msgid "100m"
 msgstr "10/50 م"
 
-#: ../../source/for_users/datasets/input_data.rst:142
+#: ../../source/for_users/datasets/input_data.rst:141
 msgid ""
 "The `WorldPop`_ dataset included in Trends.Earth was produced by the "
 "`UNCCD`_ from publicly available data layers from the WorldPop project. "
@@ -392,7 +393,7 @@ msgid ""
 "disaggregated by sex."
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:152
+#: ../../source/for_users/datasets/input_data.rst:151
 msgid ""
 "These data are also available in a publicly-accessible S3 bucket (trends"
 ".earth-shared, in the us-east-1 region), as tiled 32-bit floating point "
@@ -400,15 +401,15 @@ msgid ""
 "on s3:"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:157
+#: ../../source/for_users/datasets/input_data.rst:156
 msgid "s3://trends.earth-shared/worldpop/100m"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:158
+#: ../../source/for_users/datasets/input_data.rst:157
 msgid "s3://trends.earth-shared/worldpop/300m"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:159
+#: ../../source/for_users/datasets/input_data.rst:158
 msgid "s3://trends.earth-shared/worldpop/1200m"
 msgstr ""
 
@@ -426,4 +427,7 @@ msgstr ""
 
 #~ msgid "`CC by-SA 3.0`_"
 #~ msgstr "`CC by-SA 3.0`_"
+
+#~ msgid "2000-2014"
+#~ msgstr "2000-2014"
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2026-01-26 04:25+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ru\n"
@@ -24,7 +24,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/training/metadata.rst:4
 msgid "Dataset Metadata"
@@ -37,7 +37,8 @@ msgstr ""
 "данных."
 
 #: ../../source/for_users/training/metadata.rst:8
-msgid "**Estimated time of completion**: 40 minutes"
+#, fuzzy
+msgid "**Estimated time of completion**: 15 minutes"
 msgstr "** Расчетное время завершения **: 40 минут"
 
 #: ../../source/for_users/training/metadata.rst:10
@@ -72,7 +73,7 @@ msgstr ""
 msgid "Select the Refresh button if no datasets appear in the menu."
 msgstr "Нажмите на кнопку «Обновить», если в меню нет наборов данных."
 
-#: ../../source/for_users/training/metadata.rst:24
+#: ../../source/for_users/training/metadata.rst:27
 msgid ""
 "Press the Edit metadata button to open a drop-down menu with available "
 "options"
@@ -80,7 +81,7 @@ msgstr ""
 "Нажмите кнопку «Изменить метаданные», чтобы открыть раскрывающееся меню с"
 " доступными параметрами."
 
-#: ../../source/for_users/training/metadata.rst:29
+#: ../../source/for_users/training/metadata.rst:32
 msgid ""
 "The drop-down menu allows to select any raster from the list of all "
 "available rasters of the dataset to edit or view its metadata. Once "
@@ -90,7 +91,7 @@ msgstr ""
 "растров набора данных для редактирования или просмотра его метаданных. "
 "После выбора растра появится диалоговое окно редактора метаданных."
 
-#: ../../source/for_users/training/metadata.rst:34
+#: ../../source/for_users/training/metadata.rst:37
 msgid ""
 "Fill in the necessary information or edit existing data in the dialog "
 "fields and press OK button to save your changes. Metadata will be saved "
@@ -102,26 +103,6 @@ msgstr ""
 " будут сохранены в формате QGIS QMD, в отдельном файле для каждого растра"
 " в папке набора данных."
 
-#: ../../source/for_users/training/metadata.rst:36
-msgid ""
-"Metadata also can be viewed/edited from the Dataset details dialog via "
-"the same Metadata button, as described in the step 3 above."
-msgstr ""
-"Метаданные также можно просматривать/редактировать в диалоговом окне "
-"сведений о наборе данных с помощью той же кнопки «Метаданные», как "
-"описано в шаге 3 выше."
-
-#: ../../source/for_users/training/metadata.rst:41
-msgid ""
-"When exporting dataset to the ZIP archive from the Dataset details dialog"
-" all existing metadata in the QMD format will be automatically converted "
-"to ISO XML format and packaged together with the layers."
-msgstr ""
-"При экспорте набора данных в ZIP-архив из диалогового окна сведений о "
-"наборе данных все существующие метаданные в формате QMD будут "
-"автоматически преобразованы в формат ISO XML и упакованы вместе со "
-"слоями."
-
 #~ msgid "iconCalculator"
 #~ msgstr "iconCalculator"
 
@@ -130,4 +111,31 @@ msgstr ""
 
 #~ msgid "Trends.Earth"
 #~ msgstr "Trends.Earth"
+
+#~ msgid ""
+#~ "Metadata also can be viewed/edited from"
+#~ " the Dataset details dialog via the"
+#~ " same Metadata button, as described "
+#~ "in the step 3 above."
+#~ msgstr ""
+#~ "Метаданные также можно просматривать/редактировать"
+#~ " в диалоговом окне сведений о наборе"
+#~ " данных с помощью той же кнопки "
+#~ "«Метаданные», как описано в шаге 3 "
+#~ "выше."
+
+#~ msgid ""
+#~ "When exporting dataset to the ZIP "
+#~ "archive from the Dataset details dialog"
+#~ " all existing metadata in the QMD "
+#~ "format will be automatically converted "
+#~ "to ISO XML format and packaged "
+#~ "together with the layers."
+#~ msgstr ""
+#~ "При экспорте набора данных в ZIP-архив"
+#~ " из диалогового окна сведений о "
+#~ "наборе данных все существующие метаданные "
+#~ "в формате QMD будут автоматически "
+#~ "преобразованы в формат ISO XML и "
+#~ "упакованы вместе со слоями."
 

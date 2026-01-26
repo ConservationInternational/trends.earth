@@ -577,27 +577,27 @@
 <context>
     <name>DlgAdvancedSettingsProgressPeriod</name>
     <message>
-        <location filename="../calculate_ldn.py" line="2686"/>
+        <location filename="../calculate_ldn.py" line="2688"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="2531"/>
         <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
-        <translation type="unfinished">Vous devez sélectionner une couche {layer_name} avant de pouvoir utiliser l'outil de calcul ODD.</translation>
+        <translation type="obsolete">Vous devez sélectionner une couche {layer_name} avant de pouvoir utiliser l'outil de calcul ODD.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2599"/>
+        <location filename="../calculate_ldn.py" line="2601"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation type="unfinished">La zone d'intérêt n'est pas entièrement comprise dans la couche {check_layer_name}.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2677"/>
+        <location filename="../calculate_ldn.py" line="2679"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished">Les résolutions de la couche {model_layer_name} et de la couche {check_layer_name} ne correspondent pas.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2686"/>
+        <location filename="../calculate_ldn.py" line="2688"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished">Les systèmes de coordonnées de la couche {model_layer_name} et de la couche {check_layer_name} ne correspondent pas.</translation>
     </message>
@@ -725,7 +725,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="312"/>
+        <location filename="../calculate_drought_vulnerability.py" line="301"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -737,10 +737,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="276"/>
         <source>You must select a {layer_name} layer before you can use the drought tool.</source>
-        <translation>Vous devez sélectionner une couche {layer_name} avant de pouvoir utiliser l'outil de sécheresse.</translation>
+        <translation type="obsolete">Vous devez sélectionner une couche {layer_name} avant de pouvoir utiliser l'outil de sécheresse.</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="312"/>
+        <location filename="../calculate_drought_vulnerability.py" line="301"/>
         <source>Area of interest is not entirely within the drought dataset.</source>
         <translation>La région d'intérêt n'est pas entièrement dans l'ensemble de données sur la sécheresse.</translation>
     </message>
@@ -803,42 +803,42 @@ p, li { white-space: pre-wrap; }
         <translation>Configuration avancée</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="182"/>
+        <location filename="../calculate_lc.py" line="174"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="114"/>
         <source>You must add an initial land cover layer to your map before you can run the calculation.</source>
-        <translation>Vous devez ajouter une couche de couverture terrestre initiale à votre carte avant de pouvoir faire le calcul.</translation>
+        <translation type="obsolete">Vous devez ajouter une couche de couverture terrestre initiale à votre carte avant de pouvoir faire le calcul.</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="125"/>
         <source>You must add a final land cover layer to your map before you can run the calculation.</source>
-        <translation>Vous devez ajouter une couche de couverture terrestre finale à votre carte avant de pouvoir faire le calcul.</translation>
+        <translation type="obsolete">Vous devez ajouter une couche de couverture terrestre finale à votre carte avant de pouvoir faire le calcul.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="139"/>
+        <location filename="../calculate_lc.py" line="131"/>
         <source>Warning</source>
         <translation>Attention</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="139"/>
+        <location filename="../calculate_lc.py" line="131"/>
         <source>The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>L'année initiale ({}) est supérieure ou égale à l'année cible ({}) - cette analyse peut générer des résultats étranges.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="152"/>
+        <location filename="../calculate_lc.py" line="144"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>La zone d'intérêt n'est pas entièrement comprise dans la couche de couverture terrestre initiale.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="165"/>
+        <location filename="../calculate_lc.py" line="157"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>La zone d'intérêt n'est pas entièrement comprise dans la couche de couverture terrestre finale.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="182"/>
+        <location filename="../calculate_lc.py" line="174"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
         <translation>L'imbrication des légendes de couverture terrestre pour la couche de couverture terrestre initiale et finale doit être identique.</translation>
     </message>
@@ -1084,12 +1084,12 @@ p, li { white-space : pre-wrap ; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Cet outil permet de recalculer une couche d'indicateur afin de corriger des erreurs connues (faux positifs ou faux négatifs).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2932"/>
+        <location filename="../calculate_ldn.py" line="2936"/>
         <source>Coming soon!</source>
         <translation>Prochainement!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2932"/>
+        <location filename="../calculate_ldn.py" line="2936"/>
         <source>This function coming soon!</source>
         <translation>Cette fonction sera bientôt disponible !</translation>
     </message>
@@ -1127,77 +1127,77 @@ p, li { white-space : pre-wrap ; }
         <translation type="obsolete">Dynamique de la productivité des terres pré-calculée (de JRC ou de FAO-WOCAT)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="138"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="148"/>
         <source>Baseline dataset</source>
         <translation>Jeu de données de base</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="169"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="179"/>
         <source>Advanced (baseline)</source>
         <translation>Avancé (ligne de base)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="719"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="729"/>
         <source>Productivity</source>
         <translation>Productivité</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="818"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="828"/>
         <source>State (degradation)</source>
         <translation>État (dégradation)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="774"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="784"/>
         <source>Performance (degradation)</source>
         <translation>Performance (dégradation)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="852"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="862"/>
         <source>Land Productivity Dynamics (LPD) dataset</source>
         <translation>Jeu de données sur la dynamique de la productivité des terres (LPD)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="355"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="365"/>
         <source>Trend (degradation)</source>
         <translation>Tendance (dégradation)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="910"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="920"/>
         <source>Land cover (degradation)</source>
         <translation>Couverture terrestre (dégradation)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="961"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="971"/>
         <source>Soil carbon (degradation)</source>
         <translation>Carbone du sol (dégradation)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1012"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1022"/>
         <source>Population (required to calculate population exposed by degradation)</source>
         <translation>Population (nécessaire pour calculer la population exposée par la dégradation)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1098"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1108"/>
         <source>Total population</source>
         <translation>Population totale</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1034"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1044"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Male population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Population masculine&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1041"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1051"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Female population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Population féminine&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1024"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1034"/>
         <source>Population broken down by sex</source>
         <translation>Population ventilée par sexe</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1108"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1118"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Total population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Population totale&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -1217,47 +1217,47 @@ p, li { white-space : pre-wrap ; }
         <translation type="obsolete">Avancé (période de progrès)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="736"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="746"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Trend (degradation)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Tendance (dégradation)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1190"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1200"/>
         <source>The current selected region of interest</source>
         <translation>La région d'intérêt sélectionnée actuelle</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1203"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1213"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ouvre le dialogue de paramétrage afin de modifier la région d'intérêt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1206"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1216"/>
         <source>Change region</source>
         <translation>Changer de région</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1215"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1225"/>
         <source>Execution name:</source>
         <translation>Nom d'exécution :</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1222"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1232"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Entrée pour le nom qui sera attribué à la tâche d'exécution ; s'il n'est pas rempli, le nom de l'algorithme sera utilisé comme nom de la tâche.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1229"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1239"/>
         <source>Notes:</source>
         <translation>Remarques:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1254"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1264"/>
         <source>User notes associated with the executed task.</source>
         <translation>Notes de l'utilisateur associées à la tâche exécutée.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2349"/>
+        <location filename="../calculate_ldn.py" line="2357"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation>Aucun jeu de données disponible dans cette région (voir avancé)</translation>
     </message>
@@ -1297,7 +1297,7 @@ p, li { white-space : pre-wrap ; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1288"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1298"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1321,23 +1321,28 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="629"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="639"/>
         <source>Include reporting period(s) for comparison to baseline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="659"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="669"/>
         <source>Progress dataset #1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="690"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="700"/>
         <source>Advanced (reporting period) #1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1146"/>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1156"/>
         <source>Add reporting period for comparison to baseline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="111"/>
+        <source>Custom imported land productivity dynamics</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1607,7 +1612,7 @@ p, li { white-space: pre-wrap; }
         <translation>Définir les effets du changement de couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2138"/>
+        <location filename="../calculate_ldn.py" line="2146"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
@@ -1619,22 +1624,22 @@ Productivité des terres | Dégradation des terres
 Dynamique de la productivité des terres pré-calculée (de JRC ou de FAO-WOCAT)</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1046"/>
+        <location filename="../calculate_ldn.py" line="1048"/>
         <source>Also reset land cover legend?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1046"/>
+        <location filename="../calculate_ldn.py" line="1048"/>
         <source>The UNCCD default data uses a 7 class land cover legend. Do you also want to reset the land cover legend to the UNCCD default? This will mean any changes you may have made to the land cover legend will be lost.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2254"/>
+        <location filename="../calculate_ldn.py" line="2262"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2254"/>
+        <location filename="../calculate_ldn.py" line="2262"/>
         <source>Final year of the productivity data ({year_final}) must be within three years of the years for which population data is available from the WorldPop dataset ({pop_start_year}-{pop_end_year}).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1692,7 +1697,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2138"/>
+        <location filename="../calculate_ldn.py" line="2146"/>
         <source>Initial and final year are less {MIN_YEARS_FOR_PROD_UPDATE} years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1776,12 +1781,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2182"/>
+        <location filename="../calculate_ldn.py" line="2190"/>
         <source>FAO WOCAT land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The {period} period ({year_initial} - {year_final}) only spans {year_final - year_initial} years. Please select a longer time period.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2123"/>
+        <location filename="../calculate_ldn.py" line="2131"/>
         <source>Land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The {period} period ({year_initial} - {year_final}) only spans {year_final - year_initial} years. Please select a longer time period.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2193,17 +2198,17 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Résumez le changement probable de la biomasse dû à la restauration.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_rest_biomass.py" line="145"/>
+        <location filename="../calculate_rest_biomass.py" line="139"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="129"/>
         <source>You must add a biomass layer to your map before you can use the summary tool.</source>
-        <translation>Vous devez ajouter une couche de biomasse à votre carte avant de pouvoir utiliser l&amp;#39;outil de résumé.</translation>
+        <translation type="obsolete">Vous devez ajouter une couche de biomasse à votre carte avant de pouvoir utiliser l&amp;#39;outil de résumé.</translation>
     </message>
     <message>
-        <location filename="../calculate_rest_biomass.py" line="145"/>
+        <location filename="../calculate_rest_biomass.py" line="139"/>
         <source>Area of interest is not entirely within the biomass layer.</source>
         <translation>La zone d&amp;#39;intérêt ne se situe pas entièrement dans la couche de biomasse.</translation>
     </message>
@@ -2296,7 +2301,7 @@ p, li { white-space: pre-wrap; }
         <translation>Jeu de données sur le carbone organique du sol initial personnalisé</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="230"/>
+        <location filename="../calculate_soc.py" line="224"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -2313,25 +2318,25 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_soc.py" line="170"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
-        <translation>Vous devez ajouter une couche de carbone organique du sol à votre carte avant de pouvoir effectuer le calcul.</translation>
+        <translation type="obsolete">Vous devez ajouter une couche de carbone organique du sol à votre carte avant de pouvoir effectuer le calcul.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="183"/>
+        <location filename="../calculate_soc.py" line="177"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="183"/>
+        <location filename="../calculate_soc.py" line="177"/>
         <source>The initial year ({year_initial}) is greater than or equal to the final year ({year_final}) - this analysis might generate strange results.</source>
         <translation>L'année initiale ({year_initial}) est supérieure ou égale à l'année finale ({year_final}) ; cette analyse pourrait générer des résultats étranges.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="197"/>
+        <location filename="../calculate_soc.py" line="191"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>La zone d'intérêt ne se trouve pas entièrement dans la couche de couverture terrestre initiale.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="211"/>
+        <location filename="../calculate_soc.py" line="205"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>La zone d'intérêt ne se trouve pas entièrement dans la couche de couverture terrestre finale.</translation>
     </message>
@@ -2353,7 +2358,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="230"/>
+        <location filename="../calculate_soc.py" line="224"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
         <translation type="unfinished">L'imbrication des légendes de couverture terrestre pour la couche de couverture terrestre initiale et finale doit être identique.</translation>
     </message>
@@ -2673,32 +2678,32 @@ p, li { white-space : pre-wrap ; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="688"/>
+        <location filename="../calculate_tc.py" line="676"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="634"/>
         <source>You must add a forest loss layer to your map before you can use the carbon change summary tool.</source>
-        <translation>Vous devez ajouter une couche de perte de forêt à votre carte avant de pouvoir utiliser l&amp;#39;outil de synthèse des changements de carbone.</translation>
+        <translation type="obsolete">Vous devez ajouter une couche de perte de forêt à votre carte avant de pouvoir utiliser l&amp;#39;outil de synthèse des changements de carbone.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="644"/>
         <source>You must add a total carbon layer to your map before you can use the carbon change summary tool.</source>
-        <translation>Vous devez ajouter une couche de carbone total à votre carte avant de pouvoir utiliser l&amp;#39;outil de synthèse des changements de carbone.</translation>
+        <translation type="obsolete">Vous devez ajouter une couche de carbone total à votre carte avant de pouvoir utiliser l&amp;#39;outil de synthèse des changements de carbone.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="658"/>
+        <location filename="../calculate_tc.py" line="646"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
         <translation>La zone d&amp;#39;intérêt ne se situe pas entièrement dans la couche de perte de forêt.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="669"/>
+        <location filename="../calculate_tc.py" line="657"/>
         <source>Area of interest is not entirely within the total carbon layer.</source>
         <translation>La zone d&amp;#39;intérêt ne se situe pas entièrement dans la couche de carbone totale.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="688"/>
+        <location filename="../calculate_tc.py" line="676"/>
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
         <translation>Les résolutions de perte de forêt et de couches de carbone total ne correspondent pas.</translation>
     </message>
@@ -2903,7 +2908,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Si vous cochez la case « Le calcul concerne uniquement les zones touchées », le rapport comportera un indicateur indiquant que ce calcul concerne les zones touchées. Notez que le rapport sur les zones touchées est un élément facultatif dans le processus de rapport de la CNULCD 2022 et s'ajoute au rapport national. Les zones touchées sont définies dans l'article 1 de la Convention comme des zones arides, semi-arides et/ou subhumides sèches touchées ou menacées par la désertification. Les parties peuvent choisir d'utiliser cette définition ou de fournir la définition opérationnelle de zone touchée utilisée dans leur pays.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="196"/>
+        <location filename="../calculate_unccd.py" line="182"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -2915,15 +2920,15 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_unccd.py" line="196"/>
         <source>You must select a {layer_name} layer before you can use the UNCCD reporting tool.</source>
-        <translation>Vous devez sélectionner une couche {layer_name} avant de pouvoir utiliser l'outil de rapport de la CNULCD.</translation>
+        <translation type="obsolete">Vous devez sélectionner une couche {layer_name} avant de pouvoir utiliser l'outil de rapport de la CNULCD.</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="210"/>
+        <location filename="../calculate_unccd.py" line="201"/>
         <source>SO1 and SO2</source>
         <translation>OS1 et OS2</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="214"/>
+        <location filename="../calculate_unccd.py" line="205"/>
         <source>SO3 (hazard and exposure)</source>
         <translation>OS3 (risque et exposition)</translation>
     </message>
@@ -3162,17 +3167,17 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="262"/>
+        <location filename="../calculate_urban.py" line="256"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="247"/>
         <source>You must add an urban series layer to your map before you can use the urban change summary tool.</source>
-        <translation>Vous devez ajouter une couche de série urbaine à votre carte avant de pouvoir utiliser l&amp;#39;outil de synthèse des modifications urbaines.</translation>
+        <translation type="obsolete">Vous devez ajouter une couche de série urbaine à votre carte avant de pouvoir utiliser l&amp;#39;outil de synthèse des modifications urbaines.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="262"/>
+        <location filename="../calculate_urban.py" line="256"/>
         <source>Area of interest is not entirely within the urban series layer.</source>
         <translation>La zone d&amp;#39;intérêt ne se situe pas entièrement dans la couche série urbaine.</translation>
     </message>
@@ -3193,12 +3198,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="1107"/>
+        <location filename="../data_io.py" line="1247"/>
         <source>Missing or invalid CRS for input file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1130"/>
+        <location filename="../data_io.py" line="1270"/>
         <source>Output file will be resized to &apos;{reg_name}&apos; extent.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3266,7 +3271,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1208"/>
+        <location filename="../lc_setup.py" line="1211"/>
         <source>Land cover ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3278,6 +3283,26 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="75"/>
         <source>When preparing data for UNCCD national reporting, countries are strongly encouraged to use a legend with no more than 15 land cover classes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportLC.ui" line="138"/>
+        <source>Layer name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportLC.ui" line="145"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name that will be assigned to the imported layer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportLC.ui" line="152"/>
+        <source>Notes:</source>
+        <translation type="unfinished">Remarques:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportLC.ui" line="171"/>
+        <source>Notes associated with the imported layer.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3352,8 +3377,28 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1806"/>
+        <location filename="../data_io.py" line="1982"/>
         <source>Land productivity (imported - {self.datatype_cb.currentText()})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportProd.ui" line="171"/>
+        <source>Layer name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportProd.ui" line="178"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name that will be assigned to the imported layer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportProd.ui" line="185"/>
+        <source>Notes:</source>
+        <translation type="unfinished">Remarques:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportProd.ui" line="204"/>
+        <source>Notes associated with the imported layer.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3363,6 +3408,26 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgDataIOImportSOC.ui" line="23"/>
         <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
         <translation>Chargement d'une série de données personnalisées sur le carbone organique du sol (SOC)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportSOC.ui" line="32"/>
+        <source>Layer name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportSOC.ui" line="39"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name that will be assigned to the imported layer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportSOC.ui" line="46"/>
+        <source>Notes:</source>
+        <translation type="unfinished">Remarques:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportSOC.ui" line="65"/>
+        <source>Notes associated with the imported layer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3903,48 +3968,53 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSelectDataset</name>
     <message>
-        <location filename="../select_dataset.py" line="69"/>
+        <location filename="../select_dataset.py" line="70"/>
         <source>Current region: {region}</source>
         <translation>Région actuelle : {region}</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="86"/>
+        <location filename="../select_dataset.py" line="87"/>
         <source>Task Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="86"/>
+        <location filename="../select_dataset.py" line="87"/>
         <source>Task name is empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="90"/>
+        <location filename="../select_dataset.py" line="91"/>
         <source>Dataset</source>
         <translation type="unfinished">Série de données</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="91"/>
+        <location filename="../select_dataset.py" line="92"/>
         <source>SDG 15.3.1 Indicator</source>
         <translation type="unfinished">Indicateur SDG 15.3.1 </translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="92"/>
+        <location filename="../select_dataset.py" line="93"/>
         <source>Productivity Degradation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="93"/>
+        <location filename="../select_dataset.py" line="94"/>
         <source>Land Cover Degradation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="94"/>
+        <location filename="../select_dataset.py" line="95"/>
         <source>Soil Organic Carbon Degradation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="96"/>
+        <location filename="../select_dataset.py" line="97"/>
         <source>No dataset or layer selected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="98"/>
+        <source>Please select a region first.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4602,7 +4672,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="705"/>
+        <location filename="../jobs/manager.py" line="706"/>
         <source>Processing: {task_name}</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4610,37 +4680,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="1251"/>
+        <location filename="../lc_setup.py" line="1256"/>
         <source>Land cover in initial year </source>
         <translation>Couverture terrestre au cours de la première année</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1407"/>
+        <location filename="../lc_setup.py" line="1412"/>
         <source>Select a transition matrix definition file</source>
         <translation>Sélectionner un fichier de définition de matrice de transition</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1438"/>
+        <location filename="../lc_setup.py" line="1443"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Définition de la matrice de transition (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1451"/>
+        <location filename="../lc_setup.py" line="1456"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1420"/>
+        <location filename="../lc_setup.py" line="1425"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Impossible à lire {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1438"/>
+        <location filename="../lc_setup.py" line="1443"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Choisir où enregistrer cette définition de matrice de transition</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1451"/>
+        <location filename="../lc_setup.py" line="1456"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Impossible d'écrire sur {}. Choisissez un fichier différent.</translation>
     </message>
@@ -4817,52 +4887,52 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="../main_widget.py" line="226"/>
+        <location filename="../main_widget.py" line="296"/>
         <source>All</source>
         <translation>Tous</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="231"/>
+        <location filename="../main_widget.py" line="301"/>
         <source>Raster</source>
         <translation>Trame</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="236"/>
+        <location filename="../main_widget.py" line="306"/>
         <source>Vector</source>
         <translation>Vecteur</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="249"/>
+        <location filename="../main_widget.py" line="319"/>
         <source>Load existing Trends.Earth output file...</source>
         <translation>Charger le fichier de sortie Trends.Earth existant...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="253"/>
+        <location filename="../main_widget.py" line="323"/>
         <source>Import custom Productivity dataset...</source>
         <translation>Importer un jeu de données Productivité personnalisé...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="259"/>
+        <location filename="../main_widget.py" line="329"/>
         <source>Import custom Land Cover dataset...</source>
         <translation>Importer un jeu de données personnalisé sur la couverture végétale...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="265"/>
+        <location filename="../main_widget.py" line="335"/>
         <source>Import custom Soil Organic Carbon dataset...</source>
         <translation>Importer un jeu de données personnalisé sur le carbone organique du sol...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="283"/>
+        <location filename="../main_widget.py" line="353"/>
         <source>Download raw dataset used in Trends.Earth...</source>
         <translation>Télécharger le jeu de données brutes utilisé dans Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="305"/>
+        <location filename="../main_widget.py" line="375"/>
         <source>Create false positive/negative layer</source>
         <translation>Créer une fausse couche positive/négative</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="271"/>
+        <location filename="../main_widget.py" line="341"/>
         <source>Import custom Population dataset...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6140,7 +6210,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_areaofinterest</name>
     <message>
-        <location filename="../areaofinterest.py" line="754"/>
+        <location filename="../areaofinterest.py" line="792"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -6150,7 +6220,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Géométrie non valide dans la ligne {}. Vérifiez que tous les geom_jsons d'entrée sont valides avant le traitement. Essayez d'utiliser l'outil de vérification de la validité dans le menu &quot;Vector&quot; de la barre d'outils pour obtenir plus d'informations sur les caractéristiques non valides (sous « Vector » - « Geometry Tools » - « Check Validity »).</translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="754"/>
+        <location filename="../areaofinterest.py" line="792"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation>Erreur - La couche n'est pas dans un système de coordonnées géographiques. Impossible d'envelopper la couche sur le 180ème méridien.</translation>
     </message>
@@ -6540,97 +6610,97 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_data_io</name>
     <message>
-        <location filename="../data_io.py" line="696"/>
+        <location filename="../data_io.py" line="724"/>
         <source>Could not load file</source>
         <translation>Impossible de charger le fichier</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="734"/>
+        <location filename="../data_io.py" line="767"/>
         <source>Could not parse the selected file into a valid JSON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="812"/>
+        <location filename="../data_io.py" line="908"/>
         <source>Select a raster input file</source>
         <translation>Sélectionner un fichier d'entrée raster</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="812"/>
+        <location filename="../data_io.py" line="908"/>
         <source>Raster file (*.tif *.dat *.img *.vrt)</source>
         <translation>Fichier de données tramées (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2245"/>
+        <location filename="../data_io.py" line="2541"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="869"/>
+        <location filename="../data_io.py" line="965"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Impossible à lire {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="854"/>
+        <location filename="../data_io.py" line="950"/>
         <source>Select a vector input file</source>
         <translation>Sélectionner un fichier d'entrée de vecteur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="854"/>
+        <location filename="../data_io.py" line="950"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Fichier vectoriel (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="942"/>
+        <location filename="../data_io.py" line="1038"/>
         <source>Choose a name for the output file</source>
         <translation>Choisir un nom pour le fichier de sortie</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="942"/>
+        <location filename="../data_io.py" line="1038"/>
         <source>Raster file (*.tif)</source>
         <translation>Fichier raster (* .tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="958"/>
+        <location filename="../data_io.py" line="1054"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Impossible d'écrire sur {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1034"/>
+        <location filename="../data_io.py" line="1147"/>
         <source>Metadata</source>
         <translation>Métadonnées</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1159"/>
+        <location filename="../data_io.py" line="1326"/>
         <source>Choose an input raster file.</source>
         <translation>Choisir un fichier raster en entrée.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1170"/>
+        <location filename="../data_io.py" line="1337"/>
         <source>Choose an input polygon dataset.</source>
         <translation>Choisir un jeu de données polygone en entrée.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1187"/>
+        <location filename="../data_io.py" line="1354"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1298"/>
+        <location filename="../data_io.py" line="1465"/>
         <source>Vector remapping failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1320"/>
+        <location filename="../data_io.py" line="1487"/>
         <source>Raster remapping failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1344"/>
+        <location filename="../data_io.py" line="1511"/>
         <source>Rasterizing failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1401"/>
+        <location filename="../data_io.py" line="1568"/>
         <source>Raster import failed.</source>
         <translation>L'importation raster a échoué.</translation>
     </message>
@@ -6640,140 +6710,170 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation type="obsolete">Choisir un fichier de sortie.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1572"/>
+        <location filename="../data_io.py" line="1739"/>
         <source>Enter the year of the input data.</source>
         <translation>Entrez l'année des données d'entrée.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1597"/>
+        <location filename="../data_io.py" line="1764"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1613"/>
+        <location filename="../data_io.py" line="1780"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1626"/>
+        <location filename="../data_io.py" line="1793"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1641"/>
+        <location filename="../data_io.py" line="1808"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1741"/>
+        <location filename="../data_io.py" line="1913"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1755"/>
+        <location filename="../data_io.py" line="1927"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>Le fichier d'entrée ({}) ne semble pas être un fichier d'entrée de productivité valide.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1768"/>
+        <location filename="../data_io.py" line="1940"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1768"/>
+        <location filename="../data_io.py" line="1940"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>Le fichier d'entrée ({}) ne semble pas être un fichier d'entrée de productivité valide. Le fichier sera chargé par Trends.Earth, mais sera examiné pour s'assurer de la validité des valeurs. Les seules valeurs autorisées dans un fichier d'entrée de productivité sont -32768, 1, 2, 3, 4 et 5. Des {} valeur (s) dans le fichier d'entrée n'ont pas été reconnues.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1937"/>
+        <location filename="../data_io.py" line="113"/>
         <source>No layers available in this region</source>
         <translation>Aucune couche disponible dans cette région</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2245"/>
+        <location filename="../data_io.py" line="2541"/>
         <source>Select a layer to load.</source>
         <translation>Sélectionner une couche à charger.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2282"/>
+        <location filename="../data_io.py" line="117"/>
         <source>No datasets available in this region</source>
         <translation>Aucun ensemble de données disponible dans cette région</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1672"/>
+        <location filename="../data_io.py" line="1842"/>
         <source>Soil organic carbon ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1713"/>
+        <location filename="../data_io.py" line="1885"/>
         <source>Enter the intial and final year applying to this input data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1478"/>
+        <location filename="../data_io.py" line="1645"/>
         <source>The input file ({}) does not appear to be a valid population input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1491"/>
+        <location filename="../data_io.py" line="1658"/>
         <source>The input file ({}) does not appear to be a valid population input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1506"/>
+        <location filename="../data_io.py" line="1673"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is {} tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1537"/>
+        <location filename="../data_io.py" line="1704"/>
         <source>Population ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="109"/>
+        <source>Select a region first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1122"/>
+        <source>Clip to region</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1201"/>
+        <source>No region selected. Select a region or uncheck &apos;Clip to region&apos; to import the full dataset.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1308"/>
+        <source>No region is selected. Either select a region or uncheck &apos;Clip to region&apos; to import the full dataset extent.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="2218"/>
+        <source>Please select a region in the Trends.Earth settings before using {tool_name}.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="2227"/>
+        <source>You must select a {layer_name} layer before you can use {tool_name}.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="925"/>
+        <location filename="../download.py" line="1046"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../download.py" line="368"/>
+        <location filename="../download.py" line="467"/>
         <source>Unable to write to {}.</source>
         <translation>Incapable d&amp;#39;écrire à {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="317"/>
+        <location filename="../download.py" line="416"/>
         <source>Unable to write to {}. Do you need administrator permissions?</source>
         <translation>Incapable d&amp;#39;écrire à {}. Avez-vous besoin d&amp;#39;autorisations d&amp;#39;administrateur?</translation>
     </message>
     <message>
-        <location filename="../download.py" line="342"/>
+        <location filename="../download.py" line="441"/>
         <source>Folder does not exist</source>
         <translation>Le dossier n&amp;#39;existe pas</translation>
     </message>
     <message>
-        <location filename="../download.py" line="342"/>
+        <location filename="../download.py" line="441"/>
         <source>Folder {} does not exist.</source>
         <translation>Le dossier {} n&amp;#39;existe pas.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="378"/>
+        <location filename="../download.py" line="477"/>
         <source>Error accessing {}.</source>
         <translation>Erreur lors de l&amp;#39;accès à {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="386"/>
+        <location filename="../download.py" line="485"/>
         <source>File verification failed for {}.</source>
         <translation>La vérification des fichiers a échoué pour {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="910"/>
+        <location filename="../download.py" line="1031"/>
         <source>Downloading {}</source>
         <translation>Téléchargement {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="919"/>
+        <location filename="../download.py" line="1040"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>Échec du téléchargement. Vérifiez votre connection internet.</translation>
     </message>
@@ -6788,32 +6888,32 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation type="obsolete">Le téléchargement a expiré. Vérifiez votre connection internet.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="876"/>
+        <location filename="../download.py" line="997"/>
         <source>Error in downloading file, {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="883"/>
+        <location filename="../download.py" line="1004"/>
         <source>Error while downloading file to {self.outfile}, {error}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="889"/>
+        <location filename="../download.py" line="1010"/>
         <source>Finished downloading file to {self.outfile}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="892"/>
+        <location filename="../download.py" line="1013"/>
         <source>Download exited {self.outfile}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="925"/>
+        <location filename="../download.py" line="1046"/>
         <source>Problem running task for downloading file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="930"/>
+        <location filename="../download.py" line="1051"/>
         <source>An error occured when running task for</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6823,7 +6923,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="735"/>
+        <location filename="../download.py" line="856"/>
         <source>Downloading boundaries for {}...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6866,7 +6966,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation type="unfinished">Dégradation de performance de la productivité ({year_initial} à {year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="190"/>
+        <location filename="../layers.py" line="193"/>
         <source>Degradation</source>
         <translation>Dégradation</translation>
     </message>
@@ -6891,12 +6991,12 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation type="unfinished">Dégradation de l&amp;#39;état de productivité ({year_bl_start} - {year_bl_end} vs {year_tg_start} - {year_tg_end})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="191"/>
+        <location filename="../layers.py" line="194"/>
         <source>Stable</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="192"/>
+        <location filename="../layers.py" line="195"/>
         <source>Improvement</source>
         <translation>Amélioration</translation>
     </message>
@@ -7021,7 +7121,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Couverture terrestre (transitions, {year_initial} à {year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="147"/>
+        <location filename="../layers.py" line="222"/>
         <source>No change</source>
         <translation>Pas de changement</translation>
     </message>
@@ -7076,7 +7176,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Productivité des sols (Trends.Earth, {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="181"/>
+        <location filename="../layers.py" line="184"/>
         <source>Declining</source>
         <translation>Déclin</translation>
     </message>
@@ -7086,12 +7186,12 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Premiers signes de déclin</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="183"/>
+        <location filename="../layers.py" line="186"/>
         <source>Stable but stressed</source>
         <translation>Stable mais stressé</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="185"/>
+        <location filename="../layers.py" line="188"/>
         <source>Increasing</source>
         <translation>En augmentant</translation>
     </message>
@@ -7106,7 +7206,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Dynamique de la productivité des sols (FAO-WOCAT, {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="182"/>
+        <location filename="../layers.py" line="185"/>
         <source>Moderate decline</source>
         <translation>Déclin modéré</translation>
     </message>
@@ -7116,322 +7216,322 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation type="obsolete">Souligné</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="187"/>
+        <location filename="../layers.py" line="190"/>
         <source>SDG Indicator 15.3.1 ({year_initial}-{year_final})</source>
         <translation type="unfinished">Indicateur ODD 15.3.1 ({year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="193"/>
+        <location filename="../layers.py" line="196"/>
         <source>SDG Indicator 15.3.1 (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation type="unfinished">Indicateur ODD 15.3.1 ({baseline_year_initial}-{baseline_year_final} mis à jour avec {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="212"/>
+        <location filename="../layers.py" line="215"/>
         <source>SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
         <translation>Progrès de l'ODD 15.3.1 ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="216"/>
+        <location filename="../layers.py" line="231"/>
         <source>Forest loss ({year_initial} to {year_final})</source>
         <translation>Perte forestière ({year_initial} à {year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="228"/>
+        <location filename="../layers.py" line="243"/>
         <source>Water</source>
         <translation>L&amp;#39;eau</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="218"/>
+        <location filename="../layers.py" line="233"/>
         <source>Non-forest</source>
         <translation>Non forestier</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="219"/>
+        <location filename="../layers.py" line="234"/>
         <source>Forest (no loss)</source>
         <translation>Forêt (pas de perte)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="220"/>
+        <location filename="../layers.py" line="235"/>
         <source>Forest loss ({year_initial})</source>
         <translation>Perte forestière ({year_initial})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="221"/>
+        <location filename="../layers.py" line="236"/>
         <source>Forest loss ({year_final})</source>
         <translation>Perte forestière ({year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="223"/>
+        <location filename="../layers.py" line="238"/>
         <source>Total carbon ({year_initial}, tonnes per ha x 10)</source>
         <translation>Carbone total ({year_initial}, tonnes par ha x 10)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="225"/>
+        <location filename="../layers.py" line="240"/>
         <source>Root/shoot ratio (x 100)</source>
         <translation>Rapport racine / pousse (x 100)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="227"/>
+        <location filename="../layers.py" line="242"/>
         <source>Urban area change</source>
         <translation>Changement de zone urbaine</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="229"/>
+        <location filename="../layers.py" line="244"/>
         <source>Built-up by 2000</source>
         <translation>Construit en 2000</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="230"/>
+        <location filename="../layers.py" line="245"/>
         <source>Built-up by 2005</source>
         <translation>Construit d&amp;#39;ici 2005</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="231"/>
+        <location filename="../layers.py" line="246"/>
         <source>Built-up by 2010</source>
         <translation>Construit d&amp;#39;ici 2010</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="232"/>
+        <location filename="../layers.py" line="247"/>
         <source>Built-up by 2015</source>
         <translation>Construit d&amp;#39;ici 2015</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="234"/>
+        <location filename="../layers.py" line="249"/>
         <source>Urban area {year}</source>
         <translation>Zone urbaine {year}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="235"/>
+        <location filename="../layers.py" line="250"/>
         <source>Urban</source>
         <translation>Urbain</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="236"/>
+        <location filename="../layers.py" line="251"/>
         <source>Suburban</source>
         <translation>De banlieue</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="237"/>
+        <location filename="../layers.py" line="252"/>
         <source>Built-up rural</source>
         <translation>Bâti rural</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="238"/>
+        <location filename="../layers.py" line="253"/>
         <source>Open space (fringe)</source>
         <translation>Espace ouvert (frange)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="239"/>
+        <location filename="../layers.py" line="254"/>
         <source>Open space (captured)</source>
         <translation>Espace ouvert (capturé)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="240"/>
+        <location filename="../layers.py" line="255"/>
         <source>Open space (rural)</source>
         <translation>Espace ouvert (rural)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="241"/>
+        <location filename="../layers.py" line="256"/>
         <source>Open space (fringe, water)</source>
         <translation>Espace ouvert (frange, eau)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="242"/>
+        <location filename="../layers.py" line="257"/>
         <source>Open space (captured, water)</source>
         <translation>Espace ouvert (capturé, eau)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="243"/>
+        <location filename="../layers.py" line="258"/>
         <source>Open space (rural, water)</source>
         <translation>Espace ouvert (rural, eau)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="245"/>
+        <location filename="../layers.py" line="260"/>
         <source>Population ({year})</source>
         <translation>Population ({year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="246"/>
+        <location filename="../layers.py" line="261"/>
         <source>Population ({type}, {year})</source>
         <translation>Population ({type}, {year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="247"/>
+        <location filename="../layers.py" line="262"/>
         <source>Population density ({year}, per sq km / 10)</source>
         <translation>Densité de la population ({year}, par km² / 10)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="250"/>
+        <location filename="../layers.py" line="265"/>
         <source>Population exposed to degradation (population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})</source>
         <translation>Population exposée à la dégradation (population en {population_year}, par km² / 10, période de dégradation {deg_year_initial}-{deg_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="253"/>
+        <location filename="../layers.py" line="268"/>
         <source>Population exposed to degradation ({type} population in {population_year}, degradation period {deg_year_initial}-{deg_year_final})</source>
         <translation>Population exposée à la dégradation ({type} de population en {population_year}, période de dégradation {deg_year_initial}-{deg_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="256"/>
+        <location filename="../layers.py" line="271"/>
         <source>Population density at maximum drought (density per sq km / 10, {year_initial}-{year_final} period)</source>
         <translation>Densité de la population au moment de la sécheresse maximale (densité par km² / 10, période {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="259"/>
+        <location filename="../layers.py" line="274"/>
         <source>Population at maximum drought ({type}, {year_initial}-{year_final} period)</source>
         <translation>Population à la sécheresse maximale ({type}, période {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="263"/>
+        <location filename="../layers.py" line="278"/>
         <source>Standardized Precipitation Index (SPI, {year}, {lag} month lag, * 1000)</source>
         <translation>Indice de précipitations normalisé (SPI, {year}, {lag} mois de décalage, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="266"/>
+        <location filename="../layers.py" line="281"/>
         <source>SPI at maximum drought during {year_initial}-{year_final} ({lag} month lag, * 1000)</source>
         <translation>Indice SPI à la sécheresse maximale pendant {year_initial}-{year_final} ({lag} mois de décalage, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="269"/>
+        <location filename="../layers.py" line="284"/>
         <source>Drought Vulnerability (JRC, {year}, * 1000)</source>
         <translation>Vulnérabilité à la sécheresse (JRC, {year}, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="272"/>
+        <location filename="../layers.py" line="287"/>
         <source>Extreme drought</source>
         <translation>Sécheresse extrême</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="273"/>
+        <location filename="../layers.py" line="288"/>
         <source>Severe drought</source>
         <translation>Sécheresse grave</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="274"/>
+        <location filename="../layers.py" line="289"/>
         <source>Moderate drought</source>
         <translation>Sécheresse modérée</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="275"/>
+        <location filename="../layers.py" line="290"/>
         <source>Mild drought</source>
         <translation>Sécheresse légère</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="276"/>
+        <location filename="../layers.py" line="291"/>
         <source>Normal</source>
         <translation>Normale</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="277"/>
+        <location filename="../layers.py" line="292"/>
         <source>Mildly wet</source>
         <translation>Légèrement humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="278"/>
+        <location filename="../layers.py" line="293"/>
         <source>Moderately wet</source>
         <translation>Modérément humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="279"/>
+        <location filename="../layers.py" line="294"/>
         <source>Severely wet</source>
         <translation>Fortement humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="280"/>
+        <location filename="../layers.py" line="295"/>
         <source>Extremely wet</source>
         <translation>Extrêmement humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="282"/>
+        <location filename="../layers.py" line="297"/>
         <source>Biomass (tonnes CO2e per ha, {year})</source>
         <translation>Biomasse (tonnes de CO2e par ha, {year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="283"/>
+        <location filename="../layers.py" line="298"/>
         <source>Change in biomass (tonnes CO2e per ha, {type} after {years} years)</source>
         <translation>Modification de la biomasse (tonnes de CO2e par ha, {type} après {years} années)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="287"/>
+        <location filename="../layers.py" line="302"/>
         <source>Agro Ecological Zones V3.0</source>
         <translation>Zones agroécologiques V3.0</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="288"/>
+        <location filename="../layers.py" line="303"/>
         <source>Climatic Zones</source>
         <translation>Zones climatiques</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="290"/>
+        <location filename="../layers.py" line="305"/>
         <source>Hansen</source>
         <translation>Hansen</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="292"/>
+        <location filename="../layers.py" line="307"/>
         <source>MOD16A2</source>
         <translation>MOD16A2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="294"/>
+        <location filename="../layers.py" line="309"/>
         <source>CHIRPS</source>
         <translation>CHIRPS</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="295"/>
+        <location filename="../layers.py" line="310"/>
         <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
         <translation>GPCC V7 (Global Precipitation Climatology Center)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="296"/>
+        <location filename="../layers.py" line="311"/>
         <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
         <translation>GPCP v2.3 1 mois (Global Precipitation Climatology Project)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="299"/>
+        <location filename="../layers.py" line="314"/>
         <source>PERSIANN-CDR</source>
         <translation>PERSIANN-CDR</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="301"/>
+        <location filename="../layers.py" line="316"/>
         <source>ERA I</source>
         <translation>ERA I</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="302"/>
+        <location filename="../layers.py" line="317"/>
         <source>MERRA 2</source>
         <translation>MERRA 2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="304"/>
+        <location filename="../layers.py" line="319"/>
         <source>MODIS (MOD13Q1, annual)</source>
         <translation>MODIS (MOD13Q1, annuel)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="305"/>
+        <location filename="../layers.py" line="320"/>
         <source>AVHRR (GIMMS3g.v1, annual)</source>
         <translation>AVHRR (GIMMS3g.v1, annuel)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="306"/>
+        <location filename="../layers.py" line="321"/>
         <source>MODIS (MOD13Q1, 16 day)</source>
         <translation>MODIS (MOD13Q1, 16 jours)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="311"/>
+        <location filename="../layers.py" line="326"/>
         <source>Soil Grids 250</source>
         <translation>Grilles de sol 250</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="309"/>
+        <location filename="../layers.py" line="324"/>
         <source>USDA Soil Type</source>
         <translation>Type de sol USDA</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="645"/>
+        <location filename="../layers.py" line="660"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="645"/>
+        <location filename="../layers.py" line="660"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>Trends.Earth n&amp;#39;a pas de style attribué à &amp;quot;{}&amp;quot; (bande {} en {}). Pour utiliser cette couche, ajoutez-la manuellement à votre carte.</translation>
     </message>
@@ -7441,63 +7541,98 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="196"/>
+        <location filename="../layers.py" line="199"/>
         <source>Land productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="202"/>
+        <location filename="../layers.py" line="205"/>
         <source>Soil organic carbon degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="205"/>
+        <location filename="../layers.py" line="208"/>
         <source>Degradation (persistent)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="206"/>
+        <location filename="../layers.py" line="209"/>
         <source>Degradation (recent)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="208"/>
+        <location filename="../layers.py" line="211"/>
         <source>Stability</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="209"/>
+        <location filename="../layers.py" line="212"/>
         <source>Improvement (baseline)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="210"/>
+        <location filename="../layers.py" line="213"/>
         <source>Improvement (recent)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="211"/>
+        <location filename="../layers.py" line="214"/>
         <source>Improvement (persistent)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="199"/>
+        <location filename="../layers.py" line="202"/>
         <source>Land cover degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="207"/>
+        <location filename="../layers.py" line="210"/>
         <source>Degradation (baseline)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="179"/>
+        <location filename="../layers.py" line="182"/>
         <source>Land productivity dynamics (from FAO-WOCAT)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="180"/>
+        <location filename="../layers.py" line="183"/>
         <source>Land Productivity Dynamics (from FAO-WOCAT)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="219"/>
+        <source>Error recode periods (periods affected)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="223"/>
+        <source>Baseline only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="224"/>
+        <source>Report 1 only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="226"/>
+        <source>Report 2 only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="227"/>
+        <source>Baseline + Report 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="228"/>
+        <source>Report 1 + Report 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="229"/>
+        <source>All periods</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7884,7 +8019,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_worker</name>
     <message>
-        <location filename="../worker.py" line="174"/>
+        <location filename="../worker.py" line="183"/>
         <source>Processing: {}</source>
         <translation>En traitement: {}</translation>
     </message>

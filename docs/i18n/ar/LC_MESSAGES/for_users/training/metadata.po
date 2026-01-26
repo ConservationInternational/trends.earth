@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2026-01-26 04:25+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: ar\n"
@@ -23,7 +23,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/training/metadata.rst:4
 msgid "Dataset Metadata"
@@ -34,7 +34,8 @@ msgid "**Objective**: Learn how to edit and view dataset metadata."
 msgstr "**الهدف**: تعلّم كيفية تعديل البيانات الوصفية لمجموعة البيانات وعرضها.\n"
 
 #: ../../source/for_users/training/metadata.rst:8
-msgid "**Estimated time of completion**: 40 minutes"
+#, fuzzy
+msgid "**Estimated time of completion**: 15 minutes"
 msgstr "** الوقت المقدر للانتهاء **: 40 دقيقة"
 
 #: ../../source/for_users/training/metadata.rst:10
@@ -71,13 +72,13 @@ msgstr ""
 msgid "Select the Refresh button if no datasets appear in the menu."
 msgstr "اضغط على زر \"تحديث\" إذا لم تظهر أي مجموعات بيانات في القائمة.\n"
 
-#: ../../source/for_users/training/metadata.rst:24
+#: ../../source/for_users/training/metadata.rst:27
 msgid ""
 "Press the Edit metadata button to open a drop-down menu with available "
 "options"
 msgstr "اضغط على زر تعديل البيانات الوصفية لفتح قائمة منسدلة بالخيارات المتاحة\n"
 
-#: ../../source/for_users/training/metadata.rst:29
+#: ../../source/for_users/training/metadata.rst:32
 msgid ""
 "The drop-down menu allows to select any raster from the list of all "
 "available rasters of the dataset to edit or view its metadata. Once "
@@ -87,7 +88,7 @@ msgstr ""
 "المتاحة في مجموعة البيانات لمجموعة البيانات لتعديل بياناتها الوصفية أو "
 "عرضها. بمجرد اختيار ملف نقطي، سيظهر مربع حوار لتعديل البيانات الوصفية."
 
-#: ../../source/for_users/training/metadata.rst:34
+#: ../../source/for_users/training/metadata.rst:37
 msgid ""
 "Fill in the necessary information or edit existing data in the dialog "
 "fields and press OK button to save your changes. Metadata will be saved "
@@ -98,24 +99,6 @@ msgstr ""
 "على زر موافق لحفظ التغييرات. ستُحفظ البيانات الأولية بتنسيق QGIS QMD، في "
 "ملف منفصل لكل ملف نقطي في مجلد مجموعة البيانات.\n"
 
-#: ../../source/for_users/training/metadata.rst:36
-msgid ""
-"Metadata also can be viewed/edited from the Dataset details dialog via "
-"the same Metadata button, as described in the step 3 above."
-msgstr ""
-"يمكن أيضاً عرض/تعديل البيانات الوصفية من مربع حوار تفاصيل مجموعة البيانات"
-" عبر نفس زر البيانات الوصفية، كما هو موضح في الخطوة رقم 3 أعلاه.\n"
-
-#: ../../source/for_users/training/metadata.rst:41
-msgid ""
-"When exporting dataset to the ZIP archive from the Dataset details dialog"
-" all existing metadata in the QMD format will be automatically converted "
-"to ISO XML format and packaged together with the layers."
-msgstr ""
-"عند تصدير مجموعة البيانات إلى أرشيف ZIP من مربع حوار تفاصيل مجموعة "
-"البيانات، ستُحول جميع البيانات الوصفية الموجودة بتنسيق QMD تلقائياً إلى "
-"تنسيق ISO XML وتُجمَع مع الطبقات.\n"
-
 #~ msgid "iconCalculator"
 #~ msgstr "iconCalculator"
 
@@ -124,4 +107,29 @@ msgstr ""
 
 #~ msgid "Trends.Earth"
 #~ msgstr "Trends.Earth"
+
+#~ msgid ""
+#~ "Metadata also can be viewed/edited from"
+#~ " the Dataset details dialog via the"
+#~ " same Metadata button, as described "
+#~ "in the step 3 above."
+#~ msgstr ""
+#~ "يمكن أيضاً عرض/تعديل البيانات الوصفية من"
+#~ " مربع حوار تفاصيل مجموعة البيانات عبر"
+#~ " نفس زر البيانات الوصفية، كما هو "
+#~ "موضح في الخطوة رقم 3 أعلاه.\n"
+
+#~ msgid ""
+#~ "When exporting dataset to the ZIP "
+#~ "archive from the Dataset details dialog"
+#~ " all existing metadata in the QMD "
+#~ "format will be automatically converted "
+#~ "to ISO XML format and packaged "
+#~ "together with the layers."
+#~ msgstr ""
+#~ "عند تصدير مجموعة البيانات إلى أرشيف "
+#~ "ZIP من مربع حوار تفاصيل مجموعة "
+#~ "البيانات، ستُحول جميع البيانات الوصفية "
+#~ "الموجودة بتنسيق QMD تلقائياً إلى تنسيق"
+#~ " ISO XML وتُجمَع مع الطبقات.\n"
 

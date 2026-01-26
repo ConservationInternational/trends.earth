@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2026-01-26 04:25+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
@@ -19,7 +19,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/training/metadata.rst:4
 msgid "Dataset Metadata"
@@ -30,7 +30,7 @@ msgid "**Objective**: Learn how to edit and view dataset metadata."
 msgstr ""
 
 #: ../../source/for_users/training/metadata.rst:8
-msgid "**Estimated time of completion**: 40 minutes"
+msgid "**Estimated time of completion**: 15 minutes"
 msgstr ""
 
 #: ../../source/for_users/training/metadata.rst:10
@@ -60,38 +60,25 @@ msgstr ""
 msgid "Select the Refresh button if no datasets appear in the menu."
 msgstr ""
 
-#: ../../source/for_users/training/metadata.rst:24
+#: ../../source/for_users/training/metadata.rst:27
 msgid ""
 "Press the Edit metadata button to open a drop-down menu with available "
 "options"
 msgstr ""
 
-#: ../../source/for_users/training/metadata.rst:29
+#: ../../source/for_users/training/metadata.rst:32
 msgid ""
 "The drop-down menu allows to select any raster from the list of all "
 "available rasters of the dataset to edit or view its metadata. Once "
 "raster is selected a metadata editor dialog will show up."
 msgstr ""
 
-#: ../../source/for_users/training/metadata.rst:34
+#: ../../source/for_users/training/metadata.rst:37
 msgid ""
 "Fill in the necessary information or edit existing data in the dialog "
 "fields and press OK button to save your changes. Metadata will be saved "
 "in the QGIS QMD format, in a separate file for each raster in the dataset"
 " folder."
-msgstr ""
-
-#: ../../source/for_users/training/metadata.rst:36
-msgid ""
-"Metadata also can be viewed/edited from the Dataset details dialog via "
-"the same Metadata button, as described in the step 3 above."
-msgstr ""
-
-#: ../../source/for_users/training/metadata.rst:41
-msgid ""
-"When exporting dataset to the ZIP archive from the Dataset details dialog"
-" all existing metadata in the QMD format will be automatically converted "
-"to ISO XML format and packaged together with the layers."
 msgstr ""
 
 #~ msgid "iconCalculator"
@@ -101,5 +88,24 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Trends.Earth"
+#~ msgstr ""
+
+#~ msgid "**Estimated time of completion**: 40 minutes"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Metadata also can be viewed/edited from"
+#~ " the Dataset details dialog via the"
+#~ " same Metadata button, as described "
+#~ "in the step 3 above."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "When exporting dataset to the ZIP "
+#~ "archive from the Dataset details dialog"
+#~ " all existing metadata in the QMD "
+#~ "format will be automatically converted "
+#~ "to ISO XML format and packaged "
+#~ "together with the layers."
 #~ msgstr ""
 

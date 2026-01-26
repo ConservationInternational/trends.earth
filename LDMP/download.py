@@ -21,6 +21,7 @@ import zipfile
 from contextlib import contextmanager
 from functools import partial
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from qgis.core import (
     Qgis,
@@ -35,6 +36,9 @@ from .api import APIClient
 from .constants import API_URL, TIMEOUT
 from .logger import log
 from .worker import AbstractWorker, start_worker
+
+if TYPE_CHECKING:
+    from te_schemas import results as te_schemas_results
 
 
 @dataclasses.dataclass()
@@ -231,7 +235,7 @@ def local_check_hash_against_etag(path: Path, expected: str) -> bool:
 
 
 def verify_file_against_etag(
-    path: typing.Union[str, Path], etag: "te_schemas.results.Etag"
+    path: typing.Union[str, Path], etag: "te_schemas_results.Etag"
 ) -> bool:
     """
     Verify a downloaded file against an etag, handling different cloud storage types.

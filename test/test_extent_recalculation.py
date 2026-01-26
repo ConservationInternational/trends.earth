@@ -78,6 +78,9 @@ class TestExtentRecalculation(unittest.TestCase):
             name="test_results", rasters={"test_raster": raster}
         )
 
+        # Configure _get_results_list to return the results as a list
+        job._get_results_list.return_value = [job.results]
+
         return job
 
     def create_mock_job_with_vector_results(self, extent=None):
@@ -96,6 +99,9 @@ class TestExtentRecalculation(unittest.TestCase):
             extent=extent,
         )
 
+        # Configure _get_results_list to return the results as a list
+        job._get_results_list.return_value = [job.results]
+
         return job
 
     def test_set_results_extents_when_extent_is_none(self):
@@ -105,7 +111,7 @@ class TestExtentRecalculation(unittest.TestCase):
         with patch("LDMP.jobs.manager._get_extent_tuple_raster") as mock_get_extent:
             mock_get_extent.return_value = (0.0, 0.0, 10.0, 10.0)
 
-            self._set_results_extents_raster(job)
+            self._set_results_extents_raster(job.results, job)
 
             # Verify extent was calculated
             mock_get_extent.assert_called_once()
@@ -121,7 +127,7 @@ class TestExtentRecalculation(unittest.TestCase):
         with patch("LDMP.jobs.manager._get_extent_tuple_raster") as mock_get_extent:
             mock_get_extent.return_value = (0.0, 0.0, 10.0, 10.0)
 
-            self._set_results_extents_raster(job, force=False)
+            self._set_results_extents_raster(job.results, job, force=False)
 
             # Verify extent was NOT recalculated
             mock_get_extent.assert_not_called()
@@ -136,7 +142,7 @@ class TestExtentRecalculation(unittest.TestCase):
             new_extent = (0.0, 0.0, 10.0, 10.0)
             mock_get_extent.return_value = new_extent
 
-            self._set_results_extents_raster(job, force=True)
+            self._set_results_extents_raster(job.results, job, force=True)
 
             # Verify extent was recalculated
             mock_get_extent.assert_called_once()
@@ -152,7 +158,7 @@ class TestExtentRecalculation(unittest.TestCase):
             # Return different extents for each tile
             mock_get_extent.side_effect = [(0.0, 0.0, 5.0, 5.0), (5.0, 0.0, 10.0, 5.0)]
 
-            self._set_results_extents_raster(job)
+            self._set_results_extents_raster(job.results, job)
 
             # Verify extent was calculated for both tiles
             self.assertEqual(mock_get_extent.call_count, 2)
@@ -171,7 +177,7 @@ class TestExtentRecalculation(unittest.TestCase):
         with patch("LDMP.jobs.manager._get_extent_tuple_vector") as mock_get_extent:
             mock_get_extent.return_value = (-5.0, -5.0, 5.0, 5.0)
 
-            self._set_results_extents_vector(job)
+            self._set_results_extents_vector(job.results, job)
 
             # Verify extent was calculated
             mock_get_extent.assert_called_once()
@@ -183,7 +189,7 @@ class TestExtentRecalculation(unittest.TestCase):
 
         with patch("LDMP.jobs.manager._set_results_extents_raster") as mock_set:
             self.set_results_extents(job)
-            mock_set.assert_called_once_with(job, force=False)
+            mock_set.assert_called_once_with(job.results, job, force=False)
 
     def test_set_results_extents_main_function_vector(self):
         """Test the main set_results_extents function with vector results"""
@@ -191,7 +197,7 @@ class TestExtentRecalculation(unittest.TestCase):
 
         with patch("LDMP.jobs.manager._set_results_extents_vector") as mock_set:
             self.set_results_extents(job)
-            mock_set.assert_called_once_with(job, force=False)
+            mock_set.assert_called_once_with(job.results, job, force=False)
 
     def test_set_results_extents_with_force_parameter(self):
         """Test that force parameter is passed through correctly"""
@@ -199,7 +205,7 @@ class TestExtentRecalculation(unittest.TestCase):
 
         with patch("LDMP.jobs.manager._set_results_extents_raster") as mock_set:
             self.set_results_extents(job, force=True)
-            mock_set.assert_called_once_with(job, force=True)
+            mock_set.assert_called_once_with(job.results, job, force=True)
 
     def test_set_results_extents_skips_when_no_results(self):
         """Test that function handles jobs with no results gracefully"""
@@ -315,6 +321,9 @@ class TestAutoExtentRecalculation(unittest.TestCase):
         job.results = RasterResults(
             name="test_results", rasters={"test_raster": raster}
         )
+
+        # Configure _get_results_list to return the results as a list
+        job._get_results_list.return_value = [job.results]
 
         return job
 

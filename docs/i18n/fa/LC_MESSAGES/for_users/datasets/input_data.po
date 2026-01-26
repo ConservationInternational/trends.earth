@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-17 04:06+0000\n"
+"POT-Creation-Date: 2026-01-26 04:25+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
@@ -42,62 +42,62 @@ msgid "NDVI"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:14
-#: ../../source/for_users/datasets/input_data.rst:30
-#: ../../source/for_users/datasets/input_data.rst:45
-#: ../../source/for_users/datasets/input_data.rst:65
-#: ../../source/for_users/datasets/input_data.rst:77
-#: ../../source/for_users/datasets/input_data.rst:89
-#: ../../source/for_users/datasets/input_data.rst:101
-#: ../../source/for_users/datasets/input_data.rst:112
-#: ../../source/for_users/datasets/input_data.rst:136
+#: ../../source/for_users/datasets/input_data.rst:31
+#: ../../source/for_users/datasets/input_data.rst:46
+#: ../../source/for_users/datasets/input_data.rst:66
+#: ../../source/for_users/datasets/input_data.rst:78
+#: ../../source/for_users/datasets/input_data.rst:90
+#: ../../source/for_users/datasets/input_data.rst:102
+#: ../../source/for_users/datasets/input_data.rst:113
+#: ../../source/for_users/datasets/input_data.rst:135
 msgid "Sensor/Dataset"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:14
-#: ../../source/for_users/datasets/input_data.rst:30
-#: ../../source/for_users/datasets/input_data.rst:45
-#: ../../source/for_users/datasets/input_data.rst:65
-#: ../../source/for_users/datasets/input_data.rst:77
-#: ../../source/for_users/datasets/input_data.rst:89
-#: ../../source/for_users/datasets/input_data.rst:101
-#: ../../source/for_users/datasets/input_data.rst:112
-#: ../../source/for_users/datasets/input_data.rst:136
+#: ../../source/for_users/datasets/input_data.rst:31
+#: ../../source/for_users/datasets/input_data.rst:46
+#: ../../source/for_users/datasets/input_data.rst:66
+#: ../../source/for_users/datasets/input_data.rst:78
+#: ../../source/for_users/datasets/input_data.rst:90
+#: ../../source/for_users/datasets/input_data.rst:102
+#: ../../source/for_users/datasets/input_data.rst:113
+#: ../../source/for_users/datasets/input_data.rst:135
 msgid "Temporal"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:14
-#: ../../source/for_users/datasets/input_data.rst:30
-#: ../../source/for_users/datasets/input_data.rst:45
-#: ../../source/for_users/datasets/input_data.rst:65
-#: ../../source/for_users/datasets/input_data.rst:77
-#: ../../source/for_users/datasets/input_data.rst:89
-#: ../../source/for_users/datasets/input_data.rst:101
-#: ../../source/for_users/datasets/input_data.rst:112
-#: ../../source/for_users/datasets/input_data.rst:136
+#: ../../source/for_users/datasets/input_data.rst:31
+#: ../../source/for_users/datasets/input_data.rst:46
+#: ../../source/for_users/datasets/input_data.rst:66
+#: ../../source/for_users/datasets/input_data.rst:78
+#: ../../source/for_users/datasets/input_data.rst:90
+#: ../../source/for_users/datasets/input_data.rst:102
+#: ../../source/for_users/datasets/input_data.rst:113
+#: ../../source/for_users/datasets/input_data.rst:135
 msgid "Spatial"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:14
-#: ../../source/for_users/datasets/input_data.rst:30
-#: ../../source/for_users/datasets/input_data.rst:45
-#: ../../source/for_users/datasets/input_data.rst:65
-#: ../../source/for_users/datasets/input_data.rst:77
-#: ../../source/for_users/datasets/input_data.rst:89
-#: ../../source/for_users/datasets/input_data.rst:101
-#: ../../source/for_users/datasets/input_data.rst:112
-#: ../../source/for_users/datasets/input_data.rst:136
+#: ../../source/for_users/datasets/input_data.rst:31
+#: ../../source/for_users/datasets/input_data.rst:46
+#: ../../source/for_users/datasets/input_data.rst:66
+#: ../../source/for_users/datasets/input_data.rst:78
+#: ../../source/for_users/datasets/input_data.rst:90
+#: ../../source/for_users/datasets/input_data.rst:102
+#: ../../source/for_users/datasets/input_data.rst:113
+#: ../../source/for_users/datasets/input_data.rst:135
 msgid "Extent"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:14
-#: ../../source/for_users/datasets/input_data.rst:30
-#: ../../source/for_users/datasets/input_data.rst:45
-#: ../../source/for_users/datasets/input_data.rst:65
-#: ../../source/for_users/datasets/input_data.rst:77
-#: ../../source/for_users/datasets/input_data.rst:89
-#: ../../source/for_users/datasets/input_data.rst:101
-#: ../../source/for_users/datasets/input_data.rst:112
-#: ../../source/for_users/datasets/input_data.rst:136
+#: ../../source/for_users/datasets/input_data.rst:31
+#: ../../source/for_users/datasets/input_data.rst:46
+#: ../../source/for_users/datasets/input_data.rst:66
+#: ../../source/for_users/datasets/input_data.rst:78
+#: ../../source/for_users/datasets/input_data.rst:90
+#: ../../source/for_users/datasets/input_data.rst:102
+#: ../../source/for_users/datasets/input_data.rst:113
+#: ../../source/for_users/datasets/input_data.rst:135
 msgid "License"
 msgstr ""
 
@@ -110,35 +110,35 @@ msgid "1982-2015"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:16
-#: ../../source/for_users/datasets/input_data.rst:103
+#: ../../source/for_users/datasets/input_data.rst:104
 msgid "8 km"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:16
 #: ../../source/for_users/datasets/input_data.rst:18
-#: ../../source/for_users/datasets/input_data.rst:32
-#: ../../source/for_users/datasets/input_data.rst:34
-#: ../../source/for_users/datasets/input_data.rst:47
-#: ../../source/for_users/datasets/input_data.rst:49
-#: ../../source/for_users/datasets/input_data.rst:67
-#: ../../source/for_users/datasets/input_data.rst:79
-#: ../../source/for_users/datasets/input_data.rst:91
-#: ../../source/for_users/datasets/input_data.rst:103
-#: ../../source/for_users/datasets/input_data.rst:114
-#: ../../source/for_users/datasets/input_data.rst:138
+#: ../../source/for_users/datasets/input_data.rst:33
+#: ../../source/for_users/datasets/input_data.rst:35
+#: ../../source/for_users/datasets/input_data.rst:48
+#: ../../source/for_users/datasets/input_data.rst:50
+#: ../../source/for_users/datasets/input_data.rst:68
+#: ../../source/for_users/datasets/input_data.rst:80
+#: ../../source/for_users/datasets/input_data.rst:92
+#: ../../source/for_users/datasets/input_data.rst:104
+#: ../../source/for_users/datasets/input_data.rst:115
+#: ../../source/for_users/datasets/input_data.rst:137
 msgid "Global"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:16
 #: ../../source/for_users/datasets/input_data.rst:18
-#: ../../source/for_users/datasets/input_data.rst:32
-#: ../../source/for_users/datasets/input_data.rst:34
-#: ../../source/for_users/datasets/input_data.rst:47
-#: ../../source/for_users/datasets/input_data.rst:49
-#: ../../source/for_users/datasets/input_data.rst:51
-#: ../../source/for_users/datasets/input_data.rst:53
-#: ../../source/for_users/datasets/input_data.rst:67
-#: ../../source/for_users/datasets/input_data.rst:103
+#: ../../source/for_users/datasets/input_data.rst:33
+#: ../../source/for_users/datasets/input_data.rst:35
+#: ../../source/for_users/datasets/input_data.rst:48
+#: ../../source/for_users/datasets/input_data.rst:50
+#: ../../source/for_users/datasets/input_data.rst:52
+#: ../../source/for_users/datasets/input_data.rst:54
+#: ../../source/for_users/datasets/input_data.rst:68
+#: ../../source/for_users/datasets/input_data.rst:104
 msgid "`Public Domain`_"
 msgstr ""
 
@@ -151,178 +151,178 @@ msgid "2001-2024"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:18
-#: ../../source/for_users/datasets/input_data.rst:91
+#: ../../source/for_users/datasets/input_data.rst:92
 msgid "250 m"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:27
+#: ../../source/for_users/datasets/input_data.rst:28
 msgid "Soil Moisture"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:32
+#: ../../source/for_users/datasets/input_data.rst:33
 msgid "`MERRA 2`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:32
+#: ../../source/for_users/datasets/input_data.rst:33
 msgid "1980-2016"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:32
+#: ../../source/for_users/datasets/input_data.rst:33
 msgid "0.5° x 0.625°"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:34
+#: ../../source/for_users/datasets/input_data.rst:35
 msgid "`ERA I`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:34
+#: ../../source/for_users/datasets/input_data.rst:35
 msgid "1979-2016"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:34
+#: ../../source/for_users/datasets/input_data.rst:35
 msgid "0.75° x 0.75°"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:42
+#: ../../source/for_users/datasets/input_data.rst:43
 msgid "Precipitation and Drought"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:47
+#: ../../source/for_users/datasets/input_data.rst:48
 msgid "`GPCP v2.3 1 month`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:47
+#: ../../source/for_users/datasets/input_data.rst:48
 msgid "1979-2019"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:47
+#: ../../source/for_users/datasets/input_data.rst:48
 msgid "2.5° x 2.5°"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:49
+#: ../../source/for_users/datasets/input_data.rst:50
 msgid "`GPCC V6`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:49
+#: ../../source/for_users/datasets/input_data.rst:50
 msgid "1891-2019"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:49
+#: ../../source/for_users/datasets/input_data.rst:50
 msgid "1° x 1°"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:51
+#: ../../source/for_users/datasets/input_data.rst:52
 msgid "`CHIRPS`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:51
+#: ../../source/for_users/datasets/input_data.rst:52
 msgid "1981-2024"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:51
+#: ../../source/for_users/datasets/input_data.rst:52
 msgid "5 km"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:51
+#: ../../source/for_users/datasets/input_data.rst:52
 msgid "50N-50S"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:53
+#: ../../source/for_users/datasets/input_data.rst:54
 msgid "`PERSIANN-CDR`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:53
+#: ../../source/for_users/datasets/input_data.rst:54
 msgid "1983-2024"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:53
+#: ../../source/for_users/datasets/input_data.rst:54
 msgid "25 km"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:53
+#: ../../source/for_users/datasets/input_data.rst:54
 msgid "60N-60S"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:62
+#: ../../source/for_users/datasets/input_data.rst:63
 msgid "Evapotranspiration"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:67
+#: ../../source/for_users/datasets/input_data.rst:68
 msgid "MOD16A2GF_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:67
-msgid "2000-2014"
+#: ../../source/for_users/datasets/input_data.rst:68
+msgid "2000-2024"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:67
+#: ../../source/for_users/datasets/input_data.rst:68
 msgid "1 km"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:74
+#: ../../source/for_users/datasets/input_data.rst:75
 msgid "Land cover"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:79
+#: ../../source/for_users/datasets/input_data.rst:80
 msgid "`ESA CCI Land Cover`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:79
+#: ../../source/for_users/datasets/input_data.rst:80
 msgid "1992-2022"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:79
+#: ../../source/for_users/datasets/input_data.rst:80
 msgid "300 m"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:79
-#: ../../source/for_users/datasets/input_data.rst:114
-#: ../../source/for_users/datasets/input_data.rst:138
+#: ../../source/for_users/datasets/input_data.rst:80
+#: ../../source/for_users/datasets/input_data.rst:115
+#: ../../source/for_users/datasets/input_data.rst:137
 msgid "`CC BY 4.0`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:86
+#: ../../source/for_users/datasets/input_data.rst:87
 msgid "Soil carbon"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:91
+#: ../../source/for_users/datasets/input_data.rst:92
 msgid "`Soil Grids (ISRIC)`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:91
-#: ../../source/for_users/datasets/input_data.rst:114
+#: ../../source/for_users/datasets/input_data.rst:92
+#: ../../source/for_users/datasets/input_data.rst:115
 msgid "Present"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:91
+#: ../../source/for_users/datasets/input_data.rst:92
 msgid "`CC by-SA 4.0`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:98
+#: ../../source/for_users/datasets/input_data.rst:99
 msgid "Agroecological Zones"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:103
+#: ../../source/for_users/datasets/input_data.rst:104
 msgid "`FAO - IIASA Global Agroecological Zones (GAEZ)`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:103
+#: ../../source/for_users/datasets/input_data.rst:104
 msgid "2000"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:109
+#: ../../source/for_users/datasets/input_data.rst:110
 msgid "Administrative Boundaries"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:114
+#: ../../source/for_users/datasets/input_data.rst:115
 msgid "`geoBoundaries Administrative Boundaries`_"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:114
+#: ../../source/for_users/datasets/input_data.rst:115
 msgid "10/50m"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:118
+#: ../../source/for_users/datasets/input_data.rst:119
 msgid ""
 "The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
 "are under the CC BY 4.0 license. The boundaries and names used, and the "
@@ -331,30 +331,30 @@ msgid ""
 "organizations and contributors."
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:124
+#: ../../source/for_users/datasets/input_data.rst:125
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users"
 " choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:133
+#: ../../source/for_users/datasets/input_data.rst:132
 msgid "Population"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:138
+#: ../../source/for_users/datasets/input_data.rst:137
 msgid "`WorldPop`_ 100m Global Population grid"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:138
+#: ../../source/for_users/datasets/input_data.rst:137
 msgid "2000-2020"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:138
+#: ../../source/for_users/datasets/input_data.rst:137
 msgid "100m"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:142
+#: ../../source/for_users/datasets/input_data.rst:141
 msgid ""
 "The `WorldPop`_ dataset included in Trends.Earth was produced by the "
 "`UNCCD`_ from publicly available data layers from the WorldPop project. "
@@ -367,7 +367,7 @@ msgid ""
 "disaggregated by sex."
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:152
+#: ../../source/for_users/datasets/input_data.rst:151
 msgid ""
 "These data are also available in a publicly-accessible S3 bucket (trends"
 ".earth-shared, in the us-east-1 region), as tiled 32-bit floating point "
@@ -375,15 +375,15 @@ msgid ""
 "on s3:"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:157
+#: ../../source/for_users/datasets/input_data.rst:156
 msgid "s3://trends.earth-shared/worldpop/100m"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:158
+#: ../../source/for_users/datasets/input_data.rst:157
 msgid "s3://trends.earth-shared/worldpop/300m"
 msgstr ""
 
-#: ../../source/for_users/datasets/input_data.rst:159
+#: ../../source/for_users/datasets/input_data.rst:158
 msgid "s3://trends.earth-shared/worldpop/1200m"
 msgstr ""
 
@@ -433,5 +433,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "`CC by-SA 3.0`_"
+#~ msgstr ""
+
+#~ msgid "2000-2014"
 #~ msgstr ""
 

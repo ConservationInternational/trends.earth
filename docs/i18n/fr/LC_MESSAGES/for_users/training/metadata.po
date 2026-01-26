@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2026-01-26 04:25+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: fr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/for_users/training/metadata.rst:4
 msgid "Dataset Metadata"
@@ -35,7 +35,8 @@ msgstr ""
 "jeux de données."
 
 #: ../../source/for_users/training/metadata.rst:8
-msgid "**Estimated time of completion**: 40 minutes"
+#, fuzzy
+msgid "**Estimated time of completion**: 15 minutes"
 msgstr "**Heure estimée d'achèvement**: 40 minutes"
 
 #: ../../source/for_users/training/metadata.rst:10
@@ -75,7 +76,7 @@ msgstr ""
 "Sélectionnez le bouton Rafraîchir si aucun jeu de données n'apparaît dans"
 " le menu."
 
-#: ../../source/for_users/training/metadata.rst:24
+#: ../../source/for_users/training/metadata.rst:27
 msgid ""
 "Press the Edit metadata button to open a drop-down menu with available "
 "options"
@@ -83,7 +84,7 @@ msgstr ""
 "Appuyez sur le bouton Modifier les métadonnées pour ouvrir un menu "
 "déroulant avec les options disponibles"
 
-#: ../../source/for_users/training/metadata.rst:29
+#: ../../source/for_users/training/metadata.rst:32
 msgid ""
 "The drop-down menu allows to select any raster from the list of all "
 "available rasters of the dataset to edit or view its metadata. Once "
@@ -94,7 +95,7 @@ msgstr ""
 "éditer ou visualiser ses métadonnées. Une fois le raster sélectionné, un "
 "dialogue d'édition de métadonnées s'affiche."
 
-#: ../../source/for_users/training/metadata.rst:34
+#: ../../source/for_users/training/metadata.rst:37
 msgid ""
 "Fill in the necessary information or edit existing data in the dialog "
 "fields and press OK button to save your changes. Metadata will be saved "
@@ -107,26 +108,6 @@ msgstr ""
 "QGIS, dans un fichier distinct pour chaque trame du dossier de l'ensemble"
 " de données."
 
-#: ../../source/for_users/training/metadata.rst:36
-msgid ""
-"Metadata also can be viewed/edited from the Dataset details dialog via "
-"the same Metadata button, as described in the step 3 above."
-msgstr ""
-"Les métadonnées peuvent également être visualisées/modifiées à partir de "
-"la boîte de dialogue Détails du jeu de données via le même bouton "
-"Métadonnées, comme décrit à l'étape 3 ci-dessus."
-
-#: ../../source/for_users/training/metadata.rst:41
-msgid ""
-"When exporting dataset to the ZIP archive from the Dataset details dialog"
-" all existing metadata in the QMD format will be automatically converted "
-"to ISO XML format and packaged together with the layers."
-msgstr ""
-"Lors de l'exportation d'un jeu de données vers l'archive ZIP à partir de "
-"la boîte de dialogue Détails du jeu de données, toutes les métadonnées "
-"existantes au format QMD seront automatiquement converties au format ISO "
-"XML et emballées avec les couches."
-
 #~ msgid "iconCalculator"
 #~ msgstr "iconCalculator"
 
@@ -135,4 +116,34 @@ msgstr ""
 
 #~ msgid "Trends.Earth"
 #~ msgstr "Trends.Earth"
+
+#~ msgid ""
+#~ "Metadata also can be viewed/edited from"
+#~ " the Dataset details dialog via the"
+#~ " same Metadata button, as described "
+#~ "in the step 3 above."
+#~ msgstr ""
+#~ "Les métadonnées peuvent également être "
+#~ "visualisées/modifiées à partir de la "
+#~ "boîte de dialogue Détails du jeu "
+#~ "de données via le même bouton "
+#~ "Métadonnées, comme décrit à l'étape 3"
+#~ " ci-dessus."
+
+#~ msgid ""
+#~ "When exporting dataset to the ZIP "
+#~ "archive from the Dataset details dialog"
+#~ " all existing metadata in the QMD "
+#~ "format will be automatically converted "
+#~ "to ISO XML format and packaged "
+#~ "together with the layers."
+#~ msgstr ""
+#~ "Lors de l'exportation d'un jeu de "
+#~ "données vers l'archive ZIP à partir "
+#~ "de la boîte de dialogue Détails du"
+#~ " jeu de données, toutes les "
+#~ "métadonnées existantes au format QMD "
+#~ "seront automatiquement converties au format"
+#~ " ISO XML et emballées avec les "
+#~ "couches."
 

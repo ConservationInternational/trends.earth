@@ -325,6 +325,9 @@ class TestAutoExtentRecalculation(unittest.TestCase):
         # Configure _get_results_list to return the results as a list
         job._get_results_list.return_value = [job.results]
 
+        # Configure get_first_result_by_type to return the raster results
+        job.get_first_result_by_type.return_value = job.results
+
         return job
 
     def test_parse_chosen_path_detects_missing_extent(self):

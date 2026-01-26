@@ -33,11 +33,10 @@ from qgis.PyQt.QtCore import QSettings
 from te_schemas.jobs import JobStatus
 from te_schemas.productivity import ProductivityMode
 from te_schemas.results import Band as JobBand
-from te_schemas.results import RasterType, ResultType
+from te_schemas.results import RasterResults, RasterType, ResultType, VectorResults
 
 from . import (
     GetTempFilename,
-    areaofinterest,
     conf,
     layers,
     metadata,
@@ -46,7 +45,6 @@ from . import (
     worker,
 )
 from .areaofinterest import (
-    prepare_area_of_interest,
     try_get_aoi_geometry,
     try_prepare_area_of_interest,
 )
@@ -695,8 +693,13 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
         self.parsed_name_le.setEnabled(True)
         self.parsed_result_la.setEnabled(True)
         try:
-            local_path = str(self.job.results.uri.uri)
-        except IndexError:
+            # Get URI from the first result that has one
+            local_path = ""
+            for result in self.job._get_results_list():
+                if hasattr(result, "uri") and result.uri:
+                    local_path = str(result.uri.uri)
+                    break
+        except (IndexError, AttributeError):
             local_path = ""
         self.parsed_result_path_le.setText(local_path)
         self.parsed_result_path_le.setEnabled(True)
@@ -745,8 +748,12 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
 
                 # Check if extents need to be recalculated
                 needs_recalc = False
-                if job.results and hasattr(job.results, "rasters"):
-                    for raster in job.results.rasters.values():
+                # Get first raster result for extent checking
+                raster_result = (
+                    job.get_first_result_by_type(RasterResults) if job.results else None
+                )
+                if raster_result and hasattr(raster_result, "rasters"):
+                    for raster in raster_result.rasters.values():
                         if hasattr(raster, "extent") and raster.extent is None:
                             needs_recalc = True
                             break
@@ -776,10 +783,10 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
 
         If the JSON contains only results data (identified by having a "type"
         field with a known ResultType value), wrap it in a minimal Job structure
-        with reasonable defaults.
+        with reasonable defaults. Also handles list of results.
 
         Args:
-            raw_data: The parsed JSON data
+            raw_data: The parsed JSON data (dict or list of result dicts)
             path: Path to the JSON file (used for generating defaults)
 
         Returns:
@@ -788,15 +795,32 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
         # Known result type values that indicate this is a results-only JSON
         result_type_values = {rt.value for rt in ResultType}
 
-        # Check if this looks like a results-only JSON
-        if raw_data.get("type") in result_type_values:
+        # Check if this is a list of results
+        is_results_list = (
+            isinstance(raw_data, list)
+            and len(raw_data) > 0
+            and isinstance(raw_data[0], dict)
+            and raw_data[0].get("type") in result_type_values
+        )
+
+        # Check if this looks like a results-only JSON (single result)
+        is_single_result = (
+            isinstance(raw_data, dict) and raw_data.get("type") in result_type_values
+        )
+
+        if is_results_list or is_single_result:
+            # For list results, use the first result for metadata extraction
+            primary_result = raw_data[0] if is_results_list else raw_data
+            result_type = primary_result.get("type")
+
             log(
-                f"Detected results-only JSON with type '{raw_data.get('type')}', "
+                f"Detected results-only JSON with type '{result_type}'"
+                f"{' (list of ' + str(len(raw_data)) + ' results)' if is_results_list else ''}, "
                 "wrapping in Job structure"
             )
 
-            # Extract name from results for task_name, or use filename
-            results_name = raw_data.get("name", "")
+            # Extract name from primary result for task_name, or use filename
+            results_name = primary_result.get("name", "")
             task_name = results_name if results_name else path.stem
 
             # Try to infer area of interest name from filename or results
@@ -2038,9 +2062,7 @@ def _get_usable_bands(
         job: Job
         is_available = job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
         is_of_interest = (selected_job_id is None) or (job.id == selected_job_id)
-        is_valid_type = job.results and (
-            ResultType(job.results.type) == ResultType.RASTER_RESULTS
-        )
+        is_valid_type = job.results and job.is_raster()
 
         expected_mode = prod_mode
         params = job.params or {}
@@ -2053,8 +2075,10 @@ def _get_usable_bands(
         # For imported datasets, infer productivity mode from band name
         # if not explicitly set in params. This handles backward compatibility
         # with datasets imported before prod_mode was stored in job params.
-        if job_mode is None and job.results:
-            for band_info in job.results.get_bands():
+        # Get the first raster result if available for band info
+        raster_result = job.get_first_result_by_type(RasterResults)
+        if job_mode is None and raster_result:
+            for band_info in raster_result.get_bands():
                 if band_info.name in PROD_MODE_FOR_BAND:
                     job_mode = PROD_MODE_FOR_BAND[band_info.name]
                     break
@@ -2081,13 +2105,18 @@ def _get_usable_bands(
         ):
             continue
 
-        for band_index, band_info in enumerate(job.results.get_bands(), start=1):
-            if job.results.uri is None:
+        # Get the first RasterResults from the job (handles both single and list results)
+        raster_result = job.get_first_result_by_type(RasterResults)
+        if raster_result is None:
+            continue
+
+        for band_index, band_info in enumerate(raster_result.get_bands(), start=1):
+            if raster_result.uri is None:
                 continue
             if not (band_info.name == band_name or band_name == "any"):
                 continue
             if aoi is not None and not _check_dataset_overlap_raster(
-                aoi, job.results, job.visible_name, job
+                aoi, raster_result, job.visible_name, job
             ):
                 continue
             if (
@@ -2100,7 +2129,7 @@ def _get_usable_bands(
             result.append(
                 Band(
                     job=job,
-                    path=job.results.uri.uri,
+                    path=raster_result.uri.uri,
                     band_index=band_index,
                     band_info=band_info,
                 )
@@ -2423,10 +2452,7 @@ def get_usable_datasets(
         job: Job
         is_available = job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
         try:
-            is_valid_type = ResultType(job.results.type) in [
-                ResultType.RASTER_RESULTS,
-                ResultType.VECTOR_RESULTS,
-            ]
+            is_valid_type = job.results and (job.is_raster() or job.is_vector())
         except AttributeError:
             # Catch case of an invalid type
 
@@ -2445,8 +2471,10 @@ def get_usable_datasets(
             # For imported datasets, infer productivity mode from band name
             # if not explicitly set in params. This handles backward compatibility
             # with datasets imported before prod_mode was stored in job params.
-            if job_mode is None and job.results:
-                for band_info in job.results.get_bands():
+            # Get the first raster result if available for band info
+            raster_result = job.get_first_result_by_type(RasterResults)
+            if job_mode is None and raster_result:
+                for band_info in raster_result.get_bands():
                     if band_info.name in PROD_MODE_FOR_BAND:
                         job_mode = PROD_MODE_FOR_BAND[band_info.name]
                         break
@@ -2471,30 +2499,43 @@ def get_usable_datasets(
             if not is_valid_prod_mode:
                 continue
 
-            if (
-                ResultType(job.results.type) == ResultType.RASTER_RESULTS
-                and (
-                    aoi is None
-                    or _check_dataset_overlap_raster(
-                        aoi, job.results, job.visible_name, job
+            # Check for raster results
+            if raster_result is not None:
+                if (
+                    (
+                        aoi is None
+                        or _check_dataset_overlap_raster(
+                            aoi, raster_result, job.visible_name, job
+                        )
                     )
-                )
-                and job.script.name == dataset_name
-                and job.results.uri is not None
-            ):
-                result.append(
-                    Dataset(
-                        job=job,
-                        path=job.results.uri.uri,
+                    and job.script.name == dataset_name
+                    and raster_result.uri is not None
+                ):
+                    result.append(
+                        Dataset(
+                            job=job,
+                            path=raster_result.uri.uri,
+                        )
                     )
-                )
-            elif (
-                ResultType(job.results.type) == ResultType.VECTOR_RESULTS
-                and (aoi is None or _check_dataset_overlap_vector(aoi, job.results))
-                and job.results.vector.type.value == dataset_name
-                and job.results.vector.uri is not None
-            ):
-                result.append(Dataset(job=job, path=job.results.vector.uri.uri))
+
+            # Check for vector results
+            vector_result = job.get_first_result_by_type(VectorResults)
+            if vector_result is not None:
+                # Check vector.type for the vector category, or use name for matching
+                vector_type_matches = False
+                if vector_result.vector is not None:
+                    vector_type_matches = (
+                        vector_result.vector.type.value == dataset_name
+                    )
+                elif vector_result.name == dataset_name:
+                    vector_type_matches = True
+
+                if (
+                    (aoi is None or _check_dataset_overlap_vector(aoi, vector_result))
+                    and vector_type_matches
+                    and vector_result.uri is not None
+                ):
+                    result.append(Dataset(job=job, path=vector_result.uri.uri))
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
 
     return result
@@ -2543,7 +2584,9 @@ class DlgDataIOAddLayersToMap(QtWidgets.QDialog, Ui_DlgDataIOAddLayersToMap):
             )
 
     def update_band_list(self):
-        self.layer_list = self.job.results.get_bands()
+        # Get bands from the first raster result
+        raster_result = self.job.get_first_result_by_type(RasterResults)
+        self.layer_list = raster_result.get_bands() if raster_result else []
 
         band_strings = [
             f"Band {n}: {layers.get_band_title(JobBand.Schema().dump(band))}"
@@ -2642,12 +2685,12 @@ class WidgetDataIOSelectTEDatasetExisting(
     def get_current_extent(self):
         job = self.get_current_job()
         if job:
-            if ResultType(job.results.type) == ResultType.RASTER_RESULTS:
+            if job.is_raster():
                 band = self.get_bands("any")[0]
                 return qgis.core.QgsRasterLayer(
                     str(band.path), "raster file", "gdal"
                 ).extent()
-            elif ResultType(job.results.type) == ResultType.VECTOR_RESULTS:
+            elif job.is_vector():
                 rect = qgis.core.QgsVectorLayer(
                     str(self.get_current_data_file()), "vector file", "ogr"
                 ).extent()

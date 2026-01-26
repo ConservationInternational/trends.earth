@@ -10,7 +10,7 @@ from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from qgis.utils import iface
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import RasterResults, TimeSeriesTableResult
+from te_schemas.results import RasterResults, TimeSeriesTableResult, VectorResults
 
 from .. import layers, metadata, metadata_dialog, utils
 from ..conf import Setting, settings_manager
@@ -347,11 +347,16 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         if self.job.is_vector():
             self.edit_tb.setEnabled(False)
             layers = QgsProject.instance().mapLayers()
-            for lyr in layers.values():
-                # Ensure this vector layer is added to the map
-                if lyr.source().split("|")[0] == str(job.results.vector.uri.uri):
-                    self.edit_tb.setEnabled(True)
-                    break
+            # Get the first vector result
+            vector_result = self.job.get_first_result_by_type(VectorResults)
+            if vector_result and vector_result.uri:
+                # Use main uri, fall back to vector.uri for backward compatibility
+                vector_uri = str(vector_result.uri.uri)
+                for lyr in layers.values():
+                    # Ensure this vector layer is added to the map
+                    if lyr.source().split("|")[0] == vector_uri:
+                        self.edit_tb.setEnabled(True)
+                        break
 
         self.name_la.setText(self.job.visible_name)
 
@@ -503,28 +508,21 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         if not (hasattr(self.job, "results") and self.job.results):
             return False
 
-        # Check for vector results with actual accessible URI
-        has_vector = (
-            hasattr(self.job.results, "vector")
-            and self.job.results.vector
-            and hasattr(self.job.results.vector, "uri")
-            and self.job.results.vector.uri
-        )
-
-        # Check for raster results (can be in urls or rasters)
-        has_raster = (hasattr(self.job.results, "urls") and self.job.results.urls) or (
-            hasattr(self.job.results, "rasters") and self.job.results.rasters
-        )
+        # Check for vector results with actual accessible URI using helper methods
+        has_vector = self.job.is_vector()
+        has_raster = self.job.is_raster()
 
         # Only return true if we have both types AND they're actually accessible
         if has_vector and has_raster:
             # Additional check: make sure the vector URI actually points to a file
             # (not just a placeholder or remote URL)
+            vector_result = self.job.get_first_result_by_type(VectorResults)
             try:
-                vector_uri = str(self.job.results.vector.uri.uri)
-                # If it's a local file path or accessible resource, show dual menu
-                if vector_uri and not vector_uri.startswith("http"):
-                    return True
+                if vector_result and vector_result.uri:
+                    vector_uri = str(vector_result.uri.uri)
+                    # If it's a local file path or accessible resource, show dual menu
+                    if vector_uri and not vector_uri.startswith("http"):
+                        return True
             except (AttributeError, TypeError):
                 pass
 
@@ -552,14 +550,15 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         result = False
 
         if self.job.results is not None:
-            if self.job.results.uri and (
-                manager.is_gdal_vsi_path(self.job.results.uri.uri)
-                or (
-                    self.job.results.uri.uri.suffix in [".vrt", ".tif"]
-                    and self.job.results.uri.uri.exists()
-                )
-            ):
-                result = True
+            # Check each result for a loadable URI
+            for res in self.job._get_results_list():
+                if not hasattr(res, "uri") or not res.uri:
+                    continue
+                if manager.is_gdal_vsi_path(res.uri.uri) or (
+                    res.uri.uri.suffix in [".vrt", ".tif"] and res.uri.uri.exists()
+                ):
+                    result = True
+                    break
 
         return result
 
@@ -629,14 +628,20 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.main_dock.resume_scheduler()
 
     def load_layer(self):
-        manager.job_manager.display_error_recode_layer(self.job)
+        # Display only vector layers - this is triggered by "Add vector layer to map"
+        for result in self.job._get_results_list():
+            if isinstance(result, VectorResults):
+                layer_path = result.uri.uri
+                layers.add_vector_layer(str(layer_path), result.name)
         self.edit_tb.setEnabled(True)
 
     def show_time_series_plot(self):
         """Show the time series plot dialog as a non-blocking, persistent dialog."""
         from ..dialog_manager import dialog_manager
 
-        table = self.job.results.table
+        # Get table from TimeSeriesTableResult if available
+        ts_result = self.job.get_first_result_by_type(TimeSeriesTableResult)
+        table = ts_result.table if ts_result else []
         if len(table) == 0:
             self.main_dock.iface.messageBar().pushMessage(
                 self.tr("Time series table is empty"), level=1, duration=5
@@ -885,9 +890,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                         "index": sdg.band_index,
                     },
                 ]
-                layers.set_default_stats_value(
-                    str(self.job.results.vector.uri.uri), band_datas
-                )
+                # Get the error recode vector result
+                vector_result = self.job.get_first_result_by_type(VectorResults)
+                if vector_result and vector_result.uri:
+                    layers.set_default_stats_value(
+                        str(vector_result.uri.uri), band_datas
+                    )
 
                 manager.job_manager.edit_error_recode_layer(self.job)
                 self.main_dock.resume_scheduler()
@@ -914,13 +922,17 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
         self.metadata_menu.addSeparator()
 
-        if self.job.results is not None and isinstance(self.job.results, RasterResults):
-            for raster in self.job.results.rasters.values():
-                file_path = os.path.splitext(raster.uri.uri)[0] + ".qmd"
-                action = self.metadata_menu.addAction(
-                    self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1])
-                )
-                action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
+        # Check all RasterResults for rasters with metadata
+        for raster_result in self.job.get_results_by_type(RasterResults):
+            if hasattr(raster_result, "rasters") and raster_result.rasters:
+                for raster in raster_result.rasters.values():
+                    file_path = os.path.splitext(raster.uri.uri)[0] + ".qmd"
+                    action = self.metadata_menu.addAction(
+                        self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1])
+                    )
+                    action.triggered.connect(
+                        lambda _, x=file_path: self.show_metadata(x)
+                    )
 
     @property
     def report_handler(self):
@@ -948,12 +960,34 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         )
         action_add_rasters_to_map.triggered.connect(self.load_rasters_layers)
 
+    def _is_error_recode_job(self):
+        """Check if this job is an error recode job based on script id."""
+        if not self.job.script:
+            return False
+        script_id = self.job.script.id or ""
+        # Use exact match on the error recode script id
+        return script_id == "sdg-15-3-1-error-recode"
+
     def load_rasters_layers(self):
-        jobs = manager.job_manager._known_downloaded_jobs.copy()
-        self._load_raster(jobs, "soil")
-        self._load_raster(jobs, "lc")
-        self._load_raster(jobs, "prod")
-        self._load_raster(jobs, "sdg")
+        if self._is_error_recode_job():
+            # For error recode jobs, load rasters from referenced jobs via params
+            jobs = manager.job_manager._known_downloaded_jobs.copy()
+            self._load_raster(jobs, "soil")
+            self._load_raster(jobs, "lc")
+            self._load_raster(jobs, "prod")
+            self._load_raster(jobs, "sdg")
+        else:
+            # For generic jobs, load rasters directly from this job's results
+            for result in self.job._get_results_list():
+                if isinstance(result, RasterResults):
+                    if result.uri.uri.suffix in [".tif", ".vrt"]:
+                        for band_index, band in enumerate(result.get_bands(), start=1):
+                            if band.add_to_map:
+                                layers.add_layer(
+                                    str(result.uri.uri),
+                                    band_index,
+                                    JobBand.Schema().dump(band),
+                                )
 
     def _load_raster(self, jobs, name):
         if name in self.job.params:
@@ -964,10 +998,15 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 else None
             )
             if job:
-                band = job.results.get_bands()[data["band"] - 1]
-                layers.add_layer(
-                    str(data["path"]), int(data["band"]), JobBand.Schema().dump(band)
-                )
+                # Get bands from the first raster result
+                raster_result = job.get_first_result_by_type(RasterResults)
+                if raster_result:
+                    band = raster_result.get_bands()[data["band"] - 1]
+                    layers.add_layer(
+                        str(data["path"]),
+                        int(data["band"]),
+                        JobBand.Schema().dump(band),
+                    )
 
     def closeEvent(self, event):
         """Handle widget cleanup when being closed/destroyed."""

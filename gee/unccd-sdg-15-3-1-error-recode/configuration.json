@@ -1,0 +1,1 @@
+{"name": "unccd-sdg-15-3-1-error-recode 2_2_1", "cpu_reservation": 500000000.0, "cpu_limit": 1000000000.0, "memory_reservation": 2000000000.0, "memory_limit": 4000000000.0, "environment": "trends.earth-environment", "environment_version": "2.2.2", "id": "b420c07b-2779-40cb-aef5-76dae3077342"}

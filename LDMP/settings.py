@@ -401,7 +401,18 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
                 # trigger GUI
                 auth.remove_current_auth_config(auth.TE_API_AUTH_SETUP)
                 self.reloadAuthConfigurations()
-                # self.authConfigUpdated.emit()
+                # Update UI state after account deletion
+                self.update_login_ui_state()
+            else:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "Failed to delete user account. Please check your internet "
+                        "connection and try again. If the problem persists, please "
+                        "contact the Trends.Earth support team."
+                    ),
+                )
 
     def on_accept(self):
         auth_id = self.authcfg_acs.configId()
@@ -1009,6 +1020,7 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
             self.name.text(),
             self.organization.text(),
             self.country.currentText(),
+            legacy=False,  # Use secure token-based registration
         )
 
         if resp:
@@ -1017,10 +1029,11 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
                 None,
                 self.tr("Success"),
                 self.tr(
-                    "User registered. Your password "
+                    "User registered. A password setup link "
                     f"has been emailed to {self.email.text()}. "
-                    "Enter that password in Trends.Earth settings "
-                    "to finish setting up the plugin."
+                    "Please check your email and click the link to "
+                    "set your password, then return to Trends.Earth "
+                    "settings to login."
                 ),
             )
 
@@ -1199,15 +1212,15 @@ class DlgSettingsEditForgotPassword(
             self.tr("Reset password?"),
             self.tr(
                 "Are you sure you want to reset the password for "
-                f"{self.email.text()}? Your new password will be emailed "
-                "to you."
+                f"{self.email.text()}? A password reset link will be "
+                "emailed to you."
             ),
             QtWidgets.QMessageBox.Yes,
             QtWidgets.QMessageBox.No,
         )
 
         if reply == QtWidgets.QMessageBox.Yes:
-            resp = self.api_client.recover_pwd(self.email.text())
+            resp = self.api_client.recover_pwd(self.email.text(), legacy=False)
 
             if resp:
                 self.close()
@@ -1215,9 +1228,9 @@ class DlgSettingsEditForgotPassword(
                     None,
                     self.tr("Success"),
                     self.tr(
-                        f"The password has been reset for {self.email.text()}. "
-                        "Check your email for the new password, and then "
-                        "return to Trends.Earth to enter it."
+                        f"A password reset link has been sent to {self.email.text()}. "
+                        "Please check your email and click the link to set a new "
+                        "password, then return to Trends.Earth to login."
                     ),
                 )
                 self.ok = True

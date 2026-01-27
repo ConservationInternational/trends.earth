@@ -733,10 +733,18 @@ class APIClient(QtCore.QObject):
     ################################################################################
     # Functions supporting access to individual api endpoints
 
-    def recover_pwd(self, email):
-        return self.call_api(
-            "/api/v1/user/{}/recover-password".format(quote_plus(email)), "post"
+    def recover_pwd(self, email, legacy=False):
+        """Request password recovery.
+
+        Args:
+            email: User's email address
+            legacy: If True, uses legacy mode (password emailed directly).
+                   If False (default), uses secure mode (reset link emailed).
+        """
+        endpoint = "/api/v1/user/{}/recover-password?legacy={}".format(
+            quote_plus(email), "true" if legacy else "false"
         )
+        return self.call_api(endpoint, "post")
 
     def get_user(self, email="me"):
         resp = self.call_api(
@@ -756,15 +764,26 @@ class APIClient(QtCore.QObject):
         else:
             return None
 
-    def register(self, email, name, organization, country):
+    def register(self, email, name, organization, country, legacy=False):
+        """Register a new user account.
+
+        Args:
+            email: User's email address
+            name: User's full name
+            organization: User's organization/institution
+            country: User's country
+            legacy: If True, uses legacy mode (password emailed directly).
+                   If False (default), uses secure mode (reset link emailed
+                   so user can set their own password).
+        """
         payload = {
             "email": email,
             "name": name,
             "institution": organization,
             "country": country,
         }
-
-        return self.call_api("/api/v1/user", method="post", payload=payload)
+        endpoint = "/api/v1/user?legacy={}".format("true" if legacy else "false")
+        return self.call_api(endpoint, method="post", payload=payload)
 
     def update_user(self, email, name, organization, country):
         payload = {

@@ -496,7 +496,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.changed_region.emit()
 
     def run_settings(self):
-        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+        self.iface.showOptionsDialog(self.iface.mainWindow(), currentPage=OPTIONS_TITLE)
         self.update_current_region()
 
     def showEvent(self, event):
@@ -516,7 +516,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         pass
 
     def settings_btn_clicked(self):
-        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+        self.iface.showOptionsDialog(self.iface.mainWindow(), currentPage=OPTIONS_TITLE)
 
     def btn_calculate(self):
         area_method = settings_manager.get_value(Setting.AREA_FROM_OPTION)

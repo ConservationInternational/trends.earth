@@ -10,7 +10,7 @@
                 <icon>trends_earth_logo_square_32x32.png</icon>
                 <author_name><![CDATA[test]]></author_name>
                 <download_url>https://raw.githubusercontent.com/ConservationInternational/trends.earth/refs/heads/release/docs/repository/v2.2.2/LDMP.zip</download_url>
-                <update_date>2026-01-26 19:36:10</update_date>
+                <update_date>2026-01-27 03:51:38</update_date>
                 <experimental>False</experimental>
                 <deprecated>False</deprecated>
                 <tracker><![CDATA[https://github.com/ConservationInternational/trends.earth/issues]]></tracker>

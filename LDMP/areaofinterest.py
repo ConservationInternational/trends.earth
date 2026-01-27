@@ -624,7 +624,7 @@ def qgs_error_message(error_title="Error", error_desciption="", timeout=0):
 
 def open_settings():
     """Opens the QGIS settings panel. The Trends.Earth tab will be selected."""
-    qgisiface.showOptionsDialog(currentPage=conf.OPTIONS_TITLE)
+    qgisiface.showOptionsDialog(qgisiface.mainWindow(), currentPage=conf.OPTIONS_TITLE)
 
 
 def prepare_area_of_interest() -> AOI:

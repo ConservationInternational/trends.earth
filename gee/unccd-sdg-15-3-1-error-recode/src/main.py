@@ -31,8 +31,8 @@ S3_BUCKET_USER_DATA = "trends-earth-users"
 ERROR_RECODE_BAND_NAME = "Error recode"
 # Create ExecutionScript object directly since Schema() is not available
 RECODE_SCRIPT = algorithms.ExecutionScript(
-    id="sdg-15-3-1-error-recode",
-    name="sdg-15-3-1-error-recode",
+    id="unccd-sdg-15-3-1-error-recode",
+    name="unccd-sdg-15-3-1-error-recode",
     version="1.13",
     run_mode=algorithms.AlgorithmRunMode.LOCAL,
 )

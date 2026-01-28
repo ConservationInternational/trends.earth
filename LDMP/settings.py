@@ -1257,6 +1257,11 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
         if index != -1:
             self.country.setCurrentIndex(index)
 
+        # Set email notifications checkbox from user preferences
+        # Default to True if not present in user data
+        email_notifications = user.get("email_notifications_enabled", True)
+        self.email_notifications_enabled.setChecked(email_notifications)
+
         self.buttonBox.accepted.connect(self.update_profile)
         self.buttonBox.rejected.connect(self.close)
 
@@ -1294,6 +1299,7 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
             self.name.text(),
             self.organization.text(),
             self.country.currentText(),
+            self.email_notifications_enabled.isChecked(),
         )
 
         if resp:

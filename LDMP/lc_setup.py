@@ -1604,16 +1604,23 @@ class LandCoverSetupRemoteExecutionWidget(
         hide_max_year: bool | None = False,
         selected_min_year: int | None = 2001,
         selected_max_year: int | None = 2015,
+        min_year_override: int | None = None,
     ):
         super().__init__(parent)
         self.setupUi(self)
         esa_cci_lc_conf = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
-        min_year = QtCore.QDate(esa_cci_lc_conf["Start year"], 1, 1)
+        dataset_min_year = esa_cci_lc_conf["Start year"]
+        # Allow callers to enforce a higher minimum year (e.g., SOC requires year >= 2000)
+        if min_year_override is not None:
+            dataset_min_year = max(dataset_min_year, min_year_override)
+        min_year = QtCore.QDate(dataset_min_year, 1, 1)
         max_year = QtCore.QDate(esa_cci_lc_conf["End year"], 12, 31)
         self.initial_year_de.setMinimumDate(min_year)
         self.initial_year_de.setMaximumDate(max_year)
         self.target_year_de.setMinimumDate(min_year)
         self.target_year_de.setMaximumDate(max_year)
+        # Ensure selected years respect the minimum
+        selected_min_year = max(selected_min_year, dataset_min_year)
         self.initial_year_de.setDate(QtCore.QDate(selected_min_year, 1, 1))
         self.target_year_de.setDate(QtCore.QDate(selected_max_year, 12, 31))
 

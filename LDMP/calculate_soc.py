@@ -23,6 +23,9 @@ from . import calculate, data_io, lc_setup
 from .jobs.manager import job_manager
 from .logger import log
 
+# SOC baseline year - the SOC reference dataset is from 2000, so analysis cannot start earlier
+SOC_MIN_YEAR = 2000
+
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui")
 )
@@ -63,7 +66,9 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             self.changed_region.connect(self.lc_setup_widget.populate_combos)
         elif self.script.run_mode == AlgorithmRunMode.REMOTE:
             self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
-                parent=self
+                parent=self,
+                min_year_override=SOC_MIN_YEAR,
+                selected_min_year=SOC_MIN_YEAR,
             )
 
         self.splitter_collapsed = False
@@ -173,6 +178,20 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
         year_initial = self.lc_setup_widget.get_initial_year()
         year_final = self.lc_setup_widget.get_final_year()
+
+        # Validate SOC minimum year constraint
+        if year_initial is not None and int(year_initial) < SOC_MIN_YEAR:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    f"SOC analysis cannot start before the baseline year "
+                    f"{SOC_MIN_YEAR}. The selected initial year is {year_initial}. "
+                    f"Please select an initial year >= {SOC_MIN_YEAR}."
+                ),
+            )
+            return
+
         if int(year_initial) >= int(year_final):
             QtWidgets.QMessageBox.information(
                 None,
@@ -258,12 +277,29 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
     def calculate_on_GEE(self):
         log("inside calculate_on_GEE...")
+
+        year_initial = self.lc_setup_widget.initial_year_de.date().year()
+        year_final = self.lc_setup_widget.target_year_de.date().year()
+
+        # Validate SOC minimum year constraint
+        if year_initial < SOC_MIN_YEAR:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    f"SOC analysis cannot start before the baseline year "
+                    f"{SOC_MIN_YEAR}. The selected initial year is {year_initial}. "
+                    f"Please select an initial year >= {SOC_MIN_YEAR}."
+                ),
+            )
+            return
+
         self.close()
 
         crosses_180th, geojsons = self.gee_bounding_box
         payload = {
-            "year_initial": self.lc_setup_widget.initial_year_de.date().year(),
-            "year_final": self.lc_setup_widget.target_year_de.date().year(),
+            "year_initial": year_initial,
+            "year_final": year_final,
             "fl": self.get_fl(),
             "download_annual_lc": self.download_annual_lc.isChecked(),
             "geojsons": json.dumps(geojsons),

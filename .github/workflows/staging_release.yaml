@@ -5,6 +5,9 @@ on:
       - published
       - edited
 
+permissions:
+  contents: write
+
 jobs:
   update-staging:
     runs-on: ubuntu-22.04

@@ -5,6 +5,10 @@ on:
     types: [edited, opened, reopened, synchronize]
     branches: [main]
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   create-package:
     runs-on: ubuntu-22.04

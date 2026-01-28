@@ -376,6 +376,7 @@ class JobManager(QtCore.QObject):
     submitted_local_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
     processed_local_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
     imported_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
+    authentication_failed: QtCore.pyqtSignal = QtCore.pyqtSignal(str)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -383,6 +384,8 @@ class JobManager(QtCore.QObject):
         self.tm = QgsApplication.taskManager()
         self._state_update_mutex = QtCore.QMutex()
         self.api_client = api.APIClient(API_URL, TIMEOUT)
+        # Connect API client's authentication_failed signal to our signal
+        self.api_client.authentication_failed.connect(self.authentication_failed)
 
     def _is_json_file_safe(self, file_path: Path) -> bool:
         """
@@ -1946,8 +1949,7 @@ def find_job(target: Job, source: typing.List[Job]) -> typing.Optional[Job]:
 
 
 def _get_access_token():
-    api_client = api.APIClient(API_URL, TIMEOUT)
-    login_reply = api_client.login()
+    login_reply = job_manager.api_client.login()
 
     if isinstance(login_reply, str) and login_reply:
         # Token-based authentication - login() returns the token directly
@@ -1973,9 +1975,7 @@ def _get_user_id() -> typing.Optional[uuid.UUID]:
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log("Retrieving user id from server...")
 
-    api_client = api.APIClient(API_URL, TIMEOUT)
-
-    get_user_reply = api_client.get_user()
+    get_user_reply = job_manager.api_client.get_user()
 
     if get_user_reply:
         user_id_str = get_user_reply.get("id", None)

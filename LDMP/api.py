@@ -264,7 +264,11 @@ def backoff_hdlr(details):
 class APIClient(QtCore.QObject):
     url: str
 
-    def __init__(self, url, timeout=30):
+    # Signal emitted when authentication fails, with error message
+    authentication_failed = QtCore.pyqtSignal(str)
+
+    def __init__(self, url, timeout=30, parent=None):
+        super().__init__(parent)
         self.url = url
         self.timeout = timeout
 
@@ -417,20 +421,37 @@ class APIClient(QtCore.QObject):
             auth.TE_API_AUTH_SETUP, authConfigId=authConfigId
         )
 
-        if (
-            not authConfig
-            or not authConfig.config("username")
-            or not authConfig.config("password")
-        ):
-            log("API unable to login - setup auth configuration before using")
+        if not authConfig:
+            log("API unable to login - no auth configuration found")
+            error_message = tr_api.tr(
+                "No login credentials configured. "
+                "Please set up your username and password in Trends.Earth settings."
+            )
+            self.authentication_failed.emit(error_message)
+            return None
+
+        username = authConfig.config("username")
+        password = authConfig.config("password")
+
+        if not username or not password:
+            log(
+                f"API unable to login - credentials incomplete "
+                f"(username={'set' if username else 'missing'}, "
+                f"password={'set' if password else 'missing'})"
+            )
+            error_message = tr_api.tr(
+                "Unable to retrieve stored credentials. "
+                "Please re-enter your username and password in Trends.Earth settings."
+            )
+            self.authentication_failed.emit(error_message)
             return None
 
         resp = self.call_api(
             "/auth",
             method="post",
             payload={
-                "email": authConfig.config("username"),
-                "password": authConfig.config("password"),
+                "email": username,
+                "password": password,
             },
             use_token=False,  # Don't use token for initial auth
         )
@@ -480,7 +501,7 @@ class APIClient(QtCore.QObject):
 
         if error_message:
             log(error_message)
-            # iface.messageBar().pushCritical("Trends.Earth", error_message)
+            self.authentication_failed.emit(error_message)
 
         return ret
 

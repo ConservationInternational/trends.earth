@@ -654,10 +654,15 @@ class TrendsEarthAPIClient:
 
                 except requests.exceptions.HTTPError as e:
                     # If download fails with Google Cloud Storage URLs, try stripping generation parameter
-                    if (
-                        "https://www.googleapis.com/download/storage" in file_url
-                        or "storage.googleapis.com" in file_url
-                    ):
+                    # Use proper URL parsing to avoid incomplete URL substring sanitization (CodeQL security fix)
+                    from urllib.parse import urlparse
+
+                    parsed_url = urlparse(file_url)
+                    is_gcs_url = (
+                        parsed_url.hostname == "www.googleapis.com"
+                        and parsed_url.path.startswith("/download/storage")
+                    ) or parsed_url.hostname == "storage.googleapis.com"
+                    if is_gcs_url:
                         print(
                             f"    Download failed with {e}, trying to strip generation parameter..."
                         )

@@ -806,12 +806,15 @@ class APIClient(QtCore.QObject):
         endpoint = "/api/v1/user?legacy={}".format("true" if legacy else "false")
         return self.call_api(endpoint, method="post", payload=payload)
 
-    def update_user(self, email, name, organization, country):
+    def update_user(
+        self, email, name, organization, country, email_notifications_enabled=True
+    ):
         payload = {
             "email": email,
             "name": name,
             "institution": organization,
             "country": country,
+            "email_notifications_enabled": email_notifications_enabled,
         }
 
         return self.call_api("/api/v1/user/me", "patch", payload, use_token=True)

@@ -150,6 +150,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.submitted_remote_job.connect(self.refresh_after_job_modified)
         job_manager.processed_local_job.connect(self.refresh_after_job_modified)
         job_manager.imported_job.connect(self.refresh_after_job_modified)
+        # Use QueuedConnection to ensure thread-safe GUI updates from background threads
+        job_manager.authentication_failed.connect(
+            self._show_authentication_error, QtCore.Qt.QueuedConnection
+        )
 
         self.cache_refresh_about_to_begin.connect(
             functools.partial(self.toggle_ui_for_cache_refresh, True)
@@ -399,6 +403,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         else:
             self.pushButton_download.setEnabled(True)
             self.setWindowTitle(DOCK_TITLE_OFFLINE)
+
+    def _show_authentication_error(self, error_message: str):
+        """Display authentication error message to the user via the message bar.
+
+        This slot is connected with Qt.QueuedConnection to ensure thread-safe
+        GUI updates when signals are emitted from background worker threads.
+        """
+        self.iface.messageBar().pushCritical("Trends.Earth", error_message)
 
     def refresh_after_cache_update(self, *args):
         # Accept *args to handle signals with varying signatures:

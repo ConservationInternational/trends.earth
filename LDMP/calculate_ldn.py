@@ -32,6 +32,9 @@ from .jobs.manager import job_manager
 from .localexecution import ldn
 from .logger import log
 
+# SOC baseline year - the SOC reference dataset is from 2000, so analysis cannot start earlier
+SOC_MIN_YEAR = 2000
+
 DlgCalculateOneStepUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateOneStep.ui")
 )
@@ -1775,9 +1778,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             widgets.year_final_lc.setMinimumDate(start_year)
             widgets.year_final_lc.setMaximumDate(end_year)
 
-            widgets.year_initial_soc.setMinimumDate(start_year)
+            # SOC analysis cannot start before the baseline year (2000)
+            soc_start_year = max(start_year, QtCore.QDate(SOC_MIN_YEAR, 1, 1))
+            widgets.year_initial_soc.setMinimumDate(soc_start_year)
             widgets.year_initial_soc.setMaximumDate(end_year)
-            widgets.year_final_soc.setMinimumDate(start_year)
+            widgets.year_final_soc.setMinimumDate(soc_start_year)
             widgets.year_final_soc.setMaximumDate(end_year)
         else:
             # Vary by indicator mode: calculate independent bounds for each dataset type
@@ -1799,9 +1804,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             widgets.year_final_lc.setMinimumDate(start_year_lc)
             widgets.year_final_lc.setMaximumDate(end_year_lc)
 
-            widgets.year_initial_soc.setMinimumDate(start_year_lc)
+            # SOC analysis cannot start before the baseline year (2000)
+            soc_start_year = max(start_year_lc, QtCore.QDate(SOC_MIN_YEAR, 1, 1))
+            widgets.year_initial_soc.setMinimumDate(soc_start_year)
             widgets.year_initial_soc.setMaximumDate(end_year_lc)
-            widgets.year_final_soc.setMinimumDate(start_year_lc)
+            widgets.year_final_soc.setMinimumDate(soc_start_year)
             widgets.year_final_soc.setMaximumDate(end_year_lc)
 
         # Set default dates for productivity (always use productivity dataset dates)
@@ -2235,9 +2242,26 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 ),
                 "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(trans_matrix),
             }
+
+            # Validate SOC minimum year constraint
+            soc_year_initial = widgets.year_initial_soc.date().year()
+            soc_year_final = widgets.year_final_soc.date().year()
+            if soc_year_initial < SOC_MIN_YEAR:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        f"SOC analysis cannot start before the baseline year "
+                        f"{SOC_MIN_YEAR}. The selected initial year for the "
+                        f"{period} period is {soc_year_initial}. "
+                        f"Please select an initial year >= {SOC_MIN_YEAR}."
+                    ),
+                )
+                return
+
             payload["soil_organic_carbon"] = {
-                "year_initial": widgets.year_initial_soc.date().year(),
-                "year_final": widgets.year_final_soc.date().year(),
+                "year_initial": soc_year_initial,
+                "year_final": soc_year_final,
                 "fl": 0.80,
                 "legend_nesting_esa_to_custom": LCLegendNesting.Schema().dump(
                     lc_setup.esa_lc_nesting_from_settings()

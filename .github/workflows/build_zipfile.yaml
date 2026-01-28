@@ -2,6 +2,9 @@ name: Build plugin zipfile
 
 on: [push, workflow_dispatch]
 
+permissions:
+  contents: read
+
 jobs:
   build_zipfile:
     name: Build zipfile

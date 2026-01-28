@@ -5,6 +5,9 @@ on:
     - cron: "0 5 * * 1,4"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build_docs_pdfs:
     name: Build documentation PDFs

@@ -123,7 +123,7 @@ Trends.Earth does have the capacity to import, load and process national-level d
 land cover and land productivity dynamics, allowing users to take advantage of existing datasets that might be of 
 higher spatial resolution at a national-level than the global datasets that are the defaults in the tool. 
 Please note that working with national-level datasets relies on the local processing capacity of user's computer, 
-so the time to run analysis using custom datasets will depend on the especifications of user's computer.
+so the time to run analysis using custom datasets will depend on the especifications of user's machine.
 
 Methods
 _______
@@ -192,7 +192,7 @@ ________________________
 How were the layers combined to define the final land degradation layer?
 ---------------------------------------------------------------------------
 
-Performance, state, and trajectory (the three indicators of change in 
+Performance, state, and trajectory (the three metrics of change in 
 productivity_) are combined following a modified version of the good practice 
 guidance developed by the UNCCD (in section SDG Indicator 15.3.1 of this manual 
 a table is presented). Productivity, soil carbon, and land cover chance (the 

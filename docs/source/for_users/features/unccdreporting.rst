@@ -360,8 +360,8 @@ potentially degraded for reporting purposes.
 .. image:: ../../../resources/en/documentation/understanding_indicators15/sdg_aggregation.png
    :align: center
 
-Combining indicators into SDG Indicator 15.3.1
-----------------------------------------------
+Calculating Status map
+---------------------
 
 According to the Good Practice Guidance Addendum, SDG Indicator 15.3.1 the Status map "refers to the final condition (considering the baseline) of land at the end of each reporting period, classified as either degraded, stable, or improved". It combines the SDG Indicator 15.3.1 layer calculated for a given period of assessment with the Baseline SDG Indicator 15.3.1. By combining these two layers, the Status map shows changes that happened over the period assessment integrated with land conditions (degradation, stabilily, improvement) mapped at the Baseline period, providing a more complete understanding of the land condition trajectory over time.
 

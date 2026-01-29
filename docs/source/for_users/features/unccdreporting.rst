@@ -43,7 +43,7 @@ from 3 sub-indicators:
 
 |trends.earth| allows the user to compute each of these sub-indicators in a 
 spatially explicit way generating raster maps which are then integrated into a 
-final SDG 15.3.1 indicator map and produces a table result reporting areas 
+final SDG indicator 15.3.1 map and produces a table result reporting areas 
 potentially improved and degraded for the area of analysis.
    
 Sub-indicators
@@ -64,12 +64,12 @@ that reason, we rely on remotely sensed information to derive indicators of
 NPP.
 
 One of the most commonly used surrogates of NPP is the Normalized Difference 
-Vegetation Index (NDVI), computed using information from the red and near 
+Vegetation Index (NDVI), computed using information from the red and near-
 infrared wavelengths of the electromagnetic spectrum. In |trends.earth| we make 
 use of bi-weekly products from MODIS and AVHRR to compute annual integrals of 
 NDVI (computed as the mean annual NDVI for simplicity of interpretation of 
 results). These annual integrals of NDVI are then used to compute each of the 
-productivity indicators explained below.
+productivity metrics explained below.
 
 Land productivity is assessed in |trends.earth| using three measures of change 
 derived from NDVI time series data: trajectory, performance and state
@@ -160,8 +160,8 @@ corrections:
 Productivity State
 ^^^^^^^^^^^^^^^^^^
 
-The Productivity State indicator allows for the detection of recent changes in 
-primary productivity as compared to a baseline period. The indicator is 
+The Productivity State metric allows for the detection of recent changes in 
+primary productivity as compared to a baseline period. The State metric is 
 computed as follows:
 
 1. Define the baseline period (historical period to which to compare recent 
@@ -199,7 +199,7 @@ computed as follows:
    :align: center
 
 The table below list the datasets available in |trends.earth| to compute the 
-Productivity State indicator:
+Productivity State metric:
 
 .. image:: ../../../resources/en/documentation/understanding_indicators15/lp_state_variables.png
    :align: center
@@ -209,12 +209,12 @@ Productivity State indicator:
 Productivity Performance
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Productivity Performance indicator measures local productivity relative to 
+The Productivity Performance metric measures local productivity relative to 
 other similar vegetation types in similar land cover types or bioclimatic 
 regions throughout the study area. |trends.earth| uses the unique combination 
 of soil units (soil taxonomy units using USDA system provided by SoilGrids at 
 250m resolution) and land cover (full 37 land cover classes provided by ESA CCI 
-at 300m resolution) to define this areas of analysis. The indicator is computed 
+at 300m resolution) to define this areas of analysis. The Performance metric is computed 
 as follows:
 
 1. Define the analysis period, and use the time series of NDVI to compute mean 
@@ -234,23 +234,23 @@ as follows:
    compare the mean observed value to the maximum for its corresponding unit).
 
 5. If observed mean NDVI is lower than 50% than the maximum productivity, that 
-   pixel is considered potentially degraded for this indicator.
+   pixel is considered potentially degraded for this metric.
 
 .. image:: ../../../resources/en/documentation/understanding_indicators15/lp_perf_flow.png
    :align: center
    
 The table below list the datasets available in |trends.earth| to compute the 
-Productivity Performance indicator:
+Productivity Performance metric:
  
 .. image:: ../../../resources/en/documentation/understanding_indicators15/lp_perf_variables.png
    :align: center
 
 .. _indicator-15-3-1-combining-indicators:
 
-Combining Productivity Indicators
+Combining Productivity Metrics
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The three productivity sub-indicators are then combined as indicated in the 
+The three productivity metrics are then combined as indicated in the 
 tables below. For SDG 15.3.1 reporting, the 3-class indicator is required, but 
 |trends.earth| also produces a 5-class one which takes advantage of the 
 information provided by State to inform the type of degradation occurring in 
@@ -353,8 +353,8 @@ Combining indicators into SDG Indicator 15.3.1
 ----------------------------------------------
 
 The integration of the three SDG 15.3.1 sub-indicators is done following the 
-one-out all-out rule, this means that if an area was identified as potentially 
-degraded by any of the sub-indicators, then that area will be considered 
+one-out all-out rule(1OAO), this means that if an area/pixel was identified as potentially 
+degraded by any of the sub-indicators, then that area/pixel will be considered 
 potentially degraded for reporting purposes.
 
 .. image:: ../../../resources/en/documentation/understanding_indicators15/sdg_aggregation.png
@@ -363,10 +363,10 @@ potentially degraded for reporting purposes.
 Calculating Status map
 ---------------------
 
-According to the Good Practice Guidance Addendum, SDG Indicator 15.3.1 the Status map "refers to the final condition (considering the baseline) of land at the end of each reporting period, classified as either degraded, stable, or improved". It combines the SDG Indicator 15.3.1 layer calculated for a given period of assessment with the Baseline SDG Indicator 15.3.1. By combining these two layers, the Status map shows changes that happened over the period assessment integrated with land conditions (degradation, stabilily, improvement) mapped at the Baseline period, providing a more complete understanding of the land condition trajectory over time.
+According to the Good Practice Guidance Addendum SDG Indicator 15.3.1, the Status map "refers to the final condition (considering the baseline) of land at the end of each reporting period, classified as either degraded, stable, or improved". It combines the SDG Indicator 15.3.1 layer calculated for a given period of assessment with the Baseline SDG Indicator 15.3.1. By combining these two layers, the Status map shows changes that happened over the period assessment integrated with land conditions (degradation, stabilily, improvement) mapped at the Baseline period, providing a more complete understanding of the land condition trajectory over time.
 
 .. note::
-  	The Status layer for the Baseline period is equivalent the SDG Indicator 15.3.1 calculated for the Baseline 	assessment (i.e. Baseline Assessment == Status 2015).
+  	The Status layer for the Baseline period is equivalent the SDG Indicator 15.3.1 calculated for the Baseline assessment (i.e. Baseline Assessment == Status 2015).
 
 For combining a given period assessment with the Baseline SDG Indicator 15.3.1 it is necessary to apply the 3 x 3 Status Matrix
 
@@ -374,7 +374,7 @@ For combining a given period assessment with the Baseline SDG Indicator 15.3.1 i
    :align: center
 
 .. note::
-  	For further information on how to derive the Status layer, please refer to the `Good Practice Guidance 	Addendum, SDG Indicator 15.3.1 <https://www.unccd.int/sites/default/files/2025-07/GPG%20Addendum_%	20Advanced%20Unedited%20Version.pdf>`_ which offers a dedicated section on "Assessing Status for each 	reporting process" starting on page 19.
+  	For further information on how to derive the Status map, please refer to the `Good Practice Guidance Addendum SDG Indicator 15.3.1 <https://www.unccd.int/sites/default/files/2025-07/GPG%20Addendum_%20Advanced%20Unedited%20Version.pdf>`_ which offers a dedicated section on "Assessing Status for each reporting process" starting on page 19.
 
 UNCCD Strategic Objective 2 (SO 2)
 ==================================

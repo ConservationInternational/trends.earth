@@ -145,7 +145,9 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
         headers = {
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
-            "Accept-Encoding": "gzip, deflate, br",
+            # Note: Don't include 'br' (Brotli) - requests library doesn't support it
+            # without the brotli package, and we don't want to add that dependency
+            "Accept-Encoding": "gzip, deflate",
         }
 
         log(f"Fetching logs from: {url}")

@@ -33,9 +33,10 @@ from .conf import (
     OPTIONS_TITLE,
     TR_ALL_REGIONS,
     Setting,
+    get_dock_title,
     settings_manager,
 )
-from .constants import API_URL, TIMEOUT
+from .constants import TIMEOUT, get_api_url
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils, LCClassInfo, get_default_esa_nesting
 from .logger import log
@@ -200,7 +201,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         # load gui default value from settings
         self.reloadAuthConfigurations()
 
-        self.api_client = api.APIClient(API_URL, TIMEOUT)
+        self.api_client = api.APIClient(get_api_url(), TIMEOUT)
 
         # Update login UI state
         self.update_login_ui_state()
@@ -234,10 +235,10 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
             if offline_mode:
                 self.dock_widget.pushButton_download.setEnabled(False)
-                self.dock_widget.setWindowTitle(DOCK_TITLE_OFFLINE)
+                self.dock_widget.setWindowTitle(get_dock_title(offline_mode=True))
             else:
                 self.dock_widget.pushButton_download.setEnabled(True)
-                self.dock_widget.setWindowTitle(DOCK_TITLE)
+                self.dock_widget.setWindowTitle(get_dock_title(offline_mode=False))
 
     def closeEvent(self, event):
         self.widgetSettingsAdvanced.closeEvent(event)
@@ -987,7 +988,7 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
         self.buttonBox.accepted.connect(self.register)
         self.buttonBox.rejected.connect(self.close)
 
-        self.api_client = api.APIClient(API_URL, TIMEOUT)
+        self.api_client = api.APIClient(get_api_url(), TIMEOUT)
 
     def register(self):
         if not self.email.text():
@@ -1059,7 +1060,7 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         self.buttonBox.rejected.connect(self.close)
 
         self.ok = False
-        self.api_client = api.APIClient(API_URL, TIMEOUT)
+        self.api_client = api.APIClient(get_api_url(), TIMEOUT)
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -1187,7 +1188,7 @@ class DlgSettingsEditForgotPassword(
 
         self.ok = False
 
-        self.api_client = api.APIClient(API_URL, TIMEOUT)
+        self.api_client = api.APIClient(get_api_url(), TIMEOUT)
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -1266,7 +1267,7 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
         self.buttonBox.rejected.connect(self.close)
 
         self.ok = False
-        self.api_client = api.APIClient(API_URL, TIMEOUT)
+        self.api_client = api.APIClient(get_api_url(), TIMEOUT)
 
     def update_profile(self):
         if not self.email.text():
@@ -1322,6 +1323,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     polling_frequency_sb: QtWidgets.QSpinBox
     download_remote_datasets_chb: QtWidgets.QCheckBox
     qgsFileWidget_base_directory: qgis.gui.QgsFileWidget
+    lineEdit_api_url: QtWidgets.QLineEdit
 
     message_bar: qgis.gui.QgsMessageBar
 
@@ -1371,6 +1373,13 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             Setting.OFFLINE_MODE, self.cb_offline_mode.isChecked()
         )
 
+        # Save custom API URL and refresh the API client if it changed
+        old_api_url = settings_manager.get_value(Setting.CUSTOM_API_URL)
+        new_api_url = self.lineEdit_api_url.text().strip()
+        settings_manager.write_value(Setting.CUSTOM_API_URL, new_api_url)
+        if old_api_url != new_api_url:
+            job_manager.refresh_api_client()
+
         old_base_dir = settings_manager.get_value(Setting.BASE_DIR)
         new_base_dir = self.qgsFileWidget_base_directory.filePath()
         settings_manager.write_value(Setting.BASE_DIR, new_base_dir)
@@ -1400,6 +1409,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         )
         self.download_remote_datasets_chb.setChecked(
             settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
+        )
+        self.lineEdit_api_url.setText(
+            settings_manager.get_value(Setting.CUSTOM_API_URL) or ""
         )
 
     def set_offline_mode_states(self):

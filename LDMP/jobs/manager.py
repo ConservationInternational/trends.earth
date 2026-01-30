@@ -40,7 +40,7 @@ from te_schemas.results import Band as JobBand
 
 from .. import api, areaofinterest, conf, layers, metadata, utils
 from .. import download as ldmp_download
-from ..constants import API_URL, TIMEOUT
+from ..constants import TIMEOUT, get_api_url
 from ..logger import log
 from . import models
 from .models import Job
@@ -383,9 +383,24 @@ class JobManager(QtCore.QObject):
         self.clear_known_jobs()
         self.tm = QgsApplication.taskManager()
         self._state_update_mutex = QtCore.QMutex()
-        self.api_client = api.APIClient(API_URL, TIMEOUT)
-        # Connect API client's authentication_failed signal to our signal
-        self.api_client.authentication_failed.connect(self.authentication_failed)
+        self._api_client = None
+        self._current_api_url = None
+
+    @property
+    def api_client(self):
+        """Get the API client, refreshing if the API URL has changed."""
+        current_url = get_api_url()
+        if self._api_client is None or self._current_api_url != current_url:
+            self._api_client = api.APIClient(current_url, TIMEOUT)
+            self._current_api_url = current_url
+            # Connect API client's authentication_failed signal to our signal
+            self._api_client.authentication_failed.connect(self.authentication_failed)
+        return self._api_client
+
+    def refresh_api_client(self):
+        """Force refresh the API client to use current settings."""
+        self._api_client = None
+        self._current_api_url = None
 
     def _is_json_file_safe(self, file_path: Path) -> bool:
         """

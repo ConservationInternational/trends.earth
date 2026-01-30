@@ -30,7 +30,7 @@ from qgis.core import (
 from qgis.PyQt import QtCore, QtNetwork
 
 from . import auth, conf
-from .constants import API_URL, TIMEOUT
+from .constants import TIMEOUT, get_api_url
 from .logger import log
 
 
@@ -966,4 +966,10 @@ class APIClient(QtCore.QObject):
             return None
 
 
-default_api_client = APIClient(API_URL, TIMEOUT)
+def get_default_api_client():
+    """Get a default API client with the current API URL configuration."""
+    return APIClient(get_api_url(), TIMEOUT)
+
+
+# Note: default_api_client is deprecated. Use get_default_api_client() for dynamic URL support.
+default_api_client = None  # Lazy initialized on first use

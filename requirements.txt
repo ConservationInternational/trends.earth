@@ -6,5 +6,5 @@ openpyxl>=3.1.3
 marshmallow_dataclass>=8.7.1
 marshmallow>=3.26.2,<4.0.0
 colorama>=0.4.6
-git+https://github.com/ConservationInternational/trends.earth-algorithms.git@v2.2.2
+git+https://github.com/ConservationInternational/trends.earth-algorithms.git@master
 # test requirements

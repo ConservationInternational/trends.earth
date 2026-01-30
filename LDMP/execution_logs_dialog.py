@@ -127,9 +127,9 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
     def _fetch_logs_from_api(self) -> typing.Optional[typing.List[typing.Dict]]:
         """Fetch logs from the trends.earth API."""
         # Get API settings
-        from .constants import API_URL
+        from .constants import get_api_url
 
-        api_url = API_URL
+        api_url = get_api_url()
         if not api_url:
             raise Exception("API URL not configured")
 

@@ -39,6 +39,34 @@ DOCK_TITLE = "Trends.Earth"
 DOCK_TITLE_OFFLINE = "Trends.Earth (offline mode)"
 
 
+def get_dock_title(offline_mode: bool = False) -> str:
+    """Get the dock widget title, including custom API URL if configured.
+
+    Args:
+        offline_mode: Whether the plugin is in offline mode.
+
+    Returns:
+        str: The dock title, optionally including custom API URL or offline indicator.
+    """
+    from .constants import DEFAULT_API_URL, get_api_url
+
+    base_title = DOCK_TITLE
+    api_url = get_api_url()
+
+    # Build title with custom API URL if not default
+    if api_url != DEFAULT_API_URL:
+        base_title = f"{DOCK_TITLE} ({api_url})"
+
+    # Add offline mode indicator if applicable
+    if offline_mode:
+        if api_url != DEFAULT_API_URL:
+            return f"{base_title} - offline"
+        else:
+            return DOCK_TITLE_OFFLINE
+
+    return base_title
+
+
 class AreaSetting(enum.Enum):
     COUNTRY_REGION = "country_region"
     COUNTRY_CITY = "country_city"
@@ -67,6 +95,7 @@ class Setting(enum.Enum):
     REMOTE_POLLING_FREQUENCY = "advanced/remote_polling_frequency_seconds"
     DOWNLOAD_RESULTS = "advanced/download_remote_results_automatically"
     OFFLINE_MODE = "advanced/offline_mode"
+    CUSTOM_API_URL = "advanced/custom_api_url"
     USER_ID = "authentication/user_id"
     BUFFER_CHECKED = "region_of_interest/buffer_checked"
     AREA_FROM_OPTION = "region_of_interest/chosen_method"
@@ -124,6 +153,7 @@ class SettingsManager:
         Setting.CUSTOM_CRS: "epsg:4326",
         Setting.POLL_REMOTE: True,
         Setting.DOWNLOAD_RESULTS: True,
+        Setting.CUSTOM_API_URL: "",
         Setting.DATE_FILTER_ENABLED: False,
         Setting.FILTER_START_DATE: "",
         Setting.FILTER_END_DATE: "",

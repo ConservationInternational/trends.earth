@@ -18,6 +18,7 @@ from .conf import (
     DOCK_TITLE_OFFLINE,
     KNOWN_SCRIPTS,
     Setting,
+    get_dock_title,
     settings_manager,
 )
 from .data_io import (
@@ -184,10 +185,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
         if offline_mode:
             self.pushButton_download.setEnabled(False)
-            self.setWindowTitle(DOCK_TITLE_OFFLINE)
+            self.setWindowTitle(get_dock_title(offline_mode=True))
         else:
             self.pushButton_download.setEnabled(True)
-            self.setWindowTitle(DOCK_TITLE)
+            self.setWindowTitle(get_dock_title(offline_mode=False))
 
         date_filter_enabled = settings_manager.get_value(Setting.DATE_FILTER_ENABLED)
 
@@ -399,10 +400,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
         if offline_mode:
             self.pushButton_download.setEnabled(False)
-            self.setWindowTitle(DOCK_TITLE)
+            self.setWindowTitle(get_dock_title(offline_mode=True))
         else:
             self.pushButton_download.setEnabled(True)
-            self.setWindowTitle(DOCK_TITLE_OFFLINE)
+            self.setWindowTitle(get_dock_title(offline_mode=False))
 
     def _show_authentication_error(self, error_message: str):
         """Display authentication error message to the user via the message bar.

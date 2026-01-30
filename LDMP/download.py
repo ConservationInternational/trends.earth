@@ -33,7 +33,7 @@ from qgis.PyQt import QtCore, QtNetwork, QtWidgets
 from qgis.utils import iface
 
 from .api import APIClient
-from .constants import API_URL, TIMEOUT
+from .constants import TIMEOUT, get_api_url
 from .logger import log
 from .worker import AbstractWorker, start_worker
 
@@ -335,7 +335,7 @@ def verify_file_against_etag(
 
 def check_hash_against_etag(url, filename, expected=None):
     if not expected:
-        h = APIClient(API_URL, TIMEOUT).get_header(url)
+        h = APIClient(get_api_url(), TIMEOUT).get_header(url)
         if not h:
             log("Failed to fetch expected hash for {}".format(filename))
             return False

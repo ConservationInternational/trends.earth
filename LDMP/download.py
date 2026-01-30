@@ -141,7 +141,7 @@ class BoundaryTimestampManager:
         try:
             from . import api
 
-            server_info = api.default_api_client.get_boundaries_last_updated(
+            server_info = api.get_default_api_client().get_boundaries_last_updated(
                 release_type
             )
             if server_info:
@@ -566,7 +566,7 @@ def _get_boundaries_from_api() -> typing.Optional[typing.Dict[str, Country]]:
     # Fetch fresh data from API
     try:
         log("Fetching fresh boundaries list from API")
-        api_response = api.default_api_client.get_boundaries_list(release_type)
+        api_response = api.get_default_api_client().get_boundaries_list(release_type)
         if not api_response:
             log("No boundaries data received from API")
             return None
@@ -783,7 +783,7 @@ def download_boundary_geojson(
     # Try API first, then fall back to cached boundaries list
     try:
         log(f"Fetching fresh boundary data for {cache_key}")
-        api_response = api.default_api_client.get_boundaries_list(release_type)
+        api_response = api.get_default_api_client().get_boundaries_list(release_type)
         if api_response:
             boundaries_list = api_response.get("boundaries") or api_response.get(
                 "data", []

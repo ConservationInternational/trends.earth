@@ -56,12 +56,24 @@ def zonal_stats(
     logger.debug("Calculating zonal_stats.")
     res = statsDictionary.getInfo()
 
-    logger.debug("Formatting results.")
+    logger.debug(
+        f"Formatting results. Received {len(res) if res else 0} keys from GEE."
+    )
+    if not res:
+        logger.error("Empty results returned from Earth Engine reduceRegion call.")
+        raise ValueError(
+            "No data returned from Earth Engine for the specified region and time period."
+        )
+
     res_clean = {}
 
     years = [*range(year_initial, year_final + 1)]
     for key, value in list(res.items()):
-        re_groups = re.search(r"(\d*)_ndvi_(\w*)", key).groups()
+        match = re.search(r"(\d*)_ndvi_(\w*)", key)
+        if not match:
+            logger.warning(f"Skipping key '{key}' - does not match expected pattern.")
+            continue
+        re_groups = match.groups()
         index = re_groups[0]
         year = years[int(index)]
         field = re_groups[1]
@@ -73,7 +85,13 @@ def zonal_stats(
         res_clean[field]["value"].append(float(value))
         res_clean[field]["year"].append(int(year))
 
-    logger.debug("Setting up results JSON")
+    logger.debug(f"Setting up results JSON with {len(res_clean)} fields.")
+    if not res_clean:
+        logger.error("No valid fields extracted from results after parsing.")
+        raise ValueError(
+            "Failed to parse any valid NDVI data from Earth Engine results."
+        )
+
     timeseries = []
 
     for key in list(res_clean.keys()):
@@ -84,6 +102,7 @@ def zonal_stats(
         ts = TimeSeries(list(year), list(value), key)
         timeseries.append(ts)
 
+    logger.debug(f"Created {len(timeseries)} timeseries objects.")
     timeseries_table = TimeSeriesTable("timeseries", timeseries)
     timeseries_table_schema = TimeSeriesTableSchema()
     json_result = timeseries_table_schema.dump(timeseries_table)

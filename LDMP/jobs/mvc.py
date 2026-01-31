@@ -432,7 +432,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.load_tb.hide()  # Hide the load vector button
             self.edit_tb.hide()  # Hide the edit button
 
-            if isinstance(self.job.results, TimeSeriesTableResult):
+            if self.job.is_timeseries():
                 self.plot_tb.setEnabled(True)
                 self.plot_tb.show()
                 self.download_tb.hide()
@@ -460,7 +460,15 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
         # Apply job type specific visibility for completed jobs only
         if self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
-            if self.job.is_vector():
+            if self.job.is_timeseries():
+                # Timeseries jobs - show plot button, hide raster/vector buttons
+                self.plot_tb.setEnabled(True)
+                self.plot_tb.show()
+                self.add_to_canvas_pb.hide()
+                self.metadata_pb.hide()
+                self.load_tb.hide()
+                self.edit_tb.hide()
+            elif self.job.is_vector():
                 self.download_tb.hide()
                 self.add_to_canvas_pb.hide()
                 self.open_details_tb.hide()
@@ -786,7 +794,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def _handle_time_series_result(self):
         """Helper method to handle TimeSeriesTableResult specific UI changes."""
-        if isinstance(self.job.results, TimeSeriesTableResult):
+        if self.job.is_timeseries():
             self.plot_tb.show()
             self.add_to_canvas_pb.hide()
             self.metadata_pb.hide()

@@ -14,8 +14,6 @@ from .algorithms import models as algorithm_models
 from .algorithms import mvc as algorithms_mvc
 from .conf import (
     ALGORITHM_TREE,
-    DOCK_TITLE,
-    DOCK_TITLE_OFFLINE,
     KNOWN_SCRIPTS,
     Setting,
     get_dock_title,

@@ -27,8 +27,6 @@ from te_schemas.land_cover import LCClass
 
 from . import api, auth, conf, download, openFolder
 from .conf import (
-    DOCK_TITLE,
-    DOCK_TITLE_OFFLINE,
     OPTIONS_ICON,
     OPTIONS_TITLE,
     TR_ALL_REGIONS,

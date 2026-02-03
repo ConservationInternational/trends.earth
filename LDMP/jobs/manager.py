@@ -397,6 +397,13 @@ class JobManager(QtCore.QObject):
             self._api_client.authentication_failed.connect(self.authentication_failed)
         return self._api_client
 
+    @api_client.setter
+    def api_client(self, client):
+        """Set the API client (useful for testing with mock clients)."""
+        self._api_client = client
+        if client is not None:
+            self._current_api_url = getattr(client, "url", None)
+
     def refresh_api_client(self):
         """Force refresh the API client to use current settings."""
         self._api_client = None

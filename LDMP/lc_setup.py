@@ -985,6 +985,12 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
         self.saved_nesting = None
 
+    def _move_dialog_settings_to_tab(self):
+        """Move LC-specific aggregation settings to the Settings tab."""
+        if hasattr(self, "groupBox_lc_agg") and self.groupBox_lc_agg:
+            self.groupBox_lc_agg.setParent(None)
+            self.tab_settings_layout.addWidget(self.groupBox_lc_agg)
+
     def showEvent(self, event):
         super().showEvent(event)
 
@@ -994,12 +1000,6 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         self.last_band_number = None
         self.last_vector = None
         self.idx = None
-
-    def done(self, value):
-        if value == QtWidgets.QDialog.Accepted:
-            self.validate_input(value)
-        else:
-            super().done(value)
 
     def validate_input(self, value):
         if not (self.dlg_agg or self.saved_nesting):
@@ -1023,7 +1023,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
             return
 
-        ret = super().validate_input(value)
+        ret = self._validate_base_input(value)
 
         if not ret:
             return
@@ -1205,13 +1205,12 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         # Save nesting definition to settings
         custom_lc_nesting_to_settings(mapping.nesting)
 
-        # Use custom layer name if provided, otherwise use default
-        layer_name = self.layer_name_le.text().strip()
-        if not layer_name:
-            layer_name = self.tr(
+        layer_name = self.get_layer_name(
+            self.tr(
                 "Land cover "
                 f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
             )
+        )
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),
             band_name="Land cover",
@@ -1223,10 +1222,9 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 "source": "custom data",
             },
             task_name=layer_name,
-            task_notes=self.task_notes.toPlainText(),
+            task_notes=self.get_task_notes(),
         )
-        job_manager.import_job(job, Path(out_file))
-        job_manager.move_job_results(job)
+        self.finalize_import(job)
 
 
 class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):

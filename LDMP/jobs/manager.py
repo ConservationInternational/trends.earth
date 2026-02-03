@@ -385,10 +385,19 @@ class JobManager(QtCore.QObject):
         self._state_update_mutex = QtCore.QMutex()
         self._api_client = None
         self._current_api_url = None
+        self._api_client_testing = False  # Track if client was set for testing
 
     @property
     def api_client(self):
-        """Get the API client, refreshing if the API URL has changed."""
+        """Get the API client, refreshing if the API URL has changed.
+
+        If the client was set for testing, the URL check is skipped to prevent
+        the mock client from being replaced with a production client.
+        """
+        # If client was set for testing, use it as-is
+        if self._api_client_testing and self._api_client is not None:
+            return self._api_client
+
         current_url = get_api_url()
         if self._api_client is None or self._current_api_url != current_url:
             self._api_client = api.APIClient(current_url, TIMEOUT)
@@ -401,6 +410,7 @@ class JobManager(QtCore.QObject):
     def api_client(self, client):
         """Set the API client (useful for testing with mock clients)."""
         self._api_client = client
+        self._api_client_testing = client is not None
         if client is not None:
             self._current_api_url = getattr(client, "url", None)
 
@@ -408,6 +418,7 @@ class JobManager(QtCore.QObject):
         """Force refresh the API client to use current settings."""
         self._api_client = None
         self._current_api_url = None
+        self._api_client_testing = False
 
     def _is_json_file_safe(self, file_path: Path) -> bool:
         """

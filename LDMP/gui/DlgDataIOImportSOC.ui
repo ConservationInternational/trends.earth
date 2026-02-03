@@ -9,15 +9,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>363</width>
-    <height>41</height>
+    <width>500</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>500</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Load a Custom Soil Organic Carbon (SOC) dataset</string>
@@ -26,46 +32,6 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QLabel" name="layer_name_la">
-     <property name="text">
-      <string>Layer name:</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLineEdit" name="layer_name_le">
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name that will be assigned to the imported layer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="task_notes_la">
-     <property name="text">
-      <string>Notes:</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QTextEdit" name="task_notes">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>100</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Notes associated with the imported layer.</string>
-     </property>
-    </widget>
-   </item>
    <item>
     <widget class="QDialogButtonBox" name="btnBox">
      <property name="orientation">

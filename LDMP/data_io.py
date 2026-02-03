@@ -1133,16 +1133,33 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         super().__init__(parent)
         self.setupUi(self)
 
-        # Message bar
+        # Make dialog resizable
+        self.setSizePolicy(
+            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred
+        )
+
+        # Message bar - stays at top of dialog
         self.msg_bar = qgis.gui.QgsMessageBar()
         self.verticalLayout.insertWidget(0, self.msg_bar)
 
-        # Clip to region checkbox and region selector container
-        self._clip_to_region_container = QtWidgets.QWidget()
-        clip_layout = QtWidgets.QVBoxLayout(self._clip_to_region_container)
-        clip_layout.setContentsMargins(0, 0, 0, 0)
-        clip_layout.setSpacing(5)
+        # Create the tab widget
+        self.tabWidget = QtWidgets.QTabWidget()
+        self.verticalLayout.insertWidget(1, self.tabWidget)
 
+        # === Tab 1: Input file ===
+        self.tab_input_file = QtWidgets.QWidget()
+        self.tab_input_file_layout = QtWidgets.QVBoxLayout(self.tab_input_file)
+        self.tab_input_file_layout.setContentsMargins(10, 10, 10, 10)
+
+        self.input_widget = ImportSelectFileInputWidget()
+        self.input_widget.inputFileChanged.connect(self.on_input_file_changed)
+        # Only show the file selection group, hide settings groups
+        self.input_widget.groupBox_output_resolution.setParent(None)
+        self.input_widget.groupBox_year.setParent(None)
+        self.input_widget.groupBox.setParent(None)  # nodata group
+        self.tab_input_file_layout.addWidget(self.input_widget)
+
+        # Add region selection to Input file tab (after file selection)
         self.checkbox_clip_to_region = QtWidgets.QCheckBox(
             tr_data_io.tr("Clip to region")
         )
@@ -1150,18 +1167,44 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         self.checkbox_clip_to_region.stateChanged.connect(
             self._on_clip_to_region_changed
         )
-        clip_layout.addWidget(self.checkbox_clip_to_region)
+        self.tab_input_file_layout.addWidget(self.checkbox_clip_to_region)
 
-        # Region selector (inside the container, below checkbox)
         self.region_selector = RegionSelector()
         self.region_selector.region_changed.connect(self.on_region_changed)
-        clip_layout.addWidget(self.region_selector)
+        self.tab_input_file_layout.addWidget(self.region_selector)
+        self.tab_input_file_layout.addStretch()
 
-        self.verticalLayout.insertWidget(1, self._clip_to_region_container)
+        self.tabWidget.addTab(self.tab_input_file, tr_data_io.tr("Input file"))
 
-        self.input_widget = ImportSelectFileInputWidget()
-        self.input_widget.inputFileChanged.connect(self.on_input_file_changed)
-        self.verticalLayout.insertWidget(2, self.input_widget)
+        # === Tab 2: Settings ===
+        self.tab_settings = QtWidgets.QWidget()
+        self.tab_settings_layout = QtWidgets.QVBoxLayout(self.tab_settings)
+        self.tab_settings_layout.setContentsMargins(10, 10, 10, 10)
+
+        # Re-parent the settings groups from input_widget to settings tab
+        self.tab_settings_layout.addWidget(self.input_widget.groupBox_output_resolution)
+        self.input_widget.groupBox_output_resolution.show()
+        self.tab_settings_layout.addWidget(self.input_widget.groupBox_year)
+        self.input_widget.groupBox_year.show()
+        self.tab_settings_layout.addWidget(self.input_widget.groupBox)  # nodata
+        self.input_widget.groupBox.show()
+
+        # Move dialog-specific settings from UI to settings tab
+        self._move_dialog_settings_to_tab()
+
+        self.tab_settings_layout.addStretch()
+        self.tabWidget.addTab(self.tab_settings, tr_data_io.tr("Settings"))
+
+        # === Tab 3: Notes ===
+        self.tab_notes = QtWidgets.QWidget()
+        self.tab_notes_layout = QtWidgets.QVBoxLayout(self.tab_notes)
+        self.tab_notes_layout.setContentsMargins(10, 10, 10, 10)
+
+        # Create notes-related widgets programmatically
+        self._create_notes_tab()
+
+        self.tab_notes_layout.addStretch()
+        self.tabWidget.addTab(self.tab_notes, tr_data_io.tr("Notes"))
 
         # The datatype determines whether the dataset resampling is done with
         # nearest neighbor and mode or nearest neighbor and mean
@@ -1176,6 +1219,44 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # Output raster file - this should be moved once a job has been
         # created by calling job_manager.move_job_results().
         self._output_raster_path = GetTempFilename(".tif")
+
+    def _move_dialog_settings_to_tab(self):
+        """
+        Move dialog-specific settings widgets from the UI file to the Settings tab.
+        Subclasses with specific settings (like year spinboxes, aggregation options)
+        should override this method to move their widgets.
+        """
+        pass
+
+    def _create_notes_tab(self):
+        """
+        Create layer_name and notes widgets programmatically for the Notes tab.
+        """
+        # Layer name label
+        self.layer_name_la = QtWidgets.QLabel(tr_data_io.tr("Layer name:"))
+        self.tab_notes_layout.addWidget(self.layer_name_la)
+
+        # Layer name line edit
+        self.layer_name_le = QtWidgets.QLineEdit()
+        self.layer_name_le.setToolTip(
+            tr_data_io.tr("Name that will be assigned to the imported layer.")
+        )
+        self.tab_notes_layout.addWidget(self.layer_name_le)
+
+        # Notes label
+        self.task_notes_la = QtWidgets.QLabel(tr_data_io.tr("Notes:"))
+        self.tab_notes_layout.addWidget(self.task_notes_la)
+
+        # Notes text edit
+        self.task_notes = QtWidgets.QTextEdit()
+        self.task_notes.setToolTip(
+            tr_data_io.tr("Notes associated with the imported layer.")
+        )
+        self.task_notes.setSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
+        )
+        self.task_notes.setMinimumHeight(100)
+        self.tab_notes_layout.addWidget(self.task_notes)
 
     def _on_clip_to_region_changed(self, state):
         """Handle clip to region checkbox state change."""
@@ -1338,60 +1419,6 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                     ),
                 )
                 return False
-        return True
-
-    def validate_input(self, value):
-        # First check region selection if clipping is enabled
-        if not self.validate_region_selection():
-            return
-
-        if self.input_widget.radio_raster_input.isChecked():
-            if self.input_widget.lineEdit_raster_file.text() == "":
-                QtWidgets.QMessageBox.critical(
-                    self,
-                    tr_data_io.tr("Error"),
-                    tr_data_io.tr("Choose an input raster file."),
-                )
-
-                return
-        else:
-            in_file = self.input_widget.lineEdit_vector_file.text()
-
-            if in_file == "":
-                QtWidgets.QMessageBox.critical(
-                    self,
-                    tr_data_io.tr("Error"),
-                    tr_data_io.tr("Choose an input polygon dataset."),
-                )
-
-                return
-            layer = self.input_widget.get_vector_layer()
-
-            if (
-                layer.wkbType() == qgis.core.QgsWkbTypes.Polygon
-                or layer.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon
-            ):
-                self.vector_datatype = "polygon"
-            elif layer.wkbType() == qgis.core.QgsWkbTypes.Point:
-                self.vector_datatype = "point"
-            else:
-                QtWidgets.QMessageBox.critical(
-                    None,
-                    tr_data_io.tr("Error"),
-                    tr_data_io.tr(
-                        "Cannot process {}. Unknown geometry type:{}".format(
-                            in_file, layer.wkbType()
-                        )
-                    ),
-                )
-                log(
-                    "Failed to process {} - unknown geometry type {}.".format(
-                        in_file, layer.wkbType()
-                    )
-                )
-
-                return
-
         return True
 
     def get_resample_mode(self, f):
@@ -1604,16 +1631,130 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
     def save_metadata(self, job):
         metadata.init_dataset_metadata(job, self.metadata)
 
-
-class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulation):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
     def done(self, value):
+        """
+        Common dialog done handler.
+
+        Subclasses should override validate_input() to add their validation
+        logic and call ok_clicked() on success.
+        """
         if value == QtWidgets.QDialog.Accepted:
             self.validate_input(value)
         else:
             super().done(value)
+
+    def _validate_base_input(self, value):
+        """
+        Common input validation for all import dialogs.
+
+        Validates region selection and input file selection.
+        Subclasses should call this method first in their validate_input().
+
+        Returns:
+            True if validation passes, None/False otherwise.
+        """
+        # First check region selection if clipping is enabled
+        if not self.validate_region_selection():
+            return
+
+        if self.input_widget.radio_raster_input.isChecked():
+            if self.input_widget.lineEdit_raster_file.text() == "":
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    tr_data_io.tr("Error"),
+                    tr_data_io.tr("Choose an input raster file."),
+                )
+
+                return
+        else:
+            in_file = self.input_widget.lineEdit_vector_file.text()
+
+            if in_file == "":
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    tr_data_io.tr("Error"),
+                    tr_data_io.tr("Choose an input polygon dataset."),
+                )
+
+                return
+            layer = self.input_widget.get_vector_layer()
+
+            if (
+                layer.wkbType() == qgis.core.QgsWkbTypes.Polygon
+                or layer.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon
+            ):
+                self.vector_datatype = "polygon"
+            elif layer.wkbType() == qgis.core.QgsWkbTypes.Point:
+                self.vector_datatype = "point"
+            else:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    tr_data_io.tr("Error"),
+                    tr_data_io.tr(
+                        "Cannot process {}. Unknown geometry type:{}".format(
+                            in_file, layer.wkbType()
+                        )
+                    ),
+                )
+                log(
+                    "Failed to process {} - unknown geometry type {}.".format(
+                        in_file, layer.wkbType()
+                    )
+                )
+
+                return
+
+        return True
+
+    def validate_input(self, value):
+        """
+        Validate input before accepting the dialog.
+
+        Subclasses should override this method to add their validation logic,
+        calling self._validate_base_input(value) first.
+
+        On successful validation, subclasses should call:
+            super().done(value)
+            self.ok_clicked()
+        """
+        raise NotImplementedError("Subclasses must implement validate_input()")
+
+    def get_layer_name(self, default_name: str) -> str:
+        """
+        Get the layer name from the notes tab, or return the default if empty.
+
+        Args:
+            default_name: Default name to use if user didn't specify one.
+
+        Returns:
+            The layer name to use.
+        """
+        layer_name = self.layer_name_le.text().strip()
+        if not layer_name:
+            layer_name = default_name
+        return layer_name
+
+    def get_task_notes(self) -> str:
+        """Get the task notes from the notes tab."""
+        return self.task_notes.toPlainText()
+
+    def finalize_import(self, job):
+        """
+        Finalize the import by importing the job and saving metadata.
+
+        This should be called at the end of ok_clicked() in subclasses.
+
+        Args:
+            job: The Job object created by job_manager.create_job_from_dataset()
+        """
+        job_manager.import_job(job, Path(self._output_raster_path))
+        job_manager.move_job_results(job)
+        self.save_metadata(job)
+
+
+class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulation):
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
     def validate_input(self, value):
         max_max = 10000000  # Maximum value for population
@@ -1629,7 +1770,7 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
 
             return
 
-        ret = super().validate_input(value)
+        ret = self._validate_base_input(value)
 
         if not ret:
             return
@@ -1725,6 +1866,12 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
         if not ret:
             return False
 
+        layer_name = self.get_layer_name(
+            tr_data_io.tr(
+                "Population "
+                f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
+            )
+        )
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),
             band_name="Population (number of people)",
@@ -1733,27 +1880,16 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
                 "source": "custom data",
                 "type": "total",
             },
-            task_name=tr_data_io.tr(
-                "Population "
-                f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
-            ),
+            task_name=layer_name,
+            task_notes=self.get_task_notes(),
         )
-        job_manager.import_job(job, Path(out_file))
-        job_manager.move_job_results(job)
-
-        super().save_metadata(job)
+        self.finalize_import(job)
 
 
 class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.datatype = "continuous"
-
-    def done(self, value):
-        if value == QtWidgets.QDialog.Accepted:
-            self.validate_input(value)
-        else:
-            super().done(value)
 
     def validate_input(self, value):
         if (
@@ -1768,7 +1904,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
             return
 
-        ret = super().validate_input(value)
+        ret = self._validate_base_input(value)
 
         if not ret:
             return
@@ -1860,13 +1996,12 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         if not ret:
             return False
 
-        # Use custom layer name if provided, otherwise use default
-        layer_name = self.layer_name_le.text().strip()
-        if not layer_name:
-            layer_name = tr_data_io.tr(
+        layer_name = self.get_layer_name(
+            tr_data_io.tr(
                 "Soil organic carbon "
                 f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
             )
+        )
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),
             band_name="Soil organic carbon",
@@ -1875,12 +2010,9 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
                 "source": "custom data",
             },
             task_name=layer_name,
-            task_notes=self.task_notes.toPlainText(),
+            task_notes=self.get_task_notes(),
         )
-        job_manager.import_job(job, Path(out_file))
-        job_manager.move_job_results(job)
-
-        super().save_metadata(job)
+        self.finalize_import(job)
 
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
@@ -1895,11 +2027,20 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         self.spinBox_year_final.setSpecialValueText(" ")
         self.spinBox_year_final.setValue(int(self.spinBox_year_final.minimum()))
 
-    def done(self, value):
-        if value == QtWidgets.QDialog.Accepted:
-            self.validate_input(value)
-        else:
-            super().done(value)
+    def _move_dialog_settings_to_tab(self):
+        """Move Prod-specific settings to the Settings tab."""
+        # Move year spinboxes (groupBox_2)
+        if hasattr(self, "groupBox_2") and self.groupBox_2:
+            self.groupBox_2.setParent(None)
+            self.tab_settings_layout.addWidget(self.groupBox_2)
+        # Move data type combo (groupBox_datatype)
+        if hasattr(self, "groupBox_datatype") and self.groupBox_datatype:
+            self.groupBox_datatype.setParent(None)
+            self.tab_settings_layout.addWidget(self.groupBox_datatype)
+        # Move productivity class definition (groupBox_lc_agg)
+        if hasattr(self, "groupBox_lc_agg") and self.groupBox_lc_agg:
+            self.groupBox_lc_agg.setParent(None)
+            self.tab_settings_layout.addWidget(self.groupBox_lc_agg)
 
     def validate_input(self, value):
         try:
@@ -1910,12 +2051,12 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
                 self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    "Enter the intial and final year applying to this input data."
+                    "On the settings tab, enter the intial and final year applying to this input data."
                 ),
             )
 
             return
-        ret = super().validate_input(value)
+        ret = self._validate_base_input(value)
 
         if not ret:
             return
@@ -2000,12 +2141,9 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         if not ret:
             return False
 
-        # Use custom layer name if provided, otherwise use default
-        layer_name = self.layer_name_le.text().strip()
-        if not layer_name:
-            layer_name = self.tr(
-                f"Land productivity (imported - {self.datatype_cb.currentText()})"
-            )
+        layer_name = self.get_layer_name(
+            self.tr(f"Land productivity (imported - {self.datatype_cb.currentText()})")
+        )
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),
             band_name=self.datatype_cb.currentText(),
@@ -2014,12 +2152,9 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
                 "year_final": int(self.spinBox_year_final.text()),
             },
             task_name=layer_name,
-            task_notes=self.task_notes.toPlainText(),
+            task_notes=self.get_task_notes(),
         )
-        job_manager.import_job(job, Path(out_file))
-        job_manager.move_job_results(job)
-
-        super().save_metadata(job)
+        self.finalize_import(job)
 
 
 def _get_layers(node):

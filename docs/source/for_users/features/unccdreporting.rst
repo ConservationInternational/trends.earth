@@ -1,7 +1,7 @@
-.. _background_unccdreporting:
+.. _background_landdegradation:
 
-UNCCD Reporting - SDG 15.3.1
-====================================================
+Land degradation and SDG 15.3.1
+===============================
 
 As part of the "2030 Agenda for Sustainable Development", Sustainable 
 Development Goal (SDG) 15 is to:
@@ -25,10 +25,10 @@ assessed using indicator 15.3.1:
 
 As the custodian agency for SDG 15.3, the United Nations Convention to Combat 
 Desertification (UNCCD) has developed a `Good Practice Guidance (GPG) 
-<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-Indicator-15.3.1_version2_2021.pdf>`_. 
+<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-Indicator-15.3.1_version2_2021.pdf>`_ 
 providing recommendations on how to calculate SDG Indicator 15.3.1.
 
-This document provides a brief introduction to SDG Indicator 15.3.1 and 
+This page provides a brief introduction to SDG Indicator 15.3.1 and 
 describes how each indicator is calculated by |trends.earth|.
 
 In order to assess the area degraded, SDG Indicator 15.3.1 uses information 
@@ -43,13 +43,13 @@ from 3 sub-indicators:
 
 |trends.earth| allows the user to compute each of these sub-indicators in a 
 spatially explicit way generating raster maps which are then integrated into a 
-final SDG 15.3.1 indicator map and produces a table result reporting areas 
+final SDG indicator 15.3.1 map and produces a table result reporting areas 
 potentially improved and degraded for the area of analysis.
    
 Sub-indicators
 --------------
 
-.. _indicator-productivity-reporting:
+.. _indicator-productivity:
 
 Productivity
 ~~~~~~~~~~~~~~
@@ -64,15 +64,202 @@ that reason, we rely on remotely sensed information to derive indicators of
 NPP.
 
 One of the most commonly used surrogates of NPP is the Normalized Difference 
-Vegetation Index (NDVI), computed using information from the red and near 
-infrared portions of the electromagnetic spectrum. In |trends.earth| we make 
+Vegetation Index (NDVI), computed using information from the red and near-
+infrared wavelengths of the electromagnetic spectrum. In |trends.earth| we make 
 use of bi-weekly products from MODIS and AVHRR to compute annual integrals of 
 NDVI (computed as the mean annual NDVI for simplicity of interpretation of 
 results). These annual integrals of NDVI are then used to compute each of the 
-productivity indicators explained below.
+productivity metrics explained below.
 
-Land Productivity Dynamics (LPD) data are provided by the Joint Research Council (JRC)
-as the default data for computing the final SDG 15.3.1 Indicator.
+Land productivity is assessed in |trends.earth| using three measures of change 
+derived from NDVI time series data: trajectory, performance and state
+
+.. image:: ../../../resources/en/documentation/understanding_indicators15/indicator_15_3_1_prod_subindicators.png
+   :align: center
+
+.. _indicator-productivity-trajectory:
+      
+Productivity Trajectory
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Trajectory measures the rate of change in primary productivity over time. As 
+indicated in the figure below, |trends.earth| computes a linear regression at 
+the pixel level to identify areas experiencing changes in primary productivity 
+for the period under analysis. A Mann-Kendall non-paremetric significance test 
+is then applied, considering only significant changes those that show a p-value 
+≤ 0.05. Positive significant trends in NDVI would indicate potential 
+improvement in land condition, and negative significant trends potential 
+degradation.
+
+.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_traj_flow.png
+   :align: center
+
+.. _indicator-productivity-climate-correction:
+
+Correcting for the effects of climate
+_____________________________________
+   
+Within a given ecosystem, primary productivity is affected by several factors, 
+such as temperature, and the availability of light, nutrients and water. Of 
+those, water availability is the most variable over time, and can have very 
+significant influences in the amount of plant tissue produced every year. When 
+annual integrals of NDVI are used to perform the trajectory analysis, it is 
+important to interpret the results having historical precipitation information 
+as a context. Otherwise, declining productivity trends could be identified as 
+human caused land degradation, when they are driven by regional patterns of 
+changes in water availability. 
+
+|trends.earth| allows the user to perform different types of analysis to 
+separate the climatic causes of the changes in primary productivity, from those 
+which could be a consequence of human land use decisions on the ground. The 
+methods currently supported for climate corrections are:
+
+**Residual Trend Analysis (RESTREND):** RESTREND uses linear regression models 
+to predict NDVI for a given rainfall amount. Trends in the difference between 
+the predicted NDVI and the observed NDVI (the residual) are interpreted as 
+non-climatically related productivity change. Please refer to the following 
+citation more more details on the method and its limitations: `Wessels, K.J.; 
+van den Bergh, F.; Scholes, R.J. Limits to detectability of land degradation by 
+trend analysis of vegetation index data. Remote Sens. Environ. 2012, 125, 
+10–22.` 
+
+**Rain Use Efficiency (RUE):** RUE Is the ratio of annual NPP to annual 
+precipitation. |trends.earth| uses the annual integrals of NDVI as a proxy for 
+annual NPP, and offers the possibility of choosing among different 
+precipitation products to compute RUE. After RUE is computed for each of the 
+years under analysis, a linear regression and a non-parametric significance 
+test is applied to the trend of RUE over time. Positive significant trends in 
+RUE would indicate potential improvement in land condition, and negative 
+significant trends potential degradation. Please refer to the following 
+publication for details on the methods and its limitations: `Wessels, K.J.; 
+Prince, S.D.; Malherbe, J.; Small, J.; Frost, P.E.; VanZyl, D. Can 
+human-induced land degradation be distinguished from the effects of rainfall 
+variability? A case study in South Africa. J. Arid Environ. 2007, 68, 271–297.`
+
+**Water Use Efficiency (WUE):** RUE assumes that there is a linear relationship 
+between the amount of water that falls in the form of precipitation in a 
+particular place and the amount of water which will be actually used by the 
+plants. This assumption does not hold true for every system. WUE tries to 
+address this limitation by using total annual evapo-transpiration (ET) instead 
+precipitation. ET is defined as precipitation minus the water lost to surface 
+runoff, recharge to groundwater and changes to soil water storage. The rest of 
+the analysis follows as described for RUE: a linear regression and a 
+non-parametric significance test is applied to the trend of WUE over time. 
+Positive significant trends in WUE would indicate potential improvement in land 
+condition, and negative significant trends potential degradation.
+
+The table below list the datasets available in |trends.earth| to perform NDVI 
+trend analysis over time using the original NDVI data or with climatic 
+corrections:
+
+.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_traj_variables.png
+   :align: center
+
+.. _indicator-productivity-state:
+      
+Productivity State
+^^^^^^^^^^^^^^^^^^
+
+The Productivity State metric allows for the detection of recent changes in 
+primary productivity as compared to a baseline period. The State metric is 
+computed as follows:
+
+1. Define the baseline period (historical period to which to compare recent 
+   primary productivity).  
+
+2. Define the comparison period (recent years used to compute comparison). It 
+   is recommended to use a 3-year to avoid annual fluctuations related to 
+   climate.  
+
+3. For each pixel, use the annual integrals of NDVI for the baseline period to 
+   compute a frequency distribution. In case the baseline period missed some 
+   extreme values in NDVI, add 5% on both extremes of the distribution. That 
+   expanded frequency distribution curve is then used to define the cut-off 
+   values of the 10 percentile classes.   
+
+4. Compute the mean NDVI for the baseline period, and determine the percentile 
+   class it belongs to. Assign to the mean NDVI for the baseline period the 
+   number corresponding to that percentile class. Possible values range from 1 
+   (lowest class) to 10 (highest class).
+
+5. Compute the mean NDVI for the comparison period, and determine the 
+   percentile class it belongs to. Assign to the mean NDVI for the comparison 
+   period the number corresponding to that percentile class. Possible values 
+   range from 1 (lowest class) to 10 (highest class).
+
+6. Determine the difference in class number between the comparison and the 
+   baseline period (comparison minus baseline).
+
+7. If the difference in class between the baseline and the comparison period is 
+   ≤ 2, then that pixel could potentially be degraded. If the difference is ≥ 
+   2, that pixel would indicate a recent improvement in terms of primary 
+   productivity. Pixels with small changes are considered stable.
+
+.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_state_flow.png
+   :align: center
+
+The table below list the datasets available in |trends.earth| to compute the 
+Productivity State metric:
+
+.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_state_variables.png
+   :align: center
+
+.. _indicator-productivity-performance:
+      
+Productivity Performance
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Productivity Performance metric measures local productivity relative to 
+other similar vegetation types in similar land cover types or bioclimatic 
+regions throughout the study area. |trends.earth| uses the unique combination 
+of soil units (soil taxonomy units using USDA system provided by SoilGrids at 
+250m resolution) and land cover (full 37 land cover classes provided by ESA CCI 
+at 300m resolution) to define this areas of analysis. The Performance metric is computed 
+as follows:
+
+1. Define the analysis period, and use the time series of NDVI to compute mean 
+   the NDVI for each pixel.
+
+2. Define similar ecologically similar units as the unique intersection of land 
+   cover and soil type.
+
+3. For each unit, extract all the mean NDVI values computed in step 1, and 
+   create a frequency distribution. From this distribution determine the value 
+   which represents the 90th percentile (we don't recommend using the 
+   absolute maximum NDVI value to avoid possible errors due to the presence of 
+   outliers). The value representing the 90th percentile will be considered the 
+   maximum productivity for that unit.
+
+4. Compute the ratio of mean NDVI and maximum productivity (in each case 
+   compare the mean observed value to the maximum for its corresponding unit).
+
+5. If observed mean NDVI is lower than 50% than the maximum productivity, that 
+   pixel is considered potentially degraded for this metric.
+
+.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_perf_flow.png
+   :align: center
+   
+The table below list the datasets available in |trends.earth| to compute the 
+Productivity Performance metric:
+ 
+.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_perf_variables.png
+   :align: center
+
+.. _indicator-15-3-1-combining-indicators:
+
+Combining Productivity Metrics
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The three productivity metrics are then combined as indicated in the 
+tables below. For SDG 15.3.1 reporting, the 3-class indicator is required, but 
+|trends.earth| also produces a 5-class one which takes advantage of the 
+information provided by State to inform the type of degradation occurring in 
+the area.
+
+.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_aggregation.png
+   :align: center
+
+.. _indicator-land-cover:
 
 Land cover
 ~~~~~~~~~~
@@ -105,6 +292,8 @@ maps can also be used. The indicator is computed as follows:
 
 .. image:: ../../../resources/en/documentation/understanding_indicators15/lc_flow.png
    :align: center
+
+.. _indicator-soc:
 
 Soil organic carbon
 ~~~~~~~~~~~~~~~~~~~
@@ -158,17 +347,34 @@ Tropical Montane (f = 0.64).
 .. image:: ../../../resources/en/documentation/understanding_indicators15/soc.png
    :align: center
 
+.. _indicator-combination:
    
-Combining indicators
---------------------
+Combining indicators into SDG Indicator 15.3.1
+----------------------------------------------
 
 The integration of the three SDG 15.3.1 sub-indicators is done following the 
-one-out all-out rule, this means that if an area was identified as potentially 
-degraded by any of the sub-indicators, then that area will be considered 
+one-out all-out rule(1OAO), this means that if an area/pixel was identified as potentially 
+degraded by any of the sub-indicators, then that area/pixel will be considered 
 potentially degraded for reporting purposes.
 
 .. image:: ../../../resources/en/documentation/understanding_indicators15/sdg_aggregation.png
    :align: center
+
+Calculating Status map
+---------------------
+
+According to the Good Practice Guidance Addendum SDG Indicator 15.3.1, the Status map "refers to the final condition (considering the baseline) of land at the end of each reporting period, classified as either degraded, stable, or improved". It combines the SDG Indicator 15.3.1 layer calculated for a given period of assessment with the Baseline SDG Indicator 15.3.1. By combining these two layers, the Status map shows changes that happened over the period assessment integrated with land conditions (degradation, stabilily, improvement) mapped at the Baseline period, providing a more complete understanding of the land condition trajectory over time.
+
+.. note::
+  	The Status layer for the Baseline period is equivalent the SDG Indicator 15.3.1 calculated for the Baseline assessment (i.e. Baseline Assessment == Status 2015).
+
+For combining a given period assessment with the Baseline SDG Indicator 15.3.1 it is necessary to apply the 3 x 3 Status Matrix
+
+.. image:: ../../../resources/en/documentation/understanding_indicators15/status_matrix_expanded.png
+   :align: center
+
+.. note::
+  	For further information on how to derive the Status map, please refer to the `Good Practice Guidance Addendum SDG Indicator 15.3.1 <https://www.unccd.int/sites/default/files/2025-07/GPG%20Addendum_%20Advanced%20Unedited%20Version.pdf>`_ which offers a dedicated section on "Assessing Status for each reporting process" starting on page 19.
 
 UNCCD Strategic Objective 2 (SO 2)
 ==================================

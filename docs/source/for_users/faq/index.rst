@@ -41,36 +41,8 @@ ____________________________
 What version of Quantum GIS (QGIS) do I need for the toolbox?
 ------------------------------------------------------------------
 
-To download QGIS, please go to the QGIS Downloads page. As of February 2018, 
-version 3.0 was released. Please use version 2.18 for the trends.earth plugin. 
-A version compatible with the latest version will be released in future 
-iterations of the project.
-
-Do I need to download a 32-bit or 64 bit version of QGIS?
-------------------------------------------------------------------
-
-We recommend downloading 64-bit version (2.18), but you may need to download 
-the 32-bit version for 32-bit operating systems. To find out if your computer 
-is running a 32-bit or 64-bit version of Windows,  search for System or 
-msinfo32. This is found in the Control Panel and will bring up a window that 
-says the system type e.g. System type: 64-bit Operating System, x64-based 
-processor. 
-
-Windows 7 or Windows Vista:
-
-#. Open System by clicking the Start button , right-clicking Computer, and then 
-   clicking Properties.
-#. Under System, you can view the system type.
-
-Windows 8 or Windows 10:
-
-#. From the Start screen, type This PC.
-#. Right Click (or tap and hold) This PC, and click Properties.
-
-Mac:
-
-#. Click the Apple icon in the top left and select "About this Mac".
-#. For more advanced details click "More Info..." in the About This Mac window.
+To download QGIS, please go to the QGIS Downloads page. As of January, 2025, 
+please use version 3.40 Long Term Release or higher version for the trends.earth plugin.
 
 How do I install the plugin?
 ------------------------------------------------------------------
@@ -137,17 +109,21 @@ toolbox.
 Will the toolbox support higher resolution datasets?
 ------------------------------------------------------------------
 
-The toolbox currently supports AVHRR (8km) and MODIS (250m) data for primary 
+The toolbox supports AVHRR (8km) and MODIS (250m) data for primary 
 productivity analysis, and ESA LCC CCI (300m) for land cover change analysis.
+
+In partnership with `Apacheta <https://www.apacheta.org/>`_ and `Auspatious <http://auspatious.com/>`
+and funding from the Global Environmental Facility (GEF), our team is currently developing datasets for land
+productivity dynamics and land cover at 30 meter scale that will cover the Small Islands Developing States (SIDS) 
 
 Can the toolbox support analysis with national-level datasets?
 ------------------------------------------------------------------
 
-This is a common request from users, and one the team is working on. 
-Trends.Earth will allow loading of national-level soil carbon and land cover 
-datasets before the end of March, 2018. This will allow users to take advantage 
-of existing datasets that might be of higher quality at a national-level than 
-the global datasets that are the defaults in the tool.
+Trends.Earth does have the capacity to import, load and process national-level datasets representing soil organic carbon, 
+land cover and land productivity dynamics, allowing users to take advantage of existing datasets that might be of 
+higher spatial resolution at a national-level than the global datasets that are the defaults in the tool. 
+Please note that working with national-level datasets relies on the local processing capacity of user's computer, 
+so the time to run analysis using custom datasets will depend on the especifications of user's machine.
 
 Methods
 _______
@@ -155,14 +131,6 @@ _______
 .. note::
     Refer to the :ref:`background_landdegradation` section for more background on analyses available in Trends.Earth.
 
-Who was the default time period for the analysis determined?
-------------------------------------------------------------------
-
-The default time period of analysis is from years 2001 to 2015. These were 
-recommended by the `Good Practice Guidelines 
-<http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_., 
-a document that provides detailed recommendations for measuring land 
-degradation and has been adopted by the UNCCD.
 
 Productivity
 ------------------------------------------------------------------
@@ -205,10 +173,10 @@ Why use soil organic carbon (SOC) instead of above and below-ground carbon to  m
 
 The original proposed indicator is Carbon Stocks, which would include above and 
 below ground biomass. However, given the lack of consistently generated and 
-comparable dataset which assess carbon stocks in woody plants (including 
+comparable dataset to assess carbon stocks in woody plants (including 
 shrubs), grasses, croplands, and other land cover types both above and below 
-ground, the `Good Practice Guidelines 
-<http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_ 
+ground, the `Good Practice Guidance 
+<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-Indicator-15.3.1_version2_2021.pdf`_ 
 published by the UNCCD recommends for the time being to use SOC as a proxy.
 
 Is it possible to measure identify processes of degradation linked to salinization using this tool?
@@ -224,7 +192,7 @@ ________________________
 How were the layers combined to define the final land degradation layer?
 ---------------------------------------------------------------------------
 
-Performance, state, and trajectory (the three indicators of change in 
+Performance, state, and trajectory (the three metrics of change in 
 productivity_) are combined following a modified version of the good practice 
 guidance developed by the UNCCD (in section SDG Indicator 15.3.1 of this manual 
 a table is presented). Productivity, soil carbon, and land cover chance (the 
@@ -271,19 +239,17 @@ ____________
 When will there be an offline version of the toolbox?
 ------------------------------------------------------------------
 
-The final toolbox will be available as both as an offline and online version. 
+The toolbox is available as both as an offline and online version. 
 The online version allows users to access current datasets more easily, while 
 also allowing users to leverage Google Earth Engine to provide computing in the 
-cloud. An offline version allows users to access data and perform analyses 
+cloud. The offline version allows users to access data and perform analyses 
 where internet connectivity may be limited, but it does have the disadvantage 
 of requiring users to have enough local computing capacity to run analyses 
-locally. The technical team intends to build the offline version of the toolbox 
-and provide countries with data relevant for reporting at the national level 
-within the pilot project countries. 
+locally. 
 
 Will you create a trends.earth toolbox for ESRI users?
 ------------------------------------------------------------------
 
-The toolbox is currently available as a plugin to QGIS, an open source software 
+The toolbox is available as a plugin to QGIS, an open source software 
 package. This allows users around the world free access to the toolbox. There 
-are currently no plans to build a toolbox within ArcGIS or ArcPro. 
+are no plans to build a toolbox within ArcGIS or ArcPro. 

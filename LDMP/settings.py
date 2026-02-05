@@ -1082,7 +1082,11 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
 
             return
 
-        if self.api_client.login_test(self.email.text(), self.password.text()):
+        success, error_info = self.api_client.authenticate(
+            self.email.text(), self.password.text()
+        )
+
+        if success:
             QtWidgets.QMessageBox.information(
                 None,
                 self.tr("Success"),
@@ -1104,14 +1108,68 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
             self.ok = True
             self.close()
         else:
-            # Login failed - show error message to user
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Login Failed"),
-                self.tr(
-                    "Invalid username or password. Please check your credentials and try again."
-                ),
+            # Login failed - check for account lockout
+            error_code = error_info.get("error_code") if error_info else None
+            requires_reset = (
+                error_info.get("requires_password_reset", False)
+                if error_info
+                else False
             )
+            minutes_remaining = (
+                error_info.get("minutes_remaining") if error_info else None
+            )
+
+            if error_code == "account_locked":
+                if requires_reset:
+                    # Account permanently locked - offer password reset
+                    result = QtWidgets.QMessageBox.warning(
+                        None,
+                        self.tr("Account Locked"),
+                        self.tr(
+                            "Your account has been locked due to too many failed login attempts.\n\n"
+                            "You must reset your password to regain access.\n\n"
+                            "Would you like to reset your password now?"
+                        ),
+                        QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+                        QtWidgets.QMessageBox.Yes,
+                    )
+                    if result == QtWidgets.QMessageBox.Yes:
+                        self._open_password_reset_dialog()
+                elif minutes_remaining:
+                    # Temporarily locked
+                    QtWidgets.QMessageBox.warning(
+                        None,
+                        self.tr("Account Temporarily Locked"),
+                        self.tr(
+                            f"Your account is temporarily locked.\n\n"
+                            f"Please try again in {minutes_remaining} minute(s).\n\n"
+                            "If you've forgotten your password, you can reset it."
+                        ),
+                    )
+                else:
+                    # Generic locked message
+                    QtWidgets.QMessageBox.warning(
+                        None,
+                        self.tr("Account Locked"),
+                        error_info.get("message", self.tr("Your account is locked.")),
+                    )
+            else:
+                # Standard login failure
+                message = error_info.get("message") if error_info else None
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Login Failed"),
+                    message
+                    or self.tr(
+                        "Invalid username or password. Please check your credentials and try again."
+                    ),
+                )
+
+    def _open_password_reset_dialog(self):
+        """Open the forgot password dialog to initiate password reset."""
+        dlg = DlgSettingsEditForgotPassword()
+        dlg.email.setText(self.email.text())
+        dlg.exec_()
 
 
 class DlgSettingsLoginLandPKS(QtWidgets.QDialog, Ui_DlgSettingsLogin):

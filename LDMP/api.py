@@ -551,17 +551,67 @@ class APIClient(QtCore.QObject):
 
         return True
 
-    def login_test(self, email, password):
-        resp = self.call_api(
-            "/auth", method="post", payload={"email": email, "password": password}
+    def authenticate(self, email, password):
+        """Attempt login and return detailed result including error information.
+
+        Returns:
+            tuple: (success: bool, error_info: dict | None)
+                - success: True if login succeeded, False otherwise
+                - error_info: None on success, or dict with error details:
+                    - message: Human-readable error message
+                    - error_code: Error code (e.g., 'account_locked')
+                    - minutes_remaining: Minutes until account unlocks (if applicable)
+                    - requires_password_reset: True if password reset is required
+        """
+        resp = self._make_request(
+            "Trends.Earth Login",
+            url=self.url + "/auth",
+            method="post",
+            payload={"email": email, "password": password},
+            headers={},
+            timeout=self.timeout,
         )
 
-        if resp:
-            return True
-        else:
-            if not email or not password:
-                log("API unable to login during login test - check username/password")
-            return False
+        if resp is None:
+            return False, {
+                "message": "Connection failed. Please check your internet connection."
+            }
+
+        status_code = resp.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute)
+
+        if status_code == 200:
+            return True, None
+
+        # Parse error response
+        error_info = {"message": "Invalid username or password."}
+        try:
+            if type(resp) is QtNetwork.QNetworkReply:
+                error_data = resp.readAll()
+            elif type(resp) is QgsNetworkReplyContent:
+                error_data = resp.content()
+            else:
+                error_data = None
+
+            if error_data:
+                import json
+
+                error_text = bytes(error_data).decode("utf-8", errors="replace")
+                error_body = json.loads(error_text)
+
+                if isinstance(error_body, dict):
+                    error_info = {
+                        "message": error_body.get("message")
+                        or error_body.get("msg", "Login failed."),
+                        "error_code": error_body.get("error_code"),
+                        "minutes_remaining": error_body.get("minutes_remaining"),
+                        "requires_password_reset": error_body.get(
+                            "requires_password_reset", False
+                        ),
+                    }
+        except Exception as e:
+            log(f"Failed to parse login error response: {e}")
+
+        return False, error_info
 
     @backoff.on_predicate(
         backoff.expo, lambda x: x is None, max_tries=3, on_backoff=backoff_hdlr

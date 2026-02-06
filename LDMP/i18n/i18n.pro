@@ -23,17 +23,18 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculateUrbanSummaryTable.ui \
 ../gui/DlgDataIOAddLayersToMap.ui \
 ../gui/DlgDataIOImportLC.ui \
+../gui/DlgDataIOImportPopulation.ui \
 ../gui/DlgDataIOImportProd.ui \
 ../gui/DlgDataIOImportSOC.ui \
 ../gui/DlgDataIOLoadTE.ui \
+../gui/DlgDatasetAdditionalMetadata.ui \
 ../gui/DlgDatasetMetadata.ui \
 ../gui/DlgDownload.ui \
+../gui/DlgExecutionLogs.ui \
 ../gui/DlgGenerateReport.ui \
-../gui/DlgImportDataLC.ui \
-../gui/DlgImportDataProd.ui \
-../gui/DlgImportDataSOC.ui \
 ../gui/DlgJobs.ui \
 ../gui/DlgJobsDetails.ui \
+../gui/DlgLandCoverRestore.ui \
 ../gui/DlgLandPKSDownload.ui \
 ../gui/DlgPlot.ui \
 ../gui/DlgSelectDS.ui \
@@ -43,9 +44,11 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgSettingsEditUpdate.ui \
 ../gui/DlgSettingsLogin.ui \
 ../gui/DlgSettingsRegister.ui \
+../gui/DlgTimelinePeriodGraph.ui \
 ../gui/DlgTimeseries.ui \
 ../gui/DlgVisualizationBasemap.ui \
 ../gui/DlgVisualizationCreateMap.ui \
+../gui/fragment_progress_period.ui \
 ../gui/land_cover_setup_widget.ui \
 ../gui/land_cover_setup_widget_local.ui \
 ../gui/WidgetAlgorithmLeaf.ui \
@@ -59,6 +62,8 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/WidgetDataIOSelectTELayerImport.ui\
 ../gui/WidgetDatasetItem.ui \
 ../gui/WidgetDatasetItemDetails.ui \
+../gui/WidgetLCClassEditor.ui \
+../gui/WidgetLCClassManage.ui \
 ../gui/WidgetLCDefineDegradation.ui \
 ../gui/WidgetMain.ui \
 ../gui/WidgetSelectArea.ui \
@@ -82,9 +87,11 @@ SOURCES = ../about.py \
 ../charts.py \
 ../conf.py \
 ../data_io.py \
+../dataset_additional_metadata.py \
 ../datasets_dialog.py \
 ../download.py \
 ../download_data.py \
+../execution_logs_dialog.py \
 ../generate_report_dialog.py \
 ../landpks.py \
 ../layers.py \
@@ -96,6 +103,7 @@ SOURCES = ../about.py \
 ../metadata_dialog.py \
 ../plot.py \
 ../plugin.py \
+../region_selector.py \
 ../select_dataset.py \
 ../settings.py \
 ../summary.py \

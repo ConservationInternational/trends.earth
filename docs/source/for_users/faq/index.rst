@@ -176,7 +176,7 @@ below ground biomass. However, given the lack of consistently generated and
 comparable dataset to assess carbon stocks in woody plants (including 
 shrubs), grasses, croplands, and other land cover types both above and below 
 ground, the `Good Practice Guidance 
-<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-Indicator-15.3.1_version2_2021.pdf`_ 
+<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-Indicator-15.3.1_version2_2021.pdf>`_ 
 published by the UNCCD recommends for the time being to use SOC as a proxy.
 
 Is it possible to measure identify processes of degradation linked to salinization using this tool?

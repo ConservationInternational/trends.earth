@@ -12,6 +12,7 @@
 """
 
 import os
+import sys
 
 from qgis.core import QgsApplication, QgsExpression, QgsMasterLayoutInterface
 from qgis.gui import QgsLayoutDesignerInterface
@@ -41,6 +42,41 @@ PRIOR_LOCALE = conf.settings_manager.get_value(conf.Setting.PRIOR_LOCALE)
 log(f"CURRENT_LOCALE is {CURRENT_LOCALE}, PRIOR_LOCALE is {PRIOR_LOCALE}")
 if CURRENT_LOCALE != PRIOR_LOCALE:
     conf.settings_manager.write_value(conf.Setting.PRIOR_LOCALE, CURRENT_LOCALE)
+
+
+# Module prefixes that need to be removed from sys.modules on plugin unload.
+# These modules are bundled in ext-libs and may have version
+# changes between plugin releases. Could also list marshmallow and
+# marshmallow_dataclass here if we run into issues with those
+# when upgrading the plugin without restarting QGIS, but safer not to in
+# case other plugins rely on them.
+_MODULES_TO_CLEANUP = (
+    "te_schemas",
+    "te_algorithms",
+    "LDMP",
+)
+
+
+def _cleanup_plugin_modules():
+    """
+    Remove plugin modules from sys.modules cache.
+
+    When QGIS upgrades a plugin in-place (without restarting), Python's module
+    cache (sys.modules) retains old versions of imported modules. This causes
+    errors when the new plugin code expects updated module versions from ext-libs.
+    """
+    modules_to_remove = [
+        name
+        for name in list(sys.modules.keys())
+        if any(
+            name == prefix or name.startswith(prefix + ".")
+            for prefix in _MODULES_TO_CLEANUP
+        )
+    ]
+    for name in modules_to_remove:
+        del sys.modules[name]
+    if modules_to_remove:
+        log(f"Cleaned up {len(modules_to_remove)} cached modules for plugin reload")
 
 
 class tr_plugin:
@@ -304,6 +340,10 @@ class LDMPPlugin:
 
         QgsApplication.processingRegistry().removeProvider(self.provider)
         QgsExpression.unregisterFunction(calculate_error_recode_stats.name())
+
+        # Clean up cached modules to allow proper reload when upgrading the plugin
+        # without restarting QGIS. This must be done last after all other cleanup.
+        _cleanup_plugin_modules()
 
     def run_docked_interface(self, checked):
         if checked:

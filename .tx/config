@@ -91,12 +91,6 @@ source_file = docs/i18n/pot/for_users/features/landconsumption.pot
 source_lang = en
 type = PO
 
-[o:conservation-international:p:trendsearth:r:for_users--features--landdegradation]
-file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/features/landdegradation.po
-source_file = docs/i18n/pot/for_users/features/landdegradation.pot
-source_lang = en
-type = PO
-
 [o:conservation-international:p:trendsearth:r:for_users--features--unccdreporting]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/features/unccdreporting.po
 source_file = docs/i18n/pot/for_users/features/unccdreporting.pot

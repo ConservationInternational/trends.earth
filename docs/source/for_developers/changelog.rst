@@ -3,6 +3,19 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.2.2 (January 28, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.2>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Add option to turn email notifications on/off for job status updates
+  - Support importing custom land productivity (LPD) data and using it in UNCCD reporting
+  - Support loading results JSON files directly onto the map
+  - Updated password reset and new user signup process for security
+  - Fixed loading boundaries without login
+  - Added optional custom dataset clipping on import
+  - Constrain SOC calculations to respect baseline SOC data year (2000)
+  - Thread safety and stability improvements
+  - Documentation and translation updates
+
 `2.2.0 (November 24, 2025) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.0>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

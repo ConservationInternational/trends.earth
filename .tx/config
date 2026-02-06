@@ -55,6 +55,12 @@ source_file = docs/i18n/pot/for_users/designingreports/index.pot
 source_lang = en
 type = PO
 
+[o:conservation-international:p:trendsearth:r:for_users--downloads--index]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/downloads/index.po
+source_file = docs/i18n/pot/for_users/downloads/index.pot
+source_lang = en
+type = PO
+
 [o:conservation-international:p:trendsearth:r:for_users--faq--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/faq/index.po
 source_file = docs/i18n/pot/for_users/faq/index.pot
@@ -208,6 +214,18 @@ type = PO
 [o:conservation-international:p:trendsearth:r:index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/index.po
 source_file = docs/i18n/pot/index.pot
+source_lang = en
+type = PO
+
+[o:conservation-international:p:trendsearth:r:privacy]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/privacy.po
+source_file = docs/i18n/pot/privacy.pot
+source_lang = en
+type = PO
+
+[o:conservation-international:p:trendsearth:r:terms]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/terms.po
+source_file = docs/i18n/pot/terms.pot
 source_lang = en
 type = PO
 

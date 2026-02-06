@@ -59,6 +59,16 @@ and select Manage and install plugins. On the side menu, select Installed to
 view the plugins that you have installed in your computer. At the bottom of the 
 window, select Upgrade all to upgrade the toolbox to the latest version.
 
+I get a Python error after upgrading the plugin. What should I do?
+------------------------------------------------------------------
+
+If you see a Python error (such as ``AttributeError`` or ``ModuleNotFoundError``) 
+immediately after upgrading the plugin within QGIS, this is caused by Python's 
+module cache retaining old versions of the plugin's libraries. Simply restart 
+QGIS and the plugin should load correctly. This issue typically only occurs when 
+upgrading from older versions of the plugin; newer versions include a fix that 
+clears the module cache automatically during upgrades.
+
 How do I uninstall the plugin?
 ------------------------------------------------------------------
 

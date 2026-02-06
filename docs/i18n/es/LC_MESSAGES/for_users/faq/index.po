@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 04:09+0000\n"
+"POT-Creation-Date: 2026-02-06 20:26+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: es\n"
@@ -24,7 +24,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../source/for_users/faq/index.rst:4
 msgid "Frequently asked questions"
@@ -118,89 +118,16 @@ msgstr "¿Qué versión de Quantum GIS (QGIS) necesito para la caja de herramien
 
 #: ../../source/for_users/faq/index.rst:44
 msgid ""
-"To download QGIS, please go to the QGIS Downloads page. As of February "
-"2018, version 3.0 was released. Please use version 2.18 for the "
-"trends.earth plugin. A version compatible with the latest version will be"
-" released in future iterations of the project."
+"To download QGIS, please go to the QGIS Downloads page. As of January, "
+"2025, please use version 3.40 Long Term Release or higher version for the"
+" trends.earth plugin."
 msgstr ""
-"Para descargar QGIS, vaya a la página de descargas de QGIS. A partir de "
-"febrero de 2018, se lanzó la versión 3.0. Utilice la versión 2.18 para el"
-" plugin |trends.earth|. Se lanzará una versión compatible con la última "
-"versión en futuras versiones del proyecto."
 
-#: ../../source/for_users/faq/index.rst:50
-msgid "Do I need to download a 32-bit or 64 bit version of QGIS?"
-msgstr "¿Necesito descargar una versión de 32 bits o 64 bits de QGIS?"
-
-#: ../../source/for_users/faq/index.rst:52
-msgid ""
-"We recommend downloading 64-bit version (2.18), but you may need to "
-"download the 32-bit version for 32-bit operating systems. To find out if "
-"your computer is running a 32-bit or 64-bit version of Windows,  search "
-"for System or msinfo32. This is found in the Control Panel and will bring"
-" up a window that says the system type e.g. System type: 64-bit Operating"
-" System, x64-based processor."
-msgstr ""
-"Recomendamos descargar la versión de 64 bits (2.18), pero es posible que "
-"deba descargar la versión de 32 bits para los sistemas operativos de 32 "
-"bits. Para saber si su computadora ejecuta una versión de Windows de 32 o"
-" 64 bits, busque System o msinfo32. Esto se encuentra en el Panel de "
-"control y mostrará una ventana que dice el tipo de sistema, p. Ej. Tipo "
-"de sistema: sistema operativo de 64 bits, procesador basado en x64."
-
-#: ../../source/for_users/faq/index.rst:59
-msgid "Windows 7 or Windows Vista:"
-msgstr "Windows 7 o Windows Vista:"
-
-#: ../../source/for_users/faq/index.rst:61
-msgid ""
-"Open System by clicking the Start button , right-clicking Computer, and "
-"then clicking Properties."
-msgstr ""
-"Abra Sistema haciendo clic en el botón Inicio, luego con el botón derecho"
-" haga clic en Equipo y luego en Propiedades."
-
-#: ../../source/for_users/faq/index.rst:63
-msgid "Under System, you can view the system type."
-msgstr "En Sistema, puede ver el tipo de sistema."
-
-#: ../../source/for_users/faq/index.rst:65
-msgid "Windows 8 or Windows 10:"
-msgstr "Windows 8 o Windows 10:"
-
-#: ../../source/for_users/faq/index.rst:67
-msgid "From the Start screen, type This PC."
-msgstr "Desde la pantalla de Inicio, escriba Mi PC."
-
-#: ../../source/for_users/faq/index.rst:68
-msgid "Right Click (or tap and hold) This PC, and click Properties."
-msgstr ""
-"Haga clic con el botón derecho (o toque y mantenga presionada) en Mi PC y"
-" haga clic en Propiedades."
-
-#: ../../source/for_users/faq/index.rst:70
-msgid "Mac:"
-msgstr "Mac:"
-
-#: ../../source/for_users/faq/index.rst:72
-msgid "Click the Apple icon in the top left and select \"About this Mac\"."
-msgstr ""
-"Haga clic en el icono de Apple en la esquina superior izquierda y "
-"seleccione \"Acerca de esta Mac\"."
-
-#: ../../source/for_users/faq/index.rst:73
-msgid ""
-"For more advanced details click \"More Info...\" in the About This Mac "
-"window."
-msgstr ""
-"Para obtener detalles más avanzados, haga clic en \"Más información ...\""
-" en la ventana Acerca de esta Mac."
-
-#: ../../source/for_users/faq/index.rst:76
+#: ../../source/for_users/faq/index.rst:48
 msgid "How do I install the plugin?"
 msgstr "¿Cómo instalo el complemento?"
 
-#: ../../source/for_users/faq/index.rst:78
+#: ../../source/for_users/faq/index.rst:50
 msgid ""
 "Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
 "install plugins. On the side menu, select All to view the plugins "
@@ -212,11 +139,11 @@ msgstr ""
 "para ver los complementos disponibles en QGIS. Busque trends.earth y "
 "seleccione Install plugin en la parte inferior de la ventana."
 
-#: ../../source/for_users/faq/index.rst:83
+#: ../../source/for_users/faq/index.rst:55
 msgid "How do I upgrade the plugin?"
 msgstr "¿Cómo actualizo el complemento?"
 
-#: ../../source/for_users/faq/index.rst:85
+#: ../../source/for_users/faq/index.rst:57
 msgid ""
 "If you have already installed the plugin, navigate to Plugins on the menu"
 " bar, and select Manage and install plugins. On the side menu, select "
@@ -231,11 +158,26 @@ msgstr ""
 "Actualizar todo para actualizar la caja de herramientas a la última "
 "versión."
 
-#: ../../source/for_users/faq/index.rst:91
+#: ../../source/for_users/faq/index.rst:63
+msgid "I get a Python error after upgrading the plugin. What should I do?"
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:65
+msgid ""
+"If you see a Python error (such as ``AttributeError`` or "
+"``ModuleNotFoundError``) immediately after upgrading the plugin within "
+"QGIS, this is caused by Python's module cache retaining old versions of "
+"the plugin's libraries. Simply restart QGIS and the plugin should load "
+"correctly. This issue typically only occurs when upgrading from older "
+"versions of the plugin; newer versions include a fix that clears the "
+"module cache automatically during upgrades."
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:73
 msgid "How do I uninstall the plugin?"
 msgstr "¿Cómo desinstalo el complemento?"
 
-#: ../../source/for_users/faq/index.rst:93
+#: ../../source/for_users/faq/index.rst:75
 msgid ""
 "If you would like to uninstall the plugin, normally you can do so with "
 "the QGIS plugins manager. To access the tool, choose \"Plugins\" and then"
@@ -252,7 +194,7 @@ msgstr ""
 "Luego haga clic en \"Trends.Earth\"; en la lista de complementos y en "
 "\"Desinstalar Complemento\" para desinstalarlo."
 
-#: ../../source/for_users/faq/index.rst:100
+#: ../../source/for_users/faq/index.rst:82
 msgid ""
 "If you encounter an error uninstalling the plugin, it is also possible to"
 " remove it manually. To manually remove the plugin:"
@@ -260,11 +202,11 @@ msgstr ""
 "Si encuentra un error al desinstalar el complemento, también es posible "
 "eliminarlo manualmente. Para eliminar manualmente el complemento:"
 
-#: ../../source/for_users/faq/index.rst:103
+#: ../../source/for_users/faq/index.rst:85
 msgid "Open QGIS"
 msgstr "Abrir QGIS"
 
-#: ../../source/for_users/faq/index.rst:104
+#: ../../source/for_users/faq/index.rst:86
 msgid ""
 "Navigate to where the plugin is installed by selecting \"Open Active "
 "Profile Folder\" from the menu under \"Settings\" - \"User Profiles\" on "
@@ -274,7 +216,7 @@ msgstr ""
 "carpeta de perfil activo\" en el menú en \"Configuración\" - \"Perfiles "
 "de usuario\" en la barra de menú."
 
-#: ../../source/for_users/faq/index.rst:106
+#: ../../source/for_users/faq/index.rst:88
 msgid ""
 "Quit QGIS. You may not be able to uninstall the plugin if QGIS is not "
 "closed."
@@ -282,7 +224,7 @@ msgstr ""
 "Salga de QGIS. Es posible que no pueda desinstalar el complemento si QGIS"
 " no está cerrado."
 
-#: ../../source/for_users/faq/index.rst:108
+#: ../../source/for_users/faq/index.rst:90
 msgid ""
 "In the file browser window that opened, double click on \"python\", and "
 "then double click on \"plugins\". Delete the LDMP folder within that "
@@ -292,15 +234,15 @@ msgstr ""
 " \"python\"; y luego haga doble clic en \"complementos\". Elimine la "
 "carpeta LDMP dentro de ese directorio."
 
-#: ../../source/for_users/faq/index.rst:110
+#: ../../source/for_users/faq/index.rst:92
 msgid "Restart QGIS."
 msgstr "Reinicie QGIS."
 
-#: ../../source/for_users/faq/index.rst:112
+#: ../../source/for_users/faq/index.rst:94
 msgid "OR"
 msgstr "O"
 
-#: ../../source/for_users/faq/index.rst:114
+#: ../../source/for_users/faq/index.rst:96
 msgid ""
 "Navigate to the AppData folder under user account and find the plugins "
 "info under the directory. For example: "
@@ -310,11 +252,11 @@ msgstr ""
 " de los complementos en el directorio. Por ejemplo: "
 "C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
 
-#: ../../source/for_users/faq/index.rst:119
+#: ../../source/for_users/faq/index.rst:101
 msgid "Datasets"
 msgstr "Los datos"
 
-#: ../../source/for_users/faq/index.rst:122
+#: ../../source/for_users/faq/index.rst:104
 msgid ""
 "Refer to the :ref:`input_data` section for more information on data "
 "sources used in Trends.Earth."
@@ -322,11 +264,11 @@ msgstr ""
 "Consulte la sección :ref:`input_data` para obtener más información sobre "
 "las fuentes de datos utilizadas en Trends.Earth."
 
-#: ../../source/for_users/faq/index.rst:125
+#: ../../source/for_users/faq/index.rst:107
 msgid "When will you update datasets for the current year?"
 msgstr "¿Cuándo actualizará los datos para el año actual?"
 
-#: ../../source/for_users/faq/index.rst:127
+#: ../../source/for_users/faq/index.rst:109
 msgid ""
 "Trends.Earth uses publicly available data, as such the most up to date "
 "datasets will be added to the toolbox as soon as the original data "
@@ -338,11 +280,11 @@ msgstr ""
 "pronto como los proveedores de datos originales los hagan públicos. Si "
 "nota alguna actualización que nos perdimos, háganos saber."
 
-#: ../../source/for_users/faq/index.rst:132
+#: ../../source/for_users/faq/index.rst:114
 msgid "Is there an option to download the original data?"
 msgstr "¿Existe una opción para descargar los datos originales?"
 
-#: ../../source/for_users/faq/index.rst:134
+#: ../../source/for_users/faq/index.rst:116
 msgid ""
 "Users can download the original data using the Download option within the"
 " toolbox."
@@ -350,47 +292,53 @@ msgstr ""
 "Los usuarios pueden descargar los datos originales utilizando la opción "
 "Descargar dentro de la caja de herramientas."
 
-#: ../../source/for_users/faq/index.rst:138
+#: ../../source/for_users/faq/index.rst:120
 msgid "Will the toolbox support higher resolution datasets?"
 msgstr "¿La caja de herramientas admitirá datos de mayor resolución?"
 
-#: ../../source/for_users/faq/index.rst:140
+#: ../../source/for_users/faq/index.rst:122
+#, fuzzy
 msgid ""
-"The toolbox currently supports AVHRR (8km) and MODIS (250m) data for "
-"primary productivity analysis, and ESA LCC CCI (300m) for land cover "
-"change analysis."
+"The toolbox supports AVHRR (8km) and MODIS (250m) data for primary "
+"productivity analysis, and ESA LCC CCI (300m) for land cover change "
+"analysis."
 msgstr ""
 "La caja de herramientas actualmente admite datos AVHRR (8km) y MODIS "
 "(250m) para análisis de productividad primaria, y ESA LCC CCI (300m) para"
 " análisis de cambio de cobertura terrestre."
 
-#: ../../source/for_users/faq/index.rst:144
+#: ../../source/for_users/faq/index.rst:125
+msgid ""
+"In partnership with `Apacheta <https://www.apacheta.org/>`_ and "
+"`Auspatious <http://auspatious.com/>` and funding from the Global "
+"Environmental Facility (GEF), our team is currently developing datasets "
+"for land productivity dynamics and land cover at 30 meter scale that will"
+" cover the Small Islands Developing States (SIDS)"
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:130
 msgid "Can the toolbox support analysis with national-level datasets?"
 msgstr ""
 "¿Puede la caja de herramientas apoyar el análisis con datos a nivel "
 "nacional?"
 
-#: ../../source/for_users/faq/index.rst:146
+#: ../../source/for_users/faq/index.rst:132
 msgid ""
-"This is a common request from users, and one the team is working on. "
-"Trends.Earth will allow loading of national-level soil carbon and land "
-"cover datasets before the end of March, 2018. This will allow users to "
-"take advantage of existing datasets that might be of higher quality at a "
-"national-level than the global datasets that are the defaults in the "
-"tool."
+"Trends.Earth does have the capacity to import, load and process national-"
+"level datasets representing soil organic carbon, land cover and land "
+"productivity dynamics, allowing users to take advantage of existing "
+"datasets that might be of higher spatial resolution at a national-level "
+"than the global datasets that are the defaults in the tool. Please note "
+"that working with national-level datasets relies on the local processing "
+"capacity of user's computer, so the time to run analysis using custom "
+"datasets will depend on the especifications of user's machine."
 msgstr ""
-"Esta es una solicitud común de los usuarios, y en la que el equipo está "
-"trabajando. |trends.earth| permitirá cargar datos de cobertura de carbono"
-" y cobertura terrestre a nivel nacional antes de finales de marzo de "
-"2018. Esto permitirá a los usuarios aprovechar la información existentes "
-"que podría ser de mayor calidad a nivel nacional que los datos globales "
-"provistos por |trends.earth|."
 
-#: ../../source/for_users/faq/index.rst:153
+#: ../../source/for_users/faq/index.rst:139
 msgid "Methods"
 msgstr "Métodos"
 
-#: ../../source/for_users/faq/index.rst:156
+#: ../../source/for_users/faq/index.rst:142
 msgid ""
 "Refer to the :ref:`background_landdegradation` section for more "
 "background on analyses available in Trends.Earth."
@@ -398,38 +346,15 @@ msgstr ""
 "Consulte la sección :ref:`background_landdegradation` para obtener más "
 "información sobre los análisis disponibles en Trends.Earth."
 
-#: ../../source/for_users/faq/index.rst:159
-msgid "Who was the default time period for the analysis determined?"
-msgstr ""
-"¿Quién fue el período de tiempo predeterminado para el análisis "
-"determinado?"
-
-#: ../../source/for_users/faq/index.rst:161
-#, python-format
-msgid ""
-"The default time period of analysis is from years 2001 to 2015. These "
-"were recommended by the `Good Practice Guidelines "
-"<http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.,"
-" a document that provides detailed recommendations for measuring land "
-"degradation and has been adopted by the UNCCD."
-msgstr ""
-"El período de análisis predeterminado es de los años 2001 a 2015. Estos "
-"fueron recomendados por las `Good Practice Guidelines "
-"<http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practiceuidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
-" Un documento que proporciona recomendaciones detalladas para medir la "
-"degradación de la tierra y ha sido adoptado por la CNULD."
-
-#: ../../source/for_users/faq/index.rst:168
+#: ../../source/for_users/faq/index.rst:146
 msgid "Productivity"
 msgstr "Productividad"
 
-#: ../../source/for_users/faq/index.rst:171
+#: ../../source/for_users/faq/index.rst:149
 msgid "How does the result provided by state differs from trajectory?"
 msgstr "¿Cómo difiere el resultado proporcionado por el estado de la trayectoria?"
 
-#: ../../source/for_users/faq/index.rst:173
+#: ../../source/for_users/faq/index.rst:151
 msgid ""
 "The trajectory analysis uses linear regressions and non-parametric tests "
 "to identify long term significant trends in primary productivity. This "
@@ -446,11 +371,11 @@ msgstr ""
 "una media a largo plazo con el período más reciente, el indicador de "
 "Estado puede capturar tales cambios recientes."
 
-#: ../../source/for_users/faq/index.rst:182
+#: ../../source/for_users/faq/index.rst:160
 msgid "Land cover"
 msgstr "Cobertura del terreno"
 
-#: ../../source/for_users/faq/index.rst:185
+#: ../../source/for_users/faq/index.rst:163
 msgid ""
 "Currently, the land cover aggregation is done following the UNCCD "
 "guidelines, but that classification does not take into account country "
@@ -462,7 +387,7 @@ msgstr ""
 " cuenta las características a nivel de país. ¿Podría ser posible permitir"
 " que el usuario defina los criterios de agregación?"
 
-#: ../../source/for_users/faq/index.rst:187
+#: ../../source/for_users/faq/index.rst:165
 msgid ""
 "Users are able to make these changes using the advanced settings in the "
 "land cover GUI so that appropriate aggregations occur depending on the "
@@ -472,13 +397,13 @@ msgstr ""
 "avanzada de la GUI de la cobertura terrestre para que se produzcan las "
 "agregaciones apropiadas según el contexto de su país."
 
-#: ../../source/for_users/faq/index.rst:192
+#: ../../source/for_users/faq/index.rst:170
 msgid "How can we isolate woody plant encroachment within the toolbox?"
 msgstr ""
 "¿Cómo podemos aislar la invasión de plantas leñosas dentro de la caja de "
 "herramientas?"
 
-#: ../../source/for_users/faq/index.rst:194
+#: ../../source/for_users/faq/index.rst:172
 msgid ""
 "This can be altered using the land cover change matrix in the toolbox. "
 "For every transition, the user can mark the change as stable, improvement"
@@ -492,11 +417,11 @@ msgstr ""
 "pastizales a matorrales puede indicar invasión leñosa y esta transición "
 "puede marcarse como un indicador de degradación."
 
-#: ../../source/for_users/faq/index.rst:201
+#: ../../source/for_users/faq/index.rst:179
 msgid "Carbon stocks"
 msgstr "Stocks de carbono"
 
-#: ../../source/for_users/faq/index.rst:204
+#: ../../source/for_users/faq/index.rst:182
 msgid ""
 "Why use soil organic carbon (SOC) instead of above and below-ground "
 "carbon to  measure carbon stocks?"
@@ -504,18 +429,17 @@ msgstr ""
 "¿Por qué usar carbono orgánico del suelo (SOC) en lugar de carbono por "
 "encima y por debajo del suelo para medir las reservas de carbono?"
 
-#: ../../source/for_users/faq/index.rst:206
-#, python-format
+#: ../../source/for_users/faq/index.rst:184
+#, fuzzy, python-format
 msgid ""
 "The original proposed indicator is Carbon Stocks, which would include "
 "above and below ground biomass. However, given the lack of consistently "
-"generated and comparable dataset which assess carbon stocks in woody "
-"plants (including shrubs), grasses, croplands, and other land cover types"
-" both above and below ground, the `Good Practice Guidelines "
-"<http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
-" published by the UNCCD recommends for the time being to use SOC as a "
-"proxy."
+"generated and comparable dataset to assess carbon stocks in woody plants "
+"(including shrubs), grasses, croplands, and other land cover types both "
+"above and below ground, the `Good Practice Guidance "
+"<https://www.unccd.int/sites/default/files/documents/2021-09"
+"/UNCCD_GPG_SDG-Indicator-15.3.1_version2_2021.pdf>`_ published by the "
+"UNCCD recommends for the time being to use SOC as a proxy."
 msgstr ""
 "El indicador original propuesto son los stocks totales de carbono, que "
 "incluirían biomasa en superficie y bajo suelo. Sin embargo, dada la falta"
@@ -528,7 +452,7 @@ msgstr ""
 " publicado por la CNULD recomienda por el momento utilizar SOC como "
 "proxy."
 
-#: ../../source/for_users/faq/index.rst:215
+#: ../../source/for_users/faq/index.rst:193
 msgid ""
 "Is it possible to measure identify processes of degradation linked to "
 "salinization using this tool?"
@@ -536,7 +460,7 @@ msgstr ""
 "¿Es posible medir identificar procesos de degradación vinculados a la "
 "salinización utilizando esta herramienta?"
 
-#: ../../source/for_users/faq/index.rst:217
+#: ../../source/for_users/faq/index.rst:195
 msgid ""
 "Not directly. If salinization caused a reduction in primary productivity,"
 " that decrease would be identified by the productivity indicators, but "
@@ -547,19 +471,20 @@ msgstr ""
 "indicadores de productividad, pero los usuarios tendrían que usar su "
 "conocimiento local para asignar las causas."
 
-#: ../../source/for_users/faq/index.rst:222
+#: ../../source/for_users/faq/index.rst:200
 msgid "Land degradation outputs"
 msgstr "Productos de degradación de tierras"
 
-#: ../../source/for_users/faq/index.rst:225
+#: ../../source/for_users/faq/index.rst:203
 msgid "How were the layers combined to define the final land degradation layer?"
 msgstr ""
 "¿Cómo se combinaron las capas para definir la capa final de degradación "
 "de la tierra?"
 
-#: ../../source/for_users/faq/index.rst:227
+#: ../../source/for_users/faq/index.rst:205
+#, fuzzy
 msgid ""
-"Performance, state, and trajectory (the three indicators of change in "
+"Performance, state, and trajectory (the three metrics of change in "
 "productivity_) are combined following a modified version of the good "
 "practice guidance developed by the UNCCD (in section SDG Indicator 15.3.1"
 " of this manual a table is presented). Productivity, soil carbon, and "
@@ -579,7 +504,7 @@ msgstr ""
 "indicadores en un píxel en particular, entonces ese píxel se identifica "
 "como \"degradado\"."
 
-#: ../../source/for_users/faq/index.rst:236
+#: ../../source/for_users/faq/index.rst:214
 msgid ""
 "Why do I see areas the data says are improving or degrading when I know "
 "they are not?"
@@ -587,7 +512,7 @@ msgstr ""
 "¿Por qué veo áreas que los datos dicen que están mejorando o degradando "
 "cuando sé que no lo están?"
 
-#: ../../source/for_users/faq/index.rst:238
+#: ../../source/for_users/faq/index.rst:216
 msgid ""
 "The final output should be interpreted as showing areas potentially "
 "degraded. The indicator of land degradation is based on changes in "
@@ -619,7 +544,7 @@ msgstr ""
 "los más relevantes en todas las escalas y geografías. Por favor utilice "
 "siempre datos locales si los tiene disponibles."
 
-#: ../../source/for_users/faq/index.rst:252
+#: ../../source/for_users/faq/index.rst:230
 msgid ""
 "All of the sub-indicators are measuring vegetation: how does this "
 "contribute to understanding and identifying land degradation?"
@@ -627,7 +552,7 @@ msgstr ""
 "Todos los subindicadores miden la vegetación: ¿cómo contribuye esto a "
 "comprender e identificar la degradación de la tierra?"
 
-#: ../../source/for_users/faq/index.rst:254
+#: ../../source/for_users/faq/index.rst:232
 msgid ""
 "Vegetation is a key component of most ecosystems, and serve as a good "
 "proxy for their overall functioning and health. The three sub-indicators "
@@ -662,26 +587,24 @@ msgstr ""
 "consenso de que, en este momento y a nivel mundial, es la mejor forma de "
 "hacerlo."
 
-#: ../../source/for_users/faq/index.rst:269
+#: ../../source/for_users/faq/index.rst:247
 msgid "Future plans"
 msgstr "Planes futuros"
 
-#: ../../source/for_users/faq/index.rst:272
+#: ../../source/for_users/faq/index.rst:250
 msgid "When will there be an offline version of the toolbox?"
 msgstr "¿Cuándo habrá una versión fuera de línea de la caja de herramientas?"
 
-#: ../../source/for_users/faq/index.rst:274
+#: ../../source/for_users/faq/index.rst:252
+#, fuzzy
 msgid ""
-"The final toolbox will be available as both as an offline and online "
-"version. The online version allows users to access current datasets more "
-"easily, while also allowing users to leverage Google Earth Engine to "
-"provide computing in the cloud. An offline version allows users to access"
-" data and perform analyses where internet connectivity may be limited, "
-"but it does have the disadvantage of requiring users to have enough local"
-" computing capacity to run analyses locally. The technical team intends "
-"to build the offline version of the toolbox and provide countries with "
-"data relevant for reporting at the national level within the pilot "
-"project countries."
+"The toolbox is available as both as an offline and online version. The "
+"online version allows users to access current datasets more easily, while"
+" also allowing users to leverage Google Earth Engine to provide computing"
+" in the cloud. The offline version allows users to access data and "
+"perform analyses where internet connectivity may be limited, but it does "
+"have the disadvantage of requiring users to have enough local computing "
+"capacity to run analyses locally."
 msgstr ""
 "En el futuro, la caja de herramientas estará disponible en dos versiones,"
 " una utilizando cálculos en línea y otra que se realizará localmente. La "
@@ -697,18 +620,18 @@ msgstr ""
 "presentación de informes a nivel nacional dentro de los países del "
 "proyecto piloto."
 
-#: ../../source/for_users/faq/index.rst:285
+#: ../../source/for_users/faq/index.rst:261
 msgid "Will you create a trends.earth toolbox for ESRI users?"
 msgstr ""
 "¿Creará una caja de herramientas de tendencias. Tierra para los usuarios "
 "de ESRI?"
 
-#: ../../source/for_users/faq/index.rst:287
+#: ../../source/for_users/faq/index.rst:263
+#, fuzzy
 msgid ""
-"The toolbox is currently available as a plugin to QGIS, an open source "
-"software package. This allows users around the world free access to the "
-"toolbox. There are currently no plans to build a toolbox within ArcGIS or"
-" ArcPro."
+"The toolbox is available as a plugin to QGIS, an open source software "
+"package. This allows users around the world free access to the toolbox. "
+"There are no plans to build a toolbox within ArcGIS or ArcPro."
 msgstr ""
 "La caja de herramientas está actualmente disponible como un complemento "
 "para QGIS, un paquete de software de código abierto. Esto permite a los "
@@ -752,4 +675,153 @@ msgstr ""
 #~ "/email-distribution-list>`_ para estar al"
 #~ " tanto de cualquier avance con la "
 #~ "lista de distribución de proyectos."
+
+#~ msgid ""
+#~ "To download QGIS, please go to the"
+#~ " QGIS Downloads page. As of February"
+#~ " 2018, version 3.0 was released. "
+#~ "Please use version 2.18 for the "
+#~ "trends.earth plugin. A version compatible "
+#~ "with the latest version will be "
+#~ "released in future iterations of the "
+#~ "project."
+#~ msgstr ""
+#~ "Para descargar QGIS, vaya a la "
+#~ "página de descargas de QGIS. A "
+#~ "partir de febrero de 2018, se "
+#~ "lanzó la versión 3.0. Utilice la "
+#~ "versión 2.18 para el plugin "
+#~ "|trends.earth|. Se lanzará una versión "
+#~ "compatible con la última versión en "
+#~ "futuras versiones del proyecto."
+
+#~ msgid "Do I need to download a 32-bit or 64 bit version of QGIS?"
+#~ msgstr "¿Necesito descargar una versión de 32 bits o 64 bits de QGIS?"
+
+#~ msgid ""
+#~ "We recommend downloading 64-bit version "
+#~ "(2.18), but you may need to "
+#~ "download the 32-bit version for 32-bit"
+#~ " operating systems. To find out if"
+#~ " your computer is running a 32-bit"
+#~ " or 64-bit version of Windows,  "
+#~ "search for System or msinfo32. This "
+#~ "is found in the Control Panel and"
+#~ " will bring up a window that "
+#~ "says the system type e.g. System "
+#~ "type: 64-bit Operating System, x64-based "
+#~ "processor."
+#~ msgstr ""
+#~ "Recomendamos descargar la versión de 64"
+#~ " bits (2.18), pero es posible que "
+#~ "deba descargar la versión de 32 "
+#~ "bits para los sistemas operativos de "
+#~ "32 bits. Para saber si su "
+#~ "computadora ejecuta una versión de "
+#~ "Windows de 32 o 64 bits, busque"
+#~ " System o msinfo32. Esto se encuentra"
+#~ " en el Panel de control y "
+#~ "mostrará una ventana que dice el "
+#~ "tipo de sistema, p. Ej. Tipo de"
+#~ " sistema: sistema operativo de 64 "
+#~ "bits, procesador basado en x64."
+
+#~ msgid "Windows 7 or Windows Vista:"
+#~ msgstr "Windows 7 o Windows Vista:"
+
+#~ msgid ""
+#~ "Open System by clicking the Start "
+#~ "button , right-clicking Computer, and"
+#~ " then clicking Properties."
+#~ msgstr ""
+#~ "Abra Sistema haciendo clic en el "
+#~ "botón Inicio, luego con el botón "
+#~ "derecho haga clic en Equipo y "
+#~ "luego en Propiedades."
+
+#~ msgid "Under System, you can view the system type."
+#~ msgstr "En Sistema, puede ver el tipo de sistema."
+
+#~ msgid "Windows 8 or Windows 10:"
+#~ msgstr "Windows 8 o Windows 10:"
+
+#~ msgid "From the Start screen, type This PC."
+#~ msgstr "Desde la pantalla de Inicio, escriba Mi PC."
+
+#~ msgid "Right Click (or tap and hold) This PC, and click Properties."
+#~ msgstr ""
+#~ "Haga clic con el botón derecho (o"
+#~ " toque y mantenga presionada) en Mi"
+#~ " PC y haga clic en Propiedades."
+
+#~ msgid "Mac:"
+#~ msgstr "Mac:"
+
+#~ msgid "Click the Apple icon in the top left and select \"About this Mac\"."
+#~ msgstr ""
+#~ "Haga clic en el icono de Apple "
+#~ "en la esquina superior izquierda y "
+#~ "seleccione \"Acerca de esta Mac\"."
+
+#~ msgid ""
+#~ "For more advanced details click \"More"
+#~ " Info...\" in the About This Mac "
+#~ "window."
+#~ msgstr ""
+#~ "Para obtener detalles más avanzados, "
+#~ "haga clic en \"Más información ...\" "
+#~ "en la ventana Acerca de esta Mac."
+
+#~ msgid ""
+#~ "This is a common request from "
+#~ "users, and one the team is working"
+#~ " on. Trends.Earth will allow loading "
+#~ "of national-level soil carbon and "
+#~ "land cover datasets before the end "
+#~ "of March, 2018. This will allow "
+#~ "users to take advantage of existing "
+#~ "datasets that might be of higher "
+#~ "quality at a national-level than "
+#~ "the global datasets that are the "
+#~ "defaults in the tool."
+#~ msgstr ""
+#~ "Esta es una solicitud común de los"
+#~ " usuarios, y en la que el "
+#~ "equipo está trabajando. |trends.earth| "
+#~ "permitirá cargar datos de cobertura de"
+#~ " carbono y cobertura terrestre a "
+#~ "nivel nacional antes de finales de "
+#~ "marzo de 2018. Esto permitirá a "
+#~ "los usuarios aprovechar la información "
+#~ "existentes que podría ser de mayor "
+#~ "calidad a nivel nacional que los "
+#~ "datos globales provistos por |trends.earth|."
+
+#~ msgid "Who was the default time period for the analysis determined?"
+#~ msgstr ""
+#~ "¿Quién fue el período de tiempo "
+#~ "predeterminado para el análisis determinado?"
+
+#~ msgid ""
+#~ "The default time period of analysis "
+#~ "is from years 2001 to 2015. These"
+#~ " were recommended by the `Good "
+#~ "Practice Guidelines "
+#~ "<http://www2.unccd.int/sites/default/files/relevant-"
+#~ "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.,"
+#~ " a document that provides detailed "
+#~ "recommendations for measuring land degradation"
+#~ " and has been adopted by the "
+#~ "UNCCD."
+#~ msgstr ""
+#~ "El período de análisis predeterminado es"
+#~ " de los años 2001 a 2015. Estos"
+#~ " fueron recomendados por las `Good "
+#~ "Practice Guidelines "
+#~ "<http://www2.unccd.int/sites/default/files/relevant-"
+#~ "links/2017-10/Good%20Practiceuidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+#~ " Un documento que proporciona "
+#~ "recomendaciones detalladas para medir la "
+#~ "degradación de la tierra y ha sido"
+#~ " adoptado por la CNULD."
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 04:09+0000\n"
+"POT-Creation-Date: 2026-02-06 20:26+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: zh\n"
@@ -22,7 +22,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../source/for_users/faq/index.rst:4
 msgid "Frequently asked questions"
@@ -95,76 +95,16 @@ msgstr "工具箱需要什么版本的 Quantum GIS (QGIS)？"
 
 #: ../../source/for_users/faq/index.rst:44
 msgid ""
-"To download QGIS, please go to the QGIS Downloads page. As of February "
-"2018, version 3.0 was released. Please use version 2.18 for the "
-"trends.earth plugin. A version compatible with the latest version will be"
-" released in future iterations of the project."
+"To download QGIS, please go to the QGIS Downloads page. As of January, "
+"2025, please use version 3.40 Long Term Release or higher version for the"
+" trends.earth plugin."
 msgstr ""
-"要下载 QGIS，请转到 QGIS 下载页面。截至 2018 年 2 月，已发布 3.0 版。Trends.earth 插件请使用 2.18 "
-"版本。与最新版本兼容的版本将在项目的未来迭代中发布。"
 
-#: ../../source/for_users/faq/index.rst:50
-msgid "Do I need to download a 32-bit or 64 bit version of QGIS?"
-msgstr "我需要下载 32 位或 64 位版本的 QGIS 吗？"
-
-#: ../../source/for_users/faq/index.rst:52
-msgid ""
-"We recommend downloading 64-bit version (2.18), but you may need to "
-"download the 32-bit version for 32-bit operating systems. To find out if "
-"your computer is running a 32-bit or 64-bit version of Windows,  search "
-"for System or msinfo32. This is found in the Control Panel and will bring"
-" up a window that says the system type e.g. System type: 64-bit Operating"
-" System, x64-based processor."
-msgstr ""
-"我们建议下载 64 位版本 (2.18)，但对于 32 位操作系统，您可能需要下载 32 位版本。要了解您的计算机运行的是 32 位还是 64 "
-"位版本的 Windows，请搜索 System 或 msinfo32。这可以在控制面板中找到，并会弹出一个显示系统类型的窗口，例如，系统类型：64"
-" 位操作系统，基于 x64 的处理器。"
-
-#: ../../source/for_users/faq/index.rst:59
-msgid "Windows 7 or Windows Vista:"
-msgstr "Windows 7 或 Windows Vista："
-
-#: ../../source/for_users/faq/index.rst:61
-msgid ""
-"Open System by clicking the Start button , right-clicking Computer, and "
-"then clicking Properties."
-msgstr "通过单击开始按钮，右键单击计算机，然后单击属性打开系统。"
-
-#: ../../source/for_users/faq/index.rst:63
-msgid "Under System, you can view the system type."
-msgstr "在“系统”下，您可以查看系统类型。"
-
-#: ../../source/for_users/faq/index.rst:65
-msgid "Windows 8 or Windows 10:"
-msgstr "Windows 8 或 Windows 10："
-
-#: ../../source/for_users/faq/index.rst:67
-msgid "From the Start screen, type This PC."
-msgstr "在开始屏幕上，输入This PC。"
-
-#: ../../source/for_users/faq/index.rst:68
-msgid "Right Click (or tap and hold) This PC, and click Properties."
-msgstr "右键单击（或点击并按住）此PC，然后单击属性。"
-
-#: ../../source/for_users/faq/index.rst:70
-msgid "Mac:"
-msgstr "Mac："
-
-#: ../../source/for_users/faq/index.rst:72
-msgid "Click the Apple icon in the top left and select \"About this Mac\"."
-msgstr "单击左上角的 Apple 图标，选择“关于本机”。"
-
-#: ../../source/for_users/faq/index.rst:73
-msgid ""
-"For more advanced details click \"More Info...\" in the About This Mac "
-"window."
-msgstr "欲了解更多详细信息，请单击“关于本机”窗口中的“更多信息...”。"
-
-#: ../../source/for_users/faq/index.rst:76
+#: ../../source/for_users/faq/index.rst:48
 msgid "How do I install the plugin?"
 msgstr "如何安装插件？"
 
-#: ../../source/for_users/faq/index.rst:78
+#: ../../source/for_users/faq/index.rst:50
 msgid ""
 "Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
 "install plugins. On the side menu, select All to view the plugins "
@@ -174,11 +114,11 @@ msgstr ""
 "打开 QGIS，导航到菜单栏上的“插件”，选择“管理”并安装插件。在侧面菜单上，选择“全部”以查看 QGIS 中可用的插件。搜索 "
 "trends.earth 并选择窗口底部的“安装”插件。"
 
-#: ../../source/for_users/faq/index.rst:83
+#: ../../source/for_users/faq/index.rst:55
 msgid "How do I upgrade the plugin?"
 msgstr "如何升级插件？"
 
-#: ../../source/for_users/faq/index.rst:85
+#: ../../source/for_users/faq/index.rst:57
 msgid ""
 "If you have already installed the plugin, navigate to Plugins on the menu"
 " bar, and select Manage and install plugins. On the side menu, select "
@@ -187,11 +127,26 @@ msgid ""
 " the latest version."
 msgstr "如果您已经安装了插件，请导航到菜单栏上的“插件”，选择“管理”并安装插件。在侧面菜单上，选择“已安装”以查看已在计算机中安装的插件。在窗口底部，选择全部“升级”以将工具箱升级到最新版本。"
 
-#: ../../source/for_users/faq/index.rst:91
+#: ../../source/for_users/faq/index.rst:63
+msgid "I get a Python error after upgrading the plugin. What should I do?"
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:65
+msgid ""
+"If you see a Python error (such as ``AttributeError`` or "
+"``ModuleNotFoundError``) immediately after upgrading the plugin within "
+"QGIS, this is caused by Python's module cache retaining old versions of "
+"the plugin's libraries. Simply restart QGIS and the plugin should load "
+"correctly. This issue typically only occurs when upgrading from older "
+"versions of the plugin; newer versions include a fix that clears the "
+"module cache automatically during upgrades."
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:73
 msgid "How do I uninstall the plugin?"
 msgstr "如何卸载插件？"
 
-#: ../../source/for_users/faq/index.rst:93
+#: ../../source/for_users/faq/index.rst:75
 msgid ""
 "If you would like to uninstall the plugin, normally you can do so with "
 "the QGIS plugins manager. To access the tool, choose \"Plugins\" and then"
@@ -204,45 +159,45 @@ msgstr ""
 "菜单栏中选择“插件”，然后选择“管理和安装插件...”。在插件管理器屏幕中，从左侧菜单中选择“已安装”。然后单击插件列表中的 "
 "\"Trends.Earth\"，并单击“卸载插件”将其卸载。"
 
-#: ../../source/for_users/faq/index.rst:100
+#: ../../source/for_users/faq/index.rst:82
 msgid ""
 "If you encounter an error uninstalling the plugin, it is also possible to"
 " remove it manually. To manually remove the plugin:"
 msgstr "如果您在卸载插件时遇到错误，也可以手动将其删除。要手动删除插件："
 
-#: ../../source/for_users/faq/index.rst:103
+#: ../../source/for_users/faq/index.rst:85
 msgid "Open QGIS"
 msgstr "打开 QGIS"
 
-#: ../../source/for_users/faq/index.rst:104
+#: ../../source/for_users/faq/index.rst:86
 msgid ""
 "Navigate to where the plugin is installed by selecting \"Open Active "
 "Profile Folder\" from the menu under \"Settings\" - \"User Profiles\" on "
 "the menu bar."
 msgstr "从菜单栏上的“设置”——“用户配置文件”下的菜单中选择“打开活动配置文件文件夹”，导航到安装插件的位置。"
 
-#: ../../source/for_users/faq/index.rst:106
+#: ../../source/for_users/faq/index.rst:88
 msgid ""
 "Quit QGIS. You may not be able to uninstall the plugin if QGIS is not "
 "closed."
 msgstr "退出 QGIS。如果 QGIS 未关闭，您可能无法卸载此插件。"
 
-#: ../../source/for_users/faq/index.rst:108
+#: ../../source/for_users/faq/index.rst:90
 msgid ""
 "In the file browser window that opened, double click on \"python\", and "
 "then double click on \"plugins\". Delete the LDMP folder within that "
 "directory."
 msgstr "在打开的文件浏览器窗口中，双击 \"python\"，然后双击“插件”。删除此目录中的 LDMP 文件夹。"
 
-#: ../../source/for_users/faq/index.rst:110
+#: ../../source/for_users/faq/index.rst:92
 msgid "Restart QGIS."
 msgstr "重新启动 QGIS。"
 
-#: ../../source/for_users/faq/index.rst:112
+#: ../../source/for_users/faq/index.rst:94
 msgid "OR"
 msgstr "或者"
 
-#: ../../source/for_users/faq/index.rst:114
+#: ../../source/for_users/faq/index.rst:96
 msgid ""
 "Navigate to the AppData folder under user account and find the plugins "
 "info under the directory. For example: "
@@ -251,21 +206,21 @@ msgstr ""
 "导航到用户账户下的 AppData "
 "文件夹，在此目录下找到插件信息。例如：C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
 
-#: ../../source/for_users/faq/index.rst:119
+#: ../../source/for_users/faq/index.rst:101
 msgid "Datasets"
 msgstr "数据集"
 
-#: ../../source/for_users/faq/index.rst:122
+#: ../../source/for_users/faq/index.rst:104
 msgid ""
 "Refer to the :ref:`input_data` section for more information on data "
 "sources used in Trends.Earth."
 msgstr "关于 Trends.Earth 所用数据源的更多信息，请参阅 :ref:`input_data` 部分。"
 
-#: ../../source/for_users/faq/index.rst:125
+#: ../../source/for_users/faq/index.rst:107
 msgid "When will you update datasets for the current year?"
 msgstr "您何时更新本年度的数据集？"
 
-#: ../../source/for_users/faq/index.rst:127
+#: ../../source/for_users/faq/index.rst:109
 msgid ""
 "Trends.Earth uses publicly available data, as such the most up to date "
 "datasets will be added to the toolbox as soon as the original data "
@@ -273,48 +228,60 @@ msgid ""
 "please do let us know."
 msgstr "Trends.Earth使用的是公开的数据，因此，一旦原始数据提供者将其公开，最新的数据集就会被添加到工具箱中。如果您注意到我们遗漏的任何更新，请让我们知道。"
 
-#: ../../source/for_users/faq/index.rst:132
+#: ../../source/for_users/faq/index.rst:114
 msgid "Is there an option to download the original data?"
 msgstr "是否有一个选项可以下载原始数据？"
 
-#: ../../source/for_users/faq/index.rst:134
+#: ../../source/for_users/faq/index.rst:116
 msgid ""
 "Users can download the original data using the Download option within the"
 " toolbox."
 msgstr "用户可以使用工具箱中的下载选项来下载原始数据。"
 
-#: ../../source/for_users/faq/index.rst:138
+#: ../../source/for_users/faq/index.rst:120
 msgid "Will the toolbox support higher resolution datasets?"
 msgstr "工具箱是否支持更高分辨率的数据集？"
 
-#: ../../source/for_users/faq/index.rst:140
+#: ../../source/for_users/faq/index.rst:122
+#, fuzzy
 msgid ""
-"The toolbox currently supports AVHRR (8km) and MODIS (250m) data for "
-"primary productivity analysis, and ESA LCC CCI (300m) for land cover "
-"change analysis."
+"The toolbox supports AVHRR (8km) and MODIS (250m) data for primary "
+"productivity analysis, and ESA LCC CCI (300m) for land cover change "
+"analysis."
 msgstr ""
 "该工具箱目前支持用于初级生产力分析的进阶极高解析度辐射仪AVHRR（8公里）和中分辨率成像光谱仪（MODIS）（250米）数据，以及用于土地覆盖变化分析的欧洲空间局（ESA）土地覆被变化（"
 " LCC）气候变化倡议（ CCI）（300米）。"
 
-#: ../../source/for_users/faq/index.rst:144
+#: ../../source/for_users/faq/index.rst:125
+msgid ""
+"In partnership with `Apacheta <https://www.apacheta.org/>`_ and "
+"`Auspatious <http://auspatious.com/>` and funding from the Global "
+"Environmental Facility (GEF), our team is currently developing datasets "
+"for land productivity dynamics and land cover at 30 meter scale that will"
+" cover the Small Islands Developing States (SIDS)"
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:130
 msgid "Can the toolbox support analysis with national-level datasets?"
 msgstr "该工具箱能否支持对国家级数据集的分析？"
 
-#: ../../source/for_users/faq/index.rst:146
+#: ../../source/for_users/faq/index.rst:132
 msgid ""
-"This is a common request from users, and one the team is working on. "
-"Trends.Earth will allow loading of national-level soil carbon and land "
-"cover datasets before the end of March, 2018. This will allow users to "
-"take advantage of existing datasets that might be of higher quality at a "
-"national-level than the global datasets that are the defaults in the "
-"tool."
-msgstr "这是用户的一个共同要求，也是团队正在努力的一个要求。Trends.Earth将允许在2018年3月底前加载国家层面的土壤碳和土地覆被数据集。这将使用户能够利用现有的数据集，这些数据集在国家层面的质量可能高于工具中默认的全球数据集。"
+"Trends.Earth does have the capacity to import, load and process national-"
+"level datasets representing soil organic carbon, land cover and land "
+"productivity dynamics, allowing users to take advantage of existing "
+"datasets that might be of higher spatial resolution at a national-level "
+"than the global datasets that are the defaults in the tool. Please note "
+"that working with national-level datasets relies on the local processing "
+"capacity of user's computer, so the time to run analysis using custom "
+"datasets will depend on the especifications of user's machine."
+msgstr ""
 
-#: ../../source/for_users/faq/index.rst:153
+#: ../../source/for_users/faq/index.rst:139
 msgid "Methods"
 msgstr "方法"
 
-#: ../../source/for_users/faq/index.rst:156
+#: ../../source/for_users/faq/index.rst:142
 msgid ""
 "Refer to the :ref:`background_landdegradation` section for more "
 "background on analyses available in Trends.Earth."
@@ -322,33 +289,15 @@ msgstr ""
 "参考:\n"
 "ref:`background_landdegradation`一节，了解更多关于Trends.Earth中分析的背景。"
 
-#: ../../source/for_users/faq/index.rst:159
-msgid "Who was the default time period for the analysis determined?"
-msgstr "分析的默认时间段由谁确定？"
-
-#: ../../source/for_users/faq/index.rst:161
-#, python-format
-msgid ""
-"The default time period of analysis is from years 2001 to 2015. These "
-"were recommended by the `Good Practice Guidelines "
-"<http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.,"
-" a document that provides detailed recommendations for measuring land "
-"degradation and has been adopted by the UNCCD."
-msgstr ""
-"默认的分析时间段为2001年至2015年。这些都是《良好实践指南》<http://www2.unccd.int/sites/default/files"
-"/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.推荐的，该文件为测量土地退化提供了详细建议，并被《联合国防止荒漠化公约》（UNCCD）所采用。"
-
-#: ../../source/for_users/faq/index.rst:168
+#: ../../source/for_users/faq/index.rst:146
 msgid "Productivity"
 msgstr "生产率"
 
-#: ../../source/for_users/faq/index.rst:171
+#: ../../source/for_users/faq/index.rst:149
 msgid "How does the result provided by state differs from trajectory?"
 msgstr "国家提供的结果与轨迹有什么不同？"
 
-#: ../../source/for_users/faq/index.rst:173
+#: ../../source/for_users/faq/index.rst:151
 msgid ""
 "The trajectory analysis uses linear regressions and non-parametric tests "
 "to identify long term significant trends in primary productivity. This "
@@ -358,11 +307,11 @@ msgid ""
 "recent period, state is able to capture such recent changes."
 msgstr "轨迹分析使用线性回归和非参数测试来确定初级生产力的长期重要趋势。然而，这种方法不能捕捉到初级生产力的更多近期变化，这可能是短期改善或退化过程的信号。通过将长期平均值与最近的时期进行比较，国家能够捕捉到这种最近的变化。"
 
-#: ../../source/for_users/faq/index.rst:182
+#: ../../source/for_users/faq/index.rst:160
 msgid "Land cover"
 msgstr "土地覆盖"
 
-#: ../../source/for_users/faq/index.rst:185
+#: ../../source/for_users/faq/index.rst:163
 msgid ""
 "Currently, the land cover aggregation is done following the UNCCD "
 "guidelines, but that classification does not take into account country "
@@ -370,18 +319,18 @@ msgid ""
 "the aggregation criteria?"
 msgstr "目前，土地覆被的汇总是按照UNCCD准则进行的，但这种分类未考虑国家一级的特点。是否有可能允许用户定义汇总标准？"
 
-#: ../../source/for_users/faq/index.rst:187
+#: ../../source/for_users/faq/index.rst:165
 msgid ""
 "Users are able to make these changes using the advanced settings in the "
 "land cover GUI so that appropriate aggregations occur depending on the "
 "context of your country."
 msgstr "用户能够使用土地覆被图形用户界面（GUI）中的高级设置进行修改，以便根据您所在国家的情况进行适当的汇总。"
 
-#: ../../source/for_users/faq/index.rst:192
+#: ../../source/for_users/faq/index.rst:170
 msgid "How can we isolate woody plant encroachment within the toolbox?"
 msgstr "我们如何在工具箱中隔离出木本植物侵占？"
 
-#: ../../source/for_users/faq/index.rst:194
+#: ../../source/for_users/faq/index.rst:172
 msgid ""
 "This can be altered using the land cover change matrix in the toolbox. "
 "For every transition, the user can mark the change as stable, improvement"
@@ -390,57 +339,57 @@ msgid ""
 "indicator of degradation."
 msgstr "这可以通过工具箱中的土地覆被变化矩阵来改变。对于每一个过渡，用户可以将变化标记为稳定、改善或退化。从草地/牧场到灌木林地的过渡可能表明木本植物侵占，这种过渡可以被标记为退化的指标。"
 
-#: ../../source/for_users/faq/index.rst:201
+#: ../../source/for_users/faq/index.rst:179
 msgid "Carbon stocks"
 msgstr "碳储量"
 
-#: ../../source/for_users/faq/index.rst:204
+#: ../../source/for_users/faq/index.rst:182
 msgid ""
 "Why use soil organic carbon (SOC) instead of above and below-ground "
 "carbon to  measure carbon stocks?"
 msgstr "为什么使用土壤有机碳（SOC）而不是地上和地下碳来测量碳储量？"
 
-#: ../../source/for_users/faq/index.rst:206
-#, python-format
+#: ../../source/for_users/faq/index.rst:184
+#, fuzzy, python-format
 msgid ""
 "The original proposed indicator is Carbon Stocks, which would include "
 "above and below ground biomass. However, given the lack of consistently "
-"generated and comparable dataset which assess carbon stocks in woody "
-"plants (including shrubs), grasses, croplands, and other land cover types"
-" both above and below ground, the `Good Practice Guidelines "
-"<http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
-" published by the UNCCD recommends for the time being to use SOC as a "
-"proxy."
+"generated and comparable dataset to assess carbon stocks in woody plants "
+"(including shrubs), grasses, croplands, and other land cover types both "
+"above and below ground, the `Good Practice Guidance "
+"<https://www.unccd.int/sites/default/files/documents/2021-09"
+"/UNCCD_GPG_SDG-Indicator-15.3.1_version2_2021.pdf>`_ published by the "
+"UNCCD recommends for the time being to use SOC as a proxy."
 msgstr ""
 "最初提出的指标是碳储量，其中包括地上和地下生物量。然而，鉴于缺乏一致生成的、可比较的数据集来评估木本植物（包括灌木）、草、耕地和其他土地覆盖类型的地上和地下碳储量，UNCCD公布的"
 " \"良好实践指南\"<http://www2.unccd.int/sites/default/files/relevant-"
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>_建议暂时使用SOC作为替代。"
 
-#: ../../source/for_users/faq/index.rst:215
+#: ../../source/for_users/faq/index.rst:193
 msgid ""
 "Is it possible to measure identify processes of degradation linked to "
 "salinization using this tool?"
 msgstr "是否有可能利用这一工具来测量确定与盐碱化有关的退化过程？"
 
-#: ../../source/for_users/faq/index.rst:217
+#: ../../source/for_users/faq/index.rst:195
 msgid ""
 "Not directly. If salinization caused a reduction in primary productivity,"
 " that decrease would be identified by the productivity indicators, but "
 "the users would have to use their local knowledge to assign the causes."
 msgstr "并非直接的。如果盐碱化导致初级生产力的减少，这种减少将被生产力指标所识别，但用户将不得不利用他们的地方知识来确定原因。"
 
-#: ../../source/for_users/faq/index.rst:222
+#: ../../source/for_users/faq/index.rst:200
 msgid "Land degradation outputs"
 msgstr "土地退化的输出"
 
-#: ../../source/for_users/faq/index.rst:225
+#: ../../source/for_users/faq/index.rst:203
 msgid "How were the layers combined to define the final land degradation layer?"
 msgstr "这些层是如何结合起来以确定最终的土地退化层的？"
 
-#: ../../source/for_users/faq/index.rst:227
+#: ../../source/for_users/faq/index.rst:205
+#, fuzzy
 msgid ""
-"Performance, state, and trajectory (the three indicators of change in "
+"Performance, state, and trajectory (the three metrics of change in "
 "productivity_) are combined following a modified version of the good "
 "practice guidance developed by the UNCCD (in section SDG Indicator 15.3.1"
 " of this manual a table is presented). Productivity, soil carbon, and "
@@ -453,13 +402,13 @@ msgstr ""
 " 15.3.1的三个次级指标）采用 \"一出一进 "
 "\"原则进行组合。换句话说：如果在一个特定的像素上，三个指标中的任何一个出现了下降，那么这个像素就被映射为 \"退化 \"了。"
 
-#: ../../source/for_users/faq/index.rst:236
+#: ../../source/for_users/faq/index.rst:214
 msgid ""
 "Why do I see areas the data says are improving or degrading when I know "
 "they are not?"
 msgstr "为什么我看到数据所说的正在改善或退化的领域，而我知道事实上并非如此？"
 
-#: ../../source/for_users/faq/index.rst:238
+#: ../../source/for_users/faq/index.rst:216
 msgid ""
 "The final output should be interpreted as showing areas potentially "
 "degraded. The indicator of land degradation is based on changes in "
@@ -476,13 +425,13 @@ msgid ""
 "geographies. A functionality to use local data will be added shortly."
 msgstr "最终的输出结果应被解释为显示潜在的退化区域。土地退化的指标是基于生产力、土地覆盖和土壤有机碳的变化。有几个因素可能会导致识别出似乎与地面上发生的情况不相关的退化模式，分析日期是一个非常重要的因素。例如，如果分析开始时的气候条件特别潮湿，那么从那时起的趋势可能会显示初级生产力的显著下降，以及退化。用户可以使用Trends.Earth来解决其中的一些问题，通过气候的影响进行修正。数据的分辨率有可能是另一个限制。Trends.Earth默认使用的是全球数据集，但这并不是在所有规模和地理区域都是最相关的。使用本地数据的功能不久将添加。"
 
-#: ../../source/for_users/faq/index.rst:252
+#: ../../source/for_users/faq/index.rst:230
 msgid ""
 "All of the sub-indicators are measuring vegetation: how does this "
 "contribute to understanding and identifying land degradation?"
 msgstr "所有的次级指标都在测量植被：这对理解和识别土地退化有什么帮助？"
 
-#: ../../source/for_users/faq/index.rst:254
+#: ../../source/for_users/faq/index.rst:232
 msgid ""
 "Vegetation is a key component of most ecosystems, and serve as a good "
 "proxy for their overall functioning and health. The three sub-indicators "
@@ -500,38 +449,36 @@ msgid ""
 "point in time and globally, this is the best approach."
 msgstr "植被是大多数生态系统的关键组成部分，是生态系统整体功能和健康的良好代表。用于SDG15.3.1的三个次级指标衡量土地覆盖的不同方面，这些方面确实与植被有关。初级生产力直接衡量一个地区存在的生物量的变化，但它并没有告诉我们这种变化是否是积极的（并非所有植物生物量的增加都应被解释为改善）。土地覆被填补了这一空白，它从专题的角度解释景观，观察以前有什么，现在有什么。它确实包括植被，但也包括裸露的土地、城市和水。最后，土壤有机碳指标使用土地覆盖图来告知土壤有机碳随时间的变化。这种方法并不理想，但鉴于全球土壤科学和测量的现状，人们一致认为在这个时间点和全球范围内，这是最好的方法。"
 
-#: ../../source/for_users/faq/index.rst:269
+#: ../../source/for_users/faq/index.rst:247
 msgid "Future plans"
 msgstr "未来的计划"
 
-#: ../../source/for_users/faq/index.rst:272
+#: ../../source/for_users/faq/index.rst:250
 msgid "When will there be an offline version of the toolbox?"
 msgstr "什么时候会有一个离线版本的工具箱？"
 
-#: ../../source/for_users/faq/index.rst:274
+#: ../../source/for_users/faq/index.rst:252
+#, fuzzy
 msgid ""
-"The final toolbox will be available as both as an offline and online "
-"version. The online version allows users to access current datasets more "
-"easily, while also allowing users to leverage Google Earth Engine to "
-"provide computing in the cloud. An offline version allows users to access"
-" data and perform analyses where internet connectivity may be limited, "
-"but it does have the disadvantage of requiring users to have enough local"
-" computing capacity to run analyses locally. The technical team intends "
-"to build the offline version of the toolbox and provide countries with "
-"data relevant for reporting at the national level within the pilot "
-"project countries."
+"The toolbox is available as both as an offline and online version. The "
+"online version allows users to access current datasets more easily, while"
+" also allowing users to leverage Google Earth Engine to provide computing"
+" in the cloud. The offline version allows users to access data and "
+"perform analyses where internet connectivity may be limited, but it does "
+"have the disadvantage of requiring users to have enough local computing "
+"capacity to run analyses locally."
 msgstr "最终的工具箱将以离线和在线版本的形式提供。在线版本允许用户更容易地访问当前的数据集，同时也允许用户利用谷歌地球引擎来提供云计算。离线版本允许用户在互联网连接有限的地方访问数据和进行分析，但它的缺点是要求用户有足够的本地计算能力来运行分析。技术团队打算建立工具箱的离线版本，并向各国提供与试点项目国家内的国家级报告有关的数据。"
 
-#: ../../source/for_users/faq/index.rst:285
+#: ../../source/for_users/faq/index.rst:261
 msgid "Will you create a trends.earth toolbox for ESRI users?"
 msgstr "你会为ESRI用户创建一个trends.earth工具箱吗？"
 
-#: ../../source/for_users/faq/index.rst:287
+#: ../../source/for_users/faq/index.rst:263
+#, fuzzy
 msgid ""
-"The toolbox is currently available as a plugin to QGIS, an open source "
-"software package. This allows users around the world free access to the "
-"toolbox. There are currently no plans to build a toolbox within ArcGIS or"
-" ArcPro."
+"The toolbox is available as a plugin to QGIS, an open source software "
+"package. This allows users around the world free access to the toolbox. "
+"There are no plans to build a toolbox within ArcGIS or ArcPro."
 msgstr "该工具箱目前可作为开源软件包QGIS的一个插件使用。这使得世界各地的用户可以免费使用该工具箱。目前还没有计划在ArcGIS或ArcPro中建立一个工具箱。"
 
 #~ msgid "iconCalculator"
@@ -563,4 +510,107 @@ msgstr "该工具箱目前可作为开源软件包QGIS的一个插件使用。�
 #~ "and-timeline>`_ 上找到。您还可以在 `Vital Signs LD"
 #~ " 电子邮件分发列表 <http://vitalsigns.org/gef-ldmp/email-"
 #~ "distribution-list>`_ 中添加自己的联系信息，以及时了解项目分发列表的进展。"
+
+#~ msgid ""
+#~ "To download QGIS, please go to the"
+#~ " QGIS Downloads page. As of February"
+#~ " 2018, version 3.0 was released. "
+#~ "Please use version 2.18 for the "
+#~ "trends.earth plugin. A version compatible "
+#~ "with the latest version will be "
+#~ "released in future iterations of the "
+#~ "project."
+#~ msgstr ""
+#~ "要下载 QGIS，请转到 QGIS 下载页面。截至 2018 年 2"
+#~ " 月，已发布 3.0 版。Trends.earth 插件请使用 2.18 "
+#~ "版本。与最新版本兼容的版本将在项目的未来迭代中发布。"
+
+#~ msgid "Do I need to download a 32-bit or 64 bit version of QGIS?"
+#~ msgstr "我需要下载 32 位或 64 位版本的 QGIS 吗？"
+
+#~ msgid ""
+#~ "We recommend downloading 64-bit version "
+#~ "(2.18), but you may need to "
+#~ "download the 32-bit version for 32-bit"
+#~ " operating systems. To find out if"
+#~ " your computer is running a 32-bit"
+#~ " or 64-bit version of Windows,  "
+#~ "search for System or msinfo32. This "
+#~ "is found in the Control Panel and"
+#~ " will bring up a window that "
+#~ "says the system type e.g. System "
+#~ "type: 64-bit Operating System, x64-based "
+#~ "processor."
+#~ msgstr ""
+#~ "我们建议下载 64 位版本 (2.18)，但对于 32 "
+#~ "位操作系统，您可能需要下载 32 位版本。要了解您的计算机运行的是 32 位还是 "
+#~ "64 位版本的 Windows，请搜索 System 或 "
+#~ "msinfo32。这可以在控制面板中找到，并会弹出一个显示系统类型的窗口，例如，系统类型：64 位操作系统，基于 "
+#~ "x64 的处理器。"
+
+#~ msgid "Windows 7 or Windows Vista:"
+#~ msgstr "Windows 7 或 Windows Vista："
+
+#~ msgid ""
+#~ "Open System by clicking the Start "
+#~ "button , right-clicking Computer, and"
+#~ " then clicking Properties."
+#~ msgstr "通过单击开始按钮，右键单击计算机，然后单击属性打开系统。"
+
+#~ msgid "Under System, you can view the system type."
+#~ msgstr "在“系统”下，您可以查看系统类型。"
+
+#~ msgid "Windows 8 or Windows 10:"
+#~ msgstr "Windows 8 或 Windows 10："
+
+#~ msgid "From the Start screen, type This PC."
+#~ msgstr "在开始屏幕上，输入This PC。"
+
+#~ msgid "Right Click (or tap and hold) This PC, and click Properties."
+#~ msgstr "右键单击（或点击并按住）此PC，然后单击属性。"
+
+#~ msgid "Mac:"
+#~ msgstr "Mac："
+
+#~ msgid "Click the Apple icon in the top left and select \"About this Mac\"."
+#~ msgstr "单击左上角的 Apple 图标，选择“关于本机”。"
+
+#~ msgid ""
+#~ "For more advanced details click \"More"
+#~ " Info...\" in the About This Mac "
+#~ "window."
+#~ msgstr "欲了解更多详细信息，请单击“关于本机”窗口中的“更多信息...”。"
+
+#~ msgid ""
+#~ "This is a common request from "
+#~ "users, and one the team is working"
+#~ " on. Trends.Earth will allow loading "
+#~ "of national-level soil carbon and "
+#~ "land cover datasets before the end "
+#~ "of March, 2018. This will allow "
+#~ "users to take advantage of existing "
+#~ "datasets that might be of higher "
+#~ "quality at a national-level than "
+#~ "the global datasets that are the "
+#~ "defaults in the tool."
+#~ msgstr "这是用户的一个共同要求，也是团队正在努力的一个要求。Trends.Earth将允许在2018年3月底前加载国家层面的土壤碳和土地覆被数据集。这将使用户能够利用现有的数据集，这些数据集在国家层面的质量可能高于工具中默认的全球数据集。"
+
+#~ msgid "Who was the default time period for the analysis determined?"
+#~ msgstr "分析的默认时间段由谁确定？"
+
+#~ msgid ""
+#~ "The default time period of analysis "
+#~ "is from years 2001 to 2015. These"
+#~ " were recommended by the `Good "
+#~ "Practice Guidelines "
+#~ "<http://www2.unccd.int/sites/default/files/relevant-"
+#~ "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.,"
+#~ " a document that provides detailed "
+#~ "recommendations for measuring land degradation"
+#~ " and has been adopted by the "
+#~ "UNCCD."
+#~ msgstr ""
+#~ "默认的分析时间段为2001年至2015年。这些都是《良好实践指南》<http://www2.unccd.int/sites/default/files"
+#~ "/relevant-"
+#~ "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.推荐的，该文件为测量土地退化提供了详细建议，并被《联合国防止荒漠化公约》（UNCCD）所采用。"
 

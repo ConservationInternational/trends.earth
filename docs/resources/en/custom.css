@@ -76,21 +76,70 @@ div.admonition.note {
     font-weight: bold;
     color: #fff;
 }
-.status-matrix .cell-degraded {
-    background-color: #9b2779;
+/* Status map colors from styles.json */
+.status-matrix .cell-degraded,
+.status-matrix .cell-persistent-degradation {
+    background-color: #762a83;
     color: #fff;
 }
-.status-matrix .cell-stable {
-    background-color: #ffffe0;
+.status-matrix .cell-recent-degradation {
+    background-color: #af8dc3;
+    color: #fff;
+}
+.status-matrix .cell-baseline-degradation {
+    background-color: #e7d4e8;
     color: #333;
 }
+.status-matrix .cell-stable,
+.status-matrix .cell-stability {
+    background-color: #f7f7f7;
+    color: #333;
+}
+.status-matrix .cell-baseline-improvement {
+    background-color: #d9f0d3;
+    color: #333;
+}
+.status-matrix .cell-recent-improvement,
 .status-matrix .cell-improved {
-    background-color: #006500;
+    background-color: #7fbf7b;
+    color: #fff;
+}
+.status-matrix .cell-persistent-improvement {
+    background-color: #1b7837;
     color: #fff;
 }
 .status-matrix .empty-cell {
     border: none;
     background-color: #fff;
+}
+/* SDG 3-class color overrides for simple matrix and SOC table */
+.sdg-3class-container .cell-degraded,
+.soc-coeff-container .cell-degraded {
+    background-color: #9b2779;
+    color: #fff;
+}
+.sdg-3class-container .cell-stable,
+.soc-coeff-container .cell-stable {
+    background-color: #ffffe0;
+    color: #333;
+}
+.sdg-3class-container .cell-improved,
+.soc-coeff-container .cell-improved {
+    background-color: #006500;
+    color: #fff;
+}
+/* SDG 3-class colors for matrix row/column headers */
+.status-matrix .header-degraded {
+    background-color: #9b2779;
+    color: #fff;
+}
+.status-matrix .header-stable {
+    background-color: #ffffe0;
+    color: #333;
+}
+.status-matrix .header-improved {
+    background-color: #006500;
+    color: #fff;
 }
 
 /* SDG Aggregation two-table layout */

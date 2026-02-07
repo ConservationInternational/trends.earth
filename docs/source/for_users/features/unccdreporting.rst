@@ -505,6 +505,7 @@ areas. The indicator is computed as follows:
 
 .. raw:: html
 
+   <div class="soc-coeff-container">
    <table class="status-matrix" style="font-size: 0.85em;">
      <tr>
        <th class="col-header" style="background-color: #8b7d6b; color: #fff;">LU coefficients</th>
@@ -587,6 +588,7 @@ areas. The indicator is computed as follows:
        <td class="cell-stable">1</td>
      </tr>
    </table>
+   </div>
 
 Changes in SOC are better studied for land cover transitions involving 
 agriculture, and for that reason there is a different set of coefficients for 
@@ -701,40 +703,108 @@ For combining a given period assessment with the Baseline SDG Indicator 15.3.1 i
 
 .. raw:: html
 
+   <div class="sdg-3class-container">
    <table class="status-matrix">
      <tr>
        <td class="empty-cell" colspan="2" rowspan="2"></td>
        <th class="header-spanning" colspan="3">PERIOD ASSESSMENT</th>
      </tr>
      <tr>
-       <th class="col-header cell-degraded">DEGRADED</th>
-       <th class="col-header cell-stable">STABLE*</th>
-       <th class="col-header cell-improved">IMPROVED*</th>
+       <th class="col-header header-degraded">DEGRADED</th>
+       <th class="col-header header-stable">STABLE*</th>
+       <th class="col-header header-improved">IMPROVED*</th>
      </tr>
      <tr>
        <th class="row-header-vertical" rowspan="3">BASELINE</th>
-       <th class="row-header cell-degraded">DEGRADED</th>
+       <th class="row-header header-degraded">DEGRADED</th>
        <td class="cell-degraded">Degraded</td>
        <td class="cell-degraded">Degraded</td>
        <td class="cell-improved">Improved</td>
      </tr>
      <tr>
-       <th class="row-header cell-stable">STABLE*</th>
+       <th class="row-header header-stable">STABLE*</th>
        <td class="cell-degraded">Degraded</td>
        <td class="cell-stable">Stable</td>
        <td class="cell-improved">Improved</td>
      </tr>
      <tr>
-       <th class="row-header cell-improved">IMPROVED*</th>
+       <th class="row-header header-improved">IMPROVED*</th>
        <td class="cell-degraded">Degraded</td>
        <td class="cell-improved">Improved</td>
        <td class="cell-improved">Improved</td>
      </tr>
    </table>
+   </div>
    <p style="text-align: center; font-style: italic;">* Not Degraded areas.</p>
 
 .. note::
   	For further information on how to derive the Status map, please refer to the `Good Practice Guidance Addendum SDG Indicator 15.3.1 <https://www.unccd.int/sites/default/files/2025-07/GPG%20Addendum_%20Advanced%20Unedited%20Version.pdf>`_ which offers a dedicated section on "Assessing Status for each reporting process" starting on page 19.
+
+Expanded Status Matrix
+~~~~~~~~~~~~~~~~~~~~~~
+
+While the status map resulting from the above comparison provides a snapshot of land condition at the end of the reporting period in three broad
+categories (Degraded, Stable, and Improved), the underlying dynamics that lead to this final status can be complex - there are nine different types of
+changes (given it is a 3x3 matrix) in land condition. Understanding these different pathways enables a
+deeper interpretation of the land condition changes, allowing for the
+identification of gains and losses of natural capital that have occurred
+relative to a baseline state. For example, degradation and improvement can
+correspond to recent changes, a continuation of ongoing trends in areas previously degraded or improved, or stability in areas that were already degraded or improved in a prior period.
+
+The below status matrix can be used instead of the 3x3 matrix above to capture these different types of changes in land condition that can occur. This expanded version of the status matrix allows for a more detailed classification of land condition changes, providing insights into the nature and timing of degradation and improvement processes.
+
+.. raw:: html
+
+   <table class="status-matrix">
+     <tr>
+       <td class="empty-cell" colspan="2" rowspan="2"></td>
+       <th class="header-spanning" colspan="3">PERIOD ASSESSMENT</th>
+     </tr>
+     <tr>
+       <th class="col-header header-degraded">DEGRADED</th>
+       <th class="col-header header-stable">STABLE</th>
+       <th class="col-header header-improved">IMPROVED</th>
+     </tr>
+     <tr>
+       <th class="row-header-vertical" rowspan="3">BASELINE</th>
+       <th class="row-header header-degraded">DEGRADED</th>
+       <td class="cell-persistent-degradation">1 - Persistent Degradation</td>
+       <td class="cell-baseline-degradation">3 - Baseline Degradation</td>
+       <td class="cell-recent-improvement">6 - Recent Improvement</td>
+     </tr>
+     <tr>
+       <th class="row-header header-stable">STABLE</th>
+       <td class="cell-recent-degradation">2 - Recent Degradation</td>
+       <td class="cell-stability">4 - Stability</td>
+       <td class="cell-recent-improvement">6 - Recent Improvement</td>
+     </tr>
+     <tr>
+       <th class="row-header header-improved">IMPROVED</th>
+       <td class="cell-recent-degradation">2 - Recent Degradation</td>
+       <td class="cell-baseline-improvement">5 - Baseline Improvement</td>
+       <td class="cell-persistent-improvement">7 - Persistent Improvement</td>
+     </tr>
+   </table>
+   <p style="text-align: center; font-style: italic; font-size: 0.9em;">
+     Table 2.1: Expanded version of the "Status Matrix" showing land condition
+     that results from the comparison of the baseline (rows) and the period
+     assessment (columns): degraded (purple), stable (yellow), and improved
+     (green).
+   </p>
+
+Each type of change represented in the expanded Status Matrix is detailed
+below. The table captures the nine possible combinations in the 3 × 3 matrix,
+reflecting transitions from the baseline assessment to the current period
+assessment. For each combination, a brief interpretation of the change is
+provided, along with its classification as either a recent or baseline
+improvement or degradation. This classification helps in understanding whether
+the observed changes represent new developments that have occurred during the
+current reporting period or whether no changes in status have taken place.
+
+.. note::
+  	For further information on how to derive the expanded status map, please refer to the `Good Practice Guidance Addendum SDG Indicator 15.3.1 <https://www.unccd.int/sites/default/files/2025-07/GPG%20Addendum_%20Advanced%20Unedited%20Version.pdf>`_ which offers a dedicated section on "Further characterization of land degradation and improvement" starting on page 29.
+
+
 
 UNCCD Strategic Objective 2 (SO 2)
 ==================================

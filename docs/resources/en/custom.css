@@ -77,18 +77,80 @@ div.admonition.note {
     color: #fff;
 }
 .status-matrix .cell-degraded {
-    background-color: #cc33cc;
+    background-color: #9b2779;
     color: #fff;
 }
 .status-matrix .cell-stable {
-    background-color: #f5e6c8;
+    background-color: #ffffe0;
     color: #333;
 }
 .status-matrix .cell-improved {
-    background-color: #4d6b3a;
+    background-color: #006500;
     color: #fff;
 }
 .status-matrix .empty-cell {
     border: none;
     background-color: #fff;
+}
+
+/* SDG Aggregation two-table layout */
+.sdg-aggregation-wrapper {
+    text-align: center;
+    margin: 1.5em 0;
+}
+.sdg-aggregation-wrapper .sdg-title {
+    font-weight: bold;
+    font-size: 1.15em;
+    margin-bottom: 0.8em;
+}
+.sdg-aggregation-container {
+    display: inline-flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+}
+.sdg-aggregation-container table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+.sdg-aggregation-container th {
+    background: #555;
+    color: #fff;
+    padding: 5px 14px;
+    border: 1px solid #333;
+    font-weight: bold;
+    text-align: center;
+}
+.sdg-aggregation-container td {
+    padding: 3px 14px;
+    border: 1px solid #999;
+    text-align: center;
+}
+.sdg-aggregation-container .cell-improved {
+    background-color: #006500;
+    color: #fff;
+}
+.sdg-aggregation-container .cell-stable {
+    background-color: #ffffe0;
+    color: #333;
+}
+.sdg-aggregation-container .cell-degraded {
+    background-color: #9b2779;
+    color: #fff;
+}
+.sdg-aggregation-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 2em;
+    color: #888;
+    align-self: center;
+}
+.sdg-aggregation-container .cell-moderate-decline {
+    background-color: #c0749b;
+    color: #fff;
+}
+.sdg-aggregation-container .cell-stressed {
+    background-color: #e1b9bd;
+    color: #333;
 }

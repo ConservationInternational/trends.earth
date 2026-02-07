@@ -373,8 +373,64 @@ tables below. For SDG 15.3.1 reporting, the 3-class indicator is required, but
 information provided by State to inform the type of degradation occurring in 
 the area.
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_aggregation.png
-   :align: center
+.. raw:: html
+
+   <div class="sdg-aggregation-wrapper">
+     <p class="sdg-title">Aggregating Land Productivity metrics</p>
+     <div class="sdg-aggregation-container">
+       <table>
+         <thead>
+           <tr><th>Trend</th><th>State</th><th>Performance</th></tr>
+         </thead>
+         <tbody>
+           <tr><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-degraded">Degrading</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-improved">Improving</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-degraded">Degrading</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-improved">Improving</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-stable">Stable</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td></tr>
+         </tbody>
+       </table>
+       <div class="sdg-aggregation-arrow">&#x27A1;</div>
+       <table>
+         <thead>
+           <tr><th>5 Classes</th><th>3 Classes</th></tr>
+         </thead>
+         <tbody>
+           <tr><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-moderate-decline">Moderate decline</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-stressed">Stressed</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-moderate-decline">Moderate decline</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td></tr>
+           <tr><td class="cell-degraded">Degrading</td><td class="cell-degraded">Degrading</td></tr>
+         </tbody>
+       </table>
+     </div>
+   </div>
 
 .. _indicator-land-cover:
 
@@ -451,17 +507,17 @@ areas. The indicator is computed as follows:
 
    <table class="status-matrix" style="font-size: 0.85em;">
      <tr>
-       <th class="row-header" style="background-color: #f5e6c8; color: #333;">LU coefficients</th>
-       <th class="col-header" style="background-color: #4d6b3a;">Forest</th>
-       <th class="col-header" style="background-color: #4d6b3a;">Grasslands</th>
-       <th class="col-header" style="background-color: #4d6b3a;">Croplands</th>
-       <th class="col-header" style="background-color: #4d6b3a;">Wetlands</th>
-       <th class="col-header" style="background-color: #cc33cc;">Artifical areas</th>
-       <th class="col-header" style="background-color: #cc33cc;">Bare lands</th>
-       <th class="col-header" style="background-color: #f5e6c8; color: #333;">Water bodies</th>
+       <th class="col-header" style="background-color: #8b7d6b; color: #fff;">LU coefficients</th>
+       <th class="col-header" style="background-color: #8b7d6b;">Forest</th>
+       <th class="col-header" style="background-color: #8b7d6b;">Grasslands</th>
+       <th class="col-header" style="background-color: #8b7d6b;">Croplands</th>
+       <th class="col-header" style="background-color: #8b7d6b;">Wetlands</th>
+       <th class="col-header" style="background-color: #8b7d6b;">Artifical areas</th>
+       <th class="col-header" style="background-color: #8b7d6b;">Bare lands</th>
+       <th class="col-header" style="background-color: #8b7d6b;">Water bodies</th>
      </tr>
      <tr>
-       <th class="row-header" style="background-color: #4d6b3a; color: #fff;">Forest</th>
+       <th class="row-header" style="background-color: #8b7d6b; color: #fff;">Forest</th>
        <td class="cell-stable">1</td>
        <td class="cell-stable">1</td>
        <td class="cell-improved">f</td>
@@ -471,7 +527,7 @@ areas. The indicator is computed as follows:
        <td class="cell-stable">1</td>
      </tr>
      <tr>
-       <th class="row-header" style="background-color: #4d6b3a; color: #fff;">Grasslands</th>
+       <th class="row-header" style="background-color: #8b7d6b; color: #fff;">Grasslands</th>
        <td class="cell-stable">1</td>
        <td class="cell-stable">1</td>
        <td class="cell-improved">f</td>
@@ -481,7 +537,7 @@ areas. The indicator is computed as follows:
        <td class="cell-stable">1</td>
      </tr>
      <tr>
-       <th class="row-header" style="background-color: #4d6b3a; color: #fff;">Croplands</th>
+       <th class="row-header" style="background-color: #8b7d6b; color: #fff;">Croplands</th>
        <td class="cell-improved">1/f</td>
        <td class="cell-improved">1/f</td>
        <td class="cell-stable">1</td>
@@ -491,7 +547,7 @@ areas. The indicator is computed as follows:
        <td class="cell-stable">1</td>
      </tr>
      <tr>
-       <th class="row-header" style="background-color: #4d6b3a; color: #fff;">Wetlands</th>
+       <th class="row-header" style="background-color: #8b7d6b; color: #fff;">Wetlands</th>
        <td class="cell-stable">1</td>
        <td class="cell-stable">1</td>
        <td class="cell-improved">0.71</td>
@@ -501,7 +557,7 @@ areas. The indicator is computed as follows:
        <td class="cell-stable">1</td>
      </tr>
      <tr>
-       <th class="row-header" style="background-color: #cc33cc; color: #fff;">Artifical areas</th>
+       <th class="row-header" style="background-color: #8b7d6b; color: #fff;">Artifical areas</th>
        <td class="cell-improved">2</td>
        <td class="cell-improved">2</td>
        <td class="cell-improved">2</td>
@@ -511,7 +567,7 @@ areas. The indicator is computed as follows:
        <td class="cell-stable">1</td>
      </tr>
      <tr>
-       <th class="row-header" style="background-color: #cc33cc; color: #fff;">Bare lands</th>
+       <th class="row-header" style="background-color: #8b7d6b; color: #fff;">Bare lands</th>
        <td class="cell-improved">2</td>
        <td class="cell-improved">2</td>
        <td class="cell-improved">2</td>
@@ -521,7 +577,7 @@ areas. The indicator is computed as follows:
        <td class="cell-stable">1</td>
      </tr>
      <tr>
-       <th class="row-header" style="background-color: #f5e6c8; color: #333;">Water bodies</th>
+       <th class="row-header" style="background-color: #8b7d6b; color: #fff;">Water bodies</th>
        <td class="cell-stable">1</td>
        <td class="cell-stable">1</td>
        <td class="cell-stable">1</td>
@@ -556,8 +612,82 @@ one-out all-out rule(1OAO), this means that if an area/pixel was identified as p
 degraded by any of the sub-indicators, then that area/pixel will be considered 
 potentially degraded for reporting purposes.
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/sdg_aggregation.png
-   :align: center
+.. raw:: html
+
+   <div class="sdg-aggregation-wrapper">
+     <p class="sdg-title">Aggregating SDG 15.3.1 sub-indicators - 1OAO</p>
+     <div class="sdg-aggregation-container">
+       <table>
+         <thead>
+           <tr><th>Land Productivity</th><th>Land Cover</th><th>SOC</th></tr>
+         </thead>
+         <tbody>
+           <tr><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-degraded">Declining</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-degraded">Declining</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-improved">Improving</td><td class="cell-degraded">Declining</td><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-improved">Improving</td><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-degraded">Declining</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-degraded">Declining</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-stable">Stable</td><td class="cell-degraded">Declining</td><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td><td class="cell-improved">Improving</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-degraded">Declining</td><td class="cell-improved">Improving</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-degraded">Declining</td><td class="cell-improved">Improving</td><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td><td class="cell-stable">Stable</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-degraded">Declining</td><td class="cell-stable">Stable</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-degraded">Declining</td><td class="cell-stable">Stable</td><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td><td class="cell-degraded">Declining</td><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-degraded">Declining</td><td class="cell-degraded">Declining</td><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-degraded">Declining</td><td class="cell-degraded">Declining</td><td class="cell-degraded">Declining</td></tr>
+         </tbody>
+       </table>
+       <div class="sdg-aggregation-arrow">&#x27A1;</div>
+       <table>
+         <thead>
+           <tr><th>SDG 15.3.1</th></tr>
+         </thead>
+         <tbody>
+           <tr><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-improved">Improving</td></tr>
+           <tr><td class="cell-stable">Stable</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+           <tr><td class="cell-degraded">Declining</td></tr>
+         </tbody>
+       </table>
+     </div>
+   </div>
 
 Calculating Status map
 ----------------------
@@ -818,8 +948,27 @@ anomaly deviates from the long-term mean and are typically labeled categorically
 extremely wet, extremely dry, normal) as shown in the table below. A drought occurs when the SPI is consecutively
 negative, and its value reaches an intensity of -1 or less and ends when the SPI becomes positive.
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/so3_spi_table.png
+.. list-table::
+   :header-rows: 1
+   :widths: 20 30
    :align: center
+
+   * - **Description**
+     - **Precipitation Category**
+   * - 2.0 or more
+     - Extremely wet
+   * - 1.5 to 1.99
+     - Severely wet
+   * - 1.0 to 1.49
+     - Moderately wet
+   * - -0.99 to 0.99
+     - Near normal
+   * - -1.0 to -1.49
+     - Moderately dry
+   * - -1.5 to -1.99
+     - Severely dry
+   * - -2.0 or less
+     - Extremely dry
 
 Drought intensity classes are identified by assessing the December SPI-12 values for ear year of time-series. The December SPI-12 
 values represent the precipitation deficits (or excesses) over the Gregorian (January-December) calendar year. Positive SPI values 
@@ -899,8 +1048,70 @@ achieve positive resilience to impacts. The methodology uses a two-step composit
 (show in the Table below) that represent social, economic, and infrastructural vulnerability at each geographic location (a similar methodology as the DVI, 
 discussed subsequently) and are derived from both at the national level and very high spatial resolution gridded data. 
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/so3_dvi_table.png
-   :align: center
+.. table:: Proxy indicators for vulnerability to drought used in Carrao et al. 2016. With the exception of gROADS and FAO's Irrigated Agricultural Lands which are both gridded data, all data are available only at the national level.
+
+   .. list-table::
+      :header-rows: 1
+      :widths: 30 25 45
+      :align: center
+
+      * - **Indicator**
+        - **Source**
+        - **Link**
+      * - :strong:`ECONOMIC`
+        -
+        -
+      * - Energy consumption per capita (millions Btu per person)
+        - US Energy Information Administration (U.S. EIA)
+        - http://www.eia.gov/
+      * - Agriculture (% of GDP)
+        - World Bank
+        - http://data.worldbank.org/products/wdi
+      * - GDP per capita (current US$)
+        - World Bank
+        - http://data.worldbank.org/products/wdi
+      * - Poverty headcount ratio at $1.25 per day (PPP) (% of total population)
+        - World Bank
+        - http://data.worldbank.org/products/wdi
+      * - :strong:`SOCIAL`
+        -
+        -
+      * - Rural population (% of total population)
+        - World Bank
+        - http://data.worldbank.org/products/wdi
+      * - Literacy rate (% of people age 15 and above)
+        - World Bank
+        - http://data.worldbank.org/products/wdi
+      * - Improved water resources (% of rural population with access)
+        - World Bank
+        - http://data.worldbank.org/products/wdi
+      * - Life expectancy at birth (years)
+        - World Bank
+        - http://data.worldbank.org/products/wdi
+      * - Population ages 15-64 (% of total population)
+        - World Bank
+        - http://data.worldbank.org/products/wdi
+      * - Refugee population by country or territory of asylum (% of total population)
+        - World Bank
+        - http://data.worldbank.org/products/wdi
+      * - Government effectiveness
+        - Worldwide Governance Indicators (WGI)
+        - https://www.worldbank.org/en/publication/worldwide-governance-indicators/interactive-data-access
+      * - Disaster prevention & preparedness (US$/year/capita)
+        - Organization for Economic Cooperation and Development (OECD)
+        - http://stats.oecd.org/
+      * - :strong:`INFRASTRUCTURAL`
+        -
+        -
+      * - Agricultural and irrigated land (% of total agricultural land)
+        - Food and Agricultural Administration (FAO)
+        - http://www.fao.org/nr/water/aquastat/main/index.stm
+      * - % of retained renewable water
+        - Aqueduct
+        - http://www.wri.org/our-work/project/aqueduct
+      * - Road density (km of road per 100 sq.km. of land area)
+        - gROADSv1
+        - https://data.nasa.gov/dataset/global-roads-open-access-data-set-version-1-groadsv1
 
 
 This process involves first combining the indicators presented in the Table for each factor using a Data Envelopment Analysis (DEA) model, a deterministic 

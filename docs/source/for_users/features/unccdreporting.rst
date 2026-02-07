@@ -152,8 +152,71 @@ The table below list the datasets available in |trends.earth| to perform NDVI
 trend analysis over time using the original NDVI data or with climatic 
 corrections:
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_traj_variables.png
+.. list-table::
+   :header-rows: 1
+   :widths: 15 25 12 14 14 20
    :align: center
+
+   * - **Variable**
+     - **Sensor/Dataset**
+     - **Temporal**
+     - **Spatial Res.**
+     - **Extent**
+     - **Units/Description**
+   * - NDVI
+     - AVHRR/GIMMS
+     - 1982-2015
+     - 8 km
+     - Global
+     - Mean annual NDVI \* 10000
+   * - NDVI
+     - MOD13Q1-coll6.1
+     - 2001-2024
+     - 250 m
+     - Global
+     - Mean annual NDVI \* 10000
+   * - Soil moisture
+     - MERRA 2
+     - 1980-2019
+     - 0.5° x 0.625°
+     - Global
+     - Water root zone m\ :sup:`3`\ m\ :sup:`-3` \*10000
+   * - Soil moisture
+     - ERA I
+     - 1979-2016
+     - 0.75° x 0.75°
+     - Global
+     - Volumetric Soil Water layer m\ :sup:`3`\ m\ :sup:`-3` (0-7 cm)
+   * - Precipitation
+     - GPCP v2.3.1 monthly (Global Precipitation Climatology Project)
+     - 1979-2019
+     - 2.5° x 2.5°
+     - Global
+     - mm/year
+   * - Precipitation
+     - GPCC V7 (Global Precipitation Climatology Centre)
+     - 1901-2016
+     - 1° x 1°
+     - Global
+     - mm/year
+   * - Precipitation
+     - CHIRPS
+     - 1901-2024
+     - 5 km
+     - 50°N x 50°S
+     - mm/year
+   * - Precipitation
+     - PERSIANN-CDR
+     - 1983-2024
+     - 25 km
+     - 60°N x 60°S
+     - mm/year
+   * - Evapotranspiration
+     - MOD16A2.GF
+     - 2000-2024
+     - 500 m
+     - Global
+     - Annual ET kg/m\ :sup:`2` (=mm)\*10
 
 .. _indicator-productivity-state:
       
@@ -201,8 +264,29 @@ computed as follows:
 The table below list the datasets available in |trends.earth| to compute the 
 Productivity State metric:
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_state_variables.png
+.. list-table::
+   :header-rows: 1
+   :widths: 15 25 12 14 14 20
    :align: center
+
+   * - **Variable**
+     - **Sensor/Dataset**
+     - **Temporal**
+     - **Spatial Res.**
+     - **Extent**
+     - **Units/Description**
+   * - NDVI
+     - AVHRR/GIMMS
+     - 1982-2015
+     - 8 km
+     - Global
+     - Mean annual NDVI \* 10000
+   * - NDVI
+     - MOD13Q1-coll6.1
+     - 2001-2024
+     - 250 m
+     - Global
+     - Mean annual NDVI \* 10000
 
 .. _indicator-productivity-performance:
       
@@ -242,8 +326,41 @@ as follows:
 The table below list the datasets available in |trends.earth| to compute the 
 Productivity Performance metric:
  
-.. image:: ../../../resources/en/documentation/understanding_indicators15/lp_perf_variables.png
+.. list-table::
+   :header-rows: 1
+   :widths: 15 25 12 14 14 20
    :align: center
+
+   * - **Variable**
+     - **Sensor/Dataset**
+     - **Temporal**
+     - **Spatial Res.**
+     - **Extent**
+     - **Units/Description**
+   * - NDVI
+     - AVHRR/GIMMS
+     - 1982-2015
+     - 8 km
+     - Global
+     - Mean annual NDVI \* 10000
+   * - NDVI
+     - MOD13Q1-coll6.1
+     - 2001-2024
+     - 250 m
+     - Global
+     - Mean annual NDVI \* 10000
+   * - Land Cover
+     - ESA CCI
+     - 1992-2022
+     - 300 m
+     - Global
+     - Land cover thematic classes
+   * - Soil taxonomic units
+     - SoilGrids - USDA
+     - Static
+     - 250 m
+     - Global
+     - Soil units
 
 .. _indicator-15-3-1-combining-indicators:
 
@@ -330,8 +447,90 @@ areas. The indicator is computed as follows:
    presented in the table below. Those coefficients represent the proportional 
    in C stocks after 20 years of land cover change.
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/soc_coeff.png
-   :align: center
+.. raw:: html
+
+   <table class="status-matrix" style="font-size: 0.85em;">
+     <tr>
+       <th class="row-header" style="background-color: #f5e6c8; color: #333;">LU coefficients</th>
+       <th class="col-header" style="background-color: #4d6b3a;">Forest</th>
+       <th class="col-header" style="background-color: #4d6b3a;">Grasslands</th>
+       <th class="col-header" style="background-color: #4d6b3a;">Croplands</th>
+       <th class="col-header" style="background-color: #4d6b3a;">Wetlands</th>
+       <th class="col-header" style="background-color: #cc33cc;">Artifical areas</th>
+       <th class="col-header" style="background-color: #cc33cc;">Bare lands</th>
+       <th class="col-header" style="background-color: #f5e6c8; color: #333;">Water bodies</th>
+     </tr>
+     <tr>
+       <th class="row-header" style="background-color: #4d6b3a; color: #fff;">Forest</th>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-improved">f</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-degraded">0.1</td>
+       <td class="cell-degraded">0.1</td>
+       <td class="cell-stable">1</td>
+     </tr>
+     <tr>
+       <th class="row-header" style="background-color: #4d6b3a; color: #fff;">Grasslands</th>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-improved">f</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-degraded">0.1</td>
+       <td class="cell-degraded">0.1</td>
+       <td class="cell-stable">1</td>
+     </tr>
+     <tr>
+       <th class="row-header" style="background-color: #4d6b3a; color: #fff;">Croplands</th>
+       <td class="cell-improved">1/f</td>
+       <td class="cell-improved">1/f</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-improved">1/0.71</td>
+       <td class="cell-degraded">0.1</td>
+       <td class="cell-degraded">0.1</td>
+       <td class="cell-stable">1</td>
+     </tr>
+     <tr>
+       <th class="row-header" style="background-color: #4d6b3a; color: #fff;">Wetlands</th>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-improved">0.71</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-degraded">0.1</td>
+       <td class="cell-degraded">0.1</td>
+       <td class="cell-stable">1</td>
+     </tr>
+     <tr>
+       <th class="row-header" style="background-color: #cc33cc; color: #fff;">Artifical areas</th>
+       <td class="cell-improved">2</td>
+       <td class="cell-improved">2</td>
+       <td class="cell-improved">2</td>
+       <td class="cell-improved">2</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+     </tr>
+     <tr>
+       <th class="row-header" style="background-color: #cc33cc; color: #fff;">Bare lands</th>
+       <td class="cell-improved">2</td>
+       <td class="cell-improved">2</td>
+       <td class="cell-improved">2</td>
+       <td class="cell-improved">2</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+     </tr>
+     <tr>
+       <th class="row-header" style="background-color: #f5e6c8; color: #333;">Water bodies</th>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+       <td class="cell-stable">1</td>
+     </tr>
+   </table>
 
 Changes in SOC are better studied for land cover transitions involving 
 agriculture, and for that reason there is a different set of coefficients for 
@@ -370,8 +569,39 @@ According to the Good Practice Guidance Addendum SDG Indicator 15.3.1, the Statu
 
 For combining a given period assessment with the Baseline SDG Indicator 15.3.1 it is necessary to apply the 3 x 3 Status Matrix
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/status_matrix_expanded.png
-   :align: center
+.. raw:: html
+
+   <table class="status-matrix">
+     <tr>
+       <td class="empty-cell" colspan="2" rowspan="2"></td>
+       <th class="header-spanning" colspan="3">PERIOD ASSESSMENT</th>
+     </tr>
+     <tr>
+       <th class="col-header cell-degraded">DEGRADED</th>
+       <th class="col-header cell-stable">STABLE*</th>
+       <th class="col-header cell-improved">IMPROVED*</th>
+     </tr>
+     <tr>
+       <th class="row-header-vertical" rowspan="3">BASELINE</th>
+       <th class="row-header cell-degraded">DEGRADED</th>
+       <td class="cell-degraded">Degraded</td>
+       <td class="cell-degraded">Degraded</td>
+       <td class="cell-improved">Improved</td>
+     </tr>
+     <tr>
+       <th class="row-header cell-stable">STABLE*</th>
+       <td class="cell-degraded">Degraded</td>
+       <td class="cell-stable">Stable</td>
+       <td class="cell-improved">Improved</td>
+     </tr>
+     <tr>
+       <th class="row-header cell-improved">IMPROVED*</th>
+       <td class="cell-degraded">Degraded</td>
+       <td class="cell-improved">Improved</td>
+       <td class="cell-improved">Improved</td>
+     </tr>
+   </table>
+   <p style="text-align: center; font-style: italic;">* Not Degraded areas.</p>
 
 .. note::
   	For further information on how to derive the Status map, please refer to the `Good Practice Guidance Addendum SDG Indicator 15.3.1 <https://www.unccd.int/sites/default/files/2025-07/GPG%20Addendum_%20Advanced%20Unedited%20Version.pdf>`_ which offers a dedicated section on "Assessing Status for each reporting process" starting on page 19.

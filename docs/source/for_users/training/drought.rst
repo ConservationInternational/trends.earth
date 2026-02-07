@@ -28,7 +28,7 @@ Default data for UNCCD SO 3
 4. Select **Schedule remote execution** button.
 
 .. note::
-    Refer to the :ref:`background_unccdreporting` section of this manual to learn about drought Hazard, Exposure and Vulnerability.
+    Refer to the :ref:`background_landdegradation` section of this manual to learn about drought Hazard, Exposure and Vulnerability.
 
 5. In the **Trends.Earth** panel, select the **Datasets** tab. The task submitted will appear in the menu if the **Download remotely-generated datasets automatically** is checked in settings.
 

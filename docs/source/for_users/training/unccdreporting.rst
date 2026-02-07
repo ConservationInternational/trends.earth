@@ -33,4 +33,4 @@ Generate data package for UNCCD reporting
 5. The final SDG 15.3.1 Indicator using default data will be added to the map for the region of interest.
 
 .. note::
-    Refer to the :ref:`background_unccdreporting` background for interpreting the results of this analysis.
+    Refer to the :ref:`background_landdegradation` background for interpreting the results of this analysis.

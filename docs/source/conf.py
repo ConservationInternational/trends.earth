@@ -32,6 +32,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.extlinks",
     "sphinxcontrib.spelling",
+    "sphinx_design",
     "myst_parser",
 ]
 

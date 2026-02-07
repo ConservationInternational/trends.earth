@@ -1,6 +1,7 @@
 invoke
 boto3
 sphinx
+sphinx-design
 sphinx-intl
 sphinx-rtd-theme
 sphinxcontrib-spelling

@@ -27,7 +27,9 @@ jobs:
           cache: pip
       - run: pip install -r requirements-dev.txt
       - name: Setup Latex
-        run: sudo apt-get install texlive-xetex texlive-fonts-recommended texlive-fonts-extra texlive-lang-arabic texlive-lang-chinese
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-fonts-extra texlive-lang-arabic texlive-lang-chinese
       - name: Docs pre-build
         run: invoke rtd-pre-build
       - name: Build PDF and  push to S3

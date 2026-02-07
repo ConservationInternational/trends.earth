@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0  # Fetch all history including tags for setuptools-scm
 
       - name: Fix Python command
-        run: apt-get install python-is-python3
+        run: apt-get update && apt-get install -y python-is-python3
 
       - name: Install python
         uses: actions/setup-python@v6

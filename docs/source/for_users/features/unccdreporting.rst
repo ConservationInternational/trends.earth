@@ -194,14 +194,14 @@ corrections:
      - Global
      - mm/year
    * - Precipitation
-     - GPCC V7 (Global Precipitation Climatology Centre)
-     - 1901-2016
+     - GPCC V6 (Global Precipitation Climatology Centre)
+     - 1891-2019
      - 1° x 1°
      - Global
      - mm/year
    * - Precipitation
      - CHIRPS
-     - 1901-2024
+     - 1981-2024
      - 5 km
      - 50°N x 50°S
      - mm/year

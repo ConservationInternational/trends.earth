@@ -29,7 +29,7 @@ jobs:
       - name: Setup Latex
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-fonts-extra texlive-lang-arabic texlive-lang-chinese
+          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-fonts-extra texlive-lang-arabic texlive-lang-chinese texlive-lang-european texlive-lang-cyrillic
       - name: Docs pre-build
         run: invoke rtd-pre-build
       - name: Build PDF and  push to S3

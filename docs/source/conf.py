@@ -345,10 +345,10 @@ latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
 latex_engine = "xelatex"
 latex_use_xindy = False
 latex_elements = {
-    # NOTE: Arabic PDF generation is currently disabled in tasks.py due to an
-    # unsolvable package ordering issue:
+    # NOTE: PDF generation for RTL languages (Arabic, Farsi) is currently
+    # disabled in tasks.py due to an unsolvable package ordering issue:
     # - Sphinx's LaTeX template loads: documentclass → cmap → fontspec → amsmath
-    # - For Arabic, polyglossia automatically loads bidi.sty (for RTL support)
+    # - For RTL languages, polyglossia automatically loads bidi.sty
     # - sphinx.sty then loads xcolor.sty
     # - ERROR: bidi requires xcolor to be loaded BEFORE it
     #
@@ -356,7 +356,8 @@ latex_elements = {
     # extrapackages) insert AFTER polyglossia has already loaded bidi, making it
     # impossible to satisfy bidi's requirement.
     #
-    # This is a known limitation. Arabic HTML docs work fine; only PDFs are affected.
-    # Workaround: tasks.py skips PDF generation for Arabic language builds.
+    # This is a known limitation. HTML docs for these languages work fine;
+    # only PDFs are affected.
+    # Workaround: tasks.py skips PDF generation for Arabic and Farsi builds.
     "extraclassoptions": "openany,oneside",
 }

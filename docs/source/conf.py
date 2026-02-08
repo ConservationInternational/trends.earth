@@ -35,10 +35,12 @@ extensions = [
     "myst_parser",
 ]
 
-# Only load rst2pdf extension when building PDF output
+# Always load our html-table-as-image directive (works for both HTML and PDF)
+extensions.append("html_table_image")
+
+# Only load rst2pdf builder when building PDF output
 if "pdf" in sys.argv:
     extensions.append("rst2pdf.pdfbuilder")
-    extensions.append("rst2pdf_rawhtml")
 
 myst_enable_extensions = [
     "amsmath",

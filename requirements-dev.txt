@@ -8,6 +8,7 @@ sphinxcontrib-spelling
 myst-parser
 linkify-it-py
 rst2pdf[svgsupport,rawhtmlsupport]
+playwright
 pylint
 pip>=10.0.0
 requests==2.32.4

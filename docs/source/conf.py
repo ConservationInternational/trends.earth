@@ -377,7 +377,6 @@ pdf_use_coverpage = True
 pdf_use_numbered_links = False
 pdf_fit_mode = "shrink"
 pdf_repeat_table_rows = True
-pdf_raw_html = True
 
 # -- Legacy LaTeX configuration (kept for reference) --------------------------
 

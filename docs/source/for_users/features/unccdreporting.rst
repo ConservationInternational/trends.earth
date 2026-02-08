@@ -373,7 +373,7 @@ tables below. For SDG 15.3.1 reporting, the 3-class indicator is required, but
 information provided by State to inform the type of degradation occurring in 
 the area.
 
-.. raw:: html
+.. html-table-as-image::
 
    <div class="sdg-aggregation-wrapper">
      <p class="sdg-title">Aggregating Land Productivity metrics</p>
@@ -503,7 +503,7 @@ areas. The indicator is computed as follows:
    presented in the table below. Those coefficients represent the proportional 
    in C stocks after 20 years of land cover change.
 
-.. raw:: html
+.. html-table-as-image::
 
    <div class="soc-coeff-container">
    <table class="status-matrix" style="font-size: 0.85em;">
@@ -513,7 +513,7 @@ areas. The indicator is computed as follows:
        <th class="col-header" style="background-color: #8b7d6b;">Grasslands</th>
        <th class="col-header" style="background-color: #8b7d6b;">Croplands</th>
        <th class="col-header" style="background-color: #8b7d6b;">Wetlands</th>
-       <th class="col-header" style="background-color: #8b7d6b;">Artifical areas</th>
+       <th class="col-header" style="background-color: #8b7d6b;">Artificial areas</th>
        <th class="col-header" style="background-color: #8b7d6b;">Bare lands</th>
        <th class="col-header" style="background-color: #8b7d6b;">Water bodies</th>
      </tr>
@@ -558,7 +558,7 @@ areas. The indicator is computed as follows:
        <td class="cell-stable">1</td>
      </tr>
      <tr>
-       <th class="row-header" style="background-color: #8b7d6b; color: #fff;">Artifical areas</th>
+       <th class="row-header" style="background-color: #8b7d6b; color: #fff;">Artificial areas</th>
        <td class="cell-improved">2</td>
        <td class="cell-improved">2</td>
        <td class="cell-improved">2</td>
@@ -614,7 +614,7 @@ one-out all-out rule(1OAO), this means that if an area/pixel was identified as p
 degraded by any of the sub-indicators, then that area/pixel will be considered 
 potentially degraded for reporting purposes.
 
-.. raw:: html
+.. html-table-as-image::
 
    <div class="sdg-aggregation-wrapper">
      <p class="sdg-title">Aggregating SDG 15.3.1 sub-indicators - 1OAO</p>
@@ -701,7 +701,7 @@ According to the Good Practice Guidance Addendum SDG Indicator 15.3.1, the Statu
 
 For combining a given period assessment with the Baseline SDG Indicator 15.3.1 it is necessary to apply the 3 x 3 Status Matrix
 
-.. raw:: html
+.. html-table-as-image::
 
    <div class="sdg-3class-container">
    <table class="status-matrix">
@@ -753,7 +753,7 @@ correspond to recent changes, a continuation of ongoing trends in areas previous
 
 The below status matrix can be used instead of the 3x3 matrix above to capture these different types of changes in land condition that can occur. This expanded version of the status matrix allows for a more detailed classification of land condition changes, providing insights into the nature and timing of degradation and improvement processes.
 
-.. raw:: html
+.. html-table-as-image::
 
    <table class="status-matrix">
      <tr>
@@ -786,7 +786,7 @@ The below status matrix can be used instead of the 3x3 matrix above to capture t
      </tr>
    </table>
    <p style="text-align: center; font-style: italic; font-size: 0.9em;">
-     Table 2.1: Expanded version of the "Status Matrix" showing land condition
+     Table 2.1: Expanded version of the &quot;Status Matrix&quot; showing land condition
      that results from the comparison of the baseline (rows) and the period
      assessment (columns): degraded (purple), stable (yellow), and improved
      (green).

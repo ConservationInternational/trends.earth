@@ -44,6 +44,8 @@ jobs:
           architecture: "x64"
           cache: pip
       - run: pip install -r requirements-dev.txt
+      - name: Install Playwright Chromium
+        run: python -m playwright install --with-deps chromium
       - name: Docs pre-build
         run: invoke rtd-pre-build
       - name: Build PDF and push to S3

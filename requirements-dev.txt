@@ -7,7 +7,7 @@ sphinx-rtd-theme
 sphinxcontrib-spelling
 myst-parser
 linkify-it-py
-rst2pdf[svgsupport,rawhtmlsupport]
+rst2pdf
 playwright
 pylint
 pip>=10.0.0

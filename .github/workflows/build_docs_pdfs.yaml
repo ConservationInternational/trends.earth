@@ -1,6 +1,24 @@
 name: Build documentation PDFs
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'tasks.py'
+      - 'requirements-dev.txt'
+      - 'LDMP/metadata.txt'
+      - '.readthedocs.yaml'
+      - '.github/workflows/build_docs_pdfs.yaml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'tasks.py'
+      - 'requirements-dev.txt'
+      - 'LDMP/metadata.txt'
+      - '.readthedocs.yaml'
+      - '.github/workflows/build_docs_pdfs.yaml'
   schedule:
     - cron: "0 5 * * 1,4"
   workflow_dispatch:
@@ -26,11 +44,11 @@ jobs:
           architecture: "x64"
           cache: pip
       - run: pip install -r requirements-dev.txt
-      - name: Setup Latex
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-fonts-extra texlive-lang-arabic texlive-lang-chinese texlive-lang-european texlive-lang-cyrillic
       - name: Docs pre-build
         run: invoke rtd-pre-build
-      - name: Build PDF and  push to S3
+      - name: Build PDF and push to S3
+        if: github.event_name != 'pull_request'
         run: invoke docs-build --pdf --upload
+      - name: Build PDF (PR validation)
+        if: github.event_name == 'pull_request'
+        run: invoke docs-build --pdf

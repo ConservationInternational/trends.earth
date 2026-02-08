@@ -1657,64 +1657,45 @@ def docs_build(
         )
 
         if pdf:
-            # Build PDF, by first making latex from sphinx, then pdf from that
-            # TEMPORARY: Skip RTL language PDFs due to bidi/xcolor package
-            # ordering issue.
-            # See https://github.com/sphinx-doc/sphinx/issues (xcolor must
-            # load before bidi)
-            # Sphinx's LaTeX template loads polyglossia (which loads bidi for
-            # RTL languages) before any user configuration hooks, making it
-            # impossible to load xcolor first. This affects Arabic and Farsi.
-            if language in ("ar", "fa"):
-                print(
-                    f"Skipping PDF generation for '{language}' due to known "
-                    "bidi/xcolor LaTeX packaging issue with RTL languages"
-                )
-            else:
-                tex_dir = f"{c.sphinx.builddir}/latex/{language}"
-                subprocess.check_call(
-                    c.sphinx.sphinx_build.split()
-                    + ["-b", "latex", "-a"]
-                    + SPHINX_OPTS.split()
-                    + [f"{tex_dir}"]
-                )
+            # Build PDF using rst2pdf (produces PDF directly without LaTeX)
+            pdf_dir = f"{c.sphinx.builddir}/pdf/{language}"
+            subprocess.check_call(
+                c.sphinx.sphinx_build.split()
+                + ["-b", "pdf", "-a"]
+                + SPHINX_OPTS.split()
+                + [f"{pdf_dir}"]
+            )
 
-                tex_files = [
-                    Path(tex_file).name for tex_file in glob.glob(f"{tex_dir}/*.tex")
-                ]
-                out_dir = f"{c.sphinx.builddir}/html/{language}/pdfs"
+            out_dir = f"{c.sphinx.builddir}/html/{language}/pdfs"
 
-                if not os.path.exists(out_dir):
-                    os.makedirs(out_dir)
+            if not os.path.exists(out_dir):
+                os.makedirs(out_dir)
 
-                for tex_file in tex_files:
-                    for _ in range(3):
-                        # Run multiple times to ensure crossreferences are right
-                        subprocess.check_call(["xelatex", tex_file], cwd=tex_dir)
-                    # Move the PDF to the html folder so it will be uploaded
-                    # with the site
-                    pdf_file = os.path.splitext(tex_file)[0] + ".pdf"
-                    shutil.move(f"{tex_dir}/{pdf_file}", f"{out_dir}/{pdf_file}")
+            pdf_files = [
+                Path(pdf_file).name for pdf_file in glob.glob(f"{pdf_dir}/*.pdf")
+            ]
 
-                    if upload:
-                        with open(f"{out_dir}/{pdf_file}", "rb") as data:
-                            key = f"documentation/{pdf_file}"
-                            client.put_object(
-                                Key=key,
-                                Body=data,
-                                Bucket=c.sphinx.documentation_deploy_s3_bucket,
-                            )
-                            client.put_object_acl(
-                                ACL="public-read",
-                                Key=key,
-                                Bucket=c.sphinx.documentation_deploy_s3_bucket,
-                            )
-                        print(f"{pdf_file} uploaded to S3")
+            for pdf_file in pdf_files:
+                shutil.move(f"{pdf_dir}/{pdf_file}", f"{out_dir}/{pdf_file}")
 
-                print(
-                    f"PDF Build finished. The PDF pages for '{language}' "
-                    f"are in {out_dir}."
-                )
+                if upload:
+                    with open(f"{out_dir}/{pdf_file}", "rb") as data:
+                        key = f"documentation/{pdf_file}"
+                        client.put_object(
+                            Key=key,
+                            Body=data,
+                            Bucket=c.sphinx.documentation_deploy_s3_bucket,
+                        )
+                        client.put_object_acl(
+                            ACL="public-read",
+                            Key=key,
+                            Bucket=c.sphinx.documentation_deploy_s3_bucket,
+                        )
+                    print(f"{pdf_file} uploaded to S3")
+
+            print(
+                f"PDF Build finished. The PDF pages for '{language}' are in {out_dir}."
+            )
 
 
 def localize_resources(c, language=None):

@@ -10,12 +10,13 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 import os
+import sys
 from datetime import date
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-# sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath("_ext"))
 
 # -- General configuration -----------------------------------------------------
 
@@ -24,8 +25,6 @@ from datetime import date
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-# extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rinoh.frontend.sphinx']
-# extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
 extensions = [
     "sphinx_rtd_theme",
     "sphinx.ext.todo",
@@ -35,6 +34,11 @@ extensions = [
     "sphinx_design",
     "myst_parser",
 ]
+
+# Only load rst2pdf extension when building PDF output
+if "pdf" in sys.argv:
+    extensions.append("rst2pdf.pdfbuilder")
+    extensions.append("rst2pdf_rawhtml")
 
 myst_enable_extensions = [
     "amsmath",
@@ -342,22 +346,43 @@ latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 
+# -- Options for rst2pdf output ------------------------------------------------
+
+pdf_documents = [
+    (
+        "for_users/index",
+        f"TrendsEarth_User_Guide_{version}_{language}",
+        user_guide_titles.get(language, user_guide_titles["en"]),
+        "Conservation International",
+    ),
+    (
+        "for_developers/index",
+        f"TrendsEarth_Developer_Guide_{version}_{language}",
+        developer_guide_titles.get(language, developer_guide_titles["en"]),
+        "Conservation International",
+    ),
+    (
+        "general/index",
+        f"TrendsEarth_General_Information_{version}_{language}",
+        general_information_titles.get(language, general_information_titles["en"]),
+        "Conservation International",
+    ),
+]
+
+pdf_stylesheets = ["sphinx", "a4", "trendsearth"]
+pdf_style_path = [os.path.join(os.path.dirname(__file__), "_styles")]
+pdf_use_toc = True
+pdf_toc_depth = 3
+pdf_use_coverpage = True
+pdf_use_numbered_links = False
+pdf_fit_mode = "shrink"
+pdf_repeat_table_rows = True
+pdf_raw_html = True
+
+# -- Legacy LaTeX configuration (kept for reference) --------------------------
+
 latex_engine = "xelatex"
 latex_use_xindy = False
 latex_elements = {
-    # NOTE: PDF generation for RTL languages (Arabic, Farsi) is currently
-    # disabled in tasks.py due to an unsolvable package ordering issue:
-    # - Sphinx's LaTeX template loads: documentclass → cmap → fontspec → amsmath
-    # - For RTL languages, polyglossia automatically loads bidi.sty
-    # - sphinx.sty then loads xcolor.sty
-    # - ERROR: bidi requires xcolor to be loaded BEFORE it
-    #
-    # All Sphinx configuration hooks (passoptionstopackages, preamble, fontpkg,
-    # extrapackages) insert AFTER polyglossia has already loaded bidi, making it
-    # impossible to satisfy bidi's requirement.
-    #
-    # This is a known limitation. HTML docs for these languages work fine;
-    # only PDFs are affected.
-    # Workaround: tasks.py skips PDF generation for Arabic and Farsi builds.
     "extraclassoptions": "openany,oneside",
 }

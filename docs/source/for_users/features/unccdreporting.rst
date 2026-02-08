@@ -786,7 +786,7 @@ The below status matrix can be used instead of the 3x3 matrix above to capture t
      </tr>
    </table>
    <p style="text-align: center; font-style: italic; font-size: 0.9em;">
-     Table 2.1: Expanded version of the &quot;Status Matrix&quot; showing land condition
+     Expanded version of the &quot;Status Matrix&quot; showing land condition
      that results from the comparison of the baseline (rows) and the period
      assessment (columns): degraded (purple), stable (yellow), and improved
      (green).

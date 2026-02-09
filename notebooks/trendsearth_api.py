@@ -670,9 +670,11 @@ class TrendsEarthAPIClient:
                         # Strip generation parameter from URL
                         url_stripped = re.sub(
                             r"([&?])generation=\d+(&|$)",
-                            lambda m: "?"
-                            if m.group(1) == "?" and m.group(2) == "&"
-                            else m.group(2),
+                            lambda m: (
+                                "?"
+                                if m.group(1) == "?" and m.group(2) == "&"
+                                else m.group(2)
+                            ),
                             file_url,
                         )
 

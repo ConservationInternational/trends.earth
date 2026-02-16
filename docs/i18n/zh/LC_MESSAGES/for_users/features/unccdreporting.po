@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-06 20:26+0000\n"
+"POT-Creation-Date: 2026-02-16 04:41+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language: zh\n"
@@ -101,12 +101,12 @@ msgid "Vegetation productivity"
 msgstr "植被生产力"
 
 #: ../../source/for_users/features/unccdreporting.rst:38
-#: ../../source/for_users/features/unccdreporting.rst:265
+#: ../../source/for_users/features/unccdreporting.rst:438
 msgid "Land cover"
 msgstr "土地覆盖"
 
 #: ../../source/for_users/features/unccdreporting.rst:39
-#: ../../source/for_users/features/unccdreporting.rst:299
+#: ../../source/for_users/features/unccdreporting.rst:472
 msgid "Soil organic carbon"
 msgstr "土壤有机碳"
 
@@ -259,32 +259,266 @@ msgid ""
 "climatic corrections:"
 msgstr ""
 
+#: ../../source/for_users/features/unccdreporting.rst:160
+#: ../../source/for_users/features/unccdreporting.rst:272
+#: ../../source/for_users/features/unccdreporting.rst:334
+msgid "**Variable**"
+msgstr ""
+
 #: ../../source/for_users/features/unccdreporting.rst:161
+#: ../../source/for_users/features/unccdreporting.rst:273
+#: ../../source/for_users/features/unccdreporting.rst:335
+msgid "**Sensor/Dataset**"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:162
+#: ../../source/for_users/features/unccdreporting.rst:274
+#: ../../source/for_users/features/unccdreporting.rst:336
+msgid "**Temporal**"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:163
+#: ../../source/for_users/features/unccdreporting.rst:275
+#: ../../source/for_users/features/unccdreporting.rst:337
+msgid "**Spatial Res.**"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:164
+#: ../../source/for_users/features/unccdreporting.rst:276
+#: ../../source/for_users/features/unccdreporting.rst:338
+msgid "**Extent**"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:165
+#: ../../source/for_users/features/unccdreporting.rst:277
+#: ../../source/for_users/features/unccdreporting.rst:339
+msgid "**Units/Description**"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:166
+#: ../../source/for_users/features/unccdreporting.rst:172
+#: ../../source/for_users/features/unccdreporting.rst:278
+#: ../../source/for_users/features/unccdreporting.rst:284
+#: ../../source/for_users/features/unccdreporting.rst:340
+#: ../../source/for_users/features/unccdreporting.rst:346
+msgid "NDVI"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:167
+#: ../../source/for_users/features/unccdreporting.rst:279
+#: ../../source/for_users/features/unccdreporting.rst:341
+msgid "AVHRR/GIMMS"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:168
+#: ../../source/for_users/features/unccdreporting.rst:280
+#: ../../source/for_users/features/unccdreporting.rst:342
+msgid "1982-2015"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:169
+#: ../../source/for_users/features/unccdreporting.rst:281
+#: ../../source/for_users/features/unccdreporting.rst:343
+msgid "8 km"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:170
+#: ../../source/for_users/features/unccdreporting.rst:176
+#: ../../source/for_users/features/unccdreporting.rst:182
+#: ../../source/for_users/features/unccdreporting.rst:188
+#: ../../source/for_users/features/unccdreporting.rst:194
+#: ../../source/for_users/features/unccdreporting.rst:200
+#: ../../source/for_users/features/unccdreporting.rst:218
+#: ../../source/for_users/features/unccdreporting.rst:282
+#: ../../source/for_users/features/unccdreporting.rst:288
+#: ../../source/for_users/features/unccdreporting.rst:344
+#: ../../source/for_users/features/unccdreporting.rst:350
+#: ../../source/for_users/features/unccdreporting.rst:356
+#: ../../source/for_users/features/unccdreporting.rst:362
+msgid "Global"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:171
+#: ../../source/for_users/features/unccdreporting.rst:177
+#: ../../source/for_users/features/unccdreporting.rst:283
+#: ../../source/for_users/features/unccdreporting.rst:289
+#: ../../source/for_users/features/unccdreporting.rst:345
+#: ../../source/for_users/features/unccdreporting.rst:351
+msgid "Mean annual NDVI \\* 10000"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:173
+#: ../../source/for_users/features/unccdreporting.rst:285
+#: ../../source/for_users/features/unccdreporting.rst:347
+msgid "MOD13Q1-coll6.1"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:174
+#: ../../source/for_users/features/unccdreporting.rst:286
+#: ../../source/for_users/features/unccdreporting.rst:348
+msgid "2001-2024"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:175
+#: ../../source/for_users/features/unccdreporting.rst:287
+#: ../../source/for_users/features/unccdreporting.rst:349
+#: ../../source/for_users/features/unccdreporting.rst:361
+msgid "250 m"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:178
+#: ../../source/for_users/features/unccdreporting.rst:184
+msgid "Soil moisture"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:179
+msgid "MERRA 2"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:180
+msgid "1980-2019"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:181
+msgid "0.5° x 0.625°"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:183
+msgid "Water root zone m\\ :sup:`3`\\ m\\ :sup:`-3` \\*10000"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:185
+msgid "ERA I"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:186
+msgid "1979-2016"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:187
+msgid "0.75° x 0.75°"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:189
+msgid "Volumetric Soil Water layer m\\ :sup:`3`\\ m\\ :sup:`-3` (0-7 cm)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:190
+#: ../../source/for_users/features/unccdreporting.rst:196
+#: ../../source/for_users/features/unccdreporting.rst:202
+#: ../../source/for_users/features/unccdreporting.rst:208
+msgid "Precipitation"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:191
+msgid "GPCP v2.3.1 monthly (Global Precipitation Climatology Project)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:192
+msgid "1979-2019"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:193
+msgid "2.5° x 2.5°"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:195
+#: ../../source/for_users/features/unccdreporting.rst:201
+#: ../../source/for_users/features/unccdreporting.rst:207
+#: ../../source/for_users/features/unccdreporting.rst:213
+msgid "mm/year"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:197
+msgid "GPCC V6 (Global Precipitation Climatology Centre)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:198
+msgid "1891-2019"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:199
+msgid "1° x 1°"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:203
+msgid "CHIRPS"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:204
+msgid "1981-2024"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:205
+msgid "5 km"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:206
+msgid "50°N x 50°S"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:209
+msgid "PERSIANN-CDR"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:210
+msgid "1983-2024"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:211
+msgid "25 km"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:212
+msgid "60°N x 60°S"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:214
+msgid "Evapotranspiration"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:215
+msgid "MOD16A2.GF"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:216
+msgid "2000-2024"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:217
+msgid "500 m"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:219
+msgid "Annual ET kg/m\\ :sup:`2` (=mm)\\*10"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:224
 #, fuzzy
 msgid "Productivity State"
 msgstr "生产率"
 
-#: ../../source/for_users/features/unccdreporting.rst:163
+#: ../../source/for_users/features/unccdreporting.rst:226
 msgid ""
 "The Productivity State metric allows for the detection of recent changes "
 "in primary productivity as compared to a baseline period. The State "
 "metric is computed as follows:"
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:167
+#: ../../source/for_users/features/unccdreporting.rst:230
 msgid ""
 "Define the baseline period (historical period to which to compare recent "
 "primary productivity)."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:170
+#: ../../source/for_users/features/unccdreporting.rst:233
 msgid ""
 "Define the comparison period (recent years used to compute comparison). "
 "It is recommended to use a 3-year to avoid annual fluctuations related to"
 " climate."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:174
+#: ../../source/for_users/features/unccdreporting.rst:237
 #, python-format
 msgid ""
 "For each pixel, use the annual integrals of NDVI for the baseline period "
@@ -294,7 +528,7 @@ msgid ""
 "cut-off values of the 10 percentile classes."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:180
+#: ../../source/for_users/features/unccdreporting.rst:243
 msgid ""
 "Compute the mean NDVI for the baseline period, and determine the "
 "percentile class it belongs to. Assign to the mean NDVI for the baseline "
@@ -302,7 +536,7 @@ msgid ""
 " range from 1 (lowest class) to 10 (highest class)."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:185
+#: ../../source/for_users/features/unccdreporting.rst:248
 msgid ""
 "Compute the mean NDVI for the comparison period, and determine the "
 "percentile class it belongs to. Assign to the mean NDVI for the "
@@ -310,13 +544,13 @@ msgid ""
 "Possible values range from 1 (lowest class) to 10 (highest class)."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:190
+#: ../../source/for_users/features/unccdreporting.rst:253
 msgid ""
 "Determine the difference in class number between the comparison and the "
 "baseline period (comparison minus baseline)."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:193
+#: ../../source/for_users/features/unccdreporting.rst:256
 msgid ""
 "If the difference in class between the baseline and the comparison period"
 " is ≤ 2, then that pixel could potentially be degraded. If the difference"
@@ -324,18 +558,18 @@ msgid ""
 "primary productivity. Pixels with small changes are considered stable."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:201
+#: ../../source/for_users/features/unccdreporting.rst:264
 msgid ""
 "The table below list the datasets available in |trends.earth| to compute "
 "the Productivity State metric:"
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:210
+#: ../../source/for_users/features/unccdreporting.rst:294
 #, fuzzy
 msgid "Productivity Performance"
 msgstr "生产率"
 
-#: ../../source/for_users/features/unccdreporting.rst:212
+#: ../../source/for_users/features/unccdreporting.rst:296
 msgid ""
 "The Productivity Performance metric measures local productivity relative "
 "to other similar vegetation types in similar land cover types or "
@@ -346,19 +580,19 @@ msgid ""
 "areas of analysis. The Performance metric is computed as follows:"
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:220
+#: ../../source/for_users/features/unccdreporting.rst:304
 msgid ""
 "Define the analysis period, and use the time series of NDVI to compute "
 "mean the NDVI for each pixel."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:223
+#: ../../source/for_users/features/unccdreporting.rst:307
 msgid ""
 "Define similar ecologically similar units as the unique intersection of "
 "land cover and soil type."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:226
+#: ../../source/for_users/features/unccdreporting.rst:310
 msgid ""
 "For each unit, extract all the mean NDVI values computed in step 1, and "
 "create a frequency distribution. From this distribution determine the "
@@ -368,30 +602,67 @@ msgid ""
 "considered the maximum productivity for that unit."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:233
+#: ../../source/for_users/features/unccdreporting.rst:317
 msgid ""
 "Compute the ratio of mean NDVI and maximum productivity (in each case "
 "compare the mean observed value to the maximum for its corresponding "
 "unit)."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:236
+#: ../../source/for_users/features/unccdreporting.rst:320
 msgid ""
 "If observed mean NDVI is lower than 50% than the maximum productivity, "
 "that pixel is considered potentially degraded for this metric."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:242
+#: ../../source/for_users/features/unccdreporting.rst:326
 msgid ""
 "The table below list the datasets available in |trends.earth| to compute "
 "the Productivity Performance metric:"
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:251
+#: ../../source/for_users/features/unccdreporting.rst:352
+#, fuzzy
+msgid "Land Cover"
+msgstr "土地覆盖"
+
+#: ../../source/for_users/features/unccdreporting.rst:353
+msgid "ESA CCI"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:354
+msgid "1992-2022"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:355
+msgid "300 m"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:357
+msgid "Land cover thematic classes"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:358
+msgid "Soil taxonomic units"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:359
+msgid "SoilGrids - USDA"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:360
+msgid "Static"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:363
+msgid "Soil units"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:368
 msgid "Combining Productivity Metrics"
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:253
+#: ../../source/for_users/features/unccdreporting.rst:370
 msgid ""
 "The three productivity metrics are then combined as indicated in the "
 "tables below. For SDG 15.3.1 reporting, the 3-class indicator is "
@@ -400,7 +671,7 @@ msgid ""
 "degradation occurring in the area."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:267
+#: ../../source/for_users/features/unccdreporting.rst:440
 msgid ""
 "To assess changes in land cover users need land cover maps covering the "
 "study area for the baseline and target years. These maps need to be of "
@@ -412,20 +683,20 @@ msgstr ""
 "为了评估土地覆被的变化，用户需要覆盖研究区域的基线年和目标年的土地覆被地图。这些地图需要具有可接受的精度，并以能够进行有效比较的方式创建。|trends.earth|使用ESA"
 " CCI土地覆盖地图作为默认数据集，但也可以使用本地地图。该指标的计算方法如下："
 
-#: ../../source/for_users/features/unccdreporting.rst:273
+#: ../../source/for_users/features/unccdreporting.rst:446
 msgid ""
 "Reclassify both land cover maps to the 7 land cover classes needed for "
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
 "area, bare land and water)."
 msgstr "将两张土地覆被图重新分类为需要向UNCCD报告的7个土地覆被等级（森林、草原、耕地、湿地、人工区、裸地和水）。"
 
-#: ../../source/for_users/features/unccdreporting.rst:277
+#: ../../source/for_users/features/unccdreporting.rst:450
 msgid ""
 "Perform a land cover transition analysis to identify which pixels "
 "remained in the same land cover class, and which ones changed."
 msgstr "进行土地覆被过渡分析，以确定哪些像素保持在同一土地覆被等级，哪些像素发生了变化。"
 
-#: ../../source/for_users/features/unccdreporting.rst:280
+#: ../../source/for_users/features/unccdreporting.rst:453
 msgid ""
 "Based on your local knowledge of the conditions in the study area and the"
 " land degradation processed occurring there, use the table below to "
@@ -433,14 +704,14 @@ msgid ""
 "improvement (+ sign), or no change in terms of land condition (zero)."
 msgstr "基于您对研究地区的条件和当地发生的土地退化处理的地方知识，使用下面的表格来确定哪些过渡对应于土地条件的退化（-号）、改善（+号）或没有变化（零）。"
 
-#: ../../source/for_users/features/unccdreporting.rst:289
+#: ../../source/for_users/features/unccdreporting.rst:462
 msgid ""
 "|trends.earth| will combine the information from the land cover maps and "
 "the table of degradation typologies by land cover transition to compute "
 "the land cover sub-indicator."
 msgstr "|trends.earth|将结合土地覆被地图和按土地覆被过渡的退化类型表的信息，计算出土地覆被分指标。"
 
-#: ../../source/for_users/features/unccdreporting.rst:301
+#: ../../source/for_users/features/unccdreporting.rst:474
 msgid ""
 "The third sub-indicator for monitoring land degradation as part of the "
 "SDG process quantifies changes in soil organic carbon (SOC) over the "
@@ -453,7 +724,7 @@ msgid ""
 " potentially degraded areas. The indicator is computed as follows:"
 msgstr "作为可持续发展目标进程的一部分，监测土地退化的第三个次级指标对报告期内土壤有机碳（SOC）的变化进行量化。基于某些原因，SOC的变化特别难以评估，其中一些原因是土壤特性的高度空间变异性，进行代表性土壤调查的时间和成本密集性，以及世界上大多数地区缺乏SOC的时间序列数据。为了解决其中的一些局限性，在|trends.earth|中使用了一种土地覆盖/SOC的综合方法来估计SOC的变化并确定潜在的退化区域。该指标的计算方法如下："
 
-#: ../../source/for_users/features/unccdreporting.rst:311
+#: ../../source/for_users/features/unccdreporting.rst:484
 msgid ""
 "Determine the SOC reference values. |trends.earth| uses SoilGrids 250m "
 "carbon stocks for the first 30 cm of the soil profile as the reference "
@@ -465,7 +736,7 @@ msgstr ""
 "确定SOC的参考值。|trends.earth||使用SoilGrids "
 "250m土壤剖面前30厘米的碳储量作为计算的参考值（注意：SoilGrids使用各种数据源和多年的信息来制作该产品，因此为计算目的指定一个日期可能导致储量变化计算的不准确）。"
 
-#: ../../source/for_users/features/unccdreporting.rst:318
+#: ../../source/for_users/features/unccdreporting.rst:491
 msgid ""
 "Reclassify the land cover maps to the 7 land cover classes needed for "
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
@@ -473,7 +744,7 @@ msgid ""
 " but at least land cover maps for the starting and end years are needed."
 msgstr "将土地覆被图重新分类为需要向UNCCD报告的7个土地覆被等级（森林、草原、耕地、湿地、人工区、裸地和水）。最好是年度土地覆被图，但至少需要起始和结束年份的土地覆被图。"
 
-#: ../../source/for_users/features/unccdreporting.rst:323
+#: ../../source/for_users/features/unccdreporting.rst:496
 msgid ""
 "To estimate the changes in C stocks for the reporting period C conversion"
 " coefficients for changes in land use, management and inputs are "
@@ -487,7 +758,7 @@ msgid ""
 "land cover change."
 msgstr "为了估算报告期内碳储存量的变化，气候变化专门组织和防治荒漠化公约建议了土地使用，管理和投入变化的C换算系数。然而，大部分地区都没有关于管理和C输入的空间明确信息。因此，只有土地利用转换系数可用于估算碳储量的变化（使用土地覆盖作为土地利用的替代指标）。所使用的系数是“防治荒漠化公约”进行的文献审查的结果，并列于下表。这些系数表示土地覆被变化20年后C储量的比例。"
 
-#: ../../source/for_users/features/unccdreporting.rst:336
+#: ../../source/for_users/features/unccdreporting.rst:593
 msgid ""
 "Changes in SOC are better studied for land cover transitions involving "
 "agriculture, and for that reason there is a different set of coefficients"
@@ -496,7 +767,7 @@ msgid ""
 "0.48), and Tropical Montane (f = 0.64)."
 msgstr "SOC的变化对涉及农业的土地覆被过渡研究比较好，因此，对全球每个主要气候区都有一套不同的系数。温带干旱区（f=0.80）、温带湿润区（f=0.69）、热带干旱区（f=0.58）、热带湿润区（f=0.48）和热带山地（f=0.64）。"
 
-#: ../../source/for_users/features/unccdreporting.rst:342
+#: ../../source/for_users/features/unccdreporting.rst:599
 #, python-format
 msgid ""
 "Compute relative different in SOC between the baseline and the target "
@@ -505,12 +776,12 @@ msgid ""
 "experiencing a gain of 10% or more as potentially improved."
 msgstr "计算基线期和目标期之间SOC的相对差异，在报告期内SOC损失10%以上的地区将被认为是潜在的退化，而收益10%以上的地区则为潜在的改善。"
 
-#: ../../source/for_users/features/unccdreporting.rst:353
+#: ../../source/for_users/features/unccdreporting.rst:610
 #, fuzzy
 msgid "Combining indicators into SDG Indicator 15.3.1"
 msgstr "合并指标"
 
-#: ../../source/for_users/features/unccdreporting.rst:355
+#: ../../source/for_users/features/unccdreporting.rst:612
 #, fuzzy
 msgid ""
 "The integration of the three SDG 15.3.1 sub-indicators is done following "
@@ -522,12 +793,12 @@ msgstr ""
 "三个SDG "
 "15.3.1分项指标的整合是按照一出一进的规则进行的，这意味着如果一个地区被任何一个分项指标确定为潜在的退化，那么这个地区将被认为是潜在的退化，以便报告。"
 
-#: ../../source/for_users/features/unccdreporting.rst:364
+#: ../../source/for_users/features/unccdreporting.rst:695
 #, fuzzy
 msgid "Calculating Status map"
 msgstr "第1步，计算SPI。"
 
-#: ../../source/for_users/features/unccdreporting.rst:366
+#: ../../source/for_users/features/unccdreporting.rst:697
 msgid ""
 "According to the Good Practice Guidance Addendum SDG Indicator 15.3.1, "
 "the Status map \"refers to the final condition (considering the baseline)"
@@ -541,20 +812,20 @@ msgid ""
 "trajectory over time."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:369
+#: ../../source/for_users/features/unccdreporting.rst:700
 msgid ""
 "The Status layer for the Baseline period is equivalent the SDG Indicator "
 "15.3.1 calculated for the Baseline assessment (i.e. Baseline Assessment "
 "== Status 2015)."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:371
+#: ../../source/for_users/features/unccdreporting.rst:702
 msgid ""
 "For combining a given period assessment with the Baseline SDG Indicator "
 "15.3.1 it is necessary to apply the 3 x 3 Status Matrix"
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:377
+#: ../../source/for_users/features/unccdreporting.rst:741
 msgid ""
 "For further information on how to derive the Status map, please refer to "
 "the `Good Practice Guidance Addendum SDG Indicator 15.3.1 "
@@ -563,15 +834,66 @@ msgid ""
 "reporting process\" starting on page 19."
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:380
+#: ../../source/for_users/features/unccdreporting.rst:744
+msgid "Expanded Status Matrix"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:746
+msgid ""
+"While the status map resulting from the above comparison provides a "
+"snapshot of land condition at the end of the reporting period in three "
+"broad categories (Degraded, Stable, and Improved), the underlying "
+"dynamics that lead to this final status can be complex - there are nine "
+"different types of changes (given it is a 3x3 matrix) in land condition. "
+"Understanding these different pathways enables a deeper interpretation of"
+" the land condition changes, allowing for the identification of gains and"
+" losses of natural capital that have occurred relative to a baseline "
+"state. For example, degradation and improvement can correspond to recent "
+"changes, a continuation of ongoing trends in areas previously degraded or"
+" improved, or stability in areas that were already degraded or improved "
+"in a prior period."
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:754
+msgid ""
+"The below status matrix can be used instead of the 3x3 matrix above to "
+"capture these different types of changes in land condition that can "
+"occur. This expanded version of the status matrix allows for a more "
+"detailed classification of land condition changes, providing insights "
+"into the nature and timing of degradation and improvement processes."
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:795
+msgid ""
+"Each type of change represented in the expanded Status Matrix is detailed"
+" below. The table captures the nine possible combinations in the 3 × 3 "
+"matrix, reflecting transitions from the baseline assessment to the "
+"current period assessment. For each combination, a brief interpretation "
+"of the change is provided, along with its classification as either a "
+"recent or baseline improvement or degradation. This classification helps "
+"in understanding whether the observed changes represent new developments "
+"that have occurred during the current reporting period or whether no "
+"changes in status have taken place."
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:805
+msgid ""
+"For further information on how to derive the expanded status map, please "
+"refer to the `Good Practice Guidance Addendum SDG Indicator 15.3.1 "
+"<https://www.unccd.int/sites/default/files/2025-07/GPG%20Addendum_%20Advanced%20Unedited%20Version.pdf>`_"
+" which offers a dedicated section on \"Further characterization of land "
+"degradation and improvement\" starting on page 29."
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:810
 msgid "UNCCD Strategic Objective 2 (SO 2)"
 msgstr "UNCCD 战略目标2 (SO 2)"
 
-#: ../../source/for_users/features/unccdreporting.rst:383
+#: ../../source/for_users/features/unccdreporting.rst:813
 msgid "To improve the living conditions of affected populations"
 msgstr "改善受影响人口的生活条件"
 
-#: ../../source/for_users/features/unccdreporting.rst:385
+#: ../../source/for_users/features/unccdreporting.rst:815
 msgid ""
 "Addressing the global challenges of desertification, land degradation, "
 "and drought (DLDD) and their impacts on coupled human-environmental "
@@ -585,7 +907,7 @@ msgid ""
 " climate change."
 msgstr "应对荒漠化、土地退化和干旱（DLDD）的全球挑战及其对人类-环境耦合系统的影响是《2030年可持续发展议程》的一个关键组成部分。特别是，SDG15.3旨在截止2030年，防治荒漠化，恢复退化的土地和土壤，包括受荒漠化、干旱和洪水影响的土地，并努力实现一个土地退化中立的世界。应对这一挑战对于改善受荒漠化、土地退化和干旱影响最严重者的生计以及防范气候变化的最极端影响至关重要。"
 
-#: ../../source/for_users/features/unccdreporting.rst:392
+#: ../../source/for_users/features/unccdreporting.rst:822
 msgid ""
 "The livelihoods of people in degraded areas include multiple human and "
 "natural characteristics of local environments, including adequate access "
@@ -601,7 +923,7 @@ msgid ""
 "livelihood resilience in order to enhance positive adaptations to DLDD"
 msgstr "退化地区人们的生计包括当地环境的多种人类和自然特征，包括直接通过维持生计获得足够的食物和水，通过足够的收入购买食物和水安全，或两者结合。如果实现了食物和水的安全，受影响地区的外迁就不再是被迫的，而是自愿性的。在社会和经济上被边缘化的人口、社区和家庭往往更容易受到气候变化和DLDD综合效应的影响。识别和量化这些人口、社区和家庭的构成、分布和相对脆弱性的能力，对于加强生计复原力，以提高对DLDD的积极适应性至关重要。"
 
-#: ../../source/for_users/features/unccdreporting.rst:400
+#: ../../source/for_users/features/unccdreporting.rst:830
 msgid ""
 "|trends.earth| allows users to monitor UNCCD's Strategic Objective 2 "
 "indicator on **Trends in Population Exposure to Land Degradation "
@@ -614,11 +936,11 @@ msgstr ""
 "|trends.earth|允许用户监测UNCCD战略目标2的指标：**按性别分列的人口受土地退化影响的趋势（SO "
 "2-3）**，计算按性别分列的受土地退化影响的人口比例。|trends.earth|使用代表人口在可持续发展目标15.3.1指标地图上的空间分布的网格化数据来确定其对土地退化的暴露程度。"
 
-#: ../../source/for_users/features/unccdreporting.rst:404
+#: ../../source/for_users/features/unccdreporting.rst:834
 msgid "The (SO 2-3) indicator uses the following metrics:"
 msgstr "(SO 2-3)指标使用以下单位："
 
-#: ../../source/for_users/features/unccdreporting.rst:406
+#: ../../source/for_users/features/unccdreporting.rst:836
 msgid ""
 "-Percentage of the female population exposed to land degradation "
 "-Percentage of the male population exposed to land degradation "
@@ -626,27 +948,27 @@ msgid ""
 "degradation"
 msgstr "-面临土地退化的女性人口百分比 -面临土地退化的男性人口百分比 -面临土地退化的总人口（女性和男性）百分比"
 
-#: ../../source/for_users/features/unccdreporting.rst:410
+#: ../../source/for_users/features/unccdreporting.rst:840
 msgid ""
 "|trends.earth| provides access the WorldPop dataset, which is used by "
 "default by the UNCCD for calculating indicator SO2-3."
 msgstr "|trends.earth|提供访问WorldPop数据集的机会，UNCCD默认使用该数据集来计算SO2-3指标。"
 
-#: ../../source/for_users/features/unccdreporting.rst:413
+#: ../../source/for_users/features/unccdreporting.rst:843
 msgid "UNCCD Strategic Objective 3 (SO 3)"
 msgstr "UNCCD 战略目标 3 (SO 3)"
 
-#: ../../source/for_users/features/unccdreporting.rst:416
+#: ../../source/for_users/features/unccdreporting.rst:846
 msgid ""
 "To mitigate, adapt to, and manage the effects of drought in order to "
 "enhance resilience of vulnerable populations and ecosystems."
 msgstr "减轻、适应和管理干旱的影响，以提高弱势人口和生态系统的复原力。"
 
-#: ../../source/for_users/features/unccdreporting.rst:419
+#: ../../source/for_users/features/unccdreporting.rst:849
 msgid "Drought and land degradation"
 msgstr "干旱和土地退化"
 
-#: ../../source/for_users/features/unccdreporting.rst:420
+#: ../../source/for_users/features/unccdreporting.rst:850
 msgid ""
 "**Land degradation** as defined by the UNCCD refers to any reduction or "
 "loss in the biological or economic productive capacity of the land "
@@ -658,7 +980,7 @@ msgid ""
 "especially in regions of the world."
 msgstr "**土地退化**根据UNCCD的定义，指土地资源基础的生物或经济生产能力的任何减少或损失。它通常是由人类活动造成的，并因自然过程而加剧，往往因气候变化和生物多样性丧失而放大，并与之密切相关。土地退化降低了农业生产力，增加了那些已经面临气候变异和变化影响的地区的脆弱性，特别是在世界各区域。"
 
-#: ../../source/for_users/features/unccdreporting.rst:426
+#: ../../source/for_users/features/unccdreporting.rst:856
 msgid ""
 "**Drought** is a complex, slow-onset phenomenon that happens over "
 "different time scales. It is characterized by a reduction in water "
@@ -670,7 +992,7 @@ msgid ""
 "other hazards such as heatwaves, wildfires, sand/dust storms, or floods."
 msgstr "**干旱**是一种复杂的、缓慢发生的现象，在不同的时间范围内发生。它的特点是水供应的减少，导致对人们的生计和经济部门的连带影响。干旱有时被简单地定义为一段足够长的干旱天气，导致水文失衡，尽管全球一致同意的干旱定义并不存在。此外，干旱几乎不作为一个单一的风险事件发生，而是与其他危害，如热浪、野火、沙尘暴或洪水相互关联。"
 
-#: ../../source/for_users/features/unccdreporting.rst:432
+#: ../../source/for_users/features/unccdreporting.rst:862
 msgid ""
 "The International Panel on Climate Change (IPCC) defines drought as \"a "
 "period of abnormally dry weather long enough to cause a serious "
@@ -701,7 +1023,7 @@ msgstr ""
 " GAR第6章）。缺乏一致的定义使监测工作变得复杂，因为定义和监测方法通常是针对具体环境的。 "
 "尽管努力减少贫困、不平等和提高全世界人民的社会经济福祉，但贫困率仍然很高。"
 
-#: ../../source/for_users/features/unccdreporting.rst:444
+#: ../../source/for_users/features/unccdreporting.rst:874
 msgid ""
 "Drought increasingly impacts larger numbers of people, livelihoods, "
 "ecosystems, and economies worldwide. When it occurs concomitantly with "
@@ -710,11 +1032,11 @@ msgid ""
 "and decrease population and community resilience."
 msgstr "干旱对全世界越来越多的人、生计、生态系统和经济产生影响。当它与土地退化同时发生时，它可能使已经脆弱的人口面临有害的生计、环境、社会经济和健康风险，并降低人口和社区的复原力。"
 
-#: ../../source/for_users/features/unccdreporting.rst:449
+#: ../../source/for_users/features/unccdreporting.rst:879
 msgid "The UNCCD has adopted a monitoring framework with three levels for SO 3:"
 msgstr "UNCCD采用了一个监测框架，对战略目标3分为三个级别："
 
-#: ../../source/for_users/features/unccdreporting.rst:451
+#: ../../source/for_users/features/unccdreporting.rst:881
 msgid ""
 "Level I SO 3-1 Trends in the proportion of land under drought over the "
 "total land area(Hazard), Level II SO 3-2 Trends in the proportion of the "
@@ -724,11 +1046,11 @@ msgstr ""
 "一级SO 3-1 干旱土地占总土地面积的比例趋势（危害），二级SO 3-2 遭受干旱的总人口比例趋势（暴露），三级SO 3-3 "
 "干旱脆弱性程度趋势（脆弱）。"
 
-#: ../../source/for_users/features/unccdreporting.rst:455
+#: ../../source/for_users/features/unccdreporting.rst:885
 msgid "Under the IPCC framework:"
 msgstr "根据IPCC框架："
 
-#: ../../source/for_users/features/unccdreporting.rst:457
+#: ../../source/for_users/features/unccdreporting.rst:887
 msgid ""
 "**Hazard** is the potential occurrence of a natural or human-induced "
 "physical event or trend or physical impact that may cause loss of life, "
@@ -737,7 +1059,7 @@ msgid ""
 "environmental resources."
 msgstr "**危害**是指可能发生的自然或人类引起的物理事件或趋势或物理影响，可能造成生命损失、伤害或其他健康影响，以及对财产、基础设施、生计、服务供应、生态系统和环境资源的破坏和损失。"
 
-#: ../../source/for_users/features/unccdreporting.rst:461
+#: ../../source/for_users/features/unccdreporting.rst:891
 msgid ""
 "**Exposure** characterizes the presence of people, livelihoods, species "
 "or ecosystems, environmental functions, services, and resources, "
@@ -745,33 +1067,33 @@ msgid ""
 "settings that could be adversely affected."
 msgstr "**接触**描述了人、生计、物种或生态系统、环境功能、服务和资源、基础设施，或经济、社会或文化资产，在可能受到不利影响的地方和环境的存在。"
 
-#: ../../source/for_users/features/unccdreporting.rst:464
+#: ../../source/for_users/features/unccdreporting.rst:894
 msgid ""
 "**Vulnerability** is defined as the propensity or predisposition to be "
 "adversely affected by climate change and related processes."
 msgstr "**脆弱**被定义为受到气候变化和相关过程的不利影响的倾向或倾向性。"
 
-#: ../../source/for_users/features/unccdreporting.rst:466
+#: ../../source/for_users/features/unccdreporting.rst:896
 msgid ""
 "In order to assess the SO 3 indicators, |trends.earth| uses information "
 "from 3 sub-indicators:"
 msgstr "为了评估SO 3指标，|trends.earth|使用3个次级指标的信息："
 
-#: ../../source/for_users/features/unccdreporting.rst:468
+#: ../../source/for_users/features/unccdreporting.rst:898
 msgid ""
 "Standardized Precipitation Index (SPI), alternatively the Standardized "
 "Precipitation Evapotranspiration Index (SPEI)"
 msgstr ""
 
-#: ../../source/for_users/features/unccdreporting.rst:469
+#: ../../source/for_users/features/unccdreporting.rst:899
 msgid "Gridded global population dataset"
 msgstr "全球人口网格化数据集"
 
-#: ../../source/for_users/features/unccdreporting.rst:470
+#: ../../source/for_users/features/unccdreporting.rst:900
 msgid "Drought Vulnerability Index (DVI)"
 msgstr "干旱脆弱性指数（DVI）"
 
-#: ../../source/for_users/features/unccdreporting.rst:472
+#: ../../source/for_users/features/unccdreporting.rst:902
 msgid ""
 "|trends.earth| allows the user to compute each of these indicators in a "
 "spatially explicit way generating raster maps and producing a summary "
@@ -782,7 +1104,7 @@ msgstr ""
 "|trends.earth|允许用户以空间明确的方式计算这些指标中的每一项，生成栅格地图并产生一个汇总表，报告分析区域内可能改善和退化的区域。SO"
 " 3-1 \"干旱土地占总土地面积比例的趋势\"。"
 
-#: ../../source/for_users/features/unccdreporting.rst:476
+#: ../../source/for_users/features/unccdreporting.rst:906
 msgid ""
 "The United Nations Convention to Combat Desertification (UNCCD) has "
 "developed a `Good practice guidance for national reporting on UNCCD "
@@ -795,7 +1117,7 @@ msgstr ""
 "\"关于UNCCD战略目标3的国家报告的良好实践指南<https://www.unccd.int/sites/default/files/documents/2021-09"
 "/UNCCD_GPG_Strategic-Objective-3_2021.pdf>\"（GPG-SO3）。 提供了关于如何计算SO3指标的建议。"
 
-#: ../../source/for_users/features/unccdreporting.rst:481
+#: ../../source/for_users/features/unccdreporting.rst:911
 msgid ""
 "This document provides a brief introduction to the UNCCD Strategic "
 "Objective 3 and describes how each indicator is calculated by "
@@ -803,35 +1125,35 @@ msgid ""
 "Guidance."
 msgstr "本文件简要介绍了《联合国防治荒漠化公约》战略目标3，并介绍了每项指标是如何按照战略目标3良好实践指南由|trends.earth|计算的。"
 
-#: ../../source/for_users/features/unccdreporting.rst:485
+#: ../../source/for_users/features/unccdreporting.rst:915
 msgid "SO3 Level I indicator (SO 3-1 Hazard)"
 msgstr "SO3一级指标（SO 3-1危险)"
 
-#: ../../source/for_users/features/unccdreporting.rst:487
+#: ../../source/for_users/features/unccdreporting.rst:917
 msgid "Steps to calculate Level I indicator following the UNCCD GPG-SO3:"
 msgstr "按照UNCCD GPG-SO3计算一级指标的步骤："
 
-#: ../../source/for_users/features/unccdreporting.rst:489
+#: ../../source/for_users/features/unccdreporting.rst:919
 msgid ""
 "Calculate SPI using an accumulation period of 12 months (SPI-12) and "
 "gridded precipitation data"
 msgstr "使用12个月的累积期（SPI-12）和网格化降水数据计算SPI。"
 
-#: ../../source/for_users/features/unccdreporting.rst:490
+#: ../../source/for_users/features/unccdreporting.rst:920
 msgid ""
 "Identify the drought intensity class of each pixel based on the "
 "previously calculated SPI"
 msgstr "根据之前计算的SPI，确定每个像素的干旱强度等级。"
 
-#: ../../source/for_users/features/unccdreporting.rst:491
+#: ../../source/for_users/features/unccdreporting.rst:921
 msgid "Calculate proportion of land within each drought intensity class."
 msgstr "计算每个干旱强度等级内的土地比例。"
 
-#: ../../source/for_users/features/unccdreporting.rst:495
+#: ../../source/for_users/features/unccdreporting.rst:925
 msgid "Standardized Precipitation Index (SPI)"
 msgstr "标准化降水指数（SPI）"
 
-#: ../../source/for_users/features/unccdreporting.rst:497
+#: ../../source/for_users/features/unccdreporting.rst:927
 msgid ""
 "The Standardized Precipitation Index (SPI) has been widely used to "
 "characterize meteorological drought or precipitation deficit, and was "
@@ -853,7 +1175,7 @@ msgid ""
 " and hydrological droughts."
 msgstr "标准化降水指数（SPI）已被广泛用于描述气象干旱或降水不足的特征，并通过《林肯干旱宣言》被确认为计算和监测气象干旱的国际首选指数。SPI的计算方法是对正态分布和实际降水记录的拟合概率分布，在特定时期内观察到的降水会偏离该时期的长期平均值的标准偏差，通常是30年的数据。使用SPI进行全球干旱监测、预测和风险评估的主要优势是，它目前已在全球许多国家使用，并得到世界气象组织的认可。其他主要优点是，SPI既代表降水不足，也代表降水过剩，而且可以按不同的时间尺度计算（例如，SPI-3，SPI-6，SPI-12，数字表示计算指数的月份数）。因此，它间接考虑了累积降水不足的影响，这对土壤水分和水文干旱至关重要。"
 
-#: ../../source/for_users/features/unccdreporting.rst:509
+#: ../../source/for_users/features/unccdreporting.rst:939
 msgid ""
 "By default, |trends.earth| offers access to SPI calculated from the "
 "Global Precipitation Climatology Centre (GPCC) Monitoring Product, a "
@@ -870,11 +1192,11 @@ msgstr ""
 "默认情况下，|trends.earth|提供访问从全球降水气候学中心（GPCC）监测产品中计算出的SPI，这是一个代表降水的栅格，由雨量计数据得出，空间分辨率约为27平方公里，覆盖整个地球。用户还可以选择使用由气候危害小组红外降水站（CHIRPS）计算出的另一种SPI，其降水估计值基于卫星观测和~5平方公里的测站数据的结合。虽然CHIRPS具有更高的空间分辨率，但它的覆盖范围是"
 " \"准全球\"，即南纬50度到北纬50度。因此，对这一范围以外地区的SO3-1危害计算感兴趣的用户将无法使用CHRIPS的数据集。"
 
-#: ../../source/for_users/features/unccdreporting.rst:518
+#: ../../source/for_users/features/unccdreporting.rst:948
 msgid "Step 1. Calculating SPI"
 msgstr "第1步，计算SPI。"
 
-#: ../../source/for_users/features/unccdreporting.rst:520
+#: ../../source/for_users/features/unccdreporting.rst:950
 msgid ""
 "The SPI quantifies observed precipitation as a standardized departure "
 "from a selected probability distribution function that models the raw "
@@ -884,88 +1206,88 @@ msgid ""
 " SPI value, defined as the standardized anomaly of the precipitation."
 msgstr "SPI将观察到的降水量化为对选定的概率分布函数的标准化偏离，该函数对原始数据进行建模。原始数据可以被拟合为伽马或皮尔逊III型分布，然后被转换为正态分布。然后用转换后的降水数据来计算无量纲的SPI值，定义为降水的标准化异常值。"
 
-#: ../../source/for_users/features/unccdreporting.rst:524
+#: ../../source/for_users/features/unccdreporting.rst:954
 msgid ""
 "The detailed equations for computing this index are described in the "
 "following steps using the gamma distribution:"
 msgstr "计算该指数的详细方程式在以下步骤中使用伽马分布进行描述："
 
-#: ../../source/for_users/features/unccdreporting.rst:526
+#: ../../source/for_users/features/unccdreporting.rst:956
 msgid "The transformation of the precipitation value into SPI has the purpose of:"
 msgstr "将降水值转化为SPI的目的是："
 
-#: ../../source/for_users/features/unccdreporting.rst:527
+#: ../../source/for_users/features/unccdreporting.rst:957
 msgid "Transforming the mean of the precipitation value adjusted to 0;"
 msgstr "将降水值的平均值调整为0，进行转化；"
 
-#: ../../source/for_users/features/unccdreporting.rst:528
+#: ../../source/for_users/features/unccdreporting.rst:958
 msgid "Standard deviation of the precipitation is adjusted to 1.0; and"
 msgstr "降水的标准偏差被调整为1.0；以及"
 
-#: ../../source/for_users/features/unccdreporting.rst:529
+#: ../../source/for_users/features/unccdreporting.rst:959
 msgid "Skewness of the existing data must be readjusted to zero."
 msgstr "必须将现有数据的偏度重新调整为零。"
 
-#: ../../source/for_users/features/unccdreporting.rst:531
+#: ../../source/for_users/features/unccdreporting.rst:961
 msgid ""
 "When these goals have been achieved the standardized precipitation index "
 "can be interpreted as mean 0 and standard deviation of 1.0."
 msgstr "当这些目标实现后，标准化的降水指数可以解释为平均值为0，标准偏差为1.0。"
 
-#: ../../source/for_users/features/unccdreporting.rst:534
+#: ../../source/for_users/features/unccdreporting.rst:964
 msgid "Mean of the precipitation can be computed as:"
 msgstr "降水的平均值可以计算为："
 
-#: ../../source/for_users/features/unccdreporting.rst:539
+#: ../../source/for_users/features/unccdreporting.rst:969
 msgid "where N is the number of precipitation observations."
 msgstr "其中N是降水观测值的数量。"
 
-#: ../../source/for_users/features/unccdreporting.rst:541
+#: ../../source/for_users/features/unccdreporting.rst:971
 msgid "The standard deviation for the precipitation is computed as:"
 msgstr "降水的标准偏差计算为："
 
-#: ../../source/for_users/features/unccdreporting.rst:546
+#: ../../source/for_users/features/unccdreporting.rst:976
 msgid "The skewness of the given precipitation is computed as:"
 msgstr "给定降水的偏度计算方法为："
 
-#: ../../source/for_users/features/unccdreporting.rst:551
+#: ../../source/for_users/features/unccdreporting.rst:981
 msgid ""
 "The precipitation is converted to lognormal values and the statistics U, "
 "shape and scale parameters of gamma distribution is computed:"
 msgstr "降水被转换为对数正态值，并计算出伽马分布的统计量U、形状和尺度参数："
 
-#: ../../source/for_users/features/unccdreporting.rst:557
+#: ../../source/for_users/features/unccdreporting.rst:987
 msgid ""
 "The resulting parameters are then used to find the cumulative probability"
 " of an observed precipitation event. The cumulative probability is given "
 "by:"
 msgstr "然后用得到的参数来寻找观察到的降水事件的累积概率。累积概率由以下公式得出："
 
-#: ../../source/for_users/features/unccdreporting.rst:564
+#: ../../source/for_users/features/unccdreporting.rst:994
 msgid ""
 "Since the gamma function is undefined for x = 0 and a precipitation "
 "distribution may contain zeros, the cumulative probability becomes:"
 msgstr "由于伽马函数对于x=0是未定义的，而且降水分布可能包含零，所以累积概率变成："
 
-#: ../../source/for_users/features/unccdreporting.rst:570
+#: ../../source/for_users/features/unccdreporting.rst:1000
 msgid "where the probability from q is zero."
 msgstr "其中来自q的概率为零。"
 
-#: ../../source/for_users/features/unccdreporting.rst:572
+#: ../../source/for_users/features/unccdreporting.rst:1002
 msgid ""
 "The cumulative probability H(x) is then transformed to the standard "
 "normal random variable Z with mean zero and variance of one:"
 msgstr "然后将累积概率H(x)转换为标准正态随机变量Z，其均值为0，方差为1："
 
-#: ../../source/for_users/features/unccdreporting.rst:578
+#: ../../source/for_users/features/unccdreporting.rst:1008
 msgid "where:"
 msgstr "其中："
 
-#: ../../source/for_users/features/unccdreporting.rst:584
+#: ../../source/for_users/features/unccdreporting.rst:1014
 msgid "Step 2. Identifying drought intensity classes"
 msgstr "第2步，确定干旱强度等级。"
 
-#: ../../source/for_users/features/unccdreporting.rst:586
+#: ../../source/for_users/features/unccdreporting.rst:1016
 msgid ""
 "The dimensionless SPI values are interpreted as the number of standard "
 "deviations by which the observed anomaly deviates from the long-term mean"
@@ -976,7 +1298,71 @@ msgid ""
 "positive."
 msgstr "无量纲的SPI值被解释为观察到的异常值偏离长期平均值的标准差数量，通常根据情况分类标注（即极湿、极干、正常），如下表所示。当SPI连续为负值时，就会发生干旱，其数值达到-1或更低的强度，当SPI变为正值时，干旱就会结束。"
 
-#: ../../source/for_users/features/unccdreporting.rst:594
+#: ../../source/for_users/features/unccdreporting.rst:1026
+msgid "**Description**"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1027
+msgid "**Precipitation Category**"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1028
+msgid "2.0 or more"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1029
+msgid "Extremely wet"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1030
+msgid "1.5 to 1.99"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1031
+msgid "Severely wet"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1032
+msgid "1.0 to 1.49"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1033
+msgid "Moderately wet"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1034
+msgid "-0.99 to 0.99"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1035
+msgid "Near normal"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1036
+msgid "-1.0 to -1.49"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1037
+msgid "Moderately dry"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1038
+msgid "-1.5 to -1.99"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1039
+msgid "Severely dry"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1040
+msgid "-2.0 or less"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1041
+msgid "Extremely dry"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1043
 msgid ""
 "Drought intensity classes are identified by assessing the December SPI-12"
 " values for ear year of time-series. The December SPI-12 values represent"
@@ -985,7 +1371,7 @@ msgid ""
 "indicate that there was no drought in the given period."
 msgstr "干旱强度等级是通过评估时间序列中每一年的12月SPI-12值来确定的。12月的SPI-12值代表公历年（1-12月）的降水赤字（或过剩）。正的SPI值被放弃，因为它们表明在给定的时期内没有干旱。"
 
-#: ../../source/for_users/features/unccdreporting.rst:598
+#: ../../source/for_users/features/unccdreporting.rst:1047
 msgid ""
 "For further details on SPI, see the `Good practice guidance for national "
 "reporting on UNCCD Strategic Objective 3 "
@@ -1002,44 +1388,44 @@ msgstr ""
 "Objective-3_2021.pdf>\"。我们还建议阅读Tools4LDN关于监测UNCCD战略目标3进展情况的技术报告 "
 "\"对支持干旱监测的公共可用地理空间数据集和指标的审查<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>\"。"
 
-#: ../../source/for_users/features/unccdreporting.rst:604
+#: ../../source/for_users/features/unccdreporting.rst:1053
 msgid ""
 "Step 3. Calculating the proportion of land within each drought intensity "
 "class."
 msgstr "第3步，计算每个干旱强度等级内的土地比例。"
 
-#: ../../source/for_users/features/unccdreporting.rst:606
+#: ../../source/for_users/features/unccdreporting.rst:1055
 msgid ""
 "The equation to estimate the percentage of land within drought intensity "
 "classes takes the land area under the each drought intensity class "
 "identified in the previous step over the the total land area, as follows:"
 msgstr "估算干旱强度等级内的土地百分比的公式，是将上一步确定的每个干旱强度等级下的土地面积除以总土地面积，如下所示："
 
-#: ../../source/for_users/features/unccdreporting.rst:612
+#: ../../source/for_users/features/unccdreporting.rst:1061
 msgid "Where:"
 msgstr "其中："
 
-#: ../../source/for_users/features/unccdreporting.rst:614
+#: ../../source/for_users/features/unccdreporting.rst:1063
 msgid ""
 "`Pij` is the proportion of land under the drought intensity class i in "
 "the year j"
 msgstr "‘比例 ij ’是指年度 j 期间干旱强度一级下的土地比例。"
 
-#: ../../source/for_users/features/unccdreporting.rst:616
+#: ../../source/for_users/features/unccdreporting.rst:1065
 msgid ""
 "`areaij` is the land area under the drought intensity class i in the "
 "reporting year j"
 msgstr "‘面积 ij ’是指报告年度 j 期间干旱强度一级下的土地面积"
 
-#: ../../source/for_users/features/unccdreporting.rst:618
+#: ../../source/for_users/features/unccdreporting.rst:1067
 msgid "`Total area` is all the total land area."
 msgstr "‘总面积’是指所有土地总面积。"
 
-#: ../../source/for_users/features/unccdreporting.rst:622
+#: ../../source/for_users/features/unccdreporting.rst:1071
 msgid "SO3 Level II indicator (SO 3-2 Exposure)"
 msgstr "SO3 二级指标（ SO 3-2 暴露）"
 
-#: ../../source/for_users/features/unccdreporting.rst:624
+#: ../../source/for_users/features/unccdreporting.rst:1073
 msgid ""
 "The UNCCD SO3 Level III drought Exposure indicator is built upon the SO 3"
 " Level I Hazard indicator by overlaying a gridded population data. Using "
@@ -1062,7 +1448,7 @@ msgstr ""
 " "
 "二级人口指标的性别差异计算是根据每个网格单元中男性比例和女性比例来计算的。输出结果包括暴露于每个一级干旱强度等级的性别暴露信息（男性比例和女性比例）。这会产生两个可比较的网格；如果需要，可以将其汇总到行政边界，从而更好地量化和可视化性别与干旱发生和/或严重程度之间的全球和局部空间关系。"
 
-#: ../../source/for_users/features/unccdreporting.rst:633
+#: ../../source/for_users/features/unccdreporting.rst:1082
 msgid ""
 "The WorldPop collection is a global gridded high resolution geospatial "
 "dataset on population distributions,demographics, and dynamics. "
@@ -1088,18 +1474,18 @@ msgstr ""
 "30 角秒（在赤道上分别约为 100 米和 1 "
 "公里）的输出分辨率进行网格化，并纳入人口普查表和国家地理边界、道路、土地覆盖、建筑结构、城市区域、夜间灯光、基础设施、环境数据、保护区域和水域等输入数据。WorldPop的优势在于，dasymetric绘图的人口估计方法是基于多变量分析（即高度建模），因此适合于匹配每个国家和地区的数据条件和地理性质。该方法还提供性别差异信息。WorldPop的劣势是，使用这种包含稀疏人口普查数据的复杂插值模型可能会导致一些次国家和农村地区的人口估计出现高度不确定和不精确。尽管存在上述不足，WorldPop仍然是最理想的人口栅格数据集，因为其满足我们所有的纳入标准，包括空间分辨率、全球覆盖率、数据更新频率，以及包含性别差异分量。"
 
-#: ../../source/for_users/features/unccdreporting.rst:644
+#: ../../source/for_users/features/unccdreporting.rst:1093
 msgid ""
 "The percentages of population Exposure to drought are calculated by the "
 "number of people within each drought intensity classes over of the total "
 "population."
 msgstr "遭受干旱的人口比例是通过每个干旱强度等级内的人口数量占总人口的比例来计算的。"
 
-#: ../../source/for_users/features/unccdreporting.rst:649
+#: ../../source/for_users/features/unccdreporting.rst:1098
 msgid "SO3 Level III indicator (SO 3-3 Vulnerability)"
 msgstr "SO3 三级指标（ SO 3-3 脆弱性）。"
 
-#: ../../source/for_users/features/unccdreporting.rst:650
+#: ../../source/for_users/features/unccdreporting.rst:1099
 msgid ""
 "Drought Vulnerability assessment is based on the Drought Vulnerability "
 "Index (DVI), a composite index incorporating three components reflecting "
@@ -1119,7 +1505,7 @@ msgstr ""
 "DVI  数据集。JRC 制定了一个框架，该框架整合了来自全球数据的与干旱脆弱性有关的 15 "
 "个经济、社会和基础设施分量。该框架建议干旱脆弱性指标应包含对任何地区通用且有效的、互不相关的社会、基础设施和经济因素。"
 
-#: ../../source/for_users/features/unccdreporting.rst:658
+#: ../../source/for_users/features/unccdreporting.rst:1107
 msgid ""
 "The JRC framework for monitoring drought risk as described in `Carrão et "
 "al., 2016 "
@@ -1143,7 +1529,7 @@ msgstr ""
 "UNISDR）提出，反映某个地区个人和集体社会、经济和基础设施因素的状况【61】。另外，JRC "
 "全球干旱观测站（GDO）已在实施这一方法，用于记录和绘制全球干旱对农业影响的风险。作者指出，其所包括的因素并不代表对与特定暴露要素相关的完整脆弱性描述，但可以视为制定区域计划以减少脆弱性和促进适应性的基础。"
 
-#: ../../source/for_users/features/unccdreporting.rst:666
+#: ../../source/for_users/features/unccdreporting.rst:1115
 msgid ""
 "The methodology used in `Carrão et al., 2016 "
 "<https://www.sciencedirect.com/science/article/pii/S0959378016300565>`_ "
@@ -1159,7 +1545,187 @@ msgstr ""
 "‘Carrão等人，2016 "
 "<https://www.sciencedirect.com/science/article/pii/S0959378016300565>’_所用方法遵循的理念是，个人和群体需要一系列半独立因素（由一组替代指标来表征）以从受影响状态中复原。其方法采用了一个两步复合模型，该模型是对15个替代指标（如下表所示）进行汇总后获得的（该方法与DVI类似，随后讨论）；该15个替代指标表示每个地理区位的社会、经济和基础设施脆弱性，源自国家层面和极高空间分辨率的栅格数据。"
 
-#: ../../source/for_users/features/unccdreporting.rst:676
+#: ../../source/for_users/features/unccdreporting.rst:1121
+msgid ""
+"Proxy indicators for vulnerability to drought used in Carrao et al. 2016."
+" With the exception of gROADS and FAO's Irrigated Agricultural Lands "
+"which are both gridded data, all data are available only at the national "
+"level."
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1128
+#, fuzzy
+msgid "**Indicator**"
+msgstr "次级指标"
+
+#: ../../source/for_users/features/unccdreporting.rst:1129
+msgid "**Source**"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1130
+msgid "**Link**"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1131
+msgid ":strong:`ECONOMIC`"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1134
+msgid "Energy consumption per capita (millions Btu per person)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1135
+msgid "US Energy Information Administration (U.S. EIA)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1136
+msgid "http://www.eia.gov/"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1137
+#, python-format
+msgid "Agriculture (% of GDP)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1138
+#: ../../source/for_users/features/unccdreporting.rst:1141
+#: ../../source/for_users/features/unccdreporting.rst:1144
+#: ../../source/for_users/features/unccdreporting.rst:1150
+#: ../../source/for_users/features/unccdreporting.rst:1153
+#: ../../source/for_users/features/unccdreporting.rst:1156
+#: ../../source/for_users/features/unccdreporting.rst:1159
+#: ../../source/for_users/features/unccdreporting.rst:1162
+#: ../../source/for_users/features/unccdreporting.rst:1165
+msgid "World Bank"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1139
+#: ../../source/for_users/features/unccdreporting.rst:1142
+#: ../../source/for_users/features/unccdreporting.rst:1145
+#: ../../source/for_users/features/unccdreporting.rst:1151
+#: ../../source/for_users/features/unccdreporting.rst:1154
+#: ../../source/for_users/features/unccdreporting.rst:1157
+#: ../../source/for_users/features/unccdreporting.rst:1160
+#: ../../source/for_users/features/unccdreporting.rst:1163
+#: ../../source/for_users/features/unccdreporting.rst:1166
+msgid "http://data.worldbank.org/products/wdi"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1140
+msgid "GDP per capita (current US$)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1143
+#, python-format
+msgid "Poverty headcount ratio at $1.25 per day (PPP) (% of total population)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1146
+msgid ":strong:`SOCIAL`"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1149
+#, python-format
+msgid "Rural population (% of total population)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1152
+#, python-format
+msgid "Literacy rate (% of people age 15 and above)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1155
+#, python-format
+msgid "Improved water resources (% of rural population with access)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1158
+msgid "Life expectancy at birth (years)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1161
+#, python-format
+msgid "Population ages 15-64 (% of total population)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1164
+#, python-format
+msgid ""
+"Refugee population by country or territory of asylum (% of total "
+"population)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1167
+msgid "Government effectiveness"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1168
+msgid "Worldwide Governance Indicators (WGI)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1169
+msgid ""
+"https://www.worldbank.org/en/publication/worldwide-governance-indicators"
+"/interactive-data-access"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1170
+msgid "Disaster prevention & preparedness (US$/year/capita)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1171
+msgid "Organization for Economic Cooperation and Development (OECD)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1172
+msgid "http://stats.oecd.org/"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1173
+msgid ":strong:`INFRASTRUCTURAL`"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1176
+#, python-format
+msgid "Agricultural and irrigated land (% of total agricultural land)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1177
+msgid "Food and Agricultural Administration (FAO)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1178
+msgid "http://www.fao.org/nr/water/aquastat/main/index.stm"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1179
+#, python-format
+msgid "% of retained renewable water"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1180
+msgid "Aqueduct"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1181
+msgid "http://www.wri.org/our-work/project/aqueduct"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1182
+msgid "Road density (km of road per 100 sq.km. of land area)"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1183
+msgid "gROADSv1"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1184
+msgid ""
+"https://data.nasa.gov/dataset/global-roads-open-access-data-set-"
+"version-1-groadsv1"
+msgstr ""
+
+#: ../../source/for_users/features/unccdreporting.rst:1187
 msgid ""
 "This process involves first combining the indicators presented in the "
 "Table for each factor using a Data Envelopment Analysis (DEA) model, a "
@@ -1173,7 +1739,7 @@ msgstr ""
 "模型是一种确定性和非参数线性编程技术，可用于从多维指标集量化某个区域的相对干旱风险。其次，将 DEA "
 "模型产生的单个因素进行算术聚合，形成干旱脆弱性综合模型，这样："
 
-#: ../../source/for_users/features/unccdreporting.rst:683
+#: ../../source/for_users/features/unccdreporting.rst:1194
 msgid ""
 "where Soc i, Econ i, and Infr i are the social, economic, and "
 "infrastructural vulnerability factors for region i."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-06 20:26+0000\n"
+"POT-Creation-Date: 2026-02-16 04:41+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
@@ -164,7 +164,7 @@ msgid "`MERRA 2`_"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:33
-msgid "1980-2016"
+msgid "1980-2019"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:33
@@ -445,5 +445,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "100m"
+#~ msgstr ""
+
+#~ msgid "1980-2016"
 #~ msgstr ""
 

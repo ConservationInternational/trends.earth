@@ -3336,15 +3336,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>DlgImportLC</name>
-</context>
-<context>
-    <name>DlgImportProd</name>
-</context>
-<context>
-    <name>DlgImportSOC</name>
-</context>
-<context>
     <name>DlgJobs</name>
     <message>
         <location filename="../gui/DlgJobs.ui" line="29"/>

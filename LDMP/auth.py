@@ -45,6 +45,87 @@ TE_API_AUTH_SETUP = AuthSetup(name="Trends.Earth")
 
 LANDPKS_AUTH_SETUP = AuthSetup(name="LandPKS")
 
+# Auth config for JWT token storage (encrypted via QGIS Auth Manager)
+_TOKEN_AUTH_CONFIG_NAME = "Trends.Earth JWT Tokens"
+_TOKEN_AUTH_CONFIG_SETTINGS_KEY = "trendsearth/token_auth_id"
+
+
+def store_jwt_tokens(access_token=None, refresh_token=None):
+    """Store JWT tokens using QGIS Auth Manager for encrypted storage.
+
+    Tokens are stored in a dedicated auth config entry, with the access_token
+    in the 'username' field and the refresh_token in the 'password' field.
+    """
+    auth_mgr = QgsApplication.authManager()
+    config_id = QtCore.QSettings().value(_TOKEN_AUTH_CONFIG_SETTINGS_KEY, None)
+
+    auth_config = QgsAuthMethodConfig()
+    existing = False
+
+    if config_id:
+        ok = auth_mgr.loadAuthenticationConfig(config_id, auth_config, True)
+        if ok and auth_config.isValid():
+            existing = True
+
+    if not existing:
+        auth_config = QgsAuthMethodConfig()
+        auth_config.setName(_TOKEN_AUTH_CONFIG_NAME)
+
+    auth_config.setMethod("Basic")
+    if access_token is not None:
+        auth_config.setConfig("username", access_token)
+    if refresh_token is not None:
+        auth_config.setConfig("password", refresh_token)
+
+    if existing:
+        auth_mgr.updateAuthenticationConfig(auth_config)
+    else:
+        auth_mgr.storeAuthenticationConfig(auth_config)
+        QtCore.QSettings().setValue(_TOKEN_AUTH_CONFIG_SETTINGS_KEY, auth_config.id())
+
+    log("JWT tokens stored securely via auth manager")
+
+
+def get_jwt_tokens():
+    """Retrieve JWT tokens from QGIS Auth Manager.
+
+    Returns:
+        Tuple of (access_token, refresh_token), either may be None.
+    """
+    config_id = QtCore.QSettings().value(_TOKEN_AUTH_CONFIG_SETTINGS_KEY, None)
+    if not config_id:
+        return None, None
+
+    auth_config = QgsAuthMethodConfig()
+    ok = QgsApplication.authManager().loadAuthenticationConfig(
+        config_id, auth_config, True
+    )
+
+    if not ok or not auth_config.isValid():
+        return None, None
+
+    access_token = auth_config.config("username") or None
+    refresh_token = auth_config.config("password") or None
+    return access_token, refresh_token
+
+
+def clear_jwt_tokens():
+    """Clear JWT tokens from QGIS Auth Manager."""
+    config_id = QtCore.QSettings().value(_TOKEN_AUTH_CONFIG_SETTINGS_KEY, None)
+
+    if config_id:
+        QgsApplication.authManager().removeAuthenticationConfig(config_id)
+        QtCore.QSettings().remove(_TOKEN_AUTH_CONFIG_SETTINGS_KEY)
+
+    # Also clear any legacy plaintext tokens from QgsSettings
+    from qgis.core import QgsSettings
+
+    settings = QgsSettings()
+    settings.remove("trendsearth/access_token")
+    settings.remove("trendsearth/refresh_token")
+
+    log("Stored JWT tokens cleared")
+
 
 def init_auth_config(
     auth_setup,
@@ -122,10 +203,7 @@ def remove_current_auth_config(auth_setup):
 
     # Also clear any stored JWT tokens when removing auth config
     if auth_setup == TE_API_AUTH_SETUP:
-        settings = QtCore.QSettings()
-        settings.setValue("trendsearth/access_token", None)
-        settings.setValue("trendsearth/refresh_token", None)
-        log("Cleared stored JWT tokens")
+        clear_jwt_tokens()
 
     return True
 

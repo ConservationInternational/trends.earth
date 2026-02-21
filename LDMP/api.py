@@ -312,31 +312,16 @@ class APIClient(QtCore.QObject):
         return current_time >= (exp - buffer_seconds)
 
     def _store_tokens(self, access_token, refresh_token=None):
-        """Store access and refresh tokens securely"""
-        settings = QgsSettings()
-
-        if access_token:
-            settings.setValue("trendsearth/access_token", access_token)
-            log("Access token stored")
-
-        if refresh_token:
-            settings.setValue("trendsearth/refresh_token", refresh_token)
-            log("Refresh token stored")
+        """Store access and refresh tokens using QGIS Auth Manager (encrypted)."""
+        auth.store_jwt_tokens(access_token, refresh_token)
 
     def _get_stored_tokens(self):
-        """Retrieve stored access and refresh tokens"""
-        settings = QgsSettings()
-        access_token = settings.value("trendsearth/access_token", None)
-        refresh_token = settings.value("trendsearth/refresh_token", None)
-
-        return access_token, refresh_token
+        """Retrieve stored access and refresh tokens from QGIS Auth Manager."""
+        return auth.get_jwt_tokens()
 
     def _clear_stored_tokens(self):
-        """Clear stored tokens"""
-        settings = QgsSettings()
-        settings.setValue("trendsearth/access_token", None)
-        settings.setValue("trendsearth/refresh_token", None)
-        log("Stored tokens cleared")
+        """Clear stored tokens from QGIS Auth Manager."""
+        auth.clear_jwt_tokens()
 
     def _refresh_access_token(self, refresh_token):
         """Use refresh token to get new access token"""
@@ -355,11 +340,11 @@ class APIClient(QtCore.QObject):
 
         if resp:
             access_token = resp.get("access_token")
-            new_refresh_token = resp.get("refresh_token")  # May get new refresh token
 
             if access_token:
-                # Store the new tokens
-                self._store_tokens(access_token, new_refresh_token or refresh_token)
+                # Store the new access token, keep the existing refresh token
+                # (the /auth/refresh endpoint does not issue new refresh tokens)
+                self._store_tokens(access_token, refresh_token)
                 log("Access token refreshed successfully")
                 return access_token
             else:

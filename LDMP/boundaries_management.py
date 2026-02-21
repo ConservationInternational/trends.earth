@@ -79,7 +79,7 @@ def refresh_boundaries_from_api(release_type="gbOpen"):
             server_check_file.unlink()
 
         # Fetch fresh data with server timestamp
-        api_response = api.default_api_client.get_boundaries_list(release_type)
+        api_response = api.get_default_api_client().get_boundaries_list(release_type)
         if api_response:
             boundaries_list = api_response.get("boundaries", [])
             server_timestamp = api_response.get("last_updated")
@@ -211,7 +211,9 @@ def check_server_for_updates(release_type="gbOpen") -> typing.Dict[str, typing.A
         cache = get_boundaries_cache()
 
         # Get server's last updated timestamp
-        server_info = api.default_api_client.get_boundaries_last_updated(release_type)
+        server_info = api.get_default_api_client().get_boundaries_last_updated(
+            release_type
+        )
         if server_info:
             server_timestamp = server_info.get("last_updated")
             result.update(

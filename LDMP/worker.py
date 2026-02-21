@@ -136,7 +136,6 @@ def worker_finished(result, thread, worker, iface, message_bar_item):
     message_bar = iface.messageBar()
     _pop_message_bar_widget(message_bar, message_bar_item)
 
-    message_bar.popWidget(message_bar_item)
     if result is not None:
         worker.successfully_finished.emit(result)
 

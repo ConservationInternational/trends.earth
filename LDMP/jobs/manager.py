@@ -310,7 +310,7 @@ class LocalJobTask(QgsTask):
     job: Job
     area_of_interest: areaofinterest.AOI
 
-    processed_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
+    processed_job = QtCore.pyqtSignal(Job)
 
     def __init__(self, description, job, area_of_interest):
         super().__init__(description, QgsTask.CanCancel)
@@ -367,22 +367,22 @@ class JobManager(QtCore.QObject):
     _known_cancelled_jobs: typing.Dict[uuid.UUID, Job]
     _known_expired_jobs: typing.Dict[uuid.UUID, Job]
 
-    refreshed_local_state: QtCore.pyqtSignal = QtCore.pyqtSignal()
-    refreshed_from_remote: QtCore.pyqtSignal = QtCore.pyqtSignal()
-    downloaded_job_results: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
-    downloaded_available_jobs_results: QtCore.pyqtSignal = QtCore.pyqtSignal()
-    deleted_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
-    submitted_remote_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
-    submitted_local_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
-    processed_local_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
-    imported_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
-    authentication_failed: QtCore.pyqtSignal = QtCore.pyqtSignal(str)
+    refreshed_local_state = QtCore.pyqtSignal()
+    refreshed_from_remote = QtCore.pyqtSignal()
+    downloaded_job_results = QtCore.pyqtSignal(Job)
+    downloaded_available_jobs_results = QtCore.pyqtSignal()
+    deleted_job = QtCore.pyqtSignal(Job)
+    submitted_remote_job = QtCore.pyqtSignal(Job)
+    submitted_local_job = QtCore.pyqtSignal(Job)
+    processed_local_job = QtCore.pyqtSignal(Job)
+    imported_job = QtCore.pyqtSignal(Job)
+    authentication_failed = QtCore.pyqtSignal(str)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.clear_known_jobs()
         self.tm = QgsApplication.taskManager()
-        self._state_update_mutex = QtCore.QMutex()
+        self._state_update_mutex = QtCore.QMutex(QtCore.QMutex.Recursive)
         self._api_client = None
         self._current_api_url = None
         self._api_client_testing = False  # Track if client was set for testing
@@ -481,17 +481,21 @@ class JobManager(QtCore.QObject):
 
     @property
     def known_jobs(self):
-        return {
-            jobs.JobStatus.RUNNING: self._known_running_jobs,
-            jobs.JobStatus.FINISHED: self._known_finished_jobs,
-            jobs.JobStatus.FAILED: self._known_failed_jobs,
-            jobs.JobStatus.DELETED: self._known_deleted_jobs,
-            jobs.JobStatus.DOWNLOADED: self._known_downloaded_jobs,
-            jobs.JobStatus.READY: self._known_ready_jobs,
-            jobs.JobStatus.PENDING: self._known_pending_jobs,
-            jobs.JobStatus.CANCELLED: self._known_cancelled_jobs,
-            jobs.JobStatus.EXPIRED: self._known_expired_jobs,
-        }
+        self._state_update_mutex.lock()
+        try:
+            return {
+                jobs.JobStatus.RUNNING: dict(self._known_running_jobs),
+                jobs.JobStatus.FINISHED: dict(self._known_finished_jobs),
+                jobs.JobStatus.FAILED: dict(self._known_failed_jobs),
+                jobs.JobStatus.DELETED: dict(self._known_deleted_jobs),
+                jobs.JobStatus.DOWNLOADED: dict(self._known_downloaded_jobs),
+                jobs.JobStatus.READY: dict(self._known_ready_jobs),
+                jobs.JobStatus.PENDING: dict(self._known_pending_jobs),
+                jobs.JobStatus.CANCELLED: dict(self._known_cancelled_jobs),
+                jobs.JobStatus.EXPIRED: dict(self._known_expired_jobs),
+            }
+        finally:
+            self._state_update_mutex.unlock()
 
     @property
     def relevant_jobs(self) -> typing.List[Job]:
@@ -577,56 +581,59 @@ class JobManager(QtCore.QObject):
         available results.
         """
         self._state_update_mutex.lock()
+        try:
+            self._known_running_jobs = {
+                j.id: j for j in self._get_local_jobs(jobs.JobStatus.RUNNING)
+            }
+            self._refresh_local_downloaded_jobs()
+            # We copy the dictionary before iterating in order to avoid having it
+            # change size during the process
+            frozen_known_downloaded_jobs = self._known_downloaded_jobs.copy()
+            # move any downloaded jobs with missing local paths back to FINISHED
 
-        self._known_running_jobs = {
-            j.id: j for j in self._get_local_jobs(jobs.JobStatus.RUNNING)
-        }
-        self._refresh_local_downloaded_jobs()
-        # We copy the dictionary before iterating in order to avoid having it
-        # change size during the process
-        frozen_known_downloaded_jobs = self._known_downloaded_jobs.copy()
-        # move any downloaded jobs with missing local paths back to FINISHED
+            for j_id, j in frozen_known_downloaded_jobs.items():
+                # Check each result for missing local paths
+                has_missing_path = False
+                for res in j._get_results_list():
+                    if (
+                        hasattr(res, "uri")
+                        and res.uri
+                        and not is_gdal_vsi_path(res.uri.uri)
+                        and not res.uri.uri.exists()
+                    ):
+                        has_missing_path = True
+                        # Clear the URI for this result
+                        if isinstance(res, VectorResults):
+                            res.vector.uri = None
+                        else:
+                            res.uri = None
 
-        for j_id, j in frozen_known_downloaded_jobs.items():
-            # Check each result for missing local paths
-            has_missing_path = False
-            for res in j._get_results_list():
-                if (
-                    hasattr(res, "uri")
-                    and res.uri
-                    and not is_gdal_vsi_path(res.uri.uri)
-                    and not res.uri.uri.exists()
-                ):
-                    has_missing_path = True
-                    # Clear the URI for this result
-                    if isinstance(res, VectorResults):
-                        res.vector.uri = None
-                    else:
-                        res.uri = None
+                if has_missing_path:
+                    log(
+                        f"job {j_id} currently marked as DOWNLOADED but has "
+                        "missing paths, so moving back to FINISHED status"
+                    )
+                    self._change_job_status(
+                        j, jobs.JobStatus.FINISHED, force_rewrite=True
+                    )
+            # Refresh again to pickup the changes back in the original dictionary
+            self._refresh_local_downloaded_jobs()
+            # filter list in case any jobs were moved from downloaded to finished
+            self._known_downloaded_jobs = {
+                j_id: j
+                for j_id, j in self._known_downloaded_jobs.items()
+                if j.status
+                in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
+            }
 
-            if has_missing_path:
-                log(
-                    f"job {j_id} currently marked as DOWNLOADED but has "
-                    "missing paths, so moving back to FINISHED status"
-                )
-                self._change_job_status(j, jobs.JobStatus.FINISHED, force_rewrite=True)
-        # Refresh again to pickup the changes back in the original dictionary
-        self._refresh_local_downloaded_jobs()
-        # filter list in case any jobs were moved from downloaded to finished
-        self._known_downloaded_jobs = {
-            j_id: j
-            for j_id, j in self._known_downloaded_jobs.items()
-            if j.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
-        }
-
-        # NOTE: finished and failed jobs are treated differently here because
-        # we also make sure to delete those that are old and never got
-        # downloaded (or are old and failed)
-        self._get_local_finished_jobs()
-        self._get_local_failed_jobs()
-        self._get_local_expired_jobs()
-
-        self._state_update_mutex.unlock()
+            # NOTE: finished and failed jobs are treated differently here because
+            # we also make sure to delete those that are old and never got
+            # downloaded (or are old and failed)
+            self._get_local_finished_jobs()
+            self._get_local_failed_jobs()
+            self._get_local_expired_jobs()
+        finally:
+            self._state_update_mutex.unlock()
 
         self.refreshed_local_state.emit()
 
@@ -667,43 +674,47 @@ class JobManager(QtCore.QObject):
 
         """
         self._state_update_mutex.lock()
+        try:
+            now = dt.datetime.now(tz=dt.timezone.utc)
+            relevant_date = now - dt.timedelta(
+                days=self._relevant_job_age_threshold_days
+            )
 
-        now = dt.datetime.now(tz=dt.timezone.utc)
-        relevant_date = now - dt.timedelta(days=self._relevant_job_age_threshold_days)
+            offline_mode = conf.settings_manager.get_value(conf.Setting.OFFLINE_MODE)
+            if not offline_mode:
+                # Remote jobs will be taken into account
+                remote_jobs = get_remote_jobs(end_date=relevant_date)
 
-        offline_mode = conf.settings_manager.get_value(conf.Setting.OFFLINE_MODE)
-        if not offline_mode:
-            # Remote jobs will be taken into account
-            remote_jobs = get_remote_jobs(end_date=relevant_date)
+                if conf.settings_manager.get_value(
+                    conf.Setting.FILTER_JOBS_BY_BASE_DIR
+                ):
+                    relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+                else:
+                    relevant_remote_jobs = remote_jobs
 
-            if conf.settings_manager.get_value(conf.Setting.FILTER_JOBS_BY_BASE_DIR):
-                relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+                self._refresh_local_deleted_jobs()
+
+                deleted_ids = self._known_deleted_jobs.keys()
+                relevant_remote_jobs = [
+                    job for job in relevant_remote_jobs if job.id not in deleted_ids
+                ]
             else:
-                relevant_remote_jobs = remote_jobs
+                # Remote jobs will be excluded
+                relevant_remote_jobs = []
+                self._refresh_local_deleted_jobs()
 
-            self._refresh_local_deleted_jobs()
+            self._refresh_local_running_jobs(relevant_remote_jobs)
+            self._refresh_local_finished_jobs(relevant_remote_jobs)
+            self._refresh_local_downloaded_jobs()
+            self._refresh_remote_failed_jobs(relevant_remote_jobs)
+            self._refresh_remote_jobs_by_status(relevant_remote_jobs)
+            self._get_local_expired_jobs()
 
-            deleted_ids = self._known_deleted_jobs.keys()
-            relevant_remote_jobs = [
-                job for job in relevant_remote_jobs if job.id not in deleted_ids
-            ]
-        else:
-            # Remote jobs will be excluded
-            relevant_remote_jobs = []
-            self._refresh_local_deleted_jobs()
-
-        self._refresh_local_running_jobs(relevant_remote_jobs)
-        self._refresh_local_finished_jobs(relevant_remote_jobs)
-        self._refresh_local_downloaded_jobs()
-        self._refresh_remote_failed_jobs(relevant_remote_jobs)
-        self._refresh_remote_jobs_by_status(relevant_remote_jobs)
-        self._get_local_expired_jobs()
-
-        log(
-            f"JobManager refresh completed - found {len(relevant_remote_jobs)} relevant remote jobs"
-        )
-
-        self._state_update_mutex.unlock()
+            log(
+                f"JobManager refresh completed - found {len(relevant_remote_jobs)} relevant remote jobs"
+            )
+        finally:
+            self._state_update_mutex.unlock()
 
         if emit_signal:
             self.refreshed_from_remote.emit()
@@ -2101,22 +2112,50 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log("Retrieving executions...")
 
-    response = job_manager.api_client.call_api(
-        f"/api/v1/execution/user?{urllib.parse.urlencode(query)}",
-        method="get",
-        use_token=True,
-    )
+    # Use pagination to fetch all results. The API returns up to 100 per page
+    # when page/per_page are explicitly provided.
+    page = 1
+    per_page = 100
+    raw_jobs = []
 
-    if not response:
-        log("No response from server")
-        return []
+    while True:
+        paginated_query = dict(query, page=page, per_page=per_page)
+        response = job_manager.api_client.call_api(
+            f"/api/v1/execution/user?{urllib.parse.urlencode(paginated_query)}",
+            method="get",
+            use_token=True,
+        )
 
-    try:
-        raw_jobs = response["data"]
-        log(f"API returned {len(raw_jobs)} executions")
-    except (TypeError, KeyError):
-        log("Invalid response format")
-        return []
+        if not response:
+            if page == 1:
+                log("No response from server")
+                return []
+            else:
+                # We already have some results from earlier pages
+                break
+
+        try:
+            page_data = response["data"]
+            raw_jobs.extend(page_data)
+
+            # Check if there are more pages
+            total = response.get("total")
+            if total is not None and len(raw_jobs) >= total:
+                break
+
+            # If this page returned fewer items than per_page, we're done
+            if len(page_data) < per_page:
+                break
+
+            page += 1
+        except (TypeError, KeyError):
+            if page == 1:
+                log("Invalid response format")
+                return []
+            else:
+                break
+
+    log(f"API returned {len(raw_jobs)} executions across {page} page(s)")
 
     remote_jobs = []
     log(f"Processing {len(raw_jobs)} raw jobs from API response")

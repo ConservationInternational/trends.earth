@@ -1,8 +1,8 @@
 """Job and dataset utilities"""
 
 import enum
-import functools
 import re
+import time
 import unicodedata
 import uuid
 
@@ -129,23 +129,39 @@ class Job(JobBase):
         return " - ".join(job_name_parts)
 
 
-@functools.lru_cache(
-    maxsize=None
-)  # not using functools.cache, as it was only introduced in Python 3.9
+# Cache for remote scripts: (result, timestamp)
+_remote_scripts_cache = None
+_remote_scripts_cache_time = 0.0
+_REMOTE_SCRIPTS_CACHE_TTL = 300  # 5 minutes
+
+
 def get_remote_scripts():
     """Query the remote server for existing scripts
 
     The information returned from the remote shall be enough to at least
     display Jobs which came from a version which is not known locally.
 
+    Results are cached for 5 minutes. Failed lookups (None) are not cached
+    so that transient network errors don't permanently prevent script loading.
     """
+    global _remote_scripts_cache, _remote_scripts_cache_time
 
-    raw_remote = api.default_api_client.get_script()
+    now = time.monotonic()
+    if (
+        _remote_scripts_cache is not None
+        and (now - _remote_scripts_cache_time) < _REMOTE_SCRIPTS_CACHE_TTL
+    ):
+        return _remote_scripts_cache
+
+    raw_remote = api.get_default_api_client().get_script()
 
     if raw_remote is None:
-        return
-    else:
-        return [RemoteScript.Schema().load(r) for r in raw_remote]
+        return None
+
+    result = [RemoteScript.Schema().load(r) for r in raw_remote]
+    _remote_scripts_cache = result
+    _remote_scripts_cache_time = now
+    return result
 
 
 def get_job_local_script(script_name: str) -> ExecutionScript:

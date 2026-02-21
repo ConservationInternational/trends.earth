@@ -439,7 +439,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
                 # Always reset the current index
                 self.datasets_tv_delegate.current_index = None
 
-        maybe_download_finished_results()
+        # Defer downloads to after model rebuild is complete, to avoid
+        # mutating job states while the model is being constructed
+        QtCore.QTimer.singleShot(0, maybe_download_finished_results)
         model = jobs_mvc.JobsModel(job_manager)
         # self.datasets_tv.setModel(model)
         self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)

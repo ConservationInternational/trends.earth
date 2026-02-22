@@ -5,7 +5,6 @@ import os
 import typing
 from pathlib import Path
 
-import requests
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.jobs import JobStatus
 
@@ -125,60 +124,21 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
             log(f"Auto-refresh disabled for execution logs {self.job.id}")
 
     def _fetch_logs_from_api(self) -> typing.Optional[typing.List[typing.Dict]]:
-        """Fetch logs from the trends.earth API."""
-        # Get API settings
-        from .constants import get_api_url
+        """Fetch logs from the trends.earth API using the plugin's APIClient."""
+        from .jobs.manager import job_manager
 
-        api_url = get_api_url()
-        if not api_url:
-            raise Exception("API URL not configured")
+        endpoint = f"/api/v1/execution/{self.job.id}/log"
+        log(f"Fetching logs from: {endpoint}")
 
-        # Get access token
-        from .jobs.manager import _get_access_token
+        resp = job_manager.api_client.call_api(endpoint, method="get", use_token=True)
 
-        token = _get_access_token()
-        if not token:
-            raise Exception("No access token available. Please log in to Trends.Earth.")
-
-        # Make API request
-        url = f"{api_url}/api/v1/execution/{self.job.id}/log"
-        headers = {
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json",
-            "Accept-Encoding": "gzip, deflate",
-        }
-
-        log(f"Fetching logs from: {url}")
-        response = requests.get(url, headers=headers, timeout=30)
-
-        if response.status_code == 200:
-            try:
-                data = response.json()
-                return data.get("data", [])
-            except ValueError as e:
-                log(f"Failed to parse JSON response: {e}")
-                log(f"Response content (first 500 chars): {response.text[:500]}")
-                raise Exception(
-                    "Server returned invalid response. Please try again later."
-                )
-        elif response.status_code == 404:
-            raise Exception("Execution not found on server")
-        elif response.status_code == 401:
-            raise Exception("Authentication failed. Please log in again.")
-        elif response.status_code in [502, 503, 504]:
+        if resp is None:
             raise Exception(
-                f"The Trends.Earth server is temporarily unavailable (error {response.status_code}). "
-                "Please try again in a few minutes."
+                "Failed to fetch logs. Check your internet connection and login status."
             )
-        elif response.status_code == 500:
-            raise Exception(
-                "The Trends.Earth server encountered an internal error. "
-                "Please try again. If the problem persists, contact the Trends.Earth team."
-            )
-        else:
-            raise Exception(
-                f"API request failed: {response.status_code} - {response.text}"
-            )
+
+        data = resp.get("data", []) if isinstance(resp, dict) else resp
+        return data if isinstance(data, list) else []
 
     def _format_logs(self, logs: typing.List[typing.Dict]) -> str:
         """Format logs for display."""

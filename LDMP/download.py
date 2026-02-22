@@ -173,6 +173,7 @@ class BoundaryTimestampManager:
 
 # Global timestamp manager instance
 _timestamp_manager = None
+_timestamp_manager_lock = QtCore.QMutex()
 
 
 @contextmanager
@@ -215,10 +216,15 @@ def _boundary_download_feedback(
 
 
 def get_timestamp_manager() -> BoundaryTimestampManager:
-    """Get the global timestamp manager instance."""
+    """Get the global timestamp manager instance (thread-safe)."""
     global _timestamp_manager
     if _timestamp_manager is None:
-        _timestamp_manager = BoundaryTimestampManager()
+        _timestamp_manager_lock.lock()
+        try:
+            if _timestamp_manager is None:
+                _timestamp_manager = BoundaryTimestampManager()
+        finally:
+            _timestamp_manager_lock.unlock()
     return _timestamp_manager
 
 

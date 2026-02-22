@@ -389,31 +389,6 @@ class APIClient(QtCore.QObject):
 
         return None
 
-    def clean_api_response(self, resp):
-        if resp is None:
-            # Return 'None' unmodified
-            response = resp
-        else:
-            try:
-                # JSON conversion will fail if the server didn't return a json
-                # response
-                response = resp.json().copy()
-
-                if "password" in response:
-                    response["password"] = "**REMOVED**"
-
-                if "access_token" in response:
-                    response["access_token"] = "**REMOVED**"
-
-                if "refresh_token" in response:
-                    response["refresh_token"] = "**REMOVED**"
-
-                response = json.dumps(response, indent=4, sort_keys=True)
-            except ValueError:
-                response = resp.text
-
-        return response
-
     def login(self, authConfigId=None):
         self._login_mutex.lock()
         try:
@@ -1047,7 +1022,3 @@ class APIClient(QtCore.QObject):
 def get_default_api_client():
     """Get a default API client with the current API URL configuration."""
     return APIClient(get_api_url(), TIMEOUT)
-
-
-# Note: default_api_client is deprecated. Use get_default_api_client() for dynamic URL support.
-default_api_client = None  # Lazy initialized on first use

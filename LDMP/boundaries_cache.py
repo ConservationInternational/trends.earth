@@ -17,6 +17,8 @@ import typing
 from datetime import datetime, timezone
 from pathlib import Path
 
+from qgis.PyQt import QtCore
+
 from .logger import log
 
 
@@ -510,11 +512,17 @@ class BoundariesCache:
 
 # Global cache instance
 _boundaries_cache = None
+_boundaries_cache_lock = QtCore.QMutex()
 
 
 def get_boundaries_cache() -> BoundariesCache:
-    """Get the global boundaries cache instance."""
+    """Get the global boundaries cache instance (thread-safe)."""
     global _boundaries_cache
     if _boundaries_cache is None:
-        _boundaries_cache = BoundariesCache()
+        _boundaries_cache_lock.lock()
+        try:
+            if _boundaries_cache is None:
+                _boundaries_cache = BoundariesCache()
+        finally:
+            _boundaries_cache_lock.unlock()
     return _boundaries_cache

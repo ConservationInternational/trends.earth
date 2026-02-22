@@ -1962,15 +1962,17 @@ class JobManager(QtCore.QObject):
 
 
 def _get_local_job_output_paths(job: Job) -> typing.Tuple[Path, Path]:
-    """Retrieve output path for a job so that it can be sent to the local processor"""
-    # NOTE: temporarily setting the status as the final value in order to determine
-    # the target filepath for the processing's outputs
-    previous_status = job.status
-    job.status = jobs.JobStatus.GENERATED_LOCALLY
-    job_output_path = job_manager.get_job_file_path(job)
+    """Retrieve output path for a job so that it can be sent to the local processor.
+
+    Computes the target filepath without mutating the job's status, which avoids
+    a data race when background threads observe the job in an inconsistent state.
+    """
+    # Compute the path that get_job_file_path would return for GENERATED_LOCALLY
+    job_output_path = (
+        job_manager.datasets_dir / f"{job.id!s}" / f"{job.get_basename()}.json"
+    )
     job_output_path.parent.mkdir(parents=True, exist_ok=True)
     dataset_output_path = job_output_path.parent / f"{job_output_path.stem}.tif"
-    job.status = previous_status
 
     return job_output_path, dataset_output_path
 

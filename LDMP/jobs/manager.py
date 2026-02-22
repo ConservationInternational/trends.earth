@@ -562,15 +562,60 @@ class JobManager(QtCore.QObject):
         return Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "exported"
 
     def clear_known_jobs(self):
-        self._known_running_jobs = {}
-        self._known_finished_jobs = {}
-        self._known_failed_jobs = {}
-        self._known_deleted_jobs = {}
-        self._known_downloaded_jobs = {}
-        self._known_ready_jobs = {}
-        self._known_pending_jobs = {}
-        self._known_cancelled_jobs = {}
-        self._known_expired_jobs = {}
+        self._state_update_mutex.lock()
+        try:
+            self._known_running_jobs = {}
+            self._known_finished_jobs = {}
+            self._known_failed_jobs = {}
+            self._known_deleted_jobs = {}
+            self._known_downloaded_jobs = {}
+            self._known_ready_jobs = {}
+            self._known_pending_jobs = {}
+            self._known_cancelled_jobs = {}
+            self._known_expired_jobs = {}
+        finally:
+            self._state_update_mutex.unlock()
+
+    def _get_internal_dict_for_status(
+        self, status: jobs.JobStatus
+    ) -> typing.Dict[uuid.UUID, Job]:
+        """Return the *actual* internal dict for a given status.
+
+        Unlike the ``known_jobs`` property (which returns shallow copies for
+        thread-safe reads), this gives back the live dict so that callers can
+        mutate the in-memory cache.  **Must only be called while holding
+        ``_state_update_mutex``.**
+        """
+        return {
+            jobs.JobStatus.RUNNING: self._known_running_jobs,
+            jobs.JobStatus.FINISHED: self._known_finished_jobs,
+            jobs.JobStatus.FAILED: self._known_failed_jobs,
+            jobs.JobStatus.DELETED: self._known_deleted_jobs,
+            jobs.JobStatus.DOWNLOADED: self._known_downloaded_jobs,
+            jobs.JobStatus.READY: self._known_ready_jobs,
+            jobs.JobStatus.PENDING: self._known_pending_jobs,
+            jobs.JobStatus.CANCELLED: self._known_cancelled_jobs,
+            jobs.JobStatus.EXPIRED: self._known_expired_jobs,
+        }[status]
+
+    def _set_known_job(self, status: jobs.JobStatus, job: Job) -> None:
+        """Insert *job* into the internal dict for *status* under the mutex."""
+        self._state_update_mutex.lock()
+        try:
+            self._get_internal_dict_for_status(status)[job.id] = job
+        finally:
+            self._state_update_mutex.unlock()
+
+    def _remove_known_job(self, status: jobs.JobStatus, job_id: uuid.UUID) -> None:
+        """Remove *job_id* from the internal dict for *status* under the mutex.
+
+        Does nothing if *job_id* is not present.
+        """
+        self._state_update_mutex.lock()
+        try:
+            self._get_internal_dict_for_status(status).pop(job_id, None)
+        finally:
+            self._state_update_mutex.unlock()
 
     def refresh_local_state(self):
         """Update dataset manager's in-memory cache by scanning the local filesystem
@@ -1036,7 +1081,7 @@ class JobManager(QtCore.QObject):
 
         log(f"job status is: {job.status}")
         log(f"emitting job {job.id}")
-        self.known_jobs[status][job.id] = job
+        self._set_known_job(status, job)
         self.imported_job.emit(job)
 
     def move_job_results(self, job: Job):
@@ -1237,7 +1282,7 @@ class JobManager(QtCore.QObject):
                     f"Failed to set extents for job {job.id}: {type(exc).__name__}: {exc}"
                 )
         self.write_job_metadata_file(job)
-        self.known_jobs[job.status][job.id] = job
+        self._set_known_job(job.status, job)
         self.imported_job.emit(job)
         self.display_error_recode_layer(job)
 
@@ -1353,8 +1398,9 @@ class JobManager(QtCore.QObject):
             job.results.extent = union_extent
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
-        # Track jobs in their actual status - PENDING and RUNNING are different states
-        self.known_jobs[job.status][job.id] = job
+        # Track jobs in their actual status - PENDING and RUNNING are different states.
+        # Write to the *internal* dict (not the copy returned by known_jobs).
+        self._set_known_job(job.status, job)
 
     def _change_job_status(
         self, job: Job, target: jobs.JobStatus, force_rewrite: bool = True
@@ -1368,16 +1414,34 @@ class JobManager(QtCore.QObject):
         # this already sets the new status on the job
         self._move_job_to_dir(job, target, force_rewrite=force_rewrite)
 
-        if target == jobs.JobStatus.DELETED:
-            # Find which status dictionary actually contains the job
-            for status, jobs_dict in self.known_jobs.items():
-                if job.id in jobs_dict:
-                    del jobs_dict[job.id]
-                    break
-        else:
-            if job.id in self.known_jobs.get(previous_status, {}):
-                del self.known_jobs[previous_status][job.id]
-        self.known_jobs[job.status][job.id] = job
+        # Mutate the *internal* dicts directly (under the mutex) rather than
+        # the read-only copies returned by the ``known_jobs`` property.
+        self._state_update_mutex.lock()
+        try:
+            if target == jobs.JobStatus.DELETED:
+                # Find which internal dictionary actually contains the job
+                for status in list(jobs.JobStatus):
+                    try:
+                        internal = self._get_internal_dict_for_status(status)
+                    except KeyError:
+                        continue
+                    if job.id in internal:
+                        del internal[job.id]
+                        break
+            else:
+                try:
+                    prev_dict = self._get_internal_dict_for_status(previous_status)
+                    prev_dict.pop(job.id, None)
+                except KeyError:
+                    pass
+
+            # Handle GENERATED_LOCALLY -> DOWNLOADED mapping for cache storage
+            cache_status = target
+            if cache_status == jobs.JobStatus.GENERATED_LOCALLY:
+                cache_status = jobs.JobStatus.DOWNLOADED
+            self._get_internal_dict_for_status(cache_status)[job.id] = job
+        finally:
+            self._state_update_mutex.unlock()
 
     def _download_cloud_results(
         self, job: jobs.Job, raster_result: RasterResults

@@ -4,6 +4,7 @@ import json
 import os
 import signal
 import subprocess
+import time
 import traceback
 import typing
 from dataclasses import dataclass
@@ -905,6 +906,41 @@ class ReportProcessHandlerTask(QgsTask):
 
         super().cancel()
 
+    # How often (in seconds) to poll the subprocess and check for file
+    # system activity in the report output directory.
+    _POLL_INTERVAL_S = 5
+
+    # If no files are created or modified in the report output directory
+    # for this many seconds the subprocess is considered stalled and will
+    # be killed automatically.
+    _INACTIVITY_TIMEOUT_S = 10 * 60  # 10 minutes
+
+    @staticmethod
+    def _dir_snapshot(
+        directory: str,
+    ) -> typing.Dict[str, typing.Tuple[float, int]]:
+        """Return ``{filename: (mtime, size)}`` for every file in *directory*.
+
+        Used as a cheap heartbeat: if the snapshot changes between two
+        polls the subprocess is still making progress.  We track both
+        ``st_mtime`` and ``st_size`` because on Windows/NTFS the mtime
+        may not be flushed until the file handle is closed, whereas the
+        file size is updated more reliably during active writes.  A new
+        filename appearing is also always detected immediately.
+        """
+        snapshot: typing.Dict[str, typing.Tuple[float, int]] = {}
+        try:
+            for entry in os.scandir(directory):
+                if entry.is_file():
+                    try:
+                        st = entry.stat()
+                        snapshot[entry.name] = (st.st_mtime, st.st_size)
+                    except OSError:
+                        pass
+        except OSError:
+            pass
+        return snapshot
+
     def run(self) -> bool:
         # Launch qgis_process and execute algorithm.
         if self.isCanceled():
@@ -921,7 +957,39 @@ class ReportProcessHandlerTask(QgsTask):
         # Start process
         self._process = subprocess.Popen(args, startupinfo=startupinfo)
 
-        self._process.wait()
+        # Monitor the report output directory for file changes; if nothing
+        # is written for _INACTIVITY_TIMEOUT_S the process is killed.
+        report_dir = os.path.dirname(self._ctx_file_path)
+        last_snapshot = self._dir_snapshot(report_dir)
+        last_activity = time.monotonic()
+
+        while True:
+            retcode = self._process.poll()
+            if retcode is not None:
+                break
+
+            if self.isCanceled():
+                return False
+
+            current_snapshot = self._dir_snapshot(report_dir)
+            if current_snapshot != last_snapshot:
+                last_activity = time.monotonic()
+                last_snapshot = current_snapshot
+
+            if time.monotonic() - last_activity > self._INACTIVITY_TIMEOUT_S:
+                log(
+                    f"Report generation inactivity timeout "
+                    f"({self._INACTIVITY_TIMEOUT_S}s without any file "
+                    f"changes in {report_dir}) \u2014 killing subprocess"
+                )
+                self._process.kill()
+                try:
+                    self._process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    pass
+                return False
+
+            time.sleep(self._POLL_INTERVAL_S)
 
         result_code = self._process.returncode
 

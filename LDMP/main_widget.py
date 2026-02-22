@@ -142,14 +142,30 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.proxy_model = None
 
-        job_manager.refreshed_local_state.connect(self.refresh_after_cache_update)
-        job_manager.refreshed_from_remote.connect(self.refresh_after_cache_update)
-        job_manager.downloaded_job_results.connect(self.refresh_after_cache_update)
-        job_manager.deleted_job.connect(self.refresh_after_cache_update)
-        job_manager.submitted_remote_job.connect(self.refresh_after_job_modified)
-        job_manager.processed_local_job.connect(self.refresh_after_job_modified)
-        job_manager.imported_job.connect(self.refresh_after_job_modified)
-        # Use QueuedConnection to ensure thread-safe GUI updates from background threads
+        # Use QueuedConnection for all job_manager signals that may be emitted
+        # from background threads (LocalPeriodicUpdateWorker, RemoteStateRefreshWorker)
+        # to ensure GUI updates always run on the main thread.
+        job_manager.refreshed_local_state.connect(
+            self.refresh_after_cache_update, QtCore.Qt.QueuedConnection
+        )
+        job_manager.refreshed_from_remote.connect(
+            self.refresh_after_cache_update, QtCore.Qt.QueuedConnection
+        )
+        job_manager.downloaded_job_results.connect(
+            self.refresh_after_cache_update, QtCore.Qt.QueuedConnection
+        )
+        job_manager.deleted_job.connect(
+            self.refresh_after_cache_update, QtCore.Qt.QueuedConnection
+        )
+        job_manager.submitted_remote_job.connect(
+            self.refresh_after_job_modified, QtCore.Qt.QueuedConnection
+        )
+        job_manager.processed_local_job.connect(
+            self.refresh_after_job_modified, QtCore.Qt.QueuedConnection
+        )
+        job_manager.imported_job.connect(
+            self.refresh_after_job_modified, QtCore.Qt.QueuedConnection
+        )
         job_manager.authentication_failed.connect(
             self._show_authentication_error, QtCore.Qt.QueuedConnection
         )
@@ -374,6 +390,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.pushButton_load.clicked.connect(self.load_base_map)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 
+        # Connect search box filter once here (not in refresh_after_cache_update)
+        # to avoid accumulating duplicate signal connections.
+        self.lineEdit_search.valueChanged.connect(self.filter_changed)
+
         self.error_recode_menu = QtWidgets.QMenu()
         action_create_error_recode = self.error_recode_menu.addAction(
             self.tr("Create false positive/negative layer")
@@ -452,7 +472,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         action = self.filter_menu.actions()[0]
         action.setChecked(True)
         self.proxy_model.setSourceModel(model)
-        self.lineEdit_search.valueChanged.connect(self.filter_changed)
+        # NOTE: lineEdit_search.valueChanged is connected once in
+        # setup_datasets_page_gui() — do NOT reconnect here to avoid
+        # accumulating duplicate signal connections on every refresh.
         self.datasets_tv.setModel(self.proxy_model)
         self.resume_scheduler()
         self.cache_refresh_finished.emit()

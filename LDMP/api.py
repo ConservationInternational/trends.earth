@@ -68,6 +68,16 @@ class RequestTask(QgsTask):
         self.headers = headers or {}
         self.exception = None
         self.resp = None
+        self._timed_out = False
+
+    def _on_timeout(self, loop):
+        """Called when the QTimer fires for custom-method event loops."""
+        self._timed_out = True
+        log(
+            f"Request timed out after {self.timeout}s for "
+            f"{self.method.upper()} {self.url}"
+        )
+        loop.quit()
 
     def _compress_request_if_needed(self, request_data, network_request):
         """
@@ -156,10 +166,15 @@ class RequestTask(QgsTask):
                     network_request, b"UPDATE", request_data
                 )
 
+                self._timed_out = False
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
-                QtCore.QTimer.singleShot(self.timeout * 1000, loop.quit)
+                QtCore.QTimer.singleShot(
+                    self.timeout * 1000, lambda: self._on_timeout(loop)
+                )
                 loop.exec_()
+                if self._timed_out:
+                    self.resp = None
 
             elif self.method == "delete":
                 empty_payload = {}
@@ -170,10 +185,15 @@ class RequestTask(QgsTask):
                     network_request, b"DELETE", request_data
                 )
 
+                self._timed_out = False
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
-                QtCore.QTimer.singleShot(self.timeout * 1000, loop.quit)
+                QtCore.QTimer.singleShot(
+                    self.timeout * 1000, lambda: self._on_timeout(loop)
+                )
                 loop.exec_()
+                if self._timed_out:
+                    self.resp = None
 
             elif self.method == "patch":
                 doc = QtCore.QJsonDocument(self.payload)
@@ -188,18 +208,28 @@ class RequestTask(QgsTask):
                     network_request, b"PATCH", request_data
                 )
 
+                self._timed_out = False
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
-                QtCore.QTimer.singleShot(self.timeout * 1000, loop.quit)
+                QtCore.QTimer.singleShot(
+                    self.timeout * 1000, lambda: self._on_timeout(loop)
+                )
                 loop.exec_()
+                if self._timed_out:
+                    self.resp = None
 
             elif self.method == "head":
                 self.resp = network_manager.head(network_request)
 
+                self._timed_out = False
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
-                QtCore.QTimer.singleShot(self.timeout * 1000, loop.quit)
+                QtCore.QTimer.singleShot(
+                    self.timeout * 1000, lambda: self._on_timeout(loop)
+                )
                 loop.exec_()
+                if self._timed_out:
+                    self.resp = None
 
             else:
                 self.exception = ValueError(
@@ -275,6 +305,7 @@ class APIClient(QtCore.QObject):
         super().__init__(parent)
         self.url = url
         self.timeout = timeout
+        self._login_mutex = QtCore.QMutex()
 
     def _decode_jwt_payload(self, token):
         """Decode JWT payload to extract expiration time"""
@@ -384,6 +415,13 @@ class APIClient(QtCore.QObject):
         return response
 
     def login(self, authConfigId=None):
+        self._login_mutex.lock()
+        try:
+            return self._login_impl(authConfigId)
+        finally:
+            self._login_mutex.unlock()
+
+    def _login_impl(self, authConfigId=None):
         # First check if we have valid stored tokens
         stored_access_token, stored_refresh_token = self._get_stored_tokens()
 
@@ -612,6 +650,7 @@ class APIClient(QtCore.QObject):
 
         if not result:
             log("Request timed out")
+            return None
 
         return api_task.resp
 

@@ -193,6 +193,7 @@ class SettingsManager:
 
     def __init__(self):
         self._settings = qgis.core.QgsSettings()
+        self._mutex = QtCore.QMutex()
         self._initialize_settings()
 
     @property
@@ -200,34 +201,44 @@ class SettingsManager:
         return self._base_path
 
     def get_value(self, key: Setting):
-        if key == Setting.LOCAL_POLLING_FREQUENCY:
-            result = self.DEFAULT_SETTINGS[key]
-        elif key == Setting.UPDATE_FREQUENCY_MILLISECONDS:
-            result = self.DEFAULT_SETTINGS[key]
-        elif key == Setting.BASE_DIR:
-            type_ = type(self.DEFAULT_SETTINGS[key])
-            result = self._settings.value(
-                f"{self.base_path}/{key.value}", self.DEFAULT_SETTINGS[key], type=type_
-            )
-            if result == "" or result is None:
+        self._mutex.lock()
+        try:
+            if key == Setting.LOCAL_POLLING_FREQUENCY:
                 result = self.DEFAULT_SETTINGS[key]
-        else:
-            default_value = self.DEFAULT_SETTINGS[key]
-            if default_value is None:
-                # For None default values, don't specify a type to avoid QVariant issues
+            elif key == Setting.UPDATE_FREQUENCY_MILLISECONDS:
+                result = self.DEFAULT_SETTINGS[key]
+            elif key == Setting.BASE_DIR:
+                type_ = type(self.DEFAULT_SETTINGS[key])
                 result = self._settings.value(
-                    f"{self.base_path}/{key.value}", default_value
+                    f"{self.base_path}/{key.value}",
+                    self.DEFAULT_SETTINGS[key],
+                    type=type_,
                 )
+                if result == "" or result is None:
+                    result = self.DEFAULT_SETTINGS[key]
             else:
-                type_ = type(default_value)
-                result = self._settings.value(
-                    f"{self.base_path}/{key.value}", default_value, type=type_
-                )
+                default_value = self.DEFAULT_SETTINGS[key]
+                if default_value is None:
+                    # For None default values, don't specify a type to avoid QVariant issues
+                    result = self._settings.value(
+                        f"{self.base_path}/{key.value}", default_value
+                    )
+                else:
+                    type_ = type(default_value)
+                    result = self._settings.value(
+                        f"{self.base_path}/{key.value}", default_value, type=type_
+                    )
 
-        return result
+            return result
+        finally:
+            self._mutex.unlock()
 
     def write_value(self, key: Setting, value: typing.Any):
-        return self._settings.setValue(f"{self.base_path}/{key.value}", value)
+        self._mutex.lock()
+        try:
+            return self._settings.setValue(f"{self.base_path}/{key.value}", value)
+        finally:
+            self._mutex.unlock()
 
     def _initialize_settings(self):
         for setting, default_value in self.DEFAULT_SETTINGS.items():

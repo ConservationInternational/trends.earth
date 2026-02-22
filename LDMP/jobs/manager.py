@@ -386,6 +386,7 @@ class JobManager(QtCore.QObject):
         self._api_client = None
         self._current_api_url = None
         self._api_client_testing = False  # Track if client was set for testing
+        self._api_client_mutex = QtCore.QMutex()
 
     @property
     def api_client(self):
@@ -393,18 +394,27 @@ class JobManager(QtCore.QObject):
 
         If the client was set for testing, the URL check is skipped to prevent
         the mock client from being replaced with a production client.
-        """
-        # If client was set for testing, use it as-is
-        if self._api_client_testing and self._api_client is not None:
-            return self._api_client
 
-        current_url = get_api_url()
-        if self._api_client is None or self._current_api_url != current_url:
-            self._api_client = api.APIClient(current_url, TIMEOUT)
-            self._current_api_url = current_url
-            # Connect API client's authentication_failed signal to our signal
-            self._api_client.authentication_failed.connect(self.authentication_failed)
-        return self._api_client
+        A mutex serialises access so that concurrent callers never create
+        duplicate APIClient instances (and duplicate signal connections).
+        """
+        self._api_client_mutex.lock()
+        try:
+            # If client was set for testing, use it as-is
+            if self._api_client_testing and self._api_client is not None:
+                return self._api_client
+
+            current_url = get_api_url()
+            if self._api_client is None or self._current_api_url != current_url:
+                self._api_client = api.APIClient(current_url, TIMEOUT)
+                self._current_api_url = current_url
+                # Connect API client's authentication_failed signal to our signal
+                self._api_client.authentication_failed.connect(
+                    self.authentication_failed
+                )
+            return self._api_client
+        finally:
+            self._api_client_mutex.unlock()
 
     @api_client.setter
     def api_client(self, client):
@@ -718,35 +728,33 @@ class JobManager(QtCore.QObject):
           job metadata file to the `finished-jobs` directory on disk
 
         """
+        # --- Phase 1: Fetch remote data WITHOUT holding the state mutex --------
+        now = dt.datetime.now(tz=dt.timezone.utc)
+        relevant_date = now - dt.timedelta(days=self._relevant_job_age_threshold_days)
+
+        offline_mode = conf.settings_manager.get_value(conf.Setting.OFFLINE_MODE)
+        if not offline_mode:
+            # Network call happens outside the mutex so that concurrent readers
+            # of in-memory state (e.g. the UI) are not blocked.
+            remote_jobs = get_remote_jobs(end_date=relevant_date)
+
+            if conf.settings_manager.get_value(conf.Setting.FILTER_JOBS_BY_BASE_DIR):
+                relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+            else:
+                relevant_remote_jobs = remote_jobs
+        else:
+            relevant_remote_jobs = []
+
+        # --- Phase 2: Update local state under the mutex -----------------------
         self._state_update_mutex.lock()
         try:
-            now = dt.datetime.now(tz=dt.timezone.utc)
-            relevant_date = now - dt.timedelta(
-                days=self._relevant_job_age_threshold_days
-            )
+            self._refresh_local_deleted_jobs()
 
-            offline_mode = conf.settings_manager.get_value(conf.Setting.OFFLINE_MODE)
             if not offline_mode:
-                # Remote jobs will be taken into account
-                remote_jobs = get_remote_jobs(end_date=relevant_date)
-
-                if conf.settings_manager.get_value(
-                    conf.Setting.FILTER_JOBS_BY_BASE_DIR
-                ):
-                    relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
-                else:
-                    relevant_remote_jobs = remote_jobs
-
-                self._refresh_local_deleted_jobs()
-
                 deleted_ids = self._known_deleted_jobs.keys()
                 relevant_remote_jobs = [
                     job for job in relevant_remote_jobs if job.id not in deleted_ids
                 ]
-            else:
-                # Remote jobs will be excluded
-                relevant_remote_jobs = []
-                self._refresh_local_deleted_jobs()
 
             self._refresh_local_running_jobs(relevant_remote_jobs)
             self._refresh_local_finished_jobs(relevant_remote_jobs)

@@ -8,6 +8,7 @@ import uuid
 
 import marshmallow_dataclass
 from marshmallow import pre_load
+from qgis.PyQt import QtCore
 from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 from te_schemas.jobs import Job as JobBase
 from te_schemas.jobs import RemoteScript
@@ -133,6 +134,7 @@ class Job(JobBase):
 _remote_scripts_cache = None
 _remote_scripts_cache_time = 0.0
 _REMOTE_SCRIPTS_CACHE_TTL = 300  # 5 minutes
+_remote_scripts_mutex = QtCore.QMutex()
 
 
 def get_remote_scripts():
@@ -143,25 +145,32 @@ def get_remote_scripts():
 
     Results are cached for 5 minutes. Failed lookups (None) are not cached
     so that transient network errors don't permanently prevent script loading.
+
+    A mutex serialises concurrent callers so the cache is not populated by
+    multiple threads simultaneously.
     """
     global _remote_scripts_cache, _remote_scripts_cache_time
 
-    now = time.monotonic()
-    if (
-        _remote_scripts_cache is not None
-        and (now - _remote_scripts_cache_time) < _REMOTE_SCRIPTS_CACHE_TTL
-    ):
-        return _remote_scripts_cache
+    _remote_scripts_mutex.lock()
+    try:
+        now = time.monotonic()
+        if (
+            _remote_scripts_cache is not None
+            and (now - _remote_scripts_cache_time) < _REMOTE_SCRIPTS_CACHE_TTL
+        ):
+            return _remote_scripts_cache
 
-    raw_remote = api.get_default_api_client().get_script()
+        raw_remote = api.get_default_api_client().get_script()
 
-    if raw_remote is None:
-        return None
+        if raw_remote is None:
+            return None
 
-    result = [RemoteScript.Schema().load(r) for r in raw_remote]
-    _remote_scripts_cache = result
-    _remote_scripts_cache_time = now
-    return result
+        result = [RemoteScript.Schema().load(r) for r in raw_remote]
+        _remote_scripts_cache = result
+        _remote_scripts_cache_time = now
+        return result
+    finally:
+        _remote_scripts_mutex.unlock()
 
 
 def get_job_local_script(script_name: str) -> ExecutionScript:

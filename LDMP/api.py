@@ -158,6 +158,7 @@ class RequestTask(QgsTask):
 
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
+                QtCore.QTimer.singleShot(self.timeout * 1000, loop.quit)
                 loop.exec_()
 
             elif self.method == "delete":
@@ -171,6 +172,7 @@ class RequestTask(QgsTask):
 
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
+                QtCore.QTimer.singleShot(self.timeout * 1000, loop.quit)
                 loop.exec_()
 
             elif self.method == "patch":
@@ -188,6 +190,7 @@ class RequestTask(QgsTask):
 
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
+                QtCore.QTimer.singleShot(self.timeout * 1000, loop.quit)
                 loop.exec_()
 
             elif self.method == "head":
@@ -195,6 +198,7 @@ class RequestTask(QgsTask):
 
                 loop = QtCore.QEventLoop()
                 self.resp.finished.connect(loop.quit)
+                QtCore.QTimer.singleShot(self.timeout * 1000, loop.quit)
                 loop.exec_()
 
             else:

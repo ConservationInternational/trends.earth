@@ -380,13 +380,13 @@ class JobManager(QtCore.QObject):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self._state_update_mutex = QtCore.QMutex(QtCore.QMutex.Recursive)
+        self._api_client_mutex = QtCore.QMutex()
         self.clear_known_jobs()
         self.tm = QgsApplication.taskManager()
-        self._state_update_mutex = QtCore.QMutex(QtCore.QMutex.Recursive)
         self._api_client = None
         self._current_api_url = None
         self._api_client_testing = False  # Track if client was set for testing
-        self._api_client_mutex = QtCore.QMutex()
 
     @property
     def api_client(self):

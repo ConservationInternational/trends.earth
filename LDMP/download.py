@@ -35,7 +35,12 @@ from qgis.utils import iface
 from .api import APIClient
 from .constants import TIMEOUT, get_api_url
 from .logger import log
-from .worker import AbstractWorker, start_worker
+from .worker import (
+    _DOWNLOAD_INACTIVITY_TIMEOUT_MS,
+    AbstractWorker,
+    _WatchdogTimer,
+    start_worker,
+)
 
 if TYPE_CHECKING:
     from te_schemas import results as te_schemas_results
@@ -884,10 +889,26 @@ def download_boundary_geojson(
 
             reply.finished.connect(_on_finished)
 
+            # Inactivity watchdog: resets every time bytes are received.
+            def _on_boundary_watchdog() -> None:
+                log(
+                    "Boundary download inactivity timeout reached "
+                    f"({_DOWNLOAD_INACTIVITY_TIMEOUT_MS / 1000:.0f}s "
+                    "without receiving data) \u2014 aborting"
+                )
+                loop.quit()
+
+            watchdog = _WatchdogTimer(
+                _DOWNLOAD_INACTIVITY_TIMEOUT_MS, _on_boundary_watchdog
+            )
+            reply.downloadProgress.connect(watchdog.kick)
+
             if reply.isFinished():
                 _on_finished()
             else:
+                watchdog.start()
                 loop.exec_()
+                watchdog.stop()
 
             try:
                 reply.downloadProgress.disconnect(_update_progress)
@@ -995,7 +1016,24 @@ class DownloadWorker(AbstractWorker):
             if self.killed:
                 downloader.downloadProgress.connect(downloader.cancelDownload)
 
+            # Inactivity watchdog: resets every time download progress is
+            # reported.  Only fires if no bytes are received for the
+            # configured interval.
+            def _on_download_watchdog():
+                log(
+                    "Download inactivity timeout reached "
+                    f"({_DOWNLOAD_INACTIVITY_TIMEOUT_MS / 1000:.0f}s "
+                    "without receiving data) \u2014 aborting"
+                )
+                loop.quit()
+
+            watchdog = _WatchdogTimer(
+                _DOWNLOAD_INACTIVITY_TIMEOUT_MS, _on_download_watchdog
+            )
+            downloader.downloadProgress.connect(watchdog.kick)
+            watchdog.start()
             loop.exec_()
+            watchdog.stop()
 
         except Exception as e:
             log(tr_download.tr("Error in downloading file, {}").format(str(e)))
@@ -1032,10 +1070,28 @@ class Download:
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
+
+            # Inactivity watchdog: resets every time the inner worker
+            # reports download progress.
+            def _on_outer_watchdog():
+                log(
+                    "Download wrapper inactivity timeout reached "
+                    f"({_DOWNLOAD_INACTIVITY_TIMEOUT_MS / 1000:.0f}s "
+                    "without progress) \u2014 exiting event loop"
+                )
+                pause.quit()
+
+            watchdog = _WatchdogTimer(
+                _DOWNLOAD_INACTIVITY_TIMEOUT_MS, _on_outer_watchdog
+            )
+            worker.progress.connect(watchdog.kick)
+
             start_worker(
                 worker, iface, tr_download.tr("Downloading {}").format(self.outfile)
             )
+            watchdog.start()
             pause.exec_()
+            watchdog.stop()
             if self.get_exception():
                 raise self.get_exception()
 

@@ -1,11 +1,62 @@
 import qgis.gui
 from qgis.core import Qgis
 from qgis.PyQt import QtCore
-from qgis.PyQt.QtCore import QCoreApplication, QEventLoop, Qt, QThread
+from qgis.PyQt.QtCore import QCoreApplication, QEventLoop, Qt, QThread, QTimer
 from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from qgis.utils import iface
 
 from .logger import log
+
+# If a worker goes this long without emitting ``progress`` or
+# ``set_message``, the event loop is considered stalled and will be
+# terminated.  As long as the worker keeps reporting activity the
+# countdown resets, so genuinely long-running jobs are never killed.
+_WORKER_INACTIVITY_TIMEOUT_MS = 120 * 60 * 1000  # 120 minutes
+
+# If a download goes this long without receiving any bytes the event
+# loop is considered stalled and will be terminated.
+_DOWNLOAD_INACTIVITY_TIMEOUT_MS = 30 * 60 * 1000  # 30 minutes
+
+
+class _WatchdogTimer(QtCore.QObject):
+    """Inactivity watchdog: fires *on_timeout* if :meth:`kick` is not
+    called within *timeout_ms* milliseconds.
+
+    Connect any "progress" or "heartbeat" signal to :meth:`kick` so the
+    countdown resets whenever the monitored operation shows signs of life.
+
+    Example::
+
+        watchdog = _WatchdogTimer(10_000, loop.quit)
+        some_signal.connect(watchdog.kick)
+        watchdog.start()
+        loop.exec_()
+        watchdog.stop()
+    """
+
+    def __init__(self, timeout_ms: int, on_timeout, parent=None):
+        super().__init__(parent)
+        self._timer = QTimer(self)
+        self._timer.setSingleShot(True)
+        self._timer.setInterval(timeout_ms)
+        self._timer.timeout.connect(on_timeout)
+
+    def start(self):
+        """Start (or restart) the countdown."""
+        self._timer.start()
+
+    def stop(self):
+        """Stop the watchdog without firing."""
+        self._timer.stop()
+
+    def kick(self, *_args, **_kwargs):
+        """Reset the countdown.
+
+        Accepts arbitrary positional/keyword arguments so it can be
+        connected directly to any Qt signal.
+        """
+        if self._timer.isActive():
+            self._timer.start()  # restart resets the interval
 
 
 class tr_worker:
@@ -179,10 +230,28 @@ class StartWorker:
         self.worker.finished.connect(pause.quit)
         self.worker.successfully_finished.connect(self.save_success)
         self.worker.error.connect(self.save_exception)
+
+        # Inactivity watchdog: resets every time the worker reports any
+        # progress or status message.  Only fires if the worker goes
+        # completely silent for _WORKER_INACTIVITY_TIMEOUT_MS.
+        def _on_watchdog():
+            log(
+                "Worker inactivity timeout reached "
+                f"({_WORKER_INACTIVITY_TIMEOUT_MS / 1000:.0f}s without "
+                "any progress signal) — exiting event loop"
+            )
+            pause.quit()
+
+        watchdog = _WatchdogTimer(_WORKER_INACTIVITY_TIMEOUT_MS, _on_watchdog)
+        self.worker.progress.connect(watchdog.kick)
+        self.worker.set_message.connect(watchdog.kick)
+
         start_worker(
             self.worker, iface, tr_worker.tr("Processing: {}".format(process_name))
         )
+        watchdog.start()
         pause.exec_()
+        watchdog.stop()
 
         if self.exception:
             raise self.exception

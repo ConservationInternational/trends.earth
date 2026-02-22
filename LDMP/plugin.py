@@ -330,6 +330,18 @@ class LDMPPlugin:
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
+
+        # Close and destroy the dock widget first so that its background
+        # threads (timers, QThread workers) are stopped before the rest of
+        # the plugin is torn down.  Without this, orphaned timers and
+        # threads can reference deleted C++ objects after an in-place
+        # plugin upgrade.
+        if self.dock_widget is not None:
+            self.dock_widget.close()
+            self.iface.removeDockWidget(self.dock_widget)
+            self.dock_widget.deleteLater()
+            self.dock_widget = None
+
         for action in self.actions:
             self.iface.removePluginRasterMenu(tr_plugin.tr("&Trends.Earth"), action)
             self.iface.removeToolBarIcon(action)

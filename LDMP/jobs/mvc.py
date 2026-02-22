@@ -187,6 +187,23 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         self.parent = parent
         self.main_dock = main_dock
         self.current_index = None
+        # Caches to avoid recreating full DatasetEditorWidget on every repaint.
+        # Keyed by (job.id, job.status, job.progress, rect_width, rect_height).
+        self._pixmap_cache: typing.Dict[typing.Tuple, QtGui.QPixmap] = {}
+        self._size_cache: typing.Dict[typing.Tuple, QtCore.QSize] = {}
+
+    def invalidate_caches(self):
+        """Clear cached pixmaps and sizes.
+
+        Should be called when the underlying model changes (e.g. after a
+        cache refresh) so that stale renders are discarded.
+        """
+        self._pixmap_cache.clear()
+        self._size_cache.clear()
+
+    @staticmethod
+    def _cache_key(item: "Job", rect_w: int = 0, rect_h: int = 0) -> typing.Tuple:
+        return (item.id, item.status, item.progress, rect_w, rect_h)
 
     def paint(
         self,
@@ -194,7 +211,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         option: QtWidgets.QStyleOptionViewItem,
         index: QtCore.QModelIndex,
     ):
-        # get item and manipulate painter basing on idetm data
+        # get item and manipulate painter basing on item data
         proxy_model: QtCore.QSortFilterProxyModel = index.model()
         source_index = proxy_model.mapToSource(index)
         source_model = source_index.model()
@@ -203,11 +220,16 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         # if a Dataset => show custom widget
 
         if isinstance(item, Job):
-            # get default widget used to edit data
-            editor_widget = self.createEditor(self.parent, option, index)
-            editor_widget.setGeometry(option.rect)
-            pixmap = editor_widget.grab()
-            del editor_widget
+            key = self._cache_key(item, option.rect.width(), option.rect.height())
+            pixmap = self._pixmap_cache.get(key)
+
+            if pixmap is None:
+                editor_widget = self.createEditor(self.parent, option, index)
+                editor_widget.setGeometry(option.rect)
+                pixmap = editor_widget.grab()
+                del editor_widget
+                self._pixmap_cache[key] = pixmap
+
             painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
         else:
             super().paint(painter, option, index)
@@ -221,10 +243,15 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         item = source_model.data(source_index, QtCore.Qt.DisplayRole)
 
         if isinstance(item, Job):
-            # parent set to none otherwise remain painted in the widget
-            widget = self.createEditor(None, option, index)
-            size = widget.size()
-            del widget
+            key = self._cache_key(item)
+            size = self._size_cache.get(key)
+
+            if size is None:
+                # parent set to none otherwise remain painted in the widget
+                widget = self.createEditor(None, option, index)
+                size = widget.size()
+                del widget
+                self._size_cache[key] = size
 
             return size
 

@@ -1007,7 +1007,8 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 None,
                 self.tr("No definition set"),
                 self.tr(
-                    'Click "Edit Definition" to define the land cover definition before exporting.'
+                    'Click "Edit Definition" on the settings tab to '
+                    "define the land cover definition before exporting."
                 ),
             )
 
@@ -1186,7 +1187,8 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 None,
                 self.tr("No definition set"),
                 self.tr(
-                    'Click "Edit Definition" to define the land cover definition before exporting.'
+                    'Click "Edit Definition" on the settings tab to '
+                    "define the land cover definition before exporting."
                 ),
             )
             return False

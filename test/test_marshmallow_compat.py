@@ -130,11 +130,11 @@ class TestPluginJobSchema(unittest.TestCase):
         data = _make_base_job_dict()
         data["script"] = {
             "id": str(uuid.uuid4()),
-            "name": "SDG 15.3.1 1_0_7",
+            "name": "Land Cover 1_0_7",
             "run_mode": "local",
         }
         job = Job.Schema().load(data)
-        self.assertEqual(job.script.name, "SDG 15.3.1")
+        self.assertEqual(job.script.name, "Land Cover")
         self.assertEqual(job.script.version, "1.0.7")
 
     def test_pre_load_fallback_to_unknown(self):

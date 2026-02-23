@@ -80,9 +80,14 @@ class Setting(enum.Enum):
     UNKNOWN_AREA_OF_INTEREST = "private/unknown_area_of_interest"
     PRIOR_LOCALE = "private/prior_locale"
 
+    FILTERS_ENABLED = "filters/filters_enabled"
     DATE_FILTER_ENABLED = "filters/date_filter_enabled"
     FILTER_START_DATE = "filters/start_date"
     FILTER_END_DATE = "filters/end_date"
+    STATUS_FILTER_ENABLED = "filters/status_filter_enabled"
+    STATUS_FILTER_VALUE = "filters/status_filter_value"
+    TASK_TYPE_FILTER_ENABLED = "filters/task_type_filter_enabled"
+    TASK_TYPE_FILTER_VALUE = "filters/task_type_filter_value"
 
     DEBUG = "advanced/debug"
 
@@ -154,9 +159,14 @@ class SettingsManager:
         Setting.POLL_REMOTE: True,
         Setting.DOWNLOAD_RESULTS: True,
         Setting.CUSTOM_API_URL: "",
+        Setting.FILTERS_ENABLED: False,
         Setting.DATE_FILTER_ENABLED: False,
         Setting.FILTER_START_DATE: "",
         Setting.FILTER_END_DATE: "",
+        Setting.STATUS_FILTER_ENABLED: False,
+        Setting.STATUS_FILTER_VALUE: "",
+        Setting.TASK_TYPE_FILTER_ENABLED: False,
+        Setting.TASK_TYPE_FILTER_VALUE: "",
         Setting.BUFFER_CHECKED: False,
         Setting.AREA_FROM_OPTION: AreaSetting.COUNTRY_REGION.value,
         Setting.POINT_X: 0.0,

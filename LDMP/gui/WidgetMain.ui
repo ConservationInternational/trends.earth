@@ -83,12 +83,9 @@ for running algorithms and their results.</string>
          </layout>
         </item>
         <item>
-         <widget class="QgsCollapsibleGroupBox" name="date_filter_group">
-          <property name="toolTip">
-           <string/>
-          </property>
+         <widget class="QgsCollapsibleGroupBox" name="filter_group">
           <property name="title">
-           <string>Filter by date</string>
+           <string>Filters</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -99,56 +96,95 @@ for running algorithms and their results.</string>
           <property name="collapsed">
            <bool>true</bool>
           </property>
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_13">
+          <layout class="QVBoxLayout" name="filter_group_layout">
+           <item>
+            <widget class="QCheckBox" name="date_filter_chk">
              <property name="text">
-              <string>Start</string>
+              <string>Filter by date</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_14">
+           <item>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_13">
+               <property name="text">
+                <string>Start</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_14">
+               <property name="text">
+                <string>End</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QgsDateTimeEdit" name="start_dte">
+               <property name="toolTip">
+                <string/>
+               </property>
+               <property name="dateTime">
+                <datetime>
+                 <hour>0</hour>
+                 <minute>0</minute>
+                 <second>0</second>
+                 <year>2021</year>
+                 <month>1</month>
+                 <day>1</day>
+                </datetime>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QgsDateTimeEdit" name="end_dte">
+               <property name="dateTime">
+                <datetime>
+                 <hour>0</hour>
+                 <minute>0</minute>
+                 <second>0</second>
+                 <year>2021</year>
+                 <month>12</month>
+                 <day>1</day>
+                </datetime>
+               </property>
+               <property name="date">
+                <date>
+                 <year>2021</year>
+                 <month>12</month>
+                 <day>1</day>
+                </date>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="status_filter_chk">
              <property name="text">
-              <string>End</string>
+              <string>Filter by status</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QgsDateTimeEdit" name="start_dte">
+           <item>
+            <widget class="QComboBox" name="status_filter_cb">
              <property name="toolTip">
-              <string/>
-             </property>
-             <property name="dateTime">
-              <datetime>
-               <hour>0</hour>
-               <minute>0</minute>
-               <second>0</second>
-               <year>2021</year>
-               <month>1</month>
-               <day>1</day>
-              </datetime>
+              <string>Filter datasets by their current status</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QgsDateTimeEdit" name="end_dte">
-             <property name="dateTime">
-              <datetime>
-               <hour>0</hour>
-               <minute>0</minute>
-               <second>0</second>
-               <year>2021</year>
-               <month>12</month>
-               <day>1</day>
-              </datetime>
+           <item>
+            <widget class="QCheckBox" name="task_type_filter_chk">
+             <property name="text">
+              <string>Filter by task type</string>
              </property>
-             <property name="date">
-              <date>
-               <year>2021</year>
-               <month>12</month>
-               <day>1</day>
-              </date>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="task_type_filter_cb">
+             <property name="toolTip">
+              <string>Filter datasets by task type (algorithm/script)</string>
              </property>
             </widget>
            </item>

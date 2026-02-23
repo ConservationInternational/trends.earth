@@ -133,6 +133,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.rs_thread = None
         self.rs_worker = None
+        self._pending_remote_refresh = False  # queued refresh from button click
 
         # remove space before dataset item
         self.datasets_tv.setIndentation(0)
@@ -204,12 +205,19 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.pushButton_download.setEnabled(True)
             self.setWindowTitle(get_dock_title(offline_mode=False))
 
-        date_filter_enabled = settings_manager.get_value(Setting.DATE_FILTER_ENABLED)
+        # --- Master filter group setup ---
+        filters_enabled = settings_manager.get_value(Setting.FILTERS_ENABLED)
+        if not filters_enabled:
+            filters_enabled = False
+        self.filter_group.setChecked(filters_enabled)
+        self.filter_group.toggled.connect(self._filter_group_toggled)
 
+        # --- Date filter setup ---
+        date_filter_enabled = settings_manager.get_value(Setting.DATE_FILTER_ENABLED)
         if not date_filter_enabled:
             date_filter_enabled = False
-
-        self.date_filter_group.setChecked(date_filter_enabled)
+        self.date_filter_chk.setChecked(date_filter_enabled)
+        self._set_date_widgets_enabled(date_filter_enabled)
 
         settings_start_date = settings_manager.get_value(Setting.FILTER_START_DATE)
         settings_end_date = settings_manager.get_value(Setting.FILTER_END_DATE)
@@ -224,15 +232,158 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.start_dte.setDateTime(start_date)
             self.end_dte.setDateTime(end_date)
 
-        self.date_filter_group.toggled.connect(self.date_filter_group_toggled)
-        date_filter_enabled = functools.partial(self.date_filter_changed, False)
+        self.date_filter_chk.toggled.connect(self._date_filter_chk_toggled)
+        self.start_dte.dateChanged.connect(lambda: self.date_filter_changed(False))
+        self.end_dte.dateChanged.connect(lambda: self.date_filter_changed(False))
 
-        self.start_dte.dateChanged.connect(date_filter_enabled)
-        self.end_dte.dateChanged.connect(date_filter_enabled)
+        # --- Status filter setup ---
+        status_filter_enabled = settings_manager.get_value(
+            Setting.STATUS_FILTER_ENABLED
+        )
+        if not status_filter_enabled:
+            status_filter_enabled = False
+        self.status_filter_chk.setChecked(status_filter_enabled)
+        self.status_filter_cb.setEnabled(status_filter_enabled)
+        self.status_filter_chk.toggled.connect(self._status_filter_chk_toggled)
+        self.status_filter_cb.currentIndexChanged.connect(self.status_filter_changed)
 
-    def date_filter_group_toggled(self, value):
+        # --- Task type filter setup ---
+        task_type_filter_enabled = settings_manager.get_value(
+            Setting.TASK_TYPE_FILTER_ENABLED
+        )
+        if not task_type_filter_enabled:
+            task_type_filter_enabled = False
+        self.task_type_filter_chk.setChecked(task_type_filter_enabled)
+        self.task_type_filter_cb.setEnabled(task_type_filter_enabled)
+        self.task_type_filter_chk.toggled.connect(self._task_type_filter_chk_toggled)
+        self.task_type_filter_cb.currentIndexChanged.connect(
+            self.task_type_filter_changed
+        )
+
+    def _filter_group_toggled(self, value):
+        """Master filter group checkbox toggled."""
+        settings_manager.write_value(Setting.FILTERS_ENABLED, value)
+        self._apply_all_filters()
+
+    def _date_filter_chk_toggled(self, value):
         settings_manager.write_value(Setting.DATE_FILTER_ENABLED, value)
-        self.date_filter_changed(disabled=not value)
+        self._set_date_widgets_enabled(value)
+        self._apply_all_filters()
+
+    def _set_date_widgets_enabled(self, enabled):
+        self.start_dte.setEnabled(enabled)
+        self.end_dte.setEnabled(enabled)
+        self.label_13.setEnabled(enabled)
+        self.label_14.setEnabled(enabled)
+
+    def _status_filter_chk_toggled(self, value):
+        settings_manager.write_value(Setting.STATUS_FILTER_ENABLED, value)
+        self.status_filter_cb.setEnabled(value)
+        self._apply_all_filters()
+
+    def _task_type_filter_chk_toggled(self, value):
+        settings_manager.write_value(Setting.TASK_TYPE_FILTER_ENABLED, value)
+        self.task_type_filter_cb.setEnabled(value)
+        self._apply_all_filters()
+
+    def status_filter_changed(self, index):
+        settings_manager.write_value(
+            Setting.STATUS_FILTER_VALUE,
+            self.status_filter_cb.currentData(),
+        )
+        self._apply_all_filters()
+
+    def task_type_filter_changed(self, index):
+        settings_manager.write_value(
+            Setting.TASK_TYPE_FILTER_VALUE,
+            self.task_type_filter_cb.currentData(),
+        )
+        self._apply_all_filters()
+
+    def _apply_all_filters(self):
+        """Apply or clear all three filters based on the master group and
+        individual checkbox states."""
+        if not self.proxy_model:
+            return
+
+        master_on = self.filter_group.isChecked()
+
+        # Date filter
+        if master_on and self.date_filter_chk.isChecked():
+            start_date = self.start_dte.dateTime()
+            end_date = self.end_dte.dateTime()
+        else:
+            start_date = None
+            end_date = None
+        self.proxy_model.set_date_filter(start_date, end_date)
+
+        # Status filter
+        if master_on and self.status_filter_chk.isChecked():
+            status_value = self.status_filter_cb.currentData()
+            if status_value is not None:
+                self.proxy_model.set_status_filter(JobStatus(status_value))
+            else:
+                self.proxy_model.set_status_filter(None)
+        else:
+            self.proxy_model.set_status_filter(None)
+
+        # Task type filter
+        if master_on and self.task_type_filter_chk.isChecked():
+            self.proxy_model.set_task_type_filter(
+                self.task_type_filter_cb.currentData()
+            )
+        else:
+            self.proxy_model.set_task_type_filter(None)
+
+    def _populate_filter_dropdowns(self, jobs):
+        """Populate the status and task type filter dropdowns from actual job data.
+
+        Preserves the previously selected value if it still exists in the
+        updated list, to avoid resetting the user's filter on every refresh.
+        """
+        # --- Status dropdown ---
+        statuses = sorted(
+            {job.status for job in jobs},
+            key=lambda s: s.value,
+        )
+
+        prev_status = self.status_filter_cb.currentData()
+        if prev_status is None:
+            prev_status = settings_manager.get_value(Setting.STATUS_FILTER_VALUE)
+
+        self.status_filter_cb.blockSignals(True)
+        self.status_filter_cb.clear()
+        restore_idx = 0
+        for idx, status in enumerate(statuses):
+            display = status.value
+            if status == JobStatus.GENERATED_LOCALLY:
+                display = "LOCAL"
+            self.status_filter_cb.addItem(display, userData=status.value)
+            if status.value == prev_status:
+                restore_idx = idx
+        self.status_filter_cb.setCurrentIndex(restore_idx)
+        self.status_filter_cb.blockSignals(False)
+
+        # --- Task type dropdown ---
+        script_names = set()
+        for job in jobs:
+            if job.script is not None and job.script.name:
+                script_names.add(job.script.name)
+        script_names = sorted(script_names)
+
+        prev_task_type = self.task_type_filter_cb.currentData()
+        if prev_task_type is None:
+            prev_task_type = settings_manager.get_value(Setting.TASK_TYPE_FILTER_VALUE)
+
+        self.task_type_filter_cb.blockSignals(True)
+        self.task_type_filter_cb.clear()
+        restore_idx = 0
+        for idx, name in enumerate(script_names):
+            self.task_type_filter_cb.addItem(name, userData=name)
+            if name == prev_task_type:
+                restore_idx = idx
+        self.task_type_filter_cb.setCurrentIndex(restore_idx)
+        self.task_type_filter_cb.blockSignals(False)
 
     def closeEvent(self, event):
         """Handle widget close event to properly cleanup background threads.
@@ -469,7 +620,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # self.datasets_tv.setModel(model)
         self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
         self.type_filter_changed(TypeFilter.ALL)
-        self.date_filter_changed(disabled=not self.date_filter_group.isChecked())
+
+        # Populate status and task type dropdowns from actual job data
+        self._populate_filter_dropdowns(job_manager.relevant_jobs)
+        self._apply_all_filters()
 
         self.filter_changed("")
         action = self.filter_menu.actions()[0]
@@ -597,7 +751,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         if self.rs_thread is not None:
             try:
                 if self.rs_thread.isRunning():
-                    # Thread is still running, skip this update cycle
+                    # Thread is still running — queue a follow-up refresh so the
+                    # request (e.g. from the Refresh button) is not silently lost.
+                    self._pending_remote_refresh = True
+                    log(
+                        "Remote refresh already in progress — "
+                        "queuing a follow-up refresh"
+                    )
                     return
                 # Wait for thread to fully finish cleanup
                 self.rs_thread.wait()
@@ -607,6 +767,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.rs_thread = None
             self.rs_worker = None
 
+        self._pending_remote_refresh = False
         self.rs_thread = QtCore.QThread()
         self.rs_worker = RemoteStateRefreshWorker()
         self.rs_worker.moveToThread(self.rs_thread)
@@ -631,6 +792,15 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # before any deleteLater would execute to avoid accessing deleted objects
         self.rs_thread = None
         self.rs_worker = None
+
+        # If a refresh was requested while the previous one was still running
+        # (e.g. user clicked the Refresh button), kick off a new cycle now.
+        if self._pending_remote_refresh:
+            self._pending_remote_refresh = False
+            log("Executing queued remote refresh")
+            # Use a short delay so the current finished-signal chain can
+            # complete before re-entering _run_remote_update_worker.
+            QtCore.QTimer.singleShot(0, self._run_remote_update_worker)
 
     def clean_empty_directories(self):
         """Remove any Job or Dataset empty folder. Job or Dataset folder can be empty

@@ -438,8 +438,7 @@ class JobManager(QtCore.QObject):
         self._api_client = None
         self._current_api_url = None
         self._api_client_testing = False  # Track if client was set for testing
-        # Per-directory cache: maps dir_path -> {status: [Job, ...]}
-        # Cleared at the start of each refresh cycle so each directory is
+        # Per-directory cache. Cleared at the start of each refresh cycle so each directory is
         # globbed and parsed at most once per cycle.
         self._dir_job_cache: typing.Dict[
             Path, typing.Dict[jobs.JobStatus, typing.List[Job]]
@@ -488,7 +487,9 @@ class JobManager(QtCore.QObject):
         self._api_client_testing = False
 
     def _is_json_file_safe(self, file_path: Path) -> bool:
-        """Safely check if a JSON file can be read without causing crashes."""
+        """
+        Safely check if a JSON file can be read without causing crashes.
+        """
         try:
             stat_info = file_path.stat()
             return stat_info.st_size > 0
@@ -747,15 +748,31 @@ class JobManager(QtCore.QObject):
         relevant_date = now - dt.timedelta(days=self._relevant_job_age_threshold_days)
 
         offline_mode = conf.settings_manager.get_value(conf.Setting.OFFLINE_MODE)
+        remote_fetch_ok = False  # True only when API returned a real response
+
         if not offline_mode:
             # Network call happens outside the mutex so that concurrent readers
             # of in-memory state (e.g. the UI) are not blocked.
             remote_jobs = get_remote_jobs(end_date=relevant_date)
 
-            if conf.settings_manager.get_value(conf.Setting.FILTER_JOBS_BY_BASE_DIR):
-                relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+            if remote_jobs is None:
+                # API call failed (auth / network / timeout).  Fall back to a
+                # local-only refresh so that we don't accidentally delete local
+                # running-job metadata because of a transient server outage.
+                log(
+                    "Remote fetch failed — performing local-only refresh to "
+                    "avoid deleting local job state"
+                )
+                relevant_remote_jobs = []
+                remote_fetch_ok = False
             else:
-                relevant_remote_jobs = remote_jobs
+                remote_fetch_ok = True
+                if conf.settings_manager.get_value(
+                    conf.Setting.FILTER_JOBS_BY_BASE_DIR
+                ):
+                    relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+                else:
+                    relevant_remote_jobs = remote_jobs
         else:
             relevant_remote_jobs = []
 
@@ -767,13 +784,15 @@ class JobManager(QtCore.QObject):
 
             self._refresh_local_deleted_jobs()
 
-            if not offline_mode:
+            if not offline_mode and remote_fetch_ok:
                 deleted_ids = self._known_deleted_jobs.keys()
                 relevant_remote_jobs = [
                     job for job in relevant_remote_jobs if job.id not in deleted_ids
                 ]
 
-            self._refresh_local_running_jobs(relevant_remote_jobs)
+            self._refresh_local_running_jobs(
+                relevant_remote_jobs, remote_fetch_ok=remote_fetch_ok
+            )
             self._refresh_local_finished_jobs(relevant_remote_jobs)
             self._refresh_local_downloaded_jobs()
             self._refresh_remote_failed_jobs(relevant_remote_jobs)
@@ -781,7 +800,9 @@ class JobManager(QtCore.QObject):
             self._get_local_expired_jobs()
 
             log(
-                f"JobManager refresh completed - found {len(relevant_remote_jobs)} relevant remote jobs"
+                f"JobManager refresh completed — "
+                f"remote_fetch_ok={remote_fetch_ok}, "
+                f"{len(relevant_remote_jobs)} relevant remote jobs"
             )
         finally:
             self._state_update_mutex.unlock()
@@ -1617,11 +1638,29 @@ class JobManager(QtCore.QObject):
         return None
 
     def _refresh_local_running_jobs(
-        self, remote_jobs: typing.List[Job]
+        self,
+        remote_jobs: typing.List[Job],
+        remote_fetch_ok: bool = True,
     ) -> typing.Dict[uuid.UUID, Job]:
-        """Update local directory of running jobs by comparing with the remote jobs"""
+        """Update local directory of running jobs by comparing with the remote jobs.
+
+        When *remote_fetch_ok* is ``False`` (the API call failed), we preserve
+        all existing local running-job files instead of deleting them.  This
+        prevents a transient server outage from wiping the user's job list.
+        """
         local_running_jobs = self._get_local_jobs(jobs.JobStatus.RUNNING)
         self._known_running_jobs = {}
+
+        if not remote_fetch_ok:
+            # API was unreachable — keep every local running job as-is so the
+            # user doesn't lose visibility of their in-progress work.
+            log(
+                f"Preserving {len(local_running_jobs)} local running job(s) "
+                f"because the remote API was unreachable"
+            )
+            self._known_running_jobs = {j.id: j for j in local_running_jobs}
+            return self._known_running_jobs
+
         # first go over all previously known jobs and check if they are still running
 
         for old_running_job in local_running_jobs:
@@ -2224,12 +2263,21 @@ def _delete_job_datasets(job: Job):
         log("This job has no results to be deleted, skipping...")
 
 
-def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.List[Job]:
-    """Get a list of remote jobs, as returned by the server"""
+def get_remote_jobs(
+    end_date: typing.Optional[dt.datetime] = None,
+) -> typing.Optional[typing.List[Job]]:
+    """Get a list of remote jobs, as returned by the server.
+
+    Returns ``None`` when the API could not be reached (auth failure, network
+    error, etc.).  Returns an empty list ``[]`` when the API responded
+    successfully but there are genuinely no matching jobs.  Callers **must**
+    check for ``None`` to avoid treating an API outage as "all jobs deleted".
+    """
     # Note - this is a reimplementation of api.get_execution
     user_id = _get_user_id()
     if user_id is None:
-        return []
+        log("Cannot fetch remote jobs: user ID unavailable (auth may have failed)")
+        return None
 
     query = {"include": "script"}
 
@@ -2255,8 +2303,8 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
 
         if not response:
             if page == 1:
-                log("No response from server")
-                return []
+                log("No response from server on first page — treating as API failure")
+                return None
             else:
                 # We already have some results from earlier pages
                 break
@@ -2277,8 +2325,8 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
             page += 1
         except (TypeError, KeyError):
             if page == 1:
-                log("Invalid response format")
-                return []
+                log("Invalid response format on first page — treating as API failure")
+                return None
             else:
                 break
 
@@ -2310,18 +2358,46 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
 
 
 def get_relevant_remote_jobs(remote_jobs: typing.List[Job]) -> typing.List[Job]:
-    """Filter a list of jobs gotten from the remote server for relevant jobs
+    """Filter a list of jobs gotten from the remote server for relevant jobs.
 
-    Relevant jobs are those that whose `local_context.base_dir` matches the current
-    base dir.
-
+    Relevant jobs are those whose ``local_context.base_dir`` matches the
+    current base dir.  The comparison normalises paths (resolves separators,
+    trailing slashes, and uses case-insensitive matching on Windows) to avoid
+    false negatives from cosmetic path differences.
     """
 
     current_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
     result = []
 
+    try:
+        normalised_base = Path(current_base_dir).resolve()
+    except (TypeError, ValueError):
+        log(f"Cannot normalise current base_dir {current_base_dir!r}")
+        return remote_jobs  # safe fallback: don't filter
+
     for job in remote_jobs:
-        if str(job.local_context.base_dir) == str(current_base_dir):
+        job_base = job.local_context.base_dir
+
+        if job_base is None:
+            # Jobs without a local_context (submitted by another client or
+            # older API version) are included so they aren't silently hidden.
+            result.append(job)
+            continue
+
+        try:
+            normalised_job = Path(str(job_base)).resolve()
+        except (TypeError, ValueError):
+            # Unparseable path — include the job to be safe.
+            result.append(job)
+            continue
+
+        # On Windows paths are case-insensitive; on POSIX they are not.
+        if os.name == "nt":
+            match = str(normalised_job).lower() == str(normalised_base).lower()
+        else:
+            match = normalised_job == normalised_base
+
+        if match:
             result.append(job)
 
     return result

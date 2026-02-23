@@ -102,10 +102,22 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         self.start_date = None
         self.end_date = None
         self.type_filter = TypeFilter.ALL  # Initialize with default value
+        self.status_filter = None  # None means "show all"
+        self.task_type_filter = None  # None means "show all"
 
     def set_date_filter(self, start_date, end_date):
         self.start_date = start_date
         self.end_date = end_date
+        self.invalidateFilter()
+
+    def set_status_filter(self, status):
+        """Set the status filter. Pass None to show all statuses."""
+        self.status_filter = status
+        self.invalidateFilter()
+
+    def set_task_type_filter(self, script_name):
+        """Set the task type filter. Pass None to show all task types."""
+        self.task_type_filter = script_name
         self.invalidateFilter()
 
     def filterAcceptsRow(self, source_row: int, source_parent: QtCore.QModelIndex):
@@ -155,7 +167,26 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
                 # This handles cases where job dates might be None or invalid
                 pass
 
-        return matches_filter and matches_type and matches_date
+        # Status filtering logic
+        matches_status = True
+        if self.status_filter is not None:
+            matches_status = job.status == self.status_filter
+
+        # Task type filtering logic
+        matches_task_type = True
+        if self.task_type_filter is not None:
+            job_script_name = ""
+            if job.script is not None and job.script.name:
+                job_script_name = job.script.name
+            matches_task_type = job_script_name == self.task_type_filter
+
+        return (
+            matches_filter
+            and matches_type
+            and matches_date
+            and matches_status
+            and matches_task_type
+        )
 
     def lessThan(self, left: QtCore.QModelIndex, right: QtCore.QModelIndex) -> bool:
         model = self.sourceModel()

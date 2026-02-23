@@ -23,6 +23,7 @@ from te_schemas.results import (
     RasterFileType,
     RasterResults,
     ResultType,
+    Vector,
     VectorResults,
     VectorType,
 )
@@ -66,8 +67,10 @@ def _make_raster_results():
 def _make_vector_results():
     return VectorResults(
         name="test-vector",
-        uri=_make_uri("https://example.com/v.geojson"),
-        vector_type=VectorType.POLYGON,
+        vector=Vector(
+            uri=_make_uri("https://example.com/v.geojson"),
+            type=VectorType.GENERIC,
+        ),
     )
 
 
@@ -128,7 +131,7 @@ class TestPluginJobSchema(unittest.TestCase):
         data["script"] = {
             "id": str(uuid.uuid4()),
             "name": "SDG 15.3.1 1_0_7",
-            "run_mode": "LOCAL",
+            "run_mode": "local",
         }
         job = Job.Schema().load(data)
         self.assertEqual(job.script.name, "SDG 15.3.1")
@@ -237,7 +240,7 @@ class TestTeSchemasDependencies(unittest.TestCase):
         vr = _make_vector_results()
         data = VectorResults.Schema().dump(vr)
         loaded = VectorResults.Schema().load(data)
-        self.assertEqual(loaded.vector_type, VectorType.POLYGON)
+        self.assertEqual(loaded.vector.type, VectorType.GENERIC)
 
     def test_execution_script_roundtrip(self):
         es = _make_execution_script()
@@ -251,7 +254,12 @@ class TestTeSchemasDependencies(unittest.TestCase):
             "id": str(uuid.uuid4()),
             "name": "Remote Script",
             "slug": "remote-script",
-            "status": "PUBLISHED",
+            "description": "A test remote script",
+            "status": "SUCCESS",
+            "created_at": "2025-01-01T00:00:00",
+            "updated_at": "2025-01-01T00:00:00",
+            "user_id": str(uuid.uuid4()),
+            "public": True,
         }
         loaded = RemoteScript.Schema().load(rs_data)
         self.assertEqual(loaded.name, "Remote Script")
@@ -281,20 +289,21 @@ class TestEnumSerialization(unittest.TestCase):
         self.assertEqual(RasterFileType("GeoTiff"), RasterFileType.GEOTIFF)
 
     def test_result_type_by_value(self):
-        self.assertEqual(ResultType("raster"), ResultType.RASTER)
-        self.assertEqual(ResultType("vector"), ResultType.VECTOR)
+        self.assertEqual(ResultType("RasterResults"), ResultType.RASTER_RESULTS)
+        self.assertEqual(ResultType("VectorResults"), ResultType.VECTOR_RESULTS)
 
     def test_vector_type_by_value(self):
-        self.assertEqual(VectorType("Polygon"), VectorType.POLYGON)
+        self.assertEqual(VectorType("Generic"), VectorType.GENERIC)
+        self.assertEqual(VectorType("False positive/negative"), VectorType.ERROR_RECODE)
 
     def test_algorithm_run_mode_by_value(self):
-        self.assertEqual(AlgorithmRunMode("LOCAL"), AlgorithmRunMode.LOCAL)
-        self.assertEqual(
-            AlgorithmRunMode("NOT_APPLICABLE"), AlgorithmRunMode.NOT_APPLICABLE
-        )
+        self.assertEqual(AlgorithmRunMode("local"), AlgorithmRunMode.LOCAL)
+        self.assertEqual(AlgorithmRunMode(0), AlgorithmRunMode.NOT_APPLICABLE)
 
     def test_script_status_by_value(self):
-        self.assertEqual(ScriptStatus("PUBLISHED"), ScriptStatus.PUBLISHED)
+        self.assertEqual(ScriptStatus("SUCCESS"), ScriptStatus.SUCCESS)
+        self.assertEqual(ScriptStatus("FAIL"), ScriptStatus.FAIL)
+        self.assertEqual(ScriptStatus("BUILDING"), ScriptStatus.BUILDING)
 
 
 # ===================================================================
@@ -321,8 +330,8 @@ class TestValidationErrors(unittest.TestCase):
         from marshmallow.exceptions import ValidationError
 
         with self.assertRaises(ValidationError):
-            # Missing required fields
-            JobBase.Schema().load({"status": "INVALID"})
+            # Missing required fields (params must be present for @pre_load)
+            JobBase.Schema().load({"status": "INVALID", "params": {}})
 
 
 # ===================================================================
@@ -331,27 +340,33 @@ class TestValidationErrors(unittest.TestCase):
 
 
 class TestSchemaBaseInterface(unittest.TestCase):
-    """Tests SchemaBase methods that algorithm/plugin code relies on."""
+    """Tests SchemaBase methods that algorithm/plugin code relies on.
+
+    ExecutionScript inherits from SchemaBase, so we use it to verify
+    the dump/dumps/schema/validate instance methods.
+    """
 
     def test_schema_method(self):
-        rr = _make_raster_results()
-        schema = rr.schema()
+        es = _make_execution_script()
+        schema = es.schema()
         self.assertIsNotNone(schema)
+        self.assertTrue(hasattr(schema, "load"))
 
     def test_dump_method(self):
-        rr = _make_raster_results()
-        data = rr.dump()
+        es = _make_execution_script()
+        data = es.dump()
         self.assertIsInstance(data, dict)
+        self.assertEqual(data["name"], "Test Script")
 
     def test_validate_method(self):
-        rr = _make_raster_results()
-        rr.validate()  # Should not raise
+        es = _make_execution_script()
+        es.validate()  # Should not raise
 
     def test_dumps_method(self):
-        rr = _make_raster_results()
-        json_str = rr.dumps()
+        es = _make_execution_script()
+        json_str = es.dumps()
         self.assertIsInstance(json_str, str)
-        self.assertIn("test-raster", json_str)
+        self.assertIn("Test Script", json_str)
 
 
 # ===================================================================
@@ -362,26 +377,35 @@ class TestSchemaBaseInterface(unittest.TestCase):
 class TestFieldDefaults(unittest.TestCase):
     """Verify dump_default / load_default work as expected."""
 
-    def test_job_default_progress(self):
-        """Job loaded without explicit progress should get the default."""
+    def test_job_requires_progress(self):
+        """Job loaded without explicit progress should raise ValidationError."""
+        from marshmallow.exceptions import ValidationError
+
         data = _make_base_job_dict()
         data.pop("progress", None)
-        job = Job.Schema().load(data)
-        # progress should have a default (0 in te_schemas)
-        self.assertIsNotNone(job.progress)
+        with self.assertRaises(ValidationError):
+            Job.Schema().load(data)
 
-    def test_band_default_metadata(self):
-        """Band without metadata should still load."""
-        data = {"name": "b1"}
+    def test_band_requires_metadata(self):
+        """Band without metadata should raise ValidationError (metadata is required)."""
+        from marshmallow.exceptions import ValidationError
+
+        with self.assertRaises(ValidationError):
+            Band.Schema().load({"name": "b1"})
+
+    def test_band_with_metadata(self):
+        """Band with name and metadata should load correctly."""
+        data = {"name": "b1", "metadata": {"units": "none"}}
         b = Band.Schema().load(data)
         self.assertEqual(b.name, "b1")
+        self.assertEqual(b.metadata, {"units": "none"})
 
     def test_execution_script_defaults(self):
         """ExecutionScript with minimal data should apply defaults for optional fields."""
         data = {
             "id": str(uuid.uuid4()),
             "name": "test",
-            "run_mode": "LOCAL",
+            "run_mode": "local",
         }
         es = ExecutionScript.Schema().load(data)
         self.assertIsNotNone(es)
@@ -401,7 +425,7 @@ class TestUnknownFieldHandling(unittest.TestCase):
         data = {
             "id": str(uuid.uuid4()),
             "name": "test",
-            "run_mode": "LOCAL",
+            "run_mode": "local",
             "unknown_extra_field": True,
         }
         es = ExecutionScript.Schema().load(data)

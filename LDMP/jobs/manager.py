@@ -655,6 +655,16 @@ class JobManager(QtCore.QObject):
             self._known_running_jobs = {
                 j.id: j for j in self._get_local_jobs(jobs.JobStatus.RUNNING)
             }
+
+            # Rebuild pending/ready caches from disk so that stale entries
+            # (e.g. jobs that finished between refresh cycles) are removed.
+            self._known_pending_jobs = {
+                j.id: j for j in self._get_local_jobs(jobs.JobStatus.PENDING)
+            }
+            self._known_ready_jobs = {
+                j.id: j for j in self._get_local_jobs(jobs.JobStatus.READY)
+            }
+
             self._refresh_local_downloaded_jobs()
             # We copy the dictionary before iterating in order to avoid having it
             # change size during the process
@@ -978,7 +988,7 @@ class JobManager(QtCore.QObject):
         self.finish_local_job(done_job)
 
     def finish_local_job(self, job):
-        self._move_job_to_dir(job, new_status=jobs.JobStatus.GENERATED_LOCALLY)
+        self._change_job_status(job, jobs.JobStatus.GENERATED_LOCALLY)
         self.processed_local_job.emit(job)
 
     def download_job_results(self, job: Job) -> Job:

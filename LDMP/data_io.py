@@ -1639,7 +1639,17 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         logic and call ok_clicked() on success.
         """
         if value == QtWidgets.QDialog.Accepted:
-            self.validate_input(value)
+            if getattr(self, "_validating", False):
+                # Re-entry from validate_input() calling super().done() —
+                # forward directly to QDialog.done() to close the dialog
+                # instead of recursing back into validate_input().
+                super().done(value)
+                return
+            self._validating = True
+            try:
+                self.validate_input(value)
+            finally:
+                self._validating = False
         else:
             super().done(value)
 

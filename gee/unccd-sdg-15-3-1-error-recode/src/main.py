@@ -549,22 +549,26 @@ def calculate_error_recode(
             include_polygon_geojson,
         )
 
-        # Generate crosstab statistics if baseline and at least one reporting period are in output
-        # Crosstabs show transitions from baseline to reporting periods, so they require both
+        # Generate crosstab statistics between baseline and all reporting periods
+        # that were affected by recoding (directly or indirectly).
+        # Baseline is always loaded in periods_to_process, so we always have it
+        # available for crosstab computation even if it wasn't recoded itself.
         crosstab_data = None
-        has_baseline_in_output = "baseline" in periods_to_output
-        has_reporting_in_output = (
-            "report_1" in periods_to_output or "report_2" in periods_to_output
-        )
+        reporting_periods_in_output = {p for p in periods_to_output if p != "baseline"}
 
-        if has_baseline_in_output and has_reporting_in_output:
+        if reporting_periods_in_output:
             logger.info(
                 "Calculating image-wide crosstab statistics for error recoded data"
             )
-            # Filter periods_to_process to only include periods that are in output
-            periods_for_crosstab = {
-                k: v for k, v in periods_to_process.items() if k in periods_to_output
-            }
+            # Include baseline (always available) plus all reporting periods in output
+            periods_for_crosstab = {"baseline": periods_to_process["baseline"]}
+            periods_for_crosstab.update(
+                {
+                    k: v
+                    for k, v in periods_to_process.items()
+                    if k in reporting_periods_in_output
+                }
+            )
             try:
                 crosstab_data = _calculate_image_wide_crosstabs(
                     input_job, aoi, periods_for_crosstab, logger
@@ -581,7 +585,7 @@ def calculate_error_recode(
                 logger.exception(f"Failed to calculate crosstab statistics: {e}")
         else:
             logger.debug(
-                "Skipping crosstab calculation - requires both baseline and reporting periods in output"
+                "Skipping crosstab calculation - no reporting periods in output"
             )
 
         # Convert results to dictionary format using marshmallow Schema serialization

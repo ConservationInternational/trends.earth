@@ -842,7 +842,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                     # Store point in EPSG:4326 crs
                     coord_transform = qgis.core.QgsCoordinateTransform(
                         layer.sourceCrs(),
-                        qgis.core.QgsCoordinateReferenceSystem(4326),
+                        qgis.core.QgsCoordinateReferenceSystem("EPSG:4326"),
                         qgis.core.QgsProject.instance(),
                     )
                     point = coord_transform.transform(centroid)
@@ -874,7 +874,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         # Store point in EPSG:4326 crs
         transform_instance = qgis.core.QgsCoordinateTransform(
             qgis.core.QgsProject.instance().crs(),
-            qgis.core.QgsCoordinateReferenceSystem(4326),
+            qgis.core.QgsCoordinateReferenceSystem("EPSG:4326"),
             qgis.core.QgsProject.instance(),
         )
         transformed_point = transform_instance.transform(self.point)

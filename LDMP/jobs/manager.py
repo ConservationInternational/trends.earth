@@ -47,6 +47,20 @@ from .models import Job
 
 logger = logging.getLogger(__name__)
 
+_job_schema = None
+
+
+def _get_job_schema():
+    """Return a cached Job.Schema() singleton.
+
+    Lazily initialised so that the module can be imported before Job is fully
+    configured (e.g. during testing or early plugin load).
+    """
+    global _job_schema
+    if _job_schema is None:
+        _job_schema = Job.Schema()
+    return _job_schema
+
 
 class tr_manager:
     def tr(message):
@@ -306,6 +320,43 @@ def set_results_extents(job, force=False):
             _set_results_extents_vector(result, job, force=force)
 
 
+def _set_results_extents_if_missing(job) -> bool:
+    """Compute extents for DOWNLOADED/GENERATED_LOCALLY jobs only when missing."""
+    if not job.results:
+        return False
+
+    changed = False
+    results_list = job._get_results_list()
+    for result in results_list:
+        if isinstance(result, RasterResults):
+            for raster in result.rasters.values():
+                if raster.type == results.RasterType.ONE_FILE_RASTER:
+                    if not hasattr(raster, "extent") or raster.extent is None:
+                        raster.extent = _get_extent_tuple_raster(raster.uri.uri)
+                        changed = True
+                elif raster.type == results.RasterType.TILED_RASTER:
+                    if not hasattr(raster, "extents") or raster.extents is None:
+                        raster.extents = []
+                        for raster_tile_uri in raster.tile_uris:
+                            extent = _get_extent_tuple_raster(raster_tile_uri.uri)
+                            if extent is None:
+                                raise RuntimeError(
+                                    f"Failed to calculate extent for tile {raster_tile_uri.uri} in job {job.id}. "
+                                    f"File may be missing, corrupted, or inaccessible."
+                                )
+                            raster.extents.append(extent)
+                        changed = True
+        elif isinstance(result, VectorResults):
+            if not hasattr(result, "extent") or result.extent is None:
+                uri_to_use = result.uri
+                if uri_to_use is None and result.vector is not None:
+                    uri_to_use = result.vector.uri
+                if uri_to_use is not None and uri_to_use.uri is not None:
+                    result.extent = _get_extent_tuple_vector(uri_to_use.uri)
+                    changed = True
+    return changed
+
+
 class LocalJobTask(QgsTask):
     job: Job
     area_of_interest: areaofinterest.AOI
@@ -387,6 +438,12 @@ class JobManager(QtCore.QObject):
         self._api_client = None
         self._current_api_url = None
         self._api_client_testing = False  # Track if client was set for testing
+        # Per-directory cache: maps dir_path -> {status: [Job, ...]}
+        # Cleared at the start of each refresh cycle so each directory is
+        # globbed and parsed at most once per cycle.
+        self._dir_job_cache: typing.Dict[
+            Path, typing.Dict[jobs.JobStatus, typing.List[Job]]
+        ] = {}
 
     @property
     def api_client(self):
@@ -431,62 +488,13 @@ class JobManager(QtCore.QObject):
         self._api_client_testing = False
 
     def _is_json_file_safe(self, file_path: Path) -> bool:
-        """
-        Safely check if a JSON file can be read without causing crashes.
-        Returns True if the file appears safe to process, False otherwise.
-        """
+        """Safely check if a JSON file can be read without causing crashes."""
         try:
-            # Check basic file properties first
-            if not file_path.exists():
-                return False
-
-            # Get file stats safely
-            try:
-                stat_info = file_path.stat()
-                if stat_info.st_size == 0:
-                    return False
-            except (OSError, IOError, PermissionError):
-                # File exists but can't get stats - not safe
-                return False
-
-            # Try to read file content with multiple fallback strategies
-            content = None
-
-            # First attempt with strict encoding
-            try:
-                with file_path.open(encoding=self._encoding, errors="strict") as fh:
-                    content = fh.read(
-                        1024
-                    )  # Read first 1KB to check for obvious issues
-            except (UnicodeDecodeError, PermissionError, OSError, IOError):
-                # Try with error replacement if strict fails
-                try:
-                    with file_path.open(
-                        encoding=self._encoding, errors="replace"
-                    ) as fh:
-                        content = fh.read(1024)
-                except (PermissionError, OSError, IOError):
-                    # Try with different encoding as last resort
-                    try:
-                        with file_path.open(encoding="utf-8", errors="replace") as fh:
-                            content = fh.read(1024)
-                    except (PermissionError, OSError, IOError):
-                        # File is locked or inaccessible
-                        return False
-
-            if not content or not content.strip():
-                return False
-
-            # Check if it starts like a JSON object/array
-            content_start = content.strip()[:10]
-            if not (content_start.startswith("{") or content_start.startswith("[")):
-                return False
-
-            return True
-        except (OSError, IOError, UnicodeDecodeError, MemoryError, PermissionError):
+            stat_info = file_path.stat()
+            return stat_info.st_size > 0
+        except (OSError, IOError, PermissionError):
             return False
         except Exception:
-            # Any other unexpected error also means the file is not safe
             return False
 
     @property
@@ -509,7 +517,7 @@ class JobManager(QtCore.QObject):
 
     @property
     def relevant_jobs(self) -> typing.List[Job]:
-        """Return a list of all jobs that are relevant to show to the user"""
+        """Return a list of all jobs that are relevant to show to the user."""
         relevant_statuses = (
             jobs.JobStatus.READY,
             jobs.JobStatus.PENDING,
@@ -521,12 +529,12 @@ class JobManager(QtCore.QObject):
             jobs.JobStatus.EXPIRED,
         )
         result = []
-
-        result = []
-
-        for status in relevant_statuses:
-            result.extend(self.known_jobs[status].values())
-
+        self._state_update_mutex.lock()
+        try:
+            for status in relevant_statuses:
+                result.extend(self._get_internal_dict_for_status(status).values())
+        finally:
+            self._state_update_mutex.unlock()
         return result
 
     @property
@@ -583,6 +591,9 @@ class JobManager(QtCore.QObject):
             self._known_pending_jobs = {}
             self._known_cancelled_jobs = {}
             self._known_expired_jobs = {}
+            # Also clear the per-directory cache (may not exist yet during __init__)
+            if hasattr(self, "_dir_job_cache"):
+                self._dir_job_cache.clear()
         finally:
             self._state_update_mutex.unlock()
 
@@ -637,6 +648,9 @@ class JobManager(QtCore.QObject):
         """
         self._state_update_mutex.lock()
         try:
+            # Invalidate the per-directory cache so this cycle gets fresh data
+            self._dir_job_cache.clear()
+
             self._known_running_jobs = {
                 j.id: j for j in self._get_local_jobs(jobs.JobStatus.RUNNING)
             }
@@ -646,6 +660,7 @@ class JobManager(QtCore.QObject):
             frozen_known_downloaded_jobs = self._known_downloaded_jobs.copy()
             # move any downloaded jobs with missing local paths back to FINISHED
 
+            demoted_ids = set()
             for j_id, j in frozen_known_downloaded_jobs.items():
                 # Check each result for missing local paths
                 has_missing_path = False
@@ -671,15 +686,14 @@ class JobManager(QtCore.QObject):
                     self._change_job_status(
                         j, jobs.JobStatus.FINISHED, force_rewrite=True
                     )
-            # Refresh again to pickup the changes back in the original dictionary
-            self._refresh_local_downloaded_jobs()
-            # filter list in case any jobs were moved from downloaded to finished
-            self._known_downloaded_jobs = {
-                j_id: j
-                for j_id, j in self._known_downloaded_jobs.items()
-                if j.status
-                in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
-            }
+                    demoted_ids.add(j_id)
+
+            if demoted_ids:
+                self._known_downloaded_jobs = {
+                    j_id: j
+                    for j_id, j in self._known_downloaded_jobs.items()
+                    if j_id not in demoted_ids
+                }
 
             # NOTE: finished and failed jobs are treated differently here because
             # we also make sure to delete those that are old and never got
@@ -748,6 +762,9 @@ class JobManager(QtCore.QObject):
         # --- Phase 2: Update local state under the mutex -----------------------
         self._state_update_mutex.lock()
         try:
+            # Invalidate the per-directory cache so this cycle gets fresh data
+            self._dir_job_cache.clear()
+
             self._refresh_local_deleted_jobs()
 
             if not offline_mode:
@@ -823,7 +840,7 @@ class JobManager(QtCore.QObject):
         except (TypeError, KeyError):
             job = None
         else:
-            job = Job.Schema().load(raw_job)
+            job = _get_job_schema().load(raw_job)
 
             # Safely set result extents to prevent crashes from file access issues
             try:
@@ -1707,40 +1724,29 @@ class JobManager(QtCore.QObject):
             shutil.move(old_path, new_path)
 
     # @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
-    def _get_local_jobs(self, status: jobs.JobStatus) -> typing.List[Job]:
-        base_dir = {
-            jobs.JobStatus.FINISHED: self.finished_jobs_dir,
-            jobs.JobStatus.FAILED: self.failed_jobs_dir,
-            jobs.JobStatus.RUNNING: self.running_jobs_dir,
-            jobs.JobStatus.PENDING: self.running_jobs_dir,
-            jobs.JobStatus.READY: self.running_jobs_dir,
-            jobs.JobStatus.CANCELLED: self.failed_jobs_dir,
-            jobs.JobStatus.DELETED: self.deleted_jobs_dir,
-            jobs.JobStatus.EXPIRED: self.expired_jobs_dir,
-            jobs.JobStatus.DOWNLOADED: self.datasets_dir,
-            jobs.JobStatus.GENERATED_LOCALLY: self.datasets_dir,
-        }[status]
-        result = []
+    def _load_jobs_from_dir(
+        self, base_dir: Path
+    ) -> typing.Dict[jobs.JobStatus, typing.List[Job]]:
+        """Scan *base_dir* once and return all valid jobs grouped by status."""
+        grouped: typing.Dict[jobs.JobStatus, typing.List[Job]] = {}
 
-        # Check if directory exists and is accessible before attempting to glob
-        # This prevents segfaults from filesystem issues (missing dir, permissions, network issues, etc.)
         if not base_dir.exists() or not base_dir.is_dir():
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log(f"Base directory does not exist or is not accessible: {base_dir}")
-            return result
+            return grouped
 
         try:
             job_paths = list(base_dir.glob("**/*.json"))
         except (OSError, PermissionError, RuntimeError) as exc:
-            # Catch filesystem errors that could cause crashes during directory traversal
             log(f"Error scanning directory {base_dir}: {type(exc).__name__}: {exc}")
-            return result
+            return grouped
         except Exception as exc:
-            # Catch any unexpected errors to prevent crashes
             log(
                 f"Unexpected error scanning directory {base_dir}: {type(exc).__name__}: {exc}"
             )
-            return result
+            return grouped
+
+        schema = _get_job_schema()
 
         for job_metadata_path in job_paths:
             try:
@@ -1752,7 +1758,6 @@ class JobManager(QtCore.QObject):
                             )
                         continue
                 except Exception as exc:
-                    # If _is_json_file_safe itself crashes, skip this file entirely
                     log(
                         f"Error checking safety of file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
                     )
@@ -1769,24 +1774,35 @@ class JobManager(QtCore.QObject):
                             )
                         continue
 
-                    job = Job.Schema().load(raw_job)
+                    job = schema.load(raw_job)
 
-                    # Safely set result extents to prevent crashes from file access issues
+                    extents_changed = False
                     try:
-                        set_results_extents(job)
+                        if job.status in (
+                            jobs.JobStatus.DOWNLOADED,
+                            jobs.JobStatus.GENERATED_LOCALLY,
+                        ):
+                            extents_changed = _set_results_extents_if_missing(job)
+                        else:
+                            set_results_extents(job)
                     except (OSError, IOError, RuntimeError, MemoryError) as exc:
                         log(
                             f"Failed to set extents for job {job.id} during loading: {type(exc).__name__}: {exc}"
                         )
                     except Exception as exc:
-                        # Catch any other unexpected errors from extent calculation
                         log(
                             f"Unexpected error setting extents for job {job.id}: {type(exc).__name__}: {exc}"
                         )
 
-                    # Only include jobs that match the requested status
-                    if job.status == status:
-                        result.append(job)
+                    if extents_changed:
+                        try:
+                            self.write_job_metadata_file(job)
+                        except Exception as exc:
+                            log(
+                                f"Failed to persist extents for job {job.id}: {type(exc).__name__}: {exc}"
+                            )
+
+                    grouped.setdefault(job.status, []).append(job)
                 except (OSError, IOError, PermissionError) as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Failed to read file {job_metadata_path!r}: {exc}")
@@ -1801,22 +1817,39 @@ class JobManager(QtCore.QObject):
                             f"Unable to decode file {job_metadata_path!r} - validation error: {exc}"
                         )
                 except (ValueError, TypeError, AttributeError, MemoryError) as exc:
-                    # Catch additional errors that could cause crashes
                     log(
                         f"Error processing file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
                     )
                 except RuntimeError as exc:
                     log(f"Runtime error processing file {job_metadata_path!r}: {exc}")
             except (OSError, IOError, PermissionError) as exc:
-                # Handle file system errors
                 log(f"File system error accessing {job_metadata_path!r}: {exc}")
             except Exception as exc:
-                # Catch-all to prevent crashes from unexpected errors
                 log(
                     f"Unexpected error processing {job_metadata_path!r}: {type(exc).__name__}: {exc}"
                 )
 
-        return result
+        return grouped
+
+    def _get_local_jobs(self, status: jobs.JobStatus) -> typing.List[Job]:
+        """Return local jobs with the given *status*."""
+        base_dir = {
+            jobs.JobStatus.FINISHED: self.finished_jobs_dir,
+            jobs.JobStatus.FAILED: self.failed_jobs_dir,
+            jobs.JobStatus.RUNNING: self.running_jobs_dir,
+            jobs.JobStatus.PENDING: self.running_jobs_dir,
+            jobs.JobStatus.READY: self.running_jobs_dir,
+            jobs.JobStatus.CANCELLED: self.failed_jobs_dir,
+            jobs.JobStatus.DELETED: self.deleted_jobs_dir,
+            jobs.JobStatus.EXPIRED: self.expired_jobs_dir,
+            jobs.JobStatus.DOWNLOADED: self.datasets_dir,
+            jobs.JobStatus.GENERATED_LOCALLY: self.datasets_dir,
+        }[status]
+
+        if base_dir not in self._dir_job_cache:
+            self._dir_job_cache[base_dir] = self._load_jobs_from_dir(base_dir)
+
+        return list(self._dir_job_cache[base_dir].get(status, []))
 
     def _get_local_finished_jobs(self) -> typing.Dict[uuid.UUID, Job]:
         """Synchronize the in-memory cache and filesystem with regard to finished jobs.
@@ -1936,14 +1969,34 @@ class JobManager(QtCore.QObject):
         output_dir = output_path.parent
         output_dir.mkdir(parents=True, exist_ok=True)
         with output_path.open("w", encoding=self._encoding) as fh:
-            raw_job = Job.Schema().dump(job)
+            raw_job = _get_job_schema().dump(job)
             json.dump(raw_job, fh, indent=2)
+        # Invalidate cache for this directory so subsequent _get_local_jobs
+        # calls within the same refresh cycle see the updated file.
+        self._invalidate_dir_cache_for_path(output_path)
 
     def _remove_job_metadata_file(self, job: Job):
         old_path = self.get_job_file_path(job)
 
         if old_path.exists():
             old_path.unlink()  # not using the `missing_ok` param as it was introduced only in Python 3.8
+        # Invalidate cache for this directory so subsequent _get_local_jobs
+        # calls within the same refresh cycle don't return stale entries.
+        self._invalidate_dir_cache_for_path(old_path)
+
+    def _invalidate_dir_cache_for_path(self, file_path: Path):
+        """Remove cached directory scan results that contain *file_path*.
+
+        The cache is keyed by base directory (e.g. ``running_jobs_dir``,
+        ``datasets_dir``).  For most statuses the file sits directly inside
+        the base directory, so ``file_path.parent`` matches the cache key.
+        For DOWNLOADED / GENERATED_LOCALLY the file is one level deeper
+        (``datasets_dir/{job_id}/file.json``), so we also check the
+        grandparent.
+        """
+        self._dir_job_cache.pop(file_path.parent, None)
+        if file_path.parent != file_path.parent.parent:
+            self._dir_job_cache.pop(file_path.parent.parent, None)
 
     def _refresh_remote_jobs_by_status(self, remote_jobs: typing.List[Job]) -> None:
         """Update in-memory cache with READY, PENDING, and CANCELLED jobs from remote server"""
@@ -2232,10 +2285,11 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
     log(f"API returned {len(raw_jobs)} executions across {page} page(s)")
 
     remote_jobs = []
+    schema = _get_job_schema()
     log(f"Processing {len(raw_jobs)} raw jobs from API response")
     for raw_job in raw_jobs:
         try:
-            job = Job.Schema().load(raw_job)
+            job = schema.load(raw_job)
             job.script.run_mode = AlgorithmRunMode.REMOTE
 
             if job is not None:

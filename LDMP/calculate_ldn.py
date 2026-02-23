@@ -15,7 +15,7 @@
 import json
 import typing
 import weakref
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, fields
 from pathlib import Path
 
 import qgis.gui
@@ -103,13 +103,18 @@ class LDNPresetPeriod:
 
         # Route to appropriate subclass based on period_type
         if period_type == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-            return TrendsEarthPeriod(**data_copy)
+            target_cls = TrendsEarthPeriod
         elif period_type == ProductivityMode.JRC_5_CLASS_LPD.value:
-            return JRCPeriod(**data_copy)
+            target_cls = JRCPeriod
         elif period_type == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
-            return FAOWOCATPeriod(**data_copy)
+            target_cls = FAOWOCATPeriod
         else:
-            return cls(**data_copy)
+            target_cls = cls
+
+        # Filter to only known fields to handle legacy/extra keys gracefully
+        known_fields = {f.name for f in fields(target_cls)}
+        filtered = {k: v for k, v in data_copy.items() if k in known_fields}
+        return target_cls(**filtered)
 
 
 @dataclass
@@ -195,7 +200,10 @@ class LDNPreset:
             data["progress_periods"] = [
                 LDNPresetPeriod.from_dict(p) for p in data["progress_periods"]
             ]
-        return cls(**data)
+        # Filter to only known fields to handle legacy/extra keys gracefully
+        known_fields = {f.name for f in fields(cls)}
+        filtered = {k: v for k, v in data.items() if k in known_fields}
+        return cls(**filtered)
 
 
 class LDNPresetManager:

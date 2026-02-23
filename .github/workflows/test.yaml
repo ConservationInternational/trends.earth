@@ -86,3 +86,77 @@ jobs:
         with:
           name: docker-compose-logs-${{ matrix.qgis_version_tag }}
           path: docker-compose-logs.txt
+
+  # ── Informational: marshmallow 4.x (allowed to fail) ─────────────
+  test-marshmallow4:
+    name: "marshmallow 4 – QGIS ${{ matrix.qgis_version_tag }} (informational)"
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        qgis_version_tag:
+          - release-3_34
+          - release-3_36
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          submodules: recursive
+
+      - name: Preparing docker compose environment
+        env:
+          QGIS_VERSION_TAG: ${{ matrix.qgis_version_tag }}
+        run: |
+          cat << EOF > .env
+          QGIS_VERSION_TAG=${QGIS_VERSION_TAG}
+          IMAGE=${IMAGE}
+          ON_TRAVIS=true
+          MUTE_LOGS=${MUTE_LOGS}
+          WITH_PYTHON_PEP=${WITH_PYTHON_PEP}
+          EOF
+
+      - name: Start test stack
+        run: |
+          set -euxo pipefail
+          docker pull "${IMAGE}:${{ matrix.qgis_version_tag }}"
+          docker compose up -d
+          sleep 60
+          docker compose ps
+
+      - name: Install deps and upgrade marshmallow to 4.x
+        run: |
+          set -euxo pipefail
+          docker compose exec -T "${SERVICE}" sh -lc '
+            if ! command -v pip3 >/dev/null 2>&1; then
+              apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*
+            fi
+            python3 -m pip install --no-cache-dir -U pytest python-dotenv
+            python3 -m pip install --no-cache-dir "marshmallow>=4.2.2" "marshmallow-dataclass>=8.7.1"
+            python3 -c "import marshmallow; v=marshmallow.__version__; print(\"marshmallow\", v); assert int(v.split(\".\")[0]) >= 4"
+          '
+
+      - name: Run marshmallow compat tests
+        run: |
+          set -euxo pipefail
+          docker compose exec -T "${SERVICE}" sh -lc '
+            cd /tests_directory && python3 -m pytest test/test_marshmallow_compat.py -v --rootdir=/tests_directory --override-ini="pythonpath=test"
+          '
+
+      - name: Run full test suite
+        run: |
+          set -euxo pipefail
+          docker compose exec -T "${SERVICE}" sh -lc 'qgis_testrunner.sh test_suite.test_package'
+
+      - name: Tear down
+        if: always()
+        run: |
+          docker compose logs > docker-compose-logs.txt || true
+          docker compose down -v || true
+
+      - name: Upload logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-compose-logs-marshmallow4-${{ matrix.qgis_version_tag }}
+          path: docker-compose-logs.txt

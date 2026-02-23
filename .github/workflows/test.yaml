@@ -133,7 +133,7 @@ jobs:
             fi
             python3 -m pip install --no-cache-dir -U pytest python-dotenv
             python3 -m pip install --no-cache-dir "marshmallow>=4.2.2" "marshmallow-dataclass>=8.7.1"
-            python3 -c "import marshmallow; v=marshmallow.__version__; print(\"marshmallow\", v); assert int(v.split(\".\")[0]) >= 4"
+            python3 -c "from importlib.metadata import version; v=version(\"marshmallow\"); print(\"marshmallow\", v); assert int(v.split(\".\")[0]) >= 4"
           '
 
       - name: Run marshmallow compat tests

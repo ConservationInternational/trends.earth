@@ -26,6 +26,8 @@ def compute_total_carbon_summary_table(
     area_of_interest: areaofinterest.AOI,
     job_output_path: Path,
     dataset_output_path: Path,
+    progress_callback=None,
+    killed_callback=None,
 ) -> Job:
     # Load all datasets to VRTs (to select only the needed bands)
     f_loss_vrt = utils.save_vrt(

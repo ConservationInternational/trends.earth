@@ -20,6 +20,8 @@ def compute_urban_change_summary_table(
     area_of_interest: areaofinterest.AOI,
     job_output_path: Path,
     dataset_output_path: Path,
+    progress_callback=None,
+    killed_callback=None,
 ) -> Job:
     urban_files = []
 

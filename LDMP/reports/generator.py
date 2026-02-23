@@ -863,7 +863,7 @@ class ReportProcessHandlerTask(QgsTask):
     """
 
     def __init__(self, ctx_file_path: str, qgis_proc_path: str, description):
-        super().__init__(description)
+        super().__init__(description, QgsTask.CanCancel)
         self._ctx_file_path = ctx_file_path
         self._qgs_proc_path = qgis_proc_path
         self._process = None
@@ -875,40 +875,52 @@ class ReportProcessHandlerTask(QgsTask):
         """
         return self._ctx_file_path
 
+    def _kill_process(self):
+        """
+        Kill the qgis_process subprocess (non-blocking on Windows).
+        """
+        if self._process is None:
+            return
+
+        pid = self._process.pid
+        if os.name == "nt":
+            # Fire TASKKILL without waiting so the caller (which may be the
+            # main / UI thread) is not blocked.  The run() polling loop will
+            # detect the process exit on its next iteration.
+            subprocess.Popen(
+                f"TASKKILL /F /PID {pid} /T",
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+        else:
+            try:
+                os.kill(pid, signal.SIGKILL)
+            except ProcessLookupError:
+                # Process is already dead
+                pass
+
     def cancel(self):
         """
         Cancel the qgis_process.
-        """
-        if self._process is not None:
-            # Kill qgis_process associated with the given process id
-            pid = self._process.pid
-            if os.name == "nt":
-                # Create the TASKKILL subprocess and wait for it to complete
-                kill_process = subprocess.Popen(
-                    f"TASKKILL /F /PID {pid} /T",
-                    shell=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                )
-                # Wait for the kill command to complete to avoid ResourceWarning
-                try:
-                    kill_process.communicate(timeout=5)
-                except subprocess.TimeoutExpired:
-                    # If TASKKILL hangs, terminate it forcefully
-                    kill_process.kill()
-                    kill_process.communicate()
-            else:
-                try:
-                    os.kill(pid, signal.SIGKILL)
-                except ProcessLookupError:
-                    # Process is already dead
-                    pass
 
+        This is called from the main / UI thread, so it must return quickly
+        to avoid freezing QGIS (e.g. when the user quits while reports are
+        running).  The actual subprocess cleanup is handled by the run()
+        polling loop which will see isCanceled() == True.
+        """
+        self._kill_process()
         super().cancel()
 
     # How often (in seconds) to poll the subprocess and check for file
-    # system activity in the report output directory.
-    _POLL_INTERVAL_S = 5
+    # system activity in the report output directory.  We use a small
+    # granularity (0.5 s) so that cancellation requests are detected
+    # quickly – the inactivity / heartbeat logic still uses the previous
+    # 5-second cadence via _HEARTBEAT_INTERVAL_S.
+    _POLL_INTERVAL_S = 0.5
+
+    # How often (in seconds) to check for file-system heartbeat changes.
+    _HEARTBEAT_INTERVAL_S = 5
 
     # If no files are created or modified in the report output directory
     # for this many seconds the subprocess is considered stalled and will
@@ -962,6 +974,7 @@ class ReportProcessHandlerTask(QgsTask):
         report_dir = os.path.dirname(self._ctx_file_path)
         last_snapshot = self._dir_snapshot(report_dir)
         last_activity = time.monotonic()
+        last_heartbeat_check = time.monotonic()
 
         while True:
             retcode = self._process.poll()
@@ -969,20 +982,29 @@ class ReportProcessHandlerTask(QgsTask):
                 break
 
             if self.isCanceled():
+                self._kill_process()
+                # Give the process a moment to die, then move on
+                try:
+                    self._process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    pass
                 return False
 
-            current_snapshot = self._dir_snapshot(report_dir)
-            if current_snapshot != last_snapshot:
-                last_activity = time.monotonic()
-                last_snapshot = current_snapshot
+            now = time.monotonic()
+            if now - last_heartbeat_check >= self._HEARTBEAT_INTERVAL_S:
+                current_snapshot = self._dir_snapshot(report_dir)
+                if current_snapshot != last_snapshot:
+                    last_activity = now
+                    last_snapshot = current_snapshot
+                last_heartbeat_check = now
 
-            if time.monotonic() - last_activity > self._INACTIVITY_TIMEOUT_S:
+            if now - last_activity > self._INACTIVITY_TIMEOUT_S:
                 log(
                     f"Report generation inactivity timeout "
                     f"({self._INACTIVITY_TIMEOUT_S}s without any file "
                     f"changes in {report_dir}) \u2014 killing subprocess"
                 )
-                self._process.kill()
+                self._kill_process()
                 try:
                     self._process.wait(timeout=5)
                 except subprocess.TimeoutExpired:

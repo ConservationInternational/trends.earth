@@ -382,8 +382,12 @@ class LocalJobTask(QgsTask):
             job_output_path,
             dataset_output_path,
             self.setProgress,
-            self.cancel,
+            self.isCanceled,
         )
+
+        if self.isCanceled():
+            logger.debug("Task was cancelled")
+            return False
 
         if self.results is None:
             logger.debug("Completed run function - failure")

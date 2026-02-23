@@ -936,16 +936,25 @@ class JobManager(QtCore.QObject):
         message_bar.pushWidget(message_bar_item, Qgis.Info)
 
         def _set_progress_bar_value(value: float):
-            if value <= 100:
-                progress_bar.setValue(int(value))
+            try:
+                if value <= 100:
+                    progress_bar.setValue(int(value))
+            except RuntimeError:
+                pass  # C++ widget has been deleted
 
         def cancel_task():
-            job_task.cancel()
-            message_bar.close()
+            try:
+                job_task.cancel()
+                message_bar.close()
+            except RuntimeError:
+                pass  # C++ widget has been deleted
 
         def close_messages():
-            message_bar = iface.messageBar()
-            message_bar.popWidget(message_bar_item)
+            try:
+                message_bar = iface.messageBar()
+                message_bar.popWidget(message_bar_item)
+            except RuntimeError:
+                pass  # C++ widget has been deleted
 
         job_task.taskCompleted.connect(close_messages)
         cancel_button.clicked.connect(cancel_task)

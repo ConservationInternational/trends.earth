@@ -641,6 +641,13 @@ class APIClient(QtCore.QObject):
         return clean_payload
 
     def call_api(self, endpoint, method="get", payload=None, use_token=False):
+        return self._call_api_impl(
+            endpoint, method=method, payload=payload, use_token=use_token
+        )
+
+    def _call_api_impl(
+        self, endpoint, method="get", payload=None, use_token=False, _is_retry=False
+    ):
         token = None
         if use_token:
             token = self.login()
@@ -759,16 +766,22 @@ class APIClient(QtCore.QObject):
                 log(err_msg)
 
                 # If we get a 401 (Unauthorized) error and we're using a token,
-                # it might mean our token is invalid. Clear stored tokens to force fresh login.
+                # the token may be revoked, expired, or otherwise invalid.
+                # Clear stored tokens and retry once with a fresh login.
                 if status_code == 401 and use_token:
                     log("Received 401 error, clearing stored tokens for fresh login")
                     self._clear_stored_tokens()
 
-                """
-                iface.messageBar().pushCritical(
-                    "Trends.Earth", "Error: {} (status {}).".format(desc, status)
-                )
-                """
+                    if not _is_retry:
+                        log("Retrying API call with fresh authentication")
+                        return self._call_api_impl(
+                            endpoint,
+                            method=method,
+                            payload=payload,
+                            use_token=use_token,
+                            _is_retry=True,
+                        )
+
                 ret = None
         else:
             ret = None

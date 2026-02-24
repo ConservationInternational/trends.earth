@@ -7,6 +7,7 @@ import subprocess
 import time
 import traceback
 import typing
+from collections import deque
 from dataclasses import dataclass
 from uuid import uuid4
 
@@ -1025,7 +1026,11 @@ class ReportProcessHandlerTask(QgsTask):
 class ReportGeneratorManager(QObject):
     """
     Generates reports for single or multi-datasets based on custom layouts.
+    Uses a queue to limit the number of concurrently running report tasks
+    so that QGIS remains responsive (see issue #683).
     """
+
+    MAX_CONCURRENT_TASKS = 2
 
     task_running = pyqtSignal(str)
     task_completed = pyqtSignal(str)
@@ -1039,6 +1044,10 @@ class ReportGeneratorManager(QObject):
         self._submitted_tasks = {}
         self._submission_counter = {}
         self._ctx_file_paths = {}
+
+        # Queue for tasks that are waiting to be launched (FIFO)
+        self._pending_queue: deque[ReportTaskContext] = deque()
+
         QgsApplication.instance().taskManager().statusChanged.connect(
             self.on_task_status_changed
         )
@@ -1098,7 +1107,9 @@ class ReportGeneratorManager(QObject):
     def process_report_task(self, ctx: ReportTaskContext) -> bool:
         """
         Initiates report generation, emits 'task_started' signal and return
-        the submission result.
+        the submission result.  If the maximum number of concurrent tasks
+        has been reached the context is placed in a pending queue and will
+        be launched automatically when a running task finishes.
         """
         # If task has already been run many times then return (as there is
         # likely an error leading to a failure when generating the report)
@@ -1109,8 +1120,8 @@ class ReportGeneratorManager(QObject):
             )
             return False
         self._submission_counter[ctx] += 1
-        # If task is already in list of submissions then return
-        if self.is_task_running(ctx):
+        # If task is already running or already queued then return
+        if self.is_task_running(ctx) or self.is_task_queued(ctx):
             return False
 
         # Assert if qgis_process path could be found
@@ -1121,6 +1132,21 @@ class ReportGeneratorManager(QObject):
             self._push_warning_message(f"'qgis_process' {tr_msg}")
             return False
 
+        # If at capacity, queue the task for later execution
+        if len(self._submitted_tasks) >= self.MAX_CONCURRENT_TASKS:
+            self._pending_queue.append(ctx)
+            report_tr = self.tr("reports")
+            ctx_display_name = f"{ctx.display_name()} {report_tr}"
+            tr_msg = self.tr("queued (waiting for a free worker slot)")
+            self._push_info_message(f"{ctx_display_name} {tr_msg}")
+            return True
+
+        return self._launch_task(ctx)
+
+    def _launch_task(self, ctx: ReportTaskContext) -> bool:
+        """
+        Actually creates and submits the QgsTask to the QGIS task manager.
+        """
         if len(ctx.jobs) == 1:
             file_suffix = str(ctx.jobs[0].id)
         else:
@@ -1176,6 +1202,10 @@ class ReportGeneratorManager(QObject):
 
         return True
 
+    def is_task_queued(self, ctx: ReportTaskContext) -> bool:
+        """Check whether the context is already in the pending queue."""
+        return ctx in self._pending_queue
+
     def handler_task_from_context(self, ctx: ReportTaskContext) -> QgsTask:
         # Retrieves the handler task corresponding to the given context.
         task_id = self._submitted_tasks.get(ctx, -1)
@@ -1221,6 +1251,21 @@ class ReportGeneratorManager(QObject):
 
         return ctxs[0]
 
+    def _drain_queue(self):
+        """
+        Launch pending tasks from the queue until the concurrency limit is
+        reached again or the queue is empty.
+        """
+        while (
+            self._pending_queue
+            and len(self._submitted_tasks) < self.MAX_CONCURRENT_TASKS
+        ):
+            next_ctx = self._pending_queue.popleft()
+            # Skip contexts that have been overrun while waiting in the queue
+            if self.is_task_overrun(next_ctx):
+                continue
+            self._launch_task(next_ctx)
+
     def on_task_status_changed(self, task_id: int, status: QgsTask.TaskStatus):
         # Slot raised when the status of a task has changed.
         ctx = self.task_context_by_id(task_id)
@@ -1245,6 +1290,14 @@ class ReportGeneratorManager(QObject):
 
             # Emit task_completed signal
             self.task_completed.emit(ctx.id())
+
+            # Launch next queued task(s) if any
+            self._drain_queue()
+
+        elif status == QgsTask.Terminated:
+            # Also free up the slot when a task fails / is cancelled
+            self.remove_task_context(ctx)
+            self._drain_queue()
 
 
 report_generator_manager = ReportGeneratorManager()

@@ -2232,6 +2232,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         "low_biomass": low_biomass,
                         "high_biomass": high_biomass,
                         "years_interval": years_interval,
+                        "modis_mode": "MannKendal + MTID",
                         "year_initial": widgets.year_initial_prod.date().year(),
                         "year_final": widgets.year_final_prod.date().year(),
                     }

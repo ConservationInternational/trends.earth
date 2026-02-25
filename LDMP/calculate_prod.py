@@ -335,6 +335,22 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         )
 
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+            # Validate climate dataset is provided when trajectory method requires it
+            current_trajectory_function = self.trajectory_functions[
+                self.traj_indic.currentText()
+            ]
+            traj_method = current_trajectory_function["params"]["trajectory_method"]
+            if traj_method != "ndvi_trend" and climate_gee_dataset is None:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "The selected trajectory method requires a climate dataset. "
+                        "Please select a climate dataset before submitting."
+                    ),
+                )
+                return
+
             # Validate trajectory period if trajectory is selected
             # (trajectory uses Mann-Kendall test which requires at least 4 years)
             if self.groupBox_traj.isChecked():
@@ -357,12 +373,6 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
             payload["crs"] = self.aoi.get_crs_dst_wkt()
 
-            # This will add in the trajectory-method parameter for productivity
-            # trajectory
-            current_trajectory_function = self.trajectory_functions[
-                self.traj_indic.currentText()
-            ]
-
             payload["productivity"] = {
                 "mode": prod_mode,
                 "calc_traj": self.groupBox_traj.isChecked(),
@@ -378,9 +388,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                 "state_year_tg_end": self.state_year_tg_end.date().year(),
                 "ndvi_gee_dataset": ndvi_dataset,
                 "climate_gee_dataset": climate_gee_dataset,
-                "trajectory_method": current_trajectory_function["params"][
-                    "trajectory_method"
-                ],
+                "trajectory_method": traj_method,
             }
         elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
             # Validate FAO WOCAT period (also uses Mann-Kendall test)
@@ -424,6 +432,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             prod_asset = prod_dataset["GEE Dataset"]
             prod_start_year = prod_dataset["Start year"]
             prod_end_year = prod_dataset["End year"]
+            payload["crs"] = self.aoi.get_crs_dst_wkt()
             payload["productivity"] = {
                 "mode": prod_mode,
                 "asset": prod_asset,

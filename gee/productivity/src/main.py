@@ -24,7 +24,8 @@ from te_schemas.productivity import ProductivityMode
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    prod_mode = params.get("prod_mode")
+    productivity = params.get("productivity")
+    prod_mode = productivity.get("mode")
     geojsons = json.loads(params.get("geojsons"))
     crs = params.get("crs")
 
@@ -39,20 +40,20 @@ def run(params, logger):
     logger.debug("Running productivity indicators.")
 
     if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-        calc_traj = params.get("calc_traj")
-        calc_state = params.get("calc_state")
-        calc_perf = params.get("calc_perf")
-        prod_traj_year_initial = int(params.get("prod_traj_year_initial"))
-        prod_traj_year_final = int(params.get("prod_traj_year_final"))
-        prod_perf_year_initial = int(params.get("prod_perf_year_initial"))
-        prod_perf_year_final = int(params.get("prod_perf_year_final"))
-        prod_state_year_bl_start = int(params.get("prod_state_year_bl_start"))
-        prod_state_year_bl_end = int(params.get("prod_state_year_bl_end"))
-        prod_state_year_tg_start = int(params.get("prod_state_year_tg_start"))
-        prod_state_year_tg_end = int(params.get("prod_state_year_tg_end"))
-        prod_traj_method = params.get("trajectory_method")
-        ndvi_gee_dataset = params.get("ndvi_gee_dataset")
-        climate_gee_dataset = params.get("climate_gee_dataset")
+        calc_traj = productivity.get("calc_traj", True)
+        calc_state = productivity.get("calc_state", True)
+        calc_perf = productivity.get("calc_perf", True)
+        traj_year_initial = int(productivity.get("traj_year_initial"))
+        traj_year_final = int(productivity.get("traj_year_final"))
+        perf_year_initial = int(productivity.get("perf_year_initial"))
+        perf_year_final = int(productivity.get("perf_year_final"))
+        state_year_bl_start = int(productivity.get("state_year_bl_start"))
+        state_year_bl_end = int(productivity.get("state_year_bl_end"))
+        state_year_tg_start = int(productivity.get("state_year_tg_start"))
+        state_year_tg_end = int(productivity.get("state_year_tg_end"))
+        trajectory_method = productivity.get("trajectory_method")
+        ndvi_gee_dataset = productivity.get("ndvi_gee_dataset")
+        climate_gee_dataset = productivity.get("climate_gee_dataset")
 
         # Calculate productivity components globally (not per geojson) for unified percentiles
         global_output = None
@@ -61,9 +62,9 @@ def run(params, logger):
         if calc_traj:
             logger.debug("Calculating productivity trajectory...")
             traj = productivity_trajectory(
-                int(prod_traj_year_initial),
-                int(prod_traj_year_final),
-                prod_traj_method,
+                traj_year_initial,
+                traj_year_final,
+                trajectory_method,
                 ndvi_gee_dataset,
                 climate_gee_dataset,
                 logger,
@@ -75,8 +76,8 @@ def run(params, logger):
                 "Calculating productivity performance with unified percentiles across all geojsons..."
             )
             perf = productivity_performance(
-                prod_perf_year_initial,
-                prod_perf_year_final,
+                perf_year_initial,
+                perf_year_final,
                 ndvi_gee_dataset,
                 geojsons,  # Pass all geojsons for unified percentile calculation
                 logger,
@@ -90,10 +91,10 @@ def run(params, logger):
         if calc_state:
             logger.debug("Calculating productivity state...")
             state = productivity_state(
-                prod_state_year_bl_start,
-                prod_state_year_bl_end,
-                prod_state_year_tg_start,
-                prod_state_year_tg_end,
+                state_year_bl_start,
+                state_year_bl_end,
+                state_year_tg_start,
+                state_year_tg_end,
                 ndvi_gee_dataset,
                 logger,
             )
@@ -117,14 +118,14 @@ def run(params, logger):
         )
 
     elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
-        data_source = params.get("data_source", "Joint Research Commission (JRC)")
+        data_source = productivity.get("data_source", "Joint Research Commission (JRC)")
         if data_source == "Joint Research Commission (JRC)":
             lpd_layer_name = config.JRC_LPD_BAND_NAME
         else:
             lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
-        prod_asset = params.get("prod_asset")
-        year_initial = params.get("year_initial")
-        year_final = params.get("year_final")
+        prod_asset = productivity.get("asset")
+        year_initial = productivity.get("year_initial")
+        year_final = productivity.get("year_final")
         out = download(prod_asset, lpd_layer_name, "one time", None, None, logger)
         proj = ee.Image(prod_asset).projection()
         assert len(out.images) == 1, "multiple bands returned - should be 1"
@@ -137,17 +138,17 @@ def run(params, logger):
         )
         return out.export(geojsons, "productivity", crs, logger, EXECUTION_ID, proj)
     elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
-        ndvi_gee_dataset = params.get("ndvi_gee_dataset")
-        low_biomass = float(params.get("low_biomass"))
-        high_biomass = float(params.get("high_biomass"))
-        years_interval = int(params.get("years_interval"))
-        year_start = int(params.get("year_start"))
-        year_final = int(params.get("year_final"))
-        modis_mode = params.get("modis_mode")
+        ndvi_gee_dataset = productivity.get("ndvi_gee_dataset")
+        low_biomass = float(productivity.get("low_biomass"))
+        high_biomass = float(productivity.get("high_biomass"))
+        years_interval = int(productivity.get("years_interval"))
+        year_initial = int(productivity.get("year_initial"))
+        year_final = int(productivity.get("year_final"))
+        modis_mode = productivity.get("modis_mode")
 
         logger.debug(
-            "Running FAO‑WOCAT algorithm "
-            f"({year_start}–{year_final}) using {ndvi_gee_dataset}"
+            "Running FAO\u2011WOCAT algorithm "
+            f"({year_initial}\u2013{year_final}) using {ndvi_gee_dataset}"
         )
 
         res = []
@@ -160,7 +161,7 @@ def run(params, logger):
                     modis_mode=modis_mode,
                     prod_asset=ndvi_gee_dataset,
                     logger=logger,
-                    year_initial=year_start,
+                    year_initial=year_initial,
                     year_final=year_final,
                 )
 

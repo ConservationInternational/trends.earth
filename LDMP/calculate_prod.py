@@ -355,31 +355,33 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                     )
                     return
 
-            payload.update(
-                {
-                    "prod_mode": prod_mode,
-                    "calc_traj": self.groupBox_traj.isChecked(),
-                    "calc_perf": self.groupBox_perf.isChecked(),
-                    "calc_state": self.groupBox_state.isChecked(),
-                    "prod_traj_year_initial": self.traj_year_start.date().year(),
-                    "prod_traj_year_final": self.traj_year_end.date().year(),
-                    "prod_perf_year_initial": self.perf_year_start.date().year(),
-                    "prod_perf_year_final": self.perf_year_end.date().year(),
-                    "prod_state_year_bl_start": self.state_year_bl_start.date().year(),
-                    "prod_state_year_bl_end": self.state_year_bl_end.date().year(),
-                    "prod_state_year_tg_start": self.state_year_tg_start.date().year(),
-                    "prod_state_year_tg_end": self.state_year_tg_end.date().year(),
-                    "crs": self.aoi.get_crs_dst_wkt(),
-                    "ndvi_gee_dataset": ndvi_dataset,
-                    "climate_gee_dataset": climate_gee_dataset,
-                }
-            )
+            payload["crs"] = self.aoi.get_crs_dst_wkt()
+
             # This will add in the trajectory-method parameter for productivity
             # trajectory
             current_trajectory_function = self.trajectory_functions[
                 self.traj_indic.currentText()
             ]
-            payload.update(current_trajectory_function["params"])
+
+            payload["productivity"] = {
+                "mode": prod_mode,
+                "calc_traj": self.groupBox_traj.isChecked(),
+                "calc_perf": self.groupBox_perf.isChecked(),
+                "calc_state": self.groupBox_state.isChecked(),
+                "traj_year_initial": self.traj_year_start.date().year(),
+                "traj_year_final": self.traj_year_end.date().year(),
+                "perf_year_initial": self.perf_year_start.date().year(),
+                "perf_year_final": self.perf_year_end.date().year(),
+                "state_year_bl_start": self.state_year_bl_start.date().year(),
+                "state_year_bl_end": self.state_year_bl_end.date().year(),
+                "state_year_tg_start": self.state_year_tg_start.date().year(),
+                "state_year_tg_end": self.state_year_tg_end.date().year(),
+                "ndvi_gee_dataset": ndvi_dataset,
+                "climate_gee_dataset": climate_gee_dataset,
+                "trajectory_method": current_trajectory_function["params"][
+                    "trajectory_method"
+                ],
+            }
         elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
             # Validate FAO WOCAT period (also uses Mann-Kendall test)
             fao_years = (
@@ -403,19 +405,17 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             spin = self.period_interval.findChild(QSpinBox, "spinBox")
             years_interval = spin.value() if spin is not None else 3
 
-            payload.update(
-                {
-                    "prod_mode": prod_mode,
-                    "low_biomass": self.low_value_spinbox.value(),
-                    "high_biomass": self.high_value_spinbox.value(),
-                    "years_interval": years_interval,
-                    "year_start": self.fao_wocat_year_start.date().year(),
-                    "year_final": self.fao_wocat_year_end.date().year(),
-                    "crs": self.aoi.get_crs_dst_wkt(),
-                    "ndvi_gee_dataset": ndvi_dataset,
-                    "modis_mode": modis_mode,
-                }
-            )
+            payload["crs"] = self.aoi.get_crs_dst_wkt()
+            payload["productivity"] = {
+                "mode": prod_mode,
+                "low_biomass": self.low_value_spinbox.value(),
+                "high_biomass": self.high_value_spinbox.value(),
+                "years_interval": years_interval,
+                "year_initial": self.fao_wocat_year_start.date().year(),
+                "year_final": self.fao_wocat_year_end.date().year(),
+                "ndvi_gee_dataset": ndvi_dataset,
+                "modis_mode": modis_mode,
+            }
         elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
             prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
                 self.combo_lpd.currentText()
@@ -424,15 +424,13 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             prod_asset = prod_dataset["GEE Dataset"]
             prod_start_year = prod_dataset["Start year"]
             prod_end_year = prod_dataset["End year"]
-            payload.update(
-                {
-                    "prod_mode": prod_mode,
-                    "prod_asset": prod_asset,
-                    "year_initial": prod_start_year,
-                    "year_final": prod_end_year,
-                    "data_source": prod_data_source,
-                }
-            )
+            payload["productivity"] = {
+                "mode": prod_mode,
+                "asset": prod_asset,
+                "year_initial": prod_start_year,
+                "year_final": prod_end_year,
+                "data_source": prod_data_source,
+            }
         else:
             raise ValueError("Unknown prod_mode {prod_mode}")
 

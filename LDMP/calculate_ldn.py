@@ -1460,7 +1460,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         perf_year_final = year_final_prod
 
         return {
-            "traj_method": traj_method,
+            "trajectory_method": traj_method,
             "traj_year_initial": traj_year_initial,
             "traj_year_final": traj_year_final,
             "state_year_bl_start": state_year_bl_start,
@@ -2176,11 +2176,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
                 payload["productivity"].update(
                     {
-                        "asset_productivity": conf.REMOTE_DATASETS["NDVI"][
+                        "ndvi_gee_dataset": conf.REMOTE_DATASETS["NDVI"][
                             "MODIS (MOD13Q1, annual)"
                         ]["GEE Dataset"],
                         **trends_earth_params,
-                        "asset_climate": None,
+                        "climate_gee_dataset": None,
                     }
                 )
             elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:

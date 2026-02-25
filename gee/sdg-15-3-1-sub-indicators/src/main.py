@@ -168,7 +168,7 @@ def run_te_for_period(params, EXECUTION_ID, logger):
     proj = ee.ImageCollection(params["population"]["asset"]).toBands().projection()
 
     prod_params = params.get("productivity")
-    prod_asset = prod_params.get("asset_productivity")
+    prod_asset = prod_params.get("ndvi_gee_dataset")
     all_geojsons = params.get("geojsons")
 
     logger.debug(f"Using unified percentiles across {len(all_geojsons)} geojson areas")
@@ -176,9 +176,9 @@ def run_te_for_period(params, EXECUTION_ID, logger):
     out = productivity_trajectory(
         prod_params.get("traj_year_initial"),
         prod_params.get("traj_year_final"),
-        prod_params.get("traj_method"),
+        prod_params.get("trajectory_method"),
         prod_asset,
-        prod_params.get("asset_climate"),
+        prod_params.get("climate_gee_dataset"),
         logger,
     )
 

@@ -176,11 +176,24 @@ def worker_killed(result, thread, worker, iface, message_bar_item):
 
 
 def _pop_message_bar_widget(message_bar, widget):
-    """Thread-safe wrapper around message_bar.popWidget(widget)."""
+    """Thread-safe wrapper around message_bar.popWidget(widget).
+
+    Guards against the underlying C++ QgsMessageBarItem having already
+    been deleted (e.g. the user dismissed the message bar, or QGIS
+    cleaned it up before the worker thread finished).
+    """
+
+    def _do_pop():
+        try:
+            message_bar.popWidget(widget)
+        except RuntimeError:
+            # C++ object already deleted, safe to ignore
+            pass
+
     if QtCore.QThread.currentThread() == QtCore.QCoreApplication.instance().thread():
-        message_bar.popWidget(widget)
+        _do_pop()
     else:
-        QtCore.QTimer.singleShot(0, lambda: message_bar.popWidget(widget))
+        QtCore.QTimer.singleShot(0, _do_pop)
 
 
 def worker_finished(result, thread, worker, iface, message_bar_item):

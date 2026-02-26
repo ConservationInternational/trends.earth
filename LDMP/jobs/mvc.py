@@ -634,9 +634,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.main_dock.resume_scheduler()
 
     def show_metadata(self, file_path):
+        if not self.is_widget_valid():
+            return
         self.main_dock.pause_scheduler()
         ds_metadata = metadata.read_qmd(file_path)
-        dlg = metadata_dialog.DlgDatasetMetadata(self)
+        dlg = metadata_dialog.DlgDatasetMetadata(iface.mainWindow())
         dlg.set_metadata(ds_metadata)
         dlg.exec_()
         ds_metadata = dlg.get_metadata()

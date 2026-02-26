@@ -1023,6 +1023,12 @@ class JobManager(QtCore.QObject):
         # Download each result
         all_downloads_successful = True
         for result in results_list:
+            if not hasattr(result, "type"):
+                log(
+                    f"Skipping unrecognized result (raw dict or missing type) "
+                    f"for job {job.id}: {result!r}"
+                )
+                continue
             handler = {
                 ResultType.RASTER_RESULTS: self._download_cloud_results,
                 ResultType.TIME_SERIES_TABLE: self._download_timeseries_table,

@@ -3,7 +3,6 @@ Code for calculating all three SDG 15.3.1 sub-indicators.
 """
 
 # Copyright 2017 Conservation International
-import hashlib
 import json
 import os
 import random
@@ -17,7 +16,6 @@ from te_algorithms.gdal.land_deg.land_deg_recode import (
     rasterize_error_recode,
     recode_errors,
 )
-from te_algorithms.gdal.land_deg.land_deg_stats import calculate_statistics
 from te_schemas import algorithms
 from te_schemas.aoi import AOI
 from te_schemas.error_recode import ErrorRecodePolygons
@@ -53,14 +51,6 @@ _band_key = {
 }
 
 
-def _hash_band(band: Dict) -> str:
-    """Generate a unique hash for a band based on its properties."""
-    return hashlib.md5(
-        f"{band['name']}_{band['index']}_"
-        f"{json.dumps(band.get('metadata', {}), sort_keys=True)}".encode()
-    ).hexdigest()
-
-
 def _band_to_dict(band) -> Dict:
     """Convert a Band object to a dictionary format.
 
@@ -77,135 +67,6 @@ def _band_to_dict(band) -> Dict:
         "add_to_map": getattr(band, "add_to_map", False),
         "activated": getattr(band, "activated", False),
     }
-
-
-def _calculate_image_wide_crosstabs(input_job, aoi, periods_to_process, logger):
-    """
-    Calculate crosstab statistics for the entire image area.
-
-    Args:
-        input_job: The job containing the recoded raster data
-        aoi: Area of interest geometry
-        periods_to_process: Dictionary of periods and their band information
-        logger: Logger instance
-
-    Returns:
-        List of crosstab dictionaries for baseline-to-reporting period combinations
-    """
-    logger.debug("Calculating image-wide crosstab statistics for error recoded data")
-
-    crosstabs = []
-
-    # Only calculate crosstabs between baseline and reporting periods
-    if "baseline" not in periods_to_process:
-        logger.warning("No baseline period found, cannot calculate crosstabs")
-        return crosstabs
-
-    baseline_period = periods_to_process["baseline"]
-
-    for period_name, period_data in periods_to_process.items():
-        if period_name == "baseline":
-            continue  # Skip baseline vs baseline
-
-        logger.debug(f"Calculating crosstab: baseline vs {period_name}")
-
-        # Build band_datas dictionary for this crosstab pair
-        baseline_band_info = {
-            "name": baseline_period["band"].name,
-            "index": baseline_period["band_number"],
-            "metadata": baseline_period["band"].metadata
-            if hasattr(baseline_period["band"], "metadata")
-            else {},
-        }
-
-        period_band_info = {
-            "name": period_data["band"].name,
-            "index": period_data["band_number"],
-            "metadata": period_data["band"].metadata
-            if hasattr(period_data["band"], "metadata")
-            else {},
-        }
-
-        baseline_hash = _hash_band(baseline_band_info)
-        period_hash = _hash_band(period_band_info)
-
-        band_datas = {
-            baseline_hash: baseline_band_info,
-            period_hash: period_band_info,
-        }
-
-        # Create a single polygon covering the entire AOI for image-wide analysis
-        aoi_polygon_dict = {
-            "type": "FeatureCollection",
-            "features": [
-                {
-                    "type": "Feature",
-                    "properties": {
-                        "uuid": "image_wide_analysis",
-                    },
-                    "geometry": aoi.geojson["features"][0][
-                        "geometry"
-                    ],  # Use AOI geometry
-                }
-            ],
-        }
-
-        # Prepare parameters for calculate_statistics
-        stats_params = {
-            "path": str(input_job.results.uri.uri),
-            "band_datas": band_datas,
-            "polygons": aoi_polygon_dict,
-            "crosstabs": [(baseline_hash, period_hash)],
-        }
-
-        try:
-            stats_result = calculate_statistics(stats_params)
-
-            # Extract crosstab data and convert to the desired format
-            if (
-                hasattr(stats_result, "data")
-                and stats_result.data
-                and "stats" in stats_result.data
-                and "image_wide_analysis" in stats_result.data["stats"]
-                and "crosstabs" in stats_result.data["stats"]["image_wide_analysis"]
-            ):
-                crosstab_data = stats_result.data["stats"]["image_wide_analysis"][
-                    "crosstabs"
-                ][0]
-
-                # Convert from area_ha to area_km2 and format for report
-                crosstab_formatted = {
-                    "from_period": "baseline",
-                    "to_period": period_name,
-                    "total_area_km2": round(
-                        crosstab_data["total_area_ha"] / 100, 3
-                    ),  # Convert ha to km2
-                    "transitions": {},
-                }
-
-                # Process the crosstab matrix and convert to km2
-                for from_class, to_classes in crosstab_data["crosstab"].items():
-                    crosstab_formatted["transitions"][from_class] = {}
-                    for to_class, stats in to_classes.items():
-                        crosstab_formatted["transitions"][from_class][to_class] = {
-                            "area_km2": round(
-                                stats["area_ha"] / 100, 3
-                            ),  # Convert ha to km2
-                            "area_pct": round(stats["area_pct"], 2),
-                        }
-
-                crosstabs.append(crosstab_formatted)
-                logger.debug(
-                    f"Successfully calculated crosstab for baseline vs {period_name}"
-                )
-
-        except Exception as e:
-            logger.warning(
-                f"Failed to calculate crosstab for baseline vs {period_name}: {e}"
-            )
-            continue
-
-    return crosstabs
 
 
 def _recode_band(
@@ -549,45 +410,6 @@ def calculate_error_recode(
             include_polygon_geojson,
         )
 
-        # Generate crosstab statistics between baseline and all reporting periods
-        # that were affected by recoding (directly or indirectly).
-        # Baseline is always loaded in periods_to_process, so we always have it
-        # available for crosstab computation even if it wasn't recoded itself.
-        crosstab_data = None
-        reporting_periods_in_output = {p for p in periods_to_output if p != "baseline"}
-
-        if reporting_periods_in_output:
-            logger.info(
-                "Calculating image-wide crosstab statistics for error recoded data"
-            )
-            # Include baseline (always available) plus all reporting periods in output
-            periods_for_crosstab = {"baseline": periods_to_process["baseline"]}
-            periods_for_crosstab.update(
-                {
-                    k: v
-                    for k, v in periods_to_process.items()
-                    if k in reporting_periods_in_output
-                }
-            )
-            try:
-                crosstab_data = _calculate_image_wide_crosstabs(
-                    input_job, aoi, periods_for_crosstab, logger
-                )
-
-                if crosstab_data:
-                    logger.debug(
-                        f"Successfully calculated {len(crosstab_data)} crosstab(s)"
-                    )
-                else:
-                    logger.warning("No crosstab data generated")
-
-            except Exception as e:
-                logger.exception(f"Failed to calculate crosstab statistics: {e}")
-        else:
-            logger.debug(
-                "Skipping crosstab calculation - no reporting periods in output"
-            )
-
         # Convert results to dictionary format using marshmallow Schema serialization
         # Handle both single results and list of results (when include_polygon_geojson is True)
         if isinstance(results, list):
@@ -604,29 +426,13 @@ def calculate_error_recode(
                     results_list.append(JsonResults.Schema().dump(result))
                 else:
                     logger.warning(f"Unknown result type in list: {type(result)}")
-            results_dict = raster_results  # Use raster for crosstab addition
             final_results = results_list
         elif isinstance(results, RasterResults):
-            results_dict = RasterResults.Schema().dump(results)
-            final_results = results_dict
+            final_results = RasterResults.Schema().dump(results)
         elif isinstance(results, JsonResults):
-            results_dict = JsonResults.Schema().dump(results)
-            final_results = results_dict
+            final_results = JsonResults.Schema().dump(results)
         else:
             raise Exception("Unknown results type")
-
-        # Add crosstab data to the report section if available
-        if crosstab_data and len(crosstab_data) > 0:
-            if "data" not in results_dict:
-                results_dict["data"] = {}
-            if "report" not in results_dict["data"]:
-                results_dict["data"]["report"] = {}
-
-            # Add crosstabs to the report structure
-            results_dict["data"]["report"]["crosstabs"] = crosstab_data
-            logger.debug(
-                f"Successfully added {len(crosstab_data)} crosstab(s) to results report"
-            )
 
         logger.debug("calculate_error_recode function finished, returning results.")
         return final_results

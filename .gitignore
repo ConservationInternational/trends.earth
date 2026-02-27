@@ -62,3 +62,5 @@ LDMP/data/boundary_*.json
 LDMP/data/server_check_*.json
 invoke*.yaml
 transifex_token.txt
+notebooks/error_polygons_*.geojson
+notebooks/error_recode_results_*.json

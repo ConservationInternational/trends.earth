@@ -220,57 +220,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="671"/>
+        <location filename="../jobs/mvc.py" line="673"/>
         <source>Add default layers from this dataset to map</source>
         <translation>将此数据集中的默认图层添加到地图</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="675"/>
+        <location filename="../jobs/mvc.py" line="677"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation>从此数据集中选择特定图层以添加到地图......</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="712"/>
+        <location filename="../jobs/mvc.py" line="714"/>
         <source>Time series table is empty</source>
         <translation>时间序列表为空</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="729"/>
+        <location filename="../jobs/mvc.py" line="731"/>
         <source>Time Series</source>
         <translation>时间序列</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="740"/>
+        <location filename="../jobs/mvc.py" line="742"/>
         <source>Time</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="741"/>
+        <location filename="../jobs/mvc.py" line="743"/>
         <source>Integrated NDVI</source>
         <translation>综合 NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="741"/>
+        <location filename="../jobs/mvc.py" line="743"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="987"/>
+        <location filename="../jobs/mvc.py" line="989"/>
         <source>Dataset metadata</source>
         <translation>数据集元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="996"/>
+        <location filename="../jobs/mvc.py" line="998"/>
         <source>{} metadata</source>
         <translation>{} 元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1020"/>
+        <location filename="../jobs/mvc.py" line="1022"/>
         <source>Add vector layer to map</source>
         <translation>将矢量图层添加到地图</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1024"/>
+        <location filename="../jobs/mvc.py" line="1026"/>
         <source>Add raster layers to map</source>
         <translation>将栅格图层添加到地图</translation>
     </message>
@@ -587,7 +587,7 @@
 <context>
     <name>DlgAdvancedSettingsProgressPeriod</name>
     <message>
-        <location filename="../calculate_ldn.py" line="2720"/>
+        <location filename="../calculate_ldn.py" line="2721"/>
         <source>Error</source>
         <translation type="unfinished">错误</translation>
     </message>
@@ -597,17 +597,17 @@
         <translation type="obsolete">您必须先选择{layer_name}图层，然后才能使用 SDG 计算工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2633"/>
+        <location filename="../calculate_ldn.py" line="2634"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation type="unfinished">感兴趣区域并不完全在{check_layer_name}层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2711"/>
+        <location filename="../calculate_ldn.py" line="2712"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished">{model_layer_name}层和{check_layer_name}层的分辨率不匹配。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2720"/>
+        <location filename="../calculate_ldn.py" line="2721"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished">{model_layer_name}层和{check_layer_name}层的坐标系不匹配。</translation>
     </message>
@@ -1094,12 +1094,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;此工具支持重新计算指标层以纠正已知错误（假阳性或假阴性）。&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2968"/>
+        <location filename="../calculate_ldn.py" line="2969"/>
         <source>Coming soon!</source>
         <translation>快来了！</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2968"/>
+        <location filename="../calculate_ldn.py" line="2969"/>
         <source>This function coming soon!</source>
         <translation>此功能即将推出！</translation>
     </message>
@@ -1267,7 +1267,7 @@ p, li { white-space: pre-wrap; }
         <translation>与已执行任务相关的用户注释。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2389"/>
+        <location filename="../calculate_ldn.py" line="2390"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation>该地区没有可用的数据集（请参阅高级）</translation>
     </message>
@@ -1642,12 +1642,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2294"/>
+        <location filename="../calculate_ldn.py" line="2295"/>
         <source>Error</source>
         <translation type="unfinished">错误</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2294"/>
+        <location filename="../calculate_ldn.py" line="2295"/>
         <source>Final year of the productivity data ({year_final}) must be within three years of the years for which population data is available from the WorldPop dataset ({pop_start_year}-{pop_end_year}).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1799,7 +1799,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2258"/>
+        <location filename="../calculate_ldn.py" line="2259"/>
         <source>SOC analysis cannot start before the baseline year {SOC_MIN_YEAR}. The selected initial year for the {period} period is {soc_year_initial}. Please select an initial year &gt;= {SOC_MIN_YEAR}.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1927,7 +1927,7 @@ p, li { white-space: pre-wrap; }
         <translation>比较期</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="390"/>
+        <location filename="../calculate_prod.py" line="400"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -2023,13 +2023,18 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="346"/>
+        <location filename="../calculate_prod.py" line="362"/>
         <source>Productivity trajectory requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The selected period ({self.traj_year_start.date().year()} - {self.traj_year_end.date().year()}) only spans {traj_years} years. Please select a longer time period.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="390"/>
+        <location filename="../calculate_prod.py" line="400"/>
         <source>FAO WOCAT land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The selected period ({self.fao_wocat_year_start.date().year()} - {self.fao_wocat_year_end.date().year()}) only spans {fao_years} years. Please select a longer time period.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="344"/>
+        <source>The selected trajectory method requires a climate dataset. Please select a climate dataset before submitting.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4821,7 +4826,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="926"/>
+        <location filename="../jobs/manager.py" line="930"/>
         <source>Processing: {task_name}</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5194,29 +5199,34 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportGeneratorManager</name>
     <message>
-        <location filename="../reports/generator.py" line="1036"/>
+        <location filename="../reports/generator.py" line="1067"/>
         <source>Report Status</source>
         <translation>报告状态</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1066"/>
+        <location filename="../reports/generator.py" line="1097"/>
         <source>Cannot process report due to write permission to</source>
         <translation>由于写入权限，无法处理报告</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1096"/>
+        <location filename="../reports/generator.py" line="1129"/>
         <source>could not be found in your system. Unable to run the report generator.</source>
         <translation>在您的系统中找不到。无法运行报告生成器。</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1110"/>
+        <location filename="../reports/generator.py" line="1158"/>
         <source>reports</source>
         <translation>报告</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1124"/>
+        <location filename="../reports/generator.py" line="1172"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
         <translation>正在处理(编号{[str(工作.编号) for 工作 in ctx.工作]})...</translation>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="1140"/>
+        <source>queued (waiting for a free worker slot)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5255,17 +5265,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportTaskProcessor</name>
     <message>
-        <location filename="../reports/generator.py" line="702"/>
+        <location filename="../reports/generator.py" line="703"/>
         <source>Simple</source>
         <translation>简单</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="704"/>
+        <location filename="../reports/generator.py" line="705"/>
         <source>Full</source>
         <translation>满</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="706"/>
+        <location filename="../reports/generator.py" line="707"/>
         <source>All</source>
         <translation>全部</translation>
     </message>
@@ -6495,17 +6505,17 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="735"/>
+        <location filename="../api.py" line="742"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="741"/>
+        <location filename="../api.py" line="748"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="747"/>
+        <location filename="../api.py" line="754"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6687,22 +6697,22 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_calculate_tc</name>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="202"/>
+        <location filename="../localexecution/totalcarbon.py" line="204"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="202"/>
+        <location filename="../localexecution/totalcarbon.py" line="204"/>
         <source>Summary table saved to {self.output_file}</source>
         <translation>保存到{self.output_file}的汇总表</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="208"/>
+        <location filename="../localexecution/totalcarbon.py" line="210"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="208"/>
+        <location filename="../localexecution/totalcarbon.py" line="210"/>
         <source>Error saving output table - check that {self.output_file} is accessible and not already open.</source>
         <translation>保存输出表时出错——检查{self.output_file}是否可访问且尚未打开。</translation>
     </message>
@@ -8379,7 +8389,7 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_worker</name>
     <message>
-        <location filename="../worker.py" line="249"/>
+        <location filename="../worker.py" line="262"/>
         <source>Processing: {}</source>
         <translation>处理中：{}</translation>
     </message>

@@ -220,57 +220,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="671"/>
+        <location filename="../jobs/mvc.py" line="673"/>
         <source>Add default layers from this dataset to map</source>
         <translation>Añadir al mapa capas por defecto desde este conjunto de datos</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="675"/>
+        <location filename="../jobs/mvc.py" line="677"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation>Seleccionar capas específicas de este conjunto de datos para añadirlas al mapa...</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="712"/>
+        <location filename="../jobs/mvc.py" line="714"/>
         <source>Time series table is empty</source>
         <translation>La tabla de series temporales está vacía</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="729"/>
+        <location filename="../jobs/mvc.py" line="731"/>
         <source>Time Series</source>
         <translation>Series temporales</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="740"/>
+        <location filename="../jobs/mvc.py" line="742"/>
         <source>Time</source>
         <translation>Hora</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="741"/>
+        <location filename="../jobs/mvc.py" line="743"/>
         <source>Integrated NDVI</source>
         <translation>NDVI integrado</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="741"/>
+        <location filename="../jobs/mvc.py" line="743"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="987"/>
+        <location filename="../jobs/mvc.py" line="989"/>
         <source>Dataset metadata</source>
         <translation>Metadatos de conjunto de datos</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="996"/>
+        <location filename="../jobs/mvc.py" line="998"/>
         <source>{} metadata</source>
         <translation>{} metadatos</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1020"/>
+        <location filename="../jobs/mvc.py" line="1022"/>
         <source>Add vector layer to map</source>
         <translation>Añadir capa vectorial al mapa</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1024"/>
+        <location filename="../jobs/mvc.py" line="1026"/>
         <source>Add raster layers to map</source>
         <translation>Añadir capas ráster al mapa</translation>
     </message>
@@ -590,7 +590,7 @@
 <context>
     <name>DlgAdvancedSettingsProgressPeriod</name>
     <message>
-        <location filename="../calculate_ldn.py" line="2720"/>
+        <location filename="../calculate_ldn.py" line="2721"/>
         <source>Error</source>
         <translation type="unfinished">Error</translation>
     </message>
@@ -600,17 +600,17 @@
         <translation type="obsolete">Debe seleccionar una capa {nombre de capa} antes de que pueda usar la herramienta para calcular el SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2633"/>
+        <location filename="../calculate_ldn.py" line="2634"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation type="unfinished">La zona de interés no está totalmente dentro de la capa {comprobar_nombre_capa}. </translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2711"/>
+        <location filename="../calculate_ldn.py" line="2712"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished">La resolución de la capa {nombre_capa_modelo} y la capa {comprobar_nombre_capa} no coinciden.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2720"/>
+        <location filename="../calculate_ldn.py" line="2721"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation type="unfinished">Los sistemas de coordenadas de la capa {nombre_capa_modelo} y de la capa {comprobar_nombre_capa} no coinciden.</translation>
     </message>
@@ -1099,12 +1099,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Esta herramienta permite recalcular una capa de indicadores para corregir errores conocidos (falsos positivos o falsos negativos).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2968"/>
+        <location filename="../calculate_ldn.py" line="2969"/>
         <source>Coming soon!</source>
         <translation>¡Próximamente!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2968"/>
+        <location filename="../calculate_ldn.py" line="2969"/>
         <source>This function coming soon!</source>
         <translation>¡Próximamente: esta función!</translation>
     </message>
@@ -1272,7 +1272,7 @@ p, li { white-space: pre-wrap; }
         <translation>Notas del usuario asociadas con la tarea ejecutada.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2389"/>
+        <location filename="../calculate_ldn.py" line="2390"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation>No hay conjuntos de datos disponibles en esta región (ver avanzado)</translation>
     </message>
@@ -1652,12 +1652,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2294"/>
+        <location filename="../calculate_ldn.py" line="2295"/>
         <source>Error</source>
         <translation type="unfinished">Error</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2294"/>
+        <location filename="../calculate_ldn.py" line="2295"/>
         <source>Final year of the productivity data ({year_final}) must be within three years of the years for which population data is available from the WorldPop dataset ({pop_start_year}-{pop_end_year}).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1809,7 +1809,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2258"/>
+        <location filename="../calculate_ldn.py" line="2259"/>
         <source>SOC analysis cannot start before the baseline year {SOC_MIN_YEAR}. The selected initial year for the {period} period is {soc_year_initial}. Please select an initial year &gt;= {SOC_MIN_YEAR}.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1941,7 +1941,7 @@ p, li { white-space: pre-wrap; }
         <translation>Período de comparación</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="390"/>
+        <location filename="../calculate_prod.py" line="400"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -2037,13 +2037,18 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="346"/>
+        <location filename="../calculate_prod.py" line="362"/>
         <source>Productivity trajectory requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The selected period ({self.traj_year_start.date().year()} - {self.traj_year_end.date().year()}) only spans {traj_years} years. Please select a longer time period.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="390"/>
+        <location filename="../calculate_prod.py" line="400"/>
         <source>FAO WOCAT land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The selected period ({self.fao_wocat_year_start.date().year()} - {self.fao_wocat_year_end.date().year()}) only spans {fao_years} years. Please select a longer time period.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="344"/>
+        <source>The selected trajectory method requires a climate dataset. Please select a climate dataset before submitting.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4890,7 +4895,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="926"/>
+        <location filename="../jobs/manager.py" line="930"/>
         <source>Processing: {task_name}</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5264,29 +5269,34 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportGeneratorManager</name>
     <message>
-        <location filename="../reports/generator.py" line="1036"/>
+        <location filename="../reports/generator.py" line="1067"/>
         <source>Report Status</source>
         <translation>Estado del informe</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1066"/>
+        <location filename="../reports/generator.py" line="1097"/>
         <source>Cannot process report due to write permission to</source>
         <translation>No se puede procesar el informe debido a que el permiso de escritura</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1096"/>
+        <location filename="../reports/generator.py" line="1129"/>
         <source>could not be found in your system. Unable to run the report generator.</source>
         <translation>no se pudo encontrar en su sistema. No es posible ejecutar el generador de informes.</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1110"/>
+        <location filename="../reports/generator.py" line="1158"/>
         <source>reports</source>
         <translation>Los informes</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1124"/>
+        <location filename="../reports/generator.py" line="1172"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
         <translation>se están procesando (id {[str(job.id) para el trabajo en ctx.jobs]})...</translation>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="1140"/>
+        <source>queued (waiting for a free worker slot)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5325,17 +5335,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportTaskProcessor</name>
     <message>
-        <location filename="../reports/generator.py" line="702"/>
+        <location filename="../reports/generator.py" line="703"/>
         <source>Simple</source>
         <translation>Sencillo</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="704"/>
+        <location filename="../reports/generator.py" line="705"/>
         <source>Full</source>
         <translation>Lleno</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="706"/>
+        <location filename="../reports/generator.py" line="707"/>
         <source>All</source>
         <translation>Todo</translation>
     </message>
@@ -6565,17 +6575,17 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="735"/>
+        <location filename="../api.py" line="742"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="741"/>
+        <location filename="../api.py" line="748"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="747"/>
+        <location filename="../api.py" line="754"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6757,22 +6767,22 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
 <context>
     <name>tr_calculate_tc</name>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="202"/>
+        <location filename="../localexecution/totalcarbon.py" line="204"/>
         <source>Success</source>
         <translation>Éxito</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="202"/>
+        <location filename="../localexecution/totalcarbon.py" line="204"/>
         <source>Summary table saved to {self.output_file}</source>
         <translation>Tabla resumen guardada en {self.output_file}</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="208"/>
+        <location filename="../localexecution/totalcarbon.py" line="210"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="208"/>
+        <location filename="../localexecution/totalcarbon.py" line="210"/>
         <source>Error saving output table - check that {self.output_file} is accessible and not already open.</source>
         <translation>Error al guardar la tabla de salida. Compruebe que {self.output_file} es accesible y no está abierto.</translation>
     </message>
@@ -8448,7 +8458,7 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
 <context>
     <name>tr_worker</name>
     <message>
-        <location filename="../worker.py" line="249"/>
+        <location filename="../worker.py" line="262"/>
         <source>Processing: {}</source>
         <translation>Procesamiento: {}</translation>
     </message>

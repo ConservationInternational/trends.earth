@@ -1,28 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.0rc1\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-26 04:25+0000\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language: sw\n"
-"Language-Team: Swahili (https://www.transifex.com/conservation-"
-"international/teams/80165/sw/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: Swahili (https://app.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:4
 msgid "Installing Trends.Earth"
@@ -34,8 +31,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:11
 msgid ""
-"Before installing the plugin, QGIS version |qgisMinVersion| or higher "
-"needs to be installed on your computer."
+"Before installing the plugin, QGIS version |qgisMinVersion| or higher needs "
+"to be installed on your computer."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:15
@@ -66,11 +63,10 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:32
 msgid ""
-"Older versions of QGIS can be accessed at the below links. We recommend "
-"the latest version of QGIS (see instructions above) but the below links "
-"might be useful if you have a specific need for accessing an older "
-"version of QGIS (for example if you need to install an older version of "
-"|trends.earth|)."
+"Older versions of QGIS can be accessed at the below links. We recommend the "
+"latest version of QGIS (see instructions above) but the below links might be"
+" useful if you have a specific need for accessing an older version of QGIS "
+"(for example if you need to install an older version of |trends.earth|)."
 msgstr ""
 
 #: ../../../<rst_epilog>:6
@@ -95,12 +91,12 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:48
 msgid ""
-"There are different ways to install |trends.earth|, depending on whether "
-"you want to install the stable version (recommended) or the development "
+"There are different ways to install |trends.earth|, depending on whether you"
+" want to install the stable version (recommended) or the development "
 "version."
 msgstr ""
-"Kuna njia tofauti za kufunga |trends.earth|, kutegemea kama unataka "
-"kufunga toleo imara (ilipendekezwa) au toleo la maendeleo."
+"Kuna njia tofauti za kufunga |trends.earth|, kutegemea kama unataka kufunga "
+"toleo imara (ilipendekezwa) au toleo la maendeleo."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:52
 msgid "Installing the stable version (recommended)"
@@ -108,26 +104,25 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:54
 msgid ""
-"The preferred way to install the |trends.earth| is through QGIS. To "
-"install from within QGIS, first launch QGIS, and then go to `Plugins` in "
-"the menu bar at the top of the program and select `Manage and install "
-"plugins`."
+"The preferred way to install the |trends.earth| is through QGIS. To install "
+"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
+"bar at the top of the program and select `Manage and install plugins`."
 msgstr ""
-"Njia iliyopendekezwa ya kufunga |trends.earth| ni kupitia QGIS. Ili "
-"kufunga kutoka ndani ya QGIS, uzinduzi wa kwanza wa QGIS, kisha uende "
-"kwenye `Plugins` kwenye bar ya menyu hapo juu ya programu na uchague "
-"`Dhibiti na usakanishe Plugins`."
+"Njia iliyopendekezwa ya kufunga |trends.earth| ni kupitia QGIS. Ili kufunga "
+"kutoka ndani ya QGIS, uzinduzi wa kwanza wa QGIS, kisha uende kwenye "
+"`Plugins` kwenye bar ya menyu hapo juu ya programu na uchague `Dhibiti na "
+"usakanishe Plugins`."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:61
 msgid ""
-"Then search for a plugin called `trends.earth` and select `Install "
-"plugin` at the bottom right of the screen."
+"Then search for a plugin called `trends.earth` and select `Install plugin` "
+"at the bottom right of the screen."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:67
 msgid ""
-"If your plugin has been installed properly, there will be a menu bar in "
-"the top left of your browser that looks like this:"
+"If your plugin has been installed properly, there will be a menu bar in the "
+"top left of your browser that looks like this:"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:74
@@ -149,17 +144,16 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:82
 msgid ""
-"If you are having a problem upgrading the plugin, try uninstalling the "
-"old version of Trends.Earth before installing the new one. This can be "
-"done from within the `Installed tab of the plugins window "
-"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html"
-"#the-installed-tab>`_."
+"If you are having a problem upgrading the plugin, try uninstalling the old "
+"version of Trends.Earth before installing the new one. This can be done from"
+" within the `Installed tab of the plugins window "
+"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html#the-"
+"installed-tab>`_."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:87
 msgid ""
-"If the above don't work, please contact us at "
-"trends.earth@conservation.org."
+"If the above don't work, please contact us at trends.earth@conservation.org."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:90
@@ -173,8 +167,8 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth#development-"
 "version>`_ for |trends.earth|."
 msgstr ""
-"Kuna njia mbili za kufunga toleo la maendeleo ya Plugin. Kwa maelezo "
-"zaidi, angalia `README "
+"Kuna njia mbili za kufunga toleo la maendeleo ya Plugin. Kwa maelezo zaidi, "
+"angalia `README "
 "<https://github.com/ConservationInternational/trends.earth#development-"
 "version>`_ for |trends.earth|."
 
@@ -184,8 +178,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:104
 msgid ""
-"To Register, click the **Register for Trends.Earth (step 1)** button from"
-" the \"Settings\" dialog box under **Trends.Earth login information**."
+"To Register, click the **Register for Trends.Earth (step 1)** button from "
+"the \"Settings\" dialog box under **Trends.Earth login information**."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:109
@@ -200,399 +194,18 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:119
 msgid ""
-"4. After registering, you will receive an email from api@trends.earth "
-"with your password. If you don't see the email in your inbox after 15-20 "
-"seconds, please check your spam folder in case the email was sent there. "
-"Once you receive this email , click on \"Enter username and password "
-"(step 2)\". Enter the password you received from api@trends.earth and "
-"click \"OK\": :"
+"4. After registering, you will receive an email from api@trends.earth with "
+"your password. If you don't see the email in your inbox after 15-20 seconds,"
+" please check your spam folder in case the email was sent there. Once you "
+"receive this email , click on \"Enter username and password (step 2)\". "
+"Enter the password you received from api@trends.earth and click \"OK\": :"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:125
-msgid "You will see a message indicating you have successfully been logged in:"
+msgid ""
+"You will see a message indicating you have successfully been logged in:"
 msgstr "Utaona ujumbe unaoonyesha umeingia kwa ufanisi:"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:130
 msgid "You are now ready to start using Trends.Earth!"
 msgstr ""
-
-#~ msgid "QGIS"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Before installing the toolbox, QGIS "
-#~ "version |qgisMinVersion| or higher needs "
-#~ "to be installed on your computer."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "To install the plugin, first install "
-#~ "QGIS version |qgisMinVersion| or higher "
-#~ "following the below steps:"
-#~ msgstr ""
-
-#~ msgid "Choose either 32 or 64 bit version"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "You have the option of installing "
-#~ "a 32-bit or 64-bit version of "
-#~ "QGIS. To know which version to "
-#~ "install, check which type of operating"
-#~ " system you have following the below"
-#~ " instructions. If you are unsure "
-#~ "which you need, try downloading the "
-#~ "64 bit version first. If that "
-#~ "version doesn't work properly, un-"
-#~ "install it and then install the 32"
-#~ " bit version."
-#~ msgstr ""
-
-#~ msgid "Windows 8 or Windows 10"
-#~ msgstr ""
-
-#~ msgid "From the \"Start\" screen, type \"This PC\"."
-#~ msgstr ""
-
-#~ msgid "Right click (or tap and hold) \"This PC\", and click \"Properties\"."
-#~ msgstr ""
-
-#~ msgid "Windows 7, or Vista"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Open \"System\" by clicking the "
-#~ "\"Start\" button , right-clicking "
-#~ "\"Computer\", and then clicking "
-#~ "\"Properties\"."
-#~ msgstr ""
-
-#~ msgid "Under System, you can view the system type."
-#~ msgstr "Chini ya Mfumo, unaweza kuona aina ya mfumo."
-
-#~ msgid ""
-#~ "Mac: Click the Apple icon in the"
-#~ " top left and select \"About this "
-#~ "Mac\"."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "After determining whether you need the"
-#~ " 32 or 64 bit version, download "
-#~ "the appropriate installer:"
-#~ msgstr ""
-
-#~ msgid "Install QGIS Software"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Older versions of QGIS can be "
-#~ "accessed at the below links. We "
-#~ "recommend the latest version of QGIS "
-#~ "(see instructions above) but the below"
-#~ " links might be useful if you "
-#~ "have a specific need for accessing "
-#~ "an older version of the Trends.Earth "
-#~ "plugin (for example the QGIS2 version"
-#~ " of the plugin)."
-#~ msgstr ""
-
-#~ msgid "Install toolbox (plugin)"
-#~ msgstr ""
-
-#~ msgid "Trends.Earth Registration"
-#~ msgstr ""
-
-#~ msgid "Trends.Earth Advanced Settings"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Refer to the :ref:`advanced` section for"
-#~ " more information on the advanced "
-#~ "settings for Trends.Earth."
-#~ msgstr ""
-
-#~ msgid "Setting up your data folder"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "**Objective**: Learn how to check the"
-#~ " status of submitted tasks, download "
-#~ "them and compute pyramids for faster "
-#~ "visualization of results in QGIS."
-#~ msgstr ""
-
-#~ msgid "**Estimated time of completion**: 5 minutes"
-#~ msgstr ""
-
-#~ msgid "**Internet access**: Required"
-#~ msgstr "** Upatikanaji wa Intaneti **: Inahitajika"
-
-#~ msgid ""
-#~ "`Download this page as a PDF for"
-#~ " offline use "
-#~ "<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The results of Trends.Earth analysis are"
-#~ " rasters in TIF format for indicators"
-#~ " and XLSX spreadsheets for the "
-#~ "tabular outputs. You will need to "
-#~ "define in each case where files "
-#~ "will be stored in your computer in"
-#~ " settings."
-#~ msgstr ""
-
-#~ msgid "Open settings in |trends.earth|"
-#~ msgstr ""
-
-#~ msgid "Scroll down to **Advanced** options and expand to see more features."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "3. The **Base data directory** can "
-#~ "be set by selecting **Open** to "
-#~ "open the folder where data will be"
-#~ " stored or *...* to change the "
-#~ "location of data stored and downloaded"
-#~ " from |trends.earth|."
-#~ msgstr ""
-
-#~ msgid "**OPTIONAL: Computing Pyramids**"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "When the raster file is too big,"
-#~ " due to a large study area, "
-#~ "high spatial resolution, or a large "
-#~ "number of bands in the file, the"
-#~ " data could take several seconds to"
-#~ " display. If you change the zoom "
-#~ "or turn layers on an  off "
-#~ "frequently, this could make the work "
-#~ "a bit frustrating. An option to "
-#~ "overcome this is to compute **Pyramids**"
-#~ " to the file. This process will "
-#~ "take from **minutes to hours** to "
-#~ "run depending on the size of the"
-#~ " area, so make sure to have "
-#~ "enough time for it to process. To"
-#~ " compute pyramids you have to:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Navigate with your cursor to the "
-#~ "layer you want to compute pyramids "
-#~ "for and right click over it. A "
-#~ "menu will open. Navigate to "
-#~ "**Properties** and click on it."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "When using the **Calculate all three "
-#~ "sub-indicators in one step** option "
-#~ "(described in the tutorial "
-#~ ":ref:`tut_land_degradation`), all the bands "
-#~ "are stored in a single TIF file,"
-#~ " so even though you see three "
-#~ "layers loaded in the QGIS window, "
-#~ "they all refer to the same file."
-#~ " This means that the pyramids need"
-#~ " to be computed only once for "
-#~ "the three sub-indicators."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The Layer Properties menu will open. "
-#~ "From the options on the left, "
-#~ "navigate to **Pyramids** and click on"
-#~ " it."
-#~ msgstr ""
-
-#~ msgid "Once on the **Pyramids** tab you will see a description about they are."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "To the right of the window you "
-#~ "will see the **Resolutions** options. "
-#~ "Selecting all of them will make "
-#~ "displaying in QGIS the fastest, but "
-#~ "this could take hours to compute "
-#~ "depending on the file size and "
-#~ "processing capabilities of the computer "
-#~ "you are using. For the Uganda "
-#~ "example, we can select them all, "
-#~ "but if using a larger area or "
-#~ "higher spatial resolution than the "
-#~ "default 250m, we recommend you select"
-#~ " alternating resolutions options (i.e. one"
-#~ " resolution selected and one not "
-#~ "selected, and so on). Resolutions are"
-#~ " selected by clicking on them. When"
-#~ " selected, they will turn blue."
-#~ msgstr ""
-
-#~ msgid "Make sure that the settings at the bottom are set to:"
-#~ msgstr ""
-
-#~ msgid "**Overview format**: External"
-#~ msgstr ""
-
-#~ msgid "**Resampling method**: Nearest Neighbour"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Then click on the **Build pyramids** "
-#~ "button. The progress bar next to "
-#~ "it will show which percentage of "
-#~ "the task has been completed."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "When pyramids have been built you "
-#~ "will notice that the icons next to"
-#~ " the resolutions will have changed "
-#~ "from **red crosses** to **yellow "
-#~ "pyramids**."
-#~ msgstr ""
-
-#~ msgid "Click **OK** to go back to the QGIS main interface."
-#~ msgstr ""
-
-#~ msgid "**Adding a basemap**"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Basemaps are very useful as a "
-#~ "reference for identifying specific locations"
-#~ " in maps. When downloaded, Trends.Earth "
-#~ "results are displayed on an empty "
-#~ "QGIS project, which could limit the "
-#~ "user ability for identifying know places"
-#~ " in the landscape. To facilitate this"
-#~ " process, you can use the **Add "
-#~ "Basemap** tool which will load country"
-#~ " and state boundaries, roads, rivers, "
-#~ "cities, coastlines and water bodies with"
-#~ " labels to the QGIS project."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "To load the tool click on the "
-#~ "**Datasets** tab and select **Load Base"
-#~ " Map** in the bottom right of "
-#~ "the window."
-#~ msgstr ""
-
-#~ msgid "On the **Add basemap** window you can do one of two things:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "**Use a mask option selected** will "
-#~ "create a mask blocking all the "
-#~ "information outside of the selected "
-#~ "area. In this example, all the "
-#~ "information outside of Uganda will not"
-#~ " be displayed on the map. This "
-#~ "option is useful when displaying the "
-#~ "sub-indicators downloaded from Trends.Earth,"
-#~ " since the data download is not "
-#~ "clipped to administrative boundaries (a "
-#~ "bounding box is used instead). You "
-#~ "can use first and second level "
-#~ "administrative boundaries."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "**Use a mask option not selected** "
-#~ "will load all the reference information,"
-#~ " but no mask will be applied."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Once the basemap is loaded, you "
-#~ "will notice the information added to "
-#~ "the map and to the Layer panel."
-#~ " The basemap has information for:"
-#~ msgstr ""
-
-#~ msgid "Lake"
-#~ msgstr ""
-
-#~ msgid "River"
-#~ msgstr ""
-
-#~ msgid "Coastline"
-#~ msgstr ""
-
-#~ msgid "City"
-#~ msgstr ""
-
-#~ msgid "Disputed border"
-#~ msgstr ""
-
-#~ msgid "Subnational border"
-#~ msgstr ""
-
-#~ msgid "National border"
-#~ msgstr ""
-
-#~ msgid "Ocean"
-#~ msgstr ""
-
-#~ msgid "iconCalculator"
-#~ msgstr ""
-
-#~ msgid "iconReports"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "To install the plugin, you must "
-#~ "have QGIS version |qgisMinVersion| or "
-#~ "higher. Download the appropriate installer "
-#~ "depending on your operating system:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Windows: `Download Windows installer from "
-#~ "here "
-#~ "<https://qgis.org/en/site/forusers/download.html#windows>`_."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "MacOS: `Download MacOS installer from "
-#~ "here <https://qgis.org/en/site/forusers/download.html#mac>`_."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Linux: `Download Linux installer from "
-#~ "here, or from the repository for "
-#~ "your Linux distribution "
-#~ "<https://qgis.org/en/site/forusers/download.html#linux>`_."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "4. After registering, you will receive"
-#~ " an email from api@trends.earth with "
-#~ "your password. If you don't see "
-#~ "the email in your inbox after "
-#~ "15-20 seconds, please check your spam"
-#~ " folder in case the email was "
-#~ "sent there. Once you receive this "
-#~ "email , click on the \"Edit "
-#~ "selected configuration\" icon in the "
-#~ "\"Settings\" dialog:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This will bring up the "
-#~ "\"Authentication\" dialog asking for your "
-#~ "password. Enter the password you "
-#~ "received from api@trends.earth and click "
-#~ "\"Save\":"
-#~ msgstr ""
-
-#~ msgid "From the \"Settings\" dialog  click on \"Test connection\":"
-#~ msgstr ""
-

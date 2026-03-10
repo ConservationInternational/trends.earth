@@ -1,25 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.0rc1\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-20 04:33+0000\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: fa\n"
-"Language-Team: Persian (https://www.transifex.com/conservation-"
-"international/teams/80165/fa/)\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language-Team: Persian (https://app.transifex.com/conservation-international/teams/80165/fa/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../../source/for_users/datasets/input_data.rst:4
 msgid "Input Data Used in Trends.Earth"
@@ -27,10 +23,9 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:6
 msgid ""
-"|trends.earth| draws on a number of data sources. The data sets listed "
-"below are owned/made available by the following organizations and "
-"individuals under separate terms as indicated in their respective "
-"metadata."
+"|trends.earth| draws on a number of data sources. The data sets listed below"
+" are owned/made available by the following organizations and individuals "
+"under separate terms as indicated in their respective metadata."
 msgstr ""
 
 #: ../../../<rst_epilog>:6
@@ -324,8 +319,8 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:119
 msgid ""
-"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
-"are under the CC BY 4.0 license. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth are "
+"under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
@@ -333,8 +328,8 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:125
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users"
-" choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
 
@@ -357,22 +352,22 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:141
 msgid ""
 "The `WorldPop`_ dataset included in Trends.Earth was produced by the "
-"`UNCCD`_ from publicly available data layers from the WorldPop project. "
-"This dataset is a combination of the national-level age and sex-"
-"disaggregated grids produced by the WorldPop project at 100m resolution. "
-"In support of UNCCD National Reporting on Strategic Objectives 2 and 3, "
-"UNCCD funded the development of a set of global mosaics, disaggregated by"
-" sex, giving population counts per pixel. These layers are used within "
-"Trends.Earth to tabulate population exposure to drought and degradation, "
-"disaggregated by sex."
+"`UNCCD`_ from publicly available data layers from the WorldPop project. This"
+" dataset is a combination of the national-level age and sex-disaggregated "
+"grids produced by the WorldPop project at 100m resolution. In support of "
+"UNCCD National Reporting on Strategic Objectives 2 and 3, UNCCD funded the "
+"development of a set of global mosaics, disaggregated by sex, giving "
+"population counts per pixel. These layers are used within Trends.Earth to "
+"tabulate population exposure to drought and degradation, disaggregated by "
+"sex."
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:151
 msgid ""
-"These data are also available in a publicly-accessible S3 bucket (trends"
-".earth-shared, in the us-east-1 region), as tiled 32-bit floating point "
-"GeoTiffs at 100m, 300m, and 1200m resolution, at the following locations "
-"on s3:"
+"These data are also available in a publicly-accessible S3 bucket "
+"(trends.earth-shared, in the us-east-1 region), as tiled 32-bit floating "
+"point GeoTiffs at 100m, 300m, and 1200m resolution, at the following "
+"locations on s3:"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:156
@@ -386,67 +381,3 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:158
 msgid "s3://trends.earth-shared/worldpop/1200m"
 msgstr ""
-
-#~ msgid "**Coming soon**"
-#~ msgstr ""
-
-#~ msgid "iconCalculator"
-#~ msgstr ""
-
-#~ msgid "iconReports"
-#~ msgstr ""
-
-#~ msgid "`WorldPop 100m Global Population grid`_"
-#~ msgstr ""
-
-#~ msgid "`Natural Earth Administrative Boundaries`_"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The `Natural Earth Administrative Boundaries`_"
-#~ " provided in Trends.Earth are in the"
-#~ " `public domain`_. The boundaries and "
-#~ "names used, and the designations used,"
-#~ " in Trends.Earth do not imply "
-#~ "official endorsement or acceptance by "
-#~ "Conservation International Foundation, or by"
-#~ " its partner organizations and "
-#~ "contributors."
-#~ msgstr ""
-
-#~ msgid "`MOD13Q1-coll6`_"
-#~ msgstr ""
-
-#~ msgid "2001-2016"
-#~ msgstr ""
-
-#~ msgid "1981-2016"
-#~ msgstr ""
-
-#~ msgid "1983-2015"
-#~ msgstr ""
-
-#~ msgid "MOD16A2_"
-#~ msgstr ""
-
-#~ msgid "1992-2018"
-#~ msgstr ""
-
-#~ msgid "`CC by-SA 3.0`_"
-#~ msgstr ""
-
-#~ msgid "2000-2014"
-#~ msgstr ""
-
-#~ msgid "1 km"
-#~ msgstr ""
-
-#~ msgid "10/50m"
-#~ msgstr ""
-
-#~ msgid "100m"
-#~ msgstr ""
-
-#~ msgid "1980-2016"
-#~ msgstr ""
-

@@ -1,36 +1,41 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2025, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
-#
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.1.17\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-22 04:05+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: fr\n"
-"Language-Team: fr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"PO-Revision-Date: 2026-02-06 15:40+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
+"Language-Team: French (https://app.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: ../../source/privacy.rst:2
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Politique de confidentialité"
 
 #: ../../source/privacy.rst:4
 msgid "Trends.Earth follows the Conservation International Privacy Policy."
 msgstr ""
+"Trends.Earth adhère à la politique de confidentialité de Conservation "
+"International."
 
 #: ../../source/privacy.rst:6
 msgid ""
-"This policy applies to all data collection and processing activities "
-"related to the use of Trends.Earth software and services."
+"This policy applies to all data collection and processing activities related"
+" to the use of Trends.Earth software and services."
 msgstr ""
-
+"Cette politique s'applique à toutes les activités de collecte et de "
+"traitement des données liées à l'utilisation des logiciels et services "
+"Trends.Earth."

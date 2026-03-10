@@ -1,27 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.0rc1\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language: zh\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-"
-"international/teams/80165/zh/)\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Team: Chinese (https://app.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:4
 msgid "Browser"
@@ -34,13 +32,3 @@ msgstr "Trends.Earth 浏览器应用程序"
 #: ../../source/for_users/gettingstarted/browser_version.rst:8
 msgid "**Coming soon!**"
 msgstr "**即将推出！**"
-
-#~ msgid "iconCalculator"
-#~ msgstr "图标计算器"
-
-#~ msgid "iconReports"
-#~ msgstr "图标报告"
-
-#~ msgid "Trends.Earth"
-#~ msgstr "Trends.Earth"
-

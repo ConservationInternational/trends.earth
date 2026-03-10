@@ -29,13 +29,13 @@ jobs:
           python-version: "3.9"
           architecture: "x64"
           cache: pip
-      - name: Install Qt lrelease tool
-        run: sudo apt-get update && sudo apt-get install -y qttools5-dev-tools
+      - name: Install Qt tools (lrelease and pylupdate5)
+        run: sudo apt-get update && sudo apt-get install -y qttools5-dev-tools pyqt5-dev-tools
       - run: pip install -r requirements-dev.txt
       - name: Install transifex CLI
         run: curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
       - name: Pull updated strings from transifex
-        run: invoke translate-pull
+        run: invoke translate-pull --force
       - name: Push strings to transifex
         run: invoke translate-push
       - name: Create pull request

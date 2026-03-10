@@ -1494,16 +1494,16 @@ def translate_push(c, force=False, version=3):
         pylupdate = "pylupdate5"
     else:
         print("ERROR: unknown qgis version {}".format(version))
+        pylupdate = None
 
-        return
-    pylupdate = check_path(pylupdate)
+    if pylupdate:
+        pylupdate = check_path(pylupdate)
 
     if not pylupdate:
         print(
-            "ERROR: pylupdate4/pylupdate5 is not in your path---unable to gather strings for translation"
+            "WARNING: pylupdate4/pylupdate5 is not in your path---unable to "
+            "gather strings for translation. Will still push doc strings."
         )
-
-        return
     else:
         subprocess.check_call(
             [pylupdate, os.path.join(c.plugin.i18n_dir, "i18n.pro"), "-noobsolete"]

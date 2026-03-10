@@ -1,29 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.0rc1\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 04:09+0000\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language: es\n"
-"Language-Team: Spanish (https://www.transifex.com/conservation-"
-"international/teams/80165/es/)\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 "
-"? 1 : 2;\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
+"Language-Team: Spanish (https://app.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: ../../source/for_users/training/settings.rst:4
 msgid "Settings"
@@ -31,11 +28,11 @@ msgstr "Configuraciones"
 
 #: ../../source/for_users/training/settings.rst:5
 msgid ""
-"**Objective**: Learn how to set up the environment for your analysis "
-"using Trends.Earth."
+"**Objective**: Learn how to set up the environment for your analysis using "
+"Trends.Earth."
 msgstr ""
-"**Objetivo**: Aprender a configurar el entorno para su análisis "
-"utilizando Trends.Earth."
+"**Objetivo**: Aprender a configurar el entorno para su análisis utilizando "
+"Trends.Earth."
 
 #: ../../source/for_users/training/settings.rst:7
 msgid "**Estimated time of completion**: 5 minutes"
@@ -47,32 +44,36 @@ msgstr "**Acceso a Internet**: Necesario"
 
 #: ../../source/for_users/training/settings.rst:12
 msgid "Introduction"
-msgstr ""
+msgstr "Introducción"
 
 #: ../../source/for_users/training/settings.rst:13
 msgid ""
 "This guide provides instructions on the settings the user can set, "
-"accompanied by short explanations of each setting. Screenshots is "
-"included to make it easier for the user to know what each description "
-"refer to."
+"accompanied by short explanations of each setting. Screenshots is included "
+"to make it easier for the user to know what each description refer to."
 msgstr ""
+"Esta guía proporciona instrucciones sobre los parámetros que el usuario "
+"puede establecer, junto con breves explicaciones de cada parámetro. Se "
+"incluyen capturas de pantalla para que el usuario pueda saber con más "
+"facilidad a qué se refiere cada descripción."
 
 #: ../../source/for_users/training/settings.rst:16
 msgid "There are two approaches to open the Trends.Earth settings:"
-msgstr ""
+msgstr "Hay dos métodos para acceder a los parámetros de Trends.Earth:"
 
 #: ../../source/for_users/training/settings.rst:18
-#, fuzzy
 msgid ""
 "1a. Click on the Trends.Earth toolbar within QGIS, and click on "
 "**Settings**."
 msgstr ""
-"Haga clic en la barra de herramientas Trends.Earth dentro de QGIS y haga "
-"clic en configuración."
+"1a. Hacer clic en la barra de herramientas de Trends.Earth en QGIS, y luego "
+"en **Parámetros**."
 
 #: ../../source/for_users/training/settings.rst:23
 msgid "1b. Another approach is to click on **Settings** and then **Options**."
 msgstr ""
+"1b. Otro método consiste en hacer clic en **Parámetros** y, a continuación, "
+"en **Opciones**."
 
 #: ../../source/for_users/training/settings.rst:28
 msgid "The **Settings** menu will open in a new window."
@@ -83,51 +84,55 @@ msgid "Trends.Earth login information"
 msgstr "Información de inicio de sesión de Trends.Earth"
 
 #: ../../source/for_users/training/settings.rst:35
-#, fuzzy
 msgid ""
-"Use this area to register and login to your Trends.Earth account. You can"
-" update your profile, reset a password or delete your account. Once you "
+"Use this area to register and login to your Trends.Earth account. You can "
+"update your profile, reset a password or delete your account. Once you "
 "login, your login credentials will be saved."
 msgstr ""
-"Utilice esta área para registrarse e iniciar sesión en su cuenta de "
-"Trends.Earth. Puede actualizar su perfil, restablecer la contraseña o "
-"eliminar su cuenta en cualquier momento. Una vez que inicie sesión, sus "
-"credenciales de inicio de sesión se guardarán y no necesitará iniciar "
-"sesión cada vez que quiera usar Trends.Earth (a menos que actualice QGIS "
-"o use un ordenador diferente)."
+"Use esta área para registrarse e iniciar sesión en su cuenta de "
+"Trends.Earth. Puede actualizar su perfil, restablecer una contraseña o "
+"suprimir la cuenta. Una vez que haya iniciado la sesión, sus credenciales de"
+" inicio de sesión se guardarán."
 
 #: ../../source/for_users/training/settings.rst:41
 msgid "To register or login do the following:"
-msgstr ""
+msgstr "Para registrarse o iniciar sesión haga lo siguiente:"
 
 #: ../../source/for_users/training/settings.rst:43
 msgid ""
 "1. Click on Register for Trends.Earth to create an account. Provide the "
 "required information and click **OK**. You will receive an email."
 msgstr ""
+"1. Pulse en Registrarse en Trends.Earth para crear una cuenta. Proporcione "
+"la información necesaria y pulse en **ACEPTAR**. Recibirá un correo "
+"electrónico."
 
 #: ../../source/for_users/training/settings.rst:47
 msgid "This step can be skipped if you already have an account."
-msgstr ""
+msgstr "Este paso se puede omitir si ya tiene una cuenta."
 
 #: ../../source/for_users/training/settings.rst:52
 msgid ""
-"2. Once you have received confirmation that your account has been "
-"created, click on **Enter username and password**. Provide your "
-"credentials and click **OK**."
+"2. Once you have received confirmation that your account has been created, "
+"click on **Enter username and password**. Provide your credentials and click"
+" **OK**."
 msgstr ""
+"2. Una vez que haya recibido la confirmación de la creación de su cuenta, "
+"haga clic en **Indique nombre de usuario y contraseña**. Proporcione sus "
+"credenciales y haga clic en **ACEPTAR**."
 
 #: ../../source/for_users/training/settings.rst:58
 msgid "When the login is a success you will receive the following message:"
 msgstr ""
+"Cuando se haya realizado el inicio de sesión, recibirá el siguiente mensaje:"
 
 #: ../../source/for_users/training/settings.rst:64
 msgid ""
-"Refer to the :ref:`registration` for details on registering and logging "
-"into your Trends.Earth account."
+"Refer to the :ref:`registration` for details on registering and logging into"
+" your Trends.Earth account."
 msgstr ""
-"Consulte la sección :ref:`registro` para obtener detalles sobre el "
-"registro y el inicio de sesión en su cuenta de Trends.Earth."
+"Consulte la sección :ref:`registro` para obtener detalles sobre el registro "
+"y el inicio de sesión en su cuenta de Trends.Earth."
 
 #: ../../source/for_users/training/settings.rst:67
 msgid "Region of Interest"
@@ -136,25 +141,30 @@ msgstr "Región de interés"
 #: ../../source/for_users/training/settings.rst:68
 msgid "The region of interest can be set using one of three approaches:"
 msgstr ""
+"La zona de interés puede establecerse usando uno de los tres métodos "
+"siguientes:"
 
 #: ../../source/for_users/training/settings.rst:70
 msgid "**Country**: Select a country as the region of interest."
-msgstr ""
+msgstr "**País**: seleccione un país como región de interés."
 
 #: ../../source/for_users/training/settings.rst:72
 msgid ""
-"**Point**: Latitude and longitude coordinates. This can be manually typed"
-" in, or selected as a point in the QGIS canvas."
+"**Point**: Latitude and longitude coordinates. This can be manually typed "
+"in, or selected as a point in the QGIS canvas."
 msgstr ""
+"**Punto**: coordenadas de latitud y longitud. Se pueden escribir manualmente"
+" o seleccionar como un punto en la página de QGIS."
 
 #: ../../source/for_users/training/settings.rst:74
 msgid "**Area from file**: Provide a vector file for the region of interest."
 msgstr ""
+"**Área de archivo**: proporcione un archivo vectorial para la región de "
+"interés."
 
 #: ../../source/for_users/training/settings.rst:80
-#, fuzzy
 msgid "Country/Region"
-msgstr "País o región"
+msgstr "País/región"
 
 #: ../../source/for_users/training/settings.rst:81
 msgid ""
@@ -162,84 +172,86 @@ msgid ""
 "analysis is possible using the **Second level** selections to identify a "
 "province or city for your region of interest."
 msgstr ""
-"Seleccione un país de la lista desplegable de **Primer nivel**. El "
-"análisis subnacional es posible utilizando las selecciones **Segundo "
-"nivel** para identificar una provincia o ciudad para su región de "
-"interés."
+"Seleccione un país de la lista desplegable de **Primer nivel**. El análisis "
+"subnacional es posible utilizando las selecciones **Segundo nivel** para "
+"identificar una provincia o ciudad para su región de interés."
 
 #: ../../source/for_users/training/settings.rst:85
-#, fuzzy
 msgid ""
-"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
-"are under the CC BY 4.0 license. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth are "
+"under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
 msgstr ""
-"Los `Natural Earth Administrative Boundaries`_ provistos en Trends.Earth "
-"están en el `public domain`_. Los límites y los nombres utilizados, y las"
-" designaciones utilizadas, en Trends.Earth no implican respaldo o "
-"aceptación oficial de Conservation International Foundation, ni de sus "
-"organizaciones asociadas y contribuyentes."
+"Los `límites administrativos de geoBoundaries`_ proporcionados en "
+"Trends.Earth están sujetos a la licencia CC BY 4.0. Los límites y los "
+"nombres utilizados, así como las designaciones empleadas en Trends.Earth, no"
+" implican el respaldo ni la aceptación por parte de Conservación "
+"Internacional, ni de sus organizaciones asociadas y colaboradores."
 
 #: ../../source/for_users/training/settings.rst:91
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users"
-" choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
 "Si utiliza |trends.earth| para fines oficiales, se recomienda que los "
-"usuarios elijan un límite oficial proporcionado por la oficina designada "
-"de su país."
+"usuarios elijan un límite oficial proporcionado por la oficina designada de "
+"su país."
 
 #: ../../source/for_users/training/settings.rst:101
 msgid "Point"
 msgstr "Punto"
 
 #: ../../source/for_users/training/settings.rst:102
-#, fuzzy
 msgid ""
-"Select this option to manually add coordinates or select a point on the "
-"map canvas."
+"Select this option to manually add coordinates or select a point on the map "
+"canvas."
 msgstr ""
-"Seleccione esta opción para cargar coordenadas o seleccionar un punto en "
-"el mapa."
+"Seleccione esta opción para añadir coordenadas manualmente o seleccione un "
+"punto en el mapa."
 
 #: ../../source/for_users/training/settings.rst:105
 msgid "Area from file"
 msgstr "Área desde archivo"
 
 #: ../../source/for_users/training/settings.rst:106
-#, fuzzy
 msgid ""
-"Select this option to upload a point or polygon of your choice. Supported"
-" formats includes shapefile, kml, kmz and geojson."
-msgstr "Seleccione esta opción para cargar el punto o polígono que elija."
+"Select this option to upload a point or polygon of your choice. Supported "
+"formats includes shapefile, kml, kmz and geojson."
+msgstr ""
+"Seleccione esta opción para cargar el punto o polígono elegido. Los formatos"
+" admitidos incluyen shapefile, kml, kmz y geojson."
 
 #: ../../source/for_users/training/settings.rst:110
 msgid ""
-"Select **Apply a buffer to the chosen area** if you experience issues "
-"with geometries or want to"
+"Select **Apply a buffer to the chosen area** if you experience issues with "
+"geometries or want to"
 msgstr ""
-"Seleccione **Aplicar un buffer al área elegida** si tiene problemas con "
-"la geometría o quiere"
+"Seleccione **Aplicar un buffer al área elegida** si tiene problemas con la "
+"geometría o quiere"
 
 #: ../../source/for_users/training/settings.rst:111
-msgid "add a buffer around a point entered in the city or coordinates options."
+msgid ""
+"add a buffer around a point entered in the city or coordinates options."
 msgstr ""
-"añadir un búfer alrededor de un punto introducido en las opciones de "
-"ciudad o coordenadas."
+"añadir un búfer alrededor de un punto introducido en las opciones de ciudad "
+"o coordenadas."
 
 #: ../../source/for_users/training/settings.rst:115
 msgid "Custom land cover classes"
-msgstr ""
+msgstr "Clases de ocupación del terreno personalizadas"
 
 #: ../../source/for_users/training/settings.rst:116
 msgid ""
-"Add, remove, or edit landcover classes. The landcover scheme can be "
-"exported using the **Save** option, and loaded from an existing file "
-"using the **Load** button."
+"Add, remove, or edit landcover classes. The landcover scheme can be exported"
+" using the **Save** option, and loaded from an existing file using the "
+"**Load** button."
 msgstr ""
+"Añada, elimine o modifique clases de ocupación del suelo. El esquema de "
+"ocupación del suelo se puede exportar mediante la opción **Guardar**, y "
+"cargar desde un archivo existente mediante el botón **Cargar**."
 
 #: ../../source/for_users/training/settings.rst:122
 msgid ""
@@ -247,26 +259,29 @@ msgid ""
 "class** or select a class in the table. Changes can be applied to the "
 "following parameters:"
 msgstr ""
+"El editor de ocupación del suelo se abrirá cuando el usuario haga clic en "
+"**Añadir clase** o seleccione una clase de la tabla. Se pueden aplicar "
+"cambios a los siguientes parámetros:"
 
 #: ../../source/for_users/training/settings.rst:125
 msgid "**Name**: Title of the class"
-msgstr ""
+msgstr "**Nombre**: título de la clase"
 
 #: ../../source/for_users/training/settings.rst:127
 msgid "**Parent**: Parent class of the selected class"
-msgstr ""
+msgstr "**Padre**: clase padre de la clase seleccionada"
 
 #: ../../source/for_users/training/settings.rst:129
 msgid "**Color**: Legend color for the class"
-msgstr ""
+msgstr "**Color**: leyenda de color para la clase"
 
 #: ../../source/for_users/training/settings.rst:131
 msgid "**Code**: Unique ID given to the class"
-msgstr ""
+msgstr "**Código**: ID exclusivo dado a la clase"
 
 #: ../../source/for_users/training/settings.rst:133
 msgid "Click **Done** once the changes has been made."
-msgstr ""
+msgstr "Haga clic en **Hecho** cuando se hayan aplicado los cambios."
 
 #: ../../source/for_users/training/settings.rst:141
 msgid "Reports"
@@ -282,15 +297,15 @@ msgstr "Ruta de búsqueda de plantillas"
 
 #: ../../source/for_users/training/settings.rst:150
 msgid ""
-"An additional directory containing report templates (qpt files). If there"
-" are templates with the same name to those in "
-"`[base_data_directory]/reports/templates`, then the system will "
-"prioritize and use the ones in the search path."
+"An additional directory containing report templates (qpt files). If there "
+"are templates with the same name to those in "
+"`[base_data_directory]/reports/templates`, then the system will prioritize "
+"and use the ones in the search path."
 msgstr ""
-"Un directorio adicional que contiene plantillas de informes (archivos "
-"qpt). Si hay plantillas con el mismo nombre que las que están en "
-"`[directorio_de_datos_base]/informes/plantillas`, el sistema dará "
-"prioridad y utilizará las que estén en la ruta de búsqueda."
+"Un directorio adicional que contiene plantillas de informes (archivos qpt). "
+"Si hay plantillas con el mismo nombre que las que están en "
+"`[directorio_de_datos_base]/informes/plantillas`, el sistema dará prioridad "
+"y utilizará las que estén en la ruta de búsqueda."
 
 #: ../../source/for_users/training/settings.rst:154
 msgid "Common Report Information"
@@ -299,53 +314,50 @@ msgstr "Información común del informe"
 #: ../../source/for_users/training/settings.rst:155
 msgid ""
 "Common contextual information that can be modified to suit the reporting "
-"context. Any changes to the settings under this category, will be applied"
-" in subsequent report generation tasks."
+"context. Any changes to the settings under this category, will be applied in"
+" subsequent report generation tasks."
 msgstr ""
 "Información contextual común que se puede modificar para adaptarse al "
 "contexto del informe. Cualquier cambio en la configuración de esta "
-"categoría, se aplicará en las siguientes tareas de generación de "
-"informes."
+"categoría, se aplicará en las siguientes tareas de generación de informes."
 
 #: ../../source/for_users/training/settings.rst:159
 msgid ""
-"These are only applicable in those report templates where the "
-"corresponding variables are used. For the default templates (that ship "
-"with the toolbox), only the organization logo and disclaimer text "
-"variables are used."
+"These are only applicable in those report templates where the corresponding "
+"variables are used. For the default templates (that ship with the toolbox), "
+"only the organization logo and disclaimer text variables are used."
 msgstr ""
 "Estos solo son aplicables en aquellas plantillas de informe donde se "
-"utilizan las variables correspondientes. Para las plantillas "
-"predeterminadas (que se incluyen con la caja de herramientas), solo se "
-"utilizan el logotipo de la organización y las variables de texto de "
-"descargo de responsabilidad."
+"utilizan las variables correspondientes. Para las plantillas predeterminadas"
+" (que se incluyen con la caja de herramientas), solo se utilizan el logotipo"
+" de la organización y las variables de texto de descargo de responsabilidad."
 
 #: ../../source/for_users/training/settings.rst:163
 msgid ""
-"**a. Organization Logo** - This is a path to an image file that can be "
-"used as a logo in the reports. By default,"
+"**a. Organization Logo** - This is a path to an image file that can be used "
+"as a logo in the reports. By default,"
 msgstr ""
 "**a. Logotipo de la organización**. Se trata de una ruta de acceso a un "
-"archivo de imagen que puede utilizarse como logotipo en los informes. Por"
-" defecto,"
+"archivo de imagen que puede utilizarse como logotipo en los informes. Por "
+"defecto,"
 
 #: ../../source/for_users/training/settings.rst:164
 msgid ""
-"it points to `trends_earth_logo_bl_small.png` that ships with the "
-"toolbox. It is available as a QGIS layout variable named "
+"it points to `trends_earth_logo_bl_small.png` that ships with the toolbox. "
+"It is available as a QGIS layout variable named "
 ":code:`te_report_organization_logo`."
 msgstr ""
-"a \"trends_earth_logo_bl_small.png\" que viene con la caja de "
-"herramientas. Está disponible como una variable de diseño QGIS denominada"
-" :code:'te_report_organization_logo'."
+"a \"trends_earth_logo_bl_small.png\" que viene con la caja de herramientas. "
+"Está disponible como una variable de diseño QGIS denominada "
+":code:'te_report_organization_logo'."
 
 #: ../../source/for_users/training/settings.rst:167
 msgid ""
 "**b. Organization Name** - Free text corresponding to the name of the "
 "organization. It is empty by default. It is"
 msgstr ""
-"**b. Nombre de la organización**: Texto libre correspondiente al nombre "
-"de la organización. Está vacío Por defecto. Apunta "
+"**b. Nombre de la organización**: Texto libre correspondiente al nombre de "
+"la organización. Está vacío Por defecto. Apunta "
 
 #: ../../source/for_users/training/settings.rst:168
 msgid ""
@@ -360,8 +372,7 @@ msgid ""
 "**c. Footer Text** - Free text that can be used in the footer section of "
 "reports. It is empty by default. It is"
 msgstr ""
-"**c. Texto de pie de página**: Texto libre que se puede utilizar en la "
-"sección Pie de página de los informes. Está vacío por defecto. Está \n"
+"**c. Texto de pie de página**: Texto libre que se puede utilizar en la sección Pie de página de los informes. Está vacío por defecto. Está \n"
 "\n"
 
 #: ../../source/for_users/training/settings.rst:171
@@ -372,31 +383,30 @@ msgstr ""
 
 #: ../../source/for_users/training/settings.rst:173
 msgid ""
-"**d. Disclaimer Text** - Disclaimer statement that applies to one or more"
-" elements in the reports such as data."
+"**d. Disclaimer Text** - Disclaimer statement that applies to one or more "
+"elements in the reports such as data."
 msgstr ""
 "**d. Texto de descargo de responsabilidad**: Declaración de descargo de "
-"responsabilidad que se aplica a uno o más elementos de los informes, como"
-" los datos."
+"responsabilidad que se aplica a uno o más elementos de los informes, como "
+"los datos."
 
 #: ../../source/for_users/training/settings.rst:174
 msgid "The default statement reads:"
 msgstr "La declaración por defecto dice:"
 
 #: ../../source/for_users/training/settings.rst:176
-#, fuzzy
 msgid ""
-"`The provided boundaries are from geoBoundaries (www.geoboundaries.org), "
-"and areunder the CC BY 4.0 license. The boundaries, names and "
-"designations used in Trends.Earth do not imply official endorsement or "
-"acceptance by Conservation International Foundation, or by its partner "
-"organizations and contributors.`"
+"`The provided boundaries are from geoBoundaries (www.geoboundaries.org), and"
+" areunder the CC BY 4.0 license. The boundaries, names and designations used"
+" in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors.`"
 msgstr ""
-"\"Los límites proporcionados son de Natural Earth y son de dominio "
-"público. Los límites, nombres y designaciones utilizados en Trends.Earth "
-"no implican el respaldo o la aceptación oficial por parte de Fundación "
-"para la Conservación Internacional, o por parte de sus organizaciones "
-"asociadas y colaboradores."
+"`Los límites proporcionados proceden de geoBoundaries "
+"(www.geoboundaries.org) y están sujetos a la licencia CC BY 4.0. Los "
+"límites, nombres y designaciones empleados en Trends.Earth no implican el "
+"respaldo ni la aceptación por parte de Conservación Internacional, ni de sus"
+" organizaciones asociadas y colaboradores.`"
 
 #: ../../source/for_users/training/settings.rst:180
 msgid ""
@@ -412,15 +422,14 @@ msgstr "Registrar advertencias en el directorio de salida"
 
 #: ../../source/for_users/training/settings.rst:184
 msgid ""
-"When checked, the output report folder will contain a html file with "
-"details of any warning or errors that arose during the report generation "
-"process. It is useful for debugging purposes. By default, it is "
-"unchecked."
+"When checked, the output report folder will contain a html file with details"
+" of any warning or errors that arose during the report generation process. "
+"It is useful for debugging purposes. By default, it is unchecked."
 msgstr ""
-"Cuando se marca, la carpeta de informe de salida contendrá un archivo "
-"html con detalles de cualquier advertencia o error que haya surgido "
-"durante el proceso de generación de informes. Es útil para fines de "
-"depuración. Por defecto, no está marcada."
+"Cuando se marca, la carpeta de informe de salida contendrá un archivo html "
+"con detalles de cualquier advertencia o error que haya surgido durante el "
+"proceso de generación de informes. Es útil para fines de depuración. Por "
+"defecto, no está marcada."
 
 #: ../../source/for_users/training/settings.rst:190
 msgid "Advanced"
@@ -431,8 +440,8 @@ msgid ""
 "Select the `Advanced` drop-down list to view more options within the "
 "Trends.Earth toolbox."
 msgstr ""
-"Seleccione la lista desplegable \"Avanzado\" para ver más opciones dentro"
-" de la caja de herramientas Trends.Earth."
+"Seleccione la lista desplegable \"Avanzado\" para ver más opciones dentro de"
+" la caja de herramientas Trends.Earth."
 
 #: ../../source/for_users/training/settings.rst:198
 msgid "Base data directory"
@@ -440,57 +449,66 @@ msgstr "Directorio de datos base"
 
 #: ../../source/for_users/training/settings.rst:199
 msgid ""
-"All data will be saved in the Base Data Folder. To change where data from"
-" Trends.Earth is stored select *...* button next to the Base data "
-"directory and select a folder to store your data."
+"All data will be saved in the Base Data Folder. To change where data from "
+"Trends.Earth is stored select *...* button next to the Base data directory "
+"and select a folder to store your data."
 msgstr ""
-"Todos los datos se guardarán en la carpeta de datos base. Para cambiar "
-"dónde se almacenan los datos de Trends.Earth, seleccione el botón *...* "
-"junto al directorio de datos base y seleccione una carpeta para almacenar"
-" los datos."
+"Todos los datos se guardarán en la carpeta de datos base. Para cambiar dónde"
+" se almacenan los datos de Trends.Earth, seleccione el botón *...* junto al "
+"directorio de datos base y seleccione una carpeta para almacenar los datos."
 
 #: ../../source/for_users/training/settings.rst:202
 msgid ""
 "There are several check boxes to set your preference under the Base data "
 "directory selection."
 msgstr ""
-"Hay varias casillas de verificación para establecer sus preferencias en "
-"la selección del directorio de datos base."
+"Hay varias casillas de verificación para establecer sus preferencias en la "
+"selección del directorio de datos base."
 
 #: ../../source/for_users/training/settings.rst:204
 msgid "Check the boxes to:"
-msgstr ""
+msgstr "Seleccione los recuadros para:"
 
 #: ../../source/for_users/training/settings.rst:206
 msgid "Filter remote jobs according to local base directory"
-msgstr ""
+msgstr "Filtrar trabajos remotos según el directorio básico local"
 
 #: ../../source/for_users/training/settings.rst:208
-msgid "Enable debug mode - saves detailed logging information from your session"
+msgid ""
+"Enable debug mode - saves detailed logging information from your session"
 msgstr ""
+"Habilitar modo de depuración: guarda información de registro detallada de su"
+" sesión"
 
 #: ../../source/for_users/training/settings.rst:210
 msgid "Download remotely-generated datasets automatically"
 msgstr ""
+"Descargar automáticamente los conjuntos de datos generados a distancia"
 
 #: ../../source/for_users/training/settings.rst:212
 #: ../../source/for_users/training/settings.rst:217
 msgid "Do not check this if you have limited bandwidth or are working offline"
 msgstr ""
+"No lo seleccione si tiene un ancho de banda limitado o está trabajando sin "
+"conexión"
 
 #: ../../source/for_users/training/settings.rst:214
 msgid "Poll remote processing server periodically"
-msgstr ""
+msgstr "Sondear periódicamente el servidor de procesamiento remoto"
 
 #: ../../source/for_users/training/settings.rst:216
 msgid ""
-"This sets the frequency that the server will check for finished analyses "
-"to download automatically"
+"This sets the frequency that the server will check for finished analyses to "
+"download automatically"
 msgstr ""
+"Esto establece la frecuencia con la que el servidor comprobará si hay "
+"análisis terminados para descargarlos automáticamente"
 
 #: ../../source/for_users/training/settings.rst:219
 msgid "Use binaries for faster processing: Select folder to store binaries"
 msgstr ""
+"Use binarios para un procesamiento más rápido: seleccione una carpeta para "
+"almacenar binarios"
 
 #: ../../source/for_users/training/settings.rst:223
 msgid "LandPKS login information"
@@ -499,53 +517,3 @@ msgstr "Información de inicio de sesión de LandPKS"
 #: ../../source/for_users/training/settings.rst:224
 msgid "**Coming soon**"
 msgstr "**Próximamente**"
-
-#~ msgid ""
-#~ "Check the boxes to: 1) Filter "
-#~ "remote jobs according to local base "
-#~ "directory 2) Enable debug mode - "
-#~ "saves detailed logging information from "
-#~ "your session 3) Download remotely-"
-#~ "generated datasets automatically - Do "
-#~ "not check this if you have limited"
-#~ " bandwidth or are working offline 4)"
-#~ " Poll remote processing server periodically"
-#~ " - This sets the frequency that "
-#~ "the server will check for finished "
-#~ "analyses to download automatically - Do"
-#~ " not check this if you have "
-#~ "limited bandwidth or are working offline"
-#~ " 5) Use binaries for faster "
-#~ "processing - Select folder to store "
-#~ "binaries"
-#~ msgstr ""
-#~ "Marque las casillas para: 1) Filtrar "
-#~ "trabajos remotos de acuerdo con el "
-#~ "directorio base local 2) Habilitar el"
-#~ " modo de depuración: guarda información "
-#~ "de registro detallada de su sesión "
-#~ "3) Descargar conjuntos de datos "
-#~ "generados de forma remota automáticamente. "
-#~ "No verifique esto si tiene un "
-#~ "ancho de banda limitado o está "
-#~ "trabajando sin conexión 4) Sondear el"
-#~ " servidor de procesamiento remoto "
-#~ "periódicamente: Esto establece la frecuencia"
-#~ " con la que el servidor buscará "
-#~ "análisis terminados para descargar "
-#~ "automáticamente. No marque esto si tiene"
-#~ " un ancho de banda limitado o "
-#~ "está trabajando offline 5) Usar binarios"
-#~ " para un procesamiento más rápido: "
-#~ "Seleccione la carpeta para almacenar "
-#~ "binarios"
-
-#~ msgid "iconCalculator"
-#~ msgstr "iconCalculadora"
-
-#~ msgid "iconReports"
-#~ msgstr "iconInformes"
-
-#~ msgid "Trends.Earth"
-#~ msgstr "Trends.Earth"
-

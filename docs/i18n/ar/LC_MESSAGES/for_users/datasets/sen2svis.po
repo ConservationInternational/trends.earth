@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2022, Conservation International
+# Copyright (C) 2017-2026, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -9,12 +9,12 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.0rc1\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
+"Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -80,7 +80,6 @@ msgstr "الحد الأقصي للقيمة"
 msgid "Minimum value"
 msgstr "الحد الأدنى للقيمة"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "EVI2"
 msgstr "EVI2"

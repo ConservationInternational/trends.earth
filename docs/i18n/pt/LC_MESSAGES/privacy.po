@@ -1,36 +1,41 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2025, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
-#
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.1.17\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-22 04:05+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: pt\n"
-"Language-Team: pt <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"PO-Revision-Date: 2026-02-06 15:40+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
+"Language-Team: Portuguese (https://app.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: ../../source/privacy.rst:2
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Política de Privacidade"
 
 #: ../../source/privacy.rst:4
 msgid "Trends.Earth follows the Conservation International Privacy Policy."
 msgstr ""
+"A Trends.Earth segue a Política de Privacidade da Conservation "
+"International."
 
 #: ../../source/privacy.rst:6
 msgid ""
-"This policy applies to all data collection and processing activities "
-"related to the use of Trends.Earth software and services."
+"This policy applies to all data collection and processing activities related"
+" to the use of Trends.Earth software and services."
 msgstr ""
-
+"Esta política aplica-se a toda a recolha de dados e atividades de "
+"processamentos relacionados com o uso do software e serviços da "
+"Trends.Earth."

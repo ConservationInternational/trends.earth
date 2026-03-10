@@ -1,29 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Khalid Mwakoba <khalid.mwakoba@gmail.com>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.0rc1\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-20 04:33+0000\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language: sw\n"
-"Language-Team: Swahili (https://www.transifex.com/conservation-"
-"international/teams/80165/sw/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: Swahili (https://app.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/for_users/datasets/input_data.rst:4
 msgid "Input Data Used in Trends.Earth"
@@ -31,15 +29,14 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:6
 msgid ""
-"|trends.earth| draws on a number of data sources. The data sets listed "
-"below are owned/made available by the following organizations and "
-"individuals under separate terms as indicated in their respective "
-"metadata."
+"|trends.earth| draws on a number of data sources. The data sets listed below"
+" are owned/made available by the following organizations and individuals "
+"under separate terms as indicated in their respective metadata."
 msgstr ""
-"|trends.earth| inatumia vyanzo kadhaa vya taarifa. Vyanzo "
-"vilivyoorodheshwa hapa chini vinamilikiwa au vinawekwa na taasisi na watu"
-" binafsi wafuato chini ya masharti yao kama ilivyooneshwa katika sehemu "
-"zinazoelezea wasifu wa takwimu hizo."
+"|trends.earth| inatumia vyanzo kadhaa vya taarifa. Vyanzo vilivyoorodheshwa "
+"hapa chini vinamilikiwa au vinawekwa na taasisi na watu binafsi wafuato "
+"chini ya masharti yao kama ilivyooneshwa katika sehemu zinazoelezea wasifu "
+"wa takwimu hizo."
 
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
@@ -151,14 +148,12 @@ msgid "`Public Domain`_"
 msgstr "`Public Domain`_"
 
 #: ../../source/for_users/datasets/input_data.rst:18
-#, fuzzy
 msgid "`MOD13Q1-coll6.1`_"
-msgstr "`MOD13Q1-coll6`_"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:18
-#, fuzzy
 msgid "2001-2024"
-msgstr "2000-2014"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:18
 #: ../../source/for_users/datasets/input_data.rst:92
@@ -262,14 +257,12 @@ msgid "MOD16A2GF_"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:68
-#, fuzzy
 msgid "2000-2024"
-msgstr "2000-2014"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:68
-#, fuzzy
 msgid "500 m"
-msgstr "5 km"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:75
 msgid "Land cover"
@@ -290,9 +283,8 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:80
 #: ../../source/for_users/datasets/input_data.rst:115
 #: ../../source/for_users/datasets/input_data.rst:137
-#, fuzzy
 msgid "`CC BY 4.0`_"
-msgstr "`CC by-SA 4.0`_"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:87
 msgid "Soil carbon"
@@ -328,38 +320,31 @@ msgid "Administrative Boundaries"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:115
-#, fuzzy
 msgid "`geoBoundaries Administrative Boundaries`_"
-msgstr "`Natural Earth Administrative Boundaries`_"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:115
 msgid "10/50 m"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:119
-#, fuzzy
 msgid ""
-"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth "
-"are under the CC BY 4.0 license. The boundaries and names used, and the "
+"The `geoBoundaries Administrative Boundaries`_ provided in Trends.Earth are "
+"under the CC BY 4.0 license. The boundaries and names used, and the "
 "designations used, in Trends.Earth do not imply official endorsement or "
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
 msgstr ""
-"Mipaka ya `Natural Earth Administrative Boundaries`_ iliyotolewa katika "
-"Mwelekeo.Earth iko katika `public domain`_. Mipaka na majina "
-"yaliyotumiwa, na majarida yaliyotumiwa, katika Mwelekeo.Kuanzia "
-"haimaanishi kupitishwa rasmi au kukubalika na Conservation International "
-"Foundation, au kwa mashirika yake ya washirika na wafadhili."
 
 #: ../../source/for_users/datasets/input_data.rst:125
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users"
-" choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
 "Ikiwa unatumia Mwelekeo.Kuanzia kwa madhumuni rasmi, inashauriwa kuwa "
-"watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya "
-"nchi yao."
+"watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
+"yao."
 
 #: ../../source/for_users/datasets/input_data.rst:132
 msgid "Population"
@@ -370,34 +355,32 @@ msgid "`WorldPop`_ 100m Global Population grid"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:137
-#, fuzzy
 msgid "2000-2020"
-msgstr "2000-2014"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:137
-#, fuzzy
 msgid "100 m"
-msgstr "1 Km"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:141
 msgid ""
 "The `WorldPop`_ dataset included in Trends.Earth was produced by the "
-"`UNCCD`_ from publicly available data layers from the WorldPop project. "
-"This dataset is a combination of the national-level age and sex-"
-"disaggregated grids produced by the WorldPop project at 100m resolution. "
-"In support of UNCCD National Reporting on Strategic Objectives 2 and 3, "
-"UNCCD funded the development of a set of global mosaics, disaggregated by"
-" sex, giving population counts per pixel. These layers are used within "
-"Trends.Earth to tabulate population exposure to drought and degradation, "
-"disaggregated by sex."
+"`UNCCD`_ from publicly available data layers from the WorldPop project. This"
+" dataset is a combination of the national-level age and sex-disaggregated "
+"grids produced by the WorldPop project at 100m resolution. In support of "
+"UNCCD National Reporting on Strategic Objectives 2 and 3, UNCCD funded the "
+"development of a set of global mosaics, disaggregated by sex, giving "
+"population counts per pixel. These layers are used within Trends.Earth to "
+"tabulate population exposure to drought and degradation, disaggregated by "
+"sex."
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:151
 msgid ""
-"These data are also available in a publicly-accessible S3 bucket (trends"
-".earth-shared, in the us-east-1 region), as tiled 32-bit floating point "
-"GeoTiffs at 100m, 300m, and 1200m resolution, at the following locations "
-"on s3:"
+"These data are also available in a publicly-accessible S3 bucket "
+"(trends.earth-shared, in the us-east-1 region), as tiled 32-bit floating "
+"point GeoTiffs at 100m, 300m, and 1200m resolution, at the following "
+"locations on s3:"
 msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:156
@@ -411,46 +394,3 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:158
 msgid "s3://trends.earth-shared/worldpop/1200m"
 msgstr ""
-
-#~ msgid "**Coming soon**"
-#~ msgstr ""
-
-#~ msgid "iconCalculator"
-#~ msgstr ""
-
-#~ msgid "iconReports"
-#~ msgstr ""
-
-#~ msgid "`WorldPop 100m Global Population grid`_"
-#~ msgstr ""
-
-#~ msgid "2001-2016"
-#~ msgstr ""
-
-#~ msgid "1981-2016"
-#~ msgstr ""
-
-#~ msgid "1983-2015"
-#~ msgstr ""
-
-#~ msgid "MOD16A2_"
-#~ msgstr ""
-
-#~ msgid "1992-2018"
-#~ msgstr ""
-
-#~ msgid "`CC by-SA 3.0`_"
-#~ msgstr "`CC by-SA 3.0`_"
-
-#~ msgid "2000-2014"
-#~ msgstr "2000-2014"
-
-#~ msgid "10/50m"
-#~ msgstr ""
-
-#~ msgid "100m"
-#~ msgstr ""
-
-#~ msgid "1980-2016"
-#~ msgstr ""
-

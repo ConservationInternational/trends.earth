@@ -1,29 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.0rc1\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-26 04:25+0000\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language: ar\n"
-"Language-Team: Arabic (https://www.transifex.com/conservation-"
-"international/teams/80165/ar/)\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
-"n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
+"Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../../source/for_users/training/metadata.rst:4
 msgid "Dataset Metadata"
@@ -31,12 +27,12 @@ msgstr "البيانات الوصفية لمجموعة البيانات"
 
 #: ../../source/for_users/training/metadata.rst:6
 msgid "**Objective**: Learn how to edit and view dataset metadata."
-msgstr "**الهدف**: تعلّم كيفية تعديل البيانات الوصفية لمجموعة البيانات وعرضها.\n"
+msgstr ""
+"**الهدف**: تعلّم كيفية تعديل البيانات الوصفية لمجموعة البيانات وعرضها.\n"
 
 #: ../../source/for_users/training/metadata.rst:8
-#, fuzzy
 msgid "**Estimated time of completion**: 15 minutes"
-msgstr "** الوقت المقدر للانتهاء **: 40 دقيقة"
+msgstr "**الوقت المقدر للانتهاء**: 15 دقيقة\n"
 
 #: ../../source/for_users/training/metadata.rst:10
 msgid "**Internet access**: Not needed"
@@ -44,8 +40,8 @@ msgstr "**الوصول إلى الإنترنت**: غير مطلوب\n"
 
 #: ../../source/for_users/training/metadata.rst:12
 msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the "
-"Trends.Earth icon."
+"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
+" icon."
 msgstr ""
 "اضغط على شريط أدوات Trends.Earth داخل QGIS، وبعدها اضغط على أيقونة "
 "Trends.Earth.\n"
@@ -53,17 +49,17 @@ msgstr ""
 #: ../../source/for_users/training/metadata.rst:17
 msgid ""
 "The **Trends.Earth** menu will open. In the **Dataset** window, where "
-"existing tasks are listed in the menu if the **Download remotely-"
-"generated datasets automatically** is checked in settings."
+"existing tasks are listed in the menu if the **Download remotely-generated "
+"datasets automatically** is checked in settings."
 msgstr ""
-"ستفتح قائمة **Trends.Earth**. في نافذة **مجموعة البيانات**، حيث تظهر "
-"المهام الحالية مدرجة في القائمة إذا كان خيار **تنزيل مجموعات البيانات "
-"المُنشأة عن بُعد تلقائياً** محدداً في الإعدادات.\n"
+"ستفتح قائمة **Trends.Earth**. في نافذة **مجموعة البيانات**، حيث تظهر المهام "
+"الحالية مدرجة في القائمة إذا كان خيار **تنزيل مجموعات البيانات المُنشأة عن "
+"بُعد تلقائياً** محدداً في الإعدادات.\n"
 
 #: ../../source/for_users/training/metadata.rst:20
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more "
-"about **Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more about "
+"**Advanced settings**"
 msgstr ""
 "يرجى الرجوع إلى قسم: ref:`tut_settings` من هذا الدليل لمعرفة المزيد حول "
 "**الإعدادات المتقدمة**"
@@ -76,13 +72,14 @@ msgstr "اضغط على زر \"تحديث\" إذا لم تظهر أي مجموع
 msgid ""
 "Press the Edit metadata button to open a drop-down menu with available "
 "options"
-msgstr "اضغط على زر تعديل البيانات الوصفية لفتح قائمة منسدلة بالخيارات المتاحة\n"
+msgstr ""
+"اضغط على زر تعديل البيانات الوصفية لفتح قائمة منسدلة بالخيارات المتاحة\n"
 
 #: ../../source/for_users/training/metadata.rst:32
 msgid ""
 "The drop-down menu allows to select any raster from the list of all "
-"available rasters of the dataset to edit or view its metadata. Once "
-"raster is selected a metadata editor dialog will show up."
+"available rasters of the dataset to edit or view its metadata. Once raster "
+"is selected a metadata editor dialog will show up."
 msgstr ""
 "تسمح القائمة المنسدلة بتحديد أي ملف نقطي من قائمة كافة الملفات النقطية "
 "المتاحة في مجموعة البيانات لمجموعة البيانات لتعديل بياناتها الوصفية أو "
@@ -90,46 +87,10 @@ msgstr ""
 
 #: ../../source/for_users/training/metadata.rst:37
 msgid ""
-"Fill in the necessary information or edit existing data in the dialog "
-"fields and press OK button to save your changes. Metadata will be saved "
-"in the QGIS QMD format, in a separate file for each raster in the dataset"
-" folder."
+"Fill in the necessary information or edit existing data in the dialog fields"
+" and press OK button to save your changes. Metadata will be saved in the "
+"QGIS QMD format, in a separate file for each raster in the dataset folder."
 msgstr ""
-"املأ المعلومات الضرورية أو عدّل البيانات الموجودة في حقول الحوار واضغط "
-"على زر موافق لحفظ التغييرات. ستُحفظ البيانات الأولية بتنسيق QGIS QMD، في "
-"ملف منفصل لكل ملف نقطي في مجلد مجموعة البيانات.\n"
-
-#~ msgid "iconCalculator"
-#~ msgstr "iconCalculator"
-
-#~ msgid "iconReports"
-#~ msgstr "iconReports"
-
-#~ msgid "Trends.Earth"
-#~ msgstr "Trends.Earth"
-
-#~ msgid ""
-#~ "Metadata also can be viewed/edited from"
-#~ " the Dataset details dialog via the"
-#~ " same Metadata button, as described "
-#~ "in the step 3 above."
-#~ msgstr ""
-#~ "يمكن أيضاً عرض/تعديل البيانات الوصفية من"
-#~ " مربع حوار تفاصيل مجموعة البيانات عبر"
-#~ " نفس زر البيانات الوصفية، كما هو "
-#~ "موضح في الخطوة رقم 3 أعلاه.\n"
-
-#~ msgid ""
-#~ "When exporting dataset to the ZIP "
-#~ "archive from the Dataset details dialog"
-#~ " all existing metadata in the QMD "
-#~ "format will be automatically converted "
-#~ "to ISO XML format and packaged "
-#~ "together with the layers."
-#~ msgstr ""
-#~ "عند تصدير مجموعة البيانات إلى أرشيف "
-#~ "ZIP من مربع حوار تفاصيل مجموعة "
-#~ "البيانات، ستُحول جميع البيانات الوصفية "
-#~ "الموجودة بتنسيق QMD تلقائياً إلى تنسيق"
-#~ " ISO XML وتُجمَع مع الطبقات.\n"
-
+"املأ المعلومات الضرورية أو عدّل البيانات الموجودة في حقول الحوار واضغط على "
+"زر موافق لحفظ التغييرات. ستُحفظ البيانات الأولية بتنسيق QGIS QMD، في ملف "
+"منفصل لكل ملف نقطي في مجلد مجموعة البيانات.\n"

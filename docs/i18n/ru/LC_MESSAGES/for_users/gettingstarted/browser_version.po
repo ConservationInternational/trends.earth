@@ -1,29 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.0rc1\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 04:02+0000\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language: ru\n"
-"Language-Team: Russian (https://www.transifex.com/conservation-"
-"international/teams/80165/ru/)\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
-"|| (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language-Team: Russian (https://app.transifex.com/conservation-international/teams/80165/ru/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:4
 msgid "Browser"
@@ -36,13 +32,3 @@ msgstr "Приложение-браузер Trends.Earth"
 #: ../../source/for_users/gettingstarted/browser_version.rst:8
 msgid "**Coming soon!**"
 msgstr "**Встречайте скоро!**"
-
-#~ msgid "iconCalculator"
-#~ msgstr "iconCalculator"
-
-#~ msgid "iconReports"
-#~ msgstr "iconReports"
-
-#~ msgid "Trends.Earth"
-#~ msgstr "Trends.Earth"
-

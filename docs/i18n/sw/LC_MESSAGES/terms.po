@@ -1,24 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2025, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
-#
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.1.17\n"
+"Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-22 04:05+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: sw\n"
-"Language-Team: sw <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"PO-Revision-Date: 2026-02-06 15:40+0000\n"
+"Language-Team: Swahili (https://app.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/terms.rst:2
 msgid "Terms of Use"
@@ -31,4 +28,3 @@ msgstr ""
 #: ../../source/terms.rst:6
 msgid "These terms apply to all use of Trends.Earth software and services."
 msgstr ""
-

@@ -22,16 +22,6 @@
         <translation>区域</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="52"/>
-        <source>0.00 kmÂ²</source>
-        <translation type="obsolete">0.00 kmÂ²</translation>
-    </message>
-    <message>
-        <location filename="../maptools.py" line="57"/>
-        <source>{:.6g} kmÂ²</source>
-        <translation type="obsolete">{:.6g} kmÂ²</translation>
-    </message>
-    <message>
         <location filename="../settings.py" line="752"/>
         <source>The map must have at least one layer.</source>
         <translation>地图必须至少有一层。</translation>
@@ -197,16 +187,6 @@
 <context>
     <name>DatasetDetailsDialogue</name>
     <message>
-        <location filename="../datasets_dialog.py" line="171"/>
-        <source>Dataset metadata</source>
-        <translation type="obsolete">数据集元数据</translation>
-    </message>
-    <message>
-        <location filename="../datasets_dialog.py" line="178"/>
-        <source>{} metadata</source>
-        <translation type="obsolete">{} 元数据</translation>
-    </message>
-    <message>
         <location filename="../datasets_dialog.py" line="158"/>
         <source>Error exporting dataset {self.job}</source>
         <translation>导出数据集{self.job}时出错</translation>
@@ -346,11 +326,6 @@
         <translation>常规</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="59"/>
-        <source>Abstract</source>
-        <translation type="obsolete">摘要</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="87"/>
         <source>Title</source>
         <translation>标题</translation>
@@ -376,109 +351,9 @@
         <translation>从元数据中删除选定的类别</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="136"/>
-        <source>Contact</source>
-        <translation type="obsolete">联系人</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="220"/>
-        <source>Address</source>
-        <translation type="obsolete">地址</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="168"/>
-        <source>Name</source>
-        <translation type="obsolete">姓名</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="175"/>
-        <source>Role</source>
-        <translation type="obsolete">职位</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="192"/>
-        <source>Phone</source>
-        <translation type="obsolete">电话</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="212"/>
-        <source>Type</source>
-        <translation type="obsolete">类型</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="215"/>
-        <source>Type of address, e.g &apos;postal&apos;</source>
-        <translation type="obsolete">地址类型，例如“邮寄地址”</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="223"/>
-        <source>Free-form physical address component</source>
-        <translation type="obsolete">自由格式的物理地址部分</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="228"/>
-        <source>Postal Code</source>
-        <translation type="obsolete">邮政编码</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="231"/>
-        <source>Postal (or ZIP) code</source>
-        <translation type="obsolete">邮政（或 ZIP）编码</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="236"/>
-        <source>City</source>
-        <translation type="obsolete">城市</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="239"/>
-        <source>City or locality name</source>
-        <translation type="obsolete">城市或地区名称</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="244"/>
-        <source>Administrative Area</source>
-        <translation type="obsolete">行政区域</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="247"/>
-        <source>Administrative area (state, province/territory, etc.)</source>
-        <translation type="obsolete">行政区域（州、省/地区等）</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="252"/>
-        <source>Country</source>
-        <translation type="obsolete">国家</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="255"/>
-        <source>Free-form country</source>
-        <translation type="obsolete">自由格式的国家</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="288"/>
-        <source>Organization</source>
-        <translation type="obsolete">组织</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDatasetMetadata.ui" line="298"/>
-        <source>Email</source>
-        <translation type="obsolete">电子邮件</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgSelectDS.ui" line="14"/>
         <source>Dataset selection</source>
         <translation>数据集选择</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="34"/>
-        <source>sdg-15-3-1-summary</source>
-        <translation type="obsolete">sdg-15-3-1-总结</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="27"/>
-        <source>SDG 15.3.1 Indicator;SDG 15.3.1 Indicator (status)</source>
-        <translation type="obsolete">SDG 15.3.1 指标</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="103"/>
@@ -516,21 +391,6 @@
         <translation>更改区域</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="75"/>
-        <source>Soil organic carbon (degradation)</source>
-        <translation type="obsolete">土壤有机碳（降解）</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="95"/>
-        <source>Land Productivity Dynamics (from JRC)</source>
-        <translation type="obsolete">土地生产力动态（来自 JRC）</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="96"/>
-        <source>Land cover (degradation)</source>
-        <translation type="obsolete">土地覆盖（退化）</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgSelectDS.ui" line="41"/>
         <source>Land cover degradation</source>
         <translation>土地覆盖退化</translation>
@@ -543,7 +403,7 @@
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="143"/>
         <source>Task name</source>
-        <translation type="unfinished"></translation>
+        <translation>任务名称</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="66"/>
@@ -563,12 +423,12 @@
     <message>
         <location filename="../gui/DlgDatasetAdditionalMetadata.ui" line="14"/>
         <source>Additional Metadata</source>
-        <translation type="unfinished"></translation>
+        <translation>附加元数据</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetAdditionalMetadata.ui" line="50"/>
         <source>Metadata</source>
-        <translation type="unfinished">元数据</translation>
+        <translation>元数据</translation>
     </message>
 </context>
 <context>
@@ -589,27 +449,22 @@
     <message>
         <location filename="../calculate_ldn.py" line="2721"/>
         <source>Error</source>
-        <translation type="unfinished">错误</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="2531"/>
-        <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
-        <translation type="obsolete">您必须先选择{layer_name}图层，然后才能使用 SDG 计算工具。</translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="2634"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
-        <translation type="unfinished">感兴趣区域并不完全在{check_layer_name}层内。</translation>
+        <translation>感兴趣区域并不完全在{check_layer_name}层内。</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="2712"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
-        <translation type="unfinished">{model_layer_name}层和{check_layer_name}层的分辨率不匹配。</translation>
+        <translation>{model_layer_name}层和{check_layer_name}层的分辨率不匹配。</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="2721"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
-        <translation type="unfinished">{model_layer_name}层和{check_layer_name}层的坐标系不匹配。</translation>
+        <translation>{model_layer_name}层和{check_layer_name}层的坐标系不匹配。</translation>
     </message>
 </context>
 <context>
@@ -732,7 +587,15 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;This tool facilitates summarizing indicators of drought vulnerability for assessment of maximum drought (over four year periods within the interval selected). The output of this tool can be used to assess drought indicators within a particular region, or to prepare data for reporting to UNCCD on Strategic Objective 3.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;干旱总结&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;这一工具有助于对干旱脆弱性的各项指标进行总结，以评估干旱的最严重程度（在选定的间隔内的4个以上年度）。这一工具的输出数据可用于评估特定区域内的干旱指标，或为向《荒漠化公约》战略目标3进行的报告编制数据。&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;更多信息&lt;/span&gt;
+&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="301"/>
@@ -743,11 +606,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_drought_vulnerability.py" line="262"/>
         <source>You must select a {dataset_name} layer before you can use the drought tool.</source>
         <translation>您必须先选择{dataset_name}图层，然后才能使用干旱工具。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_drought_vulnerability.py" line="276"/>
-        <source>You must select a {layer_name} layer before you can use the drought tool.</source>
-        <translation type="obsolete">您必须先选择{layer_name}图层，然后才能使用干旱工具。</translation>
     </message>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="301"/>
@@ -818,16 +676,6 @@ p, li { white-space: pre-wrap; }
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="114"/>
-        <source>You must add an initial land cover layer to your map before you can run the calculation.</source>
-        <translation type="obsolete">在运行计算之前，您必须在地图上添加初始土地覆盖图层。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_lc.py" line="125"/>
-        <source>You must add a final land cover layer to your map before you can run the calculation.</source>
-        <translation type="obsolete">在运行计算之前，您必须在地图上添加最终的土地覆盖图层。</translation>
-    </message>
-    <message>
         <location filename="../calculate_lc.py" line="131"/>
         <source>Warning</source>
         <translation>警告</translation>
@@ -866,7 +714,13 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Trends.Earth will combine the information from the land cover maps and the table of degradation typologies by land cover transition to compute the land cover sub-indicator.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#land-cover&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Land Cover SDG 15.3.1 Sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;土地覆盖&lt;/span&gt;&lt;/h3&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;要评估土地覆盖变化，用户需要涵盖基线和目标年份研究区域的土地覆盖图。这些地图需要具有符合标准的精度，并以允许有效比较的方式创建。Trends.Earth使用ESA CCI土地覆盖图作为默认数据集，但也可以使用本地地图。该指标的计算方法如下：&lt;/span&gt;&lt;/p&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;将两张土地覆盖图重新分类为向《荒漠化公约》报告所需的7种土地覆盖类别（森林、草地、耕地、湿地、人工区、裸地和水域）。&lt;/li&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;进行土地覆盖转变分析，以确定哪些像素仍保留在同一土地覆盖类别中，哪些像素发生了变化。&lt;/li&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;
+根据您对所研究区域的情况和那里发生的土地退化的实地了解，使用下方表格，在高级部分中，确定哪些转变分别对应退化（-符号）、改善（+符号）或土地条件无变化（0）。&lt;/li&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Trends.Earth将结合来自土地覆盖图和土地覆盖转变中的退化类型表的信息，来计算土地覆盖的子指标。&lt;/li&gt;&lt;/ol&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#land-cover&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;关于土地覆盖可持续发展目标15.3.1子指标的更多信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -896,83 +750,38 @@ p, li { white-space: pre-wrap; }
         <source>Save</source>
         <translation>保存</translation>
     </message>
-    <message>
-        <location filename="../lc_setup.py" line="463"/>
-        <source>Select a land cover definition file</source>
-        <translation type="obsolete">选择一个土地覆盖物定义文件</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="494"/>
-        <source>Land cover definition (*.json)</source>
-        <translation type="obsolete">土地覆盖定义（* .json）</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="507"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="476"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation type="obsolete">无法阅读 {}。选择一个不同的文件。</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="494"/>
-        <source>Choose where to save this land cover definition</source>
-        <translation type="obsolete">选择保存此土地覆盖范围定义的位置</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="507"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="obsolete">无法写入{}。选择一个不同的文件。</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="563"/>
-        <source>Warning</source>
-        <translation type="obsolete">警告</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="553"/>
-        <source>Some of the class codes ({unnecessary_child_codes!r}) in the definition file do not appear in the chosen data file.</source>
-        <translation type="obsolete">定义文件中的某些类代码 ({unnecessary_child_codes!r}) 不会出现在所选数据文件中。</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="563"/>
-        <source>Some of the class codes ({child_codes_missing_from_input!r}) in the data file do not appear in the chosen definition file.</source>
-        <translation type="obsolete">数据文件中的某些类代码 ({child_codes_missing_from_input!r}) 不会出现在所选定义文件中。</translation>
-    </message>
 </context>
 <context>
     <name>DlgCalculateLCSetAggregationBase</name>
     <message>
         <location filename="../lc_setup.py" line="594"/>
         <source>Select a land cover definition file</source>
-        <translation type="unfinished">选择一个土地覆盖物定义文件</translation>
+        <translation>选择土地覆盖定义文件</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="621"/>
         <source>Land cover definition (*.json)</source>
-        <translation type="unfinished">土地覆盖定义（* .json）</translation>
+        <translation>土地覆盖定义（*.json）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="634"/>
         <source>Error</source>
-        <translation type="unfinished">错误</translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="607"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation type="unfinished">无法阅读 {}。选择一个不同的文件。</translation>
+        <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="621"/>
         <source>Choose where to save this land cover definition</source>
-        <translation type="unfinished">选择保存此土地覆盖范围定义的位置</translation>
+        <translation>选择保存此土地覆盖定义的位置</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="634"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">无法写入{}。选择一个不同的文件。</translation>
+        <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
 </context>
 <context>
@@ -980,12 +789,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lc_setup.py" line="884"/>
         <source>Warning</source>
-        <translation type="unfinished">警告</translation>
+        <translation>警告</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="884"/>
         <source>Some of the parent classes ({unnecessary_parent_codes!r}) in the definition file are not listed in the current class legend. These classes will be ignored.</source>
-        <translation type="unfinished"></translation>
+        <translation>定义文件中的某些父类 （{unnecessary_parent_codes！r}） 未在当前级别图例中列出。这些父类将被忽略。</translation>
     </message>
 </context>
 <context>
@@ -993,17 +802,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lc_setup.py" line="741"/>
         <source>Warning</source>
-        <translation type="unfinished">警告</translation>
+        <translation>警告</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="729"/>
         <source>Some of the class codes ({unnecessary_child_codes!r}) in the definition file do not appear in the chosen data file.</source>
-        <translation type="unfinished">定义文件中的某些类代码 ({unnecessary_child_codes!r}) 不会出现在所选数据文件中。</translation>
+        <translation>定义文件中的某些类代码 ({unnecessary_child_codes!r}) 不会出现在所选数据文件中。</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="741"/>
         <source>Some of the class codes ({child_codes_missing_from_input!r}) in the data file do not appear in the chosen definition file.</source>
-        <translation type="unfinished">数据文件中的某些类代码 ({child_codes_missing_from_input!r}) 不会出现在所选定义文件中。</translation>
+        <translation>数据文件中的某些类代码 ({child_codes_missing_from_input!r}) 不会出现在所选定义文件中。</translation>
     </message>
 </context>
 <context>
@@ -1103,16 +912,6 @@ p, li { white-space: pre-wrap; }
         <source>This function coming soon!</source>
         <translation>此功能即将推出！</translation>
     </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1151"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1151"/>
-        <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
-        <translation type="obsolete">最初和最后一年相隔不到 5 年——如果分析中包含更多数据（年），结果将更可靠。</translation>
-    </message>
 </context>
 <context>
     <name>DlgCalculateLDNSummaryTableAdmin</name>
@@ -1130,11 +929,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="84"/>
         <source>Trends.Earth land productivity dynamics</source>
         <translation>Trends.Earth 土地生产力动态</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="94"/>
-        <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
-        <translation type="obsolete">预先计算的土地生产力动态（来自 JRC 或 FAO-WOCAT）</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="148"/>
@@ -1212,21 +1006,6 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;总人口&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="624"/>
-        <source>Include progress period (for comparison to baseline)</source>
-        <translation type="obsolete">包括进展期（用于与基线比较）</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="655"/>
-        <source>Progress dataset</source>
-        <translation type="obsolete">进度数据集</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="710"/>
-        <source>Advanced (progress period)</source>
-        <translation type="obsolete">高级（进展期）</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="746"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Trend (degradation)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;趋势（退化）&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -1270,31 +1049,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_ldn.py" line="2390"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation>该地区没有可用的数据集（请参阅高级）</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1435"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1280"/>
-        <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
-        <translation type="obsolete">您必须先选择{layer_name}图层，然后才能使用 SDG 计算工具。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1348"/>
-        <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
-        <translation type="obsolete">感兴趣区域并不完全在{check_layer_name}层内。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1426"/>
-        <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
-        <translation type="obsolete">{model_layer_name}层和{check_layer_name}层的分辨率不匹配。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1435"/>
-        <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
-        <translation type="obsolete">{model_layer_name}层和{check_layer_name}层的坐标系不匹配。</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="94"/>
@@ -1414,7 +1168,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="20"/>
         <source>Calculate Precipitation Indices</source>
-        <translation>计算标准化降水指数 (SPI)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1176"/>
@@ -1450,21 +1204,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateDrought.ui" line="296"/>
         <source>Lag (months):</source>
         <translation>时间间隔（月）：</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateDrought.ui" line="248"/>
-        <source>Precipitation dataset</source>
-        <translation type="obsolete">降水数据集</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateDrought.ui" line="255"/>
-        <source>GPCC</source>
-        <translation type="obsolete">GPCC</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateDrought.ui" line="268"/>
-        <source>CHIRPS</source>
-        <translation type="obsolete">CHIRPS</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="335"/>
@@ -1512,26 +1251,6 @@ p, li { white-space: pre-wrap; }
         <translation>SDG 15.3.1 指标（一步）| 土地退化</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="93"/>
-        <source>Presets for UNCCD 2016-2019 reporting period</source>
-        <translation type="obsolete">针对 UNCCD 2016-2019 报告期的预设</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="111"/>
-        <source>UNCCD Default Data</source>
-        <translation type="obsolete">UNCCD 默认数据</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="124"/>
-        <source>Trends.Earth Default Data</source>
-        <translation type="obsolete">Trends.Earth 默认数据</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="137"/>
-        <source>FAO-WOCAT Default Data</source>
-        <translation type="obsolete">FAO-WOCAT 默认数据</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="181"/>
         <source>Land productivity data</source>
         <translation>土地生产力数据</translation>
@@ -1540,11 +1259,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateOneStep.ui" line="187"/>
         <source>Trends.Earth land productivity dynamics</source>
         <translation>Trends.Earth 土地生产力动态</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="163"/>
-        <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
-        <translation type="obsolete">预先计算的土地生产力动态（来自 JRC 或 FAO-WOCAT）</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="229"/>
@@ -1597,16 +1311,6 @@ p, li { white-space: pre-wrap; }
         <translation>土地生产力动态 (LPD) 数据集</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="650"/>
-        <source>Include progress period (for comparison to baseline)</source>
-        <translation type="obsolete">包括进展期（用于与基线比较）</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="656"/>
-        <source>Progress period</source>
-        <translation type="obsolete">进展期</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1189"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
@@ -1627,24 +1331,19 @@ p, li { white-space: pre-wrap; }
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="786"/>
-        <source>Initial and final year are less 10 years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
-        <translation type="obsolete">在{period}中，初始年和最后一年相隔不到 10 年——如果分析中包含更多数据（年），结果将更加可靠。</translation>
-    </message>
-    <message>
         <location filename="../calculate_ldn.py" line="1059"/>
         <source>Also reset land cover legend?</source>
-        <translation type="unfinished"></translation>
+        <translation>土地覆盖图例也要重置吗？</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="1059"/>
         <source>The UNCCD default data uses a 7 class land cover legend. Do you also want to reset the land cover legend to the UNCCD default? This will mean any changes you may have made to the land cover legend will be lost.</source>
-        <translation type="unfinished"></translation>
+        <translation>《荒漠化公约》默认数据使用7类土地覆盖图例。您还想将土地覆盖图例重置为《荒漠化公约》的默认值吗？这将意味着您对土地覆盖图例所做的任何更改都将丢失。</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="2295"/>
         <source>Error</source>
-        <translation type="unfinished">错误</translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="2295"/>
@@ -1781,7 +1480,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="697"/>
         <source>Reporting period #1</source>
-        <translation type="unfinished"></translation>
+        <translation>报告期 #1</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1092"/>
@@ -1801,7 +1500,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_ldn.py" line="2259"/>
         <source>SOC analysis cannot start before the baseline year {SOC_MIN_YEAR}. The selected initial year for the {period} period is {soc_year_initial}. Please select an initial year &gt;= {SOC_MIN_YEAR}.</source>
-        <translation type="unfinished"></translation>
+        <translation>SOC 分析不能在基准年 {SOC_MIN_YEAR} 之前开始。为 {period} 时段选择的起始年份是 {soc_year_initial}。请选择起始年份 &gt;= {SOC_MIN_YEAR}。</translation>
     </message>
 </context>
 <context>
@@ -1820,11 +1519,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateProd.ui" line="111"/>
         <source>Trends.Earth land productivity</source>
         <translation>Trends.Earth土地生产力</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="127"/>
-        <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
-        <translation type="obsolete">预先计算的土地生产力动态（来自 JRC 或 FAO-WOCAT）</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="171"/>
@@ -2035,7 +1729,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_prod.py" line="344"/>
         <source>The selected trajectory method requires a climate dataset. Please select a climate dataset before submitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>所选轨迹方法需要气候数据集。请在提交前选择一个气候数据集。</translation>
     </message>
 </context>
 <context>
@@ -2221,11 +1915,6 @@ p, li { white-space: pre-wrap; }
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_rest_biomass.py" line="129"/>
-        <source>You must add a biomass layer to your map before you can use the summary tool.</source>
-        <translation type="obsolete">必须先将生物质图层添加到地图中，然后才能使用摘要工具。</translation>
-    </message>
-    <message>
         <location filename="../calculate_rest_biomass.py" line="139"/>
         <source>Area of interest is not entirely within the biomass layer.</source>
         <translation>感兴趣的区域不完全在生物质层内。</translation>
@@ -2334,11 +2023,6 @@ p, li { white-space: pre-wrap; }
         <translation>由于您选择了这些选项，因此必须离线进行此计算。您必须选择自定义土地覆盖数据集。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="170"/>
-        <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
-        <translation type="obsolete">在运行计算之前，您必须在地图上添加土壤有机碳层。</translation>
-    </message>
-    <message>
         <location filename="../calculate_soc.py" line="196"/>
         <source>Warning</source>
         <translation>警告</translation>
@@ -2373,17 +2057,29 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute relative different in SOC between the baseline and the target period, areas which experienced a loss in SOC of 10% of more during the reporting period will be considered potentially degraded, and areas experiencing a gain of 10% or more as potentially improved.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Soil Organic Carbon SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;土壤有机碳&lt;/span&gt;&lt;/h3&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;作为可持续发展目标进程的一部分，监测土地退化的第三个次级指标量化了报告期内土壤有机碳（SOC）的变化。因为各种原因，对SOC变化的评估极其困难，其中一些原因是土壤特性的空间变异性很大，进行具有代表性的土壤调查所需要的时间和成本过高而且世界上大多数地区缺乏SOC的时间序列数据。为了解决一些限制，Trends.Earth中使用了土地覆盖/SOC相结合的方法来估计SOC的变化并确定潜在的退化区域。指标的计算方法如下：&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;确定 SOC 参考值。Trends.Earth使用土壤剖面最上方30厘米的SoilGrids 250m碳储量作为计算的参考值（注：SoilGrids使用来自各种数据源的信息，生成该结果的时间为数年，因此指定计算日期可能导致储量变化计算不准确）。&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;将土地覆盖图重新分类为向《荒漠化公约》报告所需的7个土地覆盖类别（森林、草地、农田、湿地、人工区域、裸地和水域）。理想情况下，首选年度土地覆被图，但至少需要起始年和结束年的土地覆盖图。&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;为了估计报告期碳储量的变化，气专委和《荒漠化公约》建议采用土地利用、管理和投入变化的碳转换系数。然而，大多数区域没有关于管理和碳吸收的明确空间信息。因此，只能使用土地利用转换系数来估算碳储量的变化（使用土地覆盖作为土地利用的代表）。所使用的系数是《荒漠化公约》所进行的文献研究的成果，载于&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Trends.Earth官网&lt;/span&gt;&lt;/a&gt;。这些系数代表了20年土地覆盖变化后碳储量的比例。&lt;/li&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;对于涉及农业的土地覆盖转变，SOC的变化得到了更好的研究，因此，每个主要全球气候区域都有一组不同的系数：温带干燥（f = 0.80），温带潮湿（f = 0.69），热带干燥（f = 0.58），热带潮湿（f = 0.48）和热带山地（f = 0.64）。&lt;/span&gt;&lt;/p&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;计算基准时段和目标时段之间SOC的相对差异，在报告期内SOC损失超过10%的区域将被视为潜在退化，而增长10%或更多的区域将被视为潜在改善。&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;关于土壤有机碳可持续发展目标15.3.1分项指标的更多信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="243"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
-        <translation type="unfinished">初始和最终土地覆盖层的土地覆盖图例的嵌套必须相同。</translation>
+        <translation>初始和最终土地覆盖层的土地覆盖图例的嵌套必须相同。</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="286"/>
         <source>SOC analysis cannot start before the baseline year {SOC_MIN_YEAR}. The selected initial year is {year_initial}. Please select an initial year &gt;= {SOC_MIN_YEAR}.</source>
-        <translation type="unfinished"></translation>
+        <translation>SOC 分析不能在基准年 {SOC_MIN_YEAR} 之前开始。选择的起始年份是 {year_initial}。请选择起始年份 &gt;= {SOC_MIN_YEAR}。</translation>
     </message>
 </context>
 <context>
@@ -2707,16 +2403,6 @@ p, li { white-space: pre-wrap; }
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="634"/>
-        <source>You must add a forest loss layer to your map before you can use the carbon change summary tool.</source>
-        <translation type="obsolete">必须先在地图中添加森林损失图层，然后才能使用碳更改摘要工具。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_tc.py" line="644"/>
-        <source>You must add a total carbon layer to your map before you can use the carbon change summary tool.</source>
-        <translation type="obsolete">必须先向地图添加总碳图层，然后才能使用碳更改摘要工具。</translation>
-    </message>
-    <message>
         <location filename="../calculate_tc.py" line="646"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
         <translation>感兴趣的区域不完全在森林损失层内。</translation>
@@ -2942,11 +2628,6 @@ p, li { white-space: pre-wrap; }
         <translation>在使用UNCCD报告工具之前，你必须选择一个{dataset_name}层。</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="196"/>
-        <source>You must select a {layer_name} layer before you can use the UNCCD reporting tool.</source>
-        <translation type="obsolete">在使用UNCCD报告工具之前，你必须选择一个{layer_name}层</translation>
-    </message>
-    <message>
         <location filename="../calculate_unccd.py" line="201"/>
         <source>SO1 and SO2</source>
         <translation>战略目标1（SO1）和 战略目标2（SO2）</translation>
@@ -3117,7 +2798,15 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;SDG 11.3.1 Indicator algorithm for ratio of land consumption rate to population growth rate.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;城区变化指标&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;SDG 11.3.1 土地消耗率与人口增长率之比的指标算法。&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;更多信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="153"/>
@@ -3188,17 +2877,20 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Summary for SDG 11.3.1 Indicator for ratio of land consumption rate to population growth rate.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;城市变化汇总表&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;可持续发展目标11.3.1土地消费率与人口增长率之比指标的汇总。&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;更多信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="256"/>
         <source>Error</source>
         <translation>错误</translation>
-    </message>
-    <message>
-        <location filename="../calculate_urban.py" line="247"/>
-        <source>You must add an urban series layer to your map before you can use the urban change summary tool.</source>
-        <translation type="obsolete">必须先将城市系列图层添加到地图中，然后才能使用城市变更摘要工具。</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="256"/>
@@ -3265,19 +2957,9 @@ p, li { white-space: pre-wrap; }
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="966"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">选择一个输出文件。</translation>
-    </message>
-    <message>
         <location filename="../lc_setup.py" line="1186"/>
         <source>No definition set</source>
         <translation>没有定义集</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="1185"/>
-        <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
-        <translation type="obsolete">单击“编辑定义”以在导出之前定义土地覆盖定义。</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="1021"/>
@@ -3285,19 +2967,14 @@ p, li { white-space: pre-wrap; }
         <translation>输入输入数据的年份。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="847"/>
-        <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation type="obsolete">读数据时出错。 Trends.Earth最多支持60种不同的土地覆盖类别</translation>
-    </message>
-    <message>
         <location filename="../lc_setup.py" line="1164"/>
         <source>Error reading data. Trends.Earth supports a maximum of 38 different land cover classes</source>
-        <translation type="unfinished">读数据时出错。 Trends.Earth最多支持60种不同的土地覆盖类别 {38 ?}</translation>
+        <translation>读取数据时出错。Trends.Earth最多支持38种不同的土地覆盖类别</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="1210"/>
         <source>Land cover ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
-        <translation type="unfinished"></translation>
+        <translation>土地覆盖 ({int(self.input_widget.spinBox_data_year.text())}, imported)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="1138"/>
@@ -3312,7 +2989,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lc_setup.py" line="1186"/>
         <source>Click &quot;Edit Definition&quot; on the settings tab to define the land cover definition before exporting.</source>
-        <translation type="unfinished"></translation>
+        <translation>请在导出前，于设置选项卡上单击“编辑定义”以定义土地覆盖定义。</translation>
     </message>
 </context>
 <context>
@@ -3320,7 +2997,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOImportPopulation.ui" line="29"/>
         <source>Load a Custom Population dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>加载自定义人口数据集</translation>
     </message>
 </context>
 <context>
@@ -3336,41 +3013,14 @@ p, li { white-space: pre-wrap; }
         <translation>生产力类定义</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOImportProd.ui" line="53"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Moderate decline&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stressed&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;/p&gt;&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;输入数据中的生产力等级必须按以下方式进行编码：&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1：下降&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2：中度下降&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3：压力大&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4：稳定&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: 增加&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0或-32768：无数据&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="44"/>
         <source>Initial year</source>
-        <translation type="unfinished"></translation>
+        <translation>初始年份</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="51"/>
         <source>Final year</source>
-        <translation type="unfinished">最后一年</translation>
+        <translation>最后一年</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="123"/>
@@ -3538,11 +3188,6 @@ p, li { white-space: pre-wrap; }
         <translation>公用事业通讯</translation>
     </message>
     <message>
-        <location filename="../metadata_dialog.py" line="80"/>
-        <source>postal</source>
-        <translation type="obsolete">邮政</translation>
-    </message>
-    <message>
         <location filename="../metadata_dialog.py" line="76"/>
         <source>New Category</source>
         <translation>新类别</translation>
@@ -3556,44 +3201,9 @@ p, li { white-space: pre-wrap; }
         <translation>下载原始数据</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="42"/>
-        <source>Select Data</source>
-        <translation type="obsolete">选择数据</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="83"/>
-        <source>Select Time Period</source>
-        <translation type="obsolete">选择时间段</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="95"/>
-        <source>Period</source>
-        <translation type="obsolete">期</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="209"/>
-        <source>Last year:</source>
-        <translation type="obsolete">去年：</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="228"/>
-        <source>First year:</source>
-        <translation type="obsolete">第一年：</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="269"/>
-        <source>Next</source>
-        <translation type="obsolete">下一个</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgDownload.ui" line="249"/>
         <source>Submit download request</source>
         <translation>提交下载请求</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="307"/>
-        <source>Previous</source>
-        <translation type="obsolete">以前</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="189"/>
@@ -3603,57 +3213,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="37"/>
         <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
+        <translation>当前选定的感兴趣的区域</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="40"/>
         <source>region name</source>
-        <translation type="unfinished">地区名称</translation>
+        <translation>地区名称</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="50"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;打开设置对话框，以修改感兴趣区域。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="53"/>
         <source>Change region</source>
-        <translation type="unfinished"></translation>
+        <translation>变更地区</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="183"/>
         <source>yyyy</source>
-        <translation type="unfinished"></translation>
+        <translation>yyyy</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="190"/>
         <source>Initial year:</source>
-        <translation type="unfinished">第一年：</translation>
+        <translation>第一年：</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="197"/>
         <source>Final year:</source>
-        <translation type="unfinished"></translation>
+        <translation>最终年份：</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="212"/>
         <source>Input the name that will be assigned to the execution task.</source>
-        <translation type="unfinished">输入将分配给执行任务的名称。</translation>
+        <translation>输入将分配给执行任务的名称。</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="215"/>
         <source>Execution name:</source>
-        <translation type="unfinished">执行名称：</translation>
+        <translation>执行名称：</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="222"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入将分配给执行任务的名称，如果不填，算法名称将作为任务名称。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="157"/>
         <source>Current region: {region}</source>
-        <translation type="unfinished">当前区域：{region}</translation>
+        <translation>当前区域：{region}</translation>
     </message>
 </context>
 <context>
@@ -3709,47 +3319,47 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgExecutionLogs.ui" line="14"/>
         <source>Execution Logs</source>
-        <translation type="unfinished"></translation>
+        <translation>执行日志</translation>
     </message>
     <message>
         <location filename="../gui/DlgExecutionLogs.ui" line="22"/>
         <source>Job Information</source>
-        <translation type="unfinished"></translation>
+        <translation>作业信息</translation>
     </message>
     <message>
         <location filename="../gui/DlgExecutionLogs.ui" line="48"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>刷新</translation>
     </message>
     <message>
         <location filename="../gui/DlgExecutionLogs.ui" line="51"/>
         <source>Refresh logs from server</source>
-        <translation type="unfinished"></translation>
+        <translation>从服务器刷新日志</translation>
     </message>
     <message>
         <location filename="../gui/DlgExecutionLogs.ui" line="69"/>
         <source>Execution logs from the server (sorted by date, newest first)</source>
-        <translation type="unfinished"></translation>
+        <translation>来自服务器的执行日志（按日期排序，最新的在前）</translation>
     </message>
     <message>
         <location filename="../gui/DlgExecutionLogs.ui" line="78"/>
         <source>Ready</source>
-        <translation type="unfinished"></translation>
+        <translation>就绪</translation>
     </message>
     <message>
         <location filename="../gui/DlgExecutionLogs.ui" line="98"/>
         <source>Auto-refresh (30s)</source>
-        <translation type="unfinished"></translation>
+        <translation>自动刷新（30 秒）</translation>
     </message>
     <message>
         <location filename="../gui/DlgExecutionLogs.ui" line="101"/>
         <source>Automatically refresh logs every 30 seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>每 30 秒自动刷新日志</translation>
     </message>
     <message>
         <location filename="../gui/DlgExecutionLogs.ui" line="108"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>关闭</translation>
     </message>
 </context>
 <context>
@@ -3818,73 +3428,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../generate_report_dialog.py" line="173"/>
         <source>dataset not specified.</source>
         <translation>未指定数据集</translation>
-    </message>
-</context>
-<context>
-    <name>DlgImportLC</name>
-    <message>
-        <location filename="../gui/DlgImportDataLC.ui" line="23"/>
-        <source>Load a Custom Land Cover Dataset</source>
-        <translation type="obsolete">加载自定义土地覆盖数据集</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataLC.ui" line="41"/>
-        <source>Choose a land cover aggregation method</source>
-        <translation type="obsolete">选择土地覆盖聚合方法</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataLC.ui" line="68"/>
-        <source>Edit definition</source>
-        <translation type="obsolete">编辑定义</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataLC.ui" line="75"/>
-        <source>Use sample when reading cover classes from input file</source>
-        <translation type="obsolete">从输入文件中读取封面类时使用示例</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataLC.ui" line="106"/>
-        <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="obsolete">注意：如果读取大文件，建议选中上面的选项，因为它会显着加快从数据集中读取输入类的过程。但是，如果您发现Trends.Earth未识别输入文件中的所有类，则可能需要关闭此选项。</translation>
-    </message>
-</context>
-<context>
-    <name>DlgImportProd</name>
-    <message>
-        <location filename="../gui/DlgImportDataProd.ui" line="23"/>
-        <source>Load a Custom Land Productivity Dataset</source>
-        <translation type="obsolete">加载自定义土地生产力数据集</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataProd.ui" line="35"/>
-        <source>Productivity class definition</source>
-        <translation type="obsolete">生产力类定义</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataProd.ui" line="53"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Early signs of decline&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stable but stressed&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;输入数据中的生产率类别必须按以下方式编码：&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;1：下降&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;2：下降的早期迹象&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;3：稳定但有压力&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;4：稳定&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;5：增加&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;0或-32768：无数据&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-</context>
-<context>
-    <name>DlgImportSOC</name>
-    <message>
-        <location filename="../gui/DlgImportDataSOC.ui" line="23"/>
-        <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
-        <translation type="obsolete">加载自定义土壤有机碳（SOC）数据集</translation>
     </message>
 </context>
 <context>
@@ -3961,22 +3504,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgLandCoverRestore.ui" line="20"/>
         <source>Restore default legend</source>
-        <translation type="unfinished"></translation>
+        <translation>恢复默认图例</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandCoverRestore.ui" line="32"/>
         <source>This option will permanently remove any changes you have made to the land cover classes and replace them with defaults. If you want to be able to restore your current settings click &quot;Cancel&quot; and use the &quot;Save&quot; feature to save any changes you have made before you use this tool.</source>
-        <translation type="unfinished"></translation>
+        <translation>此选项将永久删除您对土地覆盖类别所做的任何更改，并将其替换为默认值。如果您希望能够恢复当前设置，请单击“取消”并使用“保存”功能，在使用此工具前保存您所做的任何更改。</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandCoverRestore.ui" line="73"/>
         <source>Restore 37 class legend from ESA CCI</source>
-        <translation type="unfinished"></translation>
+        <translation>从 ESA CCI 恢复 37 类别图例</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandCoverRestore.ui" line="98"/>
         <source>Restore 7 class UNCCD default legend</source>
-        <translation type="unfinished"></translation>
+        <translation>恢复 7 类别 UNCCD 默认图例</translation>
     </message>
 </context>
 <context>
@@ -4023,42 +3566,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../select_dataset.py" line="87"/>
         <source>Task Name</source>
-        <translation type="unfinished"></translation>
+        <translation>任务名称</translation>
     </message>
     <message>
         <location filename="../select_dataset.py" line="87"/>
         <source>Task name is empty</source>
-        <translation type="unfinished"></translation>
+        <translation>任务名称为空</translation>
     </message>
     <message>
         <location filename="../select_dataset.py" line="91"/>
         <source>Dataset</source>
-        <translation type="unfinished">数据集</translation>
+        <translation>数据集</translation>
     </message>
     <message>
         <location filename="../select_dataset.py" line="92"/>
         <source>SDG 15.3.1 Indicator</source>
-        <translation type="unfinished">SDG 15.3.1 指标</translation>
+        <translation>SDG 15.3.1 指标</translation>
     </message>
     <message>
         <location filename="../select_dataset.py" line="93"/>
         <source>Productivity Degradation</source>
-        <translation type="unfinished"></translation>
+        <translation>生产力下降</translation>
     </message>
     <message>
         <location filename="../select_dataset.py" line="94"/>
         <source>Land Cover Degradation</source>
-        <translation type="unfinished"></translation>
+        <translation>土地覆盖退化</translation>
     </message>
     <message>
         <location filename="../select_dataset.py" line="95"/>
         <source>Soil Organic Carbon Degradation</source>
-        <translation type="unfinished"></translation>
+        <translation>土壤有机碳分解</translation>
     </message>
     <message>
         <location filename="../select_dataset.py" line="97"/>
         <source>No dataset or layer selected.</source>
-        <translation type="unfinished"></translation>
+        <translation>未选择数据集或图层。</translation>
     </message>
     <message>
         <location filename="../select_dataset.py" line="98"/>
@@ -4114,39 +3657,14 @@ p, li { white-space: pre-wrap; }
         <translation>高级</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="201"/>
-        <source>Please register in order to use Trends.Earth</source>
-        <translation type="obsolete">请注册以使用Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="247"/>
-        <source>Delete user?</source>
-        <translation type="obsolete">是否删除用户？</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="247"/>
-        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation type="obsolete">您确定要删除用户{}吗？您的所有任务都将丢失，将不能再使用Trends.Earth在线处理数据。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="263"/>
-        <source>Success</source>
-        <translation type="obsolete">成功</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="263"/>
-        <source>Trends.Earth user {email} deleted.</source>
-        <translation type="obsolete">Trends.Earth 用户 {email} 已删除。</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgSettings.ui" line="216"/>
         <source>Custom Land Cover Classes</source>
-        <translation type="unfinished"></translation>
+        <translation>自定义土地覆盖类别</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="197"/>
         <source>Region of interest</source>
-        <translation type="unfinished">感兴趣区域</translation>
+        <translation>感兴趣区域</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="150"/>
@@ -4192,7 +3710,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="38"/>
         <source>Enter your email address below and if you have an account, a password reset link will be sent to you (from api@trends.earth). Click the link to set a new password.</source>
-        <translation type="unfinished">在下面输入你的电子邮件地址，如果你有一个帐户，一封电子邮件将会发送给你（来自api@trends.earth）并带有一个新密码。</translation>
+        <translation>请在下方输入您的电子邮件地址，如果您有账户，密码重置链接将发送给您（发件人：api@trends.earth）。点击该链接设置新密码。</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="63"/>
@@ -4215,29 +3733,19 @@ p, li { white-space: pre-wrap; }
         <translation>重设密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1197"/>
-        <source>Are you sure you want to reset the password for {self.email.text()}? Your new password will be emailed to you.</source>
-        <translation type="obsolete">您确定要重新设置{self.email.text()}的密码吗？新密码将通过电子邮件发送给您。</translation>
-    </message>
-    <message>
         <location filename="../settings.py" line="1284"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1214"/>
-        <source>The password has been reset for {self.email.text()}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
-        <translation type="obsolete">{self.email.text()}的密码已重置。检查您的电子邮件以获取新密码，然后返回 Trends.Earth 输入密码。</translation>
-    </message>
-    <message>
         <location filename="../settings.py" line="1267"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? A password reset link will be emailed to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>您确定要为 {self.email.text()} 重置密码吗？密码重置链接将通过电子邮件发送给您。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1284"/>
         <source>A password reset link has been sent to {self.email.text()}. Please check your email and click the link to set a new password, then return to Trends.Earth to login.</source>
-        <translation type="unfinished"></translation>
+        <translation>密码重置链接已发送至 {self.email.text()}。请检查您的电子邮件并点击链接设置新密码，然后返回 Trends.Earth 登录。</translation>
     </message>
 </context>
 <context>
@@ -4310,7 +3818,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="150"/>
         <source>Receive email notifications for job status updates</source>
-        <translation type="unfinished"></translation>
+        <translation>接收作业状态更新的电子邮件通知</translation>
     </message>
 </context>
 <context>
@@ -4368,7 +3876,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../settings.py" line="1151"/>
         <source>Account Locked</source>
-        <translation type="unfinished"></translation>
+        <translation>账户已锁定</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1125"/>
@@ -4377,12 +3885,16 @@ p, li { white-space: pre-wrap; }
 You must reset your password to regain access.
 
 Would you like to reset your password now?</source>
-        <translation type="unfinished"></translation>
+        <translation>由于登录失败次数过多，您的账户已被锁定。
+
+您必须重置密码才能重新访问。
+
+是否立即重置密码？</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1140"/>
         <source>Account Temporarily Locked</source>
-        <translation type="unfinished"></translation>
+        <translation>账户暂时锁定</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1140"/>
@@ -4391,12 +3903,16 @@ Would you like to reset your password now?</source>
 Please try again in {minutes_remaining} minute(s).
 
 If you&apos;ve forgotten your password, you can reset it.</source>
-        <translation type="unfinished"></translation>
+        <translation>您的账户暂时被锁定。
+
+请在 {minutes_remaining} 分钟后重试。
+
+如果您忘记了密码，可以重置密码。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1151"/>
         <source>Your account is locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>您的账户已被锁定。</translation>
     </message>
 </context>
 <context>
@@ -4485,11 +4001,6 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1016"/>
-        <source>User registered. Your password has been emailed to {self.email.text()}. Enter that password in Trends.Earth settings to finish setting up the plugin.</source>
-        <translation type="obsolete">用户已注册。您的密码已通过电子邮件发送至{self.email.text()}。在 Trends.Earth 设置中输入此密码以完成插件设置。</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="32"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -4497,7 +4008,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="1027"/>
         <source>User registered. A password setup link has been emailed to {self.email.text()}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
-        <translation type="unfinished"></translation>
+        <translation>用户已注册。密码设置链接已通过电子邮件发送至 {self.email.text()}。请检查您的电子邮件并点击链接设置密码，然后返回 Trends.Earth 设置页面登录。</translation>
     </message>
 </context>
 <context>
@@ -4505,7 +4016,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../gui/DlgTimelinePeriodGraph.ui" line="20"/>
         <source>Timeline Period Graph</source>
-        <translation type="unfinished"></translation>
+        <translation>时间线时段图</translation>
     </message>
 </context>
 <context>
@@ -4742,47 +4253,47 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../gui/WidgetLCClassManage.ui" line="56"/>
         <source>Add new custom land cover class</source>
-        <translation type="unfinished"></translation>
+        <translation>添加新的自定义土地覆盖类别</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassManage.ui" line="59"/>
         <source>Add class...</source>
-        <translation type="unfinished"></translation>
+        <translation>添加类别……</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassManage.ui" line="72"/>
         <source>Load custom land cover classes</source>
-        <translation type="unfinished"></translation>
+        <translation>加载自定义土地覆盖类别</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassManage.ui" line="75"/>
         <source>Load...</source>
-        <translation type="unfinished"></translation>
+        <translation>加载……</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassManage.ui" line="88"/>
         <source>Save list of custom land cover classes</source>
-        <translation type="unfinished"></translation>
+        <translation>保存自定义土地覆盖类别列表</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassManage.ui" line="91"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation>保存……</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassManage.ui" line="104"/>
         <source>Restore the default UNCCD land cover classes</source>
-        <translation type="unfinished"></translation>
+        <translation>恢复默认的 UNCCD 土地覆盖类别</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassManage.ui" line="107"/>
         <source>Restore</source>
-        <translation type="unfinished"></translation>
+        <translation>恢复</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassManage.ui" line="120"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>导入</translation>
     </message>
 </context>
 <context>
@@ -4892,37 +4403,37 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="2432"/>
         <source>Class Color</source>
-        <translation type="unfinished"></translation>
+        <translation>类别颜色</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2483"/>
         <source>Land Cover</source>
-        <translation type="unfinished"></translation>
+        <translation>土地覆盖</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2515"/>
         <source>Class name cannot be empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>类别名称不能为空。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2519"/>
         <source>Invalid color selected.</source>
-        <translation type="unfinished"></translation>
+        <translation>选择的颜色无效。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2523"/>
         <source>Parent class cannot be empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>父类不能为空。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2528"/>
         <source>Invalid class code value.</source>
-        <translation type="unfinished"></translation>
+        <translation>类别代码值无效。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2532"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>代码值“{code！s}”已使用。</translation>
     </message>
 </context>
 <context>
@@ -4930,87 +4441,87 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="1712"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>名称</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1712"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>代码</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1712"/>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>父</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1814"/>
         <source>Land Cover</source>
-        <translation type="unfinished"></translation>
+        <translation>土地覆盖</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2080"/>
         <source>Maximum number of classes reached.</source>
-        <translation type="unfinished"></translation>
+        <translation>已达到最多类别数上限。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1885"/>
         <source>Nothing to save</source>
-        <translation type="unfinished"></translation>
+        <translation>没有要保存的内容</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1892"/>
         <source>Save Land Cover Classes</source>
-        <translation type="unfinished"></translation>
+        <translation>保存土地覆盖类别</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1916"/>
         <source>Select Land Cover Classes File</source>
-        <translation type="unfinished"></translation>
+        <translation>选择土地覆盖类别文件</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1934"/>
         <source>No land cover classes found.</source>
-        <translation type="unfinished"></translation>
+        <translation>未找到土地覆盖类别。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1999"/>
         <source>Land Cover Class Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>土地覆盖类别编辑器</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2063"/>
         <source>Invalid row for land cover class</source>
-        <translation type="unfinished"></translation>
+        <translation>土地覆盖类别的行无效</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2068"/>
         <source>Unable to update class.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法更新类别。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2087"/>
         <source>Unable to add new class.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法添加新类别。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2115"/>
         <source>class does not have children assigned to it</source>
-        <translation type="unfinished"></translation>
+        <translation>该类别未被分配子类别</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2135"/>
         <source>class has not been assigned a parent</source>
-        <translation type="unfinished"></translation>
+        <translation>该类别尚未分配父类别</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2261"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
-        <translation type="unfinished"></translation>
+        <translation>必须至少定义一个类别。您可以创建一个新的类别然后将其删除，也可以单击“恢复”按钮恢复默认的《荒漠化公约》类别。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2266"/>
         <source>Delete Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>删除失败</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1747"/>
@@ -5114,7 +4625,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../maptools.py" line="403"/>
         <source>Error</source>
-        <translation type="unfinished">错误</translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="403"/>
@@ -5127,52 +4638,52 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="12"/>
         <source>Reporting period #1</source>
-        <translation type="unfinished"></translation>
+        <translation>报告期 #1</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="101"/>
         <source>Final year</source>
-        <translation type="unfinished">最后一年</translation>
+        <translation>最后一年</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="383"/>
         <source>yyyy</source>
-        <translation type="unfinished"></translation>
+        <translation>yyyy</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="143"/>
         <source>Initial year</source>
-        <translation type="unfinished"></translation>
+        <translation>初始年份</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="111"/>
         <source>Soil organic carbon</source>
-        <translation type="unfinished">土壤有机碳</translation>
+        <translation>土壤有机碳</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="124"/>
         <source>Productivity</source>
-        <translation type="unfinished">生产率</translation>
+        <translation>生产率</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="150"/>
         <source>Land Productivity Dynamics (LPD) dataset</source>
-        <translation type="unfinished">土地生产力动态 (LPD) 数据集</translation>
+        <translation>土地生产力动态 (LPD) 数据集</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="157"/>
         <source>Allow time period to vary by indicator:</source>
-        <translation type="unfinished">允许时间段因指标而异：</translation>
+        <translation>允许时间段因指标而异：</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="170"/>
         <source>Land cover</source>
-        <translation type="unfinished">土地覆盖</translation>
+        <translation>土地覆盖</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="350"/>
         <source>Use the same time period across all indicators:</source>
-        <translation type="unfinished">在所有指标中使用相同的时间段：</translation>
+        <translation>在所有指标中使用相同的时间段：</translation>
     </message>
 </context>
 <context>
@@ -5188,12 +4699,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../region_selector.py" line="40"/>
         <source>Change region</source>
-        <translation type="unfinished"></translation>
+        <translation>变更地区</translation>
     </message>
     <message>
         <location filename="../region_selector.py" line="58"/>
         <source>Current region: {region_name}</source>
-        <translation type="unfinished"></translation>
+        <translation>当前区域：{region_name}</translation>
     </message>
 </context>
 <context>
@@ -5226,7 +4737,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../reports/generator.py" line="1140"/>
         <source>queued (waiting for a free worker slot)</source>
-        <translation type="unfinished"></translation>
+        <translation>已加入队列（等待空闲工作线程）</translation>
     </message>
 </context>
 <context>
@@ -5358,12 +4869,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../maptools.py" line="265"/>
         <source>Warning</source>
-        <translation type="unfinished">警告</translation>
+        <translation>警告</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="265"/>
         <source>Current cursor position is outside the extent of the base source dataset.</source>
-        <translation type="unfinished"></translation>
+        <translation>当前光标位置位于基础源数据集的范围之外。</translation>
     </message>
 </context>
 <context>
@@ -5371,27 +4882,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="251"/>
         <source>Please register in order to use Trends.Earth</source>
-        <translation type="unfinished">请注册以使用Trends.Earth</translation>
+        <translation>请注册以使用Trends.Earth</translation>
     </message>
     <message>
         <location filename="../settings.py" line="378"/>
         <source>Delete user?</source>
-        <translation type="unfinished">是否删除用户？</translation>
+        <translation>是否删除用户？</translation>
     </message>
     <message>
         <location filename="../settings.py" line="378"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation type="unfinished">您确定要删除用户{}吗？您的所有任务都将丢失，将不能再使用Trends.Earth在线处理数据。</translation>
+        <translation>您确定要删除用户{}吗？您的所有任务都将丢失，将不能再使用Trends.Earth在线处理数据。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="394"/>
         <source>Success</source>
-        <translation type="unfinished">成功</translation>
+        <translation>成功</translation>
     </message>
     <message>
         <location filename="../settings.py" line="394"/>
         <source>Trends.Earth user {email} deleted.</source>
-        <translation type="unfinished">Trends.Earth 用户 {email} 已删除。</translation>
+        <translation>Trends.Earth 用户 {email} 已删除。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="274"/>
@@ -5406,7 +4917,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="320"/>
         <source>Information</source>
-        <translation type="unfinished">信息</translation>
+        <translation>信息</translation>
     </message>
     <message>
         <location filename="../settings.py" line="320"/>
@@ -5426,7 +4937,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="355"/>
         <source>Warning</source>
-        <translation type="unfinished">警告</translation>
+        <translation>警告</translation>
     </message>
     <message>
         <location filename="../settings.py" line="355"/>
@@ -5436,12 +4947,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="406"/>
         <source>Error</source>
-        <translation type="unfinished">错误</translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../settings.py" line="406"/>
         <source>Failed to delete user account. Please check your internet connection and try again. If the problem persists, please contact the Trends.Earth support team.</source>
-        <translation type="unfinished"></translation>
+        <translation>删除用户账户失败。请检查您的网络连接并重试。如果问题仍然存在，请联系 Trends.Earth 支持团队。</translation>
     </message>
 </context>
 <context>
@@ -5734,11 +5245,6 @@ p, li { white-space: pre-wrap; }
         <translation>查看数据集详细信息</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="164"/>
-        <source>Open dataset directory</source>
-        <translation type="obsolete">打开数据集目录</translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetDatasetItem.ui" line="290"/>
         <source>Delete dataset</source>
         <translation>删除数据集</translation>
@@ -5850,16 +5356,6 @@ p, li { white-space: pre-wrap; }
         <translation>以 ZIP 格式导出</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="264"/>
-        <source>Dataset metadata</source>
-        <translation type="obsolete">数据集元数据</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="271"/>
-        <source>Load Dataset</source>
-        <translation type="obsolete">加载数据集</translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="195"/>
         <source>Algorithm input parameters. Right-click for options to expand/collapse or copy as text.</source>
         <translation type="unfinished"></translation>
@@ -5875,42 +5371,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetLCClassEditor.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished">形成</translation>
+        <translation>形成</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassEditor.ui" line="20"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>颜色</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassEditor.ui" line="40"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>名称</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassEditor.ui" line="49"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>移除</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassEditor.ui" line="69"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>完成</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassEditor.ui" line="78"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>代码</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassEditor.ui" line="98"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassEditor.ui" line="108"/>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>父</translation>
     </message>
 </context>
 <context>
@@ -5974,11 +5470,6 @@ p, li { white-space: pre-wrap; }
         <translation>形成</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="35"/>
-        <source>Region of interest</source>
-        <translation type="obsolete">感兴趣区域</translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetSelectArea.ui" line="50"/>
         <source>Country / Region</source>
         <translation>国家/地区</translation>
@@ -6006,7 +5497,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="209"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;https://www.geoboundaries.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;geoBoundaries&lt;/span&gt;&lt;/a&gt;, and are under a &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt; license. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;免责声明：提供的边界来自&lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt; ，属于&lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;公共领域&lt;/span&gt;&lt;/a&gt; 。在Trends.Earth中使用的边界和名称以及使用的名称并不意味着保护国际基金会或其合作组织和贡献者的正式认可或接受。 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="225"/>
@@ -6102,31 +5593,6 @@ p, li { white-space: pre-wrap; }
         <translation>轮询频率（秒）</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSettingsAdvanced.ui" line="178"/>
-        <source>Use binaries for faster processing</source>
-        <translation type="obsolete">使用二进制文件进行更快的处理</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSettingsAdvanced.ui" line="210"/>
-        <source>Click &quot;Browse&quot; to choose a folder...</source>
-        <translation type="obsolete">单击“浏览”以选择文件夹......</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSettingsAdvanced.ui" line="238"/>
-        <source>Browse</source>
-        <translation type="obsolete">浏览</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSettingsAdvanced.ui" line="266"/>
-        <source>Download</source>
-        <translation type="obsolete">下载</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSettingsAdvanced.ui" line="275"/>
-        <source>placeholder for label</source>
-        <translation type="obsolete">标签占位符</translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="232"/>
         <source>LandPKS login information</source>
         <translation>LandPKS 登录信息</translation>
@@ -6142,26 +5608,6 @@ p, li { white-space: pre-wrap; }
         <translation>启用 LandPKS 数据访问</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1225"/>
-        <source>Warning</source>
-        <translation type="obsolete">警告</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1225"/>
-        <source>You must restart QGIS for these changes to take effect.</source>
-        <translation type="obsolete">您必须重新启动 QGIS 才能使这些更改生效。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1333"/>
-        <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
-        <translation type="obsolete">二进制文件&lt;b&gt;已&lt;/b&gt;加载。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1335"/>
-        <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
-        <translation type="obsolete">二进制文件&lt;b&gt;未&lt;/b&gt;加载。</translation>
-    </message>
-    <message>
         <location filename="../settings.py" line="1512"/>
         <source>No base data directory set</source>
         <translation>没有设置基本数据目录</translation>
@@ -6169,67 +5615,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../settings.py" line="1522"/>
         <source>Unable to write to {}. Try a different folder.</source>
-        <translation type="unfinished">无法从{}读取二进制文件。检查二进制文件是否已成功下载。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1375"/>
-        <source>Choose a folder</source>
-        <translation type="obsolete">选择一个文件夹</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1375"/>
-        <source>Choose a folder before downloading binaries.</source>
-        <translation type="obsolete">在下载二进制文件之前选择一个文件夹。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1510"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1384"/>
-        <source>Unable to write to {}. Choose a different folder.</source>
-        <translation type="obsolete">无法写给{}。选择其他的文件夹。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1423"/>
-        <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
-        <translation type="obsolete">无法写给{}。检查您是否有权写入此文件夹，并且您没有尝试覆盖当前在 QGIS 中加载的二进制文件。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1450"/>
-        <source>Error downloading binaries.</source>
-        <translation type="obsolete">下载二进制文件时出错。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1460"/>
-        <source>Success</source>
-        <translation type="obsolete">成功</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1456"/>
-        <source>Downloaded binaries.</source>
-        <translation type="obsolete">下载的二进制文件。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1460"/>
-        <source>All binaries up to date.</source>
-        <translation type="obsolete">所有二进制文件都是最新的。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1480"/>
-        <source>Select folder containing Trends.Earth binaries</source>
-        <translation type="obsolete">选择包含 Trends.Earth 二进制文件的文件夹</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1492"/>
-        <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
-        <translation type="obsolete">选择其他的文件夹——无法在 Trends.Earth QGIS 插件安装文件夹中安装二进制文件。</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1510"/>
-        <source>Cannot read {folder_path!r}. Choose a different folder.</source>
-        <translation type="obsolete">无法读取{folder_path!r}。选择其他的文件夹。</translation>
+        <translation>无法写给{}。尝试其他的文件夹。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1492"/>
@@ -6244,12 +5630,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="125"/>
         <source>API URL (leave empty for default)</source>
-        <translation type="unfinished"></translation>
+        <translation>API 网址（留空则使用默认值）</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="144"/>
         <source>https://api.trends.earth</source>
-        <translation type="unfinished"></translation>
+        <translation>https://api.trends.earth</translation>
     </message>
 </context>
 <context>
@@ -6416,27 +5802,27 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="88"/>
         <source>Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>筛选器</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="166"/>
         <source>Filter by status</source>
-        <translation type="unfinished"></translation>
+        <translation>按状态筛选</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="173"/>
         <source>Filter datasets by their current status</source>
-        <translation type="unfinished"></translation>
+        <translation>按当前状态筛选数据集</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="180"/>
         <source>Filter by task type</source>
-        <translation type="unfinished"></translation>
+        <translation>按任务类型筛选</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="187"/>
         <source>Filter datasets by task type (algorithm/script)</source>
-        <translation type="unfinished"></translation>
+        <translation>按任务类型（算法/脚本）筛选数据集</translation>
     </message>
 </context>
 <context>
@@ -6465,11 +5851,6 @@ for running algorithms and their results.</source>
         <translation>无法登录 Trends.Earth 服务器。检查您的互联网连接。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="192"/>
-        <source>Unable to connect to Trends.Earth  server.</source>
-        <translation type="obsolete">无法连接到 Trends.Earth 服务器。</translation>
-    </message>
-    <message>
         <location filename="../api.py" line="481"/>
         <source>Unable to read token for Trends.Earth server. Check username and password.</source>
         <translation>无法读取 Trends.Earth 服务器的令牌。检查用户名和密码。</translation>
@@ -6483,16 +5864,6 @@ for running algorithms and their results.</source>
         <location filename="../api.py" line="499"/>
         <source>Unable to access Trends.Earth server. Check your internet connection</source>
         <translation>无法访问 Trends.Earth 服务器。检查您的互联网连接</translation>
-    </message>
-    <message>
-        <location filename="../api.py" line="294"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../api.py" line="294"/>
-        <source>Unable to login to Trends.Earth. Check that username and password are correct.</source>
-        <translation type="obsolete">无法登录 Trends.Earth。检查用户名和密码是否正确。</translation>
     </message>
     <message>
         <location filename="../api.py" line="264"/>
@@ -6522,12 +5893,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../api.py" line="428"/>
         <source>No login credentials configured. Please set up your username and password in Trends.Earth settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>未配置登录凭据。请在 Trends.Earth 设置中设置您的用户名和密码。</translation>
     </message>
     <message>
         <location filename="../api.py" line="444"/>
         <source>Unable to retrieve stored credentials. Please re-enter your username and password in Trends.Earth settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法检索存储的凭据。请在 Trends.Earth 设置中重新输入您的用户名和密码。</translation>
     </message>
 </context>
 <context>
@@ -6563,7 +5934,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../auth.py" line="182"/>
         <source>No authentication set for {auth_setup.name}. Setup in Trends.Earth settings</source>
-        <translation type="unfinished">id 为{authConfigId}的身份验证方法是{authConfig.method()}。{auth_setup.name}不支持此方法</translation>
+        <translation>没有为{auth_setup.name}设置身份验证。Trends.Earth 设置中的设置</translation>
     </message>
     <message>
         <location filename="../auth.py" line="193"/>
@@ -6571,28 +5942,18 @@ for running algorithms and their results.</source>
         <translation>无法删除 ID 为{authConfigId}的{auth_setup.name}身份验证配置</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="126"/>
-        <source>No authentication set. Setup username and password before using {auth_setup.name} functions.</source>
-        <translation type="obsolete">未设置身份验证。在使用{auth_setup.name}函数之前设置用户名和密码。</translation>
-    </message>
-    <message>
         <location filename="../auth.py" line="233"/>
         <source>Cannot retrieve credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
         <translation>无法检索 ID 为{authConfigId}的凭据。在使用{auth_setup.name}函数之前设置用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="157"/>
-        <source>Cannot retrieve {auth_setup.name} credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
-        <translation type="obsolete">无法检索 ID 为{authConfigId}的{auth_setup.name}凭据。在使用{auth_setup.name}函数之前设置用户名和密码。</translation>
+        <location filename="../auth.py" line="221"/>
+        <source>No authentication set. Setup username and password before using {auth_setup.name}.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../auth.py" line="247"/>
         <source>{auth_setup.name} credentials with id {authConfigId} are not valid.  Setup username and password before using {auth_setup.name}.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../auth.py" line="221"/>
-        <source>No authentication set. Setup username and password before using {auth_setup.name}.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6679,19 +6040,9 @@ for running algorithms and their results.</source>
         <translation>选择一个输出基础名。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="570"/>
-        <source>You have chosen to run this calculation on a point (or for a city). To run this tool on a point you must also select a buffer.</source>
-        <translation type="obsolete">您已选择在一个点（或一个城市）上运行此计算。要在某个点上运行此工具，您还必须选择一个缓冲区。</translation>
-    </message>
-    <message>
         <location filename="../calculate.py" line="528"/>
         <source>You have chosen to run this calculation on a point (or for a city). To run this tool on a point you must also select a buffer. This can be done in the Trends.Earth settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="581"/>
-        <source>Warning</source>
-        <translation type="obsolete">警告</translation>
+        <translation>您已选择在某个点（或某个城市）上运行此计算。要在某点上运行此工具，还必须选择一个缓冲区。这可以在Trends.Earth设置中完成。</translation>
     </message>
 </context>
 <context>
@@ -6940,12 +6291,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../data_io.py" line="774"/>
         <source>Could not parse the selected file into a valid JSON</source>
-        <translation type="unfinished"></translation>
+        <translation>无法将所选文件解析为有效的JSON</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="932"/>
         <source>Select a raster input file</source>
-        <translation type="unfinished"></translation>
+        <translation>选择光栅输入文件</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="932"/>
@@ -6965,7 +6316,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../data_io.py" line="974"/>
         <source>Select a vector input file</source>
-        <translation type="unfinished"></translation>
+        <translation>选择矢量输入文件</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="974"/>
@@ -6995,42 +6346,37 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../data_io.py" line="1672"/>
         <source>Choose an input raster file.</source>
-        <translation type="unfinished"></translation>
+        <translation>选择输入光栅文件。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1683"/>
         <source>Choose an input polygon dataset.</source>
-        <translation type="unfinished"></translation>
+        <translation>选择输入多边形数据集。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1700"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
-        <translation type="unfinished"></translation>
+        <translation>无法处理｛｝。未知几何图形：｛｝</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1516"/>
         <source>Vector remapping failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>矢量重新映射失败。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1538"/>
         <source>Raster remapping failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>光栅重新映射失败。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1562"/>
         <source>Rasterizing failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>光栅化失败。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1619"/>
         <source>Raster import failed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1296"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">选择一个输出文件。</translation>
+        <translation>光栅导入失败。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1909"/>
@@ -7040,27 +6386,27 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../data_io.py" line="1934"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
-        <translation type="unfinished"></translation>
+        <translation>所选字段({})不是数字。请选择数字字段。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1950"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
-        <translation type="unfinished"></translation>
+        <translation>输入文件 （{}） 似乎不是有效的土壤有机碳输入文件。该文件应包含以吨/公顷为单位的土壤有机碳值。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1963"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
-        <translation type="unfinished"></translation>
+        <translation>输入文件 （{}） 似乎不是有效的土壤有机碳输入文件。此文件中的最小值为 {}。no 数据值应为 -32768，所有其他值应为 &gt;= 0。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1978"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
-        <translation type="unfinished"></translation>
+        <translation>输入文件 （{}） 似乎不是有效的土壤有机碳输入文件。此文件中的最大值为 {}。最大值上限为1000吨/公顷。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="2088"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
-        <translation type="unfinished"></translation>
+        <translation>所选字段（{}）不是数字。选择包含数字的字段。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="2102"/>
@@ -7075,7 +6421,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../data_io.py" line="2115"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation type="unfinished"></translation>
+        <translation>输入文件（{}）似乎不是有效的生产力输入文件。Trends.Earth仍将加载该文件，但在加载后请查看地图，以确保数值有效。生产力输入文件中的允许值为-32768、1、2、3、4 和 5。输入文件中有 {} 个值无法识别。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="111"/>
@@ -7095,7 +6441,8 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../data_io.py" line="2009"/>
         <source>Soil organic carbon ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
-        <translation type="unfinished"></translation>
+        <translation>土壤有机碳
+({int(self.input_widget.spinBox_data_year.text())}, imported)</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1820"/>
@@ -7120,72 +6467,72 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../data_io.py" line="107"/>
         <source>Select a region first</source>
-        <translation type="unfinished"></translation>
+        <translation>请先选择一个区域</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1163"/>
         <source>Clip to region</source>
-        <translation type="unfinished"></translation>
+        <translation>裁剪至区域</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1306"/>
         <source>No region selected. Select a region or uncheck &apos;Clip to region&apos; to import the full dataset.</source>
-        <translation type="unfinished"></translation>
+        <translation>未选择区域。请选择一个区域，或取消勾选“裁剪至区域”以导入完整数据集。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1413"/>
         <source>No region is selected. Either select a region or uncheck &apos;Clip to region&apos; to import the full dataset extent.</source>
-        <translation type="unfinished"></translation>
+        <translation>未选择任何区域。请选择一个区域，或取消勾选“裁剪至区域”以导入完整数据集范围。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="2392"/>
         <source>Please select a region in the Trends.Earth settings before using {tool_name}.</source>
-        <translation type="unfinished"></translation>
+        <translation>在使用 {tool_name} 前，请在 Trends.Earth 设置中选择一个区域。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="2401"/>
         <source>You must select a {layer_name} layer before you can use {tool_name}.</source>
-        <translation type="unfinished"></translation>
+        <translation>在使用 {tool_name} 前，您必须选择一个 {layer_name} 图层。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1177"/>
         <source>Input file</source>
-        <translation type="unfinished">输入文件</translation>
+        <translation>输入文件</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1196"/>
         <source>Settings</source>
-        <translation type="unfinished">设置</translation>
+        <translation>设置</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1207"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>备注</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1236"/>
         <source>Layer name:</source>
-        <translation type="unfinished"></translation>
+        <translation>图层名称：</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1241"/>
         <source>Name that will be assigned to the imported layer.</source>
-        <translation type="unfinished"></translation>
+        <translation>将分配给导入图层的名称。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1247"/>
         <source>Notes:</source>
-        <translation type="unfinished"></translation>
+        <translation>说明：</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1252"/>
         <source>Notes associated with the imported layer.</source>
-        <translation type="unfinished"></translation>
+        <translation>与导入图层关联的备注。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="2060"/>
         <source>On the settings tab, enter the intial and final year applying to this input data.</source>
-        <translation type="unfinished"></translation>
+        <translation>在设置选项卡上，输入适用于此输入数据的起始和结束年份。</translation>
     </message>
 </context>
 <context>
@@ -7234,16 +6581,6 @@ for running algorithms and their results.</source>
         <location filename="../download.py" line="1106"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>下载失败。检查您的互联网连接。</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="376"/>
-        <source>Unable to access internet. Check your internet connection.</source>
-        <translation type="obsolete">无法访问互联网。检查您的互联网连接。</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="386"/>
-        <source>Download timed out. Check your internet connection.</source>
-        <translation type="obsolete">下载超时。检查您的互联网连接。</translation>
     </message>
     <message>
         <location filename="../download.py" line="1045"/>
@@ -7296,12 +6633,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="91"/>
         <source>Land productivity trend ({year_initial} to {year_final}, NDVI x 10000 / yr)</source>
-        <translation type="unfinished">生产力轨迹（{year_initial}到{year_final}，NDVI x 10000 / yr）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="94"/>
         <source>Land productivity trend degradation ({year_initial} to {year_final})</source>
-        <translation type="unfinished">生产力轨迹下降（{year_initial}到{year_final}）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="97"/>
@@ -7321,7 +6658,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="105"/>
         <source>Land productivity performance degradation ({year_initial} to {year_final})</source>
-        <translation type="unfinished">生产力表现下降（{year_initial}到{year_final}）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="225"/>
@@ -7336,17 +6673,17 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="110"/>
         <source>Land productivity performance ({year_initial} to {year_final}, ratio)</source>
-        <translation type="unfinished">生产力表现（{year_initial}到{year_final}，比率）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="113"/>
         <source>Land productivity performance ({year_initial}, units)</source>
-        <translation type="unfinished">生产力表现（{year_initial}，单位）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="117"/>
         <source>Land productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
-        <translation type="unfinished">生产力状态降级（{year_bl_start}-{year_bl_end}与{year_tg_start}-{year_tg_end}）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="226"/>
@@ -7361,12 +6698,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="123"/>
         <source>Land productivity state classes ({year_initial}-{year_final})</source>
-        <translation type="unfinished">生产力状态等级 ({year_initial}-{year_final})</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="128"/>
         <source>Land productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
-        <translation type="unfinished">生产力下降比较（{baseline_year_initial}-{baseline_year_final} 与 {progress_year_initial}-{progress_year_final}）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="136"/>
@@ -7571,19 +6908,14 @@ for running algorithms and their results.</source>
         <translation>适度下降</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="181"/>
-        <source>Stressed</source>
-        <translation type="obsolete">强调</translation>
-    </message>
-    <message>
         <location filename="../layers.py" line="222"/>
         <source>SDG Indicator 15.3.1 ({year_initial}-{year_final})</source>
-        <translation type="unfinished">SDG 15.3.1 指标 ({year_initial}-{year_final})</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="228"/>
         <source>SDG Indicator 15.3.1 (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
-        <translation type="unfinished">SDG 15.3.1 指标（{baseline_year_initial}-{baseline_year_final}更新为{progress_year_initial}-{progress_year_final}）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="247"/>
@@ -7898,7 +7230,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="149"/>
         <source>Land cover ({year})</source>
-        <translation type="unfinished"></translation>
+        <translation>土地覆盖（{年}）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="231"/>
@@ -7913,32 +7245,32 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="240"/>
         <source>Degradation (persistent)</source>
-        <translation type="unfinished"></translation>
+        <translation>退化（持续性）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="241"/>
         <source>Degradation (recent)</source>
-        <translation type="unfinished"></translation>
+        <translation>退化（近期）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="243"/>
         <source>Stability</source>
-        <translation type="unfinished"></translation>
+        <translation>稳定</translation>
     </message>
     <message>
         <location filename="../layers.py" line="244"/>
         <source>Improvement (baseline)</source>
-        <translation type="unfinished"></translation>
+        <translation>改善（基准期）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="245"/>
         <source>Improvement (recent)</source>
-        <translation type="unfinished"></translation>
+        <translation>改善（近期）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="246"/>
         <source>Improvement (persistent)</source>
-        <translation type="unfinished"></translation>
+        <translation>改善（持续性）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="234"/>
@@ -7948,7 +7280,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="242"/>
         <source>Degradation (baseline)</source>
-        <translation type="unfinished"></translation>
+        <translation>退化（基准期）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="214"/>
@@ -7963,47 +7295,47 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="251"/>
         <source>Error recode periods (periods affected)</source>
-        <translation type="unfinished"></translation>
+        <translation>错误重编码时段（受影响的时段）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="255"/>
         <source>Baseline only</source>
-        <translation type="unfinished"></translation>
+        <translation>仅基准期</translation>
     </message>
     <message>
         <location filename="../layers.py" line="256"/>
         <source>Report 1 only</source>
-        <translation type="unfinished"></translation>
+        <translation>仅报告期 1</translation>
     </message>
     <message>
         <location filename="../layers.py" line="258"/>
         <source>Report 2 only</source>
-        <translation type="unfinished"></translation>
+        <translation>仅报告期 2</translation>
     </message>
     <message>
         <location filename="../layers.py" line="259"/>
         <source>Baseline + Report 2</source>
-        <translation type="unfinished"></translation>
+        <translation>基准期 + 报告期 2</translation>
     </message>
     <message>
         <location filename="../layers.py" line="260"/>
         <source>Report 1 + Report 2</source>
-        <translation type="unfinished"></translation>
+        <translation>报告期 1 + 报告期 2</translation>
     </message>
     <message>
         <location filename="../layers.py" line="261"/>
         <source>All periods</source>
-        <translation type="unfinished"></translation>
+        <translation>所有时段</translation>
     </message>
     <message>
         <location filename="../layers.py" line="211"/>
         <source>Land productivity dynamics (custom, {year_initial}-{year_final})</source>
-        <translation type="unfinished"></translation>
+        <translation>土地生产力动态（自定义，{year_initial}-{year_final}）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="257"/>
         <source>Baseline + Report 1</source>
-        <translation type="unfinished"></translation>
+        <translation>基准期 + 报告期 1</translation>
     </message>
 </context>
 <context>
@@ -8116,7 +7448,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../lc_setup.py" line="85"/>
         <source>Tree cover, broadleaved, deciduous, closed to open (&gt;15%)</source>
-        <translation type="unfinished">树木覆盖，阔叶树，落叶，开放（15â40%）</translation>
+        <translation>树木覆盖，阔叶树，落叶树，封闭至开放（&gt;15%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="88"/>
@@ -8126,12 +7458,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../lc_setup.py" line="94"/>
         <source>Tree cover, needleleaved, evergreen, closed to open (&gt;15%)</source>
-        <translation type="unfinished">树木覆盖，针叶树，常绿，开放（15â  40%）</translation>
+        <translation>树木覆盖，针叶树，常绿，封闭至开放（&gt;15%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="97"/>
         <source>Tree cover, needleleaved, evergreen, closed (&gt;40%)</source>
-        <translation type="unfinished">树木覆盖，针叶，落叶，开放 (15â40%)</translation>
+        <translation>树木覆盖，针叶树，常绿，封闭（&gt;40%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="103"/>
@@ -8244,42 +7576,24 @@ for running algorithms and their results.</source>
         <translation>永久性冰雪</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="79"/>
-        <source>Cropland, irrigated or postâflooding</source>
-        <translation type="obsolete">灌溉过的农田或洪水过后的农田</translation>
-    </message>
-    <message>
         <location filename="../lc_setup.py" line="100"/>
         <source>Tree cover, needleleaved, evergreen, open (15‐40%)</source>
-        <translation type="unfinished"></translation>
+        <translation>树木覆盖，针叶，常绿，开放（15-40%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="109"/>
         <source>Tree cover, needleleaved, deciduous, open (15‐40%)</source>
-        <translation type="unfinished"></translation>
+        <translation>树木覆盖，针叶，落叶，开放（15-40%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="73"/>
         <source>Cropland, irrigated or post‐flooding</source>
-        <translation type="unfinished"></translation>
+        <translation>耕地，灌溉或经历洪水后</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="91"/>
         <source>Tree cover, broadleaved, deciduous, open (15‐40%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>tr_manager</name>
-    <message>
-        <location filename="../jobs/manager.py" line="680"/>
-        <source>Imported dataset</source>
-        <translation type="obsolete">导入的数据集</translation>
-    </message>
-    <message>
-        <location filename="../jobs/manager.py" line="707"/>
-        <source>False positive/negative</source>
-        <translation type="obsolete">假阳性/阴性</translation>
+        <translation>树木覆盖，阔叶，落叶，开放（15-40%）</translation>
     </message>
 </context>
 <context>

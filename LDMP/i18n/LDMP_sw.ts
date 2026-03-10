@@ -391,11 +391,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="96"/>
-        <source>Land cover (degradation)</source>
-        <translation type="obsolete">Kifuniko cha ardhi (uharibifu)</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgSelectDS.ui" line="41"/>
         <source>Land cover degradation</source>
         <translation type="unfinished"></translation>
@@ -433,7 +428,7 @@
     <message>
         <location filename="../gui/DlgDatasetAdditionalMetadata.ui" line="50"/>
         <source>Metadata</source>
-        <translation type="unfinished">Metadata</translation>
+        <translation>Metadata</translation>
     </message>
 </context>
 <context>
@@ -454,7 +449,7 @@
     <message>
         <location filename="../calculate_ldn.py" line="2721"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitilafu</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="2634"/>
@@ -673,16 +668,6 @@ p, li { white-space: pre-wrap; }
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="114"/>
-        <source>You must add an initial land cover layer to your map before you can run the calculation.</source>
-        <translation type="obsolete">Lazima uongeze safu ya kwanza ya bima ya ardhi kwenye ramani yako kabla ya kuendesha hesabu.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_lc.py" line="125"/>
-        <source>You must add a final land cover layer to your map before you can run the calculation.</source>
-        <translation type="obsolete">Lazima uongeze safu ya mwisho ya bima ya ardhi kwenye ramani yako kabla ya kuendesha hesabu.</translation>
-    </message>
-    <message>
         <location filename="../calculate_lc.py" line="131"/>
         <source>Warning</source>
         <translation>Onyo</translation>
@@ -751,73 +736,38 @@ p, li { white-space: pre-wrap; }
         <source>Save</source>
         <translation>Hifadhi</translation>
     </message>
-    <message>
-        <location filename="../lc_setup.py" line="463"/>
-        <source>Select a land cover definition file</source>
-        <translation type="obsolete">Chagua faili ya ufafanuzi wa bima ya ardhi</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="494"/>
-        <source>Land cover definition (*.json)</source>
-        <translation type="obsolete">Ufafanuzi wa bima ya ardhi (* .json)</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="507"/>
-        <source>Error</source>
-        <translation type="obsolete">Hitilafu</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="476"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation type="obsolete">Haiwezi kusoma {}. Chagua faili tofauti.</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="494"/>
-        <source>Choose where to save this land cover definition</source>
-        <translation type="obsolete">Chagua wapi kuokoa ufafanuzi wa bima hii ya ardhi</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="507"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="obsolete">Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="563"/>
-        <source>Warning</source>
-        <translation type="obsolete">Onyo</translation>
-    </message>
 </context>
 <context>
     <name>DlgCalculateLCSetAggregationBase</name>
     <message>
         <location filename="../lc_setup.py" line="594"/>
         <source>Select a land cover definition file</source>
-        <translation type="unfinished">Chagua faili ya ufafanuzi wa bima ya ardhi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="621"/>
         <source>Land cover definition (*.json)</source>
-        <translation type="unfinished">Ufafanuzi wa bima ya ardhi (* .json)</translation>
+        <translation>Ufafanuzi wa bima ya ardhi (* .json)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="634"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitilafu</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="607"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation type="unfinished">Haiwezi kusoma {}. Chagua faili tofauti.</translation>
+        <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="621"/>
         <source>Choose where to save this land cover definition</source>
-        <translation type="unfinished">Chagua wapi kuokoa ufafanuzi wa bima hii ya ardhi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="634"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
+        <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
 </context>
 <context>
@@ -825,7 +775,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lc_setup.py" line="884"/>
         <source>Warning</source>
-        <translation type="unfinished">Onyo</translation>
+        <translation>Onyo</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="884"/>
@@ -838,7 +788,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lc_setup.py" line="741"/>
         <source>Warning</source>
-        <translation type="unfinished">Onyo</translation>
+        <translation>Onyo</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="729"/>
@@ -942,11 +892,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_ldn.py" line="2969"/>
         <source>This function coming soon!</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1151"/>
-        <source>Error</source>
-        <translation type="obsolete">Kosa</translation>
     </message>
 </context>
 <context>
@@ -1085,11 +1030,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_ldn.py" line="2390"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1435"/>
-        <source>Error</source>
-        <translation type="obsolete">Hitilafu</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="94"/>
@@ -1247,11 +1187,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateDrought.ui" line="268"/>
-        <source>CHIRPS</source>
-        <translation type="obsolete">VYAKULA</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="335"/>
         <source>Vulnerability indicator</source>
         <translation type="unfinished"></translation>
@@ -1389,7 +1324,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_ldn.py" line="2295"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitilafu</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="2295"/>
@@ -1949,11 +1884,6 @@ p, li { white-space: pre-wrap; }
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_rest_biomass.py" line="129"/>
-        <source>You must add a biomass layer to your map before you can use the summary tool.</source>
-        <translation type="obsolete">Lazima uongeze safu ya majani kwenye ramani yako kabla ya kutumia chombo cha muhtasari.</translation>
-    </message>
-    <message>
         <location filename="../calculate_rest_biomass.py" line="139"/>
         <source>Area of interest is not entirely within the biomass layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya majani.</translation>
@@ -2060,11 +1990,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_soc.py" line="164"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
         <translation>Kutokana na chaguo ulizochagua, hesabu hii inapaswa kutokea nje ya mtandao. UNAFANYA kuchagua dataset ya desturi ya ardhi ya desturi.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="170"/>
-        <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
-        <translation type="obsolete">Lazima uongeze safu ya kaboni ya kaboni kwenye ramani yako kabla ya kukimbia hesabu.</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="196"/>
@@ -2419,16 +2344,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_tc.py" line="676"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
-    </message>
-    <message>
-        <location filename="../calculate_tc.py" line="634"/>
-        <source>You must add a forest loss layer to your map before you can use the carbon change summary tool.</source>
-        <translation type="obsolete">Lazima uongeze safu ya kupoteza misitu kwenye ramani yako kabla ya kutumia chombo cha muhtasari wa mabadiliko ya kaboni.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_tc.py" line="644"/>
-        <source>You must add a total carbon layer to your map before you can use the carbon change summary tool.</source>
-        <translation type="obsolete">Lazima uongeze safu ya kaboni ya jumla kwenye ramani yako kabla ya kutumia chombo cha muhtasari wa mabadiliko ya kaboni.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="646"/>
@@ -2888,11 +2803,6 @@ p, li { white-space: pre-wrap; }
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="247"/>
-        <source>You must add an urban series layer to your map before you can use the urban change summary tool.</source>
-        <translation type="obsolete">Lazima uongeze safu ya mfululizo wa mjini kwenye ramani yako kabla ya kutumia chombo cha muhtasari wa mabadiliko ya miji.</translation>
-    </message>
-    <message>
         <location filename="../calculate_urban.py" line="256"/>
         <source>Area of interest is not entirely within the urban series layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya mfululizo wa mjini.</translation>
@@ -2957,19 +2867,9 @@ p, li { white-space: pre-wrap; }
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="966"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">Chagua faili ya pato.</translation>
-    </message>
-    <message>
         <location filename="../lc_setup.py" line="1186"/>
         <source>No definition set</source>
         <translation>Hakuna ufafanuzi uliowekwa</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="1185"/>
-        <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
-        <translation type="obsolete">Bofya &quot;Badilisha Definition&quot; ili kufafanua ufafanuzi wa bima ya ardhi kabla ya kusafirisha.</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="1021"/>
@@ -2977,14 +2877,9 @@ p, li { white-space: pre-wrap; }
         <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="847"/>
-        <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation type="obsolete">Hitilafu ya kusoma data. Trends.Earth inasaidia kiwango cha juu cha masomo 60 ya bima ya ardhi</translation>
-    </message>
-    <message>
         <location filename="../lc_setup.py" line="1164"/>
         <source>Error reading data. Trends.Earth supports a maximum of 38 different land cover classes</source>
-        <translation type="unfinished">Hitilafu ya kusoma data. Trends.Earth inasaidia kiwango cha juu cha masomo 60 ya bima ya ardhi {38 ?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="1210"/>
@@ -3000,11 +2895,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgDataIOImportLC.ui" line="81"/>
         <source>When preparing data for UNCCD national reporting, countries are strongly encouraged to use a legend with no more than 15 land cover classes.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDataIOImportLC.ui" line="152"/>
-        <source>Notes:</source>
-        <translation type="obsolete">Maelezo:</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="1186"/>
@@ -3068,11 +2958,6 @@ p, li { white-space: pre-wrap; }
         <source>Land productivity (imported - {self.datatype_cb.currentText()})</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../gui/DlgDataIOImportProd.ui" line="185"/>
-        <source>Notes:</source>
-        <translation type="obsolete">Maelezo:</translation>
-    </message>
 </context>
 <context>
     <name>DlgDataIOImportSOC</name>
@@ -3080,11 +2965,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgDataIOImportSOC.ui" line="29"/>
         <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
         <translation>Weka dasasiti ya udongo ya Organic Carbon (SOC) ya udongo</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDataIOImportSOC.ui" line="46"/>
-        <source>Notes:</source>
-        <translation type="obsolete">Maelezo:</translation>
     </message>
 </context>
 <context>
@@ -3231,44 +3111,9 @@ p, li { white-space: pre-wrap; }
         <translation>Pakua data ghafi</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="42"/>
-        <source>Select Data</source>
-        <translation type="obsolete">Chagua Data</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="83"/>
-        <source>Select Time Period</source>
-        <translation type="obsolete">Chagua Kipindi cha Muda</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="95"/>
-        <source>Period</source>
-        <translation type="obsolete">Kipindi</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="209"/>
-        <source>Last year:</source>
-        <translation type="obsolete">Mwaka jana:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="228"/>
-        <source>First year:</source>
-        <translation type="obsolete">Mwaka wa kwanza:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="269"/>
-        <source>Next</source>
-        <translation type="obsolete">Ifuatayo</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgDownload.ui" line="249"/>
         <source>Submit download request</source>
         <translation>Tuma ombi la kupakua</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="307"/>
-        <source>Previous</source>
-        <translation type="obsolete">Kabla</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="189"/>
@@ -3298,7 +3143,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="183"/>
         <source>yyyy</source>
-        <translation type="unfinished">yyyy</translation>
+        <translation>yyyy</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="190"/>
@@ -3341,12 +3186,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="42"/>
         <source>Select Data</source>
-        <translation type="unfinished">Chagua Data</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="83"/>
         <source>Select Time Period</source>
-        <translation type="unfinished">Chagua Kipindi cha Muda</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="95"/>
@@ -3356,12 +3201,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="209"/>
         <source>Last year:</source>
-        <translation type="unfinished">Mwaka jana:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="228"/>
         <source>First year:</source>
-        <translation type="unfinished">Mwaka wa kwanza:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="269"/>
@@ -3493,73 +3338,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../generate_report_dialog.py" line="173"/>
         <source>dataset not specified.</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>DlgImportLC</name>
-    <message>
-        <location filename="../gui/DlgImportDataLC.ui" line="23"/>
-        <source>Load a Custom Land Cover Dataset</source>
-        <translation type="obsolete">Weka Dataset ya Jalada ya Ardhi ya Desturi</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataLC.ui" line="41"/>
-        <source>Choose a land cover aggregation method</source>
-        <translation type="obsolete">Chagua mbinu ya kuunganisha fomu ya ardhi</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataLC.ui" line="68"/>
-        <source>Edit definition</source>
-        <translation type="obsolete">Badilisha ufafanuzi</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataLC.ui" line="75"/>
-        <source>Use sample when reading cover classes from input file</source>
-        <translation type="obsolete">Tumia sampuli wakati wa kusoma madarasa ya kifuniko kutoka kwa faili ya uingizaji</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataLC.ui" line="106"/>
-        <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="obsolete">Kumbuka: Ikiwa unasoma faili kubwa inashauriwa kuwa chaguo hapo juu kitazingatiwa, kwani itakuwa kasi ya mchakato wa kusoma madarasa ya uingizaji kutoka kwenye dataset. Hata hivyo, ikiwa unapata kuwa Trends.Earth haitambui madarasa yote katika faili ya pembejeo, inaweza kuwa muhimu kuzima chaguo hili.</translation>
-    </message>
-</context>
-<context>
-    <name>DlgImportProd</name>
-    <message>
-        <location filename="../gui/DlgImportDataProd.ui" line="23"/>
-        <source>Load a Custom Land Productivity Dataset</source>
-        <translation type="obsolete">Weka Dataset ya Uzalishaji wa Ardhi ya Desturi</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataProd.ui" line="35"/>
-        <source>Productivity class definition</source>
-        <translation type="obsolete">Ufafanuzi wa darasa la uzalishaji</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgImportDataProd.ui" line="53"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Early signs of decline&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stable but stressed&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Madarasa ya tija katika data ya pembejeo lazima yameandikwa kama ifuatavyo:&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;1: Kupungua&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;2: Ishara za mapema za kupungua&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;3: Imesimamishwa lakini imesisitizwa&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;4: Imara&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;5: Kuongezeka&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;0 au -32768: Hakuna data&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-</context>
-<context>
-    <name>DlgImportSOC</name>
-    <message>
-        <location filename="../gui/DlgImportDataSOC.ui" line="23"/>
-        <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
-        <translation type="obsolete">Weka dasasiti ya udongo ya Organic Carbon (SOC) ya udongo</translation>
     </message>
 </context>
 <context>
@@ -3789,11 +3567,6 @@ p, li { white-space: pre-wrap; }
         <translation>Kikubwa</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="263"/>
-        <source>Success</source>
-        <translation type="obsolete">Mafanikio</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgSettings.ui" line="216"/>
         <source>Custom Land Cover Classes</source>
         <translation type="unfinished"></translation>
@@ -3847,7 +3620,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="38"/>
         <source>Enter your email address below and if you have an account, a password reset link will be sent to you (from api@trends.earth). Click the link to set a new password.</source>
-        <translation type="unfinished">Ingiza anwani yako ya barua pepe hapa chini na ikiwa una akaunti barua pepe itatumwa kwako (kutoka api@trends.earth) na nenosiri mpya.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="63"/>
@@ -4524,7 +4297,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="2333"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Futa</translation>
     </message>
 </context>
 <context>
@@ -4537,7 +4310,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="2483"/>
         <source>Land Cover</source>
-        <translation type="unfinished"></translation>
+        <translation>Jalada la Ardhi</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2515"/>
@@ -4585,7 +4358,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="1814"/>
         <source>Land Cover</source>
-        <translation type="unfinished"></translation>
+        <translation>Jalada la Ardhi</translation>
     </message>
     <message>
         <location filename="../settings.py" line="2080"/>
@@ -4754,7 +4527,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../maptools.py" line="403"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitilafu</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="403"/>
@@ -4777,7 +4550,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="383"/>
         <source>yyyy</source>
-        <translation type="unfinished">yyyy</translation>
+        <translation>yyyy</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="143"/>
@@ -4787,12 +4560,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="111"/>
         <source>Soil organic carbon</source>
-        <translation type="unfinished">Mkaa kaboni ya udongo</translation>
+        <translation>Mkaa kaboni ya udongo</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="124"/>
         <source>Productivity</source>
-        <translation type="unfinished">Uzalishaji</translation>
+        <translation>Uzalishaji</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="150"/>
@@ -4807,7 +4580,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="170"/>
         <source>Land cover</source>
-        <translation type="unfinished">Bima ya ardhi</translation>
+        <translation>Bima ya ardhi</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="350"/>
@@ -4998,7 +4771,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../maptools.py" line="265"/>
         <source>Warning</source>
-        <translation type="unfinished">Onyo</translation>
+        <translation>Onyo</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="265"/>
@@ -5026,7 +4799,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="394"/>
         <source>Success</source>
-        <translation type="unfinished">Mafanikio</translation>
+        <translation>Mafanikio</translation>
     </message>
     <message>
         <location filename="../settings.py" line="394"/>
@@ -5066,7 +4839,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="355"/>
         <source>Warning</source>
-        <translation type="unfinished">Onyo</translation>
+        <translation>Onyo</translation>
     </message>
     <message>
         <location filename="../settings.py" line="355"/>
@@ -5076,7 +4849,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../settings.py" line="406"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitilafu</translation>
     </message>
     <message>
         <location filename="../settings.py" line="406"/>
@@ -5496,7 +5269,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetLCClassEditor.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished">Fomu</translation>
+        <translation>Fomu</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCClassEditor.ui" line="20"/>
@@ -5622,7 +5395,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="209"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;https://www.geoboundaries.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;geoBoundaries&lt;/span&gt;&lt;/a&gt;, and are under a &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt; license. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt; &lt;kichwa /&gt; &lt;mwili&gt; &lt;p&gt; Kikwazo: Mipaka iliyotolewa ni kutoka &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;maandishi-maandishi: kusisitiza; rangi: # 0000ff; &quot;&gt; Dunia ya asili &lt;/ span&gt; &lt;/a&gt;, na iko kwenye &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; maandiko-mapambo: kusisitiza; rangi: # 0000ff; &quot;&gt; uwanja wa umma &lt;/ span&gt; &lt;/a&gt;. Mipaka na majina yaliyotumiwa, na majina yaliyotumiwa, katika Mwelekeo.Kuanzia sio maana ya kukubaliwa rasmi au kukubaliwa na Conservation International Foundation, au kwa mashirika yake ya washirika na wafadhili. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="225"/>
@@ -5718,16 +5491,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSettingsAdvanced.ui" line="178"/>
-        <source>Use binaries for faster processing</source>
-        <translation type="obsolete">Tumia mabinari kwa usindikaji haraka</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSettingsAdvanced.ui" line="238"/>
-        <source>Browse</source>
-        <translation type="obsolete">Vinjari</translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="232"/>
         <source>LandPKS login information</source>
         <translation type="unfinished"></translation>
@@ -5743,11 +5506,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1225"/>
-        <source>Warning</source>
-        <translation type="obsolete">Onyo</translation>
-    </message>
-    <message>
         <location filename="../settings.py" line="1512"/>
         <source>No base data directory set</source>
         <translation type="unfinished"></translation>
@@ -5756,16 +5514,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../settings.py" line="1522"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1510"/>
-        <source>Error</source>
-        <translation type="obsolete">Kosa</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1460"/>
-        <source>Success</source>
-        <translation type="obsolete">Mafanikio</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1492"/>
@@ -6013,11 +5761,6 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="294"/>
-        <source>Error</source>
-        <translation type="obsolete">Hitilafu</translation>
-    </message>
-    <message>
         <location filename="../api.py" line="264"/>
         <source>Unable to connect to Trends.Earth server.</source>
         <translation type="unfinished"></translation>
@@ -6195,11 +5938,6 @@ for running algorithms and their results.</source>
         <location filename="../calculate.py" line="528"/>
         <source>You have chosen to run this calculation on a point (or for a city). To run this tool on a point you must also select a buffer. This can be done in the Trends.Earth settings.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="581"/>
-        <source>Warning</source>
-        <translation type="obsolete">Onyo</translation>
     </message>
 </context>
 <context>
@@ -6536,11 +6274,6 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1296"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">Chagua faili ya pato.</translation>
-    </message>
-    <message>
         <location filename="../data_io.py" line="1909"/>
         <source>Enter the year of the input data.</source>
         <translation>Ingiza mwaka wa data ya pembejeo.</translation>
@@ -6663,7 +6396,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../data_io.py" line="1196"/>
         <source>Settings</source>
-        <translation type="unfinished">Mipangilio</translation>
+        <translation>Mipangilio</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1207"/>
@@ -6683,7 +6416,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../data_io.py" line="1247"/>
         <source>Notes:</source>
-        <translation type="unfinished">Maelezo:</translation>
+        <translation>Maelezo:</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1252"/>
@@ -6742,16 +6475,6 @@ for running algorithms and their results.</source>
         <location filename="../download.py" line="1106"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>Upakuaji umeshindwa. Angalia muunganisho wako wa mtandao.</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="376"/>
-        <source>Unable to access internet. Check your internet connection.</source>
-        <translation type="obsolete">Haiwezi kupata mtandao. Angalia muunganisho wako wa mtandao.</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="386"/>
-        <source>Download timed out. Check your internet connection.</source>
-        <translation type="obsolete">Upakuaji umekwisha. Angalia muunganisho wako wa mtandao.</translation>
     </message>
     <message>
         <location filename="../download.py" line="1045"/>
@@ -6854,7 +6577,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="117"/>
         <source>Land productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
-        <translation type="unfinished">Uharibifu wa hali ya uzalishaji ({year_bl_start} - {year_bl_end} vs {year_tg_start} - {year_tg_end})</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="226"/>
@@ -7075,11 +6798,6 @@ for running algorithms and their results.</source>
         <location filename="../layers.py" line="217"/>
         <source>Moderate decline</source>
         <translation>Kupungua kwa wastani</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="181"/>
-        <source>Stressed</source>
-        <translation type="obsolete">Imesisitizwa</translation>
     </message>
     <message>
         <location filename="../layers.py" line="222"/>

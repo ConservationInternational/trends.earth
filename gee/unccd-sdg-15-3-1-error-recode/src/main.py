@@ -242,24 +242,47 @@ def calculate_error_recode(
 
         logger.debug(f"Periods directly affected by recoding: {periods_affected}")
 
-        # Determine which periods to include in output:
-        # - If baseline is affected, all periods need to be in output (baseline changes affect status calculations)
-        # - If report_1 is affected, report_2 also needs to be included (report_1 changes affect report_2 context)
-        # - If only report_2 is affected, only report_2 is included in output
+        # Determine which periods to include in output and load for processing.
+        #
+        # IMPORTANT: The algorithms package expects sequential reporting period
+        # keys (layer_reporting_1_*, layer_reporting_2_*, etc.) and uses a
+        # sequential loop that breaks at the first gap. Therefore ALL
+        # intermediate reporting periods up to the highest needed one MUST be
+        # included in both loading and output, otherwise the raster band
+        # metadata will not match the actual band data.
+        #
+        # Additionally, baseline is ALWAYS loaded for status map calculations
+        # and ALWAYS included in both output and raster data, so it must be in
+        # periods_to_output to keep metadata consistent with band data.
+        #
+        # Rules:
+        # - Baseline always included in output (always loaded for status maps)
+        # - All intermediate reporting periods up to the highest needed one
+        #   are included in output to ensure sequential band alignment
         if "baseline" in periods_affected:
             periods_to_output = {"baseline", "report_1", "report_2"}
         elif "report_1" in periods_affected:
-            periods_to_output = {"report_1", "report_2"}
+            periods_to_output = {"baseline", "report_1", "report_2"}
         else:
-            periods_to_output = periods_affected.copy()
+            periods_to_output = {"baseline"}
+            periods_to_output.update(periods_affected)
 
-        # Determine which periods to load for processing:
-        # - Always need baseline for internal calculations (status maps require baseline reference)
-        # - Plus any directly affected periods
-        periods_to_load = periods_affected.copy()
-        periods_to_load.add("baseline")  # Always need baseline for status calculations
-        # Also need to load any period that will be in output
-        periods_to_load.update(periods_to_output)
+        # Find the highest numbered reporting period needed
+        max_report_num = 0
+        for period in periods_to_output:
+            if period.startswith("report_"):
+                try:
+                    num = int(period.split("_")[1])
+                    max_report_num = max(max_report_num, num)
+                except (IndexError, ValueError):
+                    pass
+
+        # Add all intermediate reporting periods to output
+        for i in range(1, max_report_num + 1):
+            periods_to_output.add(f"report_{i}")
+
+        # Periods to load = all output periods (baseline already included)
+        periods_to_load = periods_to_output.copy()
 
         # Convert to a dictionary for band loading
         periods_to_process = {period: {} for period in periods_to_load}

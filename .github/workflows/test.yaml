@@ -82,7 +82,7 @@ jobs:
           docker compose down -v || true
       - name: Upload logs (always)
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: docker-compose-logs-${{ matrix.qgis_version_tag }}
           path: docker-compose-logs.txt
@@ -156,7 +156,7 @@ jobs:
 
       - name: Upload logs (always)
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: docker-compose-logs-marshmallow4-${{ matrix.qgis_version_tag }}
           path: docker-compose-logs.txt

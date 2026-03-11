@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-11 00:55+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
@@ -84,12 +84,19 @@ msgid ""
 "Indicator-15.3.1_version2_2021.pdf>`_ providing recommendations on how to "
 "calculate SDG Indicator 15.3.1."
 msgstr ""
+"باعتبارها الوكالة الراعية للهدف 15.3 من أهداف التنمية المستدامة، وضعت "
+"اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) `إرشادات الممارسات الجيدة (GPG)"
+" <https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-"
+"Indicator-15.3.1_version2_2021.pdf>` والتي تقدم توصيات حول كيفية حساب مؤشر "
+"الهدف 15.3.1 من أهداف التنمية المستدامة."
 
 #: ../../source/for_users/features/unccdreporting.rst:31
 msgid ""
 "This page provides a brief introduction to SDG Indicator 15.3.1 and "
 "describes how each indicator is calculated by |trends.earth|."
 msgstr ""
+"توفر هذه الصفحة مقدمة موجزة عن مؤشر أهداف التنمية المستدامة 15.3.1 وتصف "
+"كيفية حساب كل مؤشر بواسطة |trends.earth|."
 
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
@@ -124,6 +131,10 @@ msgid ""
 " a final SDG indicator 15.3.1 map and produces a table result reporting "
 "areas potentially improved and degraded for the area of analysis."
 msgstr ""
+"|trends.earth| تسمح للمستخدم بحساب كل من هذه المؤشرات الفرعية بطريقة مكانية "
+"واضحة، مما يؤدي إلى إنشاء خرائط نقطية يتم دمجها بعد ذلك في خريطة نهائية "
+"لمؤشر أهداف التنمية المستدامة 15.3.1، وتنتج جدولاً يوضح المناطق التي يُحتمل "
+"أن تكون قد تحسنت أو تدهورت في منطقة التحليل."
 
 #: ../../source/for_users/features/unccdreporting.rst:50
 msgid "Sub-indicators"
@@ -162,6 +173,14 @@ msgid ""
 "interpretation of results). These annual integrals of NDVI are then used to "
 "compute each of the productivity metrics explained below."
 msgstr ""
+"يُعد مؤشر قياسي لتباين الغطاء النباتي (NDVI) أحد أكثر المؤشرات البديلة "
+"شيوعاً لصافي الإنتاج الأولي (NPP)، ويتم حسابه باستخدام معلومات من الأطوال "
+"الموجية الحمراء والأشعة تحت الحمراء القريبة من الطيف الكهرومغناطيسي. وفي "
+"|trends.earth|، نستخدم المنتجات التي تصدر كل أسبوعين من MODIS و AVHRR لحساب "
+"التكاملات السنوية للمؤشر القياسي لتباين الغطاء النباتي (يتم حسابها كمتوسط "
+"مؤشر قياسي سنوي لتباين الغطاء النباتي لتبسيط عملية تفسير النتائج). وبالتالي،"
+" يتم استخدام هذه التكاملات السنوية للمؤشر القياسي لتباين الغطاء النباتي "
+"لحساب كل مقياس من مقاييس الإنتاجية الموضحة أدناه."
 
 #: ../../source/for_users/features/unccdreporting.rst:74
 msgid ""
@@ -322,37 +341,37 @@ msgstr ""
 #: ../../source/for_users/features/unccdreporting.rst:272
 #: ../../source/for_users/features/unccdreporting.rst:334
 msgid "**Variable**"
-msgstr ""
+msgstr "**قابل للتغيير**"
 
 #: ../../source/for_users/features/unccdreporting.rst:161
 #: ../../source/for_users/features/unccdreporting.rst:273
 #: ../../source/for_users/features/unccdreporting.rst:335
 msgid "**Sensor/Dataset**"
-msgstr ""
+msgstr "**مستشعر/مجموعة بيانات**"
 
 #: ../../source/for_users/features/unccdreporting.rst:162
 #: ../../source/for_users/features/unccdreporting.rst:274
 #: ../../source/for_users/features/unccdreporting.rst:336
 msgid "**Temporal**"
-msgstr ""
+msgstr "**زماني**"
 
 #: ../../source/for_users/features/unccdreporting.rst:163
 #: ../../source/for_users/features/unccdreporting.rst:275
 #: ../../source/for_users/features/unccdreporting.rst:337
 msgid "**Spatial Res.**"
-msgstr ""
+msgstr "**دقة مكانية**"
 
 #: ../../source/for_users/features/unccdreporting.rst:164
 #: ../../source/for_users/features/unccdreporting.rst:276
 #: ../../source/for_users/features/unccdreporting.rst:338
 msgid "**Extent**"
-msgstr ""
+msgstr "**مدى**"
 
 #: ../../source/for_users/features/unccdreporting.rst:165
 #: ../../source/for_users/features/unccdreporting.rst:277
 #: ../../source/for_users/features/unccdreporting.rst:339
 msgid "**Units/Description**"
-msgstr ""
+msgstr "**وحدات/وصف**"
 
 #: ../../source/for_users/features/unccdreporting.rst:166
 #: ../../source/for_users/features/unccdreporting.rst:172
@@ -367,7 +386,7 @@ msgstr "NDVI"
 #: ../../source/for_users/features/unccdreporting.rst:279
 #: ../../source/for_users/features/unccdreporting.rst:341
 msgid "AVHRR/GIMMS"
-msgstr ""
+msgstr "AVHRR/GIMMS"
 
 #: ../../source/for_users/features/unccdreporting.rst:168
 #: ../../source/for_users/features/unccdreporting.rst:280
@@ -404,19 +423,19 @@ msgstr "عالمي"
 #: ../../source/for_users/features/unccdreporting.rst:345
 #: ../../source/for_users/features/unccdreporting.rst:351
 msgid "Mean annual NDVI \\* 10000"
-msgstr ""
+msgstr "متوسط مؤشر قياسي سنوي لتباين الغطاء النباتي \\* 10000"
 
 #: ../../source/for_users/features/unccdreporting.rst:173
 #: ../../source/for_users/features/unccdreporting.rst:285
 #: ../../source/for_users/features/unccdreporting.rst:347
 msgid "MOD13Q1-coll6.1"
-msgstr ""
+msgstr "MOD13Q1-coll6.1"
 
 #: ../../source/for_users/features/unccdreporting.rst:174
 #: ../../source/for_users/features/unccdreporting.rst:286
 #: ../../source/for_users/features/unccdreporting.rst:348
 msgid "2001-2024"
-msgstr ""
+msgstr "2001-2024"
 
 #: ../../source/for_users/features/unccdreporting.rst:175
 #: ../../source/for_users/features/unccdreporting.rst:287
@@ -428,15 +447,15 @@ msgstr "250 م"
 #: ../../source/for_users/features/unccdreporting.rst:178
 #: ../../source/for_users/features/unccdreporting.rst:184
 msgid "Soil moisture"
-msgstr ""
+msgstr "رطوبة التربة"
 
 #: ../../source/for_users/features/unccdreporting.rst:179
 msgid "MERRA 2"
-msgstr ""
+msgstr "MERRA 2"
 
 #: ../../source/for_users/features/unccdreporting.rst:180
 msgid "1980-2019"
-msgstr ""
+msgstr "1980-2019"
 
 #: ../../source/for_users/features/unccdreporting.rst:181
 msgid "0.5° x 0.625°"
@@ -444,11 +463,11 @@ msgstr "0.5 درجة × 0.625 درجة"
 
 #: ../../source/for_users/features/unccdreporting.rst:183
 msgid "Water root zone m\\ :sup:`3`\\ m\\ :sup:`-3` \\*10000"
-msgstr ""
+msgstr "منطقة جذر الماء متر\\ :sup:`3`\\ متر\\ :sup:`-3` \\*10000"
 
 #: ../../source/for_users/features/unccdreporting.rst:185
 msgid "ERA I"
-msgstr ""
+msgstr "ERA I"
 
 #: ../../source/for_users/features/unccdreporting.rst:186
 msgid "1979-2016"
@@ -460,18 +479,18 @@ msgstr "0.75 درجة × 0.75 درجة"
 
 #: ../../source/for_users/features/unccdreporting.rst:189
 msgid "Volumetric Soil Water layer m\\ :sup:`3`\\ m\\ :sup:`-3` (0-7 cm)"
-msgstr ""
+msgstr "طبقة مياه التربة الحجمية متر\\ :sup:`3`\\ متر\\ :sup:`-3` (0-7 سم)"
 
 #: ../../source/for_users/features/unccdreporting.rst:190
 #: ../../source/for_users/features/unccdreporting.rst:196
 #: ../../source/for_users/features/unccdreporting.rst:202
 #: ../../source/for_users/features/unccdreporting.rst:208
 msgid "Precipitation"
-msgstr ""
+msgstr "تهطال"
 
 #: ../../source/for_users/features/unccdreporting.rst:191
 msgid "GPCP v2.3.1 monthly (Global Precipitation Climatology Project)"
-msgstr ""
+msgstr "GPCP v2.3.1 شهرياً (المشروع العالمي لعلم المناخ التهطالي)"
 
 #: ../../source/for_users/features/unccdreporting.rst:192
 msgid "1979-2019"
@@ -486,11 +505,11 @@ msgstr "2.5 درجة × 2.5 درجة"
 #: ../../source/for_users/features/unccdreporting.rst:207
 #: ../../source/for_users/features/unccdreporting.rst:213
 msgid "mm/year"
-msgstr ""
+msgstr "ملم/سنة"
 
 #: ../../source/for_users/features/unccdreporting.rst:197
 msgid "GPCC V6 (Global Precipitation Climatology Centre)"
-msgstr ""
+msgstr "GPCC V6 (المركز العالمي لعلم المناخ التهطالي)"
 
 #: ../../source/for_users/features/unccdreporting.rst:198
 msgid "1891-2019"
@@ -506,7 +525,7 @@ msgstr "CHIRPS"
 
 #: ../../source/for_users/features/unccdreporting.rst:204
 msgid "1981-2024"
-msgstr ""
+msgstr "1981-2024"
 
 #: ../../source/for_users/features/unccdreporting.rst:205
 msgid "5 km"

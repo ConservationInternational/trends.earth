@@ -6,16 +6,16 @@
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-11 00:55+0000\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Portuguese (https://app.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,10 +64,13 @@ msgid ""
 "Engine (GEE). These scripts sit in the \"gee\" sub-folder of that GitHub "
 "repository."
 msgstr ""
+"O plugin do QGIS |trends.earth| é suportado por diversos scripts de Python "
+"que permitem o cálculo dos vários indicadores no Google Earth Engine (GEE). "
+"Estes scripts encontram-se na subpasta \"gee\" desse repositório do GitHub."
 
 #: ../../source/for_developers/development.rst:21
 msgid "The plugin is also supported by a number of other modules:"
-msgstr ""
+msgstr "O plugin é também suportado por uma série de outros módulos:"
 
 #: ../../source/for_developers/development.rst:23
 msgid ""
@@ -78,6 +81,12 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth-algorithms>`_ "
 "repository on GitHub."
 msgstr ""
+"O módulo `trends.earth-algorithms` inclui o código para o processamento de "
+"entradas e saídas do plugin, bem como outras funções comuns que suportam o "
+"cálculo de integrais de NDVI, significância estatística e outro código "
+"partilhado. O código deste módulo está disponível no repositório "
+"`landdegradation <https://github.com/ConservationInternational/trends.earth-"
+"algorithms>`_ no GitHub."
 
 #: ../../source/for_developers/development.rst:31
 msgid ""
@@ -86,6 +95,10 @@ msgid ""
 "cover classes, job parameters, structuring reports for UNCCD, and other "
 "related functions"
 msgstr ""
+"O módulo `trends.earth-schemas` inclui o código para gerir os esquemas "
+"utilizados na entrada e saída de dados do trends.earth, incluindo a gestão "
+"de classes de ocupação do solo, parâmetros de tarefas, estruturação de "
+"relatórios para a UNCCD e outras funções relacionadas"
 
 #: ../../source/for_developers/development.rst:36
 msgid ""
@@ -93,6 +106,10 @@ msgid ""
 " the plugin GUI code, by modifying the processing code, or by contributing "
 "to translation of the website and plugin."
 msgstr ""
+"Apresentam-se abaixo mais detalhes sobre como contribuir para o "
+"Trends.Earth, trabalhando no código da interface gráfica do plugin, "
+"modificando o código de processamento ou contribuindo para a tradução do "
+"website e do plugin."
 
 #: ../../source/for_developers/development.rst:41
 msgid "Modifying the QGIS Plugin code"
@@ -151,6 +168,16 @@ msgid ""
 "required. To download Python 3.7 (recommended) through Anaconda, `see this "
 "page <https://www.anaconda.com/distribution/#download-section>`_."
 msgstr ""
+"O plugin é codificado em Python. Além de ser utilizado para correr o plugin "
+"através do QGIS, o Python é também usado para apoiar a gestão do mesmo "
+"(alterar a versão, instalar versões de desenvolvimento, etc.). Embora o "
+"Python esteja incluído no QGIS, necessitará também de uma versão local do "
+"Python que possa configurar com o software necessário para gerir o plugin. A"
+" forma mais fácil de gerir múltiplas versões de Python é através da "
+"`distribuição Anaconda <https://www.anaconda.com>`_. Para trabalhos de "
+"desenvolvimento do plugin, é necessário o Python 3. Para descarregar o "
+"Python 3.7 (recomendado) através do Anaconda, `consulte esta página "
+"<https://www.anaconda.com/distribution/#download-section>`."
 
 #: ../../source/for_developers/development.rst:75
 #: ../../source/for_developers/development.rst:729
@@ -387,13 +414,15 @@ msgstr ""
 
 #: ../../source/for_developers/development.rst:192
 msgid "Updating the cached boundaries list"
-msgstr ""
+msgstr "A atualizar a lista de limites em cache"
 
 #: ../../source/for_developers/development.rst:194
 msgid ""
 "When the geoBoundaries dataset is refreshed, update the cached list bundled "
 "with the plugin by running::"
 msgstr ""
+"Quando o conjunto de dados geoBoundaries for atualizado, atualize a lista em"
+" cache incluída no plugin executando::"
 
 #: ../../source/for_developers/development.rst:199
 msgid ""
@@ -401,6 +430,9 @@ msgid ""
 "by adding an ``invoke.yaml`` file in the repository root with entries such "
 "as:"
 msgstr ""
+"A tarefa efetua a autenticação na API do Trends.Earth. Configure as "
+"credenciais adicionando um ficheiro ``invoke.yaml`` na raiz do repositório "
+"com entradas como:"
 
 #: ../../source/for_developers/development.rst:208
 msgid ""
@@ -408,6 +440,9 @@ msgid ""
 "``TRENDS_EARTH_API_PASSWORD`` environment variables before invoking the "
 "task."
 msgstr ""
+"Também pode fornecer as credenciais através das variáveis de ambiente "
+"``TRENDS_EARTH_API_USER`` e ``TRENDS_EARTH_API_PASSWORD`` antes de invocar a"
+" tarefa."
 
 #: ../../source/for_developers/development.rst:213
 msgid "Building a plugin ZIP file"
@@ -462,6 +497,10 @@ msgid ""
 " To create a ZIP file and make it available on that page (the ZIP file is "
 "stored on S3), run::"
 msgstr ""
+"A página do Trends.Earth no GitHub disponibiliza uma ligação para um "
+"ficheiro ZIP que permite aos utilizadores que não sejam programadores aceder"
+" à versão de desenvolvimento do Trends.Earth. Para criar um ficheiro ZIP e "
+"disponibilizá-lo nessa página (o ficheiro ZIP é armazenado no S3), execute::"
 
 #: ../../source/for_developers/development.rst:243
 msgid ""
@@ -521,6 +560,10 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth-CLI>`_ "
 "repository."
 msgstr ""
+"O pacote Python \"trends.earth-CLI\" é necessário para poder trabalhar com o"
+" servidor api.trends.earth. Este pacote encontra-se no GitHub, no "
+"repositório `trends.earth-CLI "
+"<https://github.com/ConservationInternational/trends.earth-CLI>`_."
 
 #: ../../source/for_developers/development.rst:273
 msgid ""
@@ -534,6 +577,15 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth-CLI>`_ repository"
 " into that same folder."
 msgstr ""
+"O primeiro passo é clonar este repositório para a sua máquina. Recomendamos "
+"que clone o repositório para a mesma pasta onde tem o código do "
+"trends.earth. Por exemplo, se tiver uma pasta \"Code\" na sua máquina, clone"
+" tanto o repositório `trends.earth "
+"<https://github.com/ConservationInternational/trends.earth>`_ (o código para"
+" o plugin do QGIS e os scripts do GEE associados) como também o repositório "
+"`trends.earth-CLI "
+"<https://github.com/ConservationInternational/trends.earth-CLI>`_ para essa "
+"mesma pasta."
 
 #: ../../source/for_developers/development.rst:282
 msgid ""
@@ -742,6 +794,8 @@ msgid ""
 "Trends.Earth allows users to digitize new vector features to delineate areas"
 " of special interest."
 msgstr ""
+"O Trends.Earth permite aos utilizadores digitalizar novos elementos "
+"vetoriais para delinear áreas de especial interesse."
 
 #: ../../source/for_developers/development.rst:398
 msgid ""
@@ -755,6 +809,17 @@ msgid ""
 "requested QGIS will look for the template file taking QGIS locale into "
 "account, as a fall-back option English version of the template file is used."
 msgstr ""
+"Para já, apenas as camadas de \"falso positivo/negativo\" são suportadas, "
+"mas poderão ser adicionadas mais, se necessário. Qualquer camada vetorial é "
+"criada a partir dos ficheiros de modelo GeoPackage, que podem ser "
+"encontrados na pasta ``data/error_recode`` do diretório de instalação do "
+"plugin. Para cada tipo de vetor, existem 6 ficheiros de modelo, um para cada"
+" língua oficial da ONU. O código de língua ISO é adicionado como um sufixo "
+"ao nome do ficheiro. Isto é necessário para fornecer etiquetas localizadas "
+"nos formulários de atributos. Quando a criação da camada vetorial é "
+"solicitada, o QGIS procurará o ficheiro de modelo tendo em conta o idioma do"
+" QGIS; como opção de recurso, será utilizada a versão em inglês do ficheiro "
+"de modelo."
 
 #: ../../source/for_developers/development.rst:409
 msgid ""
@@ -764,6 +829,12 @@ msgid ""
 "styling and attribute form configuration which will be automatically applied"
 " to the layer when loading into QGIS."
 msgstr ""
+"Para alterar o esquema da camada, é necessário modificar os ficheiros de "
+"modelo correspondentes na pasta ``data/error_recode`` do diretório de "
+"instalação do plugin. Além disso, o ficheiro de modelo contém uma "
+"estilização predefinida incorporada e uma configuração de formulário de "
+"atributos que serão aplicadas automaticamente à camada quando esta for "
+"carregada no QGIS."
 
 #: ../../source/for_developers/development.rst:415
 msgid ""
@@ -829,6 +900,16 @@ msgid ""
 "percentage. As pixel counting is built on numpy array functions it is very "
 "fast even for big polygons."
 msgstr ""
+"O cálculo da percentagem de área é efetuado com uma função de expressão "
+"personalizada, cujo código pode ser encontrado no ficheiro ``charts.py``, no"
+" diretório raiz do plugin. A função está otimizada para trabalhar com "
+"polígonos de grandes dimensões e utiliza o seguinte fluxo de trabalho: para "
+"uma determinada geometria, define uma caixa envolvente e extrai um "
+"subconjunto do raster utilizando essa bbox. Realiza a rasterização da "
+"geometria em memória e aplica-a como uma máscara ao raster. Em seguida, "
+"conta o número de píxeis que possuem um valor específico e calcula a "
+"percentagem. Como a contagem de píxeis se baseia em funções de matrizes "
+"numpy, o processo é muito rápido, mesmo para polígonos grandes."
 
 #: ../../source/for_developers/development.rst:473
 msgid ""
@@ -1732,6 +1813,14 @@ msgid ""
 "``docs\\\\resources\\\\en`` or, for translated images, the appropriate "
 "language-specific folder under ``docs\\\\resources``."
 msgstr ""
+"Existe outra pasta, ``docs\\source\\static``, que é utilizada para guardar "
+"recursos temporariamente durante a execução dos scripts que compilam a "
+"documentação do Trends.Earth. Poderá ter imagens listadas nessa pasta se "
+"alguma vez tiver compilado a documentação nessa máquina.** Esta pasta nunca "
+"deve ser utilizada para adicionar novos recursos** — os novos recursos devem"
+" ser sempre colocados em ``docs\\resources\\en`` ou, no caso de imagens "
+"traduzidas, na pasta específica do idioma correspondente em "
+"``docs\\resources``."
 
 #: ../../source/for_developers/development.rst:914
 msgid "Contributing as a translator"
@@ -1757,7 +1846,7 @@ msgstr ""
 
 #: ../../source/for_developers/development.rst:925
 msgid "Releasing a new plugin version"
-msgstr ""
+msgstr "Lançamento de uma nova versão do plugin"
 
 #: ../../source/for_developers/development.rst:930
 msgid ""
@@ -1766,18 +1855,23 @@ msgid ""
 "GitHub and the QGIS plugin repository. The process is streamlined through "
 "invoke tasks that automate most of these steps."
 msgstr ""
+"O lançamento de uma nova versão do Trends.Earth envolve a atualização dos "
+"números de versão, a criação de etiquetas de git, a compilação do pacote do "
+"plugin e a sua publicação tanto no GitHub como no repositório de plugins do "
+"QGIS. O processo é simplificado através de tarefas do invoke que automatizam"
+" a maioria destes passos."
 
 #: ../../source/for_developers/development.rst:936
 msgid "Release workflow"
-msgstr ""
+msgstr "Fluxo de trabalho de lançamento"
 
 #: ../../source/for_developers/development.rst:938
 msgid "Follow these steps in order to create a new public release:"
-msgstr ""
+msgstr "Siga estes passos para criar um novo lançamento público:"
 
 #: ../../source/for_developers/development.rst:940
 msgid "**1. Update the changelog**"
-msgstr ""
+msgstr "**1. Atualizar o registo de alterações**"
 
 #: ../../source/for_developers/development.rst:942
 msgid ""
@@ -1786,16 +1880,22 @@ msgid ""
 "date, followed by bullet points describing new features, bug fixes, and "
 "other changes."
 msgstr ""
+"Primeiro, atualize o registo de alterações (changelog) em "
+"``LDMP\\metadata.txt`` com detalhes sobre o que mudou nesta versão. Inclua o"
+" número da versão e a data de lançamento, seguidos de pontos que descrevam "
+"as novas funcionalidades, correções de erros e outras alterações."
 
 #: ../../source/for_developers/development.rst:946
 msgid "**2. Set the version number**"
-msgstr ""
+msgstr "**2. Definir o número da versão**"
 
 #: ../../source/for_developers/development.rst:948
 msgid ""
 "Run the ``set-version`` task to update version numbers throughout the "
 "codebase::"
 msgstr ""
+"Execute a tarefa ``set-version`` para atualizar os números de versão em toda"
+" a base de código::"
 
 #: ../../source/for_developers/development.rst:952
 msgid ""
@@ -1803,33 +1903,38 @@ msgid ""
 "ensures that version numbers are also updated in the dependent modules "
 "(``trends.earth-schemas`` and ``trends.earth-algorithms``)."
 msgstr ""
+"Onde X.Y.Z é o novo número da versão (ex: 2.1.20). A bandeira ``-m`` garante"
+" que os números de versão sejam também atualizados nos módulos dependentes "
+"(``trends.earth-schemas`` e ``trends.earth-algorithms``)."
 
 #: ../../source/for_developers/development.rst:956
 #: ../../source/for_developers/development.rst:1019
 msgid "This command will:"
-msgstr ""
+msgstr "Este comando irá:"
 
 #: ../../source/for_developers/development.rst:957
 msgid "Update ``LDMP/metadata.txt`` with the new version"
-msgstr ""
+msgstr "Atualizar o ficheiro ``LDMP/metadata.txt`` com a nova versão"
 
 #: ../../source/for_developers/development.rst:958
 msgid "Generate ``LDMP/_version.py`` with git information"
-msgstr ""
+msgstr "Gerar o ficheiro ``LDMP/_version.py`` com informações do Git"
 
 #: ../../source/for_developers/development.rst:959
 msgid "Update version in documentation (``docs/source/conf.py``)"
-msgstr ""
+msgstr "Atualizar a versão na documentação (``docs/source/conf.py``)"
 
 #: ../../source/for_developers/development.rst:960
 msgid ""
 "Set the ``experimental`` flag based on even/odd version numbers (even = "
 "stable, odd = development)"
 msgstr ""
+"Definir o sinalizador ``experimental`` com base em números de versão "
+"pares/ímpares (par = estável, ímpar = desenvolvimento)"
 
 #: ../../source/for_developers/development.rst:962
 msgid "Update dependency references in requirements files"
-msgstr ""
+msgstr "Atualizar as referências de dependências nos ficheiros de requisitos"
 
 #: ../../source/for_developers/development.rst:964
 msgid ""
@@ -1838,10 +1943,14 @@ msgid ""
 "development releases (odd version numbers like 2.1.19), it will use the "
 "master branch."
 msgstr ""
+"Para lançamentos estáveis (números de versão pares, como 2.1.18), a tarefa "
+"``set-version`` atualizará as referências de dependência para utilizarem "
+"versões etiquetadas. Para lançamentos de desenvolvimento (números de versão "
+"ímpares, como 2.1.19), utilizará o ramo principal."
 
 #: ../../source/for_developers/development.rst:969
 msgid "**3. Update GEE scripts (if applicable)**"
-msgstr ""
+msgstr "**3. Atualizar os scripts do GEE (se aplicável)**"
 
 #: ../../source/for_developers/development.rst:971
 msgid ""
@@ -1849,6 +1958,9 @@ msgid ""
 "folder) or to ``trends.earth-schemas`` or ``trends.earth-algorithms``, add "
 "the ``-g`` flag when running ``set-version``::"
 msgstr ""
+"Se tiver feito alterações nos scripts do Google Earth Engine (na pasta "
+"``gee``) ou nos repositórios ``trends.earth-schemas`` ou ``trends.earth-"
+"algorithms``, adicione a flag -g ao executar o comando set-version``::"
 
 #: ../../source/for_developers/development.rst:977
 msgid ""
@@ -1856,36 +1968,49 @@ msgid ""
 "Before publishing, create release tags for the dependent repositories so the"
 " GEE scripts resolve the correct versions::"
 msgstr ""
+"Isto irá atualizar os números das versões em todos os ficheiros de "
+"configuração dos scripts do GEE. Antes de publicar, crie etiquetas de "
+"lançamento para os repositórios dependentes, de modo a que os scripts do GEE"
+" resolvam as versões corretas::"
 
 #: ../../source/for_developers/development.rst:987
 msgid ""
 "Once both dependencies are tagged, publish the updated scripts to the "
 "Trends.Earth API server::"
 msgstr ""
+"Assim que ambas as dependências estiverem etiquetadas, publique os scripts "
+"atualizados no servidor da API do Trends.Earth::"
 
 #: ../../source/for_developers/development.rst:992
 msgid ""
 "This uploads all GEE scripts to api.trends.earth so they are available to "
 "plugin users. You must be an administrator to run this command successfully."
 msgstr ""
+"Isto carrega todos os scripts do GEE para o api.trends.earth, de modo a que "
+"fiquem disponíveis para os utilizadores do plugin. Deve ser administrador "
+"para executar este comando com sucesso."
 
 #: ../../source/for_developers/development.rst:995
 msgid "**4. Commit all changes**"
-msgstr ""
+msgstr "**4. Confirmar todas as alterações**"
 
 #: ../../source/for_developers/development.rst:997
 msgid "Ensure all modified files are committed to git::"
 msgstr ""
+"Certifique-se de que todos os ficheiros modificados foram submetidos no "
+"git::"
 
 #: ../../source/for_developers/development.rst:1002
 msgid "**5. Create and push git tags**"
-msgstr ""
+msgstr "**5. Criar e enviar etiquetas de git**"
 
 #: ../../source/for_developers/development.rst:1004
 msgid ""
 "After committing the release changes in this repository, run ``invoke set-"
 "tag``::"
 msgstr ""
+"Após submeter as alterações de lançamento neste repositório, execute o "
+"comando ``invoke set-tag``::"
 
 #: ../../source/for_developers/development.rst:1008
 msgid ""
@@ -1893,33 +2018,44 @@ msgid ""
 "it to GitHub. If you have uncommitted changes, the task will prompt you to "
 "commit them first."
 msgstr ""
+"Isto cria a etiqueta anotada de git do plugin (ex: ``v2.1.20``) e envia-a "
+"para o GitHub. Se tiver alterações por submeter, a tarefa irá solicitar que "
+"as submeta primeiro.\n"
 
 #: ../../source/for_developers/development.rst:1012
 msgid "**6. Create GitHub release**"
-msgstr ""
+msgstr "**​6. Criar o lançamento no GitHub**"
 
 #: ../../source/for_developers/development.rst:1014
 msgid ""
 "Run the ``release-github`` task to create a release on GitHub with the "
 "plugin zipfile attached::"
 msgstr ""
+"Execute a tarefa ``release-github`` para criar um lançamento no GitHub com o"
+" ficheiro zip do plugin em anexo::"
 
 #: ../../source/for_developers/development.rst:1021
 msgid ""
 "Build a clean plugin zipfile (e.g., ``LDMP_2.1.20.zip``) with all "
 "dependencies"
 msgstr ""
+"Gerar um ficheiro zip limpo do plugin (ex: ``LDMP_2.1.20.zip``) com todas as"
+" dependências"
 
 #: ../../source/for_developers/development.rst:1023
 msgid ""
 "Remove all ``.pyc`` files to comply with QGIS repository security "
 "requirements"
 msgstr ""
+"Remover todos os ficheiros ``.pyc`` para cumprir os requisitos de segurança "
+"do repositório do QGIS"
 
 #: ../../source/for_developers/development.rst:1025
 msgid ""
 "Create a GitHub release with plugin zipfile attached as a downloadable asset"
 msgstr ""
+"Criar um lançamento no GitHub com o ficheiro zip do plugin anexado como um "
+"ativo descarregável"
 
 #: ../../source/for_developers/development.rst:1027
 msgid ""
@@ -1927,62 +2063,80 @@ msgid ""
 "in your ``invoke.yaml`` file for this command to work. See the error "
 "messages if authentication fails for instructions on creating a token."
 msgstr ""
+"Irá necessitar de um token de acesso pessoal do GitHub com o âmbito ``repo``"
+" configurado no seu ficheiro ``invoke.yaml`` para que este comando funcione."
+" Caso a autenticação falhe, consulte as mensagens de erro para obter "
+"instruções sobre como criar um token."
 
 #: ../../source/for_developers/development.rst:1031
 msgid "**7. Publish to QGIS repository**"
-msgstr ""
+msgstr "**​7. Publicar no repositório do QGIS**"
 
 #: ../../source/for_developers/development.rst:1033
 msgid "Finally, manually upload the plugin to the QGIS plugin repository:"
 msgstr ""
+"Por fim, carregue manualmente o plugin para o repositório de complementos do"
+" QGIS:"
 
 #: ../../source/for_developers/development.rst:1035
 msgid ""
 "Download the plugin zipfile (e.g., ``LDMP_2.1.20.zip``) from the GitHub "
 "release you just created (it will be listed under \"Assets\")"
 msgstr ""
+"Descarregue o ficheiro zip do plugin (ex: ``LDMP_2.1.20.zip``) a partir do "
+"lançamento do GitHub que acabou de criar (este estará listado na secção "
+"\"Assets\")."
 
 #: ../../source/for_developers/development.rst:1037
 msgid ""
 "Log in to the `QGIS plugin repository <https://plugins.qgis.org/plugins/>`_"
 msgstr ""
+"Inicie sessão no `repositório de complementos do QGIS "
+"<https://plugins.qgis.org/plugins/>`_"
 
 #: ../../source/for_developers/development.rst:1039
 msgid "Navigate to your plugin management page"
-msgstr ""
+msgstr "Navegue até à sua página de gestão de complementos"
 
 #: ../../source/for_developers/development.rst:1040
 msgid "Upload the new version using the zip file"
-msgstr ""
+msgstr "Carregue a nova versão utilizando o ficheiro zip"
 
 #: ../../source/for_developers/development.rst:1042
 msgid ""
 "The QGIS repository will validate the zipfile and make it available to users"
 " through the QGIS plugin manager."
 msgstr ""
+"O repositório do QGIS irá validar o ficheiro zip e disponibilizá-lo aos "
+"utilizadores através do gestor de complementos do QGIS."
 
 #: ../../source/for_developers/development.rst:1046
 msgid "Version numbering conventions"
-msgstr ""
+msgstr "Convenções de Numeração de Versões"
 
 #: ../../source/for_developers/development.rst:1048
 msgid "Trends.Earth follows these version numbering conventions:"
-msgstr ""
+msgstr "O Trends.Earth segue as seguintes convenções de numeração de versões:"
 
 #: ../../source/for_developers/development.rst:1050
 msgid ""
 "**Even numbers** (e.g., 2.1.18, 2.1.20): Stable releases intended for public"
 " use"
-msgstr ""
+msgstr "O Trends.Earth segue as seguintes convenções de numeração de versões:"
 
 #: ../../source/for_developers/development.rst:1052
 msgid ""
 "**Odd numbers** (e.g., 2.1.19, 2.1.21): Development releases for testing new"
 " features"
 msgstr ""
+"**Números ímpares** (ex: 2.1.19, 2.1.21): Lançamentos de desenvolvimento "
+"para testar novas funcionalidades."
 
 #: ../../source/for_developers/development.rst:1055
 msgid ""
 "Development versions are never published to the QGIS repository and are used"
 " only by the development team for testing."
 msgstr ""
+"As versões de desenvolvimento nunca são publicadas no repositório do QGIS e "
+"são utilizadas apenas pela equipa de desenvolvimento para a realização de "
+"testes."

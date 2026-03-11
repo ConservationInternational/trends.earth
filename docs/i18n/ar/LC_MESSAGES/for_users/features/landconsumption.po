@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-10 18:54+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -269,6 +269,12 @@ msgid ""
 "mapper>`_ where the user defines built-up extent by simply assigning a "
 "series of thresholds."
 msgstr ""
+"الشكل 2: سير عمل Trends.Earth لحساب الهدف 11.3.1 من أهداف التنمية المستدامة."
+" تم حساب مؤشرات السطح العالمي غير المنفذ بطول 30 متراً مسبقاً وهي متاحة "
+"للمستخدمين لاستكشافها في `Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_ حيث يحدد المستخدم نطاق البناء ببساطة عن طريق تعيين سلسلة من "
+"العتبات."
 
 #: ../../source/for_users/features/landconsumption.rst:51
 msgid "Land consumption"

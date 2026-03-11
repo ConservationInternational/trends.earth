@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-11 00:55+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -227,11 +227,11 @@ msgstr "تحسين"
 
 #: ../../source/for_users/datasets/output_data.rst:39
 msgid "SDG 15.3.1 Indicator (status)"
-msgstr ""
+msgstr "مؤشر الهدف 15.3.1 من أهداف التنمية المستدامة (الحالة)"
 
 #: ../../source/for_users/datasets/output_data.rst:46
 msgid "Degradation (persistent)"
-msgstr ""
+msgstr "التدهور (المستمر)"
 
 #: ../../source/for_users/datasets/output_data.rst:48
 #: ../../source/for_users/datasets/output_data.rst:95
@@ -246,7 +246,7 @@ msgstr "2"
 
 #: ../../source/for_users/datasets/output_data.rst:48
 msgid "Degradation (recent)"
-msgstr ""
+msgstr "التدهور (الحديث)"
 
 #: ../../source/for_users/datasets/output_data.rst:50
 #: ../../source/for_users/datasets/output_data.rst:97
@@ -261,7 +261,7 @@ msgstr "3"
 
 #: ../../source/for_users/datasets/output_data.rst:50
 msgid "Degradation (baseline)"
-msgstr ""
+msgstr "التدهور (الأساسي)"
 
 #: ../../source/for_users/datasets/output_data.rst:52
 #: ../../source/for_users/datasets/output_data.rst:190
@@ -275,7 +275,7 @@ msgstr "4"
 
 #: ../../source/for_users/datasets/output_data.rst:52
 msgid "Stability"
-msgstr ""
+msgstr "الاستقرار"
 
 #: ../../source/for_users/datasets/output_data.rst:54
 #: ../../source/for_users/datasets/output_data.rst:192
@@ -288,7 +288,7 @@ msgstr "5"
 
 #: ../../source/for_users/datasets/output_data.rst:54
 msgid "Improvement (baseline)"
-msgstr ""
+msgstr "التحسن (الأساسي)"
 
 #: ../../source/for_users/datasets/output_data.rst:56
 #: ../../source/for_users/datasets/output_data.rst:250
@@ -299,7 +299,7 @@ msgstr "6"
 
 #: ../../source/for_users/datasets/output_data.rst:56
 msgid "Improvement (recent)"
-msgstr ""
+msgstr "التحسن (الحديث)"
 
 #: ../../source/for_users/datasets/output_data.rst:58
 #: ../../source/for_users/datasets/output_data.rst:252
@@ -310,7 +310,7 @@ msgstr "7"
 
 #: ../../source/for_users/datasets/output_data.rst:58
 msgid "Improvement (persistent)"
-msgstr ""
+msgstr "التحسن (المستمر)"
 
 #: ../../source/for_users/datasets/output_data.rst:63
 msgid "Productivity"
@@ -476,7 +476,7 @@ msgstr "في ازدياد"
 
 #: ../../source/for_users/datasets/output_data.rst:196
 msgid "Land Productivity Dynamics - (Trends.Earth, JRC, and FAO-WOCAT)"
-msgstr ""
+msgstr "ديناميكيات إنتاجية الأراضي - (Trends.Earth، JRC، وFAO-WOCAT)"
 
 #: ../../source/for_users/datasets/output_data.rst:205
 msgid "Moderate decline"
@@ -1251,6 +1251,9 @@ msgid ""
 "SPI < -1) during a particular (typically four- year) period. The pixel value"
 " indicates the population of the pixel at the time of maximum drought."
 msgstr ""
+"تشير القيمة السالبة إلى أن البكسل قد ** تعرض** للجفاف (يُعرف بـ SPI < -1) "
+"خلال فترة معينة (عادةً أربع سنوات). وتشير قيمة البكسل إلى عدد البكسل وقت "
+"ذروة الجفاف."
 
 #: ../../source/for_users/datasets/output_data.rst:510
 msgid "Any positive value"

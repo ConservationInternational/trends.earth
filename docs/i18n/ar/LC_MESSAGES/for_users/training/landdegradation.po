@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-10 18:54+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +39,8 @@ msgid ""
 " In this tutorial we will use Belize as an example, but you can choose any "
 "study area."
 msgstr ""
+"**الهدف**: التعرّف على كيفية تشغيل المؤشرات الفرعية لمؤشر SDG 15.3.1 (التغيرات في إنتاجية الأراضي وغطاء الأراضي والكربون العضوي في التربة) باستخدام Trends.Earth والبيانات الافتراضية: Trends.Earth (الاتجاه والأداء والحالة) لإنتاجية الأراضي وESA CCI لغطاء الأراضي وSoilGrids للكربون العضوي في التربة.\n"
+"سنستخدم في هذا الدليل التعليمي Belize (دولة بيليز) كمثال، لكن يمكنك اختيار أي منطقة دراسة."
 
 #: ../../source/for_users/training/landdegradation.rst:11
 msgid "**Estimated time of completion**: 35 minutes"
@@ -92,6 +94,11 @@ msgid ""
 "the progress period for the first reporting period. If you want to add yet "
 "another reporting period, click on **Add reporting period**"
 msgstr ""
+"في مربع الحوار **مؤشر SDG15.3.1 (خطوة واحدة) | تدهور الأراضي**، اختر بيانات "
+"**ديناميكيات إنتاجية الأراضي في Trends.Earth**. كما يجب تحديد خانة الاختيار "
+"**تضمين فترة إبلاغ (للمقارنة مع المستوى المرجعي)** لتحديد فترة التقدم لأول "
+"فترة إبلاغ. إذا كنت ترغب في إضافة فترة إبلاغ أخرى، انقر على **إضافة فترة "
+"إبلاغ**"
 
 #: ../../source/for_users/training/landdegradation.rst:36
 msgid "Type in the Execution name and notes."
@@ -99,7 +106,7 @@ msgstr "اكتب اسم التنفيذ والملاحظات."
 
 #: ../../source/for_users/training/landdegradation.rst:38
 msgid "Click on **Schedule remote execution** button."
-msgstr ""
+msgstr "انقر على زر **جدولة التنفيذ عن بُعد**."
 
 #: ../../source/for_users/training/landdegradation.rst:40
 msgid ""
@@ -108,6 +115,9 @@ msgid ""
 " take between a few to several minutes depending on the size of the study "
 "area (larger areas tend to take longer)."
 msgstr ""
+"سيظهر شريط أزرق فاتح مؤقتاً، مما يشير إلى إرسال المهمة بنجاح. سيتم تشغيل "
+"التحليل على خوادم جوجل، وقد يستغرق الأمر من بضع دقائق إلى عدة دقائق حسب حجم "
+"منطقة الدراسة (تستغرق المناطق الأكبر وقتاً أطول)."
 
 #: ../../source/for_users/training/landdegradation.rst:47
 msgid ""
@@ -118,6 +128,12 @@ msgid ""
 "<https://www.unccd.int/sites/default/files/relevant-"
 "links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_."
 msgstr ""
+"راجع قسم :ref:tut_land_degradation في هذا الدليل للتعرف على المؤشرات الفرعية"
+" المخصصة أو قسم :ref:background_landdegradation في هذا الدليل للتعرف على "
+"مؤشرات إنتاجية الأراضي في Trends.Earth التي تم تطويرها وفقاً لـ إرشادات "
+"الممارسات الجيدة من UNCCD (GPG) "
+"<https://www.unccd.int/sites/default/files/relevant-"
+"links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>_."
 
 #: ../../source/for_users/training/landdegradation.rst:50
 msgid ""
@@ -154,6 +170,15 @@ msgid ""
 "Preset** for deleting a previously saved preset; **Export** a preset to a "
 "JSON file; and **Import** a JSON file defining a preset."
 msgstr ""
+"إذا كنت تُعدّ بيانات للإبلاغ إلى اتفاقية الأمم المتحدة لمكافحة التصحر "
+"(UNCCD)، فإن **Trends.Earth** يوفّر **إعدادات مسبقة (Presets)** تتيح لك "
+"تطبيق فترات الإبلاغ الرسمية الخاصة بالاتفاقية بسهولة من خلال اختيار الخيار "
+"المفضّل لمجموعة بيانات ديناميكيات إنتاجية الأراضي. اختر الإعداد المسبق الذي "
+"تفضّله (مثل: البيانات الافتراضية – Trends.Earth؛ دورة الإبلاغ لعام 2026 – "
+"JRC؛ دورة الإبلاغ لعام 2026 – FAO-WOCAT) ثم انقر على **تطبيق الإعداد "
+"المسبق**. وتشمل الخيارات الأخرى المتاحة **حفظ الوضع الحالي كإعداد مسبق**  "
+"لحفظ إعداد مخصص، و**حذف الإعداد المسبق** لحذف إعداد تم حفظه سابقاً، "
+"و**تصدير** إعداد مسبق إلى ملف JSON، و**استيراد** ملف JSON يعرّف كإعداد مسبق."
 
 #: ../../source/for_users/training/landdegradation.rst:66
 msgid ""
@@ -257,6 +282,8 @@ msgid ""
 "Maje sure to carefully verify that the available layers are correctly pre-"
 "filled to the corresponding fields."
 msgstr ""
+"تأكد بعناية من أن الطبقات المتاحة قد تم تعبئتها مسبقاً بشكل صحيح في الحقول "
+"المقابلة."
 
 #: ../../source/for_users/training/landdegradation.rst:121
 msgid ""
@@ -568,6 +595,8 @@ msgid ""
 "If your layer is not coded in such a way, please do the necessary "
 "adjustments/reclassification prior to importing it into Trends.Earth."
 msgstr ""
+"إذا لم تكن الطبقة مُرمّزة بهذه الطريقة، يُرجى إجراء التعديلات أو إعادة "
+"التصنيفات اللازمة قبل استيرادها من Trends.Earth."
 
 #: ../../source/for_users/training/landdegradation.rst:245
 msgid ""

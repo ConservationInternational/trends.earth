@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-11 00:55+0000\n"
 "PO-Revision-Date: 2026-02-06 15:40+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Portuguese (https://app.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -23,12 +23,15 @@ msgstr ""
 
 #: ../../source/terms.rst:2
 msgid "Terms of Use"
-msgstr "Termos de utilização"
+msgstr "Termos de Utilização"
 
 #: ../../source/terms.rst:4
 msgid "Trends.Earth follows the Conservation International Terms of Use."
 msgstr ""
+"O Trends.Earth segue os Termos de Utilização da Conservation International."
 
 #: ../../source/terms.rst:6
 msgid "These terms apply to all use of Trends.Earth software and services."
 msgstr ""
+"Estes termos aplicam-se a toda a utilização do software e dos serviços do "
+"Trends.Earth."

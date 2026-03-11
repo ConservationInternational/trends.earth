@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-11 00:55+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,6 +49,10 @@ msgid ""
 "<https://qgis.org/download/>`_ page and select the appropriate installer "
 "depending on your operating system (i.e. Windows, MacOS, Linux)."
 msgstr ""
+"ولتنزيل برنامج QGIS وتثبيت العنصر الإضافي، يجب أن يكون لديك إصدار QGIS "
+"|qgisMinVersion| أو أحدث. وللقيام بذلك، انتقلْ إلى صفحة 'تنزيل QGIS "
+"<https://qgis.org/download/>' واخترْ برنامج التثبيت المناسب وفقاً لنظام "
+"التشغيل الخاص بك (مثل Windows أو MacOS أو Linux)."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:24
 msgid "Install QGIS"
@@ -230,6 +234,12 @@ msgid ""
 "receive this email , click on \"Enter username and password (step 2)\". "
 "Enter the password you received from api@trends.earth and click \"OK\": :"
 msgstr ""
+"4. بعد التسجيل، ستتلقى رسالة بريد إلكتروني من api@trends.earth تحتوي على "
+"كلمة المرور الخاصة بك. إذا لم تجد الرسالة في صندوق الوارد بعد 15-20 ثانية، "
+"يُرجى التحقق من مجلد البريد العشوائي، فقد تكون الرسالة قد أُرسلت إليه. "
+"وبمجرد استلام هذا البريد الإلكتروني، انقرْ على \"إدخال اسم المستخدم وكلمة "
+"المرور (الخطوة 2)\". أدخِلْ كلمة المرور التي استلمتها من api@trends.earth "
+"وانقرْ على \"موافق\": :"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:125
 msgid ""

@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-11 00:55+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,6 +32,9 @@ msgid ""
 "observation data. Trends.Earth is available as plugin to desktop QGIS "
 "spatial-analytical GIS software."
 msgstr ""
+"Trends.Earth هي عبارة عن مجموعة أدوات مصممة لرصد تغير الأراضي باستخدام "
+"بيانات رصد الأرض. تتوفر Trends.Earth كعنصر إضافي لبرنامج QGIS المكتبي لتحليل"
+" نظم المعلومات الجغرافية المكانية."
 
 #: ../../source/for_users/preamble/index.rst:8
 msgid ""
@@ -47,6 +50,17 @@ msgid ""
 "by providing a platform for analyzing data for reporting commitments to the "
 "United Nations Convention to Combat Desertification (UNCCD) and UN-Habitat."
 msgstr ""
+"تتيح هذه الأداة للمستخدمين تقييم السلاسل الزمنية للمؤشرات الرئيسية لتغير "
+"الأراضي لإنتاج الخرائط والرسومات الأخرى التي يمكنها دعم الرصد والإبلاغ، "
+"وتتبّع تأثير الإدارة المستدامة للأراضي، إلى جانب دعمها رصد التقدم المحرز في "
+"حياد تدهور الأراضي (الهدف 15.3.1 من أهداف التنمية المستدامة)، واستهلاك "
+"الأراضي (الهدف 11.3.1 من أهداف التنمية المستدامة)، ونمذجة انبعاثات الكربون "
+"الناتجة عن إزالة الغابات، ونمذجة احتجاز الكربون المحتمل من أنشطة الاستعادة. "
+"وتدعم Trends.Earth الرصد والإبلاغ بشأن أهداف التنمية المستدامة (SDGs) 15.3.1"
+" (نسبة الأراضي المتدهورة إلى إجمالي مساحة الأرض (%)) و11.3.1 (حصة معدل "
+"استهلاك الأراضي إلى النمو السكاني) من خلال توفير منصة لتحليل البيانات "
+"للإبلاغ عن الالتزامات تجاه اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) "
+"وموئل الأمم المتحدة."
 
 #: ../../source/for_users/preamble/index.rst:18
 msgid ""
@@ -56,6 +70,10 @@ msgid ""
 "International`_ works to spotlight and secure the critical benefits that "
 "nature provides to humanity."
 msgstr ""
+"تم تمويل تطوير Trends.Earth من قبل مرفق البيئة العالمية (GEF) والوكالة "
+"الوطنية للملاحة الجوية والفضاء بالولايات المتحدة (NASA)، بقيادة مؤسسة "
+"الحماية الدولية وشركائها. تسعى مؤسسة \"Conservation International\" إلى "
+"تسليط الضوء على الفوائد الحيوية التي توفرها الطبيعة للبشرية وتأمينها."
 
 #: ../../source/for_users/preamble/index.rst:22
 msgid "**Monitor land change**"
@@ -67,10 +85,13 @@ msgid ""
 "platform from `Conservation International`_ for monitoring land change using"
 " Earth observations in an innovative desktop and cloud-based system."
 msgstr ""
+"Trends.Earth (المعروف سابقاً باسم مجموعة أدوات رصد تدهور الأراضي) هي منصة "
+"تابعة لـ `Conservation International` لرصد تغير الأراضي باستخدام عمليات رصد "
+"الأرض في نظام مبتكر قائم على سطح المكتب والسحابة."
 
 #: ../../source/for_users/preamble/index.rst:28
 msgid "Lear more at:"
-msgstr ""
+msgstr "تعلّمْ المزيد على:"
 
 #: ../../source/for_users/preamble/index.rst:33
 msgid "**Track achievement of the sustainable development goals**"
@@ -118,3 +139,6 @@ msgid ""
 "Guide <for_users>`. For developers, see the :ref:`Developers Guide "
 "<for_developers>`."
 msgstr ""
+"للحصول على مزيد من المعلومات حول مجموعة الأدوات، راجعْ قسم 'المعلومات العامة"
+" <general_info>'. ولمستخدمي مجموعة الأدوات، راجعْ 'دليل المستخدم "
+"<for_users>'. وللمطوِّرين، راجعْ 'دليل المطوِّرين <for_developers>'."

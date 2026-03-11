@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-11 00:55+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
@@ -147,11 +147,11 @@ msgstr "`النطاق العام`_"
 
 #: ../../source/for_users/datasets/input_data.rst:18
 msgid "`MOD13Q1-coll6.1`_"
-msgstr ""
+msgstr "`MOD13Q1-coll6.1`_"
 
 #: ../../source/for_users/datasets/input_data.rst:18
 msgid "2001-2024"
-msgstr ""
+msgstr "2001-2024"
 
 #: ../../source/for_users/datasets/input_data.rst:18
 #: ../../source/for_users/datasets/input_data.rst:92
@@ -168,7 +168,7 @@ msgstr "`MERRA 2`_"
 
 #: ../../source/for_users/datasets/input_data.rst:33
 msgid "1980-2019"
-msgstr ""
+msgstr "1980-2019"
 
 #: ../../source/for_users/datasets/input_data.rst:33
 msgid "0.5° x 0.625°"
@@ -220,7 +220,7 @@ msgstr "`CHIRPS`_"
 
 #: ../../source/for_users/datasets/input_data.rst:52
 msgid "1981-2024"
-msgstr ""
+msgstr "1981-2024"
 
 #: ../../source/for_users/datasets/input_data.rst:52
 msgid "5 km"
@@ -236,7 +236,7 @@ msgstr "`PERSIANN-CDR`_"
 
 #: ../../source/for_users/datasets/input_data.rst:54
 msgid "1983-2024"
-msgstr "2024-1983"
+msgstr "1983-2024"
 
 #: ../../source/for_users/datasets/input_data.rst:54
 msgid "25 km"
@@ -252,11 +252,11 @@ msgstr "التبخر"
 
 #: ../../source/for_users/datasets/input_data.rst:68
 msgid "MOD16A2GF_"
-msgstr ""
+msgstr "MOD16A2GF_"
 
 #: ../../source/for_users/datasets/input_data.rst:68
 msgid "2000-2024"
-msgstr "2024-2000"
+msgstr "2000-2024"
 
 #: ../../source/for_users/datasets/input_data.rst:68
 msgid "500 m"
@@ -272,7 +272,7 @@ msgstr "`ESA CCI الغطاء الأرضي`_"
 
 #: ../../source/for_users/datasets/input_data.rst:80
 msgid "1992-2022"
-msgstr "1992 -2022"
+msgstr "1992-2022"
 
 #: ../../source/for_users/datasets/input_data.rst:80
 msgid "300 m"
@@ -282,7 +282,7 @@ msgstr "300 م"
 #: ../../source/for_users/datasets/input_data.rst:115
 #: ../../source/for_users/datasets/input_data.rst:137
 msgid "`CC BY 4.0`_"
-msgstr ""
+msgstr "`CC BY 4.0`_"
 
 #: ../../source/for_users/datasets/input_data.rst:87
 msgid "Soil carbon"
@@ -319,11 +319,11 @@ msgstr "الحدود الإدارية"
 
 #: ../../source/for_users/datasets/input_data.rst:115
 msgid "`geoBoundaries Administrative Boundaries`_"
-msgstr ""
+msgstr "`حدود geoBoundaries الإدارية`_"
 
 #: ../../source/for_users/datasets/input_data.rst:115
 msgid "10/50 m"
-msgstr ""
+msgstr "10/50 متر"
 
 #: ../../source/for_users/datasets/input_data.rst:119
 msgid ""
@@ -333,11 +333,10 @@ msgid ""
 "acceptance by Conservation International Foundation, or by its partner "
 "organizations and contributors."
 msgstr ""
-"تخضع الحدود الإدارية (geoBoundaries) المقدّمة في منصة Trends.Earth لرخصة "
-"المشاع الإبداعي (CC BY 4.0). ولا تُعدّ الحدود والأسماء والتسميات المستخدمة "
-"في منصة Trends.Earth بمثابة اعتماد من مؤسسة الحفاظ على الطبيعة الدولية "
-"(Conservation International) أو قبول رسمي منها، أو من المنظمات الشريكة لها "
-"والمساهمين فيها."
+"تخضع `حدود geoBoundaries الإدارية`_ المقدمة في Trends.Earth  لرخصة CC BY "
+"4.0. وإن الحدود والأسماء والمسميات المستخدمة في Trends.Earth لا تعني تأييداً"
+" أو قبولاً رسمياً من قبل مؤسسة الحماية الدولية، أو من قبل المنظمات الشريكة "
+"لها والمساهمين فيها."
 
 #: ../../source/for_users/datasets/input_data.rst:125
 msgid ""
@@ -354,15 +353,15 @@ msgstr "السكان"
 
 #: ../../source/for_users/datasets/input_data.rst:137
 msgid "`WorldPop`_ 100m Global Population grid"
-msgstr ""
+msgstr "`WorldPop`_ شبكة سكان العالم بطول 100 متر"
 
 #: ../../source/for_users/datasets/input_data.rst:137
 msgid "2000-2020"
-msgstr ""
+msgstr "2000-2020"
 
 #: ../../source/for_users/datasets/input_data.rst:137
 msgid "100 m"
-msgstr ""
+msgstr "100 متر"
 
 #: ../../source/for_users/datasets/input_data.rst:141
 msgid ""
@@ -376,6 +375,14 @@ msgid ""
 "tabulate population exposure to drought and degradation, disaggregated by "
 "sex."
 msgstr ""
+"تم إنتاج مجموعة بيانات `WorldPop`_ المضمنة في Trends.Earth بواسطة `UNCCD`_ "
+"من طبقات البيانات المتاحة للجمهور من مشروع WorldPop. وتعتبر مجموعة البيانات "
+"هذه مزيجاً من الشبكات المصنفة حسب العمر والجنس على المستوى الوطني، والتي "
+"أنتجها مشروع WorldPop بدقة 100 متر. ودعماً للتقارير الوطنية لاتفاقية الأمم "
+"المتحدة لمكافحة التصحر بشأن الهدفين الاستراتيجيين 2 و3، قامت هذه الاتفاقية "
+"بتمويل تطوير مجموعة من الصور الفسيفساء العالمية، مصنفةً حسب الجنس، مع إعطاء "
+"أعداد السكان لكل بكسل. تُستخدم هذه الطبقات ضمن Trends.Earth لجدولة تعرض "
+"السكان للجفاف والتدهور، مصنفةً حسب الجنس."
 
 #: ../../source/for_users/datasets/input_data.rst:151
 msgid ""
@@ -384,15 +391,18 @@ msgid ""
 "point GeoTiffs at 100m, 300m, and 1200m resolution, at the following "
 "locations on s3:"
 msgstr ""
+"تتوفر هذه البيانات أيضاً في حاوية S3 متاحة للجمهور (trends.earth-shared، في "
+"منطقة us-east-1)، كملفات GeoTiffs ذات 32 بت بنقطة عائمة ومتجانبة بدقة 100 "
+"متر و300 متر و1200 متر، في المواقع التالية على s3:"
 
 #: ../../source/for_users/datasets/input_data.rst:156
 msgid "s3://trends.earth-shared/worldpop/100m"
-msgstr ""
+msgstr "s3://trends.earth-shared/worldpop/100m"
 
 #: ../../source/for_users/datasets/input_data.rst:157
 msgid "s3://trends.earth-shared/worldpop/300m"
-msgstr ""
+msgstr "s3://trends.earth-shared/worldpop/300m"
 
 #: ../../source/for_users/datasets/input_data.rst:158
 msgid "s3://trends.earth-shared/worldpop/1200m"
-msgstr ""
+msgstr "s3://trends.earth-shared/worldpop/1200m"

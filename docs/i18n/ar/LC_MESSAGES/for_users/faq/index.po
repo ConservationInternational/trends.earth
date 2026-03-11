@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-11 00:55+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -104,6 +104,9 @@ msgid ""
 " please use version 3.40 Long Term Release or higher version for the "
 "trends.earth plugin."
 msgstr ""
+"لتنزيل برنامج QGIS، يُرجى زيارة صفحة تنزيلات QGIS. واعتباراً من يناير 2025، "
+"يُرجى استخدام الإصدار 3.40 طويل الأمد أو إصدار أحدث للعنصر الإضافي الخاص بـ "
+"trends.earth."
 
 #: ../../source/for_users/faq/index.rst:48
 msgid "How do I install the plugin?"
@@ -141,7 +144,7 @@ msgstr ""
 
 #: ../../source/for_users/faq/index.rst:63
 msgid "I get a Python error after upgrading the plugin. What should I do?"
-msgstr ""
+msgstr "أواجه خطأً في بايثون بعد ترقية العنصر الإضافي. ماذا أفعل؟"
 
 #: ../../source/for_users/faq/index.rst:65
 msgid ""
@@ -153,6 +156,13 @@ msgid ""
 "versions of the plugin; newer versions include a fix that clears the module "
 "cache automatically during upgrades."
 msgstr ""
+"إذا رأيت خطأً في بايثون (مثل ``AttributeError`` أو ``ModuleNotFoundError``) "
+"مباشرةً بعد ترقية المكون الإضافي داخل QGIS، فهذا يحدث بسبب احتفاظ ذاكرة "
+"التخزين المؤقت لوحدة بايثون بإصدارات قديمة من مكتبات العنصر الإضافي. وما "
+"عليك سوى إعادة تشغيل QGIS وسيتم تحميل العنصر الإضافي بشكل صحيح. وتحدث هذه "
+"المشكلة عادةً عند الترقية من الإصدارات الأقدم للعنصر الإضافي؛ أما الإصدارات "
+"الأحدث، فهي تتضمن إصلاحاً يقوم بمسح ذاكرة التخزين المؤقت للوحدة تلقائياً "
+"أثناء عمليات الترقية."
 
 #: ../../source/for_users/faq/index.rst:73
 msgid "How do I uninstall the plugin?"
@@ -279,6 +289,8 @@ msgid ""
 "productivity analysis, and ESA LCC CCI (300m) for land cover change "
 "analysis."
 msgstr ""
+"تدعم مجموعة الأدوات بيانات AVHRR (8 كم) و MODIS (250 م) لتحليل الإنتاجية "
+"الأولية، و ESA LCC CCI (300 م) لتحليل تغير الغطاء الأرضي."
 
 #: ../../source/for_users/faq/index.rst:125
 msgid ""
@@ -288,6 +300,10 @@ msgid ""
 "dynamics and land cover at 30 meter scale that will cover the Small Islands "
 "Developing States (SIDS)"
 msgstr ""
+"بالشراكة مع `Apacheta <https://www.apacheta.org/>`_ و `Auspatious "
+"<http://auspatious.com/>` وبتمويل من مرفق البيئة العالمية (GEF)، يعمل فريقنا"
+" حالياً على تطوير مجموعات بيانات لديناميكيات إنتاجية الأراضي والغطاء الأرضي "
+"على نطاق 30 متراً، والتي ستغطي الدول الجزرية الصغيرة النامية (SIDS)."
 
 #: ../../source/for_users/faq/index.rst:130
 msgid "Can the toolbox support analysis with national-level datasets?"
@@ -304,6 +320,15 @@ msgid ""
 "user's computer, so the time to run analysis using custom datasets will "
 "depend on the especifications of user's machine."
 msgstr ""
+"تتمتع Trends.Earth بالقدرة على استيراد وتحميل ومعالجة مجموعات البيانات على "
+"المستوى الوطني التي تمثل الكربون العضوي في التربة والغطاء الأرضي وديناميكيات"
+" إنتاجية الأراضي، مما يسمح للمستخدمين بالاستفادة من مجموعات البيانات "
+"الموجودة التي قد تكون ذات دقة مكانية أعلى على المستوى الوطني مقارنةً "
+"بمجموعات البيانات العالمية، والتي تعد الإعدادات افتراضية في الأداة. يُرجى "
+"ملاحظة أن العمل مع مجموعات البيانات على المستوى الوطني يعتمد على قدرة "
+"المعالجة المحلية لجهاز الكمبيوتر الخاص بالمستخدم، وعليه فإن الوقت اللازم "
+"لإجراء التحليل باستخدام مجموعة البيانات المخصصة سيعتمد على مواصفات جهاز "
+"المستخدم."
 
 #: ../../source/for_users/faq/index.rst:139
 msgid "Methods"
@@ -405,6 +430,15 @@ msgid ""
 "Indicator-15.3.1_version2_2021.pdf>`_ published by the UNCCD recommends for "
 "the time being to use SOC as a proxy."
 msgstr ""
+"علماً بأن المؤشر المقترح أصلاً هو مخزون الكربون، والذي يشمل الكتلة الحيوية "
+"فوق وتحت سطح الأرض. ومع ذلك، ونظراً لعدم وجود بيانات متسقة وقابلة للمقارنة "
+"لتقييم مخزون الكربون في النباتات الخشبية (بما في ذلك الشجيرات) والأعشاب "
+"والأراضي الزراعية وأنواع الغطاء الأرضي الأخرى فوق وتحت سطح الأرض، فإن "
+"\"إرشادات الممارسات الجيدة "
+"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-"
+"Indicator-15.3.1_version2_2021.pdf>\" الصادرة عن اتفاقية الأمم المتحدة "
+"لمكافحة التصحر توصي في الوقت الحالي باستخدام الكربون العضوي في التربة كمؤشر "
+"بديل."
 
 #: ../../source/for_users/faq/index.rst:193
 msgid ""
@@ -444,6 +478,13 @@ msgid ""
 "of the three indicators at a particular pixel, then that pixel is mapped as "
 "being “degraded”."
 msgstr ""
+"يتم دمج الأداء والحالة والمسار (المقاييس الثلاثة للتغير في الإنتاجية_) وفقاً"
+" لنسخة معدلة من إرشادات الممارسات الجيدة التي وضعتها اتفاقية الأمم المتحدة "
+"لمكافحة التصحر (يتم عرض جدول في قسم مؤشر أهداف التنمية المستدامة 15.3.1 من "
+"هذا الدليل). كما ويتم دمج الإنتاجية، وكربون التربة، وفرصة الغطاء الأرضي "
+"(المؤشرات الفرعية الثلاثة للهدف 15.3.1 من أهداف التنمية المستدامة) باستخدام "
+"مبدأ \"استبعاد الواحد، استبعاد الكل\". وبمعنى آخر: إذا حدث انخفاض في أي من "
+"هذه المؤشرات الثلاثة في بكسل معين، فسيتم تصنيف هذا البكسل كـ \"متدهور\"."
 
 #: ../../source/for_users/faq/index.rst:214
 msgid ""
@@ -537,6 +578,13 @@ msgid ""
 "disadvantage of requiring users to have enough local computing capacity to "
 "run analyses locally."
 msgstr ""
+"تتوفر مجموعة الأدوات بنسختين: نسخة غير متصلة بالإنترنت ونسخة متصلة "
+"بالإنترنت. تتيح النسخة المتصلة بالإنترنت للمستخدمين الوصول إلى مجموعات "
+"البيانات الحالية بسهولة أكبر، إلى جانب السماح لهم بالاستفادة من محرك جوجل "
+"إيرث لتوفير الحوسبة في السحابة. أما النسخة غير المتصلة بالإنترنت، فهي تتيح "
+"للمستخدمين الوصول إلى البيانات وإجراء التحليلات حيث قد يكون الاتصال "
+"بالإنترنت محدوداً، ولكنها تعاني من عيب يتمثل في مطالبة المستخدمين بامتلاك "
+"قدرة حاسوبية محلية كافية لإجراء التحليلات محلياً."
 
 #: ../../source/for_users/faq/index.rst:261
 msgid "Will you create a trends.earth toolbox for ESRI users?"
@@ -548,3 +596,6 @@ msgid ""
 "package. This allows users around the world free access to the toolbox. "
 "There are no plans to build a toolbox within ArcGIS or ArcPro."
 msgstr ""
+"تتوفر مجموعة الأدوات كعنصر إضافي لبرنامج QGIS، وهو عبارة عن حزمة برامج "
+"مفتوحة المصدر، مما يتيح للمستخدمين حول العالم الوصول إليها مجاناً. ولا توجد "
+"خطط لإنشاء مجموعة أدوات داخل ArcGIS أو ArcPro."

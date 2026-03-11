@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-11 00:55+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Portuguese (https://app.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -572,15 +572,15 @@ msgstr "MOD16A2.GF"
 
 #: ../../source/for_users/features/unccdreporting.rst:216
 msgid "2000-2024"
-msgstr "2000-2024"
+msgstr "2000 - 2024"
 
 #: ../../source/for_users/features/unccdreporting.rst:217
 msgid "500 m"
-msgstr "500 m"
+msgstr "500m"
 
 #: ../../source/for_users/features/unccdreporting.rst:219
 msgid "Annual ET kg/m\\ :sup:`2` (=mm)\\*10"
-msgstr ""
+msgstr "ET Anual kg/m\\ :sup:`2` (=mm)\\*10"
 
 #: ../../source/for_users/features/unccdreporting.rst:224
 msgid "Productivity State"
@@ -592,6 +592,9 @@ msgid ""
 "primary productivity as compared to a baseline period. The State metric is "
 "computed as follows:"
 msgstr ""
+"A métrica de Estado de Produtividade permite a deteção de alterações "
+"recentes na produtividade primária em comparação com um período de "
+"referência. A métrica de Estado é calculada da seguinte forma:"
 
 #: ../../source/for_users/features/unccdreporting.rst:230
 msgid ""
@@ -675,6 +678,8 @@ msgid ""
 "The table below list the datasets available in |trends.earth| to compute the"
 " Productivity State metric:"
 msgstr ""
+"A tabela abaixo apresenta a lista de conjuntos de dados disponíveis no "
+"|trends.earth| para calcular a métrica de Estado de Produtividade:"
 
 #: ../../source/for_users/features/unccdreporting.rst:294
 msgid "Productivity Performance"
@@ -690,6 +695,14 @@ msgid ""
 "provided by ESA CCI at 300m resolution) to define this areas of analysis. "
 "The Performance metric is computed as follows:"
 msgstr ""
+"A métrica de Desempenho da Produtividade mede a produtividade local em "
+"relação a outros tipos de vegetação semelhantes, em tipos de ocupação do "
+"solo ou regiões bioclimáticas idênticas, em toda a área de estudo. O "
+"|trends.earth| utiliza a combinação única de unidades de solo (unidades de "
+"taxonomia de solos do sistema USDA, fornecidas pelo SoilGrids com resolução "
+"de 250m) e ocupação do solo (as 37 classes completas de ocupação do solo "
+"fornecidas pela ESA CCI com resolução de 300m) para definir estas áreas de "
+"análise. A métrica de Desempenho é calculada da seguinte forma:"
 
 #: ../../source/for_users/features/unccdreporting.rst:304
 msgid ""
@@ -736,12 +749,16 @@ msgid ""
 "If observed mean NDVI is lower than 50% than the maximum productivity, that "
 "pixel is considered potentially degraded for this metric."
 msgstr ""
+"Se o valor médio de NDVI observado for inferior a 50% da produtividade "
+"máxima, esse píxel é considerado potencialmente degradado para esta métrica."
 
 #: ../../source/for_users/features/unccdreporting.rst:326
 msgid ""
 "The table below list the datasets available in |trends.earth| to compute the"
 " Productivity Performance metric:"
 msgstr ""
+"A tabela abaixo apresenta a lista de conjuntos de dados disponíveis no "
+"|trends.earth| para calcular a métrica de Desempenho da Produtividade:"
 
 #: ../../source/for_users/features/unccdreporting.rst:352
 msgid "Land Cover"
@@ -749,7 +766,7 @@ msgstr "Cobertura de terreno"
 
 #: ../../source/for_users/features/unccdreporting.rst:353
 msgid "ESA CCI"
-msgstr ""
+msgstr "ESA CCI"
 
 #: ../../source/for_users/features/unccdreporting.rst:354
 msgid "1992-2022"
@@ -761,27 +778,27 @@ msgstr "300 m"
 
 #: ../../source/for_users/features/unccdreporting.rst:357
 msgid "Land cover thematic classes"
-msgstr ""
+msgstr "Classes temáticas de ocupação do solo"
 
 #: ../../source/for_users/features/unccdreporting.rst:358
 msgid "Soil taxonomic units"
-msgstr ""
+msgstr "Unidades taxonómicas de solos"
 
 #: ../../source/for_users/features/unccdreporting.rst:359
 msgid "SoilGrids - USDA"
-msgstr ""
+msgstr "SoilGrids - USDA (Taxonomia de Solos)"
 
 #: ../../source/for_users/features/unccdreporting.rst:360
 msgid "Static"
-msgstr ""
+msgstr "Estático"
 
 #: ../../source/for_users/features/unccdreporting.rst:363
 msgid "Soil units"
-msgstr ""
+msgstr "Unidades de solo"
 
 #: ../../source/for_users/features/unccdreporting.rst:368
 msgid "Combining Productivity Metrics"
-msgstr ""
+msgstr "Combinação de Métricas de Produtividade"
 
 #: ../../source/for_users/features/unccdreporting.rst:370
 msgid ""
@@ -791,6 +808,11 @@ msgid ""
 "information provided by State to inform the type of degradation occurring in"
 " the area."
 msgstr ""
+"As três métricas de produtividade são depois combinadas conforme indicado "
+"nas tabelas abaixo. Para o reporte do ODS 15.3.1, é necessário o indicador "
+"de 3 classes, mas o |trends.earth| também gera um indicador de 5 classes que"
+" tira partido da informação fornecida pelo Estado para informar sobre o tipo"
+" de degradação que está a ocorrer na área."
 
 #: ../../source/for_users/features/unccdreporting.rst:440
 msgid ""
@@ -955,7 +977,7 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:610
 msgid "Combining indicators into SDG Indicator 15.3.1"
-msgstr ""
+msgstr "Combinação de indicadores no Indicador 15.3.1 dos ODS"
 
 #: ../../source/for_users/features/unccdreporting.rst:612
 msgid ""
@@ -964,10 +986,15 @@ msgid ""
 " as potentially degraded by any of the sub-indicators, then that area/pixel "
 "will be considered potentially degraded for reporting purposes."
 msgstr ""
+"A integração dos três subindicadores do ODS 15.3.1 é efetuada seguindo a "
+"regra do pior caso (1OAO); isto significa que, se uma área ou um píxel for "
+"identificado como potencialmente degradado por qualquer um dos "
+"subindicadores, essa área ou píxel será considerado potencialmente degradado"
+" para fins de reporte."
 
 #: ../../source/for_users/features/unccdreporting.rst:695
 msgid "Calculating Status map"
-msgstr ""
+msgstr "Cálculo do mapa de Estado"
 
 #: ../../source/for_users/features/unccdreporting.rst:697
 msgid ""
@@ -981,6 +1008,16 @@ msgid ""
 "stabilily, improvement) mapped at the Baseline period, providing a more "
 "complete understanding of the land condition trajectory over time."
 msgstr ""
+"De acordo com o Adenda ao Guia de Boas Práticas para o Indicador 15.3.1 dos "
+"ODS, o mapa de Estado \"refere-se à condição final (considerando a linha de "
+"base) da terra no final de cada período de reporte, classificada como "
+"degradada, estável ou melhorada\". Este combina a camada do Indicador 15.3.1"
+" dos ODS calculada para um determinado período de avaliação com a Linha de "
+"Base do mesmo indicador. Ao combinar estas duas camadas, o mapa de Estado "
+"apresenta as alterações ocorridas durante o período de avaliação, integradas"
+" com as condições da terra (degradação, estabilidade, melhoria) mapeadas no "
+"período da Linha de Base, proporcionando uma compreensão mais completa da "
+"trajetória da condição da terra ao longo do tempo."
 
 #: ../../source/for_users/features/unccdreporting.rst:700
 msgid ""
@@ -988,12 +1025,17 @@ msgid ""
 "15.3.1 calculated for the Baseline assessment (i.e. Baseline Assessment == "
 "Status 2015)."
 msgstr ""
+"A camada de Estado para o período da Linha de Base é equivalente ao "
+"Indicador 15.3.1 dos ODS calculado para a avaliação da Linha de Base (ou "
+"seja, Avaliação da Linha de Base == Estado 2015)."
 
 #: ../../source/for_users/features/unccdreporting.rst:702
 msgid ""
 "For combining a given period assessment with the Baseline SDG Indicator "
 "15.3.1 it is necessary to apply the 3 x 3 Status Matrix"
 msgstr ""
+"Para combinar a avaliação de um determinado período com o Indicador de "
+"Referência do ODS 15.3.1, é necessário aplicar a Matriz de Estado 3 x 3"
 
 #: ../../source/for_users/features/unccdreporting.rst:741
 msgid ""
@@ -1003,10 +1045,15 @@ msgid ""
 " which offers a dedicated section on \"Assessing Status for each reporting "
 "process\" starting on page 19."
 msgstr ""
+"Para mais informações sobre como obter o mapa de Estado, consulte o ´Good "
+"Practice Guidance Addendum SDG Indicator 15.3.1 "
+"<https://www.unccd.int/sites/default/files/2025-07/GPG%20Addendum_%20Advanced%20Unedited%20Version.pdf>`_,"
+" que oferece uma secção dedicada à \"Avaliação do Estado para cada processo "
+"de relatório\", com início na página 19."
 
 #: ../../source/for_users/features/unccdreporting.rst:744
 msgid "Expanded Status Matrix"
-msgstr ""
+msgstr "Matriz de Estado Expandida"
 
 #: ../../source/for_users/features/unccdreporting.rst:746
 msgid ""
@@ -1022,6 +1069,19 @@ msgid ""
 " of ongoing trends in areas previously degraded or improved, or stability in"
 " areas that were already degraded or improved in a prior period."
 msgstr ""
+"Embora o mapa de estado resultante da comparação acima referida forneça um "
+"retrato da condição da terra no final do período de relatório em três "
+"categorias abrangentes (Degradada, Estável e Melhorada), as dinâmicas "
+"subjacentes que conduzem a este estado final podem ser complexas — existem "
+"nove tipos diferentes de alterações (visto tratar-se de uma matriz 3x3) na "
+"condição da terra. A compreensão destas diferentes trajetórias permite uma "
+"interpretação mais profunda das alterações na condição da terra, "
+"possibilitando a identificação de ganhos e perdas de capital natural que "
+"ocorreram em relação a um estado de referência. Por exemplo, a degradação e "
+"a melhoria podem corresponder a alterações recentes, a uma continuação de "
+"tendências em curso em áreas anteriormente degradadas ou melhoradas, ou à "
+"estabilidade em áreas que já se encontravam degradadas ou melhoradas num "
+"período anterior."
 
 #: ../../source/for_users/features/unccdreporting.rst:754
 msgid ""
@@ -1031,6 +1091,12 @@ msgid ""
 "classification of land condition changes, providing insights into the nature"
 " and timing of degradation and improvement processes."
 msgstr ""
+"A matriz de estado apresentada abaixo pode ser utilizada em substituição da "
+"matriz 3x3 referida anteriormente, de forma a captar os diferentes tipos de "
+"alterações na condição da terra que podem ocorrer. Esta versão expandida da "
+"matriz de estado permite uma classificação mais detalhada das alterações na "
+"condição da terra, fornecendo informações sobre a natureza e o timing dos "
+"processos de degradação e de melhoria."
 
 #: ../../source/for_users/features/unccdreporting.rst:795
 msgid ""
@@ -1044,6 +1110,15 @@ msgid ""
 "have occurred during the current reporting period or whether no changes in "
 "status have taken place."
 msgstr ""
+"Cada tipo de alteração representado na Matriz de Estado expandida é "
+"detalhado abaixo. A tabela apresenta as nove combinações possíveis na matriz"
+" 3 × 3, refletindo as transições da avaliação de referência para a avaliação"
+" do período atual. Para cada combinação, é fornecida uma breve interpretação"
+" da alteração, juntamente com a sua classificação como melhoria ou "
+"degradação, seja ela recente ou de referência. Esta classificação ajuda a "
+"compreender se as alterações observadas representam novos desenvolvimentos "
+"ocorridos durante o período de relatório atual ou se não ocorreram "
+"alterações de estado."
 
 #: ../../source/for_users/features/unccdreporting.rst:805
 msgid ""
@@ -1053,6 +1128,11 @@ msgid ""
 " which offers a dedicated section on \"Further characterization of land "
 "degradation and improvement\" starting on page 29."
 msgstr ""
+"Para mais informações sobre como obter o mapa de estado expandido, consulte "
+"o ´Good Practice Guidance Addendum SDG Indicator 15.3.1 "
+"<https://www.unccd.int/sites/default/files/2025-07/GPG%20Addendum_%20Advanced%20Unedited%20Version.pdf>`_,"
+" que disponibiliza uma secção dedicada à \"Caracterização adicional da "
+"degradação e melhoria da terra\", com início na página 29."
 
 #: ../../source/for_users/features/unccdreporting.rst:810
 msgid "UNCCD Strategic Objective 2 (SO 2)"
@@ -1342,6 +1422,8 @@ msgid ""
 "Standardized Precipitation Index (SPI), alternatively the Standardized "
 "Precipitation Evapotranspiration Index (SPEI)"
 msgstr ""
+"Índice de Precipitação Padronizado (SPI) ou, em alternativa, o Índice de "
+"Precipitação e Evapotranspiração Padronizado (SPEI)"
 
 #: ../../source/for_users/features/unccdreporting.rst:899
 msgid "Gridded global population dataset"
@@ -1623,15 +1705,15 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:1026
 msgid "**Description**"
-msgstr ""
+msgstr "**Descrição**"
 
 #: ../../source/for_users/features/unccdreporting.rst:1027
 msgid "**Precipitation Category**"
-msgstr ""
+msgstr "**Categoria de precipitação**"
 
 #: ../../source/for_users/features/unccdreporting.rst:1028
 msgid "2.0 or more"
-msgstr ""
+msgstr "2.0 ou mais"
 
 #: ../../source/for_users/features/unccdreporting.rst:1029
 msgid "Extremely wet"
@@ -1639,7 +1721,7 @@ msgstr "Extremamente húmido"
 
 #: ../../source/for_users/features/unccdreporting.rst:1030
 msgid "1.5 to 1.99"
-msgstr ""
+msgstr "1.5 a 1.99"
 
 #: ../../source/for_users/features/unccdreporting.rst:1031
 msgid "Severely wet"
@@ -1647,7 +1729,7 @@ msgstr "Severamente húmido"
 
 #: ../../source/for_users/features/unccdreporting.rst:1032
 msgid "1.0 to 1.49"
-msgstr ""
+msgstr "1.0 a 1.49"
 
 #: ../../source/for_users/features/unccdreporting.rst:1033
 msgid "Moderately wet"
@@ -1655,35 +1737,35 @@ msgstr "Moderadamente húmido"
 
 #: ../../source/for_users/features/unccdreporting.rst:1034
 msgid "-0.99 to 0.99"
-msgstr ""
+msgstr "-0,99 a 0,99"
 
 #: ../../source/for_users/features/unccdreporting.rst:1035
 msgid "Near normal"
-msgstr ""
+msgstr "Quase normal"
 
 #: ../../source/for_users/features/unccdreporting.rst:1036
 msgid "-1.0 to -1.49"
-msgstr ""
+msgstr "-1,0 a -1,49"
 
 #: ../../source/for_users/features/unccdreporting.rst:1037
 msgid "Moderately dry"
-msgstr ""
+msgstr "Moderadamente seco"
 
 #: ../../source/for_users/features/unccdreporting.rst:1038
 msgid "-1.5 to -1.99"
-msgstr ""
+msgstr "-1.5 a -1.99"
 
 #: ../../source/for_users/features/unccdreporting.rst:1039
 msgid "Severely dry"
-msgstr ""
+msgstr "Muito seco"
 
 #: ../../source/for_users/features/unccdreporting.rst:1040
 msgid "-2.0 or less"
-msgstr ""
+msgstr "-2,0 ou menos"
 
 #: ../../source/for_users/features/unccdreporting.rst:1041
 msgid "Extremely dry"
-msgstr ""
+msgstr "Extremamente seco"
 
 #: ../../source/for_users/features/unccdreporting.rst:1043
 msgid ""
@@ -1947,38 +2029,42 @@ msgid ""
 "With the exception of gROADS and FAO's Irrigated Agricultural Lands which "
 "are both gridded data, all data are available only at the national level."
 msgstr ""
+"Indicadores de proximidade para a vulnerabilidade à seca utilizados em "
+"Carrão et al. 2016. Com exceção do gROADS e das Terras Agrícolas Irrigadas "
+"da FAO, que são ambos dados matriciais, todos os dados estão disponíveis "
+"apenas ao nível nacional."
 
 #: ../../source/for_users/features/unccdreporting.rst:1128
 msgid "**Indicator**"
-msgstr ""
+msgstr "**Indicador**"
 
 #: ../../source/for_users/features/unccdreporting.rst:1129
 msgid "**Source**"
-msgstr ""
+msgstr "**Fonte**"
 
 #: ../../source/for_users/features/unccdreporting.rst:1130
 msgid "**Link**"
-msgstr ""
+msgstr "**Link**"
 
 #: ../../source/for_users/features/unccdreporting.rst:1131
 msgid ":strong:`ECONOMIC`"
-msgstr ""
+msgstr ":strong:`ECONÓMICO`"
 
 #: ../../source/for_users/features/unccdreporting.rst:1134
 msgid "Energy consumption per capita (millions Btu per person)"
-msgstr ""
+msgstr "Consumo de energia per capita (milhões de Btu por pessoa)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1135
 msgid "US Energy Information Administration (U.S. EIA)"
-msgstr ""
+msgstr "Administração de Informação Energética dos EUA (U.S. EIA)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1136
 msgid "http://www.eia.gov/"
-msgstr ""
+msgstr "http://www.eia.gov/"
 
 #: ../../source/for_users/features/unccdreporting.rst:1137
 msgid "Agriculture (% of GDP)"
-msgstr ""
+msgstr "Agricultura (% do PIB)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1138
 #: ../../source/for_users/features/unccdreporting.rst:1141
@@ -1990,7 +2076,7 @@ msgstr ""
 #: ../../source/for_users/features/unccdreporting.rst:1162
 #: ../../source/for_users/features/unccdreporting.rst:1165
 msgid "World Bank"
-msgstr ""
+msgstr "Banco Mundial"
 
 #: ../../source/for_users/features/unccdreporting.rst:1139
 #: ../../source/for_users/features/unccdreporting.rst:1142
@@ -2002,112 +2088,121 @@ msgstr ""
 #: ../../source/for_users/features/unccdreporting.rst:1163
 #: ../../source/for_users/features/unccdreporting.rst:1166
 msgid "http://data.worldbank.org/products/wdi"
-msgstr ""
+msgstr "http://data.worldbank.org/products/wdi"
 
 #: ../../source/for_users/features/unccdreporting.rst:1140
 msgid "GDP per capita (current US$)"
-msgstr ""
+msgstr "PIB per capita (em dólares americanos correntes)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1143
 msgid "Poverty headcount ratio at $1.25 per day (PPP) (% of total population)"
 msgstr ""
+"Índice de pobreza com rendimento inferior a 1,25 dólares por dia (PPC) (% da"
+" população total)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1146
 msgid ":strong:`SOCIAL`"
-msgstr ""
+msgstr ":strong:`SOCIAL`"
 
 #: ../../source/for_users/features/unccdreporting.rst:1149
 msgid "Rural population (% of total population)"
-msgstr ""
+msgstr "População rural (% da população total)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1152
 msgid "Literacy rate (% of people age 15 and above)"
-msgstr ""
+msgstr "Taxa de alfabetização (% da população com 15 anos ou mais)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1155
 msgid "Improved water resources (% of rural population with access)"
-msgstr ""
+msgstr "Melhoria dos recursos hídricos (% da população rural com acesso)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1158
 msgid "Life expectancy at birth (years)"
-msgstr ""
+msgstr "Esperança de vida ao nascer (anos)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1161
 msgid "Population ages 15-64 (% of total population)"
-msgstr ""
+msgstr "População com idades entre 15 e 64 anos (% da população total)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1164
 msgid ""
 "Refugee population by country or territory of asylum (% of total population)"
 msgstr ""
+"População refugiada por país ou território de asilo (% da população total)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1167
 msgid "Government effectiveness"
-msgstr ""
+msgstr "Eficácia do governo"
 
 #: ../../source/for_users/features/unccdreporting.rst:1168
 msgid "Worldwide Governance Indicators (WGI)"
-msgstr ""
+msgstr "Indicadores Mundiais de Governação (WGI)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1169
 msgid ""
 "https://www.worldbank.org/en/publication/worldwide-governance-"
 "indicators/interactive-data-access"
 msgstr ""
+"https://www.worldbank.org/en/publication/worldwide-governance-"
+"indicators/interactive-data-access"
 
 #: ../../source/for_users/features/unccdreporting.rst:1170
 msgid "Disaster prevention & preparedness (US$/year/capita)"
-msgstr ""
+msgstr "Prevenção e preparação para catástrofes (US$/ano/capita)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1171
 msgid "Organization for Economic Cooperation and Development (OECD)"
-msgstr ""
+msgstr "Organização para a Cooperação e Desenvolvimento Económico (OCDE)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1172
 msgid "http://stats.oecd.org/"
-msgstr ""
+msgstr "http://stats.oecd.org/"
 
 #: ../../source/for_users/features/unccdreporting.rst:1173
 msgid ":strong:`INFRASTRUCTURAL`"
-msgstr ""
+msgstr ":strong:`INFRAESTRUTURA`"
 
 #: ../../source/for_users/features/unccdreporting.rst:1176
 msgid "Agricultural and irrigated land (% of total agricultural land)"
-msgstr ""
+msgstr "Terras agrícolas e irrigadas (% do total de terras agrícolas)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1177
 msgid "Food and Agricultural Administration (FAO)"
 msgstr ""
+"Organização das Nações Unidas para a Alimentação e a Agricultura (FAO)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1178
 msgid "http://www.fao.org/nr/water/aquastat/main/index.stm"
-msgstr ""
+msgstr "http://www.fao.org/nr/water/aquastat/main/index.stm"
 
 #: ../../source/for_users/features/unccdreporting.rst:1179
 msgid "% of retained renewable water"
-msgstr ""
+msgstr "% de água renovável retida"
 
 #: ../../source/for_users/features/unccdreporting.rst:1180
 msgid "Aqueduct"
-msgstr ""
+msgstr "Aqueduto"
 
 #: ../../source/for_users/features/unccdreporting.rst:1181
 msgid "http://www.wri.org/our-work/project/aqueduct"
-msgstr ""
+msgstr "http://www.wri.org/our-work/project/aqueduct"
 
 #: ../../source/for_users/features/unccdreporting.rst:1182
 msgid "Road density (km of road per 100 sq.km. of land area)"
 msgstr ""
+"Densidade rodoviária (km de estrada por cada 100 km² de área terrestre)"
 
 #: ../../source/for_users/features/unccdreporting.rst:1183
 msgid "gROADSv1"
-msgstr ""
+msgstr "gROADSv1"
 
 #: ../../source/for_users/features/unccdreporting.rst:1184
 msgid ""
 "https://data.nasa.gov/dataset/global-roads-open-access-data-set-"
 "version-1-groadsv1"
 msgstr ""
+"https://data.nasa.gov/dataset/global-roads-open-access-data-set-"
+"version-1-groadsv1"
 
 #: ../../source/for_users/features/unccdreporting.rst:1187
 msgid ""

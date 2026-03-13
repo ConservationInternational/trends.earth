@@ -3807,32 +3807,32 @@ p, li { white-space: pre-wrap; }
         <translation>输入你的电子邮箱地址...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1259"/>
+        <location filename="../settings.py" line="1422"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1259"/>
+        <location filename="../settings.py" line="1422"/>
         <source>Enter your email address to reset your password.</source>
         <translation>输入您的电子邮件地址来重置您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1267"/>
+        <location filename="../settings.py" line="1430"/>
         <source>Reset password?</source>
         <translation>重设密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1284"/>
+        <location filename="../settings.py" line="1447"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1267"/>
+        <location filename="../settings.py" line="1430"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? A password reset link will be emailed to you.</source>
         <translation>您确定要为 {self.email.text()} 重置密码吗？密码重置链接将通过电子邮件发送给您。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1284"/>
+        <location filename="../settings.py" line="1447"/>
         <source>A password reset link has been sent to {self.email.text()}. Please check your email and click the link to set a new password, then return to Trends.Earth to login.</source>
         <translation>密码重置链接已发送至 {self.email.text()}。请检查您的电子邮件并点击链接设置新密码，然后返回 Trends.Earth 登录。</translation>
     </message>
@@ -3865,37 +3865,37 @@ p, li { white-space: pre-wrap; }
         <translation>组织：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1348"/>
+        <location filename="../settings.py" line="1511"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1330"/>
+        <location filename="../settings.py" line="1493"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1336"/>
+        <location filename="../settings.py" line="1499"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1342"/>
+        <location filename="../settings.py" line="1505"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1348"/>
+        <location filename="../settings.py" line="1511"/>
         <source>Enter your country.</source>
         <translation>进入你的国家。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1363"/>
+        <location filename="../settings.py" line="1526"/>
         <source>Saved</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1363"/>
+        <location filename="../settings.py" line="1526"/>
         <source>Updated information for {}.</source>
         <translation>{}的更新信息。</translation>
     </message>
@@ -3928,47 +3928,47 @@ p, li { white-space: pre-wrap; }
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1079"/>
+        <location filename="../settings.py" line="1242"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1073"/>
+        <location filename="../settings.py" line="1236"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1079"/>
+        <location filename="../settings.py" line="1242"/>
         <source>Enter your password.</source>
         <translation>输入您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1090"/>
+        <location filename="../settings.py" line="1253"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1090"/>
+        <location filename="../settings.py" line="1253"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>以{self.email.text()}登录 Trends.Earth 服务器。&lt;html&gt;&lt;p&gt;欢迎来到 Trends.Earth！&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;加入 Trends.Earth 用户电子邮件组&lt;a/&gt;&lt;/p&gt;&lt;p&gt;确保加入 Trends.Earth 用户电子邮件组，了解关于支持可持续发展目标监测的工具、方法和数据集的更新和问答。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1159"/>
+        <location filename="../settings.py" line="1322"/>
         <source>Login Failed</source>
         <translation>登录失败</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1159"/>
+        <location filename="../settings.py" line="1322"/>
         <source>Invalid username or password. Please check your credentials and try again.</source>
         <translation>无效的用户名或密码。请检查您的凭证并重试。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1151"/>
+        <location filename="../settings.py" line="1314"/>
         <source>Account Locked</source>
         <translation>账户已锁定</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1125"/>
+        <location filename="../settings.py" line="1288"/>
         <source>Your account has been locked due to too many failed login attempts.
 
 You must reset your password to regain access.
@@ -3981,12 +3981,12 @@ Would you like to reset your password now?</source>
 是否立即重置密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1140"/>
+        <location filename="../settings.py" line="1303"/>
         <source>Account Temporarily Locked</source>
         <translation>账户暂时锁定</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1140"/>
+        <location filename="../settings.py" line="1303"/>
         <source>Your account is temporarily locked.
 
 Please try again in {minutes_remaining} minute(s).
@@ -3999,7 +3999,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 如果您忘记了密码，可以重置密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1151"/>
+        <location filename="../settings.py" line="1314"/>
         <source>Your account is locked.</source>
         <translation>您的账户已被锁定。</translation>
     </message>
@@ -4007,27 +4007,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="1202"/>
+        <location filename="../settings.py" line="1365"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1196"/>
+        <location filename="../settings.py" line="1359"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1202"/>
+        <location filename="../settings.py" line="1365"/>
         <source>Enter your password.</source>
         <translation>输入密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1221"/>
+        <location filename="../settings.py" line="1384"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1221"/>
+        <location filename="../settings.py" line="1384"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>以{self.email.text()}成功设置登录到 LandPKS 服务器。</translation>
     </message>
@@ -4042,62 +4042,197 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="64"/>
         <source>Email:</source>
-        <translation>电子邮件：</translation>
+        <translation type="obsolete">电子邮件：</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="96"/>
         <source>Name:</source>
-        <translation>名称：</translation>
+        <translation type="obsolete">名称：</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="166"/>
         <source>Country/Region:</source>
-        <translation>国家/地区：</translation>
+        <translation type="obsolete">国家/地区：</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="179"/>
         <source>Organization:</source>
-        <translation>组织：</translation>
+        <translation type="obsolete">组织：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1011"/>
+        <location filename="../settings.py" line="1202"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="993"/>
+        <location filename="../settings.py" line="1079"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="999"/>
+        <location filename="../settings.py" line="1093"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1005"/>
+        <location filename="../settings.py" line="1098"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1011"/>
         <source>Enter your country.</source>
-        <translation>进入你的国家。</translation>
+        <translation type="obsolete">进入你的国家。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1027"/>
+        <location filename="../settings.py" line="1183"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="32"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="322"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;隐私政策&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1027"/>
         <source>User registered. A password setup link has been emailed to {self.email.text()}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
-        <translation>用户已注册。密码设置链接已通过电子邮件发送至 {self.email.text()}。请检查您的电子邮件并点击链接设置密码，然后返回 Trends.Earth 设置页面登录。</translation>
+        <translation type="obsolete">用户已注册。密码设置链接已通过电子邮件发送至 {self.email.text()}。请检查您的电子邮件并点击链接设置密码，然后返回 Trends.Earth 设置页面登录。</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="40"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;*&lt;/span&gt; Required&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="46"/>
+        <source>color: #666; margin-bottom: 8px;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="54"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Email:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="78"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Full Name:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="96"/>
+        <source>Role/Title (optional):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="107"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Organization:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="121"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Sector:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="174"/>
+        <source>Please specify:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="153"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Purpose of use:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="185"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Country of residence or work:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="206"/>
+        <source>Gender identity (optional):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="224"/>
+        <source>We collect gender identity information to comply with donor reporting requirements and to assess equitable participation in capacity development and tool access. Providing this information is voluntary; your selection will not affect your access to the tool.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="274"/>
+        <source>color: gray; font-size: 10px;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="238"/>
+        <source>Please describe:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="255"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Do you acknowledge that some Trends.Earth features use Google Earth Engine, and, depending on your use, you may be required to have in place a commercial license to use Google Earth Engine?&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="265"/>
+        <source>Google Earth Engine (GEE) imposes restrictions on commercial use. For more details see the &lt;a href=&quot;https://earthengine.google.com/terms/&quot;&gt;Google Earth Engine Terms of Use&lt;/a&gt;. Conservation International does not provide or manage commercial GEE licenses. Users are solely responsible for ensuring their use of GEE complies with Google&apos;s commercial licensing requirements. Access to this tool does not grant or imply the provision of commercial licensing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="296"/>
+        <source>Yes, I acknowledge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1086"/>
+        <source>Please enter a valid email address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1103"/>
+        <source>Select your sector.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1108"/>
+        <source>Select your purpose of use.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1113"/>
+        <source>Select your country.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1120"/>
+        <source>You must acknowledge responsibility for GEE commercial licensing to register.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1133"/>
+        <source>Please specify your sector.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1143"/>
+        <source>Please specify your purpose of use.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1156"/>
+        <source>Please provide your gender identity description.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1183"/>
+        <source>User registered. A password setup link has been emailed to {email}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1202"/>
+        <source>Registration failed. Please check your information and try again. If the problem persists, the email address may be invalid or already be registered.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4472,17 +4607,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverClassSelectionDialog</name>
     <message>
-        <location filename="../settings.py" line="2286"/>
+        <location filename="../settings.py" line="2449"/>
         <source>&lt;b&gt;Select a parent for each of the below class names&lt;/b&gt;</source>
         <translation>&lt;b&gt;为以下每个类别名称选择一个父类别&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2331"/>
+        <location filename="../settings.py" line="2494"/>
         <source>Accept</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2333"/>
+        <location filename="../settings.py" line="2496"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -4490,37 +4625,37 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2432"/>
+        <location filename="../settings.py" line="2595"/>
         <source>Class Color</source>
         <translation>类别颜色</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2483"/>
+        <location filename="../settings.py" line="2646"/>
         <source>Land Cover</source>
         <translation>土地覆盖</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2515"/>
+        <location filename="../settings.py" line="2678"/>
         <source>Class name cannot be empty.</source>
         <translation>类别名称不能为空。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2519"/>
+        <location filename="../settings.py" line="2682"/>
         <source>Invalid color selected.</source>
         <translation>选择的颜色无效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2523"/>
+        <location filename="../settings.py" line="2686"/>
         <source>Parent class cannot be empty.</source>
         <translation>父类不能为空。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2528"/>
+        <location filename="../settings.py" line="2691"/>
         <source>Invalid class code value.</source>
         <translation>类别代码值无效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2532"/>
+        <location filename="../settings.py" line="2695"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation>代码值“{code！s}”已使用。</translation>
     </message>
@@ -4528,112 +4663,112 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="1712"/>
+        <location filename="../settings.py" line="1875"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1712"/>
+        <location filename="../settings.py" line="1875"/>
         <source>Code</source>
         <translation>代码</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1712"/>
+        <location filename="../settings.py" line="1875"/>
         <source>Parent</source>
         <translation>父</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1814"/>
+        <location filename="../settings.py" line="1977"/>
         <source>Land Cover</source>
         <translation>土地覆盖</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2080"/>
+        <location filename="../settings.py" line="2243"/>
         <source>Maximum number of classes reached.</source>
         <translation>已达到最多类别数上限。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1885"/>
+        <location filename="../settings.py" line="2048"/>
         <source>Nothing to save</source>
         <translation>没有要保存的内容</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1892"/>
+        <location filename="../settings.py" line="2055"/>
         <source>Save Land Cover Classes</source>
         <translation>保存土地覆盖类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1916"/>
+        <location filename="../settings.py" line="2079"/>
         <source>Select Land Cover Classes File</source>
         <translation>选择土地覆盖类别文件</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1934"/>
+        <location filename="../settings.py" line="2097"/>
         <source>No land cover classes found.</source>
         <translation>未找到土地覆盖类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1999"/>
+        <location filename="../settings.py" line="2162"/>
         <source>Land Cover Class Editor</source>
         <translation>土地覆盖类别编辑器</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2063"/>
+        <location filename="../settings.py" line="2226"/>
         <source>Invalid row for land cover class</source>
         <translation>土地覆盖类别的行无效</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2068"/>
+        <location filename="../settings.py" line="2231"/>
         <source>Unable to update class.</source>
         <translation>无法更新类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2087"/>
+        <location filename="../settings.py" line="2250"/>
         <source>Unable to add new class.</source>
         <translation>无法添加新类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2115"/>
+        <location filename="../settings.py" line="2278"/>
         <source>class does not have children assigned to it</source>
         <translation>该类别未被分配子类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2135"/>
+        <location filename="../settings.py" line="2298"/>
         <source>class has not been assigned a parent</source>
         <translation>该类别尚未分配父类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2261"/>
+        <location filename="../settings.py" line="2424"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation>必须至少定义一个类别。您可以创建一个新的类别然后将其删除，也可以单击“恢复”按钮恢复默认的《荒漠化公约》类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2266"/>
+        <location filename="../settings.py" line="2429"/>
         <source>Delete Failed</source>
         <translation>删除失败</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1747"/>
+        <location filename="../settings.py" line="1910"/>
         <source>Import CSV</source>
         <translation>导入 CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1748"/>
+        <location filename="../settings.py" line="1911"/>
         <source>Import land cover classes from a CSV file</source>
         <translation>从 CSV 文件导入土地覆盖类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1769"/>
+        <location filename="../settings.py" line="1932"/>
         <source>Import Land Cover Classes</source>
         <translation>导入土地覆盖类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1776"/>
+        <location filename="../settings.py" line="1939"/>
         <source>CSV files</source>
         <translation>CSV 文件</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1778"/>
+        <location filename="../settings.py" line="1941"/>
         <source>Select CSV file with land cover classes</source>
         <translation>选择包含土地覆盖类别的 CSV 文件</translation>
     </message>
@@ -5697,17 +5832,17 @@ p, li { white-space: pre-wrap; }
         <translation>启用 LandPKS 数据访问</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1512"/>
+        <location filename="../settings.py" line="1675"/>
         <source>No base data directory set</source>
         <translation>没有设置基本数据目录</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1522"/>
+        <location filename="../settings.py" line="1685"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>无法写给{}。尝试其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1492"/>
+        <location filename="../settings.py" line="1655"/>
         <source>Offline mode is enabled.</source>
         <translation>离线模式已启用。</translation>
     </message>
@@ -5780,27 +5915,27 @@ p, li { white-space: pre-wrap; }
         <translation>在输出目录中记录警告</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1598"/>
+        <location filename="../settings.py" line="1761"/>
         <source>Select Report Template Search Path</source>
         <translation>选择报告模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1608"/>
+        <location filename="../settings.py" line="1771"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>需要重新启动 QGIS 才能使更改生效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1610"/>
+        <location filename="../settings.py" line="1773"/>
         <source>Template Search Path</source>
         <translation>模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1620"/>
+        <location filename="../settings.py" line="1783"/>
         <source>All Images</source>
         <translation>所有图片</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1635"/>
+        <location filename="../settings.py" line="1798"/>
         <source>Select Organization Logo</source>
         <translation>选择组织徽标</translation>
     </message>
@@ -5917,17 +6052,17 @@ for running algorithms and their results.</source>
 <context>
     <name>self.parent</name>
     <message>
-        <location filename="../settings.py" line="2292"/>
+        <location filename="../settings.py" line="2455"/>
         <source>The class name value that will imported, should not exceed 120 characters. </source>
         <translation>将要导入的类别名称值不得超过 120 个字符。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2297"/>
+        <location filename="../settings.py" line="2460"/>
         <source>Select the parent for the corresponding class name.</source>
         <translation>请为相应的类别名称选择父类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2354"/>
+        <location filename="../settings.py" line="2517"/>
         <source>Maximum number of codes reached.</source>
         <translation>达到最大编码数量。</translation>
     </message>

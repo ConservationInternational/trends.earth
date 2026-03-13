@@ -975,51 +975,207 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
     authConfigInitialised = QtCore.pyqtSignal(str)
 
+    GENDER_OPTIONS = [
+        ("", ""),
+        ("Woman", "woman"),
+        ("Man", "man"),
+        ("Non-binary", "non_binary"),
+        ("Prefer to self-describe", "self_describe"),
+        ("Prefer not to say", "prefer_not_to_say"),
+    ]
+
+    PURPOSE_OPTIONS = [
+        ("", ""),
+        ("National/International Reporting (UNCCD, SDGs, etc.)", "reporting"),
+        ("Academic Research", "academic_research"),
+        ("Policy Development & Planning", "policy_planning"),
+        ("Land Restoration/Management Planning", "land_restoration"),
+        ("Project Monitoring & Evaluation", "project_monitoring"),
+        ("Environmental Impact Assessment", "environmental_assessment"),
+        ("Agriculture/Forestry Planning", "agriculture_forestry"),
+        ("Teaching & Education", "teaching_education"),
+        ("Conservation Planning", "conservation_planning"),
+        ("Commercial Services/Products", "commercial"),
+        ("Community/Grassroots Initiatives", "community_initiatives"),
+        ("Other", "other"),
+    ]
+
+    SECTOR_OPTIONS = [
+        ("", ""),
+        ("Government - Environment/Natural Resources", "gov_environment"),
+        ("Government - Agriculture", "gov_agriculture"),
+        ("Government - Land Management/Planning", "gov_land_management"),
+        ("Government - Other", "gov_other"),
+        ("International/Multilateral Organization", "international_org"),
+        ("NGO - Development/Aid", "ngo_development"),
+        ("NGO - Community-Based", "ngo_community"),
+        ("NGO - Conservation", "ngo_conservation"),
+        ("NGO - Other", "ngo_other"),
+        ("Academic/Research Institution", "academic"),
+        ("Consulting/Professional Services", "consulting"),
+        ("Private Sector - Agriculture/Forestry", "private_agri_forestry"),
+        ("Private Sector - Other", "private_other"),
+        ("Independent Researcher", "independent_researcher"),
+        ("Student", "student"),
+        ("Other", "other"),
+    ]
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
         self.setupUi(self)
 
         self.admin_bounds_key = download.get_admin_bounds()
+        self.country.addItem("")  # Empty default to force selection
         self.country.addItems(sorted(self.admin_bounds_key.keys()))
+
+        # Populate gender identity combo
+        for label, value in self.GENDER_OPTIONS:
+            self.gender_identity.addItem(label, value)
+
+        # Populate purpose of use combo
+        for label, value in self.PURPOSE_OPTIONS:
+            self.purpose_of_use.addItem(label, value)
+
+        # Populate sector combo
+        for label, value in self.SECTOR_OPTIONS:
+            self.sector.addItem(label, value)
+
+        # Initially hide conditional fields
+        self.label_gender_description.setVisible(False)
+        self.gender_identity_description.setVisible(False)
+        self.label_sector_other.setVisible(False)
+        self.sector_other.setVisible(False)
+        self.label_purpose_other.setVisible(False)
+        self.purpose_of_use_other.setVisible(False)
+
+        # Connect signals for conditional field visibility
+        self.gender_identity.currentIndexChanged.connect(self._on_gender_changed)
+        self.sector.currentIndexChanged.connect(self._on_sector_changed)
+        self.purpose_of_use.currentIndexChanged.connect(self._on_purpose_changed)
 
         self.buttonBox.accepted.connect(self.register)
         self.buttonBox.rejected.connect(self.close)
 
         self.api_client = api.APIClient(get_api_url(), TIMEOUT)
 
+    def _on_gender_changed(self, index):
+        show = self.gender_identity.currentData() == "self_describe"
+        self.label_gender_description.setVisible(show)
+        self.gender_identity_description.setVisible(show)
+
+    def _on_sector_changed(self, index):
+        show = self.sector.currentData() == "other"
+        self.label_sector_other.setVisible(show)
+        self.sector_other.setVisible(show)
+
+    def _on_purpose_changed(self, index):
+        purpose = self.purpose_of_use.currentData()
+        self.label_purpose_other.setVisible(purpose == "other")
+        self.purpose_of_use_other.setVisible(purpose == "other")
+
     def register(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Enter your email address.")
             )
-
+            return
+        # Basic email format validation
+        email = self.email.text().strip()
+        if "@" not in email or "." not in email.split("@")[-1]:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Please enter a valid email address."),
+            )
             return
         elif not self.name.text():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Enter your name.")
             )
-
             return
         elif not self.organization.text():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Enter your organization.")
             )
-
+            return
+        elif not self.sector.currentText():
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Select your sector.")
+            )
+            return
+        elif not self.purpose_of_use.currentText():
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Select your purpose of use.")
+            )
             return
         elif not self.country.currentText():
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Enter your country.")
+                None, self.tr("Error"), self.tr("Select your country.")
             )
+            return
 
+        # Validate GEE license acknowledgment
+        if not self.gee_license_acknowledged.isChecked():
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "You must acknowledge responsibility for GEE "
+                    "commercial licensing to register."
+                ),
+            )
+            return
+
+        # Validate sector "Other" has description
+        sector = self.sector.currentData()
+        if sector == "other" and not self.sector_other.text().strip():
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Please specify your sector."),
+            )
+            return
+
+        # Validate purpose of use "Other" has description
+        purpose = self.purpose_of_use.currentData()
+        if purpose == "other" and not self.purpose_of_use_other.text().strip():
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Please specify your purpose of use."),
+            )
+            return
+
+        # Validate gender self-describe has description
+        gender = self.gender_identity.currentData()
+        if (
+            gender == "self_describe"
+            and not self.gender_identity_description.text().strip()
+        ):
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Please provide your gender identity description."),
+            )
             return
 
         resp = self.api_client.register(
-            self.email.text(),
-            self.name.text(),
-            self.organization.text(),
-            self.country.currentText(),
-            legacy=False,  # Use secure token-based registration
+            email=email,
+            name=self.name.text(),
+            organization=self.organization.text(),
+            country=self.country.currentText(),
+            role_title=self.role_title.text() or None,
+            sector=sector,
+            sector_other=(self.sector_other.text().strip() or None),
+            gender_identity=gender or None,
+            gender_identity_description=(
+                self.gender_identity_description.text().strip() or None
+            ),
+            gee_license_acknowledged=True,
+            purpose_of_use=purpose or None,
+            purpose_of_use_other=(self.purpose_of_use_other.text().strip() or None),
+            legacy=False,
         )
 
         if resp:
@@ -1029,7 +1185,7 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
                 self.tr("Success"),
                 self.tr(
                     "User registered. A password setup link "
-                    f"has been emailed to {self.email.text()}. "
+                    f"has been emailed to {email}. "
                     "Please check your email and click the link to "
                     "set your password, then return to Trends.Earth "
                     "settings to login."
@@ -1037,14 +1193,21 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
             )
 
             # add a new auth conf that have to be completed with pwd
-            authConfigId = auth.init_auth_config(
-                auth.TE_API_AUTH_SETUP, email=self.email.text()
-            )
+            authConfigId = auth.init_auth_config(auth.TE_API_AUTH_SETUP, email=email)
 
             if authConfigId:
                 self.authConfigInitialised.emit(authConfigId)
                 return authConfigId
         else:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Registration failed. Please check your information "
+                    "and try again. If the problem persists, the email "
+                    "address may be invalid or already be registered."
+                ),
+            )
             return None
 
 

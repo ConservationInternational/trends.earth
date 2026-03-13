@@ -851,7 +851,22 @@ class APIClient(QtCore.QObject):
         else:
             return None
 
-    def register(self, email, name, organization, country, legacy=False):
+    def register(
+        self,
+        email,
+        name,
+        organization,
+        country,
+        legacy=False,
+        role_title=None,
+        sector=None,
+        sector_other=None,
+        gender_identity=None,
+        gender_identity_description=None,
+        gee_license_acknowledged=None,
+        purpose_of_use=None,
+        purpose_of_use_other=None,
+    ):
         """Register a new user account.
 
         Args:
@@ -862,6 +877,16 @@ class APIClient(QtCore.QObject):
             legacy: If True, uses legacy mode (password emailed directly).
                    If False (default), uses secure mode (reset link emailed
                    so user can set their own password).
+            role_title: User's role or job title
+            sector: User's sector
+            sector_other: Free-text sector description (when other is selected)
+            gender_identity: User's gender identity selection
+            gender_identity_description: Free-text gender description
+                (when self_describe is selected)
+            gee_license_acknowledged: Whether user acknowledged GEE licensing
+            purpose_of_use: User's purpose for using the tool
+            purpose_of_use_other: Free-text purpose description
+                (when other is selected)
         """
         payload = {
             "email": email,
@@ -869,6 +894,22 @@ class APIClient(QtCore.QObject):
             "institution": organization,
             "country": country,
         }
+        if role_title is not None:
+            payload["role_title"] = role_title
+        if sector is not None:
+            payload["sector"] = sector
+        if sector_other is not None:
+            payload["sector_other"] = sector_other
+        if gender_identity is not None:
+            payload["gender_identity"] = gender_identity
+        if gender_identity_description is not None:
+            payload["gender_identity_description"] = gender_identity_description
+        if gee_license_acknowledged is not None:
+            payload["gee_license_acknowledged"] = gee_license_acknowledged
+        if purpose_of_use is not None:
+            payload["purpose_of_use"] = purpose_of_use
+        if purpose_of_use_other is not None:
+            payload["purpose_of_use_other"] = purpose_of_use_other
         endpoint = "/api/v1/user?legacy={}".format("true" if legacy else "false")
         return self.call_api(endpoint, method="post", payload=payload)
 

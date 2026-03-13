@@ -221,7 +221,7 @@
        <item row="11" column="0" colspan="2">
         <widget class="QLabel" name="label_gender_note">
          <property name="text">
-          <string>We collect gender identity information to comply with donor reporting requirements and to assess equitable participation in capacity development and tool access. Providing this information is voluntary, your selection will not affect your access to the tool.</string>
+          <string>We collect gender identity information to comply with donor reporting requirements and to assess equitable participation in capacity development and tool access. Providing this information is voluntary; your selection will not affect your access to the tool.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

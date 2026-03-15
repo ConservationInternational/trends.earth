@@ -1703,7 +1703,7 @@ class JobManager(QtCore.QObject):
                 )
             elif remote_job.status == jobs.JobStatus.RUNNING:
                 self._known_running_jobs[remote_job.id] = remote_job
-                self.write_job_metadata_file(remote_job)
+                self.update_job_from_remote(remote_job, old_running_job)
             else:  # job is not running anymore - maybe it is finished
                 self._remove_job_metadata_file(old_running_job)
         # now check for any new jobs (these might have been submitted by another client)
@@ -1718,6 +1718,7 @@ class JobManager(QtCore.QObject):
                     f"directory..."
                 )
                 self._known_running_jobs[remote.id] = remote
+                # New job from another client - no local data to merge
                 self.write_job_metadata_file(remote)
 
         return self._known_running_jobs
@@ -1743,9 +1744,20 @@ class JobManager(QtCore.QObject):
             elif remote_job.id in local_ids:
                 continue  # we already know about this job
             else:
-                # this is a new job that we are interested in, lets get it
-                self._known_finished_jobs[remote_job.id] = remote_job
-                self.write_job_metadata_file(remote_job)
+                # This is a new finished job - fetch full data with results.
+                # The lightweight job list excludes results to reduce bandwidth,
+                # so we need to fetch the complete job data for downloading.
+                full_job = get_remote_job_with_results(remote_job.id)
+                if full_job is not None:
+                    self._known_finished_jobs[full_job.id] = full_job
+                    self.write_job_metadata_file(full_job)
+                else:
+                    # Fallback: store job without results - user can retry later
+                    log(
+                        f"Could not fetch results for job {remote_job.id}, storing minimal data"
+                    )
+                    self._known_finished_jobs[remote_job.id] = remote_job
+                    self.write_job_metadata_file(remote_job)
 
         return self._known_finished_jobs
 
@@ -2043,6 +2055,23 @@ class JobManager(QtCore.QObject):
         # calls within the same refresh cycle see the updated file.
         self._invalidate_dir_cache_for_path(output_path)
 
+    def update_job_from_remote(self, remote_job: Job, local_job: typing.Optional[Job]):
+        """Update job metadata file from remote, preserving local params.
+
+        When syncing with the server, we exclude params and results from the API
+        response to reduce payload size. This method merges remote updates (status,
+        progress) with locally-stored params before writing. For RUNNING jobs,
+        results aren't available yet so excluding them is fine.
+
+        Args:
+            remote_job: Job data from API (may have empty params and no results)
+            local_job: Existing local job data, or None if not found locally
+        """
+        if local_job is not None and remote_job.params == {}:
+            # Remote response excluded params - preserve the local ones
+            remote_job.params = local_job.params
+        self.write_job_metadata_file(remote_job)
+
     def _remove_job_metadata_file(self, job: Job):
         old_path = self.get_job_file_path(job)
 
@@ -2308,7 +2337,12 @@ def get_remote_jobs(
         log("Cannot fetch remote jobs: user ID unavailable (auth may have failed)")
         return None
 
-    query = {"include": "script"}
+    # Request script info but exclude large params and results fields to reduce
+    # response size. The params field can be very large (megabytes) due to geojson
+    # geometries, land cover matrices, etc. Results can also be large and are only
+    # needed when downloading a completed job. Full job data (with results) is
+    # fetched on-demand when a job transitions to FINISHED status.
+    query = {"include": "script", "exclude": "params,results"}
 
     if end_date is not None:
         query["updated_at"] = end_date.strftime("%Y-%m-%d")
@@ -2366,12 +2400,20 @@ def get_remote_jobs(
     log(f"Processing {len(raw_jobs)} raw jobs from API response")
     for raw_job in raw_jobs:
         try:
+            # Fill in empty dict/None for excluded fields to satisfy schema.
+            # Both params and results are excluded from API response to reduce
+            # payload size. The Job schema expects params to exist for pre_load.
+            # Results are fetched on-demand when jobs transition to FINISHED.
+            if "params" not in raw_job or raw_job["params"] is None:
+                raw_job["params"] = {}
+            if "results" not in raw_job:
+                raw_job["results"] = None
+
             job = schema.load(raw_job)
             job.script.run_mode = AlgorithmRunMode.REMOTE
 
             if job is not None:
                 remote_jobs.append(job)
-                log(f"Successfully processed job {job.id} - {job.task_name}")
         except ValidationError as exc:
             log(
                 f"Could not retrieve remote job {raw_job.get('id', 'unknown')}: {str(exc)}"
@@ -2384,6 +2426,50 @@ def get_remote_jobs(
 
     log(f"Successfully processed {len(remote_jobs)} out of {len(raw_jobs)} remote jobs")
     return remote_jobs
+
+
+def get_remote_job_with_results(job_id: uuid.UUID) -> typing.Optional[Job]:
+    """Fetch a single job from the API with results for downloading.
+
+    This is used when a job transitions to FINISHED status and we need
+    the results data (download URLs) for downloading. The lightweight job list
+    from get_remote_jobs() excludes results to reduce bandwidth.
+
+    Params are excluded as they can be very large and aren't needed for
+    downloading - we only need the results URLs.
+
+    Args:
+        job_id: The UUID of the job to fetch
+
+    Returns:
+        Job with results, or None if fetch failed
+    """
+    log(f"Fetching job results for {job_id}")
+
+    response = job_manager.api_client.call_api(
+        f"/api/v1/execution/{job_id}?exclude=params",
+        method="get",
+        use_token=True,
+    )
+
+    if not response:
+        log(f"Failed to fetch job {job_id} from API")
+        return None
+
+    try:
+        raw_job = response["data"]
+        # Ensure params dict exists for schema (excluded from response)
+        if "params" not in raw_job or raw_job["params"] is None:
+            raw_job["params"] = {}
+
+        schema = _get_job_schema()
+        job = schema.load(raw_job)
+        job.script.run_mode = AlgorithmRunMode.REMOTE
+        log(f"Successfully fetched job results for {job_id}")
+        return job
+    except (ValidationError, KeyError, TypeError) as exc:
+        log(f"Failed to parse job {job_id}: {exc}")
+        return None
 
 
 def get_relevant_remote_jobs(remote_jobs: typing.List[Job]) -> typing.List[Job]:

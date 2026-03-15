@@ -2,7 +2,11 @@
 DEFAULT_API_URL = "https://api.trends.earth"
 # Deprecated: Use get_api_url() instead for configurable API URL support
 API_URL = DEFAULT_API_URL
-TIMEOUT = 30
+# Default timeout for API requests in seconds. This was increased from 30s
+# to accommodate slower endpoints like execution listing which perform
+# database joins. Previously blocking methods used a 10-minute network-level
+# timeout which was excessive, but 30s proved too short for normal usage.
+TIMEOUT = 60
 
 
 def get_api_url() -> str:

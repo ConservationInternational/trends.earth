@@ -47,6 +47,8 @@ class tr_api:
 class RequestTask(QgsTask):
     # Compress request bodies larger than this size (in bytes)
     COMPRESSION_THRESHOLD = 1024  # 1KB
+    # How often to check for cancellation during network requests (ms)
+    CANCEL_CHECK_INTERVAL_MS = 100
 
     def __init__(
         self,
@@ -69,6 +71,66 @@ class RequestTask(QgsTask):
         self.exception = None
         self.resp = None
         self._timed_out = False
+        self._reply = None  # Store QNetworkReply for cancellation
+
+    def cancel(self):
+        """Cancel the task and abort any in-progress network request."""
+        if self._reply is not None:
+            try:
+                self._reply.abort()
+            except RuntimeError:
+                pass  # Reply already deleted
+        return super().cancel()
+
+    def _wait_for_reply(self, reply):
+        """
+        Wait for a QNetworkReply to finish with timeout and cancellation support.
+
+        Args:
+            reply: The QNetworkReply to wait for
+
+        Returns:
+            True if completed successfully, False if cancelled or timed out
+        """
+        self._reply = reply
+        self._timed_out = False
+
+        loop = QtCore.QEventLoop()
+        reply.finished.connect(loop.quit)
+
+        # Timer for timeout
+        timeout_timer = QtCore.QTimer()
+        timeout_timer.setSingleShot(True)
+        timeout_timer.timeout.connect(lambda: self._on_timeout(loop))
+        timeout_timer.start(self.timeout * 1000)
+
+        # Timer for periodic cancellation checks
+        cancel_timer = QtCore.QTimer()
+        cancel_timer.timeout.connect(
+            lambda: self._check_cancelled(loop, reply, timeout_timer, cancel_timer)
+        )
+        cancel_timer.start(self.CANCEL_CHECK_INTERVAL_MS)
+
+        loop.exec_()
+
+        # Cleanup timers
+        timeout_timer.stop()
+        cancel_timer.stop()
+
+        self._reply = None
+        return not self._timed_out and not self.isCanceled()
+
+    def _check_cancelled(self, loop, reply, timeout_timer, cancel_timer):
+        """Check if task was cancelled and abort if so."""
+        if self.isCanceled():
+            log(f"Request cancelled for {self.method.upper()} {self.url}")
+            timeout_timer.stop()
+            cancel_timer.stop()
+            try:
+                reply.abort()
+            except RuntimeError:
+                pass
+            loop.quit()
 
     def _on_timeout(self, loop):
         """Called when the QTimer fires for custom-method event loops."""
@@ -77,6 +139,11 @@ class RequestTask(QgsTask):
             f"Request timed out after {self.timeout}s for "
             f"{self.method.upper()} {self.url}"
         )
+        if self._reply is not None:
+            try:
+                self._reply.abort()
+            except RuntimeError:
+                pass
         loop.quit()
 
     def _compress_request_if_needed(self, request_data, network_request):
@@ -106,10 +173,15 @@ class RequestTask(QgsTask):
 
     def run(self):
         try:
+            # Check if already cancelled before starting
+            if self.isCanceled():
+                return False
+
             qurl = QtCore.QUrl(self.url)
 
             network_manager = QgsNetworkAccessManager().instance()
-            network_manager.setTimeout(600000)
+            # Use the configured timeout instead of hardcoded 10 minutes
+            network_manager.setTimeout(self.timeout * 1000)
 
             network_request = QtNetwork.QNetworkRequest(qurl)
 
@@ -126,7 +198,12 @@ class RequestTask(QgsTask):
                     )
 
             if self.method == "get":
-                self.resp = network_manager.blockingGet(network_request)
+                # Use non-blocking get() instead of blockingGet() for cancellation
+                reply = network_manager.get(network_request)
+                if not self._wait_for_reply(reply):
+                    self.resp = None
+                    return False
+                self.resp = reply
 
             elif self.method == "post":
                 request_data = None
@@ -151,7 +228,12 @@ class RequestTask(QgsTask):
                     request_data, network_request
                 )
 
-                self.resp = network_manager.blockingPost(network_request, request_data)
+                # Use non-blocking post() instead of blockingPost() for cancellation
+                reply = network_manager.post(network_request, request_data)
+                if not self._wait_for_reply(reply):
+                    self.resp = None
+                    return False
+                self.resp = reply
 
             elif self.method == "update":
                 doc = QtCore.QJsonDocument(self.payload)
@@ -162,38 +244,26 @@ class RequestTask(QgsTask):
                     request_data, network_request
                 )
 
-                self.resp = network_manager.sendCustomRequest(
+                reply = network_manager.sendCustomRequest(
                     network_request, b"UPDATE", request_data
                 )
-
-                self._timed_out = False
-                loop = QtCore.QEventLoop()
-                self.resp.finished.connect(loop.quit)
-                QtCore.QTimer.singleShot(
-                    self.timeout * 1000, lambda: self._on_timeout(loop)
-                )
-                loop.exec_()
-                if self._timed_out:
+                if not self._wait_for_reply(reply):
                     self.resp = None
+                    return False
+                self.resp = reply
 
             elif self.method == "delete":
                 empty_payload = {}
                 doc = QtCore.QJsonDocument(empty_payload)
                 request_data = doc.toJson(QtCore.QJsonDocument.Compact)
 
-                self.resp = network_manager.sendCustomRequest(
+                reply = network_manager.sendCustomRequest(
                     network_request, b"DELETE", request_data
                 )
-
-                self._timed_out = False
-                loop = QtCore.QEventLoop()
-                self.resp.finished.connect(loop.quit)
-                QtCore.QTimer.singleShot(
-                    self.timeout * 1000, lambda: self._on_timeout(loop)
-                )
-                loop.exec_()
-                if self._timed_out:
+                if not self._wait_for_reply(reply):
                     self.resp = None
+                    return False
+                self.resp = reply
 
             elif self.method == "patch":
                 doc = QtCore.QJsonDocument(self.payload)
@@ -204,32 +274,20 @@ class RequestTask(QgsTask):
                     request_data, network_request
                 )
 
-                self.resp = network_manager.sendCustomRequest(
+                reply = network_manager.sendCustomRequest(
                     network_request, b"PATCH", request_data
                 )
-
-                self._timed_out = False
-                loop = QtCore.QEventLoop()
-                self.resp.finished.connect(loop.quit)
-                QtCore.QTimer.singleShot(
-                    self.timeout * 1000, lambda: self._on_timeout(loop)
-                )
-                loop.exec_()
-                if self._timed_out:
+                if not self._wait_for_reply(reply):
                     self.resp = None
+                    return False
+                self.resp = reply
 
             elif self.method == "head":
-                self.resp = network_manager.head(network_request)
-
-                self._timed_out = False
-                loop = QtCore.QEventLoop()
-                self.resp.finished.connect(loop.quit)
-                QtCore.QTimer.singleShot(
-                    self.timeout * 1000, lambda: self._on_timeout(loop)
-                )
-                loop.exec_()
-                if self._timed_out:
+                reply = network_manager.head(network_request)
+                if not self._wait_for_reply(reply):
                     self.resp = None
+                    return False
+                self.resp = reply
 
             else:
                 self.exception = ValueError(

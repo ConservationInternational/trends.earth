@@ -6,202 +6,357 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>330</width>
-    <height>295</height>
+    <width>650</width>
+    <height>550</height>
    </rect>
   </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
+  <property name="minimumSize">
+   <size>
+    <width>450</width>
+    <height>600</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Update user information</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="7" column="0">
-    <widget class="QComboBox" name="country">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>200</width>
-       <height>30</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLineEdit" name="organization">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>200</width>
-       <height>30</height>
-      </size>
-     </property>
-     <property name="inputMethodHints">
-      <set>Qt::ImhNone</set>
-     </property>
-     <property name="echoMode">
-      <enum>QLineEdit::Normal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Email:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLineEdit" name="email">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>200</width>
-       <height>30</height>
-      </size>
-     </property>
-     <property name="inputMethodHints">
-      <set>Qt::ImhEmailCharactersOnly</set>
-     </property>
-     <property name="readOnly">
+  <layout class="QVBoxLayout" name="mainLayout">
+   <item>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
       <bool>true</bool>
      </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_5">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAsNeeded</enum>
      </property>
-     <property name="text">
-      <string>Name:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLineEdit" name="name">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>200</width>
-       <height>30</height>
-      </size>
-     </property>
-     <property name="inputMethodHints">
-      <set>Qt::ImhNoAutoUppercase</set>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Country/Region:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0">
-    <widget class="QCheckBox" name="email_notifications_enabled">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Receive email notifications for job status updates</string>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-    <item row="9" column="0">
-     <widget class="QLabel" name="label_privacy">
-      <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-      </property>
-      <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="textFormat">
-        <enum>Qt::RichText</enum>
-      </property>
-      <property name="alignment">
-        <set>Qt::AlignHCenter|Qt::AlignTop</set>
-      </property>
-      <property name="openExternalLinks">
-        <bool>true</bool>
-      </property>
-      <property name="wordWrap">
-        <bool>true</bool>
-      </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <layout class="QFormLayout" name="formLayout">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+       </property>
+       <!-- Required fields legend -->
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="label_required_legend">
+         <property name="text">
+          <string>&lt;html&gt;&lt;body&gt;&lt;span style="font-weight:bold;"&gt;*&lt;/span&gt; Required&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+         <property name="styleSheet">
+          <string>color: #666; margin-bottom: 8px;</string>
+         </property>
+        </widget>
+       </item>
+       <!-- Email -->
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_email">
+         <property name="text">
+          <string>&lt;html&gt;&lt;body&gt;&lt;span style="font-weight:bold;"&gt;Email:&lt;/span&gt; &lt;span style="color:red;"&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="email">
+         <property name="minimumSize">
+          <size>
+           <width>250</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="inputMethodHints">
+          <set>Qt::ImhEmailCharactersOnly</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <!-- Full Name -->
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_name">
+         <property name="text">
+          <string>&lt;html&gt;&lt;body&gt;&lt;span style="font-weight:bold;"&gt;Full Name:&lt;/span&gt; &lt;span style="color:red;"&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="name">
+         <property name="inputMethodHints">
+          <set>Qt::ImhNoAutoUppercase</set>
+         </property>
+        </widget>
+       </item>
+       <!-- Role/Title -->
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_role_title">
+         <property name="text">
+          <string>Role/Title (optional):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="role_title"/>
+       </item>
+       <!-- Organization -->
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_organization">
+         <property name="text">
+          <string>&lt;html&gt;&lt;body&gt;&lt;span style="font-weight:bold;"&gt;Organization:&lt;/span&gt; &lt;span style="color:red;"&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="organization"/>
+       </item>
+       <!-- Sector -->
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_sector">
+         <property name="text">
+          <string>&lt;html&gt;&lt;body&gt;&lt;span style="font-weight:bold;"&gt;Sector:&lt;/span&gt; &lt;span style="color:red;"&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QComboBox" name="sector">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <!-- Sector Other field -->
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_sector_other">
+         <property name="text">
+          <string>Please specify:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="sector_other"/>
+       </item>
+       <!-- Purpose of Use -->
+       <item row="7" column="0">
+        <widget class="QLabel" name="label_purpose">
+         <property name="text">
+          <string>&lt;html&gt;&lt;body&gt;&lt;span style="font-weight:bold;"&gt;Purpose of use:&lt;/span&gt; &lt;span style="color:red;"&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QComboBox" name="purpose_of_use">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <!-- Purpose Other field -->
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_purpose_other">
+         <property name="text">
+          <string>Please specify:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="purpose_of_use_other"/>
+       </item>
+       <!-- Country -->
+       <item row="9" column="0">
+        <widget class="QLabel" name="label_country">
+         <property name="text">
+          <string>&lt;html&gt;&lt;body&gt;&lt;span style="font-weight:bold;"&gt;Country of residence or work:&lt;/span&gt; &lt;span style="color:red;"&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QComboBox" name="country">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <!-- Gender identity -->
+       <item row="10" column="0">
+        <widget class="QLabel" name="label_gender">
+         <property name="text">
+          <string>Gender identity (optional):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QComboBox" name="gender_identity">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <!-- Gender description label -->
+       <item row="11" column="0" colspan="2">
+        <widget class="QLabel" name="label_gender_note">
+         <property name="text">
+          <string>We collect gender identity information to comply with donor reporting requirements and to assess equitable participation in capacity development and tool access. Providing this information is voluntary; your selection will not affect your access to the tool.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="styleSheet">
+          <string>color: gray; font-size: 10px;</string>
+         </property>
+        </widget>
+       </item>
+       <!-- Gender self-describe field -->
+       <item row="12" column="0">
+        <widget class="QLabel" name="label_gender_description">
+         <property name="text">
+          <string>Please describe:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1">
+        <widget class="QLineEdit" name="gender_identity_description"/>
+       </item>
+       <!-- GEE License Acknowledgment -->
+       <item row="13" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_gee_license">
+         <property name="title">
+          <string></string>
+         </property>
+         <layout class="QVBoxLayout" name="geeGroupLayout">
+          <item>
+           <widget class="QLabel" name="label_gee_license">
+            <property name="text">
+             <string>&lt;html&gt;&lt;body&gt;&lt;span style="font-weight:bold;"&gt;Do you acknowledge that some Trends.Earth features use Google Earth Engine, and, depending on your use, you may be required to have in place a commercial license to use Google Earth Engine?&lt;/span&gt; &lt;span style="color:red;"&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_gee_license_note">
+            <property name="text">
+             <string>Google Earth Engine (GEE) imposes restrictions on commercial use. For more details see the &lt;a href="https://earthengine.google.com/terms/"&gt;Google Earth Engine Terms of Use&lt;/a&gt;. Conservation International does not provide or manage commercial GEE licenses. Users are solely responsible for ensuring their use of GEE complies with Google's commercial licensing requirements. Access to this tool does not grant or imply the provision of commercial licensing.</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <property name="openExternalLinks">
+             <bool>true</bool>
+            </property>
+            <property name="styleSheet">
+             <string>color: gray; font-size: 10px;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout">
+            <item>
+             <spacer name="horizontalSpacer_gee_left">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="gee_license_acknowledged">
+              <property name="text">
+               <string>Yes, I acknowledge</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_gee_right">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <!-- Email notifications -->
+       <item row="14" column="0" colspan="2">
+        <widget class="QCheckBox" name="email_notifications_enabled">
+         <property name="text">
+          <string>Receive email notifications for job status updates</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <!-- Privacy Policy -->
+       <item row="15" column="0" colspan="2">
+        <widget class="QLabel" name="label_privacy">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignHCenter|Qt::AlignTop</set>
+         </property>
+         <property name="openExternalLinks">
+          <bool>true</bool>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
-    </item>
-    <item row="10" column="0">
-     <widget class="QDialogButtonBox" name="buttonBox">
-      <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-      </property>
-      <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
-      </property>
-     </widget>
-    </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Organization:</string>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
      </property>
     </widget>
    </item>
@@ -210,8 +365,16 @@
  <tabstops>
   <tabstop>email</tabstop>
   <tabstop>name</tabstop>
+  <tabstop>role_title</tabstop>
   <tabstop>organization</tabstop>
+  <tabstop>sector</tabstop>
+  <tabstop>sector_other</tabstop>
+  <tabstop>purpose_of_use</tabstop>
+  <tabstop>purpose_of_use_other</tabstop>
   <tabstop>country</tabstop>
+  <tabstop>gender_identity</tabstop>
+  <tabstop>gender_identity_description</tabstop>
+  <tabstop>gee_license_acknowledged</tabstop>
   <tabstop>email_notifications_enabled</tabstop>
  </tabstops>
  <resources/>

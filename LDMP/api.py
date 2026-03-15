@@ -59,7 +59,7 @@ class RequestTask(QgsTask):
         headers,
         timeout=30,
     ):
-        super().__init__(description, QgsTask.CanCancel)
+        super().__init__(description, QgsTask.CanCancel | QgsTask.Silent)
 
         self.description = description
         self.url = url
@@ -972,7 +972,20 @@ class APIClient(QtCore.QObject):
         return self.call_api(endpoint, method="post", payload=payload)
 
     def update_user(
-        self, email, name, organization, country, email_notifications_enabled=True
+        self,
+        email,
+        name,
+        organization,
+        country,
+        email_notifications_enabled=True,
+        role_title=None,
+        sector=None,
+        sector_other=None,
+        purpose_of_use=None,
+        purpose_of_use_other=None,
+        gender_identity=None,
+        gender_identity_description=None,
+        gee_license_acknowledged=None,
     ):
         payload = {
             "email": email,
@@ -981,6 +994,22 @@ class APIClient(QtCore.QObject):
             "country": country,
             "email_notifications_enabled": email_notifications_enabled,
         }
+        if role_title is not None:
+            payload["role_title"] = role_title
+        if sector is not None:
+            payload["sector"] = sector
+        if sector_other is not None:
+            payload["sector_other"] = sector_other
+        if purpose_of_use is not None:
+            payload["purpose_of_use"] = purpose_of_use
+        if purpose_of_use_other is not None:
+            payload["purpose_of_use_other"] = purpose_of_use_other
+        if gender_identity is not None:
+            payload["gender_identity"] = gender_identity
+        if gender_identity_description is not None:
+            payload["gender_identity_description"] = gender_identity_description
+        if gee_license_acknowledged is not None:
+            payload["gee_license_acknowledged"] = gee_license_acknowledged
 
         return self.call_api("/api/v1/user/me", "patch", payload, use_token=True)
 

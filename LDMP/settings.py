@@ -1457,6 +1457,11 @@ class DlgSettingsEditForgotPassword(
 
 
 class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
+    # Use the same options as registration dialog
+    GENDER_OPTIONS = DlgSettingsRegister.GENDER_OPTIONS
+    PURPOSE_OPTIONS = DlgSettingsRegister.PURPOSE_OPTIONS
+    SECTOR_OPTIONS = DlgSettingsRegister.SECTOR_OPTIONS
+
     def __init__(self, user, parent=None):
         super().__init__(parent)
 
@@ -1466,21 +1471,81 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
 
         self.admin_bounds_key = download.get_admin_bounds()
 
+        # Basic fields
         self.email.setText(user["email"])
         self.name.setText(user["name"])
-        self.organization.setText(user["institution"])
+        self.organization.setText(user.get("institution", ""))
+
+        # Role/Title
+        self.role_title.setText(user.get("role_title", "") or "")
+
+        # Populate sector combo
+        for label, value in self.SECTOR_OPTIONS:
+            self.sector.addItem(label, value)
+        # Set current sector
+        user_sector = user.get("sector", "")
+        sector_index = self.sector.findData(user_sector)
+        if sector_index != -1:
+            self.sector.setCurrentIndex(sector_index)
+        # Set sector other text
+        self.sector_other.setText(user.get("sector_other", "") or "")
+
+        # Populate purpose of use combo
+        for label, value in self.PURPOSE_OPTIONS:
+            self.purpose_of_use.addItem(label, value)
+        # Set current purpose
+        user_purpose = user.get("purpose_of_use", "")
+        purpose_index = self.purpose_of_use.findData(user_purpose)
+        if purpose_index != -1:
+            self.purpose_of_use.setCurrentIndex(purpose_index)
+        # Set purpose other text
+        self.purpose_of_use_other.setText(user.get("purpose_of_use_other", "") or "")
 
         # Add countries, and set index to currently chosen country
         self.country.addItems(sorted(self.admin_bounds_key.keys()))
-        index = self.country.findText(user["country"])
-
+        index = self.country.findText(user.get("country", ""))
         if index != -1:
             self.country.setCurrentIndex(index)
+
+        # Populate gender identity combo
+        for label, value in self.GENDER_OPTIONS:
+            self.gender_identity.addItem(label, value)
+        # Set current gender
+        user_gender = user.get("gender_identity", "")
+        gender_index = self.gender_identity.findData(user_gender)
+        if gender_index != -1:
+            self.gender_identity.setCurrentIndex(gender_index)
+        # Set gender description text
+        self.gender_identity_description.setText(
+            user.get("gender_identity_description", "") or ""
+        )
+
+        # GEE license acknowledgment
+        gee_acknowledged = user.get("gee_license_acknowledged", False) or False
+        self.gee_license_acknowledged.setChecked(gee_acknowledged)
 
         # Set email notifications checkbox from user preferences
         # Default to True if not present in user data
         email_notifications = user.get("email_notifications_enabled", True)
         self.email_notifications_enabled.setChecked(email_notifications)
+
+        # Initially hide conditional fields
+        self.label_gender_description.setVisible(False)
+        self.gender_identity_description.setVisible(False)
+        self.label_sector_other.setVisible(False)
+        self.sector_other.setVisible(False)
+        self.label_purpose_other.setVisible(False)
+        self.purpose_of_use_other.setVisible(False)
+
+        # Connect signals for conditional field visibility
+        self.gender_identity.currentIndexChanged.connect(self._on_gender_changed)
+        self.sector.currentIndexChanged.connect(self._on_sector_changed)
+        self.purpose_of_use.currentIndexChanged.connect(self._on_purpose_changed)
+
+        # Trigger initial visibility based on loaded values
+        self._on_gender_changed(self.gender_identity.currentIndex())
+        self._on_sector_changed(self.sector.currentIndex())
+        self._on_purpose_changed(self.purpose_of_use.currentIndex())
 
         self.buttonBox.accepted.connect(self.update_profile)
         self.buttonBox.rejected.connect(self.close)
@@ -1488,38 +1553,114 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
         self.ok = False
         self.api_client = api.APIClient(get_api_url(), TIMEOUT)
 
+    def _on_gender_changed(self, index):
+        show = self.gender_identity.currentData() == "self_describe"
+        self.label_gender_description.setVisible(show)
+        self.gender_identity_description.setVisible(show)
+
+    def _on_sector_changed(self, index):
+        show = self.sector.currentData() == "other"
+        self.label_sector_other.setVisible(show)
+        self.sector_other.setVisible(show)
+
+    def _on_purpose_changed(self, index):
+        purpose = self.purpose_of_use.currentData()
+        self.label_purpose_other.setVisible(purpose == "other")
+        self.purpose_of_use_other.setVisible(purpose == "other")
+
     def update_profile(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Enter your email address.")
             )
-
             return
         elif not self.name.text():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Enter your name.")
             )
-
             return
         elif not self.organization.text():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Enter your organization.")
             )
-
+            return
+        elif not self.sector.currentText():
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Select your sector.")
+            )
+            return
+        elif not self.purpose_of_use.currentText():
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Select your purpose of use.")
+            )
             return
         elif not self.country.currentText():
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Enter your country.")
+                None, self.tr("Error"), self.tr("Select your country.")
             )
+            return
 
+        # Validate GEE license acknowledgment
+        if not self.gee_license_acknowledged.isChecked():
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "You must acknowledge responsibility for GEE "
+                    "commercial licensing to save your profile."
+                ),
+            )
+            return
+
+        # Validate sector "Other" has description
+        sector = self.sector.currentData()
+        if sector == "other" and not self.sector_other.text().strip():
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Please specify your sector."),
+            )
+            return
+
+        # Validate purpose of use "Other" has description
+        purpose = self.purpose_of_use.currentData()
+        if purpose == "other" and not self.purpose_of_use_other.text().strip():
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Please specify your purpose of use."),
+            )
+            return
+
+        # Validate gender self-describe has description
+        gender = self.gender_identity.currentData()
+        if (
+            gender == "self_describe"
+            and not self.gender_identity_description.text().strip()
+        ):
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Please provide your gender identity description."),
+            )
             return
 
         resp = self.api_client.update_user(
-            self.email.text(),
-            self.name.text(),
-            self.organization.text(),
-            self.country.currentText(),
-            self.email_notifications_enabled.isChecked(),
+            email=self.email.text(),
+            name=self.name.text(),
+            organization=self.organization.text(),
+            country=self.country.currentText(),
+            email_notifications_enabled=self.email_notifications_enabled.isChecked(),
+            role_title=self.role_title.text() or None,
+            sector=sector,
+            sector_other=(self.sector_other.text().strip() or None),
+            purpose_of_use=purpose or None,
+            purpose_of_use_other=(self.purpose_of_use_other.text().strip() or None),
+            gender_identity=gender or None,
+            gender_identity_description=(
+                self.gender_identity_description.text().strip() or None
+            ),
+            gee_license_acknowledged=True,
         )
 
         if resp:

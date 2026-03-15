@@ -1,12 +1,14 @@
 import datetime as dt
 import functools
 import os
+import re
 import typing
 from pathlib import Path
 
 import qgis.core
 import qgis.gui
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
+from qgis.PyQt.QtNetwork import QNetworkAccessManager, QNetworkRequest
 from te_schemas.algorithms import AlgorithmRunMode
 from te_schemas.jobs import JobStatus
 
@@ -36,12 +38,102 @@ from .select_dataset import DlgSelectDataset
 from .utils import load_object
 from .visualization import DlgVisualizationBasemap
 
+if typing.TYPE_CHECKING:
+    from .news import NewsItem
+
 DockWidgetTrendsEarthUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetMain.ui")
 )
 
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
+
+
+class NetworkImageTextBrowser(QtWidgets.QTextBrowser):
+    """QTextBrowser that can load images from remote URLs and auto-sizes to content."""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._network_manager = QNetworkAccessManager(self)
+        self._pending_images = {}
+        self._loaded_images = {}  # Cache of loaded images
+        self._original_html = ""
+        # Remove scroll bars and make it act like a label
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.setSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
+        )
+
+    def setHtml(self, html: str) -> None:
+        """Set HTML and start loading any remote images."""
+        self._original_html = html
+        super().setHtml(html)
+        self._load_remote_images(html)
+        self._adjust_height()
+
+    def _adjust_height(self) -> None:
+        """Adjust widget height to fit document content."""
+        doc = self.document()
+        doc.setTextWidth(self.viewport().width())
+        height = int(doc.size().height()) + 4  # Small padding
+        self.setMinimumHeight(height)
+        self.setMaximumHeight(height)
+
+    def resizeEvent(self, event) -> None:
+        """Re-adjust height when width changes."""
+        super().resizeEvent(event)
+        self._adjust_height()
+
+    def loadResource(self, type: int, url: QtCore.QUrl) -> typing.Any:
+        """Override to return cached images for remote URLs."""
+        url_string = url.toString()
+        if (
+            type == QtGui.QTextDocument.ImageResource
+            and url_string in self._loaded_images
+        ):
+            return QtGui.QPixmap.fromImage(self._loaded_images[url_string])
+        return super().loadResource(type, url)
+
+    def _load_remote_images(self, html: str) -> None:
+        """Find and load remote images in the HTML."""
+        img_pattern = r'<img[^>]+src=["\']([^"\']+)["\']'
+        for match in re.finditer(img_pattern, html, re.IGNORECASE):
+            url = match.group(1)
+            if (
+                url.startswith(("http://", "https://"))
+                and url not in self._loaded_images
+            ):
+                self._fetch_image(url)
+
+    def _fetch_image(self, url: str) -> None:
+        """Fetch an image from a URL."""
+        if url in self._pending_images:
+            return
+
+        request = QNetworkRequest(QtCore.QUrl(url))
+        reply = self._network_manager.get(request)
+        self._pending_images[url] = reply
+        reply.finished.connect(lambda: self._on_image_loaded(url, reply))
+
+    def _on_image_loaded(self, url: str, reply) -> None:
+        """Handle completed image download."""
+        if reply.error():
+            log(f"Failed to load image {url}: {reply.errorString()}")
+            self._pending_images.pop(url, None)
+            reply.deleteLater()
+            return
+
+        data = reply.readAll()
+        image = QtGui.QImage()
+        if image.loadFromData(data):
+            self._loaded_images[url] = image
+            # Re-render HTML to show the image
+            super(NetworkImageTextBrowser, self).setHtml(self._original_html)
+            self._adjust_height()
+
+        self._pending_images.pop(url, None)
+        reply.deleteLater()
 
 
 class UpdateWorker(QtCore.QObject):
@@ -85,6 +177,7 @@ class RemoteStateRefreshWorker(UpdateWorker):
 class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     _SUB_INDICATORS_TAB_PAGE: int = 0
     _DATASETS_TAB_PAGE: int = 1
+    _NEWS_TAB_PAGE: int = 2
 
     iface: qgis.gui.QgisInterface
     refreshing_filesystem_cache: bool
@@ -103,6 +196,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     pushButton_refresh: QtWidgets.QPushButton
     pushButton_filter: QtWidgets.QPushButton
     tabWidget: QtWidgets.QTabWidget
+    # News tab widgets
+    news_container_layout: QtWidgets.QVBoxLayout
+    news_refresh_btn: QtWidgets.QPushButton
 
     cache_refresh_about_to_begin = QtCore.pyqtSignal()
     cache_refresh_finished = QtCore.pyqtSignal()
@@ -121,6 +217,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.refreshing_filesystem_cache = False
         self.scheduler_paused = False
         self.setupUi(self)
+
+        # Initialize the news tab
+        self._setup_news_tab()
+
         self._cache_refresh_togglable_widgets = [
             self.pushButton_refresh,
         ]
@@ -437,6 +537,189 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.rs_worker = None
 
         super().closeEvent(event)
+
+    def _setup_news_tab(self) -> None:
+        """Initialize the news tab with news widgets."""
+        # Create news widgets container (stores the QFrame widgets for each news item)
+        self._news_widgets: typing.List[QtWidgets.QWidget] = []
+
+        # Connect refresh button
+        self.news_refresh_btn.clicked.connect(lambda: self._refresh_news(force=True))
+
+        # Schedule initial news fetch after startup (non-blocking)
+        QtCore.QTimer.singleShot(2000, self._refresh_news)
+
+    def _refresh_news(self, force: bool = False) -> None:
+        """Refresh news items from the API and display in the news tab."""
+        from .news import NewsClient
+
+        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
+        if offline_mode:
+            log("Skipping news fetch - offline mode enabled")
+            return
+
+        log("Refreshing news from API")
+
+        # Create a news client and fetch news
+        news_client = NewsClient(self)
+        news_client.news_fetched.connect(lambda items: self._display_news_items(items))
+        news_client.fetch_news(platform="qgis_plugin", force=force)
+
+    def _display_news_items(self, news_items: typing.List["NewsItem"]) -> None:
+        """Display news items in the news tab."""
+        from .news import _is_news_dismissed
+
+        # Clear existing news widgets
+        while self.news_container_layout.count():
+            item = self.news_container_layout.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
+        self._news_widgets.clear()
+
+        # Filter out dismissed items
+        active_items = [item for item in news_items if not _is_news_dismissed(item.id)]
+
+        # Update tab title style based on whether there are news items
+        self._update_news_tab_style(has_news=len(active_items) > 0)
+
+        if not active_items:
+            # Show "no news" message
+            no_news_label = QtWidgets.QLabel("No news items at this time.")
+            no_news_label.setStyleSheet("color: gray; padding: 20px;")
+            no_news_label.setAlignment(QtCore.Qt.AlignCenter)
+            self.news_container_layout.addWidget(no_news_label)
+            return
+
+        # Create a widget for each news item
+        for item in active_items:
+            news_widget = self._create_news_item_widget(item)
+            self.news_container_layout.addWidget(news_widget)
+            self._news_widgets.append(news_widget)
+
+        log(f"Displayed {len(active_items)} news items")
+
+    def _update_news_tab_style(self, has_news: bool) -> None:
+        """Update the News tab title style to indicate unread news."""
+        tab_bar = self.tabWidget.tabBar()
+        news_tab_index = self._NEWS_TAB_PAGE
+
+        # Get the current font and modify it
+        font = tab_bar.font()
+        font.setBold(has_news)
+        tab_bar.setTabTextColor(
+            news_tab_index, QtGui.QColor("#000000") if has_news else QtGui.QColor()
+        )
+
+        # Update tab text with indicator if there are news items
+        base_text = "News"
+        if has_news:
+            self.tabWidget.setTabText(news_tab_index, f"● {base_text}")
+        else:
+            self.tabWidget.setTabText(news_tab_index, base_text)
+
+    def _create_news_item_widget(self, item: "NewsItem") -> QtWidgets.QFrame:
+        """Create a widget for displaying a single news item."""
+        from .news import open_news_link
+
+        # Style colors based on news type (bg_color, border_color, text_color)
+        style_colors = {
+            "announcement": ("#e3f2fd", "#2196f3", "#1565c0"),
+            "warning": ("#fff3e0", "#ff9800", "#e65100"),
+            "release": ("#e8f5e9", "#4caf50", "#2e7d32"),
+            "tip": ("#f3e5f5", "#9c27b0", "#7b1fa2"),
+            "maintenance": ("#eceff1", "#607d8b", "#455a64"),
+        }
+        bg_color, border_color, text_color = style_colors.get(
+            item.news_type, style_colors["announcement"]
+        )
+
+        # Create frame
+        frame = QtWidgets.QFrame()
+        frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        frame.setStyleSheet(
+            f"QFrame {{ background-color: {bg_color}; "
+            f"border: 1px solid {border_color}; border-radius: 4px; }} "
+            f"QFrame QLabel {{ border: none; background: transparent; }}"
+        )
+
+        layout = QtWidgets.QVBoxLayout(frame)
+        layout.setContentsMargins(10, 8, 10, 8)
+        layout.setSpacing(4)
+
+        # Type label row (small caps style)
+        type_row = QtWidgets.QHBoxLayout()
+        type_label = QtWidgets.QLabel(item.news_type.upper())
+        type_label.setStyleSheet(
+            f"color: {text_color}; font-size: 9px; font-weight: 600; "
+            f"letter-spacing: 1px;"
+        )
+        type_row.addWidget(type_label)
+        type_row.addStretch()
+
+        # Dismiss button
+        dismiss_btn = QtWidgets.QToolButton()
+        dismiss_btn.setText("×")
+        dismiss_btn.setToolTip("Dismiss this news item")
+        dismiss_btn.setAutoRaise(True)
+        dismiss_btn.setStyleSheet("font-size: 14px; color: #666;")
+        dismiss_btn.clicked.connect(
+            lambda checked, news_id=item.id, widget=frame: self._dismiss_news(
+                news_id, widget
+            )
+        )
+        type_row.addWidget(dismiss_btn)
+        layout.addLayout(type_row)
+
+        # Title
+        title_label = QtWidgets.QLabel(f"<b>{item.title}</b>")
+        title_label.setWordWrap(True)
+        title_label.setTextInteractionFlags(
+            QtCore.Qt.TextSelectableByMouse | QtCore.Qt.LinksAccessibleByMouse
+        )
+        layout.addWidget(title_label)
+
+        # Message - use NetworkImageTextBrowser to support remote images in HTML
+        html_content = item.message_html if item.message_html else item.message
+        message_browser = NetworkImageTextBrowser()
+        message_browser.setOpenExternalLinks(False)
+        message_browser.setOpenLinks(False)
+        message_browser.anchorClicked.connect(
+            lambda url: open_news_link(url.toString())
+        )
+        message_browser.setFrameShape(QtWidgets.QFrame.NoFrame)
+        message_browser.setStyleSheet("background: transparent; border: none;")
+        message_browser.setHtml(html_content)
+        layout.addWidget(message_browser)
+
+        # Link if present
+        if item.link_url:
+            link_text = item.link_text or "Learn more"
+            link_label = QtWidgets.QLabel(f'<a href="{item.link_url}">{link_text}</a>')
+            link_label.setOpenExternalLinks(False)
+            link_label.setTextInteractionFlags(
+                QtCore.Qt.TextSelectableByMouse | QtCore.Qt.LinksAccessibleByMouse
+            )
+            link_label.linkActivated.connect(open_news_link)
+            layout.addWidget(link_label)
+
+        return frame
+
+    def _dismiss_news(self, news_id: str, widget: QtWidgets.QWidget) -> None:
+        """Dismiss a news item and remove its widget."""
+        from .news import _add_dismissed_news_id
+
+        _add_dismissed_news_id(news_id)
+        widget.deleteLater()
+        if widget in self._news_widgets:
+            self._news_widgets.remove(widget)
+        log(f"Dismissed news item {news_id}")
+
+        # Show "no news" message if all items dismissed
+        if not self._news_widgets:
+            no_news_label = QtWidgets.QLabel("No news items at this time.")
+            no_news_label.setStyleSheet("color: gray; padding: 20px;")
+            no_news_label.setAlignment(QtCore.Qt.AlignCenter)
+            self.news_container_layout.addWidget(no_news_label)
 
     def date_filter_changed(self, disabled=False):
         settings_manager.write_value(

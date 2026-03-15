@@ -244,6 +244,89 @@ for running algorithms and their results.</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_news">
+       <attribute name="title">
+        <string>News</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="news_tab_layout">
+        <item>
+         <widget class="QScrollArea" name="news_scroll_area">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="news_scroll_content">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>461</width>
+             <height>400</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="news_content_layout">
+            <item>
+             <widget class="QLabel" name="news_header_label">
+              <property name="font">
+               <font>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Trends.Earth News &amp; Announcements</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="news_container">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <layout class="QVBoxLayout" name="news_container_layout"/>
+             </widget>
+            </item>
+            <item>
+             <spacer name="news_spacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="news_buttons_layout">
+          <item>
+           <widget class="QPushButton" name="news_refresh_btn">
+            <property name="text">
+             <string>Refresh News</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="news_button_spacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
     <item>

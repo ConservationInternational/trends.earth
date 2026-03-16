@@ -412,6 +412,8 @@ class LocalJobTask(QgsTask):
 class JobManager(QtCore.QObject):
     _encoding = "utf-8"
     _relevant_job_age_threshold_days = 14
+    _light_refresh_days = 2  # Lookback window for quick/light refresh
+    _full_refresh_interval_minutes = 30  # Auto-trigger full refresh after this interval
 
     _known_running_jobs: typing.Dict[uuid.UUID, Job]
     _known_finished_jobs: typing.Dict[uuid.UUID, Job]
@@ -630,6 +632,8 @@ class JobManager(QtCore.QObject):
             self._transitioned_job_metadata: typing.Dict[
                 uuid.UUID, typing.Dict[str, typing.Any]
             ] = {}
+            # Track when last full remote refresh was done
+            self._last_full_refresh_time: typing.Optional[dt.datetime] = None
             # Also clear the per-directory cache (may not exist yet during __init__)
             if hasattr(self, "_dir_job_cache"):
                 self._dir_job_cache.clear()
@@ -837,10 +841,18 @@ class JobManager(QtCore.QObject):
 
         self.refreshed_local_state.emit()
 
-    def refresh_from_remote_state(self, emit_signal: bool = True):
+    def refresh_from_remote_state(
+        self, emit_signal: bool = True, full_refresh: bool = False
+    ):
         """Request the latest state from the remote server
 
          Then update filesystem directories too.
+
+         Args:
+            emit_signal: If True, emit refreshed_from_remote signal when done.
+            full_refresh: If True, fetch jobs from the full lookback window
+                (14 days). If False, do a light refresh (2 days) unless enough
+                time has passed since the last full refresh.
 
          Checking for remote updates entails:
 
@@ -875,7 +887,28 @@ class JobManager(QtCore.QObject):
         """
         # --- Phase 1: Fetch remote data WITHOUT holding the state mutex --------
         now = dt.datetime.now(tz=dt.timezone.utc)
-        relevant_date = now - dt.timedelta(days=self._relevant_job_age_threshold_days)
+
+        # Determine if we need a full refresh (auto-trigger after interval)
+        do_full_refresh = full_refresh
+        if not do_full_refresh and self._last_full_refresh_time is not None:
+            elapsed = now - self._last_full_refresh_time
+            if elapsed.total_seconds() >= self._full_refresh_interval_minutes * 60:
+                do_full_refresh = True
+                log(
+                    f"Auto-triggering full refresh ({elapsed.total_seconds() / 60:.1f} "
+                    f"min since last full refresh)"
+                )
+        elif self._last_full_refresh_time is None:
+            # First refresh should be full to ensure we have complete state
+            do_full_refresh = True
+            log("First refresh - doing full refresh")
+
+        # Use appropriate lookback window
+        if do_full_refresh:
+            lookback_days = self._relevant_job_age_threshold_days
+        else:
+            lookback_days = self._light_refresh_days
+        relevant_date = now - dt.timedelta(days=lookback_days)
 
         offline_mode = conf.settings_manager.get_value(conf.Setting.OFFLINE_MODE)
         remote_fetch_ok = False  # True only when API returned a real response
@@ -931,9 +964,15 @@ class JobManager(QtCore.QObject):
             self._refresh_remote_jobs_by_status(relevant_remote_jobs)
             self._get_local_expired_jobs()
 
+            # Track when a successful full refresh was done
+            if remote_fetch_ok and do_full_refresh:
+                self._last_full_refresh_time = now
+
             log(
                 f"JobManager refresh completed — "
                 f"remote_fetch_ok={remote_fetch_ok}, "
+                f"full_refresh={do_full_refresh}, "
+                f"lookback={lookback_days} days, "
                 f"{len(relevant_remote_jobs)} relevant remote jobs"
             )
         finally:

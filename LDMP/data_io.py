@@ -2194,7 +2194,7 @@ PROD_MODE_FOR_BAND = {
     maxsize=None
 )  # not using functools.cache, as it was only introduced in Python 3.9
 def _get_usable_bands(
-    band_name: typing.Optional[typing.Union[str, typing.List[str]]] = "any",
+    band_name: typing.Optional[typing.Union[str, typing.Tuple[str, ...]]] = "any",
     selected_job_id: uuid.UUID = None,
     filter_field: str = None,
     filter_value: str = None,
@@ -2258,8 +2258,8 @@ def _get_usable_bands(
         for band_index, band_info in enumerate(raster_result.get_bands(), start=1):
             if raster_result.uri is None:
                 continue
-            # Handle band_name as either a string or list of strings
-            if isinstance(band_name, list):
+            # Handle band_name as either a string or tuple of strings
+            if isinstance(band_name, tuple):
                 matches_name = band_info.name in band_name
             else:
                 matches_name = band_info.name == band_name or band_name == "any"
@@ -2859,6 +2859,10 @@ class WidgetDataIOSelectTEDatasetExisting(
         current_dataset = self.get_current_dataset()
         if current_dataset is None:
             return []
+
+        # Convert list to tuple for lru_cache compatibility
+        if isinstance(band_name, list):
+            band_name = tuple(band_name)
 
         return _get_usable_bands(band_name, current_dataset.job.id, aoi=aoi)
 

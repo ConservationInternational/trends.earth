@@ -1,7 +1,7 @@
 import dataclasses
 import json
 from pathlib import Path
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 from te_algorithms.gdal.drought import summarise_drought_vulnerability
 from te_schemas.aoi import AOI
@@ -16,7 +16,7 @@ MASK_VALUE = -32767
 POPULATION_BAND_NAME = "Population (number of people)"
 SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
 SPEI_BAND_NAME = "Standardized Precipitation Evapotranspiration Index (SPEI)"
-SPI_SPEI_BAND_NAMES = [SPI_BAND_NAME, SPEI_BAND_NAME]
+SPI_SPEI_BAND_NAMES = (SPI_BAND_NAME, SPEI_BAND_NAME)
 
 
 @dataclasses.dataclass()
@@ -41,7 +41,7 @@ class DroughtInputInfo:
 
 def _get_drought_inputs(
     data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting,
-    band_name: Union[str, List[str]],
+    band_name: Union[str, Tuple[str, ...]],
     sort_property: str = "year",
 ) -> DroughtInputInfo:
     bands = data_selection_widget.get_bands(band_name)

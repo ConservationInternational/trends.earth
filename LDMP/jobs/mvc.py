@@ -36,9 +36,18 @@ ICON_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, "icons")
 class JobsModel(QtCore.QAbstractItemModel):
     _relevant_jobs: typing.List[Job]
 
-    def __init__(self, job_manager: manager.JobManager, parent=None):
+    def __init__(
+        self,
+        job_manager: manager.JobManager,
+        parent=None,
+        jobs_list: typing.Optional[typing.List[Job]] = None,
+    ):
         super().__init__(parent)
-        self._relevant_jobs = job_manager.relevant_jobs
+        # Use provided jobs list if available, otherwise query job_manager.
+        # This allows callers to reuse the same list for both model and filters.
+        self._relevant_jobs = (
+            jobs_list if jobs_list is not None else job_manager.relevant_jobs
+        )
 
     def index(
         self, row: int, column: int, parent: QtCore.QModelIndex

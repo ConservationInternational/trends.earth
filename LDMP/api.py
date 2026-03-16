@@ -324,19 +324,25 @@ class RequestTask(QgsTask):
                     )
 
         if self.resp is not None:
-            error_code = self.resp.error()
-            status_code = self.resp.attribute(
-                QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
-            )
+            try:
+                error_code = self.resp.error()
+                status_code = self.resp.attribute(
+                    QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
+                )
 
-            log(
-                f'API response from "{self.method}" request: error={error_code}, status={status_code}'
-            )
-
-            # If error code 204 (AuthenticationRequiredError), provide more details
-            if error_code == 204:
                 log(
-                    "Error 204: AuthenticationRequiredError - authentication credentials were not accepted"
+                    f'API response from "{self.method}" request: error={error_code}, status={status_code}'
+                )
+
+                # If error code 204 (AuthenticationRequiredError), provide more details
+                if error_code == 204:
+                    log(
+                        "Error 204: AuthenticationRequiredError - authentication credentials were not accepted"
+                    )
+            except RuntimeError:
+                # QNetworkReply C++ object was deleted before finished() was called
+                log(
+                    f'API response from "{self.method}" request: reply object was deleted'
                 )
         else:
             log(f'API response from "{self.method}" request was None')

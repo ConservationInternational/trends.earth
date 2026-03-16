@@ -874,6 +874,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # - job_manager.refreshed_from_remote emits nothing
         # Using *args avoids access violation crashes on Windows caused by
         # signal/slot signature mismatches
+
         # Close any open persistent editor BEFORE changing the model
         # to avoid access violations with dangling QModelIndex pointers
         current_dataset_index = self.datasets_tv_delegate.current_index
@@ -896,26 +897,35 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # Defer downloads to after model rebuild is complete, to avoid
         # mutating job states while the model is being constructed
         QtCore.QTimer.singleShot(0, maybe_download_finished_results)
-        # Invalidate the delegate's pixmap/size caches since the underlying
-        # job data has changed and cached renders are now stale.
-        self.datasets_tv_delegate.invalidate_caches()
-        model = jobs_mvc.JobsModel(job_manager)
+        # Note: We intentionally do NOT invalidate the delegate's pixmap/size caches
+        # here. The cache key includes (job.id, job.status, job.progress) so unchanged
+        # jobs will naturally hit cache, while changed jobs get new entries. This
+        # dramatically improves refresh performance by avoiding expensive widget
+        # recreation for unchanged jobs.
+        #
+        # Get relevant_jobs once and reuse for both model and filter dropdowns
+        # to avoid locking the mutex twice.
+        relevant_jobs = job_manager.relevant_jobs
+
+        model = jobs_mvc.JobsModel(job_manager, jobs_list=relevant_jobs)
         # self.datasets_tv.setModel(model)
         self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
         self.type_filter_changed(TypeFilter.ALL)
 
         # Populate status and task type dropdowns from actual job data
-        self._populate_filter_dropdowns(job_manager.relevant_jobs)
+        self._populate_filter_dropdowns(relevant_jobs)
         self._apply_all_filters()
 
         self.filter_changed("")
         action = self.filter_menu.actions()[0]
         action.setChecked(True)
         self.proxy_model.setSourceModel(model)
+
         # NOTE: lineEdit_search.valueChanged is connected once in
         # setup_datasets_page_gui() — do NOT reconnect here to avoid
         # accumulating duplicate signal connections on every refresh.
         self.datasets_tv.setModel(self.proxy_model)
+
         self.resume_scheduler()
         self.cache_refresh_finished.emit()
 
@@ -1364,7 +1374,11 @@ def maybe_download_finished_results():
         if not offline_mode and dataset_auto_download:
             if len(job_manager.known_jobs[JobStatus.FINISHED]) > 0:
                 log("downloading results...")
-                job_manager.download_available_results()
+                # Download one job at a time to avoid blocking the UI
+                has_more = job_manager.download_one_available_result()
+                if has_more:
+                    # Schedule next download after a short delay to allow UI updates
+                    QtCore.QTimer.singleShot(100, maybe_download_finished_results)
     finally:
         _downloading_finished_results_mutex.unlock()
 

@@ -62,6 +62,14 @@ def _get_job_schema():
     return _job_schema
 
 
+def _normalize_cache_key(path: Path) -> str:
+    """Normalize a path for use as a cache key."""
+    resolved = str(path.resolve())
+    if os.name == "nt":  # Windows
+        return resolved.lower()
+    return resolved
+
+
 class tr_manager:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_manager", message)
@@ -447,6 +455,17 @@ class JobManager(QtCore.QObject):
         self._dir_job_cache: typing.Dict[
             Path, typing.Dict[jobs.JobStatus, typing.List[Job]]
         ] = {}
+        # Persistent file-level cache. Keyed by normalized path string (lowercase on
+        # Windows for case-insensitivity), stores (mtime, Job) or (mtime, None) for
+        # files that failed to parse. NOT cleared between refresh cycles - only
+        # invalidated when files change. This avoids re-parsing unchanged job files
+        # (which can be large due to params) and avoids retrying broken files.
+        self._file_job_cache: typing.Dict[
+            str, typing.Tuple[float, typing.Optional[Job]]
+        ] = {}
+        # Flag to track when background file scanning is in progress.
+        # Used to prevent download operations from conflicting with file I/O.
+        self._scanning_files = False
 
     @property
     def api_client(self):
@@ -599,6 +618,9 @@ class JobManager(QtCore.QObject):
             # Also clear the per-directory cache (may not exist yet during __init__)
             if hasattr(self, "_dir_job_cache"):
                 self._dir_job_cache.clear()
+            # Clear persistent file cache to ensure fresh parsing if base dir changes
+            if hasattr(self, "_file_job_cache"):
+                self._file_job_cache.clear()
         finally:
             self._state_update_mutex.unlock()
 
@@ -643,6 +665,41 @@ class JobManager(QtCore.QObject):
         finally:
             self._state_update_mutex.unlock()
 
+    def _preload_local_jobs_cache(self):
+        """Load all local job directories into cache WITHOUT holding the mutex.
+
+        This method does the slow file I/O work outside of any locks, so that
+        the UI thread (which needs `relevant_jobs`) is not blocked while files
+        are being parsed.
+
+        Call this BEFORE acquiring _state_update_mutex in refresh methods.
+        """
+        # Set flag to prevent concurrent file operations (e.g., downloads)
+        self._scanning_files = True
+        try:
+            self._preload_local_jobs_cache_inner()
+        finally:
+            self._scanning_files = False
+
+    def _preload_local_jobs_cache_inner(self):
+        """Inner implementation of cache preloading."""
+        # Clear cache first - no mutex needed as we're just preparing data
+        self._dir_job_cache.clear()
+
+        # Preload all directories that will be needed by the refresh methods
+        dirs_to_load = [
+            self.running_jobs_dir,
+            self.finished_jobs_dir,
+            self.failed_jobs_dir,
+            self.deleted_jobs_dir,
+            self.expired_jobs_dir,
+            self.datasets_dir,
+        ]
+
+        for dir_path in dirs_to_load:
+            if dir_path not in self._dir_job_cache:
+                self._dir_job_cache[dir_path] = self._load_jobs_from_dir(dir_path)
+
     def refresh_local_state(self):
         """Update dataset manager's in-memory cache by scanning the local filesystem
 
@@ -651,11 +708,15 @@ class JobManager(QtCore.QObject):
         The filesystem is the source of truth for existing job metadata files and
         available results.
         """
-        self._state_update_mutex.lock()
-        try:
-            # Invalidate the per-directory cache so this cycle gets fresh data
-            self._dir_job_cache.clear()
+        # --- Phase 1: Load all local files WITHOUT holding the mutex -----------
+        # This allows the UI thread to continue accessing relevant_jobs while
+        # we do the slow file I/O work.
+        self._preload_local_jobs_cache()
 
+        # --- Phase 2: Update in-memory state under the mutex -------------------
+        self._state_update_mutex.lock()
+
+        try:
             self._known_running_jobs = {
                 j.id: j for j in self._get_local_jobs(jobs.JobStatus.RUNNING)
             }
@@ -790,12 +851,14 @@ class JobManager(QtCore.QObject):
         else:
             relevant_remote_jobs = []
 
-        # --- Phase 2: Update local state under the mutex -----------------------
+        # --- Phase 1.5: Load local files WITHOUT holding the mutex -------------
+        # This allows the UI thread to continue accessing relevant_jobs while
+        # we do the slow file I/O work.
+        self._preload_local_jobs_cache()
+
+        # --- Phase 2: Update in-memory state under the mutex -------------------
         self._state_update_mutex.lock()
         try:
-            # Invalidate the per-directory cache so this cycle gets fresh data
-            self._dir_job_cache.clear()
-
             self._refresh_local_deleted_jobs()
 
             if not offline_mode and remote_fetch_ok:
@@ -1065,8 +1128,12 @@ class JobManager(QtCore.QObject):
         # TODO: maybe we don't need to return anything here
         return job
 
-    def download_available_results(self):
-        """Download all finished jobs' results.
+    def download_one_available_result(self) -> bool:
+        """Download one finished job's results.
+
+        Returns True if there are more jobs to download, False otherwise.
+        This allows calling code to check if it should schedule another download
+        cycle without blocking the UI.
 
         Downloading remote results entails:
         - For each job that is known to be in a FINISHED state, we retrieve the relevant
@@ -1080,16 +1147,36 @@ class JobManager(QtCore.QObject):
           as it is not necessary anymore
 
         """
-        # NOTE: We copy the dictionary before iterating in order to avoid having it
-        # change size during the bulk download process. The original
-        # `self.known_jobs[JobStatus.FINISHED]` dict is being updated as each
-        # job result is being downloaded
-        frozen_finished_jobs = self.known_jobs[jobs.JobStatus.FINISHED].copy()
+        # Skip downloads while background file scanning is in progress to avoid
+        # file locking conflicts on Windows (WinError 32)
+        if self._scanning_files:
+            log("Skipping download - file scanning in progress")
+            return True  # Return True to retry later
 
-        if len(frozen_finished_jobs) > 0:
-            for job in frozen_finished_jobs.values():
-                self.download_job_results(job)
+        # Get the first finished job (if any) and download its results
+        finished_jobs = self.known_jobs[jobs.JobStatus.FINISHED]
+        if len(finished_jobs) == 0:
+            return False
+
+        # Get one job to download (dict.values() returns view, take first)
+        job = next(iter(finished_jobs.values()))
+        self.download_job_results(job)
+
+        # Return True if there are more jobs to download
+        remaining = len(self.known_jobs[jobs.JobStatus.FINISHED])
+        if remaining == 0:
             self.downloaded_available_jobs_results.emit()
+        return remaining > 0
+
+    def download_available_results(self):
+        """Download all finished jobs' results (blocking).
+
+        NOTE: This method downloads ALL jobs sequentially and will block the UI.
+        For non-blocking downloads, use download_one_available_result() instead
+        and schedule subsequent downloads via QTimer.singleShot().
+        """
+        while self.download_one_available_result():
+            pass
 
     def display_default_job_results(self, job: Job):
         # Handle list of results
@@ -1830,14 +1917,41 @@ class JobManager(QtCore.QObject):
 
         for job_metadata_path in job_paths:
             try:
+                # Check file mtime for cache validity
+                try:
+                    file_mtime = job_metadata_path.stat().st_mtime
+                except (OSError, IOError) as exc:
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log(f"Cannot stat file {job_metadata_path!r}: {exc}")
+                    continue
+
+                # Check persistent file cache - avoid re-parsing unchanged files
+                # Use normalized key for cross-platform compatibility (case-insensitive on Windows)
+                cache_key = _normalize_cache_key(job_metadata_path)
+                cached = self._file_job_cache.get(cache_key)
+                if cached is not None:
+                    cached_mtime, cached_job = cached
+                    if cached_mtime == file_mtime:
+                        if cached_job is None:
+                            # File previously failed to parse - skip until it changes
+                            continue
+                        # File unchanged - use cached Job
+                        grouped.setdefault(cached_job.status, []).append(cached_job)
+                        continue
+
+                # File is new or changed - need to parse it
                 try:
                     if not self._is_json_file_safe(job_metadata_path):
+                        # Cache failure so we don't retry until file changes
+                        self._file_job_cache[cache_key] = (file_mtime, None)
                         if conf.settings_manager.get_value(conf.Setting.DEBUG):
                             log(
                                 f"Skipping unsafe or corrupted file {job_metadata_path!r}"
                             )
                         continue
                 except Exception as exc:
+                    # Cache failure so we don't retry until file changes
+                    self._file_job_cache[cache_key] = (file_mtime, None)
                     log(
                         f"Error checking safety of file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
                     )
@@ -1848,6 +1962,8 @@ class JobManager(QtCore.QObject):
                         raw_job = json.load(fh)
 
                     if not isinstance(raw_job, dict):
+                        # Cache failure so we don't retry until file changes
+                        self._file_job_cache[cache_key] = (file_mtime, None)
                         if conf.settings_manager.get_value(conf.Setting.DEBUG):
                             log(
                                 f"File {job_metadata_path!r} does not contain a valid JSON object"
@@ -1877,30 +1993,44 @@ class JobManager(QtCore.QObject):
                     if extents_changed:
                         try:
                             self.write_job_metadata_file(job)
+                            # Update mtime after writing
+                            file_mtime = job_metadata_path.stat().st_mtime
                         except Exception as exc:
                             log(
                                 f"Failed to persist extents for job {job.id}: {type(exc).__name__}: {exc}"
                             )
 
+                    # Update file cache with parsed job
+                    self._file_job_cache[cache_key] = (file_mtime, job)
                     grouped.setdefault(job.status, []).append(job)
                 except (OSError, IOError, PermissionError) as exc:
+                    # Cache failure so we don't retry until file changes
+                    self._file_job_cache[cache_key] = (file_mtime, None)
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Failed to read file {job_metadata_path!r}: {exc}")
                 except (KeyError, json.decoder.JSONDecodeError) as exc:
+                    # Cache failure so we don't retry until file changes
+                    self._file_job_cache[cache_key] = (file_mtime, None)
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
                             f"Unable to decode file {job_metadata_path!r} as valid json: {exc}"
                         )
                 except ValidationError as exc:
+                    # Cache failure so we don't retry until file changes
+                    self._file_job_cache[cache_key] = (file_mtime, None)
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
                             f"Unable to decode file {job_metadata_path!r} - validation error: {exc}"
                         )
                 except (ValueError, TypeError, AttributeError, MemoryError) as exc:
+                    # Cache failure so we don't retry until file changes
+                    self._file_job_cache[cache_key] = (file_mtime, None)
                     log(
                         f"Error processing file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
                     )
                 except RuntimeError as exc:
+                    # Cache failure so we don't retry until file changes
+                    self._file_job_cache[cache_key] = (file_mtime, None)
                     log(f"Runtime error processing file {job_metadata_path!r}: {exc}")
             except (OSError, IOError, PermissionError) as exc:
                 log(f"File system error accessing {job_metadata_path!r}: {exc}")
@@ -2082,18 +2212,22 @@ class JobManager(QtCore.QObject):
         self._invalidate_dir_cache_for_path(old_path)
 
     def _invalidate_dir_cache_for_path(self, file_path: Path):
-        """Remove cached directory scan results that contain *file_path*.
+        """Remove cached directory scan results and file cache entries for *file_path*.
 
-        The cache is keyed by base directory (e.g. ``running_jobs_dir``,
+        The directory cache is keyed by base directory (e.g. ``running_jobs_dir``,
         ``datasets_dir``).  For most statuses the file sits directly inside
         the base directory, so ``file_path.parent`` matches the cache key.
         For DOWNLOADED / GENERATED_LOCALLY the file is one level deeper
         (``datasets_dir/{job_id}/file.json``), so we also check the
         grandparent.
+
+        Also invalidates the persistent file cache entry for this specific file.
         """
         self._dir_job_cache.pop(file_path.parent, None)
         if file_path.parent != file_path.parent.parent:
             self._dir_job_cache.pop(file_path.parent.parent, None)
+        # Also invalidate file-level cache (uses normalized key for cross-platform)
+        self._file_job_cache.pop(_normalize_cache_key(file_path), None)
 
     def _refresh_remote_jobs_by_status(self, remote_jobs: typing.List[Job]) -> None:
         """Update in-memory cache with READY, PENDING, and CANCELLED jobs from remote server"""

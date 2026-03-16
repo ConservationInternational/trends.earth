@@ -1,4 +1,4 @@
-# Runs tests on QGIS 3.22 LTR, 3.34, 3.36
+# Runs tests on QGIS 3.34 LTR, 3.36
 name: Continous Integration
 
 on:
@@ -33,7 +33,6 @@ jobs:
       fail-fast: false
       matrix:
         qgis_version_tag:
-          - release-3_22
           - release-3_34
           - release-3_36
 

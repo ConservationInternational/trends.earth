@@ -129,6 +129,37 @@ class Job(JobBase):
                 job_name_parts.append(script_display_name)
         return " - ".join(job_name_parts)
 
+    # ------------------------------------------------------------------
+    # Cache-aware overrides: when jobs are loaded from SQLite without
+    # results data, the _cached_* attributes are set by the cache layer.
+    # Check them first so the UI can determine job type without needing
+    # the heavy results pickle.
+    # ------------------------------------------------------------------
+
+    def is_vector(self) -> bool:
+        cached = getattr(self, "_cached_is_vector", None)
+        if cached is not None:
+            return cached
+        return super().is_vector()
+
+    def is_raster(self) -> bool:
+        cached = getattr(self, "_cached_is_raster", None)
+        if cached is not None:
+            return cached
+        return super().is_raster()
+
+    def is_timeseries(self) -> bool:
+        cached = getattr(self, "_cached_is_timeseries", None)
+        if cached is not None:
+            return cached
+        return super().is_timeseries()
+
+    def is_file(self) -> bool:
+        cached = getattr(self, "_cached_is_file", None)
+        if cached is not None:
+            return cached
+        return super().is_file()
+
 
 # Cache for remote scripts: (result, timestamp)
 _remote_scripts_cache = None

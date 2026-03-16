@@ -238,10 +238,17 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # remove space before dataset item
         self.datasets_tv.setIndentation(0)
         self.datasets_tv.verticalScrollBar().setSingleStep(10)
+        self.datasets_tv.setUniformRowHeights(True)
+        # When setSortingEnabled(True) is set (from the UI file), Qt internally calls
+        #  sort() repeatedly when. We'll sort programmatically via proxy_model.sort()
+        # after setting the model.
+        self.datasets_tv.setSortingEnabled(False)
 
         self.message_bar_sort_filter = None
 
-        self.proxy_model = None
+        self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
+
+        self.source_model = jobs_mvc.JobsModel(job_manager, jobs_list=[])
 
         # Use QueuedConnection for all job_manager signals that may be emitted
         # from background threads (LocalPeriodicUpdateWorker, RemoteStateRefreshWorker)
@@ -290,7 +297,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.clean_empty_directories()
         self.setup_algorithms_tree()
         self.setup_datasets_page_gui()
+
         self._run_local_update_worker()  # perform an initial update, before the scheduler kicks in
+
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.perform_periodic_tasks)
         self.timer.start(
@@ -331,6 +340,18 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
             self.start_dte.setDateTime(start_date)
             self.end_dte.setDateTime(end_date)
+        else:
+            # Default to current month range on first load
+            today = QtCore.QDate.currentDate()
+            start_of_month = QtCore.QDateTime(
+                QtCore.QDate(today.year(), today.month(), 1), QtCore.QTime(0, 0, 0)
+            )
+            end_of_month = QtCore.QDateTime(
+                QtCore.QDate(today.year(), today.month(), today.daysInMonth()),
+                QtCore.QTime(23, 59, 59),
+            )
+            self.start_dte.setDateTime(start_of_month)
+            self.end_dte.setDateTime(end_of_month)
 
         self.date_filter_chk.toggled.connect(self._date_filter_chk_toggled)
         self.start_dte.dateChanged.connect(lambda: self.date_filter_changed(False))
@@ -408,45 +429,120 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         master_on = self.filter_group.isChecked()
 
-        # Date filter
+        # Date filter - don't invalidate yet
         if master_on and self.date_filter_chk.isChecked():
             start_date = self.start_dte.dateTime()
             end_date = self.end_dte.dateTime()
         else:
             start_date = None
             end_date = None
-        self.proxy_model.set_date_filter(start_date, end_date)
+        self.proxy_model.set_date_filter(start_date, end_date, invalidate=False)
 
-        # Status filter
+        # Status filter - don't invalidate yet
         if master_on and self.status_filter_chk.isChecked():
             status_value = self.status_filter_cb.currentData()
             if status_value is not None:
-                self.proxy_model.set_status_filter(JobStatus(status_value))
+                self.proxy_model.set_status_filter(
+                    JobStatus(status_value), invalidate=False
+                )
             else:
-                self.proxy_model.set_status_filter(None)
+                self.proxy_model.set_status_filter(None, invalidate=False)
         else:
-            self.proxy_model.set_status_filter(None)
+            self.proxy_model.set_status_filter(None, invalidate=False)
 
-        # Task type filter
+        # Task type filter - don't invalidate yet
         if master_on and self.task_type_filter_chk.isChecked():
             self.proxy_model.set_task_type_filter(
-                self.task_type_filter_cb.currentData()
+                self.task_type_filter_cb.currentData(), invalidate=False
             )
         else:
-            self.proxy_model.set_task_type_filter(None)
+            self.proxy_model.set_task_type_filter(None, invalidate=False)
 
-    def _populate_filter_dropdowns(self, jobs):
-        """Populate the status and task type filter dropdowns from actual job data.
+        # Invalidate ONCE after all filters are set
+        self.proxy_model.invalidateFilter()
+
+    def _apply_all_filters_no_invalidate(self):
+        """Apply or clear all three filters WITHOUT triggering invalidation.
+
+        Use this when you will set the source model afterward, which already
+        triggers a filter pass. Avoids redundant filter operations.
+        """
+        if not self.proxy_model:
+            return
+
+        master_on = self.filter_group.isChecked()
+
+        # Date filter - don't invalidate
+        if master_on and self.date_filter_chk.isChecked():
+            start_date = self.start_dte.dateTime()
+            end_date = self.end_dte.dateTime()
+        else:
+            start_date = None
+            end_date = None
+        self.proxy_model.set_date_filter(start_date, end_date, invalidate=False)
+
+        # Status filter - don't invalidate
+        if master_on and self.status_filter_chk.isChecked():
+            status_value = self.status_filter_cb.currentData()
+            if status_value is not None:
+                self.proxy_model.set_status_filter(
+                    JobStatus(status_value), invalidate=False
+                )
+            else:
+                self.proxy_model.set_status_filter(None, invalidate=False)
+        else:
+            self.proxy_model.set_status_filter(None, invalidate=False)
+
+        # Task type filter - don't invalidate
+        if master_on and self.task_type_filter_chk.isChecked():
+            self.proxy_model.set_task_type_filter(
+                self.task_type_filter_cb.currentData(), invalidate=False
+            )
+        else:
+            self.proxy_model.set_task_type_filter(None, invalidate=False)
+
+        # NOTE: No invalidateFilter() call - caller is responsible for triggering
+        # the filter pass (e.g., by calling setSourceModel which does it automatically)
+
+    def _populate_filter_dropdowns(self, jobs=None):
+        """Populate the status and task type filter dropdowns from job data.
+
+        This method has two modes:
+        1. If `jobs` is provided: Extract data from the loaded Job objects
+        2. If `jobs` is None/empty: Use SQLite cache queries (no unpickling)
 
         Preserves the previously selected value if it still exists in the
         updated list, to avoid resetting the user's filter on every refresh.
         """
-        # --- Status dropdown ---
-        statuses = sorted(
-            {job.status for job in jobs},
-            key=lambda s: s.value,
-        )
+        if jobs:
+            # Mode 1: Extract from loaded jobs (existing behavior)
+            statuses = sorted(
+                {job.status for job in jobs},
+                key=lambda s: s.value,
+            )
+            script_names = set()
+            for job in jobs:
+                if job.script is not None and job.script.name:
+                    script_names.add(job.script.name)
+            script_names = sorted(script_names)
+        else:
+            # Mode 2: Fast cache query - no Job unpickling needed
+            # This is much faster for initial UI population
+            try:
+                metadata = job_manager.get_job_dropdown_metadata()
+                statuses = sorted(
+                    {JobStatus(m["job_status"]) for m in metadata if m["job_status"]},
+                    key=lambda s: s.value,
+                )
+                script_names = sorted(
+                    {m["script_name"] for m in metadata if m["script_name"]}
+                )
+            except Exception:
+                # Fall back to empty if cache unavailable
+                statuses = []
+                script_names = []
 
+        # --- Status dropdown ---
         prev_status = self.status_filter_cb.currentData()
         if prev_status is None:
             prev_status = settings_manager.get_value(Setting.STATUS_FILTER_VALUE)
@@ -465,12 +561,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.status_filter_cb.blockSignals(False)
 
         # --- Task type dropdown ---
-        script_names = set()
-        for job in jobs:
-            if job.script is not None and job.script.name:
-                script_names.add(job.script.name)
-        script_names = sorted(script_names)
-
         prev_task_type = self.task_type_filter_cb.currentData()
         if prev_task_type is None:
             prev_task_type = settings_manager.get_value(Setting.TASK_TYPE_FILTER_VALUE)
@@ -558,8 +648,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             log("Skipping news fetch - offline mode enabled")
             return
 
-        log("Refreshing news from API")
-
         # Create a news client and fetch news
         news_client = NewsClient(self)
         news_client.news_fetched.connect(lambda items: self._display_news_items(items))
@@ -595,8 +683,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             news_widget = self._create_news_item_widget(item)
             self.news_container_layout.addWidget(news_widget)
             self._news_widgets.append(news_widget)
-
-        log(f"Displayed {len(active_items)} news items")
 
     def _update_news_tab_style(self, has_news: bool) -> None:
         """Update the News tab title style to indicate unread news."""
@@ -907,24 +993,52 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # to avoid locking the mutex twice.
         relevant_jobs = job_manager.relevant_jobs
 
-        model = jobs_mvc.JobsModel(job_manager, jobs_list=relevant_jobs)
-        # self.datasets_tv.setModel(model)
-        self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
-        self.type_filter_changed(TypeFilter.ALL)
+        # Pre-sort in Python (fast) so we can disable Qt sorting entirely
+        relevant_jobs = sorted(
+            relevant_jobs,
+            key=lambda j: j.start_date if j.start_date else dt.datetime.min,
+            reverse=True,  # Descending (newest first)
+        )
+
+        # Set ALL filter properties BEFORE updating the model data.
+        # This ensures there's only ONE filter pass when set_jobs() triggers
+        # beginResetModel/endResetModel.
+
+        # Set type filter property directly (no invalidation)
+        self.proxy_model.set_type_filter(TypeFilter.ALL)
+        self.lineEdit_search.setText("")
 
         # Populate status and task type dropdowns from actual job data
         self._populate_filter_dropdowns(relevant_jobs)
-        self._apply_all_filters()
 
-        self.filter_changed("")
+        # Set all filter properties WITHOUT triggering invalidation
+        self._apply_all_filters_no_invalidate()
+
         action = self.filter_menu.actions()[0]
         action.setChecked(True)
-        self.proxy_model.setSourceModel(model)
 
-        # NOTE: lineEdit_search.valueChanged is connected once in
-        # setup_datasets_page_gui() — do NOT reconnect here to avoid
-        # accumulating duplicate signal connections on every refresh.
-        self.datasets_tv.setModel(self.proxy_model)
+        # Only set source model on first load
+        is_first_load = self.proxy_model.sourceModel() is None
+        if is_first_load:
+            # Set filter regexp only on first load - it persists and doesn't need resetting
+            # Note: setFilterRegExp calls invalidateFilter internally, which is harmless
+            # when there's no data yet (source model is empty).
+            self.proxy_model.setFilterRegExp(
+                QtCore.QRegExp("*", QtCore.Qt.CaseInsensitive, QtCore.QRegExp.Wildcard)
+            )
+            self.proxy_model.setSourceModel(self.source_model)
+
+        # Data is pre-sorted in Python. Use sort(-1) to DISABLE Qt sorting.
+        self.proxy_model.sort(-1)
+
+        # NOW update the model data - this triggers ONE filter pass with all
+        # filter properties already set correctly
+        self.source_model.set_jobs(relevant_jobs)
+
+        # Only call setModel once (on first load). Subsequent refreshes just
+        # update the source model above, and Qt automatically updates the view.
+        if self.datasets_tv.model() is None:
+            self.datasets_tv.setModel(self.proxy_model)
 
         self.resume_scheduler()
         self.cache_refresh_finished.emit()

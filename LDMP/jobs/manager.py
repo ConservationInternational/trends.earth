@@ -43,6 +43,7 @@ from .. import download as ldmp_download
 from ..constants import TIMEOUT, get_api_url
 from ..logger import log
 from . import models
+from .cache import JobCache
 from .models import Job
 
 logger = logging.getLogger(__name__)
@@ -60,14 +61,6 @@ def _get_job_schema():
     if _job_schema is None:
         _job_schema = Job.Schema()
     return _job_schema
-
-
-def _normalize_cache_key(path: Path) -> str:
-    """Normalize a path for use as a cache key."""
-    resolved = str(path.resolve())
-    if os.name == "nt":  # Windows
-        return resolved.lower()
-    return resolved
 
 
 class tr_manager:
@@ -455,14 +448,9 @@ class JobManager(QtCore.QObject):
         self._dir_job_cache: typing.Dict[
             Path, typing.Dict[jobs.JobStatus, typing.List[Job]]
         ] = {}
-        # Persistent file-level cache. Keyed by normalized path string (lowercase on
-        # Windows for case-insensitivity), stores (mtime, Job) or (mtime, None) for
-        # files that failed to parse. NOT cleared between refresh cycles - only
-        # invalidated when files change. This avoids re-parsing unchanged job files
-        # (which can be large due to params) and avoids retrying broken files.
-        self._file_job_cache: typing.Dict[
-            str, typing.Tuple[float, typing.Optional[Job]]
-        ] = {}
+        # SQLite-based persistent cache for Job objects. Survives QGIS restarts,
+        # eliminating the need to re-parse large JSON files on every startup.
+        self._job_cache = JobCache()
         # Flag to track when background file scanning is in progress.
         # Used to prevent download operations from conflicting with file I/O.
         self._scanning_files = False
@@ -561,6 +549,25 @@ class JobManager(QtCore.QObject):
             self._state_update_mutex.unlock()
         return result
 
+    def get_job_dropdown_metadata(
+        self,
+        status_filter: typing.Optional[typing.List[str]] = None,
+    ) -> typing.List[typing.Dict[str, typing.Any]]:
+        """Get lightweight metadata for all jobs, suitable for dropdown population.
+
+        This reads directly from SQLite indexed columns - no Job unpickling needed.
+        Returns job_id, job_status, script_id, script_name, and extent for each job.
+
+        Args:
+            status_filter: Optional list of job_status values to include.
+                          If None, excludes only FAILED_PARSE entries.
+
+        Returns:
+            List of dicts with keys: job_id, job_status, script_id, script_name,
+            extent_north, extent_south, extent_east, extent_west, path
+        """
+        return self._job_cache.get_dropdown_metadata(status_filter)
+
     @property
     def running_jobs_dir(self) -> Path:
         return (
@@ -615,14 +622,54 @@ class JobManager(QtCore.QObject):
             self._known_pending_jobs = {}
             self._known_cancelled_jobs = {}
             self._known_expired_jobs = {}
+            # Params preserved from jobs transitioning away from RUNNING status.
+            # Used to restore params when fetching finished job data from remote.
+            self._transitioned_job_params: typing.Dict[uuid.UUID, dict] = {}
+            # Metadata preserved from jobs transitioning status. The remote API
+            # excludes task_name/task_notes, so we save them for later merging.
+            self._transitioned_job_metadata: typing.Dict[
+                uuid.UUID, typing.Dict[str, typing.Any]
+            ] = {}
             # Also clear the per-directory cache (may not exist yet during __init__)
             if hasattr(self, "_dir_job_cache"):
                 self._dir_job_cache.clear()
-            # Clear persistent file cache to ensure fresh parsing if base dir changes
-            if hasattr(self, "_file_job_cache"):
-                self._file_job_cache.clear()
         finally:
             self._state_update_mutex.unlock()
+
+    def _preserve_job_data(self, job: Job) -> None:
+        """Preserve params and metadata from a job before its file is removed.
+
+        The remote API excludes params, task_name, task_notes, and local_context
+        to reduce bandwidth. We save these fields so they can be restored when
+        the job reappears with a new status.
+        """
+        if job.params:
+            self._transitioned_job_params[job.id] = job.params
+        metadata = {}
+        if job.task_name:
+            metadata["task_name"] = job.task_name
+        if job.task_notes:
+            metadata["task_notes"] = job.task_notes
+        if job.local_context:
+            metadata["local_context"] = job.local_context
+        if metadata:
+            self._transitioned_job_metadata[job.id] = metadata
+
+    def _restore_job_data(self, job: Job) -> None:
+        """Restore preserved params and metadata to a job from remote API.
+
+        This merges data saved by _preserve_job_data back into the job object.
+        """
+        if not job.params and job.id in self._transitioned_job_params:
+            job.params = self._transitioned_job_params.pop(job.id)
+        if job.id in self._transitioned_job_metadata:
+            metadata = self._transitioned_job_metadata.pop(job.id)
+            if not job.task_name and "task_name" in metadata:
+                job.task_name = metadata["task_name"]
+            if not job.task_notes and "task_notes" in metadata:
+                job.task_notes = metadata["task_notes"]
+            if not job.local_context and "local_context" in metadata:
+                job.local_context = metadata["local_context"]
 
     def _get_internal_dict_for_status(
         self, status: jobs.JobStatus
@@ -682,8 +729,16 @@ class JobManager(QtCore.QObject):
             self._scanning_files = False
 
     def _preload_local_jobs_cache_inner(self):
-        """Inner implementation of cache preloading."""
-        # Clear cache first - no mutex needed as we're just preparing data
+        """Inner implementation of cache preloading.
+
+        Always does a full directory scan to ensure job statuses are current.
+        The SQLite cache provides speedup via mtime-based caching in
+        _load_jobs_from_dir() - files that haven't changed are loaded from
+        cache instead of being re-parsed.
+        """
+        # Always do full directory scan to get current job statuses.
+        # SQLite cache is used as a parse cache (via mtime checks in
+        # _load_jobs_from_dir), not as a status cache.
         self._dir_job_cache.clear()
 
         # Preload all directories that will be needed by the refresh methods
@@ -1177,6 +1232,28 @@ class JobManager(QtCore.QObject):
         """
         while self.download_one_available_result():
             pass
+
+    def ensure_results_loaded(self, job: Job) -> bool:
+        """Ensure that ``job.results`` is populated.
+
+        When jobs are loaded from the SQLite cache without results (for fast
+        UI display), this method lazily loads the results pickle on demand.
+        Returns True if results are available after the call.
+        """
+        if job.results is not None:
+            return True
+        return self._job_cache.load_results_for_job(job)
+
+    def ensure_params_loaded(self, job: Job) -> bool:
+        """Ensure that ``job.params`` is populated.
+
+        When jobs are loaded from the SQLite cache without params (for fast
+        UI display), this method lazily loads the params pickle on demand.
+        Returns True if params are available after the call.
+        """
+        if job.params:
+            return True
+        return self._job_cache.load_params_for_job(job)
 
     def display_default_job_results(self, job: Job):
         # Handle list of results
@@ -1792,9 +1869,21 @@ class JobManager(QtCore.QObject):
                 self._known_running_jobs[remote_job.id] = remote_job
                 self.update_job_from_remote(remote_job, old_running_job)
             else:  # job is not running anymore - maybe it is finished
+                # Preserve params and metadata before removing file. The remote
+                # API excludes params/task_name/task_notes to reduce bandwidth,
+                # so we save them for later merging when the finished job data
+                # is fetched and written to disk.
+                self._preserve_job_data(old_running_job)
                 self._remove_job_metadata_file(old_running_job)
         # now check for any new jobs (these might have been submitted by another client)
         known_running = [j.id for j in self._known_running_jobs.values()]
+
+        # Build a lookup of local PENDING/READY jobs so we can restore their params
+        # when they transition to RUNNING status
+        local_pending_jobs = {
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.PENDING)
+        }
+        local_ready_jobs = {j.id: j for j in self._get_local_jobs(jobs.JobStatus.READY)}
 
         for remote in remote_jobs:
             remote_running = remote.status == jobs.JobStatus.RUNNING
@@ -1804,8 +1893,17 @@ class JobManager(QtCore.QObject):
                     f"Found new remote job: {remote.id!r}. Adding it to local base "
                     f"directory..."
                 )
+                # Check if this job was previously PENDING/READY with data
+                local_job = local_pending_jobs.get(remote.id) or local_ready_jobs.get(
+                    remote.id
+                )
+                if local_job is not None:
+                    # Preserve data from the old status before removing that file
+                    self._preserve_job_data(local_job)
+                    self._remove_job_metadata_file(local_job)
+                # Restore preserved params and metadata
+                self._restore_job_data(remote)
                 self._known_running_jobs[remote.id] = remote
-                # New job from another client - no local data to merge
                 self.write_job_metadata_file(remote)
 
         return self._known_running_jobs
@@ -1836,6 +1934,8 @@ class JobManager(QtCore.QObject):
                 # so we need to fetch the complete job data for downloading.
                 full_job = get_remote_job_with_results(remote_job.id)
                 if full_job is not None:
+                    # Restore preserved params and metadata (task_name, etc.)
+                    self._restore_job_data(full_job)
                     self._known_finished_jobs[full_job.id] = full_job
                     self.write_job_metadata_file(full_job)
                 else:
@@ -1843,6 +1943,8 @@ class JobManager(QtCore.QObject):
                     log(
                         f"Could not fetch results for job {remote_job.id}, storing minimal data"
                     )
+                    # Restore preserved params and metadata for the fallback case
+                    self._restore_job_data(remote_job)
                     self._known_finished_jobs[remote_job.id] = remote_job
                     self.write_job_metadata_file(remote_job)
 
@@ -1925,33 +2027,29 @@ class JobManager(QtCore.QObject):
                         log(f"Cannot stat file {job_metadata_path!r}: {exc}")
                     continue
 
-                # Check persistent file cache - avoid re-parsing unchanged files
-                # Use normalized key for cross-platform compatibility (case-insensitive on Windows)
-                cache_key = _normalize_cache_key(job_metadata_path)
-                cached = self._file_job_cache.get(cache_key)
-                if cached is not None:
-                    cached_mtime, cached_job = cached
-                    if cached_mtime == file_mtime:
-                        if cached_job is None:
-                            # File previously failed to parse - skip until it changes
-                            continue
-                        # File unchanged - use cached Job
-                        grouped.setdefault(cached_job.status, []).append(cached_job)
-                        continue
+                # Check SQLite cache (persists across QGIS restarts)
+                if self._job_cache.is_failed_file(job_metadata_path, file_mtime):
+                    # Skip known-bad files until they change
+                    continue
+
+                cached_job = self._job_cache.get_cached_job(
+                    job_metadata_path, file_mtime
+                )
+                if cached_job is not None:
+                    grouped.setdefault(cached_job.status, []).append(cached_job)
+                    continue
 
                 # File is new or changed - need to parse it
                 try:
                     if not self._is_json_file_safe(job_metadata_path):
-                        # Cache failure so we don't retry until file changes
-                        self._file_job_cache[cache_key] = (file_mtime, None)
+                        self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                         if conf.settings_manager.get_value(conf.Setting.DEBUG):
                             log(
                                 f"Skipping unsafe or corrupted file {job_metadata_path!r}"
                             )
                         continue
                 except Exception as exc:
-                    # Cache failure so we don't retry until file changes
-                    self._file_job_cache[cache_key] = (file_mtime, None)
+                    self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                     log(
                         f"Error checking safety of file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
                     )
@@ -1962,8 +2060,7 @@ class JobManager(QtCore.QObject):
                         raw_job = json.load(fh)
 
                     if not isinstance(raw_job, dict):
-                        # Cache failure so we don't retry until file changes
-                        self._file_job_cache[cache_key] = (file_mtime, None)
+                        self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                         if conf.settings_manager.get_value(conf.Setting.DEBUG):
                             log(
                                 f"File {job_metadata_path!r} does not contain a valid JSON object"
@@ -2000,37 +2097,32 @@ class JobManager(QtCore.QObject):
                                 f"Failed to persist extents for job {job.id}: {type(exc).__name__}: {exc}"
                             )
 
-                    # Update file cache with parsed job
-                    self._file_job_cache[cache_key] = (file_mtime, job)
+                    # Update SQLite cache with parsed job
+                    self._job_cache.cache_job(job_metadata_path, file_mtime, job)
                     grouped.setdefault(job.status, []).append(job)
                 except (OSError, IOError, PermissionError) as exc:
-                    # Cache failure so we don't retry until file changes
-                    self._file_job_cache[cache_key] = (file_mtime, None)
+                    self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Failed to read file {job_metadata_path!r}: {exc}")
                 except (KeyError, json.decoder.JSONDecodeError) as exc:
-                    # Cache failure so we don't retry until file changes
-                    self._file_job_cache[cache_key] = (file_mtime, None)
+                    self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
                             f"Unable to decode file {job_metadata_path!r} as valid json: {exc}"
                         )
                 except ValidationError as exc:
-                    # Cache failure so we don't retry until file changes
-                    self._file_job_cache[cache_key] = (file_mtime, None)
+                    self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
                             f"Unable to decode file {job_metadata_path!r} - validation error: {exc}"
                         )
                 except (ValueError, TypeError, AttributeError, MemoryError) as exc:
-                    # Cache failure so we don't retry until file changes
-                    self._file_job_cache[cache_key] = (file_mtime, None)
+                    self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                     log(
                         f"Error processing file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
                     )
                 except RuntimeError as exc:
-                    # Cache failure so we don't retry until file changes
-                    self._file_job_cache[cache_key] = (file_mtime, None)
+                    self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                     log(f"Runtime error processing file {job_metadata_path!r}: {exc}")
             except (OSError, IOError, PermissionError) as exc:
                 log(f"File system error accessing {job_metadata_path!r}: {exc}")
@@ -2186,20 +2278,29 @@ class JobManager(QtCore.QObject):
         self._invalidate_dir_cache_for_path(output_path)
 
     def update_job_from_remote(self, remote_job: Job, local_job: typing.Optional[Job]):
-        """Update job metadata file from remote, preserving local params.
+        """Update job metadata file from remote, preserving local data.
 
-        When syncing with the server, we exclude params and results from the API
-        response to reduce payload size. This method merges remote updates (status,
-        progress) with locally-stored params before writing. For RUNNING jobs,
-        results aren't available yet so excluding them is fine.
+        When syncing with the server, we exclude params, task_name, task_notes,
+        and local_context from the API response to reduce payload size. This
+        method merges remote updates (status, progress) with locally-stored
+        data before writing. For RUNNING jobs, results aren't available yet
+        so excluding them is fine.
 
         Args:
             remote_job: Job data from API (may have empty params and no results)
             local_job: Existing local job data, or None if not found locally
         """
-        if local_job is not None and remote_job.params == {}:
+        if local_job is not None:
             # Remote response excluded params - preserve the local ones
-            remote_job.params = local_job.params
+            if not remote_job.params and local_job.params:
+                remote_job.params = local_job.params
+            # Also preserve task_name, task_notes, and local_context
+            if not remote_job.task_name and local_job.task_name:
+                remote_job.task_name = local_job.task_name
+            if not remote_job.task_notes and local_job.task_notes:
+                remote_job.task_notes = local_job.task_notes
+            if not remote_job.local_context and local_job.local_context:
+                remote_job.local_context = local_job.local_context
         self.write_job_metadata_file(remote_job)
 
     def _remove_job_metadata_file(self, job: Job):
@@ -2212,7 +2313,7 @@ class JobManager(QtCore.QObject):
         self._invalidate_dir_cache_for_path(old_path)
 
     def _invalidate_dir_cache_for_path(self, file_path: Path):
-        """Remove cached directory scan results and file cache entries for *file_path*.
+        """Remove cached directory scan results for *file_path*.
 
         The directory cache is keyed by base directory (e.g. ``running_jobs_dir``,
         ``datasets_dir``).  For most statuses the file sits directly inside
@@ -2220,14 +2321,10 @@ class JobManager(QtCore.QObject):
         For DOWNLOADED / GENERATED_LOCALLY the file is one level deeper
         (``datasets_dir/{job_id}/file.json``), so we also check the
         grandparent.
-
-        Also invalidates the persistent file cache entry for this specific file.
         """
         self._dir_job_cache.pop(file_path.parent, None)
         if file_path.parent != file_path.parent.parent:
             self._dir_job_cache.pop(file_path.parent.parent, None)
-        # Also invalidate file-level cache (uses normalized key for cross-platform)
-        self._file_job_cache.pop(_normalize_cache_key(file_path), None)
 
     def _refresh_remote_jobs_by_status(self, remote_jobs: typing.List[Job]) -> None:
         """Update in-memory cache with READY, PENDING, and CANCELLED jobs from remote server"""
@@ -2253,12 +2350,27 @@ class JobManager(QtCore.QObject):
 
         for remote_job in remote_jobs:
             if remote_job.status == jobs.JobStatus.READY:
+                # Restore preserved params and metadata if available
+                self._restore_job_data(remote_job)
+                # Persist to disk if we restored data
+                if remote_job.params or remote_job.task_name:
+                    self.write_job_metadata_file(remote_job)
                 self._known_ready_jobs[remote_job.id] = remote_job
                 remote_ids_by_status[jobs.JobStatus.READY].add(remote_job.id)
             elif remote_job.status == jobs.JobStatus.PENDING:
+                # Restore preserved params and metadata if available
+                self._restore_job_data(remote_job)
+                # Persist to disk if we restored data
+                if remote_job.params or remote_job.task_name:
+                    self.write_job_metadata_file(remote_job)
                 self._known_pending_jobs[remote_job.id] = remote_job
                 remote_ids_by_status[jobs.JobStatus.PENDING].add(remote_job.id)
             elif remote_job.status == jobs.JobStatus.CANCELLED:
+                # Restore preserved params and metadata if available
+                self._restore_job_data(remote_job)
+                # Persist to disk if we restored data
+                if remote_job.params or remote_job.task_name:
+                    self.write_job_metadata_file(remote_job)
                 self._known_cancelled_jobs[remote_job.id] = remote_job
                 remote_ids_by_status[jobs.JobStatus.CANCELLED].add(remote_job.id)
 
@@ -2272,6 +2384,8 @@ class JobManager(QtCore.QObject):
                 and local_job.id not in remote_ids_by_status[jobs.JobStatus.READY]
             ):
                 # Job exists remotely but with different status - it has changed
+                # Preserve params and metadata before removing file
+                self._preserve_job_data(local_job)
                 if local_job.id in self._known_ready_jobs:
                     del self._known_ready_jobs[local_job.id]
                     self._remove_job_metadata_file(local_job)
@@ -2282,6 +2396,8 @@ class JobManager(QtCore.QObject):
                 and local_job.id not in remote_ids_by_status[jobs.JobStatus.PENDING]
             ):
                 # Job exists remotely but with different status - it has changed
+                # Preserve params and metadata before removing file
+                self._preserve_job_data(local_job)
                 if local_job.id in self._known_pending_jobs:
                     del self._known_pending_jobs[local_job.id]
                     self._remove_job_metadata_file(local_job)
@@ -2292,6 +2408,8 @@ class JobManager(QtCore.QObject):
                 and local_job.id not in remote_ids_by_status[jobs.JobStatus.CANCELLED]
             ):
                 # Job exists remotely but with different status - it has changed
+                # Preserve params and metadata before removing file
+                self._preserve_job_data(local_job)
                 if local_job.id in self._known_cancelled_jobs:
                     del self._known_cancelled_jobs[local_job.id]
                     self._remove_job_metadata_file(local_job)
@@ -2313,6 +2431,8 @@ class JobManager(QtCore.QObject):
                 continue  # we already know about this job
             else:
                 # this is a new failed job that we are interested in
+                # Restore preserved params and metadata (task_name, etc.)
+                self._restore_job_data(remote_job)
                 self._known_failed_jobs[remote_job.id] = remote_job
                 self.write_job_metadata_file(remote_job)
 

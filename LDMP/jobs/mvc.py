@@ -49,6 +49,17 @@ class JobsModel(QtCore.QAbstractItemModel):
             jobs_list if jobs_list is not None else job_manager.relevant_jobs
         )
 
+    def set_jobs(self, jobs_list: typing.List[Job]) -> None:
+        """Update the model's job list in place.
+
+        This is more efficient than creating a new model and calling setSourceModel(),
+        because Qt doesn't need to disconnect/reconnect proxy model signals.
+        The beginResetModel/endResetModel pair tells views to refresh.
+        """
+        self.beginResetModel()
+        self._relevant_jobs = jobs_list
+        self.endResetModel()
+
     def index(
         self, row: int, column: int, parent: QtCore.QModelIndex
     ) -> QtCore.QModelIndex:
@@ -113,21 +124,27 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         self.type_filter = TypeFilter.ALL  # Initialize with default value
         self.status_filter = None  # None means "show all"
         self.task_type_filter = None  # None means "show all"
+        # CRITICAL: Disable dynamic sort/filter to prevent Qt from re-sorting
+        # the entire model every time ANY data changes.
+        self.setDynamicSortFilter(False)
 
-    def set_date_filter(self, start_date, end_date):
+    def set_date_filter(self, start_date, end_date, invalidate=True):
         self.start_date = start_date
         self.end_date = end_date
-        self.invalidateFilter()
+        if invalidate:
+            self.invalidateFilter()
 
-    def set_status_filter(self, status):
+    def set_status_filter(self, status, invalidate=True):
         """Set the status filter. Pass None to show all statuses."""
         self.status_filter = status
-        self.invalidateFilter()
+        if invalidate:
+            self.invalidateFilter()
 
-    def set_task_type_filter(self, script_name):
+    def set_task_type_filter(self, script_name, invalidate=True):
         """Set the task type filter. Pass None to show all task types."""
         self.task_type_filter = script_name
-        self.invalidateFilter()
+        if invalidate:
+            self.invalidateFilter()
 
     def filterAcceptsRow(self, source_row: int, source_parent: QtCore.QModelIndex):
         jobs_model = self.sourceModel()
@@ -149,32 +166,21 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
         # Date filtering logic
         matches_date = True
-        # Only apply date filtering if we have all required dates
-        # Use try-except to handle any unexpected None values or type issues defensively
         if self.start_date and self.end_date:
             try:
-                if (
-                    job.start_date is not None
-                    and job.end_date is not None
-                    and hasattr(job.start_date, "strftime")
-                    and hasattr(job.end_date, "strftime")
-                ):
+                if job.start_date is not None and hasattr(job.start_date, "strftime"):
                     job_start_date = QtCore.QDateTime.fromString(
                         job.start_date.strftime("%Y-%m-%d %H:%M:%S"),
                         "yyyy-MM-dd HH:mm:ss",
                     )
-                    job_end_date = QtCore.QDateTime.fromString(
-                        job.end_date.strftime("%Y-%m-%d %H:%M:%S"),
-                        "yyyy-MM-dd HH:mm:ss",
-                    )
                     matches_date = (
                         job_start_date >= self.start_date
-                        and job_end_date <= self.end_date
+                        and job_start_date <= self.end_date
                     )
+                else:
+                    matches_date = False
             except (AttributeError, ValueError, TypeError):
-                # If any error occurs during date conversion, don't filter by date
-                # This handles cases where job dates might be None or invalid
-                pass
+                matches_date = False
 
         # Status filtering logic
         matches_status = True
@@ -198,17 +204,9 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         )
 
     def lessThan(self, left: QtCore.QModelIndex, right: QtCore.QModelIndex) -> bool:
-        model = self.sourceModel()
-        left_job: Job = model.data(left)
-        right_job: Job = model.data(right)
-        to_sort = (left_job, right_job)
-
-        if self.current_sort_field == SortField.DATE:
-            result = sorted(to_sort, key=lambda j: j.start_date)[0] == left_job
-        else:
-            raise NotImplementedError
-
-        return result
+        # Source data is pre-sorted in Python. Just compare row indices.
+        # This is O(1) - even if Qt calls lessThan 850k times, it's instant.
+        return left.row() < right.row()
 
     def set_type_filter(self, filter_type):
         self.type_filter = filter_type
@@ -217,6 +215,10 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 class JobItemDelegate(QtWidgets.QStyledItemDelegate):
     current_index: typing.Optional[QtCore.QModelIndex]
     main_dock: "MainWidget"
+
+    # Class-level cached size - all job items are the same size since they use
+    # the same widget template
+    _uniform_item_size: typing.ClassVar[typing.Optional[QtCore.QSize]] = None
 
     def __init__(
         self,
@@ -240,6 +242,9 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         """
         self._pixmap_cache.clear()
         self._size_cache.clear()
+        # Note: _uniform_item_size is intentionally NOT cleared here.
+        # The widget template size doesn't change, and recomputing it
+        # would require creating a widget which is expensive.
 
     @staticmethod
     def _cache_key(item: "Job", rect_w: int = 0, rect_h: int = 0) -> typing.Tuple:
@@ -283,17 +288,17 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         item = source_model.data(source_index, QtCore.Qt.DisplayRole)
 
         if isinstance(item, Job):
-            key = self._cache_key(item)
-            size = self._size_cache.get(key)
-
-            if size is None:
-                # parent set to none otherwise remain painted in the widget
+            # All job items use the same widget template (WidgetDatasetItemUi),
+            # so they all have the same size. Compute once and reuse for all items.
+            # This avoids creating 278+ expensive widgets just to measure size,
+            # which was causing multi-second UI freezes.
+            if JobItemDelegate._uniform_item_size is None:
+                # Create one widget to measure its size
                 widget = self.createEditor(None, option, index)
-                size = widget.size()
+                JobItemDelegate._uniform_item_size = widget.size()
                 del widget
-                self._size_cache[key] = size
 
-            return size
+            return JobItemDelegate._uniform_item_size
 
         return super().sizeHint(option, index)
 
@@ -580,15 +585,18 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         if self.job.status not in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
             return False
 
-        if not (hasattr(self.job, "results") and self.job.results):
-            return False
-
-        # Check for vector results with actual accessible URI using helper methods
+        # Use cache-aware is_vector() / is_raster() which work even when
+        # results have not been loaded from pickle.
         has_vector = self.job.is_vector()
         has_raster = self.job.is_raster()
 
         # Only return true if we have both types AND they're actually accessible
         if has_vector and has_raster:
+            # Need results loaded to verify the vector URI is actually local.
+            # If results are not loaded yet, trust the cached flags and return True.
+            if self.job.results is None:
+                return True
+
             # Additional check: make sure the vector URI actually points to a file
             # (not just a placeholder or remote URL)
             vector_result = self.job.get_first_result_by_type(VectorResults)
@@ -622,6 +630,17 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.download_tb.hide()
 
     def has_loadable_result(self):
+        """Check if this job has loadable results.
+
+        When results are loaded, checks directly. When results are not loaded
+        (for performance), uses the cached has_loadable_result flag from SQLite.
+        """
+        # First check for cached value (set when loading from SQLite without results)
+        cached_value = getattr(self.job, "_cached_has_loadable_result", None)
+        if cached_value is not None:
+            return cached_value
+
+        # Fall back to checking results directly
         result = False
 
         if self.job.results is not None:
@@ -638,6 +657,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         return result
 
     def show_details(self):
+        manager.job_manager.ensure_results_loaded(self.job)
+        manager.job_manager.ensure_params_loaded(self.job)
         self.main_dock.pause_scheduler()
         DatasetDetailsDialogue(self.job, parent=iface.mainWindow()).exec_()
         self.main_dock.resume_scheduler()
@@ -691,6 +712,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         )
 
     def load_dataset(self):
+        manager.job_manager.ensure_results_loaded(self.job)
         manager.job_manager.display_default_job_results(self.job)
 
     def delete_dataset(self):
@@ -699,6 +721,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.main_dock.resume_scheduler()
 
     def load_dataset_choose_layers(self):
+        manager.job_manager.ensure_results_loaded(self.job)
         self.main_dock.pause_scheduler()
         dialogue = DlgDataIOAddLayersToMap(self, self.job)
         dialogue.exec_()
@@ -706,6 +729,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def load_layer(self):
         # Display only vector layers - this is triggered by "Add vector layer to map"
+        manager.job_manager.ensure_results_loaded(self.job)
         for result in self.job._get_results_list():
             if isinstance(result, VectorResults):
                 layer_path = result.uri.uri
@@ -715,6 +739,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def show_time_series_plot(self):
         """Show the time series plot dialog as a non-blocking, persistent dialog."""
         from ..dialog_manager import dialog_manager
+
+        manager.job_manager.ensure_results_loaded(self.job)
 
         # Get table from TimeSeriesTableResult if available
         ts_result = self.job.get_first_result_by_type(TimeSeriesTableResult)

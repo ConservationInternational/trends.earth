@@ -1,7 +1,7 @@
 import dataclasses
 import json
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 from te_algorithms.gdal.drought import summarise_drought_vulnerability
 from te_schemas.aoi import AOI
@@ -15,6 +15,8 @@ MASK_VALUE = -32767
 
 POPULATION_BAND_NAME = "Population (number of people)"
 SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
+SPEI_BAND_NAME = "Standardized Precipitation Evapotranspiration Index (SPEI)"
+SPI_SPEI_BAND_NAMES = [SPI_BAND_NAME, SPEI_BAND_NAME]
 
 
 @dataclasses.dataclass()
@@ -39,7 +41,7 @@ class DroughtInputInfo:
 
 def _get_drought_inputs(
     data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting,
-    band_name: str,
+    band_name: Union[str, List[str]],
     sort_property: str = "year",
 ) -> DroughtInputInfo:
     bands = data_selection_widget.get_bands(band_name)
@@ -58,7 +60,7 @@ def _get_drought_inputs(
 
 
 def _get_spi_lag(data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting):
-    band = data_selection_widget.get_bands(SPI_BAND_NAME)[0]
+    band = data_selection_widget.get_bands(SPI_SPEI_BAND_NAMES)[0]
 
     return band.band_info.metadata["lag"]
 
@@ -89,7 +91,7 @@ def get_main_drought_summary_job_params(
     combo_layer_so3_vulnerability: data_io.WidgetDataIOSelectTELayerExisting,
     task_notes: Optional[str] = "",
 ) -> Dict:
-    spi_input = _get_drought_inputs(combo_dataset_drought, SPI_BAND_NAME)
+    spi_input = _get_drought_inputs(combo_dataset_drought, SPI_SPEI_BAND_NAMES)
     population_input = _get_drought_inputs(combo_dataset_drought, POPULATION_BAND_NAME)
     spi_lag = _get_spi_lag(combo_dataset_drought)
 

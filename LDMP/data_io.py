@@ -2194,7 +2194,7 @@ PROD_MODE_FOR_BAND = {
     maxsize=None
 )  # not using functools.cache, as it was only introduced in Python 3.9
 def _get_usable_bands(
-    band_name: typing.Optional[str] = "any",
+    band_name: typing.Optional[typing.Union[str, typing.List[str]]] = "any",
     selected_job_id: uuid.UUID = None,
     filter_field: str = None,
     filter_value: str = None,
@@ -2258,7 +2258,12 @@ def _get_usable_bands(
         for band_index, band_info in enumerate(raster_result.get_bands(), start=1):
             if raster_result.uri is None:
                 continue
-            if not (band_info.name == band_name or band_name == "any"):
+            # Handle band_name as either a string or list of strings
+            if isinstance(band_name, list):
+                matches_name = band_info.name in band_name
+            else:
+                matches_name = band_info.name == band_name or band_name == "any"
+            if not matches_name:
                 continue
             if aoi is not None and not _check_dataset_overlap_raster(
                 aoi, raster_result, job.visible_name, job

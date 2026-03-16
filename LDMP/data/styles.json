@@ -24,6 +24,18 @@
       ]
     }
   },
+  "Mean annual NDVI integral": {
+    "title": "mean_annual_ndvi_integral_title",
+    "ramp": {
+      "type": "min zero stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "zero": { "color": "#9b2779" },
+      "mid": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
   "Productivity state (degradation)": {
     "title": "prod_state_change_title",
     "ramp": {

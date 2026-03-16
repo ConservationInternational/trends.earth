@@ -101,6 +101,10 @@ style_text_dict = {
     "prod_traj_signif_inc_95": tr_layers.tr(
         "Improvement (significant increase, p < .05)"
     ),
+    # Mean annual NDVI integral
+    "mean_annual_ndvi_integral_title": tr_layers.tr(
+        "Mean annual NDVI integral ({year_initial} to {year_final})"
+    ),
     # Land productivity performance
     "prod_perf_deg_title": tr_layers.tr(
         "Land productivity performance degradation ({year_initial} to {year_final})"

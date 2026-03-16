@@ -972,8 +972,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         log("area settings have been saved")
 
 
-class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
-    authConfigInitialised = QtCore.pyqtSignal(str)
+class ProfileFormMixin:
+    """
+    Mixin class providing shared functionality for user profile forms
+    (registration and profile update dialogs).
+    """
 
     GENDER_OPTIONS = [
         ("", ""),
@@ -1020,27 +1023,19 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
         ("Other", "other"),
     ]
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
-        self.setupUi(self)
-
-        self.admin_bounds_key = download.get_admin_bounds()
-        self.country.addItem("")  # Empty default to force selection
-        self.country.addItems(sorted(self.admin_bounds_key.keys()))
-
-        # Populate gender identity combo
+    def _populate_profile_combos(self):
+        """Populate the gender, purpose, and sector combo boxes."""
         for label, value in self.GENDER_OPTIONS:
             self.gender_identity.addItem(label, value)
 
-        # Populate purpose of use combo
         for label, value in self.PURPOSE_OPTIONS:
             self.purpose_of_use.addItem(label, value)
 
-        # Populate sector combo
         for label, value in self.SECTOR_OPTIONS:
             self.sector.addItem(label, value)
 
+    def _setup_conditional_fields(self):
+        """Setup initial visibility and connect signals for conditional fields."""
         # Initially hide conditional fields
         self.label_gender_description.setVisible(False)
         self.gender_identity_description.setVisible(False)
@@ -1053,11 +1048,6 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
         self.gender_identity.currentIndexChanged.connect(self._on_gender_changed)
         self.sector.currentIndexChanged.connect(self._on_sector_changed)
         self.purpose_of_use.currentIndexChanged.connect(self._on_purpose_changed)
-
-        self.buttonBox.accepted.connect(self.register)
-        self.buttonBox.rejected.connect(self.close)
-
-        self.api_client = api.APIClient(get_api_url(), TIMEOUT)
 
     def _on_gender_changed(self, index):
         show = self.gender_identity.currentData() == "self_describe"
@@ -1074,46 +1064,46 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
         self.label_purpose_other.setVisible(purpose == "other")
         self.purpose_of_use_other.setVisible(purpose == "other")
 
-    def register(self):
+    def _validate_profile_fields(self):
+        """
+        Validate required profile fields. Returns True if valid, False otherwise.
+        Shows error messages for invalid fields.
+        """
         if not self.email.text():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Enter your email address.")
             )
-            return
-        # Basic email format validation
-        email = self.email.text().strip()
-        if "@" not in email or "." not in email.split("@")[-1]:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr("Please enter a valid email address."),
-            )
-            return
-        elif not self.name.text():
+            return False
+
+        if not self.name.text():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Enter your name.")
             )
-            return
-        elif not self.organization.text():
+            return False
+
+        if not self.organization.text():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Enter your organization.")
             )
-            return
-        elif not self.sector.currentText():
+            return False
+
+        if not self.sector.currentText():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Select your sector.")
             )
-            return
-        elif not self.purpose_of_use.currentText():
+            return False
+
+        if not self.purpose_of_use.currentText():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Select your purpose of use.")
             )
-            return
-        elif not self.country.currentText():
+            return False
+
+        if not self.country.currentText():
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Select your country.")
             )
-            return
+            return False
 
         # Validate GEE license acknowledgment
         if not self.gee_license_acknowledged.isChecked():
@@ -1122,35 +1112,38 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
                 self.tr("Error"),
                 self.tr(
                     "You must acknowledge responsibility for GEE "
-                    "commercial licensing to register."
+                    "commercial licensing if needed."
                 ),
             )
-            return
+            return False
 
         # Validate sector "Other" has description
-        sector = self.sector.currentData()
-        if sector == "other" and not self.sector_other.text().strip():
+        if (
+            self.sector.currentData() == "other"
+            and not self.sector_other.text().strip()
+        ):
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr("Please specify your sector."),
             )
-            return
+            return False
 
         # Validate purpose of use "Other" has description
-        purpose = self.purpose_of_use.currentData()
-        if purpose == "other" and not self.purpose_of_use_other.text().strip():
+        if (
+            self.purpose_of_use.currentData() == "other"
+            and not self.purpose_of_use_other.text().strip()
+        ):
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr("Please specify your purpose of use."),
             )
-            return
+            return False
 
         # Validate gender self-describe has description
-        gender = self.gender_identity.currentData()
         if (
-            gender == "self_describe"
+            self.gender_identity.currentData() == "self_describe"
             and not self.gender_identity_description.text().strip()
         ):
             QtWidgets.QMessageBox.critical(
@@ -1158,7 +1151,50 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
                 self.tr("Error"),
                 self.tr("Please provide your gender identity description."),
             )
+            return False
+
+        return True
+
+
+class DlgSettingsRegister(ProfileFormMixin, QtWidgets.QDialog, Ui_DlgSettingsRegister):
+    authConfigInitialised = QtCore.pyqtSignal(str)
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setupUi(self)
+
+        self.admin_bounds_key = download.get_admin_bounds()
+        self.country.addItem("")  # Empty default to force selection
+        self.country.addItems(sorted(self.admin_bounds_key.keys()))
+
+        # Use mixin methods to populate combos and setup conditional fields
+        self._populate_profile_combos()
+        self._setup_conditional_fields()
+
+        self.buttonBox.accepted.connect(self.register)
+        self.buttonBox.rejected.connect(self.close)
+
+        self.api_client = api.APIClient(get_api_url(), TIMEOUT)
+
+    def register(self):
+        # Basic email format validation (additional to shared validation)
+        email = self.email.text().strip()
+        if email and ("@" not in email or "." not in email.split("@")[-1]):
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Please enter a valid email address."),
+            )
             return
+
+        # Use shared validation
+        if not self._validate_profile_fields():
+            return
+
+        sector = self.sector.currentData()
+        purpose = self.purpose_of_use.currentData()
+        gender = self.gender_identity.currentData()
 
         resp = self.api_client.register(
             email=email,
@@ -1456,12 +1492,9 @@ class DlgSettingsEditForgotPassword(
                 self.ok = True
 
 
-class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
-    # Use the same options as registration dialog
-    GENDER_OPTIONS = DlgSettingsRegister.GENDER_OPTIONS
-    PURPOSE_OPTIONS = DlgSettingsRegister.PURPOSE_OPTIONS
-    SECTOR_OPTIONS = DlgSettingsRegister.SECTOR_OPTIONS
-
+class DlgSettingsEditUpdate(
+    ProfileFormMixin, QtWidgets.QDialog, Ui_DlgSettingsEditUpdate
+):
     def __init__(self, user, parent=None):
         super().__init__(parent)
 
@@ -1475,30 +1508,22 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
         self.email.setText(user["email"])
         self.name.setText(user["name"])
         self.organization.setText(user.get("institution", ""))
-
-        # Role/Title
         self.role_title.setText(user.get("role_title", "") or "")
 
-        # Populate sector combo
-        for label, value in self.SECTOR_OPTIONS:
-            self.sector.addItem(label, value)
-        # Set current sector
+        # Use mixin to populate combos
+        self._populate_profile_combos()
+
+        # Set current values from user data
         user_sector = user.get("sector", "")
         sector_index = self.sector.findData(user_sector)
         if sector_index != -1:
             self.sector.setCurrentIndex(sector_index)
-        # Set sector other text
         self.sector_other.setText(user.get("sector_other", "") or "")
 
-        # Populate purpose of use combo
-        for label, value in self.PURPOSE_OPTIONS:
-            self.purpose_of_use.addItem(label, value)
-        # Set current purpose
         user_purpose = user.get("purpose_of_use", "")
         purpose_index = self.purpose_of_use.findData(user_purpose)
         if purpose_index != -1:
             self.purpose_of_use.setCurrentIndex(purpose_index)
-        # Set purpose other text
         self.purpose_of_use_other.setText(user.get("purpose_of_use_other", "") or "")
 
         # Add countries, and set index to currently chosen country
@@ -1507,15 +1532,11 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
         if index != -1:
             self.country.setCurrentIndex(index)
 
-        # Populate gender identity combo
-        for label, value in self.GENDER_OPTIONS:
-            self.gender_identity.addItem(label, value)
         # Set current gender
         user_gender = user.get("gender_identity", "")
         gender_index = self.gender_identity.findData(user_gender)
         if gender_index != -1:
             self.gender_identity.setCurrentIndex(gender_index)
-        # Set gender description text
         self.gender_identity_description.setText(
             user.get("gender_identity_description", "") or ""
         )
@@ -1529,18 +1550,8 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
         email_notifications = user.get("email_notifications_enabled", True)
         self.email_notifications_enabled.setChecked(email_notifications)
 
-        # Initially hide conditional fields
-        self.label_gender_description.setVisible(False)
-        self.gender_identity_description.setVisible(False)
-        self.label_sector_other.setVisible(False)
-        self.sector_other.setVisible(False)
-        self.label_purpose_other.setVisible(False)
-        self.purpose_of_use_other.setVisible(False)
-
-        # Connect signals for conditional field visibility
-        self.gender_identity.currentIndexChanged.connect(self._on_gender_changed)
-        self.sector.currentIndexChanged.connect(self._on_sector_changed)
-        self.purpose_of_use.currentIndexChanged.connect(self._on_purpose_changed)
+        # Use mixin to setup conditional fields and connect signals
+        self._setup_conditional_fields()
 
         # Trigger initial visibility based on loaded values
         self._on_gender_changed(self.gender_identity.currentIndex())
@@ -1553,97 +1564,14 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
         self.ok = False
         self.api_client = api.APIClient(get_api_url(), TIMEOUT)
 
-    def _on_gender_changed(self, index):
-        show = self.gender_identity.currentData() == "self_describe"
-        self.label_gender_description.setVisible(show)
-        self.gender_identity_description.setVisible(show)
-
-    def _on_sector_changed(self, index):
-        show = self.sector.currentData() == "other"
-        self.label_sector_other.setVisible(show)
-        self.sector_other.setVisible(show)
-
-    def _on_purpose_changed(self, index):
-        purpose = self.purpose_of_use.currentData()
-        self.label_purpose_other.setVisible(purpose == "other")
-        self.purpose_of_use_other.setVisible(purpose == "other")
-
     def update_profile(self):
-        if not self.email.text():
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Enter your email address.")
-            )
-            return
-        elif not self.name.text():
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Enter your name.")
-            )
-            return
-        elif not self.organization.text():
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Enter your organization.")
-            )
-            return
-        elif not self.sector.currentText():
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Select your sector.")
-            )
-            return
-        elif not self.purpose_of_use.currentText():
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Select your purpose of use.")
-            )
-            return
-        elif not self.country.currentText():
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Select your country.")
-            )
+        # Use shared validation
+        if not self._validate_profile_fields():
             return
 
-        # Validate GEE license acknowledgment
-        if not self.gee_license_acknowledged.isChecked():
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "You must acknowledge responsibility for GEE "
-                    "commercial licensing to save your profile."
-                ),
-            )
-            return
-
-        # Validate sector "Other" has description
         sector = self.sector.currentData()
-        if sector == "other" and not self.sector_other.text().strip():
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr("Please specify your sector."),
-            )
-            return
-
-        # Validate purpose of use "Other" has description
         purpose = self.purpose_of_use.currentData()
-        if purpose == "other" and not self.purpose_of_use_other.text().strip():
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr("Please specify your purpose of use."),
-            )
-            return
-
-        # Validate gender self-describe has description
         gender = self.gender_identity.currentData()
-        if (
-            gender == "self_describe"
-            and not self.gender_identity_description.text().strip()
-        ):
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr("Please provide your gender identity description."),
-            )
-            return
 
         resp = self.api_client.update_user(
             email=self.email.text(),

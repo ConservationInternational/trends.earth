@@ -1118,7 +1118,7 @@ achieve positive resilience to impacts. The methodology uses a two-step composit
 (show in the Table below) that represent social, economic, and infrastructural vulnerability at each geographic location (a similar methodology as the DVI, 
 discussed subsequently) and are derived from both at the national level and very high spatial resolution gridded data. 
 
-.. table:: Proxy indicators for vulnerability to drought used in Carrao et al. 2016. With the exception of gROADS and FAO's Irrigated Agricultural Lands which are both gridded data, all data are available only at the national level.
+.. table:: Proxy indicators for vulnerability to drought used in Carrao et al. 2016 (Table 1). With the exception of gROADS and FAO's Irrigated Agricultural Lands which are both gridded data, all data are available only at the national level. (Also draws on Table 14 from the `Good practice guidance for national reporting on UNCCD Strategic Objective 3 <https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-Objective-3_2021.pdf>`_.)
 
    .. list-table::
       :header-rows: 1

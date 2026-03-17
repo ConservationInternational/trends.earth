@@ -1004,9 +1004,17 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # This ensures there's only ONE filter pass when set_jobs() triggers
         # beginResetModel/endResetModel.
 
-        # Set type filter property directly (no invalidation)
-        self.proxy_model.set_type_filter(TypeFilter.ALL)
-        self.lineEdit_search.setText("")
+        # Only set source model on first load
+        is_first_load = self.proxy_model.sourceModel() is None
+
+        # Only reset type filter and search text on first load - preserve user's
+        # filter choices during periodic refreshes
+        if is_first_load:
+            self.proxy_model.set_type_filter(TypeFilter.ALL)
+            self.lineEdit_search.setText("")
+            # Set the "All" menu action as checked initially
+            action = self.filter_menu.actions()[0]
+            action.setChecked(True)
 
         # Populate status and task type dropdowns from actual job data
         self._populate_filter_dropdowns(relevant_jobs)
@@ -1014,11 +1022,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # Set all filter properties WITHOUT triggering invalidation
         self._apply_all_filters_no_invalidate()
 
-        action = self.filter_menu.actions()[0]
-        action.setChecked(True)
-
-        # Only set source model on first load
-        is_first_load = self.proxy_model.sourceModel() is None
         if is_first_load:
             # Set filter regexp only on first load - it persists and doesn't need resetting
             # Note: setFilterRegExp calls invalidateFilter internally, which is harmless

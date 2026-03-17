@@ -216,6 +216,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.iface = iface
         self.refreshing_filesystem_cache = False
         self.scheduler_paused = False
+        self._pending_cache_refresh = False
         self.setupUi(self)
 
         # Initialize the news tab
@@ -961,6 +962,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # Using *args avoids access violation crashes on Windows caused by
         # signal/slot signature mismatches
 
+        # If the scheduler is paused (e.g. a modal dialog is open), defer
+        # the refresh until resume_scheduler() is called.  This prevents
+        # the model reset from destroying editor widgets that are parents
+        # of open dialogs.
+        if self.scheduler_paused:
+            self._pending_cache_refresh = True
+            return
+
         # Close any open persistent editor BEFORE changing the model
         # to avoid access violations with dangling QModelIndex pointers
         current_dataset_index = self.datasets_tv_delegate.current_index
@@ -1331,6 +1340,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def resume_scheduler(self):
         self.scheduler_paused = False
+        if self._pending_cache_refresh:
+            self._pending_cache_refresh = False
+            self.refresh_after_cache_update()
 
     def launch_algorithm_execution_dialogue(
         self, algorithm: algorithm_models.Algorithm, run_mode: AlgorithmRunMode

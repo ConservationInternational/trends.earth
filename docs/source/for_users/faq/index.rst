@@ -34,6 +34,19 @@ side bar and navigate to trends.earth plugin. Click on trends.earth and rate
 the toolbox by selecting the number of stars you would like to give the plugin, 
 5 stars being highly satisfied.
 
+Why is my job stuck in "Pending" status?
+------------------------------------------------------------------
+
+When you submit an analysis job, Trends.Earth places it in a queue that 
+processes requests in the order they were received. To ensure fair access to 
+computing resources for all users, each account is limited to running a small 
+number of jobs at the same time (typically three). If you already have several 
+jobs running, any new jobs you submit will remain in "Pending" status until one 
+of your active jobs finishes. Once a slot becomes available, your oldest 
+pending job will automatically start processing. You don't need to take any 
+action - once your earlier jobs complete, your queued jobs will begin shortly 
+afterward.
+
 Installation of Trends.Earth
 ____________________________
 

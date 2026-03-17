@@ -200,57 +200,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="673"/>
+        <location filename="../jobs/mvc.py" line="703"/>
         <source>Add default layers from this dataset to map</source>
         <translation>Ajouter les couches par défaut de ce jeu de données à la carte</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="677"/>
+        <location filename="../jobs/mvc.py" line="707"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation>Sélectionnez des couches spécifiques de ce jeu de données pour les ajouter à la carte...</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="714"/>
+        <location filename="../jobs/mvc.py" line="749"/>
         <source>Time series table is empty</source>
         <translation>Le tableau des séries chronologiques est vide</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="731"/>
+        <location filename="../jobs/mvc.py" line="766"/>
         <source>Time Series</source>
         <translation>Séries chronologiques</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="742"/>
+        <location filename="../jobs/mvc.py" line="777"/>
         <source>Time</source>
         <translation>Temps</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="743"/>
+        <location filename="../jobs/mvc.py" line="778"/>
         <source>Integrated NDVI</source>
         <translation>NDVI intégré</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="743"/>
+        <location filename="../jobs/mvc.py" line="778"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="989"/>
+        <location filename="../jobs/mvc.py" line="1024"/>
         <source>Dataset metadata</source>
         <translation>Métadonnées de l'ensemble de données</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="998"/>
+        <location filename="../jobs/mvc.py" line="1033"/>
         <source>{} metadata</source>
         <translation>{} métadonnées</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1022"/>
+        <location filename="../jobs/mvc.py" line="1057"/>
         <source>Add vector layer to map</source>
         <translation>Ajouter une couche vectorielle à la carte</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1026"/>
+        <location filename="../jobs/mvc.py" line="1061"/>
         <source>Add raster layers to map</source>
         <translation>Ajouter des couches matricielles à la carte</translation>
     </message>
@@ -3811,32 +3811,32 @@ p, li { white-space: pre-wrap; }
         <translation>Saisissez votre adresse email...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1259"/>
+        <location filename="../settings.py" line="1458"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1259"/>
+        <location filename="../settings.py" line="1458"/>
         <source>Enter your email address to reset your password.</source>
         <translation>Entrez l'adresse e-mail pour réinitialiser votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1267"/>
+        <location filename="../settings.py" line="1466"/>
         <source>Reset password?</source>
         <translation>Réinitialiser le mot de passe ?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1284"/>
+        <location filename="../settings.py" line="1483"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1267"/>
+        <location filename="../settings.py" line="1466"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? A password reset link will be emailed to you.</source>
         <translation>Voulez-vous vraiment réinitialiser le mot de passe de {self.email.text()} ? Un lien de réinitialisation du mot de passe vous sera envoyé par e-mail.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1284"/>
+        <location filename="../settings.py" line="1483"/>
         <source>A password reset link has been sent to {self.email.text()}. Please check your email and click the link to set a new password, then return to Trends.Earth to login.</source>
         <translation>Un lien de réinitialisation du mot de passe a été envoyé à {self.email.text()}. Veuillez vérifier votre boîte de réception et cliquer sur le lien pour définir un nouveau mot de passe, puis revenez sur Trends.Earth pour vous connecter.</translation>
     </message>
@@ -3851,67 +3851,152 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="70"/>
         <source>Email:</source>
-        <translation>Email:</translation>
+        <translation type="obsolete">Email:</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="105"/>
         <source>Name:</source>
-        <translation>Nom:</translation>
+        <translation type="obsolete">Nom:</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="137"/>
         <source>Country/Region:</source>
-        <translation>Pays / Région:</translation>
+        <translation type="obsolete">Pays / Région:</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="204"/>
         <source>Organization:</source>
-        <translation>Organisation:</translation>
+        <translation type="obsolete">Organisation:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1348"/>
+        <location filename="../settings.py" line="1511"/>
         <source>Error</source>
-        <translation>Erreur</translation>
+        <translation type="obsolete">Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1330"/>
+        <location filename="../settings.py" line="1493"/>
         <source>Enter your email address.</source>
-        <translation>Entrez votre adresse courriel.</translation>
+        <translation type="obsolete">Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1336"/>
+        <location filename="../settings.py" line="1499"/>
         <source>Enter your name.</source>
-        <translation>Entrez votre nom.</translation>
+        <translation type="obsolete">Entrez votre nom.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1342"/>
+        <location filename="../settings.py" line="1505"/>
         <source>Enter your organization.</source>
-        <translation>Entrez votre organisation.</translation>
+        <translation type="obsolete">Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1348"/>
+        <location filename="../settings.py" line="1511"/>
         <source>Enter your country.</source>
-        <translation>Entrez votre pays.</translation>
+        <translation type="obsolete">Entrez votre pays.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1363"/>
+        <location filename="../settings.py" line="1595"/>
         <source>Saved</source>
         <translation>Enregistré</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1363"/>
+        <location filename="../settings.py" line="1595"/>
         <source>Updated information for {}.</source>
         <translation>Informations mises à jour pour {}.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEditUpdate.ui" line="166"/>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="336"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Politique de confidentialité&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEditUpdate.ui" line="150"/>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="325"/>
         <source>Receive email notifications for job status updates</source>
         <translation>Recevez des notifications par e-mail pour les mises à jour du statut des emplois.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="40"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;*&lt;/span&gt; Required&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;*&lt;/span&gt; Obligatoire&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="46"/>
+        <source>color: #666; margin-bottom: 8px;</source>
+        <translation type="unfinished">color: #666; margin-bottom: 8px;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="54"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Email:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;E-mail :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="81"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Full Name:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Nom complet :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="99"/>
+        <source>Role/Title (optional):</source>
+        <translation type="unfinished">Fonction/Titre (facultatif) :</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="110"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Organization:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Organisation :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="124"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Sector:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Secteur :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="177"/>
+        <source>Please specify:</source>
+        <translation type="unfinished">Veuillez préciser :</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="156"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Purpose of use:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Objet de l’utilisation :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="188"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Country of residence or work:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Pays de résidence ou de travail :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="209"/>
+        <source>Gender identity (optional):</source>
+        <translation type="unfinished">Identité de genre (facultatif) :</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="227"/>
+        <source>We collect gender identity information to comply with donor reporting requirements and to assess equitable participation in capacity development and tool access. Providing this information is voluntary; your selection will not affect your access to the tool.</source>
+        <translation type="unfinished">Nous recueillons des informations relatives à l'identité de genre afin de respecter les exigences de déclaration des donateurs et d'évaluer l'équité de la participation au renforcement des capacités et à l'accès à l'outil. La communication de ces informations est facultative ; votre choix n'aura aucune incidence sur votre accès à l'outil.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="277"/>
+        <source>color: gray; font-size: 10px;</source>
+        <translation type="unfinished">color: gray; font-size: 10px;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="241"/>
+        <source>Please describe:</source>
+        <translation type="unfinished">Veuillez décrire :</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="258"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Do you acknowledge that some Trends.Earth features use Google Earth Engine, and, depending on your use, you may be required to have in place a commercial license to use Google Earth Engine?&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Acceptez-vous que certaines fonctionnalités de Trends.Earth utilisent Google Earth Engine et que, selon votre usage, vous pourriez être tenu(e) de disposer d’une licence commerciale pour utiliser Google Earth Engine ?&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="268"/>
+        <source>Google Earth Engine (GEE) imposes restrictions on commercial use. For more details see the &lt;a href=&quot;https://earthengine.google.com/terms/&quot;&gt;Google Earth Engine Terms of Use&lt;/a&gt;. Conservation International does not provide or manage commercial GEE licenses. Users are solely responsible for ensuring their use of GEE complies with Google&apos;s commercial licensing requirements. Access to this tool does not grant or imply the provision of commercial licensing.</source>
+        <translation type="unfinished">Google Earth Engine (GEE) impose des restrictions à l’utilisation commerciale. Pour plus de détails, consultez les &lt;a href=&quot;https://earthengine.google.com/terms/&quot;&gt;Conditions d’utilisation de Google Earth Engine&lt;/a&gt;. Conservation International ne fournit ni ne gère de licences commerciales GEE. Les utilisateurs sont seuls responsables de s’assurer que leur utilisation de GEE est conforme aux exigences de Google en matière de licence commerciale. L’accès à cet outil n’accorde ni n’implique la fourniture d’une licence commerciale.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="299"/>
+        <source>Yes, I acknowledge</source>
+        <translation type="unfinished">Oui, je l'accepte</translation>
     </message>
 </context>
 <context>
@@ -3932,47 +4017,47 @@ p, li { white-space: pre-wrap; }
         <translation>Mot de passe:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1079"/>
+        <location filename="../settings.py" line="1278"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1073"/>
+        <location filename="../settings.py" line="1272"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1079"/>
+        <location filename="../settings.py" line="1278"/>
         <source>Enter your password.</source>
         <translation>Entrez votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1090"/>
+        <location filename="../settings.py" line="1289"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1090"/>
+        <location filename="../settings.py" line="1289"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>Connecté au serveur Trends.Earth en tant que {self.email.text()}.&lt;html&gt;&lt;p&gt;Bienvenue à Trends.Earth !&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Rejoignez le groupe de messagerie des utilisateurs de Trends.Earth&lt;a/&gt;&lt;/p&gt;&lt;p&gt;. N'oubliez pas de rejoindre le groupe d'utilisateurs de Trends.Earth pour rester informer des mises à jour et des questions et réponses concernant l'outil, les méthodes et les ensembles de données à l'appui du suivi des objectifs de développement durable.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1159"/>
+        <location filename="../settings.py" line="1358"/>
         <source>Login Failed</source>
         <translation>Échec de la connexion</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1159"/>
+        <location filename="../settings.py" line="1358"/>
         <source>Invalid username or password. Please check your credentials and try again.</source>
         <translation>Nom d'utilisateur ou mot de passe incorrect. Veuillez vérifier vos identifiants et réessayer.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1151"/>
+        <location filename="../settings.py" line="1350"/>
         <source>Account Locked</source>
         <translation>Compte verrouillé</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1125"/>
+        <location filename="../settings.py" line="1324"/>
         <source>Your account has been locked due to too many failed login attempts.
 
 You must reset your password to regain access.
@@ -3985,12 +4070,12 @@ Vous devez réinitialiser votre mot de passe pour rétablir l'accès.
 Souhaitez-vous réinitialiser votre mot de passe maintenant ?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1140"/>
+        <location filename="../settings.py" line="1339"/>
         <source>Account Temporarily Locked</source>
         <translation>Compte temporairement verrouillé</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1140"/>
+        <location filename="../settings.py" line="1339"/>
         <source>Your account is temporarily locked.
 
 Please try again in {minutes_remaining} minute(s).
@@ -4003,7 +4088,7 @@ Veuillez réessayer dans {minutes_remaining} minute(s).
 Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1151"/>
+        <location filename="../settings.py" line="1350"/>
         <source>Your account is locked.</source>
         <translation>Votre compte est verrouillé.</translation>
     </message>
@@ -4011,27 +4096,27 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="1202"/>
+        <location filename="../settings.py" line="1401"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1196"/>
+        <location filename="../settings.py" line="1395"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1202"/>
+        <location filename="../settings.py" line="1401"/>
         <source>Enter your password.</source>
         <translation>Entrez votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1221"/>
+        <location filename="../settings.py" line="1420"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1221"/>
+        <location filename="../settings.py" line="1420"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>Configuration réussie de la connexion au serveur LandPKS en tant que {self.email.text()}.</translation>
     </message>
@@ -4044,64 +4129,169 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
         <translation>Enregistrer un nouvel utilisateur</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="64"/>
-        <source>Email:</source>
-        <translation>Email:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="96"/>
-        <source>Name:</source>
-        <translation>Nom:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="166"/>
-        <source>Country/Region:</source>
-        <translation>Pays / Région:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="179"/>
-        <source>Organization:</source>
-        <translation>Organisation:</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1011"/>
+        <location filename="../settings.py" line="1238"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="993"/>
+        <location filename="../settings.py" line="1079"/>
         <source>Enter your email address.</source>
-        <translation>Entrez votre adresse courriel.</translation>
+        <translation type="obsolete">Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="999"/>
+        <location filename="../settings.py" line="1093"/>
         <source>Enter your name.</source>
-        <translation>Entrez votre nom.</translation>
+        <translation type="obsolete">Entrez votre nom.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1005"/>
+        <location filename="../settings.py" line="1098"/>
         <source>Enter your organization.</source>
-        <translation>Entrez votre organisation.</translation>
+        <translation type="obsolete">Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1011"/>
-        <source>Enter your country.</source>
-        <translation>Entrez votre pays.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1027"/>
+        <location filename="../settings.py" line="1219"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="32"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="322"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Politique de confidentialité&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1027"/>
-        <source>User registered. A password setup link has been emailed to {self.email.text()}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
-        <translation>Utilisateur enregistré. Un lien de configuration du mot de passe a été envoyé par e-mail à {self.email.text()}. Veuillez vérifier votre boîte de réception et cliquer sur le lien pour définir votre mot de passe, puis revenez dans les paramètres de Trends.Earth pour vous connecter.</translation>
+        <location filename="../gui/DlgSettingsRegister.ui" line="40"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;*&lt;/span&gt; Required&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;*&lt;/span&gt; Obligatoire&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="46"/>
+        <source>color: #666; margin-bottom: 8px;</source>
+        <translation>color: #666; margin-bottom: 8px;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="54"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Email:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;E-mail :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="78"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Full Name:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Nom complet :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="96"/>
+        <source>Role/Title (optional):</source>
+        <translation>Fonction/Titre (facultatif) :</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="107"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Organization:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Organisation :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="121"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Sector:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Secteur :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="174"/>
+        <source>Please specify:</source>
+        <translation>Veuillez préciser :</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="153"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Purpose of use:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Objet de l’utilisation :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="185"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Country of residence or work:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Pays de résidence ou de travail :&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="206"/>
+        <source>Gender identity (optional):</source>
+        <translation>Identité de genre (facultatif) :</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="224"/>
+        <source>We collect gender identity information to comply with donor reporting requirements and to assess equitable participation in capacity development and tool access. Providing this information is voluntary; your selection will not affect your access to the tool.</source>
+        <translation>Nous recueillons des informations relatives à l'identité de genre afin de respecter les exigences de déclaration des donateurs et d'évaluer l'équité de la participation au renforcement des capacités et à l'accès à l'outil. La communication de ces informations est facultative ; votre choix n'aura aucune incidence sur votre accès à l'outil.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="274"/>
+        <source>color: gray; font-size: 10px;</source>
+        <translation>color: gray; font-size: 10px;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="238"/>
+        <source>Please describe:</source>
+        <translation>Veuillez décrire :</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="255"/>
+        <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Do you acknowledge that some Trends.Earth features use Google Earth Engine, and, depending on your use, you may be required to have in place a commercial license to use Google Earth Engine?&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Acceptez-vous que certaines fonctionnalités de Trends.Earth utilisent Google Earth Engine et que, selon votre usage, vous pourriez être tenu(e) de disposer d’une licence commerciale pour utiliser Google Earth Engine ?&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="265"/>
+        <source>Google Earth Engine (GEE) imposes restrictions on commercial use. For more details see the &lt;a href=&quot;https://earthengine.google.com/terms/&quot;&gt;Google Earth Engine Terms of Use&lt;/a&gt;. Conservation International does not provide or manage commercial GEE licenses. Users are solely responsible for ensuring their use of GEE complies with Google&apos;s commercial licensing requirements. Access to this tool does not grant or imply the provision of commercial licensing.</source>
+        <translation>Google Earth Engine (GEE) impose des restrictions à l’utilisation commerciale. Pour plus de détails, consultez les &lt;a href=&quot;https://earthengine.google.com/terms/&quot;&gt;Conditions d’utilisation de Google Earth Engine&lt;/a&gt;. Conservation International ne fournit ni ne gère de licences commerciales GEE. Les utilisateurs sont seuls responsables de s’assurer que leur utilisation de GEE est conforme aux exigences de Google en matière de licence commerciale. L’accès à cet outil n’accorde ni n’implique la fourniture d’une licence commerciale.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="296"/>
+        <source>Yes, I acknowledge</source>
+        <translation>Oui, je l'accepte</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1184"/>
+        <source>Please enter a valid email address.</source>
+        <translation>Veuillez saisir une adresse e-mail valide.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1103"/>
+        <source>Select your sector.</source>
+        <translation type="obsolete">Sélectionnez votre secteur.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1108"/>
+        <source>Select your purpose of use.</source>
+        <translation type="obsolete">Sélectionnez l'objet de votre utilisation.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1113"/>
+        <source>Select your country.</source>
+        <translation type="obsolete">Sélectionnez votre pays.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1120"/>
+        <source>You must acknowledge responsibility for GEE commercial licensing to register.</source>
+        <translation type="obsolete">Vous devez accepter votre responsabilité concernant la licence commerciale GEE pour vous inscrire.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1133"/>
+        <source>Please specify your sector.</source>
+        <translation type="obsolete">Veuillez préciser votre secteur.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1143"/>
+        <source>Please specify your purpose of use.</source>
+        <translation type="obsolete">Veuillez préciser l'objet de votre utilisation.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1156"/>
+        <source>Please provide your gender identity description.</source>
+        <translation type="obsolete">Veuillez fournir une description de votre identité de genre.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1219"/>
+        <source>User registered. A password setup link has been emailed to {email}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
+        <translation>Utilisateur enregistré. Un lien de configuration du mot de passe a été envoyé à {email}. Veuillez vérifier votre messagerie et cliquer sur le lien pour définir votre mot de passe, puis retourner dans les paramètres de Trends.Earth pour vous connecter.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1238"/>
+        <source>Registration failed. Please check your information and try again. If the problem persists, the email address may be invalid or already be registered.</source>
+        <translation>L’inscription a échoué. Veuillez vérifier vos informations et réessayer. Si le problème persiste, l’adresse e-mail est peut-être invalide ou déjà enregistrée.</translation>
     </message>
 </context>
 <context>
@@ -4430,7 +4620,7 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="930"/>
+        <location filename="../jobs/manager.py" line="1087"/>
         <source>Processing: {task_name}</source>
         <translation>Traitement : {task_name}</translation>
     </message>
@@ -4476,17 +4666,17 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
 <context>
     <name>LandCoverClassSelectionDialog</name>
     <message>
-        <location filename="../settings.py" line="2286"/>
+        <location filename="../settings.py" line="2518"/>
         <source>&lt;b&gt;Select a parent for each of the below class names&lt;/b&gt;</source>
         <translation>&lt;b&gt;Sélectionnez un parent pour chacun des noms de classe ci-dessous&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2331"/>
+        <location filename="../settings.py" line="2563"/>
         <source>Accept</source>
         <translation>Accepter</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2333"/>
+        <location filename="../settings.py" line="2565"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -4494,37 +4684,37 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2432"/>
+        <location filename="../settings.py" line="2664"/>
         <source>Class Color</source>
         <translation>Couleur de la classe</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2483"/>
+        <location filename="../settings.py" line="2715"/>
         <source>Land Cover</source>
         <translation>Couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2515"/>
+        <location filename="../settings.py" line="2747"/>
         <source>Class name cannot be empty.</source>
         <translation>Le nom de la classe ne peut pas être vide.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2519"/>
+        <location filename="../settings.py" line="2751"/>
         <source>Invalid color selected.</source>
         <translation>Couleur non valide sélectionnée.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2523"/>
+        <location filename="../settings.py" line="2755"/>
         <source>Parent class cannot be empty.</source>
         <translation>La classe mère ne peut pas être vide.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2528"/>
+        <location filename="../settings.py" line="2760"/>
         <source>Invalid class code value.</source>
         <translation>Valeur de code de classe non valide.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2532"/>
+        <location filename="../settings.py" line="2764"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation>La valeur du code '{code!s}' est déjà utilisée.</translation>
     </message>
@@ -4532,112 +4722,112 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="1712"/>
+        <location filename="../settings.py" line="1944"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1712"/>
+        <location filename="../settings.py" line="1944"/>
         <source>Code</source>
         <translation>Code</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1712"/>
+        <location filename="../settings.py" line="1944"/>
         <source>Parent</source>
         <translation>Parent</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1814"/>
+        <location filename="../settings.py" line="2046"/>
         <source>Land Cover</source>
         <translation>Couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2080"/>
+        <location filename="../settings.py" line="2312"/>
         <source>Maximum number of classes reached.</source>
         <translation>Nombre maximal de classes atteint.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1885"/>
+        <location filename="../settings.py" line="2117"/>
         <source>Nothing to save</source>
         <translation>Rien à sauvegarder</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1892"/>
+        <location filename="../settings.py" line="2124"/>
         <source>Save Land Cover Classes</source>
         <translation>Sauver les classes de couverture végétale</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1916"/>
+        <location filename="../settings.py" line="2148"/>
         <source>Select Land Cover Classes File</source>
         <translation>Sélectionner le fichier des classes de couverture du sol</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1934"/>
+        <location filename="../settings.py" line="2166"/>
         <source>No land cover classes found.</source>
         <translation>Aucune classe de couverture terrestre n'a été trouvée.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1999"/>
+        <location filename="../settings.py" line="2231"/>
         <source>Land Cover Class Editor</source>
         <translation>Éditeur de la classe de couverture du sol</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2063"/>
+        <location filename="../settings.py" line="2295"/>
         <source>Invalid row for land cover class</source>
         <translation>Rangée invalide pour la classe d'occupation du sol</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2068"/>
+        <location filename="../settings.py" line="2300"/>
         <source>Unable to update class.</source>
         <translation>Impossible de mettre à jour la classe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2087"/>
+        <location filename="../settings.py" line="2319"/>
         <source>Unable to add new class.</source>
         <translation>Impossible d'ajouter une nouvelle classe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2115"/>
+        <location filename="../settings.py" line="2347"/>
         <source>class does not have children assigned to it</source>
         <translation>la classe n'a pas d'enfants qui lui sont assignés</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2135"/>
+        <location filename="../settings.py" line="2367"/>
         <source>class has not been assigned a parent</source>
         <translation>n'a pas été assignée à un parent</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2261"/>
+        <location filename="../settings.py" line="2493"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation>Il doit y avoir au moins une classe définie. Vous pouvez en créer une nouvelle puis supprimer celle-ci, ou restaurer les classes UNCCD par défaut en cliquant sur le bouton « Restaurer ».</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2266"/>
+        <location filename="../settings.py" line="2498"/>
         <source>Delete Failed</source>
         <translation>Échec de la suppression</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1747"/>
+        <location filename="../settings.py" line="1979"/>
         <source>Import CSV</source>
         <translation>Importer un fichier CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1748"/>
+        <location filename="../settings.py" line="1980"/>
         <source>Import land cover classes from a CSV file</source>
         <translation>Importer les classes de couverture terrestre à partir d'un fichier CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1769"/>
+        <location filename="../settings.py" line="2001"/>
         <source>Import Land Cover Classes</source>
         <translation>Importer les classes de couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1776"/>
+        <location filename="../settings.py" line="2008"/>
         <source>CSV files</source>
         <translation>Fichiers CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1778"/>
+        <location filename="../settings.py" line="2010"/>
         <source>Select CSV file with land cover classes</source>
         <translation>Sélectionner le fichier CSV contenant les classes de couverture terrestre</translation>
     </message>
@@ -4645,52 +4835,52 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="../main_widget.py" line="466"/>
+        <location filename="../main_widget.py" line="835"/>
         <source>All</source>
         <translation>Tous</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="471"/>
+        <location filename="../main_widget.py" line="840"/>
         <source>Raster</source>
         <translation>Trame</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="476"/>
+        <location filename="../main_widget.py" line="845"/>
         <source>Vector</source>
         <translation>Vecteur</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="489"/>
+        <location filename="../main_widget.py" line="858"/>
         <source>Load existing Trends.Earth output file...</source>
         <translation>Charger le fichier de sortie Trends.Earth existant...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="493"/>
+        <location filename="../main_widget.py" line="862"/>
         <source>Import custom Productivity dataset...</source>
         <translation>Importer un jeu de données Productivité personnalisé...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="499"/>
+        <location filename="../main_widget.py" line="868"/>
         <source>Import custom Land Cover dataset...</source>
         <translation>Importer un jeu de données personnalisé sur la couverture végétale...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="505"/>
+        <location filename="../main_widget.py" line="874"/>
         <source>Import custom Soil Organic Carbon dataset...</source>
         <translation>Importer un jeu de données personnalisé sur le carbone organique du sol...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="523"/>
+        <location filename="../main_widget.py" line="892"/>
         <source>Download raw dataset used in Trends.Earth...</source>
         <translation>Télécharger le jeu de données brutes utilisé dans Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="549"/>
+        <location filename="../main_widget.py" line="918"/>
         <source>Create false positive/negative layer</source>
         <translation>Créer une fausse couche positive/négative</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="511"/>
+        <location filename="../main_widget.py" line="880"/>
         <source>Import custom Population dataset...</source>
         <translation>Importer un ensemble de données personnalisé sur la population...</translation>
     </message>
@@ -4724,6 +4914,64 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
         <location filename="../maptools.py" line="403"/>
         <source>Empty geometry. Did you draw a feature outside of the currently selected region, or overlapping existing features?</source>
         <translation>Géométrie vide. Avez-vous dessiné une entité en dehors de la région actuellement sélectionnée, ou chevauchant des entités existantes ?</translation>
+    </message>
+</context>
+<context>
+    <name>ProfileFormMixin</name>
+    <message>
+        <location filename="../settings.py" line="1149"/>
+        <source>Error</source>
+        <translation type="unfinished">Erreur</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1073"/>
+        <source>Enter your email address.</source>
+        <translation type="unfinished">Entrez votre adresse courriel.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1079"/>
+        <source>Enter your name.</source>
+        <translation type="unfinished">Entrez votre nom.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1085"/>
+        <source>Enter your organization.</source>
+        <translation type="unfinished">Entrez votre organisation.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1091"/>
+        <source>Select your sector.</source>
+        <translation type="unfinished">Sélectionnez votre secteur.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1097"/>
+        <source>Select your purpose of use.</source>
+        <translation type="unfinished">Sélectionnez l'objet de votre utilisation.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1103"/>
+        <source>Select your country.</source>
+        <translation type="unfinished">Sélectionnez votre pays.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1110"/>
+        <source>You must acknowledge responsibility for GEE commercial licensing if needed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1125"/>
+        <source>Please specify your sector.</source>
+        <translation type="unfinished">Veuillez préciser votre secteur.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1137"/>
+        <source>Please specify your purpose of use.</source>
+        <translation type="unfinished">Veuillez préciser l'objet de votre utilisation.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1149"/>
+        <source>Please provide your gender identity description.</source>
+        <translation type="unfinished">Veuillez fournir une description de votre identité de genre.</translation>
     </message>
 </context>
 <context>
@@ -5701,17 +5949,17 @@ p, li { white-space : pre-wrap ; }
         <translation>Autoriser l'accès aux données LandPKS</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1512"/>
+        <location filename="../settings.py" line="1744"/>
         <source>No base data directory set</source>
         <translation>Aucun répertoire de données de base défini</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1522"/>
+        <location filename="../settings.py" line="1754"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>Impossible d'écrire dans {}. Essayez un autre dossier.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1492"/>
+        <location filename="../settings.py" line="1724"/>
         <source>Offline mode is enabled.</source>
         <translation>Le mode hors ligne est activé.</translation>
     </message>
@@ -5784,27 +6032,27 @@ p, li { white-space : pre-wrap ; }
         <translation>Avertissements de connexion au répertoire de sortie</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1598"/>
+        <location filename="../settings.py" line="1830"/>
         <source>Select Report Template Search Path</source>
         <translation>Sélectionnez le modèle de rapport du chemin de recherche</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1608"/>
+        <location filename="../settings.py" line="1840"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>Pour appliquer les modifications, il faut redémarrer QGIS.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1610"/>
+        <location filename="../settings.py" line="1842"/>
         <source>Template Search Path</source>
         <translation>Chemin de recherche du modèle</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1620"/>
+        <location filename="../settings.py" line="1852"/>
         <source>All Images</source>
         <translation>Toutes les images</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1635"/>
+        <location filename="../settings.py" line="1867"/>
         <source>Select Organization Logo</source>
         <translation>Sélectionnez le logo de l'organisation</translation>
     </message>
@@ -5917,21 +6165,36 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <source>Filter datasets by task type (algorithm/script)</source>
         <translation>Filtrer les ensembles de données en fonction du type de tâche (algorithme / script)</translation>
     </message>
+    <message>
+        <location filename="../gui/WidgetMain.ui" line="249"/>
+        <source>News</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetMain.ui" line="275"/>
+        <source>Trends.Earth News &amp; Announcements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetMain.ui" line="309"/>
+        <source>Refresh News</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>self.parent</name>
     <message>
-        <location filename="../settings.py" line="2292"/>
+        <location filename="../settings.py" line="2524"/>
         <source>The class name value that will imported, should not exceed 120 characters. </source>
         <translation>La valeur du nom de classe à importer ne doit pas dépasser 120 caractères.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2297"/>
+        <location filename="../settings.py" line="2529"/>
         <source>Select the parent for the corresponding class name.</source>
         <translation>Sélectionnez le parent correspondant au nom de classe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2354"/>
+        <location filename="../settings.py" line="2586"/>
         <source>Maximum number of codes reached.</source>
         <translation>Nombre maximal de codes atteint.</translation>
     </message>
@@ -5939,57 +6202,57 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_api</name>
     <message>
-        <location filename="../api.py" line="259"/>
+        <location filename="../api.py" line="317"/>
         <source>Unable to login to Trends.Earth server. Check your internet connection.</source>
         <translation>Impossible de se connecter au serveur Trends.Earth. Vérifiez votre connexion internet.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="481"/>
+        <location filename="../api.py" line="545"/>
         <source>Unable to read token for Trends.Earth server. Check username and password.</source>
         <translation>Impossible de lire le jeton du serveur Trends.Earth. Vérifiez le nom d'utilisateur et le mot de passe.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="493"/>
+        <location filename="../api.py" line="557"/>
         <source>Unable to login to Trends.Earth. Check username and password.</source>
         <translation>Impossible de se connecter à Trends.Earth. Vérifiez le nom d'utilisateur et le mot de passe.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="499"/>
+        <location filename="../api.py" line="563"/>
         <source>Unable to access Trends.Earth server. Check your internet connection</source>
         <translation>Impossible d'accéder au serveur Trends.Earth. Vérifiez votre connexion internet</translation>
     </message>
     <message>
-        <location filename="../api.py" line="264"/>
+        <location filename="../api.py" line="322"/>
         <source>Unable to connect to Trends.Earth server.</source>
         <translation>Impossible de se connecter au serveur Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="475"/>
+        <location filename="../api.py" line="539"/>
         <source>Authentication succeeded but no tokens returned. The API authentication method may have changed.</source>
         <translation>L'authentification a réussi, mais aucun jeton n'a été renvoyé. La méthode d'authentification API a peut-être changé.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="742"/>
+        <location filename="../api.py" line="806"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation>Le serveur Trends.Earth est temporairement indisponible (erreur {status}). Ce problème est généralement temporaire. Veuillez réessayer dans quelques instants.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="748"/>
+        <location filename="../api.py" line="812"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation>Le serveur Trends.Earth a rencontré une erreur interne (erreur 500). Veuillez réessayer. Si le problème persiste, contactez l'équipe Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="754"/>
+        <location filename="../api.py" line="818"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation>L'authentification a échoué. Veuillez vérifier vos identifiants de connexion.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="428"/>
+        <location filename="../api.py" line="492"/>
         <source>No login credentials configured. Please set up your username and password in Trends.Earth settings.</source>
         <translation>Pas d'identifiants de connexion configurés. Veuillez configurer votre nom d'utilisateur et votre mot de passe dans les paramètres de Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="444"/>
+        <location filename="../api.py" line="508"/>
         <source>Unable to retrieve stored credentials. Please re-enter your username and password in Trends.Earth settings.</source>
         <translation>Impossible de récupérer les identifiants enregistrés. Veuillez saisir à nouveau votre nom d'utilisateur et votre mot de passe dans les paramètres de Trends.Earth.</translation>
     </message>
@@ -6397,7 +6660,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Fichier de données tramées (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2727"/>
+        <location filename="../data_io.py" line="2732"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -6522,7 +6785,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Aucune couche disponible dans cette région</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2727"/>
+        <location filename="../data_io.py" line="2732"/>
         <source>Select a layer to load.</source>
         <translation>Sélectionner une couche à charger.</translation>
     </message>
@@ -6577,12 +6840,12 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Aucune région n'est sélectionnée. Sélectionnez une région ou décochez « Clipper à la région » pour importer l'intégralité de l'ensemble de données.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2392"/>
+        <location filename="../data_io.py" line="2397"/>
         <source>Please select a region in the Trends.Earth settings before using {tool_name}.</source>
         <translation>Veuillez sélectionner une région dans les paramètres de Trends.Earth avant d'utiliser {tool_name}.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2401"/>
+        <location filename="../data_io.py" line="2406"/>
         <source>You must select a {layer_name} layer before you can use {tool_name}.</source>
         <translation>Vous devez sélectionner un calque {layer_name} avant de pouvoir utiliser {tool_name}.</translation>
     </message>
@@ -6718,7 +6981,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_layers</name>
     <message>
-        <location filename="../layers.py" line="168"/>
+        <location filename="../layers.py" line="172"/>
         <source>No data</source>
         <translation>Pas de données</translation>
     </message>
@@ -6748,682 +7011,682 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Amélioration (augmentation significative, p &lt;0,05)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="105"/>
+        <location filename="../layers.py" line="109"/>
         <source>Land productivity performance degradation ({year_initial} to {year_final})</source>
         <translation>Dégradation de la performance de productivité des terres de ({year_initial} à {year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="225"/>
+        <location filename="../layers.py" line="229"/>
         <source>Degradation</source>
         <translation>Dégradation</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="109"/>
+        <location filename="../layers.py" line="113"/>
         <source>Not degradation</source>
         <translation>Pas de dégradation</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="110"/>
+        <location filename="../layers.py" line="114"/>
         <source>Land productivity performance ({year_initial} to {year_final}, ratio)</source>
         <translation>Performance en matière de productivité des terres de ({year_initial} à {year_final}, ratio)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="113"/>
+        <location filename="../layers.py" line="117"/>
         <source>Land productivity performance ({year_initial}, units)</source>
         <translation>Performance de productivité des terres de ({year_initial}, unités)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="117"/>
+        <location filename="../layers.py" line="121"/>
         <source>Land productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
         <translation>Dégradation de l'état de productivité des terres de ({year_bl_start} - {year_bl_end} vs {year_tg_start} - {year_tg_end})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="226"/>
+        <location filename="../layers.py" line="230"/>
         <source>Stable</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="227"/>
+        <location filename="../layers.py" line="231"/>
         <source>Improvement</source>
         <translation>Amélioration</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="123"/>
+        <location filename="../layers.py" line="127"/>
         <source>Land productivity state classes ({year_initial}-{year_final})</source>
         <translation>Classes d'état de productivité des terres de  ({year_initial} - {year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="128"/>
+        <location filename="../layers.py" line="132"/>
         <source>Land productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
         <translation>Comparaison de la dégradation de la productivité des terres de ({baseline_year_initial} - {baseline_year_final} vs {progress_year_initial} - {progress_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="136"/>
+        <location filename="../layers.py" line="140"/>
         <source>Land cover degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
         <translation>Comparaison de la dégradation de la couverture terrestre ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="143"/>
+        <location filename="../layers.py" line="147"/>
         <source>Land cover degradation ({year_initial} to {year_final})</source>
         <translation>Dégradation de la couverture terrestre ({year_initial} à {year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="150"/>
+        <location filename="../layers.py" line="154"/>
         <source>Land cover ({year}, 7 class)</source>
         <translation>Couverture terrestre ({year}, classe 7)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="151"/>
+        <location filename="../layers.py" line="155"/>
         <source>Land cover ({year}, ESA CCI classes)</source>
         <translation>Couverture terrestre ({year}, classes ESA CCI)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="152"/>
+        <location filename="../layers.py" line="156"/>
         <source>Land cover mode ({year_initial}-{year_final}, 7 class)</source>
         <translation>Mode de couverture terrestre ({year_initial}-{year_final}, 7 catégories)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="155"/>
+        <location filename="../layers.py" line="159"/>
         <source>Land cover mode ({year_initial}-{year_final}, ESA CCI classes)</source>
         <translation>Mode de couverture terrestre ({year_initial}-{year_final}, catégories ESA CCI)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="158"/>
+        <location filename="../layers.py" line="162"/>
         <source>-32768 - No data</source>
         <translation>-32768 - Aucune donnée</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="159"/>
+        <location filename="../layers.py" line="163"/>
         <source>1 - Tree-covered</source>
         <translation>1 - couvert d&amp;#39;arbres</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="160"/>
+        <location filename="../layers.py" line="164"/>
         <source>2 - Grassland</source>
         <translation>2 - Prairies</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="161"/>
+        <location filename="../layers.py" line="165"/>
         <source>3 - Cropland</source>
         <translation>3 - Terres cultivées</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="162"/>
+        <location filename="../layers.py" line="166"/>
         <source>4 - Wetland</source>
         <translation>4 - Zone humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="163"/>
+        <location filename="../layers.py" line="167"/>
         <source>5 - Artificial</source>
         <translation>5 - Artificiel</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="164"/>
+        <location filename="../layers.py" line="168"/>
         <source>6 - Other land</source>
         <translation>6 - Autres terrains</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="165"/>
+        <location filename="../layers.py" line="169"/>
         <source>7 - Water body</source>
         <translation>7 - Plan d&amp;#39;eau</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="169"/>
+        <location filename="../layers.py" line="173"/>
         <source>Tree-covered</source>
         <translation>Couvert d&amp;#39;arbres</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="170"/>
+        <location filename="../layers.py" line="174"/>
         <source>Grassland</source>
         <translation>Prairie</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="171"/>
+        <location filename="../layers.py" line="175"/>
         <source>Cropland</source>
         <translation>Cropland</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="172"/>
+        <location filename="../layers.py" line="176"/>
         <source>Wetland</source>
         <translation>Zone humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="173"/>
+        <location filename="../layers.py" line="177"/>
         <source>Artificial</source>
         <translation>Artificiel</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="174"/>
+        <location filename="../layers.py" line="178"/>
         <source>Other land</source>
         <translation>Autre terrain</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="175"/>
+        <location filename="../layers.py" line="179"/>
         <source>Water body</source>
         <translation>Plan d&amp;#39;eau</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="176"/>
+        <location filename="../layers.py" line="180"/>
         <source>Land cover (transitions, {year_initial} to {year_final})</source>
         <translation>Couverture terrestre (transitions, {year_initial} à {year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="254"/>
+        <location filename="../layers.py" line="258"/>
         <source>No change</source>
         <translation>Pas de changement</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="180"/>
+        <location filename="../layers.py" line="184"/>
         <source>Tree-covered loss</source>
         <translation>Perte couverte d&amp;#39;arbres</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="181"/>
+        <location filename="../layers.py" line="185"/>
         <source>Grassland loss</source>
         <translation>Perte de prairie</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="182"/>
+        <location filename="../layers.py" line="186"/>
         <source>Cropland loss</source>
         <translation>Perte de terres cultivées</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="183"/>
+        <location filename="../layers.py" line="187"/>
         <source>Wetland loss</source>
         <translation>Perte de zones humides</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="184"/>
+        <location filename="../layers.py" line="188"/>
         <source>Artificial loss</source>
         <translation>Perte artificielle</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="185"/>
+        <location filename="../layers.py" line="189"/>
         <source>Other land loss</source>
         <translation>Autres pertes de terres</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="186"/>
+        <location filename="../layers.py" line="190"/>
         <source>Water body loss</source>
         <translation>Perte de masse d&amp;#39;eau</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="188"/>
+        <location filename="../layers.py" line="192"/>
         <source>Soil organic carbon ({year}, tons / ha)</source>
         <translation>Carbone organique du sol ({year}, tonnes / ha)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="189"/>
+        <location filename="../layers.py" line="193"/>
         <source>Soil organic carbon degradation ({year_initial} to {year_final})</source>
         <translation>Dégradation du carbone organique du sol ({year_initial} à {year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="196"/>
+        <location filename="../layers.py" line="200"/>
         <source>Land productivity (Trends.Earth, {year_initial}-{year_final})</source>
         <translation>Productivité des sols (Trends.Earth, {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="216"/>
+        <location filename="../layers.py" line="220"/>
         <source>Declining</source>
         <translation>Déclin</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="200"/>
+        <location filename="../layers.py" line="204"/>
         <source>Early signs of decline</source>
         <translation>Premiers signes de déclin</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="218"/>
+        <location filename="../layers.py" line="222"/>
         <source>Stable but stressed</source>
         <translation>Stable mais stressé</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="220"/>
+        <location filename="../layers.py" line="224"/>
         <source>Increasing</source>
         <translation>En augmentant</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="205"/>
+        <location filename="../layers.py" line="209"/>
         <source>Land productivity dynamics (JRC, {year_initial}-{year_final})</source>
         <translation>Dynamique de la productivité des sols (JRC, {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="208"/>
+        <location filename="../layers.py" line="212"/>
         <source>Land productivity dynamics (FAO-WOCAT, {year_initial}-{year_final})</source>
         <translation>Dynamique de la productivité des sols (FAO-WOCAT, {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="217"/>
+        <location filename="../layers.py" line="221"/>
         <source>Moderate decline</source>
         <translation>Déclin modéré</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="222"/>
+        <location filename="../layers.py" line="226"/>
         <source>SDG Indicator 15.3.1 ({year_initial}-{year_final})</source>
         <translation>Indicateur ODD 15.3.1 ({year_initial} - {year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="228"/>
+        <location filename="../layers.py" line="232"/>
         <source>SDG Indicator 15.3.1 (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation>Indicateur ODD 15.3.1 (état, {reporting_year_initial} - {reporting_year_final} par rapport à {baseline_year_initial} - {baseline_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="247"/>
+        <location filename="../layers.py" line="251"/>
         <source>SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
         <translation>Progrès de l'ODD 15.3.1 ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="263"/>
+        <location filename="../layers.py" line="267"/>
         <source>Forest loss ({year_initial} to {year_final})</source>
         <translation>Perte forestière ({year_initial} à {year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="275"/>
+        <location filename="../layers.py" line="279"/>
         <source>Water</source>
         <translation>L&amp;#39;eau</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="265"/>
+        <location filename="../layers.py" line="269"/>
         <source>Non-forest</source>
         <translation>Non forestier</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="266"/>
+        <location filename="../layers.py" line="270"/>
         <source>Forest (no loss)</source>
         <translation>Forêt (pas de perte)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="267"/>
+        <location filename="../layers.py" line="271"/>
         <source>Forest loss ({year_initial})</source>
         <translation>Perte forestière ({year_initial})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="268"/>
+        <location filename="../layers.py" line="272"/>
         <source>Forest loss ({year_final})</source>
         <translation>Perte forestière ({year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="270"/>
+        <location filename="../layers.py" line="274"/>
         <source>Total carbon ({year_initial}, tonnes per ha x 10)</source>
         <translation>Carbone total ({year_initial}, tonnes par ha x 10)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="272"/>
+        <location filename="../layers.py" line="276"/>
         <source>Root/shoot ratio (x 100)</source>
         <translation>Rapport racine / pousse (x 100)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="274"/>
+        <location filename="../layers.py" line="278"/>
         <source>Urban area change</source>
         <translation>Changement de zone urbaine</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="276"/>
+        <location filename="../layers.py" line="280"/>
         <source>Built-up by 2000</source>
         <translation>Construit en 2000</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="277"/>
+        <location filename="../layers.py" line="281"/>
         <source>Built-up by 2005</source>
         <translation>Construit d&amp;#39;ici 2005</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="278"/>
+        <location filename="../layers.py" line="282"/>
         <source>Built-up by 2010</source>
         <translation>Construit d&amp;#39;ici 2010</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="279"/>
+        <location filename="../layers.py" line="283"/>
         <source>Built-up by 2015</source>
         <translation>Construit d&amp;#39;ici 2015</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="281"/>
+        <location filename="../layers.py" line="285"/>
         <source>Urban area {year}</source>
         <translation>Zone urbaine {year}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="282"/>
+        <location filename="../layers.py" line="286"/>
         <source>Urban</source>
         <translation>Urbain</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="283"/>
+        <location filename="../layers.py" line="287"/>
         <source>Suburban</source>
         <translation>De banlieue</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="284"/>
+        <location filename="../layers.py" line="288"/>
         <source>Built-up rural</source>
         <translation>Bâti rural</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="285"/>
+        <location filename="../layers.py" line="289"/>
         <source>Open space (fringe)</source>
         <translation>Espace ouvert (frange)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="286"/>
+        <location filename="../layers.py" line="290"/>
         <source>Open space (captured)</source>
         <translation>Espace ouvert (capturé)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="287"/>
+        <location filename="../layers.py" line="291"/>
         <source>Open space (rural)</source>
         <translation>Espace ouvert (rural)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="288"/>
+        <location filename="../layers.py" line="292"/>
         <source>Open space (fringe, water)</source>
         <translation>Espace ouvert (frange, eau)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="289"/>
+        <location filename="../layers.py" line="293"/>
         <source>Open space (captured, water)</source>
         <translation>Espace ouvert (capturé, eau)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="290"/>
+        <location filename="../layers.py" line="294"/>
         <source>Open space (rural, water)</source>
         <translation>Espace ouvert (rural, eau)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="292"/>
+        <location filename="../layers.py" line="296"/>
         <source>Population ({year})</source>
         <translation>Population ({year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="293"/>
+        <location filename="../layers.py" line="297"/>
         <source>Population ({type}, {year})</source>
         <translation>Population ({type}, {year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="294"/>
+        <location filename="../layers.py" line="298"/>
         <source>Population density ({year}, per sq km / 10)</source>
         <translation>Densité de la population ({year}, par km² / 10)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="297"/>
+        <location filename="../layers.py" line="301"/>
         <source>Population exposed to degradation (population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})</source>
         <translation>Population exposée à la dégradation (population en {population_year}, par km² / 10, période de dégradation {deg_year_initial}-{deg_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="300"/>
+        <location filename="../layers.py" line="304"/>
         <source>Population exposed to degradation ({type} population in {population_year}, degradation period {deg_year_initial}-{deg_year_final})</source>
         <translation>Population exposée à la dégradation ({type} de population en {population_year}, période de dégradation {deg_year_initial}-{deg_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="303"/>
+        <location filename="../layers.py" line="307"/>
         <source>Population density at maximum drought (density per sq km / 10, {year_initial}-{year_final} period)</source>
         <translation>Densité de la population au moment de la sécheresse maximale (densité par km² / 10, période {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="306"/>
+        <location filename="../layers.py" line="310"/>
         <source>Population at maximum drought ({type}, {year_initial}-{year_final} period)</source>
         <translation>Population à la sécheresse maximale ({type}, période {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="310"/>
+        <location filename="../layers.py" line="314"/>
         <source>Standardized Precipitation Index (SPI, {year}, {lag} month lag, * 1000)</source>
         <translation>Indice de précipitations normalisé (SPI, {year}, {lag} mois de décalage, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="313"/>
+        <location filename="../layers.py" line="317"/>
         <source>SPI at maximum drought during {year_initial}-{year_final} ({lag} month lag, * 1000)</source>
         <translation>Indice SPI à la sécheresse maximale pendant {year_initial}-{year_final} ({lag} mois de décalage, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="316"/>
+        <location filename="../layers.py" line="320"/>
         <source>Drought Vulnerability (JRC, {year}, * 1000)</source>
         <translation>Vulnérabilité à la sécheresse (JRC, {year}, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="319"/>
+        <location filename="../layers.py" line="323"/>
         <source>Extreme drought</source>
         <translation>Sécheresse extrême</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="320"/>
+        <location filename="../layers.py" line="324"/>
         <source>Severe drought</source>
         <translation>Sécheresse grave</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="321"/>
+        <location filename="../layers.py" line="325"/>
         <source>Moderate drought</source>
         <translation>Sécheresse modérée</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="322"/>
+        <location filename="../layers.py" line="326"/>
         <source>Mild drought</source>
         <translation>Sécheresse légère</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="323"/>
+        <location filename="../layers.py" line="327"/>
         <source>Normal</source>
         <translation>Normale</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="324"/>
+        <location filename="../layers.py" line="328"/>
         <source>Mildly wet</source>
         <translation>Légèrement humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="325"/>
+        <location filename="../layers.py" line="329"/>
         <source>Moderately wet</source>
         <translation>Modérément humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="326"/>
+        <location filename="../layers.py" line="330"/>
         <source>Severely wet</source>
         <translation>Fortement humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="327"/>
+        <location filename="../layers.py" line="331"/>
         <source>Extremely wet</source>
         <translation>Extrêmement humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="329"/>
+        <location filename="../layers.py" line="333"/>
         <source>Biomass (tonnes CO2e per ha, {year})</source>
         <translation>Biomasse (tonnes de CO2e par ha, {year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="330"/>
+        <location filename="../layers.py" line="334"/>
         <source>Change in biomass (tonnes CO2e per ha, {type} after {years} years)</source>
         <translation>Modification de la biomasse (tonnes de CO2e par ha, {type} après {years} années)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="334"/>
+        <location filename="../layers.py" line="338"/>
         <source>Agro Ecological Zones V3.0</source>
         <translation>Zones agroécologiques V3.0</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="335"/>
+        <location filename="../layers.py" line="339"/>
         <source>Climatic Zones</source>
         <translation>Zones climatiques</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="337"/>
+        <location filename="../layers.py" line="341"/>
         <source>Hansen</source>
         <translation>Hansen</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="339"/>
+        <location filename="../layers.py" line="343"/>
         <source>MOD16A2</source>
         <translation>MOD16A2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="341"/>
+        <location filename="../layers.py" line="345"/>
         <source>CHIRPS</source>
         <translation>CHIRPS</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="342"/>
+        <location filename="../layers.py" line="346"/>
         <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
         <translation>GPCC V7 (Global Precipitation Climatology Center)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="343"/>
+        <location filename="../layers.py" line="347"/>
         <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
         <translation>GPCP v2.3 1 mois (Global Precipitation Climatology Project)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="346"/>
+        <location filename="../layers.py" line="350"/>
         <source>PERSIANN-CDR</source>
         <translation>PERSIANN-CDR</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="348"/>
+        <location filename="../layers.py" line="352"/>
         <source>ERA I</source>
         <translation>ERA I</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="349"/>
+        <location filename="../layers.py" line="353"/>
         <source>MERRA 2</source>
         <translation>MERRA 2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="351"/>
+        <location filename="../layers.py" line="355"/>
         <source>MODIS (MOD13Q1, annual)</source>
         <translation>MODIS (MOD13Q1, annuel)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="352"/>
+        <location filename="../layers.py" line="356"/>
         <source>AVHRR (GIMMS3g.v1, annual)</source>
         <translation>AVHRR (GIMMS3g.v1, annuel)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="353"/>
+        <location filename="../layers.py" line="357"/>
         <source>MODIS (MOD13Q1, 16 day)</source>
         <translation>MODIS (MOD13Q1, 16 jours)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="358"/>
+        <location filename="../layers.py" line="362"/>
         <source>Soil Grids 250</source>
         <translation>Grilles de sol 250</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="356"/>
+        <location filename="../layers.py" line="360"/>
         <source>USDA Soil Type</source>
         <translation>Type de sol USDA</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="697"/>
+        <location filename="../layers.py" line="701"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="697"/>
+        <location filename="../layers.py" line="701"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>Trends.Earth n&amp;#39;a pas de style attribué à &amp;quot;{}&amp;quot; (bande {} en {}). Pour utiliser cette couche, ajoutez-la manuellement à votre carte.</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="149"/>
+        <location filename="../layers.py" line="153"/>
         <source>Land cover ({year})</source>
         <translation>Couverture terrestre ({year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="231"/>
+        <location filename="../layers.py" line="235"/>
         <source>Land productivity degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation>dégradation de la productivité des terres (état, {reporting_year_initial} - {reporting_year_final} par rapport à {baseline_year_initial} - {baseline_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="237"/>
+        <location filename="../layers.py" line="241"/>
         <source>Soil organic carbon degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation>Dégradation du carbone organique du sol (état, {reporting_year_initial} - {reporting_year_final} par rapport à {baseline_year_initial} - {baseline_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="240"/>
+        <location filename="../layers.py" line="244"/>
         <source>Degradation (persistent)</source>
         <translation>Dégradation (persistante)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="241"/>
+        <location filename="../layers.py" line="245"/>
         <source>Degradation (recent)</source>
         <translation>Dégradation (récente)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="243"/>
+        <location filename="../layers.py" line="247"/>
         <source>Stability</source>
         <translation>Stabilité</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="244"/>
+        <location filename="../layers.py" line="248"/>
         <source>Improvement (baseline)</source>
         <translation>Amélioration (référence)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="245"/>
+        <location filename="../layers.py" line="249"/>
         <source>Improvement (recent)</source>
         <translation>Amélioration (récente)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="246"/>
+        <location filename="../layers.py" line="250"/>
         <source>Improvement (persistent)</source>
         <translation>Amélioration (persistante)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="234"/>
+        <location filename="../layers.py" line="238"/>
         <source>Land cover degradation (status, {reporting_year_initial}-{reporting_year_final} relative to {baseline_year_initial}-{baseline_year_final})</source>
         <translation>Dégradation de la couverture terrestre reporting_year_initial} - {reporting_year_final} par rapport à {baseline_year_initial} - {baseline_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="242"/>
+        <location filename="../layers.py" line="246"/>
         <source>Degradation (baseline)</source>
         <translation>Dégradation (référence)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="214"/>
+        <location filename="../layers.py" line="218"/>
         <source>Land productivity dynamics (from FAO-WOCAT)</source>
         <translation>Dynamique de la productivité des terres (source : FAO- WOCAT)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="215"/>
+        <location filename="../layers.py" line="219"/>
         <source>Land Productivity Dynamics (from FAO-WOCAT)</source>
         <translation>Dynamique de la productivité des terres (source : FAO- WOCAT)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="251"/>
+        <location filename="../layers.py" line="255"/>
         <source>Error recode periods (periods affected)</source>
         <translation>Périodes de recodage des erreurs (périodes impactées)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="255"/>
+        <location filename="../layers.py" line="259"/>
         <source>Baseline only</source>
         <translation>Base de référence uniquement</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="256"/>
+        <location filename="../layers.py" line="260"/>
         <source>Report 1 only</source>
         <translation>Rapport 1 uniquement</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="258"/>
+        <location filename="../layers.py" line="262"/>
         <source>Report 2 only</source>
         <translation>Rapport 2 uniquement</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="259"/>
+        <location filename="../layers.py" line="263"/>
         <source>Baseline + Report 2</source>
         <translation>Base de référence + Rapport 2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="260"/>
+        <location filename="../layers.py" line="264"/>
         <source>Report 1 + Report 2</source>
         <translation>Rapport 1 + Rapport 2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="261"/>
+        <location filename="../layers.py" line="265"/>
         <source>All periods</source>
         <translation>Toutes les périodes</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="211"/>
+        <location filename="../layers.py" line="215"/>
         <source>Land productivity dynamics (custom, {year_initial}-{year_final})</source>
         <translation>Dynamique de la productivité des terres (personnalisée, {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="257"/>
+        <location filename="../layers.py" line="261"/>
         <source>Baseline + Report 1</source>
         <translation>Base de référence + Rapport 1</translation>
     </message>

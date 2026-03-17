@@ -672,8 +672,15 @@ class JobManager(QtCore.QObject):
                 job.task_name = metadata["task_name"]
             if not job.task_notes and "task_notes" in metadata:
                 job.task_notes = metadata["task_notes"]
-            if not job.local_context and "local_context" in metadata:
-                job.local_context = metadata["local_context"]
+            # Restore local_context if saved metadata has meaningful area name.
+            if "local_context" in metadata:
+                saved_context = metadata["local_context"]
+                if (
+                    saved_context
+                    and saved_context.area_of_interest_name
+                    and saved_context.area_of_interest_name != "unknown-area"
+                ):
+                    job.local_context = saved_context
 
     def _get_internal_dict_for_status(
         self, status: jobs.JobStatus
@@ -2338,7 +2345,12 @@ class JobManager(QtCore.QObject):
                 remote_job.task_name = local_job.task_name
             if not remote_job.task_notes and local_job.task_notes:
                 remote_job.task_notes = local_job.task_notes
-            if not remote_job.local_context and local_job.local_context:
+            # Preserve local_context if local has meaningful data
+            if (
+                local_job.local_context
+                and local_job.local_context.area_of_interest_name
+                and local_job.local_context.area_of_interest_name != "unknown-area"
+            ):
                 remote_job.local_context = local_job.local_context
         self.write_job_metadata_file(remote_job)
 

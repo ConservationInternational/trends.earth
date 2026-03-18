@@ -329,6 +329,23 @@ style_text_dict = {
     "spi_moderate_wet": tr_layers.tr("Moderately wet"),
     "spi_severe_wet": tr_layers.tr("Severely wet"),
     "spi_extreme_wet": tr_layers.tr("Extremely wet"),
+    # SPEI
+    "spei_title": tr_layers.tr(
+        "Standardized Precipitation Evapotranspiration Index"
+        " (SPEI, {year}, {lag} month lag, * 1000)"
+    ),
+    "spei_at_maximum_drought_title": tr_layers.tr(
+        "SPEI at maximum drought during {year_initial}-{year_final} ({lag} month lag, * 1000)"
+    ),
+    "spei_extreme_drought": tr_layers.tr("Extreme drought"),
+    "spei_severe_drought": tr_layers.tr("Severe drought"),
+    "spei_moderate_drought": tr_layers.tr("Moderate drought"),
+    "spei_mild_drought": tr_layers.tr("Mild drought"),
+    "spei_normal": tr_layers.tr("Normal"),
+    "spei_mild_wet": tr_layers.tr("Mildly wet"),
+    "spei_moderate_wet": tr_layers.tr("Moderately wet"),
+    "spei_severe_wet": tr_layers.tr("Severely wet"),
+    "spei_extreme_wet": tr_layers.tr("Extremely wet"),
     # Biomass
     "biomass_title": tr_layers.tr("Biomass (tonnes CO2e per ha, {year})"),
     "biomass_difference_title": tr_layers.tr(

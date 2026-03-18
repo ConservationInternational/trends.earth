@@ -2455,7 +2455,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     def set_index_from_text(self, text):
         if self.layer_list:
             for i, layer in enumerate(self.layer_list):
-                if text == layer:
+                if text == layer.get_name_info():
                     self.comboBox_layers.setCurrentIndex(i)
                     return True
 
@@ -2777,6 +2777,8 @@ class WidgetDataIOSelectTEDatasetExisting(
         self.populate()
 
     def populate(self):
+        # Clear cache to ensure fresh results when jobs are added/modified
+        get_usable_datasets.cache_clear()
         aoi = try_prepare_area_of_interest()
 
         # Handle case where no region is selected
@@ -2864,12 +2866,17 @@ class WidgetDataIOSelectTEDatasetExisting(
         if isinstance(band_name, list):
             band_name = tuple(band_name)
 
+        # Clear cache before each call to avoid stale results due to AOI object
+        # memory address reuse (Python may reuse addresses for new objects after
+        # garbage collection, causing false cache hits with wrong selected_job_id)
+        _get_usable_bands.cache_clear()
+
         return _get_usable_bands(band_name, current_dataset.job.id, aoi=aoi)
 
     def set_index_from_text(self, text):
         if self.dataset_list:
             for i in range(len(self.dataset_list)):
-                if self.dataset_list[i] == text:
+                if self.dataset_list[i].get_name_info() == text:
                     self.comboBox_datasets.setCurrentIndex(i)
 
                     return True

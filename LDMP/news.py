@@ -255,7 +255,16 @@ class NewsClient(QtCore.QObject):
                 return
 
         try:
-            endpoint = f"/api/v1/news?platform={platform}&version={__version__}"
+            # Get user's language for translated news content
+            from qgis.core import QgsApplication
+
+            locale = QgsApplication.locale()
+            # Extract just the language code (e.g., "en" from "en_US")
+            lang = locale.split("_")[0] if locale else "en"
+
+            endpoint = (
+                f"/api/v1/news?platform={platform}&version={__version__}&lang={lang}"
+            )
 
             log(f"Fetching news from {endpoint}")
             response = self.api_client.call_api(endpoint, method="get", use_token=False)

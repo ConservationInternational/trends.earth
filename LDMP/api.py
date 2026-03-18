@@ -15,12 +15,14 @@ import base64
 import gzip
 import io
 import json
+import sys
 import time
 from urllib.parse import quote_plus
 
 import backoff
 import requests
 from qgis.core import (
+    Qgis,
     QgsApplication,
     QgsNetworkAccessManager,
     QgsNetworkReplyContent,
@@ -32,6 +34,35 @@ from qgis.PyQt import QtCore, QtNetwork
 from . import auth, conf
 from .constants import TIMEOUT, get_api_url
 from .logger import log
+
+
+def get_client_header():
+    """Build the X-TE-Client header value for API requests.
+
+    Returns:
+        str: Header value in format "type=qgis_plugin; version=X.X.X; qgis_version=X.X.X; os=OS"
+    """
+    try:
+        from . import __version__
+    except ImportError:
+        __version__ = "unknown"
+
+    # Get QGIS version
+    try:
+        qgis_version = Qgis.QGIS_VERSION
+    except Exception:
+        qgis_version = "unknown"
+
+    # Get OS name
+    platform_map = {
+        "win32": "Windows",
+        "darwin": "macOS",
+        "linux": "Linux",
+        "freebsd": "FreeBSD",
+    }
+    os_name = platform_map.get(sys.platform, sys.platform)
+
+    return f"type=qgis_plugin; version={__version__}; qgis_version={qgis_version}; os={os_name}"
 
 
 class tr_api:
@@ -722,6 +753,9 @@ class APIClient(QtCore.QObject):
                 return None
         else:
             headers = {}
+
+        # Add client identification header for all requests
+        headers["X-TE-Client"] = get_client_header()
 
         # Only continue if don't need token or if token load was successful
 

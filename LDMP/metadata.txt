@@ -35,6 +35,7 @@ changelog=2.2.4 (March 19, 2026)
   - Added in-plugin news feed
   - Added handling for Google Earth Engine terms of service change
   - Optimized local caching of job results to improve plugin responsiveness
+  - Add styles for SPEI layers and NDVI integrals
   - Documentation updates including new status map section, updated FAQ, and productivity metrics
   - Translation and dependency updates
  2.2.2 (January 28, 2026)

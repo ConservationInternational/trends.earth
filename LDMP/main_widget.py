@@ -680,7 +680,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         if not active_items:
             # Show "no news" message
-            no_news_label = QtWidgets.QLabel("No news items at this time.")
+            no_news_label = QtWidgets.QLabel(self.tr("No news items at this time."))
             no_news_label.setStyleSheet("color: gray; padding: 20px;")
             no_news_label.setAlignment(QtCore.Qt.AlignCenter)
             self.news_container_layout.addWidget(no_news_label)
@@ -810,7 +810,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         # Show "no news" message if all items dismissed
         if not self._news_widgets:
-            no_news_label = QtWidgets.QLabel("No news items at this time.")
+            no_news_label = QtWidgets.QLabel(self.tr("No news items at this time."))
             no_news_label.setStyleSheet("color: gray; padding: 20px;")
             no_news_label.setAlignment(QtCore.Qt.AlignCenter)
             self.news_container_layout.addWidget(no_news_label)

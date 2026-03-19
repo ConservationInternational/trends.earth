@@ -4597,7 +4597,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../main_widget.py" line="813"/>
         <source>No news items at this time.</source>
-        <translation type="unfinished"></translation>
+        <translation>در حال حاضر خبری وجود ندارد.</translation>
     </message>
 </context>
 <context>
@@ -5872,17 +5872,17 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="249"/>
         <source>News</source>
-        <translation type="unfinished"></translation>
+        <translation>اخبار</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="275"/>
         <source>Trends.Earth News &amp; Announcements</source>
-        <translation type="unfinished"></translation>
+        <translation>اخبار و اطلاعیه‌های Trends.Earth</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="309"/>
         <source>Refresh News</source>
-        <translation type="unfinished"></translation>
+        <translation>به‌روزرسانی اخبار</translation>
     </message>
 </context>
 <context>
@@ -7776,7 +7776,182 @@ for running algorithms and their results.</source>
         <source>Please setup access to {auth_setup.name} before using this function.</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Gender Identity</source>
+        <translation>هویت جنسیتی</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Purpose of Use</source>
+        <translation>هدف از استفاده</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Sector</source>
+        <translation>بخش</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Woman</source>
+        <translation>زن</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Man</source>
+        <translation>مرد</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Non-binary</source>
+        <translation>غیر دودویی</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Prefer to self-describe</source>
+        <translation>ترجیح می‌دهند خودشان را توصیف کنند</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Prefer not to say</source>
+        <translation>ترجیح میدم نگم</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>National/International Reporting (UNCCD, SDGs, etc.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Academic Research</source>
+        <translation>تحقیقات دانشگاهی</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Policy Development &amp; Planning</source>
+        <translation>توسعه و برنامه‌ریزی سیاست</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Land Restoration/Management Planning</source>
+        <translation>برنامه ریزی احیای زمین/مدیریت زمین</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Project Monitoring &amp; Evaluation</source>
+        <translation>نظارت و ارزیابی پروژه</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Environmental Impact Assessment</source>
+        <translation>ارزیابی اثرات زیست‌محیطی</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Agriculture/Forestry Planning</source>
+        <translation>برنامه‌ریزی کشاورزی/جنگلداری</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Teaching &amp; Education</source>
+        <translation>آموزش و پرورش</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Conservation Planning</source>
+        <translation>برنامه‌ریزی حفاظت</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Commercial Services/Products</source>
+        <translation>خدمات/محصولات تجاری</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Community/Grassroots Initiatives</source>
+        <translation>ابتکارات اجتماعی/مردمی</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Other</source>
+        <translation>دیگر</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Environment/Natural Resources</source>
+        <translation>دولت - محیط زیست/منابع طبیعی</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Agriculture</source>
+        <translation>دولت - کشاورزی</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Land Management/Planning</source>
+        <translation>دولت - مدیریت/برنامه‌ریزی زمین</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Other</source>
+        <translation>دولت - سایر</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>International/Multilateral Organization</source>
+        <translation>سازمان بین‌المللی/چندجانبه</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Development/Aid</source>
+        <translation>سازمان مردم نهاد - توسعه/کمک</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Community-Based</source>
+        <translation>سازمان مردم نهاد - مبتنی بر جامعه</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Conservation</source>
+        <translation>سازمان مردم نهاد - حفاظت از محیط زیست</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Other</source>
+        <translation>سازمان مردم نهاد - سایر</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Academic/Research Institution</source>
+        <translation>موسسه علمی/تحقیقاتی</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Consulting/Professional Services</source>
+        <translation>خدمات مشاوره‌ای/حرفه‌ای</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Private Sector - Agriculture/Forestry</source>
+        <translation>بخش خصوصی - کشاورزی/جنگلداری</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Private Sector - Other</source>
+        <translation>بخش خصوصی - سایر</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Independent Researcher</source>
+        <translation>محقق مستقل</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Student</source>
+        <translation>دانشجو</translation>
+    </message>
+    </context>
 <context>
     <name>tr_worker</name>
     <message>

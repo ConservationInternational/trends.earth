@@ -4861,7 +4861,7 @@ Si ha olvidado la contraseña, puede restablecerla.</translation>
     <message>
         <location filename="../main_widget.py" line="813"/>
         <source>No news items at this time.</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay noticias en este momento.</translation>
     </message>
 </context>
 <context>
@@ -6159,17 +6159,17 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
     <message>
         <location filename="../gui/WidgetMain.ui" line="249"/>
         <source>News</source>
-        <translation type="unfinished"></translation>
+        <translation>Noticias</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="275"/>
         <source>Trends.Earth News &amp; Announcements</source>
-        <translation type="unfinished"></translation>
+        <translation>Noticias y anuncios de Trends.Earth</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="309"/>
         <source>Refresh News</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar noticias</translation>
     </message>
 </context>
 <context>
@@ -8104,7 +8104,182 @@ Población ({int(self.input_widget.spinBox_data_year.text())}, importada)
         <source>Please setup access to {auth_setup.name} before using this function.</source>
         <translation>Por favor, configure el acceso a {auth_setup.name} antes de utilizar esta función.</translation>
     </message>
-</context>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Gender Identity</source>
+        <translation>Identidad de género</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Purpose of Use</source>
+        <translation>Finalidad de uso</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Sector</source>
+        <translation>Sector</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Woman</source>
+        <translation>Mujer</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Man</source>
+        <translation>Hombre</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Non-binary</source>
+        <translation>No binario</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Prefer to self-describe</source>
+        <translation>Prefiero describirme a mí mismo</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Prefer not to say</source>
+        <translation>Prefiero no decirlo</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>National/International Reporting (UNCCD, SDGs, etc.)</source>
+        <translation>Informes nacionales/internacionales (UNCCD, ODS, etc.)</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Academic Research</source>
+        <translation>Investigación académica</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Policy Development &amp; Planning</source>
+        <translation>Desarrollo y planificación de políticas</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Land Restoration/Management Planning</source>
+        <translation>Planificación de la restauración y gestión de tierras</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Project Monitoring &amp; Evaluation</source>
+        <translation>Seguimiento y evaluación de proyectos</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Environmental Impact Assessment</source>
+        <translation>Evaluación de impacto ambiental</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Agriculture/Forestry Planning</source>
+        <translation>Planificación agrícola/forestal</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Teaching &amp; Education</source>
+        <translation>Enseñanza y educación</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Conservation Planning</source>
+        <translation>Planificación de la conservación</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Commercial Services/Products</source>
+        <translation>Servicios/Productos comerciales</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Community/Grassroots Initiatives</source>
+        <translation>Iniciativas comunitarias/de base</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Other</source>
+        <translation>Otro</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Environment/Natural Resources</source>
+        <translation>Gobierno - Medio ambiente/Recursos naturales</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Agriculture</source>
+        <translation>Gobierno - Agricultura</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Land Management/Planning</source>
+        <translation>Gobierno - Gestión/Planificación del Territorio</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Other</source>
+        <translation>Gobierno - Otros</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>International/Multilateral Organization</source>
+        <translation>Organización internacional/multilateral</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Development/Aid</source>
+        <translation>ONG - Desarrollo/Ayuda</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Community-Based</source>
+        <translation>ONG - De base comunitaria</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Conservation</source>
+        <translation>ONG - Conservación</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Other</source>
+        <translation>ONG - Otros</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Academic/Research Institution</source>
+        <translation>Institución académica/de investigación</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Consulting/Professional Services</source>
+        <translation>Servicios de consultoría/profesionales</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Private Sector - Agriculture/Forestry</source>
+        <translation>Sector privado - Agricultura/Silvicultura</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Private Sector - Other</source>
+        <translation>Sector privado - Otros</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Independent Researcher</source>
+        <translation>Investigador independiente</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Student</source>
+        <translation>Alumno</translation>
+    </message>
+    </context>
 <context>
     <name>tr_worker</name>
     <message>

@@ -4788,7 +4788,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../main_widget.py" line="813"/>
         <source>No news items at this time.</source>
-        <translation type="unfinished"></translation>
+        <translation>目前没有新闻。</translation>
     </message>
 </context>
 <context>
@@ -6074,17 +6074,17 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="249"/>
         <source>News</source>
-        <translation type="unfinished"></translation>
+        <translation>新闻</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="275"/>
         <source>Trends.Earth News &amp; Announcements</source>
-        <translation type="unfinished"></translation>
+        <translation>Trends.Earth 新闻与公告</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="309"/>
         <source>Refresh News</source>
-        <translation type="unfinished"></translation>
+        <translation>刷新新闻</translation>
     </message>
 </context>
 <context>
@@ -7981,7 +7981,182 @@ for running algorithms and their results.</source>
         <source>Please setup access to {auth_setup.name} before using this function.</source>
         <translation>请在使用此功能之前，设置对{auth_setup.name}的访问权限。</translation>
     </message>
-</context>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Gender Identity</source>
+        <translation>性别认同</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Purpose of Use</source>
+        <translation>用途</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Sector</source>
+        <translation>部门</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Woman</source>
+        <translation>女士</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Man</source>
+        <translation>男人</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Non-binary</source>
+        <translation>非二元性别</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Prefer to self-describe</source>
+        <translation>更喜欢自我描述</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Prefer not to say</source>
+        <translation>不愿多说</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>National/International Reporting (UNCCD, SDGs, etc.)</source>
+        <translation>国家/国际报告（《联合国防治荒漠化公约》、可持续发展目标等）</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Academic Research</source>
+        <translation>学术研究</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Policy Development &amp; Planning</source>
+        <translation>政策制定与规划</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Land Restoration/Management Planning</source>
+        <translation>土地修复/管理规划</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Project Monitoring &amp; Evaluation</source>
+        <translation>项目监测与评估</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Environmental Impact Assessment</source>
+        <translation>环境影响评估</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Agriculture/Forestry Planning</source>
+        <translation>农业/林业规划</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Teaching &amp; Education</source>
+        <translation>教学与教育</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Conservation Planning</source>
+        <translation>保护规划</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Commercial Services/Products</source>
+        <translation>商业服务/产品</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Community/Grassroots Initiatives</source>
+        <translation>社区/基层倡议</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Other</source>
+        <translation>其他</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Environment/Natural Resources</source>
+        <translation>政府 - 环境/自然资源</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Agriculture</source>
+        <translation>政府 - 农业</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Land Management/Planning</source>
+        <translation>政府 - 土地管理/规划</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Other</source>
+        <translation>政府 - 其他</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>International/Multilateral Organization</source>
+        <translation>国际/多边组织</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Development/Aid</source>
+        <translation>非政府组织 - 发展/援助</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Community-Based</source>
+        <translation>非政府组织 - 社区组织</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Conservation</source>
+        <translation>非政府组织 - 自然保护</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Other</source>
+        <translation>非政府组织 - 其他</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Academic/Research Institution</source>
+        <translation>学术/研究机构</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Consulting/Professional Services</source>
+        <translation>咨询/专业服务</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Private Sector - Agriculture/Forestry</source>
+        <translation>私营部门 - 农业/林业</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Private Sector - Other</source>
+        <translation>私营部门 - 其他</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Independent Researcher</source>
+        <translation>独立研究员</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Student</source>
+        <translation>学生</translation>
+    </message>
+    </context>
 <context>
     <name>tr_worker</name>
     <message>

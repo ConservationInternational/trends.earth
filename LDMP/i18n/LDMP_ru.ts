@@ -4790,7 +4790,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../main_widget.py" line="813"/>
         <source>No news items at this time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет новостей в настоящее время.</translation>
     </message>
 </context>
 <context>
@@ -6075,17 +6075,17 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="249"/>
         <source>News</source>
-        <translation type="unfinished"></translation>
+        <translation>Новости</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="275"/>
         <source>Trends.Earth News &amp; Announcements</source>
-        <translation type="unfinished"></translation>
+        <translation>Новости и объявления Trends.Earth</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="309"/>
         <source>Refresh News</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить новости</translation>
     </message>
 </context>
 <context>
@@ -7980,7 +7980,182 @@ for running algorithms and their results.</source>
         <source>Please setup access to {auth_setup.name} before using this function.</source>
         <translation>Пожалуйста, настройте доступ к {auth_setup.name}, перед тем как пользоваться этой функцией.</translation>
     </message>
-</context>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Gender Identity</source>
+        <translation>Гендерная идентичность</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Purpose of Use</source>
+        <translation>Цель использования</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Sector</source>
+        <translation>Сектор</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Woman</source>
+        <translation>Женщина</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Man</source>
+        <translation>Мужчина</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Non-binary</source>
+        <translation>Небинарный</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Prefer to self-describe</source>
+        <translation>Предпочитаю описывать себя самостоятельно.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Prefer not to say</source>
+        <translation>Предпочитаю не говорить</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>National/International Reporting (UNCCD, SDGs, etc.)</source>
+        <translation>Отчетность на национальном/международном уровне (ККООН, ЦУР и т. д.)</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Academic Research</source>
+        <translation>Академические исследования</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Policy Development &amp; Planning</source>
+        <translation>Разработка политики и планирование</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Land Restoration/Management Planning</source>
+        <translation>Планирование восстановления/управления земельными ресурсами</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Project Monitoring &amp; Evaluation</source>
+        <translation>Мониторинг и оценка проектов</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Environmental Impact Assessment</source>
+        <translation>Оценка воздействия на окружающую среду</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Agriculture/Forestry Planning</source>
+        <translation>Планирование в сельском хозяйстве/лесном хозяйстве</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Teaching &amp; Education</source>
+        <translation>Преподавание и образование</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Conservation Planning</source>
+        <translation>Планирование природоохранных мероприятий</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Commercial Services/Products</source>
+        <translation>Коммерческие услуги/продукты</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Community/Grassroots Initiatives</source>
+        <translation>Общественные/низовые инициативы</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Other</source>
+        <translation>Другой</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Environment/Natural Resources</source>
+        <translation>Правительство - Окружающая среда/Природные ресурсы</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Agriculture</source>
+        <translation>Правительство - Сельское хозяйство</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Land Management/Planning</source>
+        <translation>Государственное управление - землепользование/планирование</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Government - Other</source>
+        <translation>Правительство - Прочее</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>International/Multilateral Organization</source>
+        <translation>Международная/многосторонняя организация</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Development/Aid</source>
+        <translation>НПО - Развитие/Помощь</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Community-Based</source>
+        <translation>НПО - Общественная организация</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Conservation</source>
+        <translation>НПО - Охрана природы</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>NGO - Other</source>
+        <translation>НПО - Другое</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Academic/Research Institution</source>
+        <translation>Академическое/научно-исследовательское учреждение</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Consulting/Professional Services</source>
+        <translation>Консультационные/профессиональные услуги</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Private Sector - Agriculture/Forestry</source>
+        <translation>Частный сектор - Сельское хозяйство/Лесное хозяйство</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Private Sector - Other</source>
+        <translation>Частный сектор - Прочее</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Independent Researcher</source>
+        <translation>Независимый исследователь</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="0"/>
+        <source>Student</source>
+        <translation>Студент</translation>
+    </message>
+    </context>
 <context>
     <name>tr_worker</name>
     <message>

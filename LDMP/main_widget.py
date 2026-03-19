@@ -631,8 +631,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def _setup_news_tab(self) -> None:
         """Initialize the news tab with news widgets."""
+        from .news import NewsClient
+
         # Create news widgets container (stores the QFrame widgets for each news item)
         self._news_widgets: typing.List[QtWidgets.QWidget] = []
+        self._news_client = NewsClient(self)
+        self._news_client.news_fetched.connect(self._display_news_items)
+        self._news_fetch_in_progress = False
 
         # Connect refresh button
         self.news_refresh_btn.clicked.connect(lambda: self._refresh_news(force=True))
@@ -642,21 +647,23 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def _refresh_news(self, force: bool = False) -> None:
         """Refresh news items from the API and display in the news tab."""
-        from .news import NewsClient
-
         offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
         if offline_mode:
             log("Skipping news fetch - offline mode enabled")
             return
 
-        # Create a news client and fetch news
-        news_client = NewsClient(self)
-        news_client.news_fetched.connect(lambda items: self._display_news_items(items))
-        news_client.fetch_news(platform="qgis_plugin", force=force)
+        if self._news_fetch_in_progress:
+            log("News fetch already in progress, skipping")
+            return
+
+        self._news_fetch_in_progress = True
+        self._news_client.fetch_news(platform="qgis_plugin", force=force)
 
     def _display_news_items(self, news_items: typing.List["NewsItem"]) -> None:
         """Display news items in the news tab."""
         from .news import _is_news_dismissed
+
+        self._news_fetch_in_progress = False
 
         # Clear existing news widgets
         while self.news_container_layout.count():

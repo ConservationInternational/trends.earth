@@ -34,6 +34,7 @@ WidgetNewsUi, _ = uic.loadUiType(str(Path(__file__).parent / "gui/WidgetNews.ui"
 SETTINGS_DISMISSED_NEWS = "trends_earth/news/dismissed_ids"
 SETTINGS_LAST_NEWS_FETCH = "trends_earth/news/last_fetch_timestamp"
 SETTINGS_CACHED_NEWS = "trends_earth/news/cached_items"
+SETTINGS_CACHED_NEWS_LANG = "trends_earth/news/cached_lang"
 
 # Minimum interval between news fetches (24 hours in seconds)
 MIN_FETCH_INTERVAL = 24 * 60 * 60
@@ -215,12 +216,19 @@ class NewsClient(QtCore.QObject):
         current_time = int(datetime.now().timestamp())
         settings.setValue(SETTINGS_LAST_NEWS_FETCH, current_time)
 
-    def _cache_news_items(self, news_items: typing.List["NewsItem"]) -> None:
-        """Cache news items in settings for later retrieval."""
+    def _get_current_lang(self) -> str:
+        """Get the current QGIS language code."""
+        from qgis.core import QgsApplication
+
+        locale = QgsApplication.locale()
+        return locale.split("_")[0] if locale else "en"
+
+    def _cache_news_items(self, news_items: typing.List["NewsItem"], lang: str) -> None:
+        """Cache news items and the language they were fetched in."""
         settings = QgsSettings()
-        # Convert to list of dicts for JSON serialization
         items_data = [item.to_dict() for item in news_items]
         settings.setValue(SETTINGS_CACHED_NEWS, json.dumps(items_data))
+        settings.setValue(SETTINGS_CACHED_NEWS_LANG, lang)
 
     def _load_cached_news(self) -> typing.List["NewsItem"]:
         """Load cached news items from settings."""
@@ -241,8 +249,15 @@ class NewsClient(QtCore.QObject):
             platform: The platform to filter news for (qgis_plugin, web, api_ui)
             force: If True, fetch regardless of last fetch time
         """
+        lang = self._get_current_lang()
+
+        # Invalidate cache when the language has changed
+        settings = QgsSettings()
+        cached_lang = settings.value(SETTINGS_CACHED_NEWS_LANG, "")
+        lang_changed = cached_lang != lang
+
         # Check if we should fetch (throttle to once per day unless forced)
-        if not self.should_fetch_news(force):
+        if not lang_changed and not self.should_fetch_news(force):
             cached_items = self._load_cached_news()
             # If cache is empty, force a fetch
             if not cached_items:
@@ -254,14 +269,10 @@ class NewsClient(QtCore.QObject):
                 self.news_fetched.emit(cached_items)
                 return
 
+        if lang_changed:
+            log(f"Language changed from '{cached_lang}' to '{lang}' - refreshing news")
+
         try:
-            # Get user's language for translated news content
-            from qgis.core import QgsApplication
-
-            locale = QgsApplication.locale()
-            # Extract just the language code (e.g., "en" from "en_US")
-            lang = locale.split("_")[0] if locale else "en"
-
             endpoint = (
                 f"/api/v1/news?platform={platform}&version={__version__}&lang={lang}"
             )
@@ -274,7 +285,7 @@ class NewsClient(QtCore.QObject):
                 news_items = [NewsItem.from_dict(item) for item in news_data]
                 log(f"Fetched {len(news_items)} news items")
                 self._update_last_fetch_timestamp()
-                self._cache_news_items(news_items)
+                self._cache_news_items(news_items, lang)
                 self.news_fetched.emit(news_items)
             else:
                 log("No response from news API")

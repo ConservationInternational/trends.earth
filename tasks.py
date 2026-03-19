@@ -2262,8 +2262,10 @@ def _get_latest_releases(
 def zipfile_build(
     c, clean=True, version=3, tests=False, filename=None, pip="pip", tag=False
 ):
-    """Create plugin package"""
-    set_version(c, modules=True)
+    """Create plugin package.
+
+    NOTE: invoke set-version must be called before this task.
+    """
 
     if tag:
         set_tag(c)

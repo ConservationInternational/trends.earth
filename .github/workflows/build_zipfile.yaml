@@ -38,18 +38,8 @@ jobs:
           python -m pip --version
       - name: Install build requirements
         run: pip install -r requirements-dev.txt
-      - name: Debug git state
-        run: |
-          echo "=== git describe ==="
-          git describe --tags --long || echo "no tags found"
-          echo "=== git tag -l ==="
-          git tag -l 'v2.2.*'
-          echo "=== git status ==="
-          git status --porcelain
-          echo "=== git log ==="
-          git log --oneline -3
       - name: Set version SHA
-        run: invoke set-version
+        run: invoke set-version --modules
       - name: Build zipfile
         run: |
           # Sanitize branch name by replacing / with - to avoid path issues

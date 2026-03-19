@@ -3809,32 +3809,32 @@ p, li { white-space: pre-wrap; }
         <translation>Введите ваш адрес электронной почты...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1458"/>
+        <location filename="../settings.py" line="1460"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1458"/>
+        <location filename="../settings.py" line="1460"/>
         <source>Enter your email address to reset your password.</source>
         <translation>Введите свой адрес электронной почты для восстановления пароля.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1466"/>
+        <location filename="../settings.py" line="1468"/>
         <source>Reset password?</source>
         <translation>Сброс пароля?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1483"/>
+        <location filename="../settings.py" line="1485"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1466"/>
+        <location filename="../settings.py" line="1468"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? A password reset link will be emailed to you.</source>
         <translation>Вы уверены, что хотите сбросить пароль для {self.email.text()}? Ссылка для сброса пароля будет отправлена вам по электронной почте.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1483"/>
+        <location filename="../settings.py" line="1485"/>
         <source>A password reset link has been sent to {self.email.text()}. Please check your email and click the link to set a new password, then return to Trends.Earth to login.</source>
         <translation>Ссылка для сброса пароля была отправлена на {self.email.text()}. Проверьте свою электронную почту и перейдите по ссылке, чтобы установить новый пароль, а затем вернитесь на Trends.Earth, чтобы войти в систему.</translation>
     </message>
@@ -3847,57 +3847,12 @@ p, li { white-space: pre-wrap; }
         <translation>Обновление информации о пользователе</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEditUpdate.ui" line="70"/>
-        <source>Email:</source>
-        <translation type="obsolete">Эл. адрес:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsEditUpdate.ui" line="105"/>
-        <source>Name:</source>
-        <translation type="obsolete">Имя:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsEditUpdate.ui" line="137"/>
-        <source>Country/Region:</source>
-        <translation type="obsolete">Страна / Регион:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsEditUpdate.ui" line="204"/>
-        <source>Organization:</source>
-        <translation type="obsolete">Организация:</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1511"/>
-        <source>Error</source>
-        <translation type="obsolete">ошибка</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1493"/>
-        <source>Enter your email address.</source>
-        <translation type="obsolete">Введите ваш адрес электронной почты.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1499"/>
-        <source>Enter your name.</source>
-        <translation type="obsolete">Введите ваше имя.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1505"/>
-        <source>Enter your organization.</source>
-        <translation type="obsolete">Войдите в свою организацию.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1511"/>
-        <source>Enter your country.</source>
-        <translation type="obsolete">Войдите в свою страну.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1595"/>
+        <location filename="../settings.py" line="1597"/>
         <source>Saved</source>
         <translation>Сохраненный</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1595"/>
+        <location filename="../settings.py" line="1597"/>
         <source>Updated information for {}.</source>
         <translation>Обновлена ​​информация для {}.</translation>
     </message>
@@ -3914,87 +3869,87 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="40"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;*&lt;/span&gt; Required&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;*&lt;/span&gt; Обязательное поле&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;*&lt;/span&gt; Обязательное поле&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="46"/>
         <source>color: #666; margin-bottom: 8px;</source>
-        <translation type="unfinished">color: #666; margin-bottom: 8px;</translation>
+        <translation>color: #666; margin-bottom: 8px;</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="54"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Email:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Эл. почта:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Эл. почта:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="81"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Full Name:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Полное имя:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Полное имя:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="99"/>
         <source>Role/Title (optional):</source>
-        <translation type="unfinished">Роль/должность (необязательно):</translation>
+        <translation>Роль/должность (необязательно):</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="110"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Organization:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Организация:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Организация:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="124"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Sector:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Сфера деятельности:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Сфера деятельности:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="177"/>
         <source>Please specify:</source>
-        <translation type="unfinished">Укажите:</translation>
+        <translation>Укажите:</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="156"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Purpose of use:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Цель использования:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Цель использования:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="188"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Country of residence or work:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Страна проживания или работы:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Страна проживания или работы:&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="209"/>
         <source>Gender identity (optional):</source>
-        <translation type="unfinished">Пол (необязательно):</translation>
+        <translation>Пол (необязательно):</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="227"/>
         <source>We collect gender identity information to comply with donor reporting requirements and to assess equitable participation in capacity development and tool access. Providing this information is voluntary; your selection will not affect your access to the tool.</source>
-        <translation type="unfinished">Информация о половой принадлежности собирается в целях отчетности перед финансирующими организациями и оценки доступности программ развития и ресурсов. Указывать ее необязательно, ваш выбор не повлияет на возможность доступа к инструменту.</translation>
+        <translation>Информация о половой принадлежности собирается в целях отчетности перед финансирующими организациями и оценки доступности программ развития и ресурсов. Указывать ее необязательно, ваш выбор не повлияет на возможность доступа к инструменту.</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="277"/>
         <source>color: gray; font-size: 10px;</source>
-        <translation type="unfinished">color: gray; font-size: 10px;</translation>
+        <translation>color: gray; font-size: 10px;</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="241"/>
         <source>Please describe:</source>
-        <translation type="unfinished">Опишите:</translation>
+        <translation>Опишите:</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="258"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Do you acknowledge that some Trends.Earth features use Google Earth Engine, and, depending on your use, you may be required to have in place a commercial license to use Google Earth Engine?&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Знаете ли вы, что некоторые возможности Trends.Earth используют Google Earth Engine, и в определенных сценариях вам необходимо будет получить коммерческую лицензию Google Earth Engine?&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;span style=&quot;font-weight:bold;&quot;&gt;Знаете ли вы, что некоторые возможности Trends.Earth используют Google Earth Engine, и в определенных сценариях вам необходимо будет получить коммерческую лицензию Google Earth Engine?&lt;/span&gt; &lt;span style=&quot;color:red;&quot;&gt;*&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="268"/>
         <source>Google Earth Engine (GEE) imposes restrictions on commercial use. For more details see the &lt;a href=&quot;https://earthengine.google.com/terms/&quot;&gt;Google Earth Engine Terms of Use&lt;/a&gt;. Conservation International does not provide or manage commercial GEE licenses. Users are solely responsible for ensuring their use of GEE complies with Google&apos;s commercial licensing requirements. Access to this tool does not grant or imply the provision of commercial licensing.</source>
-        <translation type="unfinished">Google Earth Engine (GEE) имеет ограничения на коммерческое применение. Для получения дополнительной информации ознакомьтесь с &lt;a href=&quot;https://earthengine.google.com/terms/&quot;&gt;Пользовательским соглашением Google Earth Engine&lt;/a&gt;. Международное общество сохранения природы не предоставляет и не занимается администрированием коммерческих лицензий GEE. При использовании GEE пользователь несет полную ответственность за соблюдение требований коммерческой лицензии Google. Наличие доступа к данному инструменту не означает предоставления коммерческой лицензии.</translation>
+        <translation>Google Earth Engine (GEE) имеет ограничения на коммерческое применение. Для получения дополнительной информации ознакомьтесь с &lt;a href=&quot;https://earthengine.google.com/terms/&quot;&gt;Пользовательским соглашением Google Earth Engine&lt;/a&gt;. Международное общество сохранения природы не предоставляет и не занимается администрированием коммерческих лицензий GEE. При использовании GEE пользователь несет полную ответственность за соблюдение требований коммерческой лицензии Google. Наличие доступа к данному инструменту не означает предоставления коммерческой лицензии.</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="299"/>
         <source>Yes, I acknowledge</source>
-        <translation type="unfinished">Я все понимаю</translation>
+        <translation>Я все понимаю</translation>
     </message>
 </context>
 <context>
@@ -4015,47 +3970,47 @@ p, li { white-space: pre-wrap; }
         <translation>Пароль:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1278"/>
+        <location filename="../settings.py" line="1280"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1272"/>
+        <location filename="../settings.py" line="1274"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1278"/>
+        <location filename="../settings.py" line="1280"/>
         <source>Enter your password.</source>
         <translation>Введите ваш пароль.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1289"/>
+        <location filename="../settings.py" line="1291"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1289"/>
+        <location filename="../settings.py" line="1291"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>Вы зашли на сервер Trends.Earth как {self.email.text()}.&lt;html&gt;&lt;p&gt;Добро пожаловать в Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Присоединяйтесь к почтовой группе пользователей Trends.Earth&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Не забудьте присоединиться к почтовой группе пользователей Trends.Earth, чтобы быть в курсе обновлений и получать информацию на вопросы об инструменте, методах и наборах данных в поддержку мониторинга Целей устойчивого развития.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1358"/>
+        <location filename="../settings.py" line="1360"/>
         <source>Login Failed</source>
         <translation>Не удалось войти в систему</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1358"/>
+        <location filename="../settings.py" line="1360"/>
         <source>Invalid username or password. Please check your credentials and try again.</source>
         <translation>Неверное имя пользователя или пароль. Проверьте учетные данные и повторите попытку.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1350"/>
+        <location filename="../settings.py" line="1352"/>
         <source>Account Locked</source>
         <translation>Учетная запись заблокирована</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1324"/>
+        <location filename="../settings.py" line="1326"/>
         <source>Your account has been locked due to too many failed login attempts.
 
 You must reset your password to regain access.
@@ -4068,12 +4023,12 @@ Would you like to reset your password now?</source>
 Хотите сбросить пароль сейчас?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1339"/>
+        <location filename="../settings.py" line="1341"/>
         <source>Account Temporarily Locked</source>
         <translation>Учетная запись временно заблокирована</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1339"/>
+        <location filename="../settings.py" line="1341"/>
         <source>Your account is temporarily locked.
 
 Please try again in {minutes_remaining} minute(s).
@@ -4086,7 +4041,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 Если вы забыли пароль, его можно сбросить.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1350"/>
+        <location filename="../settings.py" line="1352"/>
         <source>Your account is locked.</source>
         <translation>Ваша учетная запись заблокирована.</translation>
     </message>
@@ -4094,27 +4049,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="1401"/>
+        <location filename="../settings.py" line="1403"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1395"/>
+        <location filename="../settings.py" line="1397"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1401"/>
+        <location filename="../settings.py" line="1403"/>
         <source>Enter your password.</source>
         <translation>Введите ваш пароль.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1420"/>
+        <location filename="../settings.py" line="1422"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1420"/>
+        <location filename="../settings.py" line="1422"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>Успешная настройка входа на сервер LandPKS для {self.email.text()}.</translation>
     </message>
@@ -4127,27 +4082,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>Регистрация нового пользователя</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1238"/>
+        <location filename="../settings.py" line="1240"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1079"/>
-        <source>Enter your email address.</source>
-        <translation type="obsolete">Введите ваш адрес электронной почты.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1093"/>
-        <source>Enter your name.</source>
-        <translation type="obsolete">Введите ваше имя.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1098"/>
-        <source>Enter your organization.</source>
-        <translation type="obsolete">Войдите в свою организацию.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1219"/>
+        <location filename="../settings.py" line="1221"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
@@ -4242,52 +4182,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>Я все понимаю</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1184"/>
+        <location filename="../settings.py" line="1186"/>
         <source>Please enter a valid email address.</source>
         <translation>Укажите действительный адрес эл. почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1103"/>
-        <source>Select your sector.</source>
-        <translation type="obsolete">Выберите сферу вашей деятельности.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1108"/>
-        <source>Select your purpose of use.</source>
-        <translation type="obsolete">Выберите цель использования.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1113"/>
-        <source>Select your country.</source>
-        <translation type="obsolete">Выберите вашу страну</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1120"/>
-        <source>You must acknowledge responsibility for GEE commercial licensing to register.</source>
-        <translation type="obsolete">Для продолжения регистрации вы должны подтвердить, что берете на себя ответственность при необходимости получения коммерческой лицензии GEE.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1133"/>
-        <source>Please specify your sector.</source>
-        <translation type="obsolete">Укажите сферу вашей деятельности.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1143"/>
-        <source>Please specify your purpose of use.</source>
-        <translation type="obsolete">Укажите цель использования.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1156"/>
-        <source>Please provide your gender identity description.</source>
-        <translation type="obsolete">Укажите свой пол.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1219"/>
+        <location filename="../settings.py" line="1221"/>
         <source>User registered. A password setup link has been emailed to {email}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
         <translation>Пользователь зарегистрирован. Ссылка для установки пароля отправлена по адресу {email}. Проверьте электронную почту и нажмите на ссылку, чтобы ввести пароль, а затем вернитесь в настройки Trends.Earth для входа в систему.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1238"/>
+        <location filename="../settings.py" line="1240"/>
         <source>Registration failed. Please check your information and try again. If the problem persists, the email address may be invalid or already be registered.</source>
         <translation>Не удалось завершить регистрацию. Проверьте предоставленную информацию и повторите попытку. Возможно вы указываете зарегистрированный или неверный адрес электронной почты, если проблема сохраняется.</translation>
     </message>
@@ -4618,7 +4523,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="1087"/>
+        <location filename="../jobs/manager.py" line="1094"/>
         <source>Processing: {task_name}</source>
         <translation>Обработка: {task_name}</translation>
     </message>
@@ -4664,17 +4569,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverClassSelectionDialog</name>
     <message>
-        <location filename="../settings.py" line="2518"/>
+        <location filename="../settings.py" line="2520"/>
         <source>&lt;b&gt;Select a parent for each of the below class names&lt;/b&gt;</source>
         <translation>&lt;b&gt;Выберите родительский элемент для каждого из нижеперечисленных имен классов&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2563"/>
+        <location filename="../settings.py" line="2565"/>
         <source>Accept</source>
         <translation>Принять</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2565"/>
+        <location filename="../settings.py" line="2567"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
@@ -4682,37 +4587,37 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2664"/>
+        <location filename="../settings.py" line="2666"/>
         <source>Class Color</source>
         <translation>Цвет класса</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2715"/>
+        <location filename="../settings.py" line="2717"/>
         <source>Land Cover</source>
         <translation>Земляной покров</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2747"/>
+        <location filename="../settings.py" line="2749"/>
         <source>Class name cannot be empty.</source>
         <translation>Имя класса не может быть пустым.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2751"/>
+        <location filename="../settings.py" line="2753"/>
         <source>Invalid color selected.</source>
         <translation>Выбран неверный цвет.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2755"/>
+        <location filename="../settings.py" line="2757"/>
         <source>Parent class cannot be empty.</source>
         <translation>Родительский класс не может быть пустым.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2760"/>
+        <location filename="../settings.py" line="2762"/>
         <source>Invalid class code value.</source>
         <translation>Недопустимое значение кода класса.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2764"/>
+        <location filename="../settings.py" line="2766"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation>Значение кода '{code!s}' уже используется.</translation>
     </message>
@@ -4720,112 +4625,112 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="1944"/>
+        <location filename="../settings.py" line="1946"/>
         <source>Name</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1944"/>
+        <location filename="../settings.py" line="1946"/>
         <source>Code</source>
         <translation>Код</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1944"/>
+        <location filename="../settings.py" line="1946"/>
         <source>Parent</source>
         <translation>Родительский элемент</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2046"/>
+        <location filename="../settings.py" line="2048"/>
         <source>Land Cover</source>
         <translation>Земляной покров</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2312"/>
+        <location filename="../settings.py" line="2314"/>
         <source>Maximum number of classes reached.</source>
         <translation>Достигнуто максимальное количество классов.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2117"/>
+        <location filename="../settings.py" line="2119"/>
         <source>Nothing to save</source>
         <translation>Сохранить нечего</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2124"/>
+        <location filename="../settings.py" line="2126"/>
         <source>Save Land Cover Classes</source>
         <translation>Сохранить классы земляного покрова</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2148"/>
+        <location filename="../settings.py" line="2150"/>
         <source>Select Land Cover Classes File</source>
         <translation>Выберите файл классов земляного покрова</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2166"/>
+        <location filename="../settings.py" line="2168"/>
         <source>No land cover classes found.</source>
         <translation>Классы земляного покрова не найдены.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2231"/>
+        <location filename="../settings.py" line="2233"/>
         <source>Land Cover Class Editor</source>
         <translation>Редактор классов земляного покрова</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2295"/>
+        <location filename="../settings.py" line="2297"/>
         <source>Invalid row for land cover class</source>
         <translation>Недопустимый ряд для класса земляного покрова</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2300"/>
+        <location filename="../settings.py" line="2302"/>
         <source>Unable to update class.</source>
         <translation>Не удается обновить класс.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2319"/>
+        <location filename="../settings.py" line="2321"/>
         <source>Unable to add new class.</source>
         <translation>Не удается добавить новый класс.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2347"/>
+        <location filename="../settings.py" line="2349"/>
         <source>class does not have children assigned to it</source>
         <translation>классу не назначены дочерние элементы</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2367"/>
+        <location filename="../settings.py" line="2369"/>
         <source>class has not been assigned a parent</source>
         <translation>классу не назначен родительский элемент</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2493"/>
+        <location filename="../settings.py" line="2495"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation>Должен быть определен хотя бы один класс. Вы можете создать новый, а затем удалить этот, или вы можете восстановить классы КБОООН по умолчанию, нажав на кнопку &quot;Восстановить&quot;.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2498"/>
+        <location filename="../settings.py" line="2500"/>
         <source>Delete Failed</source>
         <translation>Удалить не удалось</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1979"/>
+        <location filename="../settings.py" line="1981"/>
         <source>Import CSV</source>
         <translation>Импорт CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1980"/>
+        <location filename="../settings.py" line="1982"/>
         <source>Import land cover classes from a CSV file</source>
         <translation>Импорт классов земного покрова из CSV-файла </translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2001"/>
+        <location filename="../settings.py" line="2003"/>
         <source>Import Land Cover Classes</source>
         <translation>Импорт классов земного покрова</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2008"/>
+        <location filename="../settings.py" line="2010"/>
         <source>CSV files</source>
         <translation>CSV-файлы</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2010"/>
+        <location filename="../settings.py" line="2012"/>
         <source>Select CSV file with land cover classes</source>
         <translation>Выберите CSV-файл с классами земного покрова</translation>
     </message>
@@ -4833,52 +4738,52 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="../main_widget.py" line="835"/>
+        <location filename="../main_widget.py" line="843"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="840"/>
+        <location filename="../main_widget.py" line="848"/>
         <source>Raster</source>
         <translation>Растр</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="845"/>
+        <location filename="../main_widget.py" line="853"/>
         <source>Vector</source>
         <translation>Вектор</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="858"/>
+        <location filename="../main_widget.py" line="866"/>
         <source>Load existing Trends.Earth output file...</source>
         <translation>Загрузить существующий файл вывода Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="862"/>
+        <location filename="../main_widget.py" line="870"/>
         <source>Import custom Productivity dataset...</source>
         <translation>Импортировать пользовательский набор данных о продуктивности...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="868"/>
+        <location filename="../main_widget.py" line="876"/>
         <source>Import custom Land Cover dataset...</source>
         <translation>Импортировать пользовательский набор данных о земельном покрове...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="874"/>
+        <location filename="../main_widget.py" line="882"/>
         <source>Import custom Soil Organic Carbon dataset...</source>
         <translation>Импортировать пользовательский набор данных о содержании органического углерода в почве...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="892"/>
+        <location filename="../main_widget.py" line="900"/>
         <source>Download raw dataset used in Trends.Earth...</source>
         <translation>Скачать исходный набор данных, который используется в Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="918"/>
+        <location filename="../main_widget.py" line="926"/>
         <source>Create false positive/negative layer</source>
         <translation>Создать ложноположительный/ложноотрицательный слой</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="880"/>
+        <location filename="../main_widget.py" line="888"/>
         <source>Import custom Population dataset...</source>
         <translation>Импорт пользовательского набора данных о населении...</translation>
     </message>
@@ -4917,59 +4822,59 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ProfileFormMixin</name>
     <message>
-        <location filename="../settings.py" line="1149"/>
+        <location filename="../settings.py" line="1151"/>
         <source>Error</source>
-        <translation type="unfinished">ошибка</translation>
+        <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1073"/>
+        <location filename="../settings.py" line="1075"/>
         <source>Enter your email address.</source>
-        <translation type="unfinished">Введите ваш адрес электронной почты.</translation>
+        <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1079"/>
+        <location filename="../settings.py" line="1081"/>
         <source>Enter your name.</source>
-        <translation type="unfinished">Введите ваше имя.</translation>
+        <translation>Введите ваше имя.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1085"/>
+        <location filename="../settings.py" line="1087"/>
         <source>Enter your organization.</source>
-        <translation type="unfinished">Войдите в свою организацию.</translation>
+        <translation>Войдите в свою организацию.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1091"/>
+        <location filename="../settings.py" line="1093"/>
         <source>Select your sector.</source>
-        <translation type="unfinished">Выберите сферу вашей деятельности.</translation>
+        <translation>Выберите сферу вашей деятельности.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1097"/>
+        <location filename="../settings.py" line="1099"/>
         <source>Select your purpose of use.</source>
-        <translation type="unfinished">Выберите цель использования.</translation>
+        <translation>Выберите цель использования.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1103"/>
+        <location filename="../settings.py" line="1105"/>
         <source>Select your country.</source>
-        <translation type="unfinished">Выберите вашу страну</translation>
+        <translation>Выберите вашу страну</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1110"/>
+        <location filename="../settings.py" line="1112"/>
         <source>You must acknowledge responsibility for GEE commercial licensing if needed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1125"/>
+        <location filename="../settings.py" line="1127"/>
         <source>Please specify your sector.</source>
-        <translation type="unfinished">Укажите сферу вашей деятельности.</translation>
+        <translation>Укажите сферу вашей деятельности.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1137"/>
+        <location filename="../settings.py" line="1139"/>
         <source>Please specify your purpose of use.</source>
-        <translation type="unfinished">Укажите цель использования.</translation>
+        <translation>Укажите цель использования.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1149"/>
+        <location filename="../settings.py" line="1151"/>
         <source>Please provide your gender identity description.</source>
-        <translation type="unfinished">Укажите свой пол.</translation>
+        <translation>Укажите свой пол.</translation>
     </message>
 </context>
 <context>
@@ -5947,17 +5852,17 @@ p, li { white-space: pre-wrap; }
         <translation>Разрешить доступ к данным LandPKS</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1744"/>
+        <location filename="../settings.py" line="1746"/>
         <source>No base data directory set</source>
         <translation>Основной каталог данных не задан</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1754"/>
+        <location filename="../settings.py" line="1756"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>Не получается создать запись в {}. Попробуйте другую папку.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1724"/>
+        <location filename="../settings.py" line="1726"/>
         <source>Offline mode is enabled.</source>
         <translation>Включен автономный режим.</translation>
     </message>
@@ -6030,27 +5935,27 @@ p, li { white-space: pre-wrap; }
         <translation>Записывать предупреждения в выходной каталог</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1830"/>
+        <location filename="../settings.py" line="1832"/>
         <source>Select Report Template Search Path</source>
         <translation>Выбрать путь поиска шаблона отчета</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1840"/>
+        <location filename="../settings.py" line="1842"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>Чтобы изменения вступили в силу, необходимо перезапустить QGIS.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1842"/>
+        <location filename="../settings.py" line="1844"/>
         <source>Template Search Path</source>
         <translation>Путь поиска шаблона</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1852"/>
+        <location filename="../settings.py" line="1854"/>
         <source>All Images</source>
         <translation>Все изображения</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1867"/>
+        <location filename="../settings.py" line="1869"/>
         <source>Select Organization Logo</source>
         <translation>Выберите логотип организации</translation>
     </message>
@@ -6181,17 +6086,17 @@ for running algorithms and their results.</source>
 <context>
     <name>self.parent</name>
     <message>
-        <location filename="../settings.py" line="2524"/>
+        <location filename="../settings.py" line="2526"/>
         <source>The class name value that will imported, should not exceed 120 characters. </source>
         <translation>Значение имени класса, которое будет импортировано, не должно превышать 120 символов.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2529"/>
+        <location filename="../settings.py" line="2531"/>
         <source>Select the parent for the corresponding class name.</source>
         <translation>Выберите родительский элемент для соответствующего имени класса.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2586"/>
+        <location filename="../settings.py" line="2588"/>
         <source>Maximum number of codes reached.</source>
         <translation>Достигнуто максимальное количество кодов.</translation>
     </message>
@@ -6199,60 +6104,65 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_api</name>
     <message>
-        <location filename="../api.py" line="317"/>
+        <location filename="../api.py" line="348"/>
         <source>Unable to login to Trends.Earth server. Check your internet connection.</source>
         <translation>Не удалось выполнить вход на сервер Trends.Earth. Проверьте подключение к Интернету.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="545"/>
+        <location filename="../api.py" line="576"/>
         <source>Unable to read token for Trends.Earth server. Check username and password.</source>
         <translation>Не удалось считать токен для сервера Trends.Earth. Проверьте имя пользователя и пароль.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="557"/>
+        <location filename="../api.py" line="588"/>
         <source>Unable to login to Trends.Earth. Check username and password.</source>
         <translation>Не удалось выполнить вход на сервер Trends.Earth. Проверьте имя пользователя и пароль.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="563"/>
+        <location filename="../api.py" line="594"/>
         <source>Unable to access Trends.Earth server. Check your internet connection</source>
         <translation>Не удалось получить доступ к серверу Trends.Earth. Проверьте подключение к Интернету</translation>
     </message>
     <message>
-        <location filename="../api.py" line="322"/>
+        <location filename="../api.py" line="353"/>
         <source>Unable to connect to Trends.Earth server.</source>
         <translation>Не удается подключиться к серверу Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="539"/>
+        <location filename="../api.py" line="570"/>
         <source>Authentication succeeded but no tokens returned. The API authentication method may have changed.</source>
         <translation>Аутентификация прошла успешно, но токены не были возвращены. Возможно, изменился метод аутентификации API.
 </translation>
     </message>
     <message>
-        <location filename="../api.py" line="806"/>
+        <location filename="../api.py" line="853"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation>Сервер Trends.Earth временно недоступен (ошибка {status}). Эта проблема обычно носит временный характер. Повторите попытку через несколько минут.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="812"/>
+        <location filename="../api.py" line="859"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation>На сервере Trends.Earth произошла внутренняя ошибка (ошибка 500). Повторите попытку. Если проблема не устраняется, обратитесь в службу поддержки Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="818"/>
+        <location filename="../api.py" line="865"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation>Аутентификация не удалась. Проверьте учетные данные для входа.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="492"/>
+        <location filename="../api.py" line="523"/>
         <source>No login credentials configured. Please set up your username and password in Trends.Earth settings.</source>
         <translation>Не настроены учетные данные для входа. Пожалуйста, настройте свое имя пользователя и пароль в настройках Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="508"/>
+        <location filename="../api.py" line="539"/>
         <source>Unable to retrieve stored credentials. Please re-enter your username and password in Trends.Earth settings.</source>
         <translation>Не удается получить сохраненные учетные данные. Пожалуйста, введите свое имя пользователя и пароль в настройках Trends.Earth.</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="843"/>
+        <source>This script requires Google Earth Engine. You must accept confirm understanding of the GEE terms of use before running it. Please update your profile in the Trends.Earth plugin settings to do so.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7439,142 +7349,142 @@ for running algorithms and their results.</source>
         <translation>Уязвимость к засухе (JRC, {year}, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="323"/>
+        <location filename="../layers.py" line="340"/>
         <source>Extreme drought</source>
         <translation>Экстремальная засуха</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="324"/>
+        <location filename="../layers.py" line="341"/>
         <source>Severe drought</source>
         <translation>Сильная засуха</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="325"/>
+        <location filename="../layers.py" line="342"/>
         <source>Moderate drought</source>
         <translation>Средняя засуха</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="326"/>
+        <location filename="../layers.py" line="343"/>
         <source>Mild drought</source>
         <translation>Умеренная засуха</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="327"/>
+        <location filename="../layers.py" line="344"/>
         <source>Normal</source>
         <translation>Обычная</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="328"/>
+        <location filename="../layers.py" line="345"/>
         <source>Mildly wet</source>
         <translation>Слегка влажно</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="329"/>
+        <location filename="../layers.py" line="346"/>
         <source>Moderately wet</source>
         <translation>Умеренно влажно</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="330"/>
+        <location filename="../layers.py" line="347"/>
         <source>Severely wet</source>
         <translation>Сильно влажно</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="331"/>
+        <location filename="../layers.py" line="348"/>
         <source>Extremely wet</source>
         <translation>Крайне влажно</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="333"/>
+        <location filename="../layers.py" line="350"/>
         <source>Biomass (tonnes CO2e per ha, {year})</source>
         <translation>Биомасса (тонн CO2e на га, {year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="334"/>
+        <location filename="../layers.py" line="351"/>
         <source>Change in biomass (tonnes CO2e per ha, {type} after {years} years)</source>
         <translation>Изменение биомассы (тонн CO2-экв. на га, {type} через {years} года)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="338"/>
+        <location filename="../layers.py" line="355"/>
         <source>Agro Ecological Zones V3.0</source>
         <translation>Агроэкологические зоны V3.0</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="339"/>
+        <location filename="../layers.py" line="356"/>
         <source>Climatic Zones</source>
         <translation>Климатические зоны</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="341"/>
+        <location filename="../layers.py" line="358"/>
         <source>Hansen</source>
         <translation>Hansen</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="343"/>
+        <location filename="../layers.py" line="360"/>
         <source>MOD16A2</source>
         <translation>MOD16A2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="345"/>
+        <location filename="../layers.py" line="362"/>
         <source>CHIRPS</source>
         <translation>щебечет</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="346"/>
+        <location filename="../layers.py" line="363"/>
         <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
         <translation>GPCC V7 (Глобальный центр климатологии осадков)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="347"/>
+        <location filename="../layers.py" line="364"/>
         <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
         <translation>GPCP v2.3 1 месяц (Глобальный проект по климатологии осадков)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="350"/>
+        <location filename="../layers.py" line="367"/>
         <source>PERSIANN-CDR</source>
         <translation>PERSIANN-CDR</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="352"/>
+        <location filename="../layers.py" line="369"/>
         <source>ERA I</source>
         <translation>ЭРА Я</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="353"/>
+        <location filename="../layers.py" line="370"/>
         <source>MERRA 2</source>
         <translation>MERRA 2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="355"/>
+        <location filename="../layers.py" line="372"/>
         <source>MODIS (MOD13Q1, annual)</source>
         <translation>MODIS (MOD13Q1, годовой)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="356"/>
+        <location filename="../layers.py" line="373"/>
         <source>AVHRR (GIMMS3g.v1, annual)</source>
         <translation>AVHRR (GIMMS3g.v1, годовой)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="357"/>
+        <location filename="../layers.py" line="374"/>
         <source>MODIS (MOD13Q1, 16 day)</source>
         <translation>MODIS (MOD13Q1, 16 день)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="362"/>
+        <location filename="../layers.py" line="379"/>
         <source>Soil Grids 250</source>
         <translation>Почвенные сетки 250</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="360"/>
+        <location filename="../layers.py" line="377"/>
         <source>USDA Soil Type</source>
         <translation>USDA Тип почвы</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="701"/>
+        <location filename="../layers.py" line="718"/>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="701"/>
+        <location filename="../layers.py" line="718"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>Trends.Earth не имеет стиля, назначенного для &amp;quot;{}&amp;quot; (группа {} в {}). Чтобы использовать этот слой, добавьте его вручную на карту.</translation>
     </message>
@@ -7687,6 +7597,21 @@ for running algorithms and their results.</source>
         <location filename="../layers.py" line="261"/>
         <source>Baseline + Report 1</source>
         <translation>Основная информация + отчёт 1</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="105"/>
+        <source>Mean annual NDVI integral ({year_initial} to {year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="333"/>
+        <source>Standardized Precipitation Evapotranspiration Index (SPEI, {year}, {lag} month lag, * 1000)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="337"/>
+        <source>SPEI at maximum drought during {year_initial}-{year_final} ({lag} month lag, * 1000)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

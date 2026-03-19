@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-18 04:40+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -83,14 +83,31 @@ msgstr ""
 "并选择想给插件的星数来评价工具箱，5 星表示非常满意。"
 
 #: ../../source/for_users/faq/index.rst:38
+msgid "Why is my job stuck in \"Pending\" status?"
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:40
+msgid ""
+"When you submit an analysis job, Trends.Earth places it in a queue that "
+"processes requests in the order they were received. To ensure fair access to"
+" computing resources for all users, each account is limited to running a "
+"small number of jobs at the same time (typically three). If you already have"
+" several jobs running, any new jobs you submit will remain in \"Pending\" "
+"status until one of your active jobs finishes. Once a slot becomes "
+"available, your oldest pending job will automatically start processing. You "
+"don't need to take any action - once your earlier jobs complete, your queued"
+" jobs will begin shortly afterward."
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:51
 msgid "Installation of Trends.Earth"
 msgstr "安装 Trends.Earth"
 
-#: ../../source/for_users/faq/index.rst:42
+#: ../../source/for_users/faq/index.rst:55
 msgid "What version of Quantum GIS (QGIS) do I need for the toolbox?"
 msgstr "工具箱需要什么版本的 Quantum GIS (QGIS)？"
 
-#: ../../source/for_users/faq/index.rst:44
+#: ../../source/for_users/faq/index.rst:57
 msgid ""
 "To download QGIS, please go to the QGIS Downloads page. As of January, 2025,"
 " please use version 3.40 Long Term Release or higher version for the "
@@ -99,11 +116,11 @@ msgstr ""
 "要下载 QGIS，请访问 QGIS Downloads 页面。截至 2025 年 1 月，请使用 3.40 长期支持版或更高版本以支持 "
 "trends.earth 插件。"
 
-#: ../../source/for_users/faq/index.rst:48
+#: ../../source/for_users/faq/index.rst:61
 msgid "How do I install the plugin?"
 msgstr "如何安装插件？"
 
-#: ../../source/for_users/faq/index.rst:50
+#: ../../source/for_users/faq/index.rst:63
 msgid ""
 "Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
 "install plugins. On the side menu, select All to view the plugins available "
@@ -113,11 +130,11 @@ msgstr ""
 "打开 QGIS，导航到菜单栏上的“插件”，选择“管理”并安装插件。在侧面菜单上，选择“全部”以查看 QGIS 中可用的插件。搜索 "
 "trends.earth 并选择窗口底部的“安装”插件。"
 
-#: ../../source/for_users/faq/index.rst:55
+#: ../../source/for_users/faq/index.rst:68
 msgid "How do I upgrade the plugin?"
 msgstr "如何升级插件？"
 
-#: ../../source/for_users/faq/index.rst:57
+#: ../../source/for_users/faq/index.rst:70
 msgid ""
 "If you have already installed the plugin, navigate to Plugins on the menu "
 "bar, and select Manage and install plugins. On the side menu, select "
@@ -127,11 +144,11 @@ msgid ""
 msgstr ""
 "如果您已经安装了插件，请导航到菜单栏上的“插件”，选择“管理”并安装插件。在侧面菜单上，选择“已安装”以查看已在计算机中安装的插件。在窗口底部，选择全部“升级”以将工具箱升级到最新版本。"
 
-#: ../../source/for_users/faq/index.rst:63
+#: ../../source/for_users/faq/index.rst:76
 msgid "I get a Python error after upgrading the plugin. What should I do?"
 msgstr "升级插件后出现 Python 错误，该怎么办？"
 
-#: ../../source/for_users/faq/index.rst:65
+#: ../../source/for_users/faq/index.rst:78
 msgid ""
 "If you see a Python error (such as ``AttributeError`` or "
 "``ModuleNotFoundError``) immediately after upgrading the plugin within QGIS,"
@@ -145,11 +162,11 @@ msgstr ""
 "``ModuleNotFoundError``），这是由于 Python 的模块缓存仍保留旧版本插件库导致的。只需重新启动 "
 "QGIS，插件即可正常加载。该问题通常只在从较旧版本升级时出现；较新版本已包含修复，在升级过程中会自动清理模块缓存。"
 
-#: ../../source/for_users/faq/index.rst:73
+#: ../../source/for_users/faq/index.rst:86
 msgid "How do I uninstall the plugin?"
 msgstr "如何卸载插件？"
 
-#: ../../source/for_users/faq/index.rst:75
+#: ../../source/for_users/faq/index.rst:88
 msgid ""
 "If you would like to uninstall the plugin, normally you can do so with the "
 "QGIS plugins manager. To access the tool, choose \"Plugins\" and then "
@@ -162,44 +179,44 @@ msgstr ""
 "菜单栏中选择“插件”，然后选择“管理和安装插件...”。在插件管理器屏幕中，从左侧菜单中选择“已安装”。然后单击插件列表中的 "
 "\"Trends.Earth\"，并单击“卸载插件”将其卸载。"
 
-#: ../../source/for_users/faq/index.rst:82
+#: ../../source/for_users/faq/index.rst:95
 msgid ""
 "If you encounter an error uninstalling the plugin, it is also possible to "
 "remove it manually. To manually remove the plugin:"
 msgstr "如果您在卸载插件时遇到错误，也可以手动将其删除。要手动删除插件："
 
-#: ../../source/for_users/faq/index.rst:85
+#: ../../source/for_users/faq/index.rst:98
 msgid "Open QGIS"
 msgstr "打开 QGIS"
 
-#: ../../source/for_users/faq/index.rst:86
+#: ../../source/for_users/faq/index.rst:99
 msgid ""
 "Navigate to where the plugin is installed by selecting \"Open Active Profile"
 " Folder\" from the menu under \"Settings\" - \"User Profiles\" on the menu "
 "bar."
 msgstr "从菜单栏上的“设置”——“用户配置文件”下的菜单中选择“打开活动配置文件文件夹”，导航到安装插件的位置。"
 
-#: ../../source/for_users/faq/index.rst:88
+#: ../../source/for_users/faq/index.rst:101
 msgid ""
 "Quit QGIS. You may not be able to uninstall the plugin if QGIS is not "
 "closed."
 msgstr "退出 QGIS。如果 QGIS 未关闭，您可能无法卸载此插件。"
 
-#: ../../source/for_users/faq/index.rst:90
+#: ../../source/for_users/faq/index.rst:103
 msgid ""
 "In the file browser window that opened, double click on \"python\", and then"
 " double click on \"plugins\". Delete the LDMP folder within that directory."
 msgstr "在打开的文件浏览器窗口中，双击 \"python\"，然后双击“插件”。删除此目录中的 LDMP 文件夹。"
 
-#: ../../source/for_users/faq/index.rst:92
+#: ../../source/for_users/faq/index.rst:105
 msgid "Restart QGIS."
 msgstr "重新启动 QGIS。"
 
-#: ../../source/for_users/faq/index.rst:94
+#: ../../source/for_users/faq/index.rst:107
 msgid "OR"
 msgstr "或者"
 
-#: ../../source/for_users/faq/index.rst:96
+#: ../../source/for_users/faq/index.rst:109
 msgid ""
 "Navigate to the AppData folder under user account and find the plugins info "
 "under the directory. For example: "
@@ -208,21 +225,21 @@ msgstr ""
 "导航到用户账户下的 AppData "
 "文件夹，在此目录下找到插件信息。例如：C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
 
-#: ../../source/for_users/faq/index.rst:101
+#: ../../source/for_users/faq/index.rst:114
 msgid "Datasets"
 msgstr "数据集"
 
-#: ../../source/for_users/faq/index.rst:104
+#: ../../source/for_users/faq/index.rst:117
 msgid ""
 "Refer to the :ref:`input_data` section for more information on data sources "
 "used in Trends.Earth."
 msgstr "关于 Trends.Earth 所用数据源的更多信息，请参阅 :ref:`input_data` 部分。"
 
-#: ../../source/for_users/faq/index.rst:107
+#: ../../source/for_users/faq/index.rst:120
 msgid "When will you update datasets for the current year?"
 msgstr "您何时更新本年度的数据集？"
 
-#: ../../source/for_users/faq/index.rst:109
+#: ../../source/for_users/faq/index.rst:122
 msgid ""
 "Trends.Earth uses publicly available data, as such the most up to date "
 "datasets will be added to the toolbox as soon as the original data providers"
@@ -231,21 +248,21 @@ msgid ""
 msgstr ""
 "Trends.Earth使用的是公开的数据，因此，一旦原始数据提供者将其公开，最新的数据集就会被添加到工具箱中。如果您注意到我们遗漏的任何更新，请让我们知道。"
 
-#: ../../source/for_users/faq/index.rst:114
+#: ../../source/for_users/faq/index.rst:127
 msgid "Is there an option to download the original data?"
 msgstr "是否有一个选项可以下载原始数据？"
 
-#: ../../source/for_users/faq/index.rst:116
+#: ../../source/for_users/faq/index.rst:129
 msgid ""
 "Users can download the original data using the Download option within the "
 "toolbox."
 msgstr "用户可以使用工具箱中的下载选项来下载原始数据。"
 
-#: ../../source/for_users/faq/index.rst:120
+#: ../../source/for_users/faq/index.rst:133
 msgid "Will the toolbox support higher resolution datasets?"
 msgstr "工具箱是否支持更高分辨率的数据集？"
 
-#: ../../source/for_users/faq/index.rst:122
+#: ../../source/for_users/faq/index.rst:135
 msgid ""
 "The toolbox supports AVHRR (8km) and MODIS (250m) data for primary "
 "productivity analysis, and ESA LCC CCI (300m) for land cover change "
@@ -253,7 +270,7 @@ msgid ""
 msgstr ""
 "该工具包支持使用 AVHRR（8km）和 MODIS（250m）数据进行初级生产力分析，并使用 ESA LCC CCI（300m）进行土地覆盖变化分析。"
 
-#: ../../source/for_users/faq/index.rst:125
+#: ../../source/for_users/faq/index.rst:138
 msgid ""
 "In partnership with `Apacheta <https://www.apacheta.org/>`_ and `Auspatious "
 "<http://auspatious.com/>` and funding from the Global Environmental Facility"
@@ -265,11 +282,11 @@ msgstr ""
 "<http://auspatious.com/>` 合作，并在全球环境基金（GEF）资助下，我们的团队目前正在开发 30 "
 "米分辨率的土地生产力动态和土地覆盖数据集，用于覆盖小岛屿发展中国家 (SIDS)。"
 
-#: ../../source/for_users/faq/index.rst:130
+#: ../../source/for_users/faq/index.rst:143
 msgid "Can the toolbox support analysis with national-level datasets?"
 msgstr "该工具箱能否支持对国家级数据集的分析？"
 
-#: ../../source/for_users/faq/index.rst:132
+#: ../../source/for_users/faq/index.rst:145
 msgid ""
 "Trends.Earth does have the capacity to import, load and process national-"
 "level datasets representing soil organic carbon, land cover and land "
@@ -283,11 +300,11 @@ msgstr ""
 "Trends.Earth "
 "能够导入、加载和处理代表土壤有机碳、土地覆盖和土地生产力动态的国家级数据集，允许用户利用可能比工具中默认的全球数据集具有更高空间分辨率的现有国家级数据集。请注意，使用国家级数据集依赖于用户计算机的本地处理能力，因此使用自定义数据集进行分析所需的时间将取决于用户机器的具体配置。"
 
-#: ../../source/for_users/faq/index.rst:139
+#: ../../source/for_users/faq/index.rst:152
 msgid "Methods"
 msgstr "方法"
 
-#: ../../source/for_users/faq/index.rst:142
+#: ../../source/for_users/faq/index.rst:155
 msgid ""
 "Refer to the :ref:`background_landdegradation` section for more background "
 "on analyses available in Trends.Earth."
@@ -295,15 +312,15 @@ msgstr ""
 "参考:\n"
 "ref:`background_landdegradation`一节，了解更多关于Trends.Earth中分析的背景。"
 
-#: ../../source/for_users/faq/index.rst:146
+#: ../../source/for_users/faq/index.rst:159
 msgid "Productivity"
 msgstr "生产率"
 
-#: ../../source/for_users/faq/index.rst:149
+#: ../../source/for_users/faq/index.rst:162
 msgid "How does the result provided by state differs from trajectory?"
 msgstr "国家提供的结果与轨迹有什么不同？"
 
-#: ../../source/for_users/faq/index.rst:151
+#: ../../source/for_users/faq/index.rst:164
 msgid ""
 "The trajectory analysis uses linear regressions and non-parametric tests to "
 "identify long term significant trends in primary productivity. This method "
@@ -314,11 +331,11 @@ msgid ""
 msgstr ""
 "轨迹分析使用线性回归和非参数测试来确定初级生产力的长期重要趋势。然而，这种方法不能捕捉到初级生产力的更多近期变化，这可能是短期改善或退化过程的信号。通过将长期平均值与最近的时期进行比较，国家能够捕捉到这种最近的变化。"
 
-#: ../../source/for_users/faq/index.rst:160
+#: ../../source/for_users/faq/index.rst:173
 msgid "Land cover"
 msgstr "土地覆盖"
 
-#: ../../source/for_users/faq/index.rst:163
+#: ../../source/for_users/faq/index.rst:176
 msgid ""
 "Currently, the land cover aggregation is done following the UNCCD "
 "guidelines, but that classification does not take into account country level"
@@ -326,18 +343,18 @@ msgid ""
 "aggregation criteria?"
 msgstr "目前，土地覆被的汇总是按照UNCCD准则进行的，但这种分类未考虑国家一级的特点。是否有可能允许用户定义汇总标准？"
 
-#: ../../source/for_users/faq/index.rst:165
+#: ../../source/for_users/faq/index.rst:178
 msgid ""
 "Users are able to make these changes using the advanced settings in the land"
 " cover GUI so that appropriate aggregations occur depending on the context "
 "of your country."
 msgstr "用户能够使用土地覆被图形用户界面（GUI）中的高级设置进行修改，以便根据您所在国家的情况进行适当的汇总。"
 
-#: ../../source/for_users/faq/index.rst:170
+#: ../../source/for_users/faq/index.rst:183
 msgid "How can we isolate woody plant encroachment within the toolbox?"
 msgstr "我们如何在工具箱中隔离出木本植物侵占？"
 
-#: ../../source/for_users/faq/index.rst:172
+#: ../../source/for_users/faq/index.rst:185
 msgid ""
 "This can be altered using the land cover change matrix in the toolbox. For "
 "every transition, the user can mark the change as stable, improvement or "
@@ -347,17 +364,17 @@ msgid ""
 msgstr ""
 "这可以通过工具箱中的土地覆被变化矩阵来改变。对于每一个过渡，用户可以将变化标记为稳定、改善或退化。从草地/牧场到灌木林地的过渡可能表明木本植物侵占，这种过渡可以被标记为退化的指标。"
 
-#: ../../source/for_users/faq/index.rst:179
+#: ../../source/for_users/faq/index.rst:192
 msgid "Carbon stocks"
 msgstr "碳储量"
 
-#: ../../source/for_users/faq/index.rst:182
+#: ../../source/for_users/faq/index.rst:195
 msgid ""
 "Why use soil organic carbon (SOC) instead of above and below-ground carbon "
 "to  measure carbon stocks?"
 msgstr "为什么使用土壤有机碳（SOC）而不是地上和地下碳来测量碳储量？"
 
-#: ../../source/for_users/faq/index.rst:184
+#: ../../source/for_users/faq/index.rst:197
 msgid ""
 "The original proposed indicator is Carbon Stocks, which would include above "
 "and below ground biomass. However, given the lack of consistently generated "
@@ -374,29 +391,29 @@ msgstr ""
 "<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-"
 "Indicator-15.3.1_version2_2021.pdf>`_建议暂时使用 SOC（土壤有机碳）作为替代指标。"
 
-#: ../../source/for_users/faq/index.rst:193
+#: ../../source/for_users/faq/index.rst:206
 msgid ""
 "Is it possible to measure identify processes of degradation linked to "
 "salinization using this tool?"
 msgstr "是否有可能利用这一工具来测量确定与盐碱化有关的退化过程？"
 
-#: ../../source/for_users/faq/index.rst:195
+#: ../../source/for_users/faq/index.rst:208
 msgid ""
 "Not directly. If salinization caused a reduction in primary productivity, "
 "that decrease would be identified by the productivity indicators, but the "
 "users would have to use their local knowledge to assign the causes."
 msgstr "并非直接的。如果盐碱化导致初级生产力的减少，这种减少将被生产力指标所识别，但用户将不得不利用他们的地方知识来确定原因。"
 
-#: ../../source/for_users/faq/index.rst:200
+#: ../../source/for_users/faq/index.rst:213
 msgid "Land degradation outputs"
 msgstr "土地退化的输出"
 
-#: ../../source/for_users/faq/index.rst:203
+#: ../../source/for_users/faq/index.rst:216
 msgid ""
 "How were the layers combined to define the final land degradation layer?"
 msgstr "这些层是如何结合起来以确定最终的土地退化层的？"
 
-#: ../../source/for_users/faq/index.rst:205
+#: ../../source/for_users/faq/index.rst:218
 msgid ""
 "Performance, state, and trajectory (the three metrics of change in "
 "productivity_) are combined following a modified version of the good "
@@ -411,13 +428,13 @@ msgstr ""
 "制定的良好实践指南的改进版本进行组合（本手册 SDG 指标 15.3.1 部分提供了相关表格）。生产力、土壤碳和土地覆盖变化（SDG 15.3.1 "
 "的三个子指标）按照“一票否决”原则进行组合。换句话说：如果某个像素在三个指标中的任何一个出现下降，则该像素被标记为“退化”。"
 
-#: ../../source/for_users/faq/index.rst:214
+#: ../../source/for_users/faq/index.rst:227
 msgid ""
 "Why do I see areas the data says are improving or degrading when I know they"
 " are not?"
 msgstr "为什么我看到数据所说的正在改善或退化的领域，而我知道事实上并非如此？"
 
-#: ../../source/for_users/faq/index.rst:216
+#: ../../source/for_users/faq/index.rst:229
 msgid ""
 "The final output should be interpreted as showing areas potentially "
 "degraded. The indicator of land degradation is based on changes in "
@@ -435,13 +452,13 @@ msgid ""
 msgstr ""
 "最终的输出结果应被解释为显示潜在的退化区域。土地退化的指标是基于生产力、土地覆盖和土壤有机碳的变化。有几个因素可能会导致识别出似乎与地面上发生的情况不相关的退化模式，分析日期是一个非常重要的因素。例如，如果分析开始时的气候条件特别潮湿，那么从那时起的趋势可能会显示初级生产力的显著下降，以及退化。用户可以使用Trends.Earth来解决其中的一些问题，通过气候的影响进行修正。数据的分辨率有可能是另一个限制。Trends.Earth默认使用的是全球数据集，但这并不是在所有规模和地理区域都是最相关的。使用本地数据的功能不久将添加。"
 
-#: ../../source/for_users/faq/index.rst:230
+#: ../../source/for_users/faq/index.rst:243
 msgid ""
 "All of the sub-indicators are measuring vegetation: how does this contribute"
 " to understanding and identifying land degradation?"
 msgstr "所有的次级指标都在测量植被：这对理解和识别土地退化有什么帮助？"
 
-#: ../../source/for_users/faq/index.rst:232
+#: ../../source/for_users/faq/index.rst:245
 msgid ""
 "Vegetation is a key component of most ecosystems, and serve as a good proxy "
 "for their overall functioning and health. The three sub-indicators used for "
@@ -460,15 +477,15 @@ msgid ""
 msgstr ""
 "植被是大多数生态系统的关键组成部分，是生态系统整体功能和健康的良好代表。用于SDG15.3.1的三个次级指标衡量土地覆盖的不同方面，这些方面确实与植被有关。初级生产力直接衡量一个地区存在的生物量的变化，但它并没有告诉我们这种变化是否是积极的（并非所有植物生物量的增加都应被解释为改善）。土地覆被填补了这一空白，它从专题的角度解释景观，观察以前有什么，现在有什么。它确实包括植被，但也包括裸露的土地、城市和水。最后，土壤有机碳指标使用土地覆盖图来告知土壤有机碳随时间的变化。这种方法并不理想，但鉴于全球土壤科学和测量的现状，人们一致认为在这个时间点和全球范围内，这是最好的方法。"
 
-#: ../../source/for_users/faq/index.rst:247
+#: ../../source/for_users/faq/index.rst:260
 msgid "Future plans"
 msgstr "未来的计划"
 
-#: ../../source/for_users/faq/index.rst:250
+#: ../../source/for_users/faq/index.rst:263
 msgid "When will there be an offline version of the toolbox?"
 msgstr "什么时候会有一个离线版本的工具箱？"
 
-#: ../../source/for_users/faq/index.rst:252
+#: ../../source/for_users/faq/index.rst:265
 msgid ""
 "The toolbox is available as both as an offline and online version. The "
 "online version allows users to access current datasets more easily, while "
@@ -481,11 +498,11 @@ msgstr ""
 "该工具包既提供离线版本，也提供在线版本。在线版本使用户能够更容易访问最新数据集，并利用 Google Earth Engine "
 "在云端进行计算。离线版本允许用户在互联网连接有限的情况下访问数据并进行分析，但缺点是用户需要具备足够的本地计算能力来运行分析。"
 
-#: ../../source/for_users/faq/index.rst:261
+#: ../../source/for_users/faq/index.rst:274
 msgid "Will you create a trends.earth toolbox for ESRI users?"
 msgstr "你会为ESRI用户创建一个trends.earth工具箱吗？"
 
-#: ../../source/for_users/faq/index.rst:263
+#: ../../source/for_users/faq/index.rst:276
 msgid ""
 "The toolbox is available as a plugin to QGIS, an open source software "
 "package. This allows users around the world free access to the toolbox. "

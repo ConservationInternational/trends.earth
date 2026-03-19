@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-18 04:40+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Russian (https://app.transifex.com/conservation-international/teams/80165/ru/)\n"
@@ -100,14 +100,31 @@ msgstr ""
 "плагину. 5 звезд означают, что вы очень довольны."
 
 #: ../../source/for_users/faq/index.rst:38
+msgid "Why is my job stuck in \"Pending\" status?"
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:40
+msgid ""
+"When you submit an analysis job, Trends.Earth places it in a queue that "
+"processes requests in the order they were received. To ensure fair access to"
+" computing resources for all users, each account is limited to running a "
+"small number of jobs at the same time (typically three). If you already have"
+" several jobs running, any new jobs you submit will remain in \"Pending\" "
+"status until one of your active jobs finishes. Once a slot becomes "
+"available, your oldest pending job will automatically start processing. You "
+"don't need to take any action - once your earlier jobs complete, your queued"
+" jobs will begin shortly afterward."
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:51
 msgid "Installation of Trends.Earth"
 msgstr "Установка Trends.Earth"
 
-#: ../../source/for_users/faq/index.rst:42
+#: ../../source/for_users/faq/index.rst:55
 msgid "What version of Quantum GIS (QGIS) do I need for the toolbox?"
 msgstr "Какая версия Quantum GIS (QGIS) нужна для набора инструментов?"
 
-#: ../../source/for_users/faq/index.rst:44
+#: ../../source/for_users/faq/index.rst:57
 msgid ""
 "To download QGIS, please go to the QGIS Downloads page. As of January, 2025,"
 " please use version 3.40 Long Term Release or higher version for the "
@@ -117,11 +134,11 @@ msgstr ""
 "январь 2025 года для работы с плагином Trends.Earth рекомендуется "
 "использовать версию 3.40 Long Term Release или более позднюю."
 
-#: ../../source/for_users/faq/index.rst:48
+#: ../../source/for_users/faq/index.rst:61
 msgid "How do I install the plugin?"
 msgstr "Как установить плагин?"
 
-#: ../../source/for_users/faq/index.rst:50
+#: ../../source/for_users/faq/index.rst:63
 msgid ""
 "Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
 "install plugins. On the side menu, select All to view the plugins available "
@@ -133,11 +150,11 @@ msgstr ""
 "плагины, доступные в QGIS. Найдите Trends.earth и выберите «Установить "
 "плагин» в нижней части окна."
 
-#: ../../source/for_users/faq/index.rst:55
+#: ../../source/for_users/faq/index.rst:68
 msgid "How do I upgrade the plugin?"
 msgstr "Как обновить плагин?"
 
-#: ../../source/for_users/faq/index.rst:57
+#: ../../source/for_users/faq/index.rst:70
 msgid ""
 "If you have already installed the plugin, navigate to Plugins on the menu "
 "bar, and select Manage and install plugins. On the side menu, select "
@@ -151,13 +168,13 @@ msgstr ""
 " В нижней части окна выберите «Обновить все», чтобы обновить набор "
 "инструментов до последней версии."
 
-#: ../../source/for_users/faq/index.rst:63
+#: ../../source/for_users/faq/index.rst:76
 msgid "I get a Python error after upgrading the plugin. What should I do?"
 msgstr ""
 "После обновления плагина я получаю сообщение об ошибке Python. Что мне "
 "делать?"
 
-#: ../../source/for_users/faq/index.rst:65
+#: ../../source/for_users/faq/index.rst:78
 msgid ""
 "If you see a Python error (such as ``AttributeError`` or "
 "``ModuleNotFoundError``) immediately after upgrading the plugin within QGIS,"
@@ -175,11 +192,11 @@ msgstr ""
 "новых версиях есть исправление, которое автоматически очищает кэш модуля при"
 " обновлении."
 
-#: ../../source/for_users/faq/index.rst:73
+#: ../../source/for_users/faq/index.rst:86
 msgid "How do I uninstall the plugin?"
 msgstr "Как удалить плагин?"
 
-#: ../../source/for_users/faq/index.rst:75
+#: ../../source/for_users/faq/index.rst:88
 msgid ""
 "If you would like to uninstall the plugin, normally you can do so with the "
 "QGIS plugins manager. To access the tool, choose \"Plugins\" and then "
@@ -194,7 +211,7 @@ msgstr ""
 "диспетчера плагинов выберите «Установлено» в меню слева. Затем нажмите "
 "«Trends.Earth» в списке плагинов и «Удалить плагин», чтобы удалить его."
 
-#: ../../source/for_users/faq/index.rst:82
+#: ../../source/for_users/faq/index.rst:95
 msgid ""
 "If you encounter an error uninstalling the plugin, it is also possible to "
 "remove it manually. To manually remove the plugin:"
@@ -202,11 +219,11 @@ msgstr ""
 "Если вы столкнулись с ошибкой при удалении плагина, его также можно удалить "
 "вручную. Чтобы вручную удалить плагин:"
 
-#: ../../source/for_users/faq/index.rst:85
+#: ../../source/for_users/faq/index.rst:98
 msgid "Open QGIS"
 msgstr "Откройте QGIS"
 
-#: ../../source/for_users/faq/index.rst:86
+#: ../../source/for_users/faq/index.rst:99
 msgid ""
 "Navigate to where the plugin is installed by selecting \"Open Active Profile"
 " Folder\" from the menu under \"Settings\" - \"User Profiles\" on the menu "
@@ -215,7 +232,7 @@ msgstr ""
 "Перейдите туда, где установлен плагин, выбрав «Открыть папку активного "
 "профиля» в меню «Настройки» — «Профили пользователей» в строке меню."
 
-#: ../../source/for_users/faq/index.rst:88
+#: ../../source/for_users/faq/index.rst:101
 msgid ""
 "Quit QGIS. You may not be able to uninstall the plugin if QGIS is not "
 "closed."
@@ -223,7 +240,7 @@ msgstr ""
 "Выйдите из QGIS. Возможно, вы не сможете удалить плагин, если QGIS не "
 "закрыт."
 
-#: ../../source/for_users/faq/index.rst:90
+#: ../../source/for_users/faq/index.rst:103
 msgid ""
 "In the file browser window that opened, double click on \"python\", and then"
 " double click on \"plugins\". Delete the LDMP folder within that directory."
@@ -231,15 +248,15 @@ msgstr ""
 "В открывшемся окне браузера файлов дважды нажмите на python, а затем дважды "
 "на «плагины». Удалите папку LDMP в этом каталоге."
 
-#: ../../source/for_users/faq/index.rst:92
+#: ../../source/for_users/faq/index.rst:105
 msgid "Restart QGIS."
 msgstr "Перезапустите QGIS."
 
-#: ../../source/for_users/faq/index.rst:94
+#: ../../source/for_users/faq/index.rst:107
 msgid "OR"
 msgstr "ИЛИ"
 
-#: ../../source/for_users/faq/index.rst:96
+#: ../../source/for_users/faq/index.rst:109
 msgid ""
 "Navigate to the AppData folder under user account and find the plugins info "
 "under the directory. For example: "
@@ -249,11 +266,11 @@ msgstr ""
 "информацию о плагинах в каталоге. Например: "
 "C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
 
-#: ../../source/for_users/faq/index.rst:101
+#: ../../source/for_users/faq/index.rst:114
 msgid "Datasets"
 msgstr "Наборы данных"
 
-#: ../../source/for_users/faq/index.rst:104
+#: ../../source/for_users/faq/index.rst:117
 msgid ""
 "Refer to the :ref:`input_data` section for more information on data sources "
 "used in Trends.Earth."
@@ -261,11 +278,11 @@ msgstr ""
 "Обратитесь к разделу :ref:`input_data` для получения дополнительной "
 "информации об источниках данных, используемых в Trends.Earth."
 
-#: ../../source/for_users/faq/index.rst:107
+#: ../../source/for_users/faq/index.rst:120
 msgid "When will you update datasets for the current year?"
 msgstr "Когда вы обновите наборы данных за текущий год?"
 
-#: ../../source/for_users/faq/index.rst:109
+#: ../../source/for_users/faq/index.rst:122
 msgid ""
 "Trends.Earth uses publicly available data, as such the most up to date "
 "datasets will be added to the toolbox as soon as the original data providers"
@@ -277,11 +294,11 @@ msgstr ""
 "исходных данных сделают их общедоступными. Если вы заметили какие-либо "
 "обновления, которые мы пропустили, пожалуйста, сообщите нам об этом."
 
-#: ../../source/for_users/faq/index.rst:114
+#: ../../source/for_users/faq/index.rst:127
 msgid "Is there an option to download the original data?"
 msgstr "Есть ли возможность скачать исходные данные?"
 
-#: ../../source/for_users/faq/index.rst:116
+#: ../../source/for_users/faq/index.rst:129
 msgid ""
 "Users can download the original data using the Download option within the "
 "toolbox."
@@ -289,13 +306,13 @@ msgstr ""
 "Пользователи могут скачивать исходные данные, используя опцию \"Скачать\" в "
 "панели инструментов."
 
-#: ../../source/for_users/faq/index.rst:120
+#: ../../source/for_users/faq/index.rst:133
 msgid "Will the toolbox support higher resolution datasets?"
 msgstr ""
 "Будет ли панель инструментов поддерживать наборы данных с более высоким "
 "разрешением?"
 
-#: ../../source/for_users/faq/index.rst:122
+#: ../../source/for_users/faq/index.rst:135
 msgid ""
 "The toolbox supports AVHRR (8km) and MODIS (250m) data for primary "
 "productivity analysis, and ESA LCC CCI (300m) for land cover change "
@@ -305,7 +322,7 @@ msgstr ""
 "первичной продукции, а также данные ESA LCC CCI (300 м) для анализа "
 "изменения земляного покрова."
 
-#: ../../source/for_users/faq/index.rst:125
+#: ../../source/for_users/faq/index.rst:138
 msgid ""
 "In partnership with `Apacheta <https://www.apacheta.org/>`_ and `Auspatious "
 "<http://auspatious.com/>` and funding from the Global Environmental Facility"
@@ -320,13 +337,13 @@ msgstr ""
 "покрова в масштабе 30 метров, которые будут охватывать малые островные "
 "развивающиеся государства (МОРАГ)"
 
-#: ../../source/for_users/faq/index.rst:130
+#: ../../source/for_users/faq/index.rst:143
 msgid "Can the toolbox support analysis with national-level datasets?"
 msgstr ""
 "Может ли панель инструментов поддерживать анализ с использованием наборов "
 "данных национального уровня?"
 
-#: ../../source/for_users/faq/index.rst:132
+#: ../../source/for_users/faq/index.rst:145
 msgid ""
 "Trends.Earth does have the capacity to import, load and process national-"
 "level datasets representing soil organic carbon, land cover and land "
@@ -348,11 +365,11 @@ msgstr ""
 "поэтому время выполнения анализа с пользовательскими наборами данных будет "
 "зависеть от характеристик устройства пользователя."
 
-#: ../../source/for_users/faq/index.rst:139
+#: ../../source/for_users/faq/index.rst:152
 msgid "Methods"
 msgstr "Методы"
 
-#: ../../source/for_users/faq/index.rst:142
+#: ../../source/for_users/faq/index.rst:155
 msgid ""
 "Refer to the :ref:`background_landdegradation` section for more background "
 "on analyses available in Trends.Earth."
@@ -360,16 +377,16 @@ msgstr ""
 "Обратитесь к разделу :ref:`background_landdegradation` для получения "
 "дополнительной информации об анализе, доступном в Trends.Earth."
 
-#: ../../source/for_users/faq/index.rst:146
+#: ../../source/for_users/faq/index.rst:159
 msgid "Productivity"
 msgstr "производительность"
 
-#: ../../source/for_users/faq/index.rst:149
+#: ../../source/for_users/faq/index.rst:162
 msgid "How does the result provided by state differs from trajectory?"
 msgstr ""
 "Чем результат, предоставляемый государством, отличается от траектории?"
 
-#: ../../source/for_users/faq/index.rst:151
+#: ../../source/for_users/faq/index.rst:164
 msgid ""
 "The trajectory analysis uses linear regressions and non-parametric tests to "
 "identify long term significant trends in primary productivity. This method "
@@ -386,11 +403,11 @@ msgstr ""
 "среднее значение с самым последним периодом, государство может зафиксировать"
 " такого рода недавние изменения."
 
-#: ../../source/for_users/faq/index.rst:160
+#: ../../source/for_users/faq/index.rst:173
 msgid "Land cover"
 msgstr "Растительного покрова"
 
-#: ../../source/for_users/faq/index.rst:163
+#: ../../source/for_users/faq/index.rst:176
 msgid ""
 "Currently, the land cover aggregation is done following the UNCCD "
 "guidelines, but that classification does not take into account country level"
@@ -402,7 +419,7 @@ msgstr ""
 "особенности на уровне стран. Можно ли разрешить пользователю определять "
 "критерии агрегирования?"
 
-#: ../../source/for_users/faq/index.rst:165
+#: ../../source/for_users/faq/index.rst:178
 msgid ""
 "Users are able to make these changes using the advanced settings in the land"
 " cover GUI so that appropriate aggregations occur depending on the context "
@@ -412,11 +429,11 @@ msgstr ""
 "графическом интерфейсе земляного покрова, чтобы соответствующие "
 "агрегирования происходили в зависимости от контекста вашей страны."
 
-#: ../../source/for_users/faq/index.rst:170
+#: ../../source/for_users/faq/index.rst:183
 msgid "How can we isolate woody plant encroachment within the toolbox?"
 msgstr "Как мы можем изолировать закустаривание в панели инструментов?"
 
-#: ../../source/for_users/faq/index.rst:172
+#: ../../source/for_users/faq/index.rst:185
 msgid ""
 "This can be altered using the land cover change matrix in the toolbox. For "
 "every transition, the user can mark the change as stable, improvement or "
@@ -430,11 +447,11 @@ msgstr ""
 " покрытой кустарниками, может указывать на закустаривание, и этот переход "
 "может быть отмечен как показатель деградации."
 
-#: ../../source/for_users/faq/index.rst:179
+#: ../../source/for_users/faq/index.rst:192
 msgid "Carbon stocks"
 msgstr "Запасы углерода"
 
-#: ../../source/for_users/faq/index.rst:182
+#: ../../source/for_users/faq/index.rst:195
 msgid ""
 "Why use soil organic carbon (SOC) instead of above and below-ground carbon "
 "to  measure carbon stocks?"
@@ -442,7 +459,7 @@ msgstr ""
 "Зачем использовать почвенный органический углерод (SOC) вместо надземного и "
 "подземного углерода для измерения запасов углерода?"
 
-#: ../../source/for_users/faq/index.rst:184
+#: ../../source/for_users/faq/index.rst:197
 msgid ""
 "The original proposed indicator is Carbon Stocks, which would include above "
 "and below ground biomass. However, given the lack of consistently generated "
@@ -463,7 +480,7 @@ msgstr ""
 "Indicator-15.3.1_version2_2021.pdf>`_, опубликованных КБО ООН, рекомендуется"
 " на данный момент использовать в качестве замены ПОУ."
 
-#: ../../source/for_users/faq/index.rst:193
+#: ../../source/for_users/faq/index.rst:206
 msgid ""
 "Is it possible to measure identify processes of degradation linked to "
 "salinization using this tool?"
@@ -471,7 +488,7 @@ msgstr ""
 "Можно ли с помощью этого инструмента измерить и выявить процессы деградации,"
 " связанные с засолением?"
 
-#: ../../source/for_users/faq/index.rst:195
+#: ../../source/for_users/faq/index.rst:208
 msgid ""
 "Not directly. If salinization caused a reduction in primary productivity, "
 "that decrease would be identified by the productivity indicators, but the "
@@ -481,18 +498,18 @@ msgstr ""
 " снижение будет определено показателями продуктивности, но пользователям "
 "придется использовать свои знания местности для определения причин."
 
-#: ../../source/for_users/faq/index.rst:200
+#: ../../source/for_users/faq/index.rst:213
 msgid "Land degradation outputs"
 msgstr "Результаты деградации земель"
 
-#: ../../source/for_users/faq/index.rst:203
+#: ../../source/for_users/faq/index.rst:216
 msgid ""
 "How were the layers combined to define the final land degradation layer?"
 msgstr ""
 "Как были объединены слои для определения окончательного слоя деградации "
 "земель?"
 
-#: ../../source/for_users/faq/index.rst:205
+#: ../../source/for_users/faq/index.rst:218
 msgid ""
 "Performance, state, and trajectory (the three metrics of change in "
 "productivity_) are combined following a modified version of the good "
@@ -512,7 +529,7 @@ msgstr ""
 "если наблюдается снижение любого из трех показателей в определенном пикселе,"
 " то этот пиксель отображается как «деградированный»."
 
-#: ../../source/for_users/faq/index.rst:214
+#: ../../source/for_users/faq/index.rst:227
 msgid ""
 "Why do I see areas the data says are improving or degrading when I know they"
 " are not?"
@@ -520,7 +537,7 @@ msgstr ""
 "Почему я вижу области, которые, судя по данным, улучшаются или деградируют, "
 "хотя я знаю, что это не так?"
 
-#: ../../source/for_users/faq/index.rst:216
+#: ../../source/for_users/faq/index.rst:229
 msgid ""
 "The final output should be interpreted as showing areas potentially "
 "degraded. The indicator of land degradation is based on changes in "
@@ -551,7 +568,7 @@ msgstr ""
 "релевантными во всех масштабах и географических регионах. В ближайшее время "
 "будет добавлена функция использования локальных данных."
 
-#: ../../source/for_users/faq/index.rst:230
+#: ../../source/for_users/faq/index.rst:243
 msgid ""
 "All of the sub-indicators are measuring vegetation: how does this contribute"
 " to understanding and identifying land degradation?"
@@ -559,7 +576,7 @@ msgstr ""
 "Все подпоказатели измеряют растительность: как это способствует пониманию и "
 "выявлению деградации земель?"
 
-#: ../../source/for_users/faq/index.rst:232
+#: ../../source/for_users/faq/index.rst:245
 msgid ""
 "Vegetation is a key component of most ecosystems, and serve as a good proxy "
 "for their overall functioning and health. The three sub-indicators used for "
@@ -593,15 +610,15 @@ msgstr ""
 "существует консенсус в отношении того, что на данный момент времени и в "
 "глобальном масштабе это наилучший подход."
 
-#: ../../source/for_users/faq/index.rst:247
+#: ../../source/for_users/faq/index.rst:260
 msgid "Future plans"
 msgstr "Планы на будущее"
 
-#: ../../source/for_users/faq/index.rst:250
+#: ../../source/for_users/faq/index.rst:263
 msgid "When will there be an offline version of the toolbox?"
 msgstr "Когда появится автономная версия панели инструментов?"
 
-#: ../../source/for_users/faq/index.rst:252
+#: ../../source/for_users/faq/index.rst:265
 msgid ""
 "The toolbox is available as both as an offline and online version. The "
 "online version allows users to access current datasets more easily, while "
@@ -620,12 +637,12 @@ msgstr ""
 " достаточных локальных вычислительных мощностей для проведения анализа "
 "локально."
 
-#: ../../source/for_users/faq/index.rst:261
+#: ../../source/for_users/faq/index.rst:274
 msgid "Will you create a trends.earth toolbox for ESRI users?"
 msgstr ""
 "Создадите ли вы панель инструментов Trends.Earth для пользователей ESRI?"
 
-#: ../../source/for_users/faq/index.rst:263
+#: ../../source/for_users/faq/index.rst:276
 msgid ""
 "The toolbox is available as a plugin to QGIS, an open source software "
 "package. This allows users around the world free access to the toolbox. "

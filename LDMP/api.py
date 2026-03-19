@@ -835,7 +835,20 @@ class APIClient(QtCore.QObject):
                     log(f"Could not parse error response body: {e}")
 
                 # Provide user-friendly error messages for common transient errors
-                if status_code in [502, 503, 504]:
+                if (
+                    status_code == 403
+                    and isinstance(error_body, dict)
+                    and error_body.get("error_code") == "gee_terms_required"
+                ):
+                    err_msg = error_body.get(
+                        "message",
+                        tr_api.tr(
+                            "This script requires Google Earth Engine. You must accept confirm "
+                            "understanding of the GEE terms of use before running it. Please "
+                            "update your profile in the Trends.Earth plugin settings to do so."
+                        ),
+                    )
+                elif status_code in [502, 503, 504]:
                     # Bad Gateway, Service Unavailable, Gateway Timeout
                     err_msg = tr_api.tr(
                         "The Trends.Earth server is temporarily unavailable (error {status}). "

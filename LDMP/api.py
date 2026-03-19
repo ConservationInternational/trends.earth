@@ -40,7 +40,8 @@ def get_client_header():
     """Build the X-TE-Client header value for API requests.
 
     Returns:
-        str: Header value in format "type=qgis_plugin; version=X.X.X; qgis_version=X.X.X; os=OS"
+        str: Header value in format
+            "type=qgis_plugin; version=X.X.X; qgis_version=X.X.X; os=OS; lang=XX"
     """
     try:
         from . import __version__
@@ -62,7 +63,17 @@ def get_client_header():
     }
     os_name = platform_map.get(sys.platform, sys.platform)
 
-    return f"type=qgis_plugin; version={__version__}; qgis_version={qgis_version}; os={os_name}"
+    # Get user's language from QGIS locale (e.g. "en" from "en_US")
+    try:
+        locale = QgsApplication.locale()
+        lang = locale.split("_")[0] if locale else "en"
+    except Exception:
+        lang = "en"
+
+    return (
+        f"type=qgis_plugin; version={__version__}; qgis_version={qgis_version}; "
+        f"os={os_name}; lang={lang}"
+    )
 
 
 class tr_api:

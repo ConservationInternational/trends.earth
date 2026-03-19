@@ -978,7 +978,8 @@ class ProfileFormMixin:
     (registration and profile update dialogs).
     """
 
-    _N = lambda s: QtCore.QT_TRANSLATE_NOOP("tr_settings", s)
+    def _N(s):
+        return QtCore.QT_TRANSLATE_NOOP("tr_settings", s)
 
     GENDER_OPTIONS = [
         ("", ""),

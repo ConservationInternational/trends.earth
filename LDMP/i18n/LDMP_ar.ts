@@ -3853,32 +3853,32 @@ p, li { white-space: pre-wrap; }
         <translation>أدخل عنوان بريدك الالكتروني...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1460"/>
+        <location filename="../settings.py" line="1461"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1460"/>
+        <location filename="../settings.py" line="1461"/>
         <source>Enter your email address to reset your password.</source>
         <translation>أدخل عنوان بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1468"/>
+        <location filename="../settings.py" line="1469"/>
         <source>Reset password?</source>
         <translation>إعادة تعيين كلمة المرور؟</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1485"/>
+        <location filename="../settings.py" line="1486"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1468"/>
+        <location filename="../settings.py" line="1469"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? A password reset link will be emailed to you.</source>
         <translation>هل أنت متأكد من رغبتك في إعادة تعيين كلمة المرور لـ {self.email.text()}؟ سيتم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1485"/>
+        <location filename="../settings.py" line="1486"/>
         <source>A password reset link has been sent to {self.email.text()}. Please check your email and click the link to set a new password, then return to Trends.Earth to login.</source>
         <translation>تم إرسال رابط إعادة تعيين كلمة المرور إلى {self.email.text()}. يرجى التحقق من بريدك الإلكتروني والنقر على الرابط لتعيين كلمة مرور جديدة، ثم العودة إلى Trends.Earth لتسجيل الدخول.</translation>
     </message>
@@ -3891,12 +3891,12 @@ p, li { white-space: pre-wrap; }
         <translation>تحديث معلومات المستخدم</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1597"/>
+        <location filename="../settings.py" line="1598"/>
         <source>Saved</source>
         <translation>تم الحفظ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1597"/>
+        <location filename="../settings.py" line="1598"/>
         <source>Updated information for {}.</source>
         <translation>معلومات محدثة لـ {}.</translation>
     </message>
@@ -4014,48 +4014,48 @@ p, li { white-space: pre-wrap; }
         <translation>كلمه السر:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1280"/>
+        <location filename="../settings.py" line="1281"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1274"/>
+        <location filename="../settings.py" line="1275"/>
         <source>Enter your email address.</source>
         <translation>أدخل عنوان بريدك الالكتروني.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1280"/>
+        <location filename="../settings.py" line="1281"/>
         <source>Enter your password.</source>
         <translation>ادخل رقمك السري.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1291"/>
+        <location filename="../settings.py" line="1292"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1291"/>
+        <location filename="../settings.py" line="1292"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>تم تسجيل الدخول إلى خادم Trends.Earth باسم {self.email.text()}. &lt;html&gt; &lt;p&gt; مرحباً بك في Trends.Earth! &lt;p/&gt; &lt;p&gt; &lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt; انضم إلى مجموعة البريد الإلكتروني لمستخدمي Trends.Earth &lt;a/&gt; &lt;/p&gt; &lt;p&gt; تأكد من الانضمام إلى مجموعة البريد الإلكتروني لمستخدمي Trends.Earth لمواكبة التحديثات والأسئلة والأجوبة حول الأداة والأساليب ومجموعات البيانات لدعم مراقبة أهداف التنمية المستدامة.
 </translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1360"/>
+        <location filename="../settings.py" line="1361"/>
         <source>Login Failed</source>
         <translation>فشل تسجيل الدخول</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1360"/>
+        <location filename="../settings.py" line="1361"/>
         <source>Invalid username or password. Please check your credentials and try again.</source>
         <translation>اسم المستخدم أو كلمة المرور غير صحيحة. يُرجى التحقق من بيانات الاعتماد الخاصة بك والمحاولة مرة أخرى.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1352"/>
+        <location filename="../settings.py" line="1353"/>
         <source>Account Locked</source>
         <translation>الحساب مقفل</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1326"/>
+        <location filename="../settings.py" line="1327"/>
         <source>Your account has been locked due to too many failed login attempts.
 
 You must reset your password to regain access.
@@ -4068,12 +4068,12 @@ Would you like to reset your password now?</source>
 هل ترغب في إعادة تعيين كلمة المرور الآن؟</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1341"/>
+        <location filename="../settings.py" line="1342"/>
         <source>Account Temporarily Locked</source>
         <translation>الحساب مقفل مؤقتًا</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1341"/>
+        <location filename="../settings.py" line="1342"/>
         <source>Your account is temporarily locked.
 
 Please try again in {minutes_remaining} minute(s).
@@ -4086,7 +4086,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 إذا نسيت كلمة المرور، يمكنك إعادة تعيينها.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1352"/>
+        <location filename="../settings.py" line="1353"/>
         <source>Your account is locked.</source>
         <translation>حسابك مقفل.</translation>
     </message>
@@ -4094,27 +4094,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="1403"/>
+        <location filename="../settings.py" line="1404"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1397"/>
+        <location filename="../settings.py" line="1398"/>
         <source>Enter your email address.</source>
         <translation>أدخل عنوان بريدك الالكتروني.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1403"/>
+        <location filename="../settings.py" line="1404"/>
         <source>Enter your password.</source>
         <translation>أدخل كلمة مرورك.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1422"/>
+        <location filename="../settings.py" line="1423"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1422"/>
+        <location filename="../settings.py" line="1423"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>تم بنجاح إعداد تسجيل الدخول إلى خادم LandPKS كـ {self.email.text()}.</translation>
     </message>
@@ -4127,12 +4127,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>تسجيل مستخدم جديد</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1240"/>
+        <location filename="../settings.py" line="1241"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1221"/>
+        <location filename="../settings.py" line="1222"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
@@ -4227,17 +4227,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>نعم، أقر بذلك. </translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1186"/>
+        <location filename="../settings.py" line="1187"/>
         <source>Please enter a valid email address.</source>
         <translation>يُرجى إدخال عنوان بريد إلكتروني صالح. </translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1221"/>
+        <location filename="../settings.py" line="1222"/>
         <source>User registered. A password setup link has been emailed to {email}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
         <translation>تم تسجيل المستخدم. أرسلنا رابط إعداد كلمة المرور إلى {email}. يُرجى مراجعة بريدك الإلكتروني والنقر على الرابط لتعيين كلمة المرور، ثم العودة إلى إعدادات Trends.Earth لتسجيل الدخول.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1240"/>
+        <location filename="../settings.py" line="1241"/>
         <source>Registration failed. Please check your information and try again. If the problem persists, the email address may be invalid or already be registered.</source>
         <translation>فشلت عملية التسجيل. يُرجى التحقق من معلوماتك وإعادة المحاولة. أما إذا استمرت المشكلة، فقد يكون عنوان البريد الإلكتروني غير صالح أو مسجلاً بالفعل.</translation>
     </message>
@@ -4614,17 +4614,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverClassSelectionDialog</name>
     <message>
-        <location filename="../settings.py" line="2520"/>
+        <location filename="../settings.py" line="2521"/>
         <source>&lt;b&gt;Select a parent for each of the below class names&lt;/b&gt;</source>
         <translation>&lt;b&gt;اختر أصل لكل اسم فئة أدناه&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2565"/>
+        <location filename="../settings.py" line="2566"/>
         <source>Accept</source>
         <translation>قبول</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2567"/>
+        <location filename="../settings.py" line="2568"/>
         <source>Cancel</source>
         <translation>إلغاء</translation>
     </message>
@@ -4632,37 +4632,37 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2666"/>
+        <location filename="../settings.py" line="2667"/>
         <source>Class Color</source>
         <translation>لون الفئة</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2717"/>
+        <location filename="../settings.py" line="2718"/>
         <source>Land Cover</source>
         <translation>الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2749"/>
+        <location filename="../settings.py" line="2750"/>
         <source>Class name cannot be empty.</source>
         <translation>لا يُمكن أن تكون خانة اسم الفئة فارغة.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2753"/>
+        <location filename="../settings.py" line="2754"/>
         <source>Invalid color selected.</source>
         <translation>اللون المُحدد غير صالح.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2757"/>
+        <location filename="../settings.py" line="2758"/>
         <source>Parent class cannot be empty.</source>
         <translation>لا يُمكن أن تكون خانة الفئة الرئيسية فارغة.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2762"/>
+        <location filename="../settings.py" line="2763"/>
         <source>Invalid class code value.</source>
         <translation>قيمة رمز الفئة غير صالحة.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2766"/>
+        <location filename="../settings.py" line="2767"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation>قيمة الرمز '{code!s}' قيد الاستخدام بالفعل.</translation>
     </message>
@@ -4670,112 +4670,112 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="1946"/>
+        <location filename="../settings.py" line="1947"/>
         <source>Name</source>
         <translation>الاسم</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1946"/>
+        <location filename="../settings.py" line="1947"/>
         <source>Code</source>
         <translation>الرمز</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1946"/>
+        <location filename="../settings.py" line="1947"/>
         <source>Parent</source>
         <translation>الرئيسية</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2048"/>
+        <location filename="../settings.py" line="2049"/>
         <source>Land Cover</source>
         <translation>الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2314"/>
+        <location filename="../settings.py" line="2315"/>
         <source>Maximum number of classes reached.</source>
         <translation>تم بلوغ الحد الأقصى لعدد الفئات.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2119"/>
+        <location filename="../settings.py" line="2120"/>
         <source>Nothing to save</source>
         <translation>لا يوجد شيء للحفظ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2126"/>
+        <location filename="../settings.py" line="2127"/>
         <source>Save Land Cover Classes</source>
         <translation>حفظ فئات الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2150"/>
+        <location filename="../settings.py" line="2151"/>
         <source>Select Land Cover Classes File</source>
         <translation>حدد ملف فئات الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2168"/>
+        <location filename="../settings.py" line="2169"/>
         <source>No land cover classes found.</source>
         <translation>لم يتم العثور على فئات الغطاء الأرضي.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2233"/>
+        <location filename="../settings.py" line="2234"/>
         <source>Land Cover Class Editor</source>
         <translation>محرر فئة الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2297"/>
+        <location filename="../settings.py" line="2298"/>
         <source>Invalid row for land cover class</source>
         <translation>صف غير صالح لفئة الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2302"/>
+        <location filename="../settings.py" line="2303"/>
         <source>Unable to update class.</source>
         <translation>تعذّر تحديث الفئة.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2321"/>
+        <location filename="../settings.py" line="2322"/>
         <source>Unable to add new class.</source>
         <translation>تعذّر إضافة فئة جديدة.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2349"/>
+        <location filename="../settings.py" line="2350"/>
         <source>class does not have children assigned to it</source>
         <translation>لا توجد فئات تابعة مخصصة للفئة</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2369"/>
+        <location filename="../settings.py" line="2370"/>
         <source>class has not been assigned a parent</source>
         <translation>لم يتم تعيين فئة رئيسية للفئة</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2495"/>
+        <location filename="../settings.py" line="2496"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation>يجب تحديد فئة واحدة على الأقل. يُمكنك إنشاء واحدة جديدة ثم حذف هذه أو يُمكنك استعادة فئات اتفاقية الأمم المتحدة لمكافحة التصحر الافتراضية من خلال النقر على زر الاستعادة.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2500"/>
+        <location filename="../settings.py" line="2501"/>
         <source>Delete Failed</source>
         <translation>فشل الحذف</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1981"/>
+        <location filename="../settings.py" line="1982"/>
         <source>Import CSV</source>
         <translation>استيراد ملف CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1982"/>
+        <location filename="../settings.py" line="1983"/>
         <source>Import land cover classes from a CSV file</source>
         <translation>استيراد فئات الغطاء الأرضي من ملف CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2003"/>
+        <location filename="../settings.py" line="2004"/>
         <source>Import Land Cover Classes</source>
         <translation>استيراد فئات الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2010"/>
+        <location filename="../settings.py" line="2011"/>
         <source>CSV files</source>
         <translation>ملفات CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2012"/>
+        <location filename="../settings.py" line="2013"/>
         <source>Select CSV file with land cover classes</source>
         <translation>حدد ملف CSV يحتوي على فئات الغطاء الأرضي</translation>
     </message>
@@ -4835,7 +4835,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../main_widget.py" line="813"/>
         <source>No news items at this time.</source>
-        <translation>لا توجد أخبار في الوقت الحالي.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4872,57 +4872,57 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ProfileFormMixin</name>
     <message>
-        <location filename="../settings.py" line="1151"/>
+        <location filename="../settings.py" line="1152"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1075"/>
+        <location filename="../settings.py" line="1076"/>
         <source>Enter your email address.</source>
         <translation>أدخل عنوان بريدك الالكتروني.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1081"/>
+        <location filename="../settings.py" line="1082"/>
         <source>Enter your name.</source>
         <translation>أدخل أسمك.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1087"/>
+        <location filename="../settings.py" line="1088"/>
         <source>Enter your organization.</source>
         <translation>أدخل مؤسستك.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1093"/>
+        <location filename="../settings.py" line="1094"/>
         <source>Select your sector.</source>
         <translation>اختر قطاعك. </translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1099"/>
+        <location filename="../settings.py" line="1100"/>
         <source>Select your purpose of use.</source>
         <translation>حدد غرض الاستخدام. </translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1105"/>
+        <location filename="../settings.py" line="1106"/>
         <source>Select your country.</source>
         <translation>اختر بلدك. </translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1112"/>
+        <location filename="../settings.py" line="1113"/>
         <source>You must acknowledge responsibility for GEE commercial licensing if needed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1127"/>
+        <location filename="../settings.py" line="1128"/>
         <source>Please specify your sector.</source>
         <translation>يرجى تحديد قطاعك. </translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1139"/>
+        <location filename="../settings.py" line="1140"/>
         <source>Please specify your purpose of use.</source>
         <translation>يرجى تحديد الغرض من الاستخدام.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1151"/>
+        <location filename="../settings.py" line="1152"/>
         <source>Please provide your gender identity description.</source>
         <translation>يرجى تقديم وصف لهويتك الجنسية. </translation>
     </message>
@@ -5905,17 +5905,17 @@ p, li { white-space: pre-wrap; }
         <translation>قم بتمكين الوصول إلى بيانات LandPKS</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1746"/>
+        <location filename="../settings.py" line="1747"/>
         <source>No base data directory set</source>
         <translation>لم يتم تعيين دليل البيانات الأساسية</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1756"/>
+        <location filename="../settings.py" line="1757"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>غير قادر على الكتابة إلى {}. جرب مجلداً مختلفاً.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1726"/>
+        <location filename="../settings.py" line="1727"/>
         <source>Offline mode is enabled.</source>
         <translation>تم تفعيل وضع عدم الاتصال.</translation>
     </message>
@@ -5988,27 +5988,27 @@ p, li { white-space: pre-wrap; }
         <translation>تحذيرات السجل في دليل الإخراج</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1832"/>
+        <location filename="../settings.py" line="1833"/>
         <source>Select Report Template Search Path</source>
         <translation>حدد مسار بحث قالب التقرير</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1842"/>
+        <location filename="../settings.py" line="1843"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>يجب إعادة تشغيل QGIS حتى تدخل التغييرات حيز التنفيذ.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1844"/>
+        <location filename="../settings.py" line="1845"/>
         <source>Template Search Path</source>
         <translation>مسار بحث القالب</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1854"/>
+        <location filename="../settings.py" line="1855"/>
         <source>All Images</source>
         <translation>جميع الصور</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1869"/>
+        <location filename="../settings.py" line="1870"/>
         <source>Select Organization Logo</source>
         <translation>حدد شعار المؤسسة</translation>
     </message>
@@ -6124,33 +6124,33 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="249"/>
         <source>News</source>
-        <translation>أخبار</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="275"/>
         <source>Trends.Earth News &amp; Announcements</source>
-        <translation>أخبار وإعلانات Trends.Earth</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="309"/>
         <source>Refresh News</source>
-        <translation>تحديث الأخبار</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>self.parent</name>
     <message>
-        <location filename="../settings.py" line="2526"/>
+        <location filename="../settings.py" line="2527"/>
         <source>The class name value that will imported, should not exceed 120 characters. </source>
         <translation>القيمة الخاصة باسم الفئة التي سيتم استيرادها، يجب ألا تتجاوز 120 حرفاً.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2531"/>
+        <location filename="../settings.py" line="2532"/>
         <source>Select the parent for the corresponding class name.</source>
         <translation>اختر الأصل لاسم الفئة المقابل.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2588"/>
+        <location filename="../settings.py" line="2589"/>
         <source>Maximum number of codes reached.</source>
         <translation>تم الوصول إلى الحد الأقصى لعدد الرموز.</translation>
     </message>
@@ -6158,62 +6158,62 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_api</name>
     <message>
-        <location filename="../api.py" line="348"/>
+        <location filename="../api.py" line="359"/>
         <source>Unable to login to Trends.Earth server. Check your internet connection.</source>
         <translation>تعذر تسجيل الدخول إلى خادم Trends.Earth. تحقق من اتصالك بالإنترنت.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="576"/>
+        <location filename="../api.py" line="587"/>
         <source>Unable to read token for Trends.Earth server. Check username and password.</source>
         <translation>تعذر قراءة الرمز المميز لخادم Trends.Earth. تحقق من اسم المستخدم وكلمة المرور.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="588"/>
+        <location filename="../api.py" line="599"/>
         <source>Unable to login to Trends.Earth. Check username and password.</source>
         <translation>تعذر تسجيل الدخول إلى Trends.Earth. تحقق من اسم المستخدم وكلمة المرور.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="594"/>
+        <location filename="../api.py" line="605"/>
         <source>Unable to access Trends.Earth server. Check your internet connection</source>
         <translation>تعذر الوصول إلى خادم Trends.Earth. تحقق من اتصالك بالإنترنت</translation>
     </message>
     <message>
-        <location filename="../api.py" line="353"/>
+        <location filename="../api.py" line="364"/>
         <source>Unable to connect to Trends.Earth server.</source>
         <translation>تعذّر الاتصال بخادم Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="570"/>
+        <location filename="../api.py" line="581"/>
         <source>Authentication succeeded but no tokens returned. The API authentication method may have changed.</source>
         <translation>نجحت عملية المصادقة، ولكن لم يتم إرجاع أي رموز مميّزة (Tokens). قد تكون طريقة مصادقة واجهة برمجة التطبيقات (API) قد تغيّرت.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="853"/>
+        <location filename="../api.py" line="864"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation>خادم Trends.Earth غير متاح مؤقتاً (خطأ {status}). عادةً ما تكون هذه مشكلة مؤقتة. يرجى المحاولة مرة أخرى بعد لحظات قليلة.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="859"/>
+        <location filename="../api.py" line="870"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation>تعرض خادم Trends.Earth لخطأ داخلي (خطأ 500). يرجى المحاولة مرة أخرى. إذا استمرت المشكلة، يرجى التواصل مع فريق Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="865"/>
+        <location filename="../api.py" line="876"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation>فشلت المصادقة. يرجى التحقق من بيانات الاعتماد الخاصة بك.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="523"/>
+        <location filename="../api.py" line="534"/>
         <source>No login credentials configured. Please set up your username and password in Trends.Earth settings.</source>
         <translation>لا توجد بيانات تسجيل دخول مُعدة. يرجى إعداد اسم المستخدم وكلمة المرور في إعدادات Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="539"/>
+        <location filename="../api.py" line="550"/>
         <source>Unable to retrieve stored credentials. Please re-enter your username and password in Trends.Earth settings.</source>
         <translation>تعذر استرداد بيانات الاعتماد المحفوظة. يرجى إعادة إدخال اسم المستخدم وكلمة المرور في إعدادات Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="843"/>
+        <location filename="../api.py" line="854"/>
         <source>This script requires Google Earth Engine. You must accept confirm understanding of the GEE terms of use before running it. Please update your profile in the Trends.Earth plugin settings to do so.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8029,182 +8029,7 @@ for running algorithms and their results.</source>
         <source>Please setup access to {auth_setup.name} before using this function.</source>
         <translation>يُرجى إعداد الوصول إلى {auth_setup.name} قبل استخدام هذه الوظيفة.</translation>
     </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Gender Identity</source>
-        <translation>الهوية الجنسية</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Purpose of Use</source>
-        <translation>الغرض من الاستخدام</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Sector</source>
-        <translation>قطاع</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Woman</source>
-        <translation>امرأة</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Man</source>
-        <translation>رجل</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Non-binary</source>
-        <translation>غير ثنائي</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Prefer to self-describe</source>
-        <translation>أفضل أن أصف نفسي</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Prefer not to say</source>
-        <translation>أفضّل عدم الإفصاح</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>National/International Reporting (UNCCD, SDGs, etc.)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Academic Research</source>
-        <translation>البحث الأكاديمي</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Policy Development &amp; Planning</source>
-        <translation>تطوير السياسات والتخطيط</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Land Restoration/Management Planning</source>
-        <translation>تخطيط استصلاح الأراضي وإدارتها</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Project Monitoring &amp; Evaluation</source>
-        <translation>مراقبة وتقييم المشروع</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Environmental Impact Assessment</source>
-        <translation>تقييم الأثر البيئي</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Agriculture/Forestry Planning</source>
-        <translation>التخطيط الزراعي/الحراجي</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Teaching &amp; Education</source>
-        <translation>التدريس والتعليم</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Conservation Planning</source>
-        <translation>تخطيط الحفظ</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Commercial Services/Products</source>
-        <translation>الخدمات/المنتجات التجارية</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Community/Grassroots Initiatives</source>
-        <translation>مبادرات مجتمعية/شعبية</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Other</source>
-        <translation>آخر</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Government - Environment/Natural Resources</source>
-        <translation>الحكومة - البيئة/الموارد الطبيعية</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Government - Agriculture</source>
-        <translation>الحكومة - الزراعة</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Government - Land Management/Planning</source>
-        <translation>الحكومة - إدارة الأراضي/التخطيط</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Government - Other</source>
-        <translation>الحكومة - أخرى</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>International/Multilateral Organization</source>
-        <translation>منظمة دولية/متعددة الأطراف</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>NGO - Development/Aid</source>
-        <translation>المنظمات غير الحكومية - التنمية/المساعدة</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>NGO - Community-Based</source>
-        <translation>منظمة غير حكومية - مجتمعية</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>NGO - Conservation</source>
-        <translation>منظمة غير حكومية - الحفاظ على البيئة</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>NGO - Other</source>
-        <translation>منظمات غير حكومية - أخرى</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Academic/Research Institution</source>
-        <translation>مؤسسة أكاديمية/بحثية</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Consulting/Professional Services</source>
-        <translation>الخدمات الاستشارية/المهنية</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Private Sector - Agriculture/Forestry</source>
-        <translation>القطاع الخاص - الزراعة/الغابات</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Private Sector - Other</source>
-        <translation>القطاع الخاص - أخرى</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Independent Researcher</source>
-        <translation>باحث مستقل</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Student</source>
-        <translation>طالب</translation>
-    </message>
-    </context>
+</context>
 <context>
     <name>tr_worker</name>
     <message>

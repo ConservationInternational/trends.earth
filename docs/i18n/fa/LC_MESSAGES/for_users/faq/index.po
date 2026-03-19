@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 18:13+0000\n"
+"POT-Creation-Date: 2026-03-18 04:40+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Language-Team: Persian (https://app.transifex.com/conservation-international/teams/80165/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -70,25 +70,42 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/faq/index.rst:38
+msgid "Why is my job stuck in \"Pending\" status?"
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:40
+msgid ""
+"When you submit an analysis job, Trends.Earth places it in a queue that "
+"processes requests in the order they were received. To ensure fair access to"
+" computing resources for all users, each account is limited to running a "
+"small number of jobs at the same time (typically three). If you already have"
+" several jobs running, any new jobs you submit will remain in \"Pending\" "
+"status until one of your active jobs finishes. Once a slot becomes "
+"available, your oldest pending job will automatically start processing. You "
+"don't need to take any action - once your earlier jobs complete, your queued"
+" jobs will begin shortly afterward."
+msgstr ""
+
+#: ../../source/for_users/faq/index.rst:51
 msgid "Installation of Trends.Earth"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:42
+#: ../../source/for_users/faq/index.rst:55
 msgid "What version of Quantum GIS (QGIS) do I need for the toolbox?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:44
+#: ../../source/for_users/faq/index.rst:57
 msgid ""
 "To download QGIS, please go to the QGIS Downloads page. As of January, 2025,"
 " please use version 3.40 Long Term Release or higher version for the "
 "trends.earth plugin."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:48
+#: ../../source/for_users/faq/index.rst:61
 msgid "How do I install the plugin?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:50
+#: ../../source/for_users/faq/index.rst:63
 msgid ""
 "Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
 "install plugins. On the side menu, select All to view the plugins available "
@@ -96,11 +113,11 @@ msgid ""
 "the window."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:55
+#: ../../source/for_users/faq/index.rst:68
 msgid "How do I upgrade the plugin?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:57
+#: ../../source/for_users/faq/index.rst:70
 msgid ""
 "If you have already installed the plugin, navigate to Plugins on the menu "
 "bar, and select Manage and install plugins. On the side menu, select "
@@ -109,11 +126,11 @@ msgid ""
 "latest version."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:63
+#: ../../source/for_users/faq/index.rst:76
 msgid "I get a Python error after upgrading the plugin. What should I do?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:65
+#: ../../source/for_users/faq/index.rst:78
 msgid ""
 "If you see a Python error (such as ``AttributeError`` or "
 "``ModuleNotFoundError``) immediately after upgrading the plugin within QGIS,"
@@ -124,11 +141,11 @@ msgid ""
 "cache automatically during upgrades."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:73
+#: ../../source/for_users/faq/index.rst:86
 msgid "How do I uninstall the plugin?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:75
+#: ../../source/for_users/faq/index.rst:88
 msgid ""
 "If you would like to uninstall the plugin, normally you can do so with the "
 "QGIS plugins manager. To access the tool, choose \"Plugins\" and then "
@@ -138,65 +155,65 @@ msgid ""
 "Plugin\" to uninstall it."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:82
+#: ../../source/for_users/faq/index.rst:95
 msgid ""
 "If you encounter an error uninstalling the plugin, it is also possible to "
 "remove it manually. To manually remove the plugin:"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:85
+#: ../../source/for_users/faq/index.rst:98
 msgid "Open QGIS"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:86
+#: ../../source/for_users/faq/index.rst:99
 msgid ""
 "Navigate to where the plugin is installed by selecting \"Open Active Profile"
 " Folder\" from the menu under \"Settings\" - \"User Profiles\" on the menu "
 "bar."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:88
+#: ../../source/for_users/faq/index.rst:101
 msgid ""
 "Quit QGIS. You may not be able to uninstall the plugin if QGIS is not "
 "closed."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:90
+#: ../../source/for_users/faq/index.rst:103
 msgid ""
 "In the file browser window that opened, double click on \"python\", and then"
 " double click on \"plugins\". Delete the LDMP folder within that directory."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:92
+#: ../../source/for_users/faq/index.rst:105
 msgid "Restart QGIS."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:94
+#: ../../source/for_users/faq/index.rst:107
 msgid "OR"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:96
+#: ../../source/for_users/faq/index.rst:109
 msgid ""
 "Navigate to the AppData folder under user account and find the plugins info "
 "under the directory. For example: "
 "C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:101
+#: ../../source/for_users/faq/index.rst:114
 msgid "Datasets"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:104
+#: ../../source/for_users/faq/index.rst:117
 msgid ""
 "Refer to the :ref:`input_data` section for more information on data sources "
 "used in Trends.Earth."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:107
+#: ../../source/for_users/faq/index.rst:120
 msgid "When will you update datasets for the current year?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:109
+#: ../../source/for_users/faq/index.rst:122
 msgid ""
 "Trends.Earth uses publicly available data, as such the most up to date "
 "datasets will be added to the toolbox as soon as the original data providers"
@@ -204,28 +221,28 @@ msgid ""
 " know."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:114
+#: ../../source/for_users/faq/index.rst:127
 msgid "Is there an option to download the original data?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:116
+#: ../../source/for_users/faq/index.rst:129
 msgid ""
 "Users can download the original data using the Download option within the "
 "toolbox."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:120
+#: ../../source/for_users/faq/index.rst:133
 msgid "Will the toolbox support higher resolution datasets?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:122
+#: ../../source/for_users/faq/index.rst:135
 msgid ""
 "The toolbox supports AVHRR (8km) and MODIS (250m) data for primary "
 "productivity analysis, and ESA LCC CCI (300m) for land cover change "
 "analysis."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:125
+#: ../../source/for_users/faq/index.rst:138
 msgid ""
 "In partnership with `Apacheta <https://www.apacheta.org/>`_ and `Auspatious "
 "<http://auspatious.com/>` and funding from the Global Environmental Facility"
@@ -234,11 +251,11 @@ msgid ""
 "Developing States (SIDS)"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:130
+#: ../../source/for_users/faq/index.rst:143
 msgid "Can the toolbox support analysis with national-level datasets?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:132
+#: ../../source/for_users/faq/index.rst:145
 msgid ""
 "Trends.Earth does have the capacity to import, load and process national-"
 "level datasets representing soil organic carbon, land cover and land "
@@ -250,25 +267,25 @@ msgid ""
 "depend on the especifications of user's machine."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:139
+#: ../../source/for_users/faq/index.rst:152
 msgid "Methods"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:142
+#: ../../source/for_users/faq/index.rst:155
 msgid ""
 "Refer to the :ref:`background_landdegradation` section for more background "
 "on analyses available in Trends.Earth."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:146
+#: ../../source/for_users/faq/index.rst:159
 msgid "Productivity"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:149
+#: ../../source/for_users/faq/index.rst:162
 msgid "How does the result provided by state differs from trajectory?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:151
+#: ../../source/for_users/faq/index.rst:164
 msgid ""
 "The trajectory analysis uses linear regressions and non-parametric tests to "
 "identify long term significant trends in primary productivity. This method "
@@ -278,11 +295,11 @@ msgid ""
 "is able to capture such recent changes."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:160
+#: ../../source/for_users/faq/index.rst:173
 msgid "Land cover"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:163
+#: ../../source/for_users/faq/index.rst:176
 msgid ""
 "Currently, the land cover aggregation is done following the UNCCD "
 "guidelines, but that classification does not take into account country level"
@@ -290,18 +307,18 @@ msgid ""
 "aggregation criteria?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:165
+#: ../../source/for_users/faq/index.rst:178
 msgid ""
 "Users are able to make these changes using the advanced settings in the land"
 " cover GUI so that appropriate aggregations occur depending on the context "
 "of your country."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:170
+#: ../../source/for_users/faq/index.rst:183
 msgid "How can we isolate woody plant encroachment within the toolbox?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:172
+#: ../../source/for_users/faq/index.rst:185
 msgid ""
 "This can be altered using the land cover change matrix in the toolbox. For "
 "every transition, the user can mark the change as stable, improvement or "
@@ -310,17 +327,17 @@ msgid ""
 "degradation."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:179
+#: ../../source/for_users/faq/index.rst:192
 msgid "Carbon stocks"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:182
+#: ../../source/for_users/faq/index.rst:195
 msgid ""
 "Why use soil organic carbon (SOC) instead of above and below-ground carbon "
 "to  measure carbon stocks?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:184
+#: ../../source/for_users/faq/index.rst:197
 msgid ""
 "The original proposed indicator is Carbon Stocks, which would include above "
 "and below ground biomass. However, given the lack of consistently generated "
@@ -332,29 +349,29 @@ msgid ""
 "the time being to use SOC as a proxy."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:193
+#: ../../source/for_users/faq/index.rst:206
 msgid ""
 "Is it possible to measure identify processes of degradation linked to "
 "salinization using this tool?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:195
+#: ../../source/for_users/faq/index.rst:208
 msgid ""
 "Not directly. If salinization caused a reduction in primary productivity, "
 "that decrease would be identified by the productivity indicators, but the "
 "users would have to use their local knowledge to assign the causes."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:200
+#: ../../source/for_users/faq/index.rst:213
 msgid "Land degradation outputs"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:203
+#: ../../source/for_users/faq/index.rst:216
 msgid ""
 "How were the layers combined to define the final land degradation layer?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:205
+#: ../../source/for_users/faq/index.rst:218
 msgid ""
 "Performance, state, and trajectory (the three metrics of change in "
 "productivity_) are combined following a modified version of the good "
@@ -366,13 +383,13 @@ msgid ""
 "being “degraded”."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:214
+#: ../../source/for_users/faq/index.rst:227
 msgid ""
 "Why do I see areas the data says are improving or degrading when I know they"
 " are not?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:216
+#: ../../source/for_users/faq/index.rst:229
 msgid ""
 "The final output should be interpreted as showing areas potentially "
 "degraded. The indicator of land degradation is based on changes in "
@@ -389,13 +406,13 @@ msgid ""
 "use local data will be added shortly."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:230
+#: ../../source/for_users/faq/index.rst:243
 msgid ""
 "All of the sub-indicators are measuring vegetation: how does this contribute"
 " to understanding and identifying land degradation?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:232
+#: ../../source/for_users/faq/index.rst:245
 msgid ""
 "Vegetation is a key component of most ecosystems, and serve as a good proxy "
 "for their overall functioning and health. The three sub-indicators used for "
@@ -413,15 +430,15 @@ msgid ""
 "approach."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:247
+#: ../../source/for_users/faq/index.rst:260
 msgid "Future plans"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:250
+#: ../../source/for_users/faq/index.rst:263
 msgid "When will there be an offline version of the toolbox?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:252
+#: ../../source/for_users/faq/index.rst:265
 msgid ""
 "The toolbox is available as both as an offline and online version. The "
 "online version allows users to access current datasets more easily, while "
@@ -432,11 +449,11 @@ msgid ""
 "run analyses locally."
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:261
+#: ../../source/for_users/faq/index.rst:274
 msgid "Will you create a trends.earth toolbox for ESRI users?"
 msgstr ""
 
-#: ../../source/for_users/faq/index.rst:263
+#: ../../source/for_users/faq/index.rst:276
 msgid ""
 "The toolbox is available as a plugin to QGIS, an open source software "
 "package. This allows users around the world free access to the toolbox. "

@@ -3809,32 +3809,32 @@ p, li { white-space: pre-wrap; }
         <translation>Введите ваш адрес электронной почты...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1460"/>
+        <location filename="../settings.py" line="1461"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1460"/>
+        <location filename="../settings.py" line="1461"/>
         <source>Enter your email address to reset your password.</source>
         <translation>Введите свой адрес электронной почты для восстановления пароля.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1468"/>
+        <location filename="../settings.py" line="1469"/>
         <source>Reset password?</source>
         <translation>Сброс пароля?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1485"/>
+        <location filename="../settings.py" line="1486"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1468"/>
+        <location filename="../settings.py" line="1469"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? A password reset link will be emailed to you.</source>
         <translation>Вы уверены, что хотите сбросить пароль для {self.email.text()}? Ссылка для сброса пароля будет отправлена вам по электронной почте.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1485"/>
+        <location filename="../settings.py" line="1486"/>
         <source>A password reset link has been sent to {self.email.text()}. Please check your email and click the link to set a new password, then return to Trends.Earth to login.</source>
         <translation>Ссылка для сброса пароля была отправлена на {self.email.text()}. Проверьте свою электронную почту и перейдите по ссылке, чтобы установить новый пароль, а затем вернитесь на Trends.Earth, чтобы войти в систему.</translation>
     </message>
@@ -3847,12 +3847,12 @@ p, li { white-space: pre-wrap; }
         <translation>Обновление информации о пользователе</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1597"/>
+        <location filename="../settings.py" line="1598"/>
         <source>Saved</source>
         <translation>Сохраненный</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1597"/>
+        <location filename="../settings.py" line="1598"/>
         <source>Updated information for {}.</source>
         <translation>Обновлена ​​информация для {}.</translation>
     </message>
@@ -3970,47 +3970,47 @@ p, li { white-space: pre-wrap; }
         <translation>Пароль:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1280"/>
+        <location filename="../settings.py" line="1281"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1274"/>
+        <location filename="../settings.py" line="1275"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1280"/>
+        <location filename="../settings.py" line="1281"/>
         <source>Enter your password.</source>
         <translation>Введите ваш пароль.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1291"/>
+        <location filename="../settings.py" line="1292"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1291"/>
+        <location filename="../settings.py" line="1292"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>Вы зашли на сервер Trends.Earth как {self.email.text()}.&lt;html&gt;&lt;p&gt;Добро пожаловать в Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Присоединяйтесь к почтовой группе пользователей Trends.Earth&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Не забудьте присоединиться к почтовой группе пользователей Trends.Earth, чтобы быть в курсе обновлений и получать информацию на вопросы об инструменте, методах и наборах данных в поддержку мониторинга Целей устойчивого развития.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1360"/>
+        <location filename="../settings.py" line="1361"/>
         <source>Login Failed</source>
         <translation>Не удалось войти в систему</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1360"/>
+        <location filename="../settings.py" line="1361"/>
         <source>Invalid username or password. Please check your credentials and try again.</source>
         <translation>Неверное имя пользователя или пароль. Проверьте учетные данные и повторите попытку.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1352"/>
+        <location filename="../settings.py" line="1353"/>
         <source>Account Locked</source>
         <translation>Учетная запись заблокирована</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1326"/>
+        <location filename="../settings.py" line="1327"/>
         <source>Your account has been locked due to too many failed login attempts.
 
 You must reset your password to regain access.
@@ -4023,12 +4023,12 @@ Would you like to reset your password now?</source>
 Хотите сбросить пароль сейчас?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1341"/>
+        <location filename="../settings.py" line="1342"/>
         <source>Account Temporarily Locked</source>
         <translation>Учетная запись временно заблокирована</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1341"/>
+        <location filename="../settings.py" line="1342"/>
         <source>Your account is temporarily locked.
 
 Please try again in {minutes_remaining} minute(s).
@@ -4041,7 +4041,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 Если вы забыли пароль, его можно сбросить.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1352"/>
+        <location filename="../settings.py" line="1353"/>
         <source>Your account is locked.</source>
         <translation>Ваша учетная запись заблокирована.</translation>
     </message>
@@ -4049,27 +4049,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="1403"/>
+        <location filename="../settings.py" line="1404"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1397"/>
+        <location filename="../settings.py" line="1398"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1403"/>
+        <location filename="../settings.py" line="1404"/>
         <source>Enter your password.</source>
         <translation>Введите ваш пароль.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1422"/>
+        <location filename="../settings.py" line="1423"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1422"/>
+        <location filename="../settings.py" line="1423"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>Успешная настройка входа на сервер LandPKS для {self.email.text()}.</translation>
     </message>
@@ -4082,12 +4082,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>Регистрация нового пользователя</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1240"/>
+        <location filename="../settings.py" line="1241"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1221"/>
+        <location filename="../settings.py" line="1222"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
@@ -4182,17 +4182,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>Я все понимаю</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1186"/>
+        <location filename="../settings.py" line="1187"/>
         <source>Please enter a valid email address.</source>
         <translation>Укажите действительный адрес эл. почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1221"/>
+        <location filename="../settings.py" line="1222"/>
         <source>User registered. A password setup link has been emailed to {email}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
         <translation>Пользователь зарегистрирован. Ссылка для установки пароля отправлена по адресу {email}. Проверьте электронную почту и нажмите на ссылку, чтобы ввести пароль, а затем вернитесь в настройки Trends.Earth для входа в систему.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1240"/>
+        <location filename="../settings.py" line="1241"/>
         <source>Registration failed. Please check your information and try again. If the problem persists, the email address may be invalid or already be registered.</source>
         <translation>Не удалось завершить регистрацию. Проверьте предоставленную информацию и повторите попытку. Возможно вы указываете зарегистрированный или неверный адрес электронной почты, если проблема сохраняется.</translation>
     </message>
@@ -4569,17 +4569,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverClassSelectionDialog</name>
     <message>
-        <location filename="../settings.py" line="2520"/>
+        <location filename="../settings.py" line="2521"/>
         <source>&lt;b&gt;Select a parent for each of the below class names&lt;/b&gt;</source>
         <translation>&lt;b&gt;Выберите родительский элемент для каждого из нижеперечисленных имен классов&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2565"/>
+        <location filename="../settings.py" line="2566"/>
         <source>Accept</source>
         <translation>Принять</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2567"/>
+        <location filename="../settings.py" line="2568"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
@@ -4587,37 +4587,37 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2666"/>
+        <location filename="../settings.py" line="2667"/>
         <source>Class Color</source>
         <translation>Цвет класса</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2717"/>
+        <location filename="../settings.py" line="2718"/>
         <source>Land Cover</source>
         <translation>Земляной покров</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2749"/>
+        <location filename="../settings.py" line="2750"/>
         <source>Class name cannot be empty.</source>
         <translation>Имя класса не может быть пустым.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2753"/>
+        <location filename="../settings.py" line="2754"/>
         <source>Invalid color selected.</source>
         <translation>Выбран неверный цвет.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2757"/>
+        <location filename="../settings.py" line="2758"/>
         <source>Parent class cannot be empty.</source>
         <translation>Родительский класс не может быть пустым.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2762"/>
+        <location filename="../settings.py" line="2763"/>
         <source>Invalid class code value.</source>
         <translation>Недопустимое значение кода класса.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2766"/>
+        <location filename="../settings.py" line="2767"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation>Значение кода '{code!s}' уже используется.</translation>
     </message>
@@ -4625,112 +4625,112 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="1946"/>
+        <location filename="../settings.py" line="1947"/>
         <source>Name</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1946"/>
+        <location filename="../settings.py" line="1947"/>
         <source>Code</source>
         <translation>Код</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1946"/>
+        <location filename="../settings.py" line="1947"/>
         <source>Parent</source>
         <translation>Родительский элемент</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2048"/>
+        <location filename="../settings.py" line="2049"/>
         <source>Land Cover</source>
         <translation>Земляной покров</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2314"/>
+        <location filename="../settings.py" line="2315"/>
         <source>Maximum number of classes reached.</source>
         <translation>Достигнуто максимальное количество классов.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2119"/>
+        <location filename="../settings.py" line="2120"/>
         <source>Nothing to save</source>
         <translation>Сохранить нечего</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2126"/>
+        <location filename="../settings.py" line="2127"/>
         <source>Save Land Cover Classes</source>
         <translation>Сохранить классы земляного покрова</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2150"/>
+        <location filename="../settings.py" line="2151"/>
         <source>Select Land Cover Classes File</source>
         <translation>Выберите файл классов земляного покрова</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2168"/>
+        <location filename="../settings.py" line="2169"/>
         <source>No land cover classes found.</source>
         <translation>Классы земляного покрова не найдены.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2233"/>
+        <location filename="../settings.py" line="2234"/>
         <source>Land Cover Class Editor</source>
         <translation>Редактор классов земляного покрова</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2297"/>
+        <location filename="../settings.py" line="2298"/>
         <source>Invalid row for land cover class</source>
         <translation>Недопустимый ряд для класса земляного покрова</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2302"/>
+        <location filename="../settings.py" line="2303"/>
         <source>Unable to update class.</source>
         <translation>Не удается обновить класс.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2321"/>
+        <location filename="../settings.py" line="2322"/>
         <source>Unable to add new class.</source>
         <translation>Не удается добавить новый класс.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2349"/>
+        <location filename="../settings.py" line="2350"/>
         <source>class does not have children assigned to it</source>
         <translation>классу не назначены дочерние элементы</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2369"/>
+        <location filename="../settings.py" line="2370"/>
         <source>class has not been assigned a parent</source>
         <translation>классу не назначен родительский элемент</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2495"/>
+        <location filename="../settings.py" line="2496"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation>Должен быть определен хотя бы один класс. Вы можете создать новый, а затем удалить этот, или вы можете восстановить классы КБОООН по умолчанию, нажав на кнопку &quot;Восстановить&quot;.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2500"/>
+        <location filename="../settings.py" line="2501"/>
         <source>Delete Failed</source>
         <translation>Удалить не удалось</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1981"/>
+        <location filename="../settings.py" line="1982"/>
         <source>Import CSV</source>
         <translation>Импорт CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1982"/>
+        <location filename="../settings.py" line="1983"/>
         <source>Import land cover classes from a CSV file</source>
         <translation>Импорт классов земного покрова из CSV-файла </translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2003"/>
+        <location filename="../settings.py" line="2004"/>
         <source>Import Land Cover Classes</source>
         <translation>Импорт классов земного покрова</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2010"/>
+        <location filename="../settings.py" line="2011"/>
         <source>CSV files</source>
         <translation>CSV-файлы</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2012"/>
+        <location filename="../settings.py" line="2013"/>
         <source>Select CSV file with land cover classes</source>
         <translation>Выберите CSV-файл с классами земного покрова</translation>
     </message>
@@ -4790,7 +4790,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../main_widget.py" line="813"/>
         <source>No news items at this time.</source>
-        <translation>Нет новостей в настоящее время.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4827,57 +4827,57 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ProfileFormMixin</name>
     <message>
-        <location filename="../settings.py" line="1151"/>
+        <location filename="../settings.py" line="1152"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1075"/>
+        <location filename="../settings.py" line="1076"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1081"/>
+        <location filename="../settings.py" line="1082"/>
         <source>Enter your name.</source>
         <translation>Введите ваше имя.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1087"/>
+        <location filename="../settings.py" line="1088"/>
         <source>Enter your organization.</source>
         <translation>Войдите в свою организацию.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1093"/>
+        <location filename="../settings.py" line="1094"/>
         <source>Select your sector.</source>
         <translation>Выберите сферу вашей деятельности.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1099"/>
+        <location filename="../settings.py" line="1100"/>
         <source>Select your purpose of use.</source>
         <translation>Выберите цель использования.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1105"/>
+        <location filename="../settings.py" line="1106"/>
         <source>Select your country.</source>
         <translation>Выберите вашу страну</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1112"/>
+        <location filename="../settings.py" line="1113"/>
         <source>You must acknowledge responsibility for GEE commercial licensing if needed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1127"/>
+        <location filename="../settings.py" line="1128"/>
         <source>Please specify your sector.</source>
         <translation>Укажите сферу вашей деятельности.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1139"/>
+        <location filename="../settings.py" line="1140"/>
         <source>Please specify your purpose of use.</source>
         <translation>Укажите цель использования.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1151"/>
+        <location filename="../settings.py" line="1152"/>
         <source>Please provide your gender identity description.</source>
         <translation>Укажите свой пол.</translation>
     </message>
@@ -5857,17 +5857,17 @@ p, li { white-space: pre-wrap; }
         <translation>Разрешить доступ к данным LandPKS</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1746"/>
+        <location filename="../settings.py" line="1747"/>
         <source>No base data directory set</source>
         <translation>Основной каталог данных не задан</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1756"/>
+        <location filename="../settings.py" line="1757"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>Не получается создать запись в {}. Попробуйте другую папку.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1726"/>
+        <location filename="../settings.py" line="1727"/>
         <source>Offline mode is enabled.</source>
         <translation>Включен автономный режим.</translation>
     </message>
@@ -5940,27 +5940,27 @@ p, li { white-space: pre-wrap; }
         <translation>Записывать предупреждения в выходной каталог</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1832"/>
+        <location filename="../settings.py" line="1833"/>
         <source>Select Report Template Search Path</source>
         <translation>Выбрать путь поиска шаблона отчета</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1842"/>
+        <location filename="../settings.py" line="1843"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>Чтобы изменения вступили в силу, необходимо перезапустить QGIS.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1844"/>
+        <location filename="../settings.py" line="1845"/>
         <source>Template Search Path</source>
         <translation>Путь поиска шаблона</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1854"/>
+        <location filename="../settings.py" line="1855"/>
         <source>All Images</source>
         <translation>Все изображения</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1869"/>
+        <location filename="../settings.py" line="1870"/>
         <source>Select Organization Logo</source>
         <translation>Выберите логотип организации</translation>
     </message>
@@ -6075,33 +6075,33 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="249"/>
         <source>News</source>
-        <translation>Новости</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="275"/>
         <source>Trends.Earth News &amp; Announcements</source>
-        <translation>Новости и объявления Trends.Earth</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="309"/>
         <source>Refresh News</source>
-        <translation>Обновить новости</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>self.parent</name>
     <message>
-        <location filename="../settings.py" line="2526"/>
+        <location filename="../settings.py" line="2527"/>
         <source>The class name value that will imported, should not exceed 120 characters. </source>
         <translation>Значение имени класса, которое будет импортировано, не должно превышать 120 символов.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2531"/>
+        <location filename="../settings.py" line="2532"/>
         <source>Select the parent for the corresponding class name.</source>
         <translation>Выберите родительский элемент для соответствующего имени класса.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2588"/>
+        <location filename="../settings.py" line="2589"/>
         <source>Maximum number of codes reached.</source>
         <translation>Достигнуто максимальное количество кодов.</translation>
     </message>
@@ -6109,63 +6109,63 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_api</name>
     <message>
-        <location filename="../api.py" line="348"/>
+        <location filename="../api.py" line="359"/>
         <source>Unable to login to Trends.Earth server. Check your internet connection.</source>
         <translation>Не удалось выполнить вход на сервер Trends.Earth. Проверьте подключение к Интернету.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="576"/>
+        <location filename="../api.py" line="587"/>
         <source>Unable to read token for Trends.Earth server. Check username and password.</source>
         <translation>Не удалось считать токен для сервера Trends.Earth. Проверьте имя пользователя и пароль.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="588"/>
+        <location filename="../api.py" line="599"/>
         <source>Unable to login to Trends.Earth. Check username and password.</source>
         <translation>Не удалось выполнить вход на сервер Trends.Earth. Проверьте имя пользователя и пароль.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="594"/>
+        <location filename="../api.py" line="605"/>
         <source>Unable to access Trends.Earth server. Check your internet connection</source>
         <translation>Не удалось получить доступ к серверу Trends.Earth. Проверьте подключение к Интернету</translation>
     </message>
     <message>
-        <location filename="../api.py" line="353"/>
+        <location filename="../api.py" line="364"/>
         <source>Unable to connect to Trends.Earth server.</source>
         <translation>Не удается подключиться к серверу Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="570"/>
+        <location filename="../api.py" line="581"/>
         <source>Authentication succeeded but no tokens returned. The API authentication method may have changed.</source>
         <translation>Аутентификация прошла успешно, но токены не были возвращены. Возможно, изменился метод аутентификации API.
 </translation>
     </message>
     <message>
-        <location filename="../api.py" line="853"/>
+        <location filename="../api.py" line="864"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation>Сервер Trends.Earth временно недоступен (ошибка {status}). Эта проблема обычно носит временный характер. Повторите попытку через несколько минут.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="859"/>
+        <location filename="../api.py" line="870"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation>На сервере Trends.Earth произошла внутренняя ошибка (ошибка 500). Повторите попытку. Если проблема не устраняется, обратитесь в службу поддержки Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="865"/>
+        <location filename="../api.py" line="876"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation>Аутентификация не удалась. Проверьте учетные данные для входа.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="523"/>
+        <location filename="../api.py" line="534"/>
         <source>No login credentials configured. Please set up your username and password in Trends.Earth settings.</source>
         <translation>Не настроены учетные данные для входа. Пожалуйста, настройте свое имя пользователя и пароль в настройках Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="539"/>
+        <location filename="../api.py" line="550"/>
         <source>Unable to retrieve stored credentials. Please re-enter your username and password in Trends.Earth settings.</source>
         <translation>Не удается получить сохраненные учетные данные. Пожалуйста, введите свое имя пользователя и пароль в настройках Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="843"/>
+        <location filename="../api.py" line="854"/>
         <source>This script requires Google Earth Engine. You must accept confirm understanding of the GEE terms of use before running it. Please update your profile in the Trends.Earth plugin settings to do so.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7980,182 +7980,7 @@ for running algorithms and their results.</source>
         <source>Please setup access to {auth_setup.name} before using this function.</source>
         <translation>Пожалуйста, настройте доступ к {auth_setup.name}, перед тем как пользоваться этой функцией.</translation>
     </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Gender Identity</source>
-        <translation>Гендерная идентичность</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Purpose of Use</source>
-        <translation>Цель использования</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Sector</source>
-        <translation>Сектор</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Woman</source>
-        <translation>Женщина</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Man</source>
-        <translation>Мужчина</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Non-binary</source>
-        <translation>Небинарный</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Prefer to self-describe</source>
-        <translation>Предпочитаю описывать себя самостоятельно.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Prefer not to say</source>
-        <translation>Предпочитаю не говорить</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>National/International Reporting (UNCCD, SDGs, etc.)</source>
-        <translation>Отчетность на национальном/международном уровне (ККООН, ЦУР и т. д.)</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Academic Research</source>
-        <translation>Академические исследования</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Policy Development &amp; Planning</source>
-        <translation>Разработка политики и планирование</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Land Restoration/Management Planning</source>
-        <translation>Планирование восстановления/управления земельными ресурсами</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Project Monitoring &amp; Evaluation</source>
-        <translation>Мониторинг и оценка проектов</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Environmental Impact Assessment</source>
-        <translation>Оценка воздействия на окружающую среду</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Agriculture/Forestry Planning</source>
-        <translation>Планирование в сельском хозяйстве/лесном хозяйстве</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Teaching &amp; Education</source>
-        <translation>Преподавание и образование</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Conservation Planning</source>
-        <translation>Планирование природоохранных мероприятий</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Commercial Services/Products</source>
-        <translation>Коммерческие услуги/продукты</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Community/Grassroots Initiatives</source>
-        <translation>Общественные/низовые инициативы</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Other</source>
-        <translation>Другой</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Government - Environment/Natural Resources</source>
-        <translation>Правительство - Окружающая среда/Природные ресурсы</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Government - Agriculture</source>
-        <translation>Правительство - Сельское хозяйство</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Government - Land Management/Planning</source>
-        <translation>Государственное управление - землепользование/планирование</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Government - Other</source>
-        <translation>Правительство - Прочее</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>International/Multilateral Organization</source>
-        <translation>Международная/многосторонняя организация</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>NGO - Development/Aid</source>
-        <translation>НПО - Развитие/Помощь</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>NGO - Community-Based</source>
-        <translation>НПО - Общественная организация</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>NGO - Conservation</source>
-        <translation>НПО - Охрана природы</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>NGO - Other</source>
-        <translation>НПО - Другое</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Academic/Research Institution</source>
-        <translation>Академическое/научно-исследовательское учреждение</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Consulting/Professional Services</source>
-        <translation>Консультационные/профессиональные услуги</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Private Sector - Agriculture/Forestry</source>
-        <translation>Частный сектор - Сельское хозяйство/Лесное хозяйство</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Private Sector - Other</source>
-        <translation>Частный сектор - Прочее</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Independent Researcher</source>
-        <translation>Независимый исследователь</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="0"/>
-        <source>Student</source>
-        <translation>Студент</translation>
-    </message>
-    </context>
+</context>
 <context>
     <name>tr_worker</name>
     <message>

@@ -4786,6 +4786,11 @@ Se se esqueceu da palavra-passe, pode redefini-la.</translation>
         <source>Import custom Population dataset...</source>
         <translation>Importar conjunto de dados de população personalizado...</translation>
     </message>
+    <message>
+        <location filename="../main_widget.py" line="813"/>
+        <source>No news items at this time.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiscopeJobReportModel</name>

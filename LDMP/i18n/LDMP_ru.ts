@@ -4787,6 +4787,11 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <source>Import custom Population dataset...</source>
         <translation>Импорт пользовательского набора данных о населении...</translation>
     </message>
+    <message>
+        <location filename="../main_widget.py" line="813"/>
+        <source>No news items at this time.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiscopeJobReportModel</name>

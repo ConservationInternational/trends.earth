@@ -34,7 +34,7 @@ jobs:
       - name: Build downloads page
         run: invoke build-download-page
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update downloads page

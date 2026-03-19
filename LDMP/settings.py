@@ -978,61 +978,63 @@ class ProfileFormMixin:
     (registration and profile update dialogs).
     """
 
+    _N = lambda s: QtCore.QT_TRANSLATE_NOOP("tr_settings", s)
+
     GENDER_OPTIONS = [
         ("", ""),
-        ("Woman", "woman"),
-        ("Man", "man"),
-        ("Non-binary", "non_binary"),
-        ("Prefer to self-describe", "self_describe"),
-        ("Prefer not to say", "prefer_not_to_say"),
+        (_N("Woman"), "woman"),
+        (_N("Man"), "man"),
+        (_N("Non-binary"), "non_binary"),
+        (_N("Prefer to self-describe"), "self_describe"),
+        (_N("Prefer not to say"), "prefer_not_to_say"),
     ]
 
     PURPOSE_OPTIONS = [
         ("", ""),
-        ("National/International Reporting (UNCCD, SDGs, etc.)", "reporting"),
-        ("Academic Research", "academic_research"),
-        ("Policy Development & Planning", "policy_planning"),
-        ("Land Restoration/Management Planning", "land_restoration"),
-        ("Project Monitoring & Evaluation", "project_monitoring"),
-        ("Environmental Impact Assessment", "environmental_assessment"),
-        ("Agriculture/Forestry Planning", "agriculture_forestry"),
-        ("Teaching & Education", "teaching_education"),
-        ("Conservation Planning", "conservation_planning"),
-        ("Commercial Services/Products", "commercial"),
-        ("Community/Grassroots Initiatives", "community_initiatives"),
-        ("Other", "other"),
+        (_N("National/International Reporting (UNCCD, SDGs, etc.)"), "reporting"),
+        (_N("Academic Research"), "academic_research"),
+        (_N("Policy Development & Planning"), "policy_planning"),
+        (_N("Land Restoration/Management Planning"), "land_restoration"),
+        (_N("Project Monitoring & Evaluation"), "project_monitoring"),
+        (_N("Environmental Impact Assessment"), "environmental_assessment"),
+        (_N("Agriculture/Forestry Planning"), "agriculture_forestry"),
+        (_N("Teaching & Education"), "teaching_education"),
+        (_N("Conservation Planning"), "conservation_planning"),
+        (_N("Commercial Services/Products"), "commercial"),
+        (_N("Community/Grassroots Initiatives"), "community_initiatives"),
+        (_N("Other"), "other"),
     ]
 
     SECTOR_OPTIONS = [
         ("", ""),
-        ("Government - Environment/Natural Resources", "gov_environment"),
-        ("Government - Agriculture", "gov_agriculture"),
-        ("Government - Land Management/Planning", "gov_land_management"),
-        ("Government - Other", "gov_other"),
-        ("International/Multilateral Organization", "international_org"),
-        ("NGO - Development/Aid", "ngo_development"),
-        ("NGO - Community-Based", "ngo_community"),
-        ("NGO - Conservation", "ngo_conservation"),
-        ("NGO - Other", "ngo_other"),
-        ("Academic/Research Institution", "academic"),
-        ("Consulting/Professional Services", "consulting"),
-        ("Private Sector - Agriculture/Forestry", "private_agri_forestry"),
-        ("Private Sector - Other", "private_other"),
-        ("Independent Researcher", "independent_researcher"),
-        ("Student", "student"),
-        ("Other", "other"),
+        (_N("Government - Environment/Natural Resources"), "gov_environment"),
+        (_N("Government - Agriculture"), "gov_agriculture"),
+        (_N("Government - Land Management/Planning"), "gov_land_management"),
+        (_N("Government - Other"), "gov_other"),
+        (_N("International/Multilateral Organization"), "international_org"),
+        (_N("NGO - Development/Aid"), "ngo_development"),
+        (_N("NGO - Community-Based"), "ngo_community"),
+        (_N("NGO - Conservation"), "ngo_conservation"),
+        (_N("NGO - Other"), "ngo_other"),
+        (_N("Academic/Research Institution"), "academic"),
+        (_N("Consulting/Professional Services"), "consulting"),
+        (_N("Private Sector - Agriculture/Forestry"), "private_agri_forestry"),
+        (_N("Private Sector - Other"), "private_other"),
+        (_N("Independent Researcher"), "independent_researcher"),
+        (_N("Student"), "student"),
+        (_N("Other"), "other"),
     ]
 
     def _populate_profile_combos(self):
         """Populate the gender, purpose, and sector combo boxes."""
         for label, value in self.GENDER_OPTIONS:
-            self.gender_identity.addItem(label, value)
+            self.gender_identity.addItem(tr_settings.tr(label) if label else "", value)
 
         for label, value in self.PURPOSE_OPTIONS:
-            self.purpose_of_use.addItem(label, value)
+            self.purpose_of_use.addItem(tr_settings.tr(label) if label else "", value)
 
         for label, value in self.SECTOR_OPTIONS:
-            self.sector.addItem(label, value)
+            self.sector.addItem(tr_settings.tr(label) if label else "", value)
 
     def _setup_conditional_fields(self):
         """Setup initial visibility and connect signals for conditional fields."""

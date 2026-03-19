@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0  # Fetch all history including tags for setuptools-scm
+          fetch-tags: true
 
       - name: Install OS packages and configure git
         run: |
@@ -68,6 +69,17 @@ jobs:
           with open(os.environ['GITHUB_ENV'], 'a') as f:
               f.write(f"PACKAGE_ID={uuid.uuid4().hex[:4]}\n")
           PY
+
+      - name: Debug git state
+        run: |
+          echo "=== git describe ==="
+          git describe --tags --long || echo "no tags found"
+          echo "=== git tag -l ==="
+          git tag -l 'v2.2.*'
+          echo "=== git status ==="
+          git status --porcelain
+          echo "=== git log ==="
+          git log --oneline -3
 
       - name: Set version SHA
         run: invoke set-version

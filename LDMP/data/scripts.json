@@ -197,5 +197,13 @@
         "name_readable": "Urban area change (summary)",
         "run_mode": "local",
         "version": "2.2.4"
+    },
+    {
+        "description": "Assess LDN counterbalancing across land types",
+        "execution_callable": "LDMP.localexecution.counterbalancing.compute_counterbalancing_local",
+        "name": "ldn-counterbalancing",
+        "name_readable": "LDN Counterbalancing Assessment",
+        "run_mode": "local",
+        "version": "2.2.4"
     }
 ]

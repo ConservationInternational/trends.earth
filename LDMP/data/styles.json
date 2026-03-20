@@ -1478,5 +1478,31 @@
         { "value": 7, "color": "#7b3294", "label": "error_recode_all_periods" }
       ]
     }
+  },
+  "LDN Counterbalancing (gains and losses)": {
+    "title": "counterbalancing_gains_losses_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -1, "color": "#9b2779", "label": "counterbalancing_loss" },
+        { "value": 0, "color": "#f7f7f7", "label": "counterbalancing_neutral" },
+        { "value": 1, "color": "#006500", "label": "counterbalancing_gain" }
+      ]
+    }
+  },
+  "LDN Counterbalancing (land type achievement)": {
+    "title": "counterbalancing_land_type_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -1, "color": "#d73027", "label": "counterbalancing_lt_not_achieved" },
+        { "value": 0, "color": "#fee08b", "label": "counterbalancing_lt_partial" },
+        { "value": 1, "color": "#1a9850", "label": "counterbalancing_lt_achieved" }
+      ]
+    }
   }
 }

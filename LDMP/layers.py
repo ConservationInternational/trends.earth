@@ -248,6 +248,23 @@ style_text_dict = {
     "status_sdg_imp_baseline": tr_layers.tr("Improvement (baseline)"),
     "status_sdg_imp_recent": tr_layers.tr("Improvement (recent)"),
     "status_sdg_imp_persistent": tr_layers.tr("Improvement (persistent)"),
+    # LDN Counterbalancing
+    "counterbalancing_gains_losses_title": tr_layers.tr(
+        "LDN Counterbalancing - Gains and Losses ({year_initial}-{year_final})"
+    ),
+    "counterbalancing_land_type_title": tr_layers.tr(
+        "LDN Counterbalancing - Land Type Achievement ({year_initial}-{year_final})"
+    ),
+    "counterbalancing_loss": tr_layers.tr(
+        "Loss of natural capital (recent + persistent degradation)"
+    ),
+    "counterbalancing_gain": tr_layers.tr(
+        "Gain of natural capital (recent + persistent improvement)"
+    ),
+    "counterbalancing_neutral": tr_layers.tr("Neutral (stable, baseline-only changes)"),
+    "counterbalancing_lt_achieved": tr_layers.tr("LDN Achieved"),
+    "counterbalancing_lt_not_achieved": tr_layers.tr("LDN Not Achieved"),
+    "counterbalancing_lt_partial": tr_layers.tr("Partially Achieved"),
     "sdg_progress_title": tr_layers.tr(
         "SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
     ),

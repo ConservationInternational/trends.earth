@@ -335,6 +335,24 @@ _ALGORITHM_CONFIG = [
                     }
                 ],
             },
+            {
+                "id": "a3b7e940-d1c5-4f3e-8b6a-1c8f2e4d9a0b",
+                "name": tr_conf.tr("LDN Counterbalancing"),
+                "name_details": tr_conf.tr(
+                    "Assess whether gains offset losses within each land type"
+                ),
+                "description": tr_conf.tr(
+                    "Evaluate Land Degradation Neutrality counterbalancing "
+                    "following the GPG Addendum methodology, assessing gains "
+                    "versus losses per land type"
+                ),
+                "scripts": [
+                    {
+                        "script": KNOWN_SCRIPTS["ldn-counterbalancing"],
+                        "parametrization_dialogue": "LDMP.calculate_counterbalancing.DlgCalculateCounterbalancing",
+                    }
+                ],
+            },
             # {
             #     "id": "7f7df50d-6069-4028-9252-878fcc5d86d7",
             #     "name": tr_conf.tr("SDG 15.3.1 error recode (false positive/negative)"),

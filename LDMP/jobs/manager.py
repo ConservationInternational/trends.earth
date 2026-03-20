@@ -45,6 +45,7 @@ from ..constants import TIMEOUT, get_api_url
 from ..logger import log
 from . import models
 from .cache import JobCache
+from .local_logger import setup_local_job_logger
 from .models import Job
 
 logger = logging.getLogger(__name__)
@@ -376,6 +377,10 @@ class LocalJobTask(QgsTask):
 
     def run(self):
         logger.debug("Running task")
+        self.job_logger = setup_local_job_logger(self.job_copy)
+        script_name = getattr(self.job_copy.script, "name", "unknown")
+        self.job_logger.info(f"Starting execution of {script_name}")
+
         execution_handler = utils.load_object(self.job_copy.script.execution_callable)
         job_output_path, dataset_output_path = _get_local_job_output_paths(
             self.job_copy
@@ -391,19 +396,23 @@ class LocalJobTask(QgsTask):
             )
         except Exception:
             logger.exception("Execution handler raised an exception")
+            self.job_logger.error(traceback.format_exc())
             self.error_message = traceback.format_exc()
             return False
 
         if self.isCanceled():
             logger.debug("Task was cancelled")
+            self.job_logger.warning("Execution cancelled by user")
             return False
 
         if self.results is None:
             logger.debug("Completed run function - failure")
+            self.job_logger.error("Execution handler returned no results")
             self.error_message = "Execution handler returned no results"
             return False
         else:
             logger.debug("Completed run function - success")
+            self.job_logger.info("Execution completed successfully")
             return True
 
     def finished(self, result):
@@ -419,12 +428,6 @@ class LocalJobTask(QgsTask):
                 self.job.status = jobs.JobStatus.CANCELLED
             else:
                 self.job.status = jobs.JobStatus.FAILED
-            if self.error_message:
-                error_note = f"\n\n--- Error ---\n{self.error_message}"
-                if self.job.task_notes:
-                    self.job.task_notes += error_note
-                else:
-                    self.job.task_notes = error_note.strip()
             self.failed_job.emit(self.job)
             logger.debug(f"Task failed with status {self.job.status.value}")
 
@@ -1180,6 +1183,10 @@ class JobManager(QtCore.QObject):
         self.process_local_job(job, area_of_interest)
 
     def process_local_job(self, job: Job, area_of_interest: areaofinterest.AOI):
+        job_logger = setup_local_job_logger(job)
+        script_name = getattr(job.script, "name", "unknown")
+        job_logger.info(f"Starting execution of {script_name}")
+
         execution_handler = utils.load_object(job.script.execution_callable)
         job_output_path, dataset_output_path = _get_local_job_output_paths(job)
         try:
@@ -1188,25 +1195,20 @@ class JobManager(QtCore.QObject):
             )
         except Exception:
             logger.exception("Execution handler raised an exception")
+            job_logger.error(traceback.format_exc())
             job.status = jobs.JobStatus.FAILED
             job.end_date = dt.datetime.now(dt.timezone.utc)
-            error_note = f"\n\n--- Error ---\n{traceback.format_exc()}"
-            if job.task_notes:
-                job.task_notes += error_note
-            else:
-                job.task_notes = error_note.strip()
             self.fail_local_job(job)
             return
 
         if done_job is None:
+            job_logger.error("Execution handler returned no results")
             job.status = jobs.JobStatus.FAILED
             job.end_date = dt.datetime.now(dt.timezone.utc)
-            job.task_notes = (job.task_notes or "") + (
-                "\n\n--- Error ---\nExecution handler returned no results"
-            )
             self.fail_local_job(job)
             return
 
+        job_logger.info("Execution completed successfully")
         self.finish_local_job(done_job)
 
     def finish_local_job(self, job):

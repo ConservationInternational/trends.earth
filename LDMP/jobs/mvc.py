@@ -510,11 +510,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 self.download_tb.hide()
                 self.add_to_canvas_pb.hide()
                 self.metadata_pb.hide()
-                # Show logs button for remote jobs (finished jobs that aren't local)
-                if self.job.status != JobStatus.GENERATED_LOCALLY:
-                    self.view_logs_tb.show()
-                else:
-                    self.view_logs_tb.hide()
+                self.view_logs_tb.show()
         elif self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
             self.download_tb.hide()
             self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
@@ -556,11 +552,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 self.load_tb.hide()
                 self.edit_tb.hide()
 
-        # Control logs button visibility - only show for non-locally generated jobs
-        if self.job.status == JobStatus.GENERATED_LOCALLY:
-            self.view_logs_tb.hide()
-        else:
-            self.view_logs_tb.show()
+        # Show logs button for all job types (local and remote)
+        self.view_logs_tb.show()
 
         # Set up dual loading menu for appropriate jobs
         # Only show dual menu for downloaded/local jobs that have both vector and raster results
@@ -893,15 +886,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.plot_tb.show()
             self.add_to_canvas_pb.hide()
             self.metadata_pb.hide()
-            # Show logs button for remote jobs only
-            if self.job.status != JobStatus.GENERATED_LOCALLY:
-                self.view_logs_tb.show()
-            else:
-                self.view_logs_tb.hide()
+            self.view_logs_tb.show()
 
     def _hide_buttons_failed_cancelled(self):
         """Helper method to hide buttons on FAILED/CANCELLED jobs."""
         self._hide_all_action_buttons()
+        self.view_logs_tb.show()
 
     def set_widget_title(
         self, widget: QtWidgets.QWidget, base_title: typing.Optional[str] = None

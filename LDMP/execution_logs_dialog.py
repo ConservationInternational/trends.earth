@@ -9,6 +9,7 @@ from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.jobs import JobStatus
 
 from .dialog_manager import dialog_manager
+from .jobs.local_logger import read_local_job_logs
 from .jobs.models import Job
 from .logger import log
 
@@ -62,6 +63,10 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
         self.auto_refresh_timer.timeout.connect(self.refresh_logs)
         self.auto_refresh_timer.setSingleShot(False)  # Repeat timer
 
+        # Disable auto-refresh for local jobs (file reads are instant)
+        if self._is_local_job():
+            self.autoRefreshCheckBox.hide()
+
         # Set monospace font for logs
         font = QtGui.QFont()
         font.setFamily("Consolas, Monaco, 'Courier New', monospace")
@@ -82,13 +87,26 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
         # Initial load of logs
         self.refresh_logs()
 
+    def _is_local_job(self) -> bool:
+        """Check if this job was executed locally."""
+        if self.job.status == JobStatus.GENERATED_LOCALLY:
+            return True
+        from te_schemas.algorithms import AlgorithmRunMode
+
+        run_mode = getattr(getattr(self.job, "script", None), "run_mode", None)
+        return run_mode == AlgorithmRunMode.LOCAL
+
     def refresh_logs(self):
-        """Fetch and display logs from the API."""
+        """Fetch and display logs from local file or API."""
         self.statusLabel.setText("Fetching logs...")
         self.refreshButton.setEnabled(False)
 
         try:
-            logs = self._fetch_logs_from_api()
+            if self._is_local_job():
+                logs = self._fetch_logs_local()
+            else:
+                logs = self._fetch_logs_from_api()
+
             current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             if logs:
                 formatted_logs = self._format_logs(logs)
@@ -122,6 +140,10 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
             # Stop auto-refresh timer
             self.auto_refresh_timer.stop()
             log(f"Auto-refresh disabled for execution logs {self.job.id}")
+
+    def _fetch_logs_local(self) -> typing.List[typing.Dict]:
+        """Read logs from the local job's log file."""
+        return read_local_job_logs(self.job)
 
     def _fetch_logs_from_api(self) -> typing.Optional[typing.List[typing.Dict]]:
         """Fetch logs from the trends.earth API using the plugin's APIClient."""
@@ -207,14 +229,5 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
     @staticmethod
     def show_logs_for_job(job: Job, parent=None) -> None:
         """Static method to show logs for a job."""
-        # Only show logs for non-local jobs
-        if job.status == JobStatus.GENERATED_LOCALLY:
-            QtWidgets.QMessageBox.information(
-                parent,
-                "Logs Not Available",
-                "Logs are not available for locally generated datasets.",
-            )
-            return
-
         dialog = DlgExecutionLogs(job, parent)
         dialog.exec_()

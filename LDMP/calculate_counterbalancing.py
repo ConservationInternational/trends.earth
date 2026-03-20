@@ -48,12 +48,11 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
         layout = QtWidgets.QVBoxLayout()
 
         # ----- Status layer -----
-        grp_status = QtWidgets.QGroupBox(self.tr("Status Layer (7-class expanded)"))
+        grp_status = QtWidgets.QGroupBox(
+            self.tr("Status Layer (7-class expanded status)")
+        )
         status_layout = QtWidgets.QVBoxLayout()
-        self.combo_status_dataset = data_io.WidgetDataIOSelectTEDatasetExisting()
         self.combo_status_layer = data_io.WidgetDataIOSelectTELayerExisting()
-        status_layout.addWidget(QtWidgets.QLabel(self.tr("Dataset:")))
-        status_layout.addWidget(self.combo_status_dataset)
         status_layout.addWidget(QtWidgets.QLabel(self.tr("Status layer:")))
         status_layout.addWidget(self.combo_status_layer)
         grp_status.setLayout(status_layout)
@@ -138,14 +137,10 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
     #  Combo population
     # --------------------------------------------------------------------- #
     def _populate_combos(self):
-        self.combo_status_dataset.setProperty(
-            "dataset_type", "sdg-15-3-1-sub-indicators"
-        )
         self.combo_status_layer.setProperty(
             "layer_type",
-            ";".join([ld_config.SDG_BAND_NAME, ld_config.SDG_STATUS_BAND_NAME]),
+            ld_config.SDG_STATUS_BAND_NAME,
         )
-        self.combo_status_dataset.populate()
         self.combo_status_layer.populate()
 
     def showEvent(self, event):
@@ -292,12 +287,25 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
             )
             return
 
+        # Extract year metadata from the selected status band
+        status_metadata = status_info.band_info.metadata or {}
+        year_initial = status_metadata.get(
+            "year_initial",
+            status_metadata.get("reporting_year_initial"),
+        )
+        year_final = status_metadata.get(
+            "year_final",
+            status_metadata.get("reporting_year_final"),
+        )
+
         params = {
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
             "status_layer_path": str(status_info.path),
             "status_band_index": status_info.band_index,
             "land_type_layer_paths": land_type_paths,
+            "year_initial": year_initial,
+            "year_final": year_final,
         }
 
         self.close()

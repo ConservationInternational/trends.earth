@@ -48,13 +48,19 @@ def compute_counterbalancing_local(
         land_type_layer_paths=params["land_type_layer_paths"],
         output_path=str(job_output_path),
         aoi=AOI(aoi.get_geojson()),
+        n_cpus=params.get("n_cpus", 1),
+        progress_callback=progress_callback,
+        killed_callback=killed_callback,
     )
-    if "n_cpus" in params:
-        cb_kwargs["n_cpus"] = params["n_cpus"]
 
-    summary_table, land_type_results, gl_path, ach_path = compute_counterbalancing(
-        **cb_kwargs
-    )
+    (
+        summary_table,
+        land_type_results,
+        gl_path,
+        ach_path,
+        lt_raster_path,
+        land_type_labels,
+    ) = compute_counterbalancing(**cb_kwargs)
 
     # Save Excel report
     excel_path = (
@@ -62,32 +68,47 @@ def compute_counterbalancing_local(
     )
     save_counterbalancing_excel(excel_path, land_type_results, summary_table)
 
-    # Save JSON report
+    # Save JSON report and get the report dict for results data
     json_path = job_output_path.parent / f"{job_output_path.stem}_counterbalancing.json"
-    save_counterbalancing_json(
+    report_data = save_counterbalancing_json(
         json_path,
         land_type_results,
         task_name=params.get("task_name", "LDN Counterbalancing"),
         aoi=AOI(aoi.get_geojson()),
+        land_type_labels=land_type_labels,
+        land_type_layer_paths=params["land_type_layer_paths"],
     )
 
-    # Combine gains/losses + achievement into a multi-band output
-    output_vrt = str(
-        job_output_path.parent / f"{job_output_path.stem}_counterbalancing.vrt"
-    )
-    gdal.BuildVRT(output_vrt, [gl_path, ach_path], separate=True)
+    # Combine gains/losses + achievement + spatial units into a multi-band output
+    output_vrt = job_output_path.parent / f"{job_output_path.stem}_counterbalancing.vrt"
+    gdal.BuildVRT(str(output_vrt), [gl_path, ach_path, lt_raster_path], separate=True)
+
+    year_initial = params.get("year_initial")
+    year_final = params.get("year_final")
 
     bands = [
         Band(
-            name="Counterbalancing gains and losses",
+            name="LDN Counterbalancing (gains and losses)",
             metadata={
                 "gains_losses": True,
+                "year_initial": year_initial,
+                "year_final": year_final,
             },
         ),
         Band(
-            name="Land Type LDN Achievement",
+            name="LDN Counterbalancing (land type achievement)",
             metadata={
                 "land_type_achievement": True,
+                "year_initial": year_initial,
+                "year_final": year_final,
+            },
+        ),
+        Band(
+            name="LDN Counterbalancing (spatial units)",
+            metadata={
+                "spatial_units": True,
+                "year_initial": year_initial,
+                "year_final": year_final,
             },
         ),
     ]
@@ -103,6 +124,10 @@ def compute_counterbalancing_local(
                 filetype=RasterFileType.GEOTIFF,
             ),
         },
+        data={
+            "report": report_data,
+            "spatial_unit_key": report_data.get("spatial_unit_key"),
+        },
     )
 
-    return job
+    return job.results

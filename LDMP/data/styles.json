@@ -1495,13 +1495,22 @@
   "LDN Counterbalancing (land type achievement)": {
     "title": "counterbalancing_land_type_title",
     "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#f7f7f7" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "LDN Counterbalancing (spatial units)": {
+    "title": "counterbalancing_spatial_units_title",
+    "ramp": {
       "type": "categorical",
       "shader": "exact",
       "items": [
-        { "value": -32768, "color": "#000000", "label": "nodata" },
-        { "value": -1, "color": "#d73027", "label": "counterbalancing_lt_not_achieved" },
-        { "value": 0, "color": "#fee08b", "label": "counterbalancing_lt_partial" },
-        { "value": 1, "color": "#1a9850", "label": "counterbalancing_lt_achieved" }
+        { "value": -32768, "color": "#000000", "label": "nodata" }
       ]
     }
   }

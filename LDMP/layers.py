@@ -252,9 +252,6 @@ style_text_dict = {
     "counterbalancing_gains_losses_title": tr_layers.tr(
         "LDN Counterbalancing - Gains and Losses ({year_initial}-{year_final})"
     ),
-    "counterbalancing_land_type_title": tr_layers.tr(
-        "LDN Counterbalancing - Land Type Achievement ({year_initial}-{year_final})"
-    ),
     "counterbalancing_loss": tr_layers.tr(
         "Loss of natural capital (recent + persistent degradation)"
     ),
@@ -262,9 +259,14 @@ style_text_dict = {
         "Gain of natural capital (recent + persistent improvement)"
     ),
     "counterbalancing_neutral": tr_layers.tr("Neutral (stable, baseline-only changes)"),
-    "counterbalancing_lt_achieved": tr_layers.tr("LDN Achieved"),
-    "counterbalancing_lt_not_achieved": tr_layers.tr("LDN Not Achieved"),
-    "counterbalancing_lt_partial": tr_layers.tr("Partially Achieved"),
+    "counterbalancing_lt_achieved": tr_layers.tr("Net positive"),
+    "counterbalancing_lt_not_achieved": tr_layers.tr("Net negative"),
+    "counterbalancing_land_type_title": tr_layers.tr(
+        "LDN Counterbalancing - Land Type Achievement % ({year_initial}-{year_final})"
+    ),
+    "counterbalancing_spatial_units_title": tr_layers.tr(
+        "LDN Counterbalancing - Spatial Units ({year_initial}-{year_final})"
+    ),
     "sdg_progress_title": tr_layers.tr(
         "SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
     ),

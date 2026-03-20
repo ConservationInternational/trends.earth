@@ -5,6 +5,7 @@ import math
 import os
 import re
 import shutil
+import traceback
 import typing
 import urllib.parse
 import uuid
@@ -363,6 +364,7 @@ class LocalJobTask(QgsTask):
     area_of_interest: areaofinterest.AOI
 
     processed_job = QtCore.pyqtSignal(Job)
+    failed_job = QtCore.pyqtSignal(Job)
 
     def __init__(self, description, job, area_of_interest):
         super().__init__(description, QgsTask.CanCancel)
@@ -370,6 +372,7 @@ class LocalJobTask(QgsTask):
         self.job_copy = deepcopy(job)  # ensure job in main thread is not accessed
         self.area_of_interest = area_of_interest
         self.results = None
+        self.error_message = None
 
     def run(self):
         logger.debug("Running task")
@@ -377,14 +380,19 @@ class LocalJobTask(QgsTask):
         job_output_path, dataset_output_path = _get_local_job_output_paths(
             self.job_copy
         )
-        self.results = execution_handler(
-            self.job_copy,
-            self.area_of_interest,
-            job_output_path,
-            dataset_output_path,
-            self.setProgress,
-            self.isCanceled,
-        )
+        try:
+            self.results = execution_handler(
+                self.job_copy,
+                self.area_of_interest,
+                job_output_path,
+                dataset_output_path,
+                self.setProgress,
+                self.isCanceled,
+            )
+        except Exception:
+            logger.exception("Execution handler raised an exception")
+            self.error_message = traceback.format_exc()
+            return False
 
         if self.isCanceled():
             logger.debug("Task was cancelled")
@@ -392,6 +400,7 @@ class LocalJobTask(QgsTask):
 
         if self.results is None:
             logger.debug("Completed run function - failure")
+            self.error_message = "Execution handler returned no results"
             return False
         else:
             logger.debug("Completed run function - success")
@@ -406,7 +415,18 @@ class LocalJobTask(QgsTask):
             self.processed_job.emit(self.job)
             logger.debug("Task succeeded")
         else:
-            logger.debug("Task failed")
+            if self.isCanceled():
+                self.job.status = jobs.JobStatus.CANCELLED
+            else:
+                self.job.status = jobs.JobStatus.FAILED
+            if self.error_message:
+                error_note = f"\n\n--- Error ---\n{self.error_message}"
+                if self.job.task_notes:
+                    self.job.task_notes += error_note
+                else:
+                    self.job.task_notes = error_note.strip()
+            self.failed_job.emit(self.job)
+            logger.debug(f"Task failed with status {self.job.status.value}")
 
 
 class JobManager(QtCore.QObject):
@@ -433,6 +453,7 @@ class JobManager(QtCore.QObject):
     submitted_remote_job = QtCore.pyqtSignal(Job)
     submitted_local_job = QtCore.pyqtSignal(Job)
     processed_local_job = QtCore.pyqtSignal(Job)
+    failed_local_job = QtCore.pyqtSignal(Job)
     imported_job = QtCore.pyqtSignal(Job)
     authentication_failed = QtCore.pyqtSignal(str)
 
@@ -1090,6 +1111,7 @@ class JobManager(QtCore.QObject):
 
         job_task = LocalJobTask(job_name, job, area_of_interest)
         job_task.processed_job.connect(self.finish_local_job)
+        job_task.failed_job.connect(self.fail_local_job)
 
         message_bar_item = QgsMessageBar.createMessage(
             self.tr(f"Processing: {task_name}")
@@ -1125,6 +1147,7 @@ class JobManager(QtCore.QObject):
                 pass  # C++ widget has been deleted
 
         job_task.taskCompleted.connect(close_messages)
+        job_task.taskTerminated.connect(close_messages)
         cancel_button.clicked.connect(cancel_task)
         job_task.progressChanged.connect(_set_progress_bar_value)
 
@@ -1159,14 +1182,40 @@ class JobManager(QtCore.QObject):
     def process_local_job(self, job: Job, area_of_interest: areaofinterest.AOI):
         execution_handler = utils.load_object(job.script.execution_callable)
         job_output_path, dataset_output_path = _get_local_job_output_paths(job)
-        done_job = execution_handler(
-            job, area_of_interest, job_output_path, dataset_output_path
-        )
+        try:
+            done_job = execution_handler(
+                job, area_of_interest, job_output_path, dataset_output_path
+            )
+        except Exception:
+            logger.exception("Execution handler raised an exception")
+            job.status = jobs.JobStatus.FAILED
+            job.end_date = dt.datetime.now(dt.timezone.utc)
+            error_note = f"\n\n--- Error ---\n{traceback.format_exc()}"
+            if job.task_notes:
+                job.task_notes += error_note
+            else:
+                job.task_notes = error_note.strip()
+            self.fail_local_job(job)
+            return
+
+        if done_job is None:
+            job.status = jobs.JobStatus.FAILED
+            job.end_date = dt.datetime.now(dt.timezone.utc)
+            job.task_notes = (job.task_notes or "") + (
+                "\n\n--- Error ---\nExecution handler returned no results"
+            )
+            self.fail_local_job(job)
+            return
+
         self.finish_local_job(done_job)
 
     def finish_local_job(self, job):
         self._change_job_status(job, jobs.JobStatus.GENERATED_LOCALLY)
         self.processed_local_job.emit(job)
+
+    def fail_local_job(self, job):
+        self._change_job_status(job, job.status)
+        self.failed_local_job.emit(job)
 
     def download_job_results(self, job: Job) -> Job:
         if job.results is None:

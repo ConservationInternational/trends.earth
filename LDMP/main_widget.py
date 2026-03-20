@@ -272,6 +272,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.processed_local_job.connect(
             self.refresh_after_job_modified, QtCore.Qt.QueuedConnection
         )
+        job_manager.failed_local_job.connect(
+            self.refresh_after_job_modified, QtCore.Qt.QueuedConnection
+        )
         job_manager.imported_job.connect(
             self.refresh_after_job_modified, QtCore.Qt.QueuedConnection
         )

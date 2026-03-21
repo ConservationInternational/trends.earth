@@ -57,7 +57,7 @@ def compute_total_carbon_summary_table(
     tc_job.end_date = dt.datetime.now(dt.timezone.utc)
     tc_job.progress = 100
 
-    return tc_job
+    return tc_job.results
 
 
 class SummaryTask(qgis.core.QgsTask):

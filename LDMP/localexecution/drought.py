@@ -176,5 +176,9 @@ def compute_drought_vulnerability(
     """Calculate drought vulnerability indicators and save to disk"""
 
     return summarise_drought_vulnerability(
-        drought_job, AOI(aoi.get_geojson()), job_output_path, n_cpus=1
+        drought_job,
+        AOI(aoi.get_geojson()),
+        job_output_path,
+        n_cpus=1,
+        killed_callback=kill_callback,
     )

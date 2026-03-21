@@ -45,7 +45,7 @@ from ..constants import TIMEOUT, get_api_url
 from ..logger import log
 from . import models
 from .cache import JobCache
-from .local_logger import setup_local_job_logger
+from .local_logger import LocalJobLogHandler, setup_local_job_logger
 from .models import Job
 
 logger = logging.getLogger(__name__)
@@ -366,6 +366,7 @@ class LocalJobTask(QgsTask):
 
     processed_job = QtCore.pyqtSignal(Job)
     failed_job = QtCore.pyqtSignal(Job)
+    running_job = QtCore.pyqtSignal()
 
     def __init__(self, description, job, area_of_interest):
         super().__init__(description, QgsTask.CanCancel)
@@ -377,9 +378,23 @@ class LocalJobTask(QgsTask):
 
     def run(self):
         logger.debug("Running task")
+        self.running_job.emit()
         self.job_logger = setup_local_job_logger(self.job_copy)
         script_name = getattr(self.job_copy.script, "name", "unknown")
         self.job_logger.info(f"Starting execution of {script_name}")
+
+        # Attach job log handler to algorithm loggers so their messages
+        # appear in the job's log file (not just stderr).
+        algo_logger = logging.getLogger("te_algorithms")
+        prev_algo_level = algo_logger.level
+        algo_logger.setLevel(logging.DEBUG)
+        algo_handler = None
+        for h in self.job_logger.handlers:
+            if isinstance(h, LocalJobLogHandler):
+                algo_handler = h
+                break
+        if algo_handler is not None:
+            algo_logger.addHandler(algo_handler)
 
         execution_handler = utils.load_object(self.job_copy.script.execution_callable)
         job_output_path, dataset_output_path = _get_local_job_output_paths(
@@ -399,6 +414,10 @@ class LocalJobTask(QgsTask):
             self.job_logger.error(traceback.format_exc())
             self.error_message = traceback.format_exc()
             return False
+        finally:
+            if algo_handler is not None:
+                algo_logger.removeHandler(algo_handler)
+            algo_logger.setLevel(prev_algo_level)
 
         if self.isCanceled():
             logger.debug("Task was cancelled")
@@ -421,6 +440,7 @@ class LocalJobTask(QgsTask):
         self.job.progress = 100
         if result:
             self.job.results = self.results
+            self.job._cached_has_loadable_result = None
             self.processed_job.emit(self.job)
             logger.debug("Task succeeded")
         else:
@@ -1115,6 +1135,7 @@ class JobManager(QtCore.QObject):
         job_task = LocalJobTask(job_name, job, area_of_interest)
         job_task.processed_job.connect(self.finish_local_job)
         job_task.failed_job.connect(self.fail_local_job)
+        job_task.running_job.connect(lambda job=job: self._mark_local_job_running(job))
 
         message_bar_item = QgsMessageBar.createMessage(
             self.tr(f"Processing: {task_name}")
@@ -1218,6 +1239,10 @@ class JobManager(QtCore.QObject):
     def fail_local_job(self, job):
         self._change_job_status(job, job.status)
         self.failed_local_job.emit(job)
+
+    def _mark_local_job_running(self, job):
+        if job.status == jobs.JobStatus.PENDING:
+            self._change_job_status(job, jobs.JobStatus.RUNNING)
 
     def download_job_results(self, job: Job) -> Job:
         if job.results is None:
@@ -1765,11 +1790,29 @@ class JobManager(QtCore.QObject):
                         del internal[job.id]
                         break
             else:
+                # Try the expected previous-status dict first.  If the caller
+                # already mutated job.status before calling us (e.g.
+                # LocalJobTask.finished sets FAILED before emitting the
+                # signal), the job won't be in that dict.  Fall back to a full
+                # search so we don't leave a stale entry behind.
+                removed = False
                 try:
                     prev_dict = self._get_internal_dict_for_status(previous_status)
-                    prev_dict.pop(job.id, None)
+                    if job.id in prev_dict:
+                        del prev_dict[job.id]
+                        removed = True
                 except KeyError:
                     pass
+
+                if not removed:
+                    for status in list(jobs.JobStatus):
+                        try:
+                            d = self._get_internal_dict_for_status(status)
+                        except KeyError:
+                            continue
+                        if job.id in d:
+                            del d[job.id]
+                            break
 
             # Handle GENERATED_LOCALLY -> DOWNLOADED mapping for cache storage
             cache_status = target
@@ -2069,7 +2112,12 @@ class JobManager(QtCore.QObject):
         This also moves job metadata file
 
         """
-        old_path = os.path.splitext(self.get_job_file_path(job))[0] + ".qmd"
+        # Find the .qmd companion BEFORE removing/rewriting the JSON file,
+        # and before job.status is potentially changed.  Use the directory-
+        # search helper because job.status may already have been mutated by
+        # the caller (e.g. LocalJobTask.finished sets CANCELLED/FAILED
+        # before the signal reaches us).
+        old_qmd_path = self._find_job_file_in_all_dirs(job, ".qmd")
 
         log(f"moving job {job.id} to dir")
 
@@ -2085,9 +2133,9 @@ class JobManager(QtCore.QObject):
             else:
                 log("No need to move the job file, it is already in place")
 
-        if os.path.exists(old_path):
+        if old_qmd_path is not None and old_qmd_path.exists():
             new_path = os.path.splitext(self.get_job_file_path(job))[0] + ".qmd"
-            shutil.move(old_path, new_path)
+            shutil.move(str(old_qmd_path), new_path)
 
     # @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
     def _load_jobs_from_dir(
@@ -2405,14 +2453,51 @@ class JobManager(QtCore.QObject):
                 remote_job.local_context = local_job.local_context
         self.write_job_metadata_file(remote_job)
 
-    def _remove_job_metadata_file(self, job: Job):
-        old_path = self.get_job_file_path(job)
+    def _find_job_file_in_all_dirs(
+        self, job: Job, suffix: str = ".json"
+    ) -> typing.Optional[Path]:
+        """Find the actual file for a job by searching all status directories.
 
-        if old_path.exists():
-            old_path.unlink()  # not using the `missing_ok` param as it was introduced only in Python 3.8
-        # Invalidate cache for this directory so subsequent _get_local_jobs
-        # calls within the same refresh cycle don't return stale entries.
-        self._invalidate_dir_cache_for_path(old_path)
+        When ``job.status`` has been mutated before the on-disk file was moved,
+        ``get_job_file_path`` points to the wrong directory.  This helper
+        searches every status directory so the real file is always found.
+        """
+        # Try expected location first (fast path)
+        expected = self.get_job_file_path(job)
+        if suffix != ".json":
+            expected = expected.with_suffix(suffix)
+        if expected.exists():
+            return expected
+
+        # Search flat status directories (files use with_uuid=True naming)
+        filename = f"{job.get_basename(with_uuid=True)}{suffix}"
+        for search_dir in (
+            self.running_jobs_dir,
+            self.failed_jobs_dir,
+            self.finished_jobs_dir,
+            self.expired_jobs_dir,
+            self.deleted_jobs_dir,
+        ):
+            candidate = search_dir / filename
+            if candidate.exists():
+                return candidate
+
+        # Datasets dir uses a different naming convention (no UUID suffix)
+        ds_filename = f"{job.get_basename()}{suffix}"
+        ds_candidate = self.datasets_dir / f"{job.id!s}" / ds_filename
+        if ds_candidate.exists():
+            return ds_candidate
+
+        return None
+
+    def _remove_job_metadata_file(self, job: Job):
+        old_path = self._find_job_file_in_all_dirs(job, ".json")
+
+        if old_path is not None:
+            old_path.unlink()
+            # Invalidate cache for this directory so subsequent _get_local_jobs
+            # calls within the same refresh cycle don't return stale entries.
+            self._invalidate_dir_cache_for_path(old_path)
 
     def _invalidate_dir_cache_for_path(self, file_path: Path):
         """Remove cached directory scan results for *file_path*.

@@ -269,6 +269,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.submitted_remote_job.connect(
             self.refresh_after_job_modified, QtCore.Qt.QueuedConnection
         )
+        job_manager.submitted_local_job.connect(
+            self.refresh_after_job_modified, QtCore.Qt.QueuedConnection
+        )
         job_manager.processed_local_job.connect(
             self.refresh_after_job_modified, QtCore.Qt.QueuedConnection
         )
@@ -1367,9 +1370,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         if result == QtWidgets.QDialog.Rejected:
             self.resume_scheduler()
         else:
-            # if the dialog has been accepted we will resume the scheduler only after
-            # the datasets treeview has been refreshed
-            pass
+            # Resume the scheduler so that job-submitted / job-completed
+            # signals can trigger a UI refresh immediately.
+            self.resume_scheduler()
 
     def _manage_datasets_tree_view(self, index: QtCore.QModelIndex):
         """Manage dataset treeview's editing

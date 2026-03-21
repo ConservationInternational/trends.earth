@@ -141,7 +141,7 @@ def compute_urban_change_summary_table(
         },
     )
 
-    return urban_change_job
+    return urban_change_job.results
 
 
 def save_summary_table(areas, populations, out_file):

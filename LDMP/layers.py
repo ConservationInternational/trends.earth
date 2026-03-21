@@ -262,7 +262,7 @@ style_text_dict = {
     "counterbalancing_lt_achieved": tr_layers.tr("Net positive"),
     "counterbalancing_lt_not_achieved": tr_layers.tr("Net negative"),
     "counterbalancing_land_type_title": tr_layers.tr(
-        "LDN Counterbalancing - Land Type Achievement % ({year_initial}-{year_final})"
+        "LDN Counterbalancing - Net Change ({year_initial}-{year_final})"
     ),
     "counterbalancing_spatial_units_title": tr_layers.tr(
         "LDN Counterbalancing - Spatial Units ({year_initial}-{year_final})"
@@ -587,7 +587,11 @@ def create_categorical_with_dynamic_ramp_color_ramp(style_config, band_info):
 
 
 def _create_zero_centered_stretch_color_ramp(
-    style_config: typing.Dict, data_sample, no_data_value
+    style_config: typing.Dict,
+    data_sample,
+    no_data_value,
+    band_scale=1.0,
+    label_suffix="",
 ):
     # Set a colormap centred on zero, going to the max of the min and max
     # extreme value significant to three figures.
@@ -605,15 +609,21 @@ def _create_zero_centered_stretch_color_ramp(
             style_config["ramp"]["percent stretch"], cutoff
         )
     )
+    label_min = round_to_n(-cutoff * band_scale, 2)
+    label_max = round_to_n(cutoff * band_scale, 2)
     result = [
         QgsColorRampShader.ColorRampItem(
-            -cutoff, QColor(style_config["ramp"]["min"]["color"]), "{}".format(-cutoff)
+            -cutoff,
+            QColor(style_config["ramp"]["min"]["color"]),
+            "{}{}".format(label_min, label_suffix),
         ),
         QgsColorRampShader.ColorRampItem(
-            0, QColor(style_config["ramp"]["zero"]["color"]), "0"
+            0, QColor(style_config["ramp"]["zero"]["color"]), "0{}".format(label_suffix)
         ),
         QgsColorRampShader.ColorRampItem(
-            cutoff, QColor(style_config["ramp"]["max"]["color"]), "{}".format(cutoff)
+            cutoff,
+            QColor(style_config["ramp"]["max"]["color"]),
+            "{}{}".format(label_max, label_suffix),
         ),
         QgsColorRampShader.ColorRampItem(
             style_config["ramp"]["no data"]["value"],
@@ -626,7 +636,11 @@ def _create_zero_centered_stretch_color_ramp(
 
 
 def _create_min_zero_stretch_color_ramp(
-    style_config: typing.Dict, data_sample, no_data_value
+    style_config: typing.Dict,
+    data_sample,
+    no_data_value,
+    band_scale=1.0,
+    label_suffix="",
 ):
     # Set a colormap from zero to percent stretch significant to
     # three figures.
@@ -643,21 +657,25 @@ def _create_min_zero_stretch_color_ramp(
     )
     result = [
         QgsColorRampShader.ColorRampItem(
-            0, QColor(style_config["ramp"]["zero"]["color"]), "0"
+            0, QColor(style_config["ramp"]["zero"]["color"]), "0{}".format(label_suffix)
         )
     ]
 
     if "mid" in style_config["ramp"]:
+        label_mid = round_to_n(cutoff / 2 * band_scale, 2)
         result.append(
             QgsColorRampShader.ColorRampItem(
                 cutoff / 2,
                 QColor(style_config["ramp"]["mid"]["color"]),
-                str(cutoff / 2),
+                "{}{}".format(label_mid, label_suffix),
             )
         )
+    label_max = round_to_n(cutoff * band_scale, 2)
     result.append(
         QgsColorRampShader.ColorRampItem(
-            cutoff, QColor(style_config["ramp"]["max"]["color"]), "{}".format(cutoff)
+            cutoff,
+            QColor(style_config["ramp"]["max"]["color"]),
+            "{}{}".format(label_max, label_suffix),
         )
     )
     result.append(
@@ -669,6 +687,15 @@ def _create_min_zero_stretch_color_ramp(
     )
 
     return result
+
+
+def _get_band_scale(layer_path: str, band_number: int) -> float:
+    """Read the GDAL band scale factor, defaulting to 1.0 if unset."""
+    ds = gdal.Open(layer_path)
+    band = ds.GetRasterBand(band_number)
+    scale = band.GetScale()
+    del ds
+    return float(scale) if scale is not None else 1.0
 
 
 def _create_color_ramp(
@@ -697,15 +724,27 @@ def _create_color_ramp(
         # Set a colormap centred on zero, going to the max of the min and max
         # extreme value significant to three figures.
         data_sample = get_sample(layer_path, band_number)
+        band_scale = _get_band_scale(layer_path, band_number)
+        label_suffix = style_config["ramp"].get("label_suffix", "")
         result = _create_zero_centered_stretch_color_ramp(
-            style_config, data_sample, band_info["no_data_value"]
+            style_config,
+            data_sample,
+            band_info["no_data_value"],
+            band_scale=band_scale,
+            label_suffix=label_suffix,
         )
     elif ramp_type == "min zero stretch":
         # Set a colormap from zero to percent stretch significant to
         # three figures.
         data_sample = get_sample(layer_path, band_number)
+        band_scale = _get_band_scale(layer_path, band_number)
+        label_suffix = style_config["ramp"].get("label_suffix", "")
         result = _create_min_zero_stretch_color_ramp(
-            style_config, data_sample, band_info["no_data_value"]
+            style_config,
+            data_sample,
+            band_info["no_data_value"],
+            band_scale=band_scale,
+            label_suffix=label_suffix,
         )
     else:
         raise RuntimeError("Failed to load Trends.Earth style.")

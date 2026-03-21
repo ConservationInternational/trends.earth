@@ -1498,6 +1498,7 @@
       "type": "zero-centered stretch",
       "shader": "interpolated",
       "percent stretch": 2,
+      "label_suffix": "%",
       "min": { "color": "#9b2779" },
       "zero": { "color": "#f7f7f7" },
       "max": { "color": "#006500" },

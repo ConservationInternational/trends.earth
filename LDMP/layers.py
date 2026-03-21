@@ -611,9 +611,10 @@ def _create_zero_centered_stretch_color_ramp(
     )
     label_min = round_to_n(-cutoff * band_scale, 2)
     label_max = round_to_n(cutoff * band_scale, 2)
+    scaled_cutoff = cutoff * band_scale
     result = [
         QgsColorRampShader.ColorRampItem(
-            -cutoff,
+            -scaled_cutoff,
             QColor(style_config["ramp"]["min"]["color"]),
             "{}{}".format(label_min, label_suffix),
         ),
@@ -621,12 +622,12 @@ def _create_zero_centered_stretch_color_ramp(
             0, QColor(style_config["ramp"]["zero"]["color"]), "0{}".format(label_suffix)
         ),
         QgsColorRampShader.ColorRampItem(
-            cutoff,
+            scaled_cutoff,
             QColor(style_config["ramp"]["max"]["color"]),
             "{}{}".format(label_max, label_suffix),
         ),
         QgsColorRampShader.ColorRampItem(
-            style_config["ramp"]["no data"]["value"],
+            style_config["ramp"]["no data"]["value"] * band_scale,
             QColor(style_config["ramp"]["no data"]["color"]),
             tr_style_text(style_config["ramp"]["no data"]["label"]),
         ),
@@ -665,7 +666,7 @@ def _create_min_zero_stretch_color_ramp(
         label_mid = round_to_n(cutoff / 2 * band_scale, 2)
         result.append(
             QgsColorRampShader.ColorRampItem(
-                cutoff / 2,
+                cutoff / 2 * band_scale,
                 QColor(style_config["ramp"]["mid"]["color"]),
                 "{}{}".format(label_mid, label_suffix),
             )
@@ -673,14 +674,14 @@ def _create_min_zero_stretch_color_ramp(
     label_max = round_to_n(cutoff * band_scale, 2)
     result.append(
         QgsColorRampShader.ColorRampItem(
-            cutoff,
+            cutoff * band_scale,
             QColor(style_config["ramp"]["max"]["color"]),
             "{}{}".format(label_max, label_suffix),
         )
     )
     result.append(
         QgsColorRampShader.ColorRampItem(
-            style_config["ramp"]["no data"]["value"],
+            style_config["ramp"]["no data"]["value"] * band_scale,
             QColor(style_config["ramp"]["no data"]["color"]),
             tr_style_text(style_config["ramp"]["no data"]["label"]),
         )

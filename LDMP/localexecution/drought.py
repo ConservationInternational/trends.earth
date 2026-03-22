@@ -1,5 +1,6 @@
 import dataclasses
 import json
+import multiprocessing
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
 
@@ -179,6 +180,8 @@ def compute_drought_vulnerability(
         drought_job,
         AOI(aoi.get_geojson()),
         job_output_path,
-        n_cpus=1,
+        n_cpus=max(1, multiprocessing.cpu_count() - 1),
         killed_callback=kill_callback,
+        parallel_backend="thread",
+        progress_callback=progress_callback,
     )

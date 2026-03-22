@@ -1,6 +1,7 @@
 import dataclasses
 import enum
 import json
+import multiprocessing
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
@@ -416,5 +417,11 @@ def compute_ldn(
     """Calculate final SDG 15.3.1 indicator and save to disk"""
 
     return summarise_land_degradation(
-        ldn_job, AOI(aoi.get_geojson()), job_output_path, n_cpus=1
+        ldn_job,
+        AOI(aoi.get_geojson()),
+        job_output_path,
+        n_cpus=max(1, multiprocessing.cpu_count() - 1),
+        killed_callback=killed_callback,
+        parallel_backend="thread",
+        progress_callback=progress_callback,
     )

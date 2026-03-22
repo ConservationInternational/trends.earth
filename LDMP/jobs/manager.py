@@ -387,7 +387,7 @@ class LocalJobTask(QgsTask):
         # appear in the job's log file (not just stderr).
         algo_logger = logging.getLogger("te_algorithms")
         prev_algo_level = algo_logger.level
-        algo_logger.setLevel(logging.DEBUG)
+        algo_logger.setLevel(logging.INFO)
         algo_handler = None
         for h in self.job_logger.handlers:
             if isinstance(h, LocalJobLogHandler):
@@ -1997,6 +1997,10 @@ class JobManager(QtCore.QObject):
         # first go over all previously known jobs and check if they are still running
 
         for old_running_job in local_running_jobs:
+            if _is_local_only_job(old_running_job):
+                self._known_running_jobs[old_running_job.id] = old_running_job
+                continue
+
             remote_job = find_job(old_running_job, remote_jobs)
 
             if remote_job is None:  # unexpected behavior, remove the local job file
@@ -2655,6 +2659,19 @@ def find_job(target: Job, source: typing.List[Job]) -> typing.Optional[Job]:
         result = None
 
     return result
+
+
+def _is_local_only_job(job: Job) -> bool:
+    """Return True if *job* was submitted for local execution only."""
+    script = getattr(job, "script", None)
+    if script is None:
+        return False
+    run_mode = getattr(script, "run_mode", None)
+    if run_mode == AlgorithmRunMode.LOCAL:
+        return True
+    # Fallback: if the script has a local execution_callable it is local
+    execution_callable = getattr(script, "execution_callable", None)
+    return bool(execution_callable)
 
 
 def _get_access_token():

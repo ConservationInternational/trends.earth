@@ -214,7 +214,6 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
 
         # Translate each raster to the common coarse grid (in memory)
         arrays = []
-        nodata_values = []
         translate_opts = gdal.TranslateOptions(
             format="MEM",
             width=side,
@@ -226,25 +225,18 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
             ds = gdal.Translate("", p, options=translate_opts)
             if ds is None:
                 return None
-            band = ds.GetRasterBand(1)
-            nodata_values.append(band.GetNoDataValue())
-            arr = band.ReadAsArray()
+            arr = ds.GetRasterBand(1).ReadAsArray()
             ds = None
             if arr is None:
                 return None
             arrays.append(arr.ravel())
 
-        # Build valid-pixel mask (exclude nodata from any layer)
-        valid = np.ones(arrays[0].size, dtype=bool)
-        for arr, nd in zip(arrays, nodata_values):
-            if nd is not None:
-                valid &= arr != int(nd)
-
-        if not np.any(valid):
-            return None
-
-        # Stack valid samples and count unique combinations
-        stacked = np.column_stack([arr[valid] for arr in arrays])
+        # Stack all samples and count unique value combinations.
+        # Nodata values are kept as-is so that the estimate never
+        # decreases when a layer is added (intersection-masking of nodata
+        # would shrink the valid pixel set and could lose unique
+        # combinations from other layers).
+        stacked = np.column_stack(arrays)
         unique_rows = np.unique(stacked, axis=0)
         return int(unique_rows.shape[0])
 

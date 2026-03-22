@@ -1,6 +1,7 @@
 """Local execution callable for LDN counterbalancing assessment."""
 
 import logging
+import multiprocessing
 from pathlib import Path
 
 from osgeo import gdal
@@ -48,9 +49,10 @@ def compute_counterbalancing_local(
         land_type_layer_paths=params["land_type_layer_paths"],
         output_path=str(job_output_path),
         aoi=AOI(aoi.get_geojson()),
-        n_cpus=params.get("n_cpus", 1),
+        n_cpus=params.get("n_cpus", max(1, multiprocessing.cpu_count() - 1)),
         progress_callback=progress_callback,
         killed_callback=killed_callback,
+        parallel_backend="thread",
     )
 
     (

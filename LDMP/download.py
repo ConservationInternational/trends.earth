@@ -28,6 +28,7 @@ from qgis.core import (
     QgsFileDownloader,
     QgsNetworkAccessManager,
     QgsNetworkReplyContent,
+    QgsTask,
 )
 from qgis.PyQt import QtCore, QtNetwork, QtWidgets
 from qgis.utils import iface
@@ -1129,3 +1130,145 @@ class Download:
 
     def get_exception(self):
         return self.exception
+
+
+class DownloadFileTask(QgsTask):
+    """Download a single file on a QgsTask background thread."""
+
+    _CANCEL_CHECK_INTERVAL_MS = 500
+    _INACTIVITY_TIMEOUT_MS = _DOWNLOAD_INACTIVITY_TIMEOUT_MS
+
+    def __init__(
+        self,
+        url: str,
+        output_path: Path,
+        expected_etag: typing.Optional["te_schemas_results.Etag"] = None,
+        max_retries: int = 5,
+        description: typing.Optional[str] = None,
+    ):
+        desc = description or f"Downloading {Path(output_path).name}"
+        super().__init__(desc, QgsTask.CanCancel)
+        self.url = url
+        self.output_path = Path(output_path)
+        self.expected_etag = expected_etag
+        self.max_retries = max_retries
+        self.success = False
+        self.error_message = None
+
+    def run(self) -> bool:
+        self.output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        for attempt in range(self.max_retries):
+            if self.isCanceled():
+                return False
+
+            try:
+                success = self._download_with_qgs_file_downloader()
+            except Exception as e:
+                log(
+                    f"Download attempt {attempt + 1} failed for "
+                    f"{self.output_path.name}: {e}"
+                )
+                success = False
+
+            if success and self.expected_etag is not None:
+                if not verify_file_against_etag(self.output_path, self.expected_etag):
+                    log(f"Etag verification failed for {self.output_path}, deleting")
+                    self.output_path.unlink(missing_ok=True)
+                    success = False
+
+            if success:
+                self.success = True
+                return True
+
+            # Exponential backoff — blocking sleep is fine on task thread
+            if attempt < self.max_retries - 1:
+                import time
+
+                backoff_s = 2**attempt
+                log(
+                    f"Backing off {backoff_s}s after attempt {attempt + 1} "
+                    f"for {self.output_path.name}"
+                )
+                time.sleep(backoff_s)
+
+        self.error_message = (
+            f"Download failed after {self.max_retries} retries: {self.url}"
+        )
+        return False
+
+    def _download_with_qgs_file_downloader(self) -> bool:
+        """Download using QgsFileDownloader + local QEventLoop on the task thread."""
+        loop = QtCore.QEventLoop()
+        self._dl_success = False
+        self._dl_error = None
+
+        downloader = QgsFileDownloader(QtCore.QUrl(self.url), str(self.output_path))
+
+        def _on_completed():
+            self._dl_success = True
+            loop.quit()
+
+        def _on_error(errors):
+            self._dl_error = str(errors)
+            loop.quit()
+
+        def _on_exit():
+            loop.quit()
+
+        def _on_progress(received, total):
+            if total > 0:
+                self.setProgress(received * 100 / total)
+
+        downloader.downloadCompleted.connect(_on_completed)
+        downloader.downloadError.connect(_on_error)
+        downloader.downloadExited.connect(_on_exit)
+        downloader.downloadCanceled.connect(_on_exit)
+        downloader.downloadProgress.connect(_on_progress)
+
+        # Cancellation check timer (same pattern as RequestTask._wait_for_reply)
+        cancel_timer = QtCore.QTimer()
+        cancel_timer.timeout.connect(
+            lambda: self._check_cancel(loop, downloader, cancel_timer)
+        )
+        cancel_timer.start(self._CANCEL_CHECK_INTERVAL_MS)
+
+        # Inactivity watchdog
+        watchdog = _WatchdogTimer(self._INACTIVITY_TIMEOUT_MS, lambda: loop.quit())
+        downloader.downloadProgress.connect(watchdog.kick)
+        watchdog.start()
+
+        downloader.startDownload()
+        loop.exec_()
+
+        cancel_timer.stop()
+        watchdog.stop()
+
+        if self.isCanceled():
+            self.output_path.unlink(missing_ok=True)
+            return False
+
+        if self._dl_error:
+            log(
+                f"QgsFileDownloader error for {self.output_path.name}: {self._dl_error}"
+            )
+            self.output_path.unlink(missing_ok=True)
+            return False
+
+        return self._dl_success
+
+    def _check_cancel(self, loop, downloader, timer):
+        """Periodic cancellation check (runs on task thread's event loop)."""
+        if self.isCanceled():
+            timer.stop()
+            downloader.cancelDownload()
+            loop.quit()
+
+    def finished(self, result: bool):
+        """Main thread — called automatically by QgsTaskManager."""
+        if result:
+            log(f"Downloaded {self.output_path.name} successfully")
+        elif self.isCanceled():
+            log(f"Download of {self.output_path.name} was cancelled")
+        else:
+            log(f"Download of {self.output_path.name} failed: {self.error_message}")

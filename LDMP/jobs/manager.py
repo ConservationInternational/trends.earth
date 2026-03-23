@@ -5,6 +5,8 @@ import math
 import os
 import re
 import shutil
+import sys
+import time
 import traceback
 import typing
 import urllib.parse
@@ -17,7 +19,7 @@ import backoff
 import te_algorithms.gdal.land_deg.config as ld_conf
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
-from qgis.core import Qgis, QgsApplication, QgsTask, QgsVectorLayer
+from qgis.core import Qgis, QgsApplication, QgsFileDownloader, QgsTask, QgsVectorLayer
 from qgis.gui import QgsMessageBar
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
@@ -452,6 +454,427 @@ class LocalJobTask(QgsTask):
             logger.debug(f"Task failed with status {self.job.status.value}")
 
 
+# Multiple QGIS instances share the same datasets/ directory.  A
+# file-based lock prevents two instances from downloading the same job
+# simultaneously.
+
+_DOWNLOAD_LOCK_FILENAME = ".downloading.lock"
+_DOWNLOAD_LOCK_STALE_SECONDS = 1200  # 20 min (2× the 10 min refresh interval)
+
+
+def _download_lock_path(job_dir: Path) -> Path:
+    return job_dir / _DOWNLOAD_LOCK_FILENAME
+
+
+def _is_pid_alive(pid: int) -> bool:
+    """Return True if a process with *pid* is still running."""
+    if sys.platform == "win32":
+        import ctypes
+
+        SYNCHRONIZE = 0x00100000
+        handle = ctypes.windll.kernel32.OpenProcess(SYNCHRONIZE, False, pid)
+        if handle:
+            ctypes.windll.kernel32.CloseHandle(handle)
+            return True
+        return False
+    # Unix: signal 0 checks existence without actually sending a signal.
+    try:
+        os.kill(pid, 0)
+    except PermissionError:
+        return True  # process exists but we lack permission
+    except OSError:
+        return False
+    return True
+
+
+def _is_download_lock_stale(lock_path: Path) -> bool:
+    """Return True if the lock file is stale (dead process or too old)."""
+    try:
+        data = json.loads(lock_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return True  # corrupt or unreadable → treat as stale
+
+    pid = data.get("pid")
+    ts = data.get("ts", 0)
+
+    if pid is not None and not _is_pid_alive(pid):
+        return True
+    if time.time() - ts > _DOWNLOAD_LOCK_STALE_SECONDS:
+        return True
+    return False
+
+
+def _try_acquire_download_lock(job_dir: Path) -> bool:
+    """Try to create an exclusive lock file.  Returns True if acquired."""
+    lock_path = _download_lock_path(job_dir)
+    job_dir.mkdir(parents=True, exist_ok=True)
+    lock_content = json.dumps({"pid": os.getpid(), "ts": time.time()}).encode()
+
+    for _attempt in range(2):  # one retry after stale-lock cleanup
+        try:
+            fd = os.open(str(lock_path), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            try:
+                os.write(fd, lock_content)
+            finally:
+                os.close(fd)
+            return True
+        except FileExistsError:
+            if _is_download_lock_stale(lock_path):
+                try:
+                    lock_path.unlink()
+                except OSError:
+                    return False
+                continue  # retry after removing stale lock
+            return False  # another live process owns the lock
+    return False
+
+
+def _refresh_download_lock(job_dir: Path) -> None:
+    """Update the timestamp in an existing lock so it doesn't look stale.
+
+    Long-running downloads can easily exceed *_DOWNLOAD_LOCK_STALE_SECONDS*.
+    Callers should invoke this periodically (e.g. after each file) to prove
+    the owning process is still alive and making progress.
+    """
+    lock_path = _download_lock_path(job_dir)
+    try:
+        data = json.loads(lock_path.read_text(encoding="utf-8"))
+        if data.get("pid") != os.getpid():
+            return  # not ours
+        data["ts"] = time.time()
+        lock_path.write_text(json.dumps(data), encoding="utf-8")
+    except (json.JSONDecodeError, OSError):
+        pass  # lock disappeared or is corrupt — nothing to refresh
+
+
+def _release_download_lock(job_dir: Path) -> None:
+    """Release the lock, but only if this process owns it."""
+    lock_path = _download_lock_path(job_dir)
+    try:
+        data = json.loads(lock_path.read_text(encoding="utf-8"))
+        if data.get("pid") != os.getpid():
+            return  # not ours — leave it alone
+    except (json.JSONDecodeError, OSError):
+        pass  # corrupt / missing — clean up anyway
+    lock_path.unlink(missing_ok=True)
+
+
+class DownloadJobResultsTask(QgsTask):
+    """Download all results for a single job on a background thread.
+
+    Follows the same pattern as LocalJobTask:
+    - run()      -> background thread, does all blocking I/O
+    - finished() -> main thread, updates job status and emits signals
+    """
+
+    _CANCEL_CHECK_INTERVAL_MS = 500
+    _LOCK_REFRESH_INTERVAL_S = 600  # refresh lock file every 10 minutes
+
+    def __init__(self, job: Job, job_manager: "JobManager"):
+        task_name = job.task_name or str(job.id)
+        super().__init__(f"Downloading results: {task_name}", QgsTask.CanCancel)
+        self.job = job
+        self.job_manager = job_manager
+        self.error_message = None
+        self._all_successful = True
+        self._job_dir = job_manager.datasets_dir / str(job.id)
+        self._last_lock_refresh = time.time()
+
+    def run(self) -> bool:
+        """Background thread — download all result files."""
+        results_list = self.job._get_results_list()
+        if not results_list:
+            log(f"Job {self.job.id} has empty results list")
+            return False
+
+        total_files = self._count_files(results_list)
+        files_done = 0
+
+        for result in results_list:
+            if self.isCanceled():
+                return False
+
+            if not hasattr(result, "type"):
+                continue
+
+            if result.type == ResultType.RASTER_RESULTS:
+                success, files_done = self._download_cloud_result(
+                    result, files_done, total_files
+                )
+            elif result.type == ResultType.VECTOR_RESULTS:
+                success = self._download_vector_result(result)
+                files_done += 1
+                self.setProgress(files_done * 100 / max(total_files, 1))
+            elif result.type == ResultType.TIME_SERIES_TABLE:
+                success = True  # no download needed
+            else:
+                log(f"No handler for result type {result.type}")
+                continue
+
+            if not success:
+                self._all_successful = False
+                return False
+
+        return True
+
+    def _count_files(self, results_list) -> int:
+        """Count total files to download for progress tracking."""
+        count = 0
+        for result in results_list:
+            if not hasattr(result, "type"):
+                continue
+            if result.type == ResultType.RASTER_RESULTS:
+                for raster in result.rasters.values():
+                    if raster.type == results.RasterType.TILED_RASTER:
+                        count += len(raster.tile_uris)
+                    else:
+                        count += 1
+            elif result.type == ResultType.VECTOR_RESULTS:
+                count += 1
+        return count
+
+    def _download_single_file(
+        self,
+        url: str,
+        output_path: Path,
+        expected_etag=None,
+        max_retries: int = 5,
+    ) -> bool:
+        """Download one file with retries using QgsFileDownloader."""
+        import time as _time
+
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        for attempt in range(max_retries):
+            if self.isCanceled():
+                return False
+
+            try:
+                success = self._qgs_download(url, output_path)
+            except Exception as e:
+                log(
+                    f"Download attempt {attempt + 1} failed for {output_path.name}: {e}"
+                )
+                output_path.unlink(missing_ok=True)
+                success = False
+
+            if success and expected_etag is not None:
+                if not ldmp_download.verify_file_against_etag(
+                    output_path, expected_etag
+                ):
+                    log(f"Etag verification failed for {output_path}")
+                    output_path.unlink(missing_ok=True)
+                    success = False
+
+            if success:
+                return True
+
+            if attempt < max_retries - 1:
+                _time.sleep(2**attempt)
+
+        return False  # exhausted retries
+
+    def _qgs_download(self, url: str, output_path: Path) -> bool:
+        """Single QgsFileDownloader attempt with local QEventLoop."""
+        loop = QtCore.QEventLoop()
+        dl_success = False
+        dl_error = None
+
+        downloader = QgsFileDownloader(QtCore.QUrl(url), str(output_path))
+
+        def _on_completed():
+            nonlocal dl_success
+            dl_success = True
+            loop.quit()
+
+        def _on_error(errors):
+            nonlocal dl_error
+            dl_error = str(errors)
+            loop.quit()
+
+        downloader.downloadCompleted.connect(_on_completed)
+        downloader.downloadError.connect(_on_error)
+        downloader.downloadExited.connect(loop.quit)
+        downloader.downloadCanceled.connect(loop.quit)
+
+        cancel_timer = QtCore.QTimer()
+        cancel_timer.timeout.connect(
+            lambda: self._check_dl_cancel(loop, downloader, cancel_timer)
+        )
+        cancel_timer.start(self._CANCEL_CHECK_INTERVAL_MS)
+
+        downloader.startDownload()
+        loop.exec_()
+        cancel_timer.stop()
+
+        if self.isCanceled():
+            output_path.unlink(missing_ok=True)
+            return False
+
+        if dl_error:
+            output_path.unlink(missing_ok=True)
+            return False
+
+        return dl_success
+
+    def _check_dl_cancel(self, loop, downloader, timer):
+        if self.isCanceled():
+            timer.stop()
+            downloader.cancelDownload()
+            loop.quit()
+            return
+        now = time.time()
+        if now - self._last_lock_refresh >= self._LOCK_REFRESH_INTERVAL_S:
+            _refresh_download_lock(self._job_dir)
+            self._last_lock_refresh = now
+
+    def _download_cloud_result(
+        self, raster_result: RasterResults, files_done: int, total_files: int
+    ) -> typing.Tuple[bool, int]:
+        """Download all raster files for one RasterResults.
+
+        Returns (success, new_files_done).
+        """
+        base_output_path = self.job_manager.get_downloaded_dataset_base_file_path(
+            self.job
+        )
+        result_base_path = (
+            base_output_path.parent / f"{base_output_path.name}_{raster_result.name}"
+        )
+
+        out_rasters = {}
+
+        for key, raster in raster_result.rasters.items():
+            file_out_base = f"{result_base_path.name}_{key}"
+
+            if raster.type == results.RasterType.TILED_RASTER:
+                tile_uris = []
+
+                for uri_number, uri in enumerate(raster.tile_uris):
+                    if self.isCanceled():
+                        return False, files_done
+
+                    out_file = (
+                        base_output_path.parent / f"{file_out_base}_{uri_number}.tif"
+                    )
+                    if not self._download_single_file(
+                        str(uri.uri), out_file, expected_etag=_get_etag(uri)
+                    ):
+                        return False, files_done
+                    tile_uris.append(results.URI(uri=out_file))
+
+                    files_done += 1
+                    self.setProgress(files_done * 100 / max(total_files, 1))
+
+                raster.tile_uris = tile_uris
+
+                vrt_file = base_output_path.parent / f"{file_out_base}.vrt"
+                _get_raster_vrt(
+                    tiles=[str(u.uri) for u in tile_uris],
+                    out_file=vrt_file,
+                )
+                out_rasters[key] = results.TiledRaster(
+                    tile_uris=tile_uris,
+                    bands=raster.bands,
+                    datatype=raster.datatype,
+                    filetype=raster.filetype,
+                    uri=results.URI(uri=vrt_file),
+                    type=results.RasterType.TILED_RASTER,
+                )
+            else:
+                out_file = base_output_path.parent / f"{file_out_base}.tif"
+                if not self._download_single_file(
+                    str(raster.uri.uri),
+                    out_file,
+                    expected_etag=_get_etag(raster.uri),
+                ):
+                    return False, files_done
+
+                files_done += 1
+                self.setProgress(files_done * 100 / max(total_files, 1))
+
+                raster_uri = results.URI(uri=out_file)
+                raster.uri = raster_uri
+                out_rasters[key] = results.Raster(
+                    uri=raster_uri,
+                    bands=raster.bands,
+                    datatype=raster.datatype,
+                    filetype=raster.filetype,
+                    type=results.RasterType.ONE_FILE_RASTER,
+                )
+
+        raster_result.rasters = out_rasters
+
+        # Setup the main URI (may be a VRT combining multiple rasters)
+        if len(raster_result.rasters) > 1 or (
+            len(raster_result.rasters) == 1
+            and [*raster_result.rasters.values()][0].type
+            == results.RasterType.TILED_RASTER
+        ):
+            vrt_file = base_output_path.parent / f"{result_base_path.name}.vrt"
+            main_raster_file_paths = [r.uri.uri for r in out_rasters.values()]
+            combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
+            raster_result.uri = results.URI(uri=vrt_file)
+        else:
+            raster_result.uri = [*raster_result.rasters.values()][0].uri
+
+        _set_results_extents_raster(raster_result, self.job)
+        return True, files_done
+
+    def _download_vector_result(self, vector_result: VectorResults) -> bool:
+        """Download one vector result file."""
+        if vector_result.uri is None or vector_result.uri.uri is None:
+            log(f"No URI for vector result {vector_result.name}")
+            return True  # nothing to download is not a failure
+
+        source_uri = str(vector_result.uri.uri)
+        if not source_uri.startswith(("http://", "https://", "/vsi")):
+            return True  # already local
+
+        base_output_path = self.job_manager.get_downloaded_dataset_base_file_path(
+            self.job
+        )
+        ext = ".gpkg"
+        if source_uri.endswith(".geojson"):
+            ext = ".geojson"
+
+        out_file = (
+            base_output_path.parent
+            / f"{base_output_path.name}_{vector_result.name}{ext}"
+        )
+
+        if not self._download_single_file(
+            source_uri, out_file, expected_etag=_get_etag(vector_result.uri)
+        ):
+            return False
+
+        vector_result.vector.uri = results.URI(uri=out_file)
+        _set_results_extents_vector(vector_result, self.job)
+        return True
+
+    def finished(self, result: bool):
+        """Main thread — update job status and emit signals."""
+        cancelled = self.isCanceled()
+        if result and self._all_successful:
+            self.job_manager._change_job_status(
+                self.job, jobs.JobStatus.DOWNLOADED, force_rewrite=True
+            )
+            self.job_manager.downloaded_job_results.emit(self.job)
+            metadata.init_dataset_metadata(self.job)
+        elif cancelled:
+            log(f"Download of job {self.job.id} was cancelled")
+        else:
+            log(f"Download of job {self.job.id} failed: {self.error_message}")
+
+        # Release cross-process download lock
+        _release_download_lock(self._job_dir)
+
+        # Signal that this download is done so the next one can start
+        self.job_manager._on_download_task_finished(
+            cancelled_job_id=self.job.id if cancelled else None
+        )
+
+
 class JobManager(QtCore.QObject):
     _encoding = "utf-8"
     _relevant_job_age_threshold_days = 14
@@ -500,6 +923,10 @@ class JobManager(QtCore.QObject):
         # Flag to track when background file scanning is in progress.
         # Used to prevent download operations from conflicting with file I/O.
         self._scanning_files = False
+        # QgsTask-based download state
+        self._download_in_progress = False
+        self._current_download_task = None  # active DownloadJobResultsTask
+        self._cancelled_download_job_ids: typing.Set[uuid.UUID] = set()
 
     @property
     def api_client(self):
@@ -1030,6 +1457,8 @@ class JobManager(QtCore.QObject):
             self._state_update_mutex.unlock()
 
         if emit_signal:
+            # Clear cancelled-download set so freshly-updated jobs are retried
+            self._cancelled_download_job_ids.clear()
             self.refreshed_from_remote.emit()
 
     def delete_job(self, job: Job):
@@ -1354,6 +1783,88 @@ class JobManager(QtCore.QObject):
         """
         while self.download_one_available_result():
             pass
+
+    def start_downloading_one_result(self):
+        """Start downloading one finished job's results via QgsTask.
+
+        Non-blocking — the task runs on QgsTaskManager's thread pool.
+        When done, finished() calls _on_download_task_finished() to
+        schedule the next download.
+        """
+        if self._scanning_files or self._download_in_progress:
+            return
+
+        finished_jobs = self.known_jobs[jobs.JobStatus.FINISHED]
+        if not finished_jobs:
+            return
+
+        self._download_in_progress = True
+
+        # Skip jobs the user has explicitly cancelled or already being
+        # downloaded by another QGIS instance (cross-process lock).
+        job = None
+        for candidate in finished_jobs.values():
+            if candidate.id in self._cancelled_download_job_ids:
+                continue
+            job_dir = self.datasets_dir / str(candidate.id)
+            if _try_acquire_download_lock(job_dir):
+                job = candidate
+                break
+        if job is None:
+            self._download_in_progress = False
+            return
+
+        task = DownloadJobResultsTask(job, self)
+        self._current_download_task = task  # prevent GC until addTask
+
+        # Progress bar in message bar (matching submit_local_job_as_qgstask pattern)
+        message_bar_item = QgsMessageBar.createMessage(
+            self.tr(f"Downloading: {job.task_name or job.id}")
+        )
+        progress_bar = QProgressBar()
+        progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+        cancel_button = QPushButton()
+        cancel_button.setText("Cancel")
+        message_bar_item.layout().addWidget(progress_bar)
+        message_bar_item.layout().addWidget(cancel_button)
+        iface.messageBar().pushWidget(message_bar_item, Qgis.Info)
+
+        def _set_progress_bar_value(value: float):
+            try:
+                if value <= 100:
+                    progress_bar.setValue(int(value))
+            except RuntimeError:
+                pass  # C++ widget has been deleted
+
+        cancel_button.clicked.connect(task.cancel)
+        task.progressChanged.connect(_set_progress_bar_value)
+
+        def _close_message_bar():
+            try:
+                iface.messageBar().popWidget(message_bar_item)
+            except RuntimeError:
+                pass
+
+        task.taskCompleted.connect(_close_message_bar)
+        task.taskTerminated.connect(_close_message_bar)
+
+        self.tm.addTask(task)
+
+    def _on_download_task_finished(self, cancelled_job_id=None):
+        """Called from DownloadJobResultsTask.finished() on the main thread."""
+        self._download_in_progress = False
+        self._current_download_task = None
+
+        if cancelled_job_id is not None:
+            self._cancelled_download_job_ids.add(cancelled_job_id)
+            return  # User cancelled — don't auto-restart
+
+        remaining = len(self.known_jobs[jobs.JobStatus.FINISHED])
+        if remaining == 0:
+            self.downloaded_available_jobs_results.emit()
+        else:
+            # Schedule next download after a short delay
+            QtCore.QTimer.singleShot(100, self.start_downloading_one_result)
 
     def ensure_results_loaded(self, job: Job) -> bool:
         """Ensure that ``job.results`` is populated.

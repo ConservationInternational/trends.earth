@@ -1495,34 +1495,12 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         dialogue.exec_()
 
 
-# Module-level guard to prevent reentrant calls to maybe_download_finished_results.
-# This can happen because download_available_results() spins a nested QEventLoop
-# on the main thread (for each file download), and during that nested loop Qt
-# delivers queued signals — including another refresh_after_cache_update which
-# dispatches a new QTimer.singleShot(0, maybe_download_finished_results).
-# A QMutex with tryLock() is used instead of a plain bool so that reentrant
-# calls from nested event loops are correctly rejected.
-_downloading_finished_results_mutex = QtCore.QMutex()
-
-
 def maybe_download_finished_results():
-    if not _downloading_finished_results_mutex.tryLock():
-        return
+    offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
+    dataset_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
 
-    try:
-        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
-        dataset_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
-
-        if not offline_mode and dataset_auto_download:
-            if len(job_manager.known_jobs[JobStatus.FINISHED]) > 0:
-                log("downloading results...")
-                # Download one job at a time to avoid blocking the UI
-                has_more = job_manager.download_one_available_result()
-                if has_more:
-                    # Schedule next download after a short delay to allow UI updates
-                    QtCore.QTimer.singleShot(100, maybe_download_finished_results)
-    finally:
-        _downloading_finished_results_mutex.unlock()
+    if not offline_mode and dataset_auto_download:
+        job_manager.start_downloading_one_result()
 
 
 def _should_run(periodic_frequency_seconds: int, last_run: dt.datetime):

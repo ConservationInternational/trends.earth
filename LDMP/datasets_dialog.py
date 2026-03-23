@@ -27,6 +27,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
 
     alg_le: QtWidgets.QLineEdit
     created_at_le: QtWidgets.QLineEdit
+    end_time_le: QtWidgets.QLineEdit
     delete_btn: QtWidgets.QPushButton
     export_btn: QtWidgets.QPushButton
     name_le: QtWidgets.QLineEdit
@@ -46,7 +47,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.id_le.setText(str(self.job.id))
         self.state_le.setText(self.job.status.value)
 
-        # Add date with defensive handling
+        # Add start time with defensive handling
         if self.job.start_date:
             try:
                 if hasattr(self.job.start_date, "strftime"):
@@ -58,11 +59,28 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
                         )
                     )
                 else:
-                    self.created_at_le.setText("Date unknown")
+                    self.created_at_le.setText("Unknown")
             except (AttributeError, ValueError, TypeError):
-                self.created_at_le.setText("Date unknown")
+                self.created_at_le.setText("Unknown")
         else:
-            self.created_at_le.setText("Date unknown")
+            self.created_at_le.setText("Unknown")
+
+        if self.job.end_date:
+            try:
+                if hasattr(self.job.end_date, "strftime"):
+                    self.end_time_le.setText(
+                        str(
+                            utils.utc_to_local(self.job.end_date).strftime(
+                                "%Y-%m-%d %H:%M"
+                            )
+                        )
+                    )
+                else:
+                    self.end_time_le.setText("Not completed")
+            except (AttributeError, ValueError, TypeError):
+                self.end_time_le.setText("Not completed")
+        else:
+            self.end_time_le.setText("Not completed")
 
         self.delete_btn.clicked.connect(self.delete_dataset)
         self.open_directory_btn.clicked.connect(self.open_job_directory)

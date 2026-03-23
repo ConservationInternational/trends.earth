@@ -250,6 +250,44 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
     def _cache_key(item: "Job", rect_w: int = 0, rect_h: int = 0) -> typing.Tuple:
         return (item.id, item.status, item.progress, rect_w, rect_h)
 
+    @staticmethod
+    def _apply_active_palette(widget: QtWidgets.QWidget):
+        """Copy Active palette colours to the Inactive group so enabled
+        buttons aren't greyed out."""
+        pal = widget.palette()
+        roles = [
+            QtGui.QPalette.WindowText,
+            QtGui.QPalette.Button,
+            QtGui.QPalette.Light,
+            QtGui.QPalette.Midlight,
+            QtGui.QPalette.Dark,
+            QtGui.QPalette.Mid,
+            QtGui.QPalette.Text,
+            QtGui.QPalette.BrightText,
+            QtGui.QPalette.ButtonText,
+            QtGui.QPalette.Base,
+            QtGui.QPalette.Window,
+            QtGui.QPalette.Shadow,
+            QtGui.QPalette.Highlight,
+            QtGui.QPalette.HighlightedText,
+            QtGui.QPalette.Link,
+            QtGui.QPalette.LinkVisited,
+            QtGui.QPalette.AlternateBase,
+            QtGui.QPalette.ToolTipBase,
+            QtGui.QPalette.ToolTipText,
+        ]
+        try:
+            roles.append(QtGui.QPalette.PlaceholderText)
+        except AttributeError:
+            pass  # Not available in older Qt versions
+        for role in roles:
+            pal.setColor(
+                QtGui.QPalette.Inactive,
+                role,
+                pal.color(QtGui.QPalette.Active, role),
+            )
+        widget.setPalette(pal)
+
     def paint(
         self,
         painter: QtGui.QPainter,
@@ -271,6 +309,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
             if pixmap is None:
                 editor_widget = self.createEditor(self.parent, option, index)
                 editor_widget.setGeometry(option.rect)
+                self._apply_active_palette(editor_widget)
                 pixmap = editor_widget.grab()
                 del editor_widget
                 self._pixmap_cache[key] = pixmap

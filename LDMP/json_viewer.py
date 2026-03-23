@@ -29,6 +29,13 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
         """Show context menu with JSON viewer options."""
         menu = QtWidgets.QMenu(self)
 
+        # Copy value of selected item
+        current = self.currentItem()
+        if current and current.data(0, QtCore.Qt.UserRole) is not None:
+            copy_value_action = menu.addAction("Copy Value")
+            copy_value_action.triggered.connect(self._copy_item_value)
+            menu.addSeparator()
+
         expand_all_action = menu.addAction("Expand All")
         expand_all_action.triggered.connect(self.expandAll)
 
@@ -37,7 +44,7 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
 
         menu.addSeparator()
 
-        copy_json_action = menu.addAction("Copy as JSON Text")
+        copy_json_action = menu.addAction("Copy all as JSON Text")
         copy_json_action.triggered.connect(self._copy_json_text)
 
         if hasattr(self, "_original_data"):
@@ -46,6 +53,19 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
             copy_json_action.setEnabled(False)
 
         menu.exec_(self.mapToGlobal(position))
+
+    def _copy_item_value(self):
+        """Copy the full value of the selected item to clipboard."""
+        current = self.currentItem()
+        if current:
+            raw = current.data(0, QtCore.Qt.UserRole)
+            if raw is not None:
+                if isinstance(raw, (dict, list)):
+                    text = json.dumps(raw, indent=2)
+                else:
+                    text = str(raw)
+                clipboard = QtWidgets.QApplication.clipboard()
+                clipboard.setText(text)
 
     def _copy_json_text(self):
         """Copy the JSON data as formatted text to clipboard."""
@@ -123,6 +143,7 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
                         value_str = self._format_value(value)
                         item.setText(0, f"{key}: {value_str}")
                         item.setIcon(0, self._get_icon_for_type(value))
+                        self._set_full_value(item, value)
 
             elif isinstance(data, list):
                 for i, value in enumerate(data):
@@ -149,12 +170,14 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
                         value_str = self._format_value(value)
                         item.setText(0, f"[{i}]: {value_str}")
                         item.setIcon(0, self._get_icon_for_type(value))
+                        self._set_full_value(item, value)
             else:
                 # Handle primitive values at root level
                 item = QtWidgets.QTreeWidgetItem(parent)
                 value_str = self._format_value(data)
                 item.setText(0, value_str)
                 item.setIcon(0, self._get_icon_for_type(data))
+                self._set_full_value(item, data)
 
         except (AttributeError, TypeError) as e:
             # Handle any unexpected data types gracefully
@@ -203,6 +226,12 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
         pixmap = QtGui.QPixmap(12, 12)
         pixmap.fill(color)
         return QtGui.QIcon(pixmap)
+
+    def _set_full_value(self, item: QtWidgets.QTreeWidgetItem, value: Any):
+        """Store the full value and set a tooltip for truncated items."""
+        item.setData(0, QtCore.Qt.UserRole, value)
+        if isinstance(value, str) and len(value) > 50:
+            item.setToolTip(0, value)
 
     def get_expanded_json_text(self) -> str:
         """Get the full JSON as formatted text (for copying/export)."""

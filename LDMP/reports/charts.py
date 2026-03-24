@@ -1033,12 +1033,14 @@ class SdgSummaryJobAttributes:
         self._job = job
         self._params_baseline = {}
 
-        periods = self._job.params.get("periods", [])
+        periods = (self._job.params or {}).get("periods", [])
         for period in periods:
             if period.get("name") == "baseline":
                 self._params_baseline = period.get("params", {})
                 break
 
+        if self._job.results is None or self._job.results.data is None:
+            raise ValueError(f"Job {getattr(self._job, 'id', '?')} has no results data")
         self._data = self._job.results.data
         self._baseline_results = self._data["report"]["land_condition"]["baseline"]
 

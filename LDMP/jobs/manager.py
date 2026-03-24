@@ -1363,7 +1363,6 @@ class JobManager(QtCore.QObject):
           job metadata file to the `finished-jobs` directory on disk
 
         """
-        # --- Phase 1: Fetch remote data WITHOUT holding the state mutex --------
         now = dt.datetime.now(tz=dt.timezone.utc)
 
         # Determine if we need a full refresh (auto-trigger after interval)
@@ -1417,12 +1416,46 @@ class JobManager(QtCore.QObject):
         else:
             relevant_remote_jobs = []
 
-        # --- Phase 1.5: Load local files WITHOUT holding the mutex -------------
         # This allows the UI thread to continue accessing relevant_jobs while
         # we do the slow file I/O work.
         self._preload_local_jobs_cache()
 
-        # --- Phase 2: Update in-memory state under the mutex -------------------
+        # Network calls for individual job results are done here, OUTSIDE the
+        # mutex, to avoid blocking the UI thread. We identify which finished
+        # jobs need fetching by reading the preloaded dir cache (no mutex
+        # needed since only this worker writes to it during refresh).
+        prefetched_finished_jobs: typing.Dict[uuid.UUID, typing.Optional[Job]] = {}
+        if not offline_mode and remote_fetch_ok:
+            # Read local state from the preloaded cache to identify new jobs
+            local_deleted_ids = {
+                j.id for j in self._get_local_jobs(jobs.JobStatus.DELETED)
+            }
+            local_finished_ids = {
+                j.id for j in self._get_local_jobs(jobs.JobStatus.FINISHED)
+            }
+            local_downloaded_ids = {
+                j.id
+                for j in (
+                    self._get_local_jobs(jobs.JobStatus.DOWNLOADED)
+                    + self._get_local_jobs(jobs.JobStatus.GENERATED_LOCALLY)
+                )
+            }
+            remote_finished = [
+                j for j in relevant_remote_jobs if j.status == jobs.JobStatus.FINISHED
+            ]
+            for rj in remote_finished:
+                if (
+                    rj.id not in local_deleted_ids
+                    and rj.id not in local_downloaded_ids
+                    and rj.id not in local_finished_ids
+                ):
+                    # Fetch full job data (with results) outside the mutex
+                    prefetched_finished_jobs[rj.id] = get_remote_job_with_results(rj.id)
+
+        # All network I/O and heavy file parsing is done above. Now do
+        # in-memory dict updates. File writes are collected in
+        # _deferred_writes and flushed after releasing the mutex.
+        deferred_writes: typing.List[Job] = []
         self._state_update_mutex.lock()
         try:
             self._refresh_local_deleted_jobs()
@@ -1434,12 +1467,22 @@ class JobManager(QtCore.QObject):
                 ]
 
             self._refresh_local_running_jobs(
-                relevant_remote_jobs, remote_fetch_ok=remote_fetch_ok
+                relevant_remote_jobs,
+                remote_fetch_ok=remote_fetch_ok,
+                deferred_writes=deferred_writes,
             )
-            self._refresh_local_finished_jobs(relevant_remote_jobs)
+            self._refresh_local_finished_jobs(
+                relevant_remote_jobs,
+                prefetched_finished_jobs=prefetched_finished_jobs,
+                deferred_writes=deferred_writes,
+            )
             self._refresh_local_downloaded_jobs()
-            self._refresh_remote_failed_jobs(relevant_remote_jobs)
-            self._refresh_remote_jobs_by_status(relevant_remote_jobs)
+            self._refresh_remote_failed_jobs(
+                relevant_remote_jobs, deferred_writes=deferred_writes
+            )
+            self._refresh_remote_jobs_by_status(
+                relevant_remote_jobs, deferred_writes=deferred_writes
+            )
             self._get_local_expired_jobs()
 
             # Track when a successful full refresh was done
@@ -1455,6 +1498,16 @@ class JobManager(QtCore.QObject):
             )
         finally:
             self._state_update_mutex.unlock()
+
+        # Deferred file writes are done after releasing the mutex to avoid blocking the UI thread.
+        for job_to_write in deferred_writes:
+            try:
+                self.write_job_metadata_file(job_to_write)
+            except (OSError, IOError) as exc:
+                log(
+                    f"Failed to write deferred job file for {job_to_write.id}: "
+                    f"{type(exc).__name__}: {exc}"
+                )
 
         if emit_signal:
             # Clear cancelled-download set so freshly-updated jobs are retried
@@ -2485,12 +2538,17 @@ class JobManager(QtCore.QObject):
         self,
         remote_jobs: typing.List[Job],
         remote_fetch_ok: bool = True,
+        deferred_writes: typing.Optional[typing.List[Job]] = None,
     ) -> typing.Dict[uuid.UUID, Job]:
         """Update local directory of running jobs by comparing with the remote jobs.
 
         When *remote_fetch_ok* is ``False`` (the API call failed), we preserve
         all existing local running-job files instead of deleting them.  This
         prevents a transient server outage from wiping the user's job list.
+
+        If *deferred_writes* is provided, job metadata writes are appended to
+        the list instead of being performed immediately. The caller is
+        responsible for flushing them after releasing the mutex.
         """
         local_running_jobs = self._get_local_jobs(jobs.JobStatus.RUNNING)
         self._known_running_jobs = {}
@@ -2522,7 +2580,9 @@ class JobManager(QtCore.QObject):
                 )
             elif remote_job.status == jobs.JobStatus.RUNNING:
                 self._known_running_jobs[remote_job.id] = remote_job
-                self.update_job_from_remote(remote_job, old_running_job)
+                self.update_job_from_remote(
+                    remote_job, old_running_job, deferred_writes=deferred_writes
+                )
             else:  # job is not running anymore - maybe it is finished
                 # Preserve params and metadata before removing file. The remote
                 # API excludes params/task_name/task_notes to reduce bandwidth,
@@ -2559,13 +2619,33 @@ class JobManager(QtCore.QObject):
                 # Restore preserved params and metadata
                 self._restore_job_data(remote)
                 self._known_running_jobs[remote.id] = remote
-                self.write_job_metadata_file(remote)
+                if deferred_writes is not None:
+                    deferred_writes.append(remote)
+                else:
+                    self.write_job_metadata_file(remote)
 
         return self._known_running_jobs
 
     def _refresh_local_finished_jobs(
-        self, remote_jobs: typing.List[Job]
+        self,
+        remote_jobs: typing.List[Job],
+        prefetched_finished_jobs: typing.Optional[
+            typing.Dict[uuid.UUID, typing.Optional[Job]]
+        ] = None,
+        deferred_writes: typing.Optional[typing.List[Job]] = None,
     ) -> typing.Dict[uuid.UUID, Job]:
+        """Update in-memory cache with finished jobs.
+
+        If *prefetched_finished_jobs* is provided, use pre-fetched full job
+        data instead of making network calls.  This avoids blocking the
+        mutex with HTTP requests.
+
+        If *deferred_writes* is provided, file writes are appended to the
+        list instead of being performed immediately.
+        """
+        if prefetched_finished_jobs is None:
+            prefetched_finished_jobs = {}
+
         self._known_finished_jobs = {
             j.id: j for j in self._get_local_jobs(jobs.JobStatus.FINISHED)
         }
@@ -2584,15 +2664,21 @@ class JobManager(QtCore.QObject):
             elif remote_job.id in local_ids:
                 continue  # we already know about this job
             else:
-                # This is a new finished job - fetch full data with results.
-                # The lightweight job list excludes results to reduce bandwidth,
-                # so we need to fetch the complete job data for downloading.
-                full_job = get_remote_job_with_results(remote_job.id)
+                # Use pre-fetched data if available, otherwise fetch now
+                # (fallback for callers that don't pre-fetch).
+                if remote_job.id in prefetched_finished_jobs:
+                    full_job = prefetched_finished_jobs[remote_job.id]
+                else:
+                    full_job = get_remote_job_with_results(remote_job.id)
+
                 if full_job is not None:
                     # Restore preserved params and metadata (task_name, etc.)
                     self._restore_job_data(full_job)
                     self._known_finished_jobs[full_job.id] = full_job
-                    self.write_job_metadata_file(full_job)
+                    if deferred_writes is not None:
+                        deferred_writes.append(full_job)
+                    else:
+                        self.write_job_metadata_file(full_job)
                 else:
                     # Fallback: store job without results - user can retry later
                     log(
@@ -2601,7 +2687,10 @@ class JobManager(QtCore.QObject):
                     # Restore preserved params and metadata for the fallback case
                     self._restore_job_data(remote_job)
                     self._known_finished_jobs[remote_job.id] = remote_job
-                    self.write_job_metadata_file(remote_job)
+                    if deferred_writes is not None:
+                        deferred_writes.append(remote_job)
+                    else:
+                        self.write_job_metadata_file(remote_job)
 
         return self._known_finished_jobs
 
@@ -2937,7 +3026,12 @@ class JobManager(QtCore.QObject):
         # calls within the same refresh cycle see the updated file.
         self._invalidate_dir_cache_for_path(output_path)
 
-    def update_job_from_remote(self, remote_job: Job, local_job: typing.Optional[Job]):
+    def update_job_from_remote(
+        self,
+        remote_job: Job,
+        local_job: typing.Optional[Job],
+        deferred_writes: typing.Optional[typing.List[Job]] = None,
+    ):
         """Update job metadata file from remote, preserving local data.
 
         When syncing with the server, we exclude params, task_name, task_notes,
@@ -2949,6 +3043,7 @@ class JobManager(QtCore.QObject):
         Args:
             remote_job: Job data from API (may have empty params and no results)
             local_job: Existing local job data, or None if not found locally
+            deferred_writes: If provided, append job instead of writing immediately
         """
         if local_job is not None:
             # Remote response excluded params - preserve the local ones
@@ -2966,7 +3061,10 @@ class JobManager(QtCore.QObject):
                 and local_job.local_context.area_of_interest_name != "unknown-area"
             ):
                 remote_job.local_context = local_job.local_context
-        self.write_job_metadata_file(remote_job)
+        if deferred_writes is not None:
+            deferred_writes.append(remote_job)
+        else:
+            self.write_job_metadata_file(remote_job)
 
     def _find_job_file_in_all_dirs(
         self, job: Job, suffix: str = ".json"
@@ -3028,7 +3126,11 @@ class JobManager(QtCore.QObject):
         if file_path.parent != file_path.parent.parent:
             self._dir_job_cache.pop(file_path.parent.parent, None)
 
-    def _refresh_remote_jobs_by_status(self, remote_jobs: typing.List[Job]) -> None:
+    def _refresh_remote_jobs_by_status(
+        self,
+        remote_jobs: typing.List[Job],
+        deferred_writes: typing.Optional[typing.List[Job]] = None,
+    ) -> None:
         """Update in-memory cache with READY, PENDING, and CANCELLED jobs from remote server"""
         # Preserve existing local jobs first, then merge with remote
         # This prevents newly submitted jobs from disappearing during refresh
@@ -3056,7 +3158,10 @@ class JobManager(QtCore.QObject):
                 self._restore_job_data(remote_job)
                 # Persist to disk if we restored data
                 if remote_job.params or remote_job.task_name:
-                    self.write_job_metadata_file(remote_job)
+                    if deferred_writes is not None:
+                        deferred_writes.append(remote_job)
+                    else:
+                        self.write_job_metadata_file(remote_job)
                 self._known_ready_jobs[remote_job.id] = remote_job
                 remote_ids_by_status[jobs.JobStatus.READY].add(remote_job.id)
             elif remote_job.status == jobs.JobStatus.PENDING:
@@ -3064,7 +3169,10 @@ class JobManager(QtCore.QObject):
                 self._restore_job_data(remote_job)
                 # Persist to disk if we restored data
                 if remote_job.params or remote_job.task_name:
-                    self.write_job_metadata_file(remote_job)
+                    if deferred_writes is not None:
+                        deferred_writes.append(remote_job)
+                    else:
+                        self.write_job_metadata_file(remote_job)
                 self._known_pending_jobs[remote_job.id] = remote_job
                 remote_ids_by_status[jobs.JobStatus.PENDING].add(remote_job.id)
             elif remote_job.status == jobs.JobStatus.CANCELLED:
@@ -3072,7 +3180,10 @@ class JobManager(QtCore.QObject):
                 self._restore_job_data(remote_job)
                 # Persist to disk if we restored data
                 if remote_job.params or remote_job.task_name:
-                    self.write_job_metadata_file(remote_job)
+                    if deferred_writes is not None:
+                        deferred_writes.append(remote_job)
+                    else:
+                        self.write_job_metadata_file(remote_job)
                 self._known_cancelled_jobs[remote_job.id] = remote_job
                 remote_ids_by_status[jobs.JobStatus.CANCELLED].add(remote_job.id)
 
@@ -3116,7 +3227,11 @@ class JobManager(QtCore.QObject):
                     del self._known_cancelled_jobs[local_job.id]
                     self._remove_job_metadata_file(local_job)
 
-    def _refresh_remote_failed_jobs(self, remote_jobs: typing.List[Job]) -> None:
+    def _refresh_remote_failed_jobs(
+        self,
+        remote_jobs: typing.List[Job],
+        deferred_writes: typing.Optional[typing.List[Job]] = None,
+    ) -> None:
         """Update in-memory cache with FAILED jobs from remote server"""
         # Start with local failed jobs from disk
         self._known_failed_jobs = {
@@ -3136,7 +3251,10 @@ class JobManager(QtCore.QObject):
                 # Restore preserved params and metadata (task_name, etc.)
                 self._restore_job_data(remote_job)
                 self._known_failed_jobs[remote_job.id] = remote_job
-                self.write_job_metadata_file(remote_job)
+                if deferred_writes is not None:
+                    deferred_writes.append(remote_job)
+                else:
+                    self.write_job_metadata_file(remote_job)
 
 
 def _get_local_job_output_paths(job: Job) -> typing.Tuple[Path, Path]:

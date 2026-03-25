@@ -402,13 +402,25 @@ class LocalJobTask(QgsTask):
         job_output_path, dataset_output_path = _get_local_job_output_paths(
             self.job_copy
         )
+
+        # Wrap setProgress so that progress updates are also written to the
+        # job log file.  Throttle to every 5 percentage-points.
+        last_logged_progress = -5
+
+        def _set_progress_and_log(value):
+            nonlocal last_logged_progress
+            self.setProgress(value)
+            if value - last_logged_progress >= 5:
+                self.job_logger.info(f"Progress: {int(value)}%")
+                last_logged_progress = value
+
         try:
             self.results = execution_handler(
                 self.job_copy,
                 self.area_of_interest,
                 job_output_path,
                 dataset_output_path,
-                self.setProgress,
+                _set_progress_and_log,
                 self.isCanceled,
             )
         except Exception:

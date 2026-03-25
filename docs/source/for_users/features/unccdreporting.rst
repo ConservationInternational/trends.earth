@@ -841,7 +841,6 @@ The (SO 2-3) indicator uses the following metrics:
 * Percentage of the male population exposed to land degradation
 * Percentage of the total (female and male) population exposed to land degradation
 
-
 To calculate the SO 2-3 indicator, |trends.earth| uses gridded population data from the
 `WorldPop <https://www.worldpop.org/>`_ project. WorldPop provides
 separate raster layers for male and female population, each representing the estimated number

@@ -34,7 +34,18 @@ logger = logging.getLogger(__name__)
 # v4: Added has_loadable_result column for UI button state without loading results
 # v5: Added result type flag columns (is_raster, is_vector, is_timeseries,
 #     is_file) for UI state without loading results + thread safety with lock
-CACHE_SCHEMA_VERSION = 5
+# v6: Fixed cache_job() to handle None job (failed-parse sentinel),
+#     fixed mtime comparison with epsilon tolerance,
+#     added schema table integrity validation
+CACHE_SCHEMA_VERSION = 6
+
+# Tolerance for floating-point mtime comparisons.
+_MTIME_EPSILON = 1e-3
+
+
+def _mtime_matches(a: float, b: float) -> bool:
+    """Return True if two mtime values are close enough to be considered equal."""
+    return abs(a - b) < _MTIME_EPSILON
 
 
 def _normalize_cache_key(path: Path) -> str:
@@ -199,8 +210,33 @@ class JobCache:
         row = cursor.fetchone()
         current_version = int(row[0]) if row else 0
 
-        if current_version != CACHE_SCHEMA_VERSION:
-            # Schema version changed - drop and recreate tables
+        need_recreate = current_version != CACHE_SCHEMA_VERSION
+
+        if not need_recreate:
+            # Validate that the existing table has the expected columns
+            try:
+                probe = self._conn.execute(
+                    "SELECT sql FROM sqlite_master "
+                    "WHERE type='table' AND name='job_cache'"
+                )
+                table_row = probe.fetchone()
+                if table_row is None:
+                    need_recreate = True
+                else:
+                    table_sql = (table_row[0] or "").lower()
+                    for col in (
+                        "metadata_pickle",
+                        "has_loadable_result",
+                        "is_raster",
+                    ):
+                        if col not in table_sql:
+                            need_recreate = True
+                            break
+            except sqlite3.Error:
+                need_recreate = True
+
+        if need_recreate:
+            # Schema version changed or table is missing/corrupt - recreate
             log(
                 f"Job cache schema version changed ({current_version} -> "
                 f"{CACHE_SCHEMA_VERSION}), clearing cache"
@@ -300,7 +336,7 @@ class JobCache:
                 ) = row
 
                 # Check if file has changed
-                if cached_mtime != current_mtime:
+                if not _mtime_matches(cached_mtime, current_mtime):
                     return None
 
                 # Restore Job from pickle
@@ -424,10 +460,16 @@ class JobCache:
                 log(f"Failed to lazy-load params for {cache_path}: {exc}")
                 return False
 
-    def cache_job(self, path: Path, mtime: float, job: typing.Any) -> bool:
+    def cache_job(
+        self, path: Path, mtime: float, job: typing.Optional[typing.Any]
+    ) -> bool:
         """Store a Job in the cache with split storage.
 
-        The job is stored in three parts:
+        If *job* is ``None``, a lightweight sentinel row is stored with
+        ``job_status='FAILED_PARSE'`` so that subsequent scans can skip
+        the file without re-parsing it.
+
+        When *job* is a real Job object it is stored in three parts:
         - metadata_pickle: Job with params={} and results=None (small, fast to load)
         - params_pickle: Just the params dict (can be large)
         - results_pickle: Just the results (can be large)
@@ -439,7 +481,7 @@ class JobCache:
         Args:
             path: Path to the job JSON file
             mtime: Modification time of the file
-            job: The Job object to cache
+            job: The Job object to cache, or None to mark as failed-parse
 
         Returns:
             True if successfully cached, False otherwise.
@@ -449,6 +491,31 @@ class JobCache:
                 return False
 
             cache_key = _normalize_cache_key(path)
+
+            # Store a FAILED_PARSE sentinel when job is None
+            if job is None:
+                try:
+                    self._conn.execute(
+                        """
+                        INSERT OR REPLACE INTO job_cache
+                        (path, mtime, metadata_pickle, params_pickle,
+                         results_pickle, job_id, job_status, script_id,
+                         script_name, extent_north, extent_south,
+                         extent_east, extent_west, has_loadable_result,
+                         is_raster, is_vector, is_timeseries, is_file)
+                        VALUES (?, ?, ?, NULL, NULL, '', 'FAILED_PARSE',
+                                NULL, NULL, NULL, NULL, NULL, NULL,
+                                0, 0, 0, 0, 0)
+                        """,
+                        (cache_key, mtime, b""),
+                    )
+                    return True
+                except sqlite3.Error as exc:
+                    log(
+                        f"Failed to cache failed-parse sentinel for "
+                        f"{path}: {type(exc).__name__}: {exc}"
+                    )
+                    return False
 
             try:
                 # Extract params and results before creating lightweight copy
@@ -682,7 +749,7 @@ class JobCache:
 
             # Check for VSI path (GDAL virtual file system)
             path_str = str(uri_path)
-            if re.match(r"(\\\\)|(/)vsi(s3)|(gs)", path_str) is not None:
+            if re.match(r"[/\\]vsi(?:s3|gs)", path_str) is not None:
                 return True
 
             # Check for local .vrt or .tif file that exists
@@ -745,149 +812,13 @@ class JobCache:
                     return False
 
                 cached_mtime, job_status = row
-                return cached_mtime == current_mtime and job_status == "FAILED_PARSE"
+                return (
+                    _mtime_matches(cached_mtime, current_mtime)
+                    and job_status == "FAILED_PARSE"
+                )
 
             except sqlite3.Error:
                 return False
-
-    def get_all_cached_jobs(
-        self,
-        load_params: bool = False,
-        load_results: bool = False,
-    ) -> typing.Dict[str, typing.Tuple[str, float, typing.Any]]:
-        """Bulk load all valid cached jobs from SQLite.
-
-        This is optimized for fast UI population - by default only loads the
-        lightweight metadata (no params/results). The full job data can be
-        loaded later on-demand.
-
-        Args:
-            load_params: If True, load and attach params (slower)
-            load_results: If True, load and attach results (slower)
-
-        Returns:
-            Dictionary mapping normalized path to (job_status, mtime, job).
-            Entries with FAILED_PARSE status are excluded.
-            If load_params=False, job.params will be {}
-            If load_results=False, job.results will be None but
-                cached type flags will be set on the job.
-        """
-        with self._lock:
-            if not self._ensure_initialized() or self._conn is None:
-                return {}
-
-            result: typing.Dict[str, typing.Tuple[str, float, typing.Any]] = {}
-
-            try:
-                # Always include type flag columns for UI state
-                _type_cols = (
-                    "has_loadable_result, is_raster, is_vector, is_timeseries, is_file"
-                )
-                if load_params and load_results:
-                    query = f"""
-                        SELECT path, mtime, metadata_pickle, params_pickle,
-                               results_pickle, job_status, {_type_cols}
-                        FROM job_cache
-                        WHERE job_status != 'FAILED_PARSE'
-                          AND metadata_pickle IS NOT NULL
-                          AND length(metadata_pickle) > 0
-                    """
-                elif load_params:
-                    query = f"""
-                        SELECT path, mtime, metadata_pickle, params_pickle,
-                               NULL as results_pickle, job_status, {_type_cols}
-                        FROM job_cache
-                        WHERE job_status != 'FAILED_PARSE'
-                          AND metadata_pickle IS NOT NULL
-                          AND length(metadata_pickle) > 0
-                    """
-                elif load_results:
-                    query = f"""
-                        SELECT path, mtime, metadata_pickle,
-                               NULL as params_pickle,
-                               results_pickle, job_status, {_type_cols}
-                        FROM job_cache
-                        WHERE job_status != 'FAILED_PARSE'
-                          AND metadata_pickle IS NOT NULL
-                          AND length(metadata_pickle) > 0
-                    """
-                else:
-                    # Fast path: only load metadata (small)
-                    query = f"""
-                        SELECT path, mtime, metadata_pickle,
-                               NULL as params_pickle,
-                               NULL as results_pickle, job_status, {_type_cols}
-                        FROM job_cache
-                        WHERE job_status != 'FAILED_PARSE'
-                          AND metadata_pickle IS NOT NULL
-                          AND length(metadata_pickle) > 0
-                    """
-
-                cursor = self._conn.execute(query)
-                rows = list(cursor)
-
-                for row in rows:
-                    (
-                        path,
-                        mtime,
-                        metadata_pickle,
-                        params_pickle,
-                        results_pickle,
-                        job_status,
-                        has_loadable_result,
-                        cached_is_raster,
-                        cached_is_vector,
-                        cached_is_timeseries,
-                        cached_is_file,
-                    ) = row
-                    if not metadata_pickle:
-                        continue
-
-                    try:
-                        job = pickle.loads(metadata_pickle)
-
-                        # Set cached result type flags for UI state
-                        _set_cached_type_flags(
-                            job,
-                            has_loadable_result,
-                            cached_is_raster,
-                            cached_is_vector,
-                            cached_is_timeseries,
-                            cached_is_file,
-                            cache_path=path,
-                        )
-
-                        # Optionally load heavy data
-                        if load_params and params_pickle:
-                            try:
-                                job.params = pickle.loads(params_pickle)
-                            except (
-                                pickle.PickleError,
-                                AttributeError,
-                                ModuleNotFoundError,
-                            ):
-                                pass  # Keep empty params
-
-                        if load_results and results_pickle:
-                            try:
-                                job.results = pickle.loads(results_pickle)
-                            except (
-                                pickle.PickleError,
-                                AttributeError,
-                                ModuleNotFoundError,
-                            ):
-                                pass  # Keep None results
-
-                        result[path] = (job_status, mtime, job)
-                    except (pickle.PickleError, AttributeError, ModuleNotFoundError):
-                        # Skip unpickling failures - will be re-parsed later
-                        pass
-
-                return result
-
-            except sqlite3.Error as exc:
-                log(f"SQLite error bulk loading jobs: {exc}")
-                return {}
 
     # -------------------------------------------------------------------------
     # Fast dropdown/query methods - use indexed columns, no unpickling needed

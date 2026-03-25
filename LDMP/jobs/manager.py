@@ -1118,6 +1118,7 @@ class JobManager(QtCore.QObject):
         to reduce bandwidth. We save these fields so they can be restored when
         the job reappears with a new status.
         """
+        self.ensure_params_loaded(job)
         if job.params:
             self._transitioned_job_params[job.id] = job.params
         metadata = {}
@@ -2782,7 +2783,10 @@ class JobManager(QtCore.QObject):
                     continue
 
                 cached_job = self._job_cache.get_cached_job(
-                    job_metadata_path, file_mtime
+                    job_metadata_path,
+                    file_mtime,
+                    load_params=False,
+                    load_results=False,
                 )
                 if cached_job is not None:
                     grouped.setdefault(cached_job.status, []).append(cached_job)
@@ -3016,6 +3020,8 @@ class JobManager(QtCore.QObject):
         return base / f"{job.id!s}" / f"{job.get_basename()}"
 
     def write_job_metadata_file(self, job: Job):
+        self.ensure_params_loaded(job)
+        self.ensure_results_loaded(job)
         output_path = self.get_job_file_path(job)
         output_dir = output_path.parent
         output_dir.mkdir(parents=True, exist_ok=True)

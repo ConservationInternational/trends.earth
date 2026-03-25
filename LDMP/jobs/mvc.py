@@ -952,6 +952,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         widget.setWindowTitle(win_title)
 
     def edit_layer(self):
+        manager.job_manager.ensure_results_loaded(self.job)
         if not self.has_connected_data():
             self.main_dock.pause_scheduler()
             dlg = DlgSelectDataset(self, validate_all=True)
@@ -1036,6 +1037,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             manager.job_manager.edit_error_recode_layer(self.job)
 
     def has_connected_data(self):
+        manager.job_manager.ensure_params_loaded(self.job)
         has_prod = True if "prod" in self.job.params else False
         has_lc = True if "lc" in self.job.params else False
         has_soil = True if "soil" in self.job.params else False
@@ -1045,6 +1047,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def prepare_metadata_menu(self):
         self.metadata_menu.clear()
+        manager.job_manager.ensure_results_loaded(self.job)
 
         file_path = (
             os.path.splitext(manager.job_manager.get_job_file_path(self.job))[0]
@@ -1103,6 +1106,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def load_rasters_layers(self):
         if self._is_error_recode_job():
             # For error recode jobs, load rasters from referenced jobs via params
+            manager.job_manager.ensure_params_loaded(self.job)
             jobs = manager.job_manager._known_downloaded_jobs.copy()
             self._load_raster(jobs, "soil")
             self._load_raster(jobs, "lc")
@@ -1110,6 +1114,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self._load_raster(jobs, "sdg")
         else:
             # For generic jobs, load rasters directly from this job's results
+            manager.job_manager.ensure_results_loaded(self.job)
             for result in self.job._get_results_list():
                 if isinstance(result, RasterResults):
                     if result.uri.uri.suffix in [".tif", ".vrt"]:

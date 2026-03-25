@@ -340,6 +340,14 @@ class RequestTask(QgsTask):
             self.exception = exc
             return False
 
+        # Snapshot values needed by finished() as finished() runs on the
+        # main thread where the reply may already have been deleted.
+        if self.resp is not None:
+            self._resp_error_code = self.resp.error()
+            self._resp_status_code = self.resp.attribute(
+                QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
+            )
+
         return True
 
     def finished(self, result):
@@ -366,25 +374,17 @@ class RequestTask(QgsTask):
                     )
 
         if self.resp is not None:
-            try:
-                error_code = self.resp.error()
-                status_code = self.resp.attribute(
-                    QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
-                )
+            error_code = self._resp_error_code
+            status_code = self._resp_status_code
 
-                log(
-                    f'API response from "{self.method}" request: error={error_code}, status={status_code}'
-                )
+            log(
+                f'API response from "{self.method}" request: error={error_code}, status={status_code}'
+            )
 
-                # If error code 204 (AuthenticationRequiredError), provide more details
-                if error_code == 204:
-                    log(
-                        "Error 204: AuthenticationRequiredError - authentication credentials were not accepted"
-                    )
-            except RuntimeError:
-                # QNetworkReply C++ object was deleted before finished() was called
+            # If error code 204 (AuthenticationRequiredError), provide more details
+            if error_code == 204:
                 log(
-                    f'API response from "{self.method}" request: reply object was deleted'
+                    "Error 204: AuthenticationRequiredError - authentication credentials were not accepted"
                 )
         else:
             log(f'API response from "{self.method}" request was None')

@@ -2207,9 +2207,45 @@ def _get_usable_bands(
         job: Job
         is_available = job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
         is_of_interest = (selected_job_id is None) or (job.id == selected_job_id)
-        is_valid_type = job.results and job.is_raster()
+        is_valid_type = job.is_raster()
 
+        if not (is_available and is_of_interest and is_valid_type):
+            continue
+
+        # Quick bbox pre-filter using cached extent — avoids loading
+        # results for jobs outside the selected region.
+        if aoi is not None and _cached_extent_overlaps_aoi(job, aoi) is False:
+            continue
+
+        # Skip jobs whose bands don't match - without loading the results
+        if band_name != "any":
+            cached_bands = getattr(job, "_cached_band_names", None)
+            if cached_bands is not None:
+                if isinstance(band_name, tuple):
+                    if not any(b in cached_bands for b in band_name):
+                        continue
+                else:
+                    if band_name not in cached_bands:
+                        continue
+
+        # When the caller requests a specific productivity mode, use the
+        # cached value to skip non-matching jobs without loading params.
         expected_mode = prod_mode
+        if expected_mode is not None:
+            cached_pm = getattr(job, "_cached_prod_mode", None)
+            if cached_pm is not None:
+                # Custom LPD always passes
+                if (
+                    cached_pm != ProductivityMode.CUSTOM_5_CLASS_LPD.value
+                    and cached_pm != expected_mode
+                ):
+                    continue
+
+        # Load data only after all the pre-filtering
+        job_manager.ensure_params_loaded(job)
+        job_manager.ensure_results_loaded(job)
+
+        # Full prod_mode check (handles edge cases the cache can't cover)
         params = job.params or {}
         job_mode = None
         if "prod_mode" in params:
@@ -2245,9 +2281,7 @@ def _get_usable_bands(
         else:
             is_valid_prod_mode = job_mode_value == expected_mode
 
-        if not (
-            is_available and is_of_interest and is_valid_type and is_valid_prod_mode
-        ):
+        if not is_valid_prod_mode:
             continue
 
         # Get the first RasterResults from the job (handles both single and list results)
@@ -2487,6 +2521,30 @@ class WidgetDataIOSelectTELayerImport(
     pass
 
 
+def _cached_extent_overlaps_aoi(job, aoi) -> typing.Optional[bool]:
+    """Quick bbox overlap pre-filter using the cached extent on the job.
+
+    Returns True if the cached extent overlaps the AOI bounding box,
+    False if they are disjoint, or None if no cached extent is available
+    (caller should fall through to the full check).
+    """
+    extent = getattr(job, "_cached_extent", None)
+    if extent is None or aoi is None:
+        return None
+    # extent is (west, south, east, north) = (minx, miny, maxx, maxy)
+    west, south, east, north = extent
+    aoi_rect = aoi.l.extent()
+    # Pure arithmetic disjoint check
+    if (
+        east < aoi_rect.xMinimum()
+        or west > aoi_rect.xMaximum()
+        or north < aoi_rect.yMinimum()
+        or south > aoi_rect.yMaximum()
+    ):
+        return False
+    return True
+
+
 @functools.lru_cache(
     maxsize=None
 )  # not using functools.cache, as it was only introduced in Python 3.9
@@ -2602,90 +2660,118 @@ def get_usable_datasets(
         job: Job
         is_available = job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
         try:
-            is_valid_type = job.results and (job.is_raster() or job.is_vector())
+            # Use cache-aware type checks which work without results loaded
+            is_valid_type = job.is_raster() or job.is_vector()
         except AttributeError:
             # Catch case of an invalid type
 
             continue
 
-        if is_available and is_valid_type:
-            # Filter by productivity mode if specified
-            expected_mode = productivity_mode
-            params = job.params or {}
-            job_mode = None
-            if "prod_mode" in params:
-                job_mode = params.get("prod_mode")
-            elif "productivity" in params:
-                job_mode = params.get("productivity", {}).get("mode")
+        if not (is_available and is_valid_type):
+            continue
 
-            # For imported datasets, infer productivity mode from band name
-            # if not explicitly set in params. This handles backward compatibility
-            # with datasets imported before prod_mode was stored in job params.
-            # Get the first raster result if available for band info
-            raster_result = job.get_first_result_by_type(RasterResults)
-            if job_mode is None and raster_result:
-                for band_info in raster_result.get_bands():
-                    if band_info.name in PROD_MODE_FOR_BAND:
-                        job_mode = PROD_MODE_FOR_BAND[band_info.name]
-                        break
+        if dataset_name != "any":
+            script = getattr(job, "script", None)
+            if script is not None and hasattr(script, "name"):
+                if script.name != dataset_name:
+                    # For vectors, also check vector.type which is matched
+                    # differently — we can't exclude here.  Only skip if
+                    # the job is purely raster (no vector results possible).
+                    if not job.is_vector():
+                        continue
 
-            # Normalize enums to raw values
-            if isinstance(job_mode, ProductivityMode):
-                job_mode_value = job_mode.value
-            else:
-                job_mode_value = job_mode
+        # Quick bbox pre-filter using cached extent — avoids loading
+        # heavy results pickle for jobs outside the selected region.
+        if aoi is not None and _cached_extent_overlaps_aoi(job, aoi) is False:
+            continue
 
-            # Check if productivity mode matches (or if no filtering is needed)
-            # Custom LPD datasets are always included when filtering by any
-            # productivity mode, since they represent user-imported data that can
-            # be used in place of any LPD source
-            if expected_mode is None:
-                is_valid_prod_mode = True
-            elif job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value:
-                is_valid_prod_mode = True
-            else:
-                is_valid_prod_mode = job_mode_value == expected_mode
-
-            if not is_valid_prod_mode:
-                continue
-
-            # Check for raster results
-            if raster_result is not None:
+        expected_mode = productivity_mode
+        if expected_mode is not None:
+            cached_pm = getattr(job, "_cached_prod_mode", None)
+            if cached_pm is not None:
                 if (
-                    (
-                        aoi is None
-                        or _check_dataset_overlap_raster(
-                            aoi, raster_result, job.visible_name, job
-                        )
-                    )
-                    and job.script.name == dataset_name
-                    and raster_result.uri is not None
+                    cached_pm != ProductivityMode.CUSTOM_5_CLASS_LPD.value
+                    and cached_pm != expected_mode
                 ):
-                    result.append(
-                        Dataset(
-                            job=job,
-                            path=raster_result.uri.uri,
-                        )
-                    )
+                    continue
 
-            # Check for vector results
-            vector_result = job.get_first_result_by_type(VectorResults)
-            if vector_result is not None:
-                # Check vector.type for the vector category, or use name for matching
-                vector_type_matches = False
-                if vector_result.vector is not None:
-                    vector_type_matches = (
-                        vector_result.vector.type.value == dataset_name
-                    )
-                elif vector_result.name == dataset_name:
-                    vector_type_matches = True
+        job_manager.ensure_params_loaded(job)
+        job_manager.ensure_results_loaded(job)
 
-                if (
-                    (aoi is None or _check_dataset_overlap_vector(aoi, vector_result))
-                    and vector_type_matches
-                    and vector_result.uri is not None
-                ):
-                    result.append(Dataset(job=job, path=vector_result.uri.uri))
+        # Full prod_mode check (handles edge cases the cache can't cover)
+        params = job.params or {}
+        job_mode = None
+        if "prod_mode" in params:
+            job_mode = params.get("prod_mode")
+        elif "productivity" in params:
+            job_mode = params.get("productivity", {}).get("mode")
+
+        # For imported datasets, infer productivity mode from band name
+        # if not explicitly set in params. This handles backward compatibility
+        # with datasets imported before prod_mode was stored in job params.
+        # Get the first raster result if available for band info
+        raster_result = job.get_first_result_by_type(RasterResults)
+        if job_mode is None and raster_result:
+            for band_info in raster_result.get_bands():
+                if band_info.name in PROD_MODE_FOR_BAND:
+                    job_mode = PROD_MODE_FOR_BAND[band_info.name]
+                    break
+
+        # Normalize enums to raw values
+        if isinstance(job_mode, ProductivityMode):
+            job_mode_value = job_mode.value
+        else:
+            job_mode_value = job_mode
+
+        # Check if productivity mode matches (or if no filtering is needed)
+        # Custom LPD datasets are always included when filtering by any
+        # productivity mode, since they represent user-imported data that can
+        # be used in place of any LPD source
+        if expected_mode is None:
+            is_valid_prod_mode = True
+        elif job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value:
+            is_valid_prod_mode = True
+        else:
+            is_valid_prod_mode = job_mode_value == expected_mode
+
+        if not is_valid_prod_mode:
+            continue
+
+        # Check for raster results
+        if raster_result is not None:
+            if (
+                (
+                    aoi is None
+                    or _check_dataset_overlap_raster(
+                        aoi, raster_result, job.visible_name, job
+                    )
+                )
+                and job.script.name == dataset_name
+                and raster_result.uri is not None
+            ):
+                result.append(
+                    Dataset(
+                        job=job,
+                        path=raster_result.uri.uri,
+                    )
+                )
+
+        # Check for vector results
+        vector_result = job.get_first_result_by_type(VectorResults)
+        if vector_result is not None:
+            # Check vector.type for the vector category, or use name for matching
+            vector_type_matches = False
+            if vector_result.vector is not None:
+                vector_type_matches = vector_result.vector.type.value == dataset_name
+            elif vector_result.name == dataset_name:
+                vector_type_matches = True
+
+            if (
+                (aoi is None or _check_dataset_overlap_vector(aoi, vector_result))
+                and vector_type_matches
+                and vector_result.uri is not None
+            ):
+                result.append(Dataset(job=job, path=vector_result.uri.uri))
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
 
     return result

@@ -13,6 +13,7 @@ params/results are loaded on-demand when actually needed.
 """
 
 import copy
+import json
 import logging
 import os
 import pickle
@@ -37,7 +38,9 @@ logger = logging.getLogger(__name__)
 # v6: Fixed cache_job() to handle None job (failed-parse sentinel),
 #     fixed mtime comparison with epsilon tolerance,
 #     added schema table integrity validation
-CACHE_SCHEMA_VERSION = 6
+# v7: Added cached_prod_mode, cached_band_names (JSON), cached_result_uri
+#     columns to avoid unpickling params/results for dropdown filters
+CACHE_SCHEMA_VERSION = 7
 
 # Tolerance for floating-point mtime comparisons.
 _MTIME_EPSILON = 1e-3
@@ -67,12 +70,21 @@ def _set_cached_type_flags(
     is_timeseries,
     is_file,
     cache_path=None,
+    extent_north=None,
+    extent_south=None,
+    extent_east=None,
+    extent_west=None,
+    cached_prod_mode=None,
+    cached_band_names=None,
+    cached_result_uri=None,
 ):
     """Set cached result type flags on a Job object.
 
     These flags allow the UI to determine job type and button state
     without needing the heavy results data to be loaded.
     ``cache_path`` is stored so results can be lazy-loaded on demand.
+    If extent values are provided, ``_cached_extent`` is set as
+    ``(west, south, east, north)`` — i.e. ``(minx, miny, maxx, maxy)``.
     """
     job._cached_has_loadable_result = bool(has_loadable_result)
     job._cached_is_raster = bool(is_raster)
@@ -81,6 +93,24 @@ def _set_cached_type_flags(
     job._cached_is_file = bool(is_file)
     if cache_path is not None:
         job._cache_path = cache_path
+    if (
+        extent_north is not None
+        and extent_south is not None
+        and extent_east is not None
+        and extent_west is not None
+    ):
+        job._cached_extent = (extent_west, extent_south, extent_east, extent_north)
+    else:
+        job._cached_extent = None
+    job._cached_prod_mode = cached_prod_mode
+    if cached_band_names is not None:
+        try:
+            job._cached_band_names = tuple(json.loads(cached_band_names))
+        except (json.JSONDecodeError, TypeError):
+            job._cached_band_names = None
+    else:
+        job._cached_band_names = None
+    job._cached_result_uri = cached_result_uri
 
 
 class JobCache:
@@ -228,6 +258,7 @@ class JobCache:
                         "metadata_pickle",
                         "has_loadable_result",
                         "is_raster",
+                        "cached_prod_mode",
                     ):
                         if col not in table_sql:
                             need_recreate = True
@@ -271,7 +302,10 @@ class JobCache:
                 is_raster INTEGER DEFAULT 0,
                 is_vector INTEGER DEFAULT 0,
                 is_timeseries INTEGER DEFAULT 0,
-                is_file INTEGER DEFAULT 0
+                is_file INTEGER DEFAULT 0,
+                cached_prod_mode TEXT,
+                cached_band_names TEXT,
+                cached_result_uri TEXT
             )
         """)
 
@@ -315,7 +349,9 @@ class JobCache:
                 cursor = self._conn.execute(
                     "SELECT mtime, metadata_pickle, params_pickle, results_pickle, "
                     "has_loadable_result, is_raster, is_vector, is_timeseries, "
-                    "is_file FROM job_cache WHERE path = ?",
+                    "is_file, extent_north, extent_south, extent_east, extent_west, "
+                    "cached_prod_mode, cached_band_names, cached_result_uri "
+                    "FROM job_cache WHERE path = ?",
                     (cache_key,),
                 )
                 row = cursor.fetchone()
@@ -333,6 +369,13 @@ class JobCache:
                     cached_is_vector,
                     cached_is_timeseries,
                     cached_is_file,
+                    cached_extent_north,
+                    cached_extent_south,
+                    cached_extent_east,
+                    cached_extent_west,
+                    cached_prod_mode,
+                    cached_band_names,
+                    cached_result_uri,
                 ) = row
 
                 # Check if file has changed
@@ -352,6 +395,13 @@ class JobCache:
                         cached_is_timeseries,
                         cached_is_file,
                         cache_path=cache_key,
+                        extent_north=cached_extent_north,
+                        extent_south=cached_extent_south,
+                        extent_east=cached_extent_east,
+                        extent_west=cached_extent_west,
+                        cached_prod_mode=cached_prod_mode,
+                        cached_band_names=cached_band_names,
+                        cached_result_uri=cached_result_uri,
                     )
 
                     # Optionally load heavy data
@@ -502,10 +552,12 @@ class JobCache:
                          results_pickle, job_id, job_status, script_id,
                          script_name, extent_north, extent_south,
                          extent_east, extent_west, has_loadable_result,
-                         is_raster, is_vector, is_timeseries, is_file)
+                         is_raster, is_vector, is_timeseries, is_file,
+                         cached_prod_mode, cached_band_names,
+                         cached_result_uri)
                         VALUES (?, ?, ?, NULL, NULL, '', 'FAILED_PARSE',
                                 NULL, NULL, NULL, NULL, NULL, NULL,
-                                0, 0, 0, 0, 0)
+                                0, 0, 0, 0, 0, NULL, NULL, NULL)
                         """,
                         (cache_key, mtime, b""),
                     )
@@ -556,6 +608,11 @@ class JobCache:
                 has_loadable = self._compute_has_loadable_result(results)
                 type_flags = self._compute_result_type_flags(job)
 
+                # Extract dropdown pre-filter columns
+                cached_prod_mode = self._extract_prod_mode(params, results)
+                cached_band_names = self._extract_band_names(results)
+                cached_result_uri = self._extract_result_uri(results)
+
                 self._conn.execute(
                     """
                     INSERT OR REPLACE INTO job_cache
@@ -563,9 +620,10 @@ class JobCache:
                      job_id, job_status, script_id, script_name,
                      extent_north, extent_south, extent_east, extent_west,
                      has_loadable_result,
-                     is_raster, is_vector, is_timeseries, is_file)
+                     is_raster, is_vector, is_timeseries, is_file,
+                     cached_prod_mode, cached_band_names, cached_result_uri)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                            ?, ?, ?, ?)
+                            ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         cache_key,
@@ -586,6 +644,9 @@ class JobCache:
                         1 if type_flags["is_vector"] else 0,
                         1 if type_flags["is_timeseries"] else 0,
                         1 if type_flags["is_file"] else 0,
+                        cached_prod_mode,
+                        cached_band_names,
+                        cached_result_uri,
                     ),
                 )
                 return True
@@ -623,6 +684,118 @@ class JobCache:
             script_name = script.name
 
         return (script_id, script_name)
+
+    def _extract_prod_mode(
+        self,
+        params: typing.Dict[str, typing.Any],
+        results: typing.Any,
+    ) -> typing.Optional[str]:
+        """Extract productivity mode from job params (or infer from band names).
+
+        Mirrors the runtime logic in data_io._get_usable_bands:
+        1. Check params["prod_mode"]
+        2. Check params["productivity"]["mode"]
+        3. Infer from band names via PROD_MODE_FOR_BAND mapping
+
+        Returns the raw string value, or None if not determinable.
+        """
+        # Try explicit params first
+        if "prod_mode" in params:
+            mode = params.get("prod_mode")
+        elif "productivity" in params:
+            mode = params.get("productivity", {}).get("mode")
+        else:
+            mode = None
+
+        # Normalize enum to raw value
+        if mode is not None:
+            return mode.value if hasattr(mode, "value") else str(mode)
+
+        # Infer from band names in results
+        if results is not None:
+            try:
+                from te_schemas.results import RasterResults as _RasterResults
+
+                results_list = results if isinstance(results, list) else [results]
+                for result in results_list:
+                    if isinstance(result, _RasterResults) and hasattr(
+                        result, "get_bands"
+                    ):
+                        for band in result.get_bands():
+                            name = getattr(band, "name", None)
+                            if name is not None:
+                                # Lazy import to avoid circular at module level
+                                try:
+                                    import te_algorithms.gdal.land_deg.config as ld_conf
+                                    from te_schemas.productivity import ProductivityMode
+
+                                    _PROD_MODE_FOR_BAND = {
+                                        ld_conf.FAO_WOCAT_LPD_BAND_NAME: ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+                                        ld_conf.JRC_LPD_BAND_NAME: ProductivityMode.JRC_5_CLASS_LPD.value,
+                                        ld_conf.TE_LPD_BAND_NAME: ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value,
+                                        ld_conf.CUSTOM_LPD_BAND_NAME: ProductivityMode.CUSTOM_5_CLASS_LPD.value,
+                                    }
+                                    if name in _PROD_MODE_FOR_BAND:
+                                        return _PROD_MODE_FOR_BAND[name]
+                                except ImportError:
+                                    pass
+            except Exception:
+                pass
+
+        return None
+
+    def _extract_band_names(self, results: typing.Any) -> typing.Optional[str]:
+        """Extract band names from the first RasterResults as a JSON array.
+
+        Returns a JSON-encoded list of band name strings, or None if no
+        raster bands are found.
+        """
+        if results is None:
+            return None
+
+        try:
+            from te_schemas.results import RasterResults as _RasterResults
+
+            results_list = results if isinstance(results, list) else [results]
+            for result in results_list:
+                if isinstance(result, _RasterResults) and hasattr(result, "get_bands"):
+                    bands = result.get_bands()
+                    if bands:
+                        names = [
+                            getattr(b, "name", None)
+                            for b in bands
+                            if getattr(b, "name", None) is not None
+                        ]
+                        if names:
+                            return json.dumps(names)
+        except Exception:
+            pass
+
+        return None
+
+    def _extract_result_uri(self, results: typing.Any) -> typing.Optional[str]:
+        """Extract the primary result URI string from the first result with a URI.
+
+        Checks RasterResults first (most common), then other result types.
+        Returns the URI path as a string, or None.
+        """
+        if results is None:
+            return None
+
+        try:
+            results_list = results if isinstance(results, list) else [results]
+            for result in results_list:
+                if result is None:
+                    continue
+                uri_obj = getattr(result, "uri", None)
+                if uri_obj is not None:
+                    uri_path = getattr(uri_obj, "uri", None)
+                    if uri_path is not None:
+                        return str(uri_path)
+        except Exception:
+            pass
+
+        return None
 
     def _extract_combined_extent(
         self, results: typing.Any

@@ -827,17 +827,37 @@ communities and households tend to be disproportionally vulnerable to climate ch
 to identify and quantify the makeup, distribution, and relative vulnerability of such populations,communities, and households is critical
 in reinforcing livelihood resilience in order to enhance positive adaptations to DLDD
 
+
+How population exposure is calculated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 |trends.earth| allows users to monitor UNCCD's Strategic Objective 2 indicator on **Trends in Population Exposure to Land Degradation Disaggregated 
 by Sex (SO 2-3)** by calculating the proportions of population, disaggregated by sex, exposed to land degradation. |trends.earth| uses gridded data 
 representing the spatial distribution of the population over the SDG 15.3.1 Indicator map to establish its exposure to land degradation.
 
 The (SO 2-3) indicator uses the following metrics:
 
--Percentage of the female population exposed to land degradation
--Percentage of the male population exposed to land degradation
--Percentage of the total (female and male) population exposed to land degradation
+* Percentage of the female population exposed to land degradation
+* Percentage of the male population exposed to land degradation
+* Percentage of the total (female and male) population exposed to land degradation
 
-|trends.earth| provides access the WorldPop dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
+
+To calculate the SO 2-3 indicator, |trends.earth| uses gridded population data from the
+`WorldPop <https://www.worldpop.org/>`_ project. WorldPop provides
+separate raster layers for male and female population, each representing the estimated number
+of people per grid cell for a given year. |trends.earth| overlays these population grids with the final
+SDG 15.3.1 indicator map, which classifies every pixel as **degraded**, **stable**, or
+**improved**. For each degradation class the tool sums the number of people — separately for males
+and females — whose grid cell falls within that class. Areas classified as water bodies are masked out
+and excluded from the totals, in line with UNCCD reporting requirements.
+
+The resulting totals are then expressed as percentages of the total population within the area of
+interest, producing the three SO 2-3 metrics: the percentage of the female population, the male
+population, and the combined population exposed to land degradation. In the output map, pixels in
+degraded areas retain their population count as a positive value, pixels in improved areas are shown
+as negative values (indicating population in areas where conditions have improved), and water areas
+are marked as no-data. This sign convention makes it straightforward to distinguish, at a glance,
+populations living on degraded land from those on improving land.
 
 UNCCD Strategic Objective 3 (SO 3)
 ==================================

@@ -3,16 +3,19 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`2.2.4 (February 23, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.4>`_
+`2.2.4 (March 19, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.4>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
   - Thread safety and stability improvements across the API client, job manager, download system, and report generation
   - Added option to change the API server URL
-  - Added support for handling locked-out accounts
   - Improved dataset filtering and widget caching for better performance
   - Fixed data import dialogs for small screens
   - Fixed handling of timeseries jobs
   - Fixed plugin module reloading during upgrade to reduce errors after updating
+  - Added in-plugin news feed
+  - Added handling for Google Earth Engine terms of service change
+  - Optimized local caching of job results to improve plugin responsiveness
+  - Add styles for SPEI layers and NDVI integrals
   - Documentation updates including new status map section, updated FAQ, and productivity metrics
   - Translation and dependency updates
 

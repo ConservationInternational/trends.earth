@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="es">
 <context>
@@ -190,12 +190,12 @@
 <context>
     <name>DatasetDetailsDialogue</name>
     <message>
-        <location filename="../datasets_dialog.py" line="158"/>
+        <location filename="../datasets_dialog.py" line="176"/>
         <source>Error exporting dataset {self.job}</source>
         <translation>Error al exportar el conjunto de datos {self.job}</translation>
     </message>
     <message>
-        <location filename="../datasets_dialog.py" line="163"/>
+        <location filename="../datasets_dialog.py" line="181"/>
         <source>Dataset exported to {target_path!r}</source>
         <translation>Conjunto de datos exportado a {target_path!r}</translation>
     </message>
@@ -203,57 +203,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="703"/>
+        <location filename="../jobs/mvc.py" line="735"/>
         <source>Add default layers from this dataset to map</source>
         <translation>Añadir al mapa capas por defecto desde este conjunto de datos</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="707"/>
+        <location filename="../jobs/mvc.py" line="739"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation>Seleccionar capas específicas de este conjunto de datos para añadirlas al mapa...</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="749"/>
+        <location filename="../jobs/mvc.py" line="781"/>
         <source>Time series table is empty</source>
         <translation>La tabla de series temporales está vacía</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="766"/>
+        <location filename="../jobs/mvc.py" line="798"/>
         <source>Time Series</source>
         <translation>Series temporales</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="777"/>
+        <location filename="../jobs/mvc.py" line="809"/>
         <source>Time</source>
         <translation>Hora</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="778"/>
+        <location filename="../jobs/mvc.py" line="810"/>
         <source>Integrated NDVI</source>
         <translation>NDVI integrado</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="778"/>
+        <location filename="../jobs/mvc.py" line="810"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1024"/>
+        <location filename="../jobs/mvc.py" line="1053"/>
         <source>Dataset metadata</source>
         <translation>Metadatos de conjunto de datos</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1033"/>
+        <location filename="../jobs/mvc.py" line="1062"/>
         <source>{} metadata</source>
         <translation>{} metadatos</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1057"/>
+        <location filename="../jobs/mvc.py" line="1086"/>
         <source>Add vector layer to map</source>
         <translation>Añadir capa vectorial al mapa</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1061"/>
+        <location filename="../jobs/mvc.py" line="1090"/>
         <source>Add raster layers to map</source>
         <translation>Añadir capas ráster al mapa</translation>
     </message>
@@ -450,7 +450,7 @@
     <message>
         <location filename="../gui/DlgAbout.ui" line="102"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Version VERSION_NUMBER&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Access the user guide here:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://trends.earth&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://trends.earth&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;&lt;a href=&quot;https://www.conservation.org/privacy&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Privacy Policy&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://www.conservation.org/terms&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Terms of Use&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth is a free and open source tool to understand land change: the how and why behind changes on the ground. Trends.Earth allows users to draw on the best available information from across a range of sources - from globally available data to customized local maps. A broad range of users are applying Trends.Earth for projects ranging from planning and monitoring restoration efforts, to tracking urbanization, to developing official national reports for submission to the United Nations Convention to Combat Desertification (UNCCD).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth was produced by a partnership of Conservation International, Lund University, and the National Aeronautics and Space Administration (NASA), with the support of the Global Environment Facility (GEF). It was further developed through a partnership with Conservation International, University of Bern, University of Colorado in partnership with USDA and USAID, University of California - Santa Barbara in partnership with University of North Carolina - Wilmington and Brown University with additional funding from the Global Environment Facility (GEF).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.earth was originally produced as an output of the GEF-funded project &amp;quot;&lt;/span&gt;&lt;a href=&quot;https://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Enabling the use of global data sources to assess and monitor land degradation at multiple scales&amp;quot;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth is free and open-source. The &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;code is freely available online&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The products of Trends.Earth are made available under the terms of the Creative Commons Attribution 4.0 International License (&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;). The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;, or &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues/new&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;report an issue on github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Citation:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth. Conservation International. Available online at: https://trends.earth. 2022.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p align=&quot;center&quot;&gt;Versión VERSION_NUMBER&lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;br/&gt; &lt;/p&gt; &lt;p align=&quot;center&quot;&gt;Acceda a la guía del usuario aquí:&lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;a href=&quot;https://trends.earth&quot;&gt; &lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://trends.earth&lt;/span&gt; &lt;/a&gt; &lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;br/&gt; &lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;span style=&quot; font-size:10pt;&quot;&gt; &lt;a href=&quot;https://www.conservation.org/privacy&quot;&gt; &lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Política de privacidad&lt;/span&gt; &lt;/a&gt; | &lt;a href=&quot;https://www.conservation.org/terms&quot;&gt; &lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt; Condiciones de uso&lt;/span&gt; &lt;/a&gt; &lt;/span&gt; &lt;/p&gt; &lt;p&gt; &lt;br/&gt; &lt;/p&gt; &lt;p&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth es una herramienta gratuita y de código abierto que permite comprender los cambios en el uso del suelo: el cómo y el porqué de los cambios sobre el terreno. Trends.Earth permite a los usuarios aprovechar la mejor información disponible procedente de diversas fuentes, desde datos disponibles a nivel mundial hasta mapas locales personalizados. Una amplia gama de usuarios está aplicando Trends.Earth a proyectos que van desde la planificación y el seguimiento de los esfuerzos de restauración, hasta el seguimiento de la urbanización y la elaboración de informes nacionales oficiales para su presentación a la Convención de las Naciones Unidas de Lucha contra la Desertificación (CNULD).&lt;/span&gt; &lt;/p&gt; &lt;p&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth es fruto de la colaboración entre Conservation International, la Universidad de Lund y la Administración Nacional de Aeronáutica y del Espacio (NASA), con el apoyo del Fondo para el Medio Ambiente Mundial (FMAM). Se desarrolló posteriormente gracias a una colaboración entre Conservation International, la Universidad de Berna, la Universidad de Colorado en colaboración con el Departamento de Agricultura de los Estados Unidos (USDA) y la Agencia de los Estados Unidos para el Desarrollo Internacional (USAID), la Universidad de California en Santa Bárbara en colaboración con la Universidad de Carolina del Norte en Wilmington y la Universidad Brown, con financiación adicional del Fondo para el Medio Ambiente Mundial (FMAM).&lt;/span&gt; &lt;/p&gt; &lt;p&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.earth se creó originalmente como resultado del proyecto financiado por el FMAM «&lt;/span&gt; &lt;a href=&quot;https://vitalsigns.org/gef-ldmp&quot;&gt; &lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;   
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p align=&quot;center&quot;&gt;Versión NÚMERO_VERSIÓN&lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;br/&gt; &lt;/p&gt; &lt;p align=&quot;center&quot;&gt;Acceda a la guía del usuario aquí:&lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;a href=&quot;https://trends.earth&quot;&gt; &lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://trends.earth&lt;/span&gt; &lt;/a&gt; &lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;br/&gt; &lt;/p&gt; &lt;p align=&quot;center&quot;&gt; &lt;span style=&quot; font-size:10pt;&quot;&gt; &lt;a href=&quot;https://www.conservation.org/privacy&quot;&gt; &lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Política de privacidad&lt;/span&gt; &lt;/a&gt; | &lt;a href=&quot;https://www.conservation.org/terms&quot;&gt; &lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt; Condiciones de uso&lt;/span&gt; &lt;/a&gt; &lt;/span&gt; &lt;/p&gt; &lt;p&gt; &lt;br/&gt; &lt;/p&gt; &lt;p&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth es una herramienta gratuita y de código abierto que permite comprender los cambios en el uso del suelo: el cómo y el porqué de los cambios sobre el terreno. Trends.Earth permite a los usuarios aprovechar la mejor información disponible procedente de diversas fuentes, desde datos disponibles a nivel mundial hasta mapas locales personalizados. Una amplia gama de usuarios está aplicando Trends.Earth a proyectos que van desde la planificación y el seguimiento de los esfuerzos de restauración, hasta el seguimiento de la urbanización y la elaboración de informes nacionales oficiales para su presentación a la Convención de las Naciones Unidas de Lucha contra la Desertificación (CNULD).&lt;/span&gt; &lt;/p&gt; &lt;p&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth es fruto de la colaboración entre Conservation International, la Universidad de Lund y la Administración Nacional de Aeronáutica y del Espacio (NASA), con el apoyo del Fondo para el Medio Ambiente Mundial (FMAM). Se desarrolló posteriormente gracias a una colaboración entre Conservation International, la Universidad de Berna, la Universidad de Colorado en colaboración con el Departamento de Agricultura de los Estados Unidos (USDA) y la Agencia de los Estados Unidos para el Desarrollo Internacional (USAID), la Universidad de California en Santa Bárbara en colaboración con la Universidad de Carolina del Norte en Wilmington y la Universidad Brown, con financiación adicional del Fondo para el Medio Ambiente Mundial (FMAM).&lt;/span&gt; &lt;/p&gt; &lt;p&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.earth se creó originalmente como resultado del proyecto financiado por el FMAM «&lt;/span&gt; &lt;a href=&quot;https://vitalsigns.org/gef-ldmp&quot;&gt; &lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;   
 Permite el uso de fuentes de datos globales para evaluar y supervisar la degradación del suelo a múltiples escalas»&lt;/span&gt; &lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt; &lt;/p&gt; &lt;p&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth es gratuito y de código abierto. El &lt;/span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt; &lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;código está disponible gratuitamente en línea&lt;/span&gt; &lt;/a&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;. El código está licenciado bajo la Licencia Pública General GNU, versión 2.0 o posterior.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Los productos de Trends.Earth están disponibles bajo los términos de la Licencia Internacional Creative Commons Attribution 4.0 (&lt;/span&gt; &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt; &lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt; &lt;/a&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;). Los límites y nombres utilizados, así como las designaciones empleadas en trends.earth, no implican el respaldo o la aceptación oficial por parte de Conservation International Foundation, ni de sus organizaciones asociadas y colaboradores.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Si encuentra algún error o tiene algún problema con el uso del complemento, póngase en contacto con nosotros en &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt; trends. earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;, o &lt;/span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues/new&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;informe del problema en github&lt;/span&gt; &lt;/a&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt; &lt;/p&gt; &lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; &lt;br/&gt;  &lt;/span&gt; &lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Cita:&lt;/span&gt;&lt;/p&gt;&lt;p&gt; &lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth. Conservation International. Disponible en línea en: https://trends.earth. 2022.&lt;/span&gt; &lt;/p&gt; &lt;p&gt; &lt;br/&gt; &lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</translation>
     </message>
 </context>
@@ -4592,9 +4592,14 @@ Si ha olvidado la contraseña, puede restablecerla.</translation>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="1094"/>
+        <location filename="../jobs/manager.py" line="1622"/>
         <source>Processing: {task_name}</source>
         <translation>Procesamiento: {nombre_tarea}</translation>
+    </message>
+    <message>
+        <location filename="../jobs/manager.py" line="1874"/>
+        <source>Downloading: {job.task_name or job.id}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4809,57 +4814,57 @@ Si ha olvidado la contraseña, puede restablecerla.</translation>
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="../main_widget.py" line="843"/>
+        <location filename="../main_widget.py" line="849"/>
         <source>All</source>
         <translation>Todo</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="848"/>
+        <location filename="../main_widget.py" line="854"/>
         <source>Raster</source>
         <translation>Ráster</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="853"/>
+        <location filename="../main_widget.py" line="859"/>
         <source>Vector</source>
         <translation>Vector</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="866"/>
+        <location filename="../main_widget.py" line="872"/>
         <source>Load existing Trends.Earth output file...</source>
         <translation>Cargar el archivo de salida Trends.Earth existente...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="870"/>
+        <location filename="../main_widget.py" line="876"/>
         <source>Import custom Productivity dataset...</source>
         <translation>Importar conjunto de datos de productividad personalizado...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="876"/>
+        <location filename="../main_widget.py" line="882"/>
         <source>Import custom Land Cover dataset...</source>
         <translation>Importar conjunto de datos personalizado de cobertura del suelo..</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="882"/>
+        <location filename="../main_widget.py" line="888"/>
         <source>Import custom Soil Organic Carbon dataset...</source>
         <translation>Importar conjunto de datos personalizado de carbono orgánico del suelo...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="900"/>
+        <location filename="../main_widget.py" line="906"/>
         <source>Download raw dataset used in Trends.Earth...</source>
         <translation>Descargar el conjunto de datos sin procesar utilizado en Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="926"/>
+        <location filename="../main_widget.py" line="932"/>
         <source>Create false positive/negative layer</source>
         <translation>Crear capa falsa positiva/negativa</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="888"/>
+        <location filename="../main_widget.py" line="894"/>
         <source>Import custom Population dataset...</source>
         <translation>Importar conjunto de datos personalizado sobre población...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="813"/>
+        <location filename="../main_widget.py" line="819"/>
         <source>No news items at this time.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5609,47 +5614,42 @@ p, li { white-space: pre-wrap; }
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="42"/>
-        <source>Created at</source>
-        <translation>Creado en</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="56"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="70"/>
         <source>Available paths</source>
         <translation>Rutas disponibles</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="63"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="77"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="77"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="91"/>
         <source>Generated by algorithm</source>
         <translation>Generado mediante algoritmo</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="93"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="107"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="109"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="123"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="134"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="148"/>
         <source>Algorithm Details</source>
         <translation>Detalles del algoritmo</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="143"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="157"/>
         <source>Comments:</source>
         <translation>Comentarios:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="162"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="176"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -5662,36 +5662,46 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="176"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="190"/>
         <source>Input:</source>
         <translation>Entrada:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="202"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="216"/>
         <source>Output:</source>
         <translation>Salida:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="246"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="260"/>
         <source>Delete dataset</source>
         <translation>Borrar conjunto de datos</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="257"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="271"/>
         <source>Export as a ZIP</source>
         <translation>Exportar como fichero ZIP</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="195"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="209"/>
         <source>Algorithm input parameters. Right-click for options to expand/collapse or copy as text.</source>
         <translation>Parámetros de entrada del algoritmo. Haga clic con el botón derecho para ver las opciones de expandir/contraer o copiar como texto.
 </translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="221"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="235"/>
         <source>Algorithm output results. Right-click for options to expand/collapse or copy as text.</source>
         <translation>Resultados de salida del algoritmo. Haga clic con el botón derecho para ver las opciones de expandir/contraer o copiar como texto.
 </translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="42"/>
+        <source>Start time</source>
+        <translation>Hora de inicio</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="56"/>
+        <source>End time</source>
+        <translation>Hora de finalización</translation>
     </message>
 </context>
 <context>
@@ -6905,77 +6915,77 @@ Población ({int(self.input_widget.spinBox_data_year.text())}, importada)
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="1112"/>
+        <location filename="../download.py" line="1113"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../download.py" line="482"/>
+        <location filename="../download.py" line="483"/>
         <source>Unable to write to {}.</source>
         <translation>Incapaz de escribir a {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="431"/>
+        <location filename="../download.py" line="432"/>
         <source>Unable to write to {}. Do you need administrator permissions?</source>
         <translation>Incapaz de escribir a {}. ¿Necesita permisos de administrador?</translation>
     </message>
     <message>
-        <location filename="../download.py" line="456"/>
+        <location filename="../download.py" line="457"/>
         <source>Folder does not exist</source>
         <translation>La carpeta no existe</translation>
     </message>
     <message>
-        <location filename="../download.py" line="456"/>
+        <location filename="../download.py" line="457"/>
         <source>Folder {} does not exist.</source>
         <translation>La carpeta {} no existe.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="492"/>
+        <location filename="../download.py" line="493"/>
         <source>Error accessing {}.</source>
         <translation>Error al acceder a {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="500"/>
+        <location filename="../download.py" line="501"/>
         <source>File verification failed for {}.</source>
         <translation>La verificación del archivo falló para {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1095"/>
+        <location filename="../download.py" line="1096"/>
         <source>Downloading {}</source>
         <translation>Descargando {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1106"/>
+        <location filename="../download.py" line="1107"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>La descarga fracasó. Comprueba tu conexión a Internet.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1045"/>
+        <location filename="../download.py" line="1046"/>
         <source>Error in downloading file, {}</source>
         <translation>Error al descargar el archivo, {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1052"/>
+        <location filename="../download.py" line="1053"/>
         <source>Error while downloading file to {self.outfile}, {error}</source>
         <translation>Error al descargar el archivo a {self.outfile}, {error}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1058"/>
+        <location filename="../download.py" line="1059"/>
         <source>Finished downloading file to {self.outfile}</source>
         <translation>Descarga del archivo completada en {self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1061"/>
+        <location filename="../download.py" line="1062"/>
         <source>Download exited {self.outfile}</source>
         <translation>Descarga completada {self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1112"/>
+        <location filename="../download.py" line="1113"/>
         <source>Problem running task for downloading file</source>
         <translation>Problema al ejecutar la tarea para descargar el archivo</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1117"/>
+        <location filename="../download.py" line="1118"/>
         <source>An error occured when running task for</source>
         <translation>Se ha producido un error al ejecutar la tarea para
 
@@ -6983,12 +6993,12 @@ Población ({int(self.input_widget.spinBox_data_year.text())}, importada)
 </translation>
     </message>
     <message>
-        <location filename="../download.py" line="193"/>
+        <location filename="../download.py" line="194"/>
         <source>Downloading boundaries</source>
         <translation>Descargar límites</translation>
     </message>
     <message>
-        <location filename="../download.py" line="871"/>
+        <location filename="../download.py" line="872"/>
         <source>Downloading boundaries for {}...</source>
         <translation>Descargando límites para {}...</translation>
     </message>

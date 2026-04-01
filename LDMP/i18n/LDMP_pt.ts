@@ -187,12 +187,12 @@
 <context>
     <name>DatasetDetailsDialogue</name>
     <message>
-        <location filename="../datasets_dialog.py" line="158"/>
+        <location filename="../datasets_dialog.py" line="176"/>
         <source>Error exporting dataset {self.job}</source>
         <translation>Erro ao exportar conjunto de dados {self.job}</translation>
     </message>
     <message>
-        <location filename="../datasets_dialog.py" line="163"/>
+        <location filename="../datasets_dialog.py" line="181"/>
         <source>Dataset exported to {target_path!r}</source>
         <translation>Conjunto de dados exportado para {target_path!r}</translation>
     </message>
@@ -200,57 +200,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="703"/>
+        <location filename="../jobs/mvc.py" line="735"/>
         <source>Add default layers from this dataset to map</source>
         <translation>Adicionar camadas predefinidas deste conjunto de dados ao mapa</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="707"/>
+        <location filename="../jobs/mvc.py" line="739"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation>Escolha camadas específicas deste conjunto de dados para adicionar ao mapa...</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="749"/>
+        <location filename="../jobs/mvc.py" line="781"/>
         <source>Time series table is empty</source>
         <translation>A tabela de série de tempo está vazio</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="766"/>
+        <location filename="../jobs/mvc.py" line="798"/>
         <source>Time Series</source>
         <translation>Série de Tempo</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="777"/>
+        <location filename="../jobs/mvc.py" line="809"/>
         <source>Time</source>
         <translation>Tempo</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="778"/>
+        <location filename="../jobs/mvc.py" line="810"/>
         <source>Integrated NDVI</source>
         <translation>NDVI integrado</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="778"/>
+        <location filename="../jobs/mvc.py" line="810"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1024"/>
+        <location filename="../jobs/mvc.py" line="1053"/>
         <source>Dataset metadata</source>
         <translation>Metadados da base de dados</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1033"/>
+        <location filename="../jobs/mvc.py" line="1062"/>
         <source>{} metadata</source>
         <translation>Metadados {}</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1057"/>
+        <location filename="../jobs/mvc.py" line="1086"/>
         <source>Add vector layer to map</source>
         <translation>Adicionar camada de vetor ao mapa</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1061"/>
+        <location filename="../jobs/mvc.py" line="1090"/>
         <source>Add raster layers to map</source>
         <translation>Adicionar camadas raster ao mapa</translation>
     </message>
@@ -4522,9 +4522,14 @@ Se se esqueceu da palavra-passe, pode redefini-la.</translation>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="1094"/>
+        <location filename="../jobs/manager.py" line="1622"/>
         <source>Processing: {task_name}</source>
         <translation>Em processamento: {task_name}</translation>
+    </message>
+    <message>
+        <location filename="../jobs/manager.py" line="1874"/>
+        <source>Downloading: {job.task_name or job.id}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4737,57 +4742,57 @@ Se se esqueceu da palavra-passe, pode redefini-la.</translation>
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="../main_widget.py" line="843"/>
+        <location filename="../main_widget.py" line="849"/>
         <source>All</source>
         <translation>Tudo</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="848"/>
+        <location filename="../main_widget.py" line="854"/>
         <source>Raster</source>
         <translation>Raster</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="853"/>
+        <location filename="../main_widget.py" line="859"/>
         <source>Vector</source>
         <translation>Vector</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="866"/>
+        <location filename="../main_widget.py" line="872"/>
         <source>Load existing Trends.Earth output file...</source>
         <translation>Carregar o ficheiro de saída Trends.Earth existente...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="870"/>
+        <location filename="../main_widget.py" line="876"/>
         <source>Import custom Productivity dataset...</source>
         <translation>Importar conjunto de dados de Produtividade personalizado...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="876"/>
+        <location filename="../main_widget.py" line="882"/>
         <source>Import custom Land Cover dataset...</source>
         <translation>Importar conjunto de dados de Cobertura de Solo personalizado...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="882"/>
+        <location filename="../main_widget.py" line="888"/>
         <source>Import custom Soil Organic Carbon dataset...</source>
         <translation>Importar conjunto de dados de Carbono Orgânico do Solo personalizado...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="900"/>
+        <location filename="../main_widget.py" line="906"/>
         <source>Download raw dataset used in Trends.Earth...</source>
         <translation>Descarregar conjunto de dados cru utilizado em Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="926"/>
+        <location filename="../main_widget.py" line="932"/>
         <source>Create false positive/negative layer</source>
         <translation>Criar camada de falso positivo/negativo</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="888"/>
+        <location filename="../main_widget.py" line="894"/>
         <source>Import custom Population dataset...</source>
         <translation>Importar conjunto de dados de população personalizado...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="813"/>
+        <location filename="../main_widget.py" line="819"/>
         <source>No news items at this time.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5531,47 +5536,42 @@ p, li { white-space: pre-wrap; }
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="42"/>
-        <source>Created at</source>
-        <translation>Criado a</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="56"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="70"/>
         <source>Available paths</source>
         <translation>Caminhos disponíveis</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="63"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="77"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="77"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="91"/>
         <source>Generated by algorithm</source>
         <translation>Gerado por algoritmo</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="93"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="107"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="109"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="123"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="134"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="148"/>
         <source>Algorithm Details</source>
         <translation>Detalhes do Algoritmo</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="143"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="157"/>
         <source>Comments:</source>
         <translation>Comentários:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="162"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="176"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -5584,34 +5584,44 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="176"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="190"/>
         <source>Input:</source>
         <translation>Entrada:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="202"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="216"/>
         <source>Output:</source>
         <translation>Saída:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="246"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="260"/>
         <source>Delete dataset</source>
         <translation>Apagar base de dados</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="257"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="271"/>
         <source>Export as a ZIP</source>
         <translation>Exportar como ZIP</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="195"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="209"/>
         <source>Algorithm input parameters. Right-click for options to expand/collapse or copy as text.</source>
         <translation>Parâmetros de entrada do algoritmo. Clique com o botão direito do rato para ver opções para expandir/fechar ou copiar como texto.</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="221"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="235"/>
         <source>Algorithm output results. Right-click for options to expand/collapse or copy as text.</source>
         <translation>Resultados de saída do algoritmo. Clique com o botão direito do rato para ver opções para expandir/fechar ou copiar como texto.</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="42"/>
+        <source>Start time</source>
+        <translation>Hora inícial</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="56"/>
+        <source>End time</source>
+        <translation>Hora final</translation>
     </message>
 </context>
 <context>
@@ -6802,87 +6812,87 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="1112"/>
+        <location filename="../download.py" line="1113"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../download.py" line="482"/>
+        <location filename="../download.py" line="483"/>
         <source>Unable to write to {}.</source>
         <translation>Incapaz de escrever para {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="431"/>
+        <location filename="../download.py" line="432"/>
         <source>Unable to write to {}. Do you need administrator permissions?</source>
         <translation>Não foi possível escrever para {}. Você precisa de permissões de administrador?</translation>
     </message>
     <message>
-        <location filename="../download.py" line="456"/>
+        <location filename="../download.py" line="457"/>
         <source>Folder does not exist</source>
         <translation>Pasta não existe</translation>
     </message>
     <message>
-        <location filename="../download.py" line="456"/>
+        <location filename="../download.py" line="457"/>
         <source>Folder {} does not exist.</source>
         <translation>A pasta {} não existe.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="492"/>
+        <location filename="../download.py" line="493"/>
         <source>Error accessing {}.</source>
         <translation>Erro ao acessar {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="500"/>
+        <location filename="../download.py" line="501"/>
         <source>File verification failed for {}.</source>
         <translation>A verificação do arquivo falhou para {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1095"/>
+        <location filename="../download.py" line="1096"/>
         <source>Downloading {}</source>
         <translation>Baixando {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1106"/>
+        <location filename="../download.py" line="1107"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>Falha no Download. Verifique sua conexão com a internet.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1045"/>
+        <location filename="../download.py" line="1046"/>
         <source>Error in downloading file, {}</source>
         <translation>Erro ao transferir o ficheiro, {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1052"/>
+        <location filename="../download.py" line="1053"/>
         <source>Error while downloading file to {self.outfile}, {error}</source>
         <translation>Erro ao transferir o ficheiro para {self.outfile}, {error}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1058"/>
+        <location filename="../download.py" line="1059"/>
         <source>Finished downloading file to {self.outfile}</source>
         <translation>Transferência do ficheiro para {self.outfile} concluída</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1061"/>
+        <location filename="../download.py" line="1062"/>
         <source>Download exited {self.outfile}</source>
         <translation>A transferência terminou em {self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1112"/>
+        <location filename="../download.py" line="1113"/>
         <source>Problem running task for downloading file</source>
         <translation>Problema ao executar a tarefa de transferência do ficheiro</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1117"/>
+        <location filename="../download.py" line="1118"/>
         <source>An error occured when running task for</source>
         <translation>Ocorreu um erro ao executar a tarefa para</translation>
     </message>
     <message>
-        <location filename="../download.py" line="193"/>
+        <location filename="../download.py" line="194"/>
         <source>Downloading boundaries</source>
         <translation>A transferir delimitações</translation>
     </message>
     <message>
-        <location filename="../download.py" line="871"/>
+        <location filename="../download.py" line="872"/>
         <source>Downloading boundaries for {}...</source>
         <translation>A transferir delimitações para {}...</translation>
     </message>

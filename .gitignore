@@ -65,3 +65,7 @@ transifex_token.txt
 notebooks/error_polygons_*.geojson
 notebooks/error_recode_results_*.json
 notebooks/ldn/output/*
+notebooks/ldn/input_data/*
+notebooks/ldn/counterbalancing_results/*
+notebooks/ldn/output*/*
+tmp/*

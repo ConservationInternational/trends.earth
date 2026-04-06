@@ -187,12 +187,12 @@
 <context>
     <name>DatasetDetailsDialogue</name>
     <message>
-        <location filename="../datasets_dialog.py" line="158"/>
+        <location filename="../datasets_dialog.py" line="176"/>
         <source>Error exporting dataset {self.job}</source>
         <translation>خطأ في تصدير مجموعة البيانات {self.job}</translation>
     </message>
     <message>
-        <location filename="../datasets_dialog.py" line="163"/>
+        <location filename="../datasets_dialog.py" line="181"/>
         <source>Dataset exported to {target_path!r}</source>
         <translation>تم تصدير مجموعة البيانات إلى {target_path!r}</translation>
     </message>
@@ -200,57 +200,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="703"/>
+        <location filename="../jobs/mvc.py" line="735"/>
         <source>Add default layers from this dataset to map</source>
         <translation>أضف طبقات افتراضية من مجموعة البيانات هذه إلى الخريطة</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="707"/>
+        <location filename="../jobs/mvc.py" line="739"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation>حدد طبقات معينة من مجموعة البيانات هذه لإضافتها إلى الخريطة. . .</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="749"/>
+        <location filename="../jobs/mvc.py" line="781"/>
         <source>Time series table is empty</source>
         <translation>جدول المتسلسلة الزمنية فارغ</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="766"/>
+        <location filename="../jobs/mvc.py" line="798"/>
         <source>Time Series</source>
         <translation>متسلسلة زمنية</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="777"/>
+        <location filename="../jobs/mvc.py" line="809"/>
         <source>Time</source>
         <translation>الزمن</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="778"/>
+        <location filename="../jobs/mvc.py" line="810"/>
         <source>Integrated NDVI</source>
         <translation>NDVI المتكاملة</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="778"/>
+        <location filename="../jobs/mvc.py" line="810"/>
         <source>NDVI x 10000</source>
         <translation>NDVI × 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1024"/>
+        <location filename="../jobs/mvc.py" line="1053"/>
         <source>Dataset metadata</source>
         <translation>البيانات الوصفية لمجموعة البيانات</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1033"/>
+        <location filename="../jobs/mvc.py" line="1062"/>
         <source>{} metadata</source>
         <translation>{} بيانات وصفية</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1057"/>
+        <location filename="../jobs/mvc.py" line="1086"/>
         <source>Add vector layer to map</source>
         <translation>أضف طبقة شعاع للخريطة</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1061"/>
+        <location filename="../jobs/mvc.py" line="1090"/>
         <source>Add raster layers to map</source>
         <translation>أضف طبقات خطوط المسح للخريطة</translation>
     </message>
@@ -4568,9 +4568,14 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="1094"/>
+        <location filename="../jobs/manager.py" line="1622"/>
         <source>Processing: {task_name}</source>
         <translation>جارٍ المعالجة: {task_name}</translation>
+    </message>
+    <message>
+        <location filename="../jobs/manager.py" line="1874"/>
+        <source>Downloading: {job.task_name or job.id}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4783,57 +4788,57 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="../main_widget.py" line="843"/>
+        <location filename="../main_widget.py" line="849"/>
         <source>All</source>
         <translation>جميع</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="848"/>
+        <location filename="../main_widget.py" line="854"/>
         <source>Raster</source>
         <translation>خطوط مسح</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="853"/>
+        <location filename="../main_widget.py" line="859"/>
         <source>Vector</source>
         <translation>كمية متّجِهة</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="866"/>
+        <location filename="../main_widget.py" line="872"/>
         <source>Load existing Trends.Earth output file...</source>
         <translation>تحميل ملف إخراج Trends.Earth الموجود...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="870"/>
+        <location filename="../main_widget.py" line="876"/>
         <source>Import custom Productivity dataset...</source>
         <translation>استيراد مجموعة بيانات مخصصة للإنتاجية...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="876"/>
+        <location filename="../main_widget.py" line="882"/>
         <source>Import custom Land Cover dataset...</source>
         <translation>استيراد مجموعة بيانات مخصصة للغطاء الأرضي...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="882"/>
+        <location filename="../main_widget.py" line="888"/>
         <source>Import custom Soil Organic Carbon dataset...</source>
         <translation>استيراد مجموعة بيانات مخصصة للكربون العضوي للتربة...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="900"/>
+        <location filename="../main_widget.py" line="906"/>
         <source>Download raw dataset used in Trends.Earth...</source>
         <translation>تنزيل مجموعة بيانات أولية مستخدمة في Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="926"/>
+        <location filename="../main_widget.py" line="932"/>
         <source>Create false positive/negative layer</source>
         <translation>إنشاء طبقة كاذبة إيجابية/سلبية</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="888"/>
+        <location filename="../main_widget.py" line="894"/>
         <source>Import custom Population dataset...</source>
         <translation>استيراد مجموعة بيانات المجتمع الإحصائي المخصّصة...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="813"/>
+        <location filename="../main_widget.py" line="819"/>
         <source>No news items at this time.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5580,47 +5585,42 @@ p, li { white-space: pre-wrap; }
         <translation>الحالة</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="42"/>
-        <source>Created at</source>
-        <translation>أنشئت في</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="56"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="70"/>
         <source>Available paths</source>
         <translation>المسارات المتاحة</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="63"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="77"/>
         <source>Name</source>
         <translation>الاسم</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="77"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="91"/>
         <source>Generated by algorithm</source>
         <translation>تم إنشاؤها بواسطة الخوارزمية</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="93"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="107"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="109"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="123"/>
         <source>ID</source>
         <translation>المعرف</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="134"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="148"/>
         <source>Algorithm Details</source>
         <translation>تفاصيل الخوارزمية</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="143"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="157"/>
         <source>Comments:</source>
         <translation>التعليقات:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="162"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="176"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -5633,34 +5633,44 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="176"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="190"/>
         <source>Input:</source>
         <translation>إدخال:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="202"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="216"/>
         <source>Output:</source>
         <translation>إخراج:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="246"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="260"/>
         <source>Delete dataset</source>
         <translation>حذف مجموعة البيانات</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="257"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="271"/>
         <source>Export as a ZIP</source>
         <translation>تصدير كملف ZIP</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="195"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="209"/>
         <source>Algorithm input parameters. Right-click for options to expand/collapse or copy as text.</source>
         <translation>معلمات إدخال الخوارزمية. انقر بزر الماوس الأيمن للحصول على خيارات للتوسيع/الطي أو النسخ كنص.</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItemDetails.ui" line="221"/>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="235"/>
         <source>Algorithm output results. Right-click for options to expand/collapse or copy as text.</source>
         <translation>نتائج إخراج الخوارزمية. انقر بزر الماوس الأيمن للحصول على خيارات للتوسيع/الطي أو النسخ كنص.</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="42"/>
+        <source>Start time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDatasetItemDetails.ui" line="56"/>
+        <source>End time</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6855,87 +6865,87 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="1112"/>
+        <location filename="../download.py" line="1113"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../download.py" line="482"/>
+        <location filename="../download.py" line="483"/>
         <source>Unable to write to {}.</source>
         <translation>غير قادر على الكتابة إلى {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="431"/>
+        <location filename="../download.py" line="432"/>
         <source>Unable to write to {}. Do you need administrator permissions?</source>
         <translation>غير قادر على الكتابة إلى {}. هل تحتاج إلى أذونات المسؤول؟</translation>
     </message>
     <message>
-        <location filename="../download.py" line="456"/>
+        <location filename="../download.py" line="457"/>
         <source>Folder does not exist</source>
         <translation>المجلد غير موجود</translation>
     </message>
     <message>
-        <location filename="../download.py" line="456"/>
+        <location filename="../download.py" line="457"/>
         <source>Folder {} does not exist.</source>
         <translation>المجلد {} غير موجود.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="492"/>
+        <location filename="../download.py" line="493"/>
         <source>Error accessing {}.</source>
         <translation>خطأ في الوصول إلى {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="500"/>
+        <location filename="../download.py" line="501"/>
         <source>File verification failed for {}.</source>
         <translation>فشل التحقق من الملف لـ {}.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1095"/>
+        <location filename="../download.py" line="1096"/>
         <source>Downloading {}</source>
         <translation>جارى التحميل {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1106"/>
+        <location filename="../download.py" line="1107"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>التحميل فشل. تحقق من اتصالك بالإنترنت.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1045"/>
+        <location filename="../download.py" line="1046"/>
         <source>Error in downloading file, {}</source>
         <translation>حدث خطأ أثناء تنزيل الملف، {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1052"/>
+        <location filename="../download.py" line="1053"/>
         <source>Error while downloading file to {self.outfile}, {error}</source>
         <translation>حدث خطأ أثناء تنزيل الملف إلى {self.outfile}، {error}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1058"/>
+        <location filename="../download.py" line="1059"/>
         <source>Finished downloading file to {self.outfile}</source>
         <translation>اكتمل تنزيل الملف إلى {self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1061"/>
+        <location filename="../download.py" line="1062"/>
         <source>Download exited {self.outfile}</source>
         <translation>انتهى التنزيل {self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1112"/>
+        <location filename="../download.py" line="1113"/>
         <source>Problem running task for downloading file</source>
         <translation>مشكلة أثناء تشغيل المهمة لتنزيل الملف</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1117"/>
+        <location filename="../download.py" line="1118"/>
         <source>An error occured when running task for</source>
         <translation>حدث خطأ أثناء تشغيل المهمة لـ</translation>
     </message>
     <message>
-        <location filename="../download.py" line="193"/>
+        <location filename="../download.py" line="194"/>
         <source>Downloading boundaries</source>
         <translation>جارٍ تنزيل الحدود</translation>
     </message>
     <message>
-        <location filename="../download.py" line="871"/>
+        <location filename="../download.py" line="872"/>
         <source>Downloading boundaries for {}...</source>
         <translation>جارٍ تنزيل الحدود لـ {}...</translation>
     </message>

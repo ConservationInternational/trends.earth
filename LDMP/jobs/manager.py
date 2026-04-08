@@ -1267,9 +1267,19 @@ class JobManager(QtCore.QObject):
         self._state_update_mutex.lock()
 
         try:
-            self._known_running_jobs = {
-                j.id: j for j in self._get_local_jobs(jobs.JobStatus.RUNNING)
-            }
+            self._known_running_jobs = {}
+            for j in self._get_local_jobs(jobs.JobStatus.RUNNING):
+                if _is_local_only_job(j) and _is_orphaned_local_job(j):
+                    log(
+                        f"Marking orphaned local job {j.id} as FAILED "
+                        f"(owner PID {getattr(j.local_context, 'owner_pid', None)} "
+                        f"is no longer running)"
+                    )
+                    if j.end_date is None:
+                        j.end_date = dt.datetime.now(dt.timezone.utc)
+                    self._change_job_status(j, jobs.JobStatus.FAILED)
+                else:
+                    self._known_running_jobs[j.id] = j
 
             # Rebuild pending/ready caches from disk so that stale entries
             # (e.g. jobs that finished between refresh cycles) are removed.
@@ -1737,6 +1747,7 @@ class JobManager(QtCore.QObject):
 
     def _mark_local_job_running(self, job):
         if job.status == jobs.JobStatus.PENDING:
+            job.local_context.owner_pid = os.getpid()
             self._change_job_status(job, jobs.JobStatus.RUNNING)
 
     def download_job_results(self, job: Job) -> Job:
@@ -2580,7 +2591,18 @@ class JobManager(QtCore.QObject):
 
         for old_running_job in local_running_jobs:
             if _is_local_only_job(old_running_job):
-                self._known_running_jobs[old_running_job.id] = old_running_job
+                if _is_orphaned_local_job(old_running_job):
+                    log(
+                        f"Marking orphaned local job {old_running_job.id} as "
+                        f"FAILED (owner PID "
+                        f"{getattr(old_running_job.local_context, 'owner_pid', None)} "
+                        f"is no longer running)"
+                    )
+                    if old_running_job.end_date is None:
+                        old_running_job.end_date = dt.datetime.now(dt.timezone.utc)
+                    self._change_job_status(old_running_job, jobs.JobStatus.FAILED)
+                else:
+                    self._known_running_jobs[old_running_job.id] = old_running_job
                 continue
 
             remote_job = find_job(old_running_job, remote_jobs)
@@ -3319,6 +3341,23 @@ def _is_local_only_job(job: Job) -> bool:
     # Fallback: if the script has a local execution_callable it is local
     execution_callable = getattr(script, "execution_callable", None)
     return bool(execution_callable)
+
+
+def _is_orphaned_local_job(job: Job) -> bool:
+    """Return True if a local-only RUNNING job's owning process is dead.
+
+    Jobs created before ``owner_pid`` was introduced will have
+    ``owner_pid=None``.  In that case we cannot determine liveness, so we
+    conservatively return False (keep the job as RUNNING and let the user
+    delete it manually).
+    """
+    ctx = getattr(job, "local_context", None)
+    if ctx is None:
+        return False
+    owner_pid = getattr(ctx, "owner_pid", None)
+    if owner_pid is None:
+        return False
+    return not _is_pid_alive(owner_pid)
 
 
 def _get_access_token():

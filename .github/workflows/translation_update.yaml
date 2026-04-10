@@ -33,7 +33,11 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y qttools5-dev-tools pyqt5-dev-tools
       - run: pip install -r requirements-dev.txt
       - name: Install transifex CLI
-        run: curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+        run: |
+          curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+          mkdir -p "$HOME/.local/bin"
+          mv tx "$HOME/.local/bin/"
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Pull updated strings from transifex
         run: invoke translate-pull --force
       - name: Push strings to transifex

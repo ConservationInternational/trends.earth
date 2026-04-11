@@ -26,6 +26,7 @@ from qgis.core import (
     Qgis,
     QgsColorRampShader,
     QgsDefaultValue,
+    QgsEditFormConfig,
     QgsProcessingFeedback,
     QgsProject,
     QgsProviderRegistry,
@@ -1040,24 +1041,31 @@ def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
 
 
 def set_default_stats_value(v_path, band_datas):
-    log("setting default stats value function")
     layer = None
     for lyr in QgsProject.instance().mapLayers().values():
         if lyr.source().split("|")[0] == v_path:
             layer = lyr
             break
     if layer is None:
+        log(f"set_default_stats_value: layer not found for path {v_path}")
         return
     idx = layer.fields().lookupField("stats")
     layer.setDefaultValueDefinition(
         idx,
         QgsDefaultValue(f"calculate_error_recode_stats('{json.dumps(band_datas)}')"),
     )
-    res = layer.listStylesInDatabase()
-    if res[0] > 0:
-        for i in res[1]:
-            layer.deleteStyleFromDatabase(i)
-    layer.saveStyleToDatabase("error_recode", "", True, "")
+
+    # Place the form-open function into __main__ so that QGIS can resolve
+    # it by name when using CodeSourceEnvironment (no macro warning).
+    import __main__
+    from LDMP.charts import error_recode_form_open
+
+    __main__.__dict__["error_recode_form_open"] = error_recode_form_open
+
+    config = layer.editFormConfig()
+    config.setInitCodeSource(QgsEditFormConfig.CodeSourceEnvironment)
+    config.setInitFunction("error_recode_form_open")
+    layer.setEditFormConfig(config)
 
 
 def edit(layer):

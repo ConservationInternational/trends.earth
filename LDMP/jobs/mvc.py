@@ -622,6 +622,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         has_vector = self.job.is_vector()
         has_raster = self.job.is_raster()
 
+        # Error recode jobs store raster references in params, not in results
+        if has_vector and self._is_error_recode_job():
+            return True
+
         # Only return true if we have both types AND they're actually accessible
         if has_vector and has_raster:
             # Need results loaded to verify the vector URI is actually local.

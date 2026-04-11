@@ -204,6 +204,8 @@ class TEMapToolMixin:
             # g = QgsGeometry(self._geom_engine.intersection(geom.constGet()))
             # g.convertGeometryCollectionToSubclass(QgsWkbTypes.PolygonGeometry)
             g = self._geom_engine.intersection(geom.constGet())
+            if g is None:
+                return geom.get()
             if g.geometryType() == "Polygon":
                 return g
             elif g.geometryType() == "GeometryCollection":

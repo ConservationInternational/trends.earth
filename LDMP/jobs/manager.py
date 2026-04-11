@@ -2000,6 +2000,8 @@ class JobManager(QtCore.QObject):
         layer = layers.add_vector_layer(str(layer_path), vector_result.name)
         if layer is not None:
             layer.setCustomProperty("job_id", str(job.id))
+        else:
+            log("display_error_recode_layer: layer is None after add_vector_layer")
 
     def edit_error_recode_layer(self, job: Job):
         vector_result = _find_error_recode_result(job)
@@ -2161,8 +2163,6 @@ class JobManager(QtCore.QObject):
         return job
 
     def create_error_recode(self, task_name, lc, soil, prod, sdg):
-        log("create_error_recode called")
-
         now = dt.datetime.now(dt.timezone.utc)
         job_id = uuid.uuid4()
         job = Job(
@@ -2170,7 +2170,7 @@ class JobManager(QtCore.QObject):
             params={},
             progress=100,
             start_date=now,
-            status=jobs.JobStatus.DOWNLOADED,
+            status=jobs.JobStatus.GENERATED_LOCALLY,
             local_context=_get_local_context(),
             results=VectorResults(
                 name="False positive/negative",
@@ -2231,7 +2231,8 @@ class JobManager(QtCore.QObject):
                     f"Failed to set extents for job {job.id}: {type(exc).__name__}: {exc}"
                 )
         self.write_job_metadata_file(job)
-        self._set_known_job(job.status, job)
+        # GENERATED_LOCALLY is tracked as DOWNLOADED in the internal cache
+        self._set_known_job(jobs.JobStatus.DOWNLOADED, job)
         self.imported_job.emit(job)
         self.display_error_recode_layer(job)
 
@@ -2261,8 +2262,6 @@ class JobManager(QtCore.QObject):
                 "index": sdg.band_index,
             },
         ]
-
-        log("setting default stats value")
 
         vector_result = job.get_first_result_by_type(VectorResults)
         if vector_result:
@@ -2305,16 +2304,14 @@ class JobManager(QtCore.QObject):
         if os.path.exists(path):
             shutil.copy2(path, output_path)
         else:
-            shutil.copy2(
-                os.path.join(
-                    os.path.dirname(__file__),
-                    os.path.pardir,
-                    "data",
-                    "error_recode",
-                    "error_recode_en.gpkg",
-                ),
-                output_path,
+            fallback = os.path.join(
+                os.path.dirname(__file__),
+                os.path.pardir,
+                "data",
+                "error_recode",
+                "error_recode_en.gpkg",
             )
+            shutil.copy2(fallback, output_path)
         # Set the vector.uri for error recode results
         job.results.vector.uri = URI(uri=output_path)
         vec_extent = _get_extent_tuple_vector(output_path)

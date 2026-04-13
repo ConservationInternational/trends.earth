@@ -34,7 +34,7 @@ jobs:
       - run: pip install -r requirements-dev.txt
       - name: Install transifex CLI
         run: |
-          curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+          curl -fsSL -o tx https://github.com/transifex/cli/releases/latest/download/tx-linux-amd64
           chmod +x tx
       - name: Pull updated strings from transifex
         run: invoke translate-pull --force

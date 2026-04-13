@@ -3,6 +3,17 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.2.6 (April 13, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.6>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Added experimental support for LDN counterbalancing analysis
+  - Moved file downloads to background tasks to keep the interface responsive
+  - Added local job logging for better troubleshooting of locally-run analyses
+  - Improved caching of area extents for faster dropdown loading
+  - Added support for parallel processing in te_algorithms
+  - Added documentation on SO2-3 indicator calculations
+  - Translation and dependency updates
+
 `2.2.4 (March 19, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.4>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

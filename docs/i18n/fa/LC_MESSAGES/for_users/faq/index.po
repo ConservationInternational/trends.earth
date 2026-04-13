@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.2.4\n"
+"Project-Id-Version: Trends.Earth 2.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 04:40+0000\n"
+"POT-Creation-Date: 2026-04-08 04:50+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Language-Team: Persian (https://app.transifex.com/conservation-international/teams/80165/fa/)\n"
 "MIME-Version: 1.0\n"

@@ -11,7 +11,7 @@ rst2pdf
 playwright
 pylint
 pip>=10.0.0
-requests==2.32.4
+requests==2.33.0
 PyQt5
 black[jupyter]
 flake8

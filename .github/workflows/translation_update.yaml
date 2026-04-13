@@ -35,9 +35,7 @@ jobs:
       - name: Install transifex CLI
         run: |
           curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
-          mkdir -p "$HOME/.local/bin"
-          mv tx "$HOME/.local/bin/"
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          chmod +x tx
       - name: Pull updated strings from transifex
         run: invoke translate-pull --force
       - name: Push strings to transifex

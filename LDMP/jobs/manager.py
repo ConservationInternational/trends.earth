@@ -3403,7 +3403,10 @@ def _get_user_id() -> typing.Optional[uuid.UUID]:
 
 
 def _get_raster_vrt(tiles: List[Path], out_file: Path):
-    gdal.BuildVRT(str(out_file), [str(tile) for tile in tiles])
+    ds = gdal.BuildVRT(str(out_file), [str(tile) for tile in tiles])
+    if ds is not None:
+        ds.FlushCache()
+    ds = None
 
 
 def backoff_hdlr(details):

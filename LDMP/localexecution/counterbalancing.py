@@ -83,7 +83,12 @@ def compute_counterbalancing_local(
 
     # Combine gains/losses + achievement + spatial units into a multi-band output
     output_vrt = job_output_path.parent / f"{job_output_path.stem}_counterbalancing.vrt"
-    gdal.BuildVRT(str(output_vrt), [gl_path, ach_path, lt_raster_path], separate=True)
+    ds_vrt = gdal.BuildVRT(
+        str(output_vrt), [gl_path, ach_path, lt_raster_path], separate=True
+    )
+    if ds_vrt is not None:
+        ds_vrt.FlushCache()
+    ds_vrt = None
 
     year_initial = params.get("year_initial")
     year_final = params.get("year_final")

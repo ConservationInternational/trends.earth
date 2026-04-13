@@ -89,7 +89,7 @@ class SummaryTask(qgis.core.QgsTask):
             indic_vrt = GetTempFilename(".vrt")
             logger.log("Saving indicator VRT to: {}".format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
-            gdal.BuildVRT(
+            ds_vrt = gdal.BuildVRT(
                 indic_vrt,
                 [self.f_loss_vrt, self.tc_vrt],
                 outputBounds=bbs[n],
@@ -97,6 +97,9 @@ class SummaryTask(qgis.core.QgsTask):
                 resampleAlg=gdal.GRA_NearestNeighbour,
                 separate=True,
             )
+            if ds_vrt is not None:
+                ds_vrt.FlushCache()
+            ds_vrt = None
 
             clipped_vrt = GetTempFilename(".tif")
             logger.log(

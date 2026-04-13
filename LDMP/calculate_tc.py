@@ -333,7 +333,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         for i in range(len(lc_files)):
             f = GetTempFilename(".vrt")
             # Add once since band numbers don't start at zero
-            gdal.BuildVRT(
+            ds_vrt = gdal.BuildVRT(
                 f,
                 lc_files[i],
                 bandList=[i + 1],
@@ -344,6 +344,9 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
                 resampleAlg=gdal.GRA_NearestNeighbour,
                 separate=True,
             )
+            if ds_vrt is not None:
+                ds_vrt.FlushCache()
+            ds_vrt = None
             lc_vrts.append(f)
 
         climate_zones = os.path.join(
@@ -354,7 +357,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
 
         in_vrt = GetTempFilename(".vrt")
         log("Saving SOC input files to {}".format(in_vrt))
-        gdal.BuildVRT(
+        ds_vrt = gdal.BuildVRT(
             in_vrt,
             in_files,
             resolution="highest",
@@ -362,6 +365,9 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
             outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
             separate=True,
         )
+        if ds_vrt is not None:
+            ds_vrt.FlushCache()
+        ds_vrt = None
         # Lc bands start on band 3 as band 1 is initial soc, and band 2 is
         # climate zones
         lc_band_nums = np.arange(len(lc_files)) + 3

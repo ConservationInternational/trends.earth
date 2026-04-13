@@ -2500,7 +2500,10 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         if band is None:
             return None
         f = GetTempFilename(".vrt")
-        gdal.BuildVRT(f, str(band.path), bandList=[band.band_index])
+        ds = gdal.BuildVRT(f, str(band.path), bandList=[band.band_index])
+        if ds is not None:
+            ds.FlushCache()
+        ds = None
 
         return f
 

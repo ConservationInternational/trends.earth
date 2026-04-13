@@ -48,7 +48,7 @@ def compute_soil_organic_carbon(
 
     in_vrt_path = tempfile.NamedTemporaryFile(suffix=".vrt").name
     LDMP.logger.log("Saving SOC input files to {}".format(in_vrt_path))
-    gdal.BuildVRT(
+    ds_vrt = gdal.BuildVRT(
         in_vrt_path,
         in_files,
         resolution="highest",
@@ -58,6 +58,10 @@ def compute_soil_organic_carbon(
         ),
         separate=True,
     )
+    if ds_vrt is None:
+        raise RuntimeError("Failed to create combined VRT from SOC input files")
+    ds_vrt.FlushCache()
+    ds_vrt = None
     LDMP.logger.log(f"Saving soil organic carbon to {dataset_output_path!r}")
     # Lc bands start on band 3 as band 1 is initial soc, and band 2 is
     # climate zones

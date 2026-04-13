@@ -30,7 +30,15 @@ def load_object(python_path: str) -> typing.Any:
 def save_vrt(source_path: Path, source_band_index: int) -> str:
     temporary_file = tempfile.NamedTemporaryFile(suffix=".vrt", delete=False)
     temporary_file.close()
-    gdal.BuildVRT(temporary_file.name, str(source_path), bandList=[source_band_index])
+    ds = gdal.BuildVRT(
+        temporary_file.name, str(source_path), bandList=[source_band_index]
+    )
+    if ds is None:
+        raise RuntimeError(
+            f"Failed to create VRT for band {source_band_index} from {source_path}"
+        )
+    ds.FlushCache()
+    ds = None
     return temporary_file.name
 
 

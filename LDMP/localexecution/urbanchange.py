@@ -49,7 +49,7 @@ def compute_urban_change_summary_table(
         # keep the pixels aligned with the chosen productivity layer.
         indic_vrt = tempfile.NamedTemporaryFile(suffix=".vrt").name
         LDMP.logger.log("Saving indicator VRT to: {}".format(indic_vrt))
-        gdal.BuildVRT(
+        ds_vrt = gdal.BuildVRT(
             indic_vrt,
             in_files,
             outputBounds=bbs[n],
@@ -57,6 +57,9 @@ def compute_urban_change_summary_table(
             resampleAlg=gdal.GRA_NearestNeighbour,
             separate=True,
         )
+        if ds_vrt is not None:
+            ds_vrt.FlushCache()
+        ds_vrt = None
 
         output_indicator_tifs = []
 
@@ -126,7 +129,12 @@ def compute_urban_change_summary_table(
         output_path = output_indicator_tifs[0]
     else:
         output_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
-        gdal.BuildVRT(str(output_path), [str(path) for path in output_indicator_tifs])
+        ds_vrt = gdal.BuildVRT(
+            str(output_path), [str(path) for path in output_indicator_tifs]
+        )
+        if ds_vrt is not None:
+            ds_vrt.FlushCache()
+        ds_vrt = None
 
     urban_change_job.results = RasterResults(
         name="urban_change_summary",

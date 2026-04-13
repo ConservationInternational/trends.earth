@@ -126,7 +126,10 @@ def compute_biomass_restoration(
         output_path = Path(output_biomass_diff_tifs[0])
     else:
         output_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
-        gdal.BuildVRT(str(output_path), output_biomass_diff_tifs)
+        ds_vrt = gdal.BuildVRT(str(output_path), output_biomass_diff_tifs)
+        if ds_vrt is not None:
+            ds_vrt.FlushCache()
+        ds_vrt = None
 
     # Update the band infos to use the masking value (-32767) as the file
     # no data value, so that stretches are more likely to compute correctly

@@ -27,7 +27,7 @@ def _prepare_land_cover_inputs(job: Job, area_of_interest: AOI) -> Path:
     # Add the lc layers to a VRT in case they don't match in resolution,
     # and set proper output bounds
     in_vrt = tempfile.NamedTemporaryFile(suffix=".vrt").name
-    gdal.BuildVRT(
+    ds_vrt = gdal.BuildVRT(
         in_vrt,
         [lc_initial_vrt, lc_final_vrt],
         resolution="highest",
@@ -37,6 +37,10 @@ def _prepare_land_cover_inputs(job: Job, area_of_interest: AOI) -> Path:
         ),
         separate=True,
     )
+    if ds_vrt is None:
+        raise RuntimeError("Failed to create combined VRT from land cover input files")
+    ds_vrt.FlushCache()
+    ds_vrt = None
 
     return Path(in_vrt)
 

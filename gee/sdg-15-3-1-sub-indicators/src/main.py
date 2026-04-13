@@ -7,6 +7,7 @@ import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import ee
+import rollbar
 from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
 from te_algorithms.gee.land_cover import land_cover
@@ -22,6 +23,39 @@ from te_algorithms.gee.util import TEImageV2, teimage_v1_to_teimage_v2
 from te_schemas import results
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
+
+# Mapping of deprecated parameter names to their current equivalents.
+# Old names were used in plugin versions <= 2.2.2.
+_DEPRECATED_PROD_PARAMS = {
+    "asset_productivity": "ndvi_gee_dataset",
+    "asset_climate": "climate_gee_dataset",
+    "traj_method": "trajectory_method",
+}
+
+
+def _migrate_productivity_params(prod_params, logger):
+    """Return prod_params with deprecated keys replaced by current names.
+
+    If any deprecated key is found, a warning is logged and reported to
+    Rollbar so we can track how many clients still use old naming.
+    """
+    migrated = dict(prod_params)
+    renamed = []
+
+    for old_key, new_key in _DEPRECATED_PROD_PARAMS.items():
+        if new_key not in migrated and old_key in migrated:
+            migrated[new_key] = migrated.pop(old_key)
+            renamed.append(f"{old_key} -> {new_key}")
+
+    if renamed:
+        msg = (
+            "Deprecated productivity parameter names detected "
+            f"(renamed: {', '.join(renamed)})."
+        )
+        logger.warning(msg)
+        rollbar.report_message(msg, level="warning")
+
+    return migrated
 
 
 def _run_lc(params, additional_years, logger):
@@ -167,7 +201,7 @@ def run_te_for_period(params, EXECUTION_ID, logger):
     """Run indicators using Trends.Earth productivity"""
     proj = ee.ImageCollection(params["population"]["asset"]).toBands().projection()
 
-    prod_params = params.get("productivity")
+    prod_params = _migrate_productivity_params(params.get("productivity"), logger)
     prod_asset = prod_params.get("ndvi_gee_dataset")
     all_geojsons = params.get("geojsons")
 

@@ -22,29 +22,24 @@ jobs:
         
       - name: Mark GitHub workspace as safe
         run: git config --global --add safe.directory $GITHUB_WORKSPACE
-        
-      - name: Setup python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-          architecture: "x64"
 
-      - name: Install packaging tools
+      - name: Install OS packages and configure environment
         run: |
           apt-get update
-          apt-get install -y qttools5-dev-tools
-          
-      - name: Upgrade pip for PEP-517 support
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            python3-venv qttools5-dev-tools
+
+      - name: Create virtualenv and upgrade pip
         run: |
-          python -m pip --version
-          # Upgrade pip to >=24.0 to fix UNKNOWN package name issue with pyproject.toml-only packages
-          # Older pip versions don't properly handle PEP-517 builds from git/source
-          # See: https://stackoverflow.com/questions/78034052/unknown-project-name-and-version-number-for-my-own-pip-package
-          python -m pip install --upgrade pip setuptools wheel
-          python -m pip --version
-          
+          python3 -m venv .venv
+          echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
+          .venv/bin/python -m pip install --upgrade pip setuptools wheel
+          .venv/bin/python -m pip --version
+
       - name: Install build requirements
-        run: pip install -r requirements-dev.txt
+        env:
+          PIP_ALWAYS_USE_PEP517: '1'
+        run: .venv/bin/pip install --no-cache-dir -r requirements-dev.txt
 
       - name: Set version SHA
         run: invoke set-version --modules

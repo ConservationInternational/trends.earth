@@ -26,6 +26,7 @@ from .conf import KNOWN_SCRIPTS
 from .jobs.manager import job_manager
 from .logger import log
 from .settings import AreaWidget, AreaWidgetSection
+from .utils import push_message
 
 Ui_DlgTimeseries, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgTimeseries.ui")
@@ -41,7 +42,7 @@ def show_time_series(iface, parent=None, use_tool_flag=True):
         time_series_dlg.setWindowFlags(time_series_dlg.windowFlags() | Qt.Tool)
         time_series_dlg.show()
     else:
-        time_series_dlg.exec_()
+        time_series_dlg.exec()
 
     return time_series_dlg
 
@@ -316,7 +317,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.reset_widgets()
 
         if resp:
-            self.mb.pushMessage(
+            push_message(
+                self.mb,
                 self.tr("Submitted"),
                 self.tr(
                     "Time series calculation task submitted to Trends.Earth server."
@@ -325,7 +327,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                 duration=5,
             )
         else:
-            self.mb.pushMessage(
+            push_message(
+                self.mb,
                 self.tr("Error"),
                 self.tr(
                     "Unable to submit time series calculation task to Trends.Earth "

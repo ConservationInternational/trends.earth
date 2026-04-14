@@ -22,6 +22,7 @@ from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 
 from . import calculate, lc_setup
 from .jobs.manager import job_manager
+from .utils import push_message
 
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui")
@@ -105,8 +106,8 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         else:
             main_msg = "Error"
             description = "Unable to submit land cover task to Trends.Earth server."
-        self.mb.pushMessage(
-            self.tr(main_msg), self.tr(description), level=0, duration=5
+        push_message(
+            self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
         )
 
     def calculate_locally(self):

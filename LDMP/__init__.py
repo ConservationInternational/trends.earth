@@ -23,6 +23,10 @@ from qgis.core import Qgis, QgsApplication
 from qgis.PyQt import QtCore
 from qgis.utils import iface
 
+from .qt_compat import apply_qt_compat
+
+apply_qt_compat()
+
 from . import logger
 
 # initialize translation

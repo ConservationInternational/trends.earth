@@ -27,6 +27,7 @@ from . import GetTempFilename, calculate, conf, data_io, worker
 from .jobs.manager import job_manager
 from .logger import log
 from .summary import calc_cell_area
+from .utils import push_message
 
 DlgCalculateTcDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateTCData.ui")
@@ -440,8 +441,8 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         else:
             main_msg = "Error"
             description = "Unable to submit total carbon task to Trends.Earth server."
-        self.mb.pushMessage(
-            self.tr(main_msg), self.tr(description), level=0, duration=5
+        push_message(
+            self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
         )
 
 

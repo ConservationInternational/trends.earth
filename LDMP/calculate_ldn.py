@@ -31,6 +31,7 @@ from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import ldn
 from .logger import log
+from .utils import push_message
 
 # SOC baseline year - the SOC reference dataset is from 2000, so analysis cannot start earlier
 SOC_MIN_YEAR = 2000
@@ -1297,7 +1298,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     def on_save_preset(self):
         """Save current configuration as a new preset."""
         dialog = PresetSaveDialog(self)
-        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+        if dialog.exec() == QtWidgets.QDialog.Accepted:
             name = dialog.get_name()
             description = dialog.get_description()
 
@@ -1498,7 +1499,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     def on_export_presets(self):
         """Export presets to JSON file."""
         dialog = PresetExportDialog(self.preset_manager.get_all_presets(), self)
-        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+        if dialog.exec() == QtWidgets.QDialog.Accepted:
             selected_presets = dialog.get_selected_presets()
             file_path, _ = QtWidgets.QFileDialog.getSaveFileName(
                 self, "Export Presets", "ldn_presets.json", "JSON Files (*.json)"
@@ -2353,8 +2354,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 description = (
                     "Unable to submit SDG sub-indicator task to Trends.Earth server."
                 )
-            self.mb.pushMessage(
-                self.tr(main_msg), self.tr(description), level=0, duration=5
+            push_message(
+                self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
             )
 
 

@@ -716,7 +716,7 @@ class DownloadJobResultsTask(QgsTask):
         cancel_timer.start(self._CANCEL_CHECK_INTERVAL_MS)
 
         downloader.startDownload()
-        loop.exec_()
+        loop.exec()
         cancel_timer.stop()
 
         if self.isCanceled():
@@ -917,7 +917,11 @@ class JobManager(QtCore.QObject):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._state_update_mutex = QtCore.QMutex(QtCore.QMutex.Recursive)
+        # Qt5: QMutex(Recursive); Qt6: QRecursiveMutex
+        try:
+            self._state_update_mutex = QtCore.QMutex(QtCore.QMutex.Recursive)
+        except AttributeError:
+            self._state_update_mutex = QtCore.QRecursiveMutex()
         self._api_client_mutex = QtCore.QMutex()
         self.clear_known_jobs()
         self.tm = QgsApplication.taskManager()

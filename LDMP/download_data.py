@@ -25,6 +25,7 @@ from .conf import Setting, settings_manager
 from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
 from .jobs.manager import job_manager
 from .logger import log
+from .utils import push_message
 
 DlgDownloadUi, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDownload.ui"))
 
@@ -285,6 +286,6 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 description = (
                     "Unable to submit download request to Trends.Earth server."
                 )
-            self.mb.pushMessage(
-                self.tr(main_msg), self.tr(description), level=0, duration=5
+            push_message(
+                self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
             )

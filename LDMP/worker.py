@@ -30,7 +30,7 @@ class _WatchdogTimer(QtCore.QObject):
         watchdog = _WatchdogTimer(10_000, loop.quit)
         some_signal.connect(watchdog.kick)
         watchdog.start()
-        loop.exec_()
+        loop.exec()
         watchdog.stop()
     """
 
@@ -263,7 +263,7 @@ class StartWorker:
             self.worker, iface, tr_worker.tr("Processing: {}".format(process_name))
         )
         watchdog.start()
-        pause.exec_()
+        pause.exec()
         watchdog.stop()
 
         if self.exception:

@@ -127,7 +127,7 @@
                 </property>
                 <property name="font">
                  <font>
-                  <weight>50</weight>
+                  <weight>400</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -259,7 +259,7 @@
                 </property>
                 <property name="font">
                  <font>
-                  <weight>50</weight>
+                  <weight>400</weight>
                   <bold>false</bold>
                  </font>
                 </property>

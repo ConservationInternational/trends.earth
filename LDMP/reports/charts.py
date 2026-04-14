@@ -28,6 +28,11 @@ from qgis.core import (
 from qgis.PyQt.QtCore import QCoreApplication, QObject, Qt, QTemporaryFile, QUrl
 from qgis.PyQt.QtGui import QColor
 
+try:
+    _EXPORT_SUCCESS = QgsLayoutExporter.Success
+except AttributeError:
+    _EXPORT_SUCCESS = QgsLayoutExporter.ExportResult.Success
+
 from ..jobs.models import Job
 from ..layers import (
     create_categorical_color_ramp,
@@ -194,7 +199,7 @@ class BaseChart:
         settings = QgsLayoutExporter.ImageExportSettings()
         res = exporter.exportToImage(path, settings)
 
-        if res != QgsLayoutExporter.Success:
+        if res != _EXPORT_SUCCESS:
             return False
 
         return True
@@ -416,26 +421,38 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
         file_name = slugify(f"chart-{self.base_chart_name}_area")
         output_file_path = f"{self.root_output_dir}/{file_name}.png"
 
+        # Align both collections by category_value so mismatched sets of
+        # land-cover classes (e.g. a class absent in one year) don't crash.
+        init_by_val = {v.category_value: v for v in self.value_info_collection}
+        target_by_val = {v.category_value: v for v in self.target_value_info_collection}
+        # Preserve init order; append any target-only values at the end
+        ordered_values = list(
+            dict.fromkeys(list(init_by_val.keys()) + list(target_by_val.keys()))
+        )
+
         labels = []
         init_values = []
         target_values = []
         init_colors = []
         target_colors = []
-        for i in range(len(self.value_info_collection)):
-            init_val_info = self.value_info_collection[i]
-            target_val_info = self.target_value_info_collection[i]
+        for cat_val in ordered_values:
+            init_val_info = init_by_val.get(cat_val)
+            target_val_info = target_by_val.get(cat_val)
+
+            # Use whichever entry is available for the label/color reference
+            ref_info = init_val_info or target_val_info
 
             # Labels
-            lbls = init_val_info.category_label.split("-", maxsplit=1)
+            lbls = ref_info.category_label.split("-", maxsplit=1)
             label = lbls[0] if len(lbls) == 1 else lbls[1]
             labels.append(label)
 
-            # Area
-            init_values.append(round(init_val_info.area))
-            target_values.append(round(target_val_info.area))
+            # Area (0 if the class is absent in that year)
+            init_values.append(round(init_val_info.area) if init_val_info else 0)
+            target_values.append(round(target_val_info.area) if target_val_info else 0)
 
-            # Colors
-            target_clr = target_val_info.color
+            # Colors — derive from whichever side has the entry
+            target_clr = (target_val_info or init_val_info).color
             init_clr = target_clr.lighter(128)
             init_colors.append(init_clr.name())
             target_colors.append(target_clr.name())

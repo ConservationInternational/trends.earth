@@ -230,4 +230,4 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
     def show_logs_for_job(job: Job, parent=None) -> None:
         """Static method to show logs for a job."""
         dialog = DlgExecutionLogs(job, parent)
-        dialog.exec_()
+        dialog.exec()

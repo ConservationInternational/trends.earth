@@ -504,7 +504,7 @@ class RemapRasterWorker(worker.AbstractWorker):
                 else:
                     cols = xsize - x
 
-                d = band.ReadAsArray(x, y, cols, rows)
+                d = band.ReadAsArray(x, y, cols, rows).astype(np.int16)
 
                 d_original = d.copy()
 

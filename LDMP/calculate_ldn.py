@@ -2558,7 +2558,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.groupBox_progress_period.setVisible(False)
             self.advanced_configuration_progress.setVisible(False)
             self.pushButton_progress_period.setVisible(False)
-            for grp, settings in self.extra_progress_boxes.items():
+            for grp, settings in self.extra_progress_boxes.values():
                 grp.setParent(None)
                 grp.deleteLater()
                 settings.setParent(None)

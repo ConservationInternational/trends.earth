@@ -16,8 +16,8 @@ import typing
 from pathlib import Path
 
 import qgis.gui
-from PyQt5.QtWidgets import QSpinBox
 from qgis.PyQt import QtCore, QtWidgets, uic
+from qgis.PyQt.QtWidgets import QSpinBox
 from te_schemas.algorithms import ExecutionScript
 from te_schemas.productivity import ProductivityMode
 

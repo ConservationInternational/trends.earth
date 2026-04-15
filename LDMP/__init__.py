@@ -27,7 +27,7 @@ from .qt_compat import apply_qt_compat
 
 apply_qt_compat()
 
-from . import logger
+from . import logger  # noqa: E402
 
 # initialize translation
 plugin_dir = os.path.dirname(os.path.realpath(__file__))

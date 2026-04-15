@@ -47,7 +47,7 @@ class tool_tipper(QtCore.QObject):
             itemTooltip = view.model().data(index, QtCore.Qt.ToolTipRole)
 
             fm = QtGui.QFontMetrics(view.font())
-            itemTextWidth = fm.width(itemText)
+            itemTextWidth = fm.horizontalAdvance(itemText)
             rect = view.visualRect(index)
             rectWidth = rect.width()
 

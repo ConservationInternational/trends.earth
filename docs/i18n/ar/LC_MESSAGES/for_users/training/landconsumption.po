@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.2.4\n"
+"Project-Id-Version: Trends.Earth 2.2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-30 05:04+0000\n"
+"POT-Creation-Date: 2026-04-13 12:33+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
@@ -52,7 +52,7 @@ msgstr ""
 "البيانات والأساليب المستخدمة في |trends.earth|، يرجى الرجوع إلى قسم الخلفية:"
 " المرجع:`background_land_consumption`."
 
-#: ../../../<rst_epilog>:6
+#: ../../../<rst_epilogue>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
@@ -255,7 +255,7 @@ msgstr ""
 "حدد أيقونة الحساب (| iconCalculator |) من المكون الإضافي Trends.Earth في "
 "QGIS."
 
-#: ../../../<rst_epilog>:2
+#: ../../../<rst_epilogue>:2
 msgid "iconCalculator"
 msgstr "أيقونة حاسبة"
 

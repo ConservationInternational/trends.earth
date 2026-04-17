@@ -2226,7 +2226,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="384"/>
+        <location filename="../calculate_tc.py" line="390"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2271,7 +2271,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="384"/>
+        <location filename="../calculate_tc.py" line="390"/>
         <source>Error calculating change in toal carbon.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2341,22 +2341,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="676"/>
+        <location filename="../calculate_tc.py" line="682"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="646"/>
+        <location filename="../calculate_tc.py" line="652"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="657"/>
+        <location filename="../calculate_tc.py" line="663"/>
         <source>Area of interest is not entirely within the total carbon layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="676"/>
+        <location filename="../calculate_tc.py" line="682"/>
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6123,22 +6123,22 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_calculate_tc</name>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="204"/>
+        <location filename="../localexecution/totalcarbon.py" line="207"/>
         <source>Success</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="204"/>
+        <location filename="../localexecution/totalcarbon.py" line="207"/>
         <source>Summary table saved to {self.output_file}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="213"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="213"/>
         <source>Error saving output table - check that {self.output_file} is accessible and not already open.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6365,6 +6365,11 @@ for running algorithms and their results.</source>
         <source>Evaluate Land Degradation Neutrality counterbalancing following the GPG Addendum methodology, assessing gains versus losses per land type</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../conf.py" line="499"/>
+        <source>Assess whether gains offset losses within each land type</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>tr_data_io</name>
@@ -6389,7 +6394,7 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2818"/>
+        <location filename="../data_io.py" line="2821"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6514,7 +6519,7 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2818"/>
+        <location filename="../data_io.py" line="2821"/>
         <source>Select a layer to load.</source>
         <translation type="unfinished"></translation>
     </message>

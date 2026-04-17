@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.2.4\n"
+"Project-Id-Version: Trends.Earth 2.2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-27 05:00+0000\n"
+"POT-Creation-Date: 2026-04-13 12:33+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -81,7 +81,7 @@ msgid ""
 "describes how each indicator is calculated by |trends.earth|."
 msgstr "本页面简要介绍 SDG 指标 15.3.1，并说明 |trends.earth| 如何计算每个指标。"
 
-#: ../../../<rst_epilog>:6
+#: ../../../<rst_epilogue>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 

@@ -1212,6 +1212,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # The datatype determines whether the dataset resampling is done with
         # nearest neighbor and mode or nearest neighbor and mean
         self.datatype = "categorical"
+        self.warp_data_type = gdal.GDT_Int16
         self.metadata = None
 
         self.btnMetadata = QtWidgets.QPushButton(tr_data_io.tr("Metadata"))
@@ -1581,7 +1582,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             temp_tif,
             in_file,
             bandList=[band_number],
-            outputType=gdal.GDT_Byte,
+            outputType=self.warp_data_type,
         )
 
         # Convert target_bounds [xmin, ymin, xmax, ymax] to the
@@ -1611,7 +1612,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_file,
             out_res,
             resample_mode,
-            output_bounds=output_bounds,
+            self.warp_data_type,
+            output_bounds,
         )
         os.remove(temp_tif)
 

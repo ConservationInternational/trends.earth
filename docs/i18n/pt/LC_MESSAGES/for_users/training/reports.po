@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.2.4\n"
+"Project-Id-Version: Trends.Earth 2.2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-30 05:04+0000\n"
+"POT-Creation-Date: 2026-04-13 12:33+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Portuguese (https://app.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -129,7 +129,7 @@ msgstr ""
 " que a tarefa de criação do relatório ainda está a correr e será ativado "
 "automaticamente assim que o processo estiver completo."
 
-#: ../../../<rst_epilog>:4
+#: ../../../<rst_epilogue>:4
 msgid "iconReports"
 msgstr "iconReports"
 

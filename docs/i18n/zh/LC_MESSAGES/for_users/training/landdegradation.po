@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.2.4\n"
+"Project-Id-Version: Trends.Earth 2.2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-30 05:04+0000\n"
+"POT-Creation-Date: 2026-04-13 12:33+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -268,7 +268,7 @@ msgstr ""
 "如果您想获得两个时期的摘要结果，请务必勾选**基线** 和**发展时期** 两项的 **人口** 框。 |trends.earth| 提供访问 "
 "**世界人口** 数据集的权限，UNCCD 默认使用该数据集计算SO2-3指标。"
 
-#: ../../../<rst_epilog>:6
+#: ../../../<rst_epilogue>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 

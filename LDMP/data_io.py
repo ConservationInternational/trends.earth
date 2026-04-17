@@ -393,7 +393,13 @@ class RasterizeWorker(worker.AbstractWorker):
 
 class RasterImportWorker(worker.AbstractWorker):
     def __init__(
-        self, in_file, out_file, out_res, resample_mode, out_data_type=gdal.GDT_Byte
+        self,
+        in_file,
+        out_file,
+        out_res,
+        resample_mode,
+        out_data_type=gdal.GDT_Byte,
+        output_bounds=None,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -402,37 +408,34 @@ class RasterImportWorker(worker.AbstractWorker):
         self.out_res = out_res
         self.resample_mode = resample_mode
         self.out_data_type = out_data_type
+        self.output_bounds = output_bounds
 
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
+        warp_kwargs = dict(
+            format="GTiff",
+            dstNodata=-32768,
+            dstSRS="epsg:4326",
+            outputType=self.out_data_type,
+            resampleAlg=self.resample_mode,
+            creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
+            callback=self.progress_callback,
+        )
+
         if self.out_res:
-            res = gdal.Warp(
-                self.out_file,
-                self.in_file,
-                format="GTiff",
-                xRes=self.out_res,
-                yRes=-self.out_res,
-                dstNodata=-32768,
-                dstSRS="epsg:4326",
-                outputType=self.out_data_type,
-                resampleAlg=self.resample_mode,
-                creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
-                callback=self.progress_callback,
-            )
-        else:
-            res = gdal.Warp(
-                self.out_file,
-                self.in_file,
-                format="GTiff",
-                dstNodata=-32768,
-                dstSRS="epsg:4326",
-                outputType=self.out_data_type,
-                resampleAlg=self.resample_mode,
-                creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
-                callback=self.progress_callback,
-            )
+            warp_kwargs["xRes"] = self.out_res
+            warp_kwargs["yRes"] = -self.out_res
+
+        if self.output_bounds:
+            warp_kwargs["outputBounds"] = self.output_bounds
+
+        res = gdal.Warp(
+            self.out_file,
+            self.in_file,
+            **warp_kwargs,
+        )
 
         if res:
             return True
@@ -1574,27 +1577,23 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         temp_tif = GetTempFilename(".tif")
         target_bounds = self.extent_as_list()
 
+        gdal.Translate(
+            temp_tif,
+            in_file,
+            bandList=[band_number],
+            outputType=gdal.GDT_Byte,
+        )
+
+        # Convert target_bounds [xmin, ymin, xmax, ymax] to the
+        # outputBounds format expected by gdal.Warp: [minX, minY, maxX, maxY]
+        # These are in WGS84, matching the dstSRS used by RasterImportWorker.
         if len(target_bounds) == 0:
             log("Target bounds for warping raster not available.")
-            gdal.Translate(
-                temp_tif,
-                in_file,
-                bandList=[band_number],
-                outputType=gdal.GDT_Byte,
-            )
+            output_bounds = None
         else:
             ext_str = ",".join(map(str, target_bounds))
             log(f"Target bounds for warped raster: {ext_str}")
-            # Ensure target_bounds are in the correct order: [xmin, ymax, xmax, ymin]
-            xmin, ymin, xmax, ymax = target_bounds
-            projwin = [xmin, ymax, xmax, ymin]
-            gdal.Translate(
-                temp_tif,
-                in_file,
-                bandList=[band_number],
-                outputType=gdal.GDT_Byte,
-                projWin=projwin,
-            )
+            output_bounds = target_bounds
 
         log("Importing {} to {}".format(in_file, out_file))
 
@@ -1612,6 +1611,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_file,
             out_res,
             resample_mode,
+            output_bounds=output_bounds,
         )
         os.remove(temp_tif)
 

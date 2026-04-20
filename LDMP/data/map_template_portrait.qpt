@@ -35,7 +35,7 @@
    </styles>
    <layer-tree-group expanded="1" checked="Qt::Checked" name="">
     <customproperties/>
-    <layer-tree-layer expanded="1" providerKey="gdal" checked="Qt::Checked" id="Productivity_trajectory_trend__slope_of_NDVI___10000_20171212153923962" source="C:\Users\azvol\Desktop\aeaece5d-43f6-4f0b-b116-54e91e5d4d22_prod_trajectory.tif" name="Productivity trajectory trend (slope of NDVI * 10000)">
+    <layer-tree-layer expanded="1" providerKey="gdal" checked="Qt::Checked" id="productivity_trajectory_layer" source="C:\Users\azvol\Desktop\sample_prod_trajectory.tif" name="Productivity trajectory trend (slope of NDVI * 10000)">
      <customproperties/>
     </layer-tree-layer>
    </layer-tree-group>

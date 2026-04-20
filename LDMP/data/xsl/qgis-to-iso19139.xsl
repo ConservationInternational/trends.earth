@@ -255,7 +255,7 @@
                                 <gmd:temporalElement>
                                     <gmd:EX_TemporalExtent>
                                         <gmd:extent>
-                                            <gml:TimePeriod gml:id="d6780e395a1050910">
+                                            <gml:TimePeriod gml:id="timeperiod-1">
                                                 <gml:beginPosition><xsl:value-of select="qgis/extent/temporal/period/start"/></gml:beginPosition>
                                                 <gml:endPosition><xsl:value-of select="qgis/extent/temporal/period/end"/></gml:endPosition>
                                             </gml:TimePeriod>

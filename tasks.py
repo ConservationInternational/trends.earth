@@ -2690,42 +2690,69 @@ def security_scan(c, fix=False):
     plugin_dir = c.plugin.source_dir
     ext_libs = c.plugin.ext_libs["path"]
 
-    print("=== Bandit (static security analysis) ===")
+    bandit_findings = []
     bandit_cmd = [
-        sys.executable,
-        "-m",
         "bandit",
         "-r",
         plugin_dir,
-        "--exclude",
-        ext_libs,
+        "-f",
+        "json",
+        "-ll",
+        "--quiet",
     ]
-    result = subprocess.run(bandit_cmd)
+    result = subprocess.run(bandit_cmd, capture_output=True, text=True)
+    if result.stdout and result.stdout.strip():
+        try:
+            bandit_scan = json.loads(result.stdout)
+            for issue in bandit_scan.get("results", []):
+                bandit_findings.append(
+                    {
+                        "file": issue.get("filename", ""),
+                        "line": issue.get("line_number", 0),
+                        "type": issue.get("test_id", ""),
+                        "message": issue.get("issue_text", ""),
+                    }
+                )
+        except json.JSONDecodeError:
+            if result.stderr:
+                print(result.stderr)
 
-    print("\n=== detect-secrets (hardcoded secrets detection) ===")
+    if bandit_findings:
+        print("=== Bandit (static security analysis) ===")
+        for finding in bandit_findings:
+            print(
+                f"  {finding['file']}:{finding['line']} - "
+                f"{finding['type']}: {finding['message']}"
+            )
+
+    secrets_findings = []
     ds_cmd = [
-        sys.executable,
-        "-m",
-        "detect_secrets",
+        "detect-secrets",
         "scan",
-        plugin_dir,
-        "--exclude-files",
-        ext_libs.replace("/", r"[\\/]"),
-        "--exclude-files",
-        r"[\\/]data[\\/]",
+        "--all-files",
+        ".",
     ]
-    result = subprocess.run(ds_cmd, capture_output=True, text=True)
+    result = subprocess.run(ds_cmd, capture_output=True, text=True, cwd=plugin_dir)
     if result.returncode != 0:
         print(result.stderr)
-    else:
+    elif result.stdout and result.stdout.strip():
         scan = json.loads(result.stdout)
         results = scan.get("results", {})
         if results:
             for filepath, findings in sorted(results.items()):
                 for f in findings:
-                    print(f"  {filepath}:{f['line_number']} - {f['type']}")
-        else:
-            print("  No secrets detected.")
+                    secrets_findings.append(
+                        {
+                            "file": filepath,
+                            "line": f.get("line_number", 0),
+                            "type": f.get("type", "Unknown"),
+                        }
+                    )
+
+    if secrets_findings:
+        print("\n=== detect-secrets (hardcoded secrets detection) ===")
+        for finding in secrets_findings:
+            print(f"  {finding['file']}:{finding['line']} - {finding['type']}")
 
     print("\n=== Flake8 (code quality) ===")
     flake8_cmd = [

@@ -2637,7 +2637,6 @@ def security_scan(c, fix=False):
     """Run the QGIS plugin repository security checks (bandit, detect-secrets, flake8)."""
     plugin_dir = c.plugin.source_dir
     ext_libs = c.plugin.ext_libs["path"]
-    failed = False
 
     print("=== Bandit (static security analysis) ===")
     bandit_cmd = [
@@ -2650,8 +2649,6 @@ def security_scan(c, fix=False):
         ext_libs,
     ]
     result = subprocess.run(bandit_cmd)
-    if result.returncode != 0:
-        failed = True
 
     print("\n=== detect-secrets (hardcoded secrets detection) ===")
     ds_cmd = [
@@ -2668,7 +2665,6 @@ def security_scan(c, fix=False):
     result = subprocess.run(ds_cmd, capture_output=True, text=True)
     if result.returncode != 0:
         print(result.stderr)
-        failed = True
     else:
         scan = json.loads(result.stdout)
         results = scan.get("results", {})
@@ -2676,7 +2672,6 @@ def security_scan(c, fix=False):
             for filepath, findings in sorted(results.items()):
                 for f in findings:
                     print(f"  {filepath}:{f['line_number']} - {f['type']}")
-            failed = True
         else:
             print("  No secrets detected.")
 

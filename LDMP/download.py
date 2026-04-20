@@ -231,7 +231,7 @@ def get_timestamp_manager() -> BoundaryTimestampManager:
 
 def local_check_hash_against_etag(path: Path, expected: str) -> bool:
     try:
-        path_hash = hashlib.md5(path.read_bytes()).hexdigest()
+        path_hash = hashlib.md5(path.read_bytes(), usedforsecurity=False).hexdigest()
     except FileNotFoundError:
         result = False
     else:
@@ -297,7 +297,7 @@ def verify_file_against_etag(
 
     # Calculate file MD5
     try:
-        file_md5 = hashlib.md5(path.read_bytes())
+        file_md5 = hashlib.md5(path.read_bytes(), usedforsecurity=False)
     except IOError as e:
         log(f"Error reading file for verification: {e}")
         return False
@@ -360,7 +360,7 @@ def check_hash_against_etag(url, filename, expected=None):
                 raise NotImplementedError
 
     with open(filename, "rb") as f:
-        md5hash = hashlib.md5(f.read()).hexdigest()
+        md5hash = hashlib.md5(f.read(), usedforsecurity=False).hexdigest()
 
     if md5hash == expected:
         log("File hash verified for {}".format(filename))

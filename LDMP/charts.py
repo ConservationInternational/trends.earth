@@ -177,7 +177,8 @@ def _hash_band(band):
     """Generate a unique hash for a band based on its properties."""
     return hashlib.md5(
         f"{band['name']}_{band['index']}_"
-        f"{json.dumps(band.get('metadata', {}), sort_keys=True)}".encode()
+        f"{json.dumps(band.get('metadata', {}), sort_keys=True)}".encode(),
+        usedforsecurity=False,
     ).hexdigest()
 
 

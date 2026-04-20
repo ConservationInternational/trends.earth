@@ -889,8 +889,7 @@ class ReportProcessHandlerTask(QgsTask):
             # main / UI thread) is not blocked.  The run() polling loop will
             # detect the process exit on its next iteration.
             subprocess.Popen(
-                f"TASKKILL /F /PID {pid} /T",
-                shell=True,
+                ["TASKKILL", "/F", "/PID", str(pid), "/T"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
             )

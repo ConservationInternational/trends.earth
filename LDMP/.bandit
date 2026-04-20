@@ -1,2 +1,2 @@
 [bandit]
-exclude = LDMP/ext-libs,.git,__pycache__,.pytest_cache
+exclude = ext-libs,LDMP/ext-libs,.git,__pycache__,.pytest_cache

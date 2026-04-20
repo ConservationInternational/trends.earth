@@ -101,6 +101,23 @@ class LayerValidationStatus(enum.Enum):
     NO_LAYERS = "no_layers"
 
 
+# Legacy script-name aliases used for dataset dropdown matching.
+DATASET_SCRIPT_NAME_ALIASES = {
+    "drought-vulnerability-summary": {
+        "drought-vulnerability-summary",
+        "drought-summary",
+    },
+}
+
+
+def _script_name_matches_dataset(script_name: str, dataset_name: str) -> bool:
+    if script_name == dataset_name:
+        return True
+
+    aliases = DATASET_SCRIPT_NAME_ALIASES.get(dataset_name, set())
+    return script_name in aliases
+
+
 # Shared message constants for layer/dataset selection widgets
 # These are lazily evaluated to ensure translation system is initialized
 def _get_no_region_message() -> str:
@@ -2678,7 +2695,7 @@ def get_usable_datasets(
         if dataset_name != "any":
             script = getattr(job, "script", None)
             if script is not None and hasattr(script, "name"):
-                if script.name != dataset_name:
+                if not _script_name_matches_dataset(script.name, dataset_name):
                     # For vectors, also check vector.type which is matched
                     # differently — we can't exclude here.  Only skip if
                     # the job is purely raster (no vector results possible).
@@ -2751,7 +2768,7 @@ def get_usable_datasets(
                         aoi, raster_result, job.visible_name, job
                     )
                 )
-                and job.script.name == dataset_name
+                and _script_name_matches_dataset(job.script.name, dataset_name)
                 and raster_result.uri is not None
             ):
                 result.append(

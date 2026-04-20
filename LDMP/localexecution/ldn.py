@@ -258,6 +258,21 @@ def _get_ld_input_aux_band(
     ):
         if job_band.name == aux_band_name:
             aux_bands.append((job_band, band_index))
+
+    # If multiple bands match by name, filter by the period of the selected
+    # main band. This handles multi-period summary files where the same band
+    # name appears once per period.
+    if len(aux_bands) > 1:
+        main_period = usable_band_info.band_info.metadata.get("period")
+        if main_period is not None:
+            period_filtered = [
+                (band, idx)
+                for band, idx in aux_bands
+                if band.metadata.get("period") == main_period
+            ]
+            if period_filtered:
+                aux_bands = period_filtered
+
     assert len(aux_bands) == 1
     aux_band = aux_bands[0]
 

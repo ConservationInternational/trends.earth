@@ -11,6 +11,7 @@
  ***************************************************************************/
 """
 
+import gzip
 import json
 import time
 import typing
@@ -49,7 +50,7 @@ class BoundariesCache:
 
     def get_boundaries_list_cache_file(self, release_type: str = "gbOpen") -> Path:
         """Get cache file path for boundaries list."""
-        return self.cache_dir / f"boundaries_list_{release_type}.json"
+        return self.cache_dir / f"boundaries_list_{release_type}.json.gz"
 
     def get_boundary_geojson_cache_file(
         self, country_code: str, admin_level: int, shape_id: typing.Optional[str] = None
@@ -139,8 +140,12 @@ class BoundariesCache:
                 "data": data,
             }
 
-            with cache_file.open("w", encoding="utf-8") as f:
-                json.dump(cache_data, f, indent=2)
+            if cache_file.suffix == ".gz":
+                with gzip.open(cache_file, "wt", encoding="utf-8") as f:
+                    json.dump(cache_data, f, indent=2)
+            else:
+                with cache_file.open("w", encoding="utf-8") as f:
+                    json.dump(cache_data, f, indent=2)
             return True
         except (OSError, TypeError) as e:
             log(f"Error saving cache with metadata to {cache_file}: {e}")
@@ -149,7 +154,13 @@ class BoundariesCache:
     def _extract_data_from_cache(self, cache_file: Path) -> typing.Optional[typing.Any]:
         """Extract the actual data from a cache file, handling metadata."""
         try:
-            with cache_file.open("r", encoding="utf-8") as f:
+
+            def _open_cache_file(path: Path):
+                if path.suffix == ".gz":
+                    return gzip.open(path, "rt", encoding="utf-8")
+                return path.open("r", encoding="utf-8")
+
+            with _open_cache_file(cache_file) as f:
                 cache_data = json.load(f)
 
             # Handle new format with metadata

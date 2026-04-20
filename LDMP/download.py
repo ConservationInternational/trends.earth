@@ -616,7 +616,11 @@ def _get_boundaries_from_local_cache() -> typing.Optional[typing.Dict[str, Count
             log(f"Boundaries cache file not found: {cache_file}")
             return None
 
-        with cache_file.open("r", encoding="utf-8") as handle:
+        with (
+            gzip.open(cache_file, "rt", encoding="utf-8")
+            if cache_file.suffix == ".gz"
+            else cache_file.open("r", encoding="utf-8")
+        ) as handle:
             data = json.load(handle)
 
         if isinstance(data, dict):
@@ -811,7 +815,11 @@ def download_boundary_geojson(
             cache_file = cache.get_boundaries_list_cache_file(release_type)
             if cache_file.exists():
                 try:
-                    with cache_file.open("r", encoding="utf-8") as handle:
+                    with (
+                        gzip.open(cache_file, "rt", encoding="utf-8")
+                        if cache_file.suffix == ".gz"
+                        else cache_file.open("r", encoding="utf-8")
+                    ) as handle:
                         cached_data = json.load(handle)
                     if isinstance(cached_data, dict):
                         boundaries_list = cached_data.get("data") or cached_data.get(

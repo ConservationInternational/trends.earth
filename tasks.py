@@ -2519,29 +2519,77 @@ def _get_api_token(c):
         "TRENDS_EARTH_API_PASSWORD"
     )
 
-    if not email or not password:
+    client_id = (
+        getattr(c.trends_earth_api, "client_id", None)
+        or os.environ.get("TRENDS_EARTH_API_CLIENT_ID")
+        or os.environ.get("CLIENT_ID")
+    )
+    client_secret = (
+        getattr(c.trends_earth_api, "client_secret", None)
+        or os.environ.get("TRENDS_EARTH_API_CLIENT_SECRET")
+        or os.environ.get("CLIENT_SECRET")
+    )
+
+    if (not email or not password) and (not client_id or not client_secret):
         raise RuntimeError(
             "Trends.Earth API credentials are not configured. "
-            "Set c.trends_earth_api.user/password or provide the "
-            "TRENDS_EARTH_API_USER and TRENDS_EARTH_API_PASSWORD environment variables."
+            "Set c.trends_earth_api.email/password or c.trends_earth_api.client_id/client_secret, "
+            "or provide TRENDS_EARTH_API_USER/TRENDS_EARTH_API_PASSWORD or "
+            "TRENDS_EARTH_API_CLIENT_ID/TRENDS_EARTH_API_CLIENT_SECRET "
+            "(or CLIENT_ID/CLIENT_SECRET) environment variables."
+        )
+
+    # Prefer user login when available for backwards compatibility.
+    if email and password:
+        try:
+            auth_response = requests.post(
+                f"{base_url}/auth", json={"email": email, "password": password}
+            )
+            auth_response.raise_for_status()
+
+            auth_payload = auth_response.json()
+            token = auth_payload.get("access_token")
+            if token:
+                return token
+            raise RuntimeError(
+                "Authentication response did not include an access token."
+            )
+        except (requests.exceptions.RequestException, ValueError, RuntimeError):
+            # Fall through to OAuth2 client credentials if configured.
+            pass
+
+    if not client_id or not client_secret:
+        raise RuntimeError(
+            "Failed to authenticate with Trends.Earth API using email/password."
         )
 
     try:
-        auth_response = requests.post(
-            f"{base_url}/auth", json={"email": email, "password": password}
+        oauth_response = requests.post(
+            f"{base_url}/api/v1/oauth/token",
+            json={
+                "grant_type": "client_credentials",
+                "client_id": client_id,
+                "client_secret": client_secret,
+            },
         )
-        auth_response.raise_for_status()
+        oauth_response.raise_for_status()
     except requests.exceptions.RequestException as exc:
-        raise RuntimeError("Failed to authenticate with Trends.Earth API.") from exc
+        raise RuntimeError(
+            "Failed to authenticate with Trends.Earth API using OAuth2 client credentials."
+        ) from exc
 
     try:
-        auth_payload = auth_response.json()
+        auth_payload = oauth_response.json()
     except ValueError as exc:
-        raise RuntimeError("Authentication response was not valid JSON.") from exc
+        raise RuntimeError(
+            "OAuth2 authentication response was not valid JSON."
+        ) from exc
 
     token = auth_payload.get("access_token")
     if not token:
-        raise RuntimeError("Authentication response did not include an access token.")
+        raise RuntimeError(
+            "OAuth2 authentication response did not include an access token."
+        )
     return token
 
 
@@ -2596,14 +2644,18 @@ def download_boundaries_cache(c, release_type="gbOpen", output=None):
         target_path = Path(output).resolve()
     else:
         target_path = (
-            Path(c.plugin.source_dir) / "data" / f"boundaries_list_{release_type}.json"
+            Path(c.plugin.source_dir)
+            / "data"
+            / f"boundaries_list_{release_type}.json.gz"
         ).resolve()
 
     target_path.parent.mkdir(parents=True, exist_ok=True)
     if target_path.exists():
         print(f"Overwriting existing file at {target_path}")
 
-    with target_path.open("w", encoding="utf-8") as handle:
+    import gzip as _gzip
+
+    with _gzip.open(target_path, "wt", encoding="utf-8") as handle:
         json.dump(cache_payload, handle, indent=2)
 
     print(

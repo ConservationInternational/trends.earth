@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.2.8
+version=2.2.10
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -25,7 +25,9 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.2.8 (April 17, 2026)
+changelog=2.2.10 (April 20, 2026)
+  - Fixed SDG 15.3.1 summary failing on multi-period datasets due to duplicate band name matching across periods
+ 2.2.8 (April 17, 2026)
   - Fixed custom data import (land cover, SOC, LPD) to correctly reproject rasters in non-WGS84 coordinate systems such as UTM
  2.2.6 (April 13, 2026)
   - Added experimental support for LDN counterbalancing analysis

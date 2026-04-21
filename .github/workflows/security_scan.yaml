@@ -21,19 +21,45 @@ permissions:
 jobs:
   security-scan:
     runs-on: ubuntu-latest
+    env:
+      PACKAGED_ZIP: LDMP_security_scan.zip
+      PACKAGED_EXTRACT_DIR: packaged_plugin
+      PACKAGED_PLUGIN_DIR: packaged_plugin/LDMP
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
+      - name: Install packaging prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qttools5-dev-tools unzip
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r requirements-dev.txt
+
+      - name: Build packaged plugin for scanning
+        run: |
+          invoke set-version --modules
+          invoke zipfile-build --filename "$PACKAGED_ZIP"
+          rm -rf "$PACKAGED_EXTRACT_DIR"
+          mkdir -p "$PACKAGED_EXTRACT_DIR"
+          unzip -o "$PACKAGED_ZIP" -d "$PACKAGED_EXTRACT_DIR"
+          test -d "$PACKAGED_PLUGIN_DIR"
+          echo "Scanning packaged plugin at: $PACKAGED_PLUGIN_DIR"
+
       - name: Install security tools
         run: |
-          python -m pip install --upgrade pip
           pip install bandit detect-secrets flake8
 
       # ── BLOCKING: Bandit static security analysis ──────────────────────────
@@ -43,9 +69,9 @@ jobs:
         id: bandit
         continue-on-error: true
         run: |
-          echo "Running Bandit on LDMP/ ..."
+          echo "Running Bandit on $PACKAGED_PLUGIN_DIR ..."
           set +e
-          bandit -r LDMP -f json -ll --quiet > bandit_output.json 2>/dev/null
+          bandit -r "$PACKAGED_PLUGIN_DIR" -f json -ll --quiet > bandit_output.json 2>/dev/null
           bandit_exit=$?
           set -e
 
@@ -80,7 +106,7 @@ jobs:
         id: secrets
         continue-on-error: true
         run: |
-          echo "Running detect-secrets on LDMP/ ..."
+          echo "Running detect-secrets on packaged plugin ..."
           set +e
           detect-secrets scan --all-files . > secrets_output.json 2>/dev/null
           ds_exit=$?
@@ -111,7 +137,7 @@ jobs:
           else:
               print("detect-secrets: no secrets found. ✓")
           PYEOF
-        working-directory: LDMP
+        working-directory: ${{ env.PACKAGED_PLUGIN_DIR }}
 
       # ── NON-BLOCKING: Flake8 code quality ──────────────────────────────────
       # Flake8 results are informational on the QGIS Plugin Repository and do
@@ -120,9 +146,9 @@ jobs:
         id: flake8
         continue-on-error: true
         run: |
-          echo "Running Flake8 on LDMP/ ..."
+          echo "Running Flake8 on $PACKAGED_PLUGIN_DIR ..."
           set +e
-          python -m flake8 LDMP --exclude=LDMP/ext-libs
+          python -m flake8 "$PACKAGED_PLUGIN_DIR" --exclude="$PACKAGED_PLUGIN_DIR/ext-libs"
           flake8_exit=$?
           set -e
           if [ $flake8_exit -ne 0 ]; then
@@ -141,12 +167,12 @@ jobs:
         id: suspicious
         continue-on-error: true
         run: |
-          echo "Running suspicious-files scan on LDMP/ ..."
+          echo "Running suspicious-files scan on $PACKAGED_PLUGIN_DIR ..."
           python3 - << 'PYEOF'
           import os
           import sys
 
-          root = "LDMP"
+          root = os.environ["PACKAGED_PLUGIN_DIR"]
           suspicious_extensions = {
               ".exe",
               ".dll",
@@ -166,7 +192,7 @@ jobs:
               for file_name in files:
                   files_checked += 1
                   full_path = os.path.join(current_root, file_name)
-                  rel_path = os.path.relpath(full_path, ".").replace("\\", "/")
+                  rel_path = os.path.relpath(full_path, root).replace("\\", "/")
                   lowered = file_name.lower()
 
                   if file_name.startswith(".") and file_name not in hidden_allowlist:

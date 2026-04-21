@@ -132,6 +132,63 @@ jobs:
             echo "Flake8: no issues found. ✓"
           fi
 
+      # ── NON-BLOCKING: Suspicious files scan ───────────────────────────────
+      # Matches QGIS scanner logic: flag hidden files (except .gitignore and
+      # .gitattributes) and files with suspicious executable/binary extensions.
+      # Source logic adapted from QGIS-Plugins-Website:
+      # qgis-app/plugins/security_scanner.py (_check_suspicious_files).
+      - name: Suspicious files [informational]
+        id: suspicious
+        continue-on-error: true
+        run: |
+          echo "Running suspicious-files scan on LDMP/ ..."
+          python3 - << 'PYEOF'
+          import os
+          import sys
+
+          root = "LDMP"
+          suspicious_extensions = {
+              ".exe",
+              ".dll",
+              ".so",
+              ".dylib",
+              ".bat",
+              ".sh",
+              ".ps1",
+              ".cmd",
+          }
+          hidden_allowlist = {".gitignore", ".gitattributes"}
+
+          findings = []
+          files_checked = 0
+
+          for current_root, _, files in os.walk(root):
+              for file_name in files:
+                  files_checked += 1
+                  full_path = os.path.join(current_root, file_name)
+                  rel_path = os.path.relpath(full_path, ".").replace("\\", "/")
+                  lowered = file_name.lower()
+
+                  if file_name.startswith(".") and file_name not in hidden_allowlist:
+                      findings.append((rel_path, "Hidden file detected"))
+
+                  _, ext = os.path.splitext(lowered)
+                  if ext in suspicious_extensions:
+                      findings.append(
+                          (rel_path, f"Executable or binary file detected ({ext})")
+                      )
+
+          if findings:
+              print("=== Suspicious files findings ===")
+              for path, message in findings:
+                  print(f"  {path} - {message}")
+              print(f"\nFiles checked: {files_checked}")
+              print(f"Total: {len(findings)} issue(s) found.")
+              sys.exit(1)
+
+          print(f"Suspicious files: no issues found. ✓ (files checked: {files_checked})")
+          PYEOF
+
       # ── Summary: surface individual outcomes and fail on any blocking check ─
       - name: Security scan summary
         if: always()
@@ -139,6 +196,7 @@ jobs:
           bandit_result="${{ steps.bandit.outcome }}"
           secrets_result="${{ steps.secrets.outcome }}"
           flake8_result="${{ steps.flake8.outcome }}"
+          suspicious_result="${{ steps.suspicious.outcome }}"
 
           echo "┌─────────────────────────────────────────────────────────┐"
           echo "│                  Security Scan Results                  │"
@@ -162,6 +220,12 @@ jobs:
             echo "│ Flake8 (code quality)          │    no    │ ✓ PASSED   │"
           else
             echo "│ Flake8 (code quality)          │    no    │ ✗ issues   │"
+          fi
+
+          if [ "$suspicious_result" = "success" ]; then
+            echo "│ Suspicious files               │    no    │ ✓ PASSED   │"
+          else
+            echo "│ Suspicious files               │    no    │ ✗ issues   │"
           fi
 
           echo "└────────────────────────────────┴──────────┴─────────────┘"

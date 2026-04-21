@@ -79,6 +79,7 @@ class Setting(enum.Enum):
     UPDATE_FREQUENCY_MILLISECONDS = "private/update_frequency_milliseconds"
     UNKNOWN_AREA_OF_INTEREST = "private/unknown_area_of_interest"
     PRIOR_LOCALE = "private/prior_locale"
+    PLOTLY_MISSING_WARNING_LAST_VERSION = "private/plotly_missing_warning_last_version"
 
     FILTERS_ENABLED = "filters/filters_enabled"
     DATE_FILTER_ENABLED = "filters/date_filter_enabled"
@@ -146,6 +147,7 @@ class SettingsManager:
         Setting.LOCAL_POLLING_FREQUENCY: 30,
         Setting.UNKNOWN_AREA_OF_INTEREST: "unknown-area",
         Setting.PRIOR_LOCALE: "unknown",
+        Setting.PLOTLY_MISSING_WARNING_LAST_VERSION: "",
         Setting.REMOTE_POLLING_FREQUENCY: 3 * 60,
         Setting.DEBUG: False,
         Setting.FILTER_JOBS_BY_BASE_DIR: True,

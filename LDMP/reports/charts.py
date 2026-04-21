@@ -5,9 +5,14 @@ import typing
 from collections import namedtuple
 from dataclasses import field
 from enum import Enum
+from pathlib import Path
 
 import numpy as np
-import plotly.graph_objects as go
+
+try:
+    import plotly.graph_objects as go
+except Exception:
+    go = None
 from qgis import processing
 from qgis.core import (
     QgsColorRampShader,
@@ -45,6 +50,10 @@ class tr_reports_charts(QObject):
 
 
 tr_reports_charts = tr_reports_charts()
+
+_PLOTLY_MISSING_MSG = tr_reports_charts.tr(
+    "Plotly is not available. Chart export was skipped."
+)
 
 # Contains information about a layer and source band_info
 LayerBandInfo = namedtuple("LayerBandInfo", "layer band_info")
@@ -162,7 +171,7 @@ class BaseChart:
 
         return layout
 
-    def save_image(self, figure: go.Figure, path: str) -> bool:
+    def save_image(self, figure: typing.Any, path: str) -> bool:
         """
         Save the figure as an image file. While plotly supports writing a
         Figure object to an image, it requires additional libraries which
@@ -180,24 +189,38 @@ class BaseChart:
         file_name = temp_html_file.fileName()
         html_path = f"{file_name}.html"
 
-        # Write figure to html
-        figure.write_html(
-            html_path,
-            auto_open=False,
-            auto_play=False,
-            config={"displayModeBar": False},
-        )
+        try:
+            # Write figure to html
+            figure.write_html(
+                html_path,
+                auto_open=False,
+                auto_play=False,
+                config={"displayModeBar": False},
+            )
 
-        # Create and export layout
-        layout = self._chart_layout(html_path)
-        exporter = QgsLayoutExporter(layout)
-        settings = QgsLayoutExporter.ImageExportSettings()
-        res = exporter.exportToImage(path, settings)
+            # Create and export layout
+            layout = self._chart_layout(html_path)
+            exporter = QgsLayoutExporter(layout)
+            settings = QgsLayoutExporter.ImageExportSettings()
+            res = exporter.exportToImage(path, settings)
 
-        if res != QgsLayoutExporter.Success:
+            if res != QgsLayoutExporter.Success:
+                return False
+        except Exception:
             return False
+        finally:
+            try:
+                html_file = Path(html_path)
+                if html_file.exists():
+                    html_file.unlink()
+            except OSError:
+                pass
 
         return True
+
+    @staticmethod
+    def is_plotly_available() -> bool:
+        return go is not None
 
 
 class InfoValueType(Enum):
@@ -294,6 +317,9 @@ class UniqueValuesPieChart(BaseUniqueValuesChart):
     """
 
     def export(self) -> typing.Tuple[bool, list]:
+        if not self.is_plotly_available():
+            return False, [_PLOTLY_MISSING_MSG]
+
         # Create stats pie chart
         if not self.root_output_dir:
             return False, ["Output directory not defined"]
@@ -353,7 +379,8 @@ class UniqueValuesPieChart(BaseUniqueValuesChart):
         )
 
         # Save image
-        self.save_image(fig, output_file_path)
+        if not self.save_image(fig, output_file_path):
+            return False, [_PLOTLY_MISSING_MSG]
         self._paths.append(output_file_path)
 
         return True, []
@@ -391,6 +418,9 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
             self.target_year = self.year(self.target_layer_band_info.band_info)
 
     def export(self) -> typing.Tuple[bool, list]:
+        if not self.is_plotly_available():
+            return False, [_PLOTLY_MISSING_MSG]
+
         # Create clustered bar graph comparing initial and target years.
         if not self.root_output_dir:
             return False, ["Output directory not defined"]
@@ -501,7 +531,8 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
             )
 
             # Save image
-            self.save_image(fig, output_file_path)
+            if not self.save_image(fig, output_file_path):
+                return False, [_PLOTLY_MISSING_MSG]
             self._paths.append(output_file_path)
 
         # Positive/negative bar graph
@@ -565,7 +596,8 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
             output_file_path = f"{self.root_output_dir}/{file_name}.png"
 
             # Save image
-            self.save_image(fig, output_file_path)
+            if not self.save_image(fig, output_file_path):
+                return False, [_PLOTLY_MISSING_MSG]
             self._paths.append(output_file_path)
 
         return True, []
@@ -587,6 +619,9 @@ class StackedBarChart(BaseChart):
         self.font_size_labels = 12
 
     def export(self) -> typing.Tuple[bool, list]:
+        if not self.is_plotly_available():
+            return False, [_PLOTLY_MISSING_MSG]
+
         # Create chart
         if not self.root_output_dir:
             return False, ["Output directory not defined"]
@@ -658,7 +693,8 @@ class StackedBarChart(BaseChart):
         )
 
         # Save image
-        self.save_image(fig, output_file_path)
+        if not self.save_image(fig, output_file_path):
+            return False, [_PLOTLY_MISSING_MSG]
         self._paths.append(output_file_path)
 
         return True, []

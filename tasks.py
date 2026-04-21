@@ -1210,8 +1210,8 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
 @task(
     help={
         "clean": "remove existing install folder first",
-        "version": "what version of QGIS to install to",
-        "profile": "what profile to install to (only applies to QGIS3",
+        "version": "what version of QGIS to install to (3 or 4, default 3)",
+        "profile": "what profile to install to (only applies to QGIS3 and QGIS4)",
         "fast": "Deprecated parameter (previously used for numba compilation)",
         "link": "Symlink folder to QGIS profile directory",
     }
@@ -1219,22 +1219,18 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
 def plugin_install(
     c, clean=False, version=3, profile="default", fast=False, link=False
 ):
-    """install plugin to qgis"""
+    """install plugin to qgis (version 3 or 4)"""
     set_version(c)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
-    if version == 2:
-        folder = ".qgis2"
-    elif version == 3:
+    if version in (3, 4):
         if platform.system() == "Darwin":
-            folder = "Library/Application Support/QGIS/QGIS3/profiles/"
-
-        if platform.system() == "Linux":
-            folder = ".local/share/QGIS/QGIS3/profiles/"
-
-        if platform.system() == "Windows":
-            folder = "AppData\\Roaming\\QGIS\\QGIS3\\profiles\\"
+            folder = f"Library/Application Support/QGIS/QGIS{version}/profiles/"
+        elif platform.system() == "Linux":
+            folder = f".local/share/QGIS/QGIS{version}/profiles/"
+        elif platform.system() == "Windows":
+            folder = f"AppData\\Roaming\\QGIS\\QGIS{version}\\profiles\\"
         folder = os.path.join(folder, profile)
     else:
         print("ERROR: unknown qgis version {}".format(version))
@@ -1291,6 +1287,7 @@ def plugin_install(
                     version, dst_this_plugin
                 )
             )
+            os.makedirs(dst_plugins, exist_ok=True)
             os.symlink(src, dst_this_plugin)
 
 

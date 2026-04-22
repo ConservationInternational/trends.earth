@@ -172,6 +172,7 @@ jobs:
           echo "Running suspicious-files scan on $PACKAGED_PLUGIN_DIR ..."
           python3 - << 'PYEOF'
           import os
+          import sys
 
           root = os.environ["PACKAGED_PLUGIN_DIR"]
           suspicious_extensions = {

@@ -43,7 +43,7 @@ from te_schemas.results import Band as JobBand
 
 from .. import api, areaofinterest, conf, layers, metadata, utils
 from .. import download as ldmp_download
-from ..constants import TIMEOUT, get_api_url
+from ..constants import FAO_WOCAT_FWV2_BAND_NAMES, TIMEOUT, get_api_url
 from ..logger import log
 from . import models
 from .cache import JobCache
@@ -2117,6 +2117,11 @@ class JobManager(QtCore.QObject):
             ld_conf.FAO_WOCAT_LPD_BAND_NAME: ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
             ld_conf.TE_LPD_BAND_NAME: ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value,
             ld_conf.CUSTOM_LPD_BAND_NAME: ProductivityMode.CUSTOM_5_CLASS_LPD.value,
+            # FWv2 pre-computed LPD
+            **{
+                n: ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+                for n in FAO_WOCAT_FWV2_BAND_NAMES
+            },
         }
 
         # Determine script and params based on band name

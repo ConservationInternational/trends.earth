@@ -117,27 +117,28 @@ jobs:
             exit 1
           fi
 
-          python3 - << 'PYEOF'
-            import json
-            import sys
+              python3 - <<'PYEOF'
+              import json
+              import sys
 
-          with open("secrets_output.json") as f:
-              data = json.load(f)
-          results = data.get("results", {})
-            if results:
-              print("=== detect-secrets findings ===")
-              count = 0
-              for filepath, findings in sorted(results.items()):
+              with open("secrets_output.json") as f:
+                data = json.load(f)
+
+              results = data.get("results", {})
+              if results:
+                print("=== detect-secrets findings ===")
+                count = 0
+                for filepath, findings in sorted(results.items()):
                   for finding in findings:
-                      print(
-                          f"  {filepath}:{finding.get('line_number', 0)}"
-                          f" - {finding.get('type', 'Unknown')}"
-                      )
-                      count += 1
-              print(f"\nTotal: {count} potential secret(s) found.")
-              sys.exit(1)
-          else:
-              print("detect-secrets: no secrets found. ✓")
+                    print(
+                      f"  {filepath}:{finding.get('line_number', 0)}"
+                      f" - {finding.get('type', 'Unknown')}"
+                    )
+                    count += 1
+                print(f"\nTotal: {count} potential secret(s) found.")
+                sys.exit(1)
+              else:
+                print("detect-secrets: no secrets found. ✓")
           PYEOF
         working-directory: ${{ env.PACKAGED_PLUGIN_DIR }}
 

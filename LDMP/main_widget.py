@@ -1304,8 +1304,11 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.filter_changed("")
 
     def setup_algorithms_tree(self):
+        # Suppress hover/selection highlight in the branch (indent) area for
+        # algorithm leaf items only. Group items (:has-children) are left
+        # untouched so their expand/collapse arrows render normally.
         self.algorithms_tv.setStyleSheet(
-            "QTreeView { selection-background-color: white; selection-color: black }"
+            "QTreeView::branch:!has-children { background: transparent; }"
         )
         # NOTE: mouse tracking is needed in order to use the `entered` signal, which
         # we need (check below)
@@ -1320,7 +1323,23 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.algorithms_tv.setItemDelegate(self.algorithms_tv_delegate)
         self.algorithms_tv.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
         self.algorithms_tv.entered.connect(self._manage_algorithm_tree_view)
+        # Open persistent editors for all algorithm items immediately so every
+        # item always uses the same rendering path (avoids visible differences
+        # between items that have/haven't been hovered).
+        self._open_all_algorithm_persistent_editors()
         self.tabWidget.setCurrentIndex(self._SUB_INDICATORS_TAB_PAGE)
+
+    def _open_all_algorithm_persistent_editors(
+        self, parent_index: QtCore.QModelIndex = QtCore.QModelIndex()
+    ):
+        model = self.algorithms_tv.model()
+        for row in range(model.rowCount(parent_index)):
+            index = model.index(row, 0, parent_index)
+            item = index.internalPointer()
+            if item.item_type == algorithm_models.AlgorithmNodeType.Algorithm:
+                self.algorithms_tv.openPersistentEditor(index)
+            else:
+                self._open_all_algorithm_persistent_editors(index)
 
     def create_error_recode(self):
         dlg = DlgSelectDataset(self, validate_all=True)
@@ -1411,46 +1430,12 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.datasets_tv_delegate.current_index = index
 
     def _manage_algorithm_tree_view(self, index: QtCore.QModelIndex):
-        """Manage algorithm treeview's editing
+        """Track the currently hovered algorithm index.
 
-        Since we are using a custom delegate for providing editing functionalities to
-        the algorithms treeview, we need to manage when the delegate should have an
-        open editor widget. In this case we are not doing any real editing, but since we
-        do show some buttons on the custom widget, we need the delegate to be in
-        editing mode so that we can interact with the buttons
-
+        Persistent editors are opened for all algorithm items at startup, so
+        no open/close management is required here.
         """
-
-        if index.isValid():
-            current_item = index.internalPointer()
-            current_item: typing.Union[
-                algorithm_models.AlgorithmGroup, algorithm_models.Algorithm
-            ]
-            is_algorithm = (
-                current_item.item_type == algorithm_models.AlgorithmNodeType.Algorithm
-            )
-
-            if current_item is not None and is_algorithm:
-                previous_index = self.algorithms_tv_delegate.current_index
-                index_changed = index != previous_index
-
-                if previous_index is not None and previous_index.isValid():
-                    previously_open = self.algorithms_tv.isPersistentEditorOpen(
-                        previous_index
-                    )
-                else:
-                    previously_open = False
-
-                if index_changed and previously_open:
-                    self.algorithms_tv.closePersistentEditor(previous_index)
-                    self.algorithms_tv.openPersistentEditor(index)
-                elif index_changed and not previously_open:
-                    self.algorithms_tv.openPersistentEditor(index)
-                elif not index_changed and previously_open:
-                    pass
-                elif not index_changed and not previously_open:
-                    self.algorithms_tv.openPersistentEditor(index)
-            self.algorithms_tv_delegate.current_index = index
+        self.algorithms_tv_delegate.current_index = index
 
     def load_base_map(self):
         dialogue = DlgVisualizationBasemap(self)

@@ -131,9 +131,10 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         if index.isValid():
             default_flags = super().flags(index)
             current_item = index.internalPointer()
-            result = default_flags
+            # Remove selectable flag so clicking never produces a highlight
+            result = default_flags & ~QtCore.Qt.ItemIsSelectable
             if current_item.item_type == models.AlgorithmNodeType.Algorithm:
-                result = default_flags | QtCore.Qt.ItemIsEditable
+                result = result | QtCore.Qt.ItemIsEditable
         else:
             result = QtCore.Qt.NoItemFlags
         return result
@@ -211,7 +212,19 @@ class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
         option: QtWidgets.QStyleOptionViewItem,
         index: QtCore.QModelIndex,
     ):
-        editor.setGeometry(option.rect)
+        # Extend geometry to x=0 so the widget covers the branch/indent area,
+        # preventing Qt from painting a hover highlight there. Compensate by
+        # shifting the widget's layout left margin so content stays at the
+        # correct indentation level.
+        indent = option.rect.left()
+        rect = option.rect
+        rect.setLeft(0)
+        editor.setGeometry(rect)
+        layout = editor.layout()
+        if layout is not None:
+            m = layout.contentsMargins()
+            m.setLeft(indent)
+            layout.setContentsMargins(m)
 
 
 class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):

@@ -246,20 +246,17 @@ class DlgDownloadSIDS(QtWidgets.QDialog, DlgDownloadSIDSUi):
     def _qgs_download(self, url: str, output_path: Path) -> bool:
         """Download a file using QgsFileDownloader with a local QEventLoop."""
         loop = QtCore.QEventLoop()
-        dl_success = False
-        dl_error = None
+        state = {"success": False, "error": None}
 
         downloader = QgsFileDownloader(QtCore.QUrl(url), str(output_path))
         self._current_downloader = downloader
 
         def _on_completed():
-            nonlocal dl_success
-            dl_success = True
+            state["success"] = True
             loop.quit()
 
         def _on_error(errors):
-            nonlocal dl_error
-            dl_error = str(errors)
+            state["error"] = str(errors)
             loop.quit()
 
         downloader.downloadCompleted.connect(_on_completed)
@@ -267,19 +264,19 @@ class DlgDownloadSIDS(QtWidgets.QDialog, DlgDownloadSIDSUi):
         downloader.downloadExited.connect(loop.quit)
         downloader.downloadCanceled.connect(loop.quit)
         downloader.startDownload()
-        loop.exec_()
+        loop.exec()
 
         self._current_downloader = None
 
-        if dl_error:
+        if state["error"]:
             log(
-                f"Download error for {output_path.name}: {dl_error}",
+                f"Download error for {output_path.name}: {state['error']}",
                 level=Qgis.Warning,
             )
             output_path.unlink(missing_ok=True)
             return False
 
-        return dl_success
+        return state["success"]
 
     def _extract_zip(self, zip_path: Path, output_dir: Path) -> list:
         """Extract a ZIP file and return paths of all extracted GeoTIFF files."""

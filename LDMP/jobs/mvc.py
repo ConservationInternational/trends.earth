@@ -19,7 +19,7 @@ from ..datasets_dialog import DatasetDetailsDialogue
 from ..plot import DlgPlotTimeries
 from ..reports.mvc import DatasetReportHandler
 from ..select_dataset import DlgSelectDataset
-from ..utils import FileUtils
+from ..utils import FileUtils, push_message
 from . import manager
 from .models import Job, SortField, TypeFilter
 
@@ -150,12 +150,22 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         jobs_model = self.sourceModel()
         index = jobs_model.index(source_row, 0, source_parent)
         job: Job = jobs_model.data(index)
-        reg_exp = self.filterRegExp()
+        # Qt6 removed filterRegExp/QRegExp; use filterRegularExpression instead
+        try:
+            reg_exp = self.filterRegExp()
+
+            def text_matches(text):
+                return reg_exp.exactMatch(text)
+        except AttributeError:
+            reg_exp = self.filterRegularExpression()
+
+            def text_matches(text):
+                return reg_exp.match(text).hasMatch()
 
         matches_filter = (
-            reg_exp.exactMatch(job.visible_name)
-            or reg_exp.exactMatch(job.local_context.area_of_interest_name)
-            or reg_exp.exactMatch(str(job.id))
+            text_matches(job.visible_name)
+            or text_matches(job.local_context.area_of_interest_name)
+            or text_matches(str(job.id))
         )
 
         matches_type = True
@@ -446,7 +456,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         # Initialize report handler with error handling
         try:
             self._report_handler = DatasetReportHandler(
-                self.report_pb, self.job, self.main_dock.iface
+                self.report_pb, self.job, self.main_dock.iface, parent=self
             )
         except Exception as e:
             # If report handler fails to initialize, create a dummy one to prevent crashes
@@ -696,7 +706,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         manager.job_manager.ensure_results_loaded(self.job)
         manager.job_manager.ensure_params_loaded(self.job)
         self.main_dock.pause_scheduler()
-        DatasetDetailsDialogue(self.job, parent=iface.mainWindow()).exec_()
+        DatasetDetailsDialogue(self.job, parent=iface.mainWindow()).exec()
         self.main_dock.resume_scheduler()
 
     def show_metadata(self, file_path):
@@ -706,7 +716,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         ds_metadata = metadata.read_qmd(file_path)
         dlg = metadata_dialog.DlgDatasetMetadata(iface.mainWindow())
         dlg.set_metadata(ds_metadata)
-        dlg.exec_()
+        dlg.exec()
         ds_metadata = dlg.get_metadata()
         metadata.save_qmd(file_path, ds_metadata)
         self.main_dock.resume_scheduler()
@@ -760,7 +770,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         manager.job_manager.ensure_results_loaded(self.job)
         self.main_dock.pause_scheduler()
         dialogue = DlgDataIOAddLayersToMap(self, self.job)
-        dialogue.exec_()
+        dialogue.exec()
         self.main_dock.resume_scheduler()
 
     def load_layer(self):
@@ -782,8 +792,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         ts_result = self.job.get_first_result_by_type(TimeSeriesTableResult)
         table = ts_result.table if ts_result else []
         if len(table) == 0:
-            self.main_dock.iface.messageBar().pushMessage(
-                self.tr("Time series table is empty"), level=1, duration=5
+            push_message(
+                self.main_dock.iface.messageBar(),
+                self.tr("Time series table is empty"),
+                "",
+                level=1,
+                duration=5,
             )
             return
 
@@ -961,7 +975,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.main_dock.pause_scheduler()
             dlg = DlgSelectDataset(self, validate_all=True)
             self.set_widget_title(dlg)
-            if dlg.exec_() == QtWidgets.QDialog.Accepted:
+            if dlg.exec() == QtWidgets.QDialog.Accepted:
                 prod = dlg.prod_band()
                 lc = dlg.lc_band()
                 soil = dlg.soil_band()

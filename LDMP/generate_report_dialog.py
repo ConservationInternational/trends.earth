@@ -25,7 +25,7 @@ from .reports.generator import report_generator_manager
 from .reports.models import ReportTaskContext
 from .reports.mvc import JobSelectionItemDelegate, MultiscopeJobReportModel
 from .reports.template_manager import template_manager
-from .utils import FileUtils
+from .utils import FileUtils, push_message
 
 DlgGenerateReportUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgGenerateReport.ui")
@@ -141,20 +141,20 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
         # Check template
         if not self.template_cbo.currentText():
             msg = self.tr("No template selected.")
-            self.msg_bar.pushMessage(title, msg, level, duration)
+            push_message(self.msg_bar, title, msg, level, duration)
             status = False
 
         # Check model
         model_status, msgs = self._validate_model()
         if not model_status:
             for msg in msgs:
-                self.msg_bar.pushMessage(title, msg, level, duration)
+                push_message(self.msg_bar, title, msg, level, duration)
             status = False
 
         # Check output directory
         if not self.output_dir_le.text():
             msg = self.tr("No output directory specified.")
-            self.msg_bar.pushMessage(title, msg, level, duration)
+            push_message(self.msg_bar, title, msg, level, duration)
             status = False
 
         return status

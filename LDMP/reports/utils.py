@@ -90,19 +90,17 @@ def build_report_paths(
 
 def job_has_results(job: Job) -> bool:
     # Checks if the given job has results in the file system.
-    if job.results is not None:
-        if job.results.uri and (
-            manager.is_gdal_vsi_path(job.results.uri.uri)
-            or (
-                job.results.uri.uri.suffix in [".vrt", ".tif"]
-                and job.results.uri.uri.exists()
-            )
-        ):
-            return True
-        else:
-            return False
-    else:
+    if job.results is None:
+        manager.job_manager.ensure_results_loaded(job)
+
+    if job.results is None:
         return False
+    if not job.results.uri:
+        return False
+    uri = job.results.uri.uri
+    return manager.is_gdal_vsi_path(uri) or (
+        uri.suffix in [".vrt", ".tif"] and uri.exists()
+    )
 
 
 def job_has_report(job: Job, options: ReportOutputOptions) -> bool:

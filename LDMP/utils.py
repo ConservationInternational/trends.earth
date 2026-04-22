@@ -8,6 +8,7 @@ from pathlib import Path
 
 import qgis.core
 from osgeo import gdal
+from qgis.core import Qgis
 from qgis.PyQt import QtGui, QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 
@@ -15,6 +16,17 @@ from .jobs import manager
 from .jobs.models import Job
 from .logger import log
 from .reports.models import slugify
+
+
+def push_message(msg_bar, title: str, text: str, level=0, duration: int = 5):
+    """
+    Cross-version wrapper for QgsMessageBar.pushMessage().
+    """
+    try:
+        qgis_level = Qgis.MessageLevel(level)
+    except (TypeError, ValueError):
+        qgis_level = level
+    msg_bar.pushMessage(title, text, qgis_level, duration)
 
 
 def utc_to_local(utc_dt):
@@ -83,7 +95,7 @@ def delete_dataset(job: Job) -> int:
     )
     message_box.setDefaultButton(QtWidgets.QMessageBox.Cancel)
     message_box.setIcon(QtWidgets.QMessageBox.Information)
-    result = QtWidgets.QMessageBox.Res = message_box.exec_()
+    result = QtWidgets.QMessageBox.Res = message_box.exec()
     if result == QtWidgets.QMessageBox.Yes:
         # Remove layers for all results (handles both single and list results)
         if job.results is not None:
@@ -130,10 +142,11 @@ def qgis_bin_dir() -> str:
             return ""
 
     elif platform_name == "darwin":
-        rt_path, sep, sub_path = lib_path.partition("lib")
-        if not sep:
-            log(msg, warning)
-            return ""
+        macos_path = lib_path.rstrip("/")
+        if os.path.isdir(macos_path):
+            return macos_path
+        log(msg, warning)
+        return ""
 
     elif platform_name in ("linux", "freebsd"):
         qgis_executable_path = QCoreApplication.applicationFilePath()
@@ -169,9 +182,8 @@ def qgis_exec_path() -> str:
 
 def open_qgis_project(project_path: str) -> bool:
     """
-    Opens a qgs or qgz project given its path. Returns True if succeeded,
-    else False if the QGIS executable could not be found or if the project
-    path does not exist.
+    Opens a qgs or qgz project in the current QGIS instance. Returns True
+    if succeeded, else False if the project path does not exist.
     """
     warning = qgis.core.Qgis.Warning
 

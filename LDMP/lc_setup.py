@@ -1175,7 +1175,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 self.last_idx = idx
                 self.load_agg(values, child_nodata_code=self.get_nodata_value())
 
-        self.dlg_agg.exec_()
+        self.dlg_agg.exec()
 
     def get_nodata_value(self):
         return int(self.input_widget.lineEdit_nodata.text())
@@ -1323,7 +1323,11 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
                 line_edit = TransMatrixEdit()
-                line_edit.setValidator(QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]")))
+                line_edit.setValidator(
+                    QtGui.QRegularExpressionValidator(
+                        QtCore.QRegularExpression("[-0+]")
+                    )
+                )
                 line_edit.setAlignment(QtCore.Qt.AlignHCenter)
                 line_edit.setToolTip(
                     f"Initial: {legend.key[row].get_name_long()}, "
@@ -1636,7 +1640,7 @@ class LandCoverSetupRemoteExecutionWidget(
         self.aggregation_dialog = DlgCalculateLCSetAggregationESA(parent=self)
 
     def open_aggregation_method_dialog(self):
-        self.aggregation_dialog.exec_()
+        self.aggregation_dialog.exec()
 
 
 @dataclass

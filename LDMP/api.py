@@ -153,7 +153,7 @@ class RequestTask(QgsTask):
         )
         cancel_timer.start(self.CANCEL_CHECK_INTERVAL_MS)
 
-        loop.exec_()
+        loop.exec()
 
         # Cleanup timers
         timeout_timer.stop()
@@ -226,6 +226,19 @@ class RequestTask(QgsTask):
             network_manager.setTimeout(self.timeout * 1000)
 
             network_request = QtNetwork.QNetworkRequest(qurl)
+
+            # Disable HTTP/2 — Qt6 enables it by default
+            try:
+                network_request.setAttribute(
+                    QtNetwork.QNetworkRequest.Attribute.Http2AllowedAttribute, False
+                )
+            except AttributeError:
+                try:
+                    network_request.setAttribute(
+                        QtNetwork.QNetworkRequest.Http2AllowedAttribute, False
+                    )
+                except AttributeError:
+                    pass
 
             # Set content type first
             network_request.setHeader(

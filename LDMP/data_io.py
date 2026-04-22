@@ -52,6 +52,7 @@ from .jobs.manager import job_manager, set_results_extents, update_uris_if_neede
 from .jobs.models import Job
 from .logger import log
 from .region_selector import RegionSelector
+from .utils import push_message
 
 Ui_DlgDataIOLoadTE, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDataIOLoadTE.ui")
@@ -733,7 +734,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
         file_dialog.setNameFilter("*.json")
         file_dialog.setDirectory(conf.settings_manager.get_value(conf.Setting.BASE_DIR))
 
-        if file_dialog.exec_():
+        if file_dialog.exec():
             chosen_raw_path = file_dialog.selectedFiles()[0]
             job, error_message = self.parse_chosen_path(chosen_raw_path)
 
@@ -1324,7 +1325,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         region_geom = try_get_aoi_geometry()
         if region_geom is None:
             if user_warning:
-                self.msg_bar.pushMessage(
+                push_message(
+                    self.msg_bar,
                     tr_data_io.tr("Warning"),
                     tr_data_io.tr(
                         "No region selected. Select a region or uncheck "
@@ -1370,8 +1372,10 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         if source_crs is None or not source_crs.isValid():
             if user_warning:
-                self.msg_bar.pushMessage(
+                push_message(
+                    self.msg_bar,
                     self.tr("Missing or invalid CRS for input file."),
+                    "",
                     qgis.core.Qgis.MessageLevel.Warning,
                     8,
                 )
@@ -1393,8 +1397,10 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             # Notify user
             if user_warning:
                 reg_name = self.region_selector.region_info.area_name
-                self.msg_bar.pushMessage(
+                push_message(
+                    self.msg_bar,
                     self.tr(f"Output file will be resized to '{reg_name}' extent."),
+                    "",
                     qgis.core.Qgis.MessageLevel.Warning,
                     8,
                 )
@@ -1644,7 +1650,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
     def open_metadata_editor(self):
         dlg = metadata_dialog.DlgDatasetMetadata(self)
-        dlg.exec_()
+        dlg.exec()
         self.metadata = dlg.get_metadata()
 
     def save_metadata(self, job):

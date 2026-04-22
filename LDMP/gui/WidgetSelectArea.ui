@@ -248,7 +248,7 @@
           <widget class="QLabel" name="area_frompoint_label_x">
            <property name="font">
             <font>
-             <weight>50</weight>
+             <weight>400</weight>
              <bold>false</bold>
             </font>
            </property>
@@ -283,7 +283,7 @@
           <widget class="QLabel" name="area_frompoint_label_y">
            <property name="font">
             <font>
-             <weight>50</weight>
+             <weight>400</weight>
              <bold>false</bold>
             </font>
            </property>

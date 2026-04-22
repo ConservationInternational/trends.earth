@@ -22,6 +22,7 @@ from te_schemas.algorithms import ExecutionScript
 from . import calculate, data_io
 from .jobs.manager import job_manager
 from .logger import log
+from .utils import push_message
 
 DlgCalculateUrbanDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateUrbanData.ui")
@@ -207,8 +208,8 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
         else:
             main_msg = "Error"
             description = "Unable to submit urban area task Trends.Earth server."
-        self.mb.pushMessage(
-            self.tr(main_msg), self.tr(description), level=0, duration=5
+        push_message(
+            self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
         )
 
 

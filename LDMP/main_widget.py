@@ -1046,11 +1046,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         if is_first_load:
             # Set filter regexp only on first load - it persists and doesn't need resetting
-            # Note: setFilterRegExp calls invalidateFilter internally, which is harmless
-            # when there's no data yet (source model is empty).
-            self.proxy_model.setFilterRegExp(
-                QtCore.QRegExp("*", QtCore.Qt.CaseInsensitive, QtCore.QRegExp.Wildcard)
-            )
+            self.proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
+            self.proxy_model.setFilterWildcard("*")
             self.proxy_model.setSourceModel(self.source_model)
 
         # Data is pre-sorted in Python. Use sort(-1) to DISABLE Qt sorting.
@@ -1298,9 +1295,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
                 break
         filter_ = filter_string if has_special_char else f"{filter_string}*"
-        self.proxy_model.setFilterRegExp(
-            QtCore.QRegExp(filter_, QtCore.Qt.CaseInsensitive, QtCore.QRegExp.Wildcard)
-        )
+        self.proxy_model.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.proxy_model.setFilterWildcard(filter_)
 
     def type_filter_changed(self, type_filter: TypeFilter):
         self.proxy_model.set_type_filter(type_filter)
@@ -1330,7 +1326,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         dlg = DlgSelectDataset(self, validate_all=True)
         win_title = f"{dlg.windowTitle()} - {self.tr('False positive/negative')}"
         dlg.setWindowTitle(win_title)
-        if dlg.exec_() == QtWidgets.QDialog.Accepted:
+        if dlg.exec() == QtWidgets.QDialog.Accepted:
             self.pause_scheduler()
 
             prod = dlg.prod_band()
@@ -1365,7 +1361,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         dialog_class = load_object(dialog_class_path)
         dialog = dialog_class(self.iface, algorithm_script.script, parent=self)
         self.pause_scheduler()
-        result = dialog.exec_()
+        result = dialog.exec()
 
         if result == QtWidgets.QDialog.Rejected:
             self.resume_scheduler()
@@ -1458,41 +1454,41 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def load_base_map(self):
         dialogue = DlgVisualizationBasemap(self)
-        dialogue.exec_()
+        dialogue.exec()
 
     def download_data(self):
         dialogue = DlgDownload(self.iface, KNOWN_SCRIPTS["download-data"], self)
-        dialogue.exec_()
+        dialogue.exec()
 
     def download_landpks(self):
         dialogue = DlgLandPKSDownload(
             self.iface, KNOWN_SCRIPTS["download-landpks"], self
         )
-        dialogue.exec_()
+        dialogue.exec()
 
     def import_known_dataset(self, action: QtWidgets.QAction):
         dialogue = DlgDataIOLoadTE(self)
-        dialogue.exec_()
+        dialogue.exec()
 
     def import_productivity_dataset(self, action: QtWidgets.QAction):
         log("import_productivity_dataset called")
         dialogue = DlgDataIOImportProd(self)
-        dialogue.exec_()
+        dialogue.exec()
 
     def import_land_cover_dataset(self, action: QtWidgets.QAction):
         log("import_land_cover_dataset called")
         dialogue = DlgDataIOImportLC(self)
-        dialogue.exec_()
+        dialogue.exec()
 
     def import_soil_organic_carbon_dataset(self, action: QtWidgets.QAction):
         log("import_soil_organic_carbon_dataset called")
         dialogue = DlgDataIOImportSOC(self)
-        dialogue.exec_()
+        dialogue.exec()
 
     def import_population_dataset(self, action: QtWidgets.QAction):
         log("import_population_dataset called")
         dialogue = DlgDataIOImportPopulation(self)
-        dialogue.exec_()
+        dialogue.exec()
 
 
 def maybe_download_finished_results():

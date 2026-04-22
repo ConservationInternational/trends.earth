@@ -24,6 +24,7 @@ from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import unccd
 from .logger import log
+from .utils import push_message
 
 DlgCalculateUNCCDUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateUNCCD.ui")
@@ -143,8 +144,8 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
         else:
             main_msg = "Error"
             description = "Unable to UNCCD default data task to Trends.Earth server."
-        self.mb.pushMessage(
-            self.tr(main_msg), self.tr(description), level=0, duration=5
+        push_message(
+            self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
         )
 
 

@@ -38,7 +38,7 @@ from .constants import TIMEOUT, get_api_url
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils, LCClassInfo, get_default_esa_nesting
 from .logger import log
-from .utils import FileUtils
+from .utils import FileUtils, push_message
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
@@ -290,7 +290,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             self.lcc_manager.set_table_height()
 
     def register(self):
-        self.dlg_settings_register.exec_()
+        self.dlg_settings_register.exec()
         # Update UI state after registration dialog closes
         self.update_login_ui_state()
         #
@@ -304,13 +304,13 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         #
 
     def login(self):
-        self.dlg_settings_login.exec_()
+        self.dlg_settings_login.exec()
         # Update UI state after login dialog closes
         self.update_login_ui_state()
 
     def forgot_pwd(self):
         dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
-        dlg_settings_edit_forgot_password.exec_()
+        dlg_settings_edit_forgot_password.exec()
 
     def logout(self):
         """Logout the current user from Trends.Earth"""
@@ -367,7 +367,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         if not user:
             return
         dlg_settings_edit_update = DlgSettingsEditUpdate(user)
-        dlg_settings_edit_update.exec_()
+        dlg_settings_edit_update.exec()
 
     def delete(self):
         email = _get_user_email(auth.TE_API_AUTH_SETUP)
@@ -749,8 +749,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         # Check layers
         if qgis.core.QgsProject.instance().count() == 0:
-            msg_bar.pushMessage(
+            push_message(
+                msg_bar,
                 self.tr("The map must have at least one layer."),
+                "",
                 qgis.core.Qgis.Warning,
                 msg_duration,
             )
@@ -759,8 +761,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if self.hide_on_choose_point:
             self.window().hide()
 
-        msg_bar.pushMessage(
+        push_message(
+            msg_bar,
             self.tr("Click the map to choose a point."),
+            "",
             qgis.core.Qgis.Info,
             msg_duration,
         )
@@ -1371,7 +1375,7 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         """Open the forgot password dialog to initiate password reset."""
         dlg = DlgSettingsEditForgotPassword()
         dlg.email.setText(self.email.text())
-        dlg.exec_()
+        dlg.exec()
 
 
 class DlgSettingsLoginLandPKS(QtWidgets.QDialog, Ui_DlgSettingsLogin):
@@ -1679,7 +1683,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             job_manager.clear_known_jobs()
 
     def login_landpks(self):
-        self.dlg_settings_login_landpks.exec_()
+        self.dlg_settings_login_landpks.exec()
 
     def show_settings(self):
         self.debug_checkbox.setChecked(settings_manager.get_value(Setting.DEBUG))
@@ -1842,8 +1846,12 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
             self.template_search_path_le.setToolTip(template_dir)
             msg = self.tr("QGIS needs to be restarted for the changes to take effect.")
             if self.message_bar is not None:
-                self.message_bar.pushMessage(
-                    self.tr("Template Search Path"), msg, qgis.core.Qgis.Warning, 5
+                push_message(
+                    self.message_bar,
+                    self.tr("Template Search Path"),
+                    msg,
+                    qgis.core.Qgis.Warning,
+                    5,
                 )
 
     def _image_files_filter(self):
@@ -1972,7 +1980,7 @@ class LandCoverCustomClassesManager(
             "mActionReload.svg"
         )
         self.btn_restore.setIcon(restore_icon)
-        self.btn_restore.clicked.connect(self.dlg_land_cover_restore.exec_)
+        self.btn_restore.clicked.connect(self.dlg_land_cover_restore.exec)
 
         import_icon = qgis.core.QgsApplication.instance().getThemeIcon(
             "mActionSharingImport.svg"
@@ -2003,7 +2011,7 @@ class LandCoverCustomClassesManager(
         dialog = LandCoverClassSelectionDialog(class_names, parent=self)
         dialog.setWindowTitle(self.tr("Import Land Cover Classes"))
 
-        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+        if dialog.exec() == QtWidgets.QDialog.Accepted:
             dialog.set_selected_classes()
 
     def _show_path_selector(self, file_dir: str) -> str:
@@ -2046,7 +2054,7 @@ class LandCoverCustomClassesManager(
         else:
             level = qgis.core.Qgis.MessageLevel.Info
 
-        self.msg_bar.pushMessage(self.tr("Land Cover"), msg, level, 5)
+        push_message(self.msg_bar, self.tr("Land Cover"), msg, level, 5)
 
     def sizeHint(self) -> QtCore.QSize:
         return QtCore.QSize(350, 420)
@@ -2715,8 +2723,12 @@ class LandCoverCustomClassEditor(
         if self.msg_bar is None:
             return
 
-        self.msg_bar.pushMessage(
-            self.tr("Land Cover"), msg, qgis.core.Qgis.MessageLevel.Warning, 5
+        push_message(
+            self.msg_bar,
+            self.tr("Land Cover"),
+            msg,
+            qgis.core.Qgis.MessageLevel.Warning,
+            5,
         )
 
     def clear_messages(self):

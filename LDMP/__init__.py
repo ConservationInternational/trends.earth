@@ -23,7 +23,11 @@ from qgis.core import Qgis, QgsApplication
 from qgis.PyQt import QtCore
 from qgis.utils import iface
 
-from . import logger
+from .qt_compat import apply_qt_compat
+
+apply_qt_compat()
+
+from . import logger  # noqa: E402
 
 # initialize translation
 plugin_dir = os.path.dirname(os.path.realpath(__file__))

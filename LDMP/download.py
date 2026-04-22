@@ -231,7 +231,7 @@ def get_timestamp_manager() -> BoundaryTimestampManager:
 
 def local_check_hash_against_etag(path: Path, expected: str) -> bool:
     try:
-        path_hash = hashlib.md5(path.read_bytes()).hexdigest()
+        path_hash = hashlib.md5(path.read_bytes(), usedforsecurity=False).hexdigest()
     except FileNotFoundError:
         result = False
     else:
@@ -297,7 +297,7 @@ def verify_file_against_etag(
 
     # Calculate file MD5
     try:
-        file_md5 = hashlib.md5(path.read_bytes())
+        file_md5 = hashlib.md5(path.read_bytes(), usedforsecurity=False)
     except IOError as e:
         log(f"Error reading file for verification: {e}")
         return False
@@ -360,7 +360,7 @@ def check_hash_against_etag(url, filename, expected=None):
                 raise NotImplementedError
 
     with open(filename, "rb") as f:
-        md5hash = hashlib.md5(f.read()).hexdigest()
+        md5hash = hashlib.md5(f.read(), usedforsecurity=False).hexdigest()
 
     if md5hash == expected:
         log("File hash verified for {}".format(filename))
@@ -616,7 +616,11 @@ def _get_boundaries_from_local_cache() -> typing.Optional[typing.Dict[str, Count
             log(f"Boundaries cache file not found: {cache_file}")
             return None
 
-        with cache_file.open("r", encoding="utf-8") as handle:
+        with (
+            gzip.open(cache_file, "rt", encoding="utf-8")
+            if cache_file.suffix == ".gz"
+            else cache_file.open("r", encoding="utf-8")
+        ) as handle:
             data = json.load(handle)
 
         if isinstance(data, dict):
@@ -811,7 +815,11 @@ def download_boundary_geojson(
             cache_file = cache.get_boundaries_list_cache_file(release_type)
             if cache_file.exists():
                 try:
-                    with cache_file.open("r", encoding="utf-8") as handle:
+                    with (
+                        gzip.open(cache_file, "rt", encoding="utf-8")
+                        if cache_file.suffix == ".gz"
+                        else cache_file.open("r", encoding="utf-8")
+                    ) as handle:
                         cached_data = json.load(handle)
                     if isinstance(cached_data, dict):
                         boundaries_list = cached_data.get("data") or cached_data.get(

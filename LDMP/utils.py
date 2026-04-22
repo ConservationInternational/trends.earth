@@ -1,5 +1,6 @@
 import importlib
 import os
+import subprocess
 import sys
 import tempfile
 import typing
@@ -186,14 +187,17 @@ def open_qgis_project(project_path: str) -> bool:
     """
     warning = qgis.core.Qgis.Warning
 
+    exec_path = qgis_exec_path()
+    if not exec_path:
+        log("Cannot open project. QGIS executable not found.", warning)
+        return False
+
     if not os.path.exists(project_path):
         log(f"QGIS project '{project_path}' does not exist.", warning)
         return False
 
-    result = qgis.core.QgsProject.instance().read(project_path)
-    if not result:
-        log(f"Failed to open QGIS project '{project_path}'.", warning)
-        return False
+    params = [exec_path, "--project", project_path]
+    subprocess.Popen(params)  # noqa: S603
 
     return True
 

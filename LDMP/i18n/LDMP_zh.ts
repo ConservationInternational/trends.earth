@@ -2353,7 +2353,7 @@ p, li { white-space: pre-wrap; }
         <translation>自定义森林覆盖数据支持即将推出！</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="384"/>
+        <location filename="../calculate_tc.py" line="390"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -2398,7 +2398,7 @@ p, li { white-space: pre-wrap; }
         <translation>感兴趣的区域不完全在最终的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="384"/>
+        <location filename="../calculate_tc.py" line="390"/>
         <source>Error calculating change in toal carbon.</source>
         <translation>计算总碳的变化时出错。</translation>
     </message>
@@ -2476,22 +2476,22 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="676"/>
+        <location filename="../calculate_tc.py" line="682"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="646"/>
+        <location filename="../calculate_tc.py" line="652"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
         <translation>感兴趣的区域不完全在森林损失层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="657"/>
+        <location filename="../calculate_tc.py" line="663"/>
         <source>Area of interest is not entirely within the total carbon layer.</source>
         <translation>感兴趣的区域不完全在总碳层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="676"/>
+        <location filename="../calculate_tc.py" line="682"/>
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
         <translation>森林损失和总碳层的分辨率不匹配。</translation>
     </message>
@@ -6325,22 +6325,22 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_calculate_tc</name>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="204"/>
+        <location filename="../localexecution/totalcarbon.py" line="207"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="204"/>
+        <location filename="../localexecution/totalcarbon.py" line="207"/>
         <source>Summary table saved to {self.output_file}</source>
         <translation>保存到{self.output_file}的汇总表</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="213"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="213"/>
         <source>Error saving output table - check that {self.output_file} is accessible and not already open.</source>
         <translation>保存输出表时出错——检查{self.output_file}是否可访问且尚未打开。</translation>
     </message>
@@ -6596,7 +6596,7 @@ for running algorithms and their results.</source>
         <translation>光栅文件 (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2818"/>
+        <location filename="../data_io.py" line="2821"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -6721,7 +6721,7 @@ for running algorithms and their results.</source>
         <translation>此地区没有可用的图层</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2818"/>
+        <location filename="../data_io.py" line="2821"/>
         <source>Select a layer to load.</source>
         <translation>选择要加载的图层。</translation>
     </message>

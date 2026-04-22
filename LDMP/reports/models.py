@@ -410,7 +410,7 @@ class ReportTaskContext:
         # Use job ids for creating a unique identifier.
         attrs = [str(j.id) for j in self.jobs]
         attrs_bytes = bytes("*".join(attrs), "utf-8")
-        attrs_hash = hashlib.md5()
+        attrs_hash = hashlib.md5(usedforsecurity=False)
         attrs_hash.update(attrs_bytes)
 
         return attrs_hash.hexdigest()

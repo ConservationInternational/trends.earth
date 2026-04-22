@@ -2377,7 +2377,7 @@ p, li { white-space: pre-wrap; }
         <translation>دعم بيانات الغطاء الحرجي المخصص قريبًا!</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="384"/>
+        <location filename="../calculate_tc.py" line="390"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
@@ -2422,7 +2422,7 @@ p, li { white-space: pre-wrap; }
         <translation>مجال الاهتمام ليس بالكامل داخل طبقة الغطاء الأرضي النهائية.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="384"/>
+        <location filename="../calculate_tc.py" line="390"/>
         <source>Error calculating change in toal carbon.</source>
         <translation>خطأ في حساب التغير في الكربون toal.</translation>
     </message>
@@ -2500,22 +2500,22 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="676"/>
+        <location filename="../calculate_tc.py" line="682"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="646"/>
+        <location filename="../calculate_tc.py" line="652"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
         <translation>مجال الاهتمام ليس بالكامل داخل طبقة فقدان الغابات.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="657"/>
+        <location filename="../calculate_tc.py" line="663"/>
         <source>Area of interest is not entirely within the total carbon layer.</source>
         <translation>مجال الاهتمام ليس بالكامل داخل طبقة الكربون الكلية.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="676"/>
+        <location filename="../calculate_tc.py" line="682"/>
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
         <translation>قرارات فقدان الغابات وإجمالي طبقات الكربون غير متطابقة.</translation>
     </message>
@@ -6375,22 +6375,22 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_calculate_tc</name>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="204"/>
+        <location filename="../localexecution/totalcarbon.py" line="207"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="204"/>
+        <location filename="../localexecution/totalcarbon.py" line="207"/>
         <source>Summary table saved to {self.output_file}</source>
         <translation>جدول الملخص محفوظ في {self.output_file}</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="213"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="213"/>
         <source>Error saving output table - check that {self.output_file} is accessible and not already open.</source>
         <translation>خطأ في حفظ جدول الإخراج - تحقق من أن {self.output_file} قابل للوصول وليس مفتوحاً بالفعل.</translation>
     </message>
@@ -6646,7 +6646,7 @@ for running algorithms and their results.</source>
         <translation>ملف نقطي (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2818"/>
+        <location filename="../data_io.py" line="2821"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
@@ -6771,7 +6771,7 @@ for running algorithms and their results.</source>
         <translation>لا توجد طبقات متوفرة في هذه المنطقة</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2818"/>
+        <location filename="../data_io.py" line="2821"/>
         <source>Select a layer to load.</source>
         <translation>اختر طبقة لتحميلها.</translation>
     </message>

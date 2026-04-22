@@ -16,7 +16,7 @@ import copy
 import json
 import logging
 import os
-import pickle
+import pickle  # nosec B403
 import sqlite3
 import threading
 import typing
@@ -44,6 +44,29 @@ CACHE_SCHEMA_VERSION = 7
 
 # Tolerance for floating-point mtime comparisons.
 _MTIME_EPSILON = 1e-3
+
+# Upper bound for cached pickle payloads
+_MAX_PICKLE_BYTES = 50 * 1024 * 1024
+
+
+def _safe_pickle_loads(payload: typing.Any):
+    """Unpickle cache payloads with basic safety checks."""
+    if payload is None:
+        raise ValueError("Cannot unpickle empty payload")
+
+    if isinstance(payload, memoryview):
+        payload_bytes = payload.tobytes()
+    elif isinstance(payload, bytearray):
+        payload_bytes = bytes(payload)
+    elif isinstance(payload, bytes):
+        payload_bytes = payload
+    else:
+        raise TypeError(f"Unexpected pickle payload type: {type(payload)!r}")
+
+    if len(payload_bytes) > _MAX_PICKLE_BYTES:
+        raise ValueError("Pickle payload exceeds maximum allowed size")
+
+    return pickle.loads(payload_bytes)  # nosec B301
 
 
 def _mtime_matches(a: float, b: float) -> bool:
@@ -382,9 +405,9 @@ class JobCache:
                 if not _mtime_matches(cached_mtime, current_mtime):
                     return None
 
-                # Restore Job from pickle
+                # Restore Job from cache payloads using restricted unpickling.
                 try:
-                    job = pickle.loads(metadata_pickle)
+                    job = _safe_pickle_loads(metadata_pickle)
 
                     # Set cached result type flags for UI state
                     _set_cached_type_flags(
@@ -407,26 +430,39 @@ class JobCache:
                     # Optionally load heavy data
                     if load_params and params_pickle:
                         try:
-                            job.params = pickle.loads(params_pickle)
+                            job.params = _safe_pickle_loads(params_pickle)
                         except (
                             pickle.PickleError,
                             AttributeError,
                             ModuleNotFoundError,
+                            ImportError,
+                            TypeError,
+                            ValueError,
                         ):
                             pass  # Keep empty params if unpickle fails
 
                     if load_results and results_pickle:
                         try:
-                            job.results = pickle.loads(results_pickle)
+                            job.results = _safe_pickle_loads(results_pickle)
                         except (
                             pickle.PickleError,
                             AttributeError,
                             ModuleNotFoundError,
+                            ImportError,
+                            TypeError,
+                            ValueError,
                         ):
                             pass  # Keep None results if unpickle fails
 
                     return job
-                except (pickle.PickleError, AttributeError, ModuleNotFoundError) as exc:
+                except (
+                    pickle.PickleError,
+                    AttributeError,
+                    ModuleNotFoundError,
+                    ImportError,
+                    TypeError,
+                    ValueError,
+                ) as exc:
                     # Pickle failed (class structure changed?) - invalidate entry
                     # Lazy import to avoid circular dependency
                     from ..conf import Setting, settings_manager
@@ -465,13 +501,16 @@ class JobCache:
                 if row is None or row[0] is None:
                     return False
 
-                job.results = pickle.loads(row[0])
+                job.results = _safe_pickle_loads(row[0])
                 return True
             except (
                 sqlite3.Error,
                 pickle.PickleError,
                 AttributeError,
                 ModuleNotFoundError,
+                ImportError,
+                TypeError,
+                ValueError,
             ) as exc:
                 log(f"Failed to lazy-load results for {cache_path}: {exc}")
                 return False
@@ -499,13 +538,16 @@ class JobCache:
                 if row is None or row[0] is None:
                     return False
 
-                job.params = pickle.loads(row[0])
+                job.params = _safe_pickle_loads(row[0])
                 return True
             except (
                 sqlite3.Error,
                 pickle.PickleError,
                 AttributeError,
                 ModuleNotFoundError,
+                ImportError,
+                TypeError,
+                ValueError,
             ) as exc:
                 log(f"Failed to lazy-load params for {cache_path}: {exc}")
                 return False
@@ -1019,26 +1061,30 @@ class JobCache:
                 return []
 
             try:
+                allowed_statuses: typing.Set[str] = set()
                 if status_filter:
-                    placeholders = ",".join("?" for _ in status_filter)
-                    query = f"""
+                    cursor = self._conn.execute(
+                        """
                         SELECT job_id, job_status, script_id, script_name,
                                extent_north, extent_south, extent_east, extent_west, path
                         FROM job_cache
-                        WHERE job_status IN ({placeholders})
-                    """
-                    cursor = self._conn.execute(query, status_filter)
+                        """
+                    )
+                    allowed_statuses = {str(value) for value in status_filter}
                 else:
-                    query = """
+                    cursor = self._conn.execute(
+                        """
                         SELECT job_id, job_status, script_id, script_name,
                                extent_north, extent_south, extent_east, extent_west, path
                         FROM job_cache
                         WHERE job_status != 'FAILED_PARSE'
-                    """
-                    cursor = self._conn.execute(query)
+                        """
+                    )
 
                 results = []
                 for row in cursor:
+                    if status_filter and row[1] not in allowed_statuses:
+                        continue
                     results.append(
                         {
                             "job_id": row[0],

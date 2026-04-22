@@ -102,6 +102,23 @@ class LayerValidationStatus(enum.Enum):
     NO_LAYERS = "no_layers"
 
 
+# Legacy script-name aliases used for dataset dropdown matching.
+DATASET_SCRIPT_NAME_ALIASES = {
+    "drought-vulnerability-summary": {
+        "drought-vulnerability-summary",
+        "drought-summary",
+    },
+}
+
+
+def _script_name_matches_dataset(script_name: str, dataset_name: str) -> bool:
+    if script_name == dataset_name:
+        return True
+
+    aliases = DATASET_SCRIPT_NAME_ALIASES.get(dataset_name, set())
+    return script_name in aliases
+
+
 # Shared message constants for layer/dataset selection widgets
 # These are lazily evaluated to ensure translation system is initialized
 def _get_no_region_message() -> str:
@@ -394,7 +411,13 @@ class RasterizeWorker(worker.AbstractWorker):
 
 class RasterImportWorker(worker.AbstractWorker):
     def __init__(
-        self, in_file, out_file, out_res, resample_mode, out_data_type=gdal.GDT_Byte
+        self,
+        in_file,
+        out_file,
+        out_res,
+        resample_mode,
+        out_data_type=gdal.GDT_Byte,
+        output_bounds=None,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -403,37 +426,34 @@ class RasterImportWorker(worker.AbstractWorker):
         self.out_res = out_res
         self.resample_mode = resample_mode
         self.out_data_type = out_data_type
+        self.output_bounds = output_bounds
 
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
+        warp_kwargs = dict(
+            format="GTiff",
+            dstNodata=-32768,
+            dstSRS="epsg:4326",
+            outputType=self.out_data_type,
+            resampleAlg=self.resample_mode,
+            creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
+            callback=self.progress_callback,
+        )
+
         if self.out_res:
-            res = gdal.Warp(
-                self.out_file,
-                self.in_file,
-                format="GTiff",
-                xRes=self.out_res,
-                yRes=-self.out_res,
-                dstNodata=-32768,
-                dstSRS="epsg:4326",
-                outputType=self.out_data_type,
-                resampleAlg=self.resample_mode,
-                creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
-                callback=self.progress_callback,
-            )
-        else:
-            res = gdal.Warp(
-                self.out_file,
-                self.in_file,
-                format="GTiff",
-                dstNodata=-32768,
-                dstSRS="epsg:4326",
-                outputType=self.out_data_type,
-                resampleAlg=self.resample_mode,
-                creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
-                callback=self.progress_callback,
-            )
+            warp_kwargs["xRes"] = self.out_res
+            warp_kwargs["yRes"] = -self.out_res
+
+        if self.output_bounds:
+            warp_kwargs["outputBounds"] = self.output_bounds
+
+        res = gdal.Warp(
+            self.out_file,
+            self.in_file,
+            **warp_kwargs,
+        )
 
         if res:
             return True
@@ -505,7 +525,7 @@ class RemapRasterWorker(worker.AbstractWorker):
                 else:
                     cols = xsize - x
 
-                d = band.ReadAsArray(x, y, cols, rows)
+                d = band.ReadAsArray(x, y, cols, rows).astype(np.int16)
 
                 d_original = d.copy()
 
@@ -1210,6 +1230,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # The datatype determines whether the dataset resampling is done with
         # nearest neighbor and mode or nearest neighbor and mean
         self.datatype = "categorical"
+        self.warp_data_type = gdal.GDT_Int16
         self.metadata = None
 
         self.btnMetadata = QtWidgets.QPushButton(tr_data_io.tr("Metadata"))
@@ -1580,27 +1601,23 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         temp_tif = GetTempFilename(".tif")
         target_bounds = self.extent_as_list()
 
+        gdal.Translate(
+            temp_tif,
+            in_file,
+            bandList=[band_number],
+            outputType=self.warp_data_type,
+        )
+
+        # Convert target_bounds [xmin, ymin, xmax, ymax] to the
+        # outputBounds format expected by gdal.Warp: [minX, minY, maxX, maxY]
+        # These are in WGS84, matching the dstSRS used by RasterImportWorker.
         if len(target_bounds) == 0:
             log("Target bounds for warping raster not available.")
-            gdal.Translate(
-                temp_tif,
-                in_file,
-                bandList=[band_number],
-                outputType=gdal.GDT_Byte,
-            )
+            output_bounds = None
         else:
             ext_str = ",".join(map(str, target_bounds))
             log(f"Target bounds for warped raster: {ext_str}")
-            # Ensure target_bounds are in the correct order: [xmin, ymax, xmax, ymin]
-            xmin, ymin, xmax, ymax = target_bounds
-            projwin = [xmin, ymax, xmax, ymin]
-            gdal.Translate(
-                temp_tif,
-                in_file,
-                bandList=[band_number],
-                outputType=gdal.GDT_Byte,
-                projWin=projwin,
-            )
+            output_bounds = target_bounds
 
         log("Importing {} to {}".format(in_file, out_file))
 
@@ -1618,6 +1635,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_file,
             out_res,
             resample_mode,
+            self.warp_data_type,
+            output_bounds,
         )
         os.remove(temp_tif)
 
@@ -2682,7 +2701,7 @@ def get_usable_datasets(
         if dataset_name != "any":
             script = getattr(job, "script", None)
             if script is not None and hasattr(script, "name"):
-                if script.name != dataset_name:
+                if not _script_name_matches_dataset(script.name, dataset_name):
                     # For vectors, also check vector.type which is matched
                     # differently — we can't exclude here.  Only skip if
                     # the job is purely raster (no vector results possible).
@@ -2755,7 +2774,7 @@ def get_usable_datasets(
                         aoi, raster_result, job.visible_name, job
                     )
                 )
-                and job.script.name == dataset_name
+                and _script_name_matches_dataset(job.script.name, dataset_name)
                 and raster_result.uri is not None
             ):
                 result.append(

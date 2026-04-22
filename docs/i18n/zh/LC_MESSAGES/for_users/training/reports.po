@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.2.4\n"
+"Project-Id-Version: Trends.Earth 2.2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-30 05:04+0000\n"
+"POT-Creation-Date: 2026-04-13 12:33+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Chinese (https://app.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -103,7 +103,7 @@ msgid ""
 "process is complete."
 msgstr "如果 **报告** 按钮 (|iconReports|) 被禁用，则表示报告生成任务仍在运行，一旦进程完成将自动启用。"
 
-#: ../../../<rst_epilog>:4
+#: ../../../<rst_epilogue>:4
 msgid "iconReports"
 msgstr "iconReports"
 

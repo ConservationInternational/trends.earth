@@ -435,13 +435,10 @@ def calculate_error_recode(
         # Convert results to dictionary format using marshmallow Schema serialization
         # Handle both single results and list of results (when include_polygon_geojson is True)
         if isinstance(results, list):
-            # Find the RasterResults to use as primary for crosstab data
-            raster_results = None
             results_list = []
             for result in results:
                 if isinstance(result, RasterResults):
                     results_list.append(RasterResults.Schema().dump(result))
-                    raster_results = results_list[-1]
                 elif isinstance(result, VectorResults):
                     results_list.append(VectorResults.Schema().dump(result))
                 elif isinstance(result, JsonResults):

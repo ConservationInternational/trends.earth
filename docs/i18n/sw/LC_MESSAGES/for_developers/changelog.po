@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 12:31+0000\n"
+"POT-Creation-Date: 2026-04-13 12:33+0000\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Language-Team: Swahili (https://app.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "This page lists the version history of |trends.earth|."
 msgstr ""
 
-#: ../../../<rst_epilog>:6
+#: ../../../<rst_epilogue>:6
 msgid "Trends.Earth"
 msgstr ""
 

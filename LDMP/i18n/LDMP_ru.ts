@@ -2356,7 +2356,7 @@ p, li { white-space: pre-wrap }
         <translation>Поддержка пользовательских данных о лесном покрове скоро!</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="384"/>
+        <location filename="../calculate_tc.py" line="390"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
@@ -2401,7 +2401,7 @@ p, li { white-space: pre-wrap }
         <translation>Область интереса не полностью в пределах последнего слоя земного покрова.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="384"/>
+        <location filename="../calculate_tc.py" line="390"/>
         <source>Error calculating change in toal carbon.</source>
         <translation>Ошибка в расчете изменения содержания углерода.</translation>
     </message>
@@ -2478,22 +2478,22 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="676"/>
+        <location filename="../calculate_tc.py" line="682"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="646"/>
+        <location filename="../calculate_tc.py" line="652"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
         <translation>Область интереса не полностью в пределах слоя потери леса.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="657"/>
+        <location filename="../calculate_tc.py" line="663"/>
         <source>Area of interest is not entirely within the total carbon layer.</source>
         <translation>Область интереса не полностью в общем углеродном слое.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="676"/>
+        <location filename="../calculate_tc.py" line="682"/>
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
         <translation>Разрешения потери леса и общего количества углерода не совпадают.</translation>
     </message>
@@ -6327,22 +6327,22 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_calculate_tc</name>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="204"/>
+        <location filename="../localexecution/totalcarbon.py" line="207"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="204"/>
+        <location filename="../localexecution/totalcarbon.py" line="207"/>
         <source>Summary table saved to {self.output_file}</source>
         <translation>Сводная таблица сохранена в {self.output_file}</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="213"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="213"/>
         <source>Error saving output table - check that {self.output_file} is accessible and not already open.</source>
         <translation>Ошибка при сохранении выходной таблицы. Убедитесь, что файл {self.output_file} доступен и еще не открыт.</translation>
     </message>
@@ -6598,7 +6598,7 @@ for running algorithms and their results.</source>
         <translation>Растровый файл (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2818"/>
+        <location filename="../data_io.py" line="2821"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
@@ -6723,7 +6723,7 @@ for running algorithms and their results.</source>
         <translation>Нет доступных слоев в этой области</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2818"/>
+        <location filename="../data_io.py" line="2821"/>
         <source>Select a layer to load.</source>
         <translation>Выбрать уровень для загрузки.</translation>
     </message>

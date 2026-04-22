@@ -20,7 +20,7 @@ from qgis.PyQt.QtCore import QCoreApplication, QLocale, Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QMenu, QToolButton
 
-from . import about, conf, main_widget
+from . import __version__, about, conf, main_widget
 from .charts import calculate_error_recode_stats
 from .conf import OPTIONS_TITLE
 from .jobs.manager import job_manager
@@ -55,6 +55,8 @@ _MODULES_TO_CLEANUP = (
     "te_algorithms",
     "LDMP",
 )
+
+_PLOTLY_WARNING_SHOWN_IN_SESSION = False
 
 
 def _cleanup_plugin_modules():
@@ -220,12 +222,8 @@ class LDMPPlugin:
         except Exception as e:
             log(f"Warning: QSettings migration failed: {e}")
 
-        """
-        Moved the initialization here so that the processing can be 
-        initialized first thereby enabling the plugin to be used in 
-        qgis_process executable for batch processes particularly in 
-        report generation.
-        """
+        self._warn_if_plotly_missing()
+
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
 
@@ -327,6 +325,34 @@ class LDMPPlugin:
         # Adds the settings to the QGIS options panel
         self.options_factory = TrendsEarthOptionsFactory()
         self.iface.registerOptionsWidgetFactory(self.options_factory)
+
+    def _warn_if_plotly_missing(self):
+        """Warn once per plugin version if Plotly is missing."""
+        global _PLOTLY_WARNING_SHOWN_IN_SESSION
+        if _PLOTLY_WARNING_SHOWN_IN_SESSION:
+            return
+
+        last_warned_version = conf.settings_manager.get_value(
+            conf.Setting.PLOTLY_MISSING_WARNING_LAST_VERSION
+        )
+        if str(last_warned_version or "") == str(__version__):
+            return
+
+        try:
+            import plotly.graph_objects  # noqa: F401
+
+            return
+        except Exception:
+            self.iface.messageBar().pushWarning(
+                "Trends.Earth",
+                self.tr(
+                    "Plotly is not available. Report charts will be skipped until Plotly is installed."
+                ),
+            )
+            conf.settings_manager.write_value(
+                conf.Setting.PLOTLY_MISSING_WARNING_LAST_VERSION, str(__version__)
+            )
+            _PLOTLY_WARNING_SHOWN_IN_SESSION = True
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""

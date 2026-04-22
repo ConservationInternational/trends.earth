@@ -1210,8 +1210,8 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
 @task(
     help={
         "clean": "remove existing install folder first",
-        "version": "what version of QGIS to install to",
-        "profile": "what profile to install to (only applies to QGIS3",
+        "version": "what version of QGIS to install to (3 or 4, default 3)",
+        "profile": "what profile to install to (only applies to QGIS3 and QGIS4)",
         "fast": "Deprecated parameter (previously used for numba compilation)",
         "link": "Symlink folder to QGIS profile directory",
     }
@@ -1219,22 +1219,18 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
 def plugin_install(
     c, clean=False, version=3, profile="default", fast=False, link=False
 ):
-    """install plugin to qgis"""
+    """install plugin to qgis (version 3 or 4)"""
     set_version(c)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
-    if version == 2:
-        folder = ".qgis2"
-    elif version == 3:
+    if version in (3, 4):
         if platform.system() == "Darwin":
-            folder = "Library/Application Support/QGIS/QGIS3/profiles/"
-
-        if platform.system() == "Linux":
-            folder = ".local/share/QGIS/QGIS3/profiles/"
-
-        if platform.system() == "Windows":
-            folder = "AppData\\Roaming\\QGIS\\QGIS3\\profiles\\"
+            folder = f"Library/Application Support/QGIS/QGIS{version}/profiles/"
+        elif platform.system() == "Linux":
+            folder = f".local/share/QGIS/QGIS{version}/profiles/"
+        elif platform.system() == "Windows":
+            folder = f"AppData\\Roaming\\QGIS\\QGIS{version}\\profiles\\"
         folder = os.path.join(folder, profile)
     else:
         print("ERROR: unknown qgis version {}".format(version))
@@ -1291,6 +1287,7 @@ def plugin_install(
                     version, dst_this_plugin
                 )
             )
+            os.makedirs(dst_plugins, exist_ok=True)
             os.symlink(src, dst_this_plugin)
 
 
@@ -2519,29 +2516,77 @@ def _get_api_token(c):
         "TRENDS_EARTH_API_PASSWORD"
     )
 
-    if not email or not password:
+    client_id = (
+        getattr(c.trends_earth_api, "client_id", None)
+        or os.environ.get("TRENDS_EARTH_API_CLIENT_ID")
+        or os.environ.get("CLIENT_ID")
+    )
+    client_secret = (
+        getattr(c.trends_earth_api, "client_secret", None)
+        or os.environ.get("TRENDS_EARTH_API_CLIENT_SECRET")
+        or os.environ.get("CLIENT_SECRET")
+    )
+
+    if (not email or not password) and (not client_id or not client_secret):
         raise RuntimeError(
             "Trends.Earth API credentials are not configured. "
-            "Set c.trends_earth_api.user/password or provide the "
-            "TRENDS_EARTH_API_USER and TRENDS_EARTH_API_PASSWORD environment variables."
+            "Set c.trends_earth_api.email/password or c.trends_earth_api.client_id/client_secret, "
+            "or provide TRENDS_EARTH_API_USER/TRENDS_EARTH_API_PASSWORD or "
+            "TRENDS_EARTH_API_CLIENT_ID/TRENDS_EARTH_API_CLIENT_SECRET "
+            "(or CLIENT_ID/CLIENT_SECRET) environment variables."
+        )
+
+    # Prefer user login when available for backwards compatibility.
+    if email and password:
+        try:
+            auth_response = requests.post(
+                f"{base_url}/auth", json={"email": email, "password": password}
+            )
+            auth_response.raise_for_status()
+
+            auth_payload = auth_response.json()
+            token = auth_payload.get("access_token")
+            if token:
+                return token
+            raise RuntimeError(
+                "Authentication response did not include an access token."
+            )
+        except (requests.exceptions.RequestException, ValueError, RuntimeError):
+            # Fall through to OAuth2 client credentials if configured.
+            pass
+
+    if not client_id or not client_secret:
+        raise RuntimeError(
+            "Failed to authenticate with Trends.Earth API using email/password."
         )
 
     try:
-        auth_response = requests.post(
-            f"{base_url}/auth", json={"email": email, "password": password}
+        oauth_response = requests.post(
+            f"{base_url}/api/v1/oauth/token",
+            json={
+                "grant_type": "client_credentials",
+                "client_id": client_id,
+                "client_secret": client_secret,
+            },
         )
-        auth_response.raise_for_status()
+        oauth_response.raise_for_status()
     except requests.exceptions.RequestException as exc:
-        raise RuntimeError("Failed to authenticate with Trends.Earth API.") from exc
+        raise RuntimeError(
+            "Failed to authenticate with Trends.Earth API using OAuth2 client credentials."
+        ) from exc
 
     try:
-        auth_payload = auth_response.json()
+        auth_payload = oauth_response.json()
     except ValueError as exc:
-        raise RuntimeError("Authentication response was not valid JSON.") from exc
+        raise RuntimeError(
+            "OAuth2 authentication response was not valid JSON."
+        ) from exc
 
     token = auth_payload.get("access_token")
     if not token:
-        raise RuntimeError("Authentication response did not include an access token.")
+        raise RuntimeError(
+            "OAuth2 authentication response did not include an access token."
+        )
     return token
 
 
@@ -2596,14 +2641,18 @@ def download_boundaries_cache(c, release_type="gbOpen", output=None):
         target_path = Path(output).resolve()
     else:
         target_path = (
-            Path(c.plugin.source_dir) / "data" / f"boundaries_list_{release_type}.json"
+            Path(c.plugin.source_dir)
+            / "data"
+            / f"boundaries_list_{release_type}.json.gz"
         ).resolve()
 
     target_path.parent.mkdir(parents=True, exist_ok=True)
     if target_path.exists():
         print(f"Overwriting existing file at {target_path}")
 
-    with target_path.open("w", encoding="utf-8") as handle:
+    import gzip as _gzip
+
+    with _gzip.open(target_path, "wt", encoding="utf-8") as handle:
         json.dump(cache_payload, handle, indent=2)
 
     print(
@@ -2626,6 +2675,92 @@ def testdata_sync(c):
 ###############################################################################
 # Options
 ###############################################################################
+
+
+@task(
+    help={
+        "fix": "attempt to auto-fix issues where possible",
+    }
+)
+def security_scan(c, fix=False):
+    """Run the QGIS plugin repository security checks (bandit, detect-secrets, flake8)."""
+    plugin_dir = c.plugin.source_dir
+    ext_libs = c.plugin.ext_libs["path"]
+
+    bandit_findings = []
+    bandit_cmd = [
+        "bandit",
+        "-r",
+        plugin_dir,
+        "-f",
+        "json",
+        "-ll",
+        "--quiet",
+    ]
+    result = subprocess.run(bandit_cmd, capture_output=True, text=True)
+    if result.stdout and result.stdout.strip():
+        try:
+            bandit_scan = json.loads(result.stdout)
+            for issue in bandit_scan.get("results", []):
+                bandit_findings.append(
+                    {
+                        "file": issue.get("filename", ""),
+                        "line": issue.get("line_number", 0),
+                        "type": issue.get("test_id", ""),
+                        "message": issue.get("issue_text", ""),
+                    }
+                )
+        except json.JSONDecodeError:
+            if result.stderr:
+                print(result.stderr)
+
+    if bandit_findings:
+        print("=== Bandit (static security analysis) ===")
+        for finding in bandit_findings:
+            print(
+                f"  {finding['file']}:{finding['line']} - "
+                f"{finding['type']}: {finding['message']}"
+            )
+
+    secrets_findings = []
+    ds_cmd = [
+        "detect-secrets",
+        "scan",
+        "--all-files",
+        ".",
+    ]
+    result = subprocess.run(ds_cmd, capture_output=True, text=True, cwd=plugin_dir)
+    if result.returncode != 0:
+        print(result.stderr)
+    elif result.stdout and result.stdout.strip():
+        scan = json.loads(result.stdout)
+        results = scan.get("results", {})
+        if results:
+            for filepath, findings in sorted(results.items()):
+                for f in findings:
+                    secrets_findings.append(
+                        {
+                            "file": filepath,
+                            "line": f.get("line_number", 0),
+                            "type": f.get("type", "Unknown"),
+                        }
+                    )
+
+    if secrets_findings:
+        print("\n=== detect-secrets (hardcoded secrets detection) ===")
+        for finding in secrets_findings:
+            print(f"  {finding['file']}:{finding['line']} - {finding['type']}")
+
+    print("\n=== Flake8 (code quality) ===")
+    flake8_cmd = [
+        sys.executable,
+        "-m",
+        "flake8",
+        plugin_dir,
+        f"--exclude={ext_libs}",
+    ]
+    subprocess.run(flake8_cmd)
+
 
 ns = Collection(
     set_version,
@@ -2656,6 +2791,7 @@ ns = Collection(
     build_download_page,
     download_boundaries_cache,
     list_scripts,
+    security_scan,
 )
 
 ns.configure(

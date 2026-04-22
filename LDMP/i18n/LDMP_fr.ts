@@ -2358,7 +2358,7 @@ p, li { white-space : pre-wrap ; }
         <translation>Le support personnalisé des données sur la couverture forestière arrive bientôt!</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="384"/>
+        <location filename="../calculate_tc.py" line="390"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -2403,7 +2403,7 @@ p, li { white-space : pre-wrap ; }
         <translation>La zone d'intérêt n'est pas entièrement comprise dans la couche de couverture terrestre finale.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="384"/>
+        <location filename="../calculate_tc.py" line="390"/>
         <source>Error calculating change in toal carbon.</source>
         <translation>Erreur lors du calcul de la variation du carbone total.</translation>
     </message>
@@ -2480,22 +2480,22 @@ p, li { white-space : pre-wrap ; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="676"/>
+        <location filename="../calculate_tc.py" line="682"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="646"/>
+        <location filename="../calculate_tc.py" line="652"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
         <translation>La zone d&amp;#39;intérêt ne se situe pas entièrement dans la couche de perte de forêt.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="657"/>
+        <location filename="../calculate_tc.py" line="663"/>
         <source>Area of interest is not entirely within the total carbon layer.</source>
         <translation>La zone d&amp;#39;intérêt ne se situe pas entièrement dans la couche de carbone totale.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="676"/>
+        <location filename="../calculate_tc.py" line="682"/>
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
         <translation>Les résolutions de perte de forêt et de couches de carbone total ne correspondent pas.</translation>
     </message>
@@ -6329,22 +6329,22 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_calculate_tc</name>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="204"/>
+        <location filename="../localexecution/totalcarbon.py" line="207"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="204"/>
+        <location filename="../localexecution/totalcarbon.py" line="207"/>
         <source>Summary table saved to {self.output_file}</source>
         <translation>Tableau récapitulatif enregistré dans {self.output_file}</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="213"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <location filename="../localexecution/totalcarbon.py" line="213"/>
         <source>Error saving output table - check that {self.output_file} is accessible and not already open.</source>
         <translation>Erreur de sauvegarde du tableau de sortie - vérifiez que {self.output_file} est accessible et n'est pas déjà ouvert.</translation>
     </message>
@@ -6600,7 +6600,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Fichier de données tramées (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2818"/>
+        <location filename="../data_io.py" line="2821"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -6725,7 +6725,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Aucune couche disponible dans cette région</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2818"/>
+        <location filename="../data_io.py" line="2821"/>
         <source>Select a layer to load.</source>
         <translation>Sélectionner une couche à charger.</translation>
     </message>

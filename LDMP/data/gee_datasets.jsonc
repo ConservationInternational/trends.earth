@@ -13,6 +13,7 @@
       "Description": "Baseline SDG 15.3.1 layer from the 2000-2023 Trends.Earth 14-band product.",
       "Units": "",
       "Link to Dataset": "https://zenodo.org/records/17514520",
+      // pragma: allowlist secret
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 1,
       "Band name": "SDG 15.3.1 Indicator",
@@ -465,6 +466,7 @@
       "Description": "Baseline SDG 15.3.1 layer from the 2000-2023 FAO-WOCAT 14-band product.",
       "Units": "",
       "Link to Dataset": "https://zenodo.org/records/17514520",
+      // pragma: allowlist secret
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
       "Band number": 1,
       "Band name": "SDG 15.3.1 Indicator",
@@ -725,6 +727,7 @@
       "Description": "Baseline SDG 15.3.1 layer from the 2000-2023 JRC 14-band product.",
       "Units": "",
       "Link to Dataset": "https://zenodo.org/records/17514520",
+      // pragma: allowlist secret
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
       "Band number": 1,
       "Band name": "SDG 15.3.1 Indicator",

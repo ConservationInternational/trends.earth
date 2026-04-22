@@ -287,8 +287,11 @@ def _load_algorithm_config(
 
 
 def _load_jsonc(file_path: str) -> typing.Any:
-    """Load JSONC files by removing full-line comments before JSON parsing."""
-    with open(file_path, encoding="utf-8") as stream:
+    """Load JSONC files by removing full-line comments before JSON parsing.
+
+    Uses utf-8-sig so files with an optional UTF-8 BOM are handled cleanly.
+    """
+    with open(file_path, encoding="utf-8-sig") as stream:
         lines = []
         for raw_line in stream:
             stripped = raw_line.lstrip()

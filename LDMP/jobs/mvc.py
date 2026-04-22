@@ -522,10 +522,19 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self._setup_status_bar(status_text, status_color)
 
         # Handle specific status behavior
-        if self.job.status in [JobStatus.RUNNING, JobStatus.PENDING, JobStatus.READY]:
+        if self.job.status in [
+            JobStatus.RUNNING,
+            JobStatus.PENDING,
+            JobStatus.READY,
+            JobStatus.CANCELLING,
+        ]:
             # Jobs that aren't completed yet - disable main actions
             self._disable_main_action_buttons()
-            if self.job.status in [JobStatus.RUNNING, JobStatus.PENDING]:
+            if self.job.status in [
+                JobStatus.RUNNING,
+                JobStatus.PENDING,
+                JobStatus.CANCELLING,
+            ]:
                 self._handle_time_series_result()
         elif self.job.status == JobStatus.FINISHED:
             result_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
@@ -927,6 +936,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             JobStatus.RUNNING: ("RUNNING", "#2196F3"),
             JobStatus.PENDING: ("PENDING", "#9C27B0"),
             JobStatus.READY: ("READY", "#9C27B0"),
+            JobStatus.CANCELLING: ("CANCELLING", "#F57C00"),
             JobStatus.FINISHED: ("FINISHED", "#4CAF50"),
             JobStatus.DOWNLOADED: ("DOWNLOADED", "#8F5D00"),
             JobStatus.GENERATED_LOCALLY: ("LOCAL", "#CC942C"),

@@ -286,17 +286,29 @@ def _load_algorithm_config(
     )
 
 
+def _load_jsonc(file_path: str) -> typing.Any:
+    """Load JSONC files by removing full-line comments before JSON parsing."""
+    with open(file_path, encoding="utf-8") as stream:
+        lines = []
+        for raw_line in stream:
+            stripped = raw_line.lstrip()
+            if stripped.startswith("//"):
+                continue
+            lines.append(raw_line)
+
+    return json.loads("".join(lines))
+
+
 datasets_file = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "data", "gee_datasets.json"
+    os.path.dirname(os.path.realpath(__file__)), "data", "gee_datasets.jsonc"
 )
-with open(datasets_file) as f:
-    REMOTE_DATASETS = json.load(f)
+REMOTE_DATASETS = _load_jsonc(datasets_file)
 
 
 script_file = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "data", "scripts.json"
 )
-with open(script_file) as f:
+with open(script_file, encoding="utf-8") as f:
     _SCRIPT_CONFIG = json.load(f)
 
 KNOWN_SCRIPTS = _load_script_config(_SCRIPT_CONFIG)

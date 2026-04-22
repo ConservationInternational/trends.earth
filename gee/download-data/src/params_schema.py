@@ -15,7 +15,7 @@ Usage::
 """
 
 from dataclasses import field
-from typing import Optional
+from typing import Any, Dict, Optional
 
 from marshmallow import validate
 from marshmallow_dataclass import dataclass
@@ -53,6 +53,22 @@ class DownloadDataParameters:
         default=None,
     )
     temporal_resolution: Optional[str] = field(
+        default=None,
+    )
+    band_number: Optional[int] = field(
+        default=None,
+        metadata={
+            "validate": validate.Range(min=1),
+            "allow_none": True,
+        },
+    )
+    band_name: Optional[str] = field(
+        default=None,
+    )
+    band_metadata: Optional[Dict[str, Any]] = field(
+        default=None,
+    )
+    band_add_to_map: Optional[bool] = field(
         default=None,
     )
     ENV: Optional[str] = field(

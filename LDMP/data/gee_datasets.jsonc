@@ -1,6 +1,6 @@
-{
+﻿{
   "Trends.Earth Global Results": {
-    "SDG 15.3.1 Baseline 2000-2015 (Trends.Earth)": {
+    "SDG 15.3.1 2000-2015 (Trends.Earth)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -15,6 +15,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 1,
+      "Band name": "SDG 15.3.1 Indicator",
+      "Band metadata": {
+        "year_initial": 2000,
+        "year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "sdg",
       "Period": "2000-2015",
       "Productivity type": "Trends.Earth",
@@ -26,7 +32,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "LPD 2001-2015 (Trends.Earth)": {
+    "Land productivity dynamics 2001-2015 (Trends.Earth)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -41,6 +47,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 2,
+      "Band name": "Land Productivity Dynamics (from Trends.Earth)",
+      "Band metadata": {
+        "year_initial": 2001,
+        "year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "lpd",
       "Period": "2001-2015",
       "Productivity type": "Trends.Earth",
@@ -52,7 +64,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "Land Cover Degradation 2000-2015": {
+    "Land cover degradation 2000-2015": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -67,6 +79,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 3,
+      "Band name": "Land cover (degradation)",
+      "Band metadata": {
+        "year_initial": 2000,
+        "year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "land_cover",
       "Period": "2000-2015",
       "Productivity type": "all",
@@ -78,7 +96,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SOC Degradation 2000-2015": {
+    "Soil organic carbon degradation 2000-2015": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -93,6 +111,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 4,
+      "Band name": "Soil organic carbon (degradation)",
+      "Band metadata": {
+        "year_initial": 2000,
+        "year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "soc",
       "Period": "2000-2015",
       "Productivity type": "all",
@@ -119,6 +143,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 5,
+      "Band name": "SDG 15.3.1 Indicator",
+      "Band metadata": {
+        "year_initial": 2004,
+        "year_final": 2019
+      },
+      "Band add_to_map": true,
       "Category": "sdg",
       "Period": "2004-2019",
       "Productivity type": "Trends.Earth",
@@ -130,7 +160,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "LPD 2004-2019 (Trends.Earth)": {
+    "Land productivity dynamics 2004-2019 (Trends.Earth)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -145,6 +175,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 6,
+      "Band name": "Land Productivity Dynamics (from Trends.Earth)",
+      "Band metadata": {
+        "year_initial": 2004,
+        "year_final": 2019
+      },
+      "Band add_to_map": true,
       "Category": "lpd",
       "Period": "2004-2019",
       "Productivity type": "Trends.Earth",
@@ -156,7 +192,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "Land Cover Degradation 2015-2019": {
+    "Land cover degradation 2015-2019": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -171,6 +207,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 7,
+      "Band name": "Land cover (degradation)",
+      "Band metadata": {
+        "year_initial": 2015,
+        "year_final": 2019
+      },
+      "Band add_to_map": true,
       "Category": "land_cover",
       "Period": "2015-2019",
       "Productivity type": "all",
@@ -182,7 +224,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SOC Degradation 2015-2019": {
+    "Soil organic carbon degradation 2015-2019": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -197,6 +239,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 8,
+      "Band name": "Soil organic carbon (degradation)",
+      "Band metadata": {
+        "year_initial": 2015,
+        "year_final": 2019
+      },
+      "Band add_to_map": true,
       "Category": "soc",
       "Period": "2015-2019",
       "Productivity type": "all",
@@ -208,7 +256,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SDG 15.3.1 Status 2019 vs Baseline (Trends.Earth)": {
+    "SDG 15.3.1 status 2019 vs baseline (Trends.Earth)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -223,6 +271,14 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 9,
+      "Band name": "SDG 15.3.1 Indicator (status)",
+      "Band metadata": {
+        "reporting_year_initial": 2004,
+        "reporting_year_final": 2019,
+        "baseline_year_initial": 2000,
+        "baseline_year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "status",
       "Period": "2019_vs_baseline",
       "Productivity type": "Trends.Earth",
@@ -249,6 +305,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 10,
+      "Band name": "SDG 15.3.1 Indicator",
+      "Band metadata": {
+        "year_initial": 2008,
+        "year_final": 2023
+      },
+      "Band add_to_map": true,
       "Category": "sdg",
       "Period": "2008-2023",
       "Productivity type": "Trends.Earth",
@@ -260,7 +322,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "LPD 2008-2023 (Trends.Earth)": {
+    "Land productivity dynamics 2008-2023 (Trends.Earth)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -275,6 +337,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 11,
+      "Band name": "Land Productivity Dynamics (from Trends.Earth)",
+      "Band metadata": {
+        "year_initial": 2008,
+        "year_final": 2023
+      },
+      "Band add_to_map": true,
       "Category": "lpd",
       "Period": "2008-2023",
       "Productivity type": "Trends.Earth",
@@ -286,7 +354,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "Land Cover Degradation 2015-2022": {
+    "Land cover degradation 2015-2022": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -301,6 +369,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 12,
+      "Band name": "Land cover (degradation)",
+      "Band metadata": {
+        "year_initial": 2015,
+        "year_final": 2022
+      },
+      "Band add_to_map": true,
       "Category": "land_cover",
       "Period": "2015-2022",
       "Productivity type": "all",
@@ -312,7 +386,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SOC Degradation 2015-2022": {
+    "Soil organic carbon degradation 2015-2022": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -327,6 +401,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 13,
+      "Band name": "Soil organic carbon (degradation)",
+      "Band metadata": {
+        "year_initial": 2015,
+        "year_final": 2022
+      },
+      "Band add_to_map": true,
       "Category": "soc",
       "Period": "2015-2022",
       "Productivity type": "all",
@@ -338,7 +418,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SDG 15.3.1 Status 2023 vs Baseline (Trends.Earth)": {
+    "SDG 15.3.1 status 2023 vs baseline (Trends.Earth)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -353,6 +433,14 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
       "Band number": 14,
+      "Band name": "SDG 15.3.1 Indicator (status)",
+      "Band metadata": {
+        "reporting_year_initial": 2008,
+        "reporting_year_final": 2023,
+        "baseline_year_initial": 2000,
+        "baseline_year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "status",
       "Period": "2023_vs_baseline",
       "Productivity type": "Trends.Earth",
@@ -364,7 +452,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SDG 15.3.1 Baseline 2000-2015 (FAO-WOCAT)": {
+    "SDG 15.3.1 2000-2015 (FAO-WOCAT)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -379,6 +467,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
       "Band number": 1,
+      "Band name": "SDG 15.3.1 Indicator",
+      "Band metadata": {
+        "year_initial": 2000,
+        "year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "sdg",
       "Period": "2000-2015",
       "Productivity type": "FAO-WOCAT",
@@ -390,7 +484,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "LPD 2001-2015 (FAO-WOCAT)": {
+    "Land productivity dynamics 2001-2015 (FAO-WOCAT)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -405,6 +499,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
       "Band number": 2,
+      "Band name": "Land Productivity Dynamics (from FAO-WOCAT)",
+      "Band metadata": {
+        "year_initial": 2001,
+        "year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "lpd",
       "Period": "2001-2015",
       "Productivity type": "FAO-WOCAT",
@@ -431,6 +531,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
       "Band number": 5,
+      "Band name": "SDG 15.3.1 Indicator",
+      "Band metadata": {
+        "year_initial": 2004,
+        "year_final": 2019
+      },
+      "Band add_to_map": true,
       "Category": "sdg",
       "Period": "2004-2019",
       "Productivity type": "FAO-WOCAT",
@@ -442,7 +548,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "LPD 2004-2019 (FAO-WOCAT)": {
+    "Land productivity dynamics 2004-2019 (FAO-WOCAT)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -457,6 +563,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
       "Band number": 6,
+      "Band name": "Land Productivity Dynamics (from FAO-WOCAT)",
+      "Band metadata": {
+        "year_initial": 2004,
+        "year_final": 2019
+      },
+      "Band add_to_map": true,
       "Category": "lpd",
       "Period": "2004-2019",
       "Productivity type": "FAO-WOCAT",
@@ -468,7 +580,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SDG 15.3.1 Status 2019 vs Baseline (FAO-WOCAT)": {
+    "SDG 15.3.1 status 2019 vs baseline (FAO-WOCAT)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -483,6 +595,14 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
       "Band number": 9,
+      "Band name": "SDG 15.3.1 Indicator (status)",
+      "Band metadata": {
+        "reporting_year_initial": 2004,
+        "reporting_year_final": 2019,
+        "baseline_year_initial": 2000,
+        "baseline_year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "status",
       "Period": "2019_vs_baseline",
       "Productivity type": "FAO-WOCAT",
@@ -509,6 +629,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
       "Band number": 10,
+      "Band name": "SDG 15.3.1 Indicator",
+      "Band metadata": {
+        "year_initial": 2008,
+        "year_final": 2023
+      },
+      "Band add_to_map": true,
       "Category": "sdg",
       "Period": "2008-2023",
       "Productivity type": "FAO-WOCAT",
@@ -520,7 +646,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "LPD 2008-2023 (FAO-WOCAT)": {
+    "Land productivity dynamics 2008-2023 (FAO-WOCAT)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -535,6 +661,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
       "Band number": 11,
+      "Band name": "Land Productivity Dynamics (from FAO-WOCAT)",
+      "Band metadata": {
+        "year_initial": 2008,
+        "year_final": 2023
+      },
+      "Band add_to_map": true,
       "Category": "lpd",
       "Period": "2008-2023",
       "Productivity type": "FAO-WOCAT",
@@ -546,7 +678,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SDG 15.3.1 Status 2023 vs Baseline (FAO-WOCAT)": {
+    "SDG 15.3.1 status 2023 vs baseline (FAO-WOCAT)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -561,6 +693,14 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
       "Band number": 14,
+      "Band name": "SDG 15.3.1 Indicator (status)",
+      "Band metadata": {
+        "reporting_year_initial": 2008,
+        "reporting_year_final": 2023,
+        "baseline_year_initial": 2000,
+        "baseline_year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "status",
       "Period": "2023_vs_baseline",
       "Productivity type": "FAO-WOCAT",
@@ -572,7 +712,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SDG 15.3.1 Baseline 2000-2015 (JRC)": {
+    "SDG 15.3.1 2000-2015 (JRC)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -587,6 +727,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
       "Band number": 1,
+      "Band name": "SDG 15.3.1 Indicator",
+      "Band metadata": {
+        "year_initial": 2000,
+        "year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "sdg",
       "Period": "2000-2015",
       "Productivity type": "JRC",
@@ -598,7 +744,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "LPD 2001-2015 (JRC)": {
+    "Land productivity dynamics 2001-2015 (JRC)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -613,6 +759,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
       "Band number": 2,
+      "Band name": "Land Productivity Dynamics (from JRC)",
+      "Band metadata": {
+        "year_initial": 2001,
+        "year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "lpd",
       "Period": "2001-2015",
       "Productivity type": "JRC",
@@ -639,6 +791,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
       "Band number": 5,
+      "Band name": "SDG 15.3.1 Indicator",
+      "Band metadata": {
+        "year_initial": 2004,
+        "year_final": 2019
+      },
+      "Band add_to_map": true,
       "Category": "sdg",
       "Period": "2004-2019",
       "Productivity type": "JRC",
@@ -650,7 +808,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "LPD 2004-2019 (JRC)": {
+    "Land productivity dynamics 2004-2019 (JRC)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -665,6 +823,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
       "Band number": 6,
+      "Band name": "Land Productivity Dynamics (from JRC)",
+      "Band metadata": {
+        "year_initial": 2004,
+        "year_final": 2019
+      },
+      "Band add_to_map": true,
       "Category": "lpd",
       "Period": "2004-2019",
       "Productivity type": "JRC",
@@ -676,7 +840,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SDG 15.3.1 Status 2019 vs Baseline (JRC)": {
+    "SDG 15.3.1 status 2019 vs baseline (JRC)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -691,6 +855,14 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
       "Band number": 9,
+      "Band name": "SDG 15.3.1 Indicator (status)",
+      "Band metadata": {
+        "reporting_year_initial": 2004,
+        "reporting_year_final": 2019,
+        "baseline_year_initial": 2000,
+        "baseline_year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "status",
       "Period": "2019_vs_baseline",
       "Productivity type": "JRC",
@@ -717,6 +889,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
       "Band number": 10,
+      "Band name": "SDG 15.3.1 Indicator",
+      "Band metadata": {
+        "year_initial": 2008,
+        "year_final": 2023
+      },
+      "Band add_to_map": true,
       "Category": "sdg",
       "Period": "2008-2023",
       "Productivity type": "JRC",
@@ -728,7 +906,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "LPD 2008-2023 (JRC)": {
+    "Land productivity dynamics 2008-2023 (JRC)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -743,6 +921,12 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
       "Band number": 11,
+      "Band name": "Land Productivity Dynamics (from JRC)",
+      "Band metadata": {
+        "year_initial": 2008,
+        "year_final": 2023
+      },
+      "Band add_to_map": true,
       "Category": "lpd",
       "Period": "2008-2023",
       "Productivity type": "JRC",
@@ -754,7 +938,7 @@
       "Citation": "Conservation International. (2026). Trends.Earth SDG 15.3.1 global datasets (2000-2023). Zenodo. https://doi.org/10.5281/zenodo.17514520",
       "downloadable": true
     },
-    "SDG 15.3.1 Status 2023 vs Baseline (JRC)": {
+    "SDG 15.3.1 status 2023 vs baseline (JRC)": {
       "Data source": "Trends.Earth SDG 15.3.1 precomputed asset",
       "Start year": "NA",
       "End year": "NA",
@@ -769,6 +953,14 @@
       "Link to Dataset": "https://zenodo.org/records/17514520",
       "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
       "Band number": 14,
+      "Band name": "SDG 15.3.1 Indicator (status)",
+      "Band metadata": {
+        "reporting_year_initial": 2008,
+        "reporting_year_final": 2023,
+        "baseline_year_initial": 2000,
+        "baseline_year_final": 2015
+      },
+      "Band add_to_map": true,
       "Category": "status",
       "Period": "2023_vs_baseline",
       "Productivity type": "JRC",

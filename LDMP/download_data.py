@@ -276,6 +276,22 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 "task_notes": "",
             }
 
+            band_number = dataset.get("Band number")
+            if band_number not in (None, ""):
+                payload["band_number"] = int(band_number)
+
+            band_name = dataset.get("Band name")
+            if band_name:
+                payload["band_name"] = band_name
+
+            band_metadata = dataset.get("Band metadata")
+            if isinstance(band_metadata, dict):
+                payload["band_metadata"] = band_metadata
+
+            band_add_to_map = dataset.get("Band add_to_map")
+            if isinstance(band_add_to_map, bool):
+                payload["band_add_to_map"] = band_add_to_map
+
             resp = job_manager.submit_remote_job(payload, self.script.id)
             if resp:
                 main_msg = "Success"

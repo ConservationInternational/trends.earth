@@ -1,0 +1,218 @@
+{
+  "sids_lpd_30m": {
+    "zenodo_record": "15276520",
+    "zenodo_doi": "10.5281/zenodo.15276520",
+    "title": "30m Land Productivity Dynamics Dataset for SIDS",
+    "description": "Land Productivity Dynamics data for Small Island Developing States computed from mixed Landsat time series using the FAO-WOCAT v2 (FWv2) algorithm at 30m resolution. Covers three reporting periods: 2000-2015 (baseline), 2004-2019 (1st reporting), and 2008-2023 (2nd reporting).",
+    "resolution": "30 m",
+    "algorithm": "FAO-WOCAT v2 (FWv2)",
+    "periods": ["2000-2015", "2004-2019", "2008-2023"],
+    "citation": "Garcia, C.L., et al. (2025). A 30m Land Productivity Dynamic Dataset for SIDS computed from Mixed Landsat Time Series and FWv2 model. Zenodo. https://doi.org/10.5281/zenodo.15276520",
+    "license": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "contact": "info@apacheta.org",
+    "base_download_url": "https://zenodo.org/api/records/15276520/files/{filename}/content",
+    "countries": [
+      {
+        "name": "Antigua and Barbuda",
+        "filename": "LPD_FWv2_Antigua_and_Barbuda_v1.zip",
+        "size_bytes": 295400
+      },
+      {
+        "name": "Bahamas",
+        "filename": "LPD_FWv2_Bahamas_v1.zip",
+        "size_bytes": 8400000
+      },
+      {
+        "name": "Bahrain",
+        "filename": "LPD_FWv2_Bahrain_v1.zip",
+        "size_bytes": 197900
+      },
+      {
+        "name": "Barbados",
+        "filename": "LPD_FWv2_Barbados_v1.zip",
+        "size_bytes": 294500
+      },
+      {
+        "name": "Belize",
+        "filename": "LPD_FWv2_Belize_v1.zip",
+        "size_bytes": 6100000
+      },
+      {
+        "name": "Cape Verde",
+        "filename": "LPD_FWv2_Cape_Verde_v1.zip",
+        "size_bytes": 2100000
+      },
+      {
+        "name": "Comoros",
+        "filename": "LPD_FWv2_Comoros_v1.zip",
+        "size_bytes": 698200
+      },
+      {
+        "name": "Cook Islands",
+        "filename": "LPD_FWv2_Cook_Islands_v1.zip",
+        "size_bytes": 646600
+      },
+      {
+        "name": "Cuba",
+        "filename": "LPD_FWv2_Cuba_v1.zip",
+        "size_bytes": 44600000
+      },
+      {
+        "name": "Dominica",
+        "filename": "LPD_FWv2_Dominica_v1.zip",
+        "size_bytes": 196100
+      },
+      {
+        "name": "Dominican Republic",
+        "filename": "LPD_FWv2_Dominican_Republic_v1.zip",
+        "size_bytes": 19300000
+      },
+      {
+        "name": "Fiji",
+        "filename": "LPD_FWv2_Fiji_v1.zip",
+        "size_bytes": 4700000
+      },
+      {
+        "name": "Grenada",
+        "filename": "LPD_FWv2_Grenada_v1.zip",
+        "size_bytes": 179000
+      },
+      {
+        "name": "Guinea-Bissau",
+        "filename": "LPD_FWv2_Guinea-Bissau_v1.zip",
+        "size_bytes": 17500000
+      },
+      {
+        "name": "Guyana",
+        "filename": "LPD_FWv2_Guyana_v1.zip",
+        "size_bytes": 30000000
+      },
+      {
+        "name": "Haiti",
+        "filename": "LPD_FWv2_Haiti_v1.zip",
+        "size_bytes": 13400000
+      },
+      {
+        "name": "Jamaica",
+        "filename": "LPD_FWv2_Jamaica_v1.zip",
+        "size_bytes": 3400000
+      },
+      {
+        "name": "Kiribati",
+        "filename": "LPD_FWv2_Kiribati_v1.zip",
+        "size_bytes": 3400000
+      },
+      {
+        "name": "Maldives",
+        "filename": "LPD_FWv2_Maldives_v1.zip",
+        "size_bytes": 553700
+      },
+      {
+        "name": "Marshall Islands",
+        "filename": "LPD_FWv2_Marshall_Islands_v1.zip",
+        "size_bytes": 854000
+      },
+      {
+        "name": "Mauritius",
+        "filename": "LPD_FWv2_Mauritius_v1.zip",
+        "size_bytes": 1400000
+      },
+      {
+        "name": "Micronesia (Federated States of)",
+        "filename": "LPD_FWv2_Micronesia__Federated_States_of_v1.zip",
+        "size_bytes": 1500000
+      },
+      {
+        "name": "Nauru",
+        "filename": "LPD_FWv2_Nauru_v1.zip",
+        "size_bytes": 25100
+      },
+      {
+        "name": "Niue",
+        "filename": "LPD_FWv2_Niue_v1.zip",
+        "size_bytes": 66300
+      },
+      {
+        "name": "Palau",
+        "filename": "LPD_FWv2_Palau_v1.zip",
+        "size_bytes": 287700
+      },
+      {
+        "name": "Papua New Guinea",
+        "filename": "LPD_FWv2_Papua_New_Guinea_v1.zip",
+        "size_bytes": 83400000
+      },
+      {
+        "name": "Saint Kitts and Nevis",
+        "filename": "LPD_FWv2_Saint_Kitts_and_Nevis_v1.zip",
+        "size_bytes": 147800
+      },
+      {
+        "name": "Saint Lucia",
+        "filename": "LPD_FWv2_Saint_Lucia_v1.zip",
+        "size_bytes": 214100
+      },
+      {
+        "name": "Saint Vincent and the Grenadines",
+        "filename": "LPD_FWv2_Saint_Vincent_and_the_Grenadines_v1.zip",
+        "size_bytes": 213300
+      },
+      {
+        "name": "Samoa",
+        "filename": "LPD_FWv2_Samoa_v1.zip",
+        "size_bytes": 599100
+      },
+      {
+        "name": "Sao Tome and Principe",
+        "filename": "LPD_FWv2_Sao_Tome_and_Principe_v1.zip",
+        "size_bytes": 392600
+      },
+      {
+        "name": "Seychelles",
+        "filename": "LPD_FWv2_Seychelles_v1.zip",
+        "size_bytes": 660400
+      },
+      {
+        "name": "Singapore",
+        "filename": "LPD_FWv2_Singapore_v1.zip",
+        "size_bytes": 515200
+      },
+      {
+        "name": "Solomon Islands",
+        "filename": "LPD_FWv2_Solomon_Islands_v1.zip",
+        "size_bytes": 6100000
+      },
+      {
+        "name": "Suriname",
+        "filename": "LPD_FWv2_Suriname_v1.zip",
+        "size_bytes": 10700000
+      },
+      {
+        "name": "Timor-Leste",
+        "filename": "LPD_FWv2_Timor-Leste_v1.zip",
+        "size_bytes": 6100000
+      },
+      {
+        "name": "Tonga",
+        "filename": "LPD_FWv2_Tonga_v1.zip",
+        "size_bytes": 521900
+      },
+      {
+        "name": "Trinidad and Tobago",
+        "filename": "LPD_FWv2_Trinidad_and_Tobago_v1.zip",
+        "size_bytes": 1500000
+      },
+      {
+        "name": "Tuvalu",
+        "filename": "LPD_FWv2_Tuvalu_v1.zip",
+        "size_bytes": 158900
+      },
+      {
+        "name": "Vanuatu",
+        "filename": "LPD_FWv2_Vanuatu_v1.zip",
+        "size_bytes": 2900000
+      }
+    ]
+  }
+}

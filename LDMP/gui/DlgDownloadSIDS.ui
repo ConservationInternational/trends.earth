@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DlgDownloadSIDS</class>
+ <widget class="QDialog" name="DlgDownloadSIDS">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>520</width>
+    <height>320</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Download 30m Land Productivity Dynamics for SIDS</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox_info">
+     <property name="title">
+      <string>Dataset Information</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_info">
+      <item>
+       <widget class="QLabel" name="lbl_description">
+        <property name="text">
+         <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;Pre-computed &lt;b&gt;30m Land Productivity Dynamics (LPD)&lt;/b&gt; data for Small Island Developing States (SIDS), derived from Landsat time series using the FAO-WOCAT v2 algorithm. Covers three reporting periods: 2000–2015, 2004–2019, and 2008–2023.&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://zenodo.org/records/15276520&quot;&gt;Zenodo DOI: 10.5281/zenodo.15276520&lt;/a&gt; &amp;nbsp;|&amp;nbsp; License: CC-BY-4.0&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_region">
+     <property name="title">
+      <string>Current Region</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_region">
+      <item>
+       <widget class="QLabel" name="lbl_country">
+        <property name="text">
+         <string>Country: <i>detecting...</i></string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_status">
+        <property name="visible">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QProgressBar" name="progress_bar">
+     <property name="visible">
+      <bool>false</bool>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

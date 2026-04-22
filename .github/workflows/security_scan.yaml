@@ -118,11 +118,13 @@ jobs:
           fi
 
           python3 - << 'PYEOF'
-          import json, sys
+            import json
+            import sys
+
           with open("secrets_output.json") as f:
               data = json.load(f)
           results = data.get("results", {})
-          if results:
+            if results:
               print("=== detect-secrets findings ===")
               count = 0
               for filepath, findings in sorted(results.items()):
@@ -165,12 +167,10 @@ jobs:
       # qgis-app/plugins/security_scanner.py (_check_suspicious_files).
       - name: Suspicious files [informational]
         id: suspicious
-        continue-on-error: true
         run: |
           echo "Running suspicious-files scan on $PACKAGED_PLUGIN_DIR ..."
           python3 - << 'PYEOF'
           import os
-          import sys
 
           root = os.environ["PACKAGED_PLUGIN_DIR"]
           suspicious_extensions = {
@@ -210,9 +210,13 @@ jobs:
                   print(f"  {path} - {message}")
               print(f"\nFiles checked: {files_checked}")
               print(f"Total: {len(findings)} issue(s) found.")
-              sys.exit(1)
+              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as gh:
+                  gh.write("issues_found=true\n")
+              sys.exit(0)
 
           print(f"Suspicious files: no issues found. ✓ (files checked: {files_checked})")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as gh:
+              gh.write("issues_found=false\n")
           PYEOF
 
       # ── Summary: surface individual outcomes and fail on any blocking check ─
@@ -222,7 +226,7 @@ jobs:
           bandit_result="${{ steps.bandit.outcome }}"
           secrets_result="${{ steps.secrets.outcome }}"
           flake8_result="${{ steps.flake8.outcome }}"
-          suspicious_result="${{ steps.suspicious.outcome }}"
+          suspicious_issues="${{ steps.suspicious.outputs.issues_found }}"
 
           echo "┌─────────────────────────────────────────────────────────┐"
           echo "│                  Security Scan Results                  │"
@@ -248,10 +252,10 @@ jobs:
             echo "│ Flake8 (code quality)          │    no    │ ✗ issues   │"
           fi
 
-          if [ "$suspicious_result" = "success" ]; then
-            echo "│ Suspicious files               │    no    │ ✓ PASSED   │"
-          else
+          if [ "$suspicious_issues" = "true" ]; then
             echo "│ Suspicious files               │    no    │ ✗ issues   │"
+          else
+            echo "│ Suspicious files               │    no    │ ✓ PASSED   │"
           fi
 
           echo "└────────────────────────────────┴──────────┴─────────────┘"

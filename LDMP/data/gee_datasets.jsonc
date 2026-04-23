@@ -13,8 +13,7 @@
       "Description": "Baseline SDG 15.3.1 layer from the 2000-2023 Trends.Earth 14-band product.",
       "Units": "",
       "Link to Dataset": "https://zenodo.org/records/17514520",
-      // pragma: allowlist secret
-      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
+      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth", // pragma: allowlist secret
       "Band number": 1,
       "Band name": "SDG 15.3.1 Indicator",
       "Band metadata": {
@@ -466,8 +465,7 @@
       "Description": "Baseline SDG 15.3.1 layer from the 2000-2023 FAO-WOCAT 14-band product.",
       "Units": "",
       "Link to Dataset": "https://zenodo.org/records/17514520",
-      // pragma: allowlist secret
-      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
+      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT", // pragma: allowlist secret
       "Band number": 1,
       "Band name": "SDG 15.3.1 Indicator",
       "Band metadata": {
@@ -727,8 +725,7 @@
       "Description": "Baseline SDG 15.3.1 layer from the 2000-2023 JRC 14-band product.",
       "Units": "",
       "Link to Dataset": "https://zenodo.org/records/17514520",
-      // pragma: allowlist secret
-      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
+      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC", // pragma: allowlist secret
       "Band number": 1,
       "Band name": "SDG 15.3.1 Indicator",
       "Band metadata": {
@@ -1189,8 +1186,7 @@
       "Units": "",
       "Description": "The Land Productivity Dynamics (LPD) dataset is produced by the Joint research Ommission. The land-productivity dynamics dataset is calculated from vegetation indices derived from long-term low-resolution satellite time series such as the GIMMS3g dataset combined with productivity efficiency measurements derived from short, recent, medium resolution data such as those from the SPOT VEGETATION sensor. The limited set of NDVI variables is extended by a number of phenological and productivity relevant variables. Keeping statistical solidity, qualitative approaches have been selected to classify, interpret and integrate these several variables. Intermediate products are produced that are then combined into a Land-productivity Dynamics data layer. Land-productivity dynamics can indicate levels of sustained land-quality and is therefore used as first step in the land degradation assessment.",
       "Link to Dataset": "None available",
-      // pragma: allowlist secret
-      "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lpd_jrc_reporting_2004_2019_1km",
+      "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lpd_jrc_reporting_2004_2019_1km", // pragma: allowlist secret
       "Source code": "None available.",
       "License": "",
       "License URL": "",
@@ -1212,8 +1208,7 @@
     "Units": "",
     "Description": "The Land Productivity Dynamics (LPD) dataset is produced by the Joint research Ommission. The land-productivity dynamics dataset is calculated from vegetation indices derived from long-term low-resolution satellite time series such as the GIMMS3g dataset combined with productivity efficiency measurements derived from short, recent, medium resolution data such as those from the SPOT VEGETATION sensor. The limited set of NDVI variables is extended by a number of phenological and productivity relevant variables. Keeping statistical solidity, qualitative approaches have been selected to classify, interpret and integrate these several variables. Intermediate products are produced that are then combined into a Land-productivity Dynamics data layer. Land-productivity dynamics can indicate levels of sustained land-quality and is therefore used as first step in the land degradation assessment.",
     "Link to Dataset": "None available",
-    // pragma: allowlist secret
-    "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lpd_jrc_reporting_2008_2023_1km",
+    "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lpd_jrc_reporting_2008_2023_1km", // pragma: allowlist secret
     "Source code": "None available.",
     "License": "",
     "License URL": "",
@@ -1258,8 +1253,7 @@
       "Lags": [9, 12, 24, 28],
       "Description": "SPI (gamma distribution) derived from Climate Hazards Group InfraRed Precipitation with Station data (CHIRPS). CHIRPS is a 30+ year quasi-global rainfall dataset. Spanning 50°S-50°N (and all longitudes), starting in 1981 to near-present, CHIRPS incorporates 0.05° resolution satellite imagery with in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring.",
       "Link to Dataset": "http://chg.geog.ucsb.edu/data/chirps/",
-      // pragma: allowlist secret
-      "GEE Dataset": "projects/gef-land-degradation/assets/chirps_spi_gamma_monthly_v2025",
+      "GEE Dataset": "projects/gef-land-degradation/assets/chirps_spi_gamma_monthly_v2025", // pragma: allowlist secret
       "Source code": "c05_precip_chirps_int_global_assets",
       "License": "Public Domain",
       "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",

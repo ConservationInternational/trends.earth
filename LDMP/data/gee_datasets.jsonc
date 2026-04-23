@@ -45,7 +45,7 @@
       "Description": "Baseline LPD layer from the 2000-2023 Trends.Earth 14-band product.",
       "Units": "",
       "Link to Dataset": "https://zenodo.org/records/17514520",
-      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth",
+      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_Trends-Earth", // pragma: allowlist secret
       "Band number": 2,
       "Band name": "Land Productivity Dynamics (from Trends.Earth)",
       "Band metadata": {
@@ -497,7 +497,7 @@
       "Description": "Baseline LPD layer from the 2000-2023 FAO-WOCAT 14-band product.",
       "Units": "",
       "Link to Dataset": "https://zenodo.org/records/17514520",
-      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT",
+      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_FAO-WOCAT", // pragma: allowlist secret
       "Band number": 2,
       "Band name": "Land Productivity Dynamics (from FAO-WOCAT)",
       "Band metadata": {
@@ -757,7 +757,7 @@
       "Description": "Baseline LPD layer from the 2000-2023 JRC 14-band product.",
       "Units": "",
       "Link to Dataset": "https://zenodo.org/records/17514520",
-      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC",
+      "GEE Dataset": "projects/gef-land-degradation/assets/TrendsEarth_SDG15-3-1_2000-2023_JRC", // pragma: allowlist secret
       "Band number": 2,
       "Band name": "Land Productivity Dynamics (from JRC)",
       "Band metadata": {

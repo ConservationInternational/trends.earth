@@ -287,17 +287,42 @@ def _load_algorithm_config(
 
 
 def _load_jsonc(file_path: str) -> typing.Any:
-    """Load JSONC files by removing full-line comments before JSON parsing.
+    """Load JSONC files by removing // comments before JSON parsing.
 
     Uses utf-8-sig so files with an optional UTF-8 BOM are handled cleanly.
     """
+
+    def _strip_jsonc_comment(raw_line: str) -> str:
+        """Strip // comments while preserving // inside quoted strings."""
+        in_string = False
+        escaped = False
+
+        for index, char in enumerate(raw_line):
+            if escaped:
+                escaped = False
+                continue
+
+            if char == "\\":
+                escaped = True
+                continue
+
+            if char == '"':
+                in_string = not in_string
+                continue
+
+            if not in_string and char == "/" and index + 1 < len(raw_line):
+                if raw_line[index + 1] == "/":
+                    return raw_line[:index]
+
+        return raw_line
+
     with open(file_path, encoding="utf-8-sig") as stream:
         lines = []
         for raw_line in stream:
             stripped = raw_line.lstrip()
             if stripped.startswith("//"):
                 continue
-            lines.append(raw_line)
+            lines.append(_strip_jsonc_comment(raw_line))
 
     return json.loads("".join(lines))
 

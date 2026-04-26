@@ -478,7 +478,12 @@ class APIClient(QtCore.QObject):
         auth.clear_jwt_tokens()
 
     def _refresh_access_token(self, refresh_token):
-        """Use refresh token to get new access token"""
+        """Use refresh token to get new access token.
+
+        The API implements refresh token rotation: the presented refresh token
+        is revoked and a new one is issued.  Both the new access token and the
+        new refresh token are stored; the old refresh token must not be reused.
+        """
         if not refresh_token:
             log("No refresh token available")
             return None
@@ -486,7 +491,7 @@ class APIClient(QtCore.QObject):
         log("Attempting to refresh access token")
 
         resp = self.call_api(
-            "/auth/refresh",
+            "/auth/refresh?legacy=false",
             method="post",
             payload={"refresh_token": refresh_token},
             use_token=False,  # Don't use token for refresh endpoint
@@ -496,9 +501,11 @@ class APIClient(QtCore.QObject):
             access_token = resp.get("access_token")
 
             if access_token:
-                # Store the new access token, keep the existing refresh token
-                # (the /auth/refresh endpoint does not issue new refresh tokens)
-                self._store_tokens(access_token, refresh_token)
+                # The API rotates the refresh token on every use — store the
+                # new refresh token returned in the response (fall back to the
+                # old one only if the server omits it, for resilience).
+                new_refresh_token = resp.get("refresh_token") or refresh_token
+                self._store_tokens(access_token, new_refresh_token)
                 log("Access token refreshed successfully")
                 return access_token
             else:

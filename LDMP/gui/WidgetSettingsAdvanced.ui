@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>594</width>
-    <height>470</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -206,6 +206,88 @@
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gee_gb">
+     <property name="title">
+      <string>Google Earth Engine Account - EXPERIMENTAL</string>
+     </property>
+     <layout class="QVBoxLayout" name="gee_vbox">
+      <item>
+       <widget class="QLabel" name="gee_status_label">
+        <property name="text">
+         <string>Not connected</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="gee_project_layout">
+        <item>
+         <widget class="QLabel" name="gee_project_label">
+          <property name="text">
+           <string>Project ID:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="gee_project_edit">
+          <property name="placeholderText">
+           <string>my-gee-project</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="gee_save_project_btn">
+          <property name="text">
+           <string>Save</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="gee_buttons_layout">
+        <item>
+         <widget class="QPushButton" name="gee_connect_btn">
+          <property name="text">
+           <string>Connect GEE Account</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="gee_test_btn">
+          <property name="text">
+           <string>Test Connection</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="gee_disconnect_btn">
+          <property name="text">
+           <string>Disconnect</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="gee_buttons_spacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>

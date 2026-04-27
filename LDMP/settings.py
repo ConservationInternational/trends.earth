@@ -1620,6 +1620,16 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     qgsFileWidget_base_directory: qgis.gui.QgsFileWidget
     lineEdit_api_url: QtWidgets.QLineEdit
 
+    # GEE widgets (defined in WidgetSettingsAdvanced.ui)
+    gee_gb: QtWidgets.QGroupBox
+    gee_status_label: QtWidgets.QLabel
+    gee_project_edit: QtWidgets.QLineEdit
+    gee_project_label: QtWidgets.QLabel
+    gee_save_project_btn: QtWidgets.QPushButton
+    gee_connect_btn: QtWidgets.QPushButton
+    gee_test_btn: QtWidgets.QPushButton
+    gee_disconnect_btn: QtWidgets.QPushButton
+
     message_bar: qgis.gui.QgsMessageBar
 
     def __init__(
@@ -1643,6 +1653,17 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
         # TODO: re-enable this one LandPKS login is working
         self.landpks_gb.hide()
+
+        # GEE connections
+        self.gee_connect_btn.clicked.connect(self._gee_connect)
+        self.gee_disconnect_btn.clicked.connect(self._gee_disconnect)
+        self.gee_test_btn.clicked.connect(self._gee_test)
+        self.gee_save_project_btn.clicked.connect(self._gee_save_project)
+
+        # Timer used to poll for credentials after the user completes browser OAuth
+        self._gee_poll_timer = QtCore.QTimer(self)
+        self._gee_poll_timer.timeout.connect(self._gee_poll)
+        self._gee_poll_attempts = 0
 
     def closeEvent(self, event):
         super().closeEvent(event)
@@ -1685,6 +1706,203 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     def login_landpks(self):
         self.dlg_settings_login_landpks.exec()
 
+    def _gee_load_status(self):
+        """Refresh GEE connection status from the API and update the UI."""
+        user_id = settings_manager.get_value(Setting.USER_ID)
+        if not user_id:
+            self.gee_status_label.setText(
+                self.tr(
+                    "Log in to Trends.Earth to manage your Google Earth Engine account."
+                )
+            )
+            self.gee_connect_btn.setVisible(False)
+            self.gee_test_btn.setVisible(False)
+            self.gee_disconnect_btn.setVisible(False)
+            self.gee_project_label.setVisible(False)
+            self.gee_project_edit.setVisible(False)
+            self.gee_save_project_btn.setVisible(False)
+            return
+
+        api_client = api.APIClient(get_api_url(), TIMEOUT)
+        creds = api_client.get_gee_credentials()
+
+        if creds is None:
+            self.gee_status_label.setText(self.tr("Unable to retrieve GEE status."))
+            return
+
+        if creds.get("has_credentials"):
+            cred_type = creds.get("credentials_type", "unknown")
+            type_str = (
+                self.tr("OAuth") if cred_type == "oauth" else self.tr("Service Account")
+            )
+            self.gee_status_label.setText(
+                self.tr("Connected ({type_str})").format(type_str=type_str)
+            )
+            self.gee_connect_btn.setVisible(False)
+            self.gee_test_btn.setVisible(True)
+            self.gee_disconnect_btn.setVisible(True)
+            is_oauth = cred_type == "oauth"
+            self.gee_project_label.setVisible(is_oauth)
+            self.gee_project_edit.setVisible(is_oauth)
+            self.gee_save_project_btn.setVisible(is_oauth)
+            if is_oauth:
+                self.gee_project_edit.setText(creds.get("cloud_project") or "")
+        else:
+            self.gee_status_label.setText(
+                self.tr("Using default Trends.Earth Google Earth Engine account")
+            )
+            self.gee_connect_btn.setVisible(True)
+            self.gee_connect_btn.setEnabled(True)
+            self.gee_connect_btn.setText(self.tr("Connect GEE Account"))
+            self.gee_test_btn.setVisible(False)
+            self.gee_disconnect_btn.setVisible(False)
+            self.gee_project_label.setVisible(False)
+            self.gee_project_edit.setVisible(False)
+            self.gee_save_project_btn.setVisible(False)
+
+    def _gee_connect(self):
+        """Initiate GEE OAuth: get auth URL then open the browser."""
+        api_client = api.APIClient(get_api_url(), TIMEOUT)
+        data = api_client.initiate_gee_oauth()
+        if not data:
+            self.message_bar.pushCritical(
+                "Trends.Earth", self.tr("Failed to initiate GEE OAuth.")
+            )
+            return
+
+        auth_url = data.get("auth_url")
+        if not auth_url:
+            self.message_bar.pushCritical(
+                "Trends.Earth", self.tr("No authorization URL received.")
+            )
+            return
+
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl(auth_url))
+        self.message_bar.pushInfo(
+            "Trends.Earth",
+            self.tr(
+                "Browser opened — complete the Google authorization and return here."
+            ),
+        )
+
+        # Disable the button and start polling every 3 s (max 120 s)
+        self.gee_connect_btn.setEnabled(False)
+        self.gee_connect_btn.setText(self.tr("Connecting…"))
+        self._gee_poll_attempts = 0
+        self._gee_poll_timer.start(3000)
+
+    def _gee_poll(self):
+        """Poll the API until GEE credentials appear (called by _gee_poll_timer)."""
+        self._gee_poll_attempts += 1
+        if self._gee_poll_attempts > 40:  # 40 × 3 s = 120 s
+            self._gee_poll_timer.stop()
+            self.gee_connect_btn.setEnabled(True)
+            self.gee_connect_btn.setText(self.tr("Connect GEE Account"))
+            self.message_bar.pushWarning(
+                "Trends.Earth",
+                self.tr("Connection timed out. Please try again."),
+            )
+            return
+
+        api_client = api.APIClient(get_api_url(), TIMEOUT)
+        creds = api_client.get_gee_credentials()
+        if creds and creds.get("has_credentials"):
+            self._gee_poll_timer.stop()
+            self._gee_load_status()
+            if creds.get("credentials_type") == "oauth" and not creds.get(
+                "cloud_project"
+            ):
+                self.message_bar.pushInfo(
+                    "Trends.Earth",
+                    self.tr(
+                        "GEE connected! Enter your GCP project ID below and click Save."
+                    ),
+                )
+                self.gee_project_edit.setFocus()
+
+    def _gee_disconnect(self):
+        """Disconnect GEE account after confirmation."""
+        reply = QtWidgets.QMessageBox.question(
+            self,
+            self.tr("Disconnect GEE Account"),
+            self.tr(
+                "Are you sure you want to disconnect your Google Earth Engine account?"
+            ),
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No,
+        )
+        if reply != QtWidgets.QMessageBox.Yes:
+            return
+
+        self._gee_poll_timer.stop()
+
+        api_client = api.APIClient(get_api_url(), TIMEOUT)
+        if api_client.delete_gee_credentials():
+            self._gee_load_status()
+            self.message_bar.pushSuccess(
+                "Trends.Earth", self.tr("GEE account disconnected.")
+            )
+        else:
+            self.message_bar.pushCritical(
+                "Trends.Earth", self.tr("Failed to disconnect GEE account.")
+            )
+
+    def _gee_save_project(self):
+        """Validate and save the GCP project ID."""
+        import re
+
+        project_id = self.gee_project_edit.text().strip()
+        if not project_id:
+            self.message_bar.pushWarning(
+                "Trends.Earth", self.tr("Please enter a project ID.")
+            )
+            return
+
+        if not re.match(r"^[a-z][a-z0-9\-]{4,28}[a-z0-9]$", project_id):
+            self.message_bar.pushWarning(
+                "Trends.Earth",
+                self.tr(
+                    "Invalid project ID. Must be 6–30 characters, lowercase letters,"
+                    " digits and hyphens, starting with a letter and not ending with"
+                    " a hyphen."
+                ),
+            )
+            return
+
+        api_client = api.APIClient(get_api_url(), TIMEOUT)
+        if api_client.update_gee_project(project_id):
+            self.message_bar.pushSuccess(
+                "Trends.Earth", self.tr("GEE project ID saved.")
+            )
+        else:
+            self.message_bar.pushCritical(
+                "Trends.Earth", self.tr("Failed to save project ID.")
+            )
+
+    def _gee_test(self):
+        """Test GEE credentials and show the result in a message box."""
+        self.gee_test_btn.setEnabled(False)
+        try:
+            api_client = api.APIClient(get_api_url(), TIMEOUT)
+            result = api_client.test_gee_credentials()
+            if result is not None:
+                QtWidgets.QMessageBox.information(
+                    self,
+                    self.tr("GEE Connection Test"),
+                    self.tr("GEE credentials are valid and working."),
+                )
+            else:
+                QtWidgets.QMessageBox.warning(
+                    self,
+                    self.tr("GEE Connection Test"),
+                    self.tr(
+                        "GEE credentials test failed."
+                        " Check your connection and project ID."
+                    ),
+                )
+        finally:
+            self.gee_test_btn.setEnabled(True)
+
     def show_settings(self):
         self.debug_checkbox.setChecked(settings_manager.get_value(Setting.DEBUG))
         self.cb_offline_mode.setChecked(
@@ -1708,6 +1926,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         self.lineEdit_api_url.setText(
             settings_manager.get_value(Setting.CUSTOM_API_URL) or ""
         )
+        self._gee_load_status()
 
     def set_offline_mode_states(self):
         """This function is called when offline mode is enabled or disabled.

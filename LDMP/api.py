@@ -1097,7 +1097,46 @@ class APIClient(QtCore.QObject):
 
         return self.call_api("/api/v1/user/me", "patch", payload, use_token=True)
 
-    # def update_password(self, password, repeatPassword):
+    def get_gee_credentials(self):
+        """Return the GEE credentials status dict for the current user, or None."""
+        resp = self.call_api("/api/v1/user/me/gee-credentials", use_token=True)
+        if resp:
+            return resp.get("data")
+        return None
+
+    def initiate_gee_oauth(self):
+        """Initiate the GEE OAuth flow.  Returns the data dict (auth_url, state) or None."""
+        resp = self.call_api(
+            "/api/v1/user/me/gee-oauth/initiate", "post", use_token=True
+        )
+        if resp:
+            return resp.get("data")
+        return None
+
+    def delete_gee_credentials(self):
+        """Delete the current user's GEE credentials.  Returns True on success."""
+        resp = self.call_api(
+            "/api/v1/user/me/gee-credentials", "delete", use_token=True
+        )
+        return resp is not None
+
+    def update_gee_project(self, project_id):
+        """Set the GCP project ID for the current user's GEE OAuth credentials."""
+        resp = self.call_api(
+            "/api/v1/user/me/gee-credentials/project",
+            "patch",
+            {"cloud_project": project_id},
+            use_token=True,
+        )
+        return resp is not None
+
+    def test_gee_credentials(self):
+        """Test the current user's GEE credentials.  Returns the response dict or None."""
+        resp = self.call_api(
+            "/api/v1/user/me/gee-credentials/test", "post", use_token=True
+        )
+        return resp
+
     #     payload = {
     #         "email": email,
     #         "name": name,

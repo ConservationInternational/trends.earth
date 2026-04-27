@@ -316,15 +316,19 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
             key = self._cache_key(item, option.rect.width(), option.rect.height())
             pixmap = self._pixmap_cache.get(key)
 
-            if pixmap is None:
+            if pixmap is None or pixmap.isNull():
                 editor_widget = self.createEditor(self.parent, option, index)
                 editor_widget.setGeometry(option.rect)
                 self._apply_active_palette(editor_widget)
                 pixmap = editor_widget.grab()
                 del editor_widget
-                self._pixmap_cache[key] = pixmap
+                if not pixmap.isNull():
+                    self._pixmap_cache[key] = pixmap
 
-            painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
+            if not pixmap.isNull():
+                painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
+            else:
+                super().paint(painter, option, index)
         else:
             super().paint(painter, option, index)
 

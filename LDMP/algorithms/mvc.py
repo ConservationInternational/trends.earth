@@ -169,7 +169,10 @@ class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
             editor_widget.setGeometry(option.rect)
             pixmap = editor_widget.grab()
             del editor_widget
-            painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
+            if not pixmap.isNull():
+                painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
+            else:
+                super().paint(painter, option, index)
         else:
             super().paint(painter, option, index)
 

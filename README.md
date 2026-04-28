@@ -135,15 +135,13 @@ To install from a zipfile, first download a zipfile of the
 named `LDMP.zip`or `LDMP_QGIS3.zip` depending on what
 version you are installing.
 
-When using QGIS3.10.3 or greater versions it is possible to install `trends.earth`
-directly from a zipfile. To install `trends.earth` from a zipfile, open QGIS3.10.3
-(or greater) and click on "Plugins" then on "Manage and install plugins" and
-choose the option "Install from ZIP". Browse to the folder in which the zipfile
-has been saved, select the zipfile and click on 'Install Plugin'.
-It is not necessary to unzip the file.
+To install `trends.earth` from a zipfile, open QGIS and click on "Plugins"
+then on "Manage and install plugins" and choose the option "Install from ZIP".
+Browse to the folder in which the zipfile has been saved, select the zipfile
+and click on 'Install Plugin'. Do not unzip the file
 
 Please, note that the latest version of `trends.earth` is only supported for
-QGIS3.10.3 or greater versions.
+QGIS3.40 or greater versions.
 
 Start QGIS, and click on "Plugins" then "Manage and install plugins". In the
 plugins window that appears, click on "Installed", and then make sure there is
@@ -176,7 +174,7 @@ be able to reproduce it. In particular, be sure to specify:
 
 - What you were doing with the plugin when the problem or error occurred (for
   example "I clicked on 'Download Results' and got an error messaging saying
-  `describe what the message said`".
+  the message said`".
 - The operating system you are using, version of the plugin are you using, and
   version of QGIS that you are using
 - If you are emailing about an error or problem that occurred when downloading

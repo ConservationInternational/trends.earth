@@ -194,6 +194,23 @@ be able to reproduce it. In particular, be sure to specify:
   after first starting a new QGIS session and immediately reproducing the
   error.
 
+## Contributing
+
+Contributions are welcome. Please report bugs or suggest improvements via the
+[issue tracker](https://github.com/ConservationInternational/trends.earth/issues).
+See the [Getting help](#getting-help) section for additional support options.
+
+## Related Projects
+
+`Trends.Earth` is built from a set of interconnected repositories:
+
+- [trends.earth-schemas](https://github.com/ConservationInternational/trends.earth-schemas) — Data schemas for analysis results
+- [trends.earth-algorithms](https://github.com/ConservationInternational/trends.earth-algorithms) — Core analysis algorithms
+- [trends.earth-API](https://github.com/ConservationInternational/trends.earth-API) — Backend REST API
+- [trends.earth-Environment](https://github.com/ConservationInternational/trends.earth-Environment) — Job execution environment for running scripts
+- [trends.earth-CLI](https://github.com/ConservationInternational/trends.earth-CLI) — Command-line interface for developing custom scripts
+- [trends.earth-api-ui](https://github.com/ConservationInternational/trends.earth-api-ui) — Web UI for API management
+
 ## License
 
 `Trends.Earth` is free and open-source. It is licensed under the GNU General

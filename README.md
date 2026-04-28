@@ -147,7 +147,7 @@ QGIS3.10.3 or greater versions.
 
 Start QGIS, and click on "Plugins" then "Manage and install plugins". In the
 plugins window that appears, click on "Installed", and then make sure there is
-a check in the box next to "Land Degradation Monitoring Tool". The plugin is
+a check in the box next to "Trends.Earth". The plugin is
 now installed and activated. Click "Close", and start using the plugin.
 
 ## Getting help

@@ -34,8 +34,9 @@ plugin_dir = os.path.dirname(os.path.realpath(__file__))
 i18n_dir = os.path.join(plugin_dir, "i18n")
 translator = QtCore.QTranslator()
 locale = QtCore.QLocale(QgsApplication.locale())
-translator.load(locale, "LDMP", "_", directory=i18n_dir, suffix=".qm")
-trans_result = QtCore.QCoreApplication.installTranslator(translator)
+trans_result = translator.load(locale, "LDMP", "_", directory=i18n_dir, suffix=".qm")
+if trans_result:
+    QtCore.QCoreApplication.installTranslator(translator)
 
 # Get version and git information from setuptools-scm generated file
 try:

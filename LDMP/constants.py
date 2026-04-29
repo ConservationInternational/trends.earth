@@ -1,3 +1,9 @@
+FAO_WOCAT_FWV2_BAND_NAMES = [
+    "Land Productivity Dynamics FWv2 (2000-2015)",
+    "Land Productivity Dynamics FWv2 (2004-2019)",
+    "Land Productivity Dynamics FWv2 (2008-2023)",
+]
+
 # API related constants
 DEFAULT_API_URL = "https://api.trends.earth"
 # Deprecated: Use get_api_url() instead for configurable API URL support

@@ -24,6 +24,14 @@
         "version": "2.2.11"
     },
     {
+        "description": "Download 30m Land Productivity Dynamics data for Small Island Developing States (SIDS) from Zenodo",
+        "execution_callable": null,
+        "name": "download-sids-lpd",
+        "name_readable": "Download SIDS 30m LPD data",
+        "run_mode": "local",
+        "version": "2.2.4"
+    },
+    {
         "description": "Calculate indicators of drought vulnerability",
         "id": "386a5b56-ea41-42d7-9303-106eb38ff702",
         "name": "drought-vulnerability",

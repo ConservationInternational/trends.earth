@@ -7,6 +7,7 @@ from qgis.utils import iface
 
 from .conf import OPTIONS_TITLE, Setting, settings_manager
 from .data_io import LayerValidationStatus
+from .utils import push_message
 
 Ui_DlgSelectDS, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgSelectDS.ui")
@@ -75,7 +76,7 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
         self.update_current_region()
 
     def _notify_warning(self, title, msg):
-        self.msg_bar.pushMessage(title, msg, Qgis.MessageLevel.Warning, 4)
+        push_message(self.msg_bar, title, msg, Qgis.MessageLevel.Warning, 4)
 
     def validate_selection(self) -> bool:
         # Validate user selection

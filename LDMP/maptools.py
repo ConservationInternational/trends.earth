@@ -28,6 +28,7 @@ from qgis.utils import iface
 
 from .areaofinterest import try_get_aoi_geometry
 from .jobs.manager import job_manager
+from .utils import push_message
 
 if TYPE_CHECKING:
     from .jobs.models import Job
@@ -264,7 +265,8 @@ class TEMapToolMixin:
         layer extent.
         """
         msg_bar = iface.messageBar()
-        msg_bar.pushMessage(
+        push_message(
+            msg_bar,
             self.tr("Warning"),
             self.tr(
                 "Current cursor position is outside the extent of the base "
@@ -402,7 +404,8 @@ class PolygonMapTool(QgsMapToolDigitizeFeature, TEMapToolMixin):
         g.set(self.intersection_with_base_extents(g))
         if g.isEmpty() or g.area() == 0:
             msg_bar = iface.messageBar()
-            msg_bar.pushMessage(
+            push_message(
+                msg_bar,
                 self.tr("Error"),
                 self.tr(
                     "Empty geometry. Did you draw a feature outside of "

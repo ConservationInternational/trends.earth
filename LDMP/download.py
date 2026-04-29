@@ -922,7 +922,7 @@ def download_boundary_geojson(
                 _on_finished()
             else:
                 watchdog.start()
-                loop.exec_()
+                loop.exec()
                 watchdog.stop()
 
             try:
@@ -1047,7 +1047,7 @@ class DownloadWorker(AbstractWorker):
             )
             downloader.downloadProgress.connect(watchdog.kick)
             watchdog.start()
-            loop.exec_()
+            loop.exec()
             watchdog.stop()
 
         except Exception as e:
@@ -1105,7 +1105,7 @@ class Download:
                 worker, iface, tr_download.tr("Downloading {}").format(self.outfile)
             )
             watchdog.start()
-            pause.exec_()
+            pause.exec()
             watchdog.stop()
             if self.get_exception():
                 raise self.get_exception()
@@ -1247,7 +1247,7 @@ class DownloadFileTask(QgsTask):
         watchdog.start()
 
         downloader.startDownload()
-        loop.exec_()
+        loop.exec()
 
         cancel_timer.stop()
         watchdog.stop()

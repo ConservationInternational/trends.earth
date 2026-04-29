@@ -22,6 +22,7 @@ from te_schemas.land_cover import LCLegendNesting
 from . import calculate, data_io, lc_setup
 from .jobs.manager import job_manager
 from .logger import log
+from .utils import push_message
 
 # SOC baseline year - the SOC reference dataset is from 2000, so analysis cannot start earlier
 SOC_MIN_YEAR = 2000
@@ -325,7 +326,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             description = (
                 "Unable to submit Soil organic carbon task to Trends.Earth server."
             )
-        self.mb.pushMessage(
-            self.tr(main_msg), self.tr(description), level=0, duration=5
+        push_message(
+            self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
         )
         log("leaving calculate_on_GEE...")

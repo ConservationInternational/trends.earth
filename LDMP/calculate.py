@@ -85,19 +85,19 @@ class DlgCalculate(QtWidgets.QDialog, DlgCalculateUi):
 
     def btn_ld_clicked(self):
         self.close()
-        self.dlg_calculate_ld.exec_()
+        self.dlg_calculate_ld.exec()
 
     def btn_tc_clicked(self):
         self.close()
-        self.dlg_calculate_tc.exec_()
+        self.dlg_calculate_tc.exec()
 
     def btn_rest_biomass_clicked(self):
         self.close()
-        self.dlg_calculate_rest_biomass.exec_()
+        self.dlg_calculate_rest_biomass.exec()
 
     def btn_urban_clicked(self):
         self.close()
-        self.dlg_calculate_urban.exec_()
+        self.dlg_calculate_urban.exec()
 
 
 class DlgCalculateTC(QtWidgets.QDialog, DlgCalculateTCUi):
@@ -121,11 +121,11 @@ class DlgCalculateTC(QtWidgets.QDialog, DlgCalculateTCUi):
 
     def btn_calculate_carbon_change_clicked(self):
         self.close()
-        self.dlg_calculate_tc_data.exec_()
+        self.dlg_calculate_tc_data.exec()
 
     def btn_summary_single_polygon_clicked(self):
         self.close()
-        self.dlg_calculate_tc_summary.exec_()
+        self.dlg_calculate_tc_summary.exec()
 
 
 class DlgCalculateRestBiomass(QtWidgets.QDialog, DlgCalculateRestBiomassUi):
@@ -152,11 +152,11 @@ class DlgCalculateRestBiomass(QtWidgets.QDialog, DlgCalculateRestBiomassUi):
 
     def btn_calculate_rest_biomass_change_clicked(self):
         self.close()
-        self.dlg_calculate_rest_biomass_data.exec_()
+        self.dlg_calculate_rest_biomass_data.exec()
 
     def btn_summary_single_polygon_clicked(self):
         self.close()
-        self.dlg_calculate_rest_biomass_summary.exec_()
+        self.dlg_calculate_rest_biomass_summary.exec()
 
 
 class DlgCalculateUrban(QtWidgets.QDialog, DlgCalculateUrbanUi):
@@ -183,11 +183,11 @@ class DlgCalculateUrban(QtWidgets.QDialog, DlgCalculateUrbanUi):
 
     def btn_calculate_urban_change_clicked(self):
         self.close()
-        self.dlg_calculate_urban_data.exec_()
+        self.dlg_calculate_urban_data.exec()
 
     def btn_summary_single_polygon_clicked(self):
         self.close()
-        self.dlg_calculate_urban_summary.exec_()
+        self.dlg_calculate_urban_summary.exec()
 
 
 class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):

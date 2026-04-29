@@ -25,6 +25,7 @@ from .conf import Setting, settings_manager
 from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
 from .jobs.manager import job_manager
 from .logger import log
+from .utils import push_message
 
 DlgDownloadUi, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDownload.ui"))
 
@@ -50,7 +51,7 @@ class tool_tipper(QtCore.QObject):
             itemTooltip = view.model().data(index, QtCore.Qt.ToolTipRole)
 
             fm = QtGui.QFontMetrics(view.font())
-            itemTextWidth = fm.width(itemText)
+            itemTextWidth = fm.horizontalAdvance(itemText)
             rect = view.visualRect(index)
             rectWidth = rect.width()
 
@@ -275,6 +276,22 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 "task_notes": "",
             }
 
+            band_number = dataset.get("Band number")
+            if band_number not in (None, ""):
+                payload["band_number"] = int(band_number)
+
+            band_name = dataset.get("Band name")
+            if band_name:
+                payload["band_name"] = band_name
+
+            band_metadata = dataset.get("Band metadata")
+            if isinstance(band_metadata, dict):
+                payload["band_metadata"] = band_metadata
+
+            band_add_to_map = dataset.get("Band add_to_map")
+            if isinstance(band_add_to_map, bool):
+                payload["band_add_to_map"] = band_add_to_map
+
             resp = job_manager.submit_remote_job(payload, self.script.id)
             if resp:
                 main_msg = "Success"
@@ -285,6 +302,6 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 description = (
                     "Unable to submit download request to Trends.Earth server."
                 )
-            self.mb.pushMessage(
-                self.tr(main_msg), self.tr(description), level=0, duration=5
+            push_message(
+                self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
             )

@@ -22,6 +22,7 @@ from te_schemas.algorithms import ExecutionScript
 from . import calculate, data_io
 from .jobs.manager import job_manager
 from .localexecution import biomassrestoration
+from .utils import push_message
 
 DlgCalculateRestBiomassDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateRestBiomassData.ui")
@@ -89,8 +90,8 @@ class DlgCalculateRestBiomassData(
                 "Unable to submit restoration biomass change task to Google Earth "
                 "Engine."
             )
-        self.mb.pushMessage(
-            self.tr(main_msg), self.tr(description), level=0, duration=5
+        push_message(
+            self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
         )
 
 

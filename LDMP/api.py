@@ -153,7 +153,7 @@ class RequestTask(QgsTask):
         )
         cancel_timer.start(self.CANCEL_CHECK_INTERVAL_MS)
 
-        loop.exec_()
+        loop.exec()
 
         # Cleanup timers
         timeout_timer.stop()
@@ -226,6 +226,19 @@ class RequestTask(QgsTask):
             network_manager.setTimeout(self.timeout * 1000)
 
             network_request = QtNetwork.QNetworkRequest(qurl)
+
+            # Disable HTTP/2 — Qt6 enables it by default
+            try:
+                network_request.setAttribute(
+                    QtNetwork.QNetworkRequest.Attribute.Http2AllowedAttribute, False
+                )
+            except AttributeError:
+                try:
+                    network_request.setAttribute(
+                        QtNetwork.QNetworkRequest.Http2AllowedAttribute, False
+                    )
+                except AttributeError:
+                    pass
 
             # Set content type first
             network_request.setHeader(
@@ -465,7 +478,12 @@ class APIClient(QtCore.QObject):
         auth.clear_jwt_tokens()
 
     def _refresh_access_token(self, refresh_token):
-        """Use refresh token to get new access token"""
+        """Use refresh token to get new access token.
+
+        The API implements refresh token rotation: the presented refresh token
+        is revoked and a new one is issued.  Both the new access token and the
+        new refresh token are stored; the old refresh token must not be reused.
+        """
         if not refresh_token:
             log("No refresh token available")
             return None
@@ -473,7 +491,7 @@ class APIClient(QtCore.QObject):
         log("Attempting to refresh access token")
 
         resp = self.call_api(
-            "/auth/refresh",
+            "/auth/refresh?legacy=false",
             method="post",
             payload={"refresh_token": refresh_token},
             use_token=False,  # Don't use token for refresh endpoint
@@ -483,9 +501,11 @@ class APIClient(QtCore.QObject):
             access_token = resp.get("access_token")
 
             if access_token:
-                # Store the new access token, keep the existing refresh token
-                # (the /auth/refresh endpoint does not issue new refresh tokens)
-                self._store_tokens(access_token, refresh_token)
+                # The API rotates the refresh token on every use — store the
+                # new refresh token returned in the response (fall back to the
+                # old one only if the server omits it, for resilience).
+                new_refresh_token = resp.get("refresh_token") or refresh_token
+                self._store_tokens(access_token, new_refresh_token)
                 log("Access token refreshed successfully")
                 return access_token
             else:
@@ -1077,7 +1097,46 @@ class APIClient(QtCore.QObject):
 
         return self.call_api("/api/v1/user/me", "patch", payload, use_token=True)
 
-    # def update_password(self, password, repeatPassword):
+    def get_gee_credentials(self):
+        """Return the GEE credentials status dict for the current user, or None."""
+        resp = self.call_api("/api/v1/user/me/gee-credentials", use_token=True)
+        if resp:
+            return resp.get("data")
+        return None
+
+    def initiate_gee_oauth(self):
+        """Initiate the GEE OAuth flow.  Returns the data dict (auth_url, state) or None."""
+        resp = self.call_api(
+            "/api/v1/user/me/gee-oauth/initiate", "post", use_token=True
+        )
+        if resp:
+            return resp.get("data")
+        return None
+
+    def delete_gee_credentials(self):
+        """Delete the current user's GEE credentials.  Returns True on success."""
+        resp = self.call_api(
+            "/api/v1/user/me/gee-credentials", "delete", use_token=True
+        )
+        return resp is not None
+
+    def update_gee_project(self, project_id):
+        """Set the GCP project ID for the current user's GEE OAuth credentials."""
+        resp = self.call_api(
+            "/api/v1/user/me/gee-credentials/project",
+            "patch",
+            {"cloud_project": project_id},
+            use_token=True,
+        )
+        return resp is not None
+
+    def test_gee_credentials(self):
+        """Test the current user's GEE credentials.  Returns the response dict or None."""
+        resp = self.call_api(
+            "/api/v1/user/me/gee-credentials/test", "post", use_token=True
+        )
+        return resp
+
     #     payload = {
     #         "email": email,
     #         "name": name,

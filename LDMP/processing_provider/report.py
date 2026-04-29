@@ -50,11 +50,15 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         return self.tr("Generate Report from Task")
 
     def initAlgorithm(self, config=None):
+        try:
+            file_behavior = QgsProcessingParameterFile.File
+        except AttributeError:
+            file_behavior = QgsProcessingParameterFile.Behavior.File
         self.addParameter(
             QgsProcessingParameterFile(
                 "INPUT",
                 self.tr("File containing report context task information"),
-                QgsProcessingParameterFile.File,
+                file_behavior,
                 "json",
             )
         )
@@ -114,9 +118,11 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
     @classmethod
     def save_log_file(cls, task_path: str, feedback: QgsProcessingFeedback):
         # Save warning messages in a log file.
-        # Check if user has enabled log messages
+        # Always save logs so failures in qgis_process subprocess are visible.
         log_warnings = settings_manager.get_value(Setting.REPORT_LOG_WARNING)
-        if not log_warnings:
+        html_log = feedback.htmlLog()
+        # If logging disabled and no errors, skip
+        if not log_warnings and len(html_log) == 0:
             return
 
         task_file_info = QFileInfo(task_path)
@@ -147,9 +153,14 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         Will be flagged as a deprecated algorithm due to hiding from
         modeler and toolbox.
         """
+        try:
+            flag_no_threading = QgsProcessingAlgorithm.FlagNoThreading
+            flag_hide_modeler = QgsProcessingAlgorithm.FlagHideFromModeler
+            flag_hide_toolbox = QgsProcessingAlgorithm.FlagHideFromToolbox
+        except AttributeError:
+            flag_no_threading = QgsProcessingAlgorithm.Flag.FlagNoThreading
+            flag_hide_modeler = QgsProcessingAlgorithm.Flag.FlagHideFromModeler
+            flag_hide_toolbox = QgsProcessingAlgorithm.Flag.FlagHideFromToolbox
         return (
-            super().flags()
-            | QgsProcessingAlgorithm.FlagNoThreading
-            | QgsProcessingAlgorithm.FlagHideFromModeler
-            | QgsProcessingAlgorithm.FlagHideFromToolbox
+            super().flags() | flag_no_threading | flag_hide_modeler | flag_hide_toolbox
         )

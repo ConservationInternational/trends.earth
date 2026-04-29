@@ -48,12 +48,17 @@ from qgis.PyQt.QtCore import (
 )
 from qgis.PyQt.QtXml import QDomDocument
 from qgis.utils import iface
+
+try:
+    _EXPORT_SUCCESS = QgsLayoutExporter.Success
+except AttributeError:
+    _EXPORT_SUCCESS = QgsLayoutExporter.ExportResult.Success
 from te_schemas.results import Band as JobBand
 
 from ..jobs.models import Job
 from ..layers import get_band_title, style_layer, styles
 from ..logger import log
-from ..utils import FileUtils, qgis_process_path
+from ..utils import FileUtils, push_message, qgis_process_path
 from ..visualization import ExtractAdministrativeArea, download_base_map
 from .charts import AlgorithmChartsManager, LayerBandInfo
 from .expressions import ReportExpressionUtils
@@ -340,7 +345,7 @@ class ReportTaskProcessor:
             settings = QgsLayoutExporter.ImageExportSettings()
             res = exporter.exportToImage(report_path, settings)
 
-        if res != QgsLayoutExporter.Success:
+        if res != _EXPORT_SUCCESS:
             self._append_warning_msg(f"Failed to export report to {report_path}.")
 
         # Add layout to project
@@ -495,6 +500,7 @@ class ReportTaskProcessor:
             # failures by GDAL.
             exc_info = "".join(traceback.TracebackException.from_exception(ex).format())
             self._append_warning_msg(exc_info)
+            log(f"ReportTaskProcessor.run() exception: {exc_info}", 2)
 
         return status
 
@@ -1063,7 +1069,7 @@ class ReportGeneratorManager(QObject):
         if not self.message_bar:
             return
 
-        self.message_bar.pushMessage(self.tr("Report Status"), msg, level)
+        push_message(self.message_bar, self.tr("Report Status"), msg, level)
 
     def _push_info_message(self, msg):
         self._push_message(msg, Qgis.Info)

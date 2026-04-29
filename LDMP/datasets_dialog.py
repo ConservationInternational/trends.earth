@@ -116,6 +116,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         # Failed or cancelled jobs should only show the open folder and info buttons
         if self.job.status in (
             JobStatus.FAILED,
+            JobStatus.CANCELLING,
             JobStatus.CANCELLED,
             JobStatus.EXPIRED,
         ):

@@ -21,6 +21,7 @@ from te_schemas.algorithms import ExecutionScript
 from . import calculate, conf
 from .jobs.manager import job_manager
 from .logger import log
+from .utils import push_message
 
 DlgLandPKSDownloadUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgLandPKSDownload.ui")
@@ -46,7 +47,7 @@ class tool_tipper(QtCore.QObject):
             itemTooltip = view.model().data(index, QtCore.Qt.ToolTipRole)
 
             fm = QtGui.QFontMetrics(view.font())
-            itemTextWidth = fm.width(itemText)
+            itemTextWidth = fm.horizontalAdvance(itemText)
             rect = view.visualRect(index)
             rectWidth = rect.width()
 
@@ -278,6 +279,6 @@ class DlgLandPKSDownload(calculate.DlgCalculateBase, DlgLandPKSDownloadUi):
             else:
                 main_msg = "Error"
                 description = "Unable to submit download request to LandPKS."
-            self.mb.pushMessage(
-                self.tr(main_msg), self.tr(description), level=0, duration=5
+            push_message(
+                self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
             )

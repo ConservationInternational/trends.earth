@@ -89,8 +89,8 @@ class TCSummary(QgsProcessingAlgorithm):
 
     def processAlgorithm(self, parameters, context, feedback):
         src_file = self.parameterAsFile(parameters, "INPUT", context)
-        year_start = self.parameterAsInt(parameters, "YEAR_START", context)
-        year_end = self.parameterAsInt(parameters, "YEAR_END", context)
+        year_start = self.parameterAsInt(parameters, "year_initial", context)
+        year_end = self.parameterAsInt(parameters, "year_final", context)
 
         src_ds = gdal.Open(src_file)
 

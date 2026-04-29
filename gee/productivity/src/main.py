@@ -11,12 +11,13 @@ import ee
 from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
 from te_algorithms.gee.productivity import (
+    calc_prod5,
     productivity_faowocat,
     productivity_performance,
     productivity_state,
     productivity_trajectory,
 )
-from te_algorithms.gee.util import teimage_v1_to_teimage_v2
+from te_algorithms.gee.util import TEImageV2, teimage_v1_to_teimage_v2
 from te_schemas import results
 from te_schemas.productivity import ProductivityMode
 
@@ -104,8 +105,44 @@ def run(params, logger):
             else:
                 global_output.merge(state)
 
+        # Calculate 5-class LPD layer if all three sub-indicators were computed
+        deg_prod5 = None
+        if calc_traj and calc_perf and calc_state:
+            logger.debug("Calculating 5-class Land Productivity Dynamics (LPD) layer")
+            prod_traj_signif = global_output.getImages(
+                ["Productivity trajectory (significance)"],
+            )
+            prod_perf_deg = global_output.getImages(
+                ["Productivity performance (degradation)"],
+            )
+            prod_state_classes = global_output.getImages(
+                ["Productivity state (degradation)"],
+            )
+            deg_prod5 = calc_prod5(prod_traj_signif, prod_perf_deg, prod_state_classes)
+            deg_prod5 = deg_prod5.rename(
+                f"{prod_mode}_{traj_year_initial}-{traj_year_final}"
+            )
+
         logger.debug("Converting output to TEImageV2 format")
         global_output = teimage_v1_to_teimage_v2(global_output)
+
+        if deg_prod5 is not None:
+            logger.debug("Adding 5-class LPD layer to output")
+            prod5_teimage_v2 = TEImageV2()
+            prod5_teimage_v2.add_image(
+                deg_prod5.unmask(-32768).int16(),
+                [
+                    results.Band(
+                        config.TE_LPD_BAND_NAME,
+                        metadata={
+                            "year_initial": traj_year_initial,
+                            "year_final": traj_year_final,
+                        },
+                    )
+                ],
+                results.DataType.INT16,
+            )
+            global_output.merge(prod5_teimage_v2)
 
         logger.debug("Exporting global productivity results")
         return global_output.export(

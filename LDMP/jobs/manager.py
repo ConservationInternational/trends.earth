@@ -883,7 +883,10 @@ class DownloadJobResultsTask(QgsTask):
 
         # Signal that this download is done so the next one can start
         self.job_manager._on_download_task_finished(
-            cancelled_job_id=self.job.id if cancelled else None
+            cancelled_job_id=self.job.id if cancelled else None,
+            failed_job_id=self.job.id
+            if (not cancelled and not (result and self._all_successful))
+            else None,
         )
 
 
@@ -943,6 +946,7 @@ class JobManager(QtCore.QObject):
         self._download_in_progress = False
         self._current_download_task = None  # active DownloadJobResultsTask
         self._cancelled_download_job_ids: typing.Set[uuid.UUID] = set()
+        self._failed_download_job_ids: typing.Set[uuid.UUID] = set()
 
     @property
     def api_client(self):
@@ -1881,11 +1885,13 @@ class JobManager(QtCore.QObject):
 
         self._download_in_progress = True
 
-        # Skip jobs the user has explicitly cancelled or already being
+        # Skip jobs the user has explicitly cancelled, already failed, or already being
         # downloaded by another QGIS instance (cross-process lock).
         job = None
         for candidate in finished_jobs.values():
             if candidate.id in self._cancelled_download_job_ids:
+                continue
+            if candidate.id in self._failed_download_job_ids:
                 continue
             job_dir = self.datasets_dir / str(candidate.id)
             if _try_acquire_download_lock(job_dir):
@@ -1931,7 +1937,7 @@ class JobManager(QtCore.QObject):
 
         self.tm.addTask(task)
 
-    def _on_download_task_finished(self, cancelled_job_id=None):
+    def _on_download_task_finished(self, cancelled_job_id=None, failed_job_id=None):
         """Called from DownloadJobResultsTask.finished() on the main thread."""
         self._download_in_progress = False
         self._current_download_task = None
@@ -1940,7 +1946,16 @@ class JobManager(QtCore.QObject):
             self._cancelled_download_job_ids.add(cancelled_job_id)
             return  # User cancelled — don't auto-restart
 
-        remaining = len(self.known_jobs[jobs.JobStatus.FINISHED])
+        if failed_job_id is not None:
+            self._failed_download_job_ids.add(failed_job_id)
+
+        # Count only jobs that haven't already failed or been cancelled this session
+        skip_ids = self._failed_download_job_ids | self._cancelled_download_job_ids
+        remaining = sum(
+            1
+            for j in self.known_jobs[jobs.JobStatus.FINISHED].values()
+            if j.id not in skip_ids
+        )
         if remaining == 0:
             self.downloaded_available_jobs_results.emit()
         else:

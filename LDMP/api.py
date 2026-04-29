@@ -816,20 +816,42 @@ class APIClient(QtCore.QObject):
                     )
                     ret = {}  # Return empty dict for 204 responses
                 elif type(resp) is QtNetwork.QNetworkReply:
-                    ret = resp.readAll()
+                    raw = bytes(resp.readAll())
                     try:
-                        ret = json.load(io.BytesIO(ret))
+                        encoding = bytes(resp.rawHeader(b"Content-Encoding")).decode(
+                            "utf-8", errors="ignore"
+                        )
+                    except Exception:
+                        encoding = ""
+                    if "gzip" in encoding.lower():
+                        try:
+                            raw = gzip.decompress(raw)
+                        except OSError:
+                            pass
+                    try:
+                        ret = json.load(io.BytesIO(raw))
                     except json.JSONDecodeError as e:
                         log(f"Failed to parse JSON response: {e}")
-                        log(f"Response content (first 500 chars): {ret[:500]}")
+                        log(f"Response content (first 500 chars): {raw[:500]}")
                         ret = None
                 elif type(resp) is QgsNetworkReplyContent:
-                    ret = resp.content()
+                    raw = bytes(resp.content())
                     try:
-                        ret = json.load(io.BytesIO(ret))
+                        encoding = bytes(resp.rawHeader(b"Content-Encoding")).decode(
+                            "utf-8", errors="ignore"
+                        )
+                    except Exception:
+                        encoding = ""
+                    if "gzip" in encoding.lower():
+                        try:
+                            raw = gzip.decompress(raw)
+                        except OSError:
+                            pass
+                    try:
+                        ret = json.load(io.BytesIO(raw))
                     except json.JSONDecodeError as e:
                         log(f"Failed to parse JSON response: {e}")
-                        log(f"Response content (first 500 chars): {ret[:500]}")
+                        log(f"Response content (first 500 chars): {raw[:500]}")
                         ret = None
                 else:
                     err_msg = "Unknown object type: {}.".format(str(resp))

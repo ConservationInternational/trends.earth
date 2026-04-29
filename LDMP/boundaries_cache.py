@@ -106,8 +106,14 @@ class BoundariesCache:
             return None
 
         try:
-            with cache_file.open("r", encoding="utf-8") as f:
-                data = json.load(f)
+            if cache_file.suffix == ".gz":
+                import gzip as _gzip
+
+                with _gzip.open(cache_file, "rt", encoding="utf-8") as f:
+                    data = json.load(f)
+            else:
+                with cache_file.open("r", encoding="utf-8") as f:
+                    data = json.load(f)
 
             # Extract metadata - could be at root level or nested
             if isinstance(data, dict):

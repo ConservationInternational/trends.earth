@@ -934,7 +934,11 @@ def download_boundary_geojson(
             except TypeError:
                 pass
 
-        if reply.error() != QtNetwork.QNetworkReply.NoError:
+        try:
+            _no_error = QtNetwork.QNetworkReply.NetworkError.NoError  # PyQt6
+        except AttributeError:
+            _no_error = QtNetwork.QNetworkReply.NoError  # PyQt5 fallback
+        if reply.error() != _no_error:
             log(f"Network reply error: {reply.errorString()}")
             reply.deleteLater()
             return None

@@ -3,6 +3,16 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.2.10 (April 20, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.10>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Fixed SDG 15.3.1 summary failing on multi-period datasets due to duplicate band name matching across periods
+
+`2.2.8 (April 17, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.8>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Fixed custom data import (land cover, SOC, LPD) to correctly reproject rasters in non-WGS84 coordinate systems such as UTM
+
 `2.2.6 (April 13, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.6>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

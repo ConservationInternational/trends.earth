@@ -4,12 +4,12 @@
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
-        <location filename="../algorithms/mvc.py" line="239"/>
+        <location filename="../algorithms/mvc.py" line="255"/>
         <source>Execute remotely</source>
         <translation>远程执行</translation>
     </message>
     <message>
-        <location filename="../algorithms/mvc.py" line="240"/>
+        <location filename="../algorithms/mvc.py" line="256"/>
         <source>Execute locally</source>
         <translation>本地执行</translation>
     </message>
@@ -17,7 +17,7 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../maptools.py" line="51"/>
+        <location filename="../maptools.py" line="52"/>
         <source>Area</source>
         <translation>区域</translation>
     </message>
@@ -27,37 +27,37 @@
         <translation>地图必须至少有一层。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="762"/>
+        <location filename="../settings.py" line="764"/>
         <source>Click the map to choose a point.</source>
         <translation>点击地图选择一个点。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="895"/>
+        <location filename="../settings.py" line="899"/>
         <source>Select a file defining the area of interest</source>
         <translation>选择一个定义感兴趣区域的文件</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="895"/>
+        <location filename="../settings.py" line="899"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="909"/>
+        <location filename="../settings.py" line="913"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="909"/>
+        <location filename="../settings.py" line="913"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="56"/>
+        <location filename="../maptools.py" line="57"/>
         <source>0.00 kmu00b2</source>
         <translation>0.00 kmu00b2</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="63"/>
+        <location filename="../maptools.py" line="64"/>
         <source>{:.6g} kmu00b2</source>
         <translation>{:.6g} kmu00b2</translation>
     </message>
@@ -65,7 +65,7 @@
 <context>
     <name>BufferMapTool</name>
     <message>
-        <location filename="../maptools.py" line="608"/>
+        <location filename="../maptools.py" line="611"/>
         <source>add feature</source>
         <translation>添加功能</translation>
     </message>
@@ -73,22 +73,22 @@
 <context>
     <name>BufferWidget</name>
     <message>
-        <location filename="../maptools.py" line="108"/>
+        <location filename="../maptools.py" line="109"/>
         <source> km</source>
         <translation>km</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="91"/>
+        <location filename="../maptools.py" line="92"/>
         <source>Radius</source>
         <translation>半径</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="92"/>
+        <location filename="../maptools.py" line="93"/>
         <source>Area</source>
         <translation>区域</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="106"/>
+        <location filename="../maptools.py" line="107"/>
         <source> kmu00b2</source>
         <translation>kmu00b2</translation>
     </message>
@@ -139,47 +139,47 @@
 <context>
     <name>DataTableModel</name>
     <message>
-        <location filename="../landpks.py" line="70"/>
+        <location filename="../landpks.py" line="71"/>
         <source>Category</source>
         <translation>类别</translation>
     </message>
     <message>
-        <location filename="../landpks.py" line="71"/>
+        <location filename="../landpks.py" line="72"/>
         <source>Title</source>
         <translation>标题</translation>
     </message>
     <message>
-        <location filename="../landpks.py" line="72"/>
+        <location filename="../landpks.py" line="73"/>
         <source>Units</source>
         <translation>单位</translation>
     </message>
     <message>
-        <location filename="../landpks.py" line="73"/>
+        <location filename="../landpks.py" line="74"/>
         <source>Resolution</source>
         <translation>解析度</translation>
     </message>
     <message>
-        <location filename="../landpks.py" line="74"/>
+        <location filename="../landpks.py" line="75"/>
         <source>Start year</source>
         <translation>开始年份</translation>
     </message>
     <message>
-        <location filename="../landpks.py" line="75"/>
+        <location filename="../landpks.py" line="76"/>
         <source>End year</source>
         <translation>结束年度</translation>
     </message>
     <message>
-        <location filename="../landpks.py" line="76"/>
+        <location filename="../landpks.py" line="77"/>
         <source>Extent (lat)</source>
         <translation>范围（纬度）</translation>
     </message>
     <message>
-        <location filename="../landpks.py" line="77"/>
+        <location filename="../landpks.py" line="78"/>
         <source>Extent (lon)</source>
         <translation>范围（lon）</translation>
     </message>
     <message>
-        <location filename="../landpks.py" line="78"/>
+        <location filename="../landpks.py" line="79"/>
         <source>Details</source>
         <translation>细节</translation>
     </message>
@@ -187,12 +187,12 @@
 <context>
     <name>DatasetDetailsDialogue</name>
     <message>
-        <location filename="../datasets_dialog.py" line="176"/>
+        <location filename="../datasets_dialog.py" line="177"/>
         <source>Error exporting dataset {self.job}</source>
         <translation>导出数据集{self.job}时出错</translation>
     </message>
     <message>
-        <location filename="../datasets_dialog.py" line="181"/>
+        <location filename="../datasets_dialog.py" line="182"/>
         <source>Dataset exported to {target_path!r}</source>
         <translation>导出到{target_path!r}的数据集</translation>
     </message>
@@ -200,57 +200,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="739"/>
+        <location filename="../jobs/mvc.py" line="762"/>
         <source>Add default layers from this dataset to map</source>
         <translation>将此数据集中的默认图层添加到地图</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="743"/>
+        <location filename="../jobs/mvc.py" line="766"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation>从此数据集中选择特定图层以添加到地图......</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="785"/>
+        <location filename="../jobs/mvc.py" line="808"/>
         <source>Time series table is empty</source>
         <translation>时间序列表为空</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="802"/>
+        <location filename="../jobs/mvc.py" line="829"/>
         <source>Time Series</source>
         <translation>时间序列</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="813"/>
+        <location filename="../jobs/mvc.py" line="840"/>
         <source>Time</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="814"/>
+        <location filename="../jobs/mvc.py" line="841"/>
         <source>Integrated NDVI</source>
         <translation>综合 NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="814"/>
+        <location filename="../jobs/mvc.py" line="841"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1060"/>
+        <location filename="../jobs/mvc.py" line="1088"/>
         <source>Dataset metadata</source>
         <translation>数据集元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1069"/>
+        <location filename="../jobs/mvc.py" line="1097"/>
         <source>{} metadata</source>
         <translation>{} 元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1093"/>
+        <location filename="../jobs/mvc.py" line="1121"/>
         <source>Add vector layer to map</source>
         <translation>将矢量图层添加到地图</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1097"/>
+        <location filename="../jobs/mvc.py" line="1125"/>
         <source>Add raster layers to map</source>
         <translation>将栅格图层添加到地图</translation>
     </message>
@@ -258,57 +258,57 @@
 <context>
     <name>DatasetReportHandler</name>
     <message>
-        <location filename="../reports/mvc.py" line="77"/>
+        <location filename="../reports/mvc.py" line="85"/>
         <source>Open report directory</source>
         <translation>打开报告目录</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="80"/>
+        <location filename="../reports/mvc.py" line="88"/>
         <source>Open directory containing reports</source>
         <translation>打开包含报告的目录</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="83"/>
+        <location filename="../reports/mvc.py" line="91"/>
         <source>Open layouts...</source>
         <translation>打开布局......</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="86"/>
+        <location filename="../reports/mvc.py" line="94"/>
         <source>Open report layouts in QGIS</source>
         <translation>在 QGIS 中打开报告布局</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="197"/>
+        <location filename="../reports/mvc.py" line="204"/>
         <source>Invalid File</source>
         <translation>无效文件</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="183"/>
+        <location filename="../reports/mvc.py" line="190"/>
         <source>Report output directory does not exist.</source>
         <translation>报告输出目录不存在。</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="197"/>
+        <location filename="../reports/mvc.py" line="204"/>
         <source>Project file does not exist.</source>
         <translation>项目文件不存在。</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="204"/>
+        <location filename="../reports/mvc.py" line="211"/>
         <source>File Read Permission</source>
         <translation>文件读取权限</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="204"/>
+        <location filename="../reports/mvc.py" line="211"/>
         <source>Unable to open report file.</source>
         <translation>无法打开报告文件。</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="212"/>
+        <location filename="../reports/mvc.py" line="219"/>
         <source>Open Layouts</source>
         <translation>打开布局</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="212"/>
+        <location filename="../reports/mvc.py" line="219"/>
         <source>Unable to open the QGIS project file.</source>
         <translation>无法打开 QGIS 项目文件。</translation>
     </message>
@@ -439,30 +439,30 @@
         <translation>关于trends.earth</translation>
     </message>
     <message>
-        <location filename="../gui/DlgAbout.ui" line="102"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Version VERSION_NUMBER&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Access the user guide here:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://trends.earth&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://trends.earth&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;&lt;a href=&quot;https://www.conservation.org/privacy&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Privacy Policy&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://www.conservation.org/terms&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Terms of Use&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth is a free and open source tool to understand land change: the how and why behind changes on the ground. Trends.Earth allows users to draw on the best available information from across a range of sources - from globally available data to customized local maps. A broad range of users are applying Trends.Earth for projects ranging from planning and monitoring restoration efforts, to tracking urbanization, to developing official national reports for submission to the United Nations Convention to Combat Desertification (UNCCD).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth was produced by a partnership of Conservation International, Lund University, and the National Aeronautics and Space Administration (NASA), with the support of the Global Environment Facility (GEF). It was further developed through a partnership with Conservation International, University of Bern, University of Colorado in partnership with USDA and USAID, University of California - Santa Barbara in partnership with University of North Carolina - Wilmington and Brown University with additional funding from the Global Environment Facility (GEF).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.earth was originally produced as an output of the GEF-funded project &amp;quot;&lt;/span&gt;&lt;a href=&quot;https://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Enabling the use of global data sources to assess and monitor land degradation at multiple scales&amp;quot;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth is free and open-source. The &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;code is freely available online&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The products of Trends.Earth are made available under the terms of the Creative Commons Attribution 4.0 International License (&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;). The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;, or &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues/new&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;report an issue on github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Citation:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth. Conservation International. Available online at: https://trends.earth. 2022.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;版本 VERSION_NUMBER&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;在此访问用户指南：&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://trends.earth&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://trends.earth&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;&lt;a href=&quot;https://www.conservation.org/privacy&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;隐私政策&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://www.conservation.org/terms&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;使用条款&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth 是一款免费且开源的工具，用于了解土地变化，亦即地面变化的发生方式和原因。Trends.Earth 让用户能够利用各种来源的最佳可用信息，包括全球可用数据以及定制的本地地图。广泛的用户群体正在将 Trends.Earth 应用于各类项目，从规划和监测修复工作、跟踪城市化，到编制提交给《联合国防治荒漠化公约 》(UNCCD) 的国家官方报告。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth 由保护国际基金会 (CI)、隆德大学和美国国家航空航天局 (NASA) 合作开发，并得到了全球环境基金 (GEF) 的支持。Trends.Earth 还在与保护国际、伯尔尼大学、科罗拉多大学（与美国农业部 USDA 和美国国际开发署 USAID 合作）、加州大学圣塔芭芭拉分校（与北卡罗来纳大学威明顿分校和布朗大学合作）的合作中得到进一步开发，并获得了全球环境基金 (GEF) 的额外资助。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth 最初是作为 GEF 资助项目的产出成果而开发的&amp;quot;&lt;/span&gt;&lt;a href=&quot;https://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;促进使用全球数据源在多尺度上评估和监测土地退化&amp;quot;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth 是免费且开源的。其&lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;代码可在线免费获取&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;。该代码遵循 GNU 通用公共许可证 2.0 或更高版本。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth 的产品根据”知识共享署名 4.0 国际许可协议“(&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;)的条款而提供。Trends.Earth 中使用的边界、名称和指称方式，并不意味着保护国际基金会或其合作伙伴组织及贡献者对其予以官方认可或接受。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;如果您在使用该插件时遇到任何错误或问题，请通过&lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;与我们联系，或&lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues/new&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;在 GitHub 上报告问题&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;引用格式：&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth. Conservation International. 在线获取地址：https://trends.earth. 2022.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <location filename="../gui/DlgAbout.ui" line="99"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Version VERSION_NUMBER&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Access the user guide here:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://trends.earth&quot;&gt;&lt;span style=&quot; text-decoration: underline; &quot;&gt;https://trends.earth&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;&lt;a href=&quot;https://www.conservation.org/privacy&quot;&gt;&lt;span style=&quot; text-decoration: underline; &quot;&gt;Privacy Policy&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://www.conservation.org/terms&quot;&gt;&lt;span style=&quot; text-decoration: underline; &quot;&gt;Terms of Use&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth is a free and open source tool to understand land change: the how and why behind changes on the ground. Trends.Earth allows users to draw on the best available information from across a range of sources - from globally available data to customized local maps. A broad range of users are applying Trends.Earth for projects ranging from planning and monitoring restoration efforts, to tracking urbanization, to developing official national reports for submission to the United Nations Convention to Combat Desertification (UNCCD).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth was produced by a partnership of Conservation International, Lund University, and the National Aeronautics and Space Administration (NASA), with the support of the Global Environment Facility (GEF). It was further developed through a partnership with Conservation International, University of Bern, University of Colorado in partnership with USDA and USAID, University of California - Santa Barbara in partnership with University of North Carolina - Wilmington and Brown University with additional funding from the Global Environment Facility (GEF).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.earth was originally produced as an output of the GEF-funded project &amp;quot;&lt;/span&gt;&lt;a href=&quot;https://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; &quot;&gt;Enabling the use of global data sources to assess and monitor land degradation at multiple scales&amp;quot;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth is free and open-source. The &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; &quot;&gt;code is freely available online&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The products of Trends.Earth are made available under the terms of the Creative Commons Attribution 4.0 International License (&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; &quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;). The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; &quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;, or &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues/new&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; &quot;&gt;report an issue on github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Citation:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth. Conservation International. Available online at: https://trends.earth. 2022.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgAdvancedSettingsProgressPeriod</name>
     <message>
-        <location filename="../calculate_ldn.py" line="2721"/>
+        <location filename="../calculate_ldn.py" line="2722"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2634"/>
+        <location filename="../calculate_ldn.py" line="2635"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
         <translation>感兴趣区域并不完全在{check_layer_name}层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2712"/>
+        <location filename="../calculate_ldn.py" line="2713"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation>{model_layer_name}层和{check_layer_name}层的分辨率不匹配。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2721"/>
+        <location filename="../calculate_ldn.py" line="2722"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
         <translation>{model_layer_name}层和{check_layer_name}层的坐标系不匹配。</translation>
     </message>
@@ -510,17 +510,17 @@
 <context>
     <name>DlgCalculateDrought</name>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="167"/>
+        <location filename="../calculate_drought_vulnerability.py" line="168"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="167"/>
+        <location filename="../calculate_drought_vulnerability.py" line="168"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>最初和最后一年相隔不到 5 年——如果分析中包含更多数据（年），结果将更可靠。</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="99"/>
+        <location filename="../calculate_drought_vulnerability.py" line="100"/>
         <source>Note: The CHIRPS v2025 dataset is limited to quasi-global coverage, spanning latitudes from 50°S to 50°N and all longitudes. As such, it does not include data for regions beyond ±50° latitude, including the polar areas.</source>
         <translation>注意：CHIRPS v2025 数据集仅覆盖准全球范围，涵盖南纬 50° 至北纬 50° 之间的纬度以及所有经度。因此，该数据集不包含超出 ±50° 纬度范围地区的数据，包括极地地区。</translation>
     </message>
@@ -586,29 +586,21 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Drought summary&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;This tool facilitates summarizing indicators of drought vulnerability for assessment of maximum drought (over four year periods within the interval selected). The output of this tool can be used to assess drought indicators within a particular region, or to prepare data for reporting to UNCCD on Strategic Objective 3.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;干旱总结&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;这一工具有助于对干旱脆弱性的各项指标进行总结，以评估干旱的最严重程度（在选定的间隔内的4个以上年度）。这一工具的输出数据可用于评估特定区域内的干旱指标，或为向《荒漠化公约》战略目标3进行的报告编制数据。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;更多信息&lt;/span&gt;
-&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; &quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="301"/>
+        <location filename="../calculate_drought_vulnerability.py" line="302"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="262"/>
+        <location filename="../calculate_drought_vulnerability.py" line="263"/>
         <source>You must select a {dataset_name} layer before you can use the drought tool.</source>
         <translation>您必须先选择{dataset_name}图层，然后才能使用干旱工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="301"/>
+        <location filename="../calculate_drought_vulnerability.py" line="302"/>
         <source>Area of interest is not entirely within the drought dataset.</source>
         <translation>感兴趣区域并不完全在干旱数据集中。</translation>
     </message>
@@ -671,32 +663,32 @@ p, li { white-space: pre-wrap; }
         <translation>高级配置</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="174"/>
+        <location filename="../calculate_lc.py" line="175"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="131"/>
+        <location filename="../calculate_lc.py" line="132"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="131"/>
+        <location filename="../calculate_lc.py" line="132"/>
         <source>The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>初始年份（{}）大于或等于目标年份（{}） - 此分析可能会产生奇怪的结果。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="144"/>
+        <location filename="../calculate_lc.py" line="145"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>感兴趣的区域不完全在最初的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="157"/>
+        <location filename="../calculate_lc.py" line="158"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>感兴趣的区域不完全在最终的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="174"/>
+        <location filename="../calculate_lc.py" line="175"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
         <translation>初始和最终土地覆盖层的土地覆盖图例的嵌套必须相同。</translation>
     </message>
@@ -713,14 +705,8 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Based on your local knowledge of the conditions in the study area and the land degradation processed occurring there, use the table below, in the advanced section, to identify which transitions correspond to degradation (- sign), improvement (+ sign), or no change in terms of land condition (zero).&lt;/li&gt;
 &lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Trends.Earth will combine the information from the land cover maps and the table of degradation typologies by land cover transition to compute the land cover sub-indicator.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#land-cover&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Land Cover SDG 15.3.1 Sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;土地覆盖&lt;/span&gt;&lt;/h3&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;要评估土地覆盖变化，用户需要涵盖基线和目标年份研究区域的土地覆盖图。这些地图需要具有符合标准的精度，并以允许有效比较的方式创建。Trends.Earth使用ESA CCI土地覆盖图作为默认数据集，但也可以使用本地地图。该指标的计算方法如下：&lt;/span&gt;&lt;/p&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;将两张土地覆盖图重新分类为向《荒漠化公约》报告所需的7种土地覆盖类别（森林、草地、耕地、湿地、人工区、裸地和水域）。&lt;/li&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;进行土地覆盖转变分析，以确定哪些像素仍保留在同一土地覆盖类别中，哪些像素发生了变化。&lt;/li&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;
-根据您对所研究区域的情况和那里发生的土地退化的实地了解，使用下方表格，在高级部分中，确定哪些转变分别对应退化（-符号）、改善（+符号）或土地条件无变化（0）。&lt;/li&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Trends.Earth将结合来自土地覆盖图和土地覆盖转变中的退化类型表的信息，来计算土地覆盖的子指标。&lt;/li&gt;&lt;/ol&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#land-cover&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;关于土地覆盖可持续发展目标15.3.1子指标的更多信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#land-cover&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; &quot;&gt;More information on the Land Cover SDG 15.3.1 Sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -903,12 +889,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;此工具支持重新计算指标层以纠正已知错误（假阳性或假阴性）。&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2969"/>
+        <location filename="../calculate_ldn.py" line="2970"/>
         <source>Coming soon!</source>
         <translation>快来了！</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2969"/>
+        <location filename="../calculate_ldn.py" line="2970"/>
         <source>This function coming soon!</source>
         <translation>此功能即将推出！</translation>
     </message>
@@ -1046,7 +1032,7 @@ p, li { white-space: pre-wrap; }
         <translation>与已执行任务相关的用户注释。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2390"/>
+        <location filename="../calculate_ldn.py" line="2391"/>
         <source>No datasets available in this region (see advanced)</source>
         <translation>该地区没有可用的数据集（请参阅高级）</translation>
     </message>
@@ -1065,43 +1051,24 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;SDG Indicator 15.3.1&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;As part of the “2030 Agenda for Sustainable Development”, Sustainable Development Goal (SDG) 15 is to:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;“Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss”&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;Each SDG has specific targets addressing different components, in this case, of life on land. Target 15.3 aims to:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;“By 2030, combat desertification, restore degraded land and soil, including land exposed by desertification, drought and floods, and strive to achieve a land degradation-neutral world”&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;Indicators will be used then to assess the progress of each SDG target. In the case of SDG 15.3 the progress towards a land degradation neutral world will be assessed using indicator 15.3.1:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;“proportion of land that is degraded over total land area”&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;As the custodian agency for SDG 15.3, the United Nations Convention to Combat Desertification (UNCCD) has developed a &lt;/span&gt;&lt;a href=&quot;http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;Good Practice Guidance (GPG)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;. providing recommendations on how to calculate SDG Indicator 15.3.1.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;In order to assess the area degraded, SDG Indicator 15.3.1 uses information from 3 sub-indicators:&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Vegetation productivity&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Land cover&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Soil organic carbon&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;Trends.Earth allows the user to compute each of these subindicators in a spatially explicit way generating raster maps which are then integrated into a final SDG 15.3.1 indicator map and produces a table result reporting areas potentially improved and degraded for the area of analysis.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;More information on indicator SDG 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;SDG 指标 15.3.1&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;作为《2030 年可持续发展议程》的一部分，可持续发展目标 (SDG) 15 旨在：&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;“保护、恢复和促进陆地生态系统的可持续利用，可持续地管理森林，防治荒漠化，制止并扭转土地退化，遏制生物多样性的丧失”&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;每个 SDG 都有针对不同组成部分的特定具体目标，在当前语境下即针对“陆地生物”。具体目标 15.3 旨在：&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;“到 2030 年，防治荒漠化，恢复退化的土地和土壤（包括受荒漠化、干旱和洪涝影响的土地），努力建立一个土地退化零增长的世界”&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;随后将使用各项指标来评估每个 SDG 具体目标的进展。就 SDG 15.3 而言，将使用指标 15.3.1 来评估向土地退化零增长世界迈进的进展：&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;“退化土地面积占土地总面积的比例”&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;作为 SDG 15.3 的托管机构，联合国防治荒漠化公约 (UNCCD) 制定了 &lt;/span&gt;&lt;a href=&quot;http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;《良好做法指南》(GPG)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;，就如何计算 SDG 指标 15.3.1 提供建议。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;SDG 指标 15.3.1 基于以下 3 个子指标来评估退化面积：&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;植被生产力&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;土地覆盖&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;土壤有机碳&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt; &lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;Trends.Earth 帮助用户以空间显式的方式计算每一个子指标，并生成栅格地图。随后，这些地图最终将整合为 SDG 15.3.1 指标地图，并输出结果表格，报告分析区域内潜在改善和退化的面积。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt; &lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;更多有关 SDG 15.3.1 指标的信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu Sans&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-weight:600;&quot;&gt;SDG Indicator 15.3.1&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;As part of the &#xe2;&#x80;&#x9c;2030 Agenda for Sustainable Development&#xe2;&#x80;&#x9d;, Sustainable Development Goal (SDG) 15 is to:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;&#xe2;&#x80;&#x9c;Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss&#xe2;&#x80;&#x9d;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;Each SDG has specific targets addressing different components, in this case, of life on land. Target 15.3 aims to:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;&#xe2;&#x80;&#x9c;By 2030, combat desertification, restore degraded land and soil, including land exposed by desertification, drought and floods, and strive to achieve a land degradation-neutral world&#xe2;&#x80;&#x9d;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;Indicators will be used then to assess the progress of each SDG target. In the case of SDG 15.3 the progress towards a land degradation neutral world will be assessed using indicator 15.3.1:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;&#xe2;&#x80;&#x9c;proportion of land that is degraded over total land area&#xe2;&#x80;&#x9d;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;As the custodian agency for SDG 15.3, the United Nations Convention to Combat Desertification (UNCCD) has developed a &lt;/span&gt;&lt;a href=&quot;http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; text-decoration: underline; &quot;&gt;Good Practice Guidance (GPG)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;. providing recommendations on how to calculate SDG Indicator 15.3.1.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;In order to assess the area degraded, SDG Indicator 15.3.1 uses information from 3 sub-indicators:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Vegetation productivity&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Land cover&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Soil organic carbon&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;Trends.Earth allows the user to compute each of these subindicators in a spatially explicit way generating raster maps which are then integrated into a final SDG 15.3.1 indicator map and produces a table result reporting areas potentially improved and degraded for the area of analysis.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; text-decoration: underline; &quot;&gt;More information on indicator SDG 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="639"/>
@@ -1345,27 +1312,27 @@ p, li { white-space: pre-wrap; }
         <translation>定义土地覆被变化的影响</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2161"/>
+        <location filename="../calculate_ldn.py" line="2162"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1059"/>
+        <location filename="../calculate_ldn.py" line="1060"/>
         <source>Also reset land cover legend?</source>
         <translation>土地覆盖图例也要重置吗？</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1059"/>
+        <location filename="../calculate_ldn.py" line="1060"/>
         <source>The UNCCD default data uses a 7 class land cover legend. Do you also want to reset the land cover legend to the UNCCD default? This will mean any changes you may have made to the land cover legend will be lost.</source>
         <translation>《荒漠化公约》默认数据使用7类土地覆盖图例。您还想将土地覆盖图例重置为《荒漠化公约》的默认值吗？这将意味着您对土地覆盖图例所做的任何更改都将丢失。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2295"/>
+        <location filename="../calculate_ldn.py" line="2296"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2295"/>
+        <location filename="../calculate_ldn.py" line="2296"/>
         <source>Final year of the productivity data ({year_final}) must be within three years of the years for which population data is available from the WorldPop dataset ({pop_start_year}-{pop_end_year}).</source>
         <translation>生产力数据的终止年份 ({year_final}) 必须落在 WorldPop 数据集所提供人口数据年份范围 ({pop_start_year}-{pop_end_year}) 的前后 3 年以内。</translation>
     </message>
@@ -1419,19 +1386,11 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-weight:600;&quot;&gt;Calculate all SDG 15.3.1 sub-indicators in a single step&lt;/span&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;This algorithm enables the simultaneous calculation of the three SDG 15.3.1 sub-indicators (Productivity, Land Cover and Soil Organic Carbon) in a single step. This is done using the remote Trends.Earth datasets described in each of the individual sub-indicator&apos;s sections.&lt;/span&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;一步计算所有 SDG 15.3.1 子指标&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;该算法可在一个步骤中同时计算 3 个 SDG 15.3.1 子指标（生产力、土地覆盖和土壤有机碳）。这是通过使用每个子指标章节中所述的远程 Trends.Earth 数据集来完成的。&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:5.5pt;&quot;&gt;        &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;更多信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; text-decoration: underline; &quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2161"/>
+        <location filename="../calculate_ldn.py" line="2162"/>
         <source>Initial and final year are less {MIN_YEARS_FOR_PROD_UPDATE} years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>{period} 的起始年份与终止年份之间相差不足 {MIN_YEARS_FOR_PROD_UPDATE} 年——如果分析中包含更多数据（年数），结果将更加可靠。</translation>
     </message>
@@ -1459,19 +1418,10 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Calculate Drought Vulnerability Indicators&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calculate indicators that can be used to assess drought vulnerability, consistent with Good Practice Guidance from UNCCD on Strategic Objective 3.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;In addition to indicators of drought derived from precipitation data (using the Standardized Precipitation Index), this tool also can provide access to a drought vulnerability dataset for 2018, produced by the Joint Research Commission (JRC) of the European Commission. This dataset is most useful for global-scale assessments.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;For further recommendations on assessing drought vulnerability, we recommend users review the recommendations of the Tools4LDN project, available in &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;English&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; and &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;Spanish&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; from the project website.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;For further recommendations on assessing drought vulnerability, we recommend users review the recommendations of the Tools4LDN project, available in &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; &quot;&gt;English&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; and &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; &quot;&gt;Spanish&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; from the project website.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on assessing drought vulnerability&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;计算干旱脆弱性指标&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;计算用于评估干旱脆弱性的指标，采用的方法与 UNCCD《良好做法指南》中关于”战略目标 3“的部分保持一致。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;除了基于降水数据（使用标准化降水指数）得出的干旱指标外，该工具还可提供 2018 年干旱脆弱性数据集的访问权限。该数据集由欧盟委员会联合研究中心 (JRC) 制作，最适用于全球尺度评估。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;要获取有关评估干旱脆弱性的更多建议，我们推荐用户查阅 Tools4LDN 项目的建议，可从项目网站获取&lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;英文&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;和&lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;西班牙文&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;版本。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;更多有关评估干旱脆弱性的信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; &quot;&gt;More information on assessing drought vulnerability&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="93"/>
@@ -1524,17 +1474,17 @@ p, li { white-space: pre-wrap; }
         <translation>添加报告期</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2205"/>
+        <location filename="../calculate_ldn.py" line="2206"/>
         <source>FAO WOCAT land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The {period} period ({year_initial} - {year_final}) only spans {year_final - year_initial} years. Please select a longer time period.</source>
         <translation>FAO WOCAT 土地生产力分析要求 Mann-Kendall 趋势检验至少包含 {MIN_YEARS_FOR_MANN_KENDALL} 年的数据。{period} period ({year_initial} - {year_final}) 仅跨越 {year_final - year_initial} 年。请选择更长的时间段。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2146"/>
+        <location filename="../calculate_ldn.py" line="2147"/>
         <source>Land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The {period} period ({year_initial} - {year_final}) only spans {year_final - year_initial} years. Please select a longer time period.</source>
         <translation>土地生产力分析要求 Mann-Kendall 趋势检验至少包含 {MIN_YEARS_FOR_MANN_KENDALL} 年的数据。{period} period ({year_initial} - {year_final}) 仅跨越 {year_final - year_initial} 年。请选择更长的时间段。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="2259"/>
+        <location filename="../calculate_ldn.py" line="2260"/>
         <source>SOC analysis cannot start before the baseline year {SOC_MIN_YEAR}. The selected initial year for the {period} period is {soc_year_initial}. Please select an initial year &gt;= {SOC_MIN_YEAR}.</source>
         <translation>SOC 分析不能在基准年 {SOC_MIN_YEAR} 之前开始。为 {period} 时段选择的起始年份是 {soc_year_initial}。请选择起始年份 &gt;= {SOC_MIN_YEAR}。</translation>
     </message>
@@ -1657,12 +1607,12 @@ p, li { white-space: pre-wrap; }
         <translation>比较期</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="400"/>
+        <location filename="../calculate_prod.py" line="401"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="298"/>
+        <location filename="../calculate_prod.py" line="299"/>
         <source>Choose one or more productivity sub-indicator to calculate.</source>
         <translation>选择一个或多个生产力子指标进行计算。</translation>
     </message>
@@ -1711,101 +1661,59 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;Productivity&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;Land productivity is the biological productive capacity of the land, the source of all the food, fiber and fuel that sustains humans (United Nations Statistical Commission 2016). Net primary productivity (NPP) is the net amount of carbon assimilated after photosynthesis and autotrophic respiration over a given period of time (Clark et al. 2001) and is typically represented in units such as kg/ha/yr. NPP is a variable time consuming and costly to estimate, for that reason, we rely on remotely sensed information to derive indicators of NPP.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;One of the most commonly used surrogates of NPP is the Normalized Difference Vegetation Index (NDVI), computed using information from the red and near infrared portions of the electromagnetic spectrum. In Trends.Earth we make use of bi-weekly products from MODIS and AVHRR to compute annual integrals of NDVI (computed as the mean annual NDVI for simplicity of interpretation of results). These annual integrals of NDVI are then used to compute each of the productivity indicators explained below.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Productivity SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;Land productivity is assessed in Trends.Earth using three measures of change derived from NDVI time series data: &lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;trend&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Performance&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;State&lt;/li&gt;&lt;/ul&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;Productivity trend&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;trend measures the rate of change in primary productivity over time. Trends.Earth computes a linear regression at the pixel level to identify areas experiencing changes in primary productivity for the period under analysis. A Mann-Kendall non-paremetric significance test is then applied, considering only significant changes those that show a p-value ≤ 0.05. Positive significant trends in NDVI would indicate potential improvement in land condition, and negative significant trends potential degradation.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Trajectory&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;Productivity State&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;The Productivity State indicator allows for the detection of recent changes in primary productivity as compared to a baseline period. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the baseline period (historical period to which to compare recent primary productivity).&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the comparison period (recent years used to compute comparison). It is recommended to use a 3-year to avoid annual fluctuations related to climate.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For each pixel, use the annual integrals of NDVI for the baseline period to compute a frequency distribution. In case the baseline period missed some extreme values in NDVI, add 5% on both extremes of the distribution. That expanded frequency distribution curve is then used to define the cut-off values of the 10 percentile classes.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the mean NDVI for the baseline period, and determine the percentile class it belongs to. Assign to the mean NDVI for the baseline period the number corresponding to that percentile class. Possible values range from 1 (lowest class) to 10 (highest class).&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the mean NDVI for the comparison period, and determine the percentile class it belongs to. Assign to the mean NDVI for the comparison period the number corresponding to that percentile class. Possible values range from 1 (lowest class) to 10 (highest class).&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine the difference in class number between the comparison and the baseline period (comparison minus baseline).&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If the difference in class between the baseline and the comparison period is ≤ 2, then that pixel could potentially be degraded. If the difference is ≥ 2, that pixel would indicate a recent improvement in terms of primary productivity. Pixels with small changes are considered stable.&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity State&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;Productivity Performance&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;The Productivity Performance indicator measures local productivity relative to other similar vegetation types in similar land cover types or bioclimatic regions throughout the study area. Trends.Earth uses the unique combination of soil units (soil taxonomy units using USDA system provided by SoilGrids at 250m resolution) and land cover (full 37 land cover classes provided by ESA CCI at 300m resolution) to define this areas of analysis. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the analysis period, and use the time series of NDVI to compute mean the NDVI for each pixel.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define similar ecologically similar units as the unique intersection of land cover and soil type.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For each unit, extract all the mean NDVI values computed in step 1, and create a frequency distribution. From this distribution determine the value which represents the 90th percentile (we don’t recommend using the absolute maximum NDVI value to avoid possible errors due to the presence of outliers). The value representing the 90th percentile will be considered the maximum productivity for that unit.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the ratio of mean NDVI and maximum productivity (in each case compare the mean observed value to the maximum for its corresponding unit).&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If observed mean NDVI is lower than 50% than the maximum productivity, that pixel is considered potentially degraded for this indicator.&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Performance&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;生产力 &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;}土地生产力是土地的生物生产能力，是维持人类生存的所有食物、纤维和燃料的来源（联合国统计委员会，2016 年）。净初级生产力 (NPP) 是在给定时间段内光合作用和自养呼吸后同化的碳的净量（Clark 等，2001 年），通常以 kg/ha/yr 等单位表示。NPP 是一个估算起来既耗时又成本的变量，因此我们依靠遥感信息来推导 NPP 的相关指标。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;土地生产力是土地的生物生产能力，是维持人类生存的所有食物、纤维和燃料的来源（联合国统计委员会，2016 年）。净初级生产力 (NPP) 是在给定时间段内光合作用和自养呼吸后同化的碳的净量（Clark 等，2001 年），通常以 kg/ha/yr 等单位表示。NPP 是一个估算起来既耗时又成本的变量，因此我们依靠遥感信息来推导 NPP 的相关指标。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;更多有关生产力 SDG 15.3.1 子指标的信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;在 Trends.Earth 中，土地生产力是通过三种基于 NDVI 时间序列数据推导出的变化衡量方式来评估的： &lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;趋势&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;绩效&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;状态&lt;/li&gt;&lt;/ul&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;生产力趋势&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;趋势用于衡量初级生产力随时间变化的速率。Trends.Earth 在像素级计算线性回归，以识别在被分析期间初级生产力发生变化的区域。随后应用 Mann-Kendall 非参数显著性检验，仅将 p 值 ≤ 0.05 的变化视为显著变化。NDVI 呈显著正趋势表明土地状况可能有所改善，而显著负趋势则表明可能发生退化。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;更多有关生产力轨迹的信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;生产力状态&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;生产力状态指标可用于检测初级生产力近期相对于基线期的变化。该指标的计算方法如下：&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;定义基线期（用于与近期初级生产力进行比较的历史时期）&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;定义比较期（用于进行比较的近期年份）。建议使用 3 年的时间段，以避免气候相关的年度波动。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;对每个像素，利用基线期的 NDVI 年积分计算频率分布。如果基线期遗漏了 NDVI 的某些极值，则在分布两端各增加 5%。随后利用扩展后的频率分布曲线来确定 10 个百分位等级的临界值。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;计算基线期的平均 NDVI，并确定其所属的百分位等级。将与该百分位等级对应的数值赋给基线期的平均 NDVI。可能的值范围为 1（最低等级）到 10（最高等级）。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;计算基线期的平均 NDVI，并确定其所属的百分位等级。将与该百分位等级对应的数值赋给基线期的平均 NDVI。可能的值范围为 1（最低等级）到 10（最高等级）。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;确定比较期和基线期之间的等级差值（比较期减去基准期）。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;如果基线期和比较期之间的等级差值 ≤ 2，则该像素可能发生退化。如果差值 ≥ 2，则表明该像素的初级生产力在近期有所改善。变化较小的像素被视为处于稳定状态。{&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;更多有关生产力状态的信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-weight:600;&quot;&gt;生产力绩效&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;生产力绩效指标衡量的是某一区域内特定植被的生产力水平，即将该植被的生产力与整个研究区域内、处于相似土地覆盖类型或生物气候区的其他同类植被进行比较。Trends.Earth 通过土壤单元（土壤分类单元，采用 SoilGrids 提供的 USDA 体系，分辨率为 250m）与土地覆盖（ESA CCI 提供的全部 37 种土地覆盖类别，分辨率为 300m）的唯一组合来划定这些分析区域。该指标按以下方式计算：&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;定义分析期，并使用 NDVI 时间序列计算每个像素的平均 NDVI。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;将生态相似单元定义为土地覆盖类型和土壤类型的唯一交集。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;对每个单元，提取步骤 1 中计算得到的全部平均 NDVI 值，并建立频率分布。根据该分布，确定代表第 90 百分位数的数值（我们不建议使用绝对最大 NDVI 值，以避免离群值存在所导致的潜在误差）。代表第 90 百分位数的数值将被视为该单元的最大生产力。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;计算平均 NDVI 与最大生产力的比值（每种情况下，均将观测到的平均值与其对应单元的最大值进行比较）。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu';&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;如果观测到的平均 NDVI 低于最大生产力的 50%，则该像素在该指标下被视为可能发生退化。&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; text-decoration: underline; color:#0000ff;&quot;&gt;更多有关生产力绩效的信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu Sans&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-weight:600;&quot;&gt;Productivity&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;Land productivity is the biological productive capacity of the land, the source of all the food, fiber and fuel that sustains humans (United Nations Statistical Commission 2016). Net primary productivity (NPP) is the net amount of carbon assimilated after photosynthesis and autotrophic respiration over a given period of time (Clark et al. 2001) and is typically represented in units such as kg/ha/yr. NPP is a variable time consuming and costly to estimate, for that reason, we rely on remotely sensed information to derive indicators of NPP.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;One of the most commonly used surrogates of NPP is the Normalized Difference Vegetation Index (NDVI), computed using information from the red and near infrared portions of the electromagnetic spectrum. In Trends.Earth we make use of bi-weekly products from MODIS and AVHRR to compute annual integrals of NDVI (computed as the mean annual NDVI for simplicity of interpretation of results). These annual integrals of NDVI are then used to compute each of the productivity indicators explained below.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; text-decoration: underline; &quot;&gt;More information on the Productivity SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;Land productivity is assessed in Trends.Earth using three measures of change derived from NDVI time series data: &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;trend&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Performance&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;State&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-weight:600;&quot;&gt;Productivity trend&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;trend measures the rate of change in primary productivity over time. Trends.Earth computes a linear regression at the pixel level to identify areas experiencing changes in primary productivity for the period under analysis. A Mann-Kendall non-paremetric significance test is then applied, considering only significant changes those that show a p-value &#xe2;&#x89;&#xa4; 0.05. Positive significant trends in NDVI would indicate potential improvement in land condition, and negative significant trends potential degradation.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; text-decoration: underline; &quot;&gt;More information on Productivity Trajectory&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-weight:600;&quot;&gt;Productivity State&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;The Productivity State indicator allows for the detection of recent changes in primary productivity as compared to a baseline period. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the baseline period (historical period to which to compare recent primary productivity).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the comparison period (recent years used to compute comparison). It is recommended to use a 3-year to avoid annual fluctuations related to climate.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For each pixel, use the annual integrals of NDVI for the baseline period to compute a frequency distribution. In case the baseline period missed some extreme values in NDVI, add 5% on both extremes of the distribution. That expanded frequency distribution curve is then used to define the cut-off values of the 10 percentile classes.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the mean NDVI for the baseline period, and determine the percentile class it belongs to. Assign to the mean NDVI for the baseline period the number corresponding to that percentile class. Possible values range from 1 (lowest class) to 10 (highest class).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the mean NDVI for the comparison period, and determine the percentile class it belongs to. Assign to the mean NDVI for the comparison period the number corresponding to that percentile class. Possible values range from 1 (lowest class) to 10 (highest class).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine the difference in class number between the comparison and the baseline period (comparison minus baseline).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If the difference in class between the baseline and the comparison period is &#xe2;&#x89;&#xa4; 2, then that pixel could potentially be degraded. If the difference is &#xe2;&#x89;&#xa5; 2, that pixel would indicate a recent improvement in terms of primary productivity. Pixels with small changes are considered stable.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; text-decoration: underline; &quot;&gt;More information on Productivity State&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; text-decoration: underline; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-weight:600;&quot;&gt;Productivity Performance&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;;&quot;&gt;The Productivity Performance indicator measures local productivity relative to other similar vegetation types in similar land cover types or bioclimatic regions throughout the study area. Trends.Earth uses the unique combination of soil units (soil taxonomy units using USDA system provided by SoilGrids at 250m resolution) and land cover (full 37 land cover classes provided by ESA CCI at 300m resolution) to define this areas of analysis. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the analysis period, and use the time series of NDVI to compute mean the NDVI for each pixel.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define similar ecologically similar units as the unique intersection of land cover and soil type.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For each unit, extract all the mean NDVI values computed in step 1, and create a frequency distribution. From this distribution determine the value which represents the 90th percentile (we don&#xe2;&#x80;&#x99;t recommend using the absolute maximum NDVI value to avoid possible errors due to the presence of outliers). The value representing the 90th percentile will be considered the maximum productivity for that unit.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the ratio of mean NDVI and maximum productivity (in each case compare the mean observed value to the maximum for its corresponding unit).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If observed mean NDVI is lower than 50% than the maximum productivity, that pixel is considered potentially degraded for this indicator.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; text-decoration: underline; &quot;&gt;More information on Productivity Performance&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="362"/>
+        <location filename="../calculate_prod.py" line="363"/>
         <source>Productivity trajectory requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The selected period ({self.traj_year_start.date().year()} - {self.traj_year_end.date().year()}) only spans {traj_years} years. Please select a longer time period.</source>
         <translation>生产力轨迹分析要求 Mann-Kendall 趋势检验至少包含 {MIN_YEARS_FOR_MANN_KENDALL} 年的数据。所选时段 ({self.traj_year_start.date().year()} - {self.traj_year_end.date().year()}) 仅跨越 {traj_years} 年。请选择更长的时间段。</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="400"/>
+        <location filename="../calculate_prod.py" line="401"/>
         <source>FAO WOCAT land productivity analysis requires at least {MIN_YEARS_FOR_MANN_KENDALL} years of data for the Mann-Kendall trend test. The selected period ({self.fao_wocat_year_start.date().year()} - {self.fao_wocat_year_end.date().year()}) only spans {fao_years} years. Please select a longer time period.</source>
         <translation>FAO WOCAT 土地生产力分析要求 Mann-Kendall 趋势检验至少包含 {MIN_YEARS_FOR_MANN_KENDALL} 年的数据。所选时段 ({self.fao_wocat_year_start.date().year()} - {self.fao_wocat_year_end.date().year()}) 仅跨越 {fao_years} 年。请选择更长的时间段。</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="344"/>
+        <location filename="../calculate_prod.py" line="345"/>
         <source>The selected trajectory method requires a climate dataset. Please select a climate dataset before submitting.</source>
         <translation>所选轨迹方法需要气候数据集。请在提交前选择一个气候数据集。</translation>
     </message>
@@ -1988,12 +1896,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;总结恢复后生物量的可能变化&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;。</translation>
     </message>
     <message>
-        <location filename="../calculate_rest_biomass.py" line="139"/>
+        <location filename="../calculate_rest_biomass.py" line="140"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_rest_biomass.py" line="139"/>
+        <location filename="../calculate_rest_biomass.py" line="140"/>
         <source>Area of interest is not entirely within the biomass layer.</source>
         <translation>感兴趣的区域不完全在生物质层内。</translation>
     </message>
@@ -2086,37 +1994,37 @@ p, li { white-space: pre-wrap; }
         <translation>自定义初始土壤有机碳数据集</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="286"/>
+        <location filename="../calculate_soc.py" line="287"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="154"/>
+        <location filename="../calculate_soc.py" line="155"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset.</source>
         <translation>由于您选择了这些选项，因此必须离线进行此计算。您必须选择自定义土壤有机碳数据集。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="164"/>
+        <location filename="../calculate_soc.py" line="165"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
         <translation>由于您选择了这些选项，因此必须离线进行此计算。您必须选择自定义土地覆盖数据集。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="196"/>
+        <location filename="../calculate_soc.py" line="197"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="196"/>
+        <location filename="../calculate_soc.py" line="197"/>
         <source>The initial year ({year_initial}) is greater than or equal to the final year ({year_final}) - this analysis might generate strange results.</source>
         <translation>初始年份（{year_initial}）大于或等于最终年份（{year_final}）--这种分析可能产生奇怪的结果。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="210"/>
+        <location filename="../calculate_soc.py" line="211"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>感兴趣的区域不完全在最初的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="224"/>
+        <location filename="../calculate_soc.py" line="225"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>感兴趣的区域不完全在最终的土地覆盖层内。</translation>
     </message>
@@ -2130,32 +2038,20 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;The third sub-indicator for monitoring land degradation as part of the SDG process quantifies changes in soil organic carbon (SOC) over the reporting period. Changes in SOC are particularly difficult to assess for several reasons, some of them being the high spatial variability of soil properties, the time and cost intensiveness of conducting representative soil surveys and the lack of time series data on SOC for most regions of the world. To address some of the limitations, a combined land cover/SOC method is used in Trends.Earth to estimate changes in SOC and identify potentially degraded areas. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine the SOC reference values. Trends.Earth uses SoilGrids 250m carbon stocks for the first 30 cm of the soil profile as the reference values for calculation (NOTE: SoilGrids uses information from a variety of data sources and ranging from many years to produce this product, therefore assigning a date for calculations purposes could cause inaccuracies in the stock change calculations).&lt;/li&gt;
 &lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassify the land cover maps to the 7 land cover classes needed for reporting to the UNCCD (forest, grassland, cropland, wetland, artificial area, bare land and water). Ideally annual land cover maps are preferred, but at least land cover maps for the starting and end years are needed.&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To estimate the changes in C stocks for the reporting period C conversion coefficients for changes in land use, management and inputs are recommended by the IPCC and the UNCCD. However, spatially explicit information on management and C inputs is not available for most regions. As such, only land use conversion coefficient can be applied for estimating changes in C stocks (using land cover as a proxy for land use). The coefficients used were the result of a literature review performed by the UNCCD and are presented at the &lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Trends.Earth website&lt;/span&gt;&lt;/a&gt;. Those coefficients represent the proportional in C stocks after 20 years of land cover change.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To estimate the changes in C stocks for the reporting period C conversion coefficients for changes in land use, management and inputs are recommended by the IPCC and the UNCCD. However, spatially explicit information on management and C inputs is not available for most regions. As such, only land use conversion coefficient can be applied for estimating changes in C stocks (using land cover as a proxy for land use). The coefficients used were the result of a literature review performed by the UNCCD and are presented at the &lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; &quot;&gt;Trends.Earth website&lt;/span&gt;&lt;/a&gt;. Those coefficients represent the proportional in C stocks after 20 years of land cover change.&lt;/li&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Changes in SOC are better studied for land cover transitions involving agriculture, and for that reason there is a different set of coefficients for each of the main global climatic regions: Temperate Dry (f = 0.80), Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = 0.48), and Tropical Montane (f = 0.64).&lt;/span&gt;&lt;/p&gt;
 &lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute relative different in SOC between the baseline and the target period, areas which experienced a loss in SOC of 10% of more during the reporting period will be considered potentially degraded, and areas experiencing a gain of 10% or more as potentially improved.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Soil Organic Carbon SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;土壤有机碳&lt;/span&gt;&lt;/h3&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;作为可持续发展目标进程的一部分，监测土地退化的第三个次级指标量化了报告期内土壤有机碳（SOC）的变化。因为各种原因，对SOC变化的评估极其困难，其中一些原因是土壤特性的空间变异性很大，进行具有代表性的土壤调查所需要的时间和成本过高而且世界上大多数地区缺乏SOC的时间序列数据。为了解决一些限制，Trends.Earth中使用了土地覆盖/SOC相结合的方法来估计SOC的变化并确定潜在的退化区域。指标的计算方法如下：&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;确定 SOC 参考值。Trends.Earth使用土壤剖面最上方30厘米的SoilGrids 250m碳储量作为计算的参考值（注：SoilGrids使用来自各种数据源的信息，生成该结果的时间为数年，因此指定计算日期可能导致储量变化计算不准确）。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;将土地覆盖图重新分类为向《荒漠化公约》报告所需的7个土地覆盖类别（森林、草地、农田、湿地、人工区域、裸地和水域）。理想情况下，首选年度土地覆被图，但至少需要起始年和结束年的土地覆盖图。&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;为了估计报告期碳储量的变化，气专委和《荒漠化公约》建议采用土地利用、管理和投入变化的碳转换系数。然而，大多数区域没有关于管理和碳吸收的明确空间信息。因此，只能使用土地利用转换系数来估算碳储量的变化（使用土地覆盖作为土地利用的代表）。所使用的系数是《荒漠化公约》所进行的文献研究的成果，载于&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Trends.Earth官网&lt;/span&gt;&lt;/a&gt;。这些系数代表了20年土地覆盖变化后碳储量的比例。&lt;/li&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;对于涉及农业的土地覆盖转变，SOC的变化得到了更好的研究，因此，每个主要全球气候区域都有一组不同的系数：温带干燥（f = 0.80），温带潮湿（f = 0.69），热带干燥（f = 0.58），热带潮湿（f = 0.48）和热带山地（f = 0.64）。&lt;/span&gt;&lt;/p&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;计算基准时段和目标时段之间SOC的相对差异，在报告期内SOC损失超过10%的区域将被视为潜在退化，而增长10%或更多的区域将被视为潜在改善。&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;关于土壤有机碳可持续发展目标15.3.1分项指标的更多信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; &quot;&gt;More information on the Soil Organic Carbon SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="243"/>
+        <location filename="../calculate_soc.py" line="244"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
         <translation>初始和最终土地覆盖层的土地覆盖图例的嵌套必须相同。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="286"/>
+        <location filename="../calculate_soc.py" line="287"/>
         <source>SOC analysis cannot start before the baseline year {SOC_MIN_YEAR}. The selected initial year is {year_initial}. Please select an initial year &gt;= {SOC_MIN_YEAR}.</source>
         <translation>SOC 分析不能在基准年 {SOC_MIN_YEAR} 之前开始。选择的起始年份是 {year_initial}。请选择起始年份 &gt;= {SOC_MIN_YEAR}。</translation>
     </message>
@@ -2343,62 +2239,62 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;计算砍伐森林的地上和地下排放的算法计算砍伐森林的地上和地下排放的算法&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="190"/>
+        <location filename="../calculate_tc.py" line="191"/>
         <source>Coming soon!</source>
         <translation>快来了！</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="190"/>
+        <location filename="../calculate_tc.py" line="191"/>
         <source>Custom forest cover data support is coming soon!</source>
         <translation>自定义森林覆盖数据支持即将推出！</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="390"/>
+        <location filename="../calculate_tc.py" line="391"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="230"/>
+        <location filename="../calculate_tc.py" line="231"/>
         <source>Enter a value for percent cover that is considered forest.</source>
         <translation>输入被视为森林的覆盖百分比值。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="239"/>
+        <location filename="../calculate_tc.py" line="240"/>
         <source>Choose a method for calculating the root to shoot ratio.</source>
         <translation>选择计算根冠比的方法。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="248"/>
+        <location filename="../calculate_tc.py" line="249"/>
         <source>Choose a biomass dataset.</source>
         <translation>选择生物量数据集。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="260"/>
+        <location filename="../calculate_tc.py" line="261"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
         <translation>由于您选择了这些选项，因此必须离线进行此计算。您必须选择自定义土地覆盖数据集。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="272"/>
+        <location filename="../calculate_tc.py" line="273"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="272"/>
+        <location filename="../calculate_tc.py" line="273"/>
         <source>The initial year ({year_initial}) is greater than or equal to the final year ({year_final}) - this analysis might generate strange results.</source>
         <translation>初始年份（{year_initial}）大于或等于最终年份（{year_final}）--这种分析可能产生奇怪的结果。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="290"/>
+        <location filename="../calculate_tc.py" line="291"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>感兴趣的区域不完全在最初的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="307"/>
+        <location filename="../calculate_tc.py" line="308"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>感兴趣的区域不完全在最终的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="390"/>
+        <location filename="../calculate_tc.py" line="391"/>
         <source>Error calculating change in toal carbon.</source>
         <translation>计算总碳的变化时出错。</translation>
     </message>
@@ -2476,22 +2372,22 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="682"/>
+        <location filename="../calculate_tc.py" line="683"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="652"/>
+        <location filename="../calculate_tc.py" line="653"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
         <translation>感兴趣的区域不完全在森林损失层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="663"/>
+        <location filename="../calculate_tc.py" line="664"/>
         <source>Area of interest is not entirely within the total carbon layer.</source>
         <translation>感兴趣的区域不完全在总碳层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="682"/>
+        <location filename="../calculate_tc.py" line="683"/>
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
         <translation>森林损失和总碳层的分辨率不匹配。</translation>
     </message>
@@ -2575,37 +2471,29 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Default Data for UNCCD Reporting&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calculates default datasets used in 2022 UNCCD Reporting Process. This tool uses the same global datasets and approaches used to produce the &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;default&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; national-estimates pre-filled by UNCCD in &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calculates default datasets used in 2022 UNCCD Reporting Process. This tool uses the same global datasets and approaches used to produce the &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; &quot;&gt;default&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; national-estimates pre-filled by UNCCD in &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; &quot;&gt;PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Countries wishing to replace the default national estimates provided in PRAIS 4 (or to use nationally or locally available data or official national boundaries) can do so within Trends.Earth using the various tools available under the &amp;quot;Algorithms&amp;quot; tab:&lt;/span&gt;&lt;/p&gt;
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Use the tools under &amp;quot;SDG 15.3.1 - Land degradation&amp;quot; to produce customized estimates of Strategic Objective 1 (land condition) and Strategic Objective 2 (population exposed)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Use the tools under &amp;quot;Drought - Vulnerability and exposure&amp;quot; to produce estimates of Strategic Objective 3 (drought vulnerability)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;UNCCD报告的默认数据&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;计算2022年UNCCD报告过程中使用的默认数据集。该工具使用相同的全球数据集和方法来生成&lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;默认的&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;国家估计数据，这些数据是由UNCCD在&lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;中预先填写的。
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;希望替换PRAIS 4中提供的默认国家估计值（或使用国家或地方提供的数据或官方国家边界）的国家可以在Trends.Earth中使用&amp;quot;Algorithms&amp;quot;标签下的各种工具进行替换：&lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;使用 &amp;quot;SDG15.3.1--土地退化 下的工具&amp;quot;，生成战略目标1（土地状况）和战略目标2（受影响人口）的定制预估值&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;使用&amp;quot;干旱--脆弱和暴露&amp;quot;下的工具，得出战略目标3（干旱脆弱性）的预估值&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="82"/>
+        <location filename="../calculate_unccd.py" line="83"/>
         <source>Coming soon!</source>
         <translation>快来了！</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="82"/>
+        <location filename="../calculate_unccd.py" line="83"/>
         <source>This function coming soon!</source>
         <translation>该功能很快会推出！</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="99"/>
+        <location filename="../calculate_unccd.py" line="100"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="99"/>
+        <location filename="../calculate_unccd.py" line="100"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
         <translation>初始年份和最终年份相隔不到5年，--如果在分析中包括更多的数据（年份），结果会更可靠。</translation>
     </message>
@@ -2696,22 +2584,22 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;勾选&amp;quot;计算仅适用于受影响地区&amp;quot;方框将在报告中包含一个指标，表明该计算适用于受影响地区。请注意，关于受影响地区的报告是UNCCD2022年报告过程中的一个可选要素，是国家报告的补充。受影响地区 在《公约》第1条中被定义为 &quot;受荒漠化影响或威胁的干旱、半干旱和/或亚湿润干旱地区&quot;，缔约方可选择使用这一定义或提供其国家使用的受影响地区的实际定义。â&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="182"/>
+        <location filename="../calculate_unccd.py" line="183"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="182"/>
+        <location filename="../calculate_unccd.py" line="183"/>
         <source>You must select a {dataset_name} layer before you can use the UNCCD reporting tool.</source>
         <translation>在使用UNCCD报告工具之前，你必须选择一个{dataset_name}层。</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="201"/>
+        <location filename="../calculate_unccd.py" line="202"/>
         <source>SO1 and SO2</source>
         <translation>战略目标1（SO1）和 战略目标2（SO2）</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="205"/>
+        <location filename="../calculate_unccd.py" line="206"/>
         <source>SO3 (hazard and exposure)</source>
         <translation>战略目标3（SO3）（危险和暴露）</translation>
     </message>
@@ -2776,8 +2664,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="207"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;See the &lt;/span&gt;&lt;a href=&quot;https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Urban Mapper page&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; for assistance choosing these values.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt; &lt;span style=&quot; font-size:9pt;&quot;&gt;有关&lt;/span&gt; &lt;span style=&quot; font-size:9pt;&quot;&gt;选择这些值的帮助，&lt;/span&gt; &lt;span style=&quot; font-size:9pt;&quot;&gt;请参阅&lt;/span&gt; &lt;a href=&quot;https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Urban Mapper页面&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:9pt;&quot;&gt;。&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;See the &lt;/span&gt;&lt;a href=&quot;https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; &quot;&gt;Urban Mapper page&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; for assistance choosing these values.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="237"/>
@@ -2875,24 +2763,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;SDG 11.3.1 Indicator algorithm for ratio of land consumption rate to population growth rate.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;城区变化指标&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;SDG 11.3.1 土地消耗率与人口增长率之比的指标算法。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;更多信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; &quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="153"/>
+        <location filename="../calculate_urban.py" line="154"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="153"/>
+        <location filename="../calculate_urban.py" line="154"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 25,000 sq. km at a time. Choose a smaller area to process.</source>
         <translation>请求区域的边界框（大约 {:.6n} 平方公里）太大。市区变更工具一次最多可处理 25,000 平方公里的面积。请选择较小的区域进行处理。</translation>
     </message>
@@ -2954,24 +2834,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Summary for SDG 11.3.1 Indicator for ratio of land consumption rate to population growth rate.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;城市变化汇总表&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;可持续发展目标11.3.1土地消费率与人口增长率之比指标的汇总。&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;更多信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; &quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="256"/>
+        <location filename="../calculate_urban.py" line="257"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="256"/>
+        <location filename="../calculate_urban.py" line="257"/>
         <source>Area of interest is not entirely within the urban series layer.</source>
         <translation>感兴趣的区域并不完全在城市系列层内。</translation>
     </message>
@@ -2992,12 +2864,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="1352"/>
+        <location filename="../data_io.py" line="1375"/>
         <source>Missing or invalid CRS for input file.</source>
         <translation>输入文件的 CRS 缺失或无效。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1375"/>
+        <location filename="../data_io.py" line="1400"/>
         <source>Output file will be resized to &apos;{reg_name}&apos; extent.</source>
         <translation>输出文件的大小将调整至'{reg_name}' 范围。</translation>
     </message>
@@ -3133,7 +3005,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768：无数据&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2154"/>
+        <location filename="../data_io.py" line="2179"/>
         <source>Land productivity (imported - {self.datatype_cb.currentText()})</source>
         <translation>土地生产力（已导入 - {self.datatype_cb.currentText()}）</translation>
     </message>
@@ -3295,7 +3167,7 @@ p, li { white-space: pre-wrap; }
         <translation>提交下载请求</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="189"/>
+        <location filename="../download_data.py" line="190"/>
         <source>Details</source>
         <translation>细节</translation>
     </message>
@@ -3350,7 +3222,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入将分配给执行任务的名称，如果不填，算法名称将作为任务名称。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="157"/>
+        <location filename="../download_data.py" line="158"/>
         <source>Current region: {region}</source>
         <translation>当前区域：{region}</translation>
     </message>
@@ -3614,7 +3486,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgLandPKSDownload</name>
     <message>
-        <location filename="../landpks.py" line="192"/>
+        <location filename="../landpks.py" line="193"/>
         <source>Details</source>
         <translation>细节</translation>
     </message>
@@ -3648,52 +3520,52 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSelectDataset</name>
     <message>
-        <location filename="../select_dataset.py" line="70"/>
+        <location filename="../select_dataset.py" line="71"/>
         <source>Current region: {region}</source>
         <translation>当前区域：{region}</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="87"/>
+        <location filename="../select_dataset.py" line="88"/>
         <source>Task Name</source>
         <translation>任务名称</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="87"/>
+        <location filename="../select_dataset.py" line="88"/>
         <source>Task name is empty</source>
         <translation>任务名称为空</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="91"/>
+        <location filename="../select_dataset.py" line="92"/>
         <source>Dataset</source>
         <translation>数据集</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="92"/>
+        <location filename="../select_dataset.py" line="93"/>
         <source>SDG 15.3.1 Indicator</source>
         <translation>SDG 15.3.1 指标</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="93"/>
+        <location filename="../select_dataset.py" line="94"/>
         <source>Productivity Degradation</source>
         <translation>生产力下降</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="94"/>
+        <location filename="../select_dataset.py" line="95"/>
         <source>Land Cover Degradation</source>
         <translation>土地覆盖退化</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="95"/>
+        <location filename="../select_dataset.py" line="96"/>
         <source>Soil Organic Carbon Degradation</source>
         <translation>土壤有机碳分解</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="97"/>
+        <location filename="../select_dataset.py" line="98"/>
         <source>No dataset or layer selected.</source>
         <translation>未选择数据集或图层。</translation>
     </message>
     <message>
-        <location filename="../select_dataset.py" line="98"/>
+        <location filename="../select_dataset.py" line="99"/>
         <source>Please select a region first.</source>
         <translation>请先选择地区。</translation>
     </message>
@@ -3807,32 +3679,32 @@ p, li { white-space: pre-wrap; }
         <translation>输入你的电子邮箱地址...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1461"/>
+        <location filename="../settings.py" line="1465"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1461"/>
+        <location filename="../settings.py" line="1465"/>
         <source>Enter your email address to reset your password.</source>
         <translation>输入您的电子邮件地址来重置您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1469"/>
+        <location filename="../settings.py" line="1473"/>
         <source>Reset password?</source>
         <translation>重设密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1486"/>
+        <location filename="../settings.py" line="1490"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1469"/>
+        <location filename="../settings.py" line="1473"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? A password reset link will be emailed to you.</source>
         <translation>您确定要为 {self.email.text()} 重置密码吗？密码重置链接将通过电子邮件发送给您。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1486"/>
+        <location filename="../settings.py" line="1490"/>
         <source>A password reset link has been sent to {self.email.text()}. Please check your email and click the link to set a new password, then return to Trends.Earth to login.</source>
         <translation>密码重置链接已发送至 {self.email.text()}。请检查您的电子邮件并点击链接设置新密码，然后返回 Trends.Earth 登录。</translation>
     </message>
@@ -3845,12 +3717,12 @@ p, li { white-space: pre-wrap; }
         <translation>更新用户信息</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1598"/>
+        <location filename="../settings.py" line="1602"/>
         <source>Saved</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1598"/>
+        <location filename="../settings.py" line="1602"/>
         <source>Updated information for {}.</source>
         <translation>{}的更新信息。</translation>
     </message>
@@ -3968,47 +3840,47 @@ p, li { white-space: pre-wrap; }
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1281"/>
+        <location filename="../settings.py" line="1285"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1275"/>
+        <location filename="../settings.py" line="1279"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1281"/>
+        <location filename="../settings.py" line="1285"/>
         <source>Enter your password.</source>
         <translation>输入您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1292"/>
+        <location filename="../settings.py" line="1296"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1292"/>
+        <location filename="../settings.py" line="1296"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>以{self.email.text()}登录 Trends.Earth 服务器。&lt;html&gt;&lt;p&gt;欢迎来到 Trends.Earth！&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;加入 Trends.Earth 用户电子邮件组&lt;a/&gt;&lt;/p&gt;&lt;p&gt;确保加入 Trends.Earth 用户电子邮件组，了解关于支持可持续发展目标监测的工具、方法和数据集的更新和问答。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1361"/>
+        <location filename="../settings.py" line="1365"/>
         <source>Login Failed</source>
         <translation>登录失败</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1361"/>
+        <location filename="../settings.py" line="1365"/>
         <source>Invalid username or password. Please check your credentials and try again.</source>
         <translation>无效的用户名或密码。请检查您的凭证并重试。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1353"/>
+        <location filename="../settings.py" line="1357"/>
         <source>Account Locked</source>
         <translation>账户已锁定</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1327"/>
+        <location filename="../settings.py" line="1331"/>
         <source>Your account has been locked due to too many failed login attempts.
 
 You must reset your password to regain access.
@@ -4021,12 +3893,12 @@ Would you like to reset your password now?</source>
 是否立即重置密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1342"/>
+        <location filename="../settings.py" line="1346"/>
         <source>Account Temporarily Locked</source>
         <translation>账户暂时锁定</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1342"/>
+        <location filename="../settings.py" line="1346"/>
         <source>Your account is temporarily locked.
 
 Please try again in {minutes_remaining} minute(s).
@@ -4039,7 +3911,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 如果您忘记了密码，可以重置密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1353"/>
+        <location filename="../settings.py" line="1357"/>
         <source>Your account is locked.</source>
         <translation>您的账户已被锁定。</translation>
     </message>
@@ -4047,27 +3919,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="1404"/>
+        <location filename="../settings.py" line="1408"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1398"/>
+        <location filename="../settings.py" line="1402"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1404"/>
+        <location filename="../settings.py" line="1408"/>
         <source>Enter your password.</source>
         <translation>输入密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1423"/>
+        <location filename="../settings.py" line="1427"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1423"/>
+        <location filename="../settings.py" line="1427"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>以{self.email.text()}成功设置登录到 LandPKS 服务器。</translation>
     </message>
@@ -4080,12 +3952,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>注册新用户</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1241"/>
+        <location filename="../settings.py" line="1245"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1222"/>
+        <location filename="../settings.py" line="1226"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
@@ -4180,17 +4052,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>是的，我已知悉</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1187"/>
+        <location filename="../settings.py" line="1191"/>
         <source>Please enter a valid email address.</source>
         <translation>请输入有效的电子邮件地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1222"/>
+        <location filename="../settings.py" line="1226"/>
         <source>User registered. A password setup link has been emailed to {email}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
         <translation>用户已注册。密码设置链接已发送至您的邮箱 {email}。请查收邮件并点击链接设置密码，然后返回 Trends.Earth 设置页面进行登录。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1241"/>
+        <location filename="../settings.py" line="1245"/>
         <source>Registration failed. Please check your information and try again. If the problem persists, the email address may be invalid or already be registered.</source>
         <translation>注册失败。请检查您填写的信息，然后再试一次。如果问题仍然存在，则可能是您的电子邮件地址无效或已被注册。</translation>
     </message>
@@ -4256,32 +4128,32 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>气候数据集</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="85"/>
+        <location filename="../timeseries.py" line="86"/>
         <source>Submit request</source>
         <translation>提交请求</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="328"/>
+        <location filename="../timeseries.py" line="330"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="319"/>
+        <location filename="../timeseries.py" line="320"/>
         <source>Submitted</source>
         <translation>提交</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="319"/>
+        <location filename="../timeseries.py" line="320"/>
         <source>Time series calculation task submitted to Trends.Earth server.</source>
         <translation>时间序列计算任务提交到 Trends.Earth 服务器。</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="328"/>
+        <location filename="../timeseries.py" line="330"/>
         <source>Unable to submit time series calculation task to Trends.Earth server</source>
         <translation>无法向 Trends.Earth 服务器提交时间序列计算任务</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="271"/>
+        <location filename="../timeseries.py" line="272"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
         <translation>请求区域的边界框（约{.6n}平方公里）过大。timeseries工具一次最多可以处理100万平方公里的面积。请选择一块较小的区域进行处理。</translation>
     </message>
@@ -4320,8 +4192,8 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="186"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>声明：所提供的边界来自&lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style =“text-decoration：underline; color： ＃0000ff;“&gt;自然地球&lt;/ span&gt; &lt;/a&gt;，并且位于&lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =”text-decoration：underline; color：＃ 0000ff;“&gt;公共领域&lt;/ span&gt; &lt;/a&gt;。在趋势中使用的界限和名称以及所用的名称.earth并不意味着由国际保护基金会或其合作组织和贡献者正式认可或接受。&lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; &quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; &quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../visualization.py" line="512"/>
@@ -4521,12 +4393,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="1645"/>
+        <location filename="../jobs/manager.py" line="1649"/>
         <source>Processing: {task_name}</source>
         <translation>正在处理：{task_name}</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1898"/>
+        <location filename="../jobs/manager.py" line="1902"/>
         <source>Downloading: {job.task_name or job.id}</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4539,50 +4411,58 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>首年的土地覆被</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1412"/>
+        <location filename="../lc_setup.py" line="1416"/>
         <source>Select a transition matrix definition file</source>
         <translation>选择一个转换矩阵定义文件</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1443"/>
+        <location filename="../lc_setup.py" line="1447"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>转换矩阵定义（* .json）</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1456"/>
+        <location filename="../lc_setup.py" line="1460"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1425"/>
+        <location filename="../lc_setup.py" line="1429"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1443"/>
+        <location filename="../lc_setup.py" line="1447"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>选择保存此过渡矩阵定义的位置</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1456"/>
+        <location filename="../lc_setup.py" line="1460"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
 </context>
 <context>
+    <name>LDMPPlugin</name>
+    <message>
+        <location filename="../plugin.py" line="346"/>
+        <source>Plotly is not available. Report charts will be skipped until Plotly is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LandCoverClassSelectionDialog</name>
     <message>
-        <location filename="../settings.py" line="2521"/>
+        <location filename="../settings.py" line="2748"/>
         <source>&lt;b&gt;Select a parent for each of the below class names&lt;/b&gt;</source>
         <translation>&lt;b&gt;为以下每个类别名称选择一个父类别&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2566"/>
+        <location filename="../settings.py" line="2793"/>
         <source>Accept</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2568"/>
+        <location filename="../settings.py" line="2795"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -4590,37 +4470,37 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2667"/>
+        <location filename="../settings.py" line="2894"/>
         <source>Class Color</source>
         <translation>类别颜色</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2718"/>
+        <location filename="../settings.py" line="2945"/>
         <source>Land Cover</source>
         <translation>土地覆盖</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2750"/>
+        <location filename="../settings.py" line="2981"/>
         <source>Class name cannot be empty.</source>
         <translation>类别名称不能为空。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2754"/>
+        <location filename="../settings.py" line="2985"/>
         <source>Invalid color selected.</source>
         <translation>选择的颜色无效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2758"/>
+        <location filename="../settings.py" line="2989"/>
         <source>Parent class cannot be empty.</source>
         <translation>父类不能为空。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2763"/>
+        <location filename="../settings.py" line="2994"/>
         <source>Invalid class code value.</source>
         <translation>类别代码值无效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2767"/>
+        <location filename="../settings.py" line="2998"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation>代码值“{code！s}”已使用。</translation>
     </message>
@@ -4628,112 +4508,112 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="1947"/>
+        <location filename="../settings.py" line="2174"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1947"/>
+        <location filename="../settings.py" line="2174"/>
         <source>Code</source>
         <translation>代码</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1947"/>
+        <location filename="../settings.py" line="2174"/>
         <source>Parent</source>
         <translation>父</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2049"/>
+        <location filename="../settings.py" line="2276"/>
         <source>Land Cover</source>
         <translation>土地覆盖</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2315"/>
+        <location filename="../settings.py" line="2542"/>
         <source>Maximum number of classes reached.</source>
         <translation>已达到最多类别数上限。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2120"/>
+        <location filename="../settings.py" line="2347"/>
         <source>Nothing to save</source>
         <translation>没有要保存的内容</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2127"/>
+        <location filename="../settings.py" line="2354"/>
         <source>Save Land Cover Classes</source>
         <translation>保存土地覆盖类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2151"/>
+        <location filename="../settings.py" line="2378"/>
         <source>Select Land Cover Classes File</source>
         <translation>选择土地覆盖类别文件</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2169"/>
+        <location filename="../settings.py" line="2396"/>
         <source>No land cover classes found.</source>
         <translation>未找到土地覆盖类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2234"/>
+        <location filename="../settings.py" line="2461"/>
         <source>Land Cover Class Editor</source>
         <translation>土地覆盖类别编辑器</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2298"/>
+        <location filename="../settings.py" line="2525"/>
         <source>Invalid row for land cover class</source>
         <translation>土地覆盖类别的行无效</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2303"/>
+        <location filename="../settings.py" line="2530"/>
         <source>Unable to update class.</source>
         <translation>无法更新类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2322"/>
+        <location filename="../settings.py" line="2549"/>
         <source>Unable to add new class.</source>
         <translation>无法添加新类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2350"/>
+        <location filename="../settings.py" line="2577"/>
         <source>class does not have children assigned to it</source>
         <translation>该类别未被分配子类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2370"/>
+        <location filename="../settings.py" line="2597"/>
         <source>class has not been assigned a parent</source>
         <translation>该类别尚未分配父类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2496"/>
+        <location filename="../settings.py" line="2723"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation>必须至少定义一个类别。您可以创建一个新的类别然后将其删除，也可以单击“恢复”按钮恢复默认的《荒漠化公约》类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2501"/>
+        <location filename="../settings.py" line="2728"/>
         <source>Delete Failed</source>
         <translation>删除失败</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1982"/>
+        <location filename="../settings.py" line="2209"/>
         <source>Import CSV</source>
         <translation>导入 CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1983"/>
+        <location filename="../settings.py" line="2210"/>
         <source>Import land cover classes from a CSV file</source>
         <translation>从 CSV 文件导入土地覆盖类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2004"/>
+        <location filename="../settings.py" line="2231"/>
         <source>Import Land Cover Classes</source>
         <translation>导入土地覆盖类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2011"/>
+        <location filename="../settings.py" line="2238"/>
         <source>CSV files</source>
         <translation>CSV 文件</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2013"/>
+        <location filename="../settings.py" line="2240"/>
         <source>Select CSV file with land cover classes</source>
         <translation>选择包含土地覆盖类别的 CSV 文件</translation>
     </message>
@@ -4799,12 +4679,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>MultiscopeJobReportModel</name>
     <message>
-        <location filename="../reports/mvc.py" line="261"/>
+        <location filename="../reports/mvc.py" line="268"/>
         <source>Scope Name</source>
         <translation>范围名称</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="261"/>
+        <location filename="../reports/mvc.py" line="268"/>
         <source>Source Dataset</source>
         <translation>源数据集</translation>
     </message>
@@ -4812,17 +4692,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>PolygonMapTool</name>
     <message>
-        <location filename="../maptools.py" line="417"/>
+        <location filename="../maptools.py" line="420"/>
         <source>add feature</source>
         <translation>添加功能</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="405"/>
+        <location filename="../maptools.py" line="407"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="405"/>
+        <location filename="../maptools.py" line="407"/>
         <source>Empty geometry. Did you draw a feature outside of the currently selected region, or overlapping existing features?</source>
         <translation>几何为空。您是否在当前选定区域之外绘制了要素，或使其与现有要素重叠？</translation>
     </message>
@@ -4830,57 +4710,57 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ProfileFormMixin</name>
     <message>
-        <location filename="../settings.py" line="1152"/>
+        <location filename="../settings.py" line="1156"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1076"/>
+        <location filename="../settings.py" line="1080"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1082"/>
+        <location filename="../settings.py" line="1086"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1088"/>
+        <location filename="../settings.py" line="1092"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1094"/>
+        <location filename="../settings.py" line="1098"/>
         <source>Select your sector.</source>
         <translation>选择您的行业。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1100"/>
+        <location filename="../settings.py" line="1104"/>
         <source>Select your purpose of use.</source>
         <translation>选择您的使用目的。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1106"/>
+        <location filename="../settings.py" line="1110"/>
         <source>Select your country.</source>
         <translation>选择您所在国家/地区。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1113"/>
+        <location filename="../settings.py" line="1117"/>
         <source>You must acknowledge responsibility for GEE commercial licensing if needed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1128"/>
+        <location filename="../settings.py" line="1132"/>
         <source>Please specify your sector.</source>
         <translation>请说明您所在的行业。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1140"/>
+        <location filename="../settings.py" line="1144"/>
         <source>Please specify your purpose of use.</source>
         <translation>请说明您的使用目的。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1152"/>
+        <location filename="../settings.py" line="1156"/>
         <source>Please provide your gender identity description.</source>
         <translation>请提供您的性别认同描述。</translation>
     </message>
@@ -4962,32 +4842,32 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportGeneratorManager</name>
     <message>
-        <location filename="../reports/generator.py" line="1067"/>
+        <location filename="../reports/generator.py" line="1072"/>
         <source>Report Status</source>
         <translation>报告状态</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1097"/>
+        <location filename="../reports/generator.py" line="1102"/>
         <source>Cannot process report due to write permission to</source>
         <translation>由于写入权限，无法处理报告</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1129"/>
+        <location filename="../reports/generator.py" line="1134"/>
         <source>could not be found in your system. Unable to run the report generator.</source>
         <translation>在您的系统中找不到。无法运行报告生成器。</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1158"/>
+        <location filename="../reports/generator.py" line="1163"/>
         <source>reports</source>
         <translation>报告</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1172"/>
+        <location filename="../reports/generator.py" line="1177"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
         <translation>正在处理(编号{[str(工作.编号) for 工作 in ctx.工作]})...</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1140"/>
+        <location filename="../reports/generator.py" line="1145"/>
         <source>queued (waiting for a free worker slot)</source>
         <translation>已加入队列（等待空闲工作线程）</translation>
     </message>
@@ -5005,22 +4885,22 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>从任务生成报告</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="53"/>
+        <location filename="../processing_provider/report.py" line="57"/>
         <source>File containing report context task information</source>
         <translation>包含报告上下文任务信息的文件</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="62"/>
+        <location filename="../processing_provider/report.py" line="66"/>
         <source>Summary result status of the algorithm.</source>
         <translation>算法的汇总结果状态。</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="82"/>
+        <location filename="../processing_provider/report.py" line="86"/>
         <source>Task file not found.</source>
         <translation>找不到任务文件。</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="91"/>
+        <location filename="../processing_provider/report.py" line="95"/>
         <source>Could not read report task context file</source>
         <translation>无法读取报告任务上下文文件</translation>
     </message>
@@ -5028,17 +4908,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportTaskProcessor</name>
     <message>
-        <location filename="../reports/generator.py" line="703"/>
+        <location filename="../reports/generator.py" line="709"/>
         <source>Simple</source>
         <translation>简单</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="705"/>
+        <location filename="../reports/generator.py" line="711"/>
         <source>Full</source>
         <translation>满</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="707"/>
+        <location filename="../reports/generator.py" line="713"/>
         <source>All</source>
         <translation>全部</translation>
     </message>
@@ -5119,12 +4999,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>TEMapToolMixin</name>
     <message>
-        <location filename="../maptools.py" line="267"/>
+        <location filename="../maptools.py" line="268"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="267"/>
+        <location filename="../maptools.py" line="268"/>
         <source>Current cursor position is outside the extent of the base source dataset.</source>
         <translation>当前光标位置位于基础源数据集的范围之外。</translation>
     </message>
@@ -5210,17 +5090,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>WidgetAlgorithmLeafItem</name>
     <message>
-        <location filename="../gui/WidgetAlgorithmLeaf.ui" line="105"/>
+        <location filename="../gui/WidgetAlgorithmLeaf.ui" line="40"/>
         <source>Algoritm name</source>
         <translation>算法名称</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetAlgorithmLeaf.ui" line="149"/>
+        <location filename="../gui/WidgetAlgorithmLeaf.ui" line="84"/>
         <source>...</source>
         <translation>......</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetAlgorithmLeaf.ui" line="170"/>
+        <location filename="../gui/WidgetAlgorithmLeaf.ui" line="105"/>
         <source>Description</source>
         <translation>描述</translation>
     </message>
@@ -5452,52 +5332,52 @@ p, li { white-space: pre-wrap; }
         <translation>形成</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="139"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="138"/>
         <source>dataset name</source>
         <translation>数据集名称</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="155"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="154"/>
         <source>Creation date</source>
         <translation>创建日期</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="180"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="179"/>
         <source>Download dataset</source>
         <translation>下载数据集</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="293"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="292"/>
         <source>...</source>
         <translation>......</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="190"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="189"/>
         <source>Load dataset onto QGIS map area</source>
         <translation>将数据集加载到 QGIS 地图区域</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="200"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="199"/>
         <source>Load vector</source>
         <translation>加载向量</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="210"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="209"/>
         <source>Reports</source>
         <translation>报告</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="220"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="219"/>
         <source>Show timeseries plot</source>
         <translation>显示时间序列图</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="230"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="229"/>
         <source>View dataset details</source>
         <translation>查看数据集详细信息</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="290"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="289"/>
         <source>Delete dataset</source>
         <translation>删除数据集</translation>
     </message>
@@ -5517,7 +5397,7 @@ p, li { white-space: pre-wrap; }
         <translation>color: white; font-size: 12px; font-weight: bold;</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="247"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="246"/>
         <source>View execution logs</source>
         <translation>查看执行日志</translation>
     </message>
@@ -5753,8 +5633,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="209"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;https://www.geoboundaries.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;geoBoundaries&lt;/span&gt;&lt;/a&gt;, and are under a &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt; license. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;免责声明：所提供的边界数据来自&lt;a href=&quot;https://www.geoboundaries.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;geoBoundaries&lt;/span&gt;&lt;/a&gt;，并遵循&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;许可协议。Trends.Earth 中所使用的边界、名称及标注，并不暗示保护国际基金会及其合作伙伴或贡献者的官方认可或接受。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;https://www.geoboundaries.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; &quot;&gt;geoBoundaries&lt;/span&gt;&lt;/a&gt;, and are under a &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; text-decoration: underline; &quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt; license. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="225"/>
@@ -5850,32 +5730,32 @@ p, li { white-space: pre-wrap; }
         <translation>轮询频率（秒）</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSettingsAdvanced.ui" line="232"/>
+        <location filename="../gui/WidgetSettingsAdvanced.ui" line="314"/>
         <source>LandPKS login information</source>
         <translation>LandPKS 登录信息</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSettingsAdvanced.ui" line="238"/>
+        <location filename="../gui/WidgetSettingsAdvanced.ui" line="320"/>
         <source>Click below to allow Trends.Earth to access data from your LandPKS account.</source>
         <translation>单击下方以允许 Trends.Earth 访问您 LandPKS 账户中的数据。</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSettingsAdvanced.ui" line="263"/>
+        <location filename="../gui/WidgetSettingsAdvanced.ui" line="345"/>
         <source>Enable LandPKS data access</source>
         <translation>启用 LandPKS 数据访问</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1747"/>
+        <location filename="../settings.py" line="1970"/>
         <source>No base data directory set</source>
         <translation>没有设置基本数据目录</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1757"/>
+        <location filename="../settings.py" line="1980"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>无法写给{}。尝试其他的文件夹。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1727"/>
+        <location filename="../settings.py" line="1950"/>
         <source>Offline mode is enabled.</source>
         <translation>离线模式已启用。</translation>
     </message>
@@ -5893,6 +5773,161 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="144"/>
         <source>https://api.trends.earth</source>
         <translation>https://api.trends.earth</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSettingsAdvanced.ui" line="214"/>
+        <source>Google Earth Engine Account - EXPERIMENTAL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSettingsAdvanced.ui" line="220"/>
+        <source>Not connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSettingsAdvanced.ui" line="232"/>
+        <source>Project ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSettingsAdvanced.ui" line="239"/>
+        <source>my-gee-project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSettingsAdvanced.ui" line="246"/>
+        <source>Save</source>
+        <translation type="unfinished">保存</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1800"/>
+        <source>Connect GEE Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSettingsAdvanced.ui" line="264"/>
+        <source>Test Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSettingsAdvanced.ui" line="271"/>
+        <source>Disconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1713"/>
+        <source>Log in to Trends.Earth to manage your Google Earth Engine account.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1730"/>
+        <source>Unable to retrieve GEE status.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1735"/>
+        <source>OAuth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1735"/>
+        <source>Service Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1738"/>
+        <source>Connected ({type_str})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1751"/>
+        <source>Using default Trends.Earth Google Earth Engine account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1768"/>
+        <source>Failed to initiate GEE OAuth.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1775"/>
+        <source>No authorization URL received.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1781"/>
+        <source>Browser opened — complete the Google authorization and return here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1790"/>
+        <source>Connecting…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1801"/>
+        <source>Connection timed out. Please try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1815"/>
+        <source>GEE connected! Enter your GCP project ID below and click Save.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1825"/>
+        <source>Disconnect GEE Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1825"/>
+        <source>Are you sure you want to disconnect your Google Earth Engine account?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1842"/>
+        <source>GEE account disconnected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1846"/>
+        <source>Failed to disconnect GEE account.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1856"/>
+        <source>Please enter a project ID.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1862"/>
+        <source>Invalid project ID. Must be 6–30 characters, lowercase letters, digits and hyphens, starting with a letter and not ending with a hyphen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1874"/>
+        <source>GEE project ID saved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1878"/>
+        <source>Failed to save project ID.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1895"/>
+        <source>GEE Connection Test</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1889"/>
+        <source>GEE credentials are valid and working.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1895"/>
+        <source>GEE credentials test failed. Check your connection and project ID.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5948,27 +5983,27 @@ p, li { white-space: pre-wrap; }
         <translation>在输出目录中记录警告</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1833"/>
+        <location filename="../settings.py" line="2056"/>
         <source>Select Report Template Search Path</source>
         <translation>选择报告模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1843"/>
+        <location filename="../settings.py" line="2066"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>需要重新启动 QGIS 才能使更改生效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1845"/>
+        <location filename="../settings.py" line="2068"/>
         <source>Template Search Path</source>
         <translation>模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1855"/>
+        <location filename="../settings.py" line="2082"/>
         <source>All Images</source>
         <translation>所有图片</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1870"/>
+        <location filename="../settings.py" line="2097"/>
         <source>Select Organization Logo</source>
         <translation>选择组织徽标</translation>
     </message>
@@ -6100,17 +6135,17 @@ for running algorithms and their results.</source>
 <context>
     <name>self.parent</name>
     <message>
-        <location filename="../settings.py" line="2527"/>
+        <location filename="../settings.py" line="2754"/>
         <source>The class name value that will imported, should not exceed 120 characters. </source>
         <translation>将要导入的类别名称值不得超过 120 个字符。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2532"/>
+        <location filename="../settings.py" line="2759"/>
         <source>Select the parent for the corresponding class name.</source>
         <translation>请为相应的类别名称选择父类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2589"/>
+        <location filename="../settings.py" line="2816"/>
         <source>Maximum number of codes reached.</source>
         <translation>达到最大编码数量。</translation>
     </message>
@@ -6118,62 +6153,62 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_api</name>
     <message>
-        <location filename="../api.py" line="367"/>
+        <location filename="../api.py" line="380"/>
         <source>Unable to login to Trends.Earth server. Check your internet connection.</source>
         <translation>无法登录 Trends.Earth 服务器。检查您的互联网连接。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="587"/>
+        <location filename="../api.py" line="607"/>
         <source>Unable to read token for Trends.Earth server. Check username and password.</source>
         <translation>无法读取 Trends.Earth 服务器的令牌。检查用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="599"/>
+        <location filename="../api.py" line="619"/>
         <source>Unable to login to Trends.Earth. Check username and password.</source>
         <translation>无法登录 Trends.Earth。检查用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="605"/>
+        <location filename="../api.py" line="625"/>
         <source>Unable to access Trends.Earth server. Check your internet connection</source>
         <translation>无法访问 Trends.Earth 服务器。检查您的互联网连接</translation>
     </message>
     <message>
-        <location filename="../api.py" line="372"/>
+        <location filename="../api.py" line="385"/>
         <source>Unable to connect to Trends.Earth server.</source>
         <translation>无法连接到 Trends.Earth 服务器。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="581"/>
+        <location filename="../api.py" line="601"/>
         <source>Authentication succeeded but no tokens returned. The API authentication method may have changed.</source>
         <translation>身份验证成功但未返回 Token。API 身份验证方法可能已更改。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="864"/>
+        <location filename="../api.py" line="884"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation>Trends.Earth 服务器暂时不可用（错误 {status}）。这通常是临时性问题。请稍后再试。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="870"/>
+        <location filename="../api.py" line="890"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation>Trends.Earth 服务器遇到内部错误（错误代码 500）。请重试。如果问题仍然存在，请联系 Trends.Earth 团队。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="876"/>
+        <location filename="../api.py" line="896"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation>身份认证失败。请检查您的登录凭证。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="534"/>
+        <location filename="../api.py" line="554"/>
         <source>No login credentials configured. Please set up your username and password in Trends.Earth settings.</source>
         <translation>未配置登录凭据。请在 Trends.Earth 设置中设置您的用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="550"/>
+        <location filename="../api.py" line="570"/>
         <source>Unable to retrieve stored credentials. Please re-enter your username and password in Trends.Earth settings.</source>
         <translation>无法检索存储的凭据。请在 Trends.Earth 设置中重新输入您的用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="854"/>
+        <location filename="../api.py" line="874"/>
         <source>This script requires Google Earth Engine. You must accept confirm understanding of the GEE terms of use before running it. Please update your profile in the Trends.Earth plugin settings to do so.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6353,222 +6388,222 @@ for running algorithms and their results.</source>
         <translation>所有地区</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="305"/>
+        <location filename="../conf.py" line="347"/>
         <source>Land degradation</source>
         <translation>土地退化</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="309"/>
+        <location filename="../conf.py" line="351"/>
         <source>Sub-indicators for SDG 15.3.1</source>
         <translation>SDG 15.3.1 的子指标</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="310"/>
+        <location filename="../conf.py" line="352"/>
         <source>Calculate SDG 15.3.1 sub-indicators (required prior to 15.3.1 indicator calculation)</source>
         <translation>计算 SDG 15.3.1 子指标（需要在 15.3.1 指标计算之前）</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="323"/>
+        <location filename="../conf.py" line="365"/>
         <source>Indicator for SDG 15.3.1</source>
         <translation>SDG 15.3.1 指标</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="324"/>
+        <location filename="../conf.py" line="366"/>
         <source>Spatial layer and summary table for total boundary</source>
         <translation>总边界的空间层和汇总表</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="327"/>
+        <location filename="../conf.py" line="369"/>
         <source>Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators</source>
         <translation>根据生产力、土地覆盖和土壤有机碳子指标，计算 SDG 15.3.1 指标</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="340"/>
+        <location filename="../conf.py" line="382"/>
         <source>Land productivity</source>
         <translation>土地生产力</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="341"/>
+        <location filename="../conf.py" line="383"/>
         <source>Land productivity is the biological productive capacity of land</source>
         <translation>土地生产力是土地的生物生产能力</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="356"/>
+        <location filename="../conf.py" line="398"/>
         <source>Land cover change</source>
         <translation>土地覆盖变化</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="357"/>
+        <location filename="../conf.py" line="399"/>
         <source>Land cover is the physical material at the surface of the earth. </source>
         <translation>土地覆盖是地球表面的物理物质。</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="373"/>
+        <location filename="../conf.py" line="415"/>
         <source>Soil Organic Carbon</source>
         <translation>土壤有机碳</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="374"/>
+        <location filename="../conf.py" line="416"/>
         <source>Soil organic carbon is a measure of soil organic matter</source>
         <translation>土壤有机碳是土壤有机质的量度</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="393"/>
+        <location filename="../conf.py" line="435"/>
         <source>Drought</source>
         <translation>干旱</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="394"/>
+        <location filename="../conf.py" line="436"/>
         <source>Vulnerability and exposure</source>
         <translation>脆弱性和暴露</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="398"/>
+        <location filename="../conf.py" line="440"/>
         <source>Drought vulnerability</source>
         <translation>干旱脆弱性</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="399"/>
+        <location filename="../conf.py" line="441"/>
         <source>Calculate indicators of drought vulnerability consistent with UNCCD SO3 Good Practice Guidance</source>
         <translation>根据 UNCCD SO3 良好实践指南，计算干旱脆弱性指标</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="412"/>
+        <location filename="../conf.py" line="454"/>
         <source>Drought vulnerability summary table</source>
         <translation>干旱脆弱性汇总表</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="413"/>
+        <location filename="../conf.py" line="455"/>
         <source>Summarize drought indicators in alignment with UNCCD SO3 reporting requirements</source>
         <translation>根据 UNCCD SO3 报告要求，总结干旱指标</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="427"/>
+        <location filename="../conf.py" line="469"/>
         <source>UNCCD Reporting</source>
         <translation>UNCCD 报告</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="428"/>
+        <location filename="../conf.py" line="470"/>
         <source>Summarize data for reporting</source>
         <translation>汇总数据以进行报告</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="446"/>
+        <location filename="../conf.py" line="488"/>
         <source>Generate data package for UNCCD reporting</source>
         <translation>为 UNCCD 报告生成数据包</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="447"/>
+        <location filename="../conf.py" line="489"/>
         <source>Summarize Strategic Objective (SO) 1, SO2, and SO3 datasets in proper format for submission to UNCCD for 2021 reporting cycle</source>
         <translation>以适当的格式总结战略目标 (SO) 1、SO2 和 SO3 数据集，以提交给 2021 年报告周期的 UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="462"/>
+        <location filename="../conf.py" line="504"/>
         <source>SDG 11.3.1</source>
         <translation>SDG 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="463"/>
+        <location filename="../conf.py" line="505"/>
         <source>Urban change and land consumption</source>
         <translation>城市变迁与土地消耗</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="467"/>
+        <location filename="../conf.py" line="509"/>
         <source>Urban change spatial layer</source>
         <translation>城市变化空间层</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="468"/>
+        <location filename="../conf.py" line="510"/>
         <source>Calculate indicators of change in urban extent (SDG 11.3.1 indicator)</source>
         <translation>计算城市范围变化指标（SDG 11.3.1 指标）</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="481"/>
+        <location filename="../conf.py" line="523"/>
         <source>Urban change summary table for city</source>
         <translation>城市变化汇总表</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="482"/>
+        <location filename="../conf.py" line="524"/>
         <source>Calculate table summarizing SDG indicator 11.3.1</source>
         <translation>计算总结 SDG 指标 11.3.1 的表格</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="495"/>
+        <location filename="../conf.py" line="537"/>
         <source>Experimental</source>
         <translation>实验性</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="521"/>
+        <location filename="../conf.py" line="563"/>
         <source>Calculate change in total carbon</source>
         <translation>计算总碳的变化</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="522"/>
+        <location filename="../conf.py" line="564"/>
         <source>Above and below ground, emissions and deforestation</source>
         <translation>地上和地下、排放和森林砍伐</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="528"/>
+        <location filename="../conf.py" line="570"/>
         <source>Calculate change in carbon</source>
         <translation>计算碳的变化</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="529"/>
+        <location filename="../conf.py" line="571"/>
         <source>Calculate total carbon (above and below-ground) and emissions from deforestation</source>
         <translation>计算森林砍伐造成的总碳（地上和地下）和排放量</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="547"/>
+        <location filename="../conf.py" line="589"/>
         <source>Change in carbon summary table</source>
         <translation>碳变化汇总表</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="548"/>
+        <location filename="../conf.py" line="590"/>
         <source>Calculate table summarizing change in total carbon</source>
         <translation>计算总结总碳变化的表格</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="561"/>
+        <location filename="../conf.py" line="603"/>
         <source>Potential change in biomass due to restoration</source>
         <translation>恢复导致的潜在生物量变化</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="562"/>
+        <location filename="../conf.py" line="604"/>
         <source>Above and below ground woody</source>
         <translation>地上和地下木本</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="566"/>
+        <location filename="../conf.py" line="608"/>
         <source>Estimate potential impacts of restoration</source>
         <translation>估计恢复的潜在影响</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="567"/>
+        <location filename="../conf.py" line="609"/>
         <source>Estimate potential change in biomass due to restoration</source>
         <translation>估计由于恢复引起的生物量的潜在变化</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="579"/>
+        <location filename="../conf.py" line="621"/>
         <source>Table summarizing likely changes in biomass</source>
         <translation>总结生物量可能变化的表格</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="582"/>
+        <location filename="../conf.py" line="624"/>
         <source>Generate table summarizing potential change in biomass due to restoration</source>
         <translation>生成总结恢复导致的生物量潜在变化的表格</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="505"/>
+        <location filename="../conf.py" line="547"/>
         <source>LDN Counterbalancing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conf.py" line="506"/>
+        <location filename="../conf.py" line="548"/>
         <source>Evaluate Land Degradation Neutrality counterbalancing following the GPG Addendum methodology, assessing gains versus losses per land type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../conf.py" line="499"/>
+        <location filename="../conf.py" line="541"/>
         <source>Assess whether gains offset losses within each land type</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6576,253 +6611,253 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_data_io</name>
     <message>
-        <location filename="../data_io.py" line="727"/>
+        <location filename="../data_io.py" line="748"/>
         <source>Could not load file</source>
         <translation>无法加载文件</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="774"/>
+        <location filename="../data_io.py" line="795"/>
         <source>Could not parse the selected file into a valid JSON</source>
         <translation>无法将所选文件解析为有效的JSON</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="932"/>
+        <location filename="../data_io.py" line="953"/>
         <source>Select a raster input file</source>
         <translation>选择光栅输入文件</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="932"/>
+        <location filename="../data_io.py" line="953"/>
         <source>Raster file (*.tif *.dat *.img *.vrt)</source>
         <translation>光栅文件 (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2821"/>
+        <location filename="../data_io.py" line="2846"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="989"/>
+        <location filename="../data_io.py" line="1010"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="974"/>
+        <location filename="../data_io.py" line="995"/>
         <source>Select a vector input file</source>
         <translation>选择矢量输入文件</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="974"/>
+        <location filename="../data_io.py" line="995"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1062"/>
+        <location filename="../data_io.py" line="1083"/>
         <source>Choose a name for the output file</source>
         <translation>为输出文件选择一个名称</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1062"/>
+        <location filename="../data_io.py" line="1083"/>
         <source>Raster file (*.tif)</source>
         <translation>光栅文件（* .tif）</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1078"/>
+        <location filename="../data_io.py" line="1099"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1214"/>
+        <location filename="../data_io.py" line="1236"/>
         <source>Metadata</source>
         <translation>元数据</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1672"/>
+        <location filename="../data_io.py" line="1697"/>
         <source>Choose an input raster file.</source>
         <translation>选择输入光栅文件。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1683"/>
+        <location filename="../data_io.py" line="1708"/>
         <source>Choose an input polygon dataset.</source>
         <translation>选择输入多边形数据集。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1700"/>
+        <location filename="../data_io.py" line="1725"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation>无法处理｛｝。未知几何图形：｛｝</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1516"/>
+        <location filename="../data_io.py" line="1543"/>
         <source>Vector remapping failed.</source>
         <translation>矢量重新映射失败。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1538"/>
+        <location filename="../data_io.py" line="1565"/>
         <source>Raster remapping failed.</source>
         <translation>光栅重新映射失败。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1562"/>
+        <location filename="../data_io.py" line="1589"/>
         <source>Rasterizing failed.</source>
         <translation>光栅化失败。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1619"/>
+        <location filename="../data_io.py" line="1644"/>
         <source>Raster import failed.</source>
         <translation>光栅导入失败。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1909"/>
+        <location filename="../data_io.py" line="1934"/>
         <source>Enter the year of the input data.</source>
         <translation>输入输入数据的年份。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1934"/>
+        <location filename="../data_io.py" line="1959"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation>所选字段({})不是数字。请选择数字字段。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1950"/>
+        <location filename="../data_io.py" line="1975"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation>输入文件 （{}） 似乎不是有效的土壤有机碳输入文件。该文件应包含以吨/公顷为单位的土壤有机碳值。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1963"/>
+        <location filename="../data_io.py" line="1988"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation>输入文件 （{}） 似乎不是有效的土壤有机碳输入文件。此文件中的最小值为 {}。no 数据值应为 -32768，所有其他值应为 &gt;= 0。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1978"/>
+        <location filename="../data_io.py" line="2003"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation>输入文件 （{}） 似乎不是有效的土壤有机碳输入文件。此文件中的最大值为 {}。最大值上限为1000吨/公顷。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2088"/>
+        <location filename="../data_io.py" line="2113"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation>所选字段（{}）不是数字。选择包含数字的字段。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2102"/>
+        <location filename="../data_io.py" line="2127"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>输入文件（{}）似乎不是有效的生产力输入文件。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2115"/>
+        <location filename="../data_io.py" line="2140"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2115"/>
+        <location filename="../data_io.py" line="2140"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>输入文件（{}）似乎不是有效的生产力输入文件。Trends.Earth仍将加载该文件，但在加载后请查看地图，以确保数值有效。生产力输入文件中的允许值为-32768、1、2、3、4 和 5。输入文件中有 {} 个值无法识别。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="111"/>
+        <location filename="../data_io.py" line="129"/>
         <source>No layers available in this region</source>
         <translation>此地区没有可用的图层</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2821"/>
+        <location filename="../data_io.py" line="2846"/>
         <source>Select a layer to load.</source>
         <translation>选择要加载的图层。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="115"/>
+        <location filename="../data_io.py" line="133"/>
         <source>No datasets available in this region</source>
         <translation>此地区没有可用的数据集</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2009"/>
+        <location filename="../data_io.py" line="2034"/>
         <source>Soil organic carbon ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation>土壤有机碳
 ({int(self.input_widget.spinBox_data_year.text())}, imported)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1820"/>
+        <location filename="../data_io.py" line="1845"/>
         <source>The input file ({}) does not appear to be a valid population input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation>输入文件({})似乎不是有效的人口输入文件。该文件应包含以吨/公顷为单位的土壤有机碳值。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1833"/>
+        <location filename="../data_io.py" line="1858"/>
         <source>The input file ({}) does not appear to be a valid population input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation>输入文件({})似乎不是有效的人口输入文件。该文件中的最小值为 {}。无数据值应为 -32768，且所有其他数值应 &gt;= 0。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1848"/>
+        <location filename="../data_io.py" line="1873"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is {} tonnes / hectare.</source>
         <translation>输入文件({})似乎不是有效的土壤有机碳输入文件。该文件中的最大值为 {}，允许的最大值为 {} 吨/公顷。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1879"/>
+        <location filename="../data_io.py" line="1904"/>
         <source>Population ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation>人口（{int(self.input_widget.spinBox_data_year.text())}，已导入）</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="107"/>
+        <location filename="../data_io.py" line="125"/>
         <source>Select a region first</source>
         <translation>请先选择一个区域</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1163"/>
+        <location filename="../data_io.py" line="1184"/>
         <source>Clip to region</source>
         <translation>裁剪至区域</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1306"/>
+        <location filename="../data_io.py" line="1328"/>
         <source>No region selected. Select a region or uncheck &apos;Clip to region&apos; to import the full dataset.</source>
         <translation>未选择区域。请选择一个区域，或取消勾选“裁剪至区域”以导入完整数据集。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1413"/>
+        <location filename="../data_io.py" line="1440"/>
         <source>No region is selected. Either select a region or uncheck &apos;Clip to region&apos; to import the full dataset extent.</source>
         <translation>未选择任何区域。请选择一个区域，或取消勾选“裁剪至区域”以导入完整数据集范围。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2431"/>
+        <location filename="../data_io.py" line="2456"/>
         <source>Please select a region in the Trends.Earth settings before using {tool_name}.</source>
         <translation>在使用 {tool_name} 前，请在 Trends.Earth 设置中选择一个区域。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2440"/>
+        <location filename="../data_io.py" line="2465"/>
         <source>You must select a {layer_name} layer before you can use {tool_name}.</source>
         <translation>在使用 {tool_name} 前，您必须选择一个 {layer_name} 图层。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1177"/>
+        <location filename="../data_io.py" line="1198"/>
         <source>Input file</source>
         <translation>输入文件</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1196"/>
+        <location filename="../data_io.py" line="1217"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1207"/>
+        <location filename="../data_io.py" line="1228"/>
         <source>Notes</source>
         <translation>备注</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1236"/>
+        <location filename="../data_io.py" line="1258"/>
         <source>Layer name:</source>
         <translation>图层名称：</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1241"/>
+        <location filename="../data_io.py" line="1263"/>
         <source>Name that will be assigned to the imported layer.</source>
         <translation>将分配给导入图层的名称。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1247"/>
+        <location filename="../data_io.py" line="1269"/>
         <source>Notes:</source>
         <translation>说明：</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1252"/>
+        <location filename="../data_io.py" line="1274"/>
         <source>Notes associated with the imported layer.</source>
         <translation>与导入图层关联的备注。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2060"/>
+        <location filename="../data_io.py" line="2085"/>
         <source>On the settings tab, enter the intial and final year applying to this input data.</source>
         <translation>在设置选项卡上，输入适用于此输入数据的起始和结束年份。</translation>
     </message>
@@ -6830,7 +6865,7 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="1113"/>
+        <location filename="../download.py" line="1121"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -6865,42 +6900,42 @@ for running algorithms and their results.</source>
         <translation>{}的文件验证失败。</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1096"/>
+        <location filename="../download.py" line="1104"/>
         <source>Downloading {}</source>
         <translation>正在下载{}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1107"/>
+        <location filename="../download.py" line="1115"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>下载失败。检查您的互联网连接。</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1046"/>
+        <location filename="../download.py" line="1054"/>
         <source>Error in downloading file, {}</source>
         <translation>下载文件时出错，{}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1053"/>
+        <location filename="../download.py" line="1061"/>
         <source>Error while downloading file to {self.outfile}, {error}</source>
         <translation>下载文件到{self.outfile}时出错，{error}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1059"/>
+        <location filename="../download.py" line="1067"/>
         <source>Finished downloading file to {self.outfile}</source>
         <translation>文件已成功下载至{self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1062"/>
+        <location filename="../download.py" line="1070"/>
         <source>Download exited {self.outfile}</source>
         <translation>下载结束{self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1113"/>
+        <location filename="../download.py" line="1121"/>
         <source>Problem running task for downloading file</source>
         <translation>运行下载文件任务时出错</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1118"/>
+        <location filename="../download.py" line="1126"/>
         <source>An error occured when running task for</source>
         <translation>运行任务时发生错误</translation>
     </message>
@@ -6910,7 +6945,7 @@ for running algorithms and their results.</source>
         <translation>正在下载边界</translation>
     </message>
     <message>
-        <location filename="../download.py" line="872"/>
+        <location filename="../download.py" line="880"/>
         <source>Downloading boundaries for {}...</source>
         <translation>正在下载{}的边界...</translation>
     </message>
@@ -7946,47 +7981,47 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_plugin</name>
     <message>
-        <location filename="../plugin.py" line="346"/>
+        <location filename="../plugin.py" line="372"/>
         <source>&amp;Trends.Earth</source>
         <translation>&amp;Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="252"/>
+        <location filename="../plugin.py" line="250"/>
         <source>Trends.Earth dock interface</source>
         <translation>Trends.Earth 对接界面</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="264"/>
+        <location filename="../plugin.py" line="262"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="264"/>
+        <location filename="../plugin.py" line="262"/>
         <source>Trends.Earth Settings</source>
         <translation>Trends.Earth 设置</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="272"/>
+        <location filename="../plugin.py" line="270"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="272"/>
+        <location filename="../plugin.py" line="270"/>
         <source>About Trends.Earth</source>
         <translation>关于 Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="280"/>
+        <location filename="../plugin.py" line="278"/>
         <source>Digitize polygon</source>
         <translation>数字化多边形</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="293"/>
+        <location filename="../plugin.py" line="291"/>
         <source>Buffer tool</source>
         <translation>缓冲工具</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="320"/>
+        <location filename="../plugin.py" line="318"/>
         <source>Plot time series</source>
         <translation>绘制时间序列</translation>
     </message>
@@ -7994,44 +8029,49 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_reports_charts</name>
     <message>
-        <location filename="../reports/charts.py" line="737"/>
+        <location filename="../reports/charts.py" line="790"/>
         <source>Land Cover Area</source>
         <translation>土地覆盖面积</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="738"/>
+        <location filename="../reports/charts.py" line="791"/>
         <source>in</source>
         <translation>在</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="809"/>
+        <location filename="../reports/charts.py" line="862"/>
         <source>Summary of SDG 15.3.1 Indicator</source>
         <translation>SDG 15.3.1 指标摘要</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="850"/>
+        <location filename="../reports/charts.py" line="903"/>
         <source>Change in Land Cover</source>
         <translation>土地覆盖变化</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="873"/>
+        <location filename="../reports/charts.py" line="926"/>
         <source>Change in Soil Organic Carbon (Tonnes)</source>
         <translation>土壤有机碳变化（吨）</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="889"/>
+        <location filename="../reports/charts.py" line="942"/>
         <source>Tonnes</source>
         <translation>吨</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="896"/>
+        <location filename="../reports/charts.py" line="949"/>
         <source>Land Cover Change by Productivity Class</source>
         <translation>按生产力等级划分的土地覆盖变化</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="908"/>
+        <location filename="../reports/charts.py" line="961"/>
         <source>%</source>
         <translation>％</translation>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="59"/>
+        <source>Plotly is not available. Chart export was skipped.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

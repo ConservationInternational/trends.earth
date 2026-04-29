@@ -510,25 +510,39 @@ def download_files(urls, out_folder):
     return downloads
 
 
+_admin_bounds_session_cache: typing.Optional[typing.Dict[str, Country]] = None
+
+
 def get_admin_bounds() -> typing.Dict[str, Country]:
     """
     Get administrative boundaries from API or fallback to cached file.
 
+    Results are cached in memory for the duration of the QGIS session so that
+    the .gz file is decompressed only once regardless of how many callers
+    invoke this function.
+
     Returns:
         Dictionary mapping country names to Country objects
     """
+    global _admin_bounds_session_cache
+
+    if _admin_bounds_session_cache is not None:
+        return _admin_bounds_session_cache
+
     try:
         # Load boundaries from API using intelligent caching
 
         api_boundaries = _get_boundaries_from_api()
         if api_boundaries:
             log("Loaded administrative boundaries from Trends.Earth API")
-            return api_boundaries
+            _admin_bounds_session_cache = api_boundaries
+            return _admin_bounds_session_cache
 
         log("Falling back to cached administrative boundaries bundle")
         cached_boundaries = _get_boundaries_from_local_cache()
         if cached_boundaries:
-            return cached_boundaries
+            _admin_bounds_session_cache = cached_boundaries
+            return _admin_bounds_session_cache
 
         log("No administrative boundaries available from API or cache", Qgis.Critical)
         return {}
@@ -536,7 +550,8 @@ def get_admin_bounds() -> typing.Dict[str, Country]:
         log(f"Error loading boundaries from API: {e}")
         cached_boundaries = _get_boundaries_from_local_cache()
         if cached_boundaries:
-            return cached_boundaries
+            _admin_bounds_session_cache = cached_boundaries
+            return _admin_bounds_session_cache
         return {}
 
 

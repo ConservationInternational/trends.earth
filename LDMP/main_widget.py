@@ -28,6 +28,7 @@ from .data_io import (
     DlgDataIOLoadTE,
 )
 from .download_data import DlgDownload
+from .download_sids import DlgDownloadSIDS
 from .jobs import mvc as jobs_mvc
 from .jobs.manager import job_manager
 from .jobs.models import Job, SortField, TypeFilter
@@ -908,17 +909,20 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         )
         action_download_raw.triggered.connect(self.download_data)
 
+        action_download_sids_lpd = self.download_menu.addAction(
+            self.tr("Download SIDS 30m Land Productivity Dynamics...")
+        )
+        action_download_sids_lpd.triggered.connect(self.download_sids_lpd)
+
         # TODO: re-enable this one LandPKS login is working
         # action_download_landpks = self.download_menu.addAction(
         #     self.tr("Download Land Potential Knowledge System (LandPKS) data...")
         # )
         # action_download_landpks.triggered.connect(self.download_landpks)
-        # self.pushButton_download.setMenu(self.download_menu)
-        # self.pushButton_download.setIcon(
-        #     QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg"))
-        # )
-
-        self.pushButton_download.clicked.connect(self.download_data)
+        self.pushButton_download.setMenu(self.download_menu)
+        self.pushButton_download.setIcon(
+            QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg"))
+        )
 
         self.pushButton_load.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, "globe.svg")))
         self.pushButton_load.clicked.connect(self.load_base_map)
@@ -1444,6 +1448,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     def download_data(self):
         dialogue = DlgDownload(self.iface, KNOWN_SCRIPTS["download-data"], self)
         dialogue.exec()
+
+    def download_sids_lpd(self):
+        dialogue = DlgDownloadSIDS(self.iface, KNOWN_SCRIPTS["download-sids-lpd"], self)
+        dialogue.exec_()
 
     def download_landpks(self):
         dialogue = DlgLandPKSDownload(

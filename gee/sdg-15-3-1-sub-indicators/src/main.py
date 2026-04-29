@@ -134,6 +134,11 @@ def _run_faowocat_for_period(params, max_workers, execution_id, logger):
                 year_final=lpd_year_final,
             )
 
+            out.image = out.image.rename(
+                f"{prod_params.get('mode', ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value)}"
+                f"_{lpd_year_initial}-{lpd_year_final}"
+            )
+
             out = teimage_v1_to_teimage_v2(out)
 
             if params.get("annual_lc"):

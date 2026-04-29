@@ -129,15 +129,17 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             return
 
         if int(year_initial) >= int(year_final):
-            QtWidgets.QMessageBox.information(
+            QtWidgets.QMessageBox.critical(
                 None,
-                self.tr("Warning"),
+                self.tr("Error"),
                 self.tr(
-                    "The initial year ({}) is greater than or equal to the target "
-                    "year ({}) - this analysis might generate strange "
-                    "results.".format(year_initial, year_final)
+                    "The initial year ({}) must be less than the target "
+                    "year ({}). Please select a valid time period.".format(
+                        year_initial, year_final
+                    )
                 ),
             )
+            return
 
         initial_layer = self.lc_setup_widget.initial_year_layer_cb.get_layer()
         initial_extent_geom = qgis.core.QgsGeometry.fromRect(initial_layer.extent())

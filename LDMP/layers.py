@@ -11,10 +11,11 @@
  ***************************************************************************/
 """
 
+import html
 import json
 import math
 import os
-import re
+import tempfile
 import typing
 from math import floor, log10
 from operator import attrgetter
@@ -32,8 +33,7 @@ from qgis.core import (
     QgsProviderRegistry,
     QgsProviderSublayerDetails,
     QgsRasterLayer,
-    QgsRasterShader,
-    QgsSingleBandPseudoColorRenderer,
+    QgsRasterRange,
     QgsVectorLayer,
 )
 from qgis.PyQt import QtWidgets
@@ -754,10 +754,87 @@ def _create_color_ramp(
     return result
 
 
-def _get_qgis_version():
-    qgis_version_match = re.match(r"(^[0-9]*)\.([0-9]*)", Qgis.QGIS_VERSION)
+def _build_qml(
+    band_number: int,
+    color_ramp_items: typing.List,
+    ramp_shader: str,
+) -> str:
+    """Build a minimal QGIS QML style string from a list of colour ramp items.
 
-    return int(qgis_version_match[1]), int(qgis_version_match[2])
+    *ramp_shader* must be one of ``"interpolated"``, ``"discrete"``, or
+    ``"exact"`` (matching the values used in styles.json).
+    """
+    shader_type_map = {
+        "interpolated": "INTERPOLATED",
+        "discrete": "DISCRETE",
+        "exact": "EXACT",
+    }
+    color_ramp_type = shader_type_map.get(ramp_shader, "INTERPOLATED")
+
+    sorted_items = sorted(color_ramp_items, key=attrgetter("value"))
+    min_val = sorted_items[0].value if sorted_items else 0.0
+    max_val = sorted_items[-1].value if sorted_items else 1.0
+
+    items_xml = "\n          ".join(
+        '<item value="{value}" color="{color}" label="{label}" alpha="255"/>'.format(
+            value=item.value,
+            color=item.color.name(),
+            label=html.escape(item.label),
+        )
+        for item in sorted_items
+    )
+
+    return (
+        "<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>\n"
+        '<qgis version="{qgis_version}" styleCategories="Symbology">\n'
+        "  <pipe>\n"
+        '    <rasterrenderer type="singlebandpseudocolor" band="{band}"'
+        ' opacity="1" alphaBand="-1" nodataColor=""'
+        ' classificationMin="{min_val}" classificationMax="{max_val}">\n'
+        "      <rastershader>\n"
+        '        <colorrampshader colorRampType="{ramp_type}" clip="0"'
+        ' classificationMode="1"'
+        ' minimumValue="{min_val}" maximumValue="{max_val}" labelPrecision="6">\n'
+        "          {items}\n"
+        "        </colorrampshader>\n"
+        "      </rastershader>\n"
+        "    </rasterrenderer>\n"
+        "  </pipe>\n"
+        "</qgis>"
+    ).format(
+        qgis_version=Qgis.QGIS_VERSION,
+        band=band_number,
+        ramp_type=color_ramp_type,
+        min_val=min_val,
+        max_val=max_val,
+        items=items_xml,
+    )
+
+
+def _load_qml_from_string(layer: QgsRasterLayer, qml_xml: str) -> bool:
+    """Write *qml_xml* to a temporary file and load it as a named style."""
+    tmp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w", suffix=".qml", encoding="utf-8", delete=False
+        ) as tmp:
+            tmp.write(qml_xml)
+            tmp_path = tmp.name
+
+        msg, ok = layer.loadNamedStyle(tmp_path)
+        if not ok:
+            log(f"Failed to load QML style: {msg}")
+
+        return ok
+    except OSError as exc:
+        log(f"Could not write temporary QML file: {exc}")
+        return False
+    finally:
+        if tmp_path is not None:
+            try:
+                os.unlink(tmp_path)
+            except OSError:
+                pass
 
 
 def add_layer(
@@ -841,39 +918,34 @@ def style_layer(
         return False
 
     else:
-        fcn = QgsColorRampShader()
         ramp_shader = style["ramp"]["shader"]
 
-        if ramp_shader == "exact":
-            fcn.setColorRampType("EXACT")
-        elif ramp_shader == "discrete":
-            fcn.setColorRampType("DISCRETE")
-        elif ramp_shader == "interpolated":
-            fcn.setColorRampType("INTERPOLATED")
-        else:
+        if ramp_shader not in ("exact", "discrete", "interpolated"):
             msg = f"Unrecognized color ramp type: {ramp_shader}"
             if in_process_alg and processing_feedback is not None:
                 processing_feedback.pushConsoleInfo(msg)
+                return False
             else:
                 raise TypeError(msg)
 
-        # In QGIS 3.18 need to set legend settings
-        v_major, v_minor = _get_qgis_version()
+        # Strip nodata items from the color ramp so they don't appear in the
+        # legend, then register the value as a QGIS user nodata range so those
+        # pixels are rendered transparent and shown in the Transparency tab.
+        no_data_value = band_info.get("no_data_value")
+        if no_data_value is not None:
+            color_ramp = [item for item in color_ramp if item.value != no_data_value]
 
-        if v_major >= 3 and v_minor >= 18:
-            legend_settings = fcn.legendSettings()
-            legend_settings.setUseContinuousLegend(False)
+        qml = _build_qml(band_number, color_ramp, ramp_shader)
 
-        # Make sure the items in the color ramp are sorted by value (weird
-        # display errors will otherwise result)
-        color_ramp.sort(key=attrgetter("value"))
-        fcn.setColorRampItemList(color_ramp)
-        shader = QgsRasterShader()
-        shader.setRasterShaderFunction(fcn)
-        renderer = QgsSingleBandPseudoColorRenderer(
-            layer.dataProvider(), band_number, shader
-        )
-        layer.setRenderer(renderer)
+        if not _load_qml_from_string(layer, qml):
+            return False
+
+        if no_data_value is not None:
+            nodata_range = [QgsRasterRange(no_data_value, no_data_value)]
+            provider = layer.dataProvider()
+            for b in range(1, provider.bandCount() + 1):
+                provider.setUserNoDataValue(b, nodata_range)
+
         layer.triggerRepaint()
 
         if activated == "default":

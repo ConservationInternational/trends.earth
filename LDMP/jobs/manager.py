@@ -24,7 +24,10 @@ from qgis.gui import QgsMessageBar
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from qgis.utils import iface
-from te_algorithms.gdal.util import combine_all_bands_into_vrt
+from te_algorithms.gdal.util import (
+    combine_all_bands_into_vrt,
+    generate_sanitized_band_names,
+)
 from te_schemas import jobs, results
 from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 from te_schemas.productivity import ProductivityMode
@@ -362,6 +365,34 @@ def _set_results_extents_if_missing(job) -> bool:
     return changed
 
 
+def _set_band_descriptions_on_result(
+    raster_results: RasterResults,
+) -> None:
+    """Write sanitized band names as band descriptions into each output file.
+
+    Ensures locally-computed rasters show human-readable band names in QGIS,
+    consistent with the names embedded in GEE-exported COGs.
+    """
+    for raster in raster_results.rasters.values():
+        if not raster.uri or not raster.uri.uri:
+            continue
+        path = Path(raster.uri.uri)
+        if not path.exists():
+            continue
+        names = generate_sanitized_band_names(raster.bands)
+        ds = gdal.Open(str(path), gdal.GA_Update)
+        if ds is None:
+            logger.warning(
+                "Could not open %s for update to set band descriptions", path
+            )
+            continue
+        for i, name in enumerate(names, start=1):
+            if i <= ds.RasterCount:
+                ds.GetRasterBand(i).SetDescription(name)
+        ds.FlushCache()
+        ds = None
+
+
 class LocalJobTask(QgsTask):
     job: Job
     area_of_interest: areaofinterest.AOI
@@ -454,6 +485,8 @@ class LocalJobTask(QgsTask):
         self.job.progress = 100
         if result:
             self.job.results = self.results
+            if isinstance(self.results, RasterResults):
+                _set_band_descriptions_on_result(self.results)
             self.job._cached_has_loadable_result = None
             self.processed_job.emit(self.job)
             logger.debug("Task succeeded")
@@ -825,7 +858,14 @@ class DownloadJobResultsTask(QgsTask):
         ):
             vrt_file = base_output_path.parent / f"{result_base_path.name}.vrt"
             main_raster_file_paths = [r.uri.uri for r in out_rasters.values()]
-            combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
+            all_band_names = [
+                b.metadata.get("gee_band_name") or b.name
+                for r in out_rasters.values()
+                for b in r.bands
+            ]
+            combine_all_bands_into_vrt(
+                main_raster_file_paths, vrt_file, band_names=all_band_names
+            )
             raster_result.uri = results.URI(uri=vrt_file)
         else:
             raster_result.uri = [*raster_result.rasters.values()][0].uri
@@ -2505,7 +2545,14 @@ class JobManager(QtCore.QObject):
         ):
             vrt_file = base_output_path.parent / f"{result_base_path.name}.vrt"
             main_raster_file_paths = [raster.uri.uri for raster in out_rasters.values()]
-            combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
+            all_band_names = [
+                b.metadata.get("gee_band_name") or b.name
+                for raster in out_rasters.values()
+                for b in raster.bands
+            ]
+            combine_all_bands_into_vrt(
+                main_raster_file_paths, vrt_file, band_names=all_band_names
+            )
             raster_result.uri = results.URI(uri=vrt_file)
         else:
             raster_result.uri = [*raster_result.rasters.values()][0].uri

@@ -12,7 +12,6 @@ from qgis.PyQt.QtCore import QCoreApplication
 from qgis.utils import iface as qgisiface
 
 from . import conf, download
-from .layers import _get_qgis_version
 from .logger import log
 
 
@@ -444,14 +443,7 @@ class AOI:
     def buffer(self, d):
         log("Buffering layer by {} km.".format(d))
 
-        # Use correct transform direction enum based on version
-        major_version, minor_version = _get_qgis_version()
-        if major_version >= 3 and minor_version >= 22:
-            trans_dir = qgis.core.Qgis.TransformDirection.Reverse
-        else:
-            trans_dir = (
-                qgis.core.QgsCoordinateTransform.TransformDirection.ReverseTransform
-            )
+        trans_dir = qgis.core.Qgis.TransformDirection.Reverse
 
         feats = []
         for f in self.l.getFeatures():

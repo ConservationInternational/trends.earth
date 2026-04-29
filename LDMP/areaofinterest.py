@@ -215,6 +215,7 @@ class AOI:
                 f"type: {lyr.wkbType()}"
             )
         self.l = _transform_layer(lyr, self.crs_dst, datatype=self.datatype, wrap=wrap)
+        self.meridian_split.cache_clear()
 
     def update_from_geojson(
         self, geojson, crs_src="epsg:4326", datatype="polygon", wrap=False
@@ -242,6 +243,7 @@ class AOI:
         if not lyr.isValid():
             raise RuntimeError("Failed to add geojson to temporary layer.")
         self.l = _transform_layer(lyr, self.crs_dst, datatype=self.datatype, wrap=wrap)
+        self.meridian_split.cache_clear()
 
     def get_unary_geometry(self):
         "Calculate a single feature that is the union of all the features in layer"

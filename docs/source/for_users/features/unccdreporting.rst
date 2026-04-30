@@ -1112,6 +1112,32 @@ and inclusion of a gender-disaggregated component.
 The percentages of population Exposure to drought are calculated by the number of people within each drought intensity classes
 over of the total population.
 
+How population exposure to drought is represented in Trends.Earth
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The SO 3-2 Exposure summary output in Trends.Earth is a multi-band raster file. Bands are organised in pairs, one pair
+per drought reporting period (each period is by default 4 years). Within each pair:
+
+* The **first band** contains the most severe SPI value recorded during that period — the
+  minimum SPI across all years in the period. A negative SPI indicates a precipitation deficit
+  relative to the long-term mean, i.e., drought conditions.
+* The **second band** contains the population count for the pixel at the time of the
+  most severe drought, with the *sign* of the value encoding drought exposure:
+
+  * A **negative** population value indicates that the pixel experienced drought during that
+    period (minimum SPI < 0).
+  * A **positive** population value indicates that the pixel experienced above-average precipitation during that period
+    (SPI ≥ 0 throughout the entire period).
+  * Pixels over water bodies are set to no-data, in line with UNCCD reporting requirements.
+
+For the final drought period only, if sex-disaggregated population data are available, two
+additional bands follow the standard pair: a female population band and a male population band,
+both using the same sign convention described above.
+
+This encoding makes it straightforward to derive exposure statistics from a single band: the
+absolute values of all valid pixels give the total population, while the absolute values of
+the negative pixels alone give the drought-exposed population.
+
 
 SO3 Level III indicator (SO 3-3 Vulnerability)
 ----------------------------------------------

@@ -654,6 +654,21 @@ def _get_boundaries_from_local_cache() -> typing.Optional[typing.Dict[str, Count
         return None
 
 
+def _fix_mojibake(s: str) -> str:
+    """Fix UTF-8 text that was incorrectly decoded as Latin-1 (mojibake).
+
+    Some region names in the cached boundaries data were stored with their
+    UTF-8 byte sequences interpreted as Latin-1 characters (e.g. 'Ã£' instead
+    of 'ã').  This re-encodes as Latin-1 and decodes as UTF-8 to recover the
+    original string.  For plain ASCII names or already-correct Unicode the
+    function returns the original string unchanged.
+    """
+    try:
+        return s.encode("latin-1").decode("utf-8")
+    except (UnicodeDecodeError, UnicodeEncodeError):
+        return s
+
+
 def _convert_api_boundaries_to_countries(
     boundaries_list: typing.List[typing.Dict],
 ) -> typing.Dict[str, Country]:
@@ -682,7 +697,7 @@ def _convert_api_boundaries_to_countries(
             shape_name = unit.get("shapeName")
             shape_id = unit.get("shapeID")
             if shape_name and shape_id:
-                admin1_regions[shape_name] = shape_id
+                admin1_regions[_fix_mojibake(shape_name)] = shape_id
 
         # Create Country object with API data
         country = Country(

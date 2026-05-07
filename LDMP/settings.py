@@ -12,6 +12,7 @@
 """
 
 import csv
+import json
 import os
 import typing
 from enum import Flag, auto
@@ -38,6 +39,7 @@ from .constants import TIMEOUT, get_api_url
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils, LCClassInfo, get_default_esa_nesting
 from .logger import log
+from .maptools import SubnationalPolygonMapTool
 from .utils import FileUtils, push_message
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
@@ -454,10 +456,22 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         self.setupUi(self)
 
+        import sys
+
+        multiselect_key = "Cmd" if sys.platform == "darwin" else "Ctrl"
+        self.lbl_subnational_admin_hint.setText(
+            self.tr(
+                f"Select 2 or more regions to define separate subnational units "
+                f"({multiselect_key}+click to multi-select)."
+            )
+        )
+
         self.canvas = iface.mapCanvas()
         self.vector_file = None
         self.current_cities_key: typing.Dict[str, str] = {}
         self.hide_on_choose_point = True
+        self._subnational_tool: typing.Optional[SubnationalPolygonMapTool] = None
+        self._drawn_units: typing.List[typing.Dict[str, str]] = []  # [{name, wkt}]
 
         self.admin_bounds_key = download.get_admin_bounds()
 
@@ -490,6 +504,14 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.generate_name_setting
         )
         self.secondLevel_city.currentIndexChanged.connect(self.generate_name_setting)
+        self.checkbox_subnational.toggled.connect(self.on_subnational_toggled)
+        self.list_subnational_regions.itemSelectionChanged.connect(
+            self.generate_name_setting
+        )
+        self.radio_subnational_admin.toggled.connect(self.on_subnational_type_changed)
+        self.btn_draw_unit.clicked.connect(self.start_drawing_unit)
+        self.btn_clear_drawn.clicked.connect(self.clear_drawn_units)
+        self.list_drawn_units.itemDoubleClicked.connect(self._rename_drawn_unit)
         self.area_frompoint_point_x.textChanged.connect(self.generate_name_setting)
         self.area_frompoint_point_y.textChanged.connect(self.generate_name_setting)
         self.area_fromfile_file.textChanged.connect(self.generate_name_setting)
@@ -597,6 +619,21 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         else:
             self._populate_cities_for_country(current_country_id, None)
 
+        subnational_mode = settings_manager.get_value(Setting.SUBNATIONAL_MODE)
+        with QtCore.QSignalBlocker(self.checkbox_subnational):
+            self.checkbox_subnational.setChecked(bool(subnational_mode))
+        boundary_type = settings_manager.get_value(Setting.SUBNATIONAL_BOUNDARY_TYPE)
+        is_draw = boundary_type == "draw"
+        with QtCore.QSignalBlocker(self.radio_subnational_admin):
+            self.radio_subnational_admin.setChecked(not is_draw)
+        with QtCore.QSignalBlocker(self.radio_subnational_draw):
+            self.radio_subnational_draw.setChecked(is_draw)
+        subnational_ids = self._load_subnational_ids()
+        self._restore_subnational_selection(subnational_ids)
+        self._drawn_units = self._load_drawn_units()
+        self._refresh_drawn_units_list()
+        self.on_subnational_toggled(bool(subnational_mode))
+
         buffer_size = settings_manager.get_value(Setting.BUFFER_SIZE)
 
         if buffer_size:
@@ -660,6 +697,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
             if not country_code:
                 self.secondLevel_area_admin_1.setCurrentIndex(0)
+                self.list_subnational_regions.clear()
                 return
 
             country = self.country_code_to_country.get(country_code)
@@ -676,6 +714,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             if target_index == -1:
                 target_index = 0
             self.secondLevel_area_admin_1.setCurrentIndex(target_index)
+
+        self._populate_subnational_list(country_code)
 
     def _region_id_from_name(
         self, country_code: typing.Optional[str], region_name: typing.Optional[str]
@@ -731,13 +771,142 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.generate_name_setting()
 
     def radioButton_secondLevel_toggle(self):
-        self.secondLevel_area_admin_1.setEnabled(
-            self.radioButton_secondLevel_region.isChecked()
-        )
-        self.secondLevel_city.setEnabled(
-            not self.radioButton_secondLevel_region.isChecked()
-        )
+        is_region = self.radioButton_secondLevel_region.isChecked()
+        self.secondLevel_area_admin_1.setEnabled(is_region)
+        self.secondLevel_city.setEnabled(not is_region)
+        # Subnational mode only applies to region selection
+        self.checkbox_subnational.setEnabled(is_region)
+        if not is_region:
+            with QtCore.QSignalBlocker(self.checkbox_subnational):
+                self.checkbox_subnational.setChecked(False)
+            self.list_subnational_regions.setVisible(False)
         self.generate_name_setting()
+
+    def _populate_subnational_list(self, country_code: typing.Optional[str]) -> None:
+        """Populate the subnational regions list widget for the given country."""
+        with QtCore.QSignalBlocker(self.list_subnational_regions):
+            self.list_subnational_regions.clear()
+            if not country_code:
+                return
+            country = self.country_code_to_country.get(country_code)
+            if not country or not country.level1_regions:
+                return
+            for region_name in sorted(country.level1_regions.keys()):
+                region_code = country.level1_regions[region_name]
+                item = QtWidgets.QListWidgetItem(region_name)
+                item.setData(QtCore.Qt.UserRole, region_code)
+                self.list_subnational_regions.addItem(item)
+
+    def _restore_subnational_selection(self, region_ids: typing.List[str]) -> None:
+        """Re-select items in the subnational list that match the given region IDs."""
+        with QtCore.QSignalBlocker(self.list_subnational_regions):
+            for i in range(self.list_subnational_regions.count()):
+                item = self.list_subnational_regions.item(i)
+                item.setSelected(item.data(QtCore.Qt.UserRole) in region_ids)
+
+    def _load_subnational_ids(self) -> typing.List[str]:
+        """Return the saved list of subnational region IDs (may be empty)."""
+        raw = settings_manager.get_value(Setting.SUBNATIONAL_REGION_IDS)
+        if not raw:
+            return []
+        try:
+            return json.loads(raw)
+        except (ValueError, TypeError):
+            return []
+
+    def on_subnational_toggled(self, checked: bool) -> None:
+        """Show/hide subnational mode controls based on checkbox state."""
+        self.frame_subnational_modes.setVisible(checked)
+        self.secondLevel_area_admin_1.setVisible(not checked)
+        if checked:
+            self.on_subnational_type_changed()
+        self.generate_name_setting()
+
+    def on_subnational_type_changed(self) -> None:
+        """Show either the admin list or the draw frame based on radio selection."""
+        is_admin = self.radio_subnational_admin.isChecked()
+        self.list_subnational_regions.setVisible(is_admin)
+        self.frame_subnational_draw.setVisible(not is_admin)
+        self.generate_name_setting()
+
+    # ------------------------------------------------------------------
+    # Drawing workflow
+    # ------------------------------------------------------------------
+
+    def start_drawing_unit(self) -> None:
+        """Activate the subnational polygon map tool and hide the dialog."""
+        if self._subnational_tool is None:
+            self._subnational_tool = SubnationalPolygonMapTool(self.canvas)
+            self._subnational_tool.polygon_captured.connect(self._on_polygon_captured)
+
+        self.window().hide()
+        iface.messageBar().pushMessage(
+            self.tr("Subnational units"),
+            self.tr(
+                "Draw a polygon on the map to define a subnational unit. "
+                "Right-click or double-click to finish."
+            ),
+            level=0,
+            duration=0,
+        )
+        self.canvas.setMapTool(self._subnational_tool)
+
+    def _on_polygon_captured(self, geom) -> None:
+        """Called when the user finishes drawing a polygon."""
+        # Switch back to pan tool and restore the dialog
+        self.canvas.setMapTool(qgis.gui.QgsMapToolPan(self.canvas))
+        iface.messageBar().clearWidgets()
+        self.window().reset_tab_on_showEvent = False
+        self.window().show()
+        self.window().reset_tab_on_showEvent = True
+
+        unit_num = len(self._drawn_units) + 1
+        self._drawn_units.append(
+            {"name": self.tr(f"Unit {unit_num}"), "wkt": geom.asWkt()}
+        )
+        self._refresh_drawn_units_list()
+        self.generate_name_setting()
+
+    def _refresh_drawn_units_list(self) -> None:
+        """Repopulate list_drawn_units from self._drawn_units."""
+        self.list_drawn_units.clear()
+        for unit in self._drawn_units:
+            self.list_drawn_units.addItem(unit["name"])
+        count = len(self._drawn_units)
+        if count == 0:
+            self.lbl_drawn_count.setText(self.tr("No units drawn"))
+        elif count == 1:
+            self.lbl_drawn_count.setText(self.tr("1 unit drawn"))
+        else:
+            self.lbl_drawn_count.setText(self.tr(f"{count} units drawn"))
+
+    def clear_drawn_units(self) -> None:
+        self._drawn_units.clear()
+        self._refresh_drawn_units_list()
+        self.generate_name_setting()
+
+    def _rename_drawn_unit(self, item: QtWidgets.QListWidgetItem) -> None:
+        """Allow the user to rename a drawn unit by double-clicking it."""
+        row = self.list_drawn_units.row(item)
+        new_name, ok = QtWidgets.QInputDialog.getText(
+            self,
+            self.tr("Rename unit"),
+            self.tr("Unit name:"),
+            text=item.text(),
+        )
+        if ok and new_name.strip():
+            self._drawn_units[row]["name"] = new_name.strip()
+            item.setText(new_name.strip())
+
+    def _load_drawn_units(self) -> typing.List[typing.Dict[str, str]]:
+        """Return the saved list of drawn subnational units."""
+        raw = settings_manager.get_value(Setting.SUBNATIONAL_DRAWN_UNITS)
+        if not raw:
+            return []
+        try:
+            return json.loads(raw)
+        except (ValueError, TypeError):
+            return []
 
     def point_chooser(self):
         log("Choosing point from canvas...")
@@ -813,12 +982,34 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     def generate_name_setting(self):
         if self.area_fromadmin.isChecked():
             if self.radioButton_secondLevel_region.isChecked():
-                name = "{}-{}".format(
-                    self.area_admin_0.currentText().lower().replace(" ", "-"),
-                    self.secondLevel_area_admin_1.currentText()
-                    .lower()
-                    .replace(" ", "-"),
-                )
+                if self.checkbox_subnational.isChecked():
+                    country = self.area_admin_0.currentText().lower().replace(" ", "-")
+                    if self.radio_subnational_draw.isChecked():
+                        n = len(self._drawn_units)
+                        name = (
+                            "{}-subnational-{}units".format(country, n)
+                            if n
+                            else "{}-subnational".format(country)
+                        )
+                    else:
+                        selected = [
+                            self.list_subnational_regions.item(i).text()
+                            for i in range(self.list_subnational_regions.count())
+                            if self.list_subnational_regions.item(i).isSelected()
+                        ]
+                        if selected:
+                            name = "{}-subnational-{}units".format(
+                                country, len(selected)
+                            )
+                        else:
+                            name = "{}-subnational".format(country)
+                else:
+                    name = "{}-{}".format(
+                        self.area_admin_0.currentText().lower().replace(" ", "-"),
+                        self.secondLevel_area_admin_1.currentText()
+                        .lower()
+                        .replace(" ", "-"),
+                    )
             else:
                 name = "{}-{}".format(
                     self.area_admin_0.currentText().lower().replace(" ", "-"),
@@ -961,6 +1152,28 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         settings_manager.write_value(Setting.COUNTRY_ID, country_id)
         settings_manager.write_value(Setting.REGION_ID, region_id)
         settings_manager.write_value(Setting.CITY_ID, city_id)
+
+        subnational_mode = self.checkbox_subnational.isChecked()
+        settings_manager.write_value(Setting.SUBNATIONAL_MODE, subnational_mode)
+        boundary_type = "draw" if self.radio_subnational_draw.isChecked() else "admin"
+        settings_manager.write_value(Setting.SUBNATIONAL_BOUNDARY_TYPE, boundary_type)
+        if subnational_mode and boundary_type == "admin":
+            selected_ids = [
+                self.list_subnational_regions.item(i).data(QtCore.Qt.UserRole)
+                for i in range(self.list_subnational_regions.count())
+                if self.list_subnational_regions.item(i).isSelected()
+            ]
+            settings_manager.write_value(
+                Setting.SUBNATIONAL_REGION_IDS, json.dumps(selected_ids)
+            )
+        else:
+            settings_manager.write_value(Setting.SUBNATIONAL_REGION_IDS, "")
+        if subnational_mode and boundary_type == "draw":
+            settings_manager.write_value(
+                Setting.SUBNATIONAL_DRAWN_UNITS, json.dumps(self._drawn_units)
+            )
+        else:
+            settings_manager.write_value(Setting.SUBNATIONAL_DRAWN_UNITS, "")
 
         settings_manager.write_value(Setting.POINT_X, point[0])
         settings_manager.write_value(Setting.POINT_Y, point[1])

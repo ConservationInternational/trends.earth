@@ -1,3 +1,4 @@
+import dataclasses
 import functools
 import json
 import typing
@@ -712,7 +713,54 @@ def prepare_area_of_interest() -> AOI:
                 "The bounding box for the requested area (approximately {:.6n}) sq km "
                 "is too large. Choose a smaller area to process.".format(aoi_area)
             )
+
     return area_of_interest
+
+
+def prepare_subnational_aoi_union() -> typing.Optional["AOI"]:
+    """Return an AOI whose geometry is the union of all selected subnational unit boundaries.
+
+    Only called once at job-submission time (never from populate/filtering code),
+    so the cost of downloading per-unit boundaries is acceptable.
+    Returns ``None`` if subnational mode is off or no units could be built.
+    """
+    if not is_subnational_mode():
+        return None
+
+    units = prepare_subnational_aois()
+    if not units:
+        return None
+
+    unit_geometries = []
+    for unit in units:
+        try:
+            unit_geometries.append(unit.aoi.get_unary_geometry())
+        except Exception:
+            log(
+                f"Could not get geometry for subnational unit '{unit.unit_name}'; skipping"
+            )
+
+    if not unit_geometries:
+        return None
+
+    union_geom = qgis.core.QgsGeometry.unaryUnion(unit_geometries)
+    if union_geom.isEmpty():
+        return None
+
+    if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem(
+            conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS)
+        )
+    else:
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
+
+    aoi = AOI(crs_dst)
+    geojson = {
+        "type": "FeatureCollection",
+        "features": [{"type": "Feature", "geometry": json.loads(union_geom.asJson())}],
+    }
+    aoi.update_from_geojson(geojson=geojson, wrap=False)
+    return aoi
 
 
 def try_prepare_area_of_interest() -> typing.Optional["AOI"]:
@@ -769,6 +817,218 @@ def get_aligned_output_bounds(f, wkt_bounding_boxes):
         top = maxy - (maxy - gt[3]) % gt[5]
         out.append([left, bottom, right, top])
     return out
+
+
+@dataclasses.dataclass
+class SubnationalUnit:
+    """One subnational analysis unit with its identity and AOI geometry."""
+
+    unit_id: str
+    unit_name: str
+    aoi: "AOI"
+
+
+def is_subnational_mode() -> bool:
+    """Return True when subnational analysis is configured in settings."""
+    return bool(conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_MODE))
+
+
+def get_subnational_unit_stubs() -> typing.List[typing.Dict[str, str]]:
+    """Return lightweight ``{unit_id, unit_name}`` dicts for configured units.
+
+    Unlike :func:`prepare_subnational_aois` this function does **not** download
+    any boundary geometry — it only reads settings and the cached admin-bounds
+    list.  Use it to populate UI elements (e.g. tab labels) without blocking.
+    """
+    if not is_subnational_mode():
+        return []
+
+    boundary_type = conf.settings_manager.get_value(
+        conf.Setting.SUBNATIONAL_BOUNDARY_TYPE
+    )
+
+    if boundary_type == "draw":
+        raw = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_DRAWN_UNITS)
+        if not raw:
+            return []
+        try:
+            drawn = json.loads(raw)
+        except (ValueError, TypeError):
+            return []
+        return [
+            {"unit_id": f"drawn_{idx}", "unit_name": e.get("name", f"Unit {idx + 1}")}
+            for idx, e in enumerate(drawn)
+        ]
+
+    # Admin mode — names come from the cached boundaries list (no network needed)
+    raw_ids = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_REGION_IDS)
+    if not raw_ids:
+        return []
+    try:
+        region_ids = json.loads(raw_ids)
+    except (ValueError, TypeError):
+        return []
+
+    boundaries = download.get_admin_bounds()
+    country_id = conf.settings_manager.get_value(conf.Setting.COUNTRY_ID)
+    country_entry = next((c for c in boundaries.values() if c.code == country_id), None)
+    if country_entry is None:
+        return [{"unit_id": rid, "unit_name": rid} for rid in region_ids]
+
+    id_to_name = {v: k for k, v in country_entry.level1_regions.items()}
+    return [
+        {"unit_id": rid, "unit_name": id_to_name.get(rid, rid)} for rid in region_ids
+    ]
+
+
+def prepare_subnational_aois() -> typing.List[SubnationalUnit]:
+    """Build one SubnationalUnit per configured subnational unit.
+
+    Reads SUBNATIONAL_BOUNDARY_TYPE from settings and delegates to the
+    appropriate helper:
+      * "admin"  – downloads each selected ADM1 region boundary
+      * "draw"   – recreates AOIs from WKT stored in SUBNATIONAL_DRAWN_UNITS
+
+    Returns an empty list (and logs a warning) on misconfiguration; raises
+    RuntimeError only when a hard error occurs building an individual AOI.
+    """
+    if not is_subnational_mode():
+        log("prepare_subnational_aois called but subnational mode is not enabled")
+        return []
+
+    boundary_type = conf.settings_manager.get_value(
+        conf.Setting.SUBNATIONAL_BOUNDARY_TYPE
+    )
+
+    if boundary_type == "draw":
+        return _subnational_units_from_drawn()
+    else:
+        return _subnational_units_from_admin()
+
+
+# ---------------------------------------------------------------------------
+# Private helpers
+# ---------------------------------------------------------------------------
+
+
+def _make_aoi(geojson: typing.Dict) -> "AOI":
+    """Build an AOI from a GeoJSON dict (assumed EPSG:4326)."""
+    if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem(
+            conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS)
+        )
+    else:
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
+
+    aoi = AOI(crs_dst)
+    aoi.update_from_geojson(geojson=geojson, wrap=False)
+    return aoi
+
+
+def _subnational_units_from_admin() -> typing.List[SubnationalUnit]:
+    """Build SubnationalUnits from selected ADM1 region IDs."""
+    raw_ids = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_REGION_IDS)
+    if not raw_ids:
+        log("No subnational region IDs configured")
+        return []
+
+    try:
+        region_ids: typing.List[str] = json.loads(raw_ids)
+    except (ValueError, TypeError):
+        log(f"Invalid SUBNATIONAL_REGION_IDS value: {raw_ids!r}")
+        return []
+
+    if not region_ids:
+        log("Subnational region ID list is empty")
+        return []
+
+    # Resolve country code
+    boundaries = download.get_admin_bounds()
+    country_id = conf.settings_manager.get_value(conf.Setting.COUNTRY_ID)
+    country_entry = next((c for c in boundaries.values() if c.code == country_id), None)
+    if country_entry is None:
+        log(f"Country with ID {country_id!r} not found in admin bounds")
+        return []
+
+    country_code = country_entry.code
+
+    # Build a reverse map: region_id → region_name
+    id_to_name = {v: k for k, v in country_entry.level1_regions.items()}
+
+    units: typing.List[SubnationalUnit] = []
+    for region_id in region_ids:
+        region_name = id_to_name.get(region_id, region_id)
+        log(f"Downloading boundary for subnational unit: {region_name} ({region_id})")
+        try:
+            geojson = download.download_boundary_geojson(
+                country_code, admin_level=1, shape_id=region_id
+            )
+        except Exception as exc:
+            log(f"Failed to download boundary for {region_name}: {exc}")
+            continue
+
+        if not geojson:
+            log(f"Empty boundary returned for {region_name} ({region_id}) – skipping")
+            continue
+
+        try:
+            aoi = _make_aoi(geojson)
+        except Exception as exc:
+            log(f"Failed to build AOI for {region_name}: {exc}")
+            continue
+
+        units.append(SubnationalUnit(unit_id=region_id, unit_name=region_name, aoi=aoi))
+
+    if not units:
+        log("No subnational units could be built from admin regions")
+    return units
+
+
+def _subnational_units_from_drawn() -> typing.List[SubnationalUnit]:
+    """Build SubnationalUnits from user-drawn polygons stored as WKT."""
+    raw = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_DRAWN_UNITS)
+    if not raw:
+        log("No drawn subnational units configured")
+        return []
+
+    try:
+        drawn: typing.List[typing.Dict[str, str]] = json.loads(raw)
+    except (ValueError, TypeError):
+        log(f"Invalid SUBNATIONAL_DRAWN_UNITS value: {raw!r}")
+        return []
+
+    units: typing.List[SubnationalUnit] = []
+    for idx, entry in enumerate(drawn):
+        unit_name = entry.get("name", f"Unit {idx + 1}")
+        wkt = entry.get("wkt", "")
+        if not wkt:
+            log(f"Drawn unit {unit_name!r} has no WKT geometry – skipping")
+            continue
+
+        geom = qgis.core.QgsGeometry.fromWkt(wkt)
+        if geom.isEmpty():
+            log(f"Drawn unit {unit_name!r} has empty geometry – skipping")
+            continue
+
+        geojson = json.loads(geom.asJson())
+        # Wrap in a FeatureCollection so update_from_geojson handles it correctly
+        feature_collection = {
+            "type": "FeatureCollection",
+            "features": [{"type": "Feature", "geometry": geojson}],
+        }
+
+        try:
+            aoi = _make_aoi(feature_collection)
+        except Exception as exc:
+            log(f"Failed to build AOI for drawn unit {unit_name!r}: {exc}")
+            continue
+
+        unit_id = f"drawn_{idx}"
+        units.append(SubnationalUnit(unit_id=unit_id, unit_name=unit_name, aoi=aoi))
+
+    if not units:
+        log("No subnational units could be built from drawn polygons")
+    return units
 
 
 def _transform_layer(lyr, crs_dst, datatype="polygon", wrap=False):

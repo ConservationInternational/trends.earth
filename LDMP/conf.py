@@ -118,6 +118,10 @@ class Setting(enum.Enum):
     COUNTRY_ID = "region_of_interest/country/country_id"
     REGION_ID = "region_of_interest/country/region_id"
     CITY_ID = "region_of_interest/country/city_id"
+    SUBNATIONAL_MODE = "region_of_interest/subnational_mode"
+    SUBNATIONAL_BOUNDARY_TYPE = "region_of_interest/subnational_boundary_type"
+    SUBNATIONAL_REGION_IDS = "region_of_interest/subnational_region_ids"
+    SUBNATIONAL_DRAWN_UNITS = "region_of_interest/subnational_drawn_units"
     BUFFER_SIZE = "region_of_interest/buffer_size"
     AREA_NAME = "region_of_interest/area_settings_name"
     JOB_FILE_AGE_LIMIT_DAYS = "advanced/deleted_datasets_age_limit"
@@ -184,6 +188,10 @@ class SettingsManager:
         Setting.COUNTRY_ID: "",
         Setting.REGION_ID: "",
         Setting.CITY_ID: "",
+        Setting.SUBNATIONAL_MODE: False,
+        Setting.SUBNATIONAL_BOUNDARY_TYPE: "admin",
+        Setting.SUBNATIONAL_REGION_IDS: "",
+        Setting.SUBNATIONAL_DRAWN_UNITS: "",
         Setting.BUFFER_SIZE: 0.0,
         Setting.AREA_NAME: "",
         Setting.USER_ID: None,

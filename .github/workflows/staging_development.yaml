@@ -11,25 +11,17 @@ jobs:
   staging_repository_update:
     name: Staging repository update
     runs-on: ubuntu-latest
-    container:
-      image: qgis/qgis:release-3_34
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
         with:
           fetch-depth: 0  # Fetch all history including tags for setuptools-scm
           fetch-tags: true
-        
-      - name: Setup QGIS environment
-        uses: ./.github/actions/setup-qgis-env
+
+      - name: Build plugin ZIP
+        uses: ./.github/actions/build-plugin-zip
         with:
-          extra-apt-packages: qttools5-dev-tools
-
-      - name: Set version SHA
-        run: invoke set-version --modules
-
-      - name: Build zipfile
-        run: invoke zipfile-build  --filename LDMP.zip
+          filename: LDMP.zip
 
       - name: Checkout code
         uses: actions/checkout@v6

@@ -11,9 +11,7 @@ permissions:
 
 jobs:
   create-package:
-    runs-on: ubuntu-22.04
-    container:
-      image: qgis/qgis:release-3_34
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -21,20 +19,16 @@ jobs:
           fetch-depth: 0  # Fetch all history including tags for setuptools-scm
           fetch-tags: true
 
-      - name: Setup QGIS environment
-        uses: ./.github/actions/setup-qgis-env
+      - name: Build plugin ZIP
+        uses: ./.github/actions/build-plugin-zip
         with:
-          extra-apt-packages: git unzip build-essential
-
-      - name: Configure git identity
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
+          # Filename is finalised after we know the PACKAGE_ID; build-plugin-zip
+          # stamps the version and compiles translations.  We pass a temporary
+          # name here and rename below once we have the unique suffix.
+          filename: LDMP-pr.zip
 
       - name: Install additional plugin dependencies
-        env:
-          PIP_ALWAYS_USE_PEP517: '1'
-        run: .venv/bin/pip install --no-cache-dir -r requirements.txt
+        run: pip install --no-cache-dir -r requirements.txt
 
       - name: Verify te_algorithms import
         run: |
@@ -48,25 +42,15 @@ jobs:
               sys.exit(1)
           PY
 
-      - name: Get unique identifier
+      - name: Get unique identifier and rename ZIP
         id: get-identifier
         shell: bash
         run: |
-          python - <<'PY'
-          import os, uuid
-          with open(os.environ['GITHUB_ENV'], 'a') as f:
-              f.write(f"PACKAGE_ID={uuid.uuid4().hex[:4]}\n")
-          PY
-
-      - name: Set version SHA
-        run: invoke set-version --modules
-
-      - name: Build zipfile
-        shell: bash
-        run: |
+          PACKAGE_ID=$(python -c "import uuid; print(uuid.uuid4().hex[:4])")
+          echo "PACKAGE_ID=${PACKAGE_ID}" >> $GITHUB_ENV
           SAFE_REF_NAME="${{ github.event.pull_request.head.ref }}"
           SAFE_REF_NAME="${SAFE_REF_NAME//\//_}"
-          invoke zipfile-build --filename "LDMP-${SAFE_REF_NAME}_${{ env.PACKAGE_ID }}.zip"
+          mv LDMP-pr.zip "LDMP-${SAFE_REF_NAME}_${PACKAGE_ID}.zip"
           echo "REF_NAME=${SAFE_REF_NAME}" >> $GITHUB_ENV
 
       - name: Plugin path details

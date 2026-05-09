@@ -1,0 +1,29 @@
+name: Build plugin ZIP
+description: >
+  Installs lrelease, sets up the Python environment, stamps the version, and
+  builds the QGIS plugin ZIP file.
+
+inputs:
+  filename:
+    description: Output ZIP filename (path relative to workspace).
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Install lrelease
+      shell: bash
+      run: sudo apt-get update && sudo apt-get install -y qttools5-dev-tools
+
+    - name: Setup Python environment
+      uses: ./.github/actions/setup-python-env
+      with:
+        cache: ''
+
+    - name: Set version SHA
+      shell: bash
+      run: invoke set-version --modules
+
+    - name: Build ZIP
+      shell: bash
+      run: invoke zipfile-build --filename "${{ inputs.filename }}"

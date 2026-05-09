@@ -10,17 +10,15 @@ permissions:
 
 jobs:
   update-staging:
-    runs-on: ubuntu-22.04
-    container:
-      image: qgis/qgis:release-3_34
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
         with:
           fetch-depth: 0  # Fetch all history including tags for setuptools-scm
 
-      - name: Setup QGIS environment
-        uses: ./.github/actions/setup-qgis-env
+      - name: Setup Python environment
+        uses: ./.github/actions/setup-python-env
 
       - name: Checkout code
         uses: actions/checkout@v6
@@ -33,7 +31,7 @@ jobs:
           echo " " >> docs/repository/plugins.xml 
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global --add safe.directory /__w/trends.earth/trends.earth
+          git config --global --add safe.directory $GITHUB_WORKSPACE
 
           git add -A
           git commit -m "Update on plugins.xml"

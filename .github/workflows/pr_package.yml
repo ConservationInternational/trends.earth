@@ -16,37 +16,25 @@ jobs:
       image: qgis/qgis:release-3_34
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0  # Fetch all history including tags for setuptools-scm
           fetch-tags: true
 
-      - name: Install OS packages and configure git
+      - name: Setup QGIS environment
+        uses: ./.github/actions/setup-qgis-env
+        with:
+          extra-apt-packages: git unzip build-essential
+
+      - name: Configure git identity
         run: |
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-            git python3-venv unzip build-essential
-          git config --global --add safe.directory /__w/trends.earth/trends.earth
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
 
-      - name: Create virtualenv and upgrade pip
-        run: |
-          python3 -m venv .venv
-          echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
-          .venv/bin/python -m pip --version
-          # Upgrade pip to >=24.0 to fix UNKNOWN package name issue with pyproject.toml-only packages
-          # Older pip versions don't properly handle PEP-517 builds from git/source
-          # See: https://stackoverflow.com/questions/78034052/unknown-project-name-and-version-number-for-my-own-pip-package
-          .venv/bin/python -m pip install --upgrade pip setuptools wheel build
-          .venv/bin/python -m pip --version
-
-      - name: Install plugin dependencies
+      - name: Install additional plugin dependencies
         env:
           PIP_ALWAYS_USE_PEP517: '1'
-        run: |
-          .venv/bin/pip install --no-cache-dir -r requirements-dev.txt
-          .venv/bin/pip install --no-cache-dir -r requirements.txt
+        run: .venv/bin/pip install --no-cache-dir -r requirements.txt
 
       - name: Verify te_algorithms import
         run: |

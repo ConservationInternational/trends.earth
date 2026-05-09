@@ -33,20 +33,15 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-
       - name: Install packaging prerequisites
         run: |
           sudo apt-get update
           sudo apt-get install -y qttools5-dev-tools unzip
 
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip setuptools wheel
-          pip install -r requirements-dev.txt
+      - name: Setup Python environment
+        uses: ./.github/actions/setup-python-env
+        with:
+          cache: ''
 
       - name: Build packaged plugin for scanning
         run: |

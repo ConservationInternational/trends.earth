@@ -15,31 +15,15 @@ jobs:
       image: qgis/qgis:release-3_34
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0  # Fetch all history including tags for setuptools-scm
           fetch-tags: true
         
-      - name: Mark GitHub workspace as safe
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
-
-      - name: Install OS packages and configure environment
-        run: |
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-            python3-venv qttools5-dev-tools
-
-      - name: Create virtualenv and upgrade pip
-        run: |
-          python3 -m venv .venv
-          echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
-          .venv/bin/python -m pip install --upgrade pip setuptools wheel
-          .venv/bin/python -m pip --version
-
-      - name: Install build requirements
-        env:
-          PIP_ALWAYS_USE_PEP517: '1'
-        run: .venv/bin/pip install --no-cache-dir -r requirements-dev.txt
+      - name: Setup QGIS environment
+        uses: ./.github/actions/setup-qgis-env
+        with:
+          extra-apt-packages: qttools5-dev-tools
 
       - name: Set version SHA
         run: invoke set-version --modules
@@ -48,7 +32,7 @@ jobs:
         run: invoke zipfile-build  --filename LDMP.zip
 
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: release
           clean: false

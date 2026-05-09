@@ -1,0 +1,29 @@
+name: Setup Python environment
+description: >
+  Set up Python 3.12 (x64) and install project dependencies from
+  requirements-dev.txt.  Pip is upgraded to >=24 before the install to
+  ensure PEP-517 build support.
+
+inputs:
+  cache:
+    description: >
+      pip cache strategy passed to actions/setup-python.
+      Set to an empty string to disable caching (e.g. when the workflow
+      installs additional packages before or after this action).
+    default: 'pip'
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: "3.12"
+        architecture: "x64"
+        cache: ${{ inputs.cache }}
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip setuptools wheel
+        pip install -r requirements-dev.txt

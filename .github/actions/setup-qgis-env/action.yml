@@ -1,0 +1,41 @@
+name: Setup QGIS container environment
+description: >
+  Runs inside a QGIS Docker container (qgis/qgis:*).  Marks the workspace
+  as safe for git, installs python3-venv plus any extra apt packages, creates
+  a virtualenv at .venv/, upgrades pip, and installs requirements-dev.txt.
+  The venv bin directory is appended to GITHUB_PATH so subsequent run steps
+  can call invoke, python, pip, etc. directly.
+
+inputs:
+  extra-apt-packages:
+    description: >
+      Space-separated additional apt package names to install alongside
+      python3-venv (e.g. "qttools5-dev-tools git unzip build-essential").
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Mark GitHub workspace as safe for git
+      shell: bash
+      run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
+    - name: Install OS packages
+      shell: bash
+      run: |
+        apt-get update
+        DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+          python3-venv ${{ inputs.extra-apt-packages }}
+
+    - name: Create virtualenv and upgrade pip
+      shell: bash
+      run: |
+        python3 -m venv .venv
+        echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
+        .venv/bin/python -m pip install --upgrade pip setuptools wheel
+
+    - name: Install project dependencies
+      shell: bash
+      env:
+        PIP_ALWAYS_USE_PEP517: '1'
+      run: .venv/bin/pip install --no-cache-dir -r requirements-dev.txt

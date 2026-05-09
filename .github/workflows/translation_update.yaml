@@ -13,6 +13,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  id-token: write
 
 jobs:
   translation_update:
@@ -22,42 +23,33 @@ jobs:
     env:
       TX_TOKEN: ${{ secrets.TX_TOKEN }}
       TX_HOSTNAME: ${{ secrets.TX_HOSTNAME }}
-      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
-      - name: Setup python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-          architecture: "x64"
-          cache: pip
+        uses: actions/checkout@v6
       - name: Install Qt tools (lrelease and pylupdate5)
         run: sudo apt-get update && sudo apt-get install -y qttools5-dev-tools pyqt5-dev-tools
-      - run: pip install -r requirements-dev.txt
+      - name: Setup Python environment
+        uses: ./.github/actions/setup-python-env
       - name: Install transifex CLI
         run: |
           curl -fsSL -L -o tx.tar.gz https://github.com/transifex/cli/releases/latest/download/tx-linux-amd64.tar.gz
           tar xzf tx.tar.gz tx
           chmod +x tx
           rm tx.tar.gz
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Pull updated strings from transifex
         run: invoke translate-pull --force
       - name: Push strings to transifex
         run: invoke translate-push
       - name: Create pull request
-        id: cpr
-        uses: peter-evans/create-pull-request@v8
+        uses: ./.github/actions/create-automated-pr
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update translations
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          signoff: false
           branch: translation-updates
-          delete-branch: true
           title: "Update translations"
           body: |
             Refresh translations

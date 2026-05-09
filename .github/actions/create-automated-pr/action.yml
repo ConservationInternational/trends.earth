@@ -1,0 +1,54 @@
+name: Create automated pull request
+description: >
+  Thin wrapper around peter-evans/create-pull-request@v8 with shared
+  defaults (committer identity, signoff policy, delete-branch).  Use this
+  action in any workflow that needs to open or update an automated PR.
+
+inputs:
+  commit-message:
+    description: 'Commit message for the automated commit.'
+    required: true
+  branch:
+    description: 'Branch name for the pull request.'
+    required: true
+  title:
+    description: 'Pull request title.'
+    required: true
+  body:
+    description: 'Pull request body / description.'
+    default: ''
+  labels:
+    description: 'Newline-separated labels to apply to the pull request.'
+    default: 'automated pr'
+  add-paths:
+    description: >
+      Newline-separated list of file paths (glob patterns accepted) to
+      include in the automated commit.  Defaults to all changed files.
+    default: '.'
+
+outputs:
+  pull-request-number:
+    description: 'Number of the created or updated pull request.'
+    value: ${{ steps.cpr.outputs.pull-request-number }}
+  pull-request-url:
+    description: 'HTML URL of the created or updated pull request.'
+    value: ${{ steps.cpr.outputs.pull-request-url }}
+
+runs:
+  using: composite
+  steps:
+    - name: Create pull request
+      id: cpr
+      uses: peter-evans/create-pull-request@v8
+      with:
+        token: ${{ github.token }}
+        commit-message: ${{ inputs.commit-message }}
+        committer: GitHub <noreply@github.com>
+        author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+        signoff: false
+        branch: ${{ inputs.branch }}
+        delete-branch: true
+        title: ${{ inputs.title }}
+        body: ${{ inputs.body }}
+        labels: ${{ inputs.labels }}
+        add-paths: ${{ inputs.add-paths }}

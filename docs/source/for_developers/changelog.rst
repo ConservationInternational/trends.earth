@@ -10,7 +10,10 @@ This page lists the version history of |trends.earth|.
   - Added global SDG 15.3.1 and Trends.Earth results datasets to the download tool
   - Added (experimental) option to connect a personal Google Earth Engine account via OAuth (browser-based sign-in)
   - Fixed a bug in the Total Carbon analysis tool that caused failure to compute annual statistics
-  - Misc minor bug fixes
+  - Fixed loading of boundary files stored in compressed format
+  - Fixed issue where changing the study area didn't refresh the interface
+  - Fixed map layer style registration in the QGIS symbology panel
+  - Misc minor bug fixes and performance improvements
 
 `2.2.10 (April 20, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.10>`_
 -----------------------------------------------------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-name: Updating staging with a new released plugin
+name: Update release plugin repository
 on:
   release:
     types:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  update-staging:
+  update_release_repository:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

@@ -1,4 +1,4 @@
-name: Update the staging repository with a new plugin version
+name: Update pre-release plugin repository
 on:
   push:
     tags:
@@ -8,8 +8,8 @@ permissions:
   contents: write
 
 jobs:
-  staging_repository_update:
-    name: Staging repository update
+  update_prerelease_repository:
+    name: Update pre-release plugin repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo

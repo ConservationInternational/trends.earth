@@ -26,7 +26,7 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.3.0 (pending)
+changelog=2.3.0 (May 9, 2026)
   - Added support for QGIS 4
   - Added global SDG 15.3.1 and Trends.Earth results datasets to the download tool
   - Added (experimental) option to connect a personal Google Earth Engine account via OAuth (browser-based sign-in)

@@ -2111,8 +2111,12 @@ def generate_plugin_repo_xml(
             filename=release.get("url").rpartition("/")[-1]
             if not prerelease_filename
             else prerelease_filename,
-            icon=metadata.get("icon", ""),
-            author="test",
+            icon="https://raw.githubusercontent.com/ConservationInternational/trends.earth/main/LDMP/{}".format(
+                metadata.get("icon", "")
+            )
+            if metadata.get("icon", "")
+            else "",
+            author=metadata.get("author", ""),
             download_url=release.get("url"),
             update_date=release.get("published_at"),
             experimental=False,
@@ -2155,7 +2159,7 @@ def _get_metadata(c):
     # Update metadata with additional derived fields
     metadata.update(
         {
-            "tags": metadata.get("tags", "").split(", ") if "tags" in metadata else [],
+            "tags": metadata.get("tags", ""),
             "changelog": metadata.get("changelog", ""),
         }
     )

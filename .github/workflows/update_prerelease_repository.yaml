@@ -34,22 +34,21 @@ jobs:
       - name: Make directory
         env:
           REF_NAME: ${{ github.ref_name }}
-        working-directory: ${{ github.workspace }}/release
         run: |
           echo "REF_NAME=$REF_NAME" >> $GITHUB_ENV
-          mkdir -p docs/repository/$REF_NAME
+          mkdir -p release/docs/repository/$REF_NAME
 
       - name: Update custom plugin repository to include latest plugin version
         env:
           REF_NAME: ${{ github.ref_name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: ${{ github.workspace }}/release
         run: |
-          cp $GITHUB_WORKSPACE/LDMP.zip docs/repository/$REF_NAME/LDMP.zip
+          cp LDMP.zip release/docs/repository/$REF_NAME/LDMP.zip
 
           DOWNLOAD_URL="https://raw.githubusercontent.com/ConservationInternational/trends.earth/refs/heads/release/docs/repository/$REF_NAME/LDMP.zip"
           echo "$DOWNLOAD_URL"
 
+          # Run invoke from workspace root so it reads the freshly updated LDMP/metadata.txt
           invoke generate-plugin-repo-xml \
             --prerelease \
             --prerelease-url "$DOWNLOAD_URL" \
@@ -58,10 +57,14 @@ jobs:
 
           echo " " >> docs/repository/plugins.xml
 
+          # Copy the generated XML (written to workspace-root docs/) into the release branch
+          cp docs/repository/plugins.xml release/docs/repository/plugins.xml
+
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global --add safe.directory $GITHUB_WORKSPACE/release
 
+          cd release
           git add docs/repository
           git add -f docs/repository/$REF_NAME/LDMP.zip
           git commit -m "Update on the staging repository"

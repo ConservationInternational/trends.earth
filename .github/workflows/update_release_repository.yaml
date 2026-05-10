@@ -15,10 +15,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
         with:
+          ref: ${{ github.event.release.tag_name }}  # Check out the specific release tag
           fetch-depth: 0  # Fetch all history including tags for setuptools-scm
+          fetch-tags: true
 
       - name: Setup Python environment
         uses: ./.github/actions/setup-python-env
+
+      - name: Stamp version in metadata.txt
+        run: invoke set-version
 
       - name: Checkout code
         uses: actions/checkout@v6
@@ -27,14 +32,19 @@ jobs:
           path: release
           fetch-depth: 0  # Fetch all history including tags for setuptools-scm
       - name: Update custom plugin repository to include latest plugin releases
-        working-directory: ${{ github.workspace }}/release
         run: |
+          # Run invoke from workspace root so it reads the freshly updated LDMP/metadata.txt
           invoke generate-plugin-repo-xml
-          echo " " >> docs/repository/plugins.xml 
+          echo " " >> docs/repository/plugins.xml
+
+          # Copy the generated XML into the release branch
+          cp docs/repository/plugins.xml release/docs/repository/plugins.xml
+
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global --add safe.directory $GITHUB_WORKSPACE/release
 
+          cd release
           git add -A
           git commit -m "Update on plugins.xml"
           git push origin release

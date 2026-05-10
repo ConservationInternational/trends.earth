@@ -56,6 +56,9 @@ jobs:
         with:
           cache: ''
 
+      - name: Stamp version in metadata.txt
+        run: invoke set-version
+
       - name: Generate development plugins.xml
         run: |
           invoke generate-plugin-repo-xml \

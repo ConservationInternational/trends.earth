@@ -65,7 +65,7 @@ jobs:
             --prerelease \
             --prerelease-url "https://s3.amazonaws.com/trends.earth/sharing/LDMP_main.zip" \
             --prerelease-time "$(date +'%Y-%m-%dT%H:%M:%SZ')" \
-            --prerelease-filename "LDMP_main.zip"
+            --prerelease-filename "LDMP.zip"
 
       - name: Checkout release branch
         uses: actions/checkout@v6

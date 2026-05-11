@@ -758,11 +758,17 @@ def _build_qml(
     band_number: int,
     color_ramp_items: typing.List,
     ramp_shader: str,
+    nodata_color: str = "",
 ) -> str:
     """Build a minimal QGIS QML style string from a list of colour ramp items.
 
     *ramp_shader* must be one of ``"interpolated"``, ``"discrete"``, or
     ``"exact"`` (matching the values used in styles.json).
+
+    *nodata_color* is an optional hex colour string (e.g. ``"#000000"``) that
+    is written into the ``nodataColor`` attribute of the raster renderer so
+    that pixels identified as no-data are rendered with the correct colour
+    rather than being left transparent.
     """
     shader_type_map = {
         "interpolated": "INTERPOLATED",
@@ -789,7 +795,7 @@ def _build_qml(
         '<qgis version="{qgis_version}" styleCategories="Symbology">\n'
         "  <pipe>\n"
         '    <rasterrenderer type="singlebandpseudocolor" band="{band}"'
-        ' opacity="1" alphaBand="-1" nodataColor=""'
+        ' opacity="1" alphaBand="-1" nodataColor="{nodata_color}"'
         ' classificationMin="{min_val}" classificationMax="{max_val}">\n'
         "      <rastershader>\n"
         '        <colorrampshader colorRampType="{ramp_type}" clip="0"'
@@ -808,6 +814,7 @@ def _build_qml(
         min_val=min_val,
         max_val=max_val,
         items=items_xml,
+        nodata_color=nodata_color,
     )
 
 
@@ -930,12 +937,25 @@ def style_layer(
 
         # Strip nodata items from the color ramp so they don't appear in the
         # legend, then register the value as a QGIS user nodata range so those
-        # pixels are rendered transparent and shown in the Transparency tab.
+        # pixels are rendered with the nodata colour (set via nodataColor in
+        # the renderer) and shown in the Transparency tab.
         no_data_value = band_info.get("no_data_value")
+        nodata_color = ""
         if no_data_value is not None:
+            # Capture the nodata colour from the ramp item before stripping it,
+            # so it can be written into the QML renderer's nodataColor attribute.
+            nodata_items = [item for item in color_ramp if item.value == no_data_value]
+            if nodata_items:
+                nodata_color = nodata_items[0].color.name()
+            else:
+                # For stretch ramps the nodata item is stored at a scaled value;
+                # fall back to the style config if the item wasn't found above.
+                nodata_color = style.get("ramp", {}).get("no data", {}).get("color", "")
             color_ramp = [item for item in color_ramp if item.value != no_data_value]
 
-        qml = _build_qml(band_number, color_ramp, ramp_shader)
+        qml = _build_qml(
+            band_number, color_ramp, ramp_shader, nodata_color=nodata_color
+        )
 
         if not _load_qml_from_string(layer, qml):
             return False

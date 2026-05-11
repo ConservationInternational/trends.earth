@@ -101,7 +101,7 @@ https://raw.githubusercontent.com/ConservationInternational/trends.earth/release
    upgrading an existing installation).
 4. Click **Close** and restart QGIS if prompted.
 
-To access development builds, make sure **Show also experimental plugins** is
+To access development builds, make sure `Show also experimental plugins` is
 checked under the **Settings** tab before searching.
 
 ## Installation of development version of plugin

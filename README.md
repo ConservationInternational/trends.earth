@@ -58,15 +58,63 @@ GitHub](https://github.com/ConservationInternational/trends.earth/releases). The
 the instructions below on [installing the plugin from a
 zipfile](#installing-plugin-from-a-zipfile).
 
+## Installation from custom QGIS plugin repository
+
+In addition to the official QGIS plugin repository, `Trends.Earth` maintains several
+custom QGIS plugin repositories that provide access to both the latest stable
+release and pre-release (development) builds. These repositories are updated
+automatically.
+
+There are two repository URLs, one for release builds, another for development builds.
+
+### Release builds
+
+Release builds are updated on every GitHub release and on every version tag push. Use this link:
+```
+https://raw.githubusercontent.com/ConservationInternational/trends.earth/release/docs/repository/plugins.xml
+```
+### Development builds
+
+Development builds are updated on every push to `main`, and so will always have the latest features and bug fixes, but without the same level of testing as the release builds. Use this link to use development builds:
+
+```
+https://raw.githubusercontent.com/ConservationInternational/trends.earth/release/docs/repository/dev/plugins.xml
+```
+
+### Adding a custom repository to QGIS
+
+1. Open QGIS.
+2. Go to **Plugins** → **Manage and Install Plugins**.
+3. Click the **Settings** tab.
+4. Under **Plugin repositories**, click **Add…**
+5. Enter a name (e.g. `Trends.Earth releases`) and paste one of the URLs listed above (for [release](#release-builds) or [development](#development-builds) builds) into
+   the **URL** field.
+6. Click **OK**. QGIS will fetch the repository and it will appear in the list
+   with a green status indicator.
+
+### Installing the plugin from a custom repository
+
+1. After adding the repository, click the **All** tab (or **Not installed** if
+   you have not yet installed the plugin).
+2. Search for **Trends.Earth**.
+3. Select the plugin and click **Install Plugin** (or **Upgrade Plugin** if
+   upgrading an existing installation).
+4. Click **Close** and restart QGIS if prompted.
+
+To access development builds, make sure **Show also experimental plugins** is
+checked under the **Settings** tab before searching.
+
 ## Installation of development version of plugin
 
 If you are interested in using the development version of the
 plugin, with the very latest (but not as well tested) features, or in contributing to
 the development of it, you will want to install the development version. Note
 that the development version is more likely to contain bugs or other issues
-that have yet to be resolved. There are two ways to install the development
+that have yet to be resolved. There are three ways to install the development
 version:
 
+- Using a custom repository in QGIS (**recommended option** - see [Installation from custom QGIS plugin repository](#installation-from-custom-qgis-plugin-repository) above)
+  
 - Using a packaged version (zipfile)
 
 - Cloning the github repository and installing from that code

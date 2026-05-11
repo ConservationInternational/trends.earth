@@ -248,8 +248,13 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             f"trends_earth/{auth.TE_API_AUTH_SETUP.key}", None
         )
         if not authConfigId:
-            self.message_bar.pushCritical(
-                "Trends.Earth", self.tr("Please register in order to use Trends.Earth")
+            self.message_bar.pushMessage(
+                "Trends.Earth",
+                self.tr(
+                    "Please register or login in order to use the cloud-based features of Trends.Earth"
+                ),
+                level=qgis.core.Qgis.Critical,
+                duration=10,
             )
             return
         configs = qgis.core.QgsApplication.authManager().availableAuthMethodConfigs()

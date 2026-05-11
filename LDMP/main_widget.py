@@ -963,7 +963,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         This slot is connected with Qt.QueuedConnection to ensure thread-safe
         GUI updates when signals are emitted from background worker threads.
         """
-        self.iface.messageBar().pushCritical("Trends.Earth", error_message)
+        self.iface.messageBar().pushMessage(
+            "Trends.Earth", error_message, level=qgis.core.Qgis.Critical, duration=10
+        )
 
     def refresh_after_cache_update(self, *args):
         # Accept *args to handle signals with varying signatures:

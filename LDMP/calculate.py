@@ -26,7 +26,7 @@ from osgeo import gdal
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
-from . import GetTempFilename, areaofinterest, download, worker
+from . import GetTempFilename, areaofinterest, auth, download, worker
 from .conf import OPTIONS_TITLE, REMOTE_DATASETS, AreaSetting, Setting, settings_manager
 
 if TYPE_CHECKING:
@@ -519,6 +519,19 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.iface.showOptionsDialog(self.iface.mainWindow(), currentPage=OPTIONS_TITLE)
 
     def btn_calculate(self):
+        if self.script.run_mode == AlgorithmRunMode.REMOTE:
+            if not auth.get_auth_config(auth.TE_API_AUTH_SETUP, warn=False):
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    tr_calculate.tr("Login required"),
+                    tr_calculate.tr(
+                        "No login credentials configured. "
+                        "Please set up your username and password in "
+                        "Trends.Earth settings before submitting a remote job."
+                    ),
+                )
+                return False
+
         area_method = settings_manager.get_value(Setting.AREA_FROM_OPTION)
         has_buffer = settings_manager.get_value(Setting.BUFFER_CHECKED)
         if (
@@ -537,7 +550,15 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
             return False
 
-        self.aoi = areaofinterest.prepare_area_of_interest()
+        try:
+            self.aoi = areaofinterest.prepare_area_of_interest()
+        except RuntimeError as e:
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_calculate.tr("Area of interest error"),
+                str(e),
+            )
+            return False
         if not self.aoi:
             return False
         ret = self.aoi.bounding_box_gee_geojson()

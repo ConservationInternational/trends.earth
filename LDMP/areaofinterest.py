@@ -151,7 +151,7 @@ def validate_country_region() -> typing.Tuple[typing.Optional[typing.Dict], str]
     country_id = conf.settings_manager.get_value(conf.Setting.COUNTRY_ID)
     if not country_id:
         geojson = None
-        error_msg = "Choose a first level administrative boundary."
+        error_msg = 'No region selected. Use the "Change region" button to choose an area of interest.'
         return geojson, error_msg
 
     geojson = get_admin_poly_geojson()
@@ -621,7 +621,7 @@ def open_settings():
     qgisiface.showOptionsDialog(qgisiface.mainWindow(), currentPage=conf.OPTIONS_TITLE)
 
 
-def prepare_area_of_interest() -> AOI:
+def prepare_area_of_interest(show_errors: bool = True) -> AOI:
     if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
         crs_dst = qgis.core.QgsCoordinateReferenceSystem(
             conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS)
@@ -635,11 +635,15 @@ def prepare_area_of_interest() -> AOI:
     is_city = area_method == conf.AreaSetting.COUNTRY_CITY.value
     is_region = area_method == conf.AreaSetting.COUNTRY_REGION.value
     if is_city and not has_buffer:
-        qgs_error_message(
-            "Buffer required",
-            "Calculations for cities require a buffer. This can be set in the Trend.Earth settings.",
-            60,
-        )
+        if show_errors:
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_areaofinterest.tr("Buffer required"),
+                tr_areaofinterest.tr(
+                    "Calculations for cities require a buffer. "
+                    "This can be set in the Trends.Earth settings."
+                ),
+            )
         return None
     elif is_city:
         geojson = get_city_geojson()
@@ -649,15 +653,16 @@ def prepare_area_of_interest() -> AOI:
     elif is_region:
         geojson, error_msg = validate_country_region()
         if geojson is None:
-            # Only show error message if a country was actually attempted to be selected
-            # Don't show error during initialization or when settings haven't been configured yet
-            country_id = conf.settings_manager.get_value(conf.Setting.COUNTRY_ID)
-            if country_id:
-                # User has attempted to configure a region but something went wrong
-                qgs_error_message(
-                    "Invalid or missing region",
-                    tr_areaofinterest.tr(error_msg),
-                    60,
+            if show_errors:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    tr_areaofinterest.tr("Invalid or missing region"),
+                    tr_areaofinterest.tr(
+                        error_msg
+                        or tr_areaofinterest.tr(
+                            "Please select a region in Trends.Earth settings."
+                        )
+                    ),
                 )
             return None
         area_of_interest.update_from_geojson(
@@ -727,7 +732,7 @@ def try_prepare_area_of_interest() -> typing.Optional["AOI"]:
         AOI object if valid, None if not configured or invalid.
     """
     try:
-        return prepare_area_of_interest()
+        return prepare_area_of_interest(show_errors=False)
     except (RuntimeError, ValueError):
         return None
 

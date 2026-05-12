@@ -1889,9 +1889,14 @@ class JobManager(QtCore.QObject):
             if candidate.id in self._failed_download_job_ids:
                 continue
             job_dir = self.datasets_dir / str(candidate.id)
-            if _try_acquire_download_lock(job_dir):
-                job = candidate
-                break
+            if not _try_acquire_download_lock(job_dir):
+                continue
+            if not self.ensure_results_loaded(candidate):
+                log(f"Auto-download: job {candidate.id} has no results, skipping")
+                _release_download_lock(job_dir)
+                continue
+            job = candidate
+            break
         if job is None:
             self._download_in_progress = False
             return

@@ -555,7 +555,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     self.download_tb.setEnabled(True)
 
                 self.download_tb.clicked.connect(
-                    functools.partial(manager.job_manager.download_job_results, job)
+                    functools.partial(manager.job_manager.start_downloading_job, job)
                 )
 
             # Hide buttons that don't make sense for finished but not downloaded jobs

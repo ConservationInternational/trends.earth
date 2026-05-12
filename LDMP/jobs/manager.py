@@ -19,9 +19,16 @@ import backoff
 import te_algorithms.gdal.land_deg.config as ld_conf
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
-from qgis.core import Qgis, QgsApplication, QgsFileDownloader, QgsTask, QgsVectorLayer
+from qgis.core import (
+    Qgis,
+    QgsApplication,
+    QgsBlockingNetworkRequest,
+    QgsTask,
+    QgsVectorLayer,
+)
 from qgis.gui import QgsMessageBar
 from qgis.PyQt import QtCore
+from qgis.PyQt.QtNetwork import QNetworkRequest
 from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from qgis.utils import iface
 from te_algorithms.gdal.util import (
@@ -612,8 +619,8 @@ class DownloadJobResultsTask(QgsTask):
     - finished() -> main thread, updates job status and emits signals
     """
 
-    _CANCEL_CHECK_INTERVAL_MS = 500
     _LOCK_REFRESH_INTERVAL_S = 600  # refresh lock file every 10 minutes
+    _CHUNK_SIZE = 16 * 1024 * 1024  # 16 MB per range request — keeps peak RAM bounded
 
     def __init__(self, job: Job, job_manager: "JobManager"):
         task_name = job.task_name or str(job.id)
@@ -684,8 +691,9 @@ class DownloadJobResultsTask(QgsTask):
         output_path: Path,
         expected_etag=None,
         max_retries: int = 5,
+        progress_fn: typing.Optional[typing.Callable[[float], None]] = None,
     ) -> bool:
-        """Download one file with retries using QgsFileDownloader."""
+        """Download one file with retries using QgsBlockingNetworkRequest."""
         import time as _time
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -695,7 +703,7 @@ class DownloadJobResultsTask(QgsTask):
                 return False
 
             try:
-                success = self._qgs_download(url, output_path)
+                success = self._qgs_download(url, output_path, progress_fn=progress_fn)
             except Exception as e:
                 log(
                     f"Download attempt {attempt + 1} failed for {output_path.name}: {e}"
@@ -712,6 +720,13 @@ class DownloadJobResultsTask(QgsTask):
                     success = False
 
             if success:
+                # Refresh the download lock to prove we're still alive and
+                # making progress (replaces the periodic timer that existed
+                # in the old QgsFileDownloader-based approach).
+                now = time.time()
+                if now - self._last_lock_refresh >= self._LOCK_REFRESH_INTERVAL_S:
+                    _refresh_download_lock(self._job_dir)
+                    self._last_lock_refresh = now
                 return True
 
             if attempt < max_retries - 1:
@@ -719,59 +734,96 @@ class DownloadJobResultsTask(QgsTask):
 
         return False  # exhausted retries
 
-    def _qgs_download(self, url: str, output_path: Path) -> bool:
-        """Single QgsFileDownloader attempt with local QEventLoop."""
-        loop = QtCore.QEventLoop()
-        dl_success = False
-        dl_error = None
+    def _qgs_download(
+        self,
+        url: str,
+        output_path: Path,
+        progress_fn: typing.Optional[typing.Callable[[float], None]] = None,
+    ) -> bool:
+        """Download one file via QgsBlockingNetworkRequest.
 
-        downloader = QgsFileDownloader(QtCore.QUrl(url), str(output_path))
+        Safe to call from a QgsTask background thread.
+        """
+        qt_url = QtCore.QUrl(url)
 
-        def _on_completed():
-            nonlocal dl_success
-            dl_success = True
-            loop.quit()
+        # HEAD to discover file size
+        head_req = QNetworkRequest(qt_url)
+        blocking_request = QgsBlockingNetworkRequest()
+        err = blocking_request.head(head_req, True)
 
-        def _on_error(errors):
-            nonlocal dl_error
-            dl_error = str(errors)
-            loop.quit()
+        total_size = None
+        if err == QgsBlockingNetworkRequest.NoError:
+            raw = blocking_request.reply().rawHeader(b"Content-Length")
+            if raw:
+                try:
+                    total_size = int(bytes(raw).decode())
+                except ValueError:
+                    pass
 
-        downloader.downloadCompleted.connect(_on_completed)
-        downloader.downloadError.connect(_on_error)
-        downloader.downloadExited.connect(loop.quit)
-        downloader.downloadCanceled.connect(loop.quit)
+        # Chunked range GETs or single full GET depending on file size
+        if total_size is None or total_size <= self._CHUNK_SIZE:
+            return self._qgs_download_full(qt_url, output_path)
 
-        cancel_timer = QtCore.QTimer()
-        cancel_timer.timeout.connect(
-            lambda: self._check_dl_cancel(loop, downloader, cancel_timer)
-        )
-        cancel_timer.start(self._CANCEL_CHECK_INTERVAL_MS)
+        try:
+            with open(output_path, "wb") as f:
+                offset = 0
+                while offset < total_size:
+                    if self.isCanceled():
+                        return False
 
-        downloader.startDownload()
-        loop.exec()
-        cancel_timer.stop()
+                    end = min(offset + self._CHUNK_SIZE - 1, total_size - 1)
+                    chunk_req = QNetworkRequest(qt_url)
+                    chunk_req.setRawHeader(b"Range", f"bytes={offset}-{end}".encode())
+                    blocking_request = QgsBlockingNetworkRequest()
+                    err = blocking_request.get(chunk_req, True)
 
-        if self.isCanceled():
-            output_path.unlink(missing_ok=True)
+                    if err != QgsBlockingNetworkRequest.NoError:
+                        log(
+                            f"Range request failed for {output_path.name} "
+                            f"bytes={offset}-{end}: "
+                            f"{blocking_request.errorMessage()}"
+                        )
+                        return False
+
+                    chunk = bytes(blocking_request.reply().content())
+                    if not chunk:
+                        log(
+                            f"Empty chunk at offset {offset} for "
+                            f"{output_path.name} — aborting"
+                        )
+                        return False
+                    f.write(chunk)
+                    offset += len(chunk)
+                    if progress_fn is not None:
+                        progress_fn(offset / total_size)
+        except OSError as e:
+            log(f"Failed to write {output_path.name}: {e}")
             return False
 
-        if dl_error:
-            output_path.unlink(missing_ok=True)
+        return True
+
+    def _qgs_download_full(self, qt_url: QtCore.QUrl, output_path: Path) -> bool:
+        """Single full GET for small files or servers without range support."""
+        network_request = QNetworkRequest(qt_url)
+        blocking_request = QgsBlockingNetworkRequest()
+        err = blocking_request.get(network_request, True)
+
+        if err != QgsBlockingNetworkRequest.NoError:
+            log(
+                f"Network error downloading {output_path.name}: "
+                f"{blocking_request.errorMessage()}"
+            )
             return False
 
-        return dl_success
+        content = blocking_request.reply().content()
+        try:
+            with open(output_path, "wb") as f:
+                f.write(bytes(content))
+        except OSError as e:
+            log(f"Failed to write {output_path.name}: {e}")
+            return False
 
-    def _check_dl_cancel(self, loop, downloader, timer):
-        if self.isCanceled():
-            timer.stop()
-            downloader.cancelDownload()
-            loop.quit()
-            return
-        now = time.time()
-        if now - self._last_lock_refresh >= self._LOCK_REFRESH_INTERVAL_S:
-            _refresh_download_lock(self._job_dir)
-            self._last_lock_refresh = now
+        return True
 
     def _download_cloud_result(
         self, raster_result: RasterResults, files_done: int, total_files: int
@@ -802,8 +854,15 @@ class DownloadJobResultsTask(QgsTask):
                     out_file = (
                         base_output_path.parent / f"{file_out_base}_{uri_number}.tif"
                     )
+                    _done_before = files_done
+                    _total = total_files
                     if not self._download_single_file(
-                        str(uri.uri), out_file, expected_etag=_get_etag(uri)
+                        str(uri.uri),
+                        out_file,
+                        expected_etag=_get_etag(uri),
+                        progress_fn=lambda frac, _d=_done_before, _t=_total: (
+                            self.setProgress((_d + frac) * 100 / max(_t, 1))
+                        ),
                     ):
                         return False, files_done
                     tile_uris.append(results.URI(uri=out_file))
@@ -828,10 +887,15 @@ class DownloadJobResultsTask(QgsTask):
                 )
             else:
                 out_file = base_output_path.parent / f"{file_out_base}.tif"
+                _done_before = files_done
+                _total = total_files
                 if not self._download_single_file(
                     str(raster.uri.uri),
                     out_file,
                     expected_etag=_get_etag(raster.uri),
+                    progress_fn=lambda frac, _d=_done_before, _t=_total: (
+                        self.setProgress((_d + frac) * 100 / max(_t, 1))
+                    ),
                 ):
                     return False, files_done
 
@@ -987,6 +1051,8 @@ class JobManager(QtCore.QObject):
         self._current_download_task = None  # active DownloadJobResultsTask
         self._cancelled_download_job_ids: typing.Set[uuid.UUID] = set()
         self._failed_download_job_ids: typing.Set[uuid.UUID] = set()
+        # Jobs the user has manually queued for download (FIFO, on-demand)
+        self._user_download_queue: typing.List[uuid.UUID] = []
 
     @property
     def api_client(self):
@@ -1798,117 +1864,6 @@ class JobManager(QtCore.QObject):
             job.local_context.owner_pid = os.getpid()
             self._change_job_status(job, jobs.JobStatus.RUNNING)
 
-    def download_job_results(self, job: Job) -> Job:
-        if job.results is None:
-            log(f"Job {job.id} has no results")
-            return None
-
-        if job.status == jobs.JobStatus.DOWNLOADED:
-            # TODO:  We should never get here, but we do sometimes... Need to debug
-            # more to figure out why
-            return None
-
-        # Get list of results (handles both single result and list of results)
-        results_list = job._get_results_list()
-        if not results_list:
-            log(f"Job {job.id} has empty results list")
-            return None
-
-        # Download each result
-        all_downloads_successful = True
-        for result in results_list:
-            if not hasattr(result, "type"):
-                log(
-                    f"Skipping unrecognized result (raw dict or missing type) "
-                    f"for job {job.id}: {result!r}"
-                )
-                continue
-            handler = {
-                ResultType.RASTER_RESULTS: self._download_cloud_results,
-                ResultType.TIME_SERIES_TABLE: self._download_timeseries_table,
-                ResultType.VECTOR_RESULTS: self._download_vector_results,
-            }.get(result.type)
-
-            if handler is not None:
-                output_uri = handler(job, result)
-
-                if output_uri is not None:
-                    # For RasterResults, set uri on the result object
-                    # For VectorResults, uri is set internally via vector.uri
-                    if result.type == ResultType.RASTER_RESULTS:
-                        result.uri = output_uri
-                    log(f"result.uri is {result.uri}")
-                elif result.type != ResultType.TIME_SERIES_TABLE:
-                    # TIME_SERIES_TABLE returns None normally (data in job file)
-                    all_downloads_successful = False
-                    log(
-                        f"Failed to download result of type {result.type} for job {job.id}"
-                    )
-            elif result.type != ResultType.TIME_SERIES_TABLE:
-                # Unknown result type - log but don't fail
-                log(f"No handler for result type {result.type}")
-
-        if all_downloads_successful:
-            self._change_job_status(job, jobs.JobStatus.DOWNLOADED, force_rewrite=True)
-            self.downloaded_job_results.emit(job)
-        else:
-            return None
-
-        metadata.init_dataset_metadata(job)
-
-        # TODO: maybe we don't need to return anything here
-        return job
-
-    def download_one_available_result(self) -> bool:
-        """Download one finished job's results.
-
-        Returns True if there are more jobs to download, False otherwise.
-        This allows calling code to check if it should schedule another download
-        cycle without blocking the UI.
-
-        Downloading remote results entails:
-        - For each job that is known to be in a FINISHED state, we retrieve the relevant
-          download URL(s)
-        - We try to download all results into some subdir under the `downloaded-datasets`
-          directory
-        - If the download was successful, we now create a result metadata file and put it
-          in the `downloaded-datasets` directory. If not, we do not do anything and will
-          allow the user to retry downloading later
-        - When we have created the result metadata file we delete the job metadata file,
-          as it is not necessary anymore
-
-        """
-        # Skip downloads while background file scanning is in progress to avoid
-        # file locking conflicts on Windows (WinError 32)
-        if self._scanning_files:
-            log("Skipping download - file scanning in progress")
-            return True  # Return True to retry later
-
-        # Get the first finished job (if any) and download its results
-        finished_jobs = self.known_jobs[jobs.JobStatus.FINISHED]
-        if len(finished_jobs) == 0:
-            return False
-
-        # Get one job to download (dict.values() returns view, take first)
-        job = next(iter(finished_jobs.values()))
-        self.download_job_results(job)
-
-        # Return True if there are more jobs to download
-        remaining = len(self.known_jobs[jobs.JobStatus.FINISHED])
-        if remaining == 0:
-            self.downloaded_available_jobs_results.emit()
-        return remaining > 0
-
-    def download_available_results(self):
-        """Download all finished jobs' results (blocking).
-
-        NOTE: This method downloads ALL jobs sequentially and will block the UI.
-        For non-blocking downloads, use download_one_available_result() instead
-        and schedule subsequent downloads via QTimer.singleShot().
-        """
-        while self.download_one_available_result():
-            pass
-
     def start_downloading_one_result(self):
         """Start downloading one finished job's results via QgsTask.
 
@@ -1941,6 +1896,52 @@ class JobManager(QtCore.QObject):
             self._download_in_progress = False
             return
 
+        self._create_and_launch_download_task(job)
+
+    def start_downloading_job(self, job: Job):
+        """Start downloading a specific job on demand (called by the UI button).
+
+        Non-blocking.  If a download is already in progress, a warning is shown
+        in the QGIS message bar and the call returns immediately.  Uses the same
+        QgsBlockingNetworkRequest + chunked-range path as the auto-download.
+        """
+        # Jobs loaded from the SQLite cache have results=None until lazily fetched.
+        if not self.ensure_results_loaded(job):
+            log(f"Job {job.id} has no results to download")
+            return
+
+        if self._download_in_progress:
+            if job.id not in self._user_download_queue:
+                self._user_download_queue.append(job.id)
+                iface.messageBar().pushMessage(
+                    self.tr("Download"),
+                    self.tr(
+                        f"'{job.task_name or job.id}' queued — "
+                        "will start when the current download finishes."
+                    ),
+                    level=Qgis.Info,
+                    duration=4,
+                )
+            return
+
+        job_dir = self.datasets_dir / str(job.id)
+        if not _try_acquire_download_lock(job_dir):
+            iface.messageBar().pushMessage(
+                self.tr("Download"),
+                self.tr("This job is already being downloaded by another process."),
+                level=Qgis.Warning,
+            )
+            return
+
+        self._download_in_progress = True
+        self._create_and_launch_download_task(job)
+
+    def _create_and_launch_download_task(self, job: Job):
+        """Create a DownloadJobResultsTask for *job* and add it to the task manager.
+
+        The cross-process lock for *job* must already be held by the caller.
+        ``_download_in_progress`` must be set to ``True`` before calling.
+        """
         task = DownloadJobResultsTask(job, self)
         self._current_download_task = task  # prevent GC until addTask
 
@@ -1984,12 +1985,36 @@ class JobManager(QtCore.QObject):
 
         if cancelled_job_id is not None:
             self._cancelled_download_job_ids.add(cancelled_job_id)
-            return  # User cancelled — don't auto-restart
+            self._user_download_queue.clear()  # cancel any pending user-queued jobs too
+            return
 
         if failed_job_id is not None:
             self._failed_download_job_ids.add(failed_job_id)
 
-        # Count only jobs that haven't already failed or been cancelled this session
+        QtCore.QTimer.singleShot(100, self._start_next_download)
+
+    def _start_next_download(self):
+        """Drain the user download queue first, then fall back to auto-download."""
+        while self._user_download_queue:
+            job_id = self._user_download_queue.pop(0)
+            if (
+                job_id in self._cancelled_download_job_ids
+                or job_id in self._failed_download_job_ids
+            ):
+                continue
+            job = self.known_jobs[jobs.JobStatus.FINISHED].get(job_id)
+            if job is None:
+                continue  # already downloaded or removed
+            if not self.ensure_results_loaded(job):
+                log(f"Queued job {job.id} has no results, skipping")
+                continue
+            job_dir = self.datasets_dir / str(job.id)
+            if _try_acquire_download_lock(job_dir):
+                self._download_in_progress = True
+                self._create_and_launch_download_task(job)
+                return
+
+        # No user-queued jobs — fall back to auto-download
         skip_ids = self._failed_download_job_ids | self._cancelled_download_job_ids
         remaining = sum(
             1
@@ -1999,8 +2024,7 @@ class JobManager(QtCore.QObject):
         if remaining == 0:
             self.downloaded_available_jobs_results.emit()
         else:
-            # Schedule next download after a short delay
-            QtCore.QTimer.singleShot(100, self.start_downloading_one_result)
+            self.start_downloading_one_result()
 
     def ensure_results_loaded(self, job: Job) -> bool:
         """Ensure that ``job.results`` is populated.
@@ -2465,161 +2489,6 @@ class JobManager(QtCore.QObject):
             self._get_internal_dict_for_status(cache_status)[job.id] = job
         finally:
             self._state_update_mutex.unlock()
-
-    def _download_cloud_results(
-        self, job: jobs.Job, raster_result: RasterResults
-    ) -> typing.Optional[results.URI]:
-        base_output_path = self.get_downloaded_dataset_base_file_path(job)
-        # Add result name to base path to support multiple results
-        result_base_path = (
-            base_output_path.parent / f"{base_output_path.name}_{raster_result.name}"
-        )
-
-        out_rasters = {}
-
-        if len([*raster_result.rasters.values()]) == 0:
-            log(f"No rasters to download for {job.id} result {raster_result.name}")
-
-        for key, raster in raster_result.rasters.items():
-            file_out_base = f"{result_base_path.name}_{key}"
-
-            if raster.type == results.RasterType.TILED_RASTER:
-                tile_uris = []
-
-                for uri_number, uri in enumerate(raster.tile_uris):
-                    out_file = (
-                        base_output_path.parent / f"{file_out_base}_{uri_number}.tif"
-                    )
-                    download_result = _download_result(
-                        str(uri.uri),
-                        base_output_path.parent / f"{file_out_base}_{uri_number}.tif",
-                        expected_etag=_get_etag(uri),
-                    )
-                    if not download_result:
-                        return None
-                    tile_uris.append(results.URI(uri=out_file))
-
-                raster.tile_uris = tile_uris
-
-                vrt_file = base_output_path.parent / f"{file_out_base}.vrt"
-                _get_raster_vrt(
-                    tiles=[str(uri.uri) for uri in tile_uris],
-                    out_file=vrt_file,
-                )
-                out_rasters[key] = results.TiledRaster(
-                    tile_uris=tile_uris,
-                    bands=raster.bands,
-                    datatype=raster.datatype,
-                    filetype=raster.filetype,
-                    uri=results.URI(uri=vrt_file),
-                    type=results.RasterType.TILED_RASTER,
-                )
-            else:
-                out_file = base_output_path.parent / f"{file_out_base}.tif"
-                download_result = _download_result(
-                    str(raster.uri.uri),
-                    out_file,
-                    expected_etag=_get_etag(raster.uri),
-                )
-                if not download_result:
-                    return None
-                raster_uri = results.URI(uri=out_file)
-                raster.uri = raster_uri
-                out_rasters[key] = results.Raster(
-                    uri=raster_uri,
-                    bands=raster.bands,
-                    datatype=raster.datatype,
-                    filetype=raster.filetype,
-                    type=results.RasterType.ONE_FILE_RASTER,
-                )
-
-        raster_result.rasters = out_rasters
-
-        # Setup the main uri. This could be a vrt (if raster_result.rasters
-        # has more than one Raster, or if it has one or more TiledRasters)
-
-        if len(raster_result.rasters) > 1 or (
-            len(raster_result.rasters) == 1
-            and [*raster_result.rasters.values()][0].type
-            == results.RasterType.TILED_RASTER
-        ):
-            vrt_file = base_output_path.parent / f"{result_base_path.name}.vrt"
-            main_raster_file_paths = [raster.uri.uri for raster in out_rasters.values()]
-            all_band_names = [
-                b.metadata.get("gee_band_name") or b.name
-                for raster in out_rasters.values()
-                for b in raster.bands
-            ]
-            combine_all_bands_into_vrt(
-                main_raster_file_paths, vrt_file, band_names=all_band_names
-            )
-            raster_result.uri = results.URI(uri=vrt_file)
-        else:
-            raster_result.uri = [*raster_result.rasters.values()][0].uri
-
-        _set_results_extents_raster(raster_result, job)
-
-        log(f"raster_result.uri in download function is {raster_result.uri!r}")
-        return raster_result.uri
-
-    def _download_vector_results(
-        self, job: Job, vector_result: VectorResults
-    ) -> typing.Optional[results.URI]:
-        """Download vector results (GeoJSON, GeoPackage, etc.) from cloud storage."""
-        if vector_result.uri is None or vector_result.uri.uri is None:
-            log(
-                f"No URI to download for vector result {vector_result.name} in job {job.id}"
-            )
-            return None
-
-        source_uri = str(vector_result.uri.uri)
-
-        # Check if this is already a local file (not a URL)
-        if not source_uri.startswith(("http://", "https://", "/vsi")):
-            # Already local, just return the existing URI
-            log(f"Vector result {vector_result.name} already local: {source_uri}")
-            return vector_result.uri
-
-        base_output_path = self.get_downloaded_dataset_base_file_path(job)
-        # Determine file extension from source URI
-        if source_uri.endswith(".gpkg"):
-            ext = ".gpkg"
-        elif source_uri.endswith(".geojson"):
-            ext = ".geojson"
-        else:
-            # Default to gpkg
-            ext = ".gpkg"
-
-        out_file = (
-            base_output_path.parent
-            / f"{base_output_path.name}_{vector_result.name}{ext}"
-        )
-
-        download_success = _download_result(
-            source_uri, out_file, expected_etag=_get_etag(vector_result.uri)
-        )
-        if not download_success:
-            log(
-                f"Failed to download vector result {vector_result.name} for job {job.id}"
-            )
-            return None
-
-        # Update the vector's URI to the downloaded file
-        vector_result.vector.uri = results.URI(uri=out_file)
-
-        _set_results_extents_vector(vector_result, job)
-
-        log(f"vector_result.uri in download function is {vector_result.uri!r}")
-        return vector_result.uri
-
-    def _download_timeseries_table(
-        self, job: Job, result: "results.TimeSeriesTableResult"
-    ) -> typing.Optional[results.URI]:
-        """
-        Plot data already contained in the Job file as such no additional
-        output file.
-        """
-        return None
 
     def _refresh_local_running_jobs(
         self,
@@ -3485,41 +3354,6 @@ def backoff_hdlr(details):
 @backoff.on_predicate(
     backoff.expo, lambda x: x is None, max_tries=5, on_backoff=backoff_hdlr
 )
-def _download_result(
-    url: str,
-    output_path: Path,
-    expected_etag: typing.Optional[results.Etag] = None,
-) -> bool:
-    """Download a file and optionally verify its hash against an expected etag.
-
-    Args:
-        url: URL to download from
-        output_path: Local path to save the file
-        expected_etag: Optional Etag object to verify file integrity. Supports
-            AWS MD5, AWS multipart, GCS MD5, and GCS CRC32C etag types.
-
-    Returns:
-        True if download succeeded and hash verified (if provided), False otherwise.
-    """
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    download_worker = ldmp_download.Download(url, str(output_path))
-    download_worker.start()
-    result = bool(download_worker.get_resp())
-
-    if not result:
-        output_path.unlink(missing_ok=True)
-        return result
-
-    # Verify file integrity if etag was provided
-    if result and expected_etag is not None:
-        if not ldmp_download.verify_file_against_etag(output_path, expected_etag):
-            log(f"File verification failed for {output_path}, deleting...")
-            output_path.unlink(missing_ok=True)
-            return False
-
-    return result
-
-
 def _delete_job_datasets(job: Job):
     if job.results is not None:
         try:

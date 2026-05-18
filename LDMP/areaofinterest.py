@@ -847,7 +847,7 @@ def get_subnational_unit_stubs() -> typing.List[typing.Dict[str, str]]:
         conf.Setting.SUBNATIONAL_BOUNDARY_TYPE
     )
 
-    if boundary_type == "draw":
+    if boundary_type == "file":
         raw = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_DRAWN_UNITS)
         if not raw:
             return []
@@ -856,7 +856,7 @@ def get_subnational_unit_stubs() -> typing.List[typing.Dict[str, str]]:
         except (ValueError, TypeError):
             return []
         return [
-            {"unit_id": f"drawn_{idx}", "unit_name": e.get("name", f"Unit {idx + 1}")}
+            {"unit_id": f"file_{idx}", "unit_name": e.get("name", f"Unit {idx + 1}")}
             for idx, e in enumerate(drawn)
         ]
 
@@ -887,7 +887,7 @@ def prepare_subnational_aois() -> typing.List[SubnationalUnit]:
     Reads SUBNATIONAL_BOUNDARY_TYPE from settings and delegates to the
     appropriate helper:
       * "admin"  – downloads each selected ADM1 region boundary
-      * "draw"   – recreates AOIs from WKT stored in SUBNATIONAL_DRAWN_UNITS
+      * "file"   – recreates AOIs from WKT stored in SUBNATIONAL_DRAWN_UNITS
 
     Returns an empty list (and logs a warning) on misconfiguration; raises
     RuntimeError only when a hard error occurs building an individual AOI.
@@ -900,8 +900,8 @@ def prepare_subnational_aois() -> typing.List[SubnationalUnit]:
         conf.Setting.SUBNATIONAL_BOUNDARY_TYPE
     )
 
-    if boundary_type == "draw":
-        return _subnational_units_from_drawn()
+    if boundary_type == "file":
+        return _subnational_units_from_file()
     else:
         return _subnational_units_from_admin()
 
@@ -984,34 +984,33 @@ def _subnational_units_from_admin() -> typing.List[SubnationalUnit]:
     return units
 
 
-def _subnational_units_from_drawn() -> typing.List[SubnationalUnit]:
-    """Build SubnationalUnits from user-drawn polygons stored as WKT."""
+def _subnational_units_from_file() -> typing.List[SubnationalUnit]:
+    """Build SubnationalUnits from file-loaded features stored as WKT."""
     raw = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_DRAWN_UNITS)
     if not raw:
-        log("No drawn subnational units configured")
+        log("No file-loaded subnational units configured")
         return []
 
     try:
-        drawn: typing.List[typing.Dict[str, str]] = json.loads(raw)
+        entries: typing.List[typing.Dict[str, str]] = json.loads(raw)
     except (ValueError, TypeError):
         log(f"Invalid SUBNATIONAL_DRAWN_UNITS value: {raw!r}")
         return []
 
     units: typing.List[SubnationalUnit] = []
-    for idx, entry in enumerate(drawn):
+    for idx, entry in enumerate(entries):
         unit_name = entry.get("name", f"Unit {idx + 1}")
         wkt = entry.get("wkt", "")
         if not wkt:
-            log(f"Drawn unit {unit_name!r} has no WKT geometry – skipping")
+            log(f"File unit {unit_name!r} has no WKT geometry – skipping")
             continue
 
         geom = qgis.core.QgsGeometry.fromWkt(wkt)
         if geom.isEmpty():
-            log(f"Drawn unit {unit_name!r} has empty geometry – skipping")
+            log(f"File unit {unit_name!r} has empty geometry – skipping")
             continue
 
         geojson = json.loads(geom.asJson())
-        # Wrap in a FeatureCollection so update_from_geojson handles it correctly
         feature_collection = {
             "type": "FeatureCollection",
             "features": [{"type": "Feature", "geometry": geojson}],
@@ -1020,14 +1019,14 @@ def _subnational_units_from_drawn() -> typing.List[SubnationalUnit]:
         try:
             aoi = _make_aoi(feature_collection)
         except Exception as exc:
-            log(f"Failed to build AOI for drawn unit {unit_name!r}: {exc}")
+            log(f"Failed to build AOI for file unit {unit_name!r}: {exc}")
             continue
 
-        unit_id = f"drawn_{idx}"
+        unit_id = f"file_{idx}"
         units.append(SubnationalUnit(unit_id=unit_id, unit_name=unit_name, aoi=aoi))
 
     if not units:
-        log("No subnational units could be built from drawn polygons")
+        log("No subnational units could be built from file")
     return units
 
 

@@ -197,7 +197,7 @@
                <item>
                 <widget class="QRadioButton" name="radio_subnational_draw">
                  <property name="text">
-                  <string>Draw on map</string>
+                  <string>Load from file (GeoJSON / shapefile)</string>
                  </property>
                  <attribute name="buttonGroup">
                   <string notr="true">subnational_type_buttonGroup</string>
@@ -226,9 +226,29 @@
                    <number>0</number>
                   </property>
                   <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_draw_controls">
+                   <widget class="QLabel" name="lbl_subnational_file_hint">
+                    <property name="text">
+                     <string>Load a GeoJSON or shapefile. Each feature becomes one subnational unit. A &quot;name&quot; or &quot;NAME&quot; field is used for unit labels if present.</string>
+                    </property>
+                    <property name="wordWrap">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_file_browse">
                     <item>
-                     <widget class="QPushButton" name="btn_draw_unit">
+                     <widget class="QLineEdit" name="area_subnational_file">
+                      <property name="readOnly">
+                       <bool>true</bool>
+                      </property>
+                      <property name="placeholderText">
+                       <string>No file selected</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btn_browse_subnational_file">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
@@ -236,10 +256,14 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>Draw unit on map</string>
+                       <string>Browse...</string>
                       </property>
                      </widget>
                     </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_file_controls">
                     <item>
                      <widget class="QLabel" name="lbl_drawn_count">
                       <property name="sizePolicy">
@@ -249,7 +273,7 @@
                        </sizepolicy>
                       </property>
                       <property name="text">
-                       <string>No units drawn</string>
+                       <string>No units loaded</string>
                       </property>
                      </widget>
                     </item>
@@ -262,7 +286,7 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>Clear all</string>
+                       <string>Clear</string>
                       </property>
                      </widget>
                     </item>
@@ -283,7 +307,10 @@
                      </size>
                     </property>
                     <property name="toolTip">
-                     <string>Double-click a unit name to rename it.</string>
+                     <string>Select 2 or more features to use as separate subnational units (Ctrl+click to multi-select).</string>
+                    </property>
+                    <property name="selectionMode">
+                     <enum>QAbstractItemView::ExtendedSelection</enum>
                     </property>
                    </widget>
                   </item>

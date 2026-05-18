@@ -12,6 +12,7 @@
 """
 
 # pylint: disable=import-error
+import hashlib
 import json
 import typing
 import weakref
@@ -26,7 +27,7 @@ from te_schemas.algorithms import ExecutionScript
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
 
-from . import conf, lc_setup
+from . import areaofinterest, conf, download, lc_setup
 from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import ldn
@@ -2440,8 +2441,14 @@ class DlgCalculateLDNSummaryTableAdmin(
         )
         self.toggle_pop_options_progress()
         self.changed_region.connect(self.populate_combos)
+        self.changed_region.connect(self._on_region_changed)
 
         self.extra_progress_boxes = dict()
+        self._subnational_trans_matrix_widgets: typing.Dict[
+            str, lc_setup.LCDefineDegradationWidget
+        ] = {}
+        self._prepared_subnational_units_cache = None
+        self._prepared_subnational_units_cache_key = None
 
     def populate_combos(self):
         for combo in self.combo_boxes.values():
@@ -2451,6 +2458,239 @@ class DlgCalculateLDNSummaryTableAdmin(
         super().showEvent(event)
         self.populate_combos()
         self.toggle_progress_period()
+        QtCore.QTimer.singleShot(0, self._rebuild_subnational_trans_matrix_tabs)
+
+    def _on_region_changed(self):
+        self._invalidate_subnational_cache()
+        if self.isVisible():
+            self._rebuild_subnational_trans_matrix_tabs()
+
+    def _invalidate_subnational_cache(self):
+        self._prepared_subnational_units_cache = None
+        self._prepared_subnational_units_cache_key = None
+
+    def _get_subnational_disk_cache_dir(self) -> Path:
+        base_dir = Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR))
+        cache_dir = base_dir / "cache" / "subnational_units"
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        return cache_dir
+
+    def _get_subnational_disk_cache_path(self, cache_key) -> Path:
+        cache_key_json = json.dumps(cache_key, sort_keys=True, ensure_ascii=False)
+        cache_hash = hashlib.sha256(cache_key_json.encode("utf-8")).hexdigest()
+        return self._get_subnational_disk_cache_dir() / f"{cache_hash}.json"
+
+    def _serialize_subnational_units(self, units):
+        return [
+            {
+                "unit_id": unit.unit_id,
+                "unit_name": unit.unit_name,
+                "geojson": unit.aoi.get_geojson(),
+            }
+            for unit in units
+        ]
+
+    def _deserialize_subnational_units(self, raw_units):
+        units = []
+        for raw_unit in raw_units:
+            unit_id = raw_unit.get("unit_id")
+            unit_name = raw_unit.get("unit_name")
+            geojson = raw_unit.get("geojson")
+            if not unit_id or not unit_name or not geojson:
+                continue
+            try:
+                aoi = areaofinterest._make_aoi(geojson)
+            except Exception as exc:
+                log(
+                    f"Failed to restore cached subnational unit "
+                    f"{unit_name!r} ({unit_id}): {exc}"
+                )
+                return None
+            units.append(
+                areaofinterest.SubnationalUnit(
+                    unit_id=unit_id,
+                    unit_name=unit_name,
+                    aoi=aoi,
+                )
+            )
+        return units
+
+    def _load_prepared_subnational_units_from_disk(self, cache_key):
+        cache_path = self._get_subnational_disk_cache_path(cache_key)
+        if not cache_path.exists():
+            return None
+
+        try:
+            raw_payload = json.loads(cache_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError, TypeError) as exc:
+            log(f"Failed to read subnational cache {cache_path}: {exc}")
+            return None
+
+        if not isinstance(raw_payload, dict):
+            return None
+
+        if raw_payload.get("cache_key") != list(cache_key):
+            return None
+
+        raw_units = raw_payload.get("units")
+        if not isinstance(raw_units, list):
+            return None
+
+        units = self._deserialize_subnational_units(raw_units)
+        if units is not None:
+            log(f"Loaded prepared subnational units from cache {cache_path}")
+        return units
+
+    def _save_prepared_subnational_units_to_disk(self, cache_key, units):
+        cache_path = self._get_subnational_disk_cache_path(cache_key)
+        payload = {
+            "cache_key": list(cache_key),
+            "units": self._serialize_subnational_units(units),
+        }
+        try:
+            cache_path.write_text(
+                json.dumps(payload, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            log(f"Saved prepared subnational units to cache {cache_path}")
+        except (OSError, TypeError, ValueError) as exc:
+            log(f"Failed to write subnational cache {cache_path}: {exc}")
+
+    def _get_subnational_cache_key(self):
+        if not areaofinterest.is_subnational_mode():
+            return None
+
+        settings_manager = conf.settings_manager
+        return (
+            settings_manager.get_value(conf.Setting.SUBNATIONAL_MODE),
+            settings_manager.get_value(conf.Setting.SUBNATIONAL_BOUNDARY_TYPE),
+            settings_manager.get_value(conf.Setting.SUBNATIONAL_REGION_IDS),
+            settings_manager.get_value(conf.Setting.SUBNATIONAL_DRAWN_UNITS),
+            settings_manager.get_value(conf.Setting.COUNTRY_ID),
+            settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED),
+            settings_manager.get_value(conf.Setting.CUSTOM_CRS),
+        )
+
+    def _get_prepared_subnational_units(self):
+        cache_key = self._get_subnational_cache_key()
+        if cache_key is None:
+            self._invalidate_subnational_cache()
+            return []
+
+        if (
+            self._prepared_subnational_units_cache is not None
+            and self._prepared_subnational_units_cache_key == cache_key
+        ):
+            return self._prepared_subnational_units_cache
+
+        units = self._load_prepared_subnational_units_from_disk(cache_key)
+        if units is not None:
+            self._prepared_subnational_units_cache = units
+            self._prepared_subnational_units_cache_key = cache_key
+            return units
+
+        units = areaofinterest.prepare_subnational_aois()
+        self._prepared_subnational_units_cache = units
+        self._prepared_subnational_units_cache_key = cache_key
+        if units:
+            self._save_prepared_subnational_units_to_disk(cache_key, units)
+        return units
+
+    def _get_subnational_unit_descriptors(self):
+        if not areaofinterest.is_subnational_mode():
+            return []
+
+        settings_manager = conf.settings_manager
+        boundary_type = settings_manager.get_value(
+            conf.Setting.SUBNATIONAL_BOUNDARY_TYPE
+        )
+
+        if boundary_type == "file":
+            raw = settings_manager.get_value(conf.Setting.SUBNATIONAL_DRAWN_UNITS)
+            if not raw:
+                return []
+            try:
+                file_units = json.loads(raw)
+            except (ValueError, TypeError):
+                return []
+
+            descriptors = []
+            for idx, entry in enumerate(file_units):
+                descriptors.append(
+                    {
+                        "unit_id": f"file_{idx}",
+                        "unit_name": entry.get("name", f"Unit {idx + 1}"),
+                    }
+                )
+            return descriptors
+
+        raw_ids = settings_manager.get_value(conf.Setting.SUBNATIONAL_REGION_IDS)
+        if not raw_ids:
+            return []
+
+        try:
+            region_ids = json.loads(raw_ids)
+        except (ValueError, TypeError):
+            return []
+
+        country_id = settings_manager.get_value(conf.Setting.COUNTRY_ID)
+        if not country_id:
+            return []
+
+        boundaries = download.get_admin_bounds()
+        country_entry = next(
+            (country for country in boundaries.values() if country.code == country_id),
+            None,
+        )
+        if country_entry is None:
+            return []
+
+        id_to_name = {v: k for k, v in country_entry.level1_regions.items()}
+        return [
+            {"unit_id": region_id, "unit_name": id_to_name.get(region_id, region_id)}
+            for region_id in region_ids
+        ]
+
+    def _rebuild_subnational_trans_matrix_tabs(self):
+        """Show/populate per-unit LC transition matrix tabs when subnational mode is active.
+
+        Skips rebuilding if the unit list has not changed, preserving any edits
+        the user has already made to the matrix widgets.
+        """
+        if not areaofinterest.is_subnational_mode():
+            self.groupBox_subnational_trans_matrix.setVisible(False)
+            return
+
+        unit_descriptors = self._get_subnational_unit_descriptors()
+        if not unit_descriptors:
+            self.groupBox_subnational_trans_matrix.setVisible(False)
+            return
+
+        # Skip the expensive widget rebuild if the unit list is unchanged.
+        new_ids = [u["unit_id"] for u in unit_descriptors]
+        if list(self._subnational_trans_matrix_widgets.keys()) == new_ids:
+            self.groupBox_subnational_trans_matrix.setVisible(True)
+            return
+
+        while self.tab_subnational_trans_matrix.count():
+            self.tab_subnational_trans_matrix.removeTab(0)
+        self._subnational_trans_matrix_widgets = {}
+
+        for unit in unit_descriptors:
+            widget = lc_setup.LCDefineDegradationWidget()
+            self.tab_subnational_trans_matrix.addTab(widget, unit["unit_name"])
+            self._subnational_trans_matrix_widgets[unit["unit_id"]] = widget
+
+        self.groupBox_subnational_trans_matrix.setVisible(True)
+
+    def get_subnational_trans_matrices(
+        self,
+    ) -> typing.Dict[str, LCTransitionDefinitionDeg]:
+        """Return per-unit transition matrices collected from the tab widgets."""
+        return {
+            unit_id: widget.get_trans_matrix_from_widget()
+            for unit_id, widget in self._subnational_trans_matrix_widgets.items()
+        }
 
     def toggle_pop_options_baseline(self):
         if self.radio_population_baseline_bysex.isChecked():
@@ -2903,6 +3143,27 @@ class DlgCalculateLDNSummaryTableAdmin(
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
         }
+
+        if areaofinterest.is_subnational_mode():
+            # Build subnational_units on the main thread — unit AOIs require QGIS
+            # API and must NOT be constructed inside the worker task.
+            units = self._get_prepared_subnational_units()
+            if units:
+                unit_matrices = self.get_subnational_trans_matrices()
+                subnational_units = []
+                for unit in units:
+                    entry = {
+                        "unit_id": unit.unit_id,
+                        "unit_name": unit.unit_name,
+                        "geojson": unit.aoi.get_geojson(),
+                    }
+                    tm = unit_matrices.get(unit.unit_id)
+                    if tm is not None:
+                        entry["trans_matrix"] = LCTransitionDefinitionDeg.Schema().dump(
+                            tm
+                        )
+                    subnational_units.append(entry)
+                params["subnational_units"] = subnational_units
 
         self.close()
 

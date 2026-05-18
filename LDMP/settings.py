@@ -39,7 +39,6 @@ from .constants import TIMEOUT, get_api_url
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils, LCClassInfo, get_default_esa_nesting
 from .logger import log
-from .maptools import SubnationalPolygonMapTool
 from .utils import FileUtils, push_message
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
@@ -470,7 +469,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.vector_file = None
         self.current_cities_key: typing.Dict[str, str] = {}
         self.hide_on_choose_point = True
-        self._subnational_tool: typing.Optional[SubnationalPolygonMapTool] = None
         self._drawn_units: typing.List[typing.Dict[str, str]] = []  # [{name, wkt}]
 
         self.admin_bounds_key = download.get_admin_bounds()
@@ -509,9 +507,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.generate_name_setting
         )
         self.radio_subnational_admin.toggled.connect(self.on_subnational_type_changed)
-        self.btn_draw_unit.clicked.connect(self.start_drawing_unit)
+        self.btn_browse_subnational_file.clicked.connect(self.browse_subnational_file)
         self.btn_clear_drawn.clicked.connect(self.clear_drawn_units)
-        self.list_drawn_units.itemDoubleClicked.connect(self._rename_drawn_unit)
+        self.list_drawn_units.itemSelectionChanged.connect(
+            self._on_file_units_selection_changed
+        )
         self.area_frompoint_point_x.textChanged.connect(self.generate_name_setting)
         self.area_frompoint_point_y.textChanged.connect(self.generate_name_setting)
         self.area_fromfile_file.textChanged.connect(self.generate_name_setting)
@@ -623,7 +623,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         with QtCore.QSignalBlocker(self.checkbox_subnational):
             self.checkbox_subnational.setChecked(bool(subnational_mode))
         boundary_type = settings_manager.get_value(Setting.SUBNATIONAL_BOUNDARY_TYPE)
-        is_draw = boundary_type == "draw"
+        is_draw = boundary_type == "file"
         with QtCore.QSignalBlocker(self.radio_subnational_admin):
             self.radio_subnational_admin.setChecked(not is_draw)
         with QtCore.QSignalBlocker(self.radio_subnational_draw):
@@ -829,77 +829,109 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.frame_subnational_draw.setVisible(not is_admin)
         self.generate_name_setting()
 
-    # ------------------------------------------------------------------
-    # Drawing workflow
-    # ------------------------------------------------------------------
+    def browse_subnational_file(self) -> None:
+        """Open a file dialog and load subnational units from a GeoJSON or shapefile."""
+        from osgeo import ogr
 
-    def start_drawing_unit(self) -> None:
-        """Activate the subnational polygon map tool and hide the dialog."""
-        if self._subnational_tool is None:
-            self._subnational_tool = SubnationalPolygonMapTool(self.canvas)
-            self._subnational_tool.polygon_captured.connect(self._on_polygon_captured)
-
-        self.window().hide()
-        iface.messageBar().pushMessage(
-            self.tr("Subnational units"),
-            self.tr(
-                "Draw a polygon on the map to define a subnational unit. "
-                "Right-click or double-click to finish."
-            ),
-            level=0,
-            duration=0,
+        path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr("Select subnational units file"),
+            "",
+            self.tr("Vector files (*.geojson *.json *.shp);;All files (*)"),
         )
-        self.canvas.setMapTool(self._subnational_tool)
+        if not path:
+            return
 
-    def _on_polygon_captured(self, geom) -> None:
-        """Called when the user finishes drawing a polygon."""
-        # Switch back to pan tool and restore the dialog
-        self.canvas.setMapTool(qgis.gui.QgsMapToolPan(self.canvas))
-        iface.messageBar().clearWidgets()
-        self.window().reset_tab_on_showEvent = False
-        self.window().show()
-        self.window().reset_tab_on_showEvent = True
+        ds = ogr.Open(path)
+        if ds is None:
+            iface.messageBar().pushWarning(
+                self.tr("Error"),
+                self.tr(f"Could not open file: {path}"),
+            )
+            return
 
-        unit_num = len(self._drawn_units) + 1
-        self._drawn_units.append(
-            {"name": self.tr(f"Unit {unit_num}"), "wkt": geom.asWkt()}
+        layer = ds.GetLayer()
+        if layer is None:
+            return
+
+        # Try common field names for unit labels
+        layer_defn = layer.GetLayerDefn()
+        name_candidates = [
+            "name",
+            "NAME",
+            "unit_name",
+            "UNIT_NAME",
+            "ADM1_EN",
+            "ADM1_NAME",
+            "Region",
+            "REGION",
+            "label",
+            "LABEL",
+        ]
+        name_field = next(
+            (f for f in name_candidates if layer_defn.GetFieldIndex(f) >= 0),
+            None,
         )
+
+        units = []
+        for idx, feat in enumerate(layer):
+            geom = feat.GetGeometryRef()
+            if geom is None:
+                continue
+            unit_name = (
+                str(feat.GetField(name_field))
+                if name_field
+                else self.tr(f"Unit {idx + 1}")
+            )
+            units.append({"name": unit_name, "wkt": geom.ExportToWkt()})
+
+        if not units:
+            iface.messageBar().pushWarning(
+                self.tr("Error"),
+                self.tr("No valid features found in the selected file."),
+            )
+            return
+
+        self._drawn_units = units
+        self.area_subnational_file.setText(path)
         self._refresh_drawn_units_list()
         self.generate_name_setting()
 
     def _refresh_drawn_units_list(self) -> None:
         """Repopulate list_drawn_units from self._drawn_units."""
-        self.list_drawn_units.clear()
-        for unit in self._drawn_units:
-            self.list_drawn_units.addItem(unit["name"])
+        with QtCore.QSignalBlocker(self.list_drawn_units):
+            self.list_drawn_units.clear()
+            for unit in self._drawn_units:
+                self.list_drawn_units.addItem(unit["name"])
+            self.list_drawn_units.selectAll()
         count = len(self._drawn_units)
         if count == 0:
-            self.lbl_drawn_count.setText(self.tr("No units drawn"))
+            self.lbl_drawn_count.setText(self.tr("No units loaded"))
         elif count == 1:
-            self.lbl_drawn_count.setText(self.tr("1 unit drawn"))
+            self.lbl_drawn_count.setText(self.tr("1 of 1 units selected"))
         else:
-            self.lbl_drawn_count.setText(self.tr(f"{count} units drawn"))
+            self.lbl_drawn_count.setText(self.tr(f"{count} of {count} units selected"))
+
+    def _on_file_units_selection_changed(self) -> None:
+        """Update the count label when selection changes."""
+        n_selected = len(self.list_drawn_units.selectedItems())
+        n_total = len(self._drawn_units)
+        if n_total == 0:
+            self.lbl_drawn_count.setText(self.tr("No units loaded"))
+        else:
+            self.lbl_drawn_count.setText(
+                self.tr(f"{n_selected} of {n_total} units selected")
+            )
+        self.generate_name_setting()
 
     def clear_drawn_units(self) -> None:
         self._drawn_units.clear()
+        self.area_subnational_file.setText("")
         self._refresh_drawn_units_list()
         self.generate_name_setting()
 
-    def _rename_drawn_unit(self, item: QtWidgets.QListWidgetItem) -> None:
-        """Allow the user to rename a drawn unit by double-clicking it."""
-        row = self.list_drawn_units.row(item)
-        new_name, ok = QtWidgets.QInputDialog.getText(
-            self,
-            self.tr("Rename unit"),
-            self.tr("Unit name:"),
-            text=item.text(),
-        )
-        if ok and new_name.strip():
-            self._drawn_units[row]["name"] = new_name.strip()
-            item.setText(new_name.strip())
-
     def _load_drawn_units(self) -> typing.List[typing.Dict[str, str]]:
-        """Return the saved list of drawn subnational units."""
+        """Return the saved list of file-loaded subnational units."""
         raw = settings_manager.get_value(Setting.SUBNATIONAL_DRAWN_UNITS)
         if not raw:
             return []
@@ -984,8 +1016,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             if self.radioButton_secondLevel_region.isChecked():
                 if self.checkbox_subnational.isChecked():
                     country = self.area_admin_0.currentText().lower().replace(" ", "-")
-                    if self.radio_subnational_draw.isChecked():
-                        n = len(self._drawn_units)
+                    if not self.radio_subnational_admin.isChecked():
+                        n = len(self.list_drawn_units.selectedItems())
                         name = (
                             "{}-subnational-{}units".format(country, n)
                             if n
@@ -1155,7 +1187,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         subnational_mode = self.checkbox_subnational.isChecked()
         settings_manager.write_value(Setting.SUBNATIONAL_MODE, subnational_mode)
-        boundary_type = "draw" if self.radio_subnational_draw.isChecked() else "admin"
+        boundary_type = "file" if self.radio_subnational_draw.isChecked() else "admin"
         settings_manager.write_value(Setting.SUBNATIONAL_BOUNDARY_TYPE, boundary_type)
         if subnational_mode and boundary_type == "admin":
             selected_ids = [
@@ -1168,9 +1200,16 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             )
         else:
             settings_manager.write_value(Setting.SUBNATIONAL_REGION_IDS, "")
-        if subnational_mode and boundary_type == "draw":
+        if subnational_mode and boundary_type == "file":
+            selected_rows = {
+                self.list_drawn_units.row(item)
+                for item in self.list_drawn_units.selectedItems()
+            }
+            selected_units = [
+                u for i, u in enumerate(self._drawn_units) if i in selected_rows
+            ]
             settings_manager.write_value(
-                Setting.SUBNATIONAL_DRAWN_UNITS, json.dumps(self._drawn_units)
+                Setting.SUBNATIONAL_DRAWN_UNITS, json.dumps(selected_units)
             )
         else:
             settings_manager.write_value(Setting.SUBNATIONAL_DRAWN_UNITS, "")

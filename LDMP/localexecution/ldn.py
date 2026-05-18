@@ -1,7 +1,10 @@
+import copy
 import dataclasses
 import enum
 import json
+import logging
 import multiprocessing
+import re
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
@@ -14,9 +17,12 @@ from te_schemas.results import Band as JobBand
 
 from .. import data_io
 from ..jobs.models import Job
+from ..logger import log as qgis_log
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
+
+logger = logging.getLogger(__name__)
 
 
 class PopulationMode(enum.Enum):
@@ -167,9 +173,24 @@ def _get_ld_input_period(
 ) -> LdnInputInfo:
     band_info = data_selection_widget.get_current_band().band_info
 
+    year_initial = band_info.metadata.get(year_initial_field)
+    year_final = band_info.metadata.get(year_final_field)
+
+    if year_initial is None or year_final is None:
+        # Fall back to parsing years from the band name, e.g. "... FWv2 (2000-2015)"
+        match = re.search(r"\((\d{4})[-\u2013](\d{4})\)", band_info.name)
+        if match:
+            year_initial = int(match.group(1))
+            year_final = int(match.group(2))
+
+    if year_initial is None or year_final is None:
+        raise KeyError(
+            f"'{year_initial_field}' not found in metadata for band '{band_info.name}'"
+        )
+
     return {
-        "year_initial": band_info.metadata[year_initial_field],
-        "year_final": band_info.metadata[year_final_field],
+        "year_initial": year_initial,
+        "year_final": year_final,
     }
 
 
@@ -428,15 +449,201 @@ def compute_ldn(
     dataset_output_path: Path,
     progress_callback,
     killed_callback,
-) -> Job:
-    """Calculate final SDG 15.3.1 indicator and save to disk"""
+):
+    """Calculate final SDG 15.3.1 indicator and save to disk.
+
+    When ``ldn_job.params`` contains a ``subnational_units`` key (serialised by
+    the dialog on the main thread), the job is dispatched to
+    :func:`compute_ldn_subnational` which runs the summary separately for each
+    unit.  No QGIS API is called from the worker thread.
+    """
+    if ldn_job.params.get("subnational_units"):
+        return compute_ldn_subnational(
+            ldn_job,
+            job_output_path,
+            dataset_output_path,
+            progress_callback,
+            killed_callback,
+        )
+
+    aoi_geojson = aoi.get_geojson()
+    replay_aoi = AOI(aoi_geojson)
+    n_cpus = max(1, multiprocessing.cpu_count() - 1)
+    summarise_kwargs = {
+        "n_cpus": n_cpus,
+        "killed_callback": killed_callback,
+        "parallel_backend": "thread",
+        "progress_callback": progress_callback,
+    }
+    replay_payload = {
+        "ldn_job": Job.Schema().dump(ldn_job),
+        "aoi_geojson": aoi_geojson,
+        "job_output_path": str(job_output_path),
+        "summarise_kwargs": {
+            "n_cpus": n_cpus,
+            "parallel_backend": "thread",
+            "killed_callback": killed_callback is not None,
+            "progress_callback": progress_callback is not None,
+        },
+    }
+    replay_payload_path = (
+        job_output_path.parent / f"{job_output_path.stem}_replay_payload.json"
+    )
+
+    replay_payload_path.write_text(
+        json.dumps(replay_payload, indent=2, sort_keys=True, default=str) + "\n",
+        encoding="utf-8",
+    )
+    qgis_log(
+        f"Saved summarise_land_degradation replay payload to {replay_payload_path}"
+    )
+
+    logger.info(
+        "summarise_land_degradation replay context:\n%s",
+        json.dumps(replay_payload, indent=2, sort_keys=True, default=str),
+    )
+    logger.info(
+        "summarise_land_degradation replay example:\n%s",
+        "\n".join(
+            [
+                "from pathlib import Path",
+                "from te_algorithms.gdal.land_deg.land_deg import summarise_land_degradation",
+                "from te_schemas.aoi import AOI",
+                "from LDMP.jobs.models import Job",
+                "",
+                f"payload = {json.dumps(replay_payload, indent=2, sort_keys=True, default=str)}",
+                'ldn_job = Job.Schema().load(payload["ldn_job"])',
+                'aoi = AOI(payload["aoi_geojson"])',
+                'job_output_path = Path(payload["job_output_path"])',
+                "result = summarise_land_degradation(",
+                "    ldn_job,",
+                "    aoi,",
+                "    job_output_path,",
+                '    n_cpus=payload["summarise_kwargs"]["n_cpus"],',
+                '    parallel_backend=payload["summarise_kwargs"]["parallel_backend"],',
+                "    killed_callback=None,",
+                "    progress_callback=None,",
+                ")",
+            ]
+        ),
+    )
 
     return summarise_land_degradation(
         ldn_job,
-        AOI(aoi.get_geojson()),
+        replay_aoi,
         job_output_path,
-        n_cpus=max(1, multiprocessing.cpu_count() - 1),
-        killed_callback=killed_callback,
-        parallel_backend="thread",
-        progress_callback=progress_callback,
+        **summarise_kwargs,
     )
+
+
+def compute_ldn_subnational(
+    ldn_job: Job,
+    job_output_path: Path,
+    dataset_output_path: Path,
+    progress_callback,
+    killed_callback,
+) -> List[object]:
+    """Run SDG 15.3.1 computation separately for each subnational unit.
+
+    Unit definitions are read from ``ldn_job.params["subnational_units"]``, a
+    list of dicts serialised by the dialog on the **main thread**::
+
+        {
+            "unit_id":   str,
+            "unit_name": str,
+            "geojson":   FeatureCollection dict  (LDMP AOI.get_geojson()),
+            "trans_matrix": serialised LCTransitionDefinitionDeg or absent,
+        }
+
+    The ``te_schemas.aoi.AOI`` objects are reconstructed here from the GeoJSON —
+    no QGIS API is called from the worker thread.
+
+    Returns a list of per-unit result objects compatible with ``Job.results``.
+    Failed units are logged and skipped.
+    """
+    unit_data_list = ldn_job.params["subnational_units"]
+    n_units = len(unit_data_list)
+
+    # Strip the dispatch key so per-unit calls go through the normal code path.
+    base_params = {k: v for k, v in ldn_job.params.items() if k != "subnational_units"}
+
+    results = []
+
+    for idx, unit_data in enumerate(unit_data_list):
+        unit_id = unit_data["unit_id"]
+        unit_name = unit_data["unit_name"]
+
+        if killed_callback is not None and killed_callback():
+            qgis_log(f"Subnational LDN computation cancelled before unit '{unit_name}'")
+            break
+
+        qgis_log(f"Processing subnational unit {idx + 1}/{n_units}: {unit_name}")
+
+        unit_stem = job_output_path.stem + f"_unit_{unit_id}"
+        unit_output_path = job_output_path.parent / f"{unit_stem}.json"
+
+        # Reconstruct AOI from serialised GeoJSON — pure Python, no QGIS API.
+        unit_aoi = AOI(unit_data["geojson"])
+
+        # Scale the progress callback into this unit's slice of 0–100.
+        unit_progress_cb = None
+        if progress_callback is not None:
+            unit_start = int(100 * idx / n_units)
+            unit_end = int(100 * (idx + 1) / n_units)
+
+            def _make_unit_cb(start, end):
+                def _cb(pct):
+                    progress_callback(start + int((end - start) * pct / 100))
+
+                return _cb
+
+            unit_progress_cb = _make_unit_cb(unit_start, unit_end)
+
+        # Deep-copy base params and inject per-unit trans_matrix if provided.
+        unit_params = copy.deepcopy(base_params)
+        serialised_tm = unit_data.get("trans_matrix")
+        if serialised_tm:
+            tm_json_str = json.dumps(serialised_tm)
+            for period in unit_params.get("periods", []):
+                period_params = period.get("params", period)
+                lc_band = period_params.get("layer_lc_deg_band")
+                if isinstance(lc_band, dict):
+                    lc_band.setdefault("metadata", {})["trans_matrix"] = tm_json_str
+
+        unit_job = copy.copy(ldn_job)
+        unit_job.params = unit_params
+
+        try:
+            result = compute_ldn(
+                unit_job,
+                unit_aoi,
+                unit_output_path,
+                dataset_output_path,
+                unit_progress_cb,
+                killed_callback,
+            )
+
+            unit_results = result if isinstance(result, list) else [result]
+            for unit_result in unit_results:
+                if unit_result is None:
+                    continue
+
+                if hasattr(unit_result, "data"):
+                    unit_result.data = unit_result.data or {}
+                    unit_result.data["subnational_unit"] = {
+                        "unit_id": unit_id,
+                        "unit_name": unit_name,
+                    }
+
+                if hasattr(unit_result, "name") and unit_result.name:
+                    unit_result.name = f"{unit_result.name} ({unit_name})"
+
+                results.append(unit_result)
+        except Exception:
+            logger.exception(
+                "Error computing LDN for subnational unit '%s' (%s) — skipping",
+                unit_name,
+                unit_id,
+            )
+
+    return results

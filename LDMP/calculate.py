@@ -540,6 +540,15 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.aoi = areaofinterest.prepare_area_of_interest()
         if not self.aoi:
             return False
+
+        # In subnational mode, restrict the job to the union of selected unit
+        # boundaries so remote (GEE) and local jobs don't process the whole country.
+        # This is done here — not in prepare_area_of_interest() — so that the
+        # frequent populate() calls in data_io are never slowed down.
+        subnational_union = areaofinterest.prepare_subnational_aoi_union()
+        if subnational_union is not None:
+            self.aoi = subnational_union
+
         ret = self.aoi.bounding_box_gee_geojson()
 
         if not ret:

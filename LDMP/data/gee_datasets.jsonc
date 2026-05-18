@@ -1208,6 +1208,11 @@
       "Description": "A 30m Land Productivity Dynamics (LPD) dataset covering 40 Small Island Developing States (SIDS), computed from Mixed Landsat time series using the FAO-WOCAT v2 (FWv2) algorithm. Designed to monitor land degradation and track progress on SDG 15.3.1 indicators. Baseline period (2000-2015).",
       "Link to Dataset": "https://doi.org/10.5281/zenodo.15276520",
       "GEE Dataset": "projects/apacheta-lpd/assets/LPDmosaics/LPD_FWv2_2000_2015_v1",
+      "Band name": "Land Productivity Dynamics FWv2",
+      "Band metadata": {
+        "year_initial": 2000,
+        "year_final": 2015
+      },
       "Source code": "None available.",
       "License": "CC BY 4.0",
       "License URL": "https://creativecommons.org/licenses/by/4.0/",
@@ -1229,6 +1234,11 @@
       "Description": "A 30m Land Productivity Dynamics (LPD) dataset covering 40 Small Island Developing States (SIDS), computed from Mixed Landsat time series using the FAO-WOCAT v2 (FWv2) algorithm. Designed to monitor land degradation and track progress on SDG 15.3.1 indicators. 1st reporting period (2004-2019).",
       "Link to Dataset": "https://doi.org/10.5281/zenodo.15276520",
       "GEE Dataset": "projects/apacheta-lpd/assets/LPDmosaics/LPD_FWv2_2004_2019_v1",
+      "Band name": "Land Productivity Dynamics FWv2",
+      "Band metadata": {
+        "year_initial": 2004,
+        "year_final": 2019
+      },
       "Source code": "None available.",
       "License": "CC BY 4.0",
       "License URL": "https://creativecommons.org/licenses/by/4.0/",
@@ -1272,6 +1282,11 @@
     "Description": "A 30m Land Productivity Dynamics (LPD) dataset covering 40 Small Island Developing States (SIDS), computed from Mixed Landsat time series using the FAO-WOCAT v2 (FWv2) algorithm. Designed to monitor land degradation and track progress on SDG 15.3.1 indicators. 2nd reporting period (2008-2023).",
     "Link to Dataset": "https://doi.org/10.5281/zenodo.15276520",
     "GEE Dataset": "projects/apacheta-lpd/assets/LPDmosaics/LPD_FWv2_2008_2023_v1",
+    "Band name": "Land Productivity Dynamics FWv2",
+    "Band metadata": {
+      "year_initial": 2008,
+      "year_final": 2023
+    },
     "Source code": "None available.",
     "License": "CC BY 4.0",
     "License URL": "https://creativecommons.org/licenses/by/4.0/",

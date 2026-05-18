@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="es">
 <context>
@@ -1272,7 +1272,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1068"/>
         <source>yyyy</source>
-        <translation>aaaa</translation>
+        <translation>yyyy</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="809"/>
@@ -3252,7 +3252,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="183"/>
         <source>yyyy</source>
-        <translation>aaaa</translation>
+        <translation>yyyy</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="190"/>
@@ -4182,7 +4182,7 @@ Si ha olvidado la contraseña, puede restablecerla.</translation>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="272"/>
         <source>yyyy</source>
-        <translation>aaaa</translation>
+        <translation>yyyy</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="233"/>
@@ -4326,7 +4326,7 @@ Si ha olvidado la contraseña, puede restablecerla.</translation>
     <message>
         <location filename="../gui/land_cover_setup_widget.ui" line="56"/>
         <source>yyyy</source>
-        <translation>aaaa</translation>
+        <translation>yyyy</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget.ui" line="46"/>
@@ -4844,7 +4844,7 @@ Si ha olvidado la contraseña, puede restablecerla.</translation>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="383"/>
         <source>yyyy</source>
-        <translation>aaaa</translation>
+        <translation>yyyy</translation>
     </message>
     <message>
         <location filename="../gui/fragment_progress_period.ui" line="143"/>

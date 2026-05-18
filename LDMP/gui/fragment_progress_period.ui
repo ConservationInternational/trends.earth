@@ -45,7 +45,7 @@
       </date>
      </property>
      <property name="displayFormat">
-      <string>yyyy</string>
+      <string notr="true">yyyy</string>
      </property>
     </widget>
    </item>
@@ -85,7 +85,7 @@
       </date>
      </property>
      <property name="displayFormat">
-      <string>yyyy</string>
+      <string notr="true">yyyy</string>
      </property>
     </widget>
    </item>
@@ -207,7 +207,7 @@
       </date>
      </property>
      <property name="displayFormat">
-      <string>yyyy</string>
+      <string notr="true">yyyy</string>
      </property>
     </widget>
    </item>
@@ -237,7 +237,7 @@
       </date>
      </property>
      <property name="displayFormat">
-      <string>yyyy</string>
+      <string notr="true">yyyy</string>
      </property>
     </widget>
    </item>
@@ -280,7 +280,7 @@
       </date>
      </property>
      <property name="displayFormat">
-      <string>yyyy</string>
+      <string notr="true">yyyy</string>
      </property>
     </widget>
    </item>
@@ -310,7 +310,7 @@
       </date>
      </property>
      <property name="displayFormat">
-      <string>yyyy</string>
+      <string notr="true">yyyy</string>
      </property>
     </widget>
    </item>
@@ -340,7 +340,7 @@
       </date>
      </property>
      <property name="displayFormat">
-      <string>yyyy</string>
+      <string notr="true">yyyy</string>
      </property>
     </widget>
    </item>
@@ -380,7 +380,7 @@
       </date>
      </property>
      <property name="displayFormat">
-      <string>yyyy</string>
+      <string notr="true">yyyy</string>
      </property>
     </widget>
    </item>

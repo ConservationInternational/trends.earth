@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="ar">
 <context>
@@ -4148,7 +4148,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="272"/>
         <source>yyyy</source>
-        <translation>س س س س</translation>
+        <translation>yyyy</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="233"/>

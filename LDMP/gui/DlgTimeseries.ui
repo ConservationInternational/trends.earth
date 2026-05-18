@@ -200,7 +200,7 @@
          </date>
         </property>
         <property name="displayFormat">
-         <string>yyyy</string>
+         <string notr="true">yyyy</string>
         </property>
         <property name="date">
          <date>
@@ -269,7 +269,7 @@
          </date>
         </property>
         <property name="displayFormat">
-         <string>yyyy</string>
+         <string notr="true">yyyy</string>
         </property>
         <property name="date">
          <date>

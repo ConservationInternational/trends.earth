@@ -22,7 +22,6 @@ import threading
 import typing
 from pathlib import Path
 
-from ..constants import FAO_WOCAT_FWV2_BAND_NAME
 from ..logger import log
 
 logger = logging.getLogger(__name__)
@@ -780,8 +779,7 @@ class JobCache:
                                         ld_conf.JRC_LPD_BAND_NAME: ProductivityMode.JRC_5_CLASS_LPD.value,
                                         ld_conf.TE_LPD_BAND_NAME: ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value,
                                         ld_conf.CUSTOM_LPD_BAND_NAME: ProductivityMode.CUSTOM_5_CLASS_LPD.value,
-                                        # FWv2 pre-computed LPD
-                                        FAO_WOCAT_FWV2_BAND_NAME: fao_wocat_lpd,
+                                        ld_conf.FWV2_LPD_BAND_NAME: ProductivityMode.FWV2_5_CLASS_LPD.value,
                                     }
                                     if name in _PROD_MODE_FOR_BAND:
                                         return _PROD_MODE_FOR_BAND[name]

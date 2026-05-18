@@ -48,7 +48,7 @@ from .areaofinterest import (
     try_get_aoi_geometry,
     try_prepare_area_of_interest,
 )
-from .constants import FAO_WOCAT_FWV2_BAND_NAMES
+from .constants import FAO_WOCAT_FWV2_BAND_NAME
 from .jobs.manager import job_manager, set_results_extents, update_uris_if_needed
 from .jobs.models import Job
 from .logger import log
@@ -2214,10 +2214,7 @@ PROD_MODE_FOR_BAND = {
     ld_conf.TE_LPD_BAND_NAME: ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value,
     ld_conf.CUSTOM_LPD_BAND_NAME: ProductivityMode.CUSTOM_5_CLASS_LPD.value,
     # FWv2 pre-computed
-    **{
-        name: ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-        for name in FAO_WOCAT_FWV2_BAND_NAMES
-    },
+    FAO_WOCAT_FWV2_BAND_NAME: ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
 }
 
 

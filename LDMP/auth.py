@@ -218,10 +218,30 @@ def remove_current_auth_config(auth_setup):
 
 
 def get_auth_config(auth_setup, authConfigId=None, warn=True):
+    """Retrieve authentication configuration from QGIS Auth Manager.
+
+    Args:
+        auth_setup: Authentication setup configuration
+        authConfigId: Optional auth config ID, retrieved from settings if not provided
+        warn: Whether to show warning messages
+
+    Returns:
+        QgsAuthMethodConfig object or None if not found/invalid
+    """
+
     def _warn(msg: str):
         """Push a critical message only if 'warn' is True, thread-safe."""
         if warn:
             _push_critical("Trends.Earth", msg)
+
+    # Thread safety check - authManager can only be accessed from main thread
+    if QtCore.QThread.currentThread() != QtCore.QCoreApplication.instance().thread():
+        log(
+            f"ERROR: get_auth_config() for {auth_setup.name} called from background thread. "
+            "QgsApplication.authManager() is not thread-safe. Returning None.",
+            level=2,
+        )
+        return None
 
     if not authConfigId:
         # not set then retrieve from config if set

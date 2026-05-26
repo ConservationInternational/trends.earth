@@ -425,6 +425,13 @@ class APIClient(QtCore.QObject):
         self.url = url
         self.timeout = timeout
         self._login_mutex = QtCore.QMutex()
+        # In-memory cache for tokens to avoid authManager access from background threads
+        self._cached_access_token = None
+        self._cached_refresh_token = None
+        # In-memory cache for credentials to avoid authManager access from background threads
+        self._cached_username = None
+        self._cached_password = None
+        self._cached_auth_config_id = None
 
     def _decode_jwt_payload(self, token):
         """Decode JWT payload to extract expiration time"""
@@ -467,14 +474,43 @@ class APIClient(QtCore.QObject):
 
     def _store_tokens(self, access_token, refresh_token=None):
         """Store access and refresh tokens using QGIS Auth Manager (encrypted)."""
+        # Update in-memory cache first
+        self._cached_access_token = access_token
+        self._cached_refresh_token = refresh_token
+        # Then store in authManager (safe to call from main thread)
         auth.store_jwt_tokens(access_token, refresh_token)
 
     def _get_stored_tokens(self):
-        """Retrieve stored access and refresh tokens from QGIS Auth Manager."""
-        return auth.get_jwt_tokens()
+        """Retrieve stored access and refresh tokens.
+
+        Uses in-memory cache if available (safe for background threads),
+        otherwise retrieves from QGIS Auth Manager (main thread only).
+        """
+        # If we have cached tokens, use them (safe from any thread)
+        if self._cached_access_token is not None:
+            return self._cached_access_token, self._cached_refresh_token
+
+        # Otherwise, retrieve from authManager (only safe from main thread)
+        # The auth.get_jwt_tokens() function has thread safety check built in
+        access_token, refresh_token = auth.get_jwt_tokens()
+
+        # Cache the tokens if we got them successfully
+        if access_token is not None:
+            self._cached_access_token = access_token
+            self._cached_refresh_token = refresh_token
+
+        return access_token, refresh_token
 
     def _clear_stored_tokens(self):
-        """Clear stored tokens from QGIS Auth Manager."""
+        """Clear stored tokens from QGIS Auth Manager and in-memory cache."""
+        # Clear in-memory token cache
+        self._cached_access_token = None
+        self._cached_refresh_token = None
+        # Clear in-memory credential cache
+        self._cached_username = None
+        self._cached_password = None
+        self._cached_auth_config_id = None
+        # Clear from authManager
         auth.clear_jwt_tokens()
 
     def _refresh_access_token(self, refresh_token):
@@ -544,22 +580,38 @@ class APIClient(QtCore.QObject):
                 log("Token refresh failed, clearing stored tokens and logging in fresh")
                 self._clear_stored_tokens()
 
-        # Fall back to fresh login
-        authConfig = auth.get_auth_config(
-            auth.TE_API_AUTH_SETUP, authConfigId=authConfigId
-        )
-
-        if not authConfig:
-            log("API unable to login - no auth configuration found")
-            error_message = tr_api.tr(
-                "No login credentials configured. "
-                "Please set up your username and password in Trends.Earth settings."
+        # Fall back to fresh login - check cache first to avoid authManager from background threads
+        if (
+            self._cached_username
+            and self._cached_password
+            and (authConfigId is None or authConfigId == self._cached_auth_config_id)
+        ):
+            # Use cached credentials (safe from any thread)
+            username = self._cached_username
+            password = self._cached_password
+            log("Using cached credentials for fresh login")
+        else:
+            # Need to retrieve credentials from authManager (main thread only)
+            authConfig = auth.get_auth_config(
+                auth.TE_API_AUTH_SETUP, authConfigId=authConfigId
             )
-            self.authentication_failed.emit(error_message)
-            return None
 
-        username = authConfig.config("username")
-        password = authConfig.config("password")
+            if not authConfig:
+                log("API unable to login - no auth configuration found")
+                error_message = tr_api.tr(
+                    "No login credentials configured. "
+                    "Please set up your username and password in Trends.Earth settings."
+                )
+                self.authentication_failed.emit(error_message)
+                return None
+
+            username = authConfig.config("username")
+            password = authConfig.config("password")
+
+            # Cache credentials for future use (including from background threads)
+            self._cached_username = username
+            self._cached_password = password
+            self._cached_auth_config_id = authConfigId
 
         if not username or not password:
             log(

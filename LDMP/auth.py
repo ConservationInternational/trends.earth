@@ -92,6 +92,15 @@ def get_jwt_tokens():
     Returns:
         Tuple of (access_token, refresh_token), either may be None.
     """
+    # Thread safety check - authManager can only be accessed from main thread
+    if QtCore.QThread.currentThread() != QtCore.QCoreApplication.instance().thread():
+        log(
+            "ERROR: get_jwt_tokens() called from background thread. "
+            "QgsApplication.authManager() is not thread-safe. Returning None.",
+            level=2,
+        )
+        return None, None
+
     config_id = QtCore.QSettings().value(_TOKEN_AUTH_CONFIG_SETTINGS_KEY, None)
     if not config_id:
         return None, None

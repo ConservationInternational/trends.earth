@@ -117,16 +117,26 @@ def update_uris_if_needed(job: Job, job_path):
     # Handle both single results and list of results
     results_list = job._get_results_list() if job.results else []
     for result in results_list:
-        if (
+        # For RasterResults, always call update_uris as URIs are in the rasters dict
+        if hasattr(result, "rasters"):
+            result.update_uris(job_path)
+        elif (
             hasattr(result, "uri")
             and result.uri
             and not is_gdal_vsi_path(result.uri.uri)  # ignore gdal virtual fs
-            and (not result.uri.uri.is_absolute() or not result.uri.uri.exists())
         ):
-            # If the path doesn't exist, but the filename does exist in the
-            # same folder as the job, the below function will assume that is what
-            # is meant
-            result.update_uris(job_path)
+            # For FileResults and VectorResults, check if URI needs updating
+            # Wrap in try-except to handle invalid paths (e.g., Linux paths on Windows)
+            try:
+                path_needs_update = (
+                    not result.uri.uri.is_absolute() or not result.uri.uri.exists()
+                )
+            except (OSError, ValueError):
+                # Path validation failed (e.g., Linux path on Windows)
+                path_needs_update = True
+
+            if path_needs_update:
+                result.update_uris(job_path)
 
 
 def _get_extent_tuple_raster(path):

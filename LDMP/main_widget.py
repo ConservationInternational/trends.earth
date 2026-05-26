@@ -721,17 +721,75 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         """Create a widget for displaying a single news item."""
         from .news import open_news_link
 
-        # Style colors based on news type (bg_color, border_color, text_color)
-        style_colors = {
-            "announcement": ("#e3f2fd", "#2196f3", "#1565c0"),
-            "warning": ("#fff3e0", "#ff9800", "#e65100"),
-            "release": ("#e8f5e9", "#4caf50", "#2e7d32"),
-            "tip": ("#f3e5f5", "#9c27b0", "#7b1fa2"),
-            "maintenance": ("#eceff1", "#607d8b", "#455a64"),
+        # Detect if using dark theme
+        palette = QtWidgets.QApplication.palette()
+        window_color = palette.color(QtGui.QPalette.Window)
+        text_color_palette = palette.color(QtGui.QPalette.WindowText)
+
+        window_lum = (
+            0.299 * window_color.red()
+            + 0.587 * window_color.green()
+            + 0.114 * window_color.blue()
+        ) / 255
+        text_lum = (
+            0.299 * text_color_palette.red()
+            + 0.587 * text_color_palette.green()
+            + 0.114 * text_color_palette.blue()
+        ) / 255
+
+        is_dark = window_lum < 0.5 or text_lum > 0.5
+
+        # Style colors based on news type and theme
+        # Format: (light_bg, light_border, light_text, dark_bg, dark_border, dark_text)
+        style_colors_map = {
+            "announcement": (
+                "#e3f2fd",
+                "#2196f3",
+                "#1565c0",  # Light theme
+                "#2d2d2d",
+                "#555555",
+                "#ffffff",  # Dark theme - dark gray bg, white text
+            ),
+            "warning": (
+                "#fff3e0",
+                "#ff9800",
+                "#e65100",  # Light theme
+                "#2d2d2d",
+                "#ff9800",
+                "#ffffff",  # Dark theme - dark gray bg, white text, orange border
+            ),
+            "release": (
+                "#e8f5e9",
+                "#4caf50",
+                "#2e7d32",  # Light theme
+                "#2d2d2d",
+                "#4caf50",
+                "#ffffff",  # Dark theme - dark gray bg, white text, green border
+            ),
+            "tip": (
+                "#f3e5f5",
+                "#9c27b0",
+                "#7b1fa2",  # Light theme
+                "#2d2d2d",
+                "#9c27b0",
+                "#ffffff",  # Dark theme - dark gray bg, white text, purple border
+            ),
+            "maintenance": (
+                "#eceff1",
+                "#607d8b",
+                "#455a64",  # Light theme
+                "#2d2d2d",
+                "#607d8b",
+                "#ffffff",  # Dark theme - dark gray bg, white text, blue-gray border
+            ),
         }
-        bg_color, border_color, text_color = style_colors.get(
-            item.news_type, style_colors["announcement"]
-        )
+
+        colors = style_colors_map.get(item.news_type, style_colors_map["announcement"])
+
+        if is_dark:
+            bg_color, border_color, text_color = colors[3], colors[4], colors[5]
+        else:
+            bg_color, border_color, text_color = colors[0], colors[1], colors[2]
 
         # Create frame
         frame = QtWidgets.QFrame()
@@ -739,7 +797,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         frame.setStyleSheet(
             f"QFrame {{ background-color: {bg_color}; "
             f"border: 1px solid {border_color}; border-radius: 4px; }} "
-            f"QFrame QLabel {{ border: none; background: transparent; }}"
+            f"QFrame QLabel {{ border: none; background: transparent; color: {text_color}; }} "
+            f"QFrame QTextBrowser {{ border: none; background: transparent; color: {text_color}; }}"
         )
 
         layout = QtWidgets.QVBoxLayout(frame)

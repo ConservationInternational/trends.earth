@@ -32,11 +32,9 @@ from qgis.core import (
 )
 from qgis.PyQt.QtCore import (
     QCoreApplication,
-    QEventLoop,
     QObject,
     Qt,
     QTemporaryFile,
-    QTimer,
     QUrl,
 )
 from qgis.PyQt.QtGui import QColor
@@ -215,7 +213,7 @@ class BaseChart:
         try:
             figure.write_image(path)
             return True
-        except Exception as exc:
+        except Exception:
             if QtChartRenderer(figure, pw, ph).save(path):
                 return True
             return self._save_image_via_layout(figure, path)

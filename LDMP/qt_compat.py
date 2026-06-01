@@ -99,6 +99,8 @@ def apply_qt_compat():
             "darkRed": Qt.GlobalColor.darkRed,
             "darkGreen": Qt.GlobalColor.darkGreen,
             "darkBlue": Qt.GlobalColor.darkBlue,
+            "darkCyan": Qt.GlobalColor.darkCyan,
+            "darkMagenta": Qt.GlobalColor.darkMagenta,
             "darkGray": Qt.GlobalColor.darkGray,
             "lightGray": Qt.GlobalColor.lightGray,
             "yellow": Qt.GlobalColor.yellow,

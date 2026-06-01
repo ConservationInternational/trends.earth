@@ -30,7 +30,15 @@ from qgis.core import (
     QgsUnitTypes,
     QgsVectorLayer,
 )
-from qgis.PyQt.QtCore import QCoreApplication, QObject, Qt, QTemporaryFile, QUrl
+from qgis.PyQt.QtCore import (
+    QCoreApplication,
+    QEventLoop,
+    QObject,
+    Qt,
+    QTemporaryFile,
+    QTimer,
+    QUrl,
+)
 from qgis.PyQt.QtGui import QColor
 
 try:
@@ -47,6 +55,7 @@ from ..layers import (
     styles,
 )
 from .models import slugify
+from .qt_chart_renderer import QtChartRenderer
 
 
 class tr_reports_charts(QObject):
@@ -59,6 +68,8 @@ tr_reports_charts = tr_reports_charts()
 _PLOTLY_MISSING_MSG = tr_reports_charts.tr(
     "Plotly is not available. Chart export was skipped."
 )
+_PLOTLY_IMAGE_EXPORT_MSG = tr_reports_charts.tr("Chart PNG export failed")
+_HTML_RENDER_WAIT_MS = 1000
 
 # Contains information about a layer and source band_info
 LayerBandInfo = namedtuple("LayerBandInfo", "layer band_info")
@@ -128,6 +139,20 @@ class BaseChart:
 
         return slugify(layer.name())
 
+    def source_band_number(self) -> int:
+        """
+        Returns the original 1-based raster band index for this chart's layer.
+        """
+        if self.layer_band_info is None or self.layer_band_info.layer is None:
+            return -1
+
+        layer = self.layer_band_info.layer
+        band_number = layer.customProperty("sourceBandIndex", -1)
+        try:
+            return int(band_number)
+        except (TypeError, ValueError):
+            return -1
+
     @property
     def preferred_size(self) -> typing.Tuple[int, int]:
         """
@@ -187,6 +212,15 @@ class BaseChart:
         pw, ph = self.preferred_size
         figure.update_layout(width=pw, height=ph)
 
+        try:
+            figure.write_image(path)
+            return True
+        except Exception as exc:
+            if QtChartRenderer(figure, pw, ph).save(path):
+                return True
+            return self._save_image_via_layout(figure, path)
+
+    def _save_image_via_layout(self, figure: typing.Any, path: str) -> bool:
         temp_html_file = QTemporaryFile()
         if not temp_html_file.open():
             return False
@@ -385,7 +419,7 @@ class UniqueValuesPieChart(BaseUniqueValuesChart):
 
         # Save image
         if not self.save_image(fig, output_file_path):
-            return False, [_PLOTLY_MISSING_MSG]
+            return False, [_PLOTLY_IMAGE_EXPORT_MSG]
         self._paths.append(output_file_path)
 
         return True, []
@@ -535,7 +569,7 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
                 xaxis={"tickfont_size": self.font_size_body},
                 yaxis={
                     "title": self.value_axis_label,
-                    "titlefont_size": self.font_size_legend,
+                    "title_font_size": self.font_size_legend,
                     "tickfont_size": self.font_size_body,
                     "tickformat": ",.4r",
                 },
@@ -549,7 +583,7 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
 
             # Save image
             if not self.save_image(fig, output_file_path):
-                return False, [_PLOTLY_MISSING_MSG]
+                return False, [_PLOTLY_IMAGE_EXPORT_MSG]
             self._paths.append(output_file_path)
 
         # Positive/negative bar graph
@@ -614,7 +648,7 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
 
             # Save image
             if not self.save_image(fig, output_file_path):
-                return False, [_PLOTLY_MISSING_MSG]
+                return False, [_PLOTLY_IMAGE_EXPORT_MSG]
             self._paths.append(output_file_path)
 
         return True, []
@@ -711,7 +745,7 @@ class StackedBarChart(BaseChart):
 
         # Save image
         if not self.save_image(fig, output_file_path):
-            return False, [_PLOTLY_MISSING_MSG]
+            return False, [_PLOTLY_IMAGE_EXPORT_MSG]
         self._paths.append(output_file_path)
 
         return True, []
@@ -813,11 +847,15 @@ class LandCoverChartsConfiguration(BaseAlgorithmChartsConfiguration):
 
         sorted_lc_layer_band_infos = dict(sorted(lc_layer_band_infos.items()))
         sorted_band_infos = list(sorted_lc_layer_band_infos.values())
+        if len(sorted_band_infos) < 2:
+            return
+
         init_layer_band_info = sorted_band_infos[0]
         target_layer_band_info = sorted_band_infos[1]
-
-        init_band_num = 5
-        target_band_num = 19
+        init_band_num = self._source_band_number(init_layer_band_info)
+        target_band_num = self._source_band_number(target_layer_band_info)
+        if init_band_num < 1 or target_band_num < 1:
+            return
 
         init_yr_pie_chart = UniqueValuesPieChart(
             layer_band_info=init_layer_band_info, root_output_dir=self._root_output_dir
@@ -847,6 +885,17 @@ class LandCoverChartsConfiguration(BaseAlgorithmChartsConfiguration):
         lc_change_barchart.target_band_number = target_band_num
         self._charts.append(lc_change_barchart)
 
+    @staticmethod
+    def _source_band_number(layer_band_info: LayerBandInfo) -> int:
+        if layer_band_info is None or layer_band_info.layer is None:
+            return -1
+
+        band_number = layer_band_info.layer.customProperty("sourceBandIndex", -1)
+        try:
+            return int(band_number)
+        except (TypeError, ValueError):
+            return -1
+
 
 class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
     """
@@ -874,7 +923,10 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         self._charts.append(pie_chart_summary_area)
 
         # Period
-        init_year, final_year = job_attr.period()
+        period = job_attr.period()
+        if period is None:
+            return
+        init_year, final_year = period
 
         # Init and final year value info collection
         init_lc_value_info_collection = job_attr.land_cover(str(init_year))
@@ -1084,9 +1136,10 @@ class SdgSummaryJobAttributes:
 
     def __init__(self, job: Job):
         self._job = job
+        self._params = self._job.params or {}
         self._params_baseline = {}
 
-        periods = (self._job.params or {}).get("periods", [])
+        periods = self._params.get("periods", [])
         for period in periods:
             if period.get("name") == "baseline":
                 self._params_baseline = period.get("params", {})
@@ -1097,11 +1150,125 @@ class SdgSummaryJobAttributes:
         self._data = self._job.results.data
         self._baseline_results = self._data["report"]["land_condition"]["baseline"]
 
-    def period(self) -> typing.Tuple[int, int]:
-        # Initial year and final year
-        period = self._params_baseline["period"]
+    @staticmethod
+    def _int_year(value) -> typing.Optional[int]:
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return None
 
-        return period["year_initial"], period["year_final"]
+    @classmethod
+    def _year_pair(
+        cls, year_initial: typing.Any, year_final: typing.Any
+    ) -> typing.Optional[typing.Tuple[int, int]]:
+        init_year = cls._int_year(year_initial)
+        final_year = cls._int_year(year_final)
+        if init_year is None or final_year is None:
+            return None
+        return init_year, final_year
+
+    @staticmethod
+    def _sorted_year_keys(values_root: typing.Dict) -> typing.List[int]:
+        years = []
+        for year in values_root.keys():
+            try:
+                years.append(int(year))
+            except (TypeError, ValueError):
+                continue
+        return sorted(set(years))
+
+    def _period_from_params(self) -> typing.Optional[typing.Tuple[int, int]]:
+        period = self._params_baseline.get("period", {})
+        years = self._year_pair(period.get("year_initial"), period.get("year_final"))
+        if years is not None:
+            return years
+
+        years = self._year_pair(
+            self._params.get("year_initial"),
+            self._params.get("year_final"),
+        )
+        if years is not None:
+            return years
+
+        lc_params = self._params.get("land_cover", {})
+        if isinstance(lc_params, dict):
+            years = self._year_pair(
+                lc_params.get("year_initial"),
+                lc_params.get("year_final"),
+            )
+            if years is not None:
+                return years
+
+        return None
+
+    def _period_from_results_data(self) -> typing.Optional[typing.Tuple[int, int]]:
+        period_node = self._baseline_results.get("period_assessment", {})
+
+        lc_node = period_node.get("land_cover", {})
+        lc_areas = lc_node.get("land_cover_areas_by_year", {}).get("values", {})
+        years = self._sorted_year_keys(lc_areas)
+        if len(years) >= 2:
+            return years[0], years[-1]
+
+        soc_node = period_node.get("soil_organic_carbon", {})
+        soc_areas = soc_node.get("soc_stock_by_year", {}).get("values", {})
+        years = self._sorted_year_keys(soc_areas)
+        if len(years) >= 2:
+            return years[0], years[-1]
+
+        return None
+
+    def _period_from_band_metadata(self) -> typing.Optional[typing.Tuple[int, int]]:
+        if self._job.results is None or not hasattr(self._job.results, "get_bands"):
+            return None
+
+        bands = self._job.results.get_bands()
+        preferred_band_names = (
+            "Land cover (degradation)",
+            "Soil organic carbon (degradation)",
+        )
+
+        for preferred_name in preferred_band_names:
+            for band in bands:
+                if band.name != preferred_name:
+                    continue
+                metadata = band.metadata or {}
+                for init_key, final_key in (
+                    ("year_initial", "year_final"),
+                    ("reporting_year_initial", "reporting_year_final"),
+                    ("deg_year_initial", "deg_year_final"),
+                ):
+                    years = self._year_pair(
+                        metadata.get(init_key), metadata.get(final_key)
+                    )
+                    if years is not None:
+                        return years
+
+        thematic_years = []
+        for band in bands:
+            if band.name not in ("Land cover", "Soil organic carbon"):
+                continue
+            year = self._int_year((band.metadata or {}).get("year"))
+            if year is not None:
+                thematic_years.append(year)
+
+        if len(thematic_years) >= 2:
+            thematic_years = sorted(set(thematic_years))
+            return thematic_years[0], thematic_years[-1]
+
+        return None
+
+    def period(self) -> typing.Optional[typing.Tuple[int, int]]:
+        for resolver in (
+            self._period_from_params,
+            self._period_from_results_data,
+            self._period_from_band_metadata,
+        ):
+            years = resolver()
+            if years is not None:
+                return years
+
+        return None
 
     @classmethod
     def summary_indicator_str_value_mapping(cls) -> typing.Dict[str, int]:

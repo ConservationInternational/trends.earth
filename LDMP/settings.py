@@ -774,12 +774,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         is_region = self.radioButton_secondLevel_region.isChecked()
         self.secondLevel_area_admin_1.setEnabled(is_region)
         self.secondLevel_city.setEnabled(not is_region)
-        # Subnational mode only applies to region selection
-        self.checkbox_subnational.setEnabled(is_region)
+        # Subnational mode only applies to region selection; hide entirely when city is active
+        self.checkbox_subnational.setVisible(is_region)
         if not is_region:
             with QtCore.QSignalBlocker(self.checkbox_subnational):
                 self.checkbox_subnational.setChecked(False)
-            self.list_subnational_regions.setVisible(False)
+            self.frame_subnational_modes.setVisible(False)
         self.generate_name_setting()
 
     def _populate_subnational_list(self, country_code: typing.Optional[str]) -> None:

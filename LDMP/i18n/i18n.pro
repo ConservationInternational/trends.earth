@@ -30,6 +30,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgDatasetAdditionalMetadata.ui \
 ../gui/DlgDatasetMetadata.ui \
 ../gui/DlgDownload.ui \
+../gui/DlgDownloadSIDS.ui \
 ../gui/DlgExecutionLogs.ui \
 ../gui/DlgGenerateReport.ui \
 ../gui/DlgJobs.ui \
@@ -91,6 +92,7 @@ SOURCES = ../about.py \
 ../datasets_dialog.py \
 ../download.py \
 ../download_data.py \
+../download_sids.py \
 ../execution_logs_dialog.py \
 ../generate_report_dialog.py \
 ../landpks.py \

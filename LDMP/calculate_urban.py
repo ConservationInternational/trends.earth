@@ -139,6 +139,17 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
         self.spinBox_pct_suburban.valueChanged.connect(self.urban_thresholds_updated)
         self._finish_initialization()
 
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Urban Area Change Metrics</h3>"
+                "<p>SDG 11.3.1 Indicator algorithm for ratio of land consumption"
+                " rate to population growth rate.</p>"
+                "<p><a href='https://docs.trends.earth/en/latest/for_users/features/landconsumption.html'>"
+                "More information</a></p>"
+            )
+        )
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -229,6 +240,17 @@ class DlgCalculateUrbanSummaryTable(
         super().__init__(iface, script, parent)
         self.setupUi(self)
         self._finish_initialization()
+
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Urban Change Summary Table</h3>"
+                "<p>Summary for SDG 11.3.1 Indicator for ratio of land consumption"
+                " rate to population growth rate.</p>"
+                "<p><a href='https://docs.trends.earth/en/latest/for_users/features/landconsumption.html'>"
+                "More information</a></p>"
+            )
+        )
 
     def showEvent(self, event):
         super().showEvent(event)

@@ -1014,6 +1014,20 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self._finish_initialization()
 
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Calculate all SDG 15.3.1 sub-indicators in a single step</h3>"
+                "<p>This algorithm enables the simultaneous calculation of the three"
+                " SDG 15.3.1 sub-indicators (Productivity, Land Cover and Soil Organic"
+                " Carbon) in a single step. This is done using the remote Trends.Earth"
+                " datasets described in each of the individual sub-indicator's"
+                " sections.</p>"
+                "<p><a href='https://docs.trends.earth/en/latest/for_users/features/landdegradation.html'>"
+                "More information</a></p>"
+            )
+        )
+
     def update_timeline_graph(self):
         if self.timeline_dlg:
             self.timeline_dlg.extra_progress_widgets = [
@@ -2443,6 +2457,37 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         self.extra_progress_boxes = dict()
 
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>SDG Indicator 15.3.1</h3>"
+                "<p>As part of the \u20182030 Agenda for Sustainable Development\u2019,"
+                " Sustainable Development Goal (SDG) 15 is to: \u2018Protect, restore"
+                " and promote sustainable use of terrestrial ecosystems, sustainably"
+                " manage forests, combat desertification, and halt and reverse land"
+                " degradation and halt biodiversity loss\u2019. Target 15.3 aims to:"
+                " \u2018By 2030, combat desertification, restore degraded land and soil,"
+                " including land exposed by desertification, drought and floods, and"
+                " strive to achieve a land degradation-neutral world\u2019. In order to"
+                " assess the area degraded, SDG Indicator 15.3.1 uses information from"
+                " 3 sub-indicators:</p>"
+                "<ul>"
+                "<li>Vegetation productivity</li>"
+                "<li>Land cover</li>"
+                "<li>Soil organic carbon</li>"
+                "</ul>"
+                "<p>Trends.Earth allows the user to compute each of these subindicators"
+                " in a spatially explicit way generating raster maps which are then"
+                " integrated into a final SDG 15.3.1 indicator map and produces a table"
+                " result reporting areas potentially improved and degraded for the area"
+                " of analysis.</p>"
+                "<p><a href='http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf'>"
+                "Good Practice Guidance (GPG)</a></p>"
+                "<p><a href='https://docs.trends.earth/en/latest/for_users/features/landdegradation.html'>"
+                "More information on indicator SDG 15.3.1</a></p>"
+            )
+        )
+
     def populate_combos(self):
         for combo in self.combo_boxes.values():
             combo.populate()
@@ -2924,6 +2969,15 @@ class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi)
         self.changed_region.connect(self.combo_dataset_error_recode.populate)
 
         self._finish_initialization()
+
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Recode indicator (false positive/negative)</h3>"
+                "<p>This tool supports recalculating an indicator layer in order"
+                " to correct known errors (false positives or false negatives).</p>"
+            )
+        )
 
     def showEvent(self, event):
         super().showEvent(event)

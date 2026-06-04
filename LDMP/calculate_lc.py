@@ -60,6 +60,36 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         self.advanced_configurations.layout().insertWidget(0, self.lc_define_deg_widget)
         self._finish_initialization()
 
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Land cover</h3>"
+                "<p>To assess changes in land cover users need land cover maps"
+                " covering the study area for the baseline and target years. These"
+                " maps need to be of acceptable accuracy and created in such a way"
+                " which allows for valid comparisons. Trends.Earth uses ESA CCI land"
+                " cover maps as the default dataset, but local maps can also be used."
+                " The indicator is computed as follows:</p>"
+                "<ol>"
+                "<li>Reclassify both land cover maps to the 7 land cover classes"
+                " needed for reporting to the UNCCD (forest, grassland, cropland,"
+                " wetland, artificial area, bare land and water).</li>"
+                "<li>Perform a land cover transition analysis to identify which pixels"
+                " remained in the same land cover class, and which ones changed.</li>"
+                "<li>Based on your local knowledge of the conditions in the study area"
+                " and the land degradation processed occurring there, use the table"
+                " below, in the advanced section, to identify which transitions"
+                " correspond to degradation (- sign), improvement (+ sign), or no"
+                " change in terms of land condition (zero).</li>"
+                "<li>Trends.Earth will combine the information from the land cover maps"
+                " and the table of degradation typologies by land cover transition to"
+                " compute the land cover sub-indicator.</li>"
+                "</ol>"
+                "<p><a href='https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#land-cover'>"
+                "More information on the Land Cover SDG 15.3.1 Sub-indicator</a></p>"
+            )
+        )
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution

@@ -46,6 +46,14 @@ class DlgCalculateRestBiomassData(
         self.first_show = True
         self._finish_initialization()
 
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Biomass Change Estimate</h3>"
+                "<p>Estimate likely change in biomass due to restoration</p>"
+            )
+        )
+
     def showEvent(self, event):
         super().showEvent(event)
 
@@ -111,6 +119,14 @@ class DlgCalculateRestBiomassSummaryTable(
         super().__init__(iface, script, parent)
         self.setupUi(self)
         self._finish_initialization()
+
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Biomass Change Summary</h3>"
+                "<p>Summarize likely change in Biomass due to restoration</p>"
+            )
+        )
 
     def showEvent(self, event):
         super().showEvent(event)

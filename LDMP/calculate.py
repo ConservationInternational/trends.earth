@@ -490,6 +490,18 @@ class DlgCalculateBase(QtWidgets.QDialog):
         qgis.gui.QgsGui.enableAutoGeometryRestore(self)
         self.splitter.setStretchFactor(0, 10)
 
+        if hasattr(self, "alg_help"):
+            self._setup_alg_help()
+
+    def _setup_alg_help(self):
+        """Override in subclasses to set alg_help HTML from self.tr() calls.
+
+        This method is called automatically by _finish_initialization() for any
+        dialog that has an alg_help widget.  Overrides must call
+        self.alg_help.setHtml(...) with all text wrapped in self.tr() so that
+        pylupdate can extract the strings into the .ts translation files.
+        """
+
     def update_current_region(self):
         region = settings_manager.get_value(Setting.AREA_NAME)
         self.region_la.setText(tr_calculate.tr(f"Current region: {region}"))

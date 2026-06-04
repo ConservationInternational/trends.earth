@@ -56,6 +56,29 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
 
         self._finish_initialization()
 
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Default Data for UNCCD Reporting</h3>"
+                "<p>Calculates default datasets used in 2022 UNCCD Reporting Process."
+                " This tool uses the same global datasets and approaches used to"
+                " produce the default national-estimates pre-filled by UNCCD in"
+                " PRAIS 4. Countries wishing to replace the default national"
+                " estimates provided in PRAIS 4 (or to use nationally or locally"
+                " available data or official national boundaries) can do so within"
+                " Trends.Earth using the various tools available under the"
+                ' "Algorithms" tab:</p>'
+                "<ul>"
+                '<li>Use the tools under "SDG 15.3.1 - Land degradation" to produce'
+                " customized estimates of Strategic Objective 1 (land condition)"
+                " and Strategic Objective 2 (population exposed)</li>"
+                '<li>Use the tools under "Drought - Vulnerability and exposure" to'
+                " produce estimates of Strategic Objective 3 (drought"
+                " vulnerability)</li>"
+                "</ul>"
+            )
+        )
+
     def update_time_bounds(self):
         start_year_pop = self.population_dataset["Start year"]
         end_year_pop = self.population_dataset["End year"]
@@ -173,6 +196,14 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
         )
 
         self.changed_region.connect(self.combo_boxes.populate)
+
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Generate UNCCD Report</h3>"
+                "<p>Calculate report on UNCCD Strategic Objectives 1, 2, and 3</p>"
+            )
+        )
 
     def showEvent(self, event):
         super().showEvent(event)

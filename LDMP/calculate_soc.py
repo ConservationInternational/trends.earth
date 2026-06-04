@@ -87,6 +87,58 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         self.fl_radio_custom.toggled.connect(self.fl_radios_toggled)
         self._finish_initialization()
 
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Soil organic carbon</h3>"
+                "<p>The third sub-indicator for monitoring land degradation as part"
+                " of the SDG process quantifies changes in soil organic carbon (SOC)"
+                " over the reporting period. Changes in SOC are particularly difficult"
+                " to assess for several reasons, some of them being the high spatial"
+                " variability of soil properties, the time and cost intensiveness of"
+                " conducting representative soil surveys and the lack of time series"
+                " data on SOC for most regions of the world. To address some of the"
+                " limitations, a combined land cover/SOC method is used in Trends.Earth"
+                " to estimate changes in SOC and identify potentially degraded areas."
+                " The indicator is computed as follows:</p>"
+                "<ol>"
+                "<li>Determine the SOC reference values. Trends.Earth uses SoilGrids"
+                " 250m carbon stocks for the first 30 cm of the soil profile as the"
+                " reference values for calculation (NOTE: SoilGrids uses information"
+                " from a variety of data sources and ranging from many years to produce"
+                " this product, therefore assigning a date for calculations purposes"
+                " could cause inaccuracies in the stock change calculations).</li>"
+                "<li>Reclassify the land cover maps to the 7 land cover classes needed"
+                " for reporting to the UNCCD (forest, grassland, cropland, wetland,"
+                " artificial area, bare land and water). Ideally annual land cover maps"
+                " are preferred, but at least land cover maps for the starting and end"
+                " years are needed.</li>"
+                "<li>To estimate the changes in C stocks for the reporting period C"
+                " conversion coefficients for changes in land use, management and inputs"
+                " are recommended by the IPCC and the UNCCD. However, spatially explicit"
+                " information on management and C inputs is not available for most"
+                " regions. As such, only land use conversion coefficient can be applied"
+                " for estimating changes in C stocks (using land cover as a proxy for"
+                " land use). The coefficients used were the result of a literature review"
+                " performed by the UNCCD and are presented at the Trends.Earth website."
+                " Those coefficients represent the proportional in C stocks after 20"
+                " years of land cover change. Changes in SOC are better studied for land"
+                " cover transitions involving agriculture, and for that reason there is a"
+                " different set of coefficients for each of the main global climatic"
+                " regions: Temperate Dry (f = 0.80), Temperate Moist (f = 0.69),"
+                " Tropical Dry (f = 0.58), Tropical Moist (f = 0.48), and Tropical"
+                " Montane (f = 0.64).</li>"
+                "<li>Compute relative different in SOC between the baseline and the"
+                " target period, areas which experienced a loss in SOC of 10% of more"
+                " during the reporting period will be considered potentially degraded,"
+                " and areas experiencing a gain of 10% or more as potentially"
+                " improved.</li>"
+                "</ol>"
+                "<p><a href='https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon'>"
+                "More information on the Soil Organic Carbon SDG 15.3.1 sub-indicator</a></p>"
+            )
+        )
+
     def showEvent(self, event):
         super().showEvent(event)
 

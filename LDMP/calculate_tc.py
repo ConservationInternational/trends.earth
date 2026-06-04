@@ -148,6 +148,15 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         self.first_show = True
         self._finish_initialization()
 
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Change in Total Carbon</h3>"
+                "<p>Algorithm for calculation above and below ground emissions"
+                " from deforestation</p>"
+            )
+        )
+
     def showEvent(self, event):
         super().showEvent(event)
         self.use_custom_initial.populate()
@@ -620,6 +629,15 @@ class DlgCalculateTCSummaryTable(
         super().__init__(iface, script, parent)
         self.setupUi(self)
         self._finish_initialization()
+
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Carbon Change Summary Table</h3>"
+                "<p>Algorithm for summary of the calculation above and below ground"
+                " emissions from deforestation.</p>"
+            )
+        )
 
     def showEvent(self, event):
         super().showEvent(event)

@@ -433,6 +433,15 @@ class APIClient(QtCore.QObject):
         self._cached_password = None
         self._cached_auth_config_id = None
 
+    def pre_cache_credentials(self):
+        """Read credentials from auth manager and cache them for background thread use."""
+        auth_config = auth.get_auth_config(auth.TE_API_AUTH_SETUP, warn=False)
+        if auth_config:
+            self._cached_username = auth_config.config("username")
+            self._cached_password = auth_config.config("password")
+            self._cached_auth_config_id = auth_config.id()
+            log("Credentials pre-cached for background thread use")
+
     def _decode_jwt_payload(self, token):
         """Decode JWT payload to extract expiration time"""
         try:

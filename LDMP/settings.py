@@ -921,6 +921,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def browse_subnational_file(self) -> None:
         """Open a file dialog and load subnational units from a GeoJSON or shapefile."""
+        from osgeo import ogr
+
         path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
             self.tr("Select subnational units file"),

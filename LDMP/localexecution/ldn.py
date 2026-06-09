@@ -177,6 +177,7 @@ def _get_ld_input_period(
     year_final = band_info.metadata.get(year_final_field)
 
     if year_initial is None or year_final is None:
+        # Fall back to parsing years from the band name, e.g. "... FWv2 (2000-2015)"
         match = re.search(r"\((\d{4})[-\u2013](\d{4})\)", band_info.name)
         if match:
             year_initial = int(match.group(1))
@@ -499,7 +500,6 @@ def compute_ldn_subnational(
         unit_output_path = job_output_path.parent / f"{unit_stem}.json"
 
         unit_aoi = AOI(unit_data["geojson"])
-
         unit_progress_cb = None
         if progress_callback is not None:
             unit_start = int(100 * idx / n_units)
@@ -512,6 +512,7 @@ def compute_ldn_subnational(
                 return _cb
 
             unit_progress_cb = _make_unit_cb(unit_start, unit_end)
+
         unit_params = copy.deepcopy(base_params)
         serialised_tm = unit_data.get("trans_matrix")
         if serialised_tm:

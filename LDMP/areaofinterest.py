@@ -847,7 +847,7 @@ def get_subnational_unit_stubs() -> typing.List[typing.Dict[str, str]]:
         conf.Setting.SUBNATIONAL_BOUNDARY_TYPE
     )
 
-    if boundary_type == "draw":
+    if boundary_type == "file":
         raw = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_DRAWN_UNITS)
         if not raw:
             return []
@@ -856,9 +856,38 @@ def get_subnational_unit_stubs() -> typing.List[typing.Dict[str, str]]:
         except (ValueError, TypeError):
             return []
         return [
-            {"unit_id": f"drawn_{idx}", "unit_name": e.get("name", f"Unit {idx + 1}")}
+            {"unit_id": f"file_{idx}", "unit_name": e.get("name", f"Unit {idx + 1}")}
             for idx, e in enumerate(drawn)
         ]
+
+    if boundary_type == "layer":
+        import qgis.core
+
+        layer_id = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_LAYER_ID)
+        raw_feat_ids = conf.settings_manager.get_value(
+            conf.Setting.SUBNATIONAL_LAYER_FEATURE_IDS
+        )
+        if not layer_id or not raw_feat_ids:
+            return []
+        try:
+            feat_ids = json.loads(raw_feat_ids)
+        except (ValueError, TypeError):
+            return []
+        layer = qgis.core.QgsProject.instance().mapLayer(layer_id)
+        if not layer or not isinstance(layer, qgis.core.QgsVectorLayer):
+            return []
+        name_candidates = ["name", "NAME", "unit_name", "UNIT_NAME", "label", "LABEL"]
+        fields = [f.name() for f in layer.fields()]
+        name_field = next((f for f in name_candidates if f in fields), None)
+        stubs = []
+        for feature in layer.getFeatures(
+            qgis.core.QgsFeatureRequest().setFilterFids(feat_ids)
+        ):
+            unit_name = (
+                str(feature[name_field]) if name_field else f"Feature {feature.id()}"
+            )
+            stubs.append({"unit_id": str(feature.id()), "unit_name": unit_name})
+        return stubs
 
     # Admin mode — names come from the cached boundaries list (no network needed)
     raw_ids = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_REGION_IDS)
@@ -887,7 +916,7 @@ def prepare_subnational_aois() -> typing.List[SubnationalUnit]:
     Reads SUBNATIONAL_BOUNDARY_TYPE from settings and delegates to the
     appropriate helper:
       * "admin"  – downloads each selected ADM1 region boundary
-      * "draw"   – recreates AOIs from WKT stored in SUBNATIONAL_DRAWN_UNITS
+      * "file"   – recreates AOIs from WKT stored in SUBNATIONAL_DRAWN_UNITS
 
     Returns an empty list (and logs a warning) on misconfiguration; raises
     RuntimeError only when a hard error occurs building an individual AOI.
@@ -900,8 +929,10 @@ def prepare_subnational_aois() -> typing.List[SubnationalUnit]:
         conf.Setting.SUBNATIONAL_BOUNDARY_TYPE
     )
 
-    if boundary_type == "draw":
-        return _subnational_units_from_drawn()
+    if boundary_type == "file":
+        return _subnational_units_from_file()
+    elif boundary_type == "layer":
+        return _subnational_units_from_layer()
     else:
         return _subnational_units_from_admin()
 
@@ -955,20 +986,31 @@ def _subnational_units_from_admin() -> typing.List[SubnationalUnit]:
     # Build a reverse map: region_id → region_name
     id_to_name = {v: k for k, v in country_entry.level1_regions.items()}
 
+    # Download the full country ADM1 GeoJSON once — avoids N cache reads and N
+    # server-update checks when multiple regions are selected.
+    log(f"Downloading full ADM1 boundaries for {country_code}")
+    try:
+        full_country_geojson = download.download_boundary_geojson(
+            country_code, admin_level=1
+        )
+    except Exception as exc:
+        log(f"Failed to download ADM1 boundaries for {country_code}: {exc}")
+        return []
+
+    if not full_country_geojson:
+        log(f"Empty ADM1 boundaries returned for {country_code}")
+        return []
+
     units: typing.List[SubnationalUnit] = []
     for region_id in region_ids:
         region_name = id_to_name.get(region_id, region_id)
-        log(f"Downloading boundary for subnational unit: {region_name} ({region_id})")
-        try:
-            geojson = download.download_boundary_geojson(
-                country_code, admin_level=1, shape_id=region_id
-            )
-        except Exception as exc:
-            log(f"Failed to download boundary for {region_name}: {exc}")
-            continue
+        log(f"Extracting boundary for subnational unit: {region_name} ({region_id})")
+        geojson = download._extract_admin_unit_from_geojson(
+            full_country_geojson, region_id
+        )
 
         if not geojson:
-            log(f"Empty boundary returned for {region_name} ({region_id}) – skipping")
+            log(f"Boundary not found for {region_name} ({region_id}) – skipping")
             continue
 
         try:
@@ -984,34 +1026,33 @@ def _subnational_units_from_admin() -> typing.List[SubnationalUnit]:
     return units
 
 
-def _subnational_units_from_drawn() -> typing.List[SubnationalUnit]:
-    """Build SubnationalUnits from user-drawn polygons stored as WKT."""
+def _subnational_units_from_file() -> typing.List[SubnationalUnit]:
+    """Build SubnationalUnits from file-loaded features stored as WKT."""
     raw = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_DRAWN_UNITS)
     if not raw:
-        log("No drawn subnational units configured")
+        log("No file-loaded subnational units configured")
         return []
 
     try:
-        drawn: typing.List[typing.Dict[str, str]] = json.loads(raw)
+        entries: typing.List[typing.Dict[str, str]] = json.loads(raw)
     except (ValueError, TypeError):
         log(f"Invalid SUBNATIONAL_DRAWN_UNITS value: {raw!r}")
         return []
 
     units: typing.List[SubnationalUnit] = []
-    for idx, entry in enumerate(drawn):
+    for idx, entry in enumerate(entries):
         unit_name = entry.get("name", f"Unit {idx + 1}")
         wkt = entry.get("wkt", "")
         if not wkt:
-            log(f"Drawn unit {unit_name!r} has no WKT geometry – skipping")
+            log(f"File unit {unit_name!r} has no WKT geometry – skipping")
             continue
 
         geom = qgis.core.QgsGeometry.fromWkt(wkt)
         if geom.isEmpty():
-            log(f"Drawn unit {unit_name!r} has empty geometry – skipping")
+            log(f"File unit {unit_name!r} has empty geometry – skipping")
             continue
 
         geojson = json.loads(geom.asJson())
-        # Wrap in a FeatureCollection so update_from_geojson handles it correctly
         feature_collection = {
             "type": "FeatureCollection",
             "features": [{"type": "Feature", "geometry": geojson}],
@@ -1020,14 +1061,76 @@ def _subnational_units_from_drawn() -> typing.List[SubnationalUnit]:
         try:
             aoi = _make_aoi(feature_collection)
         except Exception as exc:
-            log(f"Failed to build AOI for drawn unit {unit_name!r}: {exc}")
+            log(f"Failed to build AOI for file unit {unit_name!r}: {exc}")
             continue
 
-        unit_id = f"drawn_{idx}"
+        unit_id = f"file_{idx}"
         units.append(SubnationalUnit(unit_id=unit_id, unit_name=unit_name, aoi=aoi))
 
     if not units:
-        log("No subnational units could be built from drawn polygons")
+        log("No subnational units could be built from file")
+    return units
+
+
+def _subnational_units_from_layer() -> typing.List[SubnationalUnit]:
+    """Build SubnationalUnits from selected features in a QGIS layer."""
+    import qgis.core
+
+    layer_id = conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_LAYER_ID)
+    if not layer_id:
+        log("No QGIS layer ID configured for subnational units")
+        return []
+
+    layer = qgis.core.QgsProject.instance().mapLayer(layer_id)
+    if not layer or not isinstance(layer, qgis.core.QgsVectorLayer):
+        log(f"Layer {layer_id!r} not found or not a vector layer")
+        return []
+
+    raw_feat_ids = conf.settings_manager.get_value(
+        conf.Setting.SUBNATIONAL_LAYER_FEATURE_IDS
+    )
+    if not raw_feat_ids:
+        log("No feature IDs configured for QGIS layer subnational units")
+        return []
+    try:
+        feat_ids = json.loads(raw_feat_ids)
+    except (ValueError, TypeError):
+        log(f"Invalid SUBNATIONAL_LAYER_FEATURE_IDS: {raw_feat_ids!r}")
+        return []
+
+    name_candidates = ["name", "NAME", "unit_name", "UNIT_NAME", "label", "LABEL"]
+    fields = [f.name() for f in layer.fields()]
+    name_field = next((f for f in name_candidates if f in fields), None)
+
+    units: typing.List[SubnationalUnit] = []
+    for feature in layer.getFeatures(
+        qgis.core.QgsFeatureRequest().setFilterFids(feat_ids)
+    ):
+        unit_name = (
+            str(feature[name_field]) if name_field else f"Feature {feature.id()}"
+        )
+        geom = feature.geometry()
+        if geom.isEmpty():
+            log(f"Feature {feature.id()} ({unit_name!r}) has empty geometry – skipping")
+            continue
+
+        geojson = json.loads(geom.asJson())
+        feature_collection = {
+            "type": "FeatureCollection",
+            "features": [{"type": "Feature", "geometry": geojson}],
+        }
+        try:
+            aoi = _make_aoi(feature_collection)
+        except Exception as exc:
+            log(f"Failed to build AOI for layer feature {unit_name!r}: {exc}")
+            continue
+
+        units.append(
+            SubnationalUnit(unit_id=str(feature.id()), unit_name=unit_name, aoi=aoi)
+        )
+
+    if not units:
+        log("No subnational units could be built from QGIS layer features")
     return units
 
 

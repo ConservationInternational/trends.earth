@@ -1,7 +1,10 @@
+import copy
 import dataclasses
 import enum
 import json
+import logging
 import multiprocessing
+import re
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
@@ -14,9 +17,12 @@ from te_schemas.results import Band as JobBand
 
 from .. import data_io
 from ..jobs.models import Job
+from ..logger import log as qgis_log
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
+
+logger = logging.getLogger(__name__)
 
 
 class PopulationMode(enum.Enum):
@@ -167,9 +173,23 @@ def _get_ld_input_period(
 ) -> LdnInputInfo:
     band_info = data_selection_widget.get_current_band().band_info
 
+    year_initial = band_info.metadata.get(year_initial_field)
+    year_final = band_info.metadata.get(year_final_field)
+
+    if year_initial is None or year_final is None:
+        match = re.search(r"\((\d{4})[-\u2013](\d{4})\)", band_info.name)
+        if match:
+            year_initial = int(match.group(1))
+            year_final = int(match.group(2))
+
+    if year_initial is None or year_final is None:
+        raise KeyError(
+            f"'{year_initial_field}' not found in metadata for band '{band_info.name}'"
+        )
+
     return {
-        "year_initial": band_info.metadata[year_initial_field],
-        "year_final": band_info.metadata[year_final_field],
+        "year_initial": year_initial,
+        "year_final": year_final,
     }
 
 
@@ -428,8 +448,16 @@ def compute_ldn(
     dataset_output_path: Path,
     progress_callback,
     killed_callback,
-) -> Job:
-    """Calculate final SDG 15.3.1 indicator and save to disk"""
+):
+    """Calculate final SDG 15.3.1 indicator and save to disk."""
+    if ldn_job.params.get("subnational_units"):
+        return compute_ldn_subnational(
+            ldn_job,
+            job_output_path,
+            dataset_output_path,
+            progress_callback,
+            killed_callback,
+        )
 
     return summarise_land_degradation(
         ldn_job,
@@ -440,3 +468,94 @@ def compute_ldn(
         parallel_backend="thread",
         progress_callback=progress_callback,
     )
+
+
+def compute_ldn_subnational(
+    ldn_job: Job,
+    job_output_path: Path,
+    dataset_output_path: Path,
+    progress_callback,
+    killed_callback,
+) -> List[object]:
+    """Run SDG 15.3.1 computation separately for each subnational unit."""
+    unit_data_list = ldn_job.params["subnational_units"]
+    n_units = len(unit_data_list)
+
+    base_params = {k: v for k, v in ldn_job.params.items() if k != "subnational_units"}
+
+    results = []
+
+    for idx, unit_data in enumerate(unit_data_list):
+        unit_id = unit_data["unit_id"]
+        unit_name = unit_data["unit_name"]
+
+        if killed_callback is not None and killed_callback():
+            qgis_log(f"Subnational LDN computation cancelled before unit '{unit_name}'")
+            break
+
+        qgis_log(f"Processing subnational unit {idx + 1}/{n_units}: {unit_name}")
+
+        unit_stem = job_output_path.stem + f"_unit_{unit_id}"
+        unit_output_path = job_output_path.parent / f"{unit_stem}.json"
+
+        unit_aoi = AOI(unit_data["geojson"])
+
+        unit_progress_cb = None
+        if progress_callback is not None:
+            unit_start = int(100 * idx / n_units)
+            unit_end = int(100 * (idx + 1) / n_units)
+
+            def _make_unit_cb(start, end):
+                def _cb(pct):
+                    progress_callback(start + int((end - start) * pct / 100))
+
+                return _cb
+
+            unit_progress_cb = _make_unit_cb(unit_start, unit_end)
+        unit_params = copy.deepcopy(base_params)
+        serialised_tm = unit_data.get("trans_matrix")
+        if serialised_tm:
+            tm_json_str = json.dumps(serialised_tm)
+            for period in unit_params.get("periods", []):
+                period_params = period.get("params", period)
+                lc_band = period_params.get("layer_lc_deg_band")
+                if isinstance(lc_band, dict):
+                    lc_band.setdefault("metadata", {})["trans_matrix"] = tm_json_str
+
+        unit_job = copy.copy(ldn_job)
+        unit_job.params = unit_params
+
+        try:
+            result = compute_ldn(
+                unit_job,
+                unit_aoi,
+                unit_output_path,
+                dataset_output_path,
+                unit_progress_cb,
+                killed_callback,
+            )
+
+            unit_results = result if isinstance(result, list) else [result]
+            for unit_result in unit_results:
+                if unit_result is None:
+                    continue
+
+                if hasattr(unit_result, "data"):
+                    unit_result.data = unit_result.data or {}
+                    unit_result.data["subnational_unit"] = {
+                        "unit_id": unit_id,
+                        "unit_name": unit_name,
+                    }
+
+                if hasattr(unit_result, "name") and unit_result.name:
+                    unit_result.name = f"{unit_result.name} ({unit_name})"
+
+                results.append(unit_result)
+        except Exception:
+            logger.exception(
+                "Error computing LDN for subnational unit '%s' (%s) — skipping",
+                unit_name,
+                unit_id,
+            )
+
+    return results

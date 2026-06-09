@@ -20,6 +20,7 @@ from pathlib import Path
 
 import qgis.core
 import qgis.gui
+from osgeo import ogr
 from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from qgis.PyQt.QtGui import QIcon
@@ -39,7 +40,6 @@ from .constants import TIMEOUT, get_api_url
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils, LCClassInfo, get_default_esa_nesting
 from .logger import log
-from .maptools import SubnationalPolygonMapTool
 from .utils import FileUtils, push_message
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
@@ -470,7 +470,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.vector_file = None
         self.current_cities_key: typing.Dict[str, str] = {}
         self.hide_on_choose_point = True
-        self._subnational_tool: typing.Optional[SubnationalPolygonMapTool] = None
         self._drawn_units: typing.List[typing.Dict[str, str]] = []  # [{name, wkt}]
 
         self.admin_bounds_key = download.get_admin_bounds()
@@ -509,9 +508,19 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.generate_name_setting
         )
         self.radio_subnational_admin.toggled.connect(self.on_subnational_type_changed)
-        self.btn_draw_unit.clicked.connect(self.start_drawing_unit)
+        self.radio_subnational_draw.toggled.connect(self.on_subnational_type_changed)
+        self.radio_subnational_layer.toggled.connect(self.on_subnational_type_changed)
+        self.btn_browse_subnational_file.clicked.connect(self.browse_subnational_file)
         self.btn_clear_drawn.clicked.connect(self.clear_drawn_units)
-        self.list_drawn_units.itemDoubleClicked.connect(self._rename_drawn_unit)
+        self.list_drawn_units.itemSelectionChanged.connect(
+            self._on_file_units_selection_changed
+        )
+        self.combo_subnational_layer.currentIndexChanged.connect(
+            self._on_subnational_layer_changed
+        )
+        self.list_subnational_layer_features.itemSelectionChanged.connect(
+            self.generate_name_setting
+        )
         self.area_frompoint_point_x.textChanged.connect(self.generate_name_setting)
         self.area_frompoint_point_y.textChanged.connect(self.generate_name_setting)
         self.area_fromfile_file.textChanged.connect(self.generate_name_setting)
@@ -623,16 +632,49 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         with QtCore.QSignalBlocker(self.checkbox_subnational):
             self.checkbox_subnational.setChecked(bool(subnational_mode))
         boundary_type = settings_manager.get_value(Setting.SUBNATIONAL_BOUNDARY_TYPE)
-        is_draw = boundary_type == "draw"
+        is_draw = boundary_type == "file"
+        is_layer = boundary_type == "layer"
         with QtCore.QSignalBlocker(self.radio_subnational_admin):
-            self.radio_subnational_admin.setChecked(not is_draw)
+            self.radio_subnational_admin.setChecked(not is_draw and not is_layer)
         with QtCore.QSignalBlocker(self.radio_subnational_draw):
             self.radio_subnational_draw.setChecked(is_draw)
+        with QtCore.QSignalBlocker(self.radio_subnational_layer):
+            self.radio_subnational_layer.setChecked(is_layer)
         subnational_ids = self._load_subnational_ids()
         self._restore_subnational_selection(subnational_ids)
         self._drawn_units = self._load_drawn_units()
         self._refresh_drawn_units_list()
+        if is_layer:
+            # Pre-populate the combo and select the saved layer (blocked so signals
+            # don't fire _populate_layer_features prematurely) so that the call to
+            # _populate_layer_combo inside on_subnational_toggled picks it up.
+            self._populate_layer_combo()
+            saved_layer_id = settings_manager.get_value(Setting.SUBNATIONAL_LAYER_ID)
+            if saved_layer_id:
+                idx = self.combo_subnational_layer.findData(saved_layer_id)
+                if idx >= 0:
+                    with QtCore.QSignalBlocker(self.combo_subnational_layer):
+                        self.combo_subnational_layer.setCurrentIndex(idx)
+
         self.on_subnational_toggled(bool(subnational_mode))
+
+        # Restore feature selection AFTER on_subnational_toggled, which internally
+        # calls _populate_layer_features and would otherwise clear the selection.
+        if is_layer:
+            saved_feat_ids_raw = settings_manager.get_value(
+                Setting.SUBNATIONAL_LAYER_FEATURE_IDS
+            )
+            if saved_feat_ids_raw:
+                try:
+                    saved_feat_ids = set(json.loads(saved_feat_ids_raw))
+                except (ValueError, TypeError):
+                    saved_feat_ids = set()
+                with QtCore.QSignalBlocker(self.list_subnational_layer_features):
+                    for i in range(self.list_subnational_layer_features.count()):
+                        item = self.list_subnational_layer_features.item(i)
+                        item.setSelected(
+                            item.data(QtCore.Qt.UserRole) in saved_feat_ids
+                        )
 
         buffer_size = settings_manager.get_value(Setting.BUFFER_SIZE)
 
@@ -774,12 +816,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         is_region = self.radioButton_secondLevel_region.isChecked()
         self.secondLevel_area_admin_1.setEnabled(is_region)
         self.secondLevel_city.setEnabled(not is_region)
-        # Subnational mode only applies to region selection
-        self.checkbox_subnational.setEnabled(is_region)
+        self.checkbox_subnational.setVisible(is_region)
         if not is_region:
             with QtCore.QSignalBlocker(self.checkbox_subnational):
                 self.checkbox_subnational.setChecked(False)
-            self.list_subnational_regions.setVisible(False)
+            self.frame_subnational_modes.setVisible(False)
         self.generate_name_setting()
 
     def _populate_subnational_list(self, country_code: typing.Optional[str]) -> None:
@@ -820,86 +861,165 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.secondLevel_area_admin_1.setVisible(not checked)
         if checked:
             self.on_subnational_type_changed()
+        else:
+            self.label_disclaimer.setVisible(True)
         self.generate_name_setting()
 
     def on_subnational_type_changed(self) -> None:
-        """Show either the admin list or the draw frame based on radio selection."""
+        """Show the correct sub-panel based on the active subnational type radio."""
         is_admin = self.radio_subnational_admin.isChecked()
+        is_layer = self.radio_subnational_layer.isChecked()
         self.list_subnational_regions.setVisible(is_admin)
-        self.frame_subnational_draw.setVisible(not is_admin)
+        self.lbl_subnational_admin_hint.setVisible(is_admin)
+        self.frame_subnational_draw.setVisible(not is_admin and not is_layer)
+        self.frame_subnational_layer.setVisible(is_layer)
+        self.label_disclaimer.setVisible(is_admin)
+        if is_layer:
+            self._populate_layer_combo()
         self.generate_name_setting()
 
-    # ------------------------------------------------------------------
-    # Drawing workflow
-    # ------------------------------------------------------------------
+    def _populate_layer_combo(self) -> None:
+        """Fill combo_subnational_layer with vector layers currently loaded in QGIS."""
+        current_id = self.combo_subnational_layer.currentData()
+        with QtCore.QSignalBlocker(self.combo_subnational_layer):
+            self.combo_subnational_layer.clear()
+            for layer in qgis.core.QgsProject.instance().mapLayers().values():
+                if isinstance(layer, qgis.core.QgsVectorLayer):
+                    self.combo_subnational_layer.addItem(layer.name(), layer.id())
+        idx = self.combo_subnational_layer.findData(current_id)
+        self.combo_subnational_layer.setCurrentIndex(max(idx, 0))
+        self._populate_layer_features()
 
-    def start_drawing_unit(self) -> None:
-        """Activate the subnational polygon map tool and hide the dialog."""
-        if self._subnational_tool is None:
-            self._subnational_tool = SubnationalPolygonMapTool(self.canvas)
-            self._subnational_tool.polygon_captured.connect(self._on_polygon_captured)
+    def _populate_layer_features(self) -> None:
+        """Populate list_subnational_layer_features from the selected QGIS layer."""
+        self.list_subnational_layer_features.clear()
+        layer_id = self.combo_subnational_layer.currentData()
+        if not layer_id:
+            return
+        layer = qgis.core.QgsProject.instance().mapLayer(layer_id)
+        if not layer or not isinstance(layer, qgis.core.QgsVectorLayer):
+            return
 
-        self.window().hide()
-        iface.messageBar().pushMessage(
-            self.tr("Subnational units"),
-            self.tr(
-                "Draw a polygon on the map to define a subnational unit. "
-                "Right-click or double-click to finish."
-            ),
-            level=0,
-            duration=0,
+        name_candidates = ["name", "NAME", "unit_name", "UNIT_NAME", "label", "LABEL"]
+        fields = [f.name() for f in layer.fields()]
+        name_field = next((f for f in name_candidates if f in fields), None)
+
+        with QtCore.QSignalBlocker(self.list_subnational_layer_features):
+            for feature in layer.getFeatures():
+                label = (
+                    str(feature[name_field])
+                    if name_field
+                    else f"Feature {feature.id()}"
+                )
+                item = QtWidgets.QListWidgetItem(label)
+                item.setData(QtCore.Qt.UserRole, feature.id())
+                self.list_subnational_layer_features.addItem(item)
+
+    def _on_subnational_layer_changed(self) -> None:
+        self._populate_layer_features()
+        self.generate_name_setting()
+
+    def browse_subnational_file(self) -> None:
+        """Open a file dialog and load subnational units from a GeoJSON or shapefile."""
+        path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr("Select subnational units file"),
+            "",
+            self.tr("Vector files (*.geojson *.json *.shp);;All files (*)"),
         )
-        self.canvas.setMapTool(self._subnational_tool)
+        if not path:
+            return
 
-    def _on_polygon_captured(self, geom) -> None:
-        """Called when the user finishes drawing a polygon."""
-        # Switch back to pan tool and restore the dialog
-        self.canvas.setMapTool(qgis.gui.QgsMapToolPan(self.canvas))
-        iface.messageBar().clearWidgets()
-        self.window().reset_tab_on_showEvent = False
-        self.window().show()
-        self.window().reset_tab_on_showEvent = True
+        ds = ogr.Open(path)
+        if ds is None:
+            iface.messageBar().pushWarning(
+                self.tr("Error"),
+                self.tr(f"Could not open file: {path}"),
+            )
+            return
 
-        unit_num = len(self._drawn_units) + 1
-        self._drawn_units.append(
-            {"name": self.tr(f"Unit {unit_num}"), "wkt": geom.asWkt()}
+        layer = ds.GetLayer()
+        if layer is None:
+            return
+
+        # Try common field names for unit labels
+        layer_defn = layer.GetLayerDefn()
+        name_candidates = [
+            "name",
+            "NAME",
+            "unit_name",
+            "UNIT_NAME",
+            "ADM1_EN",
+            "ADM1_NAME",
+            "Region",
+            "REGION",
+            "label",
+            "LABEL",
+        ]
+        name_field = next(
+            (f for f in name_candidates if layer_defn.GetFieldIndex(f) >= 0),
+            None,
         )
+
+        units = []
+        for idx, feat in enumerate(layer):
+            geom = feat.GetGeometryRef()
+            if geom is None:
+                continue
+            unit_name = (
+                str(feat.GetField(name_field))
+                if name_field
+                else self.tr(f"Unit {idx + 1}")
+            )
+            units.append({"name": unit_name, "wkt": geom.ExportToWkt()})
+
+        if not units:
+            iface.messageBar().pushWarning(
+                self.tr("Error"),
+                self.tr("No valid features found in the selected file."),
+            )
+            return
+
+        self._drawn_units = units
+        self.area_subnational_file.setText(path)
         self._refresh_drawn_units_list()
         self.generate_name_setting()
 
     def _refresh_drawn_units_list(self) -> None:
         """Repopulate list_drawn_units from self._drawn_units."""
-        self.list_drawn_units.clear()
-        for unit in self._drawn_units:
-            self.list_drawn_units.addItem(unit["name"])
+        with QtCore.QSignalBlocker(self.list_drawn_units):
+            self.list_drawn_units.clear()
+            for unit in self._drawn_units:
+                self.list_drawn_units.addItem(unit["name"])
+            self.list_drawn_units.selectAll()
         count = len(self._drawn_units)
         if count == 0:
-            self.lbl_drawn_count.setText(self.tr("No units drawn"))
+            self.lbl_drawn_count.setText(self.tr("No units loaded"))
         elif count == 1:
-            self.lbl_drawn_count.setText(self.tr("1 unit drawn"))
+            self.lbl_drawn_count.setText(self.tr("1 of 1 units selected"))
         else:
-            self.lbl_drawn_count.setText(self.tr(f"{count} units drawn"))
+            self.lbl_drawn_count.setText(self.tr(f"{count} of {count} units selected"))
+
+    def _on_file_units_selection_changed(self) -> None:
+        """Update the count label when selection changes."""
+        n_selected = len(self.list_drawn_units.selectedItems())
+        n_total = len(self._drawn_units)
+        if n_total == 0:
+            self.lbl_drawn_count.setText(self.tr("No units loaded"))
+        else:
+            self.lbl_drawn_count.setText(
+                self.tr(f"{n_selected} of {n_total} units selected")
+            )
+        self.generate_name_setting()
 
     def clear_drawn_units(self) -> None:
         self._drawn_units.clear()
+        self.area_subnational_file.setText("")
         self._refresh_drawn_units_list()
         self.generate_name_setting()
 
-    def _rename_drawn_unit(self, item: QtWidgets.QListWidgetItem) -> None:
-        """Allow the user to rename a drawn unit by double-clicking it."""
-        row = self.list_drawn_units.row(item)
-        new_name, ok = QtWidgets.QInputDialog.getText(
-            self,
-            self.tr("Rename unit"),
-            self.tr("Unit name:"),
-            text=item.text(),
-        )
-        if ok and new_name.strip():
-            self._drawn_units[row]["name"] = new_name.strip()
-            item.setText(new_name.strip())
-
     def _load_drawn_units(self) -> typing.List[typing.Dict[str, str]]:
-        """Return the saved list of drawn subnational units."""
+        """Return the saved list of file-loaded subnational units."""
         raw = settings_manager.get_value(Setting.SUBNATIONAL_DRAWN_UNITS)
         if not raw:
             return []
@@ -984,14 +1104,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             if self.radioButton_secondLevel_region.isChecked():
                 if self.checkbox_subnational.isChecked():
                     country = self.area_admin_0.currentText().lower().replace(" ", "-")
-                    if self.radio_subnational_draw.isChecked():
-                        n = len(self._drawn_units)
-                        name = (
-                            "{}-subnational-{}units".format(country, n)
-                            if n
-                            else "{}-subnational".format(country)
-                        )
-                    else:
+                    if self.radio_subnational_admin.isChecked():
                         selected = [
                             self.list_subnational_regions.item(i).text()
                             for i in range(self.list_subnational_regions.count())
@@ -1003,6 +1116,29 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                             )
                         else:
                             name = "{}-subnational".format(country)
+                    elif self.radio_subnational_layer.isChecked():
+                        layer_name = (
+                            self.combo_subnational_layer.currentText()
+                            .lower()
+                            .replace(" ", "-")
+                        )
+                        selected_features = [
+                            item.text().lower().replace(" ", "-")
+                            for item in self.list_subnational_layer_features.selectedItems()
+                        ]
+                        if selected_features:
+                            name = "{}-{}-{}".format(
+                                country, layer_name, "-".join(selected_features)
+                            )
+                        else:
+                            name = "{}-{}-subnational".format(country, layer_name)
+                    else:
+                        n = len(self.list_drawn_units.selectedItems())
+                        name = (
+                            "{}-subnational-{}units".format(country, n)
+                            if n
+                            else "{}-subnational".format(country)
+                        )
                 else:
                     name = "{}-{}".format(
                         self.area_admin_0.currentText().lower().replace(" ", "-"),
@@ -1155,7 +1291,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         subnational_mode = self.checkbox_subnational.isChecked()
         settings_manager.write_value(Setting.SUBNATIONAL_MODE, subnational_mode)
-        boundary_type = "draw" if self.radio_subnational_draw.isChecked() else "admin"
+        if self.radio_subnational_draw.isChecked():
+            boundary_type = "file"
+        elif self.radio_subnational_layer.isChecked():
+            boundary_type = "layer"
+        else:
+            boundary_type = "admin"
         settings_manager.write_value(Setting.SUBNATIONAL_BOUNDARY_TYPE, boundary_type)
         if subnational_mode and boundary_type == "admin":
             selected_ids = [
@@ -1168,12 +1309,33 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             )
         else:
             settings_manager.write_value(Setting.SUBNATIONAL_REGION_IDS, "")
-        if subnational_mode and boundary_type == "draw":
+        if subnational_mode and boundary_type == "file":
+            selected_rows = {
+                self.list_drawn_units.row(item)
+                for item in self.list_drawn_units.selectedItems()
+            }
+            selected_units = [
+                u for i, u in enumerate(self._drawn_units) if i in selected_rows
+            ]
             settings_manager.write_value(
-                Setting.SUBNATIONAL_DRAWN_UNITS, json.dumps(self._drawn_units)
+                Setting.SUBNATIONAL_DRAWN_UNITS, json.dumps(selected_units)
             )
         else:
             settings_manager.write_value(Setting.SUBNATIONAL_DRAWN_UNITS, "")
+        if subnational_mode and boundary_type == "layer":
+            layer_id = self.combo_subnational_layer.currentData() or ""
+            feature_ids = [
+                self.list_subnational_layer_features.item(i).data(QtCore.Qt.UserRole)
+                for i in range(self.list_subnational_layer_features.count())
+                if self.list_subnational_layer_features.item(i).isSelected()
+            ]
+            settings_manager.write_value(Setting.SUBNATIONAL_LAYER_ID, layer_id)
+            settings_manager.write_value(
+                Setting.SUBNATIONAL_LAYER_FEATURE_IDS, json.dumps(feature_ids)
+            )
+        else:
+            settings_manager.write_value(Setting.SUBNATIONAL_LAYER_ID, "")
+            settings_manager.write_value(Setting.SUBNATIONAL_LAYER_FEATURE_IDS, "")
 
         settings_manager.write_value(Setting.POINT_X, point[0])
         settings_manager.write_value(Setting.POINT_Y, point[1])

@@ -122,6 +122,8 @@ class Setting(enum.Enum):
     SUBNATIONAL_BOUNDARY_TYPE = "region_of_interest/subnational_boundary_type"
     SUBNATIONAL_REGION_IDS = "region_of_interest/subnational_region_ids"
     SUBNATIONAL_DRAWN_UNITS = "region_of_interest/subnational_drawn_units"
+    SUBNATIONAL_LAYER_ID = "region_of_interest/subnational_layer_id"
+    SUBNATIONAL_LAYER_FEATURE_IDS = "region_of_interest/subnational_layer_feature_ids"
     BUFFER_SIZE = "region_of_interest/buffer_size"
     AREA_NAME = "region_of_interest/area_settings_name"
     JOB_FILE_AGE_LIMIT_DAYS = "advanced/deleted_datasets_age_limit"
@@ -192,6 +194,8 @@ class SettingsManager:
         Setting.SUBNATIONAL_BOUNDARY_TYPE: "admin",
         Setting.SUBNATIONAL_REGION_IDS: "",
         Setting.SUBNATIONAL_DRAWN_UNITS: "",
+        Setting.SUBNATIONAL_LAYER_ID: "",
+        Setting.SUBNATIONAL_LAYER_FEATURE_IDS: "",
         Setting.BUFFER_SIZE: 0.0,
         Setting.AREA_NAME: "",
         Setting.USER_ID: None,

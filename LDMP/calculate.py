@@ -540,6 +540,11 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.aoi = areaofinterest.prepare_area_of_interest()
         if not self.aoi:
             return False
+
+        subnational_union = areaofinterest.prepare_subnational_aoi_union()
+        if subnational_union is not None:
+            self.aoi = subnational_union
+
         ret = self.aoi.bounding_box_gee_geojson()
 
         if not ret:

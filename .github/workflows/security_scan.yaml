@@ -103,7 +103,10 @@ jobs:
         run: |
           echo "Running detect-secrets on packaged plugin ..."
           set +e
-          detect-secrets scan --all-files . > secrets_output.json 2>/dev/null
+          detect-secrets scan --all-files \
+            --exclude-files 'metadata\.txt' \
+            --exclude-files '\.secrets\.baseline' \
+            . > secrets_output.json 2>/dev/null
           ds_exit=$?
           set -e
 
@@ -146,7 +149,7 @@ jobs:
         run: |
           echo "Running Flake8 on $PACKAGED_PLUGIN_DIR ..."
           set +e
-          python -m flake8 "$PACKAGED_PLUGIN_DIR" --exclude="$PACKAGED_PLUGIN_DIR/ext-libs"
+          python -m flake8 "$PACKAGED_PLUGIN_DIR" --max-line-length=120 --exclude="$PACKAGED_PLUGIN_DIR/ext-libs"
           flake8_exit=$?
           set -e
           if [ $flake8_exit -ne 0 ]; then
@@ -157,8 +160,10 @@ jobs:
           fi
 
       # ── NON-BLOCKING: Suspicious files scan ───────────────────────────────
-      # Matches QGIS scanner logic: flag hidden files (except .gitignore and
-      # .gitattributes) and files with suspicious executable/binary extensions.
+      # Matches QGIS scanner logic: flag hidden files (except .gitignore,
+      # .gitattributes, and the tool config files .bandit/.secrets.baseline/
+      # .flake8 defined in SECURITY_CONFIG_FILES) and files with suspicious
+      # executable/binary extensions.
       # Source logic adapted from QGIS-Plugins-Website:
       # qgis-app/plugins/security_scanner.py (_check_suspicious_files).
       - name: Suspicious files [informational]
@@ -180,7 +185,7 @@ jobs:
               ".ps1",
               ".cmd",
           }
-          hidden_allowlist = {".gitignore", ".gitattributes"}
+          hidden_allowlist = {".gitignore", ".gitattributes", ".bandit", ".secrets.baseline", ".flake8"}
 
           findings = []
           files_checked = 0

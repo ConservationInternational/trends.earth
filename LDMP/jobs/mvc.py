@@ -317,10 +317,20 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
             pixmap = self._pixmap_cache.get(key)
 
             if pixmap is None or pixmap.isNull():
-                editor_widget = self.createEditor(self.parent, option, index)
+                editor_widget = self.createEditor(None, option, index)
                 editor_widget.setGeometry(option.rect)
                 self._apply_active_palette(editor_widget)
-                pixmap = editor_widget.grab()
+                # Use explicit QImage-backed rendering instead of grab()
+                w, h = option.rect.width(), option.rect.height()
+                if w > 0 and h > 0:
+                    image = QtGui.QImage(w, h, QtGui.QImage.Format.Format_ARGB32)
+                    image.fill(0)
+                    render_painter = QtGui.QPainter(image)
+                    editor_widget.render(render_painter)
+                    render_painter.end()
+                    pixmap = QtGui.QPixmap.fromImage(image)
+                else:
+                    pixmap = QtGui.QPixmap()
                 del editor_widget
                 if not pixmap.isNull():
                     self._pixmap_cache[key] = pixmap

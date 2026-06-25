@@ -22,7 +22,7 @@ from qgis.core import (
     QgsUnitTypes,
     QgsVectorLayer,
 )
-from qgis.PyQt.QtCore import QCoreApplication, QObject, Qt
+from qgis.PyQt.QtCore import QCoreApplication, QObject, Qt, QTemporaryFile
 from qgis.PyQt.QtGui import QColor
 
 from ..jobs.models import Job

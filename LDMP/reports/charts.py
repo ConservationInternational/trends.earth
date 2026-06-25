@@ -5,7 +5,6 @@ import typing
 from collections import namedtuple
 from dataclasses import field
 from enum import Enum
-from pathlib import Path
 
 import numpy as np
 
@@ -18,25 +17,13 @@ from qgis.core import (
     QgsColorRampShader,
     QgsDistanceArea,
     QgsGeometry,
-    QgsLayoutExporter,
-    QgsLayoutFrame,
-    QgsLayoutItemHtml,
     QgsLayoutMeasurement,
     QgsLayoutMeasurementConverter,
-    QgsLayoutPoint,
-    QgsLayoutSize,
-    QgsPrintLayout,
-    QgsProject,
     QgsUnitTypes,
     QgsVectorLayer,
 )
-from qgis.PyQt.QtCore import QCoreApplication, QObject, Qt, QTemporaryFile, QUrl
+from qgis.PyQt.QtCore import QCoreApplication, QObject, Qt, QTemporaryFile
 from qgis.PyQt.QtGui import QColor
-
-try:
-    _EXPORT_SUCCESS = QgsLayoutExporter.Success
-except AttributeError:
-    _EXPORT_SUCCESS = QgsLayoutExporter.ExportResult.Success
 
 from ..jobs.models import Job
 from ..layers import (
@@ -47,6 +34,7 @@ from ..layers import (
     styles,
 )
 from .models import slugify
+from .qt_chart_renderer import QtChartRenderer
 
 
 class tr_reports_charts(QObject):
@@ -59,6 +47,7 @@ tr_reports_charts = tr_reports_charts()
 _PLOTLY_MISSING_MSG = tr_reports_charts.tr(
     "Plotly is not available. Chart export was skipped."
 )
+_PLOTLY_IMAGE_EXPORT_MSG = tr_reports_charts.tr("Chart PNG export failed")
 
 # Contains information about a layer and source band_info
 LayerBandInfo = namedtuple("LayerBandInfo", "layer band_info")
@@ -157,71 +146,20 @@ class BaseChart:
 
         return pix_measurement.length()
 
-    def _chart_layout(self, chart_path: str) -> QgsPrintLayout:
-        # Layout container for exporting chart to image.
-        layout = QgsPrintLayout(QgsProject.instance())
-        layout.initializeDefaults()
-        layout.renderContext().setDpi(self._dpi)
-
-        # Add html item
-        html_item = QgsLayoutItemHtml(layout)
-        frame = QgsLayoutFrame(layout, html_item)
-        html_item.addFrame(frame)
-        frame.attemptMove(QgsLayoutPoint(16, 0, QgsUnitTypes.LayoutMillimeters))
-        frame.attemptResize(QgsLayoutSize(280, 210))
-        layout.addMultiFrame(html_item)
-
-        url = QUrl.fromLocalFile(chart_path)
-        html_item.setUrl(url)
-
-        return layout
-
     def save_image(self, figure: typing.Any, path: str) -> bool:
         """
-        Save the figure as an image file. While plotly supports writing a
-        Figure object to an image, it requires additional libraries which
-        are not shipped with the QGIS Python package, and since we are
-        avoiding additional dependencies, we will use the layout framework
-        for image export.
+        Save the figure as an image file. Tries Plotly's native image export
+        first (requires kaleido), then falls back to native Qt rendering via
+        QtChartRenderer.
         """
         pw, ph = self.preferred_size
         figure.update_layout(width=pw, height=ph)
 
-        temp_html_file = QTemporaryFile()
-        if not temp_html_file.open():
-            return False
-
-        file_name = temp_html_file.fileName()
-        html_path = f"{file_name}.html"
-
         try:
-            # Write figure to html
-            figure.write_html(
-                html_path,
-                auto_open=False,
-                auto_play=False,
-                config={"displayModeBar": False},
-            )
-
-            # Create and export layout
-            layout = self._chart_layout(html_path)
-            exporter = QgsLayoutExporter(layout)
-            settings = QgsLayoutExporter.ImageExportSettings()
-            res = exporter.exportToImage(path, settings)
-
-            if res != _EXPORT_SUCCESS:
-                return False
+            figure.write_image(path)
+            return True
         except Exception:
-            return False
-        finally:
-            try:
-                html_file = Path(html_path)
-                if html_file.exists():
-                    html_file.unlink()
-            except OSError:
-                pass
-
-        return True
+            return QtChartRenderer(figure, pw, ph).save(path)
 
     @staticmethod
     def is_plotly_available() -> bool:
@@ -385,7 +323,7 @@ class UniqueValuesPieChart(BaseUniqueValuesChart):
 
         # Save image
         if not self.save_image(fig, output_file_path):
-            return False, [_PLOTLY_MISSING_MSG]
+            return False, [_PLOTLY_IMAGE_EXPORT_MSG]
         self._paths.append(output_file_path)
 
         return True, []
@@ -535,7 +473,7 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
                 xaxis={"tickfont_size": self.font_size_body},
                 yaxis={
                     "title": self.value_axis_label,
-                    "titlefont_size": self.font_size_legend,
+                    "title_font_size": self.font_size_legend,
                     "tickfont_size": self.font_size_body,
                     "tickformat": ",.4r",
                 },
@@ -549,7 +487,7 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
 
             # Save image
             if not self.save_image(fig, output_file_path):
-                return False, [_PLOTLY_MISSING_MSG]
+                return False, [_PLOTLY_IMAGE_EXPORT_MSG]
             self._paths.append(output_file_path)
 
         # Positive/negative bar graph
@@ -614,7 +552,7 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
 
             # Save image
             if not self.save_image(fig, output_file_path):
-                return False, [_PLOTLY_MISSING_MSG]
+                return False, [_PLOTLY_IMAGE_EXPORT_MSG]
             self._paths.append(output_file_path)
 
         return True, []
@@ -711,7 +649,7 @@ class StackedBarChart(BaseChart):
 
         # Save image
         if not self.save_image(fig, output_file_path):
-            return False, [_PLOTLY_MISSING_MSG]
+            return False, [_PLOTLY_IMAGE_EXPORT_MSG]
         self._paths.append(output_file_path)
 
         return True, []
@@ -813,11 +751,15 @@ class LandCoverChartsConfiguration(BaseAlgorithmChartsConfiguration):
 
         sorted_lc_layer_band_infos = dict(sorted(lc_layer_band_infos.items()))
         sorted_band_infos = list(sorted_lc_layer_band_infos.values())
+        if len(sorted_band_infos) < 2:
+            return
+
         init_layer_band_info = sorted_band_infos[0]
         target_layer_band_info = sorted_band_infos[1]
-
-        init_band_num = 5
-        target_band_num = 19
+        init_band_num = self._source_band_number(init_layer_band_info)
+        target_band_num = self._source_band_number(target_layer_band_info)
+        if init_band_num < 1 or target_band_num < 1:
+            return
 
         init_yr_pie_chart = UniqueValuesPieChart(
             layer_band_info=init_layer_band_info, root_output_dir=self._root_output_dir
@@ -847,6 +789,17 @@ class LandCoverChartsConfiguration(BaseAlgorithmChartsConfiguration):
         lc_change_barchart.target_band_number = target_band_num
         self._charts.append(lc_change_barchart)
 
+    @staticmethod
+    def _source_band_number(layer_band_info: LayerBandInfo) -> int:
+        if layer_band_info is None or layer_band_info.layer is None:
+            return -1
+
+        band_number = layer_band_info.layer.customProperty("sourceBandIndex", -1)
+        try:
+            return int(band_number)
+        except (TypeError, ValueError):
+            return -1
+
 
 class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
     """
@@ -874,7 +827,10 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         self._charts.append(pie_chart_summary_area)
 
         # Period
-        init_year, final_year = job_attr.period()
+        period = job_attr.period()
+        if period is None:
+            return
+        init_year, final_year = period
 
         # Init and final year value info collection
         init_lc_value_info_collection = job_attr.land_cover(str(init_year))
@@ -1084,9 +1040,10 @@ class SdgSummaryJobAttributes:
 
     def __init__(self, job: Job):
         self._job = job
+        self._params = self._job.params or {}
         self._params_baseline = {}
 
-        periods = (self._job.params or {}).get("periods", [])
+        periods = self._params.get("periods", [])
         for period in periods:
             if period.get("name") == "baseline":
                 self._params_baseline = period.get("params", {})
@@ -1095,13 +1052,127 @@ class SdgSummaryJobAttributes:
         if self._job.results is None or self._job.results.data is None:
             raise ValueError(f"Job {getattr(self._job, 'id', '?')} has no results data")
         self._data = self._job.results.data
-        self._baseline_results = self._data["report"]["land_condition"]["baseline"]
+        self._baseline_results = self._data["report"]["land_condition"]["baseline"][
+            "period_assessment"
+        ]
 
-    def period(self) -> typing.Tuple[int, int]:
-        # Initial year and final year
-        period = self._params_baseline["period"]
+    @staticmethod
+    def _int_year(value) -> typing.Optional[int]:
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return None
 
-        return period["year_initial"], period["year_final"]
+    @classmethod
+    def _year_pair(
+        cls, year_initial: typing.Any, year_final: typing.Any
+    ) -> typing.Optional[typing.Tuple[int, int]]:
+        init_year = cls._int_year(year_initial)
+        final_year = cls._int_year(year_final)
+        if init_year is None or final_year is None:
+            return None
+        return init_year, final_year
+
+    @staticmethod
+    def _sorted_year_keys(values_root: typing.Dict) -> typing.List[int]:
+        years = []
+        for year in values_root.keys():
+            try:
+                years.append(int(year))
+            except (TypeError, ValueError):
+                continue
+        return sorted(set(years))
+
+    def _period_from_params(self) -> typing.Optional[typing.Tuple[int, int]]:
+        period = self._params_baseline.get("period", {})
+        years = self._year_pair(period.get("year_initial"), period.get("year_final"))
+        if years is not None:
+            return years
+
+        years = self._year_pair(
+            self._params.get("year_initial"),
+            self._params.get("year_final"),
+        )
+        if years is not None:
+            return years
+
+        lc_params = self._params.get("land_cover", {})
+        if isinstance(lc_params, dict):
+            years = self._year_pair(
+                lc_params.get("year_initial"),
+                lc_params.get("year_final"),
+            )
+            if years is not None:
+                return years
+
+        return None
+
+    def _period_from_results_data(self) -> typing.Optional[typing.Tuple[int, int]]:
+        lc_node = self._baseline_results.get("land_cover", {})
+        lc_areas = lc_node.get("land_cover_areas_by_year", {}).get("values", {})
+        years = self._sorted_year_keys(lc_areas)
+        if len(years) >= 2:
+            return years[0], years[-1]
+
+        soc_node = self._baseline_results.get("soil_organic_carbon", {})
+        soc_areas = soc_node.get("soc_stock_by_year", {}).get("values", {})
+        years = self._sorted_year_keys(soc_areas)
+        if len(years) >= 2:
+            return years[0], years[-1]
+
+        return None
+
+    def _period_from_band_metadata(self) -> typing.Optional[typing.Tuple[int, int]]:
+        if self._job.results is None or not hasattr(self._job.results, "get_bands"):
+            return None
+
+        bands = self._job.results.get_bands()
+        preferred_band_names = (
+            "Land cover (degradation)",
+            "Soil organic carbon (degradation)",
+        )
+
+        for preferred_name in preferred_band_names:
+            for band in bands:
+                if band.name != preferred_name:
+                    continue
+                metadata = band.metadata or {}
+                for init_key, final_key in (
+                    ("year_initial", "year_final"),
+                    ("reporting_year_initial", "reporting_year_final"),
+                    ("deg_year_initial", "deg_year_final"),
+                ):
+                    years = self._year_pair(
+                        metadata.get(init_key), metadata.get(final_key)
+                    )
+                    if years is not None:
+                        return years
+
+        thematic_years = []
+        for band in bands:
+            if band.name not in ("Land cover", "Soil organic carbon"):
+                continue
+            year = self._int_year((band.metadata or {}).get("year"))
+            if year is not None:
+                thematic_years.append(year)
+
+        if len(thematic_years) >= 2:
+            thematic_years = sorted(set(thematic_years))
+            return thematic_years[0], thematic_years[-1]
+
+        return None
+
+    def period(self) -> typing.Optional[typing.Tuple[int, int]]:
+        for resolver in (
+            self._period_from_results_data,
+            self._period_from_band_metadata,
+            self._period_from_params,
+        ):
+            years = resolver()
+            if years is not None:
+                return years
+
+        return None
 
     @classmethod
     def summary_indicator_str_value_mapping(cls) -> typing.Dict[str, int]:
@@ -1112,8 +1183,7 @@ class SdgSummaryJobAttributes:
         # indexed by the category name.
         lc_mapping = {}
 
-        period_node = self._baseline_results.get("period_assessment", {})
-        lc_node = period_node.get("land_cover", {})
+        lc_node = self._baseline_results.get("land_cover", {})
 
         legend_parent = lc_node["legend_nesting"]["parent"]
 
@@ -1159,8 +1229,7 @@ class SdgSummaryJobAttributes:
         Detailed info about summary SDG 15.3.1 categories for plotting
         purposes.
         """
-        period_node = self._baseline_results.get("period_assessment", {})
-        sdg_node = period_node.get("sdg", {})
+        sdg_node = self._baseline_results.get("sdg", {})
         summary = sdg_node.get("summary", {})
         areas = summary.get("areas", [])
 
@@ -1230,10 +1299,9 @@ class SdgSummaryJobAttributes:
         """
         Detailed info about land cover for the given year.
         """
-        period_node = self._baseline_results.get("period_assessment", {})
-        lc_node = period_node.get("land_cover", {})
+        lc_node = self._baseline_results.get("land_cover", {})
 
-        lc_areas = lc_node["land_cover_areas_by_year"]["values"]
+        lc_areas = lc_node.get("land_cover_areas_by_year", {}).get("values", {})
 
         return self.thematic_category_values_by_year(
             lc_areas, year, self.land_cover_7_class_str_info_mapping()
@@ -1245,10 +1313,9 @@ class SdgSummaryJobAttributes:
         values are grouped by land cover hence we will use the land cover
         classes.
         """
-        period_node = self._baseline_results.get("period_assessment", {})
-        soc_node = period_node.get("soil_organic_carbon", {})
+        soc_node = self._baseline_results.get("soil_organic_carbon", {})
 
-        soc_areas = soc_node["soc_stock_by_year"]["values"]
+        soc_areas = soc_node.get("soc_stock_by_year", {}).get("values", {})
 
         return self.thematic_category_values_by_year(
             soc_areas, year, self.land_cover_7_class_str_info_mapping()
@@ -1285,9 +1352,8 @@ class SdgSummaryJobAttributes:
         """
         Land cover classes grouped by productivity.
         """
-        period_node = self._baseline_results.get("period_assessment", {})
-        prod_node = period_node.get("productivity", {})
-        prod_groups = prod_node["crosstabs_by_productivity_class"]
+        prod_node = self._baseline_results.get("productivity", {})
+        prod_groups = prod_node.get("crosstabs_by_productivity_class", [])
 
         category_item_mapping = self.land_cover_7_class_str_info_mapping()
         categories = list(category_item_mapping.keys())[:-1]  # Remove 'No data'

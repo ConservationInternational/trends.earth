@@ -52,7 +52,7 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
         else:
             copy_json_action.setEnabled(False)
 
-        menu.exec_(self.mapToGlobal(position))
+        menu.exec(self.mapToGlobal(position))
 
     def _copy_item_value(self):
         """Copy the full value of the selected item to clipboard."""
@@ -183,7 +183,7 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
             # Handle any unexpected data types gracefully
             item = QtWidgets.QTreeWidgetItem(parent)
             item.setText(0, f"Error displaying data: {str(e)}")
-            item.setIcon(0, self._create_colored_icon(QtCore.Qt.red))
+            item.setIcon(0, self._create_colored_icon(QtGui.QColor("red")))
 
     def _format_value(self, value: Any) -> str:
         """Format a value for display."""
@@ -209,17 +209,17 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
         """Get an appropriate icon for the value type."""
         # Create simple colored icons for different types
         if isinstance(value, dict):
-            return self._create_colored_icon(QtCore.Qt.blue)
+            return self._create_colored_icon(QtGui.QColor("blue"))
         elif isinstance(value, list):
-            return self._create_colored_icon(QtCore.Qt.darkGreen)
+            return self._create_colored_icon(QtGui.QColor("darkgreen"))
         elif isinstance(value, str):
-            return self._create_colored_icon(QtCore.Qt.darkRed)
+            return self._create_colored_icon(QtGui.QColor("darkred"))
         elif isinstance(value, (int, float)):
-            return self._create_colored_icon(QtCore.Qt.darkMagenta)
+            return self._create_colored_icon(QtGui.QColor("darkmagenta"))
         elif isinstance(value, bool):
-            return self._create_colored_icon(QtCore.Qt.darkCyan)
+            return self._create_colored_icon(QtGui.QColor("darkcyan"))
         else:
-            return self._create_colored_icon(QtCore.Qt.gray)
+            return self._create_colored_icon(QtGui.QColor("gray"))
 
     def _create_colored_icon(self, color: QtGui.QColor) -> QtGui.QIcon:
         """Create a simple colored square icon."""

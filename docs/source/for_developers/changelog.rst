@@ -3,7 +3,7 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`2.2.12 (pending) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.2.12>`_
+`2.3.0 (May 12, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.3.0>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
   - Added support for QGIS 4

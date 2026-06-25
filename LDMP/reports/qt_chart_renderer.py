@@ -453,10 +453,10 @@ class QtChartRenderer:
         image = QImage(self._width, self._height, self._image_format())
         image.fill(QColor("white"))
         painter = QPainter(image)
-        painter.setRenderHint(QPainter.Antialiasing, True)
-        painter.setRenderHint(QPainter.TextAntialiasing, True)
 
         try:
+            painter.setRenderHint(QPainter.Antialiasing, True)
+            painter.setRenderHint(QPainter.TextAntialiasing, True)
             self._draw_title(painter)
             if len(self._traces) == 1 and self._traces[0].get("type") == "pie":
                 rendered = self._draw_pie(painter, self._traces[0])

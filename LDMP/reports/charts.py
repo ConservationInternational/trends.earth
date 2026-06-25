@@ -5,7 +5,6 @@ import typing
 from collections import namedtuple
 from dataclasses import field
 from enum import Enum
-from pathlib import Path
 
 import numpy as np
 
@@ -18,31 +17,13 @@ from qgis.core import (
     QgsColorRampShader,
     QgsDistanceArea,
     QgsGeometry,
-    QgsLayoutExporter,
-    QgsLayoutFrame,
-    QgsLayoutItemHtml,
     QgsLayoutMeasurement,
     QgsLayoutMeasurementConverter,
-    QgsLayoutPoint,
-    QgsLayoutSize,
-    QgsPrintLayout,
-    QgsProject,
     QgsUnitTypes,
     QgsVectorLayer,
 )
-from qgis.PyQt.QtCore import (
-    QCoreApplication,
-    QObject,
-    Qt,
-    QTemporaryFile,
-    QUrl,
-)
+from qgis.PyQt.QtCore import QCoreApplication, QObject, Qt
 from qgis.PyQt.QtGui import QColor
-
-try:
-    _EXPORT_SUCCESS = QgsLayoutExporter.Success
-except AttributeError:
-    _EXPORT_SUCCESS = QgsLayoutExporter.ExportResult.Success
 
 from ..jobs.models import Job
 from ..layers import (
@@ -67,7 +48,6 @@ _PLOTLY_MISSING_MSG = tr_reports_charts.tr(
     "Plotly is not available. Chart export was skipped."
 )
 _PLOTLY_IMAGE_EXPORT_MSG = tr_reports_charts.tr("Chart PNG export failed")
-_HTML_RENDER_WAIT_MS = 1000
 
 # Contains information about a layer and source band_info
 LayerBandInfo = namedtuple("LayerBandInfo", "layer band_info")
@@ -137,20 +117,6 @@ class BaseChart:
 
         return slugify(layer.name())
 
-    def source_band_number(self) -> int:
-        """
-        Returns the original 1-based raster band index for this chart's layer.
-        """
-        if self.layer_band_info is None or self.layer_band_info.layer is None:
-            return -1
-
-        layer = self.layer_band_info.layer
-        band_number = layer.customProperty("sourceBandIndex", -1)
-        try:
-            return int(band_number)
-        except (TypeError, ValueError):
-            return -1
-
     @property
     def preferred_size(self) -> typing.Tuple[int, int]:
         """
@@ -180,32 +146,11 @@ class BaseChart:
 
         return pix_measurement.length()
 
-    def _chart_layout(self, chart_path: str) -> QgsPrintLayout:
-        # Layout container for exporting chart to image.
-        layout = QgsPrintLayout(QgsProject.instance())
-        layout.initializeDefaults()
-        layout.renderContext().setDpi(self._dpi)
-
-        # Add html item
-        html_item = QgsLayoutItemHtml(layout)
-        frame = QgsLayoutFrame(layout, html_item)
-        html_item.addFrame(frame)
-        frame.attemptMove(QgsLayoutPoint(16, 0, QgsUnitTypes.LayoutMillimeters))
-        frame.attemptResize(QgsLayoutSize(280, 210))
-        layout.addMultiFrame(html_item)
-
-        url = QUrl.fromLocalFile(chart_path)
-        html_item.setUrl(url)
-
-        return layout
-
     def save_image(self, figure: typing.Any, path: str) -> bool:
         """
-        Save the figure as an image file. While plotly supports writing a
-        Figure object to an image, it requires additional libraries which
-        are not shipped with the QGIS Python package, and since we are
-        avoiding additional dependencies, we will use the layout framework
-        for image export.
+        Save the figure as an image file. Tries Plotly's native image export
+        first (requires kaleido), then falls back to native Qt rendering via
+        QtChartRenderer.
         """
         pw, ph = self.preferred_size
         figure.update_layout(width=pw, height=ph)
@@ -214,46 +159,7 @@ class BaseChart:
             figure.write_image(path)
             return True
         except Exception:
-            if QtChartRenderer(figure, pw, ph).save(path):
-                return True
-            return self._save_image_via_layout(figure, path)
-
-    def _save_image_via_layout(self, figure: typing.Any, path: str) -> bool:
-        temp_html_file = QTemporaryFile()
-        if not temp_html_file.open():
-            return False
-
-        file_name = temp_html_file.fileName()
-        html_path = f"{file_name}.html"
-
-        try:
-            # Write figure to html
-            figure.write_html(
-                html_path,
-                auto_open=False,
-                auto_play=False,
-                config={"displayModeBar": False},
-            )
-
-            # Create and export layout
-            layout = self._chart_layout(html_path)
-            exporter = QgsLayoutExporter(layout)
-            settings = QgsLayoutExporter.ImageExportSettings()
-            res = exporter.exportToImage(path, settings)
-
-            if res != _EXPORT_SUCCESS:
-                return False
-        except Exception:
-            return False
-        finally:
-            try:
-                html_file = Path(html_path)
-                if html_file.exists():
-                    html_file.unlink()
-            except OSError:
-                pass
-
-        return True
+            return QtChartRenderer(figure, pw, ph).save(path)
 
     @staticmethod
     def is_plotly_available() -> bool:
@@ -1146,7 +1052,9 @@ class SdgSummaryJobAttributes:
         if self._job.results is None or self._job.results.data is None:
             raise ValueError(f"Job {getattr(self._job, 'id', '?')} has no results data")
         self._data = self._job.results.data
-        self._baseline_results = self._data["report"]["land_condition"]["baseline"]
+        self._baseline_results = self._data["report"]["land_condition"]["baseline"][
+            "period_assessment"
+        ]
 
     @staticmethod
     def _int_year(value) -> typing.Optional[int]:
@@ -1200,15 +1108,13 @@ class SdgSummaryJobAttributes:
         return None
 
     def _period_from_results_data(self) -> typing.Optional[typing.Tuple[int, int]]:
-        period_node = self._baseline_results.get("period_assessment", {})
-
-        lc_node = period_node.get("land_cover", {})
+        lc_node = self._baseline_results.get("land_cover", {})
         lc_areas = lc_node.get("land_cover_areas_by_year", {}).get("values", {})
         years = self._sorted_year_keys(lc_areas)
         if len(years) >= 2:
             return years[0], years[-1]
 
-        soc_node = period_node.get("soil_organic_carbon", {})
+        soc_node = self._baseline_results.get("soil_organic_carbon", {})
         soc_areas = soc_node.get("soc_stock_by_year", {}).get("values", {})
         years = self._sorted_year_keys(soc_areas)
         if len(years) >= 2:
@@ -1258,9 +1164,9 @@ class SdgSummaryJobAttributes:
 
     def period(self) -> typing.Optional[typing.Tuple[int, int]]:
         for resolver in (
-            self._period_from_params,
             self._period_from_results_data,
             self._period_from_band_metadata,
+            self._period_from_params,
         ):
             years = resolver()
             if years is not None:
@@ -1277,8 +1183,7 @@ class SdgSummaryJobAttributes:
         # indexed by the category name.
         lc_mapping = {}
 
-        period_node = self._baseline_results.get("period_assessment", {})
-        lc_node = period_node.get("land_cover", {})
+        lc_node = self._baseline_results.get("land_cover", {})
 
         legend_parent = lc_node["legend_nesting"]["parent"]
 
@@ -1324,8 +1229,7 @@ class SdgSummaryJobAttributes:
         Detailed info about summary SDG 15.3.1 categories for plotting
         purposes.
         """
-        period_node = self._baseline_results.get("period_assessment", {})
-        sdg_node = period_node.get("sdg", {})
+        sdg_node = self._baseline_results.get("sdg", {})
         summary = sdg_node.get("summary", {})
         areas = summary.get("areas", [])
 
@@ -1395,10 +1299,9 @@ class SdgSummaryJobAttributes:
         """
         Detailed info about land cover for the given year.
         """
-        period_node = self._baseline_results.get("period_assessment", {})
-        lc_node = period_node.get("land_cover", {})
+        lc_node = self._baseline_results.get("land_cover", {})
 
-        lc_areas = lc_node["land_cover_areas_by_year"]["values"]
+        lc_areas = lc_node.get("land_cover_areas_by_year", {}).get("values", {})
 
         return self.thematic_category_values_by_year(
             lc_areas, year, self.land_cover_7_class_str_info_mapping()
@@ -1410,10 +1313,9 @@ class SdgSummaryJobAttributes:
         values are grouped by land cover hence we will use the land cover
         classes.
         """
-        period_node = self._baseline_results.get("period_assessment", {})
-        soc_node = period_node.get("soil_organic_carbon", {})
+        soc_node = self._baseline_results.get("soil_organic_carbon", {})
 
-        soc_areas = soc_node["soc_stock_by_year"]["values"]
+        soc_areas = soc_node.get("soc_stock_by_year", {}).get("values", {})
 
         return self.thematic_category_values_by_year(
             soc_areas, year, self.land_cover_7_class_str_info_mapping()
@@ -1450,9 +1352,8 @@ class SdgSummaryJobAttributes:
         """
         Land cover classes grouped by productivity.
         """
-        period_node = self._baseline_results.get("period_assessment", {})
-        prod_node = period_node.get("productivity", {})
-        prod_groups = prod_node["crosstabs_by_productivity_class"]
+        prod_node = self._baseline_results.get("productivity", {})
+        prod_groups = prod_node.get("crosstabs_by_productivity_class", [])
 
         category_item_mapping = self.land_cover_7_class_str_info_mapping()
         categories = list(category_item_mapping.keys())[:-1]  # Remove 'No data'

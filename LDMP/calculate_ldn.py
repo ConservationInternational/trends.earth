@@ -1735,17 +1735,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
     def update_time_bounds(self, widgets):
         lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
-        start_year_lc = lc_dataset["Start year"]
-        end_year_lc = lc_dataset["End year"]
-        start_year_lc = QtCore.QDate(start_year_lc, 1, 1)
-        end_year_lc = QtCore.QDate(end_year_lc, 1, 1)
+        start_year_lc = QtCore.QDate(int(lc_dataset["Start year"]), 1, 1)
+        end_year_lc = QtCore.QDate(int(lc_dataset["End year"]), 1, 1)
 
         prod_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
-        start_year_prod = prod_dataset["Start year"]
-        end_year_prod = prod_dataset["End year"]
-
-        start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
-        end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
+        start_year_prod = QtCore.QDate(int(prod_dataset["Start year"]), 1, 1)
+        end_year_prod = QtCore.QDate(int(prod_dataset["End year"]), 1, 1)
 
         if self.radio_lpd_precalculated.isChecked():
             if not widgets.cb_lpd.currentText():
@@ -1754,10 +1749,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
                 widgets.cb_lpd.currentText()
             ]
-            start_year_prod = prod_dataset["Start year"]
-            end_year_prod = prod_dataset["End year"]
-            start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
-            end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
+            start_year_prod = QtCore.QDate(int(prod_dataset["Start year"]), 1, 1)
+            end_year_prod = QtCore.QDate(int(prod_dataset["End year"]), 1, 1)
 
         # Apply special LC/SOC windows for specific JRC datasets
         if self.radio_lpd_precalculated.isChecked():

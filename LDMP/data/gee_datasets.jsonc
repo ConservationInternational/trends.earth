@@ -1130,8 +1130,8 @@
   "Land Productivity Dynamics": {
     "JRC Land Productivity Dynamics (1999-2013)": {
       "Data source": "Joint Research Commission (JRC)",
-      "Start year": "NA",
-      "End year": "NA",
+      "Start year": 1999,
+      "End year": 2013,
       "Period": "1999-2013",
       "Spatial Resolution": "1 km",
       "Temporal resolution": "one-time",
@@ -1152,8 +1152,8 @@
     },
     "JRC Land Productivity Dynamics (2000-2015)": {
       "Data source": "Joint Research Commission (JRC)",
-      "Start year": "NA",
-      "End year": "NA",
+      "Start year": 2000,
+      "End year": 2015,
       "Period": "2000-2015",
       "Spatial Resolution": "1 km",
       "Temporal resolution": "one-time",
@@ -1174,8 +1174,8 @@
     },
     "JRC Land Productivity Dynamics (2004-2019)": {
       "Data source": "Joint Research Commission (JRC)",
-      "Start year": "NA",
-      "End year": "NA",
+      "Start year": 2004,
+      "End year": 2019,
       "Period": "2004-2019",
       "Spatial Resolution": "1 km",
       "Temporal resolution": "one-time",
@@ -1196,8 +1196,8 @@
     },
 	"JRC Land Productivity Dynamics (2008-2023)": {
     "Data source": "Joint Research Commission (JRC)",
-    "Start year": "NA",
-    "End year": "NA",
+    "Start year": 2008,
+    "End year": 2023,
     "Period": "2008-2023",
     "Spatial Resolution": "1 km",
     "Temporal resolution": "one-time",

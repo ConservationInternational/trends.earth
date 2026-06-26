@@ -1,12 +1,11 @@
 [flake8]
-# This file is used during both local CI and the upload-time Flake8 check
+# This file is recognised by the QGIS Plugin Repository's security scanner
+# (listed in SECURITY_CONFIG_FILES).  The scanner passes it explicitly via
+# --config, so these settings apply at both upload time and in CI.
 
 max-line-length = 120
 
+# E203 - whitespace before ':': valid Black-style slice notation
 # E501 - line too long: many intentional long strings / translated messages
 # E741 - ambiguous variable name 'l': legacy code, low risk
-extend-ignore = E501,E741
-
-# Exclude vendored third-party libraries from all checks
-exclude =
-    ext-libs
+extend-ignore = E203,E501,E741

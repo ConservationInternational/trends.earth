@@ -181,7 +181,7 @@ jobs:
           echo "Running Flake8 on $PACKAGED_PLUGIN_DIR ..."
           set +e
           python -m flake8 "$PACKAGED_PLUGIN_DIR" --max-line-length=120 \
-            --extend-ignore=E501,E741 --exclude="$PACKAGED_PLUGIN_DIR/ext-libs"
+            --config "$PACKAGED_PLUGIN_DIR/.flake8" --exclude="$PACKAGED_PLUGIN_DIR/ext-libs"
           flake8_exit=$?
           set -e
           if [ $flake8_exit -ne 0 ]; then

@@ -2355,6 +2355,11 @@ def _make_zip(zipFile, c):
             # Skip .pyc files - QGIS plugin repository rejects them for security
             if f.endswith(".pyc"):
                 continue
+            # Skip platform-specific C-extension .so files (Linux/CPython binaries
+            # in ext-libs).  The pure-Python fallbacks work on all platforms and
+            # the QGIS Plugin Repository flags .so files as suspicious.
+            if f.endswith(".so"):
+                continue
             zipFile.write(src_path, os.path.join(relpath, f))
 
     # Include the license file within the plugin zipfile (it is in root of

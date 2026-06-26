@@ -1618,6 +1618,15 @@ class JobManager(QtCore.QObject):
                 remote_fetch_ok=remote_fetch_ok,
                 deferred_writes=deferred_writes,
             )
+            # Process PENDING/READY/CANCELLED transitions BEFORE finished jobs so
+            # that _preserve_job_data is called for any PENDING job that completed
+            # before the first refresh cycle.  Without this ordering, a job that
+            # goes PENDING→FINISHED between two refreshes never has its
+            # local_context preserved, and the finished job ends up with the
+            # default "unknown-area" area name.
+            self._refresh_remote_jobs_by_status(
+                relevant_remote_jobs, deferred_writes=deferred_writes
+            )
             self._refresh_local_finished_jobs(
                 relevant_remote_jobs,
                 prefetched_finished_jobs=prefetched_finished_jobs,
@@ -1625,9 +1634,6 @@ class JobManager(QtCore.QObject):
             )
             self._refresh_local_downloaded_jobs()
             self._refresh_remote_failed_jobs(
-                relevant_remote_jobs, deferred_writes=deferred_writes
-            )
-            self._refresh_remote_jobs_by_status(
                 relevant_remote_jobs, deferred_writes=deferred_writes
             )
             self._get_local_expired_jobs()
@@ -3133,6 +3139,15 @@ class JobManager(QtCore.QObject):
         self._known_pending_jobs = {j.id: j for j in local_pending_jobs}
         self._known_cancelled_jobs = {j.id: j for j in local_cancelled_jobs}
 
+        # Build a flat lookup of every local job tracked here so we can
+        # pre-preserve their data before calling _restore_job_data below.
+        # This is necessary because _restore_job_data pops from
+        # _transitioned_job_metadata; if _preserve_job_data hasn't been
+        # called first the data is missing and the job gets "unknown-area".
+        local_job_lookup: typing.Dict[uuid.UUID, Job] = {}
+        for j in local_ready_jobs + local_pending_jobs + local_cancelled_jobs:
+            local_job_lookup[j.id] = j
+
         # Process remote jobs and merge/update
         remote_ids_by_status = {
             jobs.JobStatus.READY: set(),
@@ -3142,6 +3157,12 @@ class JobManager(QtCore.QObject):
 
         for remote_job in remote_jobs:
             if remote_job.status == jobs.JobStatus.READY:
+                # If this job was previously tracked under a *different* status
+                # (e.g. PENDING→READY), preserve its local context now so that
+                # _restore_job_data can find it in _transitioned_job_metadata.
+                local_job = local_job_lookup.get(remote_job.id)
+                if local_job is not None and local_job.status != jobs.JobStatus.READY:
+                    self._preserve_job_data(local_job)
                 # Restore preserved params and metadata if available
                 self._restore_job_data(remote_job)
                 # Persist to disk if we restored data
@@ -3153,6 +3174,9 @@ class JobManager(QtCore.QObject):
                 self._known_ready_jobs[remote_job.id] = remote_job
                 remote_ids_by_status[jobs.JobStatus.READY].add(remote_job.id)
             elif remote_job.status == jobs.JobStatus.PENDING:
+                local_job = local_job_lookup.get(remote_job.id)
+                if local_job is not None and local_job.status != jobs.JobStatus.PENDING:
+                    self._preserve_job_data(local_job)
                 # Restore preserved params and metadata if available
                 self._restore_job_data(remote_job)
                 # Persist to disk if we restored data
@@ -3164,6 +3188,12 @@ class JobManager(QtCore.QObject):
                 self._known_pending_jobs[remote_job.id] = remote_job
                 remote_ids_by_status[jobs.JobStatus.PENDING].add(remote_job.id)
             elif remote_job.status == jobs.JobStatus.CANCELLED:
+                local_job = local_job_lookup.get(remote_job.id)
+                if (
+                    local_job is not None
+                    and local_job.status != jobs.JobStatus.CANCELLED
+                ):
+                    self._preserve_job_data(local_job)
                 # Restore preserved params and metadata if available
                 self._restore_job_data(remote_job)
                 # Persist to disk if we restored data

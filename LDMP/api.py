@@ -441,6 +441,13 @@ class APIClient(QtCore.QObject):
             self._cached_password = auth_config.config("password")
             self._cached_auth_config_id = auth_config.id()
             log("Credentials pre-cached for background thread use")
+        # Also pre-cache JWT tokens so background threads don't need to access
+        # the non-thread-safe QgsApplication.authManager() to retrieve them.
+        access_token, refresh_token = auth.get_jwt_tokens()
+        if access_token is not None:
+            self._cached_access_token = access_token
+            self._cached_refresh_token = refresh_token
+            log("JWT tokens pre-cached for background thread use")
 
     def _decode_jwt_payload(self, token):
         """Decode JWT payload to extract expiration time"""
@@ -511,14 +518,16 @@ class APIClient(QtCore.QObject):
         return access_token, refresh_token
 
     def _clear_stored_tokens(self):
-        """Clear stored tokens from QGIS Auth Manager and in-memory cache."""
-        # Clear in-memory token cache
+        """Clear stored tokens from QGIS Auth Manager and in-memory cache.
+
+        Only token data is cleared here.  The in-memory credential cache
+        (username / password) is intentionally preserved so that background
+        threads can still perform a fresh login after a token expires or a
+        refresh attempt fails.  Credentials are wiped only by logout().
+        """
+        # Clear in-memory token cache only
         self._cached_access_token = None
         self._cached_refresh_token = None
-        # Clear in-memory credential cache
-        self._cached_username = None
-        self._cached_password = None
-        self._cached_auth_config_id = None
         # Clear from authManager
         auth.clear_jwt_tokens()
 
@@ -710,8 +719,13 @@ class APIClient(QtCore.QObject):
             except Exception as e:
                 log(f"Error during server-side logout: {e}")
 
-        # Always clear local tokens and cached user ID
+        # Always clear local tokens, credential cache, and cached user ID
         self._clear_stored_tokens()
+        # Explicit credential cache wipe on logout (not done in _clear_stored_tokens
+        # so that background threads can still re-login after token expiry).
+        self._cached_username = None
+        self._cached_password = None
+        self._cached_auth_config_id = None
 
         # Clear cached user ID from settings
         try:

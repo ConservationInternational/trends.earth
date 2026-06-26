@@ -203,57 +203,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="762"/>
+        <location filename="../jobs/mvc.py" line="772"/>
         <source>Add default layers from this dataset to map</source>
         <translation>Añadir al mapa capas por defecto desde este conjunto de datos</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="766"/>
+        <location filename="../jobs/mvc.py" line="776"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation>Seleccionar capas específicas de este conjunto de datos para añadirlas al mapa...</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="808"/>
+        <location filename="../jobs/mvc.py" line="818"/>
         <source>Time series table is empty</source>
         <translation>La tabla de series temporales está vacía</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="829"/>
+        <location filename="../jobs/mvc.py" line="839"/>
         <source>Time Series</source>
         <translation>Series temporales</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="840"/>
+        <location filename="../jobs/mvc.py" line="850"/>
         <source>Time</source>
         <translation>Hora</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="841"/>
+        <location filename="../jobs/mvc.py" line="851"/>
         <source>Integrated NDVI</source>
         <translation>NDVI integrado</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="841"/>
+        <location filename="../jobs/mvc.py" line="851"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1088"/>
+        <location filename="../jobs/mvc.py" line="1098"/>
         <source>Dataset metadata</source>
         <translation>Metadatos de conjunto de datos</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1097"/>
+        <location filename="../jobs/mvc.py" line="1107"/>
         <source>{} metadata</source>
         <translation>{} metadatos</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1121"/>
+        <location filename="../jobs/mvc.py" line="1131"/>
         <source>Add vector layer to map</source>
         <translation>Añadir capa vectorial al mapa</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1125"/>
+        <location filename="../jobs/mvc.py" line="1135"/>
         <source>Add raster layers to map</source>
         <translation>Añadir capas ráster al mapa</translation>
     </message>
@@ -7956,48 +7956,53 @@ Población ({int(self.input_widget.spinBox_data_year.text())}, importada)
 <context>
     <name>tr_reports_charts</name>
     <message>
-        <location filename="../reports/charts.py" line="790"/>
+        <location filename="../reports/charts.py" line="728"/>
         <source>Land Cover Area</source>
         <translation>Cubierta de tierra</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="791"/>
+        <location filename="../reports/charts.py" line="729"/>
         <source>in</source>
         <translation>en</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="862"/>
+        <location filename="../reports/charts.py" line="815"/>
         <source>Summary of SDG 15.3.1 Indicator</source>
         <translation>Resumen del indicador ODS 15.3.1</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="903"/>
+        <location filename="../reports/charts.py" line="859"/>
         <source>Change in Land Cover</source>
         <translation>Cambio en la cobertura del territorio</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="926"/>
+        <location filename="../reports/charts.py" line="882"/>
         <source>Change in Soil Organic Carbon (Tonnes)</source>
         <translation>Cambio en el carbono orgánico del suelo (toneladas)</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="942"/>
+        <location filename="../reports/charts.py" line="898"/>
         <source>Tonnes</source>
         <translation>Toneladas</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="949"/>
+        <location filename="../reports/charts.py" line="905"/>
         <source>Land Cover Change by Productivity Class</source>
         <translation>Cambio en la cobertura del territorio por categoría de productividad</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="961"/>
+        <location filename="../reports/charts.py" line="917"/>
         <source>%</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="59"/>
+        <location filename="../reports/charts.py" line="47"/>
         <source>Plotly is not available. Chart export was skipped.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="50"/>
+        <source>Chart PNG export failed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

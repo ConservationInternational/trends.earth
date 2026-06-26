@@ -1523,7 +1523,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def download_sids_lpd(self):
         dialogue = DlgDownloadSIDS(self.iface, KNOWN_SCRIPTS["download-sids-lpd"], self)
-        dialogue.exec_()
+        dialogue.exec()
 
     def download_landpks(self):
         dialogue = DlgLandPKSDownload(

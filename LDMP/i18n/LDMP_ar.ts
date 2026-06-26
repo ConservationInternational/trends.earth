@@ -200,57 +200,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="762"/>
+        <location filename="../jobs/mvc.py" line="772"/>
         <source>Add default layers from this dataset to map</source>
         <translation>أضف طبقات افتراضية من مجموعة البيانات هذه إلى الخريطة</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="766"/>
+        <location filename="../jobs/mvc.py" line="776"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation>حدد طبقات معينة من مجموعة البيانات هذه لإضافتها إلى الخريطة. . .</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="808"/>
+        <location filename="../jobs/mvc.py" line="818"/>
         <source>Time series table is empty</source>
         <translation>جدول المتسلسلة الزمنية فارغ</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="829"/>
+        <location filename="../jobs/mvc.py" line="839"/>
         <source>Time Series</source>
         <translation>متسلسلة زمنية</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="840"/>
+        <location filename="../jobs/mvc.py" line="850"/>
         <source>Time</source>
         <translation>الزمن</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="841"/>
+        <location filename="../jobs/mvc.py" line="851"/>
         <source>Integrated NDVI</source>
         <translation>NDVI المتكاملة</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="841"/>
+        <location filename="../jobs/mvc.py" line="851"/>
         <source>NDVI x 10000</source>
         <translation>NDVI × 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1088"/>
+        <location filename="../jobs/mvc.py" line="1098"/>
         <source>Dataset metadata</source>
         <translation>البيانات الوصفية لمجموعة البيانات</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1097"/>
+        <location filename="../jobs/mvc.py" line="1107"/>
         <source>{} metadata</source>
         <translation>{} بيانات وصفية</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1121"/>
+        <location filename="../jobs/mvc.py" line="1131"/>
         <source>Add vector layer to map</source>
         <translation>أضف طبقة شعاع للخريطة</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="1125"/>
+        <location filename="../jobs/mvc.py" line="1135"/>
         <source>Add raster layers to map</source>
         <translation>أضف طبقات خطوط المسح للخريطة</translation>
     </message>
@@ -7871,48 +7871,53 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_reports_charts</name>
     <message>
-        <location filename="../reports/charts.py" line="790"/>
+        <location filename="../reports/charts.py" line="728"/>
         <source>Land Cover Area</source>
         <translation>مساحة غطاء الأرض</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="791"/>
+        <location filename="../reports/charts.py" line="729"/>
         <source>in</source>
         <translation>في</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="862"/>
+        <location filename="../reports/charts.py" line="815"/>
         <source>Summary of SDG 15.3.1 Indicator</source>
         <translation>ملخص مؤشر هدف التنمية المستدامة (SDG) 15.3.1</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="903"/>
+        <location filename="../reports/charts.py" line="859"/>
         <source>Change in Land Cover</source>
         <translation>تغيير في الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="926"/>
+        <location filename="../reports/charts.py" line="882"/>
         <source>Change in Soil Organic Carbon (Tonnes)</source>
         <translation>تغيير في الكربون العضوي للتربة (بالأطنان)</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="942"/>
+        <location filename="../reports/charts.py" line="898"/>
         <source>Tonnes</source>
         <translation>أطنان</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="949"/>
+        <location filename="../reports/charts.py" line="905"/>
         <source>Land Cover Change by Productivity Class</source>
         <translation>تغيير الغطاء الأرضي حسب فئة الإنتاجية</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="961"/>
+        <location filename="../reports/charts.py" line="917"/>
         <source>%</source>
         <translation>٪</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="59"/>
+        <location filename="../reports/charts.py" line="47"/>
         <source>Plotly is not available. Chart export was skipped.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="50"/>
+        <source>Chart PNG export failed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

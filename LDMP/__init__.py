@@ -55,7 +55,7 @@ except ImportError:
     __version_major__ = "0"
 
     # Show user-friendly error message in QGIS
-    from qgis.core import Qgis, QgsMessageLog
+    from qgis.core import QgsMessageLog
 
     QgsMessageLog.logMessage(
         "Trends.Earth plugin version could not be determined. "

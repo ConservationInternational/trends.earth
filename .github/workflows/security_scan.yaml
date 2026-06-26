@@ -97,16 +97,29 @@ jobs:
       # ── BLOCKING: detect-secrets hardcoded secrets detection ───────────────
       # The QGIS Plugin Repository blocks plugin versions when secrets are
       # detected. Scan runs from the LDMP/ directory, matching upload behaviour.
+      # metadata.txt is excluded (commitSha1 hex triggers HexHighEntropyString).
+      # .secrets.baseline is excluded from scanning but IS passed via --baseline
+      # when present, suppressing acknowledged false positives - matching the
+      # behaviour of the QGIS Plugin Repository's own scanner.
       - name: detect-secrets (hardcoded secrets detection) [BLOCKING]
         id: secrets
         continue-on-error: true
         run: |
           echo "Running detect-secrets on packaged plugin ..."
           set +e
-          detect-secrets scan --all-files \
-            --exclude-files 'metadata\.txt' \
-            --exclude-files '\.secrets\.baseline' \
-            . > secrets_output.json 2>/dev/null
+          if [ -f ".secrets.baseline" ]; then
+            echo "Found .secrets.baseline - using as baseline to suppress acknowledged false positives."
+            detect-secrets scan --all-files \
+              --exclude-files 'metadata\.txt' \
+              --exclude-files '\.secrets\.baseline' \
+              --baseline .secrets.baseline \
+              . > secrets_output.json 2>/dev/null
+          else
+            detect-secrets scan --all-files \
+              --exclude-files 'metadata\.txt' \
+              --exclude-files '\.secrets\.baseline' \
+              . > secrets_output.json 2>/dev/null
+          fi
           ds_exit=$?
           set -e
 

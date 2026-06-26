@@ -505,7 +505,7 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
             # Percent
             if self.use_value_type == InfoValueType.PERCENT:
 
-                def change_func(ia, ta):
+                def change_func(ia, ta):  # noqa: F811
                     return (ta - ia) * 100 / ia
 
                 text_template = "%{y:.2f}%"

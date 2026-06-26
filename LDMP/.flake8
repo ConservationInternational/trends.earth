@@ -1,0 +1,12 @@
+[flake8]
+# This file is used during both local CI and the upload-time Flake8 check
+
+max-line-length = 120
+
+# E501 - line too long: many intentional long strings / translated messages
+# E741 - ambiguous variable name 'l': legacy code, low risk
+extend-ignore = E501,E741
+
+# Exclude vendored third-party libraries from all checks
+exclude =
+    ext-libs

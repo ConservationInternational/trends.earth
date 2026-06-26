@@ -1,9 +1,9 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <plugins>
-<pyqgis_plugin name="trends.earth" version="2.3.1.dev19">
+<pyqgis_plugin name="trends.earth" version="2.3.1.dev20">
                 <description><![CDATA[Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)]]></description>
                 <about><![CDATA[Trends.Earth is a tool for analyzing land change. Trends.Earth supports monitoring changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).]]></about>
-                <version>2.3.1.dev19</version>
+                <version>2.3.1.dev20</version>
                 <qgis_minimum_version>3.22</qgis_minimum_version>
                 <qgis_maximum_version>4.99</qgis_maximum_version>
                 <homepage><![CDATA[https://trends.earth]]></homepage>
@@ -11,7 +11,7 @@
                 <icon>https://raw.githubusercontent.com/ConservationInternational/trends.earth/main/LDMP/trends_earth_logo_square_32x32.png</icon>
                 <author_name><![CDATA[Conservation International]]></author_name>
                 <download_url>https://s3.amazonaws.com/trends.earth/sharing/LDMP_main.zip</download_url>
-                <update_date>2026-06-26 16:18:21</update_date>
+                <update_date>2026-06-26 16:56:49</update_date>
                 <experimental>False</experimental>
                 <deprecated>False</deprecated>
                 <tracker><![CDATA[https://github.com/ConservationInternational/trends.earth/issues]]></tracker>

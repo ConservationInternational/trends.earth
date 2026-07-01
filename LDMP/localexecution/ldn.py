@@ -44,11 +44,14 @@ class SummaryTableLDWidgets:
     combo_layer_pop_female: data_io.WidgetDataIOSelectTELayerExisting
     radio_lpd_te: QtWidgets.QRadioButton
     radio_fao_wocat: QtWidgets.QRadioButton
+    radio_lpd_fwv2: QtWidgets.QRadioButton = None
     radio_lpd_custom: QtWidgets.QRadioButton = None
 
     def __post_init__(self):
         self.radio_lpd_te.toggled.connect(self.radio_lpd_te_toggled)
         self.radio_fao_wocat.toggled.connect(self.radio_lpd_te_toggled)
+        if self.radio_lpd_fwv2 is not None:
+            self.radio_lpd_fwv2.toggled.connect(self.radio_lpd_te_toggled)
         if self.radio_lpd_custom is not None:
             self.radio_lpd_custom.toggled.connect(self.radio_lpd_te_toggled)
         self.radio_lpd_te_toggled()
@@ -60,6 +63,8 @@ class SummaryTableLDWidgets:
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         elif self.radio_fao_wocat.isChecked():
             return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+        elif self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked():
+            return ProductivityMode.FWV2_5_CLASS_LPD.value
         elif self.radio_lpd_custom is not None and self.radio_lpd_custom.isChecked():
             return ProductivityMode.CUSTOM_5_CLASS_LPD.value
         else:
@@ -94,6 +99,11 @@ class SummaryTableLDWidgets:
                     ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
                 )
                 self.combo_layer_lpd.set_layer_type(ld_config.FAO_WOCAT_LPD_BAND_NAME)
+            elif self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked():
+                self.combo_layer_lpd.set_prod_mode(
+                    ProductivityMode.FWV2_5_CLASS_LPD.value
+                )
+                self.combo_layer_lpd.set_layer_type(ld_config.FWV2_LPD_BAND_NAME)
             elif (
                 self.radio_lpd_custom is not None and self.radio_lpd_custom.isChecked()
             ):

@@ -418,15 +418,22 @@ def _get_population(params, logger):
 def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
     """Run indicators using precalculated LPD for productivity"""
 
-    proj = ee.ImageCollection(params["population"]["asset"]).toBands().projection()
     prod_mode = params["productivity"]["mode"]
 
     if prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
         lpd_layer_name = config.JRC_LPD_BAND_NAME
+        # JRC LPD is coarse (~1km) - export the stack at the population
+        # resolution rather than upsampling to the JRC grid.
+        proj = ee.ImageCollection(params["population"]["asset"]).toBands().projection()
     elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
         lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
+        proj = ee.ImageCollection(params["population"]["asset"]).toBands().projection()
     elif prod_mode == ProductivityMode.FWV2_5_CLASS_LPD.value:
         lpd_layer_name = config.FWV2_LPD_BAND_NAME
+        # FWv2 LPD is 30m - export the full sub-indicator stack at the native
+        # FWv2 resolution so the output matches the FWv2 data rather than the
+        # coarser land cover / population resolution.
+        proj = ee.Image(params["productivity"]["asset"]).projection()
     else:
         raise KeyError
 

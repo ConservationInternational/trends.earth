@@ -103,6 +103,37 @@ class JRCProductivityParams:
 
 
 @dataclass
+class FWV2ProductivityParams:
+    """FWv2 pre-calculated productivity sub-indicator parameters.
+
+    Used when ``mode`` is ``"FWV2_5_CLASS_LPD"``.  The FWv2 land productivity
+    dynamics dataset is provided at 30 m resolution, so the output is
+    generated at that (native) resolution rather than the coarser land cover
+    resolution.
+
+    Attributes:
+        mode: Must be ``"FWV2_5_CLASS_LPD"``.
+        asset: GEE asset path for the pre-calculated FWv2 LPD data (30 m).
+        year_initial: Start year.
+        year_final: End year.
+        data_source: Human-readable source label.
+    """
+
+    mode: str = field(
+        metadata={
+            "required": True,
+            "validate": validate.Equal(ProductivityMode.FWV2_5_CLASS_LPD.value),
+        }
+    )
+    asset: str = field(metadata={"required": True})
+    year_initial: int = field(metadata={"required": True})
+    year_final: int = field(metadata={"required": True})
+    data_source: Optional[str] = field(
+        default="FAO-WOCAT FWv2",
+    )
+
+
+@dataclass
 class FAOWOCATProductivityParams:
     """FAO-WOCAT productivity sub-indicator parameters.
 

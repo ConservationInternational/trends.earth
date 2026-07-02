@@ -2370,8 +2370,6 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         self.NO_REGION_MESSAGE = _get_no_region_message()
 
     def populate(self, selected_job_id=None):
-        # Clear cache to ensure fresh results when jobs are added/modified
-        _get_usable_bands.cache_clear()
         aoi = try_prepare_area_of_interest()
 
         if aoi is None:
@@ -2806,6 +2804,49 @@ def get_usable_datasets(
     return result
 
 
+def invalidate_usable_data_caches(*args, **kwargs):
+    """Clear the cached usable dataset/band lookups.
+
+    ``_get_usable_bands`` and ``get_usable_datasets`` scan every local job, so
+    their results are memoized. They must be cleared whenever the set of local
+    jobs changes (jobs added, removed, downloaded, refreshed, or imported) so
+    the dropdowns reflect the new state.
+
+    Accepts and ignores arbitrary arguments so it can be connected directly to
+    Qt signals that emit a ``Job`` payload.
+    """
+    _get_usable_bands.cache_clear()
+    get_usable_datasets.cache_clear()
+
+
+_usable_data_cache_invalidation_connected = False
+
+
+def _connect_usable_data_cache_invalidation():
+    """Connect cache invalidation to job_manager signals (idempotent)."""
+    global _usable_data_cache_invalidation_connected
+    if _usable_data_cache_invalidation_connected:
+        return
+    for signal_name in (
+        "refreshed_local_state",
+        "refreshed_from_remote",
+        "downloaded_job_results",
+        "deleted_job",
+        "imported_job",
+        "processed_local_job",
+    ):
+        signal = getattr(job_manager, signal_name, None)
+        if signal is not None:
+            try:
+                signal.connect(invalidate_usable_data_caches)
+            except Exception:  # pragma: no cover - defensive
+                pass
+    _usable_data_cache_invalidation_connected = True
+
+
+_connect_usable_data_cache_invalidation()
+
+
 class DlgDataIOAddLayersToMap(QtWidgets.QDialog, Ui_DlgDataIOAddLayersToMap):
     layers_view: QtWidgets.QListView
     layers_model: QtCore.QStringListModel
@@ -2892,8 +2933,6 @@ class WidgetDataIOSelectTEDatasetExisting(
         self.populate()
 
     def populate(self):
-        # Clear cache to ensure fresh results when jobs are added/modified
-        get_usable_datasets.cache_clear()
         aoi = try_prepare_area_of_interest()
 
         # Handle case where no region is selected
@@ -2980,11 +3019,6 @@ class WidgetDataIOSelectTEDatasetExisting(
         # Convert list to tuple for lru_cache compatibility
         if isinstance(band_name, list):
             band_name = tuple(band_name)
-
-        # Clear cache before each call to avoid stale results due to AOI object
-        # memory address reuse (Python may reuse addresses for new objects after
-        # garbage collection, causing false cache hits with wrong selected_job_id)
-        _get_usable_bands.cache_clear()
 
         return _get_usable_bands(band_name, current_dataset.job.id, aoi=aoi)
 

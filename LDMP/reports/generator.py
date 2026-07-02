@@ -33,6 +33,7 @@ from qgis.core import (
     QgsReadWriteContext,
     QgsRectangle,
     QgsReferencedRectangle,
+    QgsSettings,
     QgsSimpleLegendNode,
     QgsTask,
     QgsVectorLayer,
@@ -1036,6 +1037,7 @@ class ReportGeneratorManager(QObject):
     """
 
     MAX_CONCURRENT_TASKS = 2
+    _FAILURE_SETTINGS_PREFIX = "trends_earth/report_failures/"
 
     task_running = pyqtSignal(str)
     task_completed = pyqtSignal(str)
@@ -1190,15 +1192,34 @@ class ReportGeneratorManager(QObject):
 
         return task.status()
 
+    def _get_persistent_failure_count(self, ctx_id: str) -> int:
+        """Return the number of times this report context has failed (persisted across restarts)."""
+        settings = QgsSettings()
+        return settings.value(f"{self._FAILURE_SETTINGS_PREFIX}{ctx_id}", 0, type=int)
+
+    def _increment_persistent_failure_count(self, ctx_id: str) -> None:
+        """Increment the persistent failure counter for this report context."""
+        settings = QgsSettings()
+        key = f"{self._FAILURE_SETTINGS_PREFIX}{ctx_id}"
+        count = settings.value(key, 0, type=int)
+        settings.setValue(key, count + 1)
+
     def is_task_overrun(self, ctx: ReportTaskContext) -> bool:
-        # Check whether the task with the given id has already run multiple times
+        # Check whether the task with the given id has already run multiple times.
+        # At most 1 retry (2 total attempts) is allowed, and this limit persists
+        # across restarts.
         if ctx not in self._submission_counter:
             self._submission_counter[ctx] = 0
 
-        if self._submission_counter[ctx] < 2:
-            return False
-        else:
+        if self._submission_counter[ctx] >= 2:
             return True
+
+        # Persistent check: if the report has already failed twice (initial +
+        # one retry), never attempt it again, even after a restart.
+        if self._get_persistent_failure_count(ctx.id()) >= 2:
+            return True
+
+        return False
 
     def is_task_running(self, ctx: ReportTaskContext) -> bool:
         # Check whether the task with the given id is running.
@@ -1300,6 +1321,12 @@ class ReportGeneratorManager(QObject):
             self._drain_queue()
 
         elif status == QgsTask.Terminated:
+            # Persist failure count for genuine failures (not user-initiated
+            # cancellations) so that the retry limit survives restarts.
+            handler = self.handler_task_from_context(ctx)
+            if handler is not None and not handler.isCanceled():
+                self._increment_persistent_failure_count(ctx.id())
+
             # Also free up the slot when a task fails / is cancelled
             self.remove_task_context(ctx)
             self._drain_queue()

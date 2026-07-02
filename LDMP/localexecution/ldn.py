@@ -398,6 +398,7 @@ def get_main_sdg_15_3_1_job_params(
     elif prod_mode in (
         ProductivityMode.JRC_5_CLASS_LPD.value,
         ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+        ProductivityMode.FWV2_5_CLASS_LPD.value,
         ProductivityMode.CUSTOM_5_CLASS_LPD.value,
     ):
         lpd_band_info = combo_layer_lpd.get_current_band()

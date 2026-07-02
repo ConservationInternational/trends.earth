@@ -13,6 +13,7 @@
 
 # pylint: disable=import-error
 import json
+import time
 import typing
 import weakref
 from dataclasses import asdict, dataclass, fields
@@ -2684,8 +2685,11 @@ class DlgCalculateLDNSummaryTableAdmin(
         )
 
     def populate_combos(self):
+        start = time.perf_counter()
         for combo in self.combo_boxes.values():
             combo.populate()
+        elapsed = time.perf_counter() - start
+        log(f"SDG 15.3.1 dialog populate_combos took {elapsed:.3f}s")
 
     def showEvent(self, event):
         super().showEvent(event)

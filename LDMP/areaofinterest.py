@@ -720,7 +720,40 @@ def prepare_area_of_interest(show_errors: bool = True) -> AOI:
     return area_of_interest
 
 
-def try_prepare_area_of_interest() -> typing.Optional["AOI"]:
+# Cache of the most recently prepared area of interest, keyed on the settings
+# that define it. Returning a single shared AOI instance for a given set of region settings
+# lets the per-instance overlap cache be reused across calls. The cache automatically
+# refresheswhen any region setting changes because the key changes.
+_aoi_cache_key: typing.Optional[tuple] = None
+_aoi_cache_value: typing.Optional["AOI"] = None
+
+
+def _current_aoi_settings_key() -> tuple:
+    """Return a hashable key capturing the settings that define the AOI."""
+    sm = conf.settings_manager
+    return (
+        sm.get_value(conf.Setting.AREA_FROM_OPTION),
+        sm.get_value(conf.Setting.BUFFER_CHECKED),
+        sm.get_value(conf.Setting.BUFFER_SIZE),
+        sm.get_value(conf.Setting.COUNTRY_ID),
+        sm.get_value(conf.Setting.REGION_ID),
+        sm.get_value(conf.Setting.CITY_ID),
+        sm.get_value(conf.Setting.VECTOR_FILE_PATH),
+        sm.get_value(conf.Setting.POINT_X),
+        sm.get_value(conf.Setting.POINT_Y),
+        sm.get_value(conf.Setting.CUSTOM_CRS_ENABLED),
+        sm.get_value(conf.Setting.CUSTOM_CRS),
+    )
+
+
+def invalidate_aoi_cache() -> None:
+    """Clear the cached area of interest, forcing a rebuild on next request."""
+    global _aoi_cache_key, _aoi_cache_value
+    _aoi_cache_key = None
+    _aoi_cache_value = None
+
+
+def try_prepare_area_of_interest(use_cache: bool = True) -> typing.Optional["AOI"]:
     """
     Safe wrapper for prepare_area_of_interest() that returns None instead of
     raising exceptions when no valid area of interest is configured.
@@ -728,13 +761,37 @@ def try_prepare_area_of_interest() -> typing.Optional["AOI"]:
     Use this when you want to gracefully handle the case where no region
     is selected, rather than showing an error to the user.
 
+    The result is cached and keyed on the region-defining settings so that
+    repeated calls (e.g. while populating many combo boxes) reuse a single AOI
+    instance. Pass ``use_cache=False`` to bypass the cache.
+
     Returns:
         AOI object if valid, None if not configured or invalid.
     """
+    global _aoi_cache_key, _aoi_cache_value
+
+    if use_cache:
+        try:
+            key = _current_aoi_settings_key()
+        except Exception:
+            key = None
+        if key is not None and key == _aoi_cache_key and _aoi_cache_value is not None:
+            return _aoi_cache_value
+
     try:
-        return prepare_area_of_interest(show_errors=False)
+        aoi = prepare_area_of_interest(show_errors=False)
     except (RuntimeError, ValueError):
-        return None
+        aoi = None
+
+    if use_cache and aoi is not None:
+        try:
+            _aoi_cache_key = _current_aoi_settings_key()
+            _aoi_cache_value = aoi
+        except Exception:
+            _aoi_cache_key = None
+            _aoi_cache_value = None
+
+    return aoi
 
 
 def try_get_aoi_geometry() -> typing.Optional[qgis.core.QgsGeometry]:

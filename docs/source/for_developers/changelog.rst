@@ -3,6 +3,16 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.3.2 (June 30, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.3.2>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+  - Added support for 30-meter resolution land productivity datasets (FWv2)
+  - Fixed incorrect date range handling for JRC (Joint Research Centre) datasets
+  - Fixed Qt 6 compatibility issues causing charts not to display correctly
+  - Fixed a false "not logged in" error that could appear despite valid credentials
+  - Improved thread safety and credential caching for authentication to prevent intermittent login failures
+  - Translation updates and other minor bug fixes
+
 `2.3.0 (May 12, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.3.0>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

@@ -875,6 +875,9 @@ class ReportProcessHandlerTask(QgsTask):
         self._ctx_file_path = ctx_file_path
         self._qgs_proc_path = qgis_proc_path
         self._process = None
+        # References to any TASKKILL helper processes spawned on Windows so
+        # they can be reaped (avoids ResourceWarning on garbage collection).
+        self._killers = []
 
     @property
     def context_file_path(self) -> str:
@@ -894,18 +897,31 @@ class ReportProcessHandlerTask(QgsTask):
         if os.name == "nt":
             # Fire TASKKILL without waiting so the caller (which may be the
             # main / UI thread) is not blocked.  The run() polling loop will
-            # detect the process exit on its next iteration.
-            subprocess.Popen(
+            # detect the process exit on its next iteration.  Use DEVNULL
+            # (not PIPE) so no pipe file objects are opened, and keep a
+            # reference so the helper process can be reaped rather than
+            # leaking and emitting a ResourceWarning when garbage collected.
+            killer = subprocess.Popen(
                 ["TASKKILL", "/F", "/PID", str(pid), "/T"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
             )
+            self._killers.append(killer)
+            self._reap_killers()
         else:
             try:
                 os.kill(pid, signal.SIGKILL)
             except ProcessLookupError:
                 # Process is already dead
                 pass
+
+    def _reap_killers(self):
+        """Poll spawned TASKKILL helpers and drop any that have exited.
+
+        Non-blocking: only finished processes are reaped, so this is safe
+        to call from the UI thread.
+        """
+        self._killers = [k for k in self._killers if k.poll() is None]
 
     def cancel(self):
         """
@@ -995,6 +1011,7 @@ class ReportProcessHandlerTask(QgsTask):
                     self._process.wait(timeout=5)
                 except subprocess.TimeoutExpired:
                     pass
+                self._reap_killers()
                 return False
 
             now = time.monotonic()
@@ -1016,6 +1033,7 @@ class ReportProcessHandlerTask(QgsTask):
                     self._process.wait(timeout=5)
                 except subprocess.TimeoutExpired:
                     pass
+                self._reap_killers()
                 return False
 
             time.sleep(self._POLL_INTERVAL_S)

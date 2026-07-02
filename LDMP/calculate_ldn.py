@@ -148,6 +148,16 @@ class FAOWOCATPeriod(LDNPresetPeriod):
 
 
 @dataclass
+class FWv2Period(LDNPresetPeriod):
+    """Period configuration for FAO-WOCAT FWv2 pre-calculated productivity mode."""
+
+    year_initial_prod: int
+    year_final_prod: int
+    fwv2_dataset: str = ""
+    period_type: str = ProductivityMode.FWV2_5_CLASS_LPD.value
+
+
+@dataclass
 class LDNPreset:
     """Represents a complete preset configuration for LDN calculations."""
 
@@ -178,6 +188,8 @@ class LDNPreset:
             return JRCPeriod(**kwargs)
         elif self.productivity_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
             return FAOWOCATPeriod(**kwargs)
+        elif self.productivity_mode == ProductivityMode.FWV2_5_CLASS_LPD.value:
+            return FWv2Period(**kwargs)
         else:
             # Default to base class for unknown modes
             return LDNPresetPeriod(**kwargs)
@@ -357,6 +369,55 @@ class LDNPresetManager:
                         time_period_same=False,
                         year_initial_prod=2008,
                         year_final_prod=2023,
+                    ),
+                ],
+                reset_legend=True,
+                is_built_in=True,
+            )
+        )
+
+        presets.append(
+            LDNPreset(
+                name="UNCCD Reporting (2026 reporting cycle, FAO-WOCAT v2, 30m, SIDS only)",
+                description="Default UNCCD reporting period using FAO-WOCAT FWv2 30m land productivity dynamics (available for 40 SIDS only)",
+                progress_periods_enabled=True,
+                productivity_mode=ProductivityMode.FWV2_5_CLASS_LPD.value,
+                baseline_period=FWv2Period(
+                    year_initial=2000,
+                    year_final=2015,
+                    year_initial_lc=2000,
+                    year_final_lc=2015,
+                    year_initial_soc=2000,
+                    year_final_soc=2015,
+                    time_period_same=False,
+                    year_initial_prod=2000,
+                    year_final_prod=2015,
+                    fwv2_dataset="Land Productivity Dynamics FWv2 (2000-2015)",
+                ),
+                progress_periods=[
+                    FWv2Period(
+                        year_initial=2015,
+                        year_final=2019,
+                        year_initial_lc=2015,
+                        year_final_lc=2019,
+                        year_initial_soc=2015,
+                        year_final_soc=2019,
+                        time_period_same=False,
+                        year_initial_prod=2004,
+                        year_final_prod=2019,
+                        fwv2_dataset="Land Productivity Dynamics FWv2 (2004-2019)",
+                    ),
+                    FWv2Period(
+                        year_initial=2015,
+                        year_final=2023,
+                        year_initial_lc=2015,
+                        year_final_lc=2022,
+                        year_initial_soc=2015,
+                        year_final_soc=2022,
+                        time_period_same=False,
+                        year_initial_prod=2008,
+                        year_final_prod=2023,
+                        fwv2_dataset="Land Productivity Dynamics FWv2 (2008-2023)",
                     ),
                 ],
                 reset_legend=True,
@@ -892,6 +953,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.year_final_baseline_soc,
             self.radio_fao_wocat,
             self.radio_lpd_precalculated,
+            radio_lpd_fwv2=self.radio_lpd_fwv2,
         )
 
         self.widgets_progress = TimePeriodWidgets(
@@ -911,6 +973,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.year_final_progress_soc,
             self.radio_fao_wocat,
             self.radio_lpd_precalculated,
+            radio_lpd_fwv2=self.radio_lpd_fwv2,
         )
 
         self.timeline_years = []
@@ -937,13 +1000,14 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         for widget in progress_date_widgets:
             widget.dateChanged.connect(self.on_date_changed)
 
-        self.cb_jrc_baseline.addItems(
-            [*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()]
-        )
+        _jrc_keys = [
+            k
+            for k in conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()
+            if "FWv2" not in k
+        ]
+        self.cb_jrc_baseline.addItems(_jrc_keys)
         self.cb_jrc_baseline.setCurrentIndex(1)
-        self.cb_jrc_progress.addItems(
-            [*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()]
-        )
+        self.cb_jrc_progress.addItems(_jrc_keys)
         self.cb_jrc_progress.setCurrentIndex(2)
 
         self.toggle_lpd_options()
@@ -997,6 +1061,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.radio_lpd_te.toggled.connect(self.toggle_lpd_options)
         self.radio_lpd_precalculated.toggled.connect(self.toggle_lpd_options)
         self.radio_fao_wocat.toggled.connect(self.toggle_lpd_options)
+        self.radio_lpd_fwv2.toggled.connect(self.toggle_lpd_options)
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
 
@@ -1198,6 +1263,30 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         self.cb_jrc_progress.setCurrentIndex(idx)
         elif preset.productivity_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
             self.radio_fao_wocat.setChecked(True)
+        elif (
+            preset.productivity_mode == ProductivityMode.FWV2_5_CLASS_LPD.value
+            and self.radio_lpd_fwv2 is not None
+        ):
+            self.radio_lpd_fwv2.setChecked(True)
+            # Set FWv2 dataset comboboxes from the preset periods
+            if preset.baseline_period and isinstance(
+                preset.baseline_period, FWv2Period
+            ):
+                if preset.baseline_period.fwv2_dataset:
+                    idx = self.cb_jrc_baseline.findText(
+                        preset.baseline_period.fwv2_dataset
+                    )
+                    if idx >= 0:
+                        self.cb_jrc_baseline.setCurrentIndex(idx)
+            if preset.progress_periods and isinstance(
+                preset.progress_periods[0], FWv2Period
+            ):
+                if preset.progress_periods[0].fwv2_dataset:
+                    idx = self.cb_jrc_progress.findText(
+                        preset.progress_periods[0].fwv2_dataset
+                    )
+                    if idx >= 0:
+                        self.cb_jrc_progress.setCurrentIndex(idx)
         else:  # ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
             self.radio_lpd_te.setChecked(True)
 
@@ -1283,9 +1372,13 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         # Apply the period data to the widgets
         self._apply_period_to_widgets(period, widgets, is_baseline=False)
 
-        # Set the JRC dataset if this is a JRCPeriod
+        # Set the JRC/FWv2 dataset if this is a JRCPeriod or FWv2Period
         if isinstance(period, JRCPeriod) and period.jrc_dataset:
             idx = widgets.cb_lpd.findText(period.jrc_dataset)
+            if idx >= 0:
+                widgets.cb_lpd.setCurrentIndex(idx)
+        elif isinstance(period, FWv2Period) and period.fwv2_dataset:
+            idx = widgets.cb_lpd.findText(period.fwv2_dataset)
             if idx >= 0:
                 widgets.cb_lpd.setCurrentIndex(idx)
 
@@ -1305,10 +1398,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         # Update UI state based on current productivity mode
         is_precalc = self.radio_lpd_precalculated.isChecked()
-        widgets.cb_lpd.setVisible(is_precalc)
+        is_fwv2 = self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked()
+        show_lpd_combo = is_precalc or is_fwv2
+        widgets.cb_lpd.setVisible(show_lpd_combo)
         lbl = grp.findChild(QtWidgets.QLabel, "label_jrc_progress")
         if lbl is not None:
-            lbl.setVisible(is_precalc)
+            lbl.setVisible(show_lpd_combo)
 
     def on_save_preset(self):
         """Save current configuration as a new preset."""
@@ -1347,6 +1442,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             productivity_mode = ProductivityMode.JRC_5_CLASS_LPD.value
         elif self.radio_fao_wocat.isChecked():
             productivity_mode = ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+        elif self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked():
+            productivity_mode = ProductivityMode.FWV2_5_CLASS_LPD.value
         else:
             productivity_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
 
@@ -1415,6 +1512,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         elif preset.productivity_mode in [
             ProductivityMode.JRC_5_CLASS_LPD.value,
             ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+            ProductivityMode.FWV2_5_CLASS_LPD.value,
         ]:
             # JRC and FAO-WOCAT periods use standard productivity dates
             period_args.update(
@@ -1430,17 +1528,22 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             if is_baseline:
                 jrc_dataset = self.cb_jrc_baseline.currentText()
             else:
-                # For reporting periods, check if this widget has its own JRC combobox (extra periods)
-                # or use the main progress combobox (main reporting period)
                 if hasattr(widgets, "cb_lpd") and widgets.cb_lpd:
                     jrc_dataset = widgets.cb_lpd.currentText()
                 else:
                     jrc_dataset = self.cb_jrc_progress.currentText()
-            period_args.update(
-                {
-                    "jrc_dataset": jrc_dataset,
-                }
-            )
+            period_args["jrc_dataset"] = jrc_dataset
+
+        # Add FWv2 dataset for FWv2 periods
+        if preset.productivity_mode == ProductivityMode.FWV2_5_CLASS_LPD.value:
+            if is_baseline:
+                fwv2_dataset = self.cb_jrc_baseline.currentText()
+            else:
+                if hasattr(widgets, "cb_lpd") and widgets.cb_lpd:
+                    fwv2_dataset = widgets.cb_lpd.currentText()
+                else:
+                    fwv2_dataset = self.cb_jrc_progress.currentText()
+            period_args["fwv2_dataset"] = fwv2_dataset
 
         return preset._create_period_for_mode(**period_args)
 
@@ -1594,7 +1697,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             widgets.year_final_lc.setDate(lc_end)
             widgets.year_final_soc.setDate(lc_end)
 
-            if not self.radio_lpd_precalculated.isChecked():
+            if not self.radio_lpd_precalculated.isChecked() and not (
+                self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked()
+            ):
                 if not widgets.radio_fao_wocat.isChecked():
                     widgets.year_initial_prod.setDate(year_initial)
 
@@ -1626,8 +1731,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         # First, update the time bounds based on the new radio button state
         self.update_time_bounds(widgets)
 
-        # Check if we're in JRC mode - if so, productivity widgets should remain disabled
+        # Check if we're in JRC or FWv2 mode - if so, productivity widgets should remain disabled
         is_precalc = self.radio_lpd_precalculated.isChecked()
+        is_fwv2 = self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked()
+        disable_prod_dates = is_precalc or is_fwv2
 
         if widgets.radio_time_period_same.isChecked():
             widgets.label_lc.setEnabled(False)
@@ -1642,8 +1749,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             widgets.year_final.setEnabled(True)
 
             widgets.label_prod.setEnabled(False)
-            # Only disable productivity widgets if not in JRC mode (they're already disabled in JRC mode)
-            if not is_precalc:
+            # Only disable productivity widgets if not in JRC/FWv2 mode (they're already disabled there)
+            if not disable_prod_dates:
                 widgets.year_initial_prod.setEnabled(False)
                 widgets.year_final_prod.setEnabled(False)
 
@@ -1663,12 +1770,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             widgets.year_initial.setEnabled(False)
             widgets.year_final.setEnabled(False)
 
-            # Only enable productivity widgets if not in JRC mode
-            if not is_precalc:
+            # Only enable productivity widgets if not in JRC/FWv2 mode
+            if not disable_prod_dates:
                 widgets.year_initial_prod.setEnabled(True)
                 widgets.year_final_prod.setEnabled(True)
 
-            if widgets.radio_lpd_te.isChecked() and not is_precalc:
+            if widgets.radio_lpd_te.isChecked() and not disable_prod_dates:
                 widgets.label_prod.setEnabled(True)
                 widgets.year_initial_prod.setEnabled(True)
 
@@ -1678,10 +1785,39 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         according to the chosen LPD mode.
         """
         is_precalc = self.radio_lpd_precalculated.isChecked()
+        is_fwv2 = self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked()
+        show_lpd_combo = is_precalc or is_fwv2
+
+        # Repopulate LPD dataset comboboxes with the appropriate entries
+        # for the current mode (JRC entries for precalculated, FWv2 entries for FWv2)
+        if show_lpd_combo:
+            all_lpd_keys = list(
+                conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()
+            )
+            if is_fwv2:
+                filtered_keys = [k for k in all_lpd_keys if "FWv2" in k]
+            else:
+                filtered_keys = [k for k in all_lpd_keys if "FWv2" not in k]
+
+            def _repopulate_cb(cb, keys, default_index=0):
+                current = cb.currentText()
+                cb.blockSignals(True)
+                cb.clear()
+                cb.addItems(keys)
+                idx = cb.findText(current)
+                cb.setCurrentIndex(
+                    idx if idx >= 0 else min(default_index, len(keys) - 1)
+                )
+                cb.blockSignals(False)
+
+            _repopulate_cb(self.cb_jrc_baseline, filtered_keys, 0)
+            _repopulate_cb(
+                self.cb_jrc_progress, filtered_keys, min(2, len(filtered_keys) - 1)
+            )
 
         # Main widgets (baseline & first reporting period)
-        # JRC/FAO-WOCAT combo boxes
-        if is_precalc:
+        # JRC/FWv2 combo boxes
+        if show_lpd_combo:
             self.cb_jrc_baseline.show()
             self.label_jrc_baseline.show()
             self.cb_jrc_progress.show()
@@ -1692,7 +1828,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.cb_jrc_progress.hide()
             self.label_jrc_progress.hide()
 
-        # Make productivity date controls disabled when JRC mode is selected
+        # Make productivity date controls disabled when JRC or FWv2 mode is selected
         # (users can still configure LC and SOC periods, but productivity dates are fixed)
         productivity_widgets = [
             # Baseline productivity widgets
@@ -1706,22 +1842,24 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         for widget in productivity_widgets:
             if widget:
                 widget.setEnabled(
-                    not is_precalc
-                )  # Disable in JRC mode, enable otherwise
+                    not show_lpd_combo
+                )  # Disable in JRC/FWv2 mode, enable otherwise
 
         # Extra progress‑period widgets
         for _box, w in getattr(self, "extra_progress_boxes", []):
-            w.cb_lpd.setVisible(is_precalc)
+            if show_lpd_combo:
+                _repopulate_cb(w.cb_lpd, filtered_keys, 0)
+            w.cb_lpd.setVisible(show_lpd_combo)
 
             lbl = _box.findChild(QtWidgets.QLabel, "label_jrc_progress")
             if lbl is not None:
-                lbl.setVisible(is_precalc)
+                lbl.setVisible(show_lpd_combo)
 
             # Disable productivity date controls in extra reporting periods too
             if w.year_initial_prod:
-                w.year_initial_prod.setEnabled(not is_precalc)
+                w.year_initial_prod.setEnabled(not show_lpd_combo)
             if w.year_final_prod:
-                w.year_final_prod.setEnabled(not is_precalc)
+                w.year_final_prod.setEnabled(not show_lpd_combo)
 
         # Refresh dependent controls
         self.update_time_bounds(self.widgets_baseline)
@@ -1743,7 +1881,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         start_year_prod = QtCore.QDate(int(prod_dataset["Start year"]), 1, 1)
         end_year_prod = QtCore.QDate(int(prod_dataset["End year"]), 1, 1)
 
-        if self.radio_lpd_precalculated.isChecked():
+        if self.radio_lpd_precalculated.isChecked() or (
+            self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked()
+        ):
             if not widgets.cb_lpd.currentText():
                 widgets.cb_lpd.setCurrentIndex(0)
 
@@ -1886,7 +2026,18 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             QtWidgets.QComboBox, "cb_jrc_progress"
         )
 
-        cb_lpd.addItems([*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()])
+        all_lpd_keys = list(conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys())
+        is_fwv2_now = (
+            self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked()
+        )
+        is_precalc_init = self.radio_lpd_precalculated.isChecked()
+        if is_fwv2_now:
+            lpd_keys = [k for k in all_lpd_keys if "FWv2" in k]
+        elif is_precalc_init:
+            lpd_keys = [k for k in all_lpd_keys if "FWv2" not in k]
+        else:
+            lpd_keys = [k for k in all_lpd_keys if "FWv2" not in k]
+        cb_lpd.addItems(lpd_keys)
         cb_lpd.setCurrentIndex(0)
 
         cb_lpd.currentIndexChanged.connect(
@@ -1910,6 +2061,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             grp.findChild(QtWidgets.QDateEdit, "year_final_progress_soc"),
             self.radio_fao_wocat,
             self.radio_lpd_precalculated,
+            radio_lpd_fwv2=self.radio_lpd_fwv2,
         )
 
         for de in (
@@ -1927,16 +2079,18 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.update_time_bounds(w)
         self.toggle_time_period(w)
 
-        is_precalc_now = self.radio_lpd_precalculated.isChecked()
-        w.cb_lpd.setVisible(is_precalc_now)
+        show_combo_now = self.radio_lpd_precalculated.isChecked() or (
+            self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked()
+        )
+        w.cb_lpd.setVisible(show_combo_now)
         lbl_now = grp.findChild(QtWidgets.QLabel, "label_jrc_progress")
         if lbl_now is not None:
-            lbl_now.setVisible(is_precalc_now)
+            lbl_now.setVisible(show_combo_now)
 
         if w.year_initial_prod:
-            w.year_initial_prod.setEnabled(not is_precalc_now)
+            w.year_initial_prod.setEnabled(not show_combo_now)
         if w.year_final_prod:
-            w.year_final_prod.setEnabled(not is_precalc_now)
+            w.year_final_prod.setEnabled(not show_combo_now)
 
         same_btn = w.radio_time_period_same
         vary_btn = grp.findChild(
@@ -1979,16 +2133,18 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.update_timeline_graph()
 
         is_precalc = self.radio_lpd_precalculated.isChecked()
+        is_fwv2 = self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked()
+        show_lpd_combo = is_precalc or is_fwv2
 
-        widgets.cb_lpd.setVisible(is_precalc)
+        widgets.cb_lpd.setVisible(show_lpd_combo)
         lbl = grp.findChild(QtWidgets.QLabel, "label_jrc_progress")
         if lbl is not None:
-            lbl.setVisible(is_precalc)
+            lbl.setVisible(show_lpd_combo)
 
         if widgets.year_initial_prod:
-            widgets.year_initial_prod.setEnabled(not is_precalc)
+            widgets.year_initial_prod.setEnabled(not show_lpd_combo)
         if widgets.year_final_prod:
-            widgets.year_final_prod.setEnabled(not is_precalc)
+            widgets.year_final_prod.setEnabled(not show_lpd_combo)
 
         self.toggle_lpd_options()
 
@@ -2031,7 +2187,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if not widgets.radio_time_period_same.isChecked():
             return False
 
-        if widgets.radio_lpd_precalculated.isChecked():
+        if widgets.radio_lpd_precalculated.isChecked() or (
+            widgets.radio_lpd_fwv2 is not None and widgets.radio_lpd_fwv2.isChecked()
+        ):
             return False
 
         period_start = widgets.year_initial.date()
@@ -2132,6 +2290,29 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             periods[key] = self._get_period_years(w)
 
         crosses_180th, geojsons = self.gee_bounding_box
+
+        # Warn before submission if FWv2 dataset is selected
+        if self.radio_lpd_fwv2 is not None and self.radio_lpd_fwv2.isChecked():
+            msg = QtWidgets.QMessageBox(self)
+            msg.setWindowTitle(self.tr("Note: FWv2 dataset coverage"))
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+            # Qt6 uses scoped enums; fall back to Qt5 flat enums if needed
+            try:
+                msg.setTextFormat(QtCore.Qt.TextFormat.RichText)
+                msg.setTextInteractionFlags(
+                    QtCore.Qt.TextInteractionFlag.TextBrowserInteraction
+                )
+            except AttributeError:
+                msg.setTextFormat(QtCore.Qt.RichText)
+                msg.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+            msg.setText(
+                self.tr(
+                    "Note that the FAO-WOCAT FWv2 30m land productivity dynamics "
+                    "dataset is only available for 40 Small Island Developing States "
+                    '(SIDS). See more details <a href="https://zenodo.org/records/15276520">here</a>.'
+                )
+            )
+            msg.exec()
 
         payloads = []
 
@@ -2246,6 +2427,22 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         "modis_mode": "MannKendal + MTID",
                         "year_initial": widgets.year_initial_prod.date().year(),
                         "year_final": widgets.year_final_prod.date().year(),
+                    }
+                )
+            elif prod_mode == ProductivityMode.FWV2_5_CLASS_LPD.value:
+                prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
+                    widgets.cb_lpd.currentText()
+                ]
+                prod_asset = prod_dataset["GEE Dataset"]
+                prod_start_year = prod_dataset["Start year"]
+                prod_end_year = prod_dataset["End year"]
+                prod_date_source = prod_dataset["Data source"]
+                payload["productivity"].update(
+                    {
+                        "asset": prod_asset,
+                        "year_initial": prod_start_year,
+                        "year_final": prod_end_year,
+                        "data_source": prod_date_source,
                     }
                 )
             else:

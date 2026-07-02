@@ -194,14 +194,21 @@
                  <item>
                   <widget class="QRadioButton" name="radio_fao_wocat">
                    <property name="text">
-                    <string>FAO-WOCAT</string>
+                    <string>FAO-WOCAT land productivity dynamics</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="radio_lpd_fwv2">
+                   <property name="text">
+                    <string>FAO-WOCAT v2 land productivity dynamics (30m, SIDS only)</string>
                    </property>
                   </widget>
                  </item>
                  <item>
                   <widget class="QRadioButton" name="radio_lpd_precalculated">
                    <property name="text">
-                    <string>JRC land productivity dynamics (pre-calculated)</string>
+                    <string>JRC land productivity dynamics</string>
                    </property>
                    <property name="checked">
                     <bool>false</bool>

@@ -425,6 +425,8 @@ def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
         lpd_layer_name = config.JRC_LPD_BAND_NAME
     elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
         lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
+    elif prod_mode == ProductivityMode.FWV2_5_CLASS_LPD.value:
+        lpd_layer_name = config.FWV2_LPD_BAND_NAME
     else:
         raise KeyError
 
@@ -507,6 +509,9 @@ def run_period(params, EXECUTION_ID, logger):
         params.update(_gen_metadata_str_te(params))
         out = run_te_for_period(params, EXECUTION_ID, logger)
     elif params["productivity"]["mode"] == ProductivityMode.JRC_5_CLASS_LPD.value:
+        params.update(_gen_metadata_str_precalculated_lpd(params))
+        out = run_precalculated_lpd_for_period(params, EXECUTION_ID, logger)
+    elif params["productivity"]["mode"] == ProductivityMode.FWV2_5_CLASS_LPD.value:
         params.update(_gen_metadata_str_precalculated_lpd(params))
         out = run_precalculated_lpd_for_period(params, EXECUTION_ID, logger)
     elif params["productivity"]["mode"] == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:

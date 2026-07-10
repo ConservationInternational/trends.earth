@@ -1541,8 +1541,6 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         land_type_path = None
         land_type_band_index = 1
         land_type_labels = None
-        zones_raster_path = None
-        zones_raster_labels = None
         if self.rb_lt_lc.isChecked():
             lt_info = self.combo_land_type.get_current_band()
             if lt_info is not None:

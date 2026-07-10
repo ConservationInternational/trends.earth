@@ -65,6 +65,12 @@ jobs:
           echo "ZIP_PATH=$GITHUB_WORKSPACE/${ZIPDIR}" >> $GITHUB_ENV
           echo "ZIP_NAME=LDMP-${REF_NAME}_${PACKAGE_ID}" >> $GITHUB_ENV
 
+      - name: Upload plugin ZIP for repository generation
+        uses: actions/upload-artifact@v7
+        with:
+          name: plugin_zip
+          path: LDMP-${{ env.REF_NAME }}_${{ env.PACKAGE_ID }}.zip
+
       - name: Uploading plugin build
         id: artifact-upload-step
         uses: actions/upload-artifact@v7

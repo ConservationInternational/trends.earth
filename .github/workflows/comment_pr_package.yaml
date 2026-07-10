@@ -6,7 +6,7 @@ on:
     workflows: ['Create plugin package in the PR']
 
 permissions:
-  contents: read
+  contents: write
   actions: read
   issues: write
   pull-requests: write
@@ -18,7 +18,18 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          fetch-depth: 1
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Detect fork PR
+        run: |
+          if [ "${{ github.event.workflow_run.head_repository.full_name }}" != "${{ github.repository }}" ]; then
+            echo "IS_FORK=true" >> $GITHUB_ENV
+          else
+            echo "IS_FORK=false" >> $GITHUB_ENV
+          fi
+
       - name: Ensure jq and gh are available
         run: |
           if ! command -v jq >/dev/null 2>&1; then
@@ -74,12 +85,83 @@ jobs:
           fi
           echo "ARTIFACT_URL=$(cat artifacts/artifact_url.txt | tr -d '\n')" >> $GITHUB_ENV
 
+      - name: Setup Python environment
+        if: env.IS_FORK == 'false'
+        uses: ./.github/actions/setup-python-env
+
+      - name: Stamp version in metadata.txt
+        if: env.IS_FORK == 'false'
+        run: invoke set-version --modules
+
+      - name: Download plugin ZIP artifact
+        if: env.IS_FORK == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p artifacts
+          gh run download ${{ github.event.workflow_run.id }} --name plugin_zip --dir artifacts || true
+          if [ ! -f artifacts/LDMP.zip ]; then
+            curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/artifacts" \
+              | jq -r '.artifacts[] | select(.name=="plugin_zip" and .expired==false) | .archive_download_url' \
+              > artifacts/plugin_zip_url.txt
+            URL=$(cat artifacts/plugin_zip_url.txt)
+            if [ -n "$URL" ]; then
+              curl -L -H "Authorization: Bearer $GH_TOKEN" -o artifacts/plugin_zip.zip "$URL"
+              unzip -o artifacts/plugin_zip.zip -d artifacts >/dev/null
+            fi
+          fi
+
+      - name: Checkout release branch
+        if: env.IS_FORK == 'false'
+        uses: actions/checkout@v6
+        with:
+          ref: release
+          path: release
+          clean: false
+          fetch-depth: 0
+
+      - name: Update plugin repository on release branch
+        if: env.IS_FORK == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SAFE_BRANCH=$(echo "${{ github.event.workflow_run.head_branch }}" | tr '/' '_')
+          mkdir -p release/docs/repository/branches/${SAFE_BRANCH}
+
+          cp artifacts/LDMP.zip release/docs/repository/branches/${SAFE_BRANCH}/LDMP.zip
+
+          DOWNLOAD_URL="https://raw.githubusercontent.com/${{ github.repository }}/refs/heads/release/docs/repository/branches/${SAFE_BRANCH}/LDMP.zip"
+
+          invoke generate-plugin-repo-xml \
+            --prerelease \
+            --prerelease-url "$DOWNLOAD_URL" \
+            --prerelease-time "$(date +'%Y-%m-%dT%H:%M:%SZ')" \
+            --prerelease-filename "LDMP.zip"
+
+          cp docs/repository/plugins.xml release/docs/repository/branches/${SAFE_BRANCH}/plugins.xml
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global --add safe.directory $GITHUB_WORKSPACE/release
+
+          cd release
+          git add docs/repository/branches/${SAFE_BRANCH}
+          git commit -m "Add PR branch ${SAFE_BRANCH} plugin repository"
+          git push origin release
+
+          echo "REPO_URL=https://raw.githubusercontent.com/${{ github.repository }}/refs/heads/release/docs/repository/branches/${SAFE_BRANCH}/plugins.xml" >> $GITHUB_ENV
+
       - name: Compose comment body
         id: body
         env:
           HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
+          REPO_LINE=""
+          if [ -n "${REPO_URL}" ]; then
+            REPO_LINE="🗂️ **QGIS Repository Link:** ${REPO_URL}"
+          fi
           cat > body.md <<EOF
           <!-- LDMP_PLUGIN_BUILD_COMMENT -->
           ## 🚀 **Plugin Build Successful!** ✅
@@ -87,6 +169,7 @@ jobs:
           A new **plugin build** has been successfully generated for the changes in this pull request! 🎉
 
           🔗 **Download Plugin Zip:** ${ARTIFACT_URL}
+          ${REPO_LINE}
 
           _Built from branch **${HEAD_BRANCH}**, commit **${HEAD_SHA}**_
           

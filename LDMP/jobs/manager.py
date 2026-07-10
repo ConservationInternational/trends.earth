@@ -45,6 +45,7 @@ from te_schemas.results import (
     RasterFileType,
     RasterResults,
     ResultType,
+    Vector,
     VectorFalsePositive,
     VectorResults,
     VectorType,
@@ -2372,6 +2373,351 @@ class JobManager(QtCore.QObject):
         if vector_result:
             layers.set_default_stats_value(str(vector_result.uri.uri), band_datas)
         self.edit_error_recode_layer(job)
+
+    # ------------------------------------------------------------------ #
+    #  LDN Planning targets layer
+    # ------------------------------------------------------------------ #
+    def create_ldn_targets_layer(self, task_name: str):
+        """Create an editable "LDN Planning Targets" vector layer.
+
+        The layer is a polygon GeoPackage with the attribute schema expected by
+        the LDN Planning scenario tool (``intervention``, ``effectiveness``,
+        ``notes``).  It is registered as a GENERIC VectorResults job so it
+        appears in the Datasets browser, added to the map with a styled
+        renderer, and put into edit mode so the user can digitize target
+        polygons.  The scenario dialog then reads targets from this layer.
+        """
+        now = dt.datetime.now(dt.timezone.utc)
+        job_id = uuid.uuid4()
+        job = Job(
+            id=job_id,
+            params={},
+            progress=100,
+            start_date=now,
+            status=jobs.JobStatus.GENERATED_LOCALLY,
+            local_context=_get_local_context(),
+            results=VectorResults(
+                name="LDN Planning Targets",
+                vector=Vector(
+                    uri=None,
+                    type=VectorType.GENERIC,
+                ),
+                type=ResultType.VECTOR_RESULTS,
+            ),
+            script=ExecutionScript(
+                id="ldn-planning-targets",
+                name="ldn-planning-targets",
+                run_mode=AlgorithmRunMode.LOCAL,
+            ),
+            task_name=task_name,
+            task_notes="",
+            end_date=now,
+        )
+
+        self._init_ldn_targets_layer(job)
+        try:
+            set_results_extents(job)
+        except Exception as exc:
+            log(
+                f"Failed to set extents for LDN targets job {job.id}: "
+                f"{type(exc).__name__}: {exc}"
+            )
+        self.write_job_metadata_file(job)
+        self._set_known_job(jobs.JobStatus.DOWNLOADED, job)
+        self.imported_job.emit(job)
+        self.display_ldn_targets_layer(job)
+        self._configure_ldn_targets_editor_widgets(job)
+        self.edit_ldn_targets_layer(job)
+
+    def create_ldn_targets_layer_from_file(
+        self, path: str, field_config: dict, task_name: str
+    ) -> "Job":
+        """Create a new LDN Planning Targets dataset pre-populated from an external file.
+
+        Parameters
+        ----------
+        path:
+            Path to the source vector file (GeoJSON/GPKG/SHP).
+        field_config:
+            Dict produced by ``DlgImportTargetsFile.field_config``:
+              - intervention_field: source field name, or None to use default
+              - default_intervention: fallback string ("avoid"/"reduce"/"reverse")
+              - effectiveness_field: source field name, or None to use default
+              - default_effectiveness: fallback float (0.0–1.0)
+        task_name:
+            Name for the new dataset.
+
+        Returns
+        -------
+        Job
+            The registered job for the new dataset.
+        """
+        from pathlib import Path as _Path
+
+        from osgeo import ogr
+
+        now = dt.datetime.now(dt.timezone.utc)
+        job_id = uuid.uuid4()
+        job = Job(
+            id=job_id,
+            params={},
+            progress=100,
+            start_date=now,
+            status=jobs.JobStatus.GENERATED_LOCALLY,
+            local_context=_get_local_context(),
+            results=VectorResults(
+                name=task_name or "LDN Planning Targets",
+                vector=Vector(
+                    uri=None,
+                    type=VectorType.GENERIC,
+                ),
+                type=ResultType.VECTOR_RESULTS,
+            ),
+            script=ExecutionScript(
+                id="ldn-planning-targets",
+                name="ldn-planning-targets",
+                run_mode=AlgorithmRunMode.LOCAL,
+            ),
+            task_name=task_name or "LDN Planning Targets",
+            task_notes=f"Imported from {_Path(path).name}",
+            end_date=now,
+        )
+
+        # Create the blank GPKG with the standard schema.
+        self._init_ldn_targets_layer(job)
+
+        output_path = self.get_job_file_path(job).with_suffix(".gpkg")
+
+        # Copy normalised features from the source file into the destination GPKG.
+        src_ds = ogr.Open(path, 0)
+        if src_ds is None:
+            raise OSError(f"Cannot open source file: {path}")
+
+        dst_ds = ogr.Open(str(output_path), 1)  # update mode
+        if dst_ds is None:
+            src_ds = None  # noqa: F841
+            raise OSError(f"Cannot open destination GPKG: {output_path}")
+
+        try:
+            src_lyr = src_ds.GetLayer(0)
+            dst_lyr = dst_ds.GetLayer(0)
+
+            int_field: str | None = field_config.get("intervention_field")
+            default_int: str | None = field_config.get("default_intervention")
+            eff_field: str | None = field_config.get("effectiveness_field")
+            default_eff: float = float(field_config.get("default_effectiveness") or 0.8)
+
+            valid_interventions = {"avoid", "reduce", "reverse"}
+
+            for feat in src_lyr:
+                geom = feat.GetGeometryRef()
+                if geom is None:
+                    continue
+
+                # Resolve intervention value.
+                if int_field is not None:
+                    raw = feat.GetField(int_field)
+                    interv = (raw or "").strip().lower()
+                else:
+                    interv = default_int or "avoid"
+
+                if interv not in valid_interventions:
+                    continue  # skip — import dialog warned the user
+
+                # Resolve effectiveness value.
+                if eff_field is not None:
+                    eff_raw = feat.GetField(eff_field)
+                    if eff_raw is None:
+                        eff: float = default_eff
+                    else:
+                        eff = float(eff_raw)
+                        if eff > 1.0:
+                            eff = eff / 100.0  # treat as percentage
+                        eff = max(0.0, min(1.0, eff))
+                else:
+                    eff = default_eff
+
+                out_feat = ogr.Feature(dst_lyr.GetLayerDefn())
+                out_feat.SetGeometry(geom.Clone())
+                out_feat.SetField("intervention", interv)
+                out_feat.SetField("effectiveness", eff)
+                dst_lyr.CreateFeature(out_feat)
+                out_feat = None  # noqa: F841
+
+            dst_ds.FlushCache()
+        finally:
+            src_ds = None  # noqa: F841
+            dst_ds = None  # noqa: F841
+
+        # Refresh extent now that features have been written.
+        vec_extent = _get_extent_tuple_vector(str(output_path))
+        if vec_extent is not None:
+            job.results.extent = vec_extent
+
+        try:
+            set_results_extents(job)
+        except Exception as exc:
+            log(
+                f"Failed to set extents for imported LDN targets job {job.id}: "
+                f"{type(exc).__name__}: {exc}"
+            )
+        self.write_job_metadata_file(job)
+        self._set_known_job(jobs.JobStatus.DOWNLOADED, job)
+        self.imported_job.emit(job)
+        self.display_ldn_targets_layer(job)
+        self._configure_ldn_targets_editor_widgets(job)
+        # Do not call edit_ldn_targets_layer — imported layers are read-only by default.
+        return job
+
+    def _init_ldn_targets_layer(self, job: Job):
+        from osgeo import ogr, osr
+
+        output_path = self.get_job_file_path(job).with_suffix(".gpkg")
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        driver = ogr.GetDriverByName("GPKG")
+        ds = driver.CreateDataSource(str(output_path))
+        srs = osr.SpatialReference()
+        srs.ImportFromEPSG(4326)
+        lyr = ds.CreateLayer("ldn_targets", srs=srs, geom_type=ogr.wkbPolygon)
+
+        fld_int = ogr.FieldDefn("intervention", ogr.OFTString)
+        fld_int.SetWidth(16)
+        lyr.CreateField(fld_int)
+        lyr.CreateField(ogr.FieldDefn("effectiveness", ogr.OFTReal))
+        fld_notes = ogr.FieldDefn("notes", ogr.OFTString)
+        fld_notes.SetWidth(254)
+        lyr.CreateField(fld_notes)
+
+        ds.FlushCache()
+        ds = None
+
+        job.results.vector.uri = URI(uri=output_path)
+        vec_extent = _get_extent_tuple_vector(str(output_path))
+        if vec_extent is not None:
+            job.results.extent = vec_extent
+
+    def display_ldn_targets_layer(self, job: Job):
+        vector_result = job.get_first_result_by_type(VectorResults)
+        if vector_result is None or vector_result.uri is None:
+            log(f"No LDN targets vector result found for job {job.id}")
+            return
+        layer_path = vector_result.uri.uri
+        layer = layers.add_vector_layer(str(layer_path), vector_result.name)
+        if layer is not None:
+            layer.setCustomProperty("job_id", str(job.id))
+            layers.style_ldn_targets_layer(layer)
+        else:
+            log("display_ldn_targets_layer: layer is None after add_vector_layer")
+
+    def _configure_ldn_targets_editor_widgets(self, job: Job):
+        """Set up Value Map and Range editor widgets on the targets layer."""
+        from qgis.core import QgsEditorWidgetSetup, QgsProject
+
+        vector_result = job.get_first_result_by_type(VectorResults)
+        if vector_result is None or vector_result.uri is None:
+            return
+
+        layer_path = str(vector_result.uri.uri)
+        target_layer = None
+        for lyr in QgsProject.instance().mapLayers().values():
+            if lyr.source().split("|")[0] == layer_path:
+                target_layer = lyr
+                break
+        if target_layer is None:
+            return
+
+        # intervention → Value Map dropdown (avoid / reduce / reverse)
+        int_idx = target_layer.fields().lookupField("intervention")
+        if int_idx >= 0:
+            target_layer.setEditorWidgetSetup(
+                int_idx,
+                QgsEditorWidgetSetup(
+                    "ValueMap",
+                    {
+                        "map": {
+                            "Avoid (protect healthy land)": "avoid",
+                            "Reduce (SLM on at-risk land)": "reduce",
+                            "Reverse (restore degraded land)": "reverse",
+                        }
+                    },
+                ),
+            )
+            target_layer.setFieldAlias(int_idx, "Intervention")
+
+        # effectiveness → Range 0.0–1.0, step 0.05
+        eff_idx = target_layer.fields().lookupField("effectiveness")
+        if eff_idx >= 0:
+            target_layer.setEditorWidgetSetup(
+                eff_idx,
+                QgsEditorWidgetSetup(
+                    "Range",
+                    {
+                        "Min": 0.0,
+                        "Max": 1.0,
+                        "Step": 0.05,
+                        "Style": "SpinBox",
+                        "AllowNull": True,
+                    },
+                ),
+            )
+            target_layer.setFieldAlias(eff_idx, "Effectiveness (0–1)")
+
+        # notes → multiline text box
+        notes_idx = target_layer.fields().lookupField("notes")
+        if notes_idx >= 0:
+            target_layer.setEditorWidgetSetup(
+                notes_idx,
+                QgsEditorWidgetSetup("TextEdit", {"IsMultiline": True}),
+            )
+            target_layer.setFieldAlias(notes_idx, "Notes")
+
+        # fid → hidden (auto-managed by GPKG)
+        fid_idx = target_layer.fields().lookupField("fid")
+        if fid_idx >= 0:
+            target_layer.setEditorWidgetSetup(
+                fid_idx, QgsEditorWidgetSetup("Hidden", {})
+            )
+
+    def edit_ldn_targets_layer(self, job: Job):
+        vector_result = job.get_first_result_by_type(VectorResults)
+        if vector_result is None or vector_result.uri is None:
+            return
+        layers.edit(str(vector_result.uri.uri))
+
+    def get_ldn_targets_jobs(self) -> List[Job]:
+        """Return all LDN Planning Target vector jobs visible in the Datasets panel.
+
+        Searches the full in-memory job cache (not just DOWNLOADED) so that
+        jobs registered as GENERATED_LOCALLY are also found. Matches on the
+        script id used by ``create_ldn_targets_layer`` rather than the
+        VectorResults type chain, which can be None before results are persisted.
+        """
+        result = []
+        for j in self.relevant_jobs:
+            # Match by script id (most reliable — set at creation time)
+            script_id = getattr(getattr(j, "script", None), "id", None) or ""
+            if script_id == "ldn-planning-targets":
+                result.append(j)
+                continue
+            # Fallback: match by VectorResults name for jobs loaded from disk
+            vr = j.get_first_result_by_type(VectorResults)
+            if vr is not None and vr.name == "LDN Planning Targets":
+                result.append(j)
+        return result
+
+    def get_ldn_land_types_jobs(self) -> List[Job]:
+        """Return all LDN Planning Zones jobs (Create Analysis Zones tool).
+
+        Matched by the script id set at creation time so jobs are found
+        regardless of status or result deserialization state.
+        """
+        result = []
+        for j in self.relevant_jobs:
+            script_id = getattr(getattr(j, "script", None), "id", None) or ""
+            if script_id == "ldn-planning-land-types":
+                result.append(j)
+        return result
 
     def get_vector_result_jobs(self) -> List[Job]:
         """

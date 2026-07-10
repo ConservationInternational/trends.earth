@@ -401,7 +401,9 @@ class PolygonMapTool(QgsMapToolDigitizeFeature, TEMapToolMixin):
 
         g = f.geometry()
 
-        g.set(self.intersection_with_base_extents(g))
+        clipped = self.intersection_with_base_extents(g)
+        f.setGeometry(clipped)
+        g = f.geometry()
         if g.isEmpty() or g.area() == 0:
             msg_bar = iface.messageBar()
             push_message(

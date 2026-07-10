@@ -1529,5 +1529,92 @@
         { "value": -32768, "color": "#000000", "label": "nodata" }
       ]
     }
+  },
+  "LDN Planning - Land Types": {
+    "title": "ldn_planning_zones_title",
+    "ramp": {
+      "type": "land_types",
+      "shader": "exact",
+      "items": [
+        { "value": 0, "color": "#000000", "label": "nodata" }
+      ]
+    }
+  },
+  "LDN Planning - Avoid/Reduce/Reverse": {
+    "title": "ldn_planning_arr_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#1b7837", "label": "ldn_planning_arr_avoid" },
+        { "value": 2, "color": "#c2a5cf", "label": "ldn_planning_arr_reduce" },
+        { "value": 3, "color": "#762a83", "label": "ldn_planning_arr_reverse" }
+      ]
+    }
+  },
+  "LDN Planning - Degradation Hotspots": {
+    "title": "ldn_planning_hotspots_title",
+    "ramp": {
+      "type": "discrete",
+      "shader": "discrete",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 10,  "color": "#f2f0f7", "label": "ldn_planning_hotspots_0_10" },
+        { "value": 25,  "color": "#dadaeb", "label": "ldn_planning_hotspots_10_25" },
+        { "value": 50,  "color": "#bcbddc", "label": "ldn_planning_hotspots_25_50" },
+        { "value": 75,  "color": "#9e9ac8", "label": "ldn_planning_hotspots_50_75" },
+        { "value": 90,  "color": "#756bb1", "label": "ldn_planning_hotspots_75_90" },
+        { "value": 100, "color": "#54278f", "label": "ldn_planning_hotspots_90_100" }
+      ]
+    }
+  },
+  "LDN Planning - Scenario P(restoration)": {
+    "title": "ldn_planning_scenario_reverse_title",
+    "ramp": {
+      "type": "discrete",
+      "shader": "discrete",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 0,   "color": "#edf8e9", "label": "ldn_planning_scenario_0" },
+        { "value": 20,  "color": "#c7e9c0", "label": "ldn_planning_scenario_0_20" },
+        { "value": 40,  "color": "#a1d99b", "label": "ldn_planning_scenario_20_40" },
+        { "value": 60,  "color": "#74c476", "label": "ldn_planning_scenario_40_60" },
+        { "value": 80,  "color": "#31a354", "label": "ldn_planning_scenario_60_80" },
+        { "value": 100, "color": "#006d2c", "label": "ldn_planning_scenario_80_100" }
+      ]
+    }
+  },
+  "LDN Planning - Scenario P(reduction)": {
+    "title": "ldn_planning_scenario_reduce_title",
+    "ramp": {
+      "type": "discrete",
+      "shader": "discrete",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 0,   "color": "#f2f0f7", "label": "ldn_planning_scenario_0" },
+        { "value": 20,  "color": "#dadaeb", "label": "ldn_planning_scenario_0_20" },
+        { "value": 40,  "color": "#bcbddc", "label": "ldn_planning_scenario_20_40" },
+        { "value": 60,  "color": "#9e9ac8", "label": "ldn_planning_scenario_40_60" },
+        { "value": 80,  "color": "#756bb1", "label": "ldn_planning_scenario_60_80" },
+        { "value": 100, "color": "#54278f", "label": "ldn_planning_scenario_80_100" }
+      ]
+    }
+  },
+  "LDN Planning - Scenario P(avoidance)": {
+    "title": "ldn_planning_scenario_avoid_title",
+    "ramp": {
+      "type": "discrete",
+      "shader": "discrete",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 0,   "color": "#eff3ff", "label": "ldn_planning_scenario_0" },
+        { "value": 20,  "color": "#c6dbef", "label": "ldn_planning_scenario_0_20" },
+        { "value": 40,  "color": "#9ecae1", "label": "ldn_planning_scenario_20_40" },
+        { "value": 60,  "color": "#6baed6", "label": "ldn_planning_scenario_40_60" },
+        { "value": 80,  "color": "#3182bd", "label": "ldn_planning_scenario_60_80" },
+        { "value": 100, "color": "#08519c", "label": "ldn_planning_scenario_80_100" }
+      ]
+    }
   }
 }

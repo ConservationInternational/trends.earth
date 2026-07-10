@@ -25,15 +25,18 @@ import numpy as np
 from osgeo import gdal
 from qgis.core import (
     Qgis,
+    QgsCategorizedSymbolRenderer,
     QgsColorRampShader,
     QgsDefaultValue,
     QgsEditFormConfig,
+    QgsFillSymbol,
     QgsProcessingFeedback,
     QgsProject,
     QgsProviderRegistry,
     QgsProviderSublayerDetails,
     QgsRasterLayer,
     QgsRasterRange,
+    QgsRendererCategory,
     QgsVectorLayer,
 )
 from qgis.PyQt import QtWidgets
@@ -271,6 +274,47 @@ style_text_dict = {
     "counterbalancing_spatial_units_title": tr_layers.tr(
         "LDN Counterbalancing - Spatial Units ({year_initial}-{year_final})"
     ),
+    # LDN Planning - Avoid/Reduce/Reverse
+    "ldn_planning_arr_title": tr_layers.tr(
+        "LDN Planning - Avoid/Reduce/Reverse ({year_initial}-{year_final})"
+    ),
+    "ldn_planning_arr_avoid": tr_layers.tr(
+        "Avoid (healthy land - protect from future degradation)"
+    ),
+    "ldn_planning_arr_reduce": tr_layers.tr(
+        "Reduce (at-risk land - apply SLM to slow degradation)"
+    ),
+    "ldn_planning_arr_reverse": tr_layers.tr(
+        "Reverse (degraded land - restore to generate counterbalancing gains)"
+    ),
+    # LDN Planning - Degradation Hotspots (% of zone degraded)
+    "ldn_planning_hotspots_title": tr_layers.tr(
+        "LDN Planning - Degradation Hotspots (% of zone degraded, {year_initial}-{year_final})"
+    ),
+    "ldn_planning_hotspots_0_10": tr_layers.tr("0-10% degraded"),
+    "ldn_planning_hotspots_10_25": tr_layers.tr("10-25% degraded"),
+    "ldn_planning_hotspots_25_50": tr_layers.tr("25-50% degraded"),
+    "ldn_planning_hotspots_50_75": tr_layers.tr("50-75% degraded"),
+    "ldn_planning_hotspots_75_90": tr_layers.tr("75-90% degraded"),
+    "ldn_planning_hotspots_90_100": tr_layers.tr("90-100% degraded"),
+    # LDN Planning - Analysis Zones
+    "ldn_planning_zones_title": tr_layers.tr("LDN Planning - Land Types"),
+    # LDN Planning - Scenario probability surfaces
+    "ldn_planning_scenario_reverse_title": tr_layers.tr(
+        "LDN Planning - Scenario P(restoration) (%, {year_initial}-{year_final})"
+    ),
+    "ldn_planning_scenario_reduce_title": tr_layers.tr(
+        "LDN Planning - Scenario P(reduction) (%, {year_initial}-{year_final})"
+    ),
+    "ldn_planning_scenario_avoid_title": tr_layers.tr(
+        "LDN Planning - Scenario P(avoidance) (%, {year_initial}-{year_final})"
+    ),
+    "ldn_planning_scenario_0": tr_layers.tr("0% (no intervention)"),
+    "ldn_planning_scenario_0_20": tr_layers.tr("0-20%"),
+    "ldn_planning_scenario_20_40": tr_layers.tr("20-40%"),
+    "ldn_planning_scenario_40_60": tr_layers.tr("40-60%"),
+    "ldn_planning_scenario_60_80": tr_layers.tr("60-80%"),
+    "ldn_planning_scenario_80_100": tr_layers.tr("80-100%"),
     "sdg_progress_title": tr_layers.tr(
         "SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
     ),
@@ -560,6 +604,57 @@ def create_categorical_transitions_color_ramp_from_legend(nesting):
     return create_categorical_color_ramp(nesting.child.get_transitions_ramp_items())
 
 
+# Okabe-Ito colorblind-safe anchor colors (black is reserved for nodata).
+_OKABE_ITO_RGB: typing.List[typing.Tuple[int, int, int]] = [
+    (230, 159, 0),  # Orange
+    (86, 180, 233),  # Sky blue
+    (0, 158, 115),  # Bluish green
+    (240, 228, 66),  # Yellow
+    (0, 114, 178),  # Blue
+    (213, 94, 0),  # Vermillion
+    (204, 121, 167),  # Reddish purple
+]
+
+
+def _lerp_okabe(pos: float) -> str:
+    """Return a hex colour string for *pos* in [0, len(_OKABE_ITO_RGB) - 1].
+
+    Linearly interpolates between adjacent Okabe-Ito anchor colours.
+    """
+    anchors = _OKABE_ITO_RGB
+    idx = min(int(pos), len(anchors) - 2)
+    t = pos - idx
+    c1, c2 = anchors[idx], anchors[idx + 1]
+    r, g, b = (round(c1[k] + t * (c2[k] - c1[k])) for k in range(3))
+    return "#{:02x}{:02x}{:02x}".format(r, g, b)
+
+
+def create_land_types_color_ramp(band_info: typing.Dict):
+    """Generate an exact categorical color ramp for a land types band.
+
+    Linearly interpolates through the Okabe-Ito anchor colours to produce
+    exactly *n_land_types* evenly-spaced colours.  For n_land_types == 1 the
+    first anchor colour is used; for n_land_types == len(_OKABE_ITO_RGB) the
+    anchors are returned exactly.  A nodata item (value 0, black) is prepended
+    so ``style_layer`` can strip it and register it as a QGIS user-nodata
+    range.
+    """
+    n_land_types = band_info.get("metadata", {}).get("n_land_types", 1)
+    n_anchors = len(_OKABE_ITO_RGB)
+
+    result = [QgsColorRampShader.ColorRampItem(0, QColor("#000000"), "nodata")]
+    for i in range(n_land_types):
+        # Evenly space n_land_types positions across [0, n_anchors - 1].
+        pos = (
+            i * (n_anchors - 1) / max(n_land_types - 1, 1) if n_land_types > 1 else 0.0
+        )
+        hex_color = _lerp_okabe(pos)
+        result.append(
+            QgsColorRampShader.ColorRampItem(i + 1, QColor(hex_color), str(i + 1))
+        )
+    return result
+
+
 def create_categorical_with_dynamic_ramp_color_ramp(style_config, band_info):
     ramp_items = style_config["ramp"]["items"]
     result = []
@@ -725,6 +820,8 @@ def _create_color_ramp(
         result = create_categorical_with_dynamic_ramp_color_ramp(
             style_config, band_info
         )
+    elif ramp_type == "land_types":
+        result = create_land_types_color_ramp(band_info)
     elif ramp_type == "zero-centered stretch":
         # Set a colormap centred on zero, going to the max of the min and max
         # extreme value significant to three figures.
@@ -1078,20 +1175,21 @@ def _try_load_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
         options = QgsProviderSublayerDetails.LayerOptions(
             QgsProject.instance().transformContext()
         )
-        options.loadDefaultStyle = True
+        options.loadDefaultStyle = True  # loads embedded GPKG style if present
         layer = sublayers[0].toLayer(options)
         if layer.isValid():
-            found = False
             layers = QgsProject.instance().mapLayers()
+            new_src = layer.source().split("|")[0]
             for lyr in layers.values():
-                if lyr.source().split("|")[0] == layer.source().split("|")[0]:
-                    found = True
-            if not found:
-                layer.setName(name)
-                QgsProject.instance().addMapLayer(layer)
-                return layer
-            else:
-                return layer  # Layer already exists
+                if lyr.source().split("|")[0] == new_src:
+                    # Return the *existing* project layer, not the temp one,
+                    # so callers that set custom properties (e.g. job_id) or
+                    # start editing affect the layer that is actually loaded.
+                    return lyr
+            # No existing layer — add the new one.
+            layer.setName(name)
+            QgsProject.instance().addMapLayer(layer)
+            return layer
     else:
         found = False
         layers = QgsProject.instance().mapLayers()
@@ -1171,3 +1269,96 @@ def edit(layer):
                 lyr.commitChanges()
             else:
                 lyr.startEditing()
+
+
+def style_ldn_targets_layer(layer: "QgsVectorLayer") -> None:
+    """Apply a categorized renderer to an LDN Planning Targets layer and
+    persist it in the layer's data source so it loads automatically.
+
+    Colours polygons by the ``intervention`` field:
+      avoid   -> green, reduce -> light purple, reverse -> dark purple.
+
+    Styling is intentionally high-contrast for on-map digitizing:
+    a semi-transparent class fill + white crosshatching + brighter class-
+    matched outline.
+    """
+    categories = []
+    spec = [
+        (
+            "avoid",
+            "#1b7837",
+            "#5fe17f",
+            tr_layers.tr("Avoid (protect healthy land)"),
+        ),
+        (
+            "reduce",
+            "#c2a5cf",
+            "#ead6f2",
+            tr_layers.tr("Reduce (SLM on at-risk land)"),
+        ),
+        (
+            "reverse",
+            "#762a83",
+            "#b85ecb",
+            tr_layers.tr("Reverse (restore degraded land)"),
+        ),
+    ]
+    for value, fill_color, outline_color, label in spec:
+        symbol = QgsFillSymbol.createSimple(
+            {
+                "color": fill_color,
+                "outline_color": outline_color,
+                "outline_width": "0.8",
+                "style": "solid",
+            }
+        )
+
+        # Add white crosshatching on top of the tinted fill for visibility.
+        hatch_pos = QgsFillSymbol.createSimple(
+            {
+                "color": "255,255,255,190",
+                "outline_style": "no",
+                "style": "b_diagonal",
+            }
+        )
+        hatch_neg = QgsFillSymbol.createSimple(
+            {
+                "color": "255,255,255,190",
+                "outline_style": "no",
+                "style": "f_diagonal",
+            }
+        )
+        symbol.appendSymbolLayer(hatch_pos.symbolLayer(0).clone())
+        symbol.appendSymbolLayer(hatch_neg.symbolLayer(0).clone())
+
+        symbol.setOpacity(0.65)
+        categories.append(QgsRendererCategory(value, symbol, label))
+
+    renderer = QgsCategorizedSymbolRenderer("intervention", categories)
+    layer.setRenderer(renderer)
+
+    # Save the style into the GPKG data source so QGIS loads it automatically
+    # on the next open (regardless of loadDefaultStyle flag).
+    style_result = layer.saveStyleToDatabase(
+        "ldn_targets_default", "LDN Planning Targets default style", True, ""
+    )
+
+    # QGIS API return signatures vary across versions/bindings.
+    # Handle tuple/bool/empty return values defensively to avoid runtime unpacking errors.
+    msg = ""
+    ok = True
+    if isinstance(style_result, tuple):
+        if len(style_result) >= 2:
+            msg = str(style_result[0])
+            ok = bool(style_result[1])
+        elif len(style_result) == 1:
+            ok = bool(style_result[0])
+    elif isinstance(style_result, bool):
+        ok = style_result
+
+    if not ok:
+        log(f"style_ldn_targets_layer: could not save style to database: {msg}")
+
+    layer.triggerRepaint()
+    if iface is not None:
+        iface.layerTreeView().refreshLayerSymbology(layer.id())

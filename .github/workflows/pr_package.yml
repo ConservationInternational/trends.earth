@@ -45,11 +45,12 @@ jobs:
       - name: Get unique identifier and rename ZIP
         id: get-identifier
         shell: bash
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
           PACKAGE_ID=$(python -c "import uuid; print(uuid.uuid4().hex[:4])")
           echo "PACKAGE_ID=${PACKAGE_ID}" >> $GITHUB_ENV
-          SAFE_REF_NAME="${{ github.event.pull_request.head.ref }}"
-          SAFE_REF_NAME="${SAFE_REF_NAME//\//_}"
+          SAFE_REF_NAME="${HEAD_REF//\//\_}"
           mv LDMP-pr.zip "LDMP-${SAFE_REF_NAME}_${PACKAGE_ID}.zip"
           echo "REF_NAME=${SAFE_REF_NAME}" >> $GITHUB_ENV
 

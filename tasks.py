@@ -2775,10 +2775,12 @@ def security_scan(c, fix=False):
                         }
                     )
 
-    if secrets_findings:
-        print("\n=== detect-secrets (hardcoded secrets detection) ===")
-        for finding in secrets_findings:
-            print(f"  {finding['file']}:{finding['line']}")
+    ds_count = len(secrets_findings)
+    if ds_count:
+        print(
+            f"\n=== detect-secrets (hardcoded secrets detection): {ds_count} potential issue(s) found ==="
+        )
+        print(f"  Run 'detect-secrets scan --all-files .' in {plugin_dir} for details.")
 
     print("\n=== Flake8 (code quality) ===")
     flake8_cmd = [

@@ -22,10 +22,12 @@ runs:
 
     - name: Install OS packages
       shell: bash
+      env:
+        EXTRA_PACKAGES: ${{ inputs.extra-apt-packages }}
       run: |
         apt-get update
         DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-          python3-venv ${{ inputs.extra-apt-packages }}
+          python3-venv ${EXTRA_PACKAGES}
 
     - name: Create virtualenv and upgrade pip
       shell: bash

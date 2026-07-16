@@ -2332,6 +2332,13 @@ def zipfile_build(
 def _make_zip(zipFile, c):
     src_dir = c.plugin.source_dir
 
+    # Files the QGIS Plugin Repository scanner (security_scanner.py) lists in
+    # SECURITY_CONFIG_FILES and explicitly allowlists in _check_suspicious_files.
+    # They must be present in the packaged zip so the scanner can use them as
+    # tool configuration (bandit exclude list, detect-secrets baseline, flake8
+    # settings).  All other hidden dot-files are excluded.
+    _SECURITY_CONFIG_FILES = {".bandit", ".secrets.baseline", ".flake8"}
+
     for root, dirs, files in os.walk(c.plugin.source_dir):
         relpath = os.path.relpath(root)
 
@@ -2359,6 +2366,18 @@ def _make_zip(zipFile, c):
             # in ext-libs).  The pure-Python fallbacks work on all platforms and
             # the QGIS Plugin Repository flags .so files as suspicious.
             if f.endswith(".so"):
+                continue
+            # Skip hidden dot-files that are NOT in SECURITY_CONFIG_FILES.
+            # The QGIS Plugin Repository scanner allowlists .bandit,
+            # .secrets.baseline, and .flake8 so they are not flagged as
+            # "Hidden file detected"; all other hidden files are excluded.
+            if f.startswith(".") and f not in _SECURITY_CONFIG_FILES:
+                continue
+            # Skip Windows executable files - QGIS Plugin Repository flags them
+            # as "Executable or binary file detected" (FILE_SUSPICIOUS rule).
+            # Entry-point stubs installed by pip into ext-libs/bin/ (idna.exe,
+            # normalizer.exe, etc.) are not needed at runtime by the plugin.
+            if f.endswith(".exe"):
                 continue
             zipFile.write(src_path, os.path.join(relpath, f))
 
@@ -2753,14 +2772,13 @@ def security_scan(c, fix=False):
                         {
                             "file": filepath,
                             "line": f.get("line_number", 0),
-                            "type": f.get("type", "Unknown"),
                         }
                     )
 
     if secrets_findings:
         print("\n=== detect-secrets (hardcoded secrets detection) ===")
         for finding in secrets_findings:
-            print(f"  {finding['file']}:{finding['line']} - {finding['type']}")
+            print(f"  {finding['file']}:{finding['line']}")
 
     print("\n=== Flake8 (code quality) ===")
     flake8_cmd = [

@@ -23,8 +23,11 @@ jobs:
           fetch-tags: true
 
       - name: Detect fork PR
+        env:
+          HEAD_REPO: ${{ github.event.workflow_run.head_repository.full_name }}
+          THIS_REPO: ${{ github.repository }}
         run: |
-          if [ "${{ github.event.workflow_run.head_repository.full_name }}" != "${{ github.repository }}" ]; then
+          if [ "${HEAD_REPO}" != "${THIS_REPO}" ]; then
             echo "IS_FORK=true" >> $GITHUB_ENV
           else
             echo "IS_FORK=false" >> $GITHUB_ENV
@@ -125,8 +128,9 @@ jobs:
         if: env.IS_FORK == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
         run: |
-          SAFE_BRANCH=$(echo "${{ github.event.workflow_run.head_branch }}" | tr '/' '_')
+          SAFE_BRANCH=$(echo "${HEAD_BRANCH}" | tr '/' '_')
           mkdir -p release/docs/repository/branches/${SAFE_BRANCH}
 
           cp artifacts/LDMP.zip release/docs/repository/branches/${SAFE_BRANCH}/LDMP.zip

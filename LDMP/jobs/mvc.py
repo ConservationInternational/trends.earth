@@ -1,4 +1,5 @@
 import functools
+import logging
 import os
 import typing
 import uuid
@@ -31,6 +32,8 @@ WidgetDatasetItemUi, _ = uic.loadUiType(
 )
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, "icons")
+
+logger = logging.getLogger(__name__)
 
 
 class JobsModel(QtCore.QAbstractItemModel):
@@ -317,23 +320,32 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
             pixmap = self._pixmap_cache.get(key)
 
             if pixmap is None or pixmap.isNull():
-                editor_widget = self.createEditor(None, option, index)
-                editor_widget.setGeometry(option.rect)
-                self._apply_active_palette(editor_widget)
-                # Use explicit QImage-backed rendering instead of grab()
-                w, h = option.rect.width(), option.rect.height()
-                if w > 0 and h > 0:
-                    image = QtGui.QImage(w, h, QtGui.QImage.Format.Format_ARGB32)
-                    image.fill(0)
-                    render_painter = QtGui.QPainter(image)
-                    editor_widget.render(render_painter)
-                    render_painter.end()
-                    pixmap = QtGui.QPixmap.fromImage(image)
-                else:
-                    pixmap = QtGui.QPixmap()
-                del editor_widget
-                if not pixmap.isNull():
-                    self._pixmap_cache[key] = pixmap
+                try:
+                    editor_widget = self.createEditor(None, option, index)
+                    editor_widget.setGeometry(option.rect)
+                    self._apply_active_palette(editor_widget)
+                    # Use explicit QImage-backed rendering instead of grab()
+                    w, h = option.rect.width(), option.rect.height()
+                    if w > 0 and h > 0:
+                        image = QtGui.QImage(w, h, QtGui.QImage.Format.Format_ARGB32)
+                        image.fill(0)
+                        render_painter = QtGui.QPainter(image)
+                        editor_widget.render(render_painter)
+                        render_painter.end()
+                        pixmap = QtGui.QPixmap.fromImage(image)
+                    else:
+                        pixmap = QtGui.QPixmap()
+                    del editor_widget
+                    if not pixmap.isNull():
+                        self._pixmap_cache[key] = pixmap
+                except Exception:
+                    # Never let a rendering failure crash the Qt paint pipeline
+                    # (an unhandled exception here can corrupt paint state and
+                    # trigger a native access violation). Fall back to the
+                    # default row rendering instead.
+                    logger.exception("Failed to render dataset row widget")
+                    super().paint(painter, option, index)
+                    return
 
             if not pixmap.isNull():
                 painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
@@ -717,9 +729,19 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             for res in self.job._get_results_list():
                 if not hasattr(res, "uri") or not res.uri:
                     continue
-                if manager.is_gdal_vsi_path(res.uri.uri) or (
-                    res.uri.uri.suffix in [".vrt", ".tif"] and res.uri.uri.exists()
-                ):
+                uri_value = res.uri.uri
+                if uri_value is None:
+                    continue
+                if manager.is_gdal_vsi_path(uri_value):
+                    result = True
+                    break
+                # ``uri_value`` may be a str or a Path depending on how the job
+                # metadata was (de)serialized; coerce so ``.suffix``/``.exists``
+                # are always available.
+                uri_path = (
+                    uri_value if isinstance(uri_value, Path) else Path(str(uri_value))
+                )
+                if uri_path.suffix in [".vrt", ".tif"] and uri_path.exists():
                     result = True
                     break
 

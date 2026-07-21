@@ -205,5 +205,37 @@
         "name_readable": "LDN Counterbalancing Assessment",
         "run_mode": "local",
         "version": "2.3.2"
+    },
+    {
+        "description": "Classify land into the LDN Avoid/Reduce/Reverse response hierarchy",
+        "execution_callable": "LDMP.localexecution.ldn_planning.compute_arr_local",
+        "name": "ldn-planning-arr",
+        "name_readable": "LDN Planning — Avoid/Reduce/Reverse",
+        "run_mode": "local",
+        "version": "2.3.2"
+    },
+    {
+        "description": "Rank zones by degraded fraction to identify degradation hotspots",
+        "execution_callable": "LDMP.localexecution.ldn_planning.compute_hotspots_local",
+        "name": "ldn-planning-hotspots",
+        "name_readable": "LDN Planning — Hotspot Prioritization",
+        "run_mode": "local",
+        "version": "2.3.2"
+    },
+    {
+        "description": "Combine categorical rasters into a reusable land types layer",
+        "execution_callable": "LDMP.localexecution.ldn_planning.compute_create_land_types_local",
+        "name": "ldn-planning-land-types",
+        "name_readable": "LDN Planning — Define Land Types",
+        "run_mode": "local",
+        "version": "2.3.2"
+    },
+    {
+        "description": "Project BAU degradation and apply scenario targets over a horizon",
+        "execution_callable": "LDMP.localexecution.ldn_planning.compute_planning_local",
+        "name": "ldn-planning-projection",
+        "name_readable": "LDN Planning — Scenario & BAU Projection",
+        "run_mode": "local",
+        "version": "2.3.2"
     }
 ]

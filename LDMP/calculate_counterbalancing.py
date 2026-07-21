@@ -2,23 +2,21 @@
 
 Allows the user to select:
   - An existing 7-class expanded status layer (from a prior SDG 15.3.1 run)
-  - One or more raster layers that define the land types for counterbalancing
+  - A saved land types layer (the counterbalancing spatial units),
+    produced by the LDN Planning — Define Land Types tool
 and run the counterbalancing assessment locally.
 """
 
 import logging
-import math
 import typing
 
-import numpy as np
 import qgis.core
 import qgis.gui
 import te_algorithms.gdal.land_deg.config as ld_config
-from osgeo import gdal
 from qgis.PyQt import QtCore, QtWidgets
 from te_schemas.algorithms import ExecutionScript
 
-from . import areaofinterest, data_io
+from . import data_io
 from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 
@@ -58,40 +56,27 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
         grp_status.setLayout(status_layout)
         layout.addWidget(grp_status)
 
-        # ----- Land type layers -----
-        grp_land_type = QtWidgets.QGroupBox(self.tr("Land Type Layers"))
-        lt_layout = QtWidgets.QVBoxLayout()
-        lt_layout.addWidget(
+        # ----- Land types layer (from the Define Land Types tool) -----
+        grp_zones = QtWidgets.QGroupBox(self.tr("Land Types Layer"))
+        z_layout = QtWidgets.QVBoxLayout()
+        z_layout.addWidget(
             QtWidgets.QLabel(
                 self.tr(
-                    "Select one or more raster layers whose intersection "
-                    "defines the land types for counterbalancing:"
+                    "Select a saved land types layer (the counterbalancing spatial "
+                    "units). Create one with the LDN Planning —\n"
+                    "Define Land Types tool, which combines one or more\n"
+                    "rasters into a reusable land types layer."
                 )
             )
         )
-
-        self.land_type_list = QtWidgets.QListWidget()
-        lt_layout.addWidget(self.land_type_list)
-
-        btn_layout = QtWidgets.QHBoxLayout()
-        self.btn_add_land_type = QtWidgets.QPushButton(self.tr("Add layer..."))
-        self.btn_remove_land_type = QtWidgets.QPushButton(self.tr("Remove selected"))
-        btn_layout.addWidget(self.btn_add_land_type)
-        btn_layout.addWidget(self.btn_remove_land_type)
-        lt_layout.addLayout(btn_layout)
-
-        self.lbl_land_type_count = QtWidgets.QLabel(self.tr("Land type layers: 0"))
-        lt_layout.addWidget(self.lbl_land_type_count)
-
-        self.lbl_estimated_classes = QtWidgets.QLabel("")
-        self.lbl_estimated_classes.setWordWrap(True)
-        lt_layout.addWidget(self.lbl_estimated_classes)
-
-        grp_land_type.setLayout(lt_layout)
-        layout.addWidget(grp_land_type)
-
-        self.btn_add_land_type.clicked.connect(self._add_land_type_layer)
-        self.btn_remove_land_type.clicked.connect(self._remove_land_type_layer)
+        self.combo_zones_job = QtWidgets.QComboBox()
+        z_layout.addWidget(self.combo_zones_job)
+        self.lbl_zones_hint = QtWidgets.QLabel("")
+        self.lbl_zones_hint.setWordWrap(True)
+        z_layout.addWidget(self.lbl_zones_hint)
+        grp_zones.setLayout(z_layout)
+        layout.addWidget(grp_zones)
+        self._land_types_jobs: typing.List = []
 
         # ----- Task name -----
         name_layout = QtWidgets.QHBoxLayout()
@@ -142,115 +127,40 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
             ld_config.SDG_STATUS_BAND_NAME,
         )
         self.combo_status_layer.populate()
+        self._land_types_jobs = job_manager.get_ldn_land_types_jobs()
+        self.combo_zones_job.clear()
+        if not self._land_types_jobs:
+            self.combo_zones_job.addItem(self.tr("(no saved land types)"))
+            self.combo_zones_job.setEnabled(False)
+            self.lbl_zones_hint.setText(
+                self.tr(
+                    "No land types layers found. Create one with LDN Planning — "
+                    "Define Land Types, then reopen this dialog."
+                )
+            )
+        else:
+            self.combo_zones_job.setEnabled(True)
+            self.lbl_zones_hint.setText("")
+            for j in self._land_types_jobs:
+                self.combo_zones_job.addItem(j.task_name or str(j.id), str(j.id))
 
     def showEvent(self, event):
         super().showEvent(event)
         self._populate_combos()
 
-    # --------------------------------------------------------------------- #
-    #  Land type layer management
-    # --------------------------------------------------------------------- #
-    def _add_land_type_layer(self):
-        paths, _ = QtWidgets.QFileDialog.getOpenFileNames(
-            self,
-            self.tr("Select land type raster layer(s)"),
-            "",
-            self.tr("Raster files (*.tif *.tiff *.vrt);;All files (*)"),
-        )
-        for p in paths:
-            if p and not self._land_type_path_already_added(p):
-                self.land_type_list.addItem(p)
-        self._update_land_type_info()
+    def _selected_land_types_raster(self):
+        """Return the raster path of the selected saved land types layer, or None."""
+        from te_schemas.results import RasterResults
 
-    def _remove_land_type_layer(self):
-        for item in self.land_type_list.selectedItems():
-            self.land_type_list.takeItem(self.land_type_list.row(item))
-        self._update_land_type_info()
-
-    # Target number of pixels for the downsampled estimate grid.
-    _SAMPLE_PIXELS = 10_000
-
-    def _update_land_type_info(self):
-        """Update the layer count and estimated class count labels."""
-        n_layers = self.land_type_list.count()
-        self.lbl_land_type_count.setText(self.tr("Land type layers: %d") % n_layers)
-        if n_layers == 0:
-            self.lbl_estimated_classes.setText("")
-            return
-
-        paths = self._get_land_type_paths()
-        n_classes = self._estimate_interaction_classes(paths)
-        if n_classes is not None:
-            self.lbl_estimated_classes.setText(
-                self.tr("Estimated land type classes from interaction: ~%d") % n_classes
-            )
-        else:
-            self.lbl_estimated_classes.setText(
-                self.tr("Could not read class counts from the selected layers.")
-            )
-
-    def _estimate_interaction_classes(
-        self, paths: typing.List[str]
-    ) -> typing.Optional[int]:
-        """Downsample all layers to a common coarse grid and count combos.
-
-        Uses gdal.Translate with nearest-neighbour resampling to produce a
-        small in-memory raster (~100x100) for each layer, all snapped to the
-        AOI extent.  Unique value tuples across the co-registered grids give
-        the estimated interaction class count.
-        """
-        # Get the AOI bounding box as the common extent
-        aoi = areaofinterest.try_prepare_area_of_interest()
-        if aoi is None:
+        idx = self.combo_zones_job.currentIndex()
+        if idx < 0 or not self._land_types_jobs:
             return None
-        bb = aoi.bounding_box_geom().boundingBox()
-        xmin = bb.xMinimum()
-        ymin = bb.yMinimum()
-        xmax = bb.xMaximum()
-        ymax = bb.yMaximum()
-
-        # Calculate output dimensions (~sqrt(SAMPLE_PIXELS) on each side)
-        side = max(1, int(math.isqrt(self._SAMPLE_PIXELS)))
-
-        # Translate each raster to the common coarse grid (in memory)
-        arrays = []
-        translate_opts = gdal.TranslateOptions(
-            format="MEM",
-            width=side,
-            height=side,
-            resampleAlg="nearest",
-            projWin=[xmin, ymax, xmax, ymin],
-        )
-        for p in paths:
-            ds = gdal.Translate("", p, options=translate_opts)
-            if ds is None:
-                return None
-            arr = ds.GetRasterBand(1).ReadAsArray()
-            ds = None
-            if arr is None:
-                return None
-            arrays.append(arr.ravel())
-
-        # Stack all samples and count unique value combinations.
-        # Nodata values are kept as-is so that the estimate never
-        # decreases when a layer is added (intersection-masking of nodata
-        # would shrink the valid pixel set and could lose unique
-        # combinations from other layers).
-        stacked = np.column_stack(arrays)
-        unique_rows = np.unique(stacked, axis=0)
-        return int(unique_rows.shape[0])
-
-    def _land_type_path_already_added(self, path: str) -> bool:
-        for i in range(self.land_type_list.count()):
-            if self.land_type_list.item(i).text() == path:
-                return True
-        return False
-
-    def _get_land_type_paths(self) -> typing.List[str]:
-        return [
-            self.land_type_list.item(i).text()
-            for i in range(self.land_type_list.count())
-        ]
+        job = self._land_types_jobs[idx]
+        job_manager.ensure_results_loaded(job)
+        rr = job.get_first_result_by_type(RasterResults)
+        if rr is None or rr.uri is None or rr.uri.uri is None:
+            return None
+        return str(rr.uri.uri)
 
     # --------------------------------------------------------------------- #
     #  Execution
@@ -270,12 +180,15 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
             )
             return
 
-        land_type_paths = self._get_land_type_paths()
-        if not land_type_paths:
+        zones_raster_path = self._selected_land_types_raster()
+        if not zones_raster_path:
             QtWidgets.QMessageBox.critical(
                 self,
                 self.tr("Error"),
-                self.tr("Please add at least one land type layer."),
+                self.tr(
+                    "Please select a saved land types layer. Create one with the "
+                    "LDN Planning — Define Land Types tool."
+                ),
             )
             return
 
@@ -295,7 +208,7 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
             "task_notes": self.task_notes.toPlainText(),
             "status_layer_path": str(status_info.path),
             "status_band_index": status_info.band_index,
-            "land_type_layer_paths": land_type_paths,
+            "land_type_layer_paths": [zones_raster_path],
             "year_initial": year_initial,
             "year_final": year_final,
         }

@@ -1048,6 +1048,11 @@
         <source>FAO-WOCAT v2 land productivity dynamics (30m, SIDS only)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="111"/>
+        <source>JRC land productivity dynamics</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateLDNSummaryTablePolygons</name>
@@ -7505,6 +7510,11 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="271"/>
         <source>LDN Counterbalancing - Spatial Units ({year_initial}-{year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="216"/>
+        <source>Land productivity dynamics (FWv2, {year_initial}-{year_final})</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

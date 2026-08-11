@@ -869,11 +869,11 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         inner_arr.addWidget(self.combo_arr)
 
         inner_bl = _make_group(
-            self.tr("Baseline Period Status Layer (required)"), data_layout
+            self.tr("Baseline SDG 15.3.1 Indicator (required)"), data_layout
         )
         inner_bl.addWidget(
             QtWidgets.QLabel(
-                self.tr("Select the SDG 15.3.1 status layer for the baseline period:")
+                self.tr("Select the SDG 15.3.1 Indicator layer for the baseline period:")
             )
         )
         self.combo_baseline = data_io.WidgetDataIOSelectTELayerExisting()
@@ -1154,7 +1154,7 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
     def _populate_combos(self):
         self.combo_arr.setProperty("layer_type", "LDN Planning - Avoid/Reduce/Reverse")
         self.combo_arr.populate()
-        self.combo_baseline.setProperty("layer_type", ld_config.SDG_STATUS_BAND_NAME)
+        self.combo_baseline.setProperty("layer_type", ld_config.SDG_BAND_NAME)
         self.combo_baseline.populate()
         self.combo_reporting.setProperty("layer_type", ld_config.SDG_STATUS_BAND_NAME)
         self.combo_reporting.populate()

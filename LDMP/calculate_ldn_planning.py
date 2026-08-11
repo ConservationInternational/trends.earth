@@ -1152,7 +1152,7 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         return str(rr.uri.uri), labels
 
     def _populate_combos(self):
-        self.combo_arr.setProperty("layer_type", "LDN Planning — Avoid/Reduce/Reverse")
+        self.combo_arr.setProperty("layer_type", "LDN Planning - Avoid/Reduce/Reverse")
         self.combo_arr.populate()
         self.combo_baseline.setProperty("layer_type", ld_config.SDG_STATUS_BAND_NAME)
         self.combo_baseline.populate()

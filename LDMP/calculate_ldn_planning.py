@@ -873,7 +873,9 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         )
         inner_bl.addWidget(
             QtWidgets.QLabel(
-                self.tr("Select the SDG 15.3.1 Indicator layer for the baseline period:")
+                self.tr(
+                    "Select the SDG 15.3.1 Indicator layer for the baseline period:"
+                )
             )
         )
         self.combo_baseline = data_io.WidgetDataIOSelectTELayerExisting()

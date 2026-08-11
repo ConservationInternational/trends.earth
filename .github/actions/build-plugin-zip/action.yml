@@ -26,4 +26,6 @@ runs:
 
     - name: Build ZIP
       shell: bash
-      run: invoke zipfile-build --filename "${{ inputs.filename }}"
+      env:
+        FILENAME: ${{ inputs.filename }}
+      run: invoke zipfile-build --filename "$FILENAME"

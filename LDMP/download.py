@@ -924,7 +924,7 @@ def download_boundary_geojson(
                 log(
                     "Boundary download inactivity timeout reached "
                     f"({_DOWNLOAD_INACTIVITY_TIMEOUT_MS / 1000:.0f}s "
-                    "without receiving data) \u2014 aborting"
+                    "without receiving data) - aborting"
                 )
                 loop.quit()
 
@@ -1057,7 +1057,7 @@ class DownloadWorker(AbstractWorker):
                 log(
                     "Download inactivity timeout reached "
                     f"({_DOWNLOAD_INACTIVITY_TIMEOUT_MS / 1000:.0f}s "
-                    "without receiving data) \u2014 aborting"
+                    "without receiving data) - aborting"
                 )
                 loop.quit()
 
@@ -1111,7 +1111,7 @@ class Download:
                 log(
                     "Download wrapper inactivity timeout reached "
                     f"({_DOWNLOAD_INACTIVITY_TIMEOUT_MS / 1000:.0f}s "
-                    "without progress) \u2014 exiting event loop"
+                    "without progress) - exiting event loop"
                 )
                 pause.quit()
 

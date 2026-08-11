@@ -1026,7 +1026,7 @@ class ReportProcessHandlerTask(QgsTask):
                 log(
                     f"Report generation inactivity timeout "
                     f"({self._INACTIVITY_TIMEOUT_S}s without any file "
-                    f"changes in {report_dir}) \u2014 killing subprocess"
+                    f"changes in {report_dir}) - killing subprocess"
                 )
                 self._kill_process()
                 try:

@@ -992,6 +992,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.tr("Create false positive/negative layer")
         )
         action_create_error_recode.triggered.connect(self.create_error_recode)
+        action_create_ldn_targets = self.error_recode_menu.addAction(
+            self.tr("Create LDN planning targets layer")
+        )
+        action_create_ldn_targets.triggered.connect(self.create_ldn_targets)
         self.create_layer_pb.setMenu(self.error_recode_menu)
         # self.create_layer_pb.setIcon(
         #    QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg")))
@@ -1428,6 +1432,35 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             job_manager.create_error_recode(task_name, lc, soil, prod, sdg)
 
             self.resume_scheduler()
+
+    def create_ldn_targets(self):
+        task_name, ok = QtWidgets.QInputDialog.getText(
+            self,
+            self.tr("Create LDN planning targets layer"),
+            self.tr("Task name:"),
+            text=self.tr("LDN Planning Targets"),
+        )
+        if not ok:
+            return
+        if not task_name:
+            task_name = self.tr("LDN Planning Targets")
+        self.pause_scheduler()
+        try:
+            job_manager.create_ldn_targets_layer(task_name)
+        finally:
+            self.resume_scheduler()
+
+        # Find the newly added layer and make it the active layer so that
+        # QGIS's standard Add Feature tool works on it directly.
+        from qgis.core import QgsProject
+
+        for layer in QgsProject.instance().mapLayers().values():
+            if (
+                layer.customProperty("job_id")
+                and layer.name() == "LDN Planning Targets"
+            ):
+                self.iface.setActiveLayer(layer)
+                break
 
     def update_refresh_button_status(self):
         if self.remote_refresh_running:

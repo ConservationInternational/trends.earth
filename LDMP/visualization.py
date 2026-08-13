@@ -388,9 +388,7 @@ class ExtractAdministrativeArea:
 
         return cnt_name, region
 
-    def _admin_from_sub_national_extraction_op(
-        self, predicates
-    ) -> tuple[str, str]:
+    def _admin_from_sub_national_extraction_op(self, predicates) -> tuple[str, str]:
         """
         Returns the country name and level admin name by intersecting with
         the sub-national layer using the given predicates.

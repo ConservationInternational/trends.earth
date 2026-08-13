@@ -229,10 +229,15 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
 
     def validate_data_selections(self, combo_boxes):
         """validate all needed datasets are selected"""
-        if self.groupbox_so1_so2.isChecked() and not self._validate_dataset_selection(
-            combo_boxes.combo_dataset_so1_so2, self.tr("SO1 and SO2")
-        ) or self.groupbox_so3.isChecked() and not self._validate_dataset_selection(
-            combo_boxes.combo_dataset_so3, self.tr("SO3 (hazard and exposure)")
+        if (
+            self.groupbox_so1_so2.isChecked()
+            and not self._validate_dataset_selection(
+                combo_boxes.combo_dataset_so1_so2, self.tr("SO1 and SO2")
+            )
+            or self.groupbox_so3.isChecked()
+            and not self._validate_dataset_selection(
+                combo_boxes.combo_dataset_so3, self.tr("SO3 (hazard and exposure)")
+            )
         ):
             return False
         else:

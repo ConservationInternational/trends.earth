@@ -102,9 +102,7 @@ class SummaryTask(qgis.core.QgsTask):
             ds_vrt = None
 
             clipped_vrt = GetTempFilename(".tif")
-            logger.log(
-                f"Saving forest loss/carbon clipped file to {clipped_vrt}"
-            )
+            logger.log(f"Saving forest loss/carbon clipped file to {clipped_vrt}")
             # clip_task = qgis.core.QgsProcessingAlgRunnerTask(
             clip_task = processing.run(
                 "trendsearth:raster_clip",

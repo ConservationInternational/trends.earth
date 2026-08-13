@@ -263,6 +263,16 @@
            </widget>
           </item>
           <item>
+           <widget class="QCheckBox" name="email_notifications_enabled">
+            <property name="text">
+                 <string>Automated job updates (job status changes)</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="email_subscription_system_updates">
             <property name="text">
              <string>System updates and announcements</string>

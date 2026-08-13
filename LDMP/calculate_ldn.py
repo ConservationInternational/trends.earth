@@ -489,9 +489,7 @@ class LDNPresetManager:
                 return True
         return False
 
-    def export_presets(
-        self, file_path: str, preset_names: list[str] | None = None
-    ):
+    def export_presets(self, file_path: str, preset_names: list[str] | None = None):
         """Export presets to JSON file."""
         if preset_names is None:
             presets_to_export = self.get_all_presets()

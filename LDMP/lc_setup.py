@@ -292,9 +292,7 @@ class LCClassComboBox(QtWidgets.QComboBox):
                 f"QComboBox:editable {{background-color: {color}; color: #FFFFFF;}}"
             )
         else:
-            self.setStyleSheet(
-                f"QComboBox:editable {{background-color: {color};}}"
-            )
+            self.setStyleSheet(f"QComboBox:editable {{background-color: {color};}}")
 
     def get_current_class(self):
         return self._nesting.parent.classByNameLong(self.currentText())

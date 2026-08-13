@@ -246,9 +246,7 @@ def local_check_hash_against_etag(path: Path, expected: str) -> bool:
     return result
 
 
-def verify_file_against_etag(
-    path: str | Path, etag: "te_schemas_results.Etag"
-) -> bool:
+def verify_file_against_etag(path: str | Path, etag: "te_schemas_results.Etag") -> bool:
     """
     Verify a downloaded file against an etag, handling different cloud storage types.
 
@@ -1074,9 +1072,7 @@ class DownloadWorker(AbstractWorker):
 
     def download_error(self, error):
         log(tr_download.tr(f"Error while downloading file to {self.outfile}, {error}"))
-        raise DownloadError(
-            f"Unable to start download of {self.url}, {error}"
-        )
+        raise DownloadError(f"Unable to start download of {self.url}, {error}")
 
     def download_finished(self):
         log(tr_download.tr(f"Finished downloading file to {self.outfile}"))

@@ -742,9 +742,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
                     self, tr_data_io.tr("Could not load file"), error_message
                 )
 
-    def parse_chosen_path(
-        self, raw_path: str
-    ) -> tuple[Job | None, str]:
+    def parse_chosen_path(self, raw_path: str) -> tuple[Job | None, str]:
         path = Path(raw_path)
         job = None
         error_message = ""
@@ -768,8 +766,11 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
                 )
                 if raster_result and hasattr(raster_result, "rasters"):
                     for raster in raster_result.rasters.values():
-                        if hasattr(raster, "extent") and raster.extent is None or hasattr(raster, "extents") and (
-                            raster.extents is None or None in raster.extents
+                        if (
+                            hasattr(raster, "extent")
+                            and raster.extent is None
+                            or hasattr(raster, "extents")
+                            and (raster.extents is None or None in raster.extents)
                         ):
                             needs_recalc = True
                             break
@@ -958,9 +959,7 @@ class ImportSelectFileInputWidget(
             QtWidgets.QMessageBox.critical(
                 None,
                 tr_data_io.tr("Error"),
-                tr_data_io.tr(
-                    f"Cannot read {raster_file}. Choose a different file."
-                ),
+                tr_data_io.tr(f"Cannot read {raster_file}. Choose a different file."),
             )
             self.inputFileChanged.emit(False)
 
@@ -1000,9 +999,7 @@ class ImportSelectFileInputWidget(
             QtWidgets.QMessageBox.critical(
                 None,
                 tr_data_io.tr("Error"),
-                tr_data_io.tr(
-                    f"Cannot read {vector_file}. Choose a different file."
-                ),
+                tr_data_io.tr(f"Cannot read {vector_file}. Choose a different file."),
             )
             self.inputFileChanged.emit(False)
 
@@ -1441,15 +1438,11 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         if in_res < out_res:
             if self.datatype == "categorical":
-                log(
-                    f"Resampling with mode (in res: {in_res}, out_res: {out_res}"
-                )
+                log(f"Resampling with mode (in res: {in_res}, out_res: {out_res}")
 
                 return gdal.GRA_Mode
             elif self.datatype == "continuous":
-                log(
-                    f"Resampling with average (in res: {in_res}, out_res: {out_res}"
-                )
+                log(f"Resampling with average (in res: {in_res}, out_res: {out_res}")
 
                 return gdal.GRA_Average
             else:
@@ -2261,7 +2254,10 @@ def _get_usable_bands(
         # Custom LPD datasets are always included when filtering by any
         # productivity mode, since they represent user-imported data that can
         # be used in place of any LPD source
-        if expected_mode is None or job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value:
+        if (
+            expected_mode is None
+            or job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value
+        ):
             is_valid_prod_mode = True
         else:
             is_valid_prod_mode = job_mode_value == expected_mode
@@ -2709,7 +2705,10 @@ def get_usable_datasets(
         # Custom LPD datasets are always included when filtering by any
         # productivity mode, since they represent user-imported data that can
         # be used in place of any LPD source
-        if expected_mode is None or job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value:
+        if (
+            expected_mode is None
+            or job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value
+        ):
             is_valid_prod_mode = True
         else:
             is_valid_prod_mode = job_mode_value == expected_mode

@@ -1048,9 +1048,7 @@ class JobManager(QtCore.QObject):
         self._api_client_testing = False  # Track if client was set for testing
         # Per-directory cache. Cleared at the start of each refresh cycle so each directory is
         # globbed and parsed at most once per cycle.
-        self._dir_job_cache: typing.Dict[
-            Path, typing.Dict[jobs.JobStatus, typing.List[Job]]
-        ] = {}
+        self._dir_job_cache: dict[Path, dict[jobs.JobStatus, list[Job]]] = {}
         # SQLite-based persistent cache for Job objects. Survives QGIS restarts,
         # eliminating the need to re-parse large JSON files on every startup.
         self._job_cache = JobCache()
@@ -1237,9 +1235,7 @@ class JobManager(QtCore.QObject):
             self._transitioned_job_params: typing.Dict[uuid.UUID, dict] = {}
             # Metadata preserved from jobs transitioning status. The remote API
             # excludes task_name/task_notes, so we save them for later merging.
-            self._transitioned_job_metadata: typing.Dict[
-                uuid.UUID, typing.Dict[str, typing.Any]
-            ] = {}
+            self._transitioned_job_metadata: dict[uuid.UUID, dict[str, typing.Any]] = {}
             # Track when last full remote refresh was done
             self._last_full_refresh_time: typing.Optional[dt.datetime] = None
             # Also clear the per-directory cache (may not exist yet during __init__)
@@ -3077,9 +3073,7 @@ class JobManager(QtCore.QObject):
             shutil.move(str(old_qmd_path), new_path)
 
     # @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
-    def _load_jobs_from_dir(
-        self, base_dir: Path
-    ) -> typing.Dict[jobs.JobStatus, typing.List[Job]]:
+    def _load_jobs_from_dir(self, base_dir: Path) -> dict[jobs.JobStatus, list[Job]]:
         """Scan *base_dir* once and return all valid jobs grouped by status."""
         grouped: typing.Dict[jobs.JobStatus, typing.List[Job]] = {}
 

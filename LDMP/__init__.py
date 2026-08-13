@@ -125,9 +125,7 @@ logger.log(
 if trans_result:
     logger.log(f"Translator installed for {locale.name()}.")
 else:
-    logger.log(
-        f"FAILED while trying to install translator for {locale.name()}."
-    )
+    logger.log(f"FAILED while trying to install translator for {locale.name()}.")
 
 from . import conf
 

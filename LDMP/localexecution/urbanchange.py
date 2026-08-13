@@ -48,7 +48,7 @@ def compute_urban_change_summary_table(
         # aoi). Use this instead of croptocutline in gdal.Warp in order to
         # keep the pixels aligned with the chosen productivity layer.
         indic_vrt = tempfile.NamedTemporaryFile(suffix=".vrt").name
-        LDMP.logger.log("Saving indicator VRT to: {}".format(indic_vrt))
+        LDMP.logger.log(f"Saving indicator VRT to: {indic_vrt}")
         ds_vrt = gdal.BuildVRT(
             indic_vrt,
             in_files,
@@ -79,7 +79,7 @@ def compute_urban_change_summary_table(
         )
         clip_worker = worker.StartWorker(
             calculate.ClipWorker,
-            "masking layers (part {} of {})".format(n + 1, len(wkts)),
+            f"masking layers (part {n + 1} of {len(wkts)})",
             indic_vrt,
             str(output_indicator_tif),
             geojson,
@@ -90,7 +90,7 @@ def compute_urban_change_summary_table(
             LDMP.logger.log("Calculating summary table...")
             urban_summary_worker = worker.StartWorker(
                 UrbanSummaryWorker,
-                "calculating summary table (part {} of {})".format(n + 1, len(wkts)),
+                f"calculating summary table (part {n + 1} of {len(wkts)})",
                 str(output_indicator_tif),
                 urban_band_nums,
                 pop_band_nums,
@@ -163,12 +163,12 @@ def save_summary_table(areas, populations, out_file):
     utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
     try:
         workbook.save(out_file)
-        LDMP.logger.log("Summary table saved to {}".format(out_file))
+        LDMP.logger.log(f"Summary table saved to {out_file}")
 
     except OSError as exc:
         raise RuntimeError(
             f"Error saving output table - check that {out_file!r} is accessible and "
-            f"not already open. - {str(exc)}"
+            f"not already open. - {exc!s}"
         )
 
 
@@ -220,9 +220,7 @@ class UrbanSummaryWorker(worker.AbstractWorker):
             for x in range(0, xsize, x_block_size):
                 if self.killed:
                     LDMP.logger.log(
-                        "Processing of {} killed by user after processing {} out of {} blocks.".format(
-                            self.prod_out_file, y, ysize
-                        )
+                        f"Processing of {self.prod_out_file} killed by user after processing {y} out of {ysize} blocks."
                     )
 
                     break

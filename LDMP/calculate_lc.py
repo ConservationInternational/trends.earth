@@ -163,10 +163,8 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
                 None,
                 self.tr("Error"),
                 self.tr(
-                    "The initial year ({}) must be less than the target "
-                    "year ({}). Please select a valid time period.".format(
-                        year_initial, year_final
-                    )
+                    f"The initial year ({year_initial}) must be less than the target "
+                    f"year ({year_final}). Please select a valid time period."
                 ),
             )
             return

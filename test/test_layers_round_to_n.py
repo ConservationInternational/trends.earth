@@ -1,4 +1,3 @@
-# coding=utf-8
 """Tests for layers.py round_to_n function.
 
 This test reproduces and verifies the fix for the bug:

@@ -268,15 +268,15 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         # Limit area that can be processed
         aoi_area = self.aoi.get_area() / (1000 * 1000)
         if aoi_area > 1e6:
-            log("AOI area is: {:n} - blocking processing".format(aoi_area))
+            log(f"AOI area is: {aoi_area:n} - blocking processing")
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr(
                     "The bounding box of the requested area (approximately "
-                    "{:.6n} sq km) is too large. The timeseries tool can "
+                    f"{aoi_area:.6n} sq km) is too large. The timeseries tool can "
                     "process a maximum area of 1 million sq km at a time. "
-                    "Choose a smaller area to process.".format(aoi_area)
+                    "Choose a smaller area to process."
                 ),
             )
             return False

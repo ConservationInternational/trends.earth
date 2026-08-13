@@ -93,7 +93,7 @@ class BaseChart:
         return f"{cls_name}: {msg}"
 
     @property
-    def paths(self) -> typing.List[str]:
+    def paths(self) -> list[str]:
         """
         Returns the absolute paths to the images. This is only populated
         once the chart(s) have been exported successfully.
@@ -118,14 +118,14 @@ class BaseChart:
         return slugify(layer.name())
 
     @property
-    def preferred_size(self) -> typing.Tuple[int, int]:
+    def preferred_size(self) -> tuple[int, int]:
         """
         Returns the preferred width and height for the chart figure.
         Values are in pixels.
         """
         return 1058, 794
 
-    def export(self) -> typing.Tuple[bool, list]:
+    def export(self) -> tuple[bool, list]:
         """
         Exports the chart to an image in the given root output directory.
         Returns True if the process was successful, else False. Includes a
@@ -190,7 +190,7 @@ class BaseUniqueValuesChart(BaseChart):
     @classmethod
     def report(
         cls, layer_band_info: LayerBandInfo, band_number: int
-    ) -> typing.List[UniqueValuesInfo]:
+    ) -> list[UniqueValuesInfo]:
         """
         Returns a list containing area count for each unique pixel
         value for the given band.
@@ -259,7 +259,7 @@ class UniqueValuesPieChart(BaseUniqueValuesChart):
     Plots the pixel stats in a pie chart.
     """
 
-    def export(self) -> typing.Tuple[bool, list]:
+    def export(self) -> tuple[bool, list]:
         if not self.is_plotly_available():
             return False, [_PLOTLY_MISSING_MSG]
 
@@ -360,7 +360,7 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
         if self.target_layer_band_info:
             self.target_year = self.year(self.target_layer_band_info.band_info)
 
-    def export(self) -> typing.Tuple[bool, list]:
+    def export(self) -> tuple[bool, list]:
         if not self.is_plotly_available():
             return False, [_PLOTLY_MISSING_MSG]
 
@@ -505,7 +505,7 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
             # Percent
             if self.use_value_type == InfoValueType.PERCENT:
 
-                def change_func(ia, ta):  # noqa: F811
+                def change_func(ia, ta):
                     return (ta - ia) * 100 / ia
 
                 text_template = "%{y:.2f}%"
@@ -573,7 +573,7 @@ class StackedBarChart(BaseChart):
         self.use_value_type = InfoValueType.AREA
         self.font_size_labels = 12
 
-    def export(self) -> typing.Tuple[bool, list]:
+    def export(self) -> tuple[bool, list]:
         if not self.is_plotly_available():
             return False, [_PLOTLY_MISSING_MSG]
 
@@ -661,7 +661,7 @@ class BaseAlgorithmChartsConfiguration:
     given job.
     """
 
-    layer_band_infos: typing.List[LayerBandInfo] = field(default_factory=list)
+    layer_band_infos: list[LayerBandInfo] = field(default_factory=list)
 
     def __init__(self, job: Job, layer_band_infos, **kwargs):
         self.job = job
@@ -693,7 +693,7 @@ class BaseAlgorithmChartsConfiguration:
         """
         raise NotImplementedError
 
-    def generate(self) -> typing.Tuple[bool, list]:
+    def generate(self) -> tuple[bool, list]:
         """
         Saves the charts to file. Returns False if one or more of the
         chart exports failed. Also includes a list containing warning
@@ -954,7 +954,7 @@ class AlgorithmChartsManager:
         self.add_alg_chart_config("sdg-15-3-1-summary", SdgSummaryChartsConfiguration)
 
     def add_alg_chart_config(
-        self, alg_name: str, chart_config: typing.Type[BaseAlgorithmChartsConfiguration]
+        self, alg_name: str, chart_config: type[BaseAlgorithmChartsConfiguration]
     ) -> bool:
         """
         Specify the chart configuration class (not instance) for a given
@@ -973,21 +973,21 @@ class AlgorithmChartsManager:
 
     def alg_chart_config_by_name(
         self, alg_name: str
-    ) -> typing.Type[BaseAlgorithmChartsConfiguration]:
+    ) -> type[BaseAlgorithmChartsConfiguration]:
         """
         Returns the chart configuration class for the given algorithm, else None.
         """
         return self._alg_charts_config_types.get(alg_name, None)
 
     @property
-    def messages(self) -> typing.List[str]:
+    def messages(self) -> list[str]:
         """
         Returns a list of warning and error messages logged from the last run
         of generating charts.
         """
         return self._messages
 
-    def add_job_layers(self, job: Job, band_infos: typing.List[LayerBandInfo]) -> bool:
+    def add_job_layers(self, job: Job, band_infos: list[LayerBandInfo]) -> bool:
         """
         Add job-band_info mapping. If the algorithm for the job does not have
         a corresponding mapped chart configuration, it will return False.
@@ -1057,7 +1057,7 @@ class SdgSummaryJobAttributes:
         ]
 
     @staticmethod
-    def _int_year(value) -> typing.Optional[int]:
+    def _int_year(value) -> int | None:
         try:
             return int(value)
         except (TypeError, ValueError):
@@ -1066,7 +1066,7 @@ class SdgSummaryJobAttributes:
     @classmethod
     def _year_pair(
         cls, year_initial: typing.Any, year_final: typing.Any
-    ) -> typing.Optional[typing.Tuple[int, int]]:
+    ) -> tuple[int, int] | None:
         init_year = cls._int_year(year_initial)
         final_year = cls._int_year(year_final)
         if init_year is None or final_year is None:
@@ -1074,16 +1074,16 @@ class SdgSummaryJobAttributes:
         return init_year, final_year
 
     @staticmethod
-    def _sorted_year_keys(values_root: typing.Dict) -> typing.List[int]:
+    def _sorted_year_keys(values_root: dict) -> list[int]:
         years = []
-        for year in values_root.keys():
+        for year in values_root:
             try:
                 years.append(int(year))
             except (TypeError, ValueError):
                 continue
         return sorted(set(years))
 
-    def _period_from_params(self) -> typing.Optional[typing.Tuple[int, int]]:
+    def _period_from_params(self) -> tuple[int, int] | None:
         period = self._params_baseline.get("period", {})
         years = self._year_pair(period.get("year_initial"), period.get("year_final"))
         if years is not None:
@@ -1107,7 +1107,7 @@ class SdgSummaryJobAttributes:
 
         return None
 
-    def _period_from_results_data(self) -> typing.Optional[typing.Tuple[int, int]]:
+    def _period_from_results_data(self) -> tuple[int, int] | None:
         lc_node = self._baseline_results.get("land_cover", {})
         lc_areas = lc_node.get("land_cover_areas_by_year", {}).get("values", {})
         years = self._sorted_year_keys(lc_areas)
@@ -1122,7 +1122,7 @@ class SdgSummaryJobAttributes:
 
         return None
 
-    def _period_from_band_metadata(self) -> typing.Optional[typing.Tuple[int, int]]:
+    def _period_from_band_metadata(self) -> tuple[int, int] | None:
         if self._job.results is None or not hasattr(self._job.results, "get_bands"):
             return None
 
@@ -1162,7 +1162,7 @@ class SdgSummaryJobAttributes:
 
         return None
 
-    def period(self) -> typing.Optional[typing.Tuple[int, int]]:
+    def period(self) -> tuple[int, int] | None:
         for resolver in (
             self._period_from_results_data,
             self._period_from_band_metadata,
@@ -1175,10 +1175,10 @@ class SdgSummaryJobAttributes:
         return None
 
     @classmethod
-    def summary_indicator_str_value_mapping(cls) -> typing.Dict[str, int]:
+    def summary_indicator_str_value_mapping(cls) -> dict[str, int]:
         return {"Improved": 1, "Stable": 0, "Degraded": -1, "No data": -32768}
 
-    def land_cover_7_class_str_info_mapping(self) -> typing.Dict[str, int]:
+    def land_cover_7_class_str_info_mapping(self) -> dict[str, int]:
         # Returns a collection of land cover class info (name, color, code)
         # indexed by the category name.
         lc_mapping = {}
@@ -1224,7 +1224,7 @@ class SdgSummaryJobAttributes:
 
         return lc_mapping
 
-    def summary_area(self) -> typing.List[UniqueValuesInfo]:
+    def summary_area(self) -> list[UniqueValuesInfo]:
         """
         Detailed info about summary SDG 15.3.1 categories for plotting
         purposes.
@@ -1267,10 +1267,10 @@ class SdgSummaryJobAttributes:
     @classmethod
     def thematic_category_values_by_year(
         cls,
-        values_root: typing.Dict,
+        values_root: dict,
         year: str,
-        category_ramp_item_mapping: typing.Dict,
-    ) -> typing.List[UniqueValuesInfo]:
+        category_ramp_item_mapping: dict,
+    ) -> list[UniqueValuesInfo]:
         """
         Get value info collection for SDG 15.3.1 sub-indicators.
         """
@@ -1295,7 +1295,7 @@ class SdgSummaryJobAttributes:
 
         return theme_infos
 
-    def land_cover(self, year: str) -> typing.List[UniqueValuesInfo]:
+    def land_cover(self, year: str) -> list[UniqueValuesInfo]:
         """
         Detailed info about land cover for the given year.
         """
@@ -1307,7 +1307,7 @@ class SdgSummaryJobAttributes:
             lc_areas, year, self.land_cover_7_class_str_info_mapping()
         )
 
-    def soc(self, year: str) -> typing.List[UniqueValuesInfo]:
+    def soc(self, year: str) -> list[UniqueValuesInfo]:
         """
         Detailed info about soil organic carbon for the given year. SOC
         values are grouped by land cover hence we will use the land cover
@@ -1324,9 +1324,9 @@ class SdgSummaryJobAttributes:
     @classmethod
     def value_info_change(
         cls,
-        init_infos: typing.List[UniqueValuesInfo],
-        final_infos: typing.List[UniqueValuesInfo],
-    ) -> typing.List[UniqueValuesInfo]:
+        init_infos: list[UniqueValuesInfo],
+        final_infos: list[UniqueValuesInfo],
+    ) -> list[UniqueValuesInfo]:
         """
         Computes difference between value infos in init and final years.
         """
@@ -1348,7 +1348,7 @@ class SdgSummaryJobAttributes:
 
         return list(map(compute_diff, init_infos, final_infos))
 
-    def lc_by_productivity(self) -> typing.Dict[str, typing.List[UniqueValuesInfo]]:
+    def lc_by_productivity(self) -> dict[str, list[UniqueValuesInfo]]:
         """
         Land cover classes grouped by productivity.
         """
@@ -1388,8 +1388,8 @@ class SdgSummaryJobAttributes:
 
 
 def _create_indexed_color_ramp(
-    style_name: str, band_info: typing.Dict = None
-) -> typing.Dict[float, QgsColorRampShader.ColorRampItem]:
+    style_name: str, band_info: dict = None
+) -> dict[float, QgsColorRampShader.ColorRampItem]:
     # Create a dictionary containing color ramp items for categorical
     # items indexed by pixel value.
     band_style = styles.get(style_name, None)
@@ -1419,7 +1419,7 @@ def _create_indexed_color_ramp(
     return idx_clr_ramp
 
 
-def lc_productivity_change(produc_lc_values: typing.List) -> typing.List[tuple]:
+def lc_productivity_change(produc_lc_values: list) -> list[tuple]:
     """
     Create a 2D array containing area difference and percentage of
     productivity class.

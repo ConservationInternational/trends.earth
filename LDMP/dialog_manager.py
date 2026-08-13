@@ -16,7 +16,7 @@ class DialogManager:
     _instance: typing.ClassVar[typing.Optional["DialogManager"]] = None
     _instance_lock: typing.ClassVar[QtCore.QMutex] = QtCore.QMutex()
 
-    _open_dialogs: typing.Dict[str, typing.Any]
+    _open_dialogs: dict[str, typing.Any]
     _lock: QtCore.QMutex
 
     def __new__(cls):

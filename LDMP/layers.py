@@ -16,7 +16,6 @@ import json
 import math
 import os
 import tempfile
-import typing
 from math import floor, log10
 from operator import attrgetter
 from pathlib import Path
@@ -488,15 +487,13 @@ def get_sample(f, band_number, n=1e6):
 
 def _get_cutoff(
     data_sample: np.ndarray,
-    no_data_value: typing.Union[int, float],
+    no_data_value: float,
     percentiles,
     mask_zeros=False,
 ):
     if len(percentiles) != 1 and len(percentiles) != 2:
         raise ValueError(
-            "Percentiles must have length 1 or 2. Percentiles that were passed: {}".format(
-                percentiles
-            )
+            f"Percentiles must have length 1 or 2. Percentiles that were passed: {percentiles}"
         )
     md = np.ma.masked_where(data_sample == no_data_value, data_sample)
 
@@ -531,9 +528,7 @@ def _get_cutoff(
             # We only get here if cutoffs is not size 1 or 2, which should
             # never happen, so raise
             raise ValueError(
-                "Stretch calculation returned cutoffs array of size {} ({})".format(
-                    cutoffs.size, cutoffs
-                )
+                f"Stretch calculation returned cutoffs array of size {cutoffs.size} ({cutoffs})"
             )
 
 
@@ -591,7 +586,7 @@ def create_categorical_with_dynamic_ramp_color_ramp(style_config, band_info):
 
 
 def _create_zero_centered_stretch_color_ramp(
-    style_config: typing.Dict,
+    style_config: dict,
     data_sample,
     no_data_value,
     band_scale=1.0,
@@ -620,15 +615,15 @@ def _create_zero_centered_stretch_color_ramp(
         QgsColorRampShader.ColorRampItem(
             -scaled_cutoff,
             QColor(style_config["ramp"]["min"]["color"]),
-            "{}{}".format(label_min, label_suffix),
+            f"{label_min}{label_suffix}",
         ),
         QgsColorRampShader.ColorRampItem(
-            0, QColor(style_config["ramp"]["zero"]["color"]), "0{}".format(label_suffix)
+            0, QColor(style_config["ramp"]["zero"]["color"]), f"0{label_suffix}"
         ),
         QgsColorRampShader.ColorRampItem(
             scaled_cutoff,
             QColor(style_config["ramp"]["max"]["color"]),
-            "{}{}".format(label_max, label_suffix),
+            f"{label_max}{label_suffix}",
         ),
         QgsColorRampShader.ColorRampItem(
             style_config["ramp"]["no data"]["value"] * band_scale,
@@ -641,7 +636,7 @@ def _create_zero_centered_stretch_color_ramp(
 
 
 def _create_min_zero_stretch_color_ramp(
-    style_config: typing.Dict,
+    style_config: dict,
     data_sample,
     no_data_value,
     band_scale=1.0,
@@ -662,7 +657,7 @@ def _create_min_zero_stretch_color_ramp(
     )
     result = [
         QgsColorRampShader.ColorRampItem(
-            0, QColor(style_config["ramp"]["zero"]["color"]), "0{}".format(label_suffix)
+            0, QColor(style_config["ramp"]["zero"]["color"]), f"0{label_suffix}"
         )
     ]
 
@@ -672,7 +667,7 @@ def _create_min_zero_stretch_color_ramp(
             QgsColorRampShader.ColorRampItem(
                 cutoff / 2 * band_scale,
                 QColor(style_config["ramp"]["mid"]["color"]),
-                "{}{}".format(label_mid, label_suffix),
+                f"{label_mid}{label_suffix}",
             )
         )
     label_max = round_to_n(cutoff * band_scale, 2)
@@ -680,7 +675,7 @@ def _create_min_zero_stretch_color_ramp(
         QgsColorRampShader.ColorRampItem(
             cutoff * band_scale,
             QColor(style_config["ramp"]["max"]["color"]),
-            "{}{}".format(label_max, label_suffix),
+            f"{label_max}{label_suffix}",
         )
     )
     result.append(
@@ -706,8 +701,8 @@ def _get_band_scale(layer_path: str, band_number: int) -> float:
 def _create_color_ramp(
     layer_path: str,
     band_number: int,
-    style_config: typing.Dict,
-    band_info: typing.Dict,
+    style_config: dict,
+    band_info: dict,
 ):
     ramp_type = style_config["ramp"]["type"]
 
@@ -759,7 +754,7 @@ def _create_color_ramp(
 
 def _build_qml(
     band_number: int,
-    color_ramp_items: typing.List,
+    color_ramp_items: list,
     ramp_shader: str,
     nodata_color: str = "",
 ) -> str:
@@ -785,39 +780,27 @@ def _build_qml(
     max_val = sorted_items[-1].value if sorted_items else 1.0
 
     items_xml = "\n          ".join(
-        '<item value="{value}" color="{color}" label="{label}" alpha="255"/>'.format(
-            value=item.value,
-            color=item.color.name(),
-            label=html.escape(item.label),
-        )
+        f'<item value="{item.value}" color="{item.color.name()}" label="{html.escape(item.label)}" alpha="255"/>'
         for item in sorted_items
     )
 
     return (
         "<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>\n"
-        '<qgis version="{qgis_version}" styleCategories="Symbology">\n'
+        f'<qgis version="{Qgis.QGIS_VERSION}" styleCategories="Symbology">\n'
         "  <pipe>\n"
-        '    <rasterrenderer type="singlebandpseudocolor" band="{band}"'
-        ' opacity="1" alphaBand="-1" nodataColor="{nodata_color}"'
-        ' classificationMin="{min_val}" classificationMax="{max_val}">\n'
+        f'    <rasterrenderer type="singlebandpseudocolor" band="{band_number}"'
+        f' opacity="1" alphaBand="-1" nodataColor="{nodata_color}"'
+        f' classificationMin="{min_val}" classificationMax="{max_val}">\n'
         "      <rastershader>\n"
-        '        <colorrampshader colorRampType="{ramp_type}" clip="0"'
+        f'        <colorrampshader colorRampType="{color_ramp_type}" clip="0"'
         ' classificationMode="1"'
-        ' minimumValue="{min_val}" maximumValue="{max_val}" labelPrecision="6">\n'
-        "          {items}\n"
+        f' minimumValue="{min_val}" maximumValue="{max_val}" labelPrecision="6">\n'
+        f"          {items_xml}\n"
         "        </colorrampshader>\n"
         "      </rastershader>\n"
         "    </rasterrenderer>\n"
         "  </pipe>\n"
         "</qgis>"
-    ).format(
-        qgis_version=Qgis.QGIS_VERSION,
-        band=band_number,
-        ramp_type=color_ramp_type,
-        min_val=min_val,
-        max_val=max_val,
-        items=items_xml,
-        nodata_color=nodata_color,
     )
 
 
@@ -850,7 +833,7 @@ def _load_qml_from_string(layer: QgsRasterLayer, qml_xml: str) -> bool:
 def add_layer(
     layer_path: str,
     band_number: int,
-    band_info: typing.Dict,
+    band_info: dict,
     activated: str = "default",
 ):
     """Add a raster layer to the map.
@@ -905,8 +888,8 @@ def style_layer(
     layer_path: str,
     layer: QgsRasterLayer,
     band_number: int,
-    style: typing.Dict,
-    band_info: typing.Dict,
+    style: dict,
+    band_info: dict,
     activated: str = "default",
     in_process_alg: bool = False,
     processing_feedback: QgsProcessingFeedback = None,
@@ -919,7 +902,7 @@ def style_layer(
     try:
         color_ramp = _create_color_ramp(layer_path, band_number, style, band_info)
     except RuntimeError as exc:
-        msg = f"Could not create color ramp: {str(exc)}"
+        msg = f"Could not create color ramp: {exc!s}"
         if in_process_alg and processing_feedback is not None:
             processing_feedback.pushConsoleInfo(msg)
         else:
@@ -1001,7 +984,7 @@ def tr_style_text(label, band_info=None):
         else:
             return val
     else:
-        log('"{}" not found in translation dictionary'.format(label))
+        log(f'"{label}" not found in translation dictionary')
 
         if isinstance(label, str):
             return label
@@ -1020,13 +1003,13 @@ def get_band_title(band_info):
         except KeyError as exc:
             log(
                 f"Unable to find a proper name for {band_info['name']} because "
-                f"of the following exception: {str(exc)}"
+                f"of the following exception: {exc!s}"
             )
 
     return result
 
 
-def find_loaded_layer_id(layer_path: Path) -> typing.Optional[str]:
+def find_loaded_layer_id(layer_path: Path) -> str | None:
     project = QgsProject.instance()
 
     for layer_id in project.mapLayers():

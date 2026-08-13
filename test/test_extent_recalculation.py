@@ -286,7 +286,6 @@ class TestAutoExtentRecalculation(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures"""
         # Import will be done in tests to avoid issues if module isn't available
-        pass
 
     def create_mock_job_with_raster_results(
         self, extent=None, raster_type=RasterType.ONE_FILE_RASTER

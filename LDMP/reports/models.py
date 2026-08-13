@@ -4,7 +4,6 @@ import hashlib
 import json
 import os
 import re
-import typing
 import unicodedata
 from dataclasses import field
 from enum import Enum
@@ -96,7 +95,7 @@ class ReportOutputOptions:
     (in the configuration) is used.
     """
 
-    formats: typing.List[ReportOutputFormat]
+    formats: list[ReportOutputFormat]
     template_type: TemplateType = field(default=TemplateType.ALL)
     # This will search for the matching type in 'formats'
     view_format_type: OutputFormatType = field(default=OutputFormatType.PDF)
@@ -142,7 +141,7 @@ class ItemScopeMapping:
 
     # Corresponds to algorithm name
     name: str
-    type_id_mapping: typing.Dict[str, list] = field(default_factory=dict)
+    type_id_mapping: dict[str, list] = field(default_factory=dict)
 
     def __init__(self, name: str, **kwargs) -> None:
         self.name = name
@@ -196,10 +195,10 @@ class ItemScopeMapping:
 @dataclass
 class AbsolutePaths:
     # Paths for report templates or outputs.
-    simple_portrait: typing.Optional[str]
-    simple_landscape: typing.Optional[str]
-    full_portrait: typing.Optional[str]
-    full_landscape: typing.Optional[str]
+    simple_portrait: str | None
+    simple_landscape: str | None
+    full_portrait: str | None
+    full_landscape: str | None
 
     def _paths_to_list(self):
         paths = []
@@ -239,14 +238,14 @@ class ReportTemplateInfo:
     algorithm scopes.
     """
 
-    id: typing.Optional[str]
-    name: typing.Optional[str]
-    description: typing.Optional[str]
-    simple_portrait_path: typing.Optional[str]
-    simple_landscape_path: typing.Optional[str]
-    full_portrait_path: typing.Optional[str]
-    full_landscape_path: typing.Optional[str]
-    item_scopes: typing.List[ItemScopeMapping] = field(default_factory=list)
+    id: str | None
+    name: str | None
+    description: str | None
+    simple_portrait_path: str | None
+    simple_landscape_path: str | None
+    full_portrait_path: str | None
+    full_landscape_path: str | None
+    item_scopes: list[ItemScopeMapping] = field(default_factory=list)
 
     def __init__(self, **kwargs) -> None:
         self.id = kwargs.pop("id", str(uuid4()))
@@ -269,7 +268,7 @@ class ReportTemplateInfo:
     def add_scope_mapping(self, item_scope: ItemScopeMapping) -> None:
         self.item_scopes.append(item_scope)
 
-    def scope_mappings_by_name(self, name: str) -> typing.List[ItemScopeMapping]:
+    def scope_mappings_by_name(self, name: str) -> list[ItemScopeMapping]:
         return [sm for sm in self.item_scopes if sm.name == name]
 
     def update_paths(self, root_templates_dir, user_templates_dir=None) -> None:
@@ -357,8 +356,8 @@ class ReportTemplateInfo:
 class ReportConfiguration:
     """Contains template and output settings for a report."""
 
-    template_info: typing.Optional[ReportTemplateInfo]
-    output_options: typing.Optional[ReportOutputOptions]
+    template_info: ReportTemplateInfo | None
+    output_options: ReportOutputOptions | None
 
     def __init__(
         self, template_info: ReportTemplateInfo, output_options: ReportOutputOptions
@@ -381,13 +380,13 @@ class ReportTaskContext:
     """
 
     report_configuration: ReportConfiguration
-    jobs: typing.List[Job] = field(default_factory=list)
-    root_report_dir: typing.Optional[str] = None
+    jobs: list[Job] = field(default_factory=list)
+    root_report_dir: str | None = None
 
     def __init__(
         self,
         report_configuration: ReportConfiguration,
-        jobs: typing.List[Job] = None,
+        jobs: list[Job] = None,
         root_report_dir: str = None,
     ):
         self.report_configuration = report_configuration

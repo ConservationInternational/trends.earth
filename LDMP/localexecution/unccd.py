@@ -4,7 +4,6 @@ import re
 import tarfile
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Optional
 
 from osgeo import ogr
 from te_schemas import reporting
@@ -16,7 +15,7 @@ from ..jobs.models import Job
 from ..logger import log
 
 
-def _infer_periods_affected_from_summary(summary_path: Path) -> List[str]:
+def _infer_periods_affected_from_summary(summary_path: Path) -> list[str]:
     """Infer which periods exist in the SO1/SO2 summary and map them to the
     allowed names required by ErrorRecodeProperties.periods_affected
     ("baseline", "report_1", "report_2").
@@ -28,7 +27,7 @@ def _infer_periods_affected_from_summary(summary_path: Path) -> List[str]:
         # Fall back to baseline only if we cannot read the summary
         return ["baseline"]
 
-    periods: List[str] = []
+    periods: list[str] = []
     lc = summary.get("land_condition", {})
     if not isinstance(lc, dict):
         return ["baseline"]
@@ -111,8 +110,8 @@ def get_main_unccd_report_job_params(
     include_so1_so2: bool,
     include_so3: bool,
     include_error_recode: bool,
-    task_notes: Optional[str] = "",
-) -> Dict:
+    task_notes: str | None = "",
+) -> dict:
     params = {"task_name": task_name, "task_notes": task_notes}
 
     if include_so1_so2:
@@ -155,7 +154,7 @@ def _make_tar_gz(out_tar_gz, in_files):
 
 def _aoi_to_geojson_dict(aoi) -> dict:
     if hasattr(aoi, "geojson"):
-        gj = getattr(aoi, "geojson")
+        gj = aoi.geojson
         if isinstance(gj, str):
             return json.loads(gj)
         return gj
@@ -543,8 +542,8 @@ def compute_unccd_report(
             for i in range(len(params["so1_so2_all_paths"])):
                 if params["so1_so2_all_paths"][i] == str(orig_summary_path_so1_so2):
                     log(
-                        f"Replacing {str(params['so1_so2_all_paths'][i])} with "
-                        f"{str(new_summary_path_so1_so2)}"
+                        f"Replacing {params['so1_so2_all_paths'][i]!s} with "
+                        f"{new_summary_path_so1_so2!s}"
                     )
                     params["so1_so2_all_paths"][i] = str(new_summary_path_so1_so2)
 

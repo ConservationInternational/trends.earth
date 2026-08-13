@@ -23,7 +23,6 @@ Note:
 """
 
 from dataclasses import field
-from typing import List, Optional
 
 from marshmallow import validate
 from marshmallow_dataclass import dataclass
@@ -70,16 +69,16 @@ class UNCCDErrorRecodeParameters:
     include_polygon_geojson: bool = field(
         default=False,
     )
-    substr_regexs: List[str] = field(
+    substr_regexs: list[str] = field(
         default_factory=list,
     )
-    ENV: Optional[str] = field(
+    ENV: str | None = field(
         default=None,
         metadata={
             "validate": validate.OneOf(["dev", "staging", "prod"]),
             "allow_none": True,
         },
     )
-    EXECUTION_ID: Optional[str] = field(
+    EXECUTION_ID: str | None = field(
         default=None,
     )

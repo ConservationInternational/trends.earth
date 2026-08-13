@@ -1,7 +1,6 @@
 """Classes for interfacing UI with report models."""
 
 import os
-import typing
 
 from qgis.core import Qgis
 from qgis.gui import QgisInterface
@@ -269,7 +268,7 @@ class MultiscopeJobReportModel(QStandardItemModel):
             [self.tr("Scope Name"), self.tr("Source Dataset")]
         )
 
-    def load_scopes(self, scopes: typing.List[ItemScopeMapping]):
+    def load_scopes(self, scopes: list[ItemScopeMapping]):
         # Load scope definitions to the collection
         self.clear_data()
         for sc in scopes:
@@ -285,7 +284,7 @@ class MultiscopeJobReportModel(QStandardItemModel):
         self.removeRows(0, self.rowCount())
 
     @property
-    def scope_job_mapping(self) -> typing.Dict[str, Job]:
+    def scope_job_mapping(self) -> dict[str, Job]:
         """
         Returns a mapping of scope name and corresponding job as paired
         by the user.
@@ -324,7 +323,7 @@ class JobSelectionItemDelegate(QStyledItemDelegate):
         return self._scope_col_idx
 
     @classmethod
-    def jobs_by_scope_name(cls, name: str) -> typing.List[Job]:
+    def jobs_by_scope_name(cls, name: str) -> list[Job]:
         # Returns a list of downloaded jobs matching the given scope name.
         jobs = job_manager.relevant_jobs
         return [

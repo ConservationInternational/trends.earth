@@ -39,7 +39,7 @@ def read_qmd(file_path):
     document = QtXml.QDomDocument("qgis")
     with open(file_path, encoding="utf-8") as f:
         if not document.setContent(f.read()):
-            log("Could not read metadata from file {}".format(file_path))
+            log(f"Could not read metadata from file {file_path}")
             return md
 
     root = document.firstChildElement("qgis")
@@ -247,7 +247,7 @@ def export_dataset_metadata(job: Job):
     file_path = manager.job_manager.get_job_file_path(job)
     md_path = os.path.splitext(file_path)[0] + ".qmd"
     if not os.path.exists(md_path):
-        log("Could not find dataset metadata file {}".format(md_path))
+        log(f"Could not find dataset metadata file {md_path}")
     else:
         md_paths.append(qmd_to_iso(md_path))
 
@@ -260,7 +260,7 @@ def export_dataset_metadata(job: Job):
             continue
         md_path = os.path.splitext(file_path)[0] + ".qmd"
         if not os.path.exists(md_path):
-            log("Could not find dataset metadata file {}".format(md_path))
+            log(f"Could not find dataset metadata file {md_path}")
         else:
             md_paths.append(qmd_to_iso(md_path))
 

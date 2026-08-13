@@ -1,6 +1,5 @@
 """Dialog for generating compound/multiscope reports."""
 
-import typing
 from pathlib import Path
 
 from qgis.core import Qgis
@@ -99,7 +98,7 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
             if idx.isValid():
                 self.dataset_scope_tv.openPersistentEditor(idx)
 
-    def scope_job_mapping(self) -> typing.Dict[str, Job]:
+    def scope_job_mapping(self) -> dict[str, Job]:
         """
         Returns a mapping of scope name and corresponding job as specified
         by the user.
@@ -159,7 +158,7 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
 
         return status
 
-    def _validate_model(self) -> typing.Tuple[bool, list]:
+    def _validate_model(self) -> tuple[bool, list]:
         # Check if user has specified datasets for all scopes
         status = True
         msgs = []

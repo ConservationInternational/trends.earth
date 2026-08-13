@@ -17,7 +17,6 @@ Usage::
 """
 
 from dataclasses import field
-from typing import Optional, Union
 
 from marshmallow import validate
 from marshmallow_dataclass import dataclass
@@ -47,24 +46,24 @@ class SoilOrganicCarbonParameters:
 
     year_initial: int = field(metadata={"required": True})
     year_final: int = field(metadata={"required": True})
-    fl: Union[float, str] = field(metadata={"required": True})
+    fl: float | str = field(metadata={"required": True})
     geojsons: str = field(metadata={"required": True})
     crs: str = field(metadata={"required": True})
     legend_nesting_esa_to_custom: LCLegendNesting = field(metadata={"required": True})
     legend_nesting_custom_to_ipcc: LCLegendNesting = field(metadata={"required": True})
-    download_annual_lc: Optional[bool] = field(
+    download_annual_lc: bool | None = field(
         default=None,
     )
-    download_annual_soc: Optional[bool] = field(
+    download_annual_soc: bool | None = field(
         default=None,
     )
-    ENV: Optional[str] = field(
+    ENV: str | None = field(
         default=None,
         metadata={
             "validate": validate.OneOf(["dev", "staging", "prod"]),
             "allow_none": True,
         },
     )
-    EXECUTION_ID: Optional[str] = field(
+    EXECUTION_ID: str | None = field(
         default=None,
     )

@@ -91,9 +91,7 @@ def rmtree(top):
                 os.remove(filename)
             except PermissionError:
                 print(
-                    "Permission error: unable to remove {}. Skipping that file.".format(
-                        filename
-                    )
+                    f"Permission error: unable to remove {filename}. Skipping that file."
                 )
 
         for name in dirs:
@@ -101,15 +99,13 @@ def rmtree(top):
                 os.rmdir(os.path.join(root, name))
             except OSError:
                 print(
-                    "Unable to remove directory {}. Skipping removing that folder.".format(
-                        os.path.join(root, name)
-                    )
+                    f"Unable to remove directory {os.path.join(root, name)}. Skipping removing that folder."
                 )
     try:
         os.rmdir(top)
     except OSError:
         print(
-            "Unable to remove directory {}. Skipping removing that folder.".format(top)
+            f"Unable to remove directory {top}. Skipping removing that folder."
         )
 
 
@@ -119,10 +115,9 @@ def _replace(file_path, regex, subst):
     fh, abs_path = mkstemp()
 
     if sys.version_info[0] < 3:
-        with os.fdopen(fh, "w") as new_file:
-            with open(file_path) as old_file:
-                for line in old_file:
-                    new_file.write(regex.sub(subst, line))
+        with os.fdopen(fh, "w") as new_file, open(file_path) as old_file:
+            for line in old_file:
+                new_file.write(regex.sub(subst, line))
     else:
         with open(fh, "w", encoding="Latin-1") as new_file:
             with open(file_path, encoding="Latin-1") as old_file:
@@ -230,7 +225,7 @@ def set_version(c, modules=False, gee=False, version=None):
     )
 
     # Always update metadata.txt with current version from setuptools-scm
-    print("Setting version to {} in metadata.txt".format(version_to_write))
+    print(f"Setting version to {version_to_write} in metadata.txt")
     # Match PEP 440 versions including dev/post/rc suffixes
     metadata_regex = re.compile(
         r"^(version=)[0-9]+(\.[0-9]+)+(\.?(dev|post|rc)[0-9]+)*", re.MULTILINE
@@ -256,7 +251,7 @@ def set_version(c, modules=False, gee=False, version=None):
     # Set in Sphinx docs conf.py
     # For the 'version' field, use only the main X.Y.Z version (strip dev/post/rc)
     # For the 'release' field, use the full version with dev/post/rc
-    print("Setting version to {} in sphinx conf.py".format(version_to_write))
+    print(f"Setting version to {version_to_write} in sphinx conf.py")
 
     # Strip dev/post/rc suffixes for the main version number
     version_main = re.sub(r"\.(dev|post|rc).*$", "", version_to_write)
@@ -297,9 +292,7 @@ def set_version(c, modules=False, gee=False, version=None):
         # e.g., "2.1.19.dev106" becomes "2.1.19"
         v_gee_clean = re.sub(r"\.(dev|post|rc).*$", "", version_to_write)
         print(
-            "Setting version to {} for GEE scripts (from {})".format(
-                v_gee_clean, version_to_write
-            )
+            f"Setting version to {v_gee_clean} for GEE scripts (from {version_to_write})"
         )
 
         # For the GEE config files the version can't have a dot, so convert to underscore
@@ -340,22 +333,16 @@ def set_version(c, modules=False, gee=False, version=None):
                         if current_version != v_gee:
                             version_changed = True
                             print(
-                                "Setting version to {} in {} (was {})".format(
-                                    v_gee_clean, filepath, current_version
-                                )
+                                f"Setting version to {v_gee_clean} in {filepath} (was {current_version})"
                             )
                         else:
                             print(
-                                "Version {} already set in {} - leaving ID unchanged".format(
-                                    v_gee_clean, filepath
-                                )
+                                f"Version {v_gee_clean} already set in {filepath} - leaving ID unchanged"
                             )
                     except Exception as e:
                         # If we can't read the file, assume version is changing
                         print(
-                            "Setting version to {} in {} (unable to check existing version: {})".format(
-                                v_gee_clean, filepath, e
-                            )
+                            f"Setting version to {v_gee_clean} in {filepath} (unable to check existing version: {e})"
                         )
                         version_changed = True
 
@@ -366,7 +353,7 @@ def set_version(c, modules=False, gee=False, version=None):
                     if version_changed:
                         _replace(filepath, gee_id_regex, "")
                 elif file == "requirements.txt":
-                    print("Setting version to {} in {}".format(v_gee_clean, filepath))
+                    print(f"Setting version to {v_gee_clean} in {filepath}")
 
                     # Use even/odd version logic:
                     # - Even version (e.g., 2.1.18) → use tagged version in dependencies
@@ -383,7 +370,7 @@ def set_version(c, modules=False, gee=False, version=None):
                         # Development release - use master branch
                         _replace(filepath, requirements_txt_regex, r"\g<1>@master\g<5>")
                 elif file == "__init__.py":
-                    print("Setting version to {} in {}".format(v_gee_clean, filepath))
+                    print(f"Setting version to {v_gee_clean} in {filepath}")
                     init_version_regex = re.compile(
                         r"^(__version__[ ]*=[ ]*[\"'])[0-9]+([.][0-9]+)+(\.?(dev|post|rc)[0-9]+)*"
                     )
@@ -391,9 +378,7 @@ def set_version(c, modules=False, gee=False, version=None):
 
         # Set in scripts.json (use clean version for GEE scripts)
         print(
-            "Setting version to {} in scripts.json".format(
-                v_gee_clean if gee else version_to_write
-            )
+            f"Setting version to {v_gee_clean if gee else version_to_write} in scripts.json"
         )
         scripts_regex = re.compile(
             r'("version": ")[0-9]+([-._][0-9]+)+(\.?(dev|post|rc)[0-9]+)*',
@@ -409,9 +394,7 @@ def set_version(c, modules=False, gee=False, version=None):
     # Always update BOTH requirements files to keep them in sync
     for requirements_file in ["requirements.txt", "requirements-testing.txt"]:
         print(
-            "Setting version to {} in package {}".format(
-                version_to_write, requirements_file
-            )
+            f"Setting version to {version_to_write} in package {requirements_file}"
         )
 
         # Use even/odd version logic:
@@ -450,8 +433,8 @@ def release_github(c):
 
     # Make release
     payload = {
-        "tag_name": "v{}".format(v),
-        "name": "Version {}".format(v),
+        "tag_name": f"v{v}",
+        "name": f"Version {v}",
         "body": """To install this release, download the LDMP.zip file below and then follow [the instructions for installing a release from Github](https://github.com/ConservationInternational/trends.earth#stable-version-from-zipfile).""",
     }
 
@@ -467,10 +450,10 @@ def release_github(c):
             "Create a token at: https://github.com/settings/tokens/new"
         )
 
-    headers = {"Authorization": "token {}".format(c.github.token)}
+    headers = {"Authorization": f"token {c.github.token}"}
 
     # Test authentication first
-    auth_test = requests.get("{}/user".format(c.github.api_url), headers=headers)
+    auth_test = requests.get(f"{c.github.api_url}/user", headers=headers)
 
     if auth_test.status_code == 401:
         raise ValueError(
@@ -491,9 +474,7 @@ def release_github(c):
     print(f"Authenticated as: {user_data.get('login', 'unknown')}")
 
     r = requests.post(
-        "{}/repos/{}/{}/releases".format(
-            c.github.api_url, c.github.repo_owner, c.github.repo_name
-        ),
+        f"{c.github.api_url}/repos/{c.github.repo_owner}/{c.github.repo_name}/releases",
         json=payload,
         headers=headers,
     )
@@ -523,7 +504,7 @@ def release_github(c):
         asset_data = f.read()
 
     headers = {
-        "Authorization": "token {}".format(c.github.token),
+        "Authorization": f"token {c.github.token}",
         "Content-Type": "application/zip",
     }
 
@@ -567,28 +548,28 @@ def set_tag(c, modules=False, version=None):
 
         if ret:
             ret = subprocess.run(
-                ["git", "commit", "-m", "Updating version tags for v{}".format(v)]
+                ["git", "commit", "-m", f"Updating version tags for v{v}"]
             )
             ret.check_returncode()
         else:
             print("Changes not committed - VERSION TAG NOT SET")
 
-    print("Tagging version {} and pushing tag to origin".format(v))
+    print(f"Tagging version {v} and pushing tag to origin")
     ret = subprocess.run(
-        ["git", "tag", "-l", "v{}".format(v)], capture_output=True, text=True
+        ["git", "tag", "-l", f"v{v}"], capture_output=True, text=True
     )
     ret.check_returncode()
 
-    if "v{}".format(v) in ret.stdout:
+    if f"v{v}" in ret.stdout:
         # Try to delete this tag on remote in case it exists there
-        ret = subprocess.run(["git", "push", "origin", "--delete", "v{}".format(v)])
+        ret = subprocess.run(["git", "push", "origin", "--delete", f"v{v}"])
 
         if ret.returncode == 0:
-            print("Deleted tag v{} on origin".format(v))
+            print(f"Deleted tag v{v} on origin")
     subprocess.check_call(
-        ["git", "tag", "-f", "-a", "v{}".format(v), "-m", "Version {}".format(v)]
+        ["git", "tag", "-f", "-a", f"v{v}", "-m", f"Version {v}"]
     )
-    subprocess.check_call(["git", "push", "origin", "v{}".format(v)])
+    subprocess.check_call(["git", "push", "origin", f"v{v}"])
 
     if modules:
         for module in c.plugin.ext_libs.local_modules:
@@ -600,9 +581,7 @@ def set_tag(c, modules=False, version=None):
 def check_tecli_python_version():
     if sys.version_info[0] < 3:
         print(
-            "ERROR: tecli tasks require Python version > 2 (you are running Python version {}.{})".format(
-                sys.version_info[0], sys.version_info[1]
-            )
+            f"ERROR: tecli tasks require Python version > 2 (you are running Python version {sys.version_info[0]}.{sys.version_info[1]})"
         )
 
         return False
@@ -663,7 +642,7 @@ def tecli_publish(c, script=None, overwrite=False):
         if os.path.exists(os.path.join(script_dir, "configuration.json")) and (
             script is None or script == dir
         ):
-            print("Publishing {}...".format(dir))
+            print(f"Publishing {dir}...")
             subprocess.check_call(
                 [
                     sys.executable,
@@ -677,7 +656,7 @@ def tecli_publish(c, script=None, overwrite=False):
             n += 1
 
     if script and n == 0:
-        print('Script "{}" not found.'.format(script))
+        print(f'Script "{script}" not found.')
 
     # Updating GEE script IDs in config
     if script:
@@ -736,7 +715,7 @@ def tecli_run(c, script, queryParams=None, payload=None):
             os.path.exists(os.path.join(script_dir, "configuration.json"))
             and script == dir
         ):
-            print("Running {}...".format(dir))
+            print(f"Running {dir}...")
 
             if queryParams:
                 print("Using given query parameters as input to script.")
@@ -745,7 +724,7 @@ def tecli_run(c, script, queryParams=None, payload=None):
                         sys.executable,
                         os.path.abspath(c.gee.tecli),
                         "start",
-                        "--queryParams={}".format(queryParams),
+                        f"--queryParams={queryParams}",
                     ],
                     cwd=script_dir,
                 )
@@ -756,7 +735,7 @@ def tecli_run(c, script, queryParams=None, payload=None):
                         sys.executable,
                         os.path.abspath(c.gee.tecli),
                         "start",
-                        "--payload={}".format(os.path.abspath(payload)),
+                        f"--payload={os.path.abspath(payload)}",
                     ],
                     cwd=script_dir,
                 )
@@ -772,7 +751,7 @@ def tecli_run(c, script, queryParams=None, payload=None):
             break
 
     if script and n == 0:
-        print('Script "{}" not found.'.format(script))
+        print(f'Script "{script}" not found.')
 
 
 @task(help={"script": "Script name"})
@@ -839,14 +818,14 @@ def tecli_info(c, script=None):
         if os.path.exists(os.path.join(script_dir, "configuration.json")) and (
             script is None or script == dir
         ):
-            print("Checking info on {}...".format(dir))
+            print(f"Checking info on {dir}...")
             subprocess.check_call(
                 [sys.executable, os.path.abspath(c.gee.tecli), "info"], cwd=script_dir
             )
             n += 1
 
     if script and n == 0:
-        print('Script "{}" not found.'.format(script))
+        print(f'Script "{script}" not found.')
 
 
 @task(
@@ -869,7 +848,7 @@ def tecli_logs(c, script, since=1):
             os.path.exists(os.path.join(script_dir, "configuration.json"))
             and script == dir
         ):
-            print("Checking logs for {}...".format(dir))
+            print(f"Checking logs for {dir}...")
             subprocess.check_call(
                 [
                     sys.executable,
@@ -884,7 +863,7 @@ def tecli_logs(c, script, since=1):
             break
 
     if script and n == 0:
-        print('Script "{}" not found.'.format(script))
+        print(f'Script "{script}" not found.')
 
 
 ###############################################################################
@@ -906,7 +885,7 @@ def read_requirements():
     try:
         idx = lines.index(divider)
     except ValueError:
-        raise Exception('Expected to find "{}" in requirements.txt'.format(divider))
+        raise Exception(f'Expected to find "{divider}" in requirements.txt')
 
     return not_comments(lines, 0, idx), not_comments(lines, idx + 1, None)
 
@@ -1233,7 +1212,7 @@ def plugin_install(
             folder = f"AppData\\Roaming\\QGIS\\QGIS{version}\\profiles\\"
         folder = os.path.join(folder, profile)
     else:
-        print("ERROR: unknown qgis version {}".format(version))
+        print(f"ERROR: unknown qgis version {version}")
 
         return
 
@@ -1248,9 +1227,7 @@ def plugin_install(
             _safe_remove_folder(dst_this_plugin)
 
         print(
-            "Copying plugin to QGIS version {} plugin folder at {}".format(
-                version, dst_this_plugin
-            )
+            f"Copying plugin to QGIS version {version} plugin folder at {dst_this_plugin}"
         )
         for root, dirs, files in os.walk(src):
             relpath = os.path.relpath(root)
@@ -1265,9 +1242,7 @@ def plugin_install(
                     )
                 except PermissionError:
                     print(
-                        "Permission error: unable to copy {} to {}. Skipping that file.".format(
-                            f, os.path.join(dst_plugins, relpath, f)
-                        )
+                        f"Permission error: unable to copy {f} to {os.path.join(dst_plugins, relpath, f)}. Skipping that file."
                     )
             _filter_excludes(root, dirs, c)
     else:
@@ -1283,9 +1258,7 @@ def plugin_install(
             )
         else:
             print(
-                "Linking plugin development folder to QGIS version {} plugin folder at {}".format(
-                    version, dst_this_plugin
-                )
+                f"Linking plugin development folder to QGIS version {version} plugin folder at {dst_this_plugin}"
             )
             os.makedirs(dst_plugins, exist_ok=True)
             os.symlink(src, dst_this_plugin)
@@ -1336,9 +1309,7 @@ def compile_files(c, clean=False):
 
     if not pyrcc:
         print(
-            "ERROR: {} is not in your path---unable to compile resource file(s)".format(
-                pyrcc
-            )
+            f"ERROR: {pyrcc} is not in your path---unable to compile resource file(s)"
         )
         return
     else:
@@ -1348,16 +1319,16 @@ def compile_files(c, clean=False):
         for res in res_files:
             if os.path.exists(res):
                 (base, ext) = os.path.splitext(res)
-                output = "{}.py".format(base)
+                output = f"{base}.py"
                 if clean or file_changed(res, output):
-                    print("Compiling {} to {}".format(res, output))
+                    print(f"Compiling {res} to {output}")
                     subprocess.check_call([pyrcc_path, "-o", output, res])
                     res_count += 1
                 else:
                     skip_count += 1
             else:
-                print("{} does not exist---skipped".format(res))
-        print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
+                print(f"{res} does not exist---skipped")
+        print(f"Compiled {res_count} resource files. Skipped {skip_count}.")
 
 
 # Below is based on pb_tool:
@@ -1418,7 +1389,7 @@ def lrelease(c):
         subprocess.check_call(
             [
                 lrelease,
-                os.path.join(c.plugin.i18n_dir, "LDMP_{}.ts".format(translation)),
+                os.path.join(c.plugin.i18n_dir, f"LDMP_{translation}.ts"),
             ]
         )
 
@@ -1490,7 +1461,7 @@ def translate_push(c, force=False, version=3):
     elif version == 3:
         pylupdate = "pylupdate5"
     else:
-        print("ERROR: unknown qgis version {}".format(version))
+        print(f"ERROR: unknown qgis version {version}")
         pylupdate = None
 
     if pylupdate:
@@ -1700,37 +1671,29 @@ def localize_resources(c, language=None):
         language = c.sphinx.base_language
 
     print(
-        "Removing all static content from {sourcedir}/static.".format(
-            sourcedir=c.sphinx.sourcedir
-        )
+        f"Removing all static content from {c.sphinx.sourcedir}/static."
     )
 
-    if os.path.exists("{sourcedir}/static".format(sourcedir=c.sphinx.sourcedir)):
-        rmtree("{sourcedir}/static".format(sourcedir=c.sphinx.sourcedir))
+    if os.path.exists(f"{c.sphinx.sourcedir}/static"):
+        rmtree(f"{c.sphinx.sourcedir}/static")
     print(
-        "Copy 'en' (base) static content to {sourcedir}/static.".format(
-            sourcedir=c.sphinx.sourcedir
-        )
+        f"Copy 'en' (base) static content to {c.sphinx.sourcedir}/static."
     )
 
-    if os.path.exists("{resourcedir}/en".format(resourcedir=c.sphinx.resourcedir)):
+    if os.path.exists(f"{c.sphinx.resourcedir}/en"):
         shutil.copytree(
-            "{resourcedir}/en".format(resourcedir=c.sphinx.resourcedir),
-            "{sourcedir}/static".format(sourcedir=c.sphinx.sourcedir),
+            f"{c.sphinx.resourcedir}/en",
+            f"{c.sphinx.sourcedir}/static",
         )
     print(
-        "Copy localized '{lang}' static content to {sourcedir}/static.".format(
-            lang=language, sourcedir=c.sphinx.sourcedir
-        )
+        f"Copy localized '{language}' static content to {c.sphinx.sourcedir}/static."
     )
 
     if language != "en" and os.path.exists(
-        "{resourcedir}/{lang}".format(resourcedir=c.sphinx.resourcedir, lang=language)
+        f"{c.sphinx.resourcedir}/{language}"
     ):
-        src = "{resourcedir}/{lang}".format(
-            resourcedir=c.sphinx.resourcedir, lang=language
-        )
-        dst = "{sourcedir}/static".format(sourcedir=c.sphinx.sourcedir)
+        src = f"{c.sphinx.resourcedir}/{language}"
+        dst = f"{c.sphinx.sourcedir}/static"
 
         for item in os.listdir(src):
             s = os.path.join(src, item)
@@ -1809,18 +1772,14 @@ def changelog_build(c):
             version_number = version_header.group(0)
             version_number = version_number.strip(" \n")
             line = line.strip(" \n")
-            line = "\n`{} <https://github.com/ConservationInternational/trends.earth/releases/tag/v{}>`_\n".format(
-                line, version_number
-            )
+            line = f"\n`{line} <https://github.com/ConservationInternational/trends.earth/releases/tag/v{version_number}>`_\n"
             line = [
                 line,
                 "-----------------------------------------------------------------------------------------------------------------------------\n\n",
             ]
         out_txt.extend(line)
 
-    out_file = "{docroot}/source/for_developers/changelog.rst".format(
-        docroot=c.sphinx.docroot
-    )
+    out_file = f"{c.sphinx.docroot}/source/for_developers/changelog.rst"
     with open(out_file, "w") as fout:
         metadata = fout.writelines(out_txt)
 
@@ -2314,7 +2273,7 @@ def zipfile_build(
         # Use plugin version in filename instead of QGIS version
         plugin_version = get_version(c)
         filename = os.path.join(
-            package_dir, "{}_{}.zip".format(c.plugin.name, plugin_version)
+            package_dir, f"{c.plugin.name}_{plugin_version}.zip"
         )
 
     print(f"Removing untracked datafiles from {c.plugin.data_dir}...")
@@ -2402,7 +2361,7 @@ def zipfile_deploy(c, qgis, clean=True, pip="pip", tag=False, filename=None):
     print("Uploading package to S3")
     data = open(filename, "rb")
     client.put_object(
-        Key="sharing/{}".format(os.path.basename(filename)),
+        Key=f"sharing/{os.path.basename(filename)}",
         Body=data,
         Bucket=c.sphinx.zipfile_deploy_s3_bucket,
     )
@@ -2444,7 +2403,7 @@ def _get_s3_client():
 def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
     client = _get_s3_client()
 
-    objects = client.list_objects(Bucket=bucket, Prefix="{}/".format(s3_prefix))[
+    objects = client.list_objects(Bucket=bucket, Prefix=f"{s3_prefix}/")[
         "Contents"
     ]
 
@@ -2470,34 +2429,30 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
 
                 if lm_local > lm_s3:
                     print(
-                        "Local version of {} is newer than on S3 - copying to S3.".format(
-                            filename
-                        )
+                        f"Local version of {filename} is newer than on S3 - copying to S3."
                     )
                     data = open(local_path, "rb")
                     client.put_object(
-                        Key="{}/{}".format(s3_prefix, os.path.basename(filename)),
+                        Key=f"{s3_prefix}/{os.path.basename(filename)}",
                         Body=data,
                         Bucket=bucket,
                     )
                     data.close()
                 else:
                     print(
-                        "S3 version of {} is newer than local - copying to local.".format(
-                            filename
-                        )
+                        f"S3 version of {filename} is newer than local - copying to local."
                     )
                     _recursive_dir_create(local_path)
                     client.download_file(
-                        Key="{}/{}".format(s3_prefix, os.path.basename(filename)),
+                        Key=f"{s3_prefix}/{os.path.basename(filename)}",
                         Bucket=bucket,
                         Filename=local_path,
                     )
         else:
-            print("Local version of {} is missing - copying to local.".format(filename))
+            print(f"Local version of {filename} is missing - copying to local.")
             _recursive_dir_create(local_path)
             client.download_file(
-                Key="{}/{}".format(s3_prefix, os.path.basename(filename)),
+                Key=f"{s3_prefix}/{os.path.basename(filename)}",
                 Bucket=bucket,
                 Filename=local_path,
             )
@@ -2505,7 +2460,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
     # Now copy back to S3 any files that aren't yet there
     files = [glob.glob(pattern) for pattern in patterns]
     files = [item for sublist in files for item in sublist]
-    s3_objects = client.list_objects(Bucket=bucket, Prefix="{}/".format(s3_prefix))[
+    s3_objects = client.list_objects(Bucket=bucket, Prefix=f"{s3_prefix}/")[
         "Contents"
     ]
     s3_object_names = [os.path.basename(obj["Key"]) for obj in s3_objects]
@@ -2515,10 +2470,10 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
             continue
 
         if os.path.basename(f) not in s3_object_names:
-            print("S3 is missing {} - copying to S3.".format(f))
+            print(f"S3 is missing {f} - copying to S3.")
             data = open(f, "rb")
             client.put_object(
-                Key="{}/{}".format(s3_prefix, os.path.basename(f)),
+                Key=f"{s3_prefix}/{os.path.basename(f)}",
                 Body=data,
                 Bucket=bucket,
             )

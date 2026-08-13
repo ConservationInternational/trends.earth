@@ -84,9 +84,7 @@ class TCWorker(worker.AbstractWorker):
             for x in range(0, xsize, x_block_size):
                 if self.killed:
                     log(
-                        "Processing of {} killed by user after processing {} out of {} blocks.".format(
-                            self.prod_out_file, y, ysize
-                        )
+                        f"Processing of {self.prod_out_file} killed by user after processing {y} out of {ysize} blocks."
                     )
                     break
                 self.progress.emit(
@@ -366,7 +364,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         in_files.extend(lc_vrts)
 
         in_vrt = GetTempFilename(".vrt")
-        log("Saving SOC input files to {}".format(in_vrt))
+        log(f"Saving SOC input files to {in_vrt}")
         ds_vrt = gdal.BuildVRT(
             in_vrt,
             in_files,
@@ -385,7 +383,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         for f in lc_vrts:
             os.remove(f)
 
-        log("Saving total carbon to {}".format(out_f))
+        log(f"Saving total carbon to {out_f}")
         tc_task = worker.StartWorker(
             TCWorker,
             "calculating change in total carbon",
@@ -506,9 +504,7 @@ class TCSummaryWorker(worker.AbstractWorker):
             for x in range(0, xsize, x_block_size):
                 if self.killed:
                     log(
-                        "Processing of {} killed by user after processing {} out of {} blocks.".format(
-                            self.prod_out_file, y, ysize
-                        )
+                        f"Processing of {self.prod_out_file} killed by user after processing {y} out of {ysize} blocks."
                     )
                     break
                 self.progress.emit(

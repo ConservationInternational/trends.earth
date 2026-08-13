@@ -169,9 +169,7 @@ def land_cover_change_work(
         for x in range(0, xsize, x_block_size):
             if killed_callback():
                 log(
-                    "Processing killed by user after processing {} out of {} blocks.".format(
-                        y, ysize
-                    )
+                    f"Processing killed by user after processing {y} out of {ysize} blocks."
                 )
                 os.remove(out_f)
                 return None

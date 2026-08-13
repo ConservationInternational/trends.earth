@@ -13,11 +13,11 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib import request
 
 import ee
-import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from google.cloud import storage
+from matplotlib import gridspec
 from matplotlib_scalebar.scalebar import ScaleBar
 from PIL import Image
 from te_schemas.schemas import ImageryPNG, ImageryPNGSchema, Url
@@ -54,7 +54,7 @@ def upload_to_google_cloud(client, f):
     blob = b.blob(os.path.basename(f))
     blob.upload_from_filename(f)
 
-    return "https://storage.googleapis.com/{}/{}".format(BUCKET, os.path.basename(f))
+    return f"https://storage.googleapis.com/{BUCKET}/{os.path.basename(f)}"
 
 
 def get_hash(filename):
@@ -251,7 +251,7 @@ def landtrend_get_data(year_start, year_end, geojson):
 
     ts = []
 
-    for key in out.keys():
+    for key in out:
         d = list((int(k.replace("y", "")), int(v[0])) for k, v in out[key].items())
         # Ensure the data is chronological
         d = sorted(d, key=lambda x: x[0])
@@ -367,9 +367,7 @@ def landtrend(year_start, year_end, geojson, lang, gc_client, metadata):
 
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
-    title = metadata["landtrend_plot"]["title"][lang] + " ({} - {})".format(
-        year_start, year_end
-    )
+    title = metadata["landtrend_plot"]["title"][lang] + f" ({year_start} - {year_end})"
     out = ImageryPNG(
         name="landtrend_plot",
         lang=lang,
@@ -439,7 +437,7 @@ def base_image(year, geojson, lang, gc_client, metadata):
             ee.Image()
             .int()
             .paint(point.buffer(BOX_SIDE / 75), 1)
-            .visualize(**{"palette": ["black"], "opacity": 1}),
+            .visualize(palette=["black"], opacity=1),
         ]
     ).mosaic()
 
@@ -458,7 +456,7 @@ def base_image(year, geojson, lang, gc_client, metadata):
     l8sr_frame = Image.open(l8sr_name)
     np_l8sr = np.array(l8sr_frame)
 
-    title = metadata["base_image"]["title"][lang] + " ({})".format(year)
+    title = metadata["base_image"]["title"][lang] + f" ({year})"
     f = plot_image_to_file(np_l8sr, title)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
@@ -512,7 +510,7 @@ def greenness(year, geojson, lang, gc_client, metadata):
             ee.Image()
             .int()
             .paint(point.buffer(BOX_SIDE / 75), 1)
-            .visualize(**{"palette": ["black"], "opacity": 1}),
+            .visualize(palette=["black"], opacity=1),
         ]
     ).mosaic()
 
@@ -534,10 +532,10 @@ def greenness(year, geojson, lang, gc_client, metadata):
     legend = Image.open(
         os.path.join(
             pathlib.Path(__file__).parent.absolute(),
-            "ndvi_avg_{}.png".format(lang.lower()),
+            f"ndvi_avg_{lang.lower()}.png",
         )
     )
-    title = metadata["greenness"]["title"][lang] + " ({})".format(start_date.year)
+    title = metadata["greenness"]["title"][lang] + f" ({start_date.year})"
     f = plot_image_to_file(np_mean, title, legend)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
@@ -572,7 +570,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
 
     for y in range(year_start, year_end + 1):
         ndvi.append(
-            OLI_SR_COLL.filterDate("{}-01-1".format(y), "{}-12-31".format(y))
+            OLI_SR_COLL.filterDate(f"{y}-01-1", f"{y}-12-31")
             .map(maskL8sr)
             .map(applyScaleFactors)
             .map(calculate_ndvi)
@@ -595,7 +593,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
             ee.Image()
             .int()
             .paint(point.buffer(BOX_SIDE / 75), 1)
-            .visualize(**{"palette": ["black"], "opacity": 1}),
+            .visualize(palette=["black"], opacity=1),
         ]
     ).mosaic()
 
@@ -616,12 +614,10 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
     legend = Image.open(
         os.path.join(
             pathlib.Path(__file__).parent.absolute(),
-            "ndvi_trd_{}.png".format(lang.lower()),
+            f"ndvi_trd_{lang.lower()}.png",
         )
     )
-    title = metadata["greenness_trend"]["title"][lang] + " ({} - {})".format(
-        year_start, year_end
-    )
+    title = metadata["greenness_trend"]["title"][lang] + f" ({year_start} - {year_end})"
     f = plot_image_to_file(ndvi_arr_trnd, title, legend)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
@@ -653,16 +649,16 @@ def run(params, logger):
     year_start = int(params.get("year_start", None))
 
     if year_start < 2001:
-        raise InvalidParameter("Invalid starting year {}".format(year_start))
+        raise InvalidParameter(f"Invalid starting year {year_start}")
     year_end = int(params.get("year_end", None))
 
     if year_end > 2022:
-        raise InvalidParameter("Invalid ending year {}".format(year_end))
+        raise InvalidParameter(f"Invalid ending year {year_end}")
     lang = params.get("lang", None)
     langs = ["EN", "ES", "PT"]
 
     if lang not in langs:
-        logger.debug("Unknown language {}, returning EN".format(lang))
+        logger.debug(f"Unknown language {lang}, returning EN")
         lang = "EN"
     geojson = json.loads(params.get("geojson", None))
 

@@ -1,6 +1,5 @@
 # Module for managing variables and expressions that can be used in a report.
 import json
-import typing
 from collections import namedtuple
 from operator import attrgetter
 
@@ -46,7 +45,7 @@ def format_creation_date(creation_date) -> str:
     return str(utc_to_local(creation_date).strftime("%Y-%m-%d %H:%M"))
 
 
-def _job_attr_var_mapping() -> typing.List[JobAttrVarInfo]:
+def _job_attr_var_mapping() -> list[JobAttrVarInfo]:
     # Job attribute and corresponding variable names.
     return [
         JobAttrVarInfo("id", "te_job_id", "", str),
@@ -60,7 +59,7 @@ def _job_attr_var_mapping() -> typing.List[JobAttrVarInfo]:
     ]
 
 
-def _report_settings_var_mapping() -> typing.List[ReportSettingVarInfo]:
+def _report_settings_var_mapping() -> list[ReportSettingVarInfo]:
     # Report setting variables with the corresponding values.
     org_logo_path = settings_manager.get_value(Setting.REPORT_ORG_LOGO_PATH)
     org_name = settings_manager.get_value(Setting.REPORT_ORG_NAME)
@@ -81,12 +80,12 @@ def _report_settings_var_mapping() -> typing.List[ReportSettingVarInfo]:
     ]
 
 
-def _current_job_layer_var_mapping() -> typing.List[LayerVarInfo]:
+def _current_job_layer_var_mapping() -> list[LayerVarInfo]:
     # Current job map layer variables whose values will be set at runtime.
     return [LayerVarInfo("te_current_layer_name", "", lambda layer: layer.name())]
 
 
-def _get_var_names(var_info_collection: typing.List) -> typing.List[str]:
+def _get_var_names(var_info_collection: list) -> list[str]:
     # Returns the variable names from the info objects
     return [vi.var_name for vi in var_info_collection]
 
@@ -137,7 +136,7 @@ class ReportExpressionUtils:
 
     @staticmethod
     def _register_variable_collection(
-        layout: QgsLayout, var_info_collection: typing.List
+        layout: QgsLayout, var_info_collection: list
     ):
         var_names = _get_var_names(var_info_collection)
 
@@ -156,8 +155,8 @@ class ReportExpressionUtils:
 
     @staticmethod
     def remove_variables(
-        layout: QgsLayout, rem_var_names: typing.List[str]
-    ) -> typing.Tuple[typing.List, typing.List]:
+        layout: QgsLayout, rem_var_names: list[str]
+    ) -> tuple[list, list]:
         """
         Removes variables from the layout before adding new ones to ensure
         there are no duplicates.
@@ -171,7 +170,7 @@ class ReportExpressionUtils:
 
     @staticmethod
     def remove_variable_name_value(
-        rem_var_name: str, var_names: typing.List[str], var_values: typing.List[str]
+        rem_var_name: str, var_names: list[str], var_values: list[str]
     ):
         # Remove the variable name and corresponding value from the collection.
         while rem_var_name in var_names:

@@ -215,9 +215,7 @@ class SettingsManager:
     def get_value(self, key: Setting):
         self._mutex.lock()
         try:
-            if key == Setting.LOCAL_POLLING_FREQUENCY:
-                result = self.DEFAULT_SETTINGS[key]
-            elif key == Setting.UPDATE_FREQUENCY_MILLISECONDS:
+            if key == Setting.LOCAL_POLLING_FREQUENCY or key == Setting.UPDATE_FREQUENCY_MILLISECONDS:
                 result = self.DEFAULT_SETTINGS[key]
             elif key == Setting.BASE_DIR:
                 type_ = type(self.DEFAULT_SETTINGS[key])
@@ -261,8 +259,8 @@ class SettingsManager:
 
 
 def _load_script_config(
-    script_config: typing.Dict,
-) -> typing.Dict[str, ExecutionScript]:
+    script_config: dict,
+) -> dict[str, ExecutionScript]:
     result = {}
 
     for raw_config in script_config:
@@ -273,7 +271,7 @@ def _load_script_config(
 
 
 def _load_algorithm_config(
-    algorithm_config: typing.List[typing.Dict],
+    algorithm_config: list[dict],
 ) -> algorithm_models.AlgorithmGroup:
     top_level_groups = []
 

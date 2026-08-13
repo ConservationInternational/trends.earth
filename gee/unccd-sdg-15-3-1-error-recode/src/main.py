@@ -7,7 +7,6 @@ import os
 import random
 import tempfile
 from pathlib import Path
-from typing import Dict
 
 import te_algorithms.gdal.land_deg.config as ld_config
 from te_algorithms.api import util
@@ -50,7 +49,7 @@ _band_key = {
 }
 
 
-def _band_to_dict(band) -> Dict:
+def _band_to_dict(band) -> dict:
     """Convert a Band object to a dictionary format.
 
     Args:
@@ -259,9 +258,7 @@ def calculate_error_recode(
         # - Baseline always included in output (always loaded for status maps)
         # - All intermediate reporting periods up to the highest needed one
         #   are included in output to ensure sequential band alignment
-        if "baseline" in periods_affected:
-            periods_to_output = {"baseline", "report_1", "report_2"}
-        elif "report_1" in periods_affected:
+        if "baseline" in periods_affected or "report_1" in periods_affected:
             periods_to_output = {"baseline", "report_1", "report_2"}
         else:
             periods_to_output = {"baseline"}

@@ -1,4 +1,3 @@
-# coding=utf-8
 """Tests for layers.py styling functions with edge case data.
 
 This test suite verifies that styling functions handle edge cases correctly:

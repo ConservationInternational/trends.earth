@@ -18,7 +18,7 @@ class AlgorithmScript:
     parametrization_dialogue: str
 
     @classmethod
-    def deserialize(cls, raw_script_config: typing.Dict):
+    def deserialize(cls, raw_script_config: dict):
         return cls(
             script=raw_script_config["script"],
             parametrization_dialogue=raw_script_config["parametrization_dialogue"],
@@ -29,17 +29,17 @@ class AlgorithmGroup:
     name: str
     name_details: str
     parent: typing.Optional["AlgorithmGroup"]
-    algorithms: typing.List["Algorithm"]
-    groups: typing.List["AlgorithmGroup"]
+    algorithms: list["Algorithm"]
+    groups: list["AlgorithmGroup"]
     item_type: AlgorithmNodeType = AlgorithmNodeType.Group
 
     def __init__(
         self,
         name: str,
-        name_details: typing.Optional[str] = "",
+        name_details: str | None = "",
         parent: typing.Optional["AlgorithmGroup"] = None,
-        algorithms: typing.Optional[typing.List["Algorithm"]] = None,
-        groups: typing.Optional[typing.List["AlgorithmGroup"]] = None,
+        algorithms: list["Algorithm"] | None = None,
+        groups: list["AlgorithmGroup"] | None = None,
     ) -> None:
         self.name = name
         self.name_details = name_details
@@ -54,7 +54,7 @@ class AlgorithmGroup:
             self.groups.append(group)
 
     @classmethod
-    def deserialize(cls, raw_group: typing.Dict):
+    def deserialize(cls, raw_group: dict):
         child_algorithms = []
         for raw_algorithm in raw_group.get("algorithms", []):
             algorithm = Algorithm.deserialize(raw_algorithm)
@@ -74,22 +74,22 @@ class AlgorithmGroup:
 class Algorithm:
     id: uuid.UUID
     name: str
-    scripts: typing.List[AlgorithmScript]
-    name_details: typing.Optional[str]
-    brief_description: typing.Optional[str]
-    description: typing.Optional[str]
-    parent: typing.Optional[AlgorithmGroup]
+    scripts: list[AlgorithmScript]
+    name_details: str | None
+    brief_description: str | None
+    description: str | None
+    parent: AlgorithmGroup | None
     item_type: AlgorithmNodeType = AlgorithmNodeType.Algorithm
 
     def __init__(
         self,
         id: uuid.UUID,
         name: str,
-        scripts: typing.List[AlgorithmScript],
-        name_details: typing.Optional[str] = "",
-        brief_description: typing.Optional[str] = "",
-        description: typing.Optional[str] = "",
-        parent: typing.Optional[AlgorithmGroup] = None,
+        scripts: list[AlgorithmScript],
+        name_details: str | None = "",
+        brief_description: str | None = "",
+        description: str | None = "",
+        parent: AlgorithmGroup | None = None,
     ) -> None:
         self.id = id
         self.name = name
@@ -102,7 +102,7 @@ class Algorithm:
     @classmethod
     def deserialize(
         cls,
-        raw_algorithm: typing.Dict,
+        raw_algorithm: dict,
     ):
         scripts = []
         for raw_script_config in raw_algorithm["scripts"]:

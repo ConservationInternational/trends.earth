@@ -23,7 +23,6 @@ Note:
 """
 
 from dataclasses import field
-from typing import List, Optional, Tuple
 
 from marshmallow import validate, validates_schema
 from marshmallow.exceptions import ValidationError
@@ -56,13 +55,13 @@ class SDG1531StatsParameters:
 
     polygons: ErrorRecodePolygons = field(metadata={"required": True})
     iso: str = field(metadata={"required": True, "validate": validate.Length(equal=3)})
-    periods: List[str] = field(
+    periods: list[str] = field(
         default_factory=lambda: ["baseline"],
         metadata={
             "validate": lambda items: all(item in _VALID_PERIODS for item in items)
         },
     )
-    crosstabs: List[Tuple[str, str]] = field(
+    crosstabs: list[tuple[str, str]] = field(
         default_factory=list,
     )
     boundary_dataset: str = field(
@@ -75,17 +74,17 @@ class SDG1531StatsParameters:
             "validate": validate.OneOf([mode.value for mode in ProductivityMode])
         },
     )
-    substr_regexs: List[str] = field(
+    substr_regexs: list[str] = field(
         default_factory=list,
     )
-    ENV: Optional[str] = field(
+    ENV: str | None = field(
         default=None,
         metadata={
             "validate": validate.OneOf(["dev", "staging", "prod"]),
             "allow_none": True,
         },
     )
-    EXECUTION_ID: Optional[str] = field(
+    EXECUTION_ID: str | None = field(
         default=None,
     )
 

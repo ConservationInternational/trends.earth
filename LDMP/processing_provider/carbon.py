@@ -131,9 +131,7 @@ class TCSummary(QgsProcessingAlgorithm):
             for x in range(0, xsize, x_block_size):
                 if feedback.isCanceled():
                     log(
-                        "Processing of {} killed by user after processing {} out of {} blocks.".format(
-                            src_file, y, ysize
-                        )
+                        f"Processing of {src_file} killed by user after processing {y} out of {ysize} blocks."
                     )
                     break
                 feedback.setProgress(

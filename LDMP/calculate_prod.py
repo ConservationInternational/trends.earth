@@ -12,7 +12,6 @@
 """
 
 import json
-import typing
 from pathlib import Path
 
 import qgis.gui
@@ -210,7 +209,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             self.indicator_toggled()
 
     @property
-    def trajectory_functions(self) -> typing.Dict:
+    def trajectory_functions(self) -> dict:
         return self.script.additional_configuration["trajectory functions"]
 
     def traj_indic_changed(self):
@@ -426,7 +425,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             climate_gee_dataset = self.climate_datasets[
                 self.traj_climate.currentText()
             ]["GEE Dataset"]
-            log("climate_gee_dataset {}".format(climate_gee_dataset))
+            log(f"climate_gee_dataset {climate_gee_dataset}")
         else:
             climate_gee_dataset = None
 

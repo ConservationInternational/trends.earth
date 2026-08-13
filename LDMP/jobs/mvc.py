@@ -34,13 +34,13 @@ ICON_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, "icons")
 
 
 class JobsModel(QtCore.QAbstractItemModel):
-    _relevant_jobs: typing.List[Job]
+    _relevant_jobs: list[Job]
 
     def __init__(
         self,
         job_manager: manager.JobManager,
         parent=None,
-        jobs_list: typing.Optional[typing.List[Job]] = None,
+        jobs_list: list[Job] | None = None,
     ):
         super().__init__(parent)
         # Use provided jobs list if available, otherwise query job_manager.
@@ -49,7 +49,7 @@ class JobsModel(QtCore.QAbstractItemModel):
             jobs_list if jobs_list is not None else job_manager.relevant_jobs
         )
 
-    def set_jobs(self, jobs_list: typing.List[Job]) -> None:
+    def set_jobs(self, jobs_list: list[Job]) -> None:
         """Update the model's job list in place.
 
         This is more efficient than creating a new model and calling setSourceModel(),
@@ -89,7 +89,7 @@ class JobsModel(QtCore.QAbstractItemModel):
         self,
         index: QtCore.QModelIndex = QtCore.QModelIndex(),
         role: QtCore.Qt.ItemDataRole = QtCore.Qt.DisplayRole,
-    ) -> typing.Optional[Job]:
+    ) -> Job | None:
         result = None
 
         if index.isValid():
@@ -113,7 +113,7 @@ class JobsModel(QtCore.QAbstractItemModel):
 
 
 class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
-    current_sort_field: typing.Optional[SortField]
+    current_sort_field: SortField | None
     type_filter: TypeFilter
 
     def __init__(self, current_sort_field: SortField, *args, **kwargs):
@@ -223,12 +223,12 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
 
 class JobItemDelegate(QtWidgets.QStyledItemDelegate):
-    current_index: typing.Optional[QtCore.QModelIndex]
+    current_index: QtCore.QModelIndex | None
     main_dock: "MainWidget"
 
     # Class-level cached size - all job items are the same size since they use
     # the same widget template
-    _uniform_item_size: typing.ClassVar[typing.Optional[QtCore.QSize]] = None
+    _uniform_item_size: typing.ClassVar[QtCore.QSize | None] = None
 
     def __init__(
         self,
@@ -241,8 +241,8 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         self.current_index = None
         # Caches to avoid recreating full DatasetEditorWidget on every repaint.
         # Keyed by (job.id, job.status, job.progress, rect_width, rect_height).
-        self._pixmap_cache: typing.Dict[typing.Tuple, QtGui.QPixmap] = {}
-        self._size_cache: typing.Dict[typing.Tuple, QtCore.QSize] = {}
+        self._pixmap_cache: dict[tuple, QtGui.QPixmap] = {}
+        self._size_cache: dict[tuple, QtCore.QSize] = {}
 
     def invalidate_caches(self):
         """Clear cached pixmaps and sizes.
@@ -257,7 +257,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         # would require creating a widget which is expensive.
 
     @staticmethod
-    def _cache_key(item: "Job", rect_w: int = 0, rect_h: int = 0) -> typing.Tuple:
+    def _cache_key(item: "Job", rect_w: int = 0, rect_h: int = 0) -> tuple:
         return (item.id, item.status, item.progress, rect_w, rect_h)
 
     @staticmethod
@@ -750,7 +750,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         from ..execution_logs_dialog import DlgExecutionLogs
 
         # Create unique dialog ID for this job
-        dialog_id = f"logs_{str(self.job.id)}"
+        dialog_id = f"logs_{self.job.id!s}"
 
         # Check if dialog already exists and is visible
         existing_dialog = dialog_manager.get_dialog(dialog_id)
@@ -825,7 +825,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             return
 
         # Create unique dialog ID for this job's timeseries
-        dialog_id = f"timeseries_{str(self.job.id)}"
+        dialog_id = f"timeseries_{self.job.id!s}"
 
         # Check if dialog already exists and is visible
         existing_dialog = dialog_manager.get_dialog(dialog_id)
@@ -975,7 +975,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.view_logs_tb.show()
 
     def set_widget_title(
-        self, widget: QtWidgets.QWidget, base_title: typing.Optional[str] = None
+        self, widget: QtWidgets.QWidget, base_title: str | None = None
     ):
         # Convenient function for setting the title of a widget.
         if base_title is None:

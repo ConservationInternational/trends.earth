@@ -11,7 +11,7 @@ import os
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any
 
 import requests
 
@@ -136,7 +136,7 @@ class TrendsEarthAPIClient:
                 return False
 
         except Exception as e:
-            print(f"Authentication error: {str(e)}")
+            print(f"Authentication error: {e!s}")
             logging.error(f"Error authenticating: {e}")
             return False
 
@@ -215,7 +215,7 @@ class TrendsEarthAPIClient:
                 return False
 
         except Exception as e:
-            print(f"Token refresh error: {str(e)}")
+            print(f"Token refresh error: {e!s}")
             logging.error(f"Error refreshing token: {e}")
             return False
 
@@ -238,7 +238,7 @@ class TrendsEarthAPIClient:
 
         return True
 
-    def get_auth_headers(self) -> Optional[Dict[str, str]]:
+    def get_auth_headers(self) -> dict[str, str] | None:
         """
         Get authentication headers for API requests.
 
@@ -252,7 +252,7 @@ class TrendsEarthAPIClient:
             }
         return None
 
-    def submit_job(self, script_endpoint: str, params: Dict) -> Optional[str]:
+    def submit_job(self, script_endpoint: str, params: dict) -> str | None:
         """
         Generic method to submit a job to any script endpoint.
 
@@ -302,8 +302,8 @@ class TrendsEarthAPIClient:
             return None
 
     def get_jobs(
-        self, filter_name: Optional[str] = None, days_back: int = 7
-    ) -> List[Dict]:
+        self, filter_name: str | None = None, days_back: int = 7
+    ) -> list[dict]:
         """
         Get jobs from the API, optionally filtered by name and date.
 
@@ -360,7 +360,7 @@ class TrendsEarthAPIClient:
             logging.error(f"Error getting jobs: {e}")
             return []
 
-    def get_job_status(self, execution_id: str) -> Optional[Dict]:
+    def get_job_status(self, execution_id: str) -> dict | None:
         """
         Get the status of a specific job.
 
@@ -397,7 +397,7 @@ class TrendsEarthAPIClient:
             print(f"Error getting job status: {e}")
             return None
 
-    def monitor_job(self, execution_id: str, max_minutes: int = 10) -> Optional[Dict]:
+    def monitor_job(self, execution_id: str, max_minutes: int = 10) -> dict | None:
         """
         Monitor a job until completion or timeout.
 
@@ -482,8 +482,8 @@ class TrendsEarthAPIClient:
         return f"{sanitized_name}-{job_id[:8]}"
 
     def download_job(
-        self, job_dict: Dict, output_dir: Union[str, Path]
-    ) -> Optional[Path]:
+        self, job_dict: dict, output_dir: str | Path
+    ) -> Path | None:
         """
         Download a completed job's TIFF results by parsing URLs from execution results.
 
@@ -523,7 +523,7 @@ class TrendsEarthAPIClient:
             downloaded_files = []
 
             # Check for main VRT file first (combines all rasters)
-            if "uri" in job_results and job_results["uri"]:
+            if job_results.get("uri"):
                 main_uri = job_results["uri"]
                 if isinstance(main_uri, dict) and "uri" in main_uri:
                     file_url = main_uri["uri"]
@@ -544,7 +544,7 @@ class TrendsEarthAPIClient:
                     print(f"Processing raster: {key}")
 
                     # Check for VRT file in this raster (for TiledRaster)
-                    if "uri" in raster_data and raster_data["uri"]:
+                    if raster_data.get("uri"):
                         raster_uri = raster_data["uri"]
                         if isinstance(raster_uri, dict) and "uri" in raster_uri:
                             file_url = raster_uri["uri"]
@@ -716,7 +716,7 @@ class TrendsEarthAPIClient:
             return False
 
 
-def print_job_summary(jobs: List[Dict]) -> None:
+def print_job_summary(jobs: list[dict]) -> None:
     """
     Print a summary of jobs by status.
 
@@ -747,7 +747,7 @@ def print_job_summary(jobs: List[Dict]) -> None:
 
 
 def print_job_details(
-    jobs: List[Dict], max_jobs: int = 20, local_tz: Any = None
+    jobs: list[dict], max_jobs: int = 20, local_tz: Any = None
 ) -> None:
     """
     Print detailed job information.
@@ -786,7 +786,7 @@ def print_job_details(
         )
 
 
-def save_job_metadata(job_dict: Dict, output_path: Union[str, Path]) -> None:
+def save_job_metadata(job_dict: dict, output_path: str | Path) -> None:
     """
     Save job metadata to a JSON file.
 
@@ -802,7 +802,7 @@ def save_job_metadata(job_dict: Dict, output_path: Union[str, Path]) -> None:
         print(f"Error saving metadata: {e}")
 
 
-def get_tiff_files(file_list: List[Path]) -> Tuple[List[Path], List[Path]]:
+def get_tiff_files(file_list: list[Path]) -> tuple[list[Path], list[Path]]:
     """
     Filter files to find TIFF files.
 
@@ -820,7 +820,7 @@ def get_tiff_files(file_list: List[Path]) -> Tuple[List[Path], List[Path]]:
     return file_list, tiff_files
 
 
-def convert_subcells_to_geojson(sub_cells) -> List[Dict]:
+def convert_subcells_to_geojson(sub_cells) -> list[dict]:
     """
     Convert shapely polygons to geojson format.
 

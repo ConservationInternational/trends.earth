@@ -15,7 +15,6 @@ import datetime as dt
 import functools
 import json
 import os
-import typing
 import uuid
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -241,7 +240,7 @@ class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
                     None,
                     tr_calculate.tr("Error"),
                     tr_calculate.tr(
-                        "Cannot read {}. Choose a different folder.".format(folder)
+                        f"Cannot read {folder}. Choose a different folder."
                     ),
                 )
 
@@ -271,7 +270,7 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
 
     def select_output_basename(self):
         local_name = QtCore.QSettings().value(
-            "LDMP/output_basename_{}".format(self.subclass_name), None
+            f"LDMP/output_basename_{self.subclass_name}", None
         )
 
         if local_name:
@@ -290,7 +289,7 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
             if os.access(os.path.dirname(f), os.W_OK):
                 QtCore.QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
                 QtCore.QSettings().setValue(
-                    "LDMP/output_basename_{}".format(self.subclass_name), f
+                    f"LDMP/output_basename_{self.subclass_name}", f
                 )
                 self.output_basename.setText(f)
                 self.set_output_summary(f)
@@ -299,7 +298,7 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
                     None,
                     tr_calculate.tr("Error"),
                     tr_calculate.tr(
-                        "Cannot write to {}. Choose a different file.".format(f)
+                        f"Cannot write to {f}. Choose a different file."
                     ),
                 )
 
@@ -379,12 +378,12 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
     LOCAL_SCRIPT_NAME: str = ""
 
-    admin_bounds_key: typing.Dict[str, download.Country]
+    admin_bounds_key: dict[str, download.Country]
     aoi: areaofinterest.AOI
     button_box: QtWidgets.QDialogButtonBox
     canvas: qgis.gui.QgsMapCanvas
-    cities: typing.Dict[str, typing.Dict[str, download.City]]
-    datasets: typing.Dict[str, typing.Dict]
+    cities: dict[str, dict[str, download.City]]
+    datasets: dict[str, dict]
     iface: qgis.gui.QgisInterface
     main_dock: "MainWidget"
     script: ExecutionScript

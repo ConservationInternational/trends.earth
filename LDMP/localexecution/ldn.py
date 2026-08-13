@@ -3,7 +3,6 @@ import enum
 import json
 import multiprocessing
 from pathlib import Path
-from typing import Dict, List, Optional, Union
 
 import te_algorithms.gdal.land_deg.config as ld_config
 from qgis.PyQt import QtWidgets
@@ -157,17 +156,17 @@ class LdnInputInfo:
     path: Path
     main_band: JobBand
     main_band_index: int
-    aux_bands: List[JobBand]
-    aux_band_indexes: List[int]
-    years: List[int]
+    aux_bands: list[JobBand]
+    aux_band_indexes: list[int]
+    years: list[int]
 
 
 @dataclasses.dataclass()
 class PopInputInfo:
-    paths: List[Path]
-    bands: List[JobBand]
-    band_indices: List[int]
-    years: List[int]
+    paths: list[Path]
+    bands: list[JobBand]
+    band_indices: list[int]
+    years: list[int]
 
 
 def _get_ld_input_period(
@@ -185,7 +184,7 @@ def _get_ld_input_period(
 
 def _get_ld_inputs(
     data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
-    aux_band_name: Union[str, list],
+    aux_band_name: str | list,
     sort_property: str = "year",
 ) -> LdnInputInfo:
     """Used to get main band and set of aux bands associated with a combo box"""
@@ -308,8 +307,8 @@ def get_main_sdg_15_3_1_job_params(
     combo_layer_pop_total: data_io.WidgetDataIOSelectTELayerExisting,
     combo_layer_pop_male: data_io.WidgetDataIOSelectTELayerExisting,
     combo_layer_pop_female: data_io.WidgetDataIOSelectTELayerExisting,
-    task_notes: Optional[str] = "",
-) -> Dict:
+    task_notes: str | None = "",
+) -> dict:
     land_cover_inputs = _get_ld_inputs(combo_layer_lc, ld_config.LC_BAND_NAME)
     land_cover_transition_input = _get_ld_input_aux_band(
         combo_layer_lc, ld_config.LC_TRANS_BAND_NAME

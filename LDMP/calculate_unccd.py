@@ -12,7 +12,6 @@
 """
 
 # pylint: disable=import-error
-import typing
 from pathlib import Path
 
 import qgis.gui
@@ -176,7 +175,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
     LOCAL_SCRIPT_NAME: str = "unccd-report"
 
     button_calculate: QtWidgets.QPushButton
-    combo_boxes: typing.Dict[str, unccd.UNCCDReportWidgets] = {}
+    combo_boxes: dict[str, unccd.UNCCDReportWidgets] = {}
 
     def __init__(
         self,
@@ -232,9 +231,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
         """validate all needed datasets are selected"""
         if self.groupbox_so1_so2.isChecked() and not self._validate_dataset_selection(
             combo_boxes.combo_dataset_so1_so2, self.tr("SO1 and SO2")
-        ):
-            return False
-        elif self.groupbox_so3.isChecked() and not self._validate_dataset_selection(
+        ) or self.groupbox_so3.isChecked() and not self._validate_dataset_selection(
             combo_boxes.combo_dataset_so3, self.tr("SO3 (hazard and exposure)")
         ):
             return False

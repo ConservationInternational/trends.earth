@@ -515,10 +515,7 @@ def run_period(params, EXECUTION_ID, logger):
     ):
         params.update(_gen_metadata_str_te(params))
         out = run_te_for_period(params, EXECUTION_ID, logger)
-    elif params["productivity"]["mode"] == ProductivityMode.JRC_5_CLASS_LPD.value:
-        params.update(_gen_metadata_str_precalculated_lpd(params))
-        out = run_precalculated_lpd_for_period(params, EXECUTION_ID, logger)
-    elif params["productivity"]["mode"] == ProductivityMode.FWV2_5_CLASS_LPD.value:
+    elif params["productivity"]["mode"] == ProductivityMode.JRC_5_CLASS_LPD.value or params["productivity"]["mode"] == ProductivityMode.FWV2_5_CLASS_LPD.value:
         params.update(_gen_metadata_str_precalculated_lpd(params))
         out = run_precalculated_lpd_for_period(params, EXECUTION_ID, logger)
     elif params["productivity"]["mode"] == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:

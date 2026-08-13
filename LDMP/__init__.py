@@ -27,7 +27,7 @@ from .qt_compat import apply_qt_compat
 
 apply_qt_compat()
 
-from . import logger  # noqa: E402
+from . import logger
 
 # initialize translation
 plugin_dir = os.path.dirname(os.path.realpath(__file__))
@@ -102,7 +102,7 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :type iface: QgsInterface
     """
 
-    from LDMP.plugin import LDMPPlugin  # noqa: E402
+    from LDMP.plugin import LDMPPlugin
 
     return LDMPPlugin(iface)
 
@@ -123,16 +123,16 @@ logger.log(
 )
 
 if trans_result:
-    logger.log("Translator installed for {}.".format(locale.name()))
+    logger.log(f"Translator installed for {locale.name()}.")
 else:
     logger.log(
-        "FAILED while trying to install translator for {}.".format(locale.name())
+        f"FAILED while trying to install translator for {locale.name()}."
     )
 
-from . import conf  # noqa: E402
+from . import conf
 
 if conf.settings_manager.get_value(conf.Setting.DEBUG):
-    import logging  # noqa: E402
+    import logging
 
     formatter = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logfilename = (

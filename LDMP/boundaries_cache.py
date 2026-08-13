@@ -31,7 +31,7 @@ class BoundariesCache:
     TTL expiration. Server timestamps are checked weekly to minimize API overhead.
     """
 
-    def __init__(self, cache_dir: typing.Optional[str] = None):
+    def __init__(self, cache_dir: str | None = None):
         """
         Initialize the boundaries cache.
 
@@ -53,7 +53,7 @@ class BoundariesCache:
         return self.cache_dir / f"boundaries_list_{release_type}.json.gz"
 
     def get_boundary_geojson_cache_file(
-        self, country_code: str, admin_level: int, shape_id: typing.Optional[str] = None
+        self, country_code: str, admin_level: int, shape_id: str | None = None
     ) -> Path:
         """Get cache file path for boundary GeoJSON."""
         cache_key = f"{country_code}_adm{admin_level}"
@@ -87,7 +87,7 @@ class BoundariesCache:
         except OSError as e:
             log(f"Error updating server check timestamp: {e}")
 
-    def _parse_server_timestamp(self, timestamp_str: str) -> typing.Optional[datetime]:
+    def _parse_server_timestamp(self, timestamp_str: str) -> datetime | None:
         """Parse server timestamp string to datetime object."""
         if not timestamp_str:
             return None
@@ -100,7 +100,7 @@ class BoundariesCache:
             log(f"Error parsing server timestamp: {timestamp_str}")
             return None
 
-    def _get_cache_metadata(self, cache_file: Path) -> typing.Optional[typing.Dict]:
+    def _get_cache_metadata(self, cache_file: Path) -> dict | None:
         """Get metadata from cache file including server timestamp."""
         if not cache_file.exists():
             return None
@@ -134,7 +134,7 @@ class BoundariesCache:
         self,
         cache_file: Path,
         data: typing.Any,
-        server_timestamp: typing.Optional[str] = None,
+        server_timestamp: str | None = None,
     ) -> bool:
         """Save data to cache file with metadata."""
         try:
@@ -157,7 +157,7 @@ class BoundariesCache:
             log(f"Error saving cache with metadata to {cache_file}: {e}")
             return False
 
-    def _extract_data_from_cache(self, cache_file: Path) -> typing.Optional[typing.Any]:
+    def _extract_data_from_cache(self, cache_file: Path) -> typing.Any | None:
         """Extract the actual data from a cache file, handling metadata."""
         try:
 
@@ -182,8 +182,8 @@ class BoundariesCache:
     def load_boundaries_list(
         self,
         release_type: str = "gbOpen",
-        server_last_updated: typing.Optional[str] = None,
-    ) -> typing.Optional[typing.List[typing.Dict]]:
+        server_last_updated: str | None = None,
+    ) -> list[dict] | None:
         """
         Load boundaries list from cache if valid based on server timestamps.
 
@@ -231,9 +231,9 @@ class BoundariesCache:
 
     def save_boundaries_list(
         self,
-        boundaries_list: typing.List[typing.Dict],
+        boundaries_list: list[dict],
         release_type: str = "gbOpen",
-        server_last_updated: typing.Optional[str] = None,
+        server_last_updated: str | None = None,
     ) -> bool:
         """
         Save boundaries list to cache with metadata.
@@ -261,9 +261,9 @@ class BoundariesCache:
         self,
         country_code: str,
         admin_level: int,
-        shape_id: typing.Optional[str] = None,
-        server_last_updated: typing.Optional[str] = None,
-    ) -> typing.Optional[typing.Dict]:
+        shape_id: str | None = None,
+        server_last_updated: str | None = None,
+    ) -> dict | None:
         """
         Load boundary GeoJSON from cache if valid based on server timestamps.
 
@@ -319,11 +319,11 @@ class BoundariesCache:
 
     def save_boundary_geojson(
         self,
-        geojson_data: typing.Dict,
+        geojson_data: dict,
         country_code: str,
         admin_level: int,
-        shape_id: typing.Optional[str] = None,
-        server_last_updated: typing.Optional[str] = None,
+        shape_id: str | None = None,
+        server_last_updated: str | None = None,
     ) -> bool:
         """
         Save boundary GeoJSON to cache with metadata.
@@ -379,7 +379,7 @@ class BoundariesCache:
     def is_boundaries_list_cache_valid(
         self,
         release_type: str = "gbOpen",
-        server_last_updated: typing.Optional[str] = None,
+        server_last_updated: str | None = None,
     ) -> bool:
         """
         Check if boundaries list cache is valid based on server timestamp.
@@ -421,8 +421,8 @@ class BoundariesCache:
         self,
         country_code: str,
         admin_level: int,
-        shape_id: typing.Optional[str] = None,
-        server_last_updated: typing.Optional[str] = None,
+        shape_id: str | None = None,
+        server_last_updated: str | None = None,
     ) -> bool:
         """
         Check if boundary GeoJSON cache is valid based on server timestamp.
@@ -464,7 +464,7 @@ class BoundariesCache:
 
         return False
 
-    def clear_cache(self, older_than_days: typing.Optional[int] = None) -> int:
+    def clear_cache(self, older_than_days: int | None = None) -> int:
         """
         Clear cached files.
 

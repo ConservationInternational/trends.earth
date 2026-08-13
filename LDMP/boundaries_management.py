@@ -187,7 +187,7 @@ def get_cache_statistics():
         }
 
 
-def check_server_for_updates(release_type="gbOpen") -> typing.Dict[str, typing.Any]:
+def check_server_for_updates(release_type="gbOpen") -> dict[str, typing.Any]:
     """
     Check server for boundary updates and get current status.
 
@@ -245,7 +245,7 @@ def check_server_for_updates(release_type="gbOpen") -> typing.Dict[str, typing.A
     return result
 
 
-def force_server_update_check(release_type="gbOpen") -> typing.Dict[str, typing.Any]:
+def force_server_update_check(release_type="gbOpen") -> dict[str, typing.Any]:
     """
     Force an immediate server update check, bypassing monthly check interval.
 

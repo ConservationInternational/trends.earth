@@ -23,7 +23,6 @@ Note:
 """
 
 from dataclasses import field
-from typing import Optional
 
 from marshmallow import validate
 from marshmallow_dataclass import dataclass
@@ -56,13 +55,13 @@ class LandCoverParameters:
     trans_matrix: LCTransitionDefinitionDeg = field(metadata={"required": True})
     legend_nesting_esa_to_custom: LCLegendNesting = field(metadata={"required": True})
     legend_nesting_custom_to_ipcc: LCLegendNesting = field(metadata={"required": True})
-    ENV: Optional[str] = field(
+    ENV: str | None = field(
         default=None,
         metadata={
             "validate": validate.OneOf(["dev", "staging", "prod"]),
             "allow_none": True,
         },
     )
-    EXECUTION_ID: Optional[str] = field(
+    EXECUTION_ID: str | None = field(
         default=None,
     )

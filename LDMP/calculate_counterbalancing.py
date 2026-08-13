@@ -8,7 +8,6 @@ and run the counterbalancing assessment locally.
 
 import logging
 import math
-import typing
 
 import numpy as np
 import qgis.core
@@ -190,8 +189,8 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
             )
 
     def _estimate_interaction_classes(
-        self, paths: typing.List[str]
-    ) -> typing.Optional[int]:
+        self, paths: list[str]
+    ) -> int | None:
         """Downsample all layers to a common coarse grid and count combos.
 
         Uses gdal.Translate with nearest-neighbour resampling to produce a
@@ -210,7 +209,7 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
         ymax = bb.yMaximum()
 
         # Calculate output dimensions (~sqrt(SAMPLE_PIXELS) on each side)
-        side = max(1, int(math.isqrt(self._SAMPLE_PIXELS)))
+        side = max(1, math.isqrt(self._SAMPLE_PIXELS))
 
         # Translate each raster to the common coarse grid (in memory)
         arrays = []
@@ -246,7 +245,7 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
                 return True
         return False
 
-    def _get_land_type_paths(self) -> typing.List[str]:
+    def _get_land_type_paths(self) -> list[str]:
         return [
             self.land_type_list.item(i).text()
             for i in range(self.land_type_list.count())

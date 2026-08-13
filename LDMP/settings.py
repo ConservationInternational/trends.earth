@@ -914,9 +914,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
-                    self.tr(
-                        f"Cannot read {vector_file}. Choose a different file."
-                    ),
+                    self.tr(f"Cannot read {vector_file}. Choose a different file."),
                 )
 
                 return False
@@ -1219,6 +1217,7 @@ class DlgSettingsRegister(ProfileFormMixin, QtWidgets.QDialog, Ui_DlgSettingsReg
             gee_license_acknowledged=True,
             purpose_of_use=purpose or None,
             purpose_of_use_other=(self.purpose_of_use_other.text().strip() or None),
+            email_notifications_enabled=self.email_notifications_enabled.isChecked(),
             email_subscription_news=self.email_subscription_news.isChecked(),
             email_subscription_engagement=self.email_subscription_engagement.isChecked(),
             email_subscription_system_updates=(
@@ -2584,9 +2583,7 @@ class LandCoverCustomClassesManager(
 
         return {lcci.lcc.name_long: lcci.child_codes for lcci in lcc_infos}
 
-    def validate_child_codes(
-        self, lcc_infos: list["LCClassInfo"]
-    ) -> tuple[bool, list]:
+    def validate_child_codes(self, lcc_infos: list["LCClassInfo"]) -> tuple[bool, list]:
         """
         Validate children have been specified.
         """

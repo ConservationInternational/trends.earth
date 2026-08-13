@@ -552,9 +552,7 @@ class JobCache:
                 log(f"Failed to lazy-load params for {cache_path}: {exc}")
                 return False
 
-    def cache_job(
-        self, path: Path, mtime: float, job: typing.Any | None
-    ) -> bool:
+    def cache_job(self, path: Path, mtime: float, job: typing.Any | None) -> bool:
         """Store a Job in the cache with split storage.
 
         If *job* is ``None``, a lightweight sentinel row is stored with
@@ -697,9 +695,7 @@ class JobCache:
                 log(f"Failed to cache job for {path}: {type(exc).__name__}: {exc}")
                 return False
 
-    def _extract_script_info(
-        self, job: typing.Any
-    ) -> tuple[str | None, str | None]:
+    def _extract_script_info(self, job: typing.Any) -> tuple[str | None, str | None]:
         """Extract script ID and name from a Job object.
 
         Args:

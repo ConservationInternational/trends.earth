@@ -188,9 +188,7 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
                 self.tr("Could not read class counts from the selected layers.")
             )
 
-    def _estimate_interaction_classes(
-        self, paths: list[str]
-    ) -> int | None:
+    def _estimate_interaction_classes(self, paths: list[str]) -> int | None:
         """Downsample all layers to a common coarse grid and count combos.
 
         Uses gdal.Translate with nearest-neighbour resampling to produce a

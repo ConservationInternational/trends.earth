@@ -259,9 +259,7 @@ class StartWorker:
         self.worker.progress.connect(watchdog.kick)
         self.worker.set_message.connect(watchdog.kick)
 
-        start_worker(
-            self.worker, iface, tr_worker.tr(f"Processing: {process_name}")
-        )
+        start_worker(self.worker, iface, tr_worker.tr(f"Processing: {process_name}"))
         watchdog.start()
         pause.exec()
         watchdog.stop()

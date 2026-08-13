@@ -215,7 +215,10 @@ class SettingsManager:
     def get_value(self, key: Setting):
         self._mutex.lock()
         try:
-            if key == Setting.LOCAL_POLLING_FREQUENCY or key == Setting.UPDATE_FREQUENCY_MILLISECONDS:
+            if (
+                key == Setting.LOCAL_POLLING_FREQUENCY
+                or key == Setting.UPDATE_FREQUENCY_MILLISECONDS
+            ):
                 result = self.DEFAULT_SETTINGS[key]
             elif key == Setting.BASE_DIR:
                 type_ = type(self.DEFAULT_SETTINGS[key])

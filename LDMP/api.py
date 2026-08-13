@@ -345,9 +345,7 @@ class RequestTask(QgsTask):
                 self.resp = reply
 
             else:
-                self.exception = ValueError(
-                    f"Unrecognized method: {self.method}"
-                )
+                self.exception = ValueError(f"Unrecognized method: {self.method}")
                 return False
         except Exception as exc:
             self.exception = exc
@@ -886,9 +884,7 @@ class APIClient(QtCore.QObject):
             if status_code in [200, 201, 204]:  # Accept success status codes
                 if status_code == 204:
                     # 204 No Content - successful but no response body
-                    log(
-                        f'API response from "{method}" request: {status_code}'
-                    )
+                    log(f'API response from "{method}" request: {status_code}')
                     ret = {}  # Return empty dict for 204 responses
                 elif type(resp) is QtNetwork.QNetworkReply:
                     raw = bytes(resp.readAll())
@@ -1073,9 +1069,7 @@ class APIClient(QtCore.QObject):
         return self.call_api(endpoint, "post")
 
     def get_user(self, email="me"):
-        resp = self.call_api(
-            f"/api/v1/user/{quote_plus(email)}", use_token=True
-        )
+        resp = self.call_api(f"/api/v1/user/{quote_plus(email)}", use_token=True)
 
         if resp:
             return resp["data"]
@@ -1105,6 +1099,7 @@ class APIClient(QtCore.QObject):
         gee_license_acknowledged=None,
         purpose_of_use=None,
         purpose_of_use_other=None,
+        email_notifications_enabled=None,
         email_subscription_news=None,
         email_subscription_engagement=None,
         email_subscription_system_updates=None,
@@ -1129,6 +1124,7 @@ class APIClient(QtCore.QObject):
             purpose_of_use: User's purpose for using the tool
             purpose_of_use_other: Free-text purpose description
                 (when other is selected)
+            email_notifications_enabled: Whether to receive job-status emails
             email_subscription_news: Whether to receive news & updates emails
             email_subscription_engagement: Whether to receive engagement
                 opportunity emails
@@ -1157,6 +1153,8 @@ class APIClient(QtCore.QObject):
             payload["purpose_of_use"] = purpose_of_use
         if purpose_of_use_other is not None:
             payload["purpose_of_use_other"] = purpose_of_use_other
+            if email_notifications_enabled is not None:
+                payload["email_notifications_enabled"] = email_notifications_enabled
         if email_subscription_news is not None:
             payload["email_subscription_news"] = email_subscription_news
         if email_subscription_engagement is not None:

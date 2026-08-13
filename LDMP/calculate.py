@@ -297,9 +297,7 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
                 QtWidgets.QMessageBox.critical(
                     None,
                     tr_calculate.tr("Error"),
-                    tr_calculate.tr(
-                        f"Cannot write to {f}. Choose a different file."
-                    ),
+                    tr_calculate.tr(f"Cannot write to {f}. Choose a different file."),
                 )
 
     def set_output_summary(self, f):

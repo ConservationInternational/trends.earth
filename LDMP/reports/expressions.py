@@ -135,9 +135,7 @@ class ReportExpressionUtils:
         )
 
     @staticmethod
-    def _register_variable_collection(
-        layout: QgsLayout, var_info_collection: list
-    ):
+    def _register_variable_collection(layout: QgsLayout, var_info_collection: list):
         var_names = _get_var_names(var_info_collection)
 
         # Remove duplicate names and corresponding values

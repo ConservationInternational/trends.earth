@@ -104,9 +104,7 @@ def rmtree(top):
     try:
         os.rmdir(top)
     except OSError:
-        print(
-            f"Unable to remove directory {top}. Skipping removing that folder."
-        )
+        print(f"Unable to remove directory {top}. Skipping removing that folder.")
 
 
 # Function to find and replace in a file
@@ -393,9 +391,7 @@ def set_version(c, modules=False, gee=False, version=None):
 
     # Always update BOTH requirements files to keep them in sync
     for requirements_file in ["requirements.txt", "requirements-testing.txt"]:
-        print(
-            f"Setting version to {version_to_write} in package {requirements_file}"
-        )
+        print(f"Setting version to {version_to_write} in package {requirements_file}")
 
         # Use even/odd version logic:
         # - Even version (e.g., 2.1.18) → use tagged version in dependencies
@@ -555,9 +551,7 @@ def set_tag(c, modules=False, version=None):
             print("Changes not committed - VERSION TAG NOT SET")
 
     print(f"Tagging version {v} and pushing tag to origin")
-    ret = subprocess.run(
-        ["git", "tag", "-l", f"v{v}"], capture_output=True, text=True
-    )
+    ret = subprocess.run(["git", "tag", "-l", f"v{v}"], capture_output=True, text=True)
     ret.check_returncode()
 
     if f"v{v}" in ret.stdout:
@@ -566,9 +560,7 @@ def set_tag(c, modules=False, version=None):
 
         if ret.returncode == 0:
             print(f"Deleted tag v{v} on origin")
-    subprocess.check_call(
-        ["git", "tag", "-f", "-a", f"v{v}", "-m", f"Version {v}"]
-    )
+    subprocess.check_call(["git", "tag", "-f", "-a", f"v{v}", "-m", f"Version {v}"])
     subprocess.check_call(["git", "push", "origin", f"v{v}"])
 
     if modules:
@@ -1670,28 +1662,20 @@ def localize_resources(c, language=None):
     if language is None:
         language = c.sphinx.base_language
 
-    print(
-        f"Removing all static content from {c.sphinx.sourcedir}/static."
-    )
+    print(f"Removing all static content from {c.sphinx.sourcedir}/static.")
 
     if os.path.exists(f"{c.sphinx.sourcedir}/static"):
         rmtree(f"{c.sphinx.sourcedir}/static")
-    print(
-        f"Copy 'en' (base) static content to {c.sphinx.sourcedir}/static."
-    )
+    print(f"Copy 'en' (base) static content to {c.sphinx.sourcedir}/static.")
 
     if os.path.exists(f"{c.sphinx.resourcedir}/en"):
         shutil.copytree(
             f"{c.sphinx.resourcedir}/en",
             f"{c.sphinx.sourcedir}/static",
         )
-    print(
-        f"Copy localized '{language}' static content to {c.sphinx.sourcedir}/static."
-    )
+    print(f"Copy localized '{language}' static content to {c.sphinx.sourcedir}/static.")
 
-    if language != "en" and os.path.exists(
-        f"{c.sphinx.resourcedir}/{language}"
-    ):
+    if language != "en" and os.path.exists(f"{c.sphinx.resourcedir}/{language}"):
         src = f"{c.sphinx.resourcedir}/{language}"
         dst = f"{c.sphinx.sourcedir}/static"
 
@@ -2272,9 +2256,7 @@ def zipfile_build(
     if not filename:
         # Use plugin version in filename instead of QGIS version
         plugin_version = get_version(c)
-        filename = os.path.join(
-            package_dir, f"{c.plugin.name}_{plugin_version}.zip"
-        )
+        filename = os.path.join(package_dir, f"{c.plugin.name}_{plugin_version}.zip")
 
     print(f"Removing untracked datafiles from {c.plugin.data_dir}...")
     subprocess.check_call(["git", "clean", "-f", "-x", c.plugin.data_dir])
@@ -2403,9 +2385,7 @@ def _get_s3_client():
 def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
     client = _get_s3_client()
 
-    objects = client.list_objects(Bucket=bucket, Prefix=f"{s3_prefix}/")[
-        "Contents"
-    ]
+    objects = client.list_objects(Bucket=bucket, Prefix=f"{s3_prefix}/")["Contents"]
 
     for obj in objects:
         filename = os.path.basename(obj["Key"])
@@ -2460,9 +2440,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
     # Now copy back to S3 any files that aren't yet there
     files = [glob.glob(pattern) for pattern in patterns]
     files = [item for sublist in files for item in sublist]
-    s3_objects = client.list_objects(Bucket=bucket, Prefix=f"{s3_prefix}/")[
-        "Contents"
-    ]
+    s3_objects = client.list_objects(Bucket=bucket, Prefix=f"{s3_prefix}/")["Contents"]
     s3_object_names = [os.path.basename(obj["Key"]) for obj in s3_objects]
 
     for f in files:

@@ -245,8 +245,61 @@
        <item row="12" column="1">
         <widget class="QLineEdit" name="gender_identity_description"/>
        </item>
-       <!-- GEE License Acknowledgment -->
+       <!-- Email subscription preferences -->
        <item row="13" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_email_subscriptions">
+         <property name="title">
+          <string>Email preferences</string>
+         </property>
+         <layout class="QVBoxLayout" name="emailSubscriptionsGroupLayout">
+          <item>
+           <widget class="QLabel" name="label_email_subscriptions_note">
+            <property name="text">
+             <string>Choose which emails you'd like to receive:</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <property name="styleSheet">
+             <string>color: gray; font-size: 10px;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="email_subscription_system_updates">
+            <property name="text">
+             <string>System updates and announcements</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="email_subscription_news">
+            <property name="text">
+             <string>News and updates</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="email_subscription_engagement">
+            <property name="text">
+             <string>Engagement opportunities</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <!-- GEE License Acknowledgment -->
+       <item row="14" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox_gee_license">
          <property name="title">
           <string></string>
@@ -319,7 +372,7 @@
         </widget>
        </item>
        <!-- Email notifications -->
-       <item row="14" column="0" colspan="2">
+       <item row="15" column="0" colspan="2">
         <widget class="QCheckBox" name="email_notifications_enabled">
          <property name="text">
           <string>Receive email notifications for job status updates</string>
@@ -330,7 +383,7 @@
         </widget>
        </item>
        <!-- Privacy Policy -->
-       <item row="15" column="0" colspan="2">
+       <item row="16" column="0" colspan="2">
         <widget class="QLabel" name="label_privacy">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.conservation.org/policies/privacy&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

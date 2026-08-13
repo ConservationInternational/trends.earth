@@ -346,7 +346,7 @@ class RequestTask(QgsTask):
 
             else:
                 self.exception = ValueError(
-                    "Unrecognized method: {}".format(self.method)
+                    f"Unrecognized method: {self.method}"
                 )
                 return False
         except Exception as exc:
@@ -866,7 +866,7 @@ class APIClient(QtCore.QObject):
         # Only continue if don't need token or if token load was successful
 
         if (not use_token) or token:
-            log('API calling {} with method "{}"'.format(endpoint, method))
+            log(f'API calling {endpoint} with method "{method}"')
             resp = self._make_request(
                 "Trends.Earth API call",
                 url=self.url + endpoint,
@@ -887,7 +887,7 @@ class APIClient(QtCore.QObject):
                 if status_code == 204:
                     # 204 No Content - successful but no response body
                     log(
-                        'API response from "{}" request: {}'.format(method, status_code)
+                        f'API response from "{method}" request: {status_code}'
                     )
                     ret = {}  # Return empty dict for 204 responses
                 elif type(resp) is QtNetwork.QNetworkReply:
@@ -929,7 +929,7 @@ class APIClient(QtCore.QObject):
                         log(f"Response content (first 500 chars): {raw[:500]}")
                         ret = None
                 else:
-                    err_msg = "Unknown object type: {}.".format(str(resp))
+                    err_msg = f"Unknown object type: {resp!s}."
                     log(err_msg)
                     ret = None
             else:
@@ -995,7 +995,7 @@ class APIClient(QtCore.QObject):
                     )
                 else:
                     # Generic error message
-                    err_msg = "Error: {} (status {}).".format(desc, status)
+                    err_msg = f"Error: {desc} (status {status})."
                     if error_body:
                         if isinstance(error_body, dict) and "msg" in error_body:
                             err_msg += f" Server message: {error_body['msg']}"
@@ -1045,7 +1045,7 @@ class APIClient(QtCore.QObject):
                 ret = resp
             else:
                 desc, status = resp.error(), resp.errorString()
-                err_msg = "Error: {} (status {}).".format(desc, status)
+                err_msg = f"Error: {desc} (status {status})."
                 log(err_msg)
                 """
                 iface.messageBar().pushCritical(
@@ -1074,7 +1074,7 @@ class APIClient(QtCore.QObject):
 
     def get_user(self, email="me"):
         resp = self.call_api(
-            "/api/v1/user/{}".format(quote_plus(email)), use_token=True
+            f"/api/v1/user/{quote_plus(email)}", use_token=True
         )
 
         if resp:
@@ -1183,6 +1183,9 @@ class APIClient(QtCore.QObject):
         gender_identity=None,
         gender_identity_description=None,
         gee_license_acknowledged=None,
+        email_subscription_news=None,
+        email_subscription_engagement=None,
+        email_subscription_system_updates=None,
     ):
         payload = {
             "email": email,
@@ -1207,6 +1210,14 @@ class APIClient(QtCore.QObject):
             payload["gender_identity_description"] = gender_identity_description
         if gee_license_acknowledged is not None:
             payload["gee_license_acknowledged"] = gee_license_acknowledged
+        if email_subscription_news is not None:
+            payload["email_subscription_news"] = email_subscription_news
+        if email_subscription_engagement is not None:
+            payload["email_subscription_engagement"] = email_subscription_engagement
+        if email_subscription_system_updates is not None:
+            payload["email_subscription_system_updates"] = (
+                email_subscription_system_updates
+            )
 
         return self.call_api("/api/v1/user/me", "patch", payload, use_token=True)
 
@@ -1276,13 +1287,13 @@ class APIClient(QtCore.QObject):
             query = ["include=script", f"page={page}", f"per_page={per_page}"]
 
             if date:
-                query.append("updated_at={}".format(date))
+                query.append(f"updated_at={date}")
             query = "?" + "&".join(query)
 
             # Always use the user-specific endpoint to ensure we only get
             # executions from the active user, regardless of admin privileges
             resp = self.call_api(
-                "/api/v1/execution/user{}".format(query), method="get", use_token=True
+                f"/api/v1/execution/user{query}", method="get", use_token=True
             )
 
             if not resp:
@@ -1317,7 +1328,7 @@ class APIClient(QtCore.QObject):
     def get_script(self, id=None):
         if id:
             resp = self.call_api(
-                "/api/v1/script/{}".format(quote_plus(id)), "get", use_token=True
+                f"/api/v1/script/{quote_plus(id)}", "get", use_token=True
             )
         else:
             resp = self.call_api("/api/v1/script", "get", use_token=True)

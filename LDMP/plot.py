@@ -71,7 +71,7 @@ class DlgPlotTimeries(DlgPlot):
         if job_id:
             from .dialog_manager import dialog_manager
 
-            self.dialog_id = f"timeseries_{str(job_id)}"
+            self.dialog_id = f"timeseries_{job_id!s}"
             dialog_manager.register_dialog(self.dialog_id, self)
 
             # Make it a standalone window for persistence

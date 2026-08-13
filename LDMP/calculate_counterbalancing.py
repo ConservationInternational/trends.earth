@@ -8,7 +8,9 @@ and run the counterbalancing assessment locally.
 """
 
 import logging
+import math
 import typing
+import numpy as np
 
 import qgis.core
 import qgis.gui
@@ -161,6 +163,96 @@ class DlgCalculateCounterbalancing(DlgCalculateBase):
         if rr is None or rr.uri is None or rr.uri.uri is None:
             return None
         return str(rr.uri.uri)
+
+    def _remove_land_type_layer(self):
+        for item in self.land_type_list.selectedItems():
+            self.land_type_list.takeItem(self.land_type_list.row(item))
+        self._update_land_type_info()
+
+    # Target number of pixels for the downsampled estimate grid.
+    _SAMPLE_PIXELS = 10_000
+
+    def _update_land_type_info(self):
+        """Update the layer count and estimated class count labels."""
+        n_layers = self.land_type_list.count()
+        self.lbl_land_type_count.setText(self.tr("Land type layers: %d") % n_layers)
+        if n_layers == 0:
+            self.lbl_estimated_classes.setText("")
+            return
+
+        paths = self._get_land_type_paths()
+        n_classes = self._estimate_interaction_classes(paths)
+        if n_classes is not None:
+            self.lbl_estimated_classes.setText(
+                self.tr("Estimated land type classes from interaction: ~%d") % n_classes
+            )
+        else:
+            self.lbl_estimated_classes.setText(
+                self.tr("Could not read class counts from the selected layers.")
+            )
+
+    def _estimate_interaction_classes(
+        self, paths: list[str]
+    ) -> int | None:
+        """Downsample all layers to a common coarse grid and count combos.
+
+        Uses gdal.Translate with nearest-neighbour resampling to produce a
+        small in-memory raster (~100x100) for each layer, all snapped to the
+        AOI extent.  Unique value tuples across the co-registered grids give
+        the estimated interaction class count.
+        """
+        # Get the AOI bounding box as the common extent
+        aoi = areaofinterest.try_prepare_area_of_interest()
+        if aoi is None:
+            return None
+        bb = aoi.bounding_box_geom().boundingBox()
+        xmin = bb.xMinimum()
+        ymin = bb.yMinimum()
+        xmax = bb.xMaximum()
+        ymax = bb.yMaximum()
+
+        # Calculate output dimensions (~sqrt(SAMPLE_PIXELS) on each side)
+        side = max(1, math.isqrt(self._SAMPLE_PIXELS))
+
+        # Translate each raster to the common coarse grid (in memory)
+        arrays = []
+        translate_opts = gdal.TranslateOptions(
+            format="MEM",
+            width=side,
+            height=side,
+            resampleAlg="nearest",
+            projWin=[xmin, ymax, xmax, ymin],
+        )
+        for p in paths:
+            ds = gdal.Translate("", p, options=translate_opts)
+            if ds is None:
+                return None
+            arr = ds.GetRasterBand(1).ReadAsArray()
+            ds = None
+            if arr is None:
+                return None
+            arrays.append(arr.ravel())
+
+        # Stack all samples and count unique value combinations.
+        # Nodata values are kept as-is so that the estimate never
+        # decreases when a layer is added (intersection-masking of nodata
+        # would shrink the valid pixel set and could lose unique
+        # combinations from other layers).
+        stacked = np.column_stack(arrays)
+        unique_rows = np.unique(stacked, axis=0)
+        return int(unique_rows.shape[0])
+
+    def _land_type_path_already_added(self, path: str) -> bool:
+        for i in range(self.land_type_list.count()):
+            if self.land_type_list.item(i).text() == path:
+                return True
+        return False
+
+    def _get_land_type_paths(self) -> list[str]:
+        return [
+            self.land_type_list.item(i).text()
+            for i in range(self.land_type_list.count())
+        ]
 
     # --------------------------------------------------------------------- #
     #  Execution

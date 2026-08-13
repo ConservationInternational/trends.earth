@@ -140,8 +140,8 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 min_y = item.get("Min Latitude", None)
                 max_y = item.get("Max Latitude", None)
                 if None not in (min_x, max_x, min_y, max_y):
-                    extent_lat = "{} - {}".format(min_y, max_y)
-                    extent_lon = "{} - {}".format(min_x, max_x)
+                    extent_lat = f"{min_y} - {max_y}"
+                    extent_lon = f"{min_x} - {max_x}"
                     item.update({"extent_lat": extent_lat, "extent_lon": extent_lon})
                 self.datasets.append(item)
 
@@ -186,7 +186,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         self.data_view.setModel(self.proxy_model)
 
         # Add "Notes" buttons in cell
-        for row in range(0, len(self.datasets)):
+        for row in range(len(self.datasets)):
             btn = QtWidgets.QPushButton(self.tr("Details"))
             btn_details = partial(self.btn_details, self.datasets[row])
             btn.clicked.connect(btn_details)

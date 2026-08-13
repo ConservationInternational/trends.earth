@@ -2,7 +2,6 @@
 
 import datetime
 import os
-import typing
 from pathlib import Path
 
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
@@ -36,10 +35,10 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
         super().__init__(parent)
         self.setupUi(self)
         self.job = job
-        self.dialog_id = f"logs_{str(job.id)}"
+        self.dialog_id = f"logs_{job.id!s}"
 
         # Set window title with execution ID
-        self.setWindowTitle(f"Execution Logs - {str(job.id)}")
+        self.setWindowTitle(f"Execution Logs - {job.id!s}")
 
         # Hide job info label
         self.jobInfoLabel.hide()
@@ -121,7 +120,7 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
                 )
 
         except Exception as e:
-            error_msg = f"Failed to fetch logs: {str(e)}"
+            error_msg = f"Failed to fetch logs: {e!s}"
 
             self.logsTextEdit.setPlainText(error_msg)
             self.statusLabel.setText("Error fetching logs")
@@ -141,11 +140,11 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
             self.auto_refresh_timer.stop()
             log(f"Auto-refresh disabled for execution logs {self.job.id}")
 
-    def _fetch_logs_local(self) -> typing.List[typing.Dict]:
+    def _fetch_logs_local(self) -> list[dict]:
         """Read logs from the local job's log file."""
         return read_local_job_logs(self.job)
 
-    def _fetch_logs_from_api(self) -> typing.Optional[typing.List[typing.Dict]]:
+    def _fetch_logs_from_api(self) -> list[dict] | None:
         """Fetch logs from the trends.earth API using the plugin's APIClient."""
         from .jobs.manager import job_manager
 
@@ -162,7 +161,7 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
         data = resp.get("data", []) if isinstance(resp, dict) else resp
         return data if isinstance(data, list) else []
 
-    def _format_logs(self, logs: typing.List[typing.Dict]) -> str:
+    def _format_logs(self, logs: list[dict]) -> str:
         """Format logs for display."""
         if not logs:
             return "No logs available for this execution."

@@ -87,7 +87,7 @@ class SummaryTask(qgis.core.QgsTask):
 
             # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
             indic_vrt = GetTempFilename(".vrt")
-            logger.log("Saving indicator VRT to: {}".format(indic_vrt))
+            logger.log(f"Saving indicator VRT to: {indic_vrt}")
             # The plus one is because band numbers start at 1, not zero
             ds_vrt = gdal.BuildVRT(
                 indic_vrt,
@@ -103,7 +103,7 @@ class SummaryTask(qgis.core.QgsTask):
 
             clipped_vrt = GetTempFilename(".tif")
             logger.log(
-                "Saving forest loss/carbon clipped file to {}".format(clipped_vrt)
+                f"Saving forest loss/carbon clipped file to {clipped_vrt}"
             )
             # clip_task = qgis.core.QgsProcessingAlgRunnerTask(
             clip_task = processing.run(
@@ -177,14 +177,14 @@ class SummaryTask(qgis.core.QgsTask):
                     initial_carbon_total + summary_task["CARBON_INITIAL"]
                 )
 
-        logger.log("area_missing: {}".format(area_missing))
-        logger.log("area_water: {}".format(area_water))
-        logger.log("area_non_forest: {}".format(area_non_forest))
-        logger.log("area_site: {}".format(area_site))
-        logger.log("area_forest: {}".format(area_forest))
-        logger.log("initial_carbon_total: {}".format(initial_carbon_total))
-        logger.log("forest loss: {}".format(forest_loss))
-        logger.log("carbon loss: {}".format(carbon_loss))
+        logger.log(f"area_missing: {area_missing}")
+        logger.log(f"area_water: {area_water}")
+        logger.log(f"area_non_forest: {area_non_forest}")
+        logger.log(f"area_site: {area_site}")
+        logger.log(f"area_forest: {area_forest}")
+        logger.log(f"initial_carbon_total: {initial_carbon_total}")
+        logger.log(f"forest loss: {forest_loss}")
+        logger.log(f"carbon loss: {carbon_loss}")
 
         write_excel_summary(
             forest_loss,
@@ -268,7 +268,7 @@ def write_excel_summary(
         wb.save(out_file)
 
     except OSError as exc:
-        logger.log(f"Error saving {out_file}: {str(exc)}")
+        logger.log(f"Error saving {out_file}: {exc!s}")
         return False
 
     logger.log(f"Summary table saved to {out_file}")

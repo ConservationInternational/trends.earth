@@ -14,7 +14,6 @@ News module for displaying announcements and updates to users.
 """
 
 import json
-import typing
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -137,13 +136,13 @@ class NewsItem:
     id: str
     title: str
     message: str
-    message_html: typing.Optional[str] = None
-    link_url: typing.Optional[str] = None
-    link_text: typing.Optional[str] = None
+    message_html: str | None = None
+    link_url: str | None = None
+    link_text: str | None = None
     news_type: str = "announcement"
     priority: int = 0
-    publish_at: typing.Optional[str] = None
-    expires_at: typing.Optional[str] = None
+    publish_at: str | None = None
+    expires_at: str | None = None
 
     @classmethod
     def from_dict(cls, data: dict) -> "NewsItem":
@@ -219,14 +218,14 @@ class NewsClient(QtCore.QObject):
         locale = QgsApplication.locale()
         return locale.split("_")[0] if locale else "en"
 
-    def _cache_news_items(self, news_items: typing.List["NewsItem"], lang: str) -> None:
+    def _cache_news_items(self, news_items: list["NewsItem"], lang: str) -> None:
         """Cache news items and the language they were fetched in."""
         settings = QgsSettings()
         items_data = [item.to_dict() for item in news_items]
         settings.setValue(SETTINGS_CACHED_NEWS, json.dumps(items_data))
         settings.setValue(SETTINGS_CACHED_NEWS_LANG, lang)
 
-    def _load_cached_news(self) -> typing.List["NewsItem"]:
+    def _load_cached_news(self) -> list["NewsItem"]:
         """Load cached news items from settings."""
         settings = QgsSettings()
         cached_json = settings.value(SETTINGS_CACHED_NEWS, "[]")
@@ -308,7 +307,7 @@ class NewsClient(QtCore.QObject):
         return True
 
 
-def _get_dismissed_news_ids() -> typing.Set[str]:
+def _get_dismissed_news_ids() -> set[str]:
     """Get the set of dismissed news IDs from local settings."""
     settings = QgsSettings()
     dismissed_json = settings.value(SETTINGS_DISMISSED_NEWS, "[]")

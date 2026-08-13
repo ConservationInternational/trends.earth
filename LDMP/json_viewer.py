@@ -1,7 +1,7 @@
 """Collapsible JSON viewer widget for Trends.Earth QGIS plugin."""
 
 import json
-from typing import Any, Dict, List, Union
+from typing import Any
 
 from qgis.PyQt import QtCore, QtGui, QtWidgets
 
@@ -74,7 +74,7 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
             clipboard = QtWidgets.QApplication.clipboard()
             clipboard.setText(json_text)
 
-    def set_json_data(self, json_data: Union[str, Dict, List], collapse_level: int = 1):
+    def set_json_data(self, json_data: str | dict | list, collapse_level: int = 1):
         """
         Set JSON data to display in the tree widget.
 
@@ -182,7 +182,7 @@ class JsonViewerWidget(QtWidgets.QTreeWidget):
         except (AttributeError, TypeError) as e:
             # Handle any unexpected data types gracefully
             item = QtWidgets.QTreeWidgetItem(parent)
-            item.setText(0, f"Error displaying data: {str(e)}")
+            item.setText(0, f"Error displaying data: {e!s}")
             item.setIcon(0, self._create_colored_icon(QtGui.QColor("red")))
 
     def _format_value(self, value: Any) -> str:

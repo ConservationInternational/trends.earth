@@ -82,7 +82,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Trends.Earth"
-copyright = "2017-{}, Conservation International".format(date.today().year)
+copyright = f"2017-{date.today().year}, Conservation International"
 
 locale_dirs = ["../i18n/"]
 gettext_compact = False

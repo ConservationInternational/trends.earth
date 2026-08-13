@@ -14,7 +14,6 @@
 # pylint: disable=import-error
 import json
 import time
-import typing
 import weakref
 from dataclasses import asdict, dataclass, fields
 from pathlib import Path
@@ -168,8 +167,8 @@ class LDNPreset:
     productivity_mode: str = (
         ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
     )  # ProductivityMode values
-    baseline_period: typing.Optional[LDNPresetPeriod] = None
-    progress_periods: typing.Optional[list[LDNPresetPeriod]] = None
+    baseline_period: LDNPresetPeriod | None = None
+    progress_periods: list[LDNPresetPeriod] | None = None
     reset_legend: bool = True
     is_built_in: bool = False
 
@@ -209,7 +208,7 @@ class LDNPreset:
     def from_dict(cls, data: dict) -> "LDNPreset":
         """Create from dictionary for JSON deserialization."""
         data = data.copy()  # Don't modify original
-        if "baseline_period" in data and data["baseline_period"]:
+        if data.get("baseline_period"):
             data["baseline_period"] = LDNPresetPeriod.from_dict(data["baseline_period"])
         if "progress_periods" in data:
             data["progress_periods"] = [
@@ -458,7 +457,7 @@ class LDNPresetManager:
         """Get all presets (built-in and user-defined)."""
         return self._built_in_presets + self._user_presets
 
-    def get_preset_by_name(self, name: str) -> typing.Optional[LDNPreset]:
+    def get_preset_by_name(self, name: str) -> LDNPreset | None:
         """Get a preset by name."""
         for preset in self.get_all_presets():
             if preset.name == name:
@@ -491,7 +490,7 @@ class LDNPresetManager:
         return False
 
     def export_presets(
-        self, file_path: str, preset_names: typing.Optional[list[str]] = None
+        self, file_path: str, preset_names: list[str] | None = None
     ):
         """Export presets to JSON file."""
         if preset_names is None:
@@ -543,7 +542,7 @@ class LDNPresetManager:
 
             return imported_count, errors
 
-        except (IOError, json.JSONDecodeError) as e:
+        except (OSError, json.JSONDecodeError) as e:
             return 0, [f"Failed to read preset file: {e}"]
 
 
@@ -2573,7 +2572,7 @@ class DlgCalculateLDNSummaryTableAdmin(
     LOCAL_SCRIPT_NAME: str = "sdg-15-3-1-summary"
 
     button_calculate: QtWidgets.QPushButton
-    combo_boxes: typing.Dict[str, ldn.SummaryTableLDWidgets] = {}
+    combo_boxes: dict[str, ldn.SummaryTableLDWidgets] = {}
 
     def __init__(
         self,
@@ -3227,7 +3226,6 @@ class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi)
             None, self.tr("Coming soon!"), self.tr("This function coming soon!")
         )
         self.close()
-        return
 
         # ret = super(DlgCalculateUNCCD, self).btn_calculate()
         #

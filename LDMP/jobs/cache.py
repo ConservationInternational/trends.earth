@@ -155,7 +155,7 @@ class JobCache:
     # Sentinel to indicate base_dir should be resolved from settings
     _USE_SETTINGS_BASE_DIR = object()
 
-    def __init__(self, base_dir: typing.Optional[Path] = None):
+    def __init__(self, base_dir: Path | None = None):
         """Initialize the job cache.
 
         Args:
@@ -169,16 +169,16 @@ class JobCache:
             self._base_dir_input = base_dir
         else:
             self._base_dir_input = self._USE_SETTINGS_BASE_DIR
-        self._base_dir: typing.Optional[Path] = None
+        self._base_dir: Path | None = None
         self._base_dir_resolved = False
-        self._conn: typing.Optional[sqlite3.Connection] = None
+        self._conn: sqlite3.Connection | None = None
         self._initialized = False
         # Lock to serialize all database operations for thread safety.
         # SQLite connections are not thread-safe by default, and even with
         # check_same_thread=False, concurrent access can cause issues.
         self._lock = threading.Lock()
 
-    def _resolve_base_dir(self) -> typing.Optional[Path]:
+    def _resolve_base_dir(self) -> Path | None:
         """Resolve the base directory, importing conf lazily if needed."""
         if self._base_dir_resolved:
             return self._base_dir
@@ -197,7 +197,7 @@ class JobCache:
         return self._base_dir
 
     @property
-    def db_path(self) -> typing.Optional[Path]:
+    def db_path(self) -> Path | None:
         """Path to the SQLite database file, or None if no base dir configured."""
         base_dir = self._resolve_base_dir()
         if base_dir is None:
@@ -237,7 +237,7 @@ class JobCache:
             self._initialized = True
             return True
 
-        except (sqlite3.Error, OSError, IOError) as exc:
+        except (sqlite3.Error, OSError) as exc:
             log(f"Failed to initialize job cache: {type(exc).__name__}: {exc}")
             self._conn = None
             self._initialized = False
@@ -347,7 +347,7 @@ class JobCache:
         current_mtime: float,
         load_params: bool = True,
         load_results: bool = True,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any | None:
         """Get a cached Job if the file hasn't changed.
 
         Args:
@@ -553,7 +553,7 @@ class JobCache:
                 return False
 
     def cache_job(
-        self, path: Path, mtime: float, job: typing.Optional[typing.Any]
+        self, path: Path, mtime: float, job: typing.Any | None
     ) -> bool:
         """Store a Job in the cache with split storage.
 
@@ -699,7 +699,7 @@ class JobCache:
 
     def _extract_script_info(
         self, job: typing.Any
-    ) -> typing.Tuple[typing.Optional[str], typing.Optional[str]]:
+    ) -> tuple[str | None, str | None]:
         """Extract script ID and name from a Job object.
 
         Args:
@@ -729,9 +729,9 @@ class JobCache:
 
     def _extract_prod_mode(
         self,
-        params: typing.Dict[str, typing.Any],
+        params: dict[str, typing.Any],
         results: typing.Any,
-    ) -> typing.Optional[str]:
+    ) -> str | None:
         """Extract productivity mode from job params (or infer from band names).
 
         Mirrors the runtime logic in data_io._get_usable_bands:
@@ -790,7 +790,7 @@ class JobCache:
 
         return None
 
-    def _extract_band_names(self, results: typing.Any) -> typing.Optional[str]:
+    def _extract_band_names(self, results: typing.Any) -> str | None:
         """Extract band names from the first RasterResults as a JSON array.
 
         Returns a JSON-encoded list of band name strings, or None if no
@@ -819,7 +819,7 @@ class JobCache:
 
         return None
 
-    def _extract_result_uri(self, results: typing.Any) -> typing.Optional[str]:
+    def _extract_result_uri(self, results: typing.Any) -> str | None:
         """Extract the primary result URI string from the first result with a URI.
 
         Checks RasterResults first (most common), then other result types.
@@ -845,11 +845,11 @@ class JobCache:
 
     def _extract_combined_extent(
         self, results: typing.Any
-    ) -> typing.Tuple[
-        typing.Optional[float],
-        typing.Optional[float],
-        typing.Optional[float],
-        typing.Optional[float],
+    ) -> tuple[
+        float | None,
+        float | None,
+        float | None,
+        float | None,
     ]:
         """Extract combined bounding box from job results.
 
@@ -866,7 +866,7 @@ class JobCache:
         if results is None:
             return (None, None, None, None)
 
-        all_extents: typing.List[typing.Tuple[float, float, float, float]] = []
+        all_extents: list[tuple[float, float, float, float]] = []
 
         # Handle single result or list of results
         results_list = results if isinstance(results, list) else [results]
@@ -982,7 +982,7 @@ class JobCache:
 
         return False
 
-    def _compute_result_type_flags(self, job: typing.Any) -> typing.Dict[str, bool]:
+    def _compute_result_type_flags(self, job: typing.Any) -> dict[str, bool]:
         """Compute result type flags from a job's results.
 
         Uses the job's own is_*() methods which iterate _get_results_list()
@@ -1045,8 +1045,8 @@ class JobCache:
 
     def get_dropdown_metadata(
         self,
-        status_filter: typing.Optional[typing.List[str]] = None,
-    ) -> typing.List[typing.Dict[str, typing.Any]]:
+        status_filter: list[str] | None = None,
+    ) -> list[dict[str, typing.Any]]:
         """Get lightweight metadata for all jobs, suitable for dropdown population.
 
         This method reads only from indexed columns - no unpickling is needed,
@@ -1065,7 +1065,7 @@ class JobCache:
                 return []
 
             try:
-                allowed_statuses: typing.Set[str] = set()
+                allowed_statuses: set[str] = set()
                 if status_filter:
                     cursor = self._conn.execute(
                         """

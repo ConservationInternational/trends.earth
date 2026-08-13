@@ -20,7 +20,6 @@ Note:
 """
 
 from dataclasses import field
-from typing import Optional
 
 from marshmallow import validate
 from marshmallow_dataclass import dataclass
@@ -50,13 +49,13 @@ class TimeSeriesParameters:
     ndvi_gee_dataset: str = field(metadata={"required": True})
     climate_gee_dataset: str = field(metadata={"required": True})
     trajectory_method: str = field(metadata={"required": True})
-    ENV: Optional[str] = field(
+    ENV: str | None = field(
         default=None,
         metadata={
             "validate": validate.OneOf(["dev", "staging", "prod"]),
             "allow_none": True,
         },
     )
-    EXECUTION_ID: Optional[str] = field(
+    EXECUTION_ID: str | None = field(
         default=None,
     )

@@ -3,7 +3,6 @@
 import json
 import os
 import shutil
-import typing
 from enum import Enum
 
 from marshmallow.exceptions import ValidationError
@@ -70,7 +69,7 @@ class TemplateManager:
         return rpt_conf_path
 
     @property
-    def configurations(self) -> typing.List[ReportConfiguration]:
+    def configurations(self) -> list[ReportConfiguration]:
         """
         Returns a collection of template configuration objects.
         """
@@ -94,25 +93,25 @@ class TemplateManager:
     def configs_by_template_name(
         self,
         name: str,
-    ) -> typing.List[ReportConfiguration]:
+    ) -> list[ReportConfiguration]:
         """
         Returns report config objects with template info objects matching the
         given name.
         """
         return [rc for rc in self._configs if rc.template_info.name == name]
 
-    def configs_by_template_id(self, id: str) -> typing.List[ReportConfiguration]:
+    def configs_by_template_id(self, id: str) -> list[ReportConfiguration]:
         # Returns report configs by template id.
         return [rc for rc in self._configs if rc.template_info.id == id]
 
-    def multi_scope_configs(self) -> typing.List[ReportConfiguration]:
+    def multi_scope_configs(self) -> list[ReportConfiguration]:
         """
         Returns a list of report configurations with more than one item scope
         defined. These are used in compound reports.
         """
         return [rc for rc in self._configs if rc.template_info.is_multi_scope]
 
-    def single_scope_configs(self) -> typing.List[ReportConfiguration]:
+    def single_scope_configs(self) -> list[ReportConfiguration]:
         """
         Returns a list of report configurations with one scope only.
         """
@@ -120,8 +119,8 @@ class TemplateManager:
 
     @classmethod
     def configs_by_scope_name(
-        cls, name: str, configs: typing.List[ReportConfiguration]
-    ) -> typing.List[ReportConfiguration]:
+        cls, name: str, configs: list[ReportConfiguration]
+    ) -> list[ReportConfiguration]:
         """
         Returns a list of report configurations whose template objects
         contain the given scope name.

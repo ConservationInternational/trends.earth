@@ -245,7 +245,7 @@ class QtChartRenderer:
         )
         return True
 
-    def _bar_bounds(self, traces: typing.List[dict], stacked: bool):
+    def _bar_bounds(self, traces: list[dict], stacked: bool):
         value_lists = [
             [self._number(value) for value in trace.get("y", [])] for trace in traces
         ]
@@ -281,7 +281,7 @@ class QtChartRenderer:
         plot_rect: QRectF,
         low: float,
         high: float,
-        labels: typing.List[str],
+        labels: list[str],
     ):
         align_right = self._qt_attr("AlignRight", "AlignmentFlag")
         align_vcenter = self._qt_attr("AlignVCenter", "AlignmentFlag")
@@ -345,7 +345,7 @@ class QtChartRenderer:
             )
             painter.restore()
 
-    def _draw_bars(self, painter: QPainter, traces: typing.List[dict]) -> bool:
+    def _draw_bars(self, painter: QPainter, traces: list[dict]) -> bool:
         stacked = self._layout.get("barmode") == "relative"
         bounds = self._bar_bounds(traces, stacked)
         if bounds is None:

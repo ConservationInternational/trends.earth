@@ -23,7 +23,7 @@ for module in sys_modules:
     if module not in sys.modules:
         sys.modules[module] = Mock()
 
-from LDMP.api import APIClient  # noqa: E402
+from LDMP.api import APIClient
 
 
 class TestJWTRefresh:

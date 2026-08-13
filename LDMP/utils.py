@@ -197,7 +197,7 @@ def open_qgis_project(project_path: str) -> bool:
         return False
 
     params = [exec_path, "--project", project_path]
-    subprocess.Popen(params)  # noqa: S603
+    subprocess.Popen(params)
 
     return True
 

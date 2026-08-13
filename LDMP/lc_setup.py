@@ -151,8 +151,8 @@ def json_serial(obj):
     # TODO: This was QPyNullVariant under pyqt4 - check the below works on pyqt5
 
     if isinstance(obj, QtCore.QJsonValue.Null):
-        return None
-    raise TypeError("Type {} not serializable".format(type(obj)))
+        return
+    raise TypeError(f"Type {type(obj)} not serializable")
 
 
 class RotatedHeaderView(QtWidgets.QHeaderView):
@@ -258,7 +258,7 @@ class LCClassComboBox(QtWidgets.QComboBox):
         )
         self.blockSignals(False)
 
-        for n in range(0, len(self._nesting.parent.key_with_nodata())):
+        for n in range(len(self._nesting.parent.key_with_nodata())):
             lcc = self._nesting.parent.class_by_name_long(
                 self.itemData(n, QtCore.Qt.DisplayRole)
             )
@@ -289,13 +289,11 @@ class LCClassComboBox(QtWidgets.QComboBox):
         color = lcc.color
         if color == "#000000":
             self.setStyleSheet(
-                "QComboBox:editable {{background-color: {}; color: #FFFFFF;}}".format(
-                    color
-                )
+                f"QComboBox:editable {{background-color: {color}; color: #FFFFFF;}}"
             )
         else:
             self.setStyleSheet(
-                "QComboBox:editable {{background-color: {};}}".format(color)
+                f"QComboBox:editable {{background-color: {color};}}"
             )
 
     def get_current_class(self):
@@ -369,7 +367,7 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
 def read_lc_nesting_file(f):
     if not os.access(f, os.R_OK):
         QtWidgets.QMessageBox.critical(
-            None, tr_lc_setup.tr("Error"), tr_lc_setup.tr("Cannot read {}.".format(f))
+            None, tr_lc_setup.tr("Error"), tr_lc_setup.tr(f"Cannot read {f}.")
         )
 
         return None
@@ -390,7 +388,7 @@ def read_lc_nesting_file(f):
 
         return None
     else:
-        log("Loaded land cover legend nesting definition from {}".format(f))
+        log(f"Loaded land cover legend nesting definition from {f}")
         nesting.translate(tr_dict)
         return nesting
 
@@ -398,7 +396,7 @@ def read_lc_nesting_file(f):
 def read_lc_matrix_file(f):
     if not os.access(f, os.R_OK):
         QtWidgets.QMessageBox.critical(
-            None, tr_lc_setup.tr("Error"), tr_lc_setup.tr("Cannot read {}.".format(f))
+            None, tr_lc_setup.tr("Error"), tr_lc_setup.tr(f"Cannot read {f}.")
         )
 
         return None
@@ -607,7 +605,7 @@ class DlgCalculateLCSetAggregationBase(
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
-                    self.tr("Cannot read {}. Choose a different file.".format(f)),
+                    self.tr(f"Cannot read {f}. Choose a different file."),
                 )
         else:
             return
@@ -634,7 +632,7 @@ class DlgCalculateLCSetAggregationBase(
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
-                    self.tr("Cannot write to {}. Choose a different file.".format(f)),
+                    self.tr(f"Cannot write to {f}. Choose a different file."),
                 )
 
                 return
@@ -654,7 +652,7 @@ class DlgCalculateLCSetAggregationBase(
         nesting = self.get_nesting()
         nodata_child = nesting.child.nodata
 
-        for row in range(0, self.table_model.rowCount()):
+        for row in range(self.table_model.rowCount()):
             child_code = self.table_model.index(
                 row, self.table_model.child_code_col()
             ).data()
@@ -807,7 +805,7 @@ class DlgCalculateLCSetAggregationESA(DlgCalculateLCSetAggregationBase):
 
         # Add selector in cell
 
-        for row in range(0, len(self.nesting.child.key_with_nodata())):
+        for row in range(len(self.nesting.child.key_with_nodata())):
             # Get the input code for this row and the final label it should map
             # to by default
             child_code = self.table_model.index(
@@ -927,7 +925,7 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
         self.remap_view.setModel(self.proxy_model)
 
         # Add selector in cell
-        for row in range(0, len(self.nesting.child.key_with_nodata())):
+        for row in range(len(self.nesting.child.key_with_nodata())):
             # Get the input code for this row and the final label it should map
             # to by default
             child_code = self.table_model.index(
@@ -1320,8 +1318,8 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 QtWidgets.QHeaderView(QtCore.Qt.Horizontal, self.deg_def_matrix)
             )
 
-        for row in range(0, self.deg_def_matrix.rowCount()):
-            for col in range(0, self.deg_def_matrix.columnCount()):
+        for row in range(self.deg_def_matrix.rowCount()):
+            for col in range(self.deg_def_matrix.columnCount()):
                 line_edit = TransMatrixEdit()
                 line_edit.setValidator(
                     QtGui.QRegularExpressionValidator(
@@ -1350,7 +1348,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         self.deg_def_matrix.horizontalHeader().setStretchLastSection(False)
 
         num_of_col = self.deg_def_matrix.columnCount()
-        for col in range(0, num_of_col):
+        for col in range(num_of_col):
             if num_of_col <= conf.RESIZE_NUM_ROWS:
                 # When there are only a few rows, it's better to use the minimum size
                 self.deg_def_matrix.verticalHeader().setSectionResizeMode(
@@ -1429,7 +1427,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
-                    self.tr("Cannot read {}. Choose a different file.".format(f)),
+                    self.tr(f"Cannot read {f}. Choose a different file."),
                 )
         else:
             return None
@@ -1460,7 +1458,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
-                    self.tr("Cannot write to {}. Choose a different file.".format(f)),
+                    self.tr(f"Cannot write to {f}. Choose a different file."),
                 )
 
                 return
@@ -1487,10 +1485,10 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
 
         self.setup_deg_def_matrix(matrix.legend)
 
-        for row in range(0, self.deg_def_matrix.rowCount()):
+        for row in range(self.deg_def_matrix.rowCount()):
             initial_class = matrix.legend.key[row]
 
-            for col in range(0, self.deg_def_matrix.columnCount()):
+            for col in range(self.deg_def_matrix.columnCount()):
                 final_class = matrix.legend.key[col]
                 meaning = matrix.definitions.meaning_by_transition(
                     initial_class, final_class
@@ -1504,9 +1502,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                     code = "+"
                 else:
                     log(
-                        'unrecognized transition meaning "{}" when setting transition matrix'.format(
-                            meaning
-                        )
+                        f'unrecognized transition meaning "{meaning}" when setting transition matrix'
                     )
 
                     return False
@@ -1523,8 +1519,8 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         transitions = []
         trans_matrix = get_trans_matrix()
 
-        for row in range(0, self.deg_def_matrix.rowCount()):
-            for col in range(0, self.deg_def_matrix.columnCount()):
+        for row in range(self.deg_def_matrix.rowCount()):
+            for col in range(self.deg_def_matrix.columnCount()):
                 val = self.deg_def_matrix.cellWidget(row, col).text()
 
                 if val == "" or val == "0":
@@ -1535,14 +1531,10 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                     meaning = "improvement"
                 else:
                     log(
-                        'unrecognized value "{}" when reading transition meaning from cellWidget'.format(
-                            val
-                        )
+                        f'unrecognized value "{val}" when reading transition meaning from cellWidget'
                     )
                     raise ValueError(
-                        'unrecognized value "{}" when reading transition meaning from cellWidget'.format(
-                            val
-                        )
+                        f'unrecognized value "{val}" when reading transition meaning from cellWidget'
                     )
                 transitions.append(
                     LCTransitionMeaningDeg(

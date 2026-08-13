@@ -1,7 +1,6 @@
 """Util functions for report-related functions."""
 
 import os
-import typing
 
 from te_schemas.jobs import Job
 from te_schemas.results import Band as JobBand
@@ -21,7 +20,7 @@ def job_report_directory(job: Job) -> str:
 
 def build_report_paths(
     job: Job, options: ReportOutputOptions, root_dir=None
-) -> typing.Tuple[str, dict]:
+) -> tuple[str, dict]:
     """
     Returns a tuple containing the root directory for report files and nested
     dictionary containing inner dictionaries of absolute file path for simple

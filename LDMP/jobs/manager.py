@@ -2719,7 +2719,7 @@ class JobManager(QtCore.QObject):
                 result.append(j)
         return result
 
-    def get_vector_result_jobs(self) -> List[Job]:
+    def get_vector_result_jobs(self) -> list[Job]:
         """
         Returns a list of jobs whose results are of type 'VectorResults'.
         """

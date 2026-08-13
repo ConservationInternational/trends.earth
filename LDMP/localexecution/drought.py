@@ -2,7 +2,6 @@ import dataclasses
 import json
 import multiprocessing
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
 
 from te_algorithms.gdal.drought import summarise_drought_vulnerability
 from te_schemas.aoi import AOI
@@ -35,14 +34,14 @@ class SummaryTableDroughtWidgets:
 @dataclasses.dataclass()
 class DroughtInputInfo:
     path: Path
-    bands: List[JobBand]
-    indices: List[int]
-    years: List[int]
+    bands: list[JobBand]
+    indices: list[int]
+    years: list[int]
 
 
 def _get_drought_inputs(
     data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting,
-    band_name: Union[str, Tuple[str, ...]],
+    band_name: str | tuple[str, ...],
     sort_property: str = "year",
 ) -> DroughtInputInfo:
     bands = data_selection_widget.get_bands(band_name)
@@ -90,8 +89,8 @@ def get_main_drought_summary_job_params(
     aoi,
     combo_dataset_drought: data_io.WidgetDataIOSelectTEDatasetExisting,
     combo_layer_so3_vulnerability: data_io.WidgetDataIOSelectTELayerExisting,
-    task_notes: Optional[str] = "",
-) -> Dict:
+    task_notes: str | None = "",
+) -> dict:
     spi_input = _get_drought_inputs(combo_dataset_drought, SPI_SPEI_BAND_NAMES)
     population_input = _get_drought_inputs(combo_dataset_drought, POPULATION_BAND_NAME)
     spi_lag = _get_spi_lag(combo_dataset_drought)

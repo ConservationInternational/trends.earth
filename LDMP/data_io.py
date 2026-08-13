@@ -18,7 +18,6 @@ import functools
 import json
 import math
 import os
-import typing
 import uuid
 from pathlib import Path
 
@@ -274,9 +273,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         )
 
         l_out = qgis.core.QgsVectorLayer(
-            "{datatype}?crs=proj4:{crs}".format(
-                datatype=self.in_data_type, crs=crs_dst.toProj()
-            ),
+            f"{self.in_data_type}?crs=proj4:{crs_dst.toProj()}",
             "land cover (transformed)",
             "memory",
         )
@@ -314,22 +311,20 @@ class RemapVectorWorker(worker.AbstractWorker):
 
         if not l_out.isValid():
             log(
-                'Error remapping and transforming vector layer from "{}" to "{}")'.format(
-                    crs_src_string, crs_dst.toProj()
-                )
+                f'Error remapping and transforming vector layer from "{crs_src_string}" to "{crs_dst.toProj()}")'
             )
 
             return None
 
         # Write l_out to a shapefile for usage by gdal rasterize
         temp_shp = GetTempFilename(".shp")
-        log("Writing temporary shapefile to {}".format(temp_shp))
+        log(f"Writing temporary shapefile to {temp_shp}")
         err = qgis.core.QgsVectorFileWriter.writeAsVectorFormat(
             l_out, temp_shp, "UTF-8", crs_dst, "ESRI Shapefile"
         )
 
         if err != qgis.core.QgsVectorFileWriter.NoError:
-            log("Error writing layer to {}".format(temp_shp))
+            log(f"Error writing layer to {temp_shp}")
 
             return None
 
@@ -506,9 +501,7 @@ class RemapRasterWorker(worker.AbstractWorker):
         for y in range(0, ysize, y_block_size):
             if self.killed:
                 log(
-                    "Processing of {} killed by user after processing {} out of {} blocks.".format(
-                        self.in_file, y, ysize
-                    )
+                    f"Processing of {self.in_file} killed by user after processing {y} out of {ysize} blocks."
                 )
 
                 break
@@ -688,7 +681,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
 
     buttonBox: QtWidgets.QDialogButtonBox
 
-    job: typing.Optional[Job]
+    job: Job | None
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -751,7 +744,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
 
     def parse_chosen_path(
         self, raw_path: str
-    ) -> typing.Tuple[typing.Optional[Job], str]:
+    ) -> tuple[Job | None, str]:
         path = Path(raw_path)
         job = None
         error_message = ""
@@ -775,10 +768,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
                 )
                 if raster_result and hasattr(raster_result, "rasters"):
                     for raster in raster_result.rasters.values():
-                        if hasattr(raster, "extent") and raster.extent is None:
-                            needs_recalc = True
-                            break
-                        elif hasattr(raster, "extents") and (
+                        if hasattr(raster, "extent") and raster.extent is None or hasattr(raster, "extents") and (
                             raster.extents is None or None in raster.extents
                         ):
                             needs_recalc = True
@@ -969,7 +959,7 @@ class ImportSelectFileInputWidget(
                 None,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    "Cannot read {}. Choose a different file.".format(raster_file)
+                    f"Cannot read {raster_file}. Choose a different file."
                 ),
             )
             self.inputFileChanged.emit(False)
@@ -1011,7 +1001,7 @@ class ImportSelectFileInputWidget(
                 None,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    "Cannot read {}. Choose a different file.".format(vector_file)
+                    f"Cannot read {vector_file}. Choose a different file."
                 ),
             )
             self.inputFileChanged.emit(False)
@@ -1100,9 +1090,7 @@ class ImportSelectRasterOutput(
                     self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr(
-                        "Cannot write to {}. Choose a different file.".format(
-                            raw_output_path
-                        )
+                        f"Cannot write to {raw_output_path}. Choose a different file."
                     ),
                 )
 
@@ -1248,7 +1236,6 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         Subclasses with specific settings (like year spinboxes, aggregation options)
         should override this method to move their widgets.
         """
-        pass
 
     def _create_notes_tab(self):
         """
@@ -1455,17 +1442,13 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         if in_res < out_res:
             if self.datatype == "categorical":
                 log(
-                    "Resampling with mode (in res: {}, out_res: {}".format(
-                        in_res, out_res
-                    )
+                    f"Resampling with mode (in res: {in_res}, out_res: {out_res}"
                 )
 
                 return gdal.GRA_Mode
             elif self.datatype == "continuous":
                 log(
-                    "Resampling with average (in res: {}, out_res: {}".format(
-                        in_res, out_res
-                    )
+                    f"Resampling with average (in res: {in_res}, out_res: {out_res}"
                 )
 
                 return gdal.GRA_Average
@@ -1475,9 +1458,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             # If output resolution is finer than the original data, use nearest
             # neighbor
             log(
-                "Resampling with nearest neighbor (in res: {}, out_res: {}".format(
-                    in_res, out_res
-                )
+                f"Resampling with nearest neighbor (in res: {in_res}, out_res: {out_res}"
             )
 
             return gdal.GRA_NearestNeighbour
@@ -1500,8 +1481,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         (lrx, lry, lrz) = tx.TransformPoint(
             geo_t[0] + geo_t[1] * x_size, geo_t[3] + geo_t[5] * y_size
         )
-        log("ulx: {}, uly: {}, ulz: {}".format(ulx, uly, ulz))
-        log("lrx: {}, lry: {}, lrz: {}".format(lrx, lry, lrz))
+        log(f"ulx: {ulx}, uly: {uly}, ulz: {ulz}")
+        log(f"lrx: {lrx}, lry: {lry}, lrz: {lrz}")
         # As an approximation of what the output res would be in WGS4, use an
         # average of the x and y res of this image
 
@@ -1516,11 +1497,9 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
     def remap_vector(self, layer, out_file, remap_dict, attribute):
         out_res = self.get_out_res_wgs84()
         log(
-            'Remapping and rasterizing {} using output resolution {}, and field "{}"'.format(
-                out_file, out_res, attribute
-            )
+            f'Remapping and rasterizing {out_file} using output resolution {out_res}, and field "{attribute}"'
         )
-        log('Remap dict "{}"'.format(remap_dict))
+        log(f'Remap dict "{remap_dict}"')
 
         target_bounds = self.extent_as_list()
         if len(target_bounds) == 0:
@@ -1619,7 +1598,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             log(f"Target bounds for warped raster: {ext_str}")
             output_bounds = target_bounds
 
-        log("Importing {} to {}".format(in_file, out_file))
+        log(f"Importing {in_file} to {out_file}")
 
         if self.input_widget.groupBox_output_resolution.isChecked():
             out_res = self.get_out_res_wgs84()
@@ -1726,15 +1705,11 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                     None,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr(
-                        "Cannot process {}. Unknown geometry type:{}".format(
-                            in_file, layer.wkbType()
-                        )
+                        f"Cannot process {in_file}. Unknown geometry type:{layer.wkbType()}"
                     ),
                 )
                 log(
-                    "Failed to process {} - unknown geometry type {}.".format(
-                        in_file, layer.wkbType()
-                    )
+                    f"Failed to process {in_file} - unknown geometry type {layer.wkbType()}."
                 )
 
                 return
@@ -1828,9 +1803,7 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
                     self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr(
-                        "The chosen field ({}) is not numeric. Choose a numeric field.".format(
-                            field
-                        )
+                        f"The chosen field ({field}) is not numeric. Choose a numeric field."
                     ),
                 )
 
@@ -1839,16 +1812,16 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
                 stats = get_vector_stats(
                     self.input_widget.get_vector_layer(), field, max_max=max_max
                 )
-        log("Stats are: {}".format(stats))
+        log(f"Stats are: {stats}")
 
         if not stats:
             QtWidgets.QMessageBox.critical(
                 self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    "The input file ({}) does not appear to be a valid population "
+                    f"The input file ({in_file}) does not appear to be a valid population "
                     "input file. The file should contain values of soil "
-                    "organic carbon in tonnes / hectare.".format(in_file)
+                    "organic carbon in tonnes / hectare."
                 ),
             )
 
@@ -1859,11 +1832,9 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
                 self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    "The input file ({}) does not appear to be a valid population "
-                    "input file. The minimum value in this file is {}. The no "
-                    "data value should be -32768, and all other values should be >= 0.".format(
-                        in_file, stats[0]
-                    )
+                    f"The input file ({in_file}) does not appear to be a valid population "
+                    f"input file. The minimum value in this file is {stats[0]}. The no "
+                    "data value should be -32768, and all other values should be >= 0."
                 ),
             )
 
@@ -1874,11 +1845,9 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
                 self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    "The input file ({}) does not appear to be a valid soil organic "
-                    "carbon input file. The maximum value in this file is {}. "
-                    "The maximum value allowed is {} tonnes / hectare.".format(
-                        in_file, stats[1], max_max
-                    )
+                    f"The input file ({in_file}) does not appear to be a valid soil organic "
+                    f"carbon input file. The maximum value in this file is {stats[1]}. "
+                    f"The maximum value allowed is {max_max} tonnes / hectare."
                 ),
             )
 
@@ -1960,25 +1929,23 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
                     self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr(
-                        "The chosen field ({}) is not numeric. Choose a numeric field.".format(
-                            field
-                        )
+                        f"The chosen field ({field}) is not numeric. Choose a numeric field."
                     ),
                 )
 
                 return
             else:
                 stats = get_vector_stats(self.input_widget.get_vector_layer(), field)
-        log("Stats are: {}".format(stats))
+        log(f"Stats are: {stats}")
 
         if not stats:
             QtWidgets.QMessageBox.critical(
                 self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    "The input file ({}) does not appear to be a valid soil organic "
+                    f"The input file ({in_file}) does not appear to be a valid soil organic "
                     "carbon input file. The file should contain values of soil "
-                    "organic carbon in tonnes / hectare.".format(in_file)
+                    "organic carbon in tonnes / hectare."
                 ),
             )
 
@@ -1989,11 +1956,9 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
                 self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    "The input file ({}) does not appear to be a valid soil organic "
-                    "carbon input file. The minimum value in this file is {}. The no "
-                    "data value should be -32768, and all other values should be >= 0.".format(
-                        in_file, stats[0]
-                    )
+                    f"The input file ({in_file}) does not appear to be a valid soil organic "
+                    f"carbon input file. The minimum value in this file is {stats[0]}. The no "
+                    "data value should be -32768, and all other values should be >= 0."
                 ),
             )
 
@@ -2004,11 +1969,9 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
                 self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    "The input file ({}) does not appear to be a valid soil organic "
-                    "carbon input file. The maximum value in this file is {}. "
-                    "The maximum value allowed is 1000 tonnes / hectare.".format(
-                        in_file, stats[1]
-                    )
+                    f"The input file ({in_file}) does not appear to be a valid soil organic "
+                    f"carbon input file. The maximum value in this file is {stats[1]}. "
+                    "The maximum value allowed is 1000 tonnes / hectare."
                 ),
             )
 
@@ -2114,8 +2077,8 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
                     self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr(
-                        "The chosen field ({}) is not numeric. Choose a field that "
-                        "contains numbers.".format(field)
+                        f"The chosen field ({field}) is not numeric. Choose a field that "
+                        "contains numbers."
                     ),
                 )
 
@@ -2128,8 +2091,8 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
                 self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    "The input file ({}) does not appear to be a valid productivity "
-                    "input file.".format(in_file)
+                    f"The input file ({in_file}) does not appear to be a valid productivity "
+                    "input file."
                 ),
             )
 
@@ -2141,12 +2104,12 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
                 self,
                 tr_data_io.tr("Warning"),
                 tr_data_io.tr(
-                    "The input file ({}) does not appear to be a valid productivity "
+                    f"The input file ({in_file}) does not appear to be a valid productivity "
                     "input file. Trends.Earth will load the file anyway, but review "
                     "the map once it has loaded to ensure the values make sense. The "
                     "only values allowed in a productivity input file are -32768, 1, "
-                    "2, 3, 4 and 5. There are {} value(s) in the input file "
-                    "that were not recognized.".format(in_file, len(invalid_values))
+                    f"2, 3, 4 and 5. There are {len(invalid_values)} value(s) in the input file "
+                    "that were not recognized."
                 ),
             )
 
@@ -2216,17 +2179,15 @@ PROD_MODE_FOR_BAND = {
 }
 
 
-@functools.lru_cache(
-    maxsize=None
-)  # not using functools.cache, as it was only introduced in Python 3.9
+@functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
 def _get_usable_bands(
-    band_name: typing.Optional[typing.Union[str, typing.Tuple[str, ...]]] = "any",
+    band_name: str | tuple[str, ...] | None = "any",
     selected_job_id: uuid.UUID = None,
     filter_field: str = None,
     filter_value: str = None,
     aoi=None,
     prod_mode=None,
-) -> typing.List[Band]:
+) -> list[Band]:
     result = []
 
     for job in job_manager.relevant_jobs:
@@ -2300,9 +2261,7 @@ def _get_usable_bands(
         # Custom LPD datasets are always included when filtering by any
         # productivity mode, since they represent user-imported data that can
         # be used in place of any LPD source
-        if expected_mode is None:
-            is_valid_prod_mode = True
-        elif job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value:
+        if expected_mode is None or job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value:
             is_valid_prod_mode = True
         else:
             is_valid_prod_mode = job_mode_value == expected_mode
@@ -2351,7 +2310,7 @@ def _get_usable_bands(
 
 class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     comboBox_layers: QtWidgets.QComboBox
-    layer_list: typing.Optional[typing.List[Band]]
+    layer_list: list[Band] | None
 
     def set_layer_type(self, layer_type: str):
         self.setProperty("layer_type", layer_type)
@@ -2490,7 +2449,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
             return None
         return qgis.core.QgsRasterLayer(str(data_file), "raster file", "gdal")
 
-    def get_current_band(self) -> typing.Optional[Band]:
+    def get_current_band(self) -> Band | None:
         """Get the currently selected band.
 
         Returns None if no valid selection exists (no region selected,
@@ -2548,7 +2507,7 @@ class WidgetDataIOSelectTELayerImport(
     pass
 
 
-def _cached_extent_overlaps_aoi(job, aoi) -> typing.Optional[bool]:
+def _cached_extent_overlaps_aoi(job, aoi) -> bool | None:
     """Quick bbox overlap pre-filter using the cached extent on the job.
 
     Returns True if the cached extent overlaps the AOI bounding box,
@@ -2572,10 +2531,8 @@ def _cached_extent_overlaps_aoi(job, aoi) -> typing.Optional[bool]:
     return True
 
 
-@functools.lru_cache(
-    maxsize=None
-)  # not using functools.cache, as it was only introduced in Python 3.9
-def _extent_as_geom(extent: typing.Tuple[float, float, float, float]):
+@functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
+def _extent_as_geom(extent: tuple[float, float, float, float]):
     if extent is None:
         return None
     # Validate that extent is a tuple/list with valid numeric values
@@ -2673,14 +2630,12 @@ def _check_dataset_overlap_vector(aoi, vector_results):
         return False
 
 
-@functools.lru_cache(
-    maxsize=None
-)  # not using functools.cache, as it was only introduced in Python 3.9
+@functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
 def get_usable_datasets(
-    dataset_name: typing.Optional[str] = "any",
+    dataset_name: str | None = "any",
     aoi=None,
-    productivity_mode: typing.Optional[str] = None,
-) -> typing.List[Dataset]:
+    productivity_mode: str | None = None,
+) -> list[Dataset]:
     result = []
 
     for job in job_manager.relevant_jobs:
@@ -2754,9 +2709,7 @@ def get_usable_datasets(
         # Custom LPD datasets are always included when filtering by any
         # productivity mode, since they represent user-imported data that can
         # be used in place of any LPD source
-        if expected_mode is None:
-            is_valid_prod_mode = True
-        elif job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value:
+        if expected_mode is None or job_mode_value == ProductivityMode.CUSTOM_5_CLASS_LPD.value:
             is_valid_prod_mode = True
         else:
             is_valid_prod_mode = job_mode_value == expected_mode
@@ -2913,7 +2866,7 @@ class WidgetDataIOSelectTEDatasetExisting(
     QtWidgets.QWidget, Ui_WidgetDataIOSelectTEDatasetExisting
 ):
     comboBox_datasets: QtWidgets.QComboBox
-    dataset_list: typing.Optional[typing.List[Dataset]]
+    dataset_list: list[Dataset] | None
     job_selected = QtCore.pyqtSignal(uuid.UUID)
 
     def __init__(self, parent=None):

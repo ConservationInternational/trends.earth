@@ -6,7 +6,6 @@ Code for calculating all three SDG 15.3.1 sub-indicators.
 import hashlib
 import json
 import random
-from typing import Dict
 
 from marshmallow import Schema, ValidationError, fields, validate, validates_schema
 from te_algorithms.api import util
@@ -150,7 +149,7 @@ def _load_band(name, filters, input_job, logger, return_band=True):
         raise ValueError(f"Band {name} could not be loaded")
 
 
-def _hash_band(band: Dict) -> str:
+def _hash_band(band: dict) -> str:
     """Generate a unique hash for a band based on its properties."""
     return hashlib.md5(
         f"{band['name']}_{band['index']}_"

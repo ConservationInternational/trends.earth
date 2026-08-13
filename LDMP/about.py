@@ -48,12 +48,10 @@ class DlgAbout(QtWidgets.QDialog, Ui_DlgAbout):
             else:
                 date_display = "unknown"
 
-            version = "{}<br>(revision {}, {})".format(
-                __version__, revision_link, date_display
-            )
+            version = f"{__version__}<br>(revision {revision_link}, {date_display})"
         else:
             # Fallback for unknown revision (e.g., non-git installation)
-            version = "{}<br>(version from setuptools-scm)".format(__version__)
+            version = f"{__version__}<br>(version from setuptools-scm)"
 
         self.textBrowser.setHtml(
             self.textBrowser.toHtml().replace("VERSION_NUMBER", version)

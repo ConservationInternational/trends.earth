@@ -19,7 +19,6 @@ Usage::
 """
 
 from dataclasses import field
-from typing import List, Optional, Union
 
 from marshmallow import validate
 from marshmallow_dataclass import dataclass
@@ -69,7 +68,7 @@ class TEProductivityParams:
     state_year_bl_end: int = field(metadata={"required": True})
     state_year_tg_start: int = field(metadata={"required": True})
     state_year_tg_end: int = field(metadata={"required": True})
-    asset_climate: Optional[str] = field(
+    asset_climate: str | None = field(
         default=None,
     )
 
@@ -97,7 +96,7 @@ class JRCProductivityParams:
     asset: str = field(metadata={"required": True})
     year_initial: int = field(metadata={"required": True})
     year_final: int = field(metadata={"required": True})
-    data_source: Optional[str] = field(
+    data_source: str | None = field(
         default="Joint Research Commission (JRC)",
     )
 
@@ -128,7 +127,7 @@ class FWV2ProductivityParams:
     asset: str = field(metadata={"required": True})
     year_initial: int = field(metadata={"required": True})
     year_final: int = field(metadata={"required": True})
-    data_source: Optional[str] = field(
+    data_source: str | None = field(
         default="FAO-WOCAT FWv2",
     )
 
@@ -211,7 +210,7 @@ class SOCSubParams:
 
     year_initial: int = field(metadata={"required": True})
     year_final: int = field(metadata={"required": True})
-    fl: Union[float, str] = field(metadata={"required": True})
+    fl: float | str = field(metadata={"required": True})
     legend_nesting_esa_to_custom: LCLegendNesting = field(metadata={"required": True})
     legend_nesting_custom_to_ipcc: LCLegendNesting = field(metadata={"required": True})
     fake_data: bool = field(
@@ -277,7 +276,7 @@ class SDG1531IndicatorParameters:
     geojsons: list = field(metadata={"required": True})
     crs: str = field(metadata={"required": True})
     baseline_period: SDGPeriodParams = field(metadata={"required": True})
-    status_periods: List[SDGPeriodParams] = field(metadata={"required": True})
+    status_periods: list[SDGPeriodParams] = field(metadata={"required": True})
     filetype: str = field(
         default="COG",
         metadata={"validate": validate.OneOf(["COG", "GeoTiff"])},
@@ -285,13 +284,13 @@ class SDG1531IndicatorParameters:
     include_productivity_bands: bool = field(
         default=False,
     )
-    ENV: Optional[str] = field(
+    ENV: str | None = field(
         default=None,
         metadata={
             "validate": validate.OneOf(["dev", "staging", "prod"]),
             "allow_none": True,
         },
     )
-    EXECUTION_ID: Optional[str] = field(
+    EXECUTION_ID: str | None = field(
         default=None,
     )

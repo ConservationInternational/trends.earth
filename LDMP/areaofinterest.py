@@ -20,7 +20,7 @@ class tr_areaofinterest:
         return QCoreApplication.translate("tr_areaofinterest", message)
 
 
-def get_city_geojson() -> typing.Dict:
+def get_city_geojson() -> dict:
     from . import conf
 
     # Get country using ID-based system
@@ -145,7 +145,7 @@ def get_admin_poly_geojson():
         return None
 
 
-def validate_country_region() -> typing.Tuple[typing.Optional[typing.Dict], str]:
+def validate_country_region() -> tuple[dict | None, str]:
     error_msg = ""
     # Check for country using ID-based system (not legacy COUNTRY_NAME)
     country_id = conf.settings_manager.get_value(conf.Setting.COUNTRY_ID)
@@ -161,7 +161,7 @@ def validate_country_region() -> typing.Tuple[typing.Optional[typing.Dict], str]
     return geojson, error_msg
 
 
-def validate_vector_path() -> typing.Tuple[Path, str]:
+def validate_vector_path() -> tuple[Path, str]:
     error_msg = ""
     try:
         vector_path = Path(
@@ -184,7 +184,7 @@ class AOI:
         return self.crs_dst.toWkt()
 
     def update_from_file(self, f, wrap=False):
-        log('Setting up AOI from file at {}"'.format(f))
+        log(f'Setting up AOI from file at {f}"')
         lyr = qgis.core.QgsVectorLayer(f, "calculation boundary", "ogr")
         if not lyr.isValid():
             raise RuntimeError(
@@ -219,18 +219,18 @@ class AOI:
     def update_from_geojson(
         self, geojson, crs_src="epsg:4326", datatype="polygon", wrap=False
     ):
-        log("Setting up AOI with geojson. Wrap is {}.".format(wrap))
+        log(f"Setting up AOI with geojson. Wrap is {wrap}.")
         self.datatype = datatype
         # Note geojson is assumed to be in 4326
         lyr = qgis.core.QgsVectorLayer(
-            "{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src),
+            f"{self.datatype}?crs={crs_src}",
             "calculation boundary",
             "memory",
         )
         ds = ogr.Open(json.dumps(geojson))
         layer_in = ds.GetLayer()
         feats_out = []
-        for i in range(0, layer_in.GetFeatureCount()):
+        for i in range(layer_in.GetFeatureCount()):
             feat_in = layer_in.GetFeature(i)
             feat = qgis.core.QgsFeature(lyr.fields())
             geom = qgis.core.QgsGeometry()
@@ -264,9 +264,7 @@ class AOI:
             n += 1
         return qgis.core.QgsGeometry.unaryUnion(geometries)
 
-    @functools.lru_cache(
-        maxsize=None
-    )  # not using functools.cache, as it was only introduced in Python 3.9
+    @functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
     def meridian_split(self, out_type="extent", out_format="geojson", warn=True):
         """
         Return list of bounding boxes in WGS84 as geojson for GEE
@@ -279,9 +277,9 @@ class AOI:
         # log(traceback.extract_tb().format()().format())
 
         if out_type not in ["extent", "layer"]:
-            raise ValueError('Unrecognized out_type "{}"'.format(out_type))
+            raise ValueError(f'Unrecognized out_type "{out_type}"')
         if out_format not in ["geojson", "wkt"]:
-            raise ValueError('Unrecognized out_format "{}"'.format(out_format))
+            raise ValueError(f'Unrecognized out_format "{out_format}"')
 
         union = self.get_unary_geometry()
 
@@ -378,7 +376,7 @@ class AOI:
             # Lambert azimuthal equal area centered on polygon centroid
             centroid = geom.centroid().asPoint()
             laea_crs = qgis.core.QgsCoordinateReferenceSystem.fromProj(
-                "+proj=laea +lat_0={} +lon_0={}".format(centroid.y(), centroid.x())
+                f"+proj=laea +lat_0={centroid.y()} +lon_0={centroid.x()}"
             )
             to_laea = qgis.core.QgsCoordinateTransform(
                 wgs84_crs, laea_crs, qgis.core.QgsProject.instance()
@@ -432,7 +430,7 @@ class AOI:
                 log("Layer only has one point")
                 return (False, [json.loads(geom.asJson())])
             else:
-                log("Layer has many points ({})".format(n))
+                log(f"Layer has many points ({n})")
                 return self.meridian_split()
         else:
             raise RuntimeError(
@@ -441,7 +439,7 @@ class AOI:
             )
 
     def buffer(self, d):
-        log("Buffering layer by {} km.".format(d))
+        log(f"Buffering layer by {d} km.")
 
         trans_dir = qgis.core.Qgis.TransformDirection.Reverse
 
@@ -454,7 +452,7 @@ class AOI:
             geom.centroid()
             wgs84_crs = qgis.core.QgsCoordinateReferenceSystem("EPSG:4326")
             aeqd_crs = qgis.core.QgsCoordinateReferenceSystem.fromProj(
-                "+proj=aeqd +lat_0={} +lon_0={}".format(centroid.y(), centroid.x())
+                f"+proj=aeqd +lat_0={centroid.y()} +lon_0={centroid.x()}"
             )
             to_aeqd = qgis.core.QgsCoordinateTransform(
                 wgs84_crs, aeqd_crs, qgis.core.QgsProject.instance()
@@ -463,21 +461,17 @@ class AOI:
             # Need to convert from km to meters
             geom_buffered = geom.buffer(d * 1000, 100)
             log(
-                "Feature area in sq km after buffering (and in aeqd) is: {}".format(
-                    geom_buffered.area() / (1000 * 1000)
-                )
+                f"Feature area in sq km after buffering (and in aeqd) is: {geom_buffered.area() / (1000 * 1000)}"
             )
             geom_buffered.transform(to_aeqd, trans_dir)
             f.setGeometry(geom_buffered)
             feats.append(f)
             log(
-                "Feature area after buffering (and in WGS84) is: {}".format(
-                    geom_buffered.area()
-                )
+                f"Feature area after buffering (and in WGS84) is: {geom_buffered.area()}"
             )
 
         l_buffered = qgis.core.QgsVectorLayer(
-            "polygon?crs=proj4:{crs}".format(crs=self.l.crs().toProj()),
+            f"polygon?crs=proj4:{self.l.crs().toProj()}",
             "calculation boundary (transformed)",
             "memory",
         )
@@ -495,9 +489,7 @@ class AOI:
     def isValid(self):
         return self.l.isValid()
 
-    @functools.lru_cache(
-        maxsize=None
-    )  # not using functools.cache, as it was only introduced in Python 3.9
+    @functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
     def calc_frac_overlap(self, geom):
         """
         Returns fraction of AOI that is overlapped by geom (where geom is a QgsGeometry)
@@ -566,12 +558,12 @@ class AOI:
             for f in self.get_layer_wgs84().getFeatures():
                 geom = f.geometry()
                 if not geom.isGeosValid():
-                    log("Invalid feature in row {}.".format(n))
+                    log(f"Invalid feature in row {n}.")
                     QtWidgets.QMessageBox.critical(
                         None,
                         tr_areaofinterest.tr("Error"),
                         tr_areaofinterest.tr(
-                            "Invalid geometry in row {}. "
+                            f"Invalid geometry in row {n}. "
                             "Check that all input geom_jsons "
                             "are valid before processing. "
                             "Try using the check validity "
@@ -579,7 +571,7 @@ class AOI:
                             "the toolbar for more information "
                             "on which features are invalid "
                             '(Under "Vector" - "Geometry '
-                            'Tools" - "Check Validity").'.format(n)
+                            'Tools" - "Check Validity").'
                         ),
                     )
                     return None
@@ -714,8 +706,8 @@ def prepare_area_of_interest(show_errors: bool = True) -> AOI:
         aoi_area = area_of_interest.get_area() / (1000 * 1000)
         if aoi_area > max_area:
             raise RuntimeError(
-                "The bounding box for the requested area (approximately {:.6n}) sq km "
-                "is too large. Choose a smaller area to process.".format(aoi_area)
+                f"The bounding box for the requested area (approximately {aoi_area:.6n}) sq km "
+                "is too large. Choose a smaller area to process."
             )
     return area_of_interest
 
@@ -724,7 +716,7 @@ def prepare_area_of_interest(show_errors: bool = True) -> AOI:
 # that define it. Returning a single shared AOI instance for a given set of region settings
 # lets the per-instance overlap cache be reused across calls. The cache automatically
 # refresheswhen any region setting changes because the key changes.
-_aoi_cache_key: typing.Optional[tuple] = None
+_aoi_cache_key: tuple | None = None
 _aoi_cache_value: typing.Optional["AOI"] = None
 
 
@@ -794,7 +786,7 @@ def try_prepare_area_of_interest(use_cache: bool = True) -> typing.Optional["AOI
     return aoi
 
 
-def try_get_aoi_geometry() -> typing.Optional[qgis.core.QgsGeometry]:
+def try_get_aoi_geometry() -> qgis.core.QgsGeometry | None:
     """
     Safe wrapper that returns the AOI geometry or None if not available.
 
@@ -837,9 +829,7 @@ def _transform_layer(lyr, crs_dst, datatype="polygon", wrap=False):
     # Transform CRS of a layer while optionally wrapping geometries
     # across the 180th meridian
     log(
-        'Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(
-            lyr.crs().toProj(), crs_dst.toProj(), wrap, datatype
-        )
+        f'Transforming layer from "{lyr.crs().toProj()}" to "{crs_dst.toProj()}". Wrap is {wrap}. Datatype is {datatype}.'
     )
 
     crs_src_string = lyr.crs().toProj()
@@ -854,9 +844,7 @@ def _transform_layer(lyr, crs_dst, datatype="polygon", wrap=False):
                 ),
             )
             log(
-                'Can\'t wrap layer in non-geographic coordinate system: "{}"'.format(
-                    crs_src_string
-                )
+                f'Can\'t wrap layer in non-geographic coordinate system: "{crs_src_string}"'
             )
             return None
         crs_src_string = crs_src_string + " +lon_wrap=180"
@@ -867,7 +855,7 @@ def _transform_layer(lyr, crs_dst, datatype="polygon", wrap=False):
     )
 
     l_w = qgis.core.QgsVectorLayer(
-        "{datatype}?crs=proj4:{crs}".format(datatype=datatype, crs=crs_dst.toProj()),
+        f"{datatype}?crs=proj4:{crs_dst.toProj()}",
         "calculation boundary (transformed)",
         "memory",
     )
@@ -890,9 +878,7 @@ def _transform_layer(lyr, crs_dst, datatype="polygon", wrap=False):
     l_w.commitChanges()
     if not l_w.isValid():
         log(
-            'Error transforming layer from "{}" to "{}" (wrap is {})'.format(
-                crs_src_string, crs_dst.toProj(), wrap
-            )
+            f'Error transforming layer from "{crs_src_string}" to "{crs_dst.toProj()}" (wrap is {wrap})'
         )
         return None
     else:

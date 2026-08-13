@@ -61,7 +61,7 @@ class AreaWidget(QtWidgets.QWidget):
         self.layout.addWidget(self.line_edit)
 
     def set_area(self, area):
-        self.line_edit.setText(self.tr("{:.6g} km\u00b2".format(area)))
+        self.line_edit.setText(self.tr(f"{area:.6g} km\u00b2"))
 
 
 class BufferWidget(QtWidgets.QWidget):

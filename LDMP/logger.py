@@ -1,4 +1,3 @@
-import typing
 
 import qgis.core
 from qgis.core import Qgis
@@ -13,7 +12,7 @@ def to_message_level(level: int):
         return level
 
 
-def log(message: str, level: typing.Optional[int] = 0):
+def log(message: str, level: int | None = 0):
     """
     Thread-safe logging function that can be called from any thread.
     Uses QTimer.singleShot to ensure logging happens on the main thread.

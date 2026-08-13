@@ -129,7 +129,7 @@ class NetworkImageTextBrowser(QtWidgets.QTextBrowser):
         if image.loadFromData(data):
             self._loaded_images[url] = image
             # Re-render HTML to show the image
-            super(NetworkImageTextBrowser, self).setHtml(self._original_html)
+            super().setHtml(self._original_html)
             self._adjust_height()
 
         self._pending_images.pop(url, None)
@@ -182,8 +182,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     iface: qgis.gui.QgisInterface
     refreshing_filesystem_cache: bool
     scheduler_paused: bool
-    last_refreshed_local_state: typing.Optional[dt.datetime]
-    last_refreshed_remote_state: typing.Optional[dt.datetime]
+    last_refreshed_local_state: dt.datetime | None
+    last_refreshed_remote_state: dt.datetime | None
 
     algorithms_tv: QtWidgets.QTreeView
     algorithms_tv_delegate: algorithms_mvc.AlgorithmItemDelegate
@@ -205,12 +205,12 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     remote_refresh_running: bool = False
 
-    _cache_refresh_togglable_widgets: typing.List[QtWidgets.QWidget]
+    _cache_refresh_togglable_widgets: list[QtWidgets.QWidget]
 
     def __init__(
         self,
         iface: qgis.gui.QgisInterface,
-        parent: typing.Optional[QtWidgets.QWidget] = None,
+        parent: QtWidgets.QWidget | None = None,
     ):
         super().__init__(parent)
         self.iface = iface
@@ -640,7 +640,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         from .news import NewsClient
 
         # Create news widgets container (stores the QFrame widgets for each news item)
-        self._news_widgets: typing.List[QtWidgets.QWidget] = []
+        self._news_widgets: list[QtWidgets.QWidget] = []
         self._news_client = NewsClient(self)
         self._news_client.news_fetched.connect(self._display_news_items)
         self._news_fetch_in_progress = False
@@ -665,7 +665,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self._news_fetch_in_progress = True
         self._news_client.fetch_news(platform="qgis_plugin", force=force)
 
-    def _display_news_items(self, news_items: typing.List["NewsItem"]) -> None:
+    def _display_news_items(self, news_items: list["NewsItem"]) -> None:
         """Display news items in the news tab."""
         from .news import _is_news_dismissed
 

@@ -71,7 +71,7 @@ def compute_biomass_restoration(
             )
         output_biomass_diff_tifs.append(output_biomass_diff_tif)
 
-        logger.log("Saving clipped biomass file to {}".format(output_biomass_diff_tif))
+        logger.log(f"Saving clipped biomass file to {output_biomass_diff_tif}")
         geojson = calculate.json_geom_to_geojson(
             qgis.core.QgsGeometry.fromWkt(wkts[n]).asJson()
         )
@@ -221,11 +221,11 @@ def _save_summary_table(
 
     try:
         workbook.save(out_file)
-        logger.log("Summary table saved to {}".format(out_file))
+        logger.log(f"Summary table saved to {out_file}")
     except OSError as exc:
         raise RuntimeError(
             f"Error saving output table - check that {out_file} is accessible and "
-            f"not already open. - {str(exc)}"
+            f"not already open. - {exc!s}"
         )
 
 
@@ -286,9 +286,7 @@ class RestBiomassSummaryWorker(worker.AbstractWorker):
             for x in range(0, xsize, x_block_size):
                 if self.killed:
                     logger.log(
-                        "Processing of {} killed by user after processing {} out of {} blocks.".format(
-                            self.prod_out_file, y, ysize
-                        )
+                        f"Processing of {self.prod_out_file} killed by user after processing {y} out of {ysize} blocks."
                     )
 
                     break

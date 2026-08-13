@@ -225,4 +225,4 @@ def run(params, logger):
         logger.debug("Serializing FAO‑WOCAT result")
         return schema.dump(final_output)
     else:
-        raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))
+        raise Exception(f'Unknown productivity mode "{prod_mode}" chosen')

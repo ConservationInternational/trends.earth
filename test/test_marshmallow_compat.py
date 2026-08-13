@@ -33,7 +33,7 @@ from utilities_for_testing import get_qgis_app
 # LDMP.jobs.models imports qgis.PyQt at module level.
 QGIS_APP = get_qgis_app()
 
-from LDMP.jobs.models import Job  # noqa: E402
+from LDMP.jobs.models import Job
 
 # ===================================================================
 # Helpers

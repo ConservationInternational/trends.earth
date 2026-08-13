@@ -51,7 +51,7 @@ if TYPE_CHECKING:
 class City:
     wof_id: str
     name: str
-    geojson: typing.Dict
+    geojson: dict
     name_de: str
     name_en: str
     name_es: str
@@ -61,7 +61,7 @@ class City:
     name_zh: str
 
     @classmethod
-    def deserialize(cls, wof_id: str, raw_city: typing.Dict):
+    def deserialize(cls, wof_id: str, raw_city: dict):
         return cls(
             wof_id=wof_id,
             name=raw_city["ADM1NAME"],
@@ -82,10 +82,10 @@ class Country:
     code: str
     crs: str
     wrap: bool
-    level1_regions: typing.Dict[str, str]
+    level1_regions: dict[str, str]
 
     @classmethod
-    def deserialize(cls, name: str, raw_country: typing.Dict):
+    def deserialize(cls, name: str, raw_country: dict):
         regions = {}
         admin1_data = raw_country.get("admin1", {})
         if admin1_data:
@@ -116,12 +116,12 @@ class BoundaryTimestampManager:
     """
 
     def __init__(self):
-        self._cached_timestamp: typing.Optional[str] = None
-        self._release_type: typing.Optional[str] = None
+        self._cached_timestamp: str | None = None
+        self._release_type: str | None = None
 
     def get_server_timestamp(
         self, release_type: str = "gbOpen", force_refresh: bool = False
-    ) -> typing.Optional[str]:
+    ) -> str | None:
         """
         Get cached server timestamp or fetch if needed.
 
@@ -180,13 +180,13 @@ _timestamp_manager_lock = QtCore.QMutex()
 @contextmanager
 def _boundary_download_feedback(
     message: str,
-) -> typing.Iterator[typing.Optional[QtWidgets.QProgressBar]]:
+) -> typing.Iterator[QtWidgets.QProgressBar | None]:
     """Show progress feedback while downloading large boundary files."""
 
     app = QtWidgets.QApplication.instance()
     message_widget = None
     message_bar = None
-    progress: typing.Optional[QtWidgets.QProgressBar] = None
+    progress: QtWidgets.QProgressBar | None = None
 
     if iface:
         message_bar = iface.messageBar()
@@ -247,7 +247,7 @@ def local_check_hash_against_etag(path: Path, expected: str) -> bool:
 
 
 def verify_file_against_etag(
-    path: typing.Union[str, Path], etag: "te_schemas_results.Etag"
+    path: str | Path, etag: "te_schemas_results.Etag"
 ) -> bool:
     """
     Verify a downloaded file against an etag, handling different cloud storage types.
@@ -298,7 +298,7 @@ def verify_file_against_etag(
     # Calculate file MD5
     try:
         file_md5 = hashlib.md5(path.read_bytes(), usedforsecurity=False)
-    except IOError as e:
+    except OSError as e:
         log(f"Error reading file for verification: {e}")
         return False
 
@@ -349,7 +349,7 @@ def check_hash_against_etag(url, filename, expected=None):
     if not expected:
         h = APIClient(get_api_url(), TIMEOUT).get_header(url)
         if not h:
-            log("Failed to fetch expected hash for {}".format(filename))
+            log(f"Failed to fetch expected hash for {filename}")
             return False
         else:
             if type(h) is QtNetwork.QNetworkReply:
@@ -363,27 +363,25 @@ def check_hash_against_etag(url, filename, expected=None):
         md5hash = hashlib.md5(f.read(), usedforsecurity=False).hexdigest()
 
     if md5hash == expected:
-        log("File hash verified for {}".format(filename))
+        log(f"File hash verified for {filename}")
         return True
     else:
         log(
-            "Failed verification of file hash for {}. Expected {}, but got {}".format(
-                filename, expected, md5hash
-            )
+            f"Failed verification of file hash for {filename}. Expected {expected}, but got {md5hash}"
         )
         return False
 
 
 def extract_zipfile(f, verify=True):
     filename = os.path.join(os.path.dirname(__file__), "data", f)
-    url = "https://s3.amazonaws.com/trends.earth/sharing/{}".format(f)
+    url = f"https://s3.amazonaws.com/trends.earth/sharing/{f}"
 
     if os.path.exists(filename) and verify:
         if not check_hash_against_etag(url, filename):
             os.remove(filename)
 
     if not os.path.exists(filename):
-        log("Downloading {}".format(f))
+        log(f"Downloading {f}")
         # TODO: Dialog box with two options:
         #   1) Download
         #   2) Load from local folder
@@ -394,7 +392,7 @@ def extract_zipfile(f, verify=True):
             QtWidgets.QMessageBox.critical(
                 None,
                 tr_download.tr("Error"),
-                tr_download.tr("Unable to write to {}.".format(filename)),
+                tr_download.tr(f"Unable to write to {filename}."),
             )
             return False
         resp = worker.get_resp()
@@ -414,14 +412,14 @@ def extract_zipfile(f, verify=True):
 
 def read_json(f, verify=True):
     filename = os.path.join(os.path.dirname(__file__), "data", f)
-    url = "https://s3.amazonaws.com/trends.earth/sharing/{}".format(f)
+    url = f"https://s3.amazonaws.com/trends.earth/sharing/{f}"
 
     if os.path.exists(filename) and verify:
         if not check_hash_against_etag(url, filename):
             os.remove(filename)
 
     if not os.path.exists(filename):
-        log("Downloading {}".format(f))
+        log(f"Downloading {f}")
         # TODO: Dialog box with two options:
         #   1) Download
         #   2) Load from local folder
@@ -433,9 +431,7 @@ def read_json(f, verify=True):
                 None,
                 tr_download.tr("Error"),
                 tr_download.tr(
-                    "Unable to write to {}. Do you need administrator permissions?".format(
-                        filename
-                    )
+                    f"Unable to write to {filename}. Do you need administrator permissions?"
                 ),
             )
             return None
@@ -457,7 +453,7 @@ def download_files(urls, out_folder):
         QtWidgets.QMessageBox.critical(
             None,
             tr_download.tr("Folder does not exist"),
-            tr_download.tr("Folder {} does not exist.".format(out_folder)),
+            tr_download.tr(f"Folder {out_folder} does not exist."),
         )
         return None
 
@@ -465,7 +461,7 @@ def download_files(urls, out_folder):
         QtWidgets.QMessageBox.critical(
             None,
             tr_download.tr("Error"),
-            tr_download.tr("Unable to write to {}.".format(out_folder)),
+            tr_download.tr(f"Unable to write to {out_folder}."),
         )
         return None
 
@@ -473,35 +469,35 @@ def download_files(urls, out_folder):
     for url in urls:
         out_path = os.path.join(out_folder, os.path.basename(url))
         if not os.path.exists(out_path) or not check_hash_against_etag(url, out_path):
-            log("Downloading {} to {}".format(url, out_path))
+            log(f"Downloading {url} to {out_path}")
 
             worker = Download(url, out_path)
             try:
                 worker.start()
             except PermissionError:
-                log("Unable to write to {}.".format(out_folder))
+                log(f"Unable to write to {out_folder}.")
                 QtWidgets.QMessageBox.critical(
                     None,
                     tr_download.tr("Error"),
-                    tr_download.tr("Unable to write to {}.".format(out_folder)),
+                    tr_download.tr(f"Unable to write to {out_folder}."),
                 )
                 return None
 
             resp = worker.get_resp()
             if not resp:
-                log("Error accessing {}.".format(url))
+                log(f"Error accessing {url}.")
                 QtWidgets.QMessageBox.critical(
                     None,
                     tr_download.tr("Error"),
-                    tr_download.tr("Error accessing {}.".format(url)),
+                    tr_download.tr(f"Error accessing {url}."),
                 )
                 return None
             if not check_hash_against_etag(url, out_path):
-                log("File verification failed for {}.".format(out_path))
+                log(f"File verification failed for {out_path}.")
                 QtWidgets.QMessageBox.critical(
                     None,
                     tr_download.tr("Error"),
-                    tr_download.tr("File verification failed for {}.".format(out_path)),
+                    tr_download.tr(f"File verification failed for {out_path}."),
                 )
                 return None
 
@@ -510,10 +506,10 @@ def download_files(urls, out_folder):
     return downloads
 
 
-_admin_bounds_session_cache: typing.Optional[typing.Dict[str, Country]] = None
+_admin_bounds_session_cache: dict[str, Country] | None = None
 
 
-def get_admin_bounds() -> typing.Dict[str, Country]:
+def get_admin_bounds() -> dict[str, Country]:
     """
     Get administrative boundaries from API or fallback to cached file.
 
@@ -555,7 +551,7 @@ def get_admin_bounds() -> typing.Dict[str, Country]:
         return {}
 
 
-def _get_boundaries_from_api() -> typing.Optional[typing.Dict[str, Country]]:
+def _get_boundaries_from_api() -> dict[str, Country] | None:
     """
     Download and cache administrative boundaries from Trends.Earth API using intelligent caching.
 
@@ -618,7 +614,7 @@ def _get_boundaries_from_api() -> typing.Optional[typing.Dict[str, Country]]:
         return None
 
 
-def _get_boundaries_from_local_cache() -> typing.Optional[typing.Dict[str, Country]]:
+def _get_boundaries_from_local_cache() -> dict[str, Country] | None:
     """Load administrative boundaries from the packaged cache file."""
 
     from .boundaries_cache import get_boundaries_cache
@@ -655,8 +651,8 @@ def _get_boundaries_from_local_cache() -> typing.Optional[typing.Dict[str, Count
 
 
 def _convert_api_boundaries_to_countries(
-    boundaries_list: typing.List[typing.Dict],
-) -> typing.Dict[str, Country]:
+    boundaries_list: list[dict],
+) -> dict[str, Country]:
     """
     Convert API boundaries list to Country objects dictionary.
 
@@ -699,8 +695,8 @@ def _convert_api_boundaries_to_countries(
 
 
 def _extract_admin_unit_from_geojson(
-    full_geojson: typing.Dict, target_shape_id: str
-) -> typing.Optional[typing.Dict]:
+    full_geojson: dict, target_shape_id: str
+) -> dict | None:
     """
     Extract a specific admin unit from a full country-level GeoJSON by shape ID.
 
@@ -756,8 +752,8 @@ def _extract_admin_unit_from_geojson(
 
 
 def download_boundary_geojson(
-    country_code: str, admin_level: int = 0, shape_id: typing.Optional[str] = None
-) -> typing.Optional[typing.Dict]:
+    country_code: str, admin_level: int = 0, shape_id: str | None = None
+) -> dict | None:
     """
     Download boundary GeoJSON from API for a specific country and admin level using intelligent caching.
 
@@ -890,7 +886,7 @@ def download_boundary_geojson(
         reply = manager.get(request)
         loop = QtCore.QEventLoop()
 
-        geojson_data: typing.Optional[typing.Dict] = None
+        geojson_data: dict | None = None
 
         with _boundary_download_feedback(
             tr_download.tr("Downloading boundaries for {}...").format(download_message)
@@ -999,7 +995,7 @@ def download_boundary_geojson(
         return None
 
 
-def get_cities() -> typing.Dict[str, typing.Dict[str, City]]:
+def get_cities() -> dict[str, dict[str, City]]:
     cities_key = read_json("cities.json.gz", verify=False)
     countries_cities = {}
     if cities_key:
@@ -1079,7 +1075,7 @@ class DownloadWorker(AbstractWorker):
     def download_error(self, error):
         log(tr_download.tr(f"Error while downloading file to {self.outfile}, {error}"))
         raise DownloadError(
-            "Unable to start download of {}, {}".format(self.url, error)
+            f"Unable to start download of {self.url}, {error}"
         )
 
     def download_finished(self):
@@ -1171,7 +1167,7 @@ class DownloadFileTask(QgsTask):
         output_path: Path,
         expected_etag: typing.Optional["te_schemas_results.Etag"] = None,
         max_retries: int = 5,
-        description: typing.Optional[str] = None,
+        description: str | None = None,
     ):
         desc = description or f"Downloading {Path(output_path).name}"
         super().__init__(desc, QgsTask.CanCancel)

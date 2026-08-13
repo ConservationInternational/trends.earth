@@ -18,7 +18,6 @@ Usage::
 """
 
 from dataclasses import field
-from typing import Optional, Union
 
 from marshmallow import validate
 from marshmallow_dataclass import dataclass
@@ -94,7 +93,7 @@ class TEProductivityParams:
     state_year_bl_end: int = field(metadata={"required": True})
     state_year_tg_start: int = field(metadata={"required": True})
     state_year_tg_end: int = field(metadata={"required": True})
-    climate_gee_dataset: Optional[str] = field(
+    climate_gee_dataset: str | None = field(
         default=None,
     )
     calc_traj: bool = field(default=True)
@@ -123,7 +122,7 @@ class JRCProductivityParams:
     asset: str = field(metadata={"required": True})
     year_initial: int = field(metadata={"required": True})
     year_final: int = field(metadata={"required": True})
-    data_source: Optional[str] = field(
+    data_source: str | None = field(
         default="Joint Research Commission (JRC)",
     )
 
@@ -152,16 +151,16 @@ class FAOWOCATProductivityParams:
     ndvi_gee_dataset: str = field(metadata={"required": True})
     year_initial: int = field(metadata={"required": True})
     year_final: int = field(metadata={"required": True})
-    low_biomass: Optional[float] = field(
+    low_biomass: float | None = field(
         default=None,
     )
-    high_biomass: Optional[float] = field(
+    high_biomass: float | None = field(
         default=None,
     )
-    years_interval: Optional[int] = field(
+    years_interval: int | None = field(
         default=None,
     )
-    modis_mode: Optional[str] = field(
+    modis_mode: str | None = field(
         default=None,
     )
 
@@ -204,7 +203,7 @@ class SOCSubParams:
 
     year_initial: int = field(metadata={"required": True})
     year_final: int = field(metadata={"required": True})
-    fl: Union[float, str] = field(metadata={"required": True})
+    fl: float | str = field(metadata={"required": True})
     legend_nesting_esa_to_custom: LCLegendNesting = field(metadata={"required": True})
     legend_nesting_custom_to_ipcc: LCLegendNesting = field(metadata={"required": True})
     fake_data: bool = field(
@@ -266,20 +265,20 @@ class SDG1531SubIndicatorsParameters:
     land_cover: LandCoverSubParams = field(metadata={"required": True})
     soil_organic_carbon: SOCSubParams = field(metadata={"required": True})
     population: PopulationSubParams = field(metadata={"required": True})
-    annual_lc: Optional[bool] = field(
+    annual_lc: bool | None = field(
         default=None,
     )
     filetype: str = field(
         default="COG",
         metadata={"validate": validate.OneOf(["COG", "GeoTiff"])},
     )
-    ENV: Optional[str] = field(
+    ENV: str | None = field(
         default=None,
         metadata={
             "validate": validate.OneOf(["dev", "staging", "prod"]),
             "allow_none": True,
         },
     )
-    EXECUTION_ID: Optional[str] = field(
+    EXECUTION_ID: str | None = field(
         default=None,
     )

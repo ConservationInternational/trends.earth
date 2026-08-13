@@ -6,7 +6,6 @@ import signal
 import subprocess
 import time
 import traceback
-import typing
 from collections import deque
 from dataclasses import dataclass
 from uuid import uuid4
@@ -845,7 +844,7 @@ class ReportTaskProcessor:
 
         return rect
 
-    def _get_template_document(self, path) -> typing.Tuple[bool, QDomDocument]:
+    def _get_template_document(self, path) -> tuple[bool, QDomDocument]:
         # Get template contents
         template_file = QFile(path)
         try:
@@ -953,7 +952,7 @@ class ReportProcessHandlerTask(QgsTask):
     @staticmethod
     def _dir_snapshot(
         directory: str,
-    ) -> typing.Dict[str, typing.Tuple[float, int]]:
+    ) -> dict[str, tuple[float, int]]:
         """Return ``{filename: (mtime, size)}`` for every file in *directory*.
 
         Used as a cheap heartbeat: if the snapshot changes between two
@@ -963,7 +962,7 @@ class ReportProcessHandlerTask(QgsTask):
         file size is updated more reliably during active writes.  A new
         filename appearing is also always detected immediately.
         """
-        snapshot: typing.Dict[str, typing.Tuple[float, int]] = {}
+        snapshot: dict[str, tuple[float, int]] = {}
         try:
             for entry in os.scandir(directory):
                 if entry.is_file():

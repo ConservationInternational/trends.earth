@@ -15,7 +15,7 @@ Usage::
 """
 
 from dataclasses import field
-from typing import Any, Dict, Optional
+from typing import Any
 
 from marshmallow import validate
 from marshmallow_dataclass import dataclass
@@ -46,38 +46,38 @@ class DownloadDataParameters:
     name: str = field(metadata={"required": True})
     geojsons: str = field(metadata={"required": True})
     crs: str = field(metadata={"required": True})
-    year_initial: Optional[int] = field(
+    year_initial: int | None = field(
         default=None,
     )
-    year_final: Optional[int] = field(
+    year_final: int | None = field(
         default=None,
     )
-    temporal_resolution: Optional[str] = field(
+    temporal_resolution: str | None = field(
         default=None,
     )
-    band_number: Optional[int] = field(
+    band_number: int | None = field(
         default=None,
         metadata={
             "validate": validate.Range(min=1),
             "allow_none": True,
         },
     )
-    band_name: Optional[str] = field(
+    band_name: str | None = field(
         default=None,
     )
-    band_metadata: Optional[Dict[str, Any]] = field(
+    band_metadata: dict[str, Any] | None = field(
         default=None,
     )
-    band_add_to_map: Optional[bool] = field(
+    band_add_to_map: bool | None = field(
         default=None,
     )
-    ENV: Optional[str] = field(
+    ENV: str | None = field(
         default=None,
         metadata={
             "validate": validate.OneOf(["dev", "staging", "prod"]),
             "allow_none": True,
         },
     )
-    EXECUTION_ID: Optional[str] = field(
+    EXECUTION_ID: str | None = field(
         default=None,
     )

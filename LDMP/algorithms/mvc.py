@@ -43,9 +43,9 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
 
     def _find_current_row(
         self,
-        current_item: typing.Union[models.AlgorithmGroup, models.Algorithm],
+        current_item: models.AlgorithmGroup | models.Algorithm,
         parent_group: models.AlgorithmGroup,
-    ) -> typing.Optional[int]:
+    ) -> int | None:
         relevant_items = parent_group.groups + parent_group.algorithms
         for index, item in enumerate(relevant_items):
             if item.name == current_item.name:
@@ -101,7 +101,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         self,
         index: QtCore.QModelIndex = QtCore.QModelIndex(),
         role: QtCore.Qt.ItemDataRole = QtCore.Qt.DisplayRole,
-    ) -> typing.Optional[typing.Union[models.AlgorithmGroup, models.Algorithm]]:
+    ) -> models.AlgorithmGroup | models.Algorithm | None:
         if index.isValid():
             current_item = index.internalPointer()
             if role == QtCore.Qt.DisplayRole:
@@ -141,7 +141,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
 
 
 class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
-    current_index: typing.Optional[QtCore.QModelIndex]
+    current_index: QtCore.QModelIndex | None
     algorithm_execution_handler: typing.Callable
     main_dock: "MainWidget"
 

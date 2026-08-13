@@ -25,7 +25,6 @@ scripts (e.g.  ``sdg-15-3-1-sub-indicators``).
 """
 
 from dataclasses import field
-from typing import Optional
 
 from marshmallow import validate
 from marshmallow_dataclass import dataclass
@@ -83,7 +82,7 @@ class TEProductivityParams:
             "validate": validate.OneOf(["ndvi_trend", "p_restrend", "ue"]),
         },
     )
-    climate_gee_dataset: Optional[str] = field(default=None)
+    climate_gee_dataset: str | None = field(default=None)
     calc_traj: bool = field(default=True)
     calc_perf: bool = field(default=True)
     calc_state: bool = field(default=True)
@@ -177,11 +176,11 @@ class ProductivityParameters:
     crs: str = field(metadata={"required": True})
     productivity: dict = field(metadata={"required": True})
 
-    ENV: Optional[str] = field(
+    ENV: str | None = field(
         default=None,
         metadata={
             "validate": validate.OneOf(["dev", "staging", "prod"]),
             "allow_none": True,
         },
     )
-    EXECUTION_ID: Optional[str] = field(default=None)
+    EXECUTION_ID: str | None = field(default=None)

@@ -308,10 +308,10 @@ def run(params, logger):
     # here (with an error margin of 10,000 sq km...) just in case.
 
     if area > 35000:
-        logger.debug("Area ({:.6n} km sq) is too large - failing task".format(area))
+        logger.debug(f"Area ({area:.6n} km sq) is too large - failing task")
         raise Exception
     else:
-        logger.debug("Processing total area of {:.6n} km sq".format(area))
+        logger.debug(f"Processing total area of {area:.6n} km sq")
 
     logger.debug("Running main script.")
 

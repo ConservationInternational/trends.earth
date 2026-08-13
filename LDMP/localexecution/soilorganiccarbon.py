@@ -47,7 +47,7 @@ def compute_soil_organic_carbon(
     )
 
     in_vrt_path = tempfile.NamedTemporaryFile(suffix=".vrt").name
-    LDMP.logger.log("Saving SOC input files to {}".format(in_vrt_path))
+    LDMP.logger.log(f"Saving SOC input files to {in_vrt_path}")
     ds_vrt = gdal.BuildVRT(
         in_vrt_path,
         in_files,
@@ -255,9 +255,7 @@ def soilorganiccarbon_work(
     for y in range(0, ysize, y_block_size):
         if killed_callback():
             LDMP.logger.log(
-                "Processing killed by user after processing {} out of {} blocks.".format(
-                    y, ysize
-                )
+                f"Processing killed by user after processing {y} out of {ysize} blocks."
             )
             del ds_in
             del ds_out

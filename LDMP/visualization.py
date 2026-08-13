@@ -13,7 +13,6 @@
 
 import json
 import os
-import typing
 from pathlib import Path
 
 from qgis import processing
@@ -89,9 +88,7 @@ class zoom_to_admin_poly:
                 break
         if not layer:
             raise LookupError(
-                "Unable to locate layer for extent for admin code {}".format(
-                    self.admin_code
-                )
+                f"Unable to locate layer for extent for admin code {self.admin_code}"
             )
         # Note that this layer will have the selected admin region filtered out, so
         # that data will not be masked in this area. So need to temporarily remove
@@ -105,14 +102,14 @@ class zoom_to_admin_poly:
                 break
         if not feature:
             raise LookupError(
-                "Unable to locate polygon for admin code {}".format(self.admin_code)
+                f"Unable to locate polygon for admin code {self.admin_code}"
             )
         # TODO: Need to reproject the geometry to match the canvas CRS
         self.canvas = iface.mapCanvas()
         # Reapply the original feature filter on this layer
         layer.setSubsetString(subset_string)
         self.bbox = feature.geometry().boundingBox()
-        log("Bounding box for zoom is: {}".format(self.bbox.toString()))
+        log(f"Bounding box for zoom is: {self.bbox.toString()}")
         self.canvas.setExtent(self.bbox)
         self.canvas.refresh()
 
@@ -149,7 +146,7 @@ def admin_one_name_from_code(country_name: str, sub_code: str) -> str:
 
 def get_admin_bbox(
     country_code: str,
-    admin_one_identifier: typing.Optional[str] = None,
+    admin_one_identifier: str | None = None,
     is_admin_one_region: bool = True,
 ) -> QgsGeometry:
     """
@@ -346,7 +343,7 @@ class ExtractAdministrativeArea:
         """
         return self._extent
 
-    def get_admin_area(self) -> typing.Tuple[str, str]:
+    def get_admin_area(self) -> tuple[str, str]:
         """
         Returns the matching country name and sub-region name, or 'All
         regions' if extent covers the whole country.
@@ -393,7 +390,7 @@ class ExtractAdministrativeArea:
 
     def _admin_from_sub_national_extraction_op(
         self, predicates
-    ) -> typing.Tuple[str, str]:
+    ) -> tuple[str, str]:
         """
         Returns the country name and level admin name by intersecting with
         the sub-national layer using the given predicates.
@@ -519,7 +516,7 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, DlgVisualizationBasemapUi):
 
 def download_base_map(
     use_mask=True, country_name=None, admin_level_one=None
-) -> typing.Tuple[bool, QtXml.QDomDocument]:
+) -> tuple[bool, QtXml.QDomDocument]:
     # Download basemap and return layer definition
     if admin_level_one is None:
         admin_level_one = conf.TR_ALL_REGIONS
@@ -557,7 +554,7 @@ def download_base_map(
                 admin_code = current_country.code
                 lyr_def_content = lyr_def_content.replace(
                     "MASK_SQL_ADMIN0",
-                    "|subset=&quot;ISO_A3&quot; != '{}'".format(admin_code),
+                    f"|subset=&quot;ISO_A3&quot; != '{admin_code}'",
                 )
                 lyr_def_content = lyr_def_content.replace("MASK_SQL_ADMIN1", "")
                 document = QtXml.QDomDocument()
@@ -569,7 +566,7 @@ def download_base_map(
                 lyr_def_content = lyr_def_content.replace("MASK_SQL_ADMIN0", "")
                 lyr_def_content = lyr_def_content.replace(
                     "MASK_SQL_ADMIN1",
-                    "|subset=&quot;adm1_code&quot; != '{}'".format(admin_code),
+                    f"|subset=&quot;adm1_code&quot; != '{admin_code}'",
                 )
 
                 # Set national borders to no brush, and regional borders to
@@ -618,7 +615,7 @@ class DlgVisualizationCreateMap(QtWidgets.QDialog, DlgVisualizationCreateMapUi):
         self.close()
 
         template = os.path.join(
-            os.path.dirname(__file__), "data", "map_template_{}.qpt".format(orientation)
+            os.path.dirname(__file__), "data", f"map_template_{orientation}.qpt"
         )
 
         with open(template) as f:

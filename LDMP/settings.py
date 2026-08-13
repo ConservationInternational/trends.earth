@@ -1223,6 +1223,11 @@ class DlgSettingsRegister(ProfileFormMixin, QtWidgets.QDialog, Ui_DlgSettingsReg
             gee_license_acknowledged=True,
             purpose_of_use=purpose or None,
             purpose_of_use_other=(self.purpose_of_use_other.text().strip() or None),
+            email_subscription_news=self.email_subscription_news.isChecked(),
+            email_subscription_engagement=self.email_subscription_engagement.isChecked(),
+            email_subscription_system_updates=(
+                self.email_subscription_system_updates.isChecked()
+            ),
             legacy=False,
         )
 

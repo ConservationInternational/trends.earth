@@ -1105,6 +1105,9 @@ class APIClient(QtCore.QObject):
         gee_license_acknowledged=None,
         purpose_of_use=None,
         purpose_of_use_other=None,
+        email_subscription_news=None,
+        email_subscription_engagement=None,
+        email_subscription_system_updates=None,
     ):
         """Register a new user account.
 
@@ -1126,6 +1129,11 @@ class APIClient(QtCore.QObject):
             purpose_of_use: User's purpose for using the tool
             purpose_of_use_other: Free-text purpose description
                 (when other is selected)
+            email_subscription_news: Whether to receive news & updates emails
+            email_subscription_engagement: Whether to receive engagement
+                opportunity emails
+            email_subscription_system_updates: Whether to receive system
+                update / announcement emails
         """
         payload = {
             "email": email,
@@ -1149,6 +1157,14 @@ class APIClient(QtCore.QObject):
             payload["purpose_of_use"] = purpose_of_use
         if purpose_of_use_other is not None:
             payload["purpose_of_use_other"] = purpose_of_use_other
+        if email_subscription_news is not None:
+            payload["email_subscription_news"] = email_subscription_news
+        if email_subscription_engagement is not None:
+            payload["email_subscription_engagement"] = email_subscription_engagement
+        if email_subscription_system_updates is not None:
+            payload["email_subscription_system_updates"] = (
+                email_subscription_system_updates
+            )
         endpoint = "/api/v1/user?legacy={}".format("true" if legacy else "false")
         return self.call_api(endpoint, method="post", payload=payload)
 

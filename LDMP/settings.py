@@ -13,7 +13,6 @@
 
 import csv
 import os
-import typing
 from enum import Flag, auto
 from pathlib import Path
 
@@ -276,7 +275,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
 
         # Update button text based on login state
         if is_logged_in:
-            self.pushButton_logout.setText(self.tr("Logout ({})".format(email)))
+            self.pushButton_logout.setText(self.tr(f"Logout ({email})"))
         else:
             self.pushButton_logout.setText(self.tr("Logout"))
 
@@ -333,8 +332,8 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             None,
             self.tr("Logout"),
             self.tr(
-                "Are you sure you want to logout user {}? You will need to "
-                "login again to access online features.".format(email)
+                f"Are you sure you want to logout user {email}? You will need to "
+                "login again to access online features."
             ),
             QtWidgets.QMessageBox.Yes,
             QtWidgets.QMessageBox.No,
@@ -354,7 +353,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
                 QtWidgets.QMessageBox.information(
                     None,
                     self.tr("Success"),
-                    self.tr("Successfully logged out user {}.".format(email)),
+                    self.tr(f"Successfully logged out user {email}."),
                 )
             else:
                 QtWidgets.QMessageBox.warning(
@@ -384,9 +383,9 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             None,
             self.tr("Delete user?"),
             self.tr(
-                "Are you sure you want to delete the user {}? All of your tasks will "
+                f"Are you sure you want to delete the user {email}? All of your tasks will "
                 "be lost and you will no longer be able to process data online "
-                "using Trends.Earth.".format(email)
+                "using Trends.Earth."
             ),
             QtWidgets.QMessageBox.Yes,
             QtWidgets.QMessageBox.No,
@@ -451,8 +450,8 @@ class AreaWidgetSection(Flag):
 
 
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
-    admin_bounds_key: typing.Dict[str, download.Country]
-    cities: typing.Dict[str, typing.Dict[str, download.City]]
+    admin_bounds_key: dict[str, download.Country]
+    cities: dict[str, dict[str, download.City]]
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -461,7 +460,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         self.canvas = iface.mapCanvas()
         self.vector_file = None
-        self.current_cities_key: typing.Dict[str, str] = {}
+        self.current_cities_key: dict[str, str] = {}
         self.hide_on_choose_point = True
 
         self.admin_bounds_key = download.get_admin_bounds()
@@ -474,9 +473,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if not self.cities:
             raise ValueError("Cities list not available")
 
-        self.country_name_to_code: typing.Dict[str, str] = {}
-        self.country_code_to_country: typing.Dict[str, download.Country] = {}
-        self.country_code_to_name: typing.Dict[str, str] = {}
+        self.country_name_to_code: dict[str, str] = {}
+        self.country_code_to_country: dict[str, download.Country] = {}
+        self.country_code_to_name: dict[str, str] = {}
 
         self.area_admin_0.clear()
         for name in sorted(self.admin_bounds_key.keys()):
@@ -617,8 +616,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def _populate_cities_for_country(
         self,
-        country_code: typing.Optional[str],
-        selected_city_id: typing.Optional[str],
+        country_code: str | None,
+        selected_city_id: str | None,
     ) -> None:
         with QtCore.QSignalBlocker(self.secondLevel_city):
             self.secondLevel_city.clear()
@@ -656,8 +655,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def _populate_admin_1_for_country(
         self,
-        country_code: typing.Optional[str],
-        selected_region_id: typing.Optional[str],
+        country_code: str | None,
+        selected_region_id: str | None,
     ) -> None:
         with QtCore.QSignalBlocker(self.secondLevel_area_admin_1):
             self.secondLevel_area_admin_1.clear()
@@ -683,7 +682,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.secondLevel_area_admin_1.setCurrentIndex(target_index)
 
     def _region_id_from_name(
-        self, country_code: typing.Optional[str], region_name: typing.Optional[str]
+        self, country_code: str | None, region_name: str | None
     ) -> str:
         if not country_code or not region_name:
             return ""
@@ -702,7 +701,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         return ""
 
     def _city_id_from_name(
-        self, country_code: typing.Optional[str], city_name: typing.Optional[str]
+        self, country_code: str | None, city_name: str | None
     ) -> str:
         if not country_code or not city_name:
             return ""
@@ -834,10 +833,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                 self.area_frompoint_point_x.text() != ""
                 and self.area_frompoint_point_y.text() != ""
             ):
-                name = "pt-lon{:.3f}lat{:.3f}".format(
-                    float(self.area_frompoint_point_x.text()),
-                    float(self.area_frompoint_point_y.text()),
-                )
+                name = f"pt-lon{float(self.area_frompoint_point_x.text()):.3f}lat{float(self.area_frompoint_point_y.text()):.3f}"
             else:
                 return
         elif self.area_fromfile.isChecked():
@@ -855,14 +851,14 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                         qgis.core.QgsProject.instance(),
                     )
                     point = coord_transform.transform(centroid)
-                    name = "shape-lon{:.3f}lat{:.3f}".format(point.x(), point.y())
+                    name = f"shape-lon{point.x():.3f}lat{point.y():.3f}"
                 else:
                     return
             else:
                 return
 
         if self.checkbox_buffer.isChecked():
-            name = "{}-buffer-{:.3f}".format(name, self.buffer_size_km.value())
+            name = f"{name}-buffer-{self.buffer_size_km.value():.3f}"
         self.area_settings_name.setText(name)
 
     def set_point_coords(self, point, button):
@@ -888,9 +884,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         )
         transformed_point = transform_instance.transform(self.point)
 
-        log("Chose point: {}, {}.".format(transformed_point.x(), transformed_point.y()))
-        self.area_frompoint_point_x.setText("{:.8f}".format(transformed_point.x()))
-        self.area_frompoint_point_y.setText("{:.8f}".format(transformed_point.y()))
+        log(f"Chose point: {transformed_point.x()}, {transformed_point.y()}.")
+        self.area_frompoint_point_x.setText(f"{transformed_point.x():.8f}")
+        self.area_frompoint_point_y.setText(f"{transformed_point.y():.8f}")
 
     def open_vector_browse(self):
         initial_path = settings_manager.get_value(Setting.VECTOR_FILE_PATH)
@@ -919,7 +915,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                     None,
                     self.tr("Error"),
                     self.tr(
-                        "Cannot read {}. Choose a different file.".format(vector_file)
+                        f"Cannot read {vector_file}. Choose a different file."
                     ),
                 )
 
@@ -1567,6 +1563,18 @@ class DlgSettingsEditUpdate(
         email_notifications = user.get("email_notifications_enabled", True)
         self.email_notifications_enabled.setChecked(email_notifications)
 
+        # Set bulk-email subscription checkboxes from user preferences
+        # (same categories/order as the registration dialog)
+        self.email_subscription_system_updates.setChecked(
+            user.get("email_subscription_system_updates", True)
+        )
+        self.email_subscription_news.setChecked(
+            user.get("email_subscription_news", False)
+        )
+        self.email_subscription_engagement.setChecked(
+            user.get("email_subscription_engagement", False)
+        )
+
         # Use mixin to setup conditional fields and connect signals
         self._setup_conditional_fields()
 
@@ -1606,6 +1614,11 @@ class DlgSettingsEditUpdate(
                 self.gender_identity_description.text().strip() or None
             ),
             gee_license_acknowledged=True,
+            email_subscription_news=self.email_subscription_news.isChecked(),
+            email_subscription_engagement=self.email_subscription_engagement.isChecked(),
+            email_subscription_system_updates=(
+                self.email_subscription_system_updates.isChecked()
+            ),
         )
 
         if resp:
@@ -1990,9 +2003,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             self.message_bar.pushCritical(
                 "Trends.Earth",
                 self.tr(
-                    "Unable to write to {}. Try a different folder.".format(
-                        new_base_directory
-                    )
+                    f"Unable to write to {new_base_directory}. Try a different folder."
                 ),
             )
 
@@ -2408,7 +2419,7 @@ class LandCoverCustomClassesManager(
 
             self._load_classes(lcc_infos)
 
-    def _load_classes(self, classes: typing.List[LCClassInfo]):
+    def _load_classes(self, classes: list[LCClassInfo]):
         # Load classes to the table.
         if not isinstance(classes, list):
             return
@@ -2564,7 +2575,7 @@ class LandCoverCustomClassesManager(
 
         self.set_table_height()
 
-    def parent_child_codes(self) -> typing.Dict[str, list]:
+    def parent_child_codes(self) -> dict[str, list]:
         """
         Returns a dictionary containing parent class name and corresponding
         codes for child classes assigned to it.
@@ -2574,8 +2585,8 @@ class LandCoverCustomClassesManager(
         return {lcci.lcc.name_long: lcci.child_codes for lcci in lcc_infos}
 
     def validate_child_codes(
-        self, lcc_infos: typing.List["LCClassInfo"]
-    ) -> typing.Tuple[bool, list]:
+        self, lcc_infos: list["LCClassInfo"]
+    ) -> tuple[bool, list]:
         """
         Validate children have been specified.
         """
@@ -2615,7 +2626,7 @@ class LandCoverCustomClassesManager(
 
     def _update_lcc_row_items(
         self, lc_info: LCClassInfo, update=False, row=None
-    ) -> typing.List[QtGui.QStandardItem]:
+    ) -> list[QtGui.QStandardItem]:
         # Create new or update existing row items
         if update and row is None:
             return []
@@ -2673,7 +2684,7 @@ class LandCoverCustomClassesManager(
 
         return self.model.data(idx, QtCore.Qt.UserRole)
 
-    def class_infos(self) -> typing.List[LCClassInfo]:
+    def class_infos(self) -> list[LCClassInfo]:
         """
         Returns a list of LCClassInfo objects currently in the table.
         """
@@ -2681,7 +2692,7 @@ class LandCoverCustomClassesManager(
 
         return [self.row_data(i) for i in range(row_count)]
 
-    def class_codes(self) -> typing.List[int]:
+    def class_codes(self) -> list[int]:
         """
         Return a list of codes for the classes in the table.
         """

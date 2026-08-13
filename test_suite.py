@@ -33,7 +33,7 @@ def _run_tests(test_suite, package_name, with_coverage=False):
     print("QGIS : %s" % version)
     print("Python GDAL : %s" % gdal.VersionInfo("VERSION_NUM"))
     print("QT : %s" % Qt.QT_VERSION_STR)
-    print("Run slow tests : %s" % (not os.environ.get("ON_TRAVIS", False)))
+    print("Run slow tests : %s" % (not os.environ.get("ON_TRAVIS", "")))
     print("########")
     if with_coverage:
         cov = coverage.Coverage(

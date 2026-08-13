@@ -20,6 +20,10 @@ import requests
 from invoke import Collection, task
 
 
+class ReleaseFetchError(RuntimeError):
+    """Raised when the GitHub release metadata cannot be fetched."""
+
+
 # Below is from:
 # https://stackoverflow.com/questions/3041986/apt-command-line-interface-like-yes-no-input
 def query_yes_no(question, default="yes"):
@@ -41,7 +45,7 @@ def query_yes_no(question, default="yes"):
     elif default == "no":
         prompt = " [y/N] "
     else:
-        raise ValueError("invalid default answer: '%s'" % default)
+        raise ValueError(f"invalid default answer: '{default}'")
 
     while True:
         sys.stdout.write(question + prompt)
@@ -71,13 +75,13 @@ def get_version(c):
             version_scheme="guess-next-dev",
             local_scheme="no-local-version",
         )
-    except Exception as e:
+    except (ModuleNotFoundError, RuntimeError, ImportError, LookupError) as exc:
         print("ERROR: Unable to determine version from git tags.")
         print("Please ensure:")
         print("  1. setuptools-scm is installed (pip install setuptools-scm)")
         print("  2. You are in a git repository with at least one version tag")
         print("  3. Git tags follow the format 'v2.1.18' or similar")
-        raise RuntimeError(f"Version determination failed: {e}")
+        raise RuntimeError(f"Version determination failed: {exc}") from exc
 
 
 # Handle long filenames or readonly files on windows, see:
@@ -112,15 +116,11 @@ def _replace(file_path, regex, subst):
     # Create temp file
     fh, abs_path = mkstemp()
 
-    if sys.version_info[0] < 3:
-        with os.fdopen(fh, "w") as new_file, open(file_path) as old_file:
-            for line in old_file:
-                new_file.write(regex.sub(subst, line))
-    else:
-        with open(fh, "w", encoding="Latin-1") as new_file:
-            with open(file_path, encoding="Latin-1") as old_file:
-                for line in old_file:
-                    new_file.write(regex.sub(subst, line))
+    with (
+        open(fh, "w", encoding="Latin-1") as new_file,
+        open(file_path, encoding="Latin-1") as old_file,
+    ):
+        new_file.writelines(regex.sub(subst, line) for line in old_file)
     os.remove(file_path)
     shutil.move(abs_path, file_path)
 
@@ -189,21 +189,21 @@ def set_version(c, modules=False, gee=False, version=None):
             text=True,
             stderr=subprocess.DEVNULL,
         ).strip()
-    except Exception:
+    except (OSError, subprocess.CalledProcessError):
         git_sha = "unknown"
 
     try:
         git_date = subprocess.check_output(
             ["git", "log", "-1", "--format=%ci"], text=True, stderr=subprocess.DEVNULL
         ).strip()
-    except Exception:
+    except (OSError, subprocess.CalledProcessError):
         git_date = "unknown"
 
     # Parse version tuple
     try:
         version_parts_tuple = version_to_write.replace("rc", ".").split(".")
         version_tuple = tuple(int(p) for p in version_parts_tuple if p.isdigit())
-    except Exception:
+    except (TypeError, ValueError):
         version_tuple = (0, 0, 0)
 
     # Write _version.py with all information
@@ -337,7 +337,7 @@ def set_version(c, modules=False, gee=False, version=None):
                             print(
                                 f"Version {v_gee_clean} already set in {filepath} - leaving ID unchanged"
                             )
-                    except Exception as e:
+                    except (json.JSONDecodeError, OSError, TypeError, ValueError) as e:
                         # If we can't read the file, assume version is changing
                         print(
                             f"Setting version to {v_gee_clean} in {filepath} (unable to check existing version: {e})"
@@ -536,7 +536,10 @@ def set_tag(c, modules=False, version=None):
         print(f"Using version {v} from git tags")
 
     ret = subprocess.run(
-        ["git", "diff-index", "HEAD", "--"], capture_output=True, text=True
+        ["git", "diff-index", "HEAD", "--"],
+        capture_output=True,
+        text=True,
+        check=False,
     )
 
     if ret.stdout != "":
@@ -544,19 +547,28 @@ def set_tag(c, modules=False, version=None):
 
         if ret:
             ret = subprocess.run(
-                ["git", "commit", "-m", f"Updating version tags for v{v}"]
+                ["git", "commit", "-m", f"Updating version tags for v{v}"],
+                check=False,
             )
             ret.check_returncode()
         else:
             print("Changes not committed - VERSION TAG NOT SET")
 
     print(f"Tagging version {v} and pushing tag to origin")
-    ret = subprocess.run(["git", "tag", "-l", f"v{v}"], capture_output=True, text=True)
+    ret = subprocess.run(
+        ["git", "tag", "-l", f"v{v}"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
     ret.check_returncode()
 
     if f"v{v}" in ret.stdout:
         # Try to delete this tag on remote in case it exists there
-        ret = subprocess.run(["git", "push", "origin", "--delete", f"v{v}"])
+        ret = subprocess.run(
+            ["git", "push", "origin", "--delete", f"v{v}"],
+            check=False,
+        )
 
         if ret.returncode == 0:
             print(f"Deleted tag v{v} on origin")
@@ -571,14 +583,7 @@ def set_tag(c, modules=False, version=None):
 
 
 def check_tecli_python_version():
-    if sys.version_info[0] < 3:
-        print(
-            f"ERROR: tecli tasks require Python version > 2 (you are running Python version {sys.version_info[0]}.{sys.version_info[1]})"
-        )
-
-        return False
-    else:
-        return True
+    return True
 
 
 @task
@@ -748,7 +753,7 @@ def tecli_run(c, script, queryParams=None, payload=None):
 
 @task(help={"script": "Script name"})
 def update_script_ids(c, script=None):
-    with open(c.gee.scripts_json_file) as fin:
+    with open(c.gee.scripts_json_file, encoding="utf-8") as fin:
         scripts = json.load(fin)
 
     dirs = next(os.walk(c.gee.script_dir))[1]
@@ -758,12 +763,13 @@ def update_script_ids(c, script=None):
     for dir in dirs:
         script_dir = os.path.join(c.gee.script_dir, dir)
 
-        if script:
-            if script_dir != script:
-                continue
+        if script and script_dir != script:
+            continue
 
         if os.path.exists(os.path.join(script_dir, "configuration.json")):
-            with open(os.path.join(script_dir, "configuration.json")) as fin:
+            with open(
+                os.path.join(script_dir, "configuration.json"), encoding="utf-8"
+            ) as fin:
                 config = json.load(fin)
             try:
                 script_name = re.compile("( [0-9]+(_[0-9]+)+$)").sub("", config["name"])
@@ -792,7 +798,7 @@ def update_script_ids(c, script=None):
                 print(
                     f"Skipping {script_name} as not found in scripts.json - maybe need to publish?"
                 )
-    with open(c.gee.scripts_json_file, "w") as f_out:
+    with open(c.gee.scripts_json_file, "w", encoding="utf-8") as f_out:
         json.dump(scripts, f_out, sort_keys=True, indent=4)
 
 
@@ -869,15 +875,15 @@ def not_comments(lines, s, e):
 
 def read_requirements():
     """Return a list of runtime and list of test requirements"""
-    with open("requirements.txt") as f:
+    with open("requirements.txt", encoding="utf-8") as f:
         lines = f.readlines()
     lines = [line for line in [line.strip() for line in lines] if line]
     divider = "# test requirements"
 
     try:
         idx = lines.index(divider)
-    except ValueError:
-        raise Exception(f'Expected to find "{divider}" in requirements.txt')
+    except ValueError as exc:
+        raise ValueError(f'Expected to find "{divider}" in requirements.txt') from exc
 
     return not_comments(lines, 0, idx), not_comments(lines, idx + 1, None)
 
@@ -956,11 +962,7 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
     if clean and os.path.exists(ext_libs):
         _safe_remove_folder(ext_libs)
 
-    if sys.version_info[0] < 3:
-        if not os.path.exists(ext_libs):
-            os.makedirs(ext_libs)
-    else:
-        os.makedirs(ext_libs, exist_ok=True)
+    os.makedirs(ext_libs, exist_ok=True)
     runtime, test = read_requirements()
 
     os.environ["PYTHONPATH"] = ext_libs
@@ -1119,10 +1121,13 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
                             print(f"Skipping metadata directory: {item}")
                     else:
                         # Copy individual files if needed
-                        if not item.startswith(".") and not item.endswith(".pyc"):
-                            if not os.path.exists(dst_path):
-                                shutil.copy2(src_path, dst_path)
-                                print(f"Copied file {item} to ext_libs")
+                        if (
+                            not item.startswith(".")
+                            and not item.endswith(".pyc")
+                            and not os.path.exists(dst_path)
+                        ):
+                            shutil.copy2(src_path, dst_path)
+                            print(f"Copied file {item} to ext_libs")
 
                 print(
                     "Git package installation completed. Dependencies were included with the packages."
@@ -1262,7 +1267,7 @@ def file_changed(infile, outfile):
         outfile_s = os.stat(outfile)
 
         return infile_s.st_mtime > outfile_s.st_mtime
-    except Exception:
+    except OSError:
         return True
 
 
@@ -1271,7 +1276,7 @@ def _filter_excludes(root, items, c):
     skips = c.plugin.skip_exclude
 
     def exclude(p):
-        any([fnmatch.fnmatch(p, e) for e in excludes])
+        return any(fnmatch.fnmatch(p, e) for e in excludes)
 
     if not items:
         return []
@@ -1309,17 +1314,18 @@ def compile_files(c, clean=False):
         res_count = 0
         skip_count = 0
         for res in res_files:
-            if os.path.exists(res):
-                (base, ext) = os.path.splitext(res)
-                output = f"{base}.py"
-                if clean or file_changed(res, output):
-                    print(f"Compiling {res} to {output}")
-                    subprocess.check_call([pyrcc_path, "-o", output, res])
-                    res_count += 1
-                else:
-                    skip_count += 1
-            else:
+            if not os.path.exists(res):
                 print(f"{res} does not exist---skipped")
+                continue
+
+            base, _ = os.path.splitext(res)
+            output = f"{base}.py"
+            if clean or file_changed(res, output):
+                print(f"Compiling {res} to {output}")
+                subprocess.check_call([pyrcc_path, "-o", output, res])
+                res_count += 1
+            else:
+                skip_count += 1
         print(f"Compiled {res_count} resource files. Skipped {skip_count}.")
 
 
@@ -1344,7 +1350,7 @@ def check_path(app):
     folders.extend(
         [x[0] for x in os.walk(os.path.join(os.path.dirname(sys.executable), "Lib"))]
     )
-    fpath, fname = os.path.split(app)
+    fpath, _ = os.path.split(app)
 
     if fpath:
         if is_exe(app):
@@ -1512,25 +1518,23 @@ def docs_spellcheck(c, ignore_errors=False, language=None, fast=False):
         languages = [c.sphinx.base_language]
         languages.extend(c.plugin.translations)
 
-    for language in languages:
-        print(f"\nBuilding {language} documentation...")
-        SPHINX_OPTS = (
-            f"-t language_{language} -A language={language} {c.sphinx.sourcedir}"
-        )
+    for current_language in languages:
+        print(f"\nBuilding {current_language} documentation...")
+        SPHINX_OPTS = f"-t language_{current_language} -A language={current_language} {c.sphinx.sourcedir}"
 
-        if language != "en" or ignore_errors:
+        if current_language != "en" or ignore_errors:
             subprocess.check_call(
                 c.sphinx.sphinx_intl.split()
                 + ["-b", "spelling", "-a"]
                 + SPHINX_OPTS.split()
-                + [f"{c.sphinx.builddir}/html/{language}"]
+                + [f"{c.sphinx.builddir}/html/{current_language}"]
             )
         else:
             subprocess.check_call(
                 c.sphinx.sphinx_build.split()
                 + ["-n", "-W", "-b", "spelling", "-a"]
                 + SPHINX_OPTS.split()
-                + [f"{c.sphinx.builddir}/html/{language}"]
+                + [f"{c.sphinx.builddir}/html/{current_language}"]
             )
 
         if fast:
@@ -1577,15 +1581,13 @@ def docs_build(
 
     client = _get_s3_client()
 
-    for language in languages:
-        print(f"\nBuilding {language} documentation...")
-        SPHINX_OPTS = (
-            f"-t language_{language} -A language={language} {c.sphinx.sourcedir}"
-        )
+    for current_language in languages:
+        print(f"\nBuilding {current_language} documentation...")
+        SPHINX_OPTS = f"-t language_{current_language} -A language={current_language} {c.sphinx.sourcedir}"
 
-        print(f"\nLocalizing resources for {language} documentation...")
+        print(f"\nLocalizing resources for {current_language} documentation...")
 
-        localize_resources(c, language)
+        localize_resources(c, current_language)
 
         subprocess.check_call(
             c.sphinx.sphinx_intl.split()
@@ -1593,16 +1595,16 @@ def docs_build(
                 "--config",
                 f"{c.sphinx.sourcedir}/conf.py",
                 "build",
-                f"--language={language}",
+                f"--language={current_language}",
             ]
         )
 
-        if language != "en" or ignore_errors:
+        if current_language != "en" or ignore_errors:
             subprocess.check_call(
                 c.sphinx.sphinx_build.split()
                 + ["-b", "html", "-a"]
                 + SPHINX_OPTS.split()
-                + [f"{c.sphinx.builddir}/html/{language}"]
+                + [f"{c.sphinx.builddir}/html/{current_language}"]
             )
         else:
             subprocess.check_call(
@@ -1764,7 +1766,7 @@ def changelog_build(c):
         out_txt.extend(line)
 
     out_file = f"{c.sphinx.docroot}/source/for_developers/changelog.rst"
-    with open(out_file, "w") as fout:
+    with open(out_file, "w", encoding="utf-8") as fout:
         metadata = fout.writelines(out_txt)
 
 
@@ -1786,7 +1788,7 @@ def _load_country_names():
                 iso_to_name[iso_code] = country_name
 
         return iso_to_name
-    except Exception as e:
+    except (OSError, TypeError, ValueError, json.JSONDecodeError) as e:
         print(f"Warning: Could not load country names from boundaries list: {e}")
         return {}
 
@@ -1966,7 +1968,9 @@ These data are processed in accordance with the [Good Practice Guidance for Nati
         out_txt += _make_drought_download_row(c, iso, values, country_names)
 
     with open(
-        os.path.join(os.path.dirname(__file__), c.data_downloads.downloads_page), "w"
+        os.path.join(os.path.dirname(__file__), c.data_downloads.downloads_page),
+        "w",
+        encoding="utf-8",
     ) as fout:
         fout.writelines(out_txt)
 
@@ -2031,7 +2035,7 @@ def generate_plugin_repo_xml(
                 "url": prerelease_url,
                 "published_at": datetime.strptime(
                     prerelease_time, "%Y-%m-%dT%H:%M:%SZ"
-                ),
+                ).replace(tzinfo=timezone.utc),
             }
         ]
     else:
@@ -2068,8 +2072,8 @@ def generate_plugin_repo_xml(
             repository=metadata.get("repository"),
             tags=metadata.get("tags"),
         )
-        contents = "\n".join((contents, fragment))
-    contents = "\n".join((contents, "</plugins>"))
+        contents = f"{contents}\n{fragment}"
+    contents = f"{contents}\n</plugins>"
     repo_index = repo_base_dir / "plugins.xml"
     repo_index.write_text(contents, encoding="utf-8")
 
@@ -2086,7 +2090,7 @@ def _get_metadata(c):
     metadata = {}
     metadata_path = os.path.join(c.plugin.source_dir, "metadata.txt")
 
-    with open(metadata_path, "r") as fh:
+    with open(metadata_path, "r", encoding="utf-8") as fh:
         for line in fh:
             # Skip empty lines
             line = line.strip()
@@ -2144,12 +2148,12 @@ def _get_existing_releases(c):
                         "url": zip_download_url,
                         "published_at": datetime.strptime(
                             release["published_at"], "%Y-%m-%dT%H:%M:%SZ"
-                        ),
+                        ).replace(tzinfo=timezone.utc),
                     }
                 )
     else:
         # Handle the case where GitHub API returns an error
-        raise Exception(
+        raise ReleaseFetchError(
             f"Failed to fetch releases: {response.status_code} {response.text}"
         )
 
@@ -2247,11 +2251,7 @@ def zipfile_build(
 
     package_dir = c.plugin.package_dir
 
-    if sys.version_info[0] < 3:
-        if not os.path.exists(package_dir):
-            os.makedirs(package_dir)
-    else:
-        os.makedirs(package_dir, exist_ok=True)
+    os.makedirs(package_dir, exist_ok=True)
 
     if not filename:
         # Use plugin version in filename instead of QGIS version
@@ -2341,25 +2341,18 @@ def zipfile_deploy(c, qgis, clean=True, pip="pip", tag=False, filename=None):
     client = _get_s3_client()
 
     print("Uploading package to S3")
-    data = open(filename, "rb")
-    client.put_object(
-        Key=f"sharing/{os.path.basename(filename)}",
-        Body=data,
-        Bucket=c.sphinx.zipfile_deploy_s3_bucket,
-    )
-    data.close()
+    with open(filename, "rb") as data:
+        client.put_object(
+            Key=f"sharing/{os.path.basename(filename)}",
+            Body=data,
+            Bucket=c.sphinx.zipfile_deploy_s3_bucket,
+        )
     print("Package uploaded")
 
 
 # Function
 def _recursive_dir_create(d):
-    if sys.version_info[0] < 3:
-        if not os.path.exists(d):
-            os.makedirs(os.path.join(os.path.abspath(os.path.dirname(d)), ""))
-    else:
-        os.makedirs(
-            os.path.join(os.path.abspath(os.path.dirname(d)), ""), exist_ok=True
-        )
+    os.makedirs(os.path.abspath(os.path.dirname(d)), exist_ok=True)
 
 
 def _get_s3_client():
@@ -2382,10 +2375,14 @@ def _get_s3_client():
     return client
 
 
-def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
+def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=None):
+    if patterns is None:
+        patterns = ["*"]
     client = _get_s3_client()
 
-    objects = client.list_objects(Bucket=bucket, Prefix=f"{s3_prefix}/")["Contents"]
+    objects = client.list_objects(Bucket=bucket, Prefix=f"{s3_prefix}/").get(
+        "Contents", []
+    )
 
     for obj in objects:
         filename = os.path.basename(obj["Key"])
@@ -2411,13 +2408,12 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
                     print(
                         f"Local version of {filename} is newer than on S3 - copying to S3."
                     )
-                    data = open(local_path, "rb")
-                    client.put_object(
-                        Key=f"{s3_prefix}/{os.path.basename(filename)}",
-                        Body=data,
-                        Bucket=bucket,
-                    )
-                    data.close()
+                    with open(local_path, "rb") as data:
+                        client.put_object(
+                            Key=f"{s3_prefix}/{os.path.basename(filename)}",
+                            Body=data,
+                            Bucket=bucket,
+                        )
                 else:
                     print(
                         f"S3 version of {filename} is newer than local - copying to local."
@@ -2440,7 +2436,9 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
     # Now copy back to S3 any files that aren't yet there
     files = [glob.glob(pattern) for pattern in patterns]
     files = [item for sublist in files for item in sublist]
-    s3_objects = client.list_objects(Bucket=bucket, Prefix=f"{s3_prefix}/")["Contents"]
+    s3_objects = client.list_objects(Bucket=bucket, Prefix=f"{s3_prefix}/").get(
+        "Contents", []
+    )
     s3_object_names = [os.path.basename(obj["Key"]) for obj in s3_objects]
 
     for f in files:
@@ -2449,22 +2447,19 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=["*"]):
 
         if os.path.basename(f) not in s3_object_names:
             print(f"S3 is missing {f} - copying to S3.")
-            data = open(f, "rb")
-            client.put_object(
-                Key=f"{s3_prefix}/{os.path.basename(f)}",
-                Body=data,
-                Bucket=bucket,
-            )
-            data.close()
+            with open(f, "rb") as data:
+                client.put_object(
+                    Key=f"{s3_prefix}/{os.path.basename(f)}",
+                    Body=data,
+                    Bucket=bucket,
+                )
 
 
 def _check_hash(expected, filename):
-    md5hash = hashlib.md5(open(filename, "rb").read()).hexdigest()
+    with open(filename, "rb") as handle:
+        md5hash = hashlib.md5(handle.read()).hexdigest()
 
-    if md5hash == expected:
-        return True
-    else:
-        return False
+    return md5hash == expected
 
 
 def _get_api_token(c):
@@ -2660,7 +2655,7 @@ def security_scan(c, fix=False):
         "-ll",
         "--quiet",
     ]
-    result = subprocess.run(bandit_cmd, capture_output=True, text=True)
+    result = subprocess.run(bandit_cmd, capture_output=True, text=True, check=False)
     if result.stdout and result.stdout.strip():
         try:
             bandit_scan = json.loads(result.stdout)
@@ -2692,7 +2687,9 @@ def security_scan(c, fix=False):
         "--all-files",
         ".",
     ]
-    result = subprocess.run(ds_cmd, capture_output=True, text=True, cwd=plugin_dir)
+    result = subprocess.run(
+        ds_cmd, capture_output=True, text=True, cwd=plugin_dir, check=False
+    )
     if result.returncode != 0:
         print(result.stderr)
     elif result.stdout and result.stdout.strip():
@@ -2723,7 +2720,7 @@ def security_scan(c, fix=False):
         plugin_dir,
         f"--exclude={ext_libs}",
     ]
-    subprocess.run(flake8_cmd)
+    subprocess.run(flake8_cmd, check=False)
 
 
 ns = Collection(

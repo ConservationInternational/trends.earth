@@ -5,6 +5,8 @@ import unittest
 import uuid
 from unittest.mock import Mock
 
+UTC = datetime.timezone.utc
+
 from qgis.PyQt import QtCore
 from te_schemas.jobs import JobStatus
 from utilities_for_testing import get_qgis_app
@@ -88,7 +90,8 @@ class TestJobsFilterNoneDates(unittest.TestCase):
         """Test that filterAcceptsRow handles None start_date without crashing"""
         # Create a job with None start_date (this is the bug scenario)
         job_with_none_start = create_mock_job(
-            start_date=None, end_date=datetime.datetime(2025, 10, 1, 12, 0, 0)
+            start_date=None,
+            end_date=datetime.datetime(2025, 10, 1, 12, 0, 0, tzinfo=UTC),
         )
 
         # Create a simple test model
@@ -124,7 +127,8 @@ class TestJobsFilterNoneDates(unittest.TestCase):
         """Test that filterAcceptsRow handles None end_date without crashing"""
         # Create a job with None end_date
         job_with_none_end = create_mock_job(
-            start_date=datetime.datetime(2025, 1, 1, 12, 0, 0), end_date=None
+            start_date=datetime.datetime(2025, 1, 1, 12, 0, 0, tzinfo=UTC),
+            end_date=None,
         )
 
         # Create a simple test model
@@ -190,8 +194,8 @@ class TestJobsFilterNoneDates(unittest.TestCase):
         """Test that filtering works correctly with valid dates"""
         # Create a job within the date range
         job_in_range = create_mock_job(
-            start_date=datetime.datetime(2025, 1, 15, 12, 0, 0),
-            end_date=datetime.datetime(2025, 1, 16, 12, 0, 0),
+            start_date=datetime.datetime(2025, 1, 15, 12, 0, 0, tzinfo=UTC),
+            end_date=datetime.datetime(2025, 1, 16, 12, 0, 0, tzinfo=UTC),
         )
 
         # Create a simple test model
@@ -221,8 +225,8 @@ class TestJobsFilterNoneDates(unittest.TestCase):
         """Test that filtering rejects jobs outside the date range"""
         # Create a job outside the date range (February)
         job_out_of_range = create_mock_job(
-            start_date=datetime.datetime(2025, 2, 15, 12, 0, 0),
-            end_date=datetime.datetime(2025, 2, 16, 12, 0, 0),
+            start_date=datetime.datetime(2025, 2, 15, 12, 0, 0, tzinfo=UTC),
+            end_date=datetime.datetime(2025, 2, 16, 12, 0, 0, tzinfo=UTC),
         )
 
         # Create a simple test model

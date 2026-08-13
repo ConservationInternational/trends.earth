@@ -285,7 +285,7 @@
           <item>
            <widget class="QCheckBox" name="email_subscription_news">
             <property name="text">
-             <string>News and updates</string>
+                     <string>General Trends.Earth news and updates</string>
             </property>
             <property name="checked">
              <bool>false</bool>

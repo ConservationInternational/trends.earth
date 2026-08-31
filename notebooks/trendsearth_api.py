@@ -481,9 +481,7 @@ class TrendsEarthAPIClient:
         sanitized_name = task_name.replace(" ", "_").replace("/", "_")[:50]
         return f"{sanitized_name}-{job_id[:8]}"
 
-    def download_job(
-        self, job_dict: dict, output_dir: str | Path
-    ) -> Path | None:
+    def download_job(self, job_dict: dict, output_dir: str | Path) -> Path | None:
         """
         Download a completed job's TIFF results by parsing URLs from execution results.
 

@@ -466,6 +466,81 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
         self.button_add_to_list.clicked.connect(self.accept)
         self.button_browse_file.clicked.connect(self.open_vector_browse)
 
+        self.populate_layer_combo()
+        self.layer_combo.currentIndexChanged.connect(self.populate_features_list)
+
+        self.populate_features_list()
+
+    def populate_layer_combo(self):
+        self.layer_combo.clear()
+
+        polygon_layers = [
+            layer
+            for layer in qgis.core.QgsProject.instance().mapLayers().values()
+            if isinstance(layer, qgis.core.QgsVectorLayer)
+            and layer.geometryType() == qgis.core.QgsWkbTypes.PolygonGeometry
+        ]
+
+        if not polygon_layers:
+            self.layer_combo.addItem(self.tr("No polygon layers loaded"), None)
+            self.layer_combo.setEnabled(False)
+            return
+
+        self.layer_combo.setEnabled(True)
+        for layer in polygon_layers:
+            self.layer_combo.addItem(
+                self.tr("{} ({} features)").format(layer.name(), layer.featureCount()),
+                layer.id(),
+            )
+
+    def current_layer(self):
+        layer_id = self.layer_combo.currentData()
+
+        if not layer_id:
+            return None
+
+        return qgis.core.QgsProject.instance().mapLayer(layer_id)
+
+    def populate_features_list(self):
+        self.features_list.clear()
+
+        layer = self.current_layer()
+
+        if layer is None:
+            self.features_list.setEnabled(False)
+            return
+
+        self.features_list.setEnabled(True)
+        display_expression = layer.displayExpression() or ""
+
+        feature_labels = []
+
+        for feature in layer.getFeatures():
+            if display_expression:
+                context = qgis.core.QgsExpressionContext()
+                context.setFeature(feature)
+                label = qgis.core.QgsExpression(display_expression).evaluate(context)
+                label = str(label) if label not in (None, "") else str(feature.id())
+            else:
+                label = str(feature.id())
+
+            feature_labels.append((label, feature.id()))
+            feature_labels.sort(key=lambda x: x[0])
+
+        for feature_label, feature_id in feature_labels:
+            item = QtWidgets.QListWidgetItem(feature_label)
+            item.setData(QtCore.Qt.UserRole, feature_id)
+            item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+            item.setCheckState(QtCore.Qt.Unchecked)
+            self.features_list.addItem(item)
+
+    def selected_feature_ids(self):
+        return [
+            self.features_list.item(row).data(QtCore.Qt.UserRole)
+            for row in range(self.features_list.count())
+            if self.features_list.item(row).checkState() == QtCore.Qt.Checked
+        ]
+
     def open_vector_browse(self):
         vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
@@ -1041,10 +1116,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.label_subnational_count.setText(self.tr("0 units defined"))
 
     def open_add_subnational_unit_dialog(self):
-        # UI only for now - adding the unit to the table/settings is not
-        # yet implemented.
         dialog = DlgAddSubnationalUnit(self)
-        dialog.exec_()
+        dialog.exec()
 
 
 class ProfileFormMixin:

@@ -500,6 +500,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.buffer_size_km.valueChanged.connect(self.generate_name_setting)
         self.checkbox_buffer.toggled.connect(self.generate_name_setting)
 
+        self._setup_subnational_table()
+        self.button_add_subnational_unit.setEnabled(False)
+        self.button_add_subnational_unit.setToolTip(
+            self.tr("Adding subnational units is not yet available")
+        )
+
         # Initial population first
         self.populate_admin_1()
         self.populate_cities()
@@ -609,6 +615,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.checkbox_buffer.setChecked(buffer_checked)
         self.area_settings_name.setText(settings_manager.get_value(Setting.AREA_NAME))
         self.generate_name_setting()
+
+        self.checkbox_subnational.setChecked(
+            settings_manager.get_value(Setting.SUBNATIONAL_ENABLED)
+        )
+        self.frame_subnational.setVisible(self.checkbox_subnational.isChecked())
 
     def populate_cities(self):
         country_code = self.area_admin_0.currentData()
@@ -971,8 +982,35 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         )
         settings_manager.write_value(Setting.BUFFER_SIZE, self.buffer_size_km.value())
         settings_manager.write_value(Setting.AREA_NAME, self.area_settings_name.text())
+        settings_manager.write_value(
+            Setting.SUBNATIONAL_ENABLED, self.checkbox_subnational.isChecked()
+        )
 
         log("area settings have been saved")
+
+    def _setup_subnational_table(self):
+        self.table_subnational_units.setColumnCount(5)
+        self.table_subnational_units.setHorizontalHeaderLabels(
+            ["", "Unit name", "Source", "Area (approx.)", ""]
+        )
+        header = self.table_subnational_units.horizontalHeader()
+        header.setStretchLastSection(False)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        self.table_subnational_units.verticalHeader().setVisible(False)
+        self._refresh_subnational_table()
+
+    def _refresh_subnational_table(self):
+        # No units are persisted yet; show the empty-state placeholder row.
+        self.table_subnational_units.setRowCount(0)
+        self.table_subnational_units.setRowCount(1)
+        placeholder = QtWidgets.QTableWidgetItem(
+            self.tr('No subnational units defined yet, use "Add unit" below.')
+        )
+        placeholder.setTextAlignment(QtCore.Qt.AlignCenter)
+        placeholder.setFlags(QtCore.Qt.ItemIsEnabled)
+        self.table_subnational_units.setSpan(0, 0, 1, 5)
+        self.table_subnational_units.setItem(0, 0, placeholder)
+        self.label_subnational_count.setText(self.tr("0 units defined"))
 
 
 class ProfileFormMixin:

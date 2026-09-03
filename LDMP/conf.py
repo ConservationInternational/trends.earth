@@ -120,6 +120,7 @@ class Setting(enum.Enum):
     CITY_ID = "region_of_interest/country/city_id"
     BUFFER_SIZE = "region_of_interest/buffer_size"
     AREA_NAME = "region_of_interest/area_settings_name"
+    SUBNATIONAL_ENABLED = "region_of_interest/subnational_enabled"
     JOB_FILE_AGE_LIMIT_DAYS = "advanced/deleted_datasets_age_limit"
     DEFINITIONS_DIRECTORY = "advanced/definitions_directory"
     REPORT_TEMPLATE_SEARCH_PATH = "report/template_search_path"
@@ -186,6 +187,7 @@ class SettingsManager:
         Setting.CITY_ID: "",
         Setting.BUFFER_SIZE: 0.0,
         Setting.AREA_NAME: "",
+        Setting.SUBNATIONAL_ENABLED: False,
         Setting.USER_ID: None,
         Setting.JOB_FILE_AGE_LIMIT_DAYS: 15,
         Setting.REPORT_TEMPLATE_SEARCH_PATH: "",

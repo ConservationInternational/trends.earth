@@ -521,6 +521,107 @@
         </item>
        </layout>
       </item>
+      <item>
+       <widget class="QCheckBox" name="checkbox_subnational">
+        <property name="text">
+         <string>Divide into subnational analysis units</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_subnational">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_subnational">
+         <item>
+          <widget class="QTableWidget" name="table_subnational_units">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>#</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Unit name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Source</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Area (approx.)</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string/>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_subnational_toolbar">
+           <item>
+            <widget class="QPushButton" name="button_add_subnational_unit">
+             <property name="text">
+              <string>+ Add unit</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_subnational">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_subnational_count">
+             <property name="text">
+              <string>0 units defined</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_subnational_panel_hint">
+           <property name="text">
+            <string>Each unit must fall within the region selected above.</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -543,6 +644,12 @@
      <y>566</y>
     </hint>
    </hints>
+  </connection>
+  <connection>
+   <sender>checkbox_subnational</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>frame_subnational</receiver>
+   <slot>setVisible(bool)</slot>
   </connection>
  </connections>
  <buttongroups>

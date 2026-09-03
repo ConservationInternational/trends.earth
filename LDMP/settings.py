@@ -60,6 +60,9 @@ Ui_DlgSettingsRegister, _ = uic.loadUiType(
 Ui_WidgetSelectArea, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSelectArea.ui")
 )
+Ui_DlgAddSubnationalUnit, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgAddSubnationalUnit.ui")
+)
 Ui_WidgetSettingsAdvanced, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSettingsAdvanced.ui")
 )
@@ -449,6 +452,32 @@ class AreaWidgetSection(Flag):
     DISCLAIMER = auto()
 
 
+class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
+    """
+    Dialog for defining a subnational analysis unit.
+    """
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setupUi(self)
+
+        self.button_cancel.clicked.connect(self.reject)
+        self.button_add_to_list.clicked.connect(self.accept)
+        self.button_browse_file.clicked.connect(self.open_vector_browse)
+
+    def open_vector_browse(self):
+        vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr("Select a polygon file defining this unit"),
+            str(Path.home()),
+            self.tr("Vector file (*.shp *.gpkg *.geojson)"),
+        )
+
+        if vector_file:
+            self.upload_file_path.setText(vector_file)
+
+
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     admin_bounds_key: dict[str, download.Country]
     cities: dict[str, dict[str, download.City]]
@@ -501,9 +530,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.checkbox_buffer.toggled.connect(self.generate_name_setting)
 
         self._setup_subnational_table()
-        self.button_add_subnational_unit.setEnabled(False)
-        self.button_add_subnational_unit.setToolTip(
-            self.tr("Adding subnational units is not yet available")
+        self.button_add_subnational_unit.clicked.connect(
+            self.open_add_subnational_unit_dialog
         )
 
         # Initial population first
@@ -1011,6 +1039,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.table_subnational_units.setSpan(0, 0, 1, 5)
         self.table_subnational_units.setItem(0, 0, placeholder)
         self.label_subnational_count.setText(self.tr("0 units defined"))
+
+    def open_add_subnational_unit_dialog(self):
+        # UI only for now - adding the unit to the table/settings is not
+        # yet implemented.
+        dialog = DlgAddSubnationalUnit(self)
+        dialog.exec_()
 
 
 class ProfileFormMixin:

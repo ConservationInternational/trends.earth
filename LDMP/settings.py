@@ -15,6 +15,7 @@ import csv
 import functools
 import json
 import os
+import uuid
 from enum import Flag, auto
 from pathlib import Path
 
@@ -1245,7 +1246,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         dialog = DlgAddSubnationalUnit(self)
 
         if dialog.exec() == QtWidgets.QDialog.Accepted:
-            self.subnational_units.append(self._unit_dict_from_dialog(dialog))
+            unit = self._unit_dict_from_dialog(dialog)
+            unit["id"] = str(uuid.uuid4())
+            self.subnational_units.append(unit)
             self._refresh_subnational_table()
 
     def edit_subnational_unit(self, row):
@@ -1257,7 +1260,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         )
 
         if dialog.exec() == QtWidgets.QDialog.Accepted:
-            self.subnational_units[row] = self._unit_dict_from_dialog(dialog)
+            updated_unit = self._unit_dict_from_dialog(dialog)
+            updated_unit["id"] = unit.get("id") or str(uuid.uuid4())
+            self.subnational_units[row] = updated_unit
             self._refresh_subnational_table()
 
     def delete_subnational_unit(self, row):

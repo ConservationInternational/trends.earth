@@ -1062,6 +1062,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.radio_lpd_fwv2.toggled.connect(self.toggle_lpd_options)
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
+        self.subnational_matrix_widgets: dict[
+            str, lc_setup.LCDefineDegradationWidget
+        ] = {}
 
         self.checkBox_progress_period.toggled.connect(self.toggle_progress_period)
         self.toggle_progress_period()
@@ -2000,6 +2003,47 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             layout.setSpacing(1)
             layout.addWidget(self.lc_define_deg_widget)
             self.effects_content.setLayout(layout)
+
+        self._setup_subnational_matrix_tabs()
+
+    def _setup_subnational_matrix_tabs(self):
+        """
+        When subnational analysis units are defined, show one land cover
+        transition matrix tab per unit (each with its own persisted matrix)
+        instead of the single plugin-wide matrix widget.
+        """
+        subnational_enabled = conf.settings_manager.get_value(
+            conf.Setting.SUBNATIONAL_ENABLED
+        )
+        units = []
+        if subnational_enabled:
+            try:
+                units = json.loads(
+                    conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS)
+                    or "[]"
+                )
+            except (TypeError, ValueError):
+                units = []
+
+        if not units:
+            self.land_cover_effects.setVisible(True)
+            self.land_cover_subnational_matrices.setVisible(False)
+            return
+
+        self.land_cover_effects.setVisible(False)
+        self.land_cover_subnational_matrices.setVisible(True)
+
+        if self.subnational_matrix_tabs.count() > 0:
+            # Already built for this dialog instance.
+            return
+
+        for unit in units:
+            unit_id = unit.get("id")
+            widget = lc_setup.LCDefineDegradationWidget(unit_key=unit_id)
+            self.subnational_matrix_widgets[unit_id] = widget
+            self.subnational_matrix_tabs.addTab(
+                widget, unit.get("name") or self.tr("Unit")
+            )
 
     def toggle_progress_period(self):
         if self.checkBox_progress_period.isChecked():

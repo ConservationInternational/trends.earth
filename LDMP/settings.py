@@ -462,6 +462,11 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
 
         self.setupUi(self)
 
+        self.button_add_to_list.setEnabled(False)
+        self.features_list.itemChanged.connect(self.update_add_button_state)
+
+        self.unit_name.textChanged.connect(self.update_add_button_state)
+
         self.button_cancel.clicked.connect(self.reject)
         self.button_add_to_list.clicked.connect(self.accept)
         self.button_browse_file.clicked.connect(self.open_vector_browse)
@@ -503,6 +508,7 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
 
     def populate_features_list(self):
         self.features_list.clear()
+        self.update_add_button_state()
 
         layer = self.current_layer()
 
@@ -533,6 +539,16 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
             item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
             item.setCheckState(QtCore.Qt.Unchecked)
             self.features_list.addItem(item)
+
+    def update_add_button_state(self, *args):
+        has_name = len(self.unit_name.text().strip()) > 0
+
+        has_checked_item = any(
+            self.features_list.item(i).checkState() == QtCore.Qt.Checked
+            for i in range(self.features_list.count())
+        )
+
+        self.button_add_to_list.setEnabled(has_name and has_checked_item)
 
     def selected_feature_ids(self):
         return [

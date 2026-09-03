@@ -12,6 +12,8 @@
 """
 
 import csv
+import functools
+import json
 import os
 from enum import Flag, auto
 from pathlib import Path
@@ -37,7 +39,7 @@ from .constants import TIMEOUT, get_api_url
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils, LCClassInfo, get_default_esa_nesting
 from .logger import log
-from .utils import FileUtils, push_message
+from .utils import FileUtils, compute_features_area_km2, push_message
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
@@ -557,6 +559,29 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
             if self.features_list.item(row).checkState() == QtCore.Qt.Checked
         ]
 
+    def get_unit_data(self):
+        return {
+            "name": self.unit_name.text().strip(),
+            "source": self.tr("QGIS layer"),
+            "layer": self.current_layer(),
+            "feature_ids": self.selected_feature_ids(),
+        }
+
+    def set_initial_data(self, name, layer_id, feature_ids):
+        self.unit_name.setText(name)
+
+        index = self.layer_combo.findData(layer_id)
+        if index != -1:
+            self.layer_combo.setCurrentIndex(index)
+
+        feature_ids = set(feature_ids or [])
+        for row in range(self.features_list.count()):
+            item = self.features_list.item(row)
+            if item.data(QtCore.Qt.UserRole) in feature_ids:
+                item.setCheckState(QtCore.Qt.Checked)
+
+        self.update_add_button_state()
+
     def open_vector_browse(self):
         vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
@@ -620,6 +645,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.buffer_size_km.valueChanged.connect(self.generate_name_setting)
         self.checkbox_buffer.toggled.connect(self.generate_name_setting)
 
+        self.subnational_units = []
         self._setup_subnational_table()
         self.button_add_subnational_unit.clicked.connect(
             self.open_add_subnational_unit_dialog
@@ -739,6 +765,14 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             settings_manager.get_value(Setting.SUBNATIONAL_ENABLED)
         )
         self.frame_subnational.setVisible(self.checkbox_subnational.isChecked())
+
+        try:
+            self.subnational_units = json.loads(
+                settings_manager.get_value(Setting.SUBNATIONAL_UNITS) or "[]"
+            )
+        except (TypeError, ValueError):
+            self.subnational_units = []
+        self._refresh_subnational_table()
 
     def populate_cities(self):
         country_code = self.area_admin_0.currentData()
@@ -1104,36 +1138,179 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         settings_manager.write_value(
             Setting.SUBNATIONAL_ENABLED, self.checkbox_subnational.isChecked()
         )
+        settings_manager.write_value(
+            Setting.SUBNATIONAL_UNITS, json.dumps(self.subnational_units)
+        )
 
         log("area settings have been saved")
 
     def _setup_subnational_table(self):
-        self.table_subnational_units.setColumnCount(5)
+        self.table_subnational_units.setColumnCount(6)
         self.table_subnational_units.setHorizontalHeaderLabels(
-            ["", "Unit name", "Source", "Area (approx.)", ""]
+            ["", "Unit name", "Source", "Features", "Area (approx.)", ""]
         )
         header = self.table_subnational_units.horizontalHeader()
         header.setStretchLastSection(False)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(5, QtWidgets.QHeaderView.Fixed)
+        self.table_subnational_units.setColumnWidth(5, 190)
         self.table_subnational_units.verticalHeader().setVisible(False)
         self._refresh_subnational_table()
 
     def _refresh_subnational_table(self):
-        # No units are persisted yet; show the empty-state placeholder row.
         self.table_subnational_units.setRowCount(0)
-        self.table_subnational_units.setRowCount(1)
-        placeholder = QtWidgets.QTableWidgetItem(
-            self.tr('No subnational units defined yet, use "Add unit" below.')
+
+        if not self.subnational_units:
+            # No units defined yet; show the empty-state placeholder row.
+            self.table_subnational_units.setRowCount(1)
+            placeholder = QtWidgets.QTableWidgetItem(
+                self.tr('No subnational units defined yet, use "Add unit" below.')
+            )
+            placeholder.setTextAlignment(QtCore.Qt.AlignCenter)
+            placeholder.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.table_subnational_units.setSpan(0, 0, 1, 6)
+            self.table_subnational_units.setItem(0, 0, placeholder)
+            self.label_subnational_count.setText(self.tr("0 units defined"))
+            return
+
+        self.table_subnational_units.setRowCount(len(self.subnational_units))
+        total_area_km2 = 0.0
+
+        for row, unit in enumerate(self.subnational_units):
+            self.table_subnational_units.setItem(
+                row, 0, QtWidgets.QTableWidgetItem(str(row + 1))
+            )
+            self.table_subnational_units.setItem(
+                row, 1, QtWidgets.QTableWidgetItem(unit["name"])
+            )
+            self.table_subnational_units.setItem(
+                row, 2, QtWidgets.QTableWidgetItem(unit["source"])
+            )
+
+            feature_labels = unit.get("feature_labels") or []
+            if not feature_labels:
+                features_text = self.tr("—")
+            elif len(feature_labels) <= 2:
+                features_text = ", ".join(feature_labels)
+            else:
+                features_text = self.tr("{} features").format(len(feature_labels))
+            features_item = QtWidgets.QTableWidgetItem(features_text)
+            features_item.setToolTip(", ".join(feature_labels))
+            self.table_subnational_units.setItem(row, 3, features_item)
+
+            self.table_subnational_units.setItem(
+                row,
+                4,
+                QtWidgets.QTableWidgetItem(
+                    self.tr("{:,.0f} km2").format(unit["area_km2"])
+                ),
+            )
+            self.table_subnational_units.setCellWidget(
+                row, 5, self._build_subnational_row_actions(row)
+            )
+            total_area_km2 += unit["area_km2"]
+
+        self.label_subnational_count.setText(
+            self.tr("{} unit(s) defined, covering {:,.0f} km2").format(
+                len(self.subnational_units), total_area_km2
+            )
         )
-        placeholder.setTextAlignment(QtCore.Qt.AlignCenter)
-        placeholder.setFlags(QtCore.Qt.ItemIsEnabled)
-        self.table_subnational_units.setSpan(0, 0, 1, 5)
-        self.table_subnational_units.setItem(0, 0, placeholder)
-        self.label_subnational_count.setText(self.tr("0 units defined"))
+
+    def _build_subnational_row_actions(self, row):
+        widget = QtWidgets.QWidget()
+        layout = QtWidgets.QHBoxLayout(widget)
+        layout.setContentsMargins(2, 0, 2, 0)
+        layout.setSpacing(4)
+
+        button_edit = QtWidgets.QPushButton(
+            QIcon(os.path.join(ICON_PATH, "mActionToggleEditing.svg")),
+            self.tr("Edit"),
+        )
+        button_edit.clicked.connect(functools.partial(self.edit_subnational_unit, row))
+        layout.addWidget(button_edit)
+
+        button_delete = QtWidgets.QPushButton(
+            QIcon(os.path.join(ICON_PATH, "mActionDeleteSelected.svg")),
+            self.tr("Delete"),
+        )
+        button_delete.setToolTip(self.tr("Remove this unit"))
+        button_delete.clicked.connect(
+            functools.partial(self.delete_subnational_unit, row)
+        )
+        layout.addWidget(button_delete)
+
+        return widget
 
     def open_add_subnational_unit_dialog(self):
         dialog = DlgAddSubnationalUnit(self)
-        dialog.exec()
+
+        if dialog.exec() == QtWidgets.QDialog.Accepted:
+            self.subnational_units.append(self._unit_dict_from_dialog(dialog))
+            self._refresh_subnational_table()
+
+    def edit_subnational_unit(self, row):
+        unit = self.subnational_units[row]
+
+        dialog = DlgAddSubnationalUnit(self)
+        dialog.set_initial_data(
+            unit["name"], unit.get("layer_id"), unit.get("feature_ids")
+        )
+
+        if dialog.exec() == QtWidgets.QDialog.Accepted:
+            self.subnational_units[row] = self._unit_dict_from_dialog(dialog)
+            self._refresh_subnational_table()
+
+    def delete_subnational_unit(self, row):
+        unit = self.subnational_units[row]
+
+        answer = QtWidgets.QMessageBox.warning(
+            self,
+            self.tr("Remove subnational unit"),
+            self.tr('Remove the unit "{}"? This cannot be undone.').format(
+                unit["name"]
+            ),
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No,
+        )
+
+        if answer != QtWidgets.QMessageBox.Yes:
+            return
+
+        del self.subnational_units[row]
+        self._refresh_subnational_table()
+
+    def _unit_dict_from_dialog(self, dialog):
+        unit_data = dialog.get_unit_data()
+        layer = unit_data["layer"]
+
+        return {
+            "name": unit_data["name"],
+            "source": unit_data["source"],
+            "area_km2": compute_features_area_km2(layer, unit_data["feature_ids"]),
+            "layer_id": layer.id() if layer is not None else None,
+            "feature_ids": unit_data["feature_ids"],
+            "feature_labels": self._get_feature_labels(layer, unit_data["feature_ids"]),
+        }
+
+    def _get_feature_labels(self, layer, feature_ids):
+        if layer is None or not feature_ids:
+            return []
+
+        request = qgis.core.QgsFeatureRequest().setFilterFids(feature_ids)
+        display_expression = layer.displayExpression() or ""
+        labels = []
+
+        for feature in layer.getFeatures(request):
+            if display_expression:
+                context = qgis.core.QgsExpressionContext()
+                context.setFeature(feature)
+                label = qgis.core.QgsExpression(display_expression).evaluate(context)
+                label = str(label) if label not in (None, "") else str(feature.id())
+            else:
+                label = str(feature.id())
+            labels.append(label)
+
+        return sorted(labels)
 
 
 class ProfileFormMixin:

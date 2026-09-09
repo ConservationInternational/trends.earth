@@ -660,7 +660,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.load_settings()
 
         self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
-        self.area_fromadmin.clicked.connect(self.area_type_toggle)
+        self.area_fromadmin.clicked.connect(self._on_admin_selected)
         self.area_fromfile.clicked.connect(self.area_type_toggle)
 
         self.radioButton_secondLevel_region.clicked.connect(
@@ -690,9 +690,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         if area_from_option in {"country_region", "country_city"}:
             self.area_fromadmin.setChecked(True)
+            self.groupbox_other_area_options.setCollapsed(False)
         elif area_from_option == "point":
             self.area_frompoint.setChecked(True)
-        elif area_from_option == "vector_layer":
+            self.groupbox_other_area_options.setCollapsed(False)
+        else:
+            # Default: area from file (encouraged primary option)
             self.area_fromfile.setChecked(True)
 
         self.area_frompoint_point_x.setText(
@@ -882,10 +885,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         return ""
 
     def area_type_toggle(self):
-        # if self.area_frompoint.isChecked():
-        #     self.area_fromfile.setChecked(not self.area_frompoint.isChecked())
-        #     self.area_fromadmin.setChecked(not self.area_frompoint.isChecked())
-
         self.area_frompoint_point_x.setEnabled(self.area_frompoint.isChecked())
         self.area_frompoint_point_y.setEnabled(self.area_frompoint.isChecked())
         self.area_frompoint_choose_point.setEnabled(self.area_frompoint.isChecked())
@@ -893,11 +892,36 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_admin_0.setEnabled(self.area_fromadmin.isChecked())
         self.first_level_label.setEnabled(self.area_fromadmin.isChecked())
         self.second_level.setEnabled(self.area_fromadmin.isChecked())
-        self.label_disclaimer.setEnabled(self.area_fromadmin.isChecked())
 
         self.area_fromfile_file.setEnabled(self.area_fromfile.isChecked())
         self.area_fromfile_browse.setEnabled(self.area_fromfile.isChecked())
         self.generate_name_setting()
+
+    def _on_admin_selected(self):
+        """Show the boundary disclaimer every time user selects Country/Region.
+        If they decline, revert to 'Area from file'."""
+        disclaimer = self.tr(
+            "<p>The provided boundaries are from "
+            "<a href='https://www.geoboundaries.org'>geoBoundaries</a> and are "
+            "under a <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a> "
+            "license.</p>"
+            "<p>The boundaries and names used, and the designations used, in "
+            "Trends.Earth do not imply official endorsement or acceptance by "
+            "Conservation International Foundation, or by its partner organizations "
+            "and contributors.</p>"
+            "<p>Do you wish to continue using these boundaries?</p>"
+        )
+        answer = QtWidgets.QMessageBox.question(
+            self,
+            self.tr("Boundary data disclaimer"),
+            disclaimer,
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No,
+        )
+        if answer != QtWidgets.QMessageBox.Yes:
+            self.area_fromfile.setChecked(True)
+
+        self.area_type_toggle()
 
     def radioButton_secondLevel_toggle(self):
         self.secondLevel_area_admin_1.setEnabled(
@@ -953,9 +977,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.second_level_label.setVisible(show)
             self.second_level.setVisible(show)
 
-        # Disclaimer
-        if bool(sections & AreaWidgetSection.DISCLAIMER):
-            self.label_disclaimer.setVisible(show)
+        # Disclaimer section no longer has an inline label; popup is shown instead.
 
         # Point
         if bool(sections & AreaWidgetSection.POINT):

@@ -977,8 +977,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.second_level_label.setVisible(show)
             self.second_level.setVisible(show)
 
-        # Disclaimer section no longer has an inline label; popup is shown instead.
-
         # Point
         if bool(sections & AreaWidgetSection.POINT):
             self.area_frompoint.setVisible(show)

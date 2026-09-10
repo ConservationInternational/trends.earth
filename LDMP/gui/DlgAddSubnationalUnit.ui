@@ -151,9 +151,6 @@
           <layout class="QHBoxLayout" name="horizontalLayout_file">
            <item>
             <widget class="QLineEdit" name="upload_file_path">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
              <property name="readOnly">
               <bool>true</bool>
              </property>
@@ -164,9 +161,6 @@
            </item>
            <item>
             <widget class="QPushButton" name="button_browse_file">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
              <property name="maximumSize">
               <size>
                <width>80</width>

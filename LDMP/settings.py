@@ -477,6 +477,13 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
         self.populate_layer_combo()
         self.layer_combo.currentIndexChanged.connect(self.populate_features_list)
 
+        self.radio_from_layer.toggled.connect(self._on_method_toggled)
+        self.radio_upload_file.toggled.connect(self._on_method_toggled)
+
+        # Temporary layer loaded from an uploaded file, kept alive for the
+        # dialog lifetime so features can be read from it.
+        self._upload_layer: qgis.core.QgsVectorLayer | None = None
+
         self.populate_features_list()
 
     def populate_layer_combo(self):
@@ -543,17 +550,39 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
             item.setCheckState(QtCore.Qt.Unchecked)
             self.features_list.addItem(item)
 
+    def _on_method_toggled(self):
+        from_layer = self.radio_from_layer.isChecked()
+        self.frame_from_layer.setEnabled(from_layer)
+        self.frame_upload_file.setEnabled(not from_layer)
+        self.update_add_button_state()
+
     def update_add_button_state(self, *args):
         has_name = len(self.unit_name.text().strip()) > 0
 
-        has_checked_item = any(
-            self.features_list.item(i).checkState() == QtCore.Qt.Checked
-            for i in range(self.features_list.count())
-        )
+        if self.radio_from_layer.isChecked():
+            ready = has_name and any(
+                self.features_list.item(i).checkState() == QtCore.Qt.Checked
+                for i in range(self.features_list.count())
+            )
+        else:
+            ready = has_name and bool(self.upload_file_path.text().strip())
 
-        self.button_add_to_list.setEnabled(has_name and has_checked_item)
+        self.button_add_to_list.setEnabled(ready)
+
+    def _active_layer(self):
+        if self.radio_from_layer.isChecked():
+            return self.current_layer()
+        return self._upload_layer
 
     def selected_feature_ids(self):
+        layer = self._active_layer()
+
+        if layer is None:
+            return []
+
+        if self.radio_upload_file.isChecked():
+            return [f.id() for f in layer.getFeatures()]
+
         return [
             self.features_list.item(row).data(QtCore.Qt.UserRole)
             for row in range(self.features_list.count())
@@ -561,25 +590,45 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
         ]
 
     def get_unit_data(self):
+        if self.radio_from_layer.isChecked():
+            source = self.tr("QGIS layer")
+        else:
+            source = self.tr("Uploaded file")
+
         return {
             "name": self.unit_name.text().strip(),
-            "source": self.tr("QGIS layer"),
-            "layer": self.current_layer(),
+            "source": source,
+            "layer": self._active_layer(),
             "feature_ids": self.selected_feature_ids(),
+            "upload_file_path": self.upload_file_path.text().strip()
+            if self.radio_upload_file.isChecked()
+            else None,
         }
 
-    def set_initial_data(self, name, layer_id, feature_ids):
+    def set_initial_data(self, name, layer_id, feature_ids, upload_file_path=None):
         self.unit_name.setText(name)
 
-        index = self.layer_combo.findData(layer_id)
-        if index != -1:
-            self.layer_combo.setCurrentIndex(index)
+        if upload_file_path:
+            # Restore upload mode
+            self.radio_upload_file.setChecked(True)
+            self._on_method_toggled()
+            layer = qgis.core.QgsVectorLayer(upload_file_path, "upload_preview", "ogr")
+            if layer.isValid():
+                self._upload_layer = layer
+                self.upload_file_path.setText(upload_file_path)
+        else:
+            # Restore QGIS layer mode
+            self.radio_from_layer.setChecked(True)
+            self._on_method_toggled()
+            index = self.layer_combo.findData(layer_id)
+            if index != -1:
+                self.layer_combo.setCurrentIndex(index)
 
-        feature_ids = set(feature_ids or [])
-        for row in range(self.features_list.count()):
-            item = self.features_list.item(row)
-            if item.data(QtCore.Qt.UserRole) in feature_ids:
-                item.setCheckState(QtCore.Qt.Checked)
+            feature_ids = set(feature_ids or [])
+            for row in range(self.features_list.count()):
+                item = self.features_list.item(row)
+                if item.data(QtCore.Qt.UserRole) in feature_ids:
+                    item.setCheckState(QtCore.Qt.Checked)
 
         self.update_add_button_state()
 
@@ -588,11 +637,35 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
             self,
             self.tr("Select a polygon file defining this unit"),
             str(Path.home()),
-            self.tr("Vector file (*.shp *.gpkg *.geojson)"),
+            self.tr("Vector file (*.shp *.zip *.kml *.kmz *.gpkg *.geojson)"),
         )
 
-        if vector_file:
-            self.upload_file_path.setText(vector_file)
+        if not vector_file:
+            return
+
+        layer = qgis.core.QgsVectorLayer(vector_file, "upload_preview", "ogr")
+
+        if not layer.isValid():
+            QtWidgets.QMessageBox.critical(
+                self,
+                self.tr("Invalid file"),
+                self.tr(
+                    "Could not load {}. Make sure it is a valid polygon vector file."
+                ).format(vector_file),
+            )
+            return
+
+        if layer.geometryType() != qgis.core.QgsWkbTypes.PolygonGeometry:
+            QtWidgets.QMessageBox.warning(
+                self,
+                self.tr("Not a polygon layer"),
+                self.tr("The selected file does not contain polygon features."),
+            )
+            return
+
+        self._upload_layer = layer
+        self.upload_file_path.setText(vector_file)
+        self.update_add_button_state()
 
 
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
@@ -645,6 +718,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_fromfile_file.textChanged.connect(self.generate_name_setting)
         self.buffer_size_km.valueChanged.connect(self.generate_name_setting)
         self.checkbox_buffer.toggled.connect(self.generate_name_setting)
+        self.checkbox_subnational.toggled.connect(self.generate_name_setting)
 
         self.subnational_units = []
         self._setup_subnational_table()
@@ -1044,6 +1118,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         if self.checkbox_buffer.isChecked():
             name = f"{name}-buffer-{self.buffer_size_km.value():.3f}"
+
+        if self.checkbox_subnational.isChecked() and self.subnational_units:
+            name = f"{name}-subnational-{len(self.subnational_units)}units"
+
         self.area_settings_name.setText(name)
 
     def set_point_coords(self, point, button):
@@ -1237,6 +1315,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             )
         )
 
+        self.generate_name_setting()
+
     def _build_subnational_row_actions(self, row):
         widget = QtWidgets.QWidget()
         layout = QtWidgets.QHBoxLayout(widget)
@@ -1276,7 +1356,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         dialog = DlgAddSubnationalUnit(self)
         dialog.set_initial_data(
-            unit["name"], unit.get("layer_id"), unit.get("feature_ids")
+            unit["name"],
+            unit.get("layer_id"),
+            unit.get("feature_ids"),
+            upload_file_path=unit.get("upload_file_path"),
         )
 
         if dialog.exec() == QtWidgets.QDialog.Accepted:
@@ -1315,6 +1398,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             "layer_id": layer.id() if layer is not None else None,
             "feature_ids": unit_data["feature_ids"],
             "feature_labels": self._get_feature_labels(layer, unit_data["feature_ids"]),
+            "upload_file_path": unit_data.get("upload_file_path"),
         }
 
     def _get_feature_labels(self, layer, feature_ids):

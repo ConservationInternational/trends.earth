@@ -718,6 +718,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_fromfile_file.textChanged.connect(self.generate_name_setting)
         self.buffer_size_km.valueChanged.connect(self.generate_name_setting)
         self.checkbox_buffer.toggled.connect(self.generate_name_setting)
+        self.checkbox_subnational.toggled.connect(self.generate_name_setting)
 
         self.subnational_units = []
         self._setup_subnational_table()
@@ -1117,6 +1118,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         if self.checkbox_buffer.isChecked():
             name = f"{name}-buffer-{self.buffer_size_km.value():.3f}"
+
+        if self.checkbox_subnational.isChecked() and self.subnational_units:
+            name = f"{name}-subnational-{len(self.subnational_units)}units"
+
         self.area_settings_name.setText(name)
 
     def set_point_coords(self, point, button):
@@ -1309,6 +1314,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                 len(self.subnational_units), total_area_km2
             )
         )
+
+        self.generate_name_setting()
 
     def _build_subnational_row_actions(self, row):
         widget = QtWidgets.QWidget()

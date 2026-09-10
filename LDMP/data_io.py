@@ -2334,6 +2334,15 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
             self.comboBox_layers.addItem(self.NO_REGION_MESSAGE)
             return
 
+        self._populate_with_aoi(aoi, selected_job_id=selected_job_id)
+
+    def populate_with_aoi(self, aoi, selected_job_id=None, allowed_job_ids=None):
+        """Populate using a caller-supplied AOI."""
+        self._populate_with_aoi(
+            aoi, selected_job_id=selected_job_id, allowed_job_ids=allowed_job_ids
+        )
+
+    def _populate_with_aoi(self, aoi, selected_job_id=None, allowed_job_ids=None):
         layer_types = self.property("layer_type").split(";")
         prod_mode = self.property("prod_mode")
         usable_bands = []
@@ -2348,6 +2357,10 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
                     prod_mode=prod_mode,
                 )
             )
+
+        if allowed_job_ids is not None:
+            usable_bands = [b for b in usable_bands if str(b.job.id) in allowed_job_ids]
+
         self.layer_list = usable_bands
         old_text = self.currentText()
         self.comboBox_layers.clear()
@@ -2901,10 +2914,22 @@ class WidgetDataIOSelectTEDatasetExisting(
             )
             return
 
+        self._populate_with_aoi(aoi)
+
+    def populate_with_aoi(self, aoi, allowed_job_ids=None):
+        """Populate using a caller-supplied AOI instead of reading settings.
+        Pass allowed_job_ids to restrict results to specific jobs."""
+        self._populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+
+    def _populate_with_aoi(self, aoi, allowed_job_ids=None):
         productivity_mode = self.property("productivity_mode")
         usable_datasets = get_usable_datasets(
             self.property("dataset_type"), aoi=aoi, productivity_mode=productivity_mode
         )
+        if allowed_job_ids is not None:
+            usable_datasets = [
+                d for d in usable_datasets if str(d.job.id) in allowed_job_ids
+            ]
         self.dataset_list = usable_datasets
         # Ensure selected_job_changed is called only once when adding items to
         # combobox
@@ -2925,6 +2950,20 @@ class WidgetDataIOSelectTEDatasetExisting(
             self.comboBox_datasets.setCurrentIndex(0)
         self.selected_job_changed()
         # Reconnect function to fire on selected dataset change
+        self.comboBox_datasets.currentIndexChanged.connect(self.selected_job_changed)
+
+    def set_subnational_label(self, area_name, n_units):
+        """Replace the dataset combo display with a single consolidated label."""
+        self.comboBox_datasets.currentIndexChanged.disconnect(self.selected_job_changed)
+        self.comboBox_datasets.clear()
+
+        if self.dataset_list:
+            label = self.tr("{} - all {} subnational units").format(area_name, n_units)
+            self.comboBox_datasets.addItem(label)
+            self.comboBox_datasets.setCurrentIndex(0)
+        else:
+            self.comboBox_datasets.addItem(self.NO_DATASETS_MESSAGE)
+
         self.comboBox_datasets.currentIndexChanged.connect(self.selected_job_changed)
 
     def get_current_data_file(self) -> Path:

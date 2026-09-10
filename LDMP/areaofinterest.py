@@ -712,6 +712,58 @@ def prepare_area_of_interest(show_errors: bool = True) -> AOI:
     return area_of_interest
 
 
+def aoi_from_unit(unit: dict) -> "AOI":
+    """
+    Build an AOI from a persisted subnational unit dict.
+    """
+    if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem(
+            conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS)
+        )
+    else:
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
+
+    upload_path = unit.get("upload_file_path")
+
+    if upload_path:
+        aoi = AOI(crs_dst)
+        aoi.update_from_file(f=upload_path, wrap=False)
+        return aoi
+
+    layer_id = unit.get("layer_id")
+    feature_ids = unit.get("feature_ids") or []
+
+    if not layer_id:
+        raise RuntimeError(
+            f"Subnational unit '{unit.get('name')}' has no layer or file path."
+        )
+
+    # TODO : handle if layer is no longer loaded anymore in the qgis
+    layer = qgis.core.QgsProject.instance().mapLayer(layer_id)
+    if layer is None:
+        raise RuntimeError(
+            f"Layer for subnational unit '{unit.get('name')}' is no longer loaded "
+            f"in the QGIS project (id: {layer_id}). Please re-open the settings "
+            f"and re-select the features for this unit."
+        )
+
+    request = qgis.core.QgsFeatureRequest().setFilterFids(feature_ids)
+    geometries = [
+        f.geometry() for f in layer.getFeatures(request) if not f.geometry().isEmpty()
+    ]
+    if not geometries:
+        raise RuntimeError(
+            f"No valid features found for subnational unit '{unit.get('name')}'."
+        )
+
+    combined = qgis.core.QgsGeometry.unaryUnion(geometries)
+    geojson = json.loads(combined.asJson())
+
+    aoi = AOI(crs_dst)
+    aoi.update_from_geojson(geojson=geojson, crs_src="epsg:4326", wrap=False)
+    return aoi
+
+
 # Cache of the most recently prepared area of interest, keyed on the settings
 # that define it. Returning a single shared AOI instance for a given set of region settings
 # lets the per-instance overlap cache be reused across calls. The cache automatically

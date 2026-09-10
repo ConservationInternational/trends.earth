@@ -1055,17 +1055,9 @@ class APIClient(QtCore.QObject):
     ################################################################################
     # Functions supporting access to individual api endpoints
 
-    def recover_pwd(self, email, legacy=False):
-        """Request password recovery.
-
-        Args:
-            email: User's email address
-            legacy: If True, uses legacy mode (password emailed directly).
-                   If False (default), uses secure mode (reset link emailed).
-        """
-        endpoint = "/api/v1/user/{}/recover-password?legacy={}".format(
-            quote_plus(email), "true" if legacy else "false"
-        )
+    def recover_pwd(self, email):
+        """Request a secure password-reset link."""
+        endpoint = f"/api/v1/user/{quote_plus(email)}/recover-password"
         return self.call_api(endpoint, "post")
 
     def get_user(self, email="me"):
@@ -1090,7 +1082,6 @@ class APIClient(QtCore.QObject):
         name,
         organization,
         country,
-        legacy=False,
         role_title=None,
         sector=None,
         sector_other=None,
@@ -1111,9 +1102,6 @@ class APIClient(QtCore.QObject):
             name: User's full name
             organization: User's organization/institution
             country: User's country
-            legacy: If True, uses legacy mode (password emailed directly).
-                   If False (default), uses secure mode (reset link emailed
-                   so user can set their own password).
             role_title: User's role or job title
             sector: User's sector
             sector_other: Free-text sector description (when other is selected)
@@ -1163,8 +1151,7 @@ class APIClient(QtCore.QObject):
             payload["email_subscription_system_updates"] = (
                 email_subscription_system_updates
             )
-        endpoint = "/api/v1/user?legacy={}".format("true" if legacy else "false")
-        return self.call_api(endpoint, method="post", payload=payload)
+        return self.call_api("/api/v1/user", method="post", payload=payload)
 
     def update_user(
         self,

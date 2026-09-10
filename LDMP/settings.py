@@ -1223,7 +1223,6 @@ class DlgSettingsRegister(ProfileFormMixin, QtWidgets.QDialog, Ui_DlgSettingsReg
             email_subscription_system_updates=(
                 self.email_subscription_system_updates.isChecked()
             ),
-            legacy=False,
         )
 
         if resp:
@@ -1488,7 +1487,7 @@ class DlgSettingsEditForgotPassword(
         )
 
         if reply == QtWidgets.QMessageBox.Yes:
-            resp = self.api_client.recover_pwd(self.email.text(), legacy=False)
+            resp = self.api_client.recover_pwd(self.email.text())
 
             if resp:
                 self.close()

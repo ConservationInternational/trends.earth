@@ -69,3 +69,5 @@ notebooks/ldn/input_data/*
 notebooks/ldn/counterbalancing_results/*
 notebooks/ldn/output*/*
 tmp/*
+trends.earth.egg-info/*
+TEMP/*

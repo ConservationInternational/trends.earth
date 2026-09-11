@@ -715,6 +715,13 @@ def prepare_area_of_interest(show_errors: bool = True) -> AOI:
 def aoi_from_unit(unit: dict) -> "AOI":
     """
     Build an AOI from a persisted subnational unit dict.
+
+    Resolution order:
+      1. stored_geometry_path — a GeoPackage saved to BASE_DIR when the
+         unit was first defined; works without the source layer loaded.
+      2. upload_file_path — the original uploaded vector file.
+      3. layer_id + feature_ids — live QGIS layer (fallback for units
+         defined before geometry persistence was added).
     """
     if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
         crs_dst = qgis.core.QgsCoordinateReferenceSystem(
@@ -723,28 +730,37 @@ def aoi_from_unit(unit: dict) -> "AOI":
     else:
         crs_dst = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
 
-    upload_path = unit.get("upload_file_path")
+    # 1. Prefer the stored geometry file (created at add/edit time)
+    stored_path = unit.get("stored_geometry_path")
+    if stored_path and Path(stored_path).is_file():
+        aoi = AOI(crs_dst)
+        aoi.update_from_file(f=stored_path, wrap=False)
+        return aoi
 
-    if upload_path:
+    # 2. Fall back to the original uploaded file
+    upload_path = unit.get("upload_file_path")
+    if upload_path and Path(upload_path).is_file():
         aoi = AOI(crs_dst)
         aoi.update_from_file(f=upload_path, wrap=False)
         return aoi
 
+    # 3. Fall back to live QGIS layer (layer must be loaded in the project)
     layer_id = unit.get("layer_id")
     feature_ids = unit.get("feature_ids") or []
 
     if not layer_id:
         raise RuntimeError(
-            f"Subnational unit '{unit.get('name')}' has no layer or file path."
+            f"Subnational unit '{unit.get('name')}' has no stored geometry, "
+            f"no uploaded file, and no layer reference. Please re-open the "
+            f"settings and re-add this unit."
         )
 
-    # TODO : handle if layer is no longer loaded anymore in the qgis
     layer = qgis.core.QgsProject.instance().mapLayer(layer_id)
     if layer is None:
         raise RuntimeError(
-            f"Layer for subnational unit '{unit.get('name')}' is no longer loaded "
-            f"in the QGIS project (id: {layer_id}). Please re-open the settings "
-            f"and re-select the features for this unit."
+            f"Layer for subnational unit '{unit.get('name')}' is no longer "
+            f"loaded in the QGIS project (id: {layer_id}). Please re-open "
+            f"the settings and re-save this unit to store its geometry."
         )
 
     request = qgis.core.QgsFeatureRequest().setFilterFids(feature_ids)

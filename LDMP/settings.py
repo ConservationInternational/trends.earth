@@ -1348,6 +1348,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if dialog.exec() == QtWidgets.QDialog.Accepted:
             unit = self._unit_dict_from_dialog(dialog)
             unit["id"] = str(uuid.uuid4())
+            unit["stored_geometry_path"] = self._save_unit_geometry(unit)
             self.subnational_units.append(unit)
             self._refresh_subnational_table()
 
@@ -1365,6 +1366,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if dialog.exec() == QtWidgets.QDialog.Accepted:
             updated_unit = self._unit_dict_from_dialog(dialog)
             updated_unit["id"] = unit.get("id") or str(uuid.uuid4())
+            updated_unit["stored_geometry_path"] = self._save_unit_geometry(
+                updated_unit
+            )
             self.subnational_units[row] = updated_unit
             self._refresh_subnational_table()
 
@@ -1384,6 +1388,13 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if answer != QtWidgets.QMessageBox.Yes:
             return
 
+        stored_path = unit.get("stored_geometry_path")
+        if stored_path and os.path.isfile(stored_path):
+            try:
+                os.remove(stored_path)
+            except OSError:
+                pass
+
         del self.subnational_units[row]
         self._refresh_subnational_table()
 
@@ -1400,6 +1411,79 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             "feature_labels": self._get_feature_labels(layer, unit_data["feature_ids"]),
             "upload_file_path": unit_data.get("upload_file_path"),
         }
+
+    def _save_unit_geometry(self, unit: dict) -> str | None:
+        """
+        Union the unit's features and write them to a GeoPackage inside
+        BASE_DIR/subnational_units/. Returns the saved file path, or None
+        on failure.  This makes the unit persistent across QGIS sessions
+        so the source layer no longer needs to be loaded.
+        """
+        upload_path = unit.get("upload_file_path")
+        layer_id = unit.get("layer_id")
+        feature_ids = unit.get("feature_ids") or []
+
+        if upload_path:
+            src_layer = qgis.core.QgsVectorLayer(upload_path, "upload_preview", "ogr")
+        elif layer_id:
+            src_layer = qgis.core.QgsProject.instance().mapLayer(layer_id)
+        else:
+            return None
+
+        if src_layer is None or not src_layer.isValid():
+            return None
+
+        if upload_path:
+            geometries = [f.geometry() for f in src_layer.getFeatures()]
+        else:
+            request = qgis.core.QgsFeatureRequest().setFilterFids(feature_ids)
+            geometries = [f.geometry() for f in src_layer.getFeatures(request)]
+
+        if not geometries:
+            return None
+
+        combined = qgis.core.QgsGeometry.unaryUnion(geometries)
+
+        unit_id = unit.get("id")
+        if not unit_id:
+            return None
+
+        base_dir = Path(settings_manager.get_value(Setting.BASE_DIR))
+        units_dir = base_dir / "subnational_units"
+        units_dir.mkdir(parents=True, exist_ok=True)
+        gpkg_path = str(units_dir / f"{unit_id}.gpkg")
+
+        # Write using QgsVectorFileWriter
+        mem_layer = qgis.core.QgsVectorLayer(
+            "MultiPolygon?crs=EPSG:4326", "unit", "memory"
+        )
+        provider = mem_layer.dataProvider()
+        feat = qgis.core.QgsFeature()
+        crs_src = src_layer.crs()
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem("EPSG:4326")
+        transform = qgis.core.QgsCoordinateTransform(
+            crs_src, crs_dst, qgis.core.QgsProject.instance()
+        )
+        combined.transform(transform)
+        feat.setGeometry(combined)
+        provider.addFeature(feat)
+        mem_layer.updateExtents()
+
+        options = qgis.core.QgsVectorFileWriter.SaveVectorOptions()
+        options.driverName = "GPKG"
+        options.fileEncoding = "UTF-8"
+        error, msg, _, _ = qgis.core.QgsVectorFileWriter.writeAsVectorFormatV3(
+            mem_layer,
+            gpkg_path,
+            qgis.core.QgsProject.instance().transformContext(),
+            options,
+        )
+
+        if error != qgis.core.QgsVectorFileWriter.NoError:
+            log(f"Failed to save subnational unit geometry to {gpkg_path}: {msg}")
+            return None
+
+        return gpkg_path
 
     def _get_feature_labels(self, layer, feature_ids):
         if layer is None or not feature_ids:

@@ -12,6 +12,7 @@
 """
 
 # pylint: disable=import-error
+import copy
 import json
 import time
 import weakref
@@ -2662,6 +2663,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             unit_crosses_180th, unit_geojsons = ret
 
+            unit_id = unit.get("id")
+            unit_matrix_widget = self.subnational_matrix_widgets.get(unit_id)
+
             for payload in payloads:
                 unit_payload = dict(payload)
                 unit_payload["geojsons"] = unit_geojsons
@@ -2671,6 +2675,15 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 unit_payload["task_name"] = (
                     f"{unit_name} - {period_part}" if period_part else unit_name
                 )
+
+                if unit_matrix_widget is not None:
+                    unit_trans_matrix = (
+                        unit_matrix_widget.get_trans_matrix_from_widget()
+                    )
+                    dumped = LCTransitionDefinitionDeg.Schema().dump(unit_trans_matrix)
+                    unit_payload["trans_matrix"] = dumped
+                    unit_payload["land_cover"] = copy.deepcopy(payload["land_cover"])
+                    unit_payload["land_cover"]["trans_matrix"] = dumped
 
                 resp = job_manager.submit_remote_job(unit_payload, self.script.id)
 

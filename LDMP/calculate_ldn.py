@@ -2593,8 +2593,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             payloads.append(payload)
 
-        self.close()
-
         subnational_enabled = conf.settings_manager.get_value(
             conf.Setting.SUBNATIONAL_ENABLED
         )
@@ -2607,6 +2605,35 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 )
             except (TypeError, ValueError):
                 units = []
+
+        if subnational_enabled and units:
+            disjoint_names = []
+            for unit in units:
+                try:
+                    unit_aoi = areaofinterest.aoi_from_unit(unit)
+                    if self.aoi.calc_disjoint(unit_aoi.get_unary_geometry()):
+                        disjoint_names.append(unit.get("name") or unit.get("id"))
+                except RuntimeError:
+                    pass
+
+            if disjoint_names:
+                names_list = "\n".join(f"• {n}" for n in disjoint_names)
+                reply = QtWidgets.QMessageBox.warning(
+                    self,
+                    self.tr("Units outside selected region"),
+                    self.tr(
+                        "The following subnational units do not overlap the "
+                        "selected region:\n\n"
+                        f"{names_list}\n\n"
+                        "Continue anyway?"
+                    ),
+                    QtWidgets.QMessageBox.StandardButton.Yes
+                    | QtWidgets.QMessageBox.StandardButton.No,
+                )
+                if reply == QtWidgets.QMessageBox.StandardButton.No:
+                    return
+
+        self.close()
 
         if subnational_enabled and units:
             self._submit_subnational(payloads, units)

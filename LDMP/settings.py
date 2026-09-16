@@ -1415,9 +1415,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     def _save_unit_geometry(self, unit: dict) -> str | None:
         """
         Union the unit's features and write them to a GeoPackage inside
-        BASE_DIR/subnational_units/. Returns the saved file path, or None
-        on failure.  This makes the unit persistent across QGIS sessions
-        so the source layer no longer needs to be loaded.
+        BASE_DIR/subnational_units/.
         """
         upload_path = unit.get("upload_file_path")
         layer_id = unit.get("layer_id")
@@ -1453,7 +1451,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         units_dir.mkdir(parents=True, exist_ok=True)
         gpkg_path = str(units_dir / f"{unit_id}.gpkg")
 
-        # Write using QgsVectorFileWriter
         mem_layer = qgis.core.QgsVectorLayer(
             "MultiPolygon?crs=EPSG:4326", "unit", "memory"
         )

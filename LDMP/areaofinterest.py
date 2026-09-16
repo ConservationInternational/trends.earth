@@ -717,11 +717,10 @@ def aoi_from_unit(unit: dict) -> "AOI":
     Build an AOI from a persisted subnational unit dict.
 
     Resolution order:
-      1. stored_geometry_path — a GeoPackage saved to BASE_DIR when the
-         unit was first defined; works without the source layer loaded.
-      2. upload_file_path — the original uploaded vector file.
-      3. layer_id + feature_ids — live QGIS layer (fallback for units
-         defined before geometry persistence was added).
+      1. stored_geometry_path : a GeoPackage saved to BASE_DIR when the
+         unit was first defined
+      2. upload_file_path : the original uploaded vector file.
+      3. layer_id + feature_ids : live QGIS layer.
     """
     if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
         crs_dst = qgis.core.QgsCoordinateReferenceSystem(
@@ -730,21 +729,18 @@ def aoi_from_unit(unit: dict) -> "AOI":
     else:
         crs_dst = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
 
-    # 1. Prefer the stored geometry file (created at add/edit time)
     stored_path = unit.get("stored_geometry_path")
     if stored_path and Path(stored_path).is_file():
         aoi = AOI(crs_dst)
         aoi.update_from_file(f=stored_path, wrap=False)
         return aoi
 
-    # 2. Fall back to the original uploaded file
     upload_path = unit.get("upload_file_path")
     if upload_path and Path(upload_path).is_file():
         aoi = AOI(crs_dst)
         aoi.update_from_file(f=upload_path, wrap=False)
         return aoi
 
-    # 3. Fall back to live QGIS layer (layer must be loaded in the project)
     layer_id = unit.get("layer_id")
     feature_ids = unit.get("feature_ids") or []
 

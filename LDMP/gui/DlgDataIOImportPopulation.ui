@@ -32,6 +32,39 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupBox_population_type">
+      <property name="title">
+        <string>Population type</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_population_type">
+        <item>
+         <widget class="QRadioButton" name="radio_population_total">
+          <property name="text">
+            <string>Total population</string>
+          </property>
+          <property name="checked">
+            <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radio_population_male">
+          <property name="text">
+            <string>Male population</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radio_population_female">
+          <property name="text">
+            <string>Female population</string>
+          </property>
+         </widget>
+        </item>
+      </layout>
+     </widget>
+    </item>
    <item>
     <widget class="QDialogButtonBox" name="btnBox">
      <property name="orientation">

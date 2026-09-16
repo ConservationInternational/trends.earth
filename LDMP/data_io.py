@@ -1759,6 +1759,17 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
     def __init__(self, parent=None):
         super().__init__(parent)
 
+    def _move_dialog_settings_to_tab(self):
+        self.groupBox_population_type.setParent(None)
+        self.tab_settings_layout.addWidget(self.groupBox_population_type)
+
+    def _population_type(self):
+        if self.radio_population_male.isChecked():
+            return "male"
+        if self.radio_population_female.isChecked():
+            return "female"
+        return "total"
+
     def validate_input(self, value):
         max_max = 10000000  # Maximum value for population
         if (
@@ -1852,6 +1863,7 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
 
     def ok_clicked(self):
         out_file = self._output_raster_path
+        population_type = self._population_type()
 
         if self.input_widget.radio_raster_input.isChecked():
             ret = self.warp_raster(out_file)
@@ -1865,7 +1877,7 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
 
         layer_name = self.get_layer_name(
             tr_data_io.tr(
-                "Population "
+                f"{population_type.capitalize()} population "
                 f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
             )
         )
@@ -1875,7 +1887,7 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
             band_metadata={
                 "year": int(self.input_widget.spinBox_data_year.text()),
                 "source": "custom data",
-                "type": "total",
+                "type": population_type,
             },
             task_name=layer_name,
             task_notes=self.get_task_notes(),

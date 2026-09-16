@@ -392,6 +392,9 @@ def _get_population(params, logger):
         # Use conditional logic to select appropriate data
         wp = ee.ImageCollection(ee.Algorithms.If(data_exists, wp, use_closest_year()))
 
+    # WorldPop native projection (values are people per native ~100m pixel)
+    native_proj = ee.ImageCollection(asset).first().select("male").projection()
+
     wp = (
         wp.select("male")
         .toBands()
@@ -399,16 +402,33 @@ def _get_population(params, logger):
         .addBands(wp.select("female").toBands().rename(f"Population_{year}_female"))
     )
 
+    # Convert people-per-pixel counts to density (people per hectare) at the
+    # native WorldPop resolution. Counts are only meaningful on their native
+    # grid - resampling them to a different pixel size (e.g. the 30m FWv2
+    # export grid) breaks totals. Density survives resampling; the local
+    # summary code converts back to counts using each pixel's true area.
+    wp = wp.divide(ee.Image.pixelArea()).multiply(10000).reproject(native_proj)
+
     return {
         "image": wp,
         "bands": [
             results.Band(
                 "Population (number of people)",
-                metadata={"year": year, "type": "male", "source": params["source"]},
+                metadata={
+                    "year": year,
+                    "type": "male",
+                    "source": params["source"],
+                    "units": "people per hectare",
+                },
             ),
             results.Band(
                 "Population (number of people)",
-                metadata={"year": year, "type": "female", "source": params["source"]},
+                metadata={
+                    "year": year,
+                    "type": "female",
+                    "source": params["source"],
+                    "units": "people per hectare",
+                },
             ),
         ],
         "datatype": results.DataType.FLOAT32,

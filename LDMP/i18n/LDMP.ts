@@ -2749,6 +2749,26 @@
         <source>Load a Custom Population dataset</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="38"/>
+        <source>Population type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="44"/>
+        <source>Total population</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="54"/>
+        <source>Male population</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="61"/>
+        <source>Female population</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgDataIOImportProd</name>
@@ -2794,7 +2814,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2135"/>
+        <location filename="../data_io.py" line="2147"/>
         <source>Land productivity (imported - {self.datatype_cb.currentText()})</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3459,32 +3479,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1470"/>
+        <location filename="../settings.py" line="1469"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1470"/>
+        <location filename="../settings.py" line="1469"/>
         <source>Enter your email address to reset your password.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1478"/>
+        <location filename="../settings.py" line="1477"/>
         <source>Reset password?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1495"/>
+        <location filename="../settings.py" line="1494"/>
         <source>Success</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1478"/>
+        <location filename="../settings.py" line="1477"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? A password reset link will be emailed to you.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1495"/>
+        <location filename="../settings.py" line="1494"/>
         <source>A password reset link has been sent to {self.email.text()}. Please check your email and click the link to set a new password, then return to Trends.Earth to login.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3497,12 +3517,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1624"/>
+        <location filename="../settings.py" line="1623"/>
         <source>Saved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1624"/>
+        <location filename="../settings.py" line="1623"/>
         <source>Updated information for {}.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3645,47 +3665,47 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1290"/>
+        <location filename="../settings.py" line="1289"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1284"/>
+        <location filename="../settings.py" line="1283"/>
         <source>Enter your email address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1290"/>
+        <location filename="../settings.py" line="1289"/>
         <source>Enter your password.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1301"/>
+        <location filename="../settings.py" line="1300"/>
         <source>Success</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1301"/>
+        <location filename="../settings.py" line="1300"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1370"/>
+        <location filename="../settings.py" line="1369"/>
         <source>Login Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1370"/>
+        <location filename="../settings.py" line="1369"/>
         <source>Invalid username or password. Please check your credentials and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1362"/>
+        <location filename="../settings.py" line="1361"/>
         <source>Account Locked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1336"/>
+        <location filename="../settings.py" line="1335"/>
         <source>Your account has been locked due to too many failed login attempts.
 
 You must reset your password to regain access.
@@ -3694,12 +3714,12 @@ Would you like to reset your password now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1351"/>
+        <location filename="../settings.py" line="1350"/>
         <source>Account Temporarily Locked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1351"/>
+        <location filename="../settings.py" line="1350"/>
         <source>Your account is temporarily locked.
 
 Please try again in {minutes_remaining} minute(s).
@@ -3708,7 +3728,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1362"/>
+        <location filename="../settings.py" line="1361"/>
         <source>Your account is locked.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3716,27 +3736,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="1413"/>
+        <location filename="../settings.py" line="1412"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1407"/>
+        <location filename="../settings.py" line="1406"/>
         <source>Enter your email address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1413"/>
+        <location filename="../settings.py" line="1412"/>
         <source>Enter your password.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1432"/>
+        <location filename="../settings.py" line="1431"/>
         <source>Success</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1432"/>
+        <location filename="../settings.py" line="1431"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3749,12 +3769,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1250"/>
+        <location filename="../settings.py" line="1249"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1231"/>
+        <location filename="../settings.py" line="1230"/>
         <source>Success</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3854,12 +3874,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1231"/>
+        <location filename="../settings.py" line="1230"/>
         <source>User registered. A password setup link has been emailed to {email}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1250"/>
+        <location filename="../settings.py" line="1249"/>
         <source>Registration failed. Please check your information and try again. If the problem persists, the email address may be invalid or already be registered.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4284,17 +4304,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverClassSelectionDialog</name>
     <message>
-        <location filename="../settings.py" line="2766"/>
+        <location filename="../settings.py" line="2765"/>
         <source>&lt;b&gt;Select a parent for each of the below class names&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2811"/>
+        <location filename="../settings.py" line="2810"/>
         <source>Accept</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2813"/>
+        <location filename="../settings.py" line="2812"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4302,37 +4322,37 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2912"/>
+        <location filename="../settings.py" line="2911"/>
         <source>Class Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2963"/>
+        <location filename="../settings.py" line="2962"/>
         <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2999"/>
+        <location filename="../settings.py" line="2998"/>
         <source>Class name cannot be empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="3003"/>
+        <location filename="../settings.py" line="3002"/>
         <source>Invalid color selected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="3007"/>
+        <location filename="../settings.py" line="3006"/>
         <source>Parent class cannot be empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="3012"/>
+        <location filename="../settings.py" line="3011"/>
         <source>Invalid class code value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="3016"/>
+        <location filename="../settings.py" line="3015"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4340,112 +4360,112 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="2194"/>
+        <location filename="../settings.py" line="2193"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2194"/>
+        <location filename="../settings.py" line="2193"/>
         <source>Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2194"/>
+        <location filename="../settings.py" line="2193"/>
         <source>Parent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2296"/>
+        <location filename="../settings.py" line="2295"/>
         <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2562"/>
+        <location filename="../settings.py" line="2561"/>
         <source>Maximum number of classes reached.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2367"/>
+        <location filename="../settings.py" line="2366"/>
         <source>Nothing to save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2374"/>
+        <location filename="../settings.py" line="2373"/>
         <source>Save Land Cover Classes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2398"/>
+        <location filename="../settings.py" line="2397"/>
         <source>Select Land Cover Classes File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2416"/>
+        <location filename="../settings.py" line="2415"/>
         <source>No land cover classes found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2481"/>
+        <location filename="../settings.py" line="2480"/>
         <source>Land Cover Class Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2545"/>
+        <location filename="../settings.py" line="2544"/>
         <source>Invalid row for land cover class</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2550"/>
+        <location filename="../settings.py" line="2549"/>
         <source>Unable to update class.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2569"/>
+        <location filename="../settings.py" line="2568"/>
         <source>Unable to add new class.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2595"/>
+        <location filename="../settings.py" line="2594"/>
         <source>class does not have children assigned to it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2615"/>
+        <location filename="../settings.py" line="2614"/>
         <source>class has not been assigned a parent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2741"/>
+        <location filename="../settings.py" line="2740"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2746"/>
+        <location filename="../settings.py" line="2745"/>
         <source>Delete Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2229"/>
+        <location filename="../settings.py" line="2228"/>
         <source>Import CSV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2230"/>
+        <location filename="../settings.py" line="2229"/>
         <source>Import land cover classes from a CSV file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2251"/>
+        <location filename="../settings.py" line="2250"/>
         <source>Import Land Cover Classes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2258"/>
+        <location filename="../settings.py" line="2257"/>
         <source>CSV files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2260"/>
+        <location filename="../settings.py" line="2259"/>
         <source>Select CSV file with land cover classes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5564,12 +5584,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1992"/>
+        <location filename="../settings.py" line="1991"/>
         <source>No base data directory set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1972"/>
+        <location filename="../settings.py" line="1971"/>
         <source>Offline mode is enabled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5614,7 +5634,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1822"/>
+        <location filename="../settings.py" line="1821"/>
         <source>Connect GEE Account</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5629,122 +5649,122 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1735"/>
+        <location filename="../settings.py" line="1734"/>
         <source>Log in to Trends.Earth to manage your Google Earth Engine account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1752"/>
+        <location filename="../settings.py" line="1751"/>
         <source>Unable to retrieve GEE status.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1757"/>
+        <location filename="../settings.py" line="1756"/>
         <source>OAuth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1757"/>
+        <location filename="../settings.py" line="1756"/>
         <source>Service Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1760"/>
+        <location filename="../settings.py" line="1759"/>
         <source>Connected ({type_str})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1773"/>
+        <location filename="../settings.py" line="1772"/>
         <source>Using default Trends.Earth Google Earth Engine account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1790"/>
+        <location filename="../settings.py" line="1789"/>
         <source>Failed to initiate GEE OAuth.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1797"/>
+        <location filename="../settings.py" line="1796"/>
         <source>No authorization URL received.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1803"/>
+        <location filename="../settings.py" line="1802"/>
         <source>Browser opened — complete the Google authorization and return here.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1812"/>
+        <location filename="../settings.py" line="1811"/>
         <source>Connecting…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1823"/>
+        <location filename="../settings.py" line="1822"/>
         <source>Connection timed out. Please try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1837"/>
+        <location filename="../settings.py" line="1836"/>
         <source>GEE connected! Enter your GCP project ID below and click Save.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1847"/>
+        <location filename="../settings.py" line="1846"/>
         <source>Disconnect GEE Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1847"/>
+        <location filename="../settings.py" line="1846"/>
         <source>Are you sure you want to disconnect your Google Earth Engine account?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1864"/>
+        <location filename="../settings.py" line="1863"/>
         <source>GEE account disconnected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1868"/>
+        <location filename="../settings.py" line="1867"/>
         <source>Failed to disconnect GEE account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1878"/>
+        <location filename="../settings.py" line="1877"/>
         <source>Please enter a project ID.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1884"/>
+        <location filename="../settings.py" line="1883"/>
         <source>Invalid project ID. Must be 6–30 characters, lowercase letters, digits and hyphens, starting with a letter and not ending with a hyphen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1896"/>
+        <location filename="../settings.py" line="1895"/>
         <source>GEE project ID saved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1900"/>
+        <location filename="../settings.py" line="1899"/>
         <source>Failed to save project ID.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1917"/>
+        <location filename="../settings.py" line="1916"/>
         <source>GEE Connection Test</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1911"/>
+        <location filename="../settings.py" line="1910"/>
         <source>GEE credentials are valid and working.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1917"/>
+        <location filename="../settings.py" line="1916"/>
         <source>GEE credentials test failed. Check your connection and project ID.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2002"/>
+        <location filename="../settings.py" line="2001"/>
         <source>Unable to write to {new_base_directory}. Try a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5802,27 +5822,27 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2076"/>
+        <location filename="../settings.py" line="2075"/>
         <source>Select Report Template Search Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2086"/>
+        <location filename="../settings.py" line="2085"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2088"/>
+        <location filename="../settings.py" line="2087"/>
         <source>Template Search Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2102"/>
+        <location filename="../settings.py" line="2101"/>
         <source>All Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2117"/>
+        <location filename="../settings.py" line="2116"/>
         <source>Select Organization Logo</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5951,17 +5971,17 @@ for running algorithms and their results.</source>
 <context>
     <name>self.parent</name>
     <message>
-        <location filename="../settings.py" line="2772"/>
+        <location filename="../settings.py" line="2771"/>
         <source>The class name value that will imported, should not exceed 120 characters. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2777"/>
+        <location filename="../settings.py" line="2776"/>
         <source>Select the parent for the corresponding class name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2834"/>
+        <location filename="../settings.py" line="2833"/>
         <source>Maximum number of codes reached.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6482,7 +6502,7 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2840"/>
+        <location filename="../data_io.py" line="2852"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6542,12 +6562,12 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1896"/>
+        <location filename="../data_io.py" line="1908"/>
         <source>Enter the year of the input data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2096"/>
+        <location filename="../data_io.py" line="2108"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6557,7 +6577,7 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2840"/>
+        <location filename="../data_io.py" line="2852"/>
         <source>Select a layer to load.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6567,13 +6587,8 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1990"/>
+        <location filename="../data_io.py" line="2002"/>
         <source>Soil organic carbon ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1866"/>
-        <source>Population ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6597,12 +6612,12 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2410"/>
+        <location filename="../data_io.py" line="2422"/>
         <source>Please select a region in the Trends.Earth settings before using {tool_name}.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2419"/>
+        <location filename="../data_io.py" line="2431"/>
         <source>You must select a {layer_name} layer before you can use {tool_name}.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6642,7 +6657,7 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2041"/>
+        <location filename="../data_io.py" line="2053"/>
         <source>On the settings tab, enter the intial and final year applying to this input data.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6667,53 +6682,58 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1921"/>
+        <location filename="../data_io.py" line="1933"/>
         <source>The chosen field ({field}) is not numeric. Choose a numeric field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1811"/>
+        <location filename="../data_io.py" line="1822"/>
         <source>The input file ({in_file}) does not appear to be a valid population input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1824"/>
+        <location filename="../data_io.py" line="1835"/>
         <source>The input file ({in_file}) does not appear to be a valid population input file. The minimum value in this file is {stats[0]}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1837"/>
+        <location filename="../data_io.py" line="1848"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {stats[1]}. The maximum value allowed is {max_max} tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1935"/>
+        <location filename="../data_io.py" line="1947"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1948"/>
+        <location filename="../data_io.py" line="1960"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {stats[0]}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1961"/>
+        <location filename="../data_io.py" line="1973"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {stats[1]}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2069"/>
+        <location filename="../data_io.py" line="2081"/>
         <source>The chosen field ({field}) is not numeric. Choose a field that contains numbers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2083"/>
+        <location filename="../data_io.py" line="2095"/>
         <source>The input file ({in_file}) does not appear to be a valid productivity input file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2096"/>
+        <location filename="../data_io.py" line="2108"/>
         <source>The input file ({in_file}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {len(invalid_values)} value(s) in the input file that were not recognized.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1878"/>
+        <source>{population_type.capitalize()} population ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

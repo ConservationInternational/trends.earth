@@ -1,0 +1,186 @@
+{
+    "id": "iceed-weplan-forests",
+    "type": "Collection",
+    "links": [
+        {
+            "rel": "items",
+            "type": "application/geo+json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/iceed-weplan-forests/items"
+        },
+        {
+            "rel": "parent",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/"
+        },
+        {
+            "rel": "root",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/"
+        },
+        {
+            "rel": "self",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/iceed-weplan-forests"
+        },
+        {
+            "rel": "http://www.opengis.net/def/rel/ogc/1.0/queryables",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/iceed-weplan-forests/queryables",
+            "type": "application/schema+json",
+            "title": "Queryables"
+        },
+        {
+            "rel": "UNBL:layers",
+            "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-available-areas",
+            "type": "text/html",
+            "title": "View 'WePlan - Available Areas' layer on UN Biodiversity Lab"
+        },
+        {
+            "rel": "UNBL:layers",
+            "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-target-1",
+            "type": "text/html",
+            "title": "View 'WePlan - Target 1' layer on UN Biodiversity Lab"
+        },
+        {
+            "rel": "UNBL:layers",
+            "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-target-3",
+            "type": "text/html",
+            "title": "View 'WePlan - Target 3' layer on UN Biodiversity Lab"
+        },
+        {
+            "rel": "UNBL:layers",
+            "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-target-2",
+            "type": "text/html",
+            "title": "View 'WePlan - Target 2' layer on UN Biodiversity Lab"
+        },
+        {
+            "rel": "UNBL:layers",
+            "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-target-4",
+            "type": "text/html",
+            "title": "View 'WePlan - Target 4' layer on UN Biodiversity Lab"
+        },
+        {
+            "rel": "UNBL:layers",
+            "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-target-5",
+            "type": "text/html",
+            "title": "View 'WePlan - Target 5' layer on UN Biodiversity Lab"
+        },
+        {
+            "rel": "http://www.opengis.net/def/rel/ogc/1.0/queryables",
+            "type": "application/schema+json",
+            "title": "Queryables",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/iceed-weplan-forests/queryables"
+        }
+    ],
+    "title": "WePlan-Forests",
+    "access": "public",
+    "assets": {
+        "thumbnail": {
+            "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/thumbnails/weplan-target-1-minimum-cost_thumbnail_global.png",
+            "type": "image/png",
+            "roles": [
+                "thumbnail"
+            ],
+            "title": "Thumbnail"
+        }
+    },
+    "extent": {
+        "spatial": {
+            "bbox": [
+                [
+                    -180.0,
+                    -25.0,
+                    180.0,
+                    25.0
+                ]
+            ]
+        },
+        "temporal": {
+            "interval": [
+                [
+                    "2020-01-01T00:00:00Z",
+                    "2020-12-31T23:59:00Z"
+                ]
+            ]
+        }
+    },
+    "contact": "contact@iceed.au",
+    "license": "CC-BY-1.0",
+    "version": "v1 (2020)",
+    "keywords": [
+        "Forest ecosystem restoration",
+        "Spatial planning optimization",
+        "Potential for Natural Regeneration (PNR)",
+        "Biodiversity conservation",
+        "Climate change mitigation",
+        "Cost-effective restoration planning",
+        "Forest Ecosystem Restoration Initiative (FERI)",
+        "Convention on Biological Diversity (CBD)"
+    ],
+    "providers": [
+        {
+            "url": "https://www.weplan-forests.org",
+            "name": "WePlan Forests",
+            "roles": [
+                "producer",
+                "licensor"
+            ]
+        },
+        {
+            "url": "https://www.weplan-forests.org",
+            "name": "Institute for Capacity Exchange in Environmental Decisions",
+            "roles": [
+                "licensor",
+                "producer"
+            ]
+        },
+        {
+            "url": "https://unbiodiversitylab.org",
+            "name": "UN Biodiversity Lab (UNBL)",
+            "roles": [
+                "host",
+                "processor"
+            ]
+        }
+    ],
+    "summaries": {
+        "gsd": [
+            1000
+        ]
+    },
+    "UNBL:layers": [
+        {
+            "id": "dea4244c-bf27-45a8-a22b-aabb623acd92",
+            "name": "WePlan - Available Areas"
+        },
+        {
+            "id": "478ce1cb-16b8-493a-b7dc-65ea91aafbad",
+            "name": "WePlan - Target 1"
+        },
+        {
+            "id": "ecd9d63d-8e7c-4476-9241-694b1aedcdde",
+            "name": "WePlan - Target 3"
+        },
+        {
+            "id": "c0eb5ee3-6d41-48f1-b5cc-23b5b501c3be",
+            "name": "WePlan - Target 2"
+        },
+        {
+            "id": "f11d8a6f-b4ea-45c1-82a9-d733cceb2806",
+            "name": "WePlan - Target 4"
+        },
+        {
+            "id": "4c657d19-7cf3-4192-915e-c07668f76d13",
+            "name": "WePlan - Target 5"
+        }
+    ],
+    "description": "WePlan - Forests is a decision support platform for tropical and subtropical forest ecosystem restoration planning that aims to maximise the climate change mitigation, biodiversity conservation and poverty alleviation benefits arising from forest restoration. The project provides quantitative, spatial, evidence-based planning support to developing countries that are party to the Convention on Biological Diversity in order to facilitate the realisation of forest restoration pledges and targets. The platform consists of a user-friendly web-based interface that automates the technical and computing requirements of complex spatial analyses and allows users without spatial modelling and optimisation expertise to explore a broad range of results and scenarios. This project is developed by the Institute for Capacity Exchange in Environmental Decisions (formerly International Institute for Sustainability Australia) and International Institute for Sustainability Rio, in partnership with the Convention on Biological Diversity Secretariat. This work is generously supported by the Korea Forest Service of the Republic of Korea as part of the Forest Ecosystem Restoration Initiative, with additional financial assistance from the European Union.",
+    "preview:bbox": [
+        -180,
+        -85.0511,
+        180,
+        85.0511
+    ],
+    "sci:citation": "WePlan Forests (2020). Areas available for restoration. Available at: https://www.weplan-forests.org/methodology",
+    "stac_version": "1.0.0",
+    "stac_extensions": []
+}

@@ -23,7 +23,9 @@ from te_schemas.algorithms import ExecutionScript
 from . import calculate, conf
 from .conf import Setting, settings_manager
 from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
+from .download_data_stac import _stac_dataset_item
 from .jobs.manager import job_manager
+from .localexecution.download_stac import download_stac
 from .logger import log
 from .utils import push_message
 
@@ -145,6 +147,11 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                     item.update({"extent_lat": extent_lat, "extent_lon": extent_lon})
                 self.datasets.append(item)
 
+        # STAC Datasets for STAC download
+        for cat, collections in conf.STAC_DATASETS.items():
+            for collection_id, stac in collections.items():
+                self.datasets.append(_stac_dataset_item(cat, collection_id, stac))
+
         self.update_data_table()
         self.data_view.selectionModel().selectionChanged.connect(self.selection_changed)
         self.data_view.viewport().installEventFilter(tool_tipper(self.data_view))
@@ -263,6 +270,16 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         crosses_180th, geojsons = self.gee_bounding_box
         log(f"selected_datasets: {selected_datasets}")
         for dataset in selected_datasets:
+            if "stac_collection" in dataset:
+                download_stac(
+                    collection_id=dataset["stac_collection"],
+                    assets=dataset["stac_assets"],
+                    geojsons=geojsons,
+                    crs=self.aoi.get_crs_dst_wkt(),
+                    task_name=self.execution_name_le.text(),
+                )
+                continue
+
             payload = {
                 "geojsons": json.dumps(geojsons),
                 "crs": self.aoi.get_crs_dst_wkt(),

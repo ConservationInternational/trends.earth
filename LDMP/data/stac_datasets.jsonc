@@ -1,0 +1,8 @@
+{
+  "Restoration": {
+    "iceed-weplan-forests": {
+      "collection": "iceed-weplan-forests.jsonc",
+      "items": "iceed-weplan-forests.items.jsonc"
+    }
+  }
+}

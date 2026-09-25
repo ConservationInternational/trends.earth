@@ -1,0 +1,152 @@
+{
+    "id": "usgs-world-terrestrial-ecosystems",
+    "type": "Collection",
+    "links": [
+        {
+            "rel": "items",
+            "type": "application/geo+json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/usgs-world-terrestrial-ecosystems/items"
+        },
+        {
+            "rel": "parent",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/"
+        },
+        {
+            "rel": "root",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/"
+        },
+        {
+            "rel": "self",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/usgs-world-terrestrial-ecosystems"
+        },
+        {
+            "rel": "http://www.opengis.net/def/rel/ogc/1.0/queryables",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/usgs-world-terrestrial-ecosystems/queryables",
+            "type": "application/schema+json",
+            "title": "Queryables"
+        },
+        {
+            "rel": "UNBL:layers",
+            "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.world-terrestrial-ecosystems",
+            "type": "text/html",
+            "title": "View 'World Terrestrial Ecosystems' layer on UN Biodiversity Lab"
+        },
+        {
+            "rel": "http://www.opengis.net/def/rel/ogc/1.0/queryables",
+            "type": "application/schema+json",
+            "title": "Queryables",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/usgs-world-terrestrial-ecosystems/queryables"
+        }
+    ],
+    "title": "World Terrestrial Ecosystems",
+    "access": "public",
+    "assets": {
+        "thumbnail": {
+            "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/USGS/usgs-world-terrestrial-ecosystems/thumbnails/world-terrestrial-ecosystems_thumbnail_global.png",
+            "type": "image/png",
+            "roles": [
+                "thumbnail"
+            ],
+            "title": "Thumbnail"
+        }
+    },
+    "extent": {
+        "spatial": {
+            "bbox": [
+                [
+                    -180.0,
+                    -60.0,
+                    180.0,
+                    85.0
+                ]
+            ]
+        },
+        "temporal": {
+            "interval": [
+                [
+                    "2015-01-01T00:00:00Z",
+                    "2015-12-31T23:59:00Z"
+                ]
+            ]
+        }
+    },
+    "license": "CC-BY-4.0",
+    "sci:doi": "10.1016/j.gecco.2019.e00860",
+    "version": "v1 (2015)",
+    "keywords": [
+        "Biodiversity",
+        "Land Cover and Land Use",
+        "Biodiversity/Ecosystem",
+        "DPG Open Data",
+        "Ecological Land Units (ELU)",
+        "Terrestrial Habitat Mapping",
+        "Biodiversity Conservation",
+        "Nature-Based Solutions",
+        "Ecosystem Services",
+        "Global Land Management",
+        "Landscape Ecology",
+        "Policy Decision Support",
+        "Conservation Priority Areas",
+        "Climate Change Adaptation",
+        "USGS",
+        "TNC",
+        "ESRI",
+        "Global"
+    ],
+    "providers": [
+        {
+            "url": "https://www.usgs.gov/",
+            "name": "U.S. Geological Survey (USGS)",
+            "roles": [
+                "licensor",
+                "producer"
+            ]
+        },
+        {
+            "url": "https://www.esri.com/",
+            "name": "ESRI",
+            "roles": [
+                "producer"
+            ]
+        },
+        {
+            "url": "https://www.nature.org/",
+            "name": "The Nature Conservancy (TNC)",
+            "roles": [
+                "producer"
+            ]
+        },
+        {
+            "url": "https://unbiodiversitylab.org",
+            "name": "UN Biodiversity Lab (UNBL)",
+            "roles": [
+                "processor",
+                "host"
+            ]
+        }
+    ],
+    "summaries": {
+        "gsd": [
+            250
+        ]
+    },
+    "UNBL:layers": [
+        {
+            "id": "ed054a35-6d94-41a4-89cb-e0fcb97fc7af",
+            "name": "World Terrestrial Ecosystems"
+        }
+    ],
+    "description": "The new map of terrestrial World Ecosystems was derived from the objective development and integration of 1) global temperature domains, 2) global moisture domains, 3) global landforms, and 4) 2015 global vegetation and land use. A total of 431 World Ecosystems were identified, and of these a total of 278 units were natural or semi-natural vegetation/environment combinations, including different kinds of forestlands, shrublands, grasslands, bare areas, and ice/snow regions.",
+    "preview:bbox": [
+        -180,
+        -85.0511,
+        180,
+        85.0511
+    ],
+    "sci:citation": "Sayre, R., Karagulle, D., Frye, C., Boucher, T., Wolff, N.H., Breyer, S., Wright, D., Martin, M., Butler, K., Van Graafeiland, K., Touval, J., Sotomayor, L., McGowan, J., Game, E.T., Possingham, H., 2020. An assessment of the representation of ecosystems in global protected areas using new maps of World Climate Regions and World Ecosystems. Global Ecology and Conservation 21, e00860. https://doi.org/10.1016/j.gecco.2019.e00860",
+    "stac_version": "1.0.0",
+    "stac_extensions": []
+}

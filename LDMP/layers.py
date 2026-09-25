@@ -42,6 +42,7 @@ from qgis.utils import iface
 from te_schemas.land_cover import LCLegendNesting
 
 from .logger import log
+from .style_text_dict import style_text_dict as additional_style_text_dict
 
 
 def convert_vsis3_to_vsicurl(path: str) -> str:
@@ -399,29 +400,8 @@ style_text_dict = {
     "usda_soil_type": tr_layers.tr("USDA Soil Type"),
     # Soil Organic C
     "soil_grids_250_soc": tr_layers.tr("Soil Grids 250"),
-    # WePlan-Forests (STAC)
-    "weplan_available_areas_title": tr_layers.tr("WePlan - {asset_title}"),
-    "weplan_available_areas_0": tr_layers.tr("0%"),
-    "weplan_available_areas_100": tr_layers.tr("100%"),
-    "weplan_restoration_priority_title": tr_layers.tr("WePlan - {asset_title}"),
-    "weplan_restoration_priority_0": tr_layers.tr("0%"),
-    "weplan_restoration_priority_25": tr_layers.tr("25%"),
-    "weplan_restoration_priority_50": tr_layers.tr("50%"),
-    "weplan_restoration_priority_75": tr_layers.tr("75%"),
-    "weplan_restoration_priority_100": tr_layers.tr("100%"),
-    # Nature Map (STAC)
-    "naturemap_restoration_priority_title": tr_layers.tr("Nature Map - {asset_title}"),
-    "naturemap_restoration_priority_1": tr_layers.tr("Top 5%"),
-    "naturemap_restoration_priority_2": tr_layers.tr("10%"),
-    "naturemap_restoration_priority_3": tr_layers.tr("15%"),
-    "naturemap_restoration_priority_4": tr_layers.tr("20%"),
-    "naturemap_restoration_priority_6": tr_layers.tr("30%"),
-    "naturemap_restoration_priority_8": tr_layers.tr("40%"),
-    "naturemap_restoration_priority_11": tr_layers.tr("55%"),
-    "naturemap_restoration_priority_14": tr_layers.tr("70%"),
-    "naturemap_restoration_priority_17": tr_layers.tr("85%"),
-    "naturemap_restoration_priority_20": tr_layers.tr("100%"),
 }
+style_text_dict.update(additional_style_text_dict)
 
 with open(
     os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "styles.json")

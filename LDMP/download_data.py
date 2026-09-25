@@ -25,7 +25,6 @@ from .conf import Setting, settings_manager
 from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
 from .download_data_stac import _stac_dataset_item
 from .jobs.manager import job_manager
-from .localexecution.download_stac import download_stac
 from .logger import log
 from .utils import push_message
 
@@ -314,14 +313,26 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         log(f"selected_datasets: {selected_datasets}")
         for dataset in selected_datasets:
             if "stac_collection" in dataset:
-                download_stac(
-                    collection_id=dataset["stac_collection"],
-                    assets={
-                        key: dataset["assets"][key] for key in selected_layer
-                    },
-                    geojsons=geojsons,
-                    crs=self.aoi.get_crs_dst_wkt(),
-                    task_name=self.execution_name_le.text(),
+                titles = {
+                    key: title
+                    for assets in dataset["layers"].values()
+                    for key, title in assets.items()
+                }
+                params = {
+                    "task_name": self.execution_name_le.text(),
+                    "task_notes": "",
+                    "stac_collection": dataset["stac_collection"],
+                    "assets": [
+                        {
+                            "key": key,
+                            "title": titles[key],
+                            "href": dataset["assets"][key],
+                        }
+                        for key in selected_layer
+                    ],
+                }
+                job_manager.submit_local_job_as_qgstask(
+                    params, "download-stac", self.aoi
                 )
                 continue
 

@@ -1,14 +1,144 @@
+import datetime as dt
+import json
+import tempfile
+from pathlib import Path
+
+from osgeo import gdal
+from te_algorithms.gdal.util import combine_all_bands_into_vrt
+from te_schemas.results import URI, DataType, Raster, RasterFileType, RasterResults
+from te_schemas.results import Band as JobBand
+
+from ..areaofinterest import AOI
+from ..jobs.models import Job
+from ..logger import log
+
+NODATA_VALUE = -32768
+
+GDAL_CONFIG = {
+    "GDAL_DISABLE_READDIR_ON_OPEN": "EMPTY_DIR",
+    "CPL_VSIL_CURL_ALLOWED_EXTENSIONS": ".tif,.tiff",
+}
+
+
+def _vsicurl(href):
+    return f"/vsicurl/{href}"
+
+
+def _union_bounds(bounds):
+    return [
+        min(b[0] for b in bounds),
+        min(b[1] for b in bounds),
+        max(b[2] for b in bounds),
+        max(b[3] for b in bounds),
+    ]
+
+
+def _group_assets_by_datatype(assets):
+    groups = {}
+    for asset in assets:
+        ds = gdal.Open(_vsicurl(asset["href"]))
+        datatype = DataType(gdal.GetDataTypeName(ds.GetRasterBand(1).DataType))
+        groups.setdefault(datatype, []).append(asset)
+        ds = None
+    return groups
+
+
 def download_stac(
-    collection_id,
-    assets,
-    geojsons,
-    crs,
-    task_name,
+    job: Job,
+    area_of_interest: AOI,
+    job_output_path: Path,
+    dataset_output_path: Path,
+    progress_callback,
+    killed_callback,
 ):
-    print("collection_id:", collection_id)
-    print("assets:")
-    for key, href in assets.items():
-        print(f"  {key}: {href}")
-    print("geojsons:", geojsons)
-    print("crs:", crs)
-    print("task_name:", task_name)
+    assets = job.params["assets"]
+
+    with gdal.config_options(GDAL_CONFIG):
+        groups = _group_assets_by_datatype(assets)
+
+        first_layer_link = _vsicurl(assets[0]["href"])
+        output_bounds = _union_bounds(
+            area_of_interest.get_aligned_output_bounds(first_layer_link)
+        )
+        gt = gdal.Open(first_layer_link).GetGeoTransform()
+
+        cutline_file = tempfile.NamedTemporaryFile(suffix=".geojson", delete=False)
+        cutline_file.write(json.dumps(area_of_interest.get_geojson()).encode())
+        cutline_file.close()
+
+        rasters = {}
+        for n, (datatype, group_assets) in enumerate(groups.items()):
+            if len(groups) > 1:
+                out_file = dataset_output_path.with_name(
+                    f"{dataset_output_path.stem}_{datatype.value}.tif"
+                )
+            else:
+                out_file = dataset_output_path
+
+            in_vrt = tempfile.NamedTemporaryFile(suffix=".vrt").name
+            ds_vrt = gdal.BuildVRT(
+                in_vrt,
+                [_vsicurl(a["href"]) for a in group_assets],
+                separate=True,
+            )
+            if ds_vrt is None:
+                raise RuntimeError(f"Failed to create VRT for {datatype.value} assets")
+            ds_vrt.FlushCache()
+            ds_vrt = None
+
+            def _progress(fraction, message, data, n=n):
+                progress_callback(100 * (n + fraction) / len(groups))
+                return 0 if killed_callback() else 1
+
+            log(f"Downloading {len(group_assets)} STAC asset(s) to {out_file}")
+            res = gdal.Warp(
+                str(out_file),
+                in_vrt,
+                format="GTiff",
+                cutlineDSName=cutline_file.name,
+                outputBounds=output_bounds,
+                xRes=gt[1],
+                yRes=abs(gt[5]),
+                dstNodata=NODATA_VALUE,
+                outputType=gdal.GetDataTypeByName(datatype.value),
+                resampleAlg=gdal.GRA_NearestNeighbour,
+                creationOptions=["COMPRESS=LZW", "TILED=YES"],
+                callback=_progress,
+            )
+            if res is None:
+                raise RuntimeError(f"Failed to download {datatype.value} assets")
+            res = None
+
+            rasters[datatype.value] = Raster(
+                uri=URI(uri=out_file),
+                bands=[
+                    JobBand(
+                        name=a["title"],
+                        metadata={
+                            "stac_collection": job.params["stac_collection"],
+                            "asset": a["key"],
+                        },
+                        no_data_value=NODATA_VALUE,
+                    )
+                    for a in group_assets
+                ],
+                datatype=datatype,
+                filetype=RasterFileType.GEOTIFF,
+            )
+
+        Path(cutline_file.name).unlink()
+
+    if len(rasters) > 1:
+        vrt_file = dataset_output_path.with_suffix(".vrt")
+        combine_all_bands_into_vrt(
+            [r.uri.uri for r in rasters.values()],
+            vrt_file,
+            band_names=[b.name for r in rasters.values() for b in r.bands],
+        )
+        uri = URI(uri=vrt_file)
+    else:
+        uri = [*rasters.values()][0].uri
+
+    job.end_date = dt.datetime.now(dt.timezone.utc)
+    job.progress = 100
+    return RasterResults(name=job.params["stac_collection"], uri=uri, rasters=rasters)

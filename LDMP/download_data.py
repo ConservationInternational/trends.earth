@@ -165,6 +165,35 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         self.region_la.setText(self.tr(f"Current region: {region}"))
         self.changed_region.emit()
 
+    def update_layers_tree(self, dataset):
+        self.layers_selector.clear()
+        self.layers_selector_group.setVisible("layers" in dataset)
+        for layer, assets in dataset.get("layers", {}).items():
+            layer_item = QtWidgets.QTreeWidgetItem(self.layers_selector, [layer])
+            layer_item.setFlags(
+                layer_item.flags()
+                | QtCore.Qt.ItemIsUserCheckable
+                | QtCore.Qt.ItemIsAutoTristate
+            )
+            layer_item.setCheckState(0, QtCore.Qt.Unchecked)
+            for key, title in assets.items():
+                asset_item = QtWidgets.QTreeWidgetItem(layer_item, [title])
+                asset_item.setData(0, QtCore.Qt.UserRole, key)
+                asset_item.setFlags(
+                    asset_item.flags() | QtCore.Qt.ItemIsUserCheckable
+                )
+                asset_item.setCheckState(0, QtCore.Qt.Unchecked)
+
+    def checked_layers(self):
+        keys = []
+        for i in range(self.layers_selector.topLevelItemCount()):
+            layer_item = self.layers_selector.topLevelItem(i)
+            for j in range(layer_item.childCount()):
+                asset_item = layer_item.child(j)
+                if asset_item.checkState(0) == QtCore.Qt.Checked:
+                    keys.append(asset_item.data(0, QtCore.Qt.UserRole))
+        return keys
+
     def selection_changed(self):
         if self.data_view.selectedIndexes():
             # Note there can only be one row selected at a time by default
@@ -185,6 +214,12 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 self.year_final.setMinimumDate(year_initial)
                 self.year_final.setMaximumDate(year_final)
                 self.year_final.setDate(year_final)
+
+            # for update_layers_tree for stack dataset
+            index = self.data_view.selectedIndexes()[0]
+            self.update_layers_tree(
+                self.datasets[self.proxy_model.mapToSource(index).row()]
+            )
 
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
@@ -265,6 +300,14 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
             d for d in self.datasets if d["category"] + d["title"] in selected_names
         ]
 
+        # Check if it is stac, check layer selected
+        selected_layer = self.checked_layers()
+        if any("stac_collection" in d for d in selected_datasets) and not selected_layer:
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Choose at least one layer.")
+            )
+            return
+
         self.close()
 
         crosses_180th, geojsons = self.gee_bounding_box
@@ -273,7 +316,9 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
             if "stac_collection" in dataset:
                 download_stac(
                     collection_id=dataset["stac_collection"],
-                    assets=dataset["stac_assets"],
+                    assets={
+                        key: dataset["assets"][key] for key in selected_layer
+                    },
                     geojsons=geojsons,
                     crs=self.aoi.get_crs_dst_wkt(),
                     task_name=self.execution_name_le.text(),

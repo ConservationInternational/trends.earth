@@ -346,6 +346,7 @@ STAC_DATASETS = {
                 os.path.join(stac_datasets_dir, files["collection"])
             ),
             "items": _load_jsonc(os.path.join(stac_datasets_dir, files["items"])),
+            "layers": _load_jsonc(os.path.join(stac_datasets_dir, files["layers"])),
         }
         for collection_id, files in collections.items()
     }

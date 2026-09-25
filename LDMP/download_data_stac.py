@@ -32,6 +32,12 @@ def _stac_dataset_item(category, collection_id, stac):
         end_year = "NA"
 
     gsd = collection.get("summaries", {}).get("gsd", [])
+    assets = {
+        key: asset
+        for feature in features
+        for key, asset in feature["assets"].items()
+        if "data" in asset.get("roles", [])
+    }
     return {
         "category": category,
         "title": collection.get("title", collection_id),
@@ -45,10 +51,9 @@ def _stac_dataset_item(category, collection_id, stac):
         "Source": collection_id,
         "Citation": collection.get("sci:citation", ""),
         "stac_collection": collection_id,
-        "stac_assets": {
-            key: asset["href"]
-            for feature in features
-            for key, asset in feature["assets"].items()
-            if "data" in asset.get("roles", [])
+        "assets": {key: asset["href"] for key, asset in assets.items()},
+        "layers": {
+            layer: {key: assets[key].get("title", key) for key in keys}
+            for layer, keys in stac["layers"].items()
         },
     }

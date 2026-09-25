@@ -327,6 +327,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                             "key": key,
                             "title": titles[key],
                             "href": dataset["assets"][key],
+                            "style": dataset["styles"][key],
                         }
                         for key in selected_layer
                     ],

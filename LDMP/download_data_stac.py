@@ -53,7 +53,14 @@ def _stac_dataset_item(category, collection_id, stac):
         "stac_collection": collection_id,
         "assets": {key: asset["href"] for key, asset in assets.items()},
         "layers": {
-            layer: {key: assets[key].get("title", key) for key in keys}
-            for layer, keys in stac["layers"].items()
+            layer: {
+                key: assets[key].get("title", key) for key in layer_config["assets"]
+            }
+            for layer, layer_config in stac["layers"].items()
+        },
+        "styles": {
+            key: layer_config["style"]
+            for layer_config in stac["layers"].values()
+            for key in layer_config["assets"]
         },
     }

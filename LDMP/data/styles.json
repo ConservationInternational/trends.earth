@@ -1529,5 +1529,30 @@
         { "value": -32768, "color": "#000000", "label": "nodata" }
       ]
     }
+  },
+  "WePlan available areas": {
+    "title": "weplan_available_areas_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "interpolated",
+      "items": [
+        { "value": 0, "color": "#39243D", "label": "weplan_available_areas_0" },
+        { "value": 1, "color": "#77F100", "label": "weplan_available_areas_100" }
+      ]
+    }
+  },
+  "WePlan restoration priority": {
+    "title": "weplan_restoration_priority_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "interpolated",
+      "items": [
+        { "value": 1, "color": "#30123b", "label": "weplan_restoration_priority_0" },
+        { "value": 25.75, "color": "#28bceb", "label": "weplan_restoration_priority_25" },
+        { "value": 50.5, "color": "#a4fc3c", "label": "weplan_restoration_priority_50" },
+        { "value": 75.25, "color": "#fb7e21", "label": "weplan_restoration_priority_75" },
+        { "value": 100, "color": "#7a0403", "label": "weplan_restoration_priority_100" }
+      ]
+    }
   }
 }

@@ -399,6 +399,16 @@ style_text_dict = {
     "usda_soil_type": tr_layers.tr("USDA Soil Type"),
     # Soil Organic C
     "soil_grids_250_soc": tr_layers.tr("Soil Grids 250"),
+    # WePlan-Forests (STAC)
+    "weplan_available_areas_title": tr_layers.tr("WePlan - {asset_title}"),
+    "weplan_available_areas_0": tr_layers.tr("0%"),
+    "weplan_available_areas_100": tr_layers.tr("100%"),
+    "weplan_restoration_priority_title": tr_layers.tr("WePlan - {asset_title}"),
+    "weplan_restoration_priority_0": tr_layers.tr("0%"),
+    "weplan_restoration_priority_25": tr_layers.tr("25%"),
+    "weplan_restoration_priority_50": tr_layers.tr("50%"),
+    "weplan_restoration_priority_75": tr_layers.tr("75%"),
+    "weplan_restoration_priority_100": tr_layers.tr("100%"),
 }
 
 with open(

@@ -113,10 +113,11 @@ def download_stac(
                 uri=URI(uri=out_file),
                 bands=[
                     JobBand(
-                        name=a["title"],
+                        name=a["style"],
                         metadata={
                             "stac_collection": job.params["stac_collection"],
                             "asset": a["key"],
+                            "asset_title": a["title"],
                         },
                         no_data_value=NODATA_VALUE,
                     )
@@ -133,7 +134,9 @@ def download_stac(
         combine_all_bands_into_vrt(
             [r.uri.uri for r in rasters.values()],
             vrt_file,
-            band_names=[b.name for r in rasters.values() for b in r.bands],
+            band_names=[
+                b.metadata["asset_title"] for r in rasters.values() for b in r.bands
+            ],
         )
         uri = URI(uri=vrt_file)
     else:

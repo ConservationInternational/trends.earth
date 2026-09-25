@@ -23,9 +23,9 @@ def _stac_dataset_item(category, collection_id, stac):
     start_year = "NA"
     end_year = "NA"
     if interval[0][:4]:
-        start_year = interval[0][:4]
+        start_year = int(interval[0][:4])
     if interval[1][:4]:
-        end_year = interval[1][:4]
+        end_year = int(interval[1][:4])
 
     if start_year == end_year:
         start_year = "NA"

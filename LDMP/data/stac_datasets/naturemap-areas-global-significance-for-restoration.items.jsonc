@@ -1,0 +1,223 @@
+{
+    "type": "FeatureCollection",
+    "links": [
+        {
+            "rel": "collection",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration"
+        },
+        {
+            "rel": "parent",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration"
+        },
+        {
+            "rel": "root",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/"
+        },
+        {
+            "rel": "self",
+            "type": "application/geo+json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration/items"
+        }
+    ],
+    "features": [
+        {
+            "id": "2015",
+            "bbox": [
+                -179.87896164729798,
+                -72.35059978902385,
+                179.85992227851924,
+                85.07288135595564
+            ],
+            "type": "Feature",
+            "links": [
+                {
+                    "rel": "collection",
+                    "type": "application/json",
+                    "href": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration"
+                },
+                {
+                    "rel": "parent",
+                    "type": "application/json",
+                    "href": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration"
+                },
+                {
+                    "rel": "root",
+                    "type": "application/json",
+                    "href": "https://unbl-prod-stac.azurewebsites.net/"
+                },
+                {
+                    "rel": "self",
+                    "type": "application/geo+json",
+                    "href": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration/items/2015"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.areas-of-global-significance-for-restoration",
+                    "type": "text/html",
+                    "title": "View 'Areas of Global Significance for Restoration' layer on UN Biodiversity Lab"
+                }
+            ],
+            "assets": {
+                "thumbnail": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/UNEP-WCMC/Nature-Map/areas-of-global-significance-for-restoration/thumbnails/areas-global-significance-for-restoration-v1-2020.png",
+                    "type": "image/png",
+                    "roles": [
+                        "thumbnail"
+                    ],
+                    "title": "Thumbnail"
+                },
+                "global-priorities-restoration": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/UNEP-WCMC/Nature-Map/areas-of-global-significance-for-restoration/items/cogs/areas-of-global-significance-restoration-v1-2020.tif",
+                    "type": "image/tiff; application=geotiff",
+                    "roles": [
+                        "data"
+                    ],
+                    "title": "Areas of Global Significance for Restoration",
+                    "proj:bbox": [
+                        -179.87896164729798,
+                        -72.35059978902385,
+                        179.85992227851924,
+                        85.07288135595564
+                    ],
+                    "proj:epsg": 4326,
+                    "proj:shape": [
+                        3391,
+                        7749
+                    ],
+                    "raster:bands": [
+                        {
+                            "scale": 1,
+                            "nodata": 255,
+                            "offset": 0,
+                            "sampling": "area",
+                            "data_type": "uint8",
+                            "histogram": {
+                                "max": 21,
+                                "min": 1,
+                                "count": 11,
+                                "buckets": [
+                                    5407,
+                                    4347,
+                                    4590,
+                                    4190,
+                                    4717,
+                                    5441,
+                                    5241,
+                                    4619,
+                                    4506,
+                                    111125
+                                ]
+                            },
+                            "statistics": {
+                                "mean": 17.727551027026326,
+                                "stddev": 5.83144364434891,
+                                "maximum": 21,
+                                "minimum": 1,
+                                "valid_percent": 33.53437326002227
+                            }
+                        }
+                    ],
+                    "proj:geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [
+                                [
+                                    -179.87896164729798,
+                                    -72.35059978902385
+                                ],
+                                [
+                                    179.85992227851924,
+                                    -72.35059978902385
+                                ],
+                                [
+                                    179.85992227851924,
+                                    85.07288135595564
+                                ],
+                                [
+                                    -179.87896164729798,
+                                    85.07288135595564
+                                ],
+                                [
+                                    -179.87896164729798,
+                                    -72.35059978902385
+                                ]
+                            ]
+                        ]
+                    },
+                    "classification": "continuous",
+                    "proj:transform": [
+                        0.04642391068858139,
+                        0,
+                        -179.87896164729798,
+                        0,
+                        -0.04642391068858139,
+                        85.07288135595564,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            -179.87896164729798,
+                            -72.35059978902385
+                        ],
+                        [
+                            179.85992227851924,
+                            -72.35059978902385
+                        ],
+                        [
+                            179.85992227851924,
+                            85.07288135595564
+                        ],
+                        [
+                            -179.87896164729798,
+                            85.07288135595564
+                        ],
+                        [
+                            -179.87896164729798,
+                            -72.35059978902385
+                        ]
+                    ]
+                ]
+            },
+            "collection": "naturemap-areas-global-significance-for-restoration",
+            "properties": {
+                "access": "public",
+                "license": "CC-BY-NC-SA-4.0",
+                "sci:doi": "10.1038/s41586-020-2784-9",
+                "version": "v1",
+                "datetime": "2015-07-01T00:00:00Z",
+                "summaries": {
+                    "gsd": [
+                        10000
+                    ]
+                },
+                "UNBL:layers": [
+                    {
+                        "id": "7cf6d182-60e9-4c74-86ae-82030820c5cd",
+                        "name": "Areas of Global Significance for Restoration"
+                    }
+                ],
+                "description": "Global raster identifying restoration priority scores based on biodiversity, climate, and cost-effectiveness. Model baseline uses satellite data from 1992-2015.",
+                "end_datetime": "2015-12-31T23:59:00+00:00",
+                "sci:citation": "Bernardo B. N. Strassburg, Alvaro Iribarrem, Hawthorne L. Beyer, Carlos Leandro Cordeiro, Renato Crouzeilles, Catarina Jakovac, André Junqueira, Eduardo Lacerda, Agnieszka E. Latawiec, Andrew Balmford, Thomas M. Brooks, Stuart H. M. Butchart, Robin L. Chazdon, Karl-Heinz Erb, Pedro Brancalion, Graeme Buchanan, David Cooper, Sandra Diaz, Paul F. Donald, Valerie Kapos, David Leclere, Lera Miles, Michael Obersteiner, Christoph Plutzar, Carlos Alberto de M. Scaramuzza, Fabio R. Scarano, Piero Visconti (2020). Global priority areas for ecosystem restoration. Nature, 586(7831), pp.724-729. https://doi.org/10.1038/s41586-020-2784-9\n\n\n\nIIS (2021) Areas of global importance for restoration of biodiversity and carbon sequestration in United Nations Environment Programme (2022). Strengthening Synergies: Climate change mitigation benefits from achieving global biodiversity targets. United Nations Environment Programme World Conservation Monitoring Centre, Cambridge.",
+                "start_datetime": "1992-01-01T00:00:00+00:00",
+                "UNBL:last_updated": "2026-09-25 07:23:41 UTC"
+            },
+            "stac_version": "1.0.0",
+            "stac_extensions": [
+                "https://stac-extensions.github.io/projection/v1.1.0/schema.json",
+                "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+            ]
+        }
+    ],
+    "numberReturned": 1
+}

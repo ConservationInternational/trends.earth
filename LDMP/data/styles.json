@@ -1554,5 +1554,24 @@
         { "value": 100, "color": "#7a0403", "label": "weplan_restoration_priority_100" }
       ]
     }
+  },
+  "Nature Map restoration priority": {
+    "title": "naturemap_restoration_priority_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "discrete",
+      "items": [
+        { "value": 1, "color": "#BB0D14", "label": "naturemap_restoration_priority_1" },
+        { "value": 2, "color": "#DB2F1C", "label": "naturemap_restoration_priority_2" },
+        { "value": 3, "color": "#E34F1F", "label": "naturemap_restoration_priority_3" },
+        { "value": 4, "color": "#F3C880", "label": "naturemap_restoration_priority_4" },
+        { "value": 6, "color": "#FAE3BB", "label": "naturemap_restoration_priority_6" },
+        { "value": 8, "color": "#9DC996", "label": "naturemap_restoration_priority_8" },
+        { "value": 11, "color": "#D1DABA", "label": "naturemap_restoration_priority_11" },
+        { "value": 14, "color": "#ABBEBA", "label": "naturemap_restoration_priority_14" },
+        { "value": 17, "color": "#7E9EB4", "label": "naturemap_restoration_priority_17" },
+        { "value": 20, "color": "#5386B0", "label": "naturemap_restoration_priority_20" }
+      ]
+    }
   }
 }

@@ -13,6 +13,7 @@ from ..jobs.models import Job
 from ..logger import log
 
 NODATA_VALUE = -32768
+UNSIGNED_DATATYPES = (DataType.BYTE, DataType.UINT16, DataType.UINT32)
 
 GDAL_CONFIG = {
     "GDAL_DISABLE_READDIR_ON_OPEN": "EMPTY_DIR",
@@ -86,6 +87,17 @@ def download_stac(
             ds_vrt.FlushCache()
             ds_vrt = None
 
+            no_data_value = NODATA_VALUE
+            if datatype in UNSIGNED_DATATYPES:
+                ds = gdal.Open(_vsicurl(group_assets[0]["href"]))
+                no_data_value = ds.GetRasterBand(1).GetNoDataValue()
+                ds = None
+                if no_data_value is None:
+                    raise RuntimeError(
+                        f"{datatype.value} asset {group_assets[0]['key']} has no nodata value"
+                    )
+                no_data_value = int(no_data_value)
+
             def _progress(fraction, message, data, n=n):
                 progress_callback(100 * (n + fraction) / len(groups))
                 return 0 if killed_callback() else 1
@@ -99,7 +111,7 @@ def download_stac(
                 outputBounds=output_bounds,
                 xRes=gt[1],
                 yRes=abs(gt[5]),
-                dstNodata=NODATA_VALUE,
+                dstNodata=no_data_value,
                 outputType=gdal.GetDataTypeByName(datatype.value),
                 resampleAlg=gdal.GRA_NearestNeighbour,
                 creationOptions=["COMPRESS=LZW", "TILED=YES"],
@@ -119,7 +131,7 @@ def download_stac(
                             "asset": a["key"],
                             "asset_title": a["title"],
                         },
-                        no_data_value=NODATA_VALUE,
+                        no_data_value=no_data_value,
                     )
                     for a in group_assets
                 ],

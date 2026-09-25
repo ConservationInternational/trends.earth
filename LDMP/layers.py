@@ -409,6 +409,18 @@ style_text_dict = {
     "weplan_restoration_priority_50": tr_layers.tr("50%"),
     "weplan_restoration_priority_75": tr_layers.tr("75%"),
     "weplan_restoration_priority_100": tr_layers.tr("100%"),
+    # Nature Map (STAC)
+    "naturemap_restoration_priority_title": tr_layers.tr("Nature Map - {asset_title}"),
+    "naturemap_restoration_priority_1": tr_layers.tr("Top 5%"),
+    "naturemap_restoration_priority_2": tr_layers.tr("10%"),
+    "naturemap_restoration_priority_3": tr_layers.tr("15%"),
+    "naturemap_restoration_priority_4": tr_layers.tr("20%"),
+    "naturemap_restoration_priority_6": tr_layers.tr("30%"),
+    "naturemap_restoration_priority_8": tr_layers.tr("40%"),
+    "naturemap_restoration_priority_11": tr_layers.tr("55%"),
+    "naturemap_restoration_priority_14": tr_layers.tr("70%"),
+    "naturemap_restoration_priority_17": tr_layers.tr("85%"),
+    "naturemap_restoration_priority_20": tr_layers.tr("100%"),
 }
 
 with open(

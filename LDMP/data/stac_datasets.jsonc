@@ -4,6 +4,11 @@
       "collection": "iceed-weplan-forests.jsonc",
       "items": "iceed-weplan-forests.items.jsonc",
       "layers": "iceed-weplan-forests.layers.jsonc"
+    },
+    "naturemap-areas-global-significance-for-restoration": {
+      "collection": "naturemap-areas-global-significance-for-restoration.jsonc",
+      "items": "naturemap-areas-global-significance-for-restoration.items.jsonc",
+      "layers": "naturemap-areas-global-significance-for-restoration.layers.jsonc"
     }
   }
 }

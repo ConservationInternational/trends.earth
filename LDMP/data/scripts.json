@@ -9,7 +9,7 @@
     },
     {
         "description": "Download data from Google Earth Engine assets.",
-        "id": "4ed6202c-0579-49c6-83e6-d28317abcf14",
+        "id": "410dfde6-6e45-470b-823c-ac5a62659542",
         "name": "download-data",
         "name_readable": "Download raw data",
         "run_mode": "remote",
@@ -25,7 +25,7 @@
     },
     {
         "description": "Calculate indicators of drought vulnerability",
-        "id": "8e7e873e-4d9a-4809-87d3-3c495dae231d",
+        "id": "c315b3e3-c448-4f90-9bd3-63c09d310fcd",
         "name": "drought-vulnerability",
         "name_readable": "Drought vulnerability",
         "run_mode": "remote",
@@ -41,7 +41,7 @@
     },
     {
         "description": "Calculate land cover change",
-        "id": "be1a0b4f-66e7-4813-b9d9-d6eb4d567bf2",
+        "id": "ee5141d2-a5e1-44be-a194-4f92581cb468",
         "name": "land-cover",
         "name_readable": "Land cover change",
         "run_mode": "remote",
@@ -113,7 +113,7 @@
             }
         },
         "description": "Calculate productivity state, performance, and/or trajectory indicators",
-        "id": "f7da7fcb-e30c-48e2-b012-cfd80ebd5651",
+        "id": "72589b1d-6995-455a-8863-da6399e0eb71",
         "name": "productivity",
         "name_readable": "Land productivity",
         "run_mode": "remote",
@@ -121,7 +121,7 @@
     },
     {
         "description": "Calculate potential change in biomass with restoration",
-        "id": "3a9dc3f3-2fc7-49f1-b154-83aaf46ed0e1",
+        "id": "2b7998e4-8f7b-4e8d-90b4-32e24a0cc6ad",
         "name": "restoration-biomass",
         "name_readable": "Biomass change",
         "run_mode": "remote",
@@ -129,7 +129,7 @@
     },
     {
         "description": "Calculate all three SDG 15.3.1 sub-indicators in one step",
-        "id": "ad290153-ed20-45ca-acad-263eb8813064",
+        "id": "8a299e5f-979e-4f40-b7eb-46cb3809144b",
         "name": "sdg-15-3-1-sub-indicators",
         "name_readable": "SDG 15.3.1 sub-indicators",
         "run_mode": "remote",
@@ -145,7 +145,7 @@
     },
     {
         "description": "Calculate change in soil organic carbon",
-        "id": "88b1fe6a-3406-41f2-82d7-cd72d49b8eb0",
+        "id": "4280b023-5a5f-4fb6-ad46-8f42dd1e71c8",
         "name": "soil-organic-carbon",
         "name_readable": "Soil organic carbon change",
         "run_mode": "remote",
@@ -153,7 +153,7 @@
     },
     {
         "description": "Calculates time series of Trends.Earth data",
-        "id": "f2fe55df-bb64-4f3e-b98b-8ec447ec7960",
+        "id": "fb5e2d0f-4942-436a-9730-db698e49e27b",
         "name": "time-series",
         "name_readable": "Time series",
         "run_mode": "remote",
@@ -161,7 +161,7 @@
     },
     {
         "description": "Calculates total carbon in biomass (above and below ground).",
-        "id": "cfff9d38-55cd-4531-84ac-770328c10e8e",
+        "id": "b766f32d-2c7f-41b9-913a-4f04c4958a39",
         "name": "total-carbon",
         "name_readable": "Total carbon change",
         "run_mode": "remote",
@@ -184,7 +184,7 @@
     },
     {
         "description": "Calculate change in urban area, in support of SDG 11.3.1",
-        "id": "c29d8a63-595f-40fa-84a7-8eaa085bc6d8",
+        "id": "263ba602-8b7d-4f81-8fa3-63205649e144",
         "name": "urban-area",
         "name_readable": "Urban area change (summary)",
         "run_mode": "remote",

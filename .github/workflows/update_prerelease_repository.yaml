@@ -1,8 +1,8 @@
 name: Update pre-release plugin repository
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
 
 permissions:
   contents: write

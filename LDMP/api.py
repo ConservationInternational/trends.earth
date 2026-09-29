@@ -543,7 +543,7 @@ class APIClient(QtCore.QObject):
         log("Attempting to refresh access token")
 
         resp = self.call_api(
-            "/auth/refresh?legacy=false",
+            "/auth/refresh?legacy=false&rotate=true",
             method="post",
             payload={"refresh_token": refresh_token},
             use_token=False,  # Don't use token for refresh endpoint
@@ -709,7 +709,12 @@ class APIClient(QtCore.QObject):
         if access_token:
             try:
                 # Call logout endpoint to revoke the token on server side
-                resp = self.call_api("/auth/logout", method="post", use_token=True)
+                resp = self.call_api(
+                    "/auth/logout",
+                    method="post",
+                    payload={"refresh_token": refresh_token},
+                    use_token=True,
+                )
                 if resp:
                     log("Server-side logout successful")
                 else:

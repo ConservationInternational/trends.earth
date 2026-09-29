@@ -52,6 +52,42 @@ def download_stac(
     progress_callback,
     killed_callback,
 ):
+    return _stac_to_raster(
+        job,
+        area_of_interest,
+        dataset_output_path,
+        progress_callback,
+        killed_callback,
+        online=False,
+    )
+
+
+def view_stac(
+    job: Job,
+    area_of_interest: AOI,
+    job_output_path: Path,
+    dataset_output_path: Path,
+    progress_callback,
+    killed_callback,
+):
+    return _stac_to_raster(
+        job,
+        area_of_interest,
+        dataset_output_path.with_suffix(".vrt"),
+        progress_callback,
+        killed_callback,
+        online=True,
+    )
+
+
+def _stac_to_raster(
+    job: Job,
+    area_of_interest: AOI,
+    dataset_output_path: Path,
+    progress_callback,
+    killed_callback,
+    online: bool,
+):
     assets = job.params["assets"]
 
     with gdal.config_options(GDAL_CONFIG):
@@ -71,12 +107,17 @@ def download_stac(
         for n, (datatype, group_assets) in enumerate(groups.items()):
             if len(groups) > 1:
                 out_file = dataset_output_path.with_name(
-                    f"{dataset_output_path.stem}_{datatype.value}.tif"
+                    f"{dataset_output_path.stem}_{datatype.value}"
+                    f"{dataset_output_path.suffix}"
                 )
             else:
                 out_file = dataset_output_path
 
-            in_vrt = tempfile.NamedTemporaryFile(suffix=".vrt").name
+            if online:
+                # The online VRT keeps reading from this source VRT
+                in_vrt = str(out_file.with_name(f"{out_file.stem}_source.vrt"))
+            else:
+                in_vrt = tempfile.NamedTemporaryFile(suffix=".vrt").name
             ds_vrt = gdal.BuildVRT(
                 in_vrt,
                 [_vsicurl(a["href"]) for a in group_assets],
@@ -102,11 +143,19 @@ def download_stac(
                 progress_callback(100 * (n + fraction) / len(groups))
                 return 0 if killed_callback() else 1
 
-            log(f"Downloading {len(group_assets)} STAC asset(s) to {out_file}")
+            if online:
+                log(f"Creating online VRT of {len(group_assets)} asset(s) at {out_file}")
+                output_format = {"format": "VRT"}
+            else:
+                log(f"Downloading {len(group_assets)} STAC asset(s) to {out_file}")
+                output_format = {
+                    "format": "GTiff",
+                    "creationOptions": ["COMPRESS=LZW", "TILED=YES"],
+                }
             res = gdal.Warp(
                 str(out_file),
                 in_vrt,
-                format="GTiff",
+                **output_format,
                 cutlineDSName=cutline_file.name,
                 outputBounds=output_bounds,
                 xRes=gt[1],
@@ -114,7 +163,6 @@ def download_stac(
                 dstNodata=no_data_value,
                 outputType=gdal.GetDataTypeByName(datatype.value),
                 resampleAlg=gdal.GRA_NearestNeighbour,
-                creationOptions=["COMPRESS=LZW", "TILED=YES"],
                 callback=_progress,
             )
             if res is None:

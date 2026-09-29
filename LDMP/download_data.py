@@ -23,7 +23,11 @@ from te_schemas.algorithms import ExecutionScript
 from . import calculate, conf
 from .conf import Setting, settings_manager
 from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
-from .download_data_stac import _stac_dataset_item
+from .download_data_stac import (
+    _stac_dataset_item,
+    _stac_params,
+    show_on_map_on_finish,
+)
 from .jobs.manager import job_manager
 from .logger import log
 from .utils import push_message
@@ -131,6 +135,8 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         self._max_area = 1e10
         self.setupUi(self)
         self.button_calculate.clicked.connect(self.btn_calculate)
+        self.button_show_online.clicked.connect(self.btn_show_online)
+        self.layers_selector.itemChanged.connect(self.update_show_online_button)
         self.datasets = []
         for cat in list(conf.REMOTE_DATASETS.keys()):
             for title in list(conf.REMOTE_DATASETS[cat].keys()):
@@ -182,6 +188,10 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                     asset_item.flags() | QtCore.Qt.ItemIsUserCheckable
                 )
                 asset_item.setCheckState(0, QtCore.Qt.Unchecked)
+        self.update_show_online_button()
+
+    def update_show_online_button(self):
+        self.button_show_online.setEnabled(len(self.checked_layers()) == 1)
 
     def checked_layers(self):
         keys = []
@@ -279,6 +289,20 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         dlg = DataSetAdditionalMetadataDialog(dataset)
         dlg.exec()
 
+    def btn_show_online(self):
+        ret = super().btn_calculate()
+        if not ret:
+            return
+
+        index = self.data_view.selectedIndexes()[0]
+        dataset = self.datasets[self.proxy_model.mapToSource(index).row()]
+        params = _stac_params(
+            dataset, self.checked_layers(), self.execution_name_le.text()
+        )
+        self.close()
+        job = job_manager.submit_local_job_as_qgstask(params, "view-stac", self.aoi)
+        show_on_map_on_finish(job)
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -313,25 +337,9 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         log(f"selected_datasets: {selected_datasets}")
         for dataset in selected_datasets:
             if "stac_collection" in dataset:
-                titles = {
-                    key: title
-                    for assets in dataset["layers"].values()
-                    for key, title in assets.items()
-                }
-                params = {
-                    "task_name": self.execution_name_le.text(),
-                    "task_notes": "",
-                    "stac_collection": dataset["stac_collection"],
-                    "assets": [
-                        {
-                            "key": key,
-                            "title": titles[key],
-                            "href": dataset["assets"][key],
-                            "style": dataset["styles"][key],
-                        }
-                        for key in selected_layer
-                    ],
-                }
+                params = _stac_params(
+                    dataset, selected_layer, self.execution_name_le.text()
+                )
                 job_manager.submit_local_job_as_qgstask(
                     params, "download-stac", self.aoi
                 )

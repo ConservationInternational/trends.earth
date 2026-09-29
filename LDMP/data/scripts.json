@@ -207,6 +207,14 @@
         "version": "2.3.2"
     },
     {
+        "description": "View STAC catalog assets online without downloading them.",
+        "execution_callable": "LDMP.localexecution.download_stac.view_stac",
+        "name": "view-stac",
+        "name_readable": "View STAC data online",
+        "run_mode": "local",
+        "version": "2.3.2"
+    },
+    {
         "description": "Assess LDN counterbalancing across land types",
         "execution_callable": "LDMP.localexecution.counterbalancing.compute_counterbalancing_local",
         "name": "ldn-counterbalancing",

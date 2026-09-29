@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>792</width>
-    <height>509</height>
+    <height>670</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -225,6 +225,26 @@
           <string notr="true">1</string>
          </property>
         </column>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="button_show_online">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Create online layer</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="show_online_help">
+        <property name="text">
+         <string>Load exactly one layer to create it as an online layer clipped to the current region.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
      </layout>

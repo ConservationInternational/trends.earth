@@ -23,11 +23,7 @@ from te_schemas.algorithms import ExecutionScript
 from . import calculate, conf
 from .conf import Setting, settings_manager
 from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
-from .download_data_stac import (
-    _stac_dataset_item,
-    _stac_params,
-    show_on_map_on_finish,
-)
+from .download_data_stac import DlgDownloadStacMixin
 from .jobs.manager import job_manager
 from .logger import log
 from .utils import push_message
@@ -121,7 +117,7 @@ class DataTableModel(QtCore.QAbstractTableModel):
         return QtCore.QAbstractTableModel.headerData(self, section, orientation, role)
 
 
-class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
+class DlgDownload(DlgDownloadStacMixin, calculate.DlgCalculateBase, DlgDownloadUi):
     def __init__(
         self,
         iface: qgis.gui.QgisInterface,
@@ -135,8 +131,6 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         self._max_area = 1e10
         self.setupUi(self)
         self.button_calculate.clicked.connect(self.btn_calculate)
-        self.button_show_online.clicked.connect(self.btn_show_online)
-        self.layers_selector.itemChanged.connect(self.update_show_online_button)
         self.datasets = []
         for cat in list(conf.REMOTE_DATASETS.keys()):
             for title in list(conf.REMOTE_DATASETS[cat].keys()):
@@ -152,10 +146,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                     item.update({"extent_lat": extent_lat, "extent_lon": extent_lon})
                 self.datasets.append(item)
 
-        # STAC Datasets for STAC download
-        for cat, collections in conf.STAC_DATASETS.items():
-            for collection_id, stac in collections.items():
-                self.datasets.append(_stac_dataset_item(cat, collection_id, stac))
+        self.setup_stac()
 
         self.update_data_table()
         self.data_view.selectionModel().selectionChanged.connect(self.selection_changed)
@@ -169,39 +160,6 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         region = settings_manager.get_value(Setting.AREA_NAME)
         self.region_la.setText(self.tr(f"Current region: {region}"))
         self.changed_region.emit()
-
-    def update_layers_tree(self, dataset):
-        self.layers_selector.clear()
-        self.layers_selector_group.setVisible("layers" in dataset)
-        for layer, assets in dataset.get("layers", {}).items():
-            layer_item = QtWidgets.QTreeWidgetItem(self.layers_selector, [layer])
-            layer_item.setFlags(
-                layer_item.flags()
-                | QtCore.Qt.ItemIsUserCheckable
-                | QtCore.Qt.ItemIsAutoTristate
-            )
-            layer_item.setCheckState(0, QtCore.Qt.Unchecked)
-            for key, title in assets.items():
-                asset_item = QtWidgets.QTreeWidgetItem(layer_item, [title])
-                asset_item.setData(0, QtCore.Qt.UserRole, key)
-                asset_item.setFlags(
-                    asset_item.flags() | QtCore.Qt.ItemIsUserCheckable
-                )
-                asset_item.setCheckState(0, QtCore.Qt.Unchecked)
-        self.update_show_online_button()
-
-    def update_show_online_button(self):
-        self.button_show_online.setEnabled(len(self.checked_layers()) == 1)
-
-    def checked_layers(self):
-        keys = []
-        for i in range(self.layers_selector.topLevelItemCount()):
-            layer_item = self.layers_selector.topLevelItem(i)
-            for j in range(layer_item.childCount()):
-                asset_item = layer_item.child(j)
-                if asset_item.checkState(0) == QtCore.Qt.Checked:
-                    keys.append(asset_item.data(0, QtCore.Qt.UserRole))
-        return keys
 
     def selection_changed(self):
         if self.data_view.selectedIndexes():
@@ -224,11 +182,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 self.year_final.setMaximumDate(year_final)
                 self.year_final.setDate(year_final)
 
-            # for update_layers_tree for stack dataset
-            index = self.data_view.selectedIndexes()[0]
-            self.update_layers_tree(
-                self.datasets[self.proxy_model.mapToSource(index).row()]
-            )
+            self.stac_selection_changed()
 
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
@@ -289,20 +243,6 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         dlg = DataSetAdditionalMetadataDialog(dataset)
         dlg.exec()
 
-    def btn_show_online(self):
-        ret = super().btn_calculate()
-        if not ret:
-            return
-
-        index = self.data_view.selectedIndexes()[0]
-        dataset = self.datasets[self.proxy_model.mapToSource(index).row()]
-        params = _stac_params(
-            dataset, self.checked_layers(), self.execution_name_le.text()
-        )
-        self.close()
-        job = job_manager.submit_local_job_as_qgstask(params, "view-stac", self.aoi)
-        show_on_map_on_finish(job)
-
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -323,12 +263,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
             d for d in self.datasets if d["category"] + d["title"] in selected_names
         ]
 
-        # Check if it is stac, check layer selected
-        selected_layer = self.checked_layers()
-        if any("stac_collection" in d for d in selected_datasets) and not selected_layer:
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Choose at least one layer.")
-            )
+        if not self.check_stac_layers(selected_datasets):
             return
 
         self.close()
@@ -337,12 +272,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         log(f"selected_datasets: {selected_datasets}")
         for dataset in selected_datasets:
             if "stac_collection" in dataset:
-                params = _stac_params(
-                    dataset, selected_layer, self.execution_name_le.text()
-                )
-                job_manager.submit_local_job_as_qgstask(
-                    params, "download-stac", self.aoi
-                )
+                self.submit_stac_download(dataset)
                 continue
 
             payload = {

@@ -24,14 +24,6 @@
         "version": "2.3.2"
     },
     {
-        "description": "Download data from STAC catalog assets.",
-        "execution_callable": "LDMP.localexecution.download_stac.download_stac",
-        "name": "download-stac",
-        "name_readable": "Download STAC data",
-        "run_mode": "local",
-        "version": "2.3.2"
-    },
-    {
         "description": "Calculate indicators of drought vulnerability",
         "id": "2e9f99df-0bee-44e2-8d47-9a9ec2cfdf80",
         "name": "drought-vulnerability",
@@ -207,18 +199,26 @@
         "version": "2.3.2"
     },
     {
-        "description": "View STAC catalog assets online without downloading them.",
-        "execution_callable": "LDMP.localexecution.download_stac.view_stac",
-        "name": "view-stac",
-        "name_readable": "View STAC data online",
-        "run_mode": "local",
-        "version": "2.3.2"
-    },
-    {
         "description": "Assess LDN counterbalancing across land types",
         "execution_callable": "LDMP.localexecution.counterbalancing.compute_counterbalancing_local",
         "name": "ldn-counterbalancing",
         "name_readable": "LDN Counterbalancing Assessment",
+        "run_mode": "local",
+        "version": "2.3.2"
+    },
+    {
+        "description": "Download data from STAC catalog assets.",
+        "execution_callable": "LDMP.localexecution.download_stac.download_stac",
+        "name": "download-stac",
+        "name_readable": "Download STAC data",
+        "run_mode": "local",
+        "version": "2.3.2"
+    },
+    {
+        "description": "View STAC catalog assets online without downloading them.",
+        "execution_callable": "LDMP.localexecution.download_stac.view_stac",
+        "name": "view-stac",
+        "name_readable": "View STAC data online",
         "run_mode": "local",
         "version": "2.3.2"
     }

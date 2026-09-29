@@ -11,6 +11,9 @@
  ***************************************************************************/
 """
 
+from qgis.PyQt import QtCore, QtWidgets
+
+from . import stac_conf
 from .jobs.manager import job_manager
 
 
@@ -108,3 +111,81 @@ def show_on_map_on_finish(job):
 
     job_manager.processed_local_job.connect(_processed)
     job_manager.failed_local_job.connect(_failed)
+
+
+class DlgDownloadStacMixin:
+    """STAC support for DlgDownload."""
+
+    def setup_stac(self):
+        self.button_show_online.clicked.connect(self.btn_show_online)
+        self.layers_selector.itemChanged.connect(self.update_show_online_button)
+        for cat, collections in stac_conf.STAC_DATASETS.items():
+            for collection_id, stac in collections.items():
+                self.datasets.append(_stac_dataset_item(cat, collection_id, stac))
+
+    def stac_selection_changed(self):
+        index = self.data_view.selectedIndexes()[0]
+        self.update_layers_tree(
+            self.datasets[self.proxy_model.mapToSource(index).row()]
+        )
+
+    def update_layers_tree(self, dataset):
+        self.layers_selector.clear()
+        self.layers_selector_group.setVisible("layers" in dataset)
+        for layer, assets in dataset.get("layers", {}).items():
+            layer_item = QtWidgets.QTreeWidgetItem(self.layers_selector, [layer])
+            layer_item.setFlags(
+                layer_item.flags()
+                | QtCore.Qt.ItemIsUserCheckable
+                | QtCore.Qt.ItemIsAutoTristate
+            )
+            layer_item.setCheckState(0, QtCore.Qt.Unchecked)
+            for key, title in assets.items():
+                asset_item = QtWidgets.QTreeWidgetItem(layer_item, [title])
+                asset_item.setData(0, QtCore.Qt.UserRole, key)
+                asset_item.setFlags(asset_item.flags() | QtCore.Qt.ItemIsUserCheckable)
+                asset_item.setCheckState(0, QtCore.Qt.Unchecked)
+        self.update_show_online_button()
+
+    def update_show_online_button(self):
+        self.button_show_online.setEnabled(len(self.checked_layers()) == 1)
+
+    def checked_layers(self):
+        keys = []
+        for i in range(self.layers_selector.topLevelItemCount()):
+            layer_item = self.layers_selector.topLevelItem(i)
+            for j in range(layer_item.childCount()):
+                asset_item = layer_item.child(j)
+                if asset_item.checkState(0) == QtCore.Qt.Checked:
+                    keys.append(asset_item.data(0, QtCore.Qt.UserRole))
+        return keys
+
+    def check_stac_layers(self, selected_datasets):
+        if any("stac_collection" in d for d in selected_datasets) and (
+            not self.checked_layers()
+        ):
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Choose at least one layer.")
+            )
+            return False
+        return True
+
+    def submit_stac_download(self, dataset):
+        params = _stac_params(
+            dataset, self.checked_layers(), self.execution_name_le.text()
+        )
+        job_manager.submit_local_job_as_qgstask(params, "download-stac", self.aoi)
+
+    def btn_show_online(self):
+        ret = super().btn_calculate()
+        if not ret:
+            return
+
+        index = self.data_view.selectedIndexes()[0]
+        dataset = self.datasets[self.proxy_model.mapToSource(index).row()]
+        params = _stac_params(
+            dataset, self.checked_layers(), self.execution_name_le.text()
+        )
+        self.close()
+        job = job_manager.submit_local_job_as_qgstask(params, "view-stac", self.aoi)
+        show_on_map_on_finish(job)

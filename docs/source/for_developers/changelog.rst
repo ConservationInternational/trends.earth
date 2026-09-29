@@ -3,6 +3,15 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.3.4 (September 29, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.3.4>`_
+-------------------------------------------------------------------------------------------------------------------------------
+
+  - Added support for importing male and female population rasters
+  - Fixed WorldPop population exports to use density values, preserving totals during resampling
+  - Added options to configure notification emails during registration and profile updates
+  - Updated translations and dependencies
+  - Applied security and maintenance fixes
+
 `2.3.2 (July 2, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.3.2>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

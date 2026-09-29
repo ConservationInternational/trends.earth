@@ -1806,6 +1806,7 @@ class JobManager(QtCore.QObject):
         job_task.progressChanged.connect(_set_progress_bar_value)
 
         self.tm.addTask(job_task)
+        return job
 
     def submit_local_job(
         self,

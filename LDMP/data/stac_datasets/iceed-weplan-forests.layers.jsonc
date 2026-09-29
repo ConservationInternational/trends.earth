@@ -1,0 +1,138 @@
+{
+    "Available Areas": {
+        "style": "WePlan available areas",
+        "assets": [
+            "available_areas"
+        ]
+    },
+    "Target 1": {
+        "style": "WePlan restoration priority",
+        "assets": [
+            "mincost-target-1",
+            "tradeoffs-ce-target-1-weight-1",
+            "tradeoffs-ce-target-1-weight-2",
+            "tradeoffs-ce-target-1-weight-3",
+            "tradeoffs-ce-target-1-weight-4",
+            "tradeoffs-ce-target-1-weight-5",
+            "tradeoffs-ce-target-1-weight-6",
+            "tradeoffs-ce-target-1-weight-7",
+            "tradeoffs-ce-target-1-weight-8",
+            "tradeoffs-ce-target-1-weight-9",
+            "tradeoffs-ce-target-1-weight-10",
+            "tradeoffs-mb-target-1-weight-1",
+            "tradeoffs-mb-target-1-weight-2",
+            "tradeoffs-mb-target-1-weight-3",
+            "tradeoffs-mb-target-1-weight-4",
+            "tradeoffs-mb-target-1-weight-5",
+            "tradeoffs-mb-target-1-weight-6",
+            "tradeoffs-mb-target-1-weight-7",
+            "tradeoffs-mb-target-1-weight-8",
+            "tradeoffs-mb-target-1-weight-9",
+            "tradeoffs-mb-target-1-weight-10"
+        ]
+    },
+    "Target 2": {
+        "style": "WePlan restoration priority",
+        "assets": [
+            "mincost-target-2",
+            "tradeoffs-ce-target-2-weight-1",
+            "tradeoffs-ce-target-2-weight-2",
+            "tradeoffs-ce-target-2-weight-3",
+            "tradeoffs-ce-target-2-weight-4",
+            "tradeoffs-ce-target-2-weight-5",
+            "tradeoffs-ce-target-2-weight-6",
+            "tradeoffs-ce-target-2-weight-7",
+            "tradeoffs-ce-target-2-weight-8",
+            "tradeoffs-ce-target-2-weight-9",
+            "tradeoffs-ce-target-2-weight-10",
+            "tradeoffs-mb-target-2-weight-1",
+            "tradeoffs-mb-target-2-weight-2",
+            "tradeoffs-mb-target-2-weight-3",
+            "tradeoffs-mb-target-2-weight-4",
+            "tradeoffs-mb-target-2-weight-5",
+            "tradeoffs-mb-target-2-weight-6",
+            "tradeoffs-mb-target-2-weight-7",
+            "tradeoffs-mb-target-2-weight-8",
+            "tradeoffs-mb-target-2-weight-9",
+            "tradeoffs-mb-target-2-weight-10"
+        ]
+    },
+    "Target 3": {
+        "style": "WePlan restoration priority",
+        "assets": [
+            "mincost-target-3",
+            "tradeoffs-ce-target-3-weight-1",
+            "tradeoffs-ce-target-3-weight-2",
+            "tradeoffs-ce-target-3-weight-3",
+            "tradeoffs-ce-target-3-weight-4",
+            "tradeoffs-ce-target-3-weight-5",
+            "tradeoffs-ce-target-3-weight-6",
+            "tradeoffs-ce-target-3-weight-7",
+            "tradeoffs-ce-target-3-weight-8",
+            "tradeoffs-ce-target-3-weight-9",
+            "tradeoffs-ce-target-3-weight-10",
+            "tradeoffs-mb-target-3-weight-1",
+            "tradeoffs-mb-target-3-weight-2",
+            "tradeoffs-mb-target-3-weight-3",
+            "tradeoffs-mb-target-3-weight-4",
+            "tradeoffs-mb-target-3-weight-5",
+            "tradeoffs-mb-target-3-weight-6",
+            "tradeoffs-mb-target-3-weight-7",
+            "tradeoffs-mb-target-3-weight-8",
+            "tradeoffs-mb-target-3-weight-9",
+            "tradeoffs-mb-target-3-weight-10"
+        ]
+    },
+    "Target 4": {
+        "style": "WePlan restoration priority",
+        "assets": [
+            "mincost-target-4",
+            "tradeoffs-ce-target-4-weight-1",
+            "tradeoffs-ce-target-4-weight-2",
+            "tradeoffs-ce-target-4-weight-3",
+            "tradeoffs-ce-target-4-weight-4",
+            "tradeoffs-ce-target-4-weight-5",
+            "tradeoffs-ce-target-4-weight-6",
+            "tradeoffs-ce-target-4-weight-7",
+            "tradeoffs-ce-target-4-weight-8",
+            "tradeoffs-ce-target-4-weight-9",
+            "tradeoffs-ce-target-4-weight-10",
+            "tradeoffs-mb-target-4-weight-1",
+            "tradeoffs-mb-target-4-weight-2",
+            "tradeoffs-mb-target-4-weight-3",
+            "tradeoffs-mb-target-4-weight-4",
+            "tradeoffs-mb-target-4-weight-5",
+            "tradeoffs-mb-target-4-weight-6",
+            "tradeoffs-mb-target-4-weight-7",
+            "tradeoffs-mb-target-4-weight-8",
+            "tradeoffs-mb-target-4-weight-9",
+            "tradeoffs-mb-target-4-weight-10"
+        ]
+    },
+    "Target 5": {
+        "style": "WePlan restoration priority",
+        "assets": [
+            "mincost-target-5",
+            "tradeoffs-ce-target-5-weight-1",
+            "tradeoffs-ce-target-5-weight-2",
+            "tradeoffs-ce-target-5-weight-3",
+            "tradeoffs-ce-target-5-weight-4",
+            "tradeoffs-ce-target-5-weight-5",
+            "tradeoffs-ce-target-5-weight-6",
+            "tradeoffs-ce-target-5-weight-7",
+            "tradeoffs-ce-target-5-weight-8",
+            "tradeoffs-ce-target-5-weight-9",
+            "tradeoffs-ce-target-5-weight-10",
+            "tradeoffs-mb-target-5-weight-1",
+            "tradeoffs-mb-target-5-weight-2",
+            "tradeoffs-mb-target-5-weight-3",
+            "tradeoffs-mb-target-5-weight-4",
+            "tradeoffs-mb-target-5-weight-5",
+            "tradeoffs-mb-target-5-weight-6",
+            "tradeoffs-mb-target-5-weight-7",
+            "tradeoffs-mb-target-5-weight-8",
+            "tradeoffs-mb-target-5-weight-9",
+            "tradeoffs-mb-target-5-weight-10"
+        ]
+    }
+}

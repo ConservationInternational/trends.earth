@@ -1,0 +1,125 @@
+{
+    "id": "naturemap-areas-global-significance-for-restoration",
+    "type": "Collection",
+    "links": [
+        {
+            "rel": "items",
+            "type": "application/geo+json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration/items"
+        },
+        {
+            "rel": "parent",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/"
+        },
+        {
+            "rel": "root",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/"
+        },
+        {
+            "rel": "self",
+            "type": "application/json",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration"
+        },
+        {
+            "rel": "http://www.opengis.net/def/rel/ogc/1.0/queryables",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration/queryables",
+            "type": "application/schema+json",
+            "title": "Queryables"
+        },
+        {
+            "rel": "http://www.opengis.net/def/rel/ogc/1.0/queryables",
+            "type": "application/schema+json",
+            "title": "Queryables",
+            "href": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration/queryables"
+        }
+    ],
+    "title": "Areas of Global Significance for Restoration",
+    "access": "public",
+    "assets": {
+        "thumbnail": {
+            "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/UNEP-WCMC/Nature-Map/areas-of-global-significance-for-restoration/thumbnails/areas-global-significance-for-restoration-v1-2020.png",
+            "type": "image/png",
+            "roles": [
+                "thumbnail"
+            ],
+            "title": "Thumbnail"
+        }
+    },
+    "extent": {
+        "spatial": {
+            "bbox": [
+                [
+                    -180.0,
+                    -75.0,
+                    180.0,
+                    85.0
+                ]
+            ]
+        }
+    },
+    "license": "CC-BY-NC-SA-4.0",
+    "sci:doi": "10.1038/s41586-020-2784-9",
+    "version": "v1 (2020)",
+    "keywords": [
+        "Nature Based Solutions",
+        "Restoration",
+        "Nature Map",
+        "DPG Open Data",
+        "biodiversity",
+        "climate mitigation",
+        "conservation",
+        "ecosystems",
+        "Global",
+        "2020"
+    ],
+    "providers": [
+        {
+            "url": "https://iiasa.ac.at/",
+            "name": "International Institute for Applied Systems Analysis (IIASA)",
+            "roles": [
+                "licensor",
+                "producer"
+            ]
+        },
+        {
+            "url": "https://www.iis-rio.org/",
+            "name": "\"Instituto Internacional para Sustentabilidade (IIS)",
+            "roles": [
+                "producer"
+            ]
+        },
+        {
+            "url": "https://www.unsdsn.org/",
+            "name": "UN Sustainable Development Solutions Network (UNSDN)",
+            "roles": [
+                "producer"
+            ]
+        },
+        {
+            "url": "http://unep-wcmc.org/",
+            "name": "UNEP-WCMC",
+            "roles": [
+                "producer"
+            ]
+        },
+        {
+            "url": "https://unbiodiversitylab.org/",
+            "name": "UN Biodiversity Lab (UNBL)",
+            "roles": [
+                "processor",
+                "host"
+            ]
+        }
+    ],
+    "summaries": {
+        "gsd": [
+            10000
+        ]
+    },
+    "description": "This map shows the preliminary results of a global prioritization analysis for the restoration of habitats for terrestrial species and carbon sequestering. Species data used in the analysis consisted in fine-scale distributions maps of more than 180,000 terrestrial vertebrate and plant species globally. These data were then refined by removing unsuitable areas using information on species' habitat preferences and species' known altitudinal limits or, where unknown, by removing anthropogenically modified land. Given existing biases in taxonomic coverage for plant species, we calculated for the analysis in total 10 representative sets of species, containing approximately 10% of species of each taxonomic group. For carbon we used the combined amount of above-ground and below-ground biomass carbon density and vulnerable soil organic carbon density. The carbon-related benefit was measured by the amount of carbon dioxide sequestered following restoration up to a reference ecosystem structure in each geographical zone, considering above and below-ground biomass and soil carbon. This information was used to build the objective function of an optimization algorithm, selecting the top-priority currently anthropic areas in a hierarchical manner by setting targets ranging from 5% to 100% of the overall anthropic area, using the land-cover maps of the European Space Agency “Climate Change Initiative” (ESA CCI) land use and cover map for 2015. Restoration in each 5 sq km landspace is aimed at restoring the original distribution of natural land cover as computed from the map of 1992, the earliest in the ESA CCI series. Mammal, amphibian and bird distribution data were obtained from the International Union for Conservation of Nature and Birdlife International (IUCN 2019). Plant range maps came from a variety of sources, including the BIEN (Botanical Information and Ecology Network) plant database, IUCN and Botanic Garden Conservation International (BGCI). A representative subset of the data was obtained relative to the taxonomic representativeness in a region (according to Kier et al. 2005). This was needed in order to reduce the spatial bias of plant species globally. For carbon we used the combined amount of above-ground and below-ground biomass carbon density and vulnerable soil organic carbon density.",
+    "sci:citation": "Bernardo B. N. Strassburg, Alvaro Iribarrem, Hawthorne L. Beyer, Carlos Leandro Cordeiro, Renato Crouzeilles, Catarina Jakovac, André Junqueira, Eduardo Lacerda, Agnieszka E. Latawiec, Andrew Balmford, Thomas M. Brooks, Stuart H. M. Butchart, Robin L. Chazdon, Karl-Heinz Erb, Pedro Brancalion, Graeme Buchanan, David Cooper, Sandra Diaz, Paul F. Donald, Valerie Kapos, David Leclere, Lera Miles, Michael Obersteiner, Christoph Plutzar, Carlos Alberto de M. Scaramuzza, Fabio R. Scarano, Piero Visconti (2020). Global priority areas for ecosystem restoration. Nature, 586(7831), pp.724-729. https://doi.org/10.1038/s41586-020-2784-9",
+    "stac_version": "1.0.0",
+    "stac_extensions": []
+}

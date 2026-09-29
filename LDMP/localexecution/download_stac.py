@@ -144,7 +144,9 @@ def _stac_to_raster(
                 return 0 if killed_callback() else 1
 
             if online:
-                log(f"Creating online VRT of {len(group_assets)} asset(s) at {out_file}")
+                log(
+                    f"Creating online VRT of {len(group_assets)} asset(s) at {out_file}"
+                )
                 output_format = {"format": "VRT"}
             else:
                 log(f"Downloading {len(group_assets)} STAC asset(s) to {out_file}")

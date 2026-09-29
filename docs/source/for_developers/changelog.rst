@@ -6,8 +6,10 @@ This page lists the version history of |trends.earth|.
 `2.3.4 (September 29, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.3.4>`_
 -------------------------------------------------------------------------------------------------------------------------------
 
+  - Added experimental LDN planning analysis and report-generation support
   - Added support for importing male and female population rasters
-  - Fixed WorldPop population exports to use density values, preserving totals during resampling
+  - Fixed WorldPop population exports and processing to preserve totals and precision during resampling
+  - Improved performance and progress reporting for zonal statistics, including FWv2 processing resolution
   - Added options to configure notification emails during registration and profile updates
   - Updated translations and dependencies
   - Applied security and maintenance fixes

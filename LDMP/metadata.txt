@@ -27,6 +27,7 @@ deprecated=False
 hasProcessingProvider=yes
 
 changelog=2.3.4 (September 29, 2026)
+  - Fix off-by-one bug in worst drought calculation (fourth year of every period was not considered)
   - Added support for importing male and female population rasters
   - Fixed WorldPop population exports and processing to preserve totals and precision during resampling
   - Improved performance and progress reporting for zonal statistics, including FWv2 processing resolution

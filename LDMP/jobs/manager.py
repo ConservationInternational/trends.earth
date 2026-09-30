@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 import sys
+import threading
 import time
 import traceback
 import typing
@@ -452,14 +453,21 @@ class LocalJobTask(QgsTask):
 
         # Wrap setProgress so that progress updates are also written to the
         # job log file.  Throttle to every 5 percentage-points.
-        last_logged_progress = -5
+        last_logged_progress = -5.0
+        last_progress = -1.0
+        progress_lock = threading.Lock()
 
         def _set_progress_and_log(value):
-            nonlocal last_logged_progress
-            self.setProgress(value)
-            if value - last_logged_progress >= 5:
-                self.job_logger.info(f"Progress: {int(value)}%")
-                last_logged_progress = value
+            nonlocal last_logged_progress, last_progress
+            value = float(value)
+            with progress_lock:
+                if value < last_progress:
+                    return
+                self.setProgress(value)
+                last_progress = value
+                if value - last_logged_progress >= 5:
+                    self.job_logger.info(f"Progress: {int(value)}%")
+                    last_logged_progress = value
 
         try:
             self.results = execution_handler(

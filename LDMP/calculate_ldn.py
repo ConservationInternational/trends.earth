@@ -14,6 +14,7 @@
 # pylint: disable=import-error
 import copy
 import json
+import math
 import time
 import weakref
 from dataclasses import asdict, dataclass, fields
@@ -93,6 +94,72 @@ def job_matches_subnational_unit(job, unit: dict, period_name=None) -> bool:
     if period_name is None:
         return True
     return subnational_period_key(job_period) == subnational_period_key(period_name)
+
+
+def _raster_grid(path: str):
+    """Return (pixel_width, pixel_height, origin_x, origin_y, srs) for a raster."""
+    ds = gdal.Open(path)
+    if ds is None:
+        raise RuntimeError(f"Unable to open {path}")
+    origin_x, pixel_width, _, origin_y, _, pixel_height = ds.GetGeoTransform()
+    srs = ds.GetSpatialRef()
+    ds = None
+    return pixel_width, pixel_height, origin_x, origin_y, srs
+
+
+def check_subnational_rasters_consistent(unit_rasters) -> str | None:
+    """
+    Check that per-unit sub-indicator rasters can be mosaicked without
+    resampling: same pixel size, CRS, pixel grid alignment and band names.
+
+    ``unit_rasters`` is a list of ``(unit_name, path, band_names)``. Returns
+    None when all rasters match the first one, otherwise a message listing
+    the units that differ.
+    """
+    if len(unit_rasters) < 2:
+        return None
+
+    try:
+        grids = [_raster_grid(path) for _, path, _ in unit_rasters]
+    except RuntimeError as e:
+        return str(e)
+
+    ref_name, _, ref_bands = unit_rasters[0]
+    ref_w, ref_h, ref_x, ref_y, ref_srs = grids[0]
+
+    def _describe(width, height, srs):
+        units = srs.GetLinearUnitsName() if srs and srs.IsProjected() else "degrees"
+        return f"{abs(width):.6g} x {abs(height):.6g} {units}"
+
+    problems = []
+    for (name, _, bands), (width, height, x, y, srs) in zip(
+        unit_rasters[1:], grids[1:]
+    ):
+        if not math.isclose(width, ref_w, rel_tol=1e-6) or not math.isclose(
+            height, ref_h, rel_tol=1e-6
+        ):
+            problems.append(
+                f"'{name}' has a pixel size of {_describe(width, height, srs)}, "
+                f"but '{ref_name}' has {_describe(ref_w, ref_h, ref_srs)}."
+            )
+        elif ref_srs is None or srs is None or not srs.IsSame(ref_srs):
+            problems.append(
+                f"'{name}' uses a different coordinate system than '{ref_name}'."
+            )
+        elif any(
+            abs(offset - round(offset)) > 0.01
+            for offset in ((x - ref_x) / ref_w, (y - ref_y) / ref_h)
+        ):
+            problems.append(
+                f"'{name}' is not aligned to the same pixel grid as '{ref_name}'."
+            )
+        elif bands != ref_bands:
+            problems.append(
+                f"'{name}' has different bands than '{ref_name}' (were they "
+                "run with a different productivity mode or dataset?)."
+            )
+
+    return "\n".join(f"• {p}" for p in problems) or None
 
 
 @dataclass
@@ -3514,6 +3581,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             per_key_paths: dict[str, list[str]] = {}
 
             missing_units = []
+            unit_rasters = []
             for unit in units:
                 unit_name = unit.get("name", "")
                 unit_jobs = _jobs_for_unit_period(unit, period_name)
@@ -3533,6 +3601,13 @@ class DlgCalculateLDNSummaryTableAdmin(
                 result_path = str(raster_result.uri.uri) if raster_result.uri else None
                 if result_path:
                     per_key_paths.setdefault("_main_uri", []).append(result_path)
+                    unit_rasters.append(
+                        (
+                            unit_name,
+                            result_path,
+                            [band.name for band in raster_result.get_bands()],
+                        )
+                    )
 
             if missing_units:
                 return (
@@ -3543,6 +3618,21 @@ class DlgCalculateLDNSummaryTableAdmin(
                         "sub-indicator result for the {} period: {}.\n\n"
                         "Run the sub-indicator calculation for all units first."
                     ).format(period_name, ", ".join(missing_units)),
+                )
+
+            # Refuse to mosaic unit results that are not on the same grid or
+            # do not share the same bands
+            mismatch = check_subnational_rasters_consistent(unit_rasters)
+            if mismatch:
+                return (
+                    None,
+                    None,
+                    self.tr(
+                        "The sub-indicator results of the subnational units for "
+                        "the {} period cannot be combined:\n\n{}\n\n"
+                        "Re-run the sub-indicator calculation for all units with "
+                        "the same settings and datasets."
+                    ).format(period_name, mismatch),
                 )
 
             # Build a mosaic VRT from all unit main URIs for this period

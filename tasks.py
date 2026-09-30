@@ -1193,7 +1193,7 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
     }
 )
 def plugin_install(
-    c, clean=False, version=3, profile="default", fast=False, link=False
+    c, clean=False, version=4, profile="default", fast=False, link=False
 ):
     """install plugin to qgis (version 3 or 4)"""
     set_version(c)

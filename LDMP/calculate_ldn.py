@@ -58,6 +58,43 @@ class tr_calculate_ldn:
         return QtCore.QCoreApplication.translate("tr_calculate_ldn", message)
 
 
+def subnational_period_key(period_name: str) -> str:
+    """
+    Normalise a period name so the sub-indicator dialog names
+    ("baseline", "reporting_1", ...) match the summary dialog names
+    ("baseline", "report_1", ...).
+    """
+    if period_name == "baseline":
+        return period_name
+    prefix, sep, number = (period_name or "").rpartition("_")
+    if sep and prefix in ("report", "reporting") and number.isdigit():
+        return f"reporting_{int(number)}"
+    return period_name
+
+
+def job_matches_subnational_unit(job, unit: dict, period_name=None) -> bool:
+    """
+    Return True if a sub-indicator job was run for the given subnational unit
+    and, when ``period_name`` is given, for that period.
+    """
+    params = job.params or {}
+    tag = params.get("subnational_unit")
+
+    if isinstance(tag, dict) and tag.get("id"):
+        if tag["id"] != unit.get("id"):
+            return False
+        job_period = (params.get("period") or {}).get("name", "")
+    else:
+        task_name = (job.task_name or "").strip()
+        head, sep, job_period = task_name.rpartition(" - ")
+        if not sep or head != unit.get("name", ""):
+            return False
+
+    if period_name is None:
+        return True
+    return subnational_period_key(job_period) == subnational_period_key(period_name)
+
+
 @dataclass
 class TimePeriodWidgets:
     radio_time_period_same: QtWidgets.QRadioButton
@@ -2702,6 +2739,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 unit_payload["task_name"] = (
                     f"{unit_name} - {period_part}" if period_part else unit_name
                 )
+                unit_payload["subnational_unit"] = {
+                    "id": unit.get("id"),
+                    "name": unit_name,
+                }
 
                 if unit_matrix_widget is not None:
                     unit_trans_matrix = (
@@ -2872,10 +2913,9 @@ class DlgCalculateLDNSummaryTableAdmin(
                 units = []
 
         if subnational_enabled and units:
-            # Find job IDs whose task_name matches any defined unit name.
+            # Find job IDs of sub-indicator results run for any defined unit.
             from te_schemas.jobs import JobStatus as _JobStatus
 
-            unit_names = {u.get("name", "") for u in units if u.get("name")}
             allowed_job_ids = {
                 str(job.id)
                 for job in job_manager.relevant_jobs
@@ -2883,7 +2923,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                 and job.script is not None
                 and job.script.name == "sdg-15-3-1-sub-indicators"
                 and job.status in (_JobStatus.DOWNLOADED, _JobStatus.GENERATED_LOCALLY)
-                and any(unit_name in (job.task_name or "") for unit_name in unit_names)
+                and any(job_matches_subnational_unit(job, unit) for unit in units)
             }
             area_name = conf.settings_manager.get_value(conf.Setting.AREA_NAME)
             n_units = len(units)
@@ -3445,33 +3485,13 @@ class DlgCalculateLDNSummaryTableAdmin(
             and job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
         ]
 
-        unit_names = {u.get("name", "") for u in units}
-
-        def _jobs_for_unit_period(unit_name, period_name):
-            """Return completed jobs for a given unit name and period."""
-            import re as _re
-
-            def _period_key(name):
-                # "baseline" stays as-is; "report_1" / "reporting_1" → "1"
-                m = _re.search(r"(\d+)$", name)
-                return m.group(1) if m else name
-
-            period_key = _period_key(period_name)
-
-            matches = []
-            for job in completed_jobs:
-                task = job.task_name or ""
-                if unit_name not in task:
-                    continue
-                # Match period: for "baseline" check literal inclusion;
-                # for numbered periods match the trailing number.
-                if period_name == "baseline":
-                    if "baseline" in task:
-                        matches.append(job)
-                else:
-                    if _period_key(task) == period_key or period_name in task:
-                        matches.append(job)
-            return matches
+        def _jobs_for_unit_period(unit, period_name):
+            """Return completed jobs for a given unit and period."""
+            return [
+                job
+                for job in completed_jobs
+                if job_matches_subnational_unit(job, unit, period_name)
+            ]
 
         # For each period, build mosaic VRTs for every raster layer
         patched_periods = []
@@ -3496,7 +3516,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             missing_units = []
             for unit in units:
                 unit_name = unit.get("name", "")
-                unit_jobs = _jobs_for_unit_period(unit_name, period_name)
+                unit_jobs = _jobs_for_unit_period(unit, period_name)
 
                 if not unit_jobs:
                     missing_units.append(unit_name)

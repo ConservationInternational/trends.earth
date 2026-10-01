@@ -900,8 +900,20 @@ class ReportProcessHandlerTask(QgsTask):
             # (not PIPE) so no pipe file objects are opened, and keep a
             # reference so the helper process can be reaped rather than
             # leaking and emitting a ResourceWarning when garbage collected.
+            taskkill_path = os.path.abspath(
+                os.path.join(
+                    os.environ.get("SystemRoot", r"C:\Windows"),
+                    "System32",
+                    "taskkill.exe",
+                )
+            )
+            if not os.path.isfile(taskkill_path):
+                raise FileNotFoundError(
+                    "Could not locate the Windows taskkill executable."
+                )
+            # The PID is this task's child; the system executable and argv are fixed.
             killer = subprocess.Popen(
-                ["TASKKILL", "/F", "/PID", str(pid), "/T"],
+                [taskkill_path, "/F", "/PID", str(pid), "/T"],  # nosec B603
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
@@ -980,6 +992,12 @@ class ReportProcessHandlerTask(QgsTask):
         if self.isCanceled():
             return False
 
+        if (
+            not os.path.isabs(self._qgs_proc_path)
+            or not os.path.isfile(self._qgs_proc_path)
+        ):
+            raise FileNotFoundError("QGIS processing executable path is not valid.")
+
         input_file = f"INPUT={self._ctx_file_path}"
         args = [self._qgs_proc_path, "run", "trendsearth:reporttask", "--", input_file]
 
@@ -989,7 +1007,8 @@ class ReportProcessHandlerTask(QgsTask):
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
         # Start process
-        self._process = subprocess.Popen(args, startupinfo=startupinfo)
+        # The executable is validated as an absolute path from the QGIS install.
+        self._process = subprocess.Popen(args, startupinfo=startupinfo)  # nosec B603
 
         # Monitor the report output directory for file changes; if nothing
         # is written for _INACTIVITY_TIMEOUT_S the process is killed.

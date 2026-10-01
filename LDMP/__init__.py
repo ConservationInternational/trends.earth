@@ -13,6 +13,7 @@
 
 import os
 import re
+import shutil
 import site
 import subprocess
 import sys
@@ -146,6 +147,8 @@ def openFolder(path):
     if not path:
         return
 
+    path = os.path.abspath(os.fspath(path))
+
     # check path exist and readable
 
     if not os.path.exists(path):
@@ -161,13 +164,25 @@ def openFolder(path):
         return
 
     if sys.platform == "darwin":
-        subprocess.check_call(["open", path])
+        executable = shutil.which("open")
     elif sys.platform == "linux":
-        subprocess.check_call(["xdg-open", path])
+        executable = shutil.which("xdg-open")
     elif sys.platform == "win32":
-        res = subprocess.run(["explorer", path])
+        executable = shutil.which("explorer.exe")
+    else:
+        return
+
+    if executable is None:
+        raise FileNotFoundError("Could not locate the system file browser executable.")
+    executable = os.path.abspath(executable)
+
+    # The executable is absolute and argv only opens the validated selected path.
+    if sys.platform == "win32":
+        res = subprocess.run([executable, path])  # nosec B603
         # For some reason windows "explorer" often returns 1 on success (as
         # apparently do other windows GUI programs...)
 
         if res.returncode not in [0, 1]:
             raise subprocess.CalledProcessError
+    else:
+        subprocess.check_call([executable, path])  # nosec B603

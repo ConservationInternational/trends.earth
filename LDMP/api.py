@@ -837,10 +837,12 @@ class APIClient(QtCore.QObject):
         clean_payload = payload.copy()
 
         if "password" in clean_payload:
-            clean_payload["password"] = "**REMOVED**"
+            # A redaction marker replaces the real password in logged payloads.
+            clean_payload["password"] = "**REMOVED**"  # nosec B105
 
         if "refresh_token" in clean_payload:
-            clean_payload["refresh_token"] = "**REMOVED**"
+            # A redaction marker replaces the real token in logged payloads.
+            clean_payload["refresh_token"] = "**REMOVED**"  # nosec B105
 
         return clean_payload
 

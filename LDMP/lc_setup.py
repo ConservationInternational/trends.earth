@@ -498,10 +498,12 @@ def _get_default_matrix():
     )
 
 
-def get_trans_matrix(get_default=False, save_settings=True):
+def get_trans_matrix(
+    get_default=False, save_settings=True, unit_key: str | None = None
+):
     if not get_default:
         log("Loading land cover degradation matrix from settings")
-        matrix = trans_matrix_from_settings()
+        matrix = trans_matrix_from_settings(unit_key)
     else:
         matrix = None
 
@@ -538,21 +540,34 @@ def get_trans_matrix(get_default=False, save_settings=True):
         matrix.name = "Custom transition matrix"
 
         if matrix and save_settings:
-            trans_matrix_to_settings(matrix)
+            trans_matrix_to_settings(matrix, unit_key)
     else:
         matrix = LCTransitionDefinitionDeg.Schema().loads(matrix)
 
     return matrix
 
 
-def trans_matrix_from_settings() -> str:
-    matrix = QtCore.QSettings().value("LDMP/land_cover_deg_trans_matrix", None)
+def trans_matrix_settings_key(unit_key: str | None = None) -> str:
+    """
+    The land cover transition matrix is stored under a single global key by
+    default.
+    """
+    if unit_key:
+        return f"LDMP/land_cover_deg_trans_matrix/unit/{unit_key}"
+
+    return "LDMP/land_cover_deg_trans_matrix"
+
+
+def trans_matrix_from_settings(unit_key: str | None = None) -> str:
+    matrix = QtCore.QSettings().value(trans_matrix_settings_key(unit_key), None)
     return matrix
 
 
-def trans_matrix_to_settings(matrix: LCTransitionDefinitionDeg):
+def trans_matrix_to_settings(
+    matrix: LCTransitionDefinitionDeg, unit_key: str | None = None
+):
     QtCore.QSettings().setValue(
-        "LDMP/land_cover_deg_trans_matrix",
+        trans_matrix_settings_key(unit_key),
         LCTransitionDefinitionDeg.Schema().dumps(matrix),
     )
 
@@ -1226,8 +1241,10 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
 
 class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, unit_key: str | None = None):
         super().__init__(parent)
+
+        self.unit_key = unit_key
 
         self.setupUi(self)
 
@@ -1241,7 +1258,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         save_table_icon = QgsApplication.instance().getThemeIcon("mActionFileSave.svg")
         self.btn_transmatrix_savefile.setIcon(save_table_icon)
 
-        trans_matrix = get_trans_matrix()
+        trans_matrix = get_trans_matrix(unit_key=self.unit_key)
 
         self.setup_deg_def_matrix(trans_matrix.legend)
 
@@ -1475,9 +1492,9 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
 
     def set_trans_matrix(self, matrix=None, get_default=False):
         if not matrix:
-            matrix = get_trans_matrix(get_default)
+            matrix = get_trans_matrix(get_default, unit_key=self.unit_key)
         QtCore.QSettings().setValue(
-            "LDMP/land_cover_deg_trans_matrix",
+            trans_matrix_settings_key(self.unit_key),
             LCTransitionDefinitionDeg.Schema().dumps(matrix),
         )
 

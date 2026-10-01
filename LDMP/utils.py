@@ -33,6 +33,41 @@ def utc_to_local(utc_dt):
     return utc_dt.astimezone(tz=None)
 
 
+def compute_features_area_km2(
+    layer: typing.Optional[qgis.core.QgsVectorLayer],
+    feature_ids: typing.Optional[typing.Sequence[int]],
+) -> float:
+    """
+    Compute the ellipsoidal area, in square kilometers, of the union of the
+    given features on the given layer.
+    """
+    if layer is None or not feature_ids:
+        return 0.0
+
+    request = qgis.core.QgsFeatureRequest().setFilterFids(list(feature_ids))
+    geometries = [
+        feature.geometry()
+        for feature in layer.getFeatures(request)
+        if not feature.geometry().isEmpty()
+    ]
+
+    if not geometries:
+        return 0.0
+
+    combined_geometry = qgis.core.QgsGeometry.unaryUnion(geometries)
+
+    distance_area = qgis.core.QgsDistanceArea()
+    distance_area.setEllipsoid(qgis.core.QgsProject.instance().ellipsoid())
+    distance_area.setSourceCrs(
+        layer.crs(), qgis.core.QgsProject.instance().transformContext()
+    )
+    area_m2 = distance_area.measureArea(combined_geometry)
+
+    return distance_area.convertAreaMeasurement(
+        area_m2, qgis.core.QgsUnitTypes.AreaSquareKilometers
+    )
+
+
 def load_object(python_path: str) -> typing.Any:
     module_path, object_name = python_path.rpartition(".")[::2]
     loaded_module = importlib.import_module(module_path)

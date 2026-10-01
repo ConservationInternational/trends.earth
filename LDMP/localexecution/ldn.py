@@ -73,6 +73,16 @@ class SummaryTableLDWidgets:
         self.populate_layer_combo_boxes()
         self.combo_datasets.populate()
 
+    def populate_with_aoi(self, aoi, allowed_job_ids=None):
+        """Populate all combos using a caller-supplied AOI.
+        Pass allowed_job_ids to restrict to specific jobs."""
+        self.populate_layer_combo_boxes_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_datasets.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+
+    def set_subnational_label(self, area_name, n_units):
+        """Collapse the dataset combo to a single consolidated label."""
+        self.combo_datasets.set_subnational_label(area_name, n_units)
+
     def radio_lpd_te_toggled(self):
         if self.radio_lpd_te.isChecked():
             self.combo_layer_traj.show()
@@ -138,6 +148,23 @@ class SummaryTableLDWidgets:
         self.combo_layer_pop_total.populate()
         self.combo_layer_pop_male.populate()
         self.combo_layer_pop_female.populate()
+
+    def populate_layer_combo_boxes_with_aoi(self, aoi, allowed_job_ids=None):
+        self.combo_layer_lpd.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_traj.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_perf.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_state.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_lc.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_soc.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_pop_total.populate_with_aoi(
+            aoi, allowed_job_ids=allowed_job_ids
+        )
+        self.combo_layer_pop_male.populate_with_aoi(
+            aoi, allowed_job_ids=allowed_job_ids
+        )
+        self.combo_layer_pop_female.populate_with_aoi(
+            aoi, allowed_job_ids=allowed_job_ids
+        )
 
     def set_combo_selections_from_job_id(self, job_id):
         self.combo_layer_lpd.set_index_from_job_id(job_id)

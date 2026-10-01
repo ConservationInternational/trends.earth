@@ -13,11 +13,11 @@ import zipfile
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path, PurePath
-from tempfile import NamedTemporaryFile, mkstemp
+from tempfile import NamedTemporaryFile, TemporaryDirectory, mkstemp
 
 import boto3
 import requests
-from invoke import Collection, task
+from invoke import Collection, Exit, task
 
 
 class ReleaseFetchError(RuntimeError):
@@ -2320,7 +2320,17 @@ def _make_zip(zipFile, c):
             # normalizer.exe, etc.) are not needed at runtime by the plugin.
             if f.endswith(".exe"):
                 continue
-            zipFile.write(src_path, os.path.join(relpath, f))
+            archive_path = os.path.join(relpath, f)
+            file_mode = os.stat(src_path).st_mode
+            if f.endswith(".py") and file_mode & 0o111:
+                info = zipfile.ZipInfo.from_file(src_path, archive_path)
+                permissions = stat.S_IMODE(file_mode) & ~0o111
+                info.external_attr = (stat.S_IFREG | permissions) << 16
+                info.compress_type = zipFile.compression
+                with open(src_path, "rb") as source:
+                    zipFile.writestr(info, source.read())
+            else:
+                zipFile.write(src_path, archive_path)
 
     # Include the license file within the plugin zipfile (it is in root of
     # repo, so otherwise would be skipped)
@@ -2637,90 +2647,29 @@ def testdata_sync(c):
 
 @task(
     help={
-        "fix": "attempt to auto-fix issues where possible",
+        "filename": "Existing plugin ZIP to scan (defaults to packaging the current source)",
     }
 )
-def security_scan(c, fix=False):
-    """Run the QGIS plugin repository security checks (bandit, detect-secrets, flake8)."""
-    plugin_dir = c.plugin.source_dir
-    ext_libs = c.plugin.ext_libs["path"]
+def security_scan(c, filename=None):
+    """Build and scan the plugin ZIP with the shared QGIS security scanner."""
+    with TemporaryDirectory() as temporary_dir:
+        if filename is None:
+            filename = os.path.join(temporary_dir, "plugin.zip")
+            with zipfile.ZipFile(filename, "w", zipfile.ZIP_DEFLATED) as archive:
+                _make_zip(archive, c)
 
-    bandit_findings = []
-    bandit_cmd = [
-        "bandit",
-        "-r",
-        plugin_dir,
-        "-f",
-        "json",
-        "-ll",
-        "--quiet",
-    ]
-    result = subprocess.run(bandit_cmd, capture_output=True, text=True, check=False)
-    if result.stdout and result.stdout.strip():
-        try:
-            bandit_scan = json.loads(result.stdout)
-            for issue in bandit_scan.get("results", []):
-                bandit_findings.append(
-                    {
-                        "file": issue.get("filename", ""),
-                        "line": issue.get("line_number", 0),
-                        "type": issue.get("test_id", ""),
-                        "message": issue.get("issue_text", ""),
-                    }
-                )
-        except json.JSONDecodeError:
-            if result.stderr:
-                print(result.stderr)
-
-    if bandit_findings:
-        print("=== Bandit (static security analysis) ===")
-        for finding in bandit_findings:
-            print(
-                f"  {finding['file']}:{finding['line']} - "
-                f"{finding['type']}: {finding['message']}"
-            )
-
-    secrets_findings = []
-    ds_cmd = [
-        "detect-secrets",
-        "scan",
-        "--all-files",
-        ".",
-    ]
-    result = subprocess.run(
-        ds_cmd, capture_output=True, text=True, cwd=plugin_dir, check=False
-    )
-    if result.returncode != 0:
-        print(result.stderr)
-    elif result.stdout and result.stdout.strip():
-        scan = json.loads(result.stdout)
-        results = scan.get("results", {})
-        if results:
-            for filepath, findings in sorted(results.items()):
-                for f in findings:
-                    secrets_findings.append(
-                        {
-                            "file": filepath,
-                            "line": f.get("line_number", 0),
-                        }
-                    )
-
-    ds_count = len(secrets_findings)
-    if ds_count:
-        print(
-            f"\n=== detect-secrets (hardcoded secrets detection): {ds_count} potential issue(s) found ==="
+        result = subprocess.run(
+            [
+                sys.executable,
+                os.path.join(os.path.dirname(__file__), "scripts", "security_scan.py"),
+                os.path.abspath(filename),
+                "--plugin-name",
+                c.plugin.name,
+            ],
+            check=False,
         )
-        print(f"  Run 'detect-secrets scan --all-files .' in {plugin_dir} for details.")
-
-    print("\n=== Flake8 (code quality) ===")
-    flake8_cmd = [
-        sys.executable,
-        "-m",
-        "flake8",
-        plugin_dir,
-        f"--exclude={ext_libs}",
-    ]
-    subprocess.run(flake8_cmd, check=False)
+        if result.returncode:
+            raise Exit("Critical security findings block this plugin version", code=result.returncode)
 
 
 ns = Collection(

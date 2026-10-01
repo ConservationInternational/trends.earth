@@ -4,6 +4,7 @@
 # --config, so these settings apply at both upload time and in CI.
 
 max-line-length = 120
+extend-exclude = *ext-libs*
 
 # E203 - whitespace before ':': valid Black-style slice notation
 # E501 - line too long: many intentional long strings / translated messages

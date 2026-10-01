@@ -282,7 +282,10 @@ def _get_ld_input_aux_band(
             if period_filtered:
                 aux_bands = period_filtered
 
-    assert len(aux_bands) == 1
+    if len(aux_bands) != 1:
+        raise ValueError(
+            f"Expected exactly one {aux_band_name!r} band, found {len(aux_bands)}."
+        )
     aux_band = aux_bands[0]
 
     return {

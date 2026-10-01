@@ -1,8 +1,5 @@
 name: Security Scan
 
-# Mirrors the security checks run by the QGIS Plugin Repository when a plugin
-# is uploaded. Critical Bandit and secrets findings block release; quality
-# and file-analysis findings are informational.
 on:
   push:
     branches:
@@ -23,8 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PACKAGED_ZIP: LDMP_security_scan.zip
-      PACKAGED_EXTRACT_DIR: packaged_plugin
-      PACKAGED_PLUGIN_DIR: packaged_plugin/LDMP
 
     steps:
       - name: Checkout
@@ -36,283 +31,20 @@ jobs:
       - name: Install packaging prerequisites
         run: |
           sudo apt-get update
+          sudo apt-get install -y qttools5-dev-tools
 
       - name: Setup Python environment
         uses: ./.github/actions/setup-python-env
         with:
           cache: ''
 
-      - name: Build packaged plugin for scanning
+      - name: Install security tools
+        run: pip install bandit detect-secrets flake8
+
+      - name: Build packaged plugin
         run: |
           invoke set-version --modules
           invoke zipfile-build --filename "$PACKAGED_ZIP"
 
-      - name: Install security tools
-        run: |
-          pip install bandit detect-secrets flake8
-
-      # Bandit scans medium and high severity findings by default (-ll flag).
-      - name: Bandit (static security analysis) [BLOCKING]
-        id: bandit
-        continue-on-error: true
-        run: |
-          echo "Running Bandit on $PACKAGED_PLUGIN_DIR ..."
-          set +e
-          bandit -r "$PACKAGED_PLUGIN_DIR" -f json -ll --quiet > bandit_output.json 2>/dev/null
-          bandit_exit=$?
-          set -e
-
-          if [ -s bandit_output.json ]; then
-            python3 - << 'PYEOF'
-          import json, sys
-          with open("bandit_output.json") as f:
-              data = json.load(f)
-          results = data.get("results", [])
-          if results:
-              print("=== Bandit findings ===")
-              for r in results:
-                  print(
-                      f"  {r.get('filename', '')}:{r.get('line_number', 0)}"
-                      f" - {r.get('test_id', '')}: {r.get('issue_text', '')}"
-                  )
-              print(f"\nTotal: {len(results)} issue(s) found.")
-          PYEOF
-          fi
-
-          if [ $bandit_exit -ne 0 ]; then
-            echo "::warning::Bandit found security issues in the packaged plugin."
-            exit 1
-          else
-            echo "Bandit: no issues found. ✓"
-          fi
-
-      # detect-secrets scans from the LDMP/ directory, matching upload behaviour.
-      # metadata.txt is excluded (commitSha1 hex triggers HexHighEntropyString).
-      # .secrets.baseline is excluded from scanning but IS passed via --baseline
-      # when present, suppressing acknowledged false positives — matching the
-      # QGIS Plugin Repository scanner's own behaviour exactly.
-      #
-      # IMPORTANT: with --baseline, detect-secrets writes NOTHING to stdout
-      # when all findings are already in the baseline.  The QGIS scanner
-      # handles this with `if result.stdout:` / `else: passed = True`.
-      # Our Python post-processor replicates that logic: empty output → passed.
-      - name: detect-secrets (hardcoded secrets detection) [BLOCKING]
-        id: secrets
-        continue-on-error: true
-        run: |
-          echo "Running detect-secrets on packaged plugin ..."
-          set +e
-          if [ -f ".secrets.baseline" ]; then
-            echo "Found .secrets.baseline - passing via --baseline to suppress acknowledged false positives."
-            detect-secrets scan --all-files \
-              --exclude-files 'metadata\.txt' \
-              --exclude-files '\.secrets\.baseline' \
-              --baseline .secrets.baseline \
-              . > secrets_output.json 2>/dev/null
-          else
-            detect-secrets scan --all-files \
-              --exclude-files 'metadata\.txt' \
-              --exclude-files '\.secrets\.baseline' \
-              . > secrets_output.json 2>/dev/null
-          fi
-          ds_exit=$?
-          set -e
-
-          if [ $ds_exit -ne 0 ]; then
-            echo "::error::detect-secrets failed to run (exit code $ds_exit)."
-            exit 1
-          fi
-
-          python3 - << 'PYEOF'
-          import json
-          import sys
-
-          content = open("secrets_output.json").read().strip()
-
-          # Empty output means --baseline was used and all findings are already
-          # in .secrets.baseline.  The QGIS Plugin Repository scanner treats
-          # empty stdout identically: `else: check.passed = True`.
-          if not content:
-              print("detect-secrets: no new secrets found (all suppressed by .secrets.baseline). \u2713")
-              sys.exit(0)
-
-          try:
-              data = json.loads(content)
-          except json.JSONDecodeError:
-              # Graceful degradation — mirrors QGIS scanner json.JSONDecodeError handler.
-              print("detect-secrets: JSON parse error - treating as passed.")
-              sys.exit(0)
-
-          results = data.get("results", {})
-          if results:
-              print("=== detect-secrets findings ===")
-              count = 0
-              for filepath, findings in sorted(results.items()):
-                  for finding in findings:
-                      print(
-                          f"  {filepath}:{finding.get('line_number', 0)}"
-                          f" - {finding.get('type', 'Unknown')}"
-                      )
-                      count += 1
-              print(f"\nTotal: {count} potential secret(s) found.")
-              sys.exit(1)
-          else:
-              print("detect-secrets: no secrets found. \u2713")
-          PYEOF
-        working-directory: ${{ env.PACKAGED_PLUGIN_DIR }}
-
-      # ── NON-BLOCKING: Flake8 code quality ──────────────────────────────────
-      # Flake8 results are informational on the QGIS Plugin Repository and do
-      # not affect availability or approval of a plugin version.
-      - name: Flake8 (code quality) [informational]
-        id: flake8
-        continue-on-error: true
-        run: |
-          echo "Running Flake8 on $PACKAGED_PLUGIN_DIR ..."
-          set +e
-          python -m flake8 "$PACKAGED_PLUGIN_DIR" --max-line-length=120 \
-            --config "$PACKAGED_PLUGIN_DIR/.flake8" --exclude="$PACKAGED_PLUGIN_DIR/ext-libs"
-          flake8_exit=$?
-          set -e
-          if [ $flake8_exit -ne 0 ]; then
-            echo "::warning::Flake8 found code quality issues above (non-blocking)."
-            exit 1
-          else
-            echo "Flake8: no issues found. ✓"
-          fi
-
-      # The website checks ZIP entry permissions
-      - name: File permissions [informational]
-        id: permissions
-        run: |
-          python3 - << 'PYEOF'
-          import os
-          import zipfile
-
-          findings = []
-          with zipfile.ZipFile(os.environ["PACKAGED_ZIP"]) as archive:
-              for entry in archive.infolist():
-                  if entry.filename.endswith(".py") and (entry.external_attr >> 16) & 0o111:
-                      findings.append(entry.filename)
-
-          for filename in findings:
-              print(f"  {filename} - Python file has executable permission")
-          print(f"File permissions: {len(findings)} issue(s) found.")
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"issues_found={'true' if findings else 'false'}\n")
-          PYEOF
-
-      # ── NON-BLOCKING: Suspicious files scan ───────────────────────────────
-      # Matches QGIS scanner logic: flag hidden files (except .gitignore,
-      # .gitattributes, and the tool config files .bandit/.secrets.baseline/
-      # .flake8 defined in SECURITY_CONFIG_FILES) and files with suspicious
-      # executable/binary extensions.
-      # Source logic adapted from QGIS-Plugins-Website:
-      # qgis-app/plugins/security_scanner.py (_check_suspicious_files).
-      - name: Suspicious files [informational]
-        id: suspicious
-        run: |
-          echo "Running suspicious-files scan on $PACKAGED_PLUGIN_DIR ..."
-          python3 - << 'PYEOF'
-          import os
-          import sys
-
-          root = os.environ["PACKAGED_PLUGIN_DIR"]
-          suspicious_extensions = {
-              ".exe",
-              ".dll",
-              ".so",
-              ".dylib",
-              ".bat",
-              ".sh",
-              ".ps1",
-              ".cmd",
-          }
-          hidden_allowlist = {".gitignore", ".gitattributes", ".bandit", ".secrets.baseline", ".flake8"}
-
-          findings = []
-          files_checked = 0
-
-          for current_root, _, files in os.walk(root):
-              for file_name in files:
-                  files_checked += 1
-                  full_path = os.path.join(current_root, file_name)
-                  rel_path = os.path.relpath(full_path, root).replace("\\", "/")
-                  lowered = file_name.lower()
-
-                  if file_name.startswith(".") and file_name not in hidden_allowlist:
-                      findings.append((rel_path, "Hidden file detected"))
-
-                  _, ext = os.path.splitext(lowered)
-                  if ext in suspicious_extensions:
-                      findings.append(
-                          (rel_path, f"Executable or binary file detected ({ext})")
-                      )
-
-          if findings:
-              print("=== Suspicious files findings ===")
-              for path, message in findings:
-                  print(f"  {path} - {message}")
-              print(f"\nFiles checked: {files_checked}")
-              print(f"Total: {len(findings)} issue(s) found.")
-              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as gh:
-                  gh.write("issues_found=true\n")
-              sys.exit(0)
-
-          print(f"Suspicious files: no issues found. ✓ (files checked: {files_checked})")
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as gh:
-              gh.write("issues_found=false\n")
-          PYEOF
-
-      # Summary: only critical Bandit and secrets findings block release.
-      - name: Security scan summary
-        if: always()
-        run: |
-          bandit_result="${{ steps.bandit.outcome }}"
-          secrets_result="${{ steps.secrets.outcome }}"
-          flake8_result="${{ steps.flake8.outcome }}"
-          permission_issues="${{ steps.permissions.outputs.issues_found }}"
-          suspicious_issues="${{ steps.suspicious.outputs.issues_found }}"
-
-          echo "┌─────────────────────────────────────────────────────────┐"
-          echo "│                  Security Scan Results                  │"
-          echo "├────────────────────────────────┬──────────┬─────────────┤"
-          echo "│ Check                          │ Blocking │ Result      │"
-          echo "├────────────────────────────────┼──────────┼─────────────┤"
-
-          if [ "$bandit_result" = "success" ]; then
-            echo "│ Bandit (static security)       │   YES    │ ✓ PASSED   │"
-          else
-            echo "│ Bandit (static security)       │   YES    │ ✗ issues   │"
-          fi
-
-          if [ "$secrets_result" = "success" ]; then
-            echo "│ detect-secrets (secrets)       │   YES    │ ✓ PASSED   │"
-          else
-            echo "│ detect-secrets (secrets)       │   YES    │ ✗ issues   │"
-          fi
-
-          if [ "$flake8_result" = "success" ]; then
-            echo "│ Flake8 (code quality)          │    no    │ ✓ PASSED   │"
-          else
-            echo "│ Flake8 (code quality)          │    no    │ ✗ issues   │"
-
-          if [ "$permission_issues" = "true" ]; then
-            echo "│ File permissions               │    no    │ ✗ issues   │"
-          else
-            echo "│ File permissions               │    no    │ ✓ PASSED   │"
-          fi
-          fi
-
-          if [ "$suspicious_issues" = "true" ]; then
-            echo "│ Suspicious files               │    no    │ ✗ issues   │"
-          else
-            echo "│ Suspicious files               │    no    │ ✓ PASSED   │"
-          fi
-
-          echo "└────────────────────────────────┴──────────┴─────────────┘"
-
-          if [ "$bandit_result" != "success" ] || [ "$secrets_result" != "success" ]; then
-            echo "::error::Critical security findings block this plugin version from release."
-            exit 1
-          fi
+      - name: Run QGIS Plugin Repository security scan
+        run: invoke security-scan --filename "$PACKAGED_ZIP"

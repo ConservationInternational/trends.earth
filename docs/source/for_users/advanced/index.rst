@@ -9,8 +9,8 @@ Installing Numba for local calculations
 Numba can speed up some local Trends.Earth calculations. It is not included by 
 default with the Trends.Earth installer given limitations on packaging binaries 
 for distribution via the standard QGIS repositories. To use it, install it in the
-Python environment used by QGIS, not in an unrelated system Python or virtual
-environment. Close QGIS before installing packages, and restart it afterward.
+Python environment used by QGIS. Close QGIS before installing packages, and 
+restart it afterward.
 
 Windows
 ~~~~~~~
@@ -40,8 +40,7 @@ path in Terminal (substitute your own path for ``/path/to/qgis/python3``)::
 If the path points to the QGIS application instead of Python, use the Python
 interpreter provided by your QGIS installation. For example, with a Homebrew
 installation, use the Python from the same Homebrew environment as QGIS; with
-a standalone QGIS app, check the app bundle for its Python interpreter. Do not
-use an unrelated ``python3`` from your shell.
+a standalone QGIS app, check the app bundle for its Python interpreter.
 
 Linux
 ~~~~~

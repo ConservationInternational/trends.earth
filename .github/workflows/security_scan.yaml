@@ -1,8 +1,8 @@
 name: Security Scan
 
 # Mirrors the security checks run by the QGIS Plugin Repository when a plugin
-# is uploaded. Blocking checks (Bandit, detect-secrets) fail the job; the
-# non-blocking check (Flake8) is reported but does not fail the job.
+# is uploaded. Critical Bandit and secrets findings block release; quality
+# and file-analysis findings are informational.
 on:
   push:
     branches:
@@ -57,9 +57,7 @@ jobs:
         run: |
           pip install bandit detect-secrets flake8
 
-      # ── BLOCKING: Bandit static security analysis ──────────────────────────
-      # The QGIS Plugin Repository blocks plugin versions with Bandit findings
-      # at medium severity or above (-ll flag).
+      # Bandit scans medium and high severity findings by default (-ll flag).
       - name: Bandit (static security analysis) [BLOCKING]
         id: bandit
         continue-on-error: true
@@ -88,15 +86,13 @@ jobs:
           fi
 
           if [ $bandit_exit -ne 0 ]; then
-            echo "::error::Bandit found security issues. This check is BLOCKING on the QGIS Plugin Repository."
+            echo "::warning::Bandit found security issues in the packaged plugin."
             exit 1
           else
             echo "Bandit: no issues found. ✓"
           fi
 
-      # ── BLOCKING: detect-secrets hardcoded secrets detection ───────────────
-      # The QGIS Plugin Repository blocks plugin versions when secrets are
-      # detected. Scan runs from the LDMP/ directory, matching upload behaviour.
+      # detect-secrets scans from the LDMP/ directory, matching upload behaviour.
       # metadata.txt is excluded (commitSha1 hex triggers HexHighEntropyString).
       # .secrets.baseline is excluded from scanning but IS passed via --baseline
       # when present, suppressing acknowledged false positives — matching the
@@ -191,6 +187,27 @@ jobs:
             echo "Flake8: no issues found. ✓"
           fi
 
+      # The website checks ZIP entry permissions
+      - name: File permissions [informational]
+        id: permissions
+        run: |
+          python3 - << 'PYEOF'
+          import os
+          import zipfile
+
+          findings = []
+          with zipfile.ZipFile(os.environ["PACKAGED_ZIP"]) as archive:
+              for entry in archive.infolist():
+                  if entry.filename.endswith(".py") and (entry.external_attr >> 16) & 0o111:
+                      findings.append(entry.filename)
+
+          for filename in findings:
+              print(f"  {filename} - Python file has executable permission")
+          print(f"File permissions: {len(findings)} issue(s) found.")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"issues_found={'true' if findings else 'false'}\n")
+          PYEOF
+
       # ── NON-BLOCKING: Suspicious files scan ───────────────────────────────
       # Matches QGIS scanner logic: flag hidden files (except .gitignore,
       # .gitattributes, and the tool config files .bandit/.secrets.baseline/
@@ -253,13 +270,14 @@ jobs:
               gh.write("issues_found=false\n")
           PYEOF
 
-      # ── Summary: surface individual outcomes and fail on any blocking check ─
+      # Summary: only critical Bandit and secrets findings block release.
       - name: Security scan summary
         if: always()
         run: |
           bandit_result="${{ steps.bandit.outcome }}"
           secrets_result="${{ steps.secrets.outcome }}"
           flake8_result="${{ steps.flake8.outcome }}"
+          permission_issues="${{ steps.permissions.outputs.issues_found }}"
           suspicious_issues="${{ steps.suspicious.outputs.issues_found }}"
 
           echo "┌─────────────────────────────────────────────────────────┐"
@@ -271,19 +289,25 @@ jobs:
           if [ "$bandit_result" = "success" ]; then
             echo "│ Bandit (static security)       │   YES    │ ✓ PASSED   │"
           else
-            echo "│ Bandit (static security)       │   YES    │ ✗ FAILED   │"
+            echo "│ Bandit (static security)       │   YES    │ ✗ issues   │"
           fi
 
           if [ "$secrets_result" = "success" ]; then
             echo "│ detect-secrets (secrets)       │   YES    │ ✓ PASSED   │"
           else
-            echo "│ detect-secrets (secrets)       │   YES    │ ✗ FAILED   │"
+            echo "│ detect-secrets (secrets)       │   YES    │ ✗ issues   │"
           fi
 
           if [ "$flake8_result" = "success" ]; then
             echo "│ Flake8 (code quality)          │    no    │ ✓ PASSED   │"
           else
             echo "│ Flake8 (code quality)          │    no    │ ✗ issues   │"
+
+          if [ "$permission_issues" = "true" ]; then
+            echo "│ File permissions               │    no    │ ✗ issues   │"
+          else
+            echo "│ File permissions               │    no    │ ✓ PASSED   │"
+          fi
           fi
 
           if [ "$suspicious_issues" = "true" ]; then
@@ -295,8 +319,6 @@ jobs:
           echo "└────────────────────────────────┴──────────┴─────────────┘"
 
           if [ "$bandit_result" != "success" ] || [ "$secrets_result" != "success" ]; then
-            echo ""
-            echo "One or more BLOCKING checks failed. The QGIS Plugin Repository"
-            echo "would block this plugin version from download and approval."
+            echo "::error::Critical security findings block this plugin version from release."
             exit 1
           fi

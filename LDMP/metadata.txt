@@ -37,6 +37,7 @@ changelog=2.3.4 (September 29, 2026)
   - Added experimental LDN planning analysis and report-generation support
   - Updated translations and dependencies
   - Applied security and maintenance fixes
+  - Security fixes for QGIS plugin website
  2.3.2 (July 2, 2026)
   - Added support for 30-meter resolution land productivity datasets (FWv2)
   - Fixed incorrect date range handling for JRC (Joint Research Centre) datasets

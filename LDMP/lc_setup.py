@@ -1508,7 +1508,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         self._autosize_deg_def_matrix()
         try:
             self.label_lc_target_year.setVisible(True)
-        except Exception:
+        except (AttributeError, RuntimeError):
             pass
         return True
 

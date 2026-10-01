@@ -497,17 +497,15 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
         ):
             # Update properties depending on whether to show area or percent
             # ia - init area, ta - target area
-            def change_func(ia, ta):
-                return ta - ia
+            def change_func(initial_area, target_area):
+                if self.use_value_type == InfoValueType.PERCENT:
+                    return (target_area - initial_area) * 100 / initial_area
+                return target_area - initial_area
 
             text_template = "%{y:,.4r}"
 
             # Percent
             if self.use_value_type == InfoValueType.PERCENT:
-
-                def change_func(ia, ta):
-                    return (ta - ia) * 100 / ia
-
                 text_template = "%{y:.2f}%"
                 if not self.value_axis_label:
                     self.value_axis_label = "%"

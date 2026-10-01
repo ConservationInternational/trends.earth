@@ -256,12 +256,12 @@ def _get_error_recode_polygons(in_file, periods_affected=None):
         chosen = None
         try:
             layer_count = ds_in.GetLayerCount()
-        except Exception:
+        except RuntimeError:
             layer_count = 0
         for i in range(layer_count):
             try:
                 lyr = ds_in.GetLayerByIndex(i)
-            except Exception:
+            except RuntimeError:
                 lyr = None
             if lyr is None:
                 continue
@@ -269,12 +269,12 @@ def _get_error_recode_polygons(in_file, periods_affected=None):
                 if lyr.GetFeatureCount() > 0:
                     chosen = lyr
                     break
-            except Exception:
+            except RuntimeError:
                 continue
         if chosen is None and layer_count > 0:
             try:
                 chosen = ds_in.GetLayerByIndex(0)
-            except Exception:
+            except RuntimeError:
                 chosen = None
         layer_in = chosen
 
@@ -283,12 +283,12 @@ def _get_error_recode_polygons(in_file, periods_affected=None):
 
     try:
         src_name = layer_in.GetName()
-    except Exception:
+    except RuntimeError:
         src_name = "<unknown>"
 
     try:
         feat_count = layer_in.GetFeatureCount()
-    except Exception:
+    except RuntimeError:
         feat_count = -1
 
     if feat_count == 0:
@@ -310,7 +310,7 @@ def _get_error_recode_polygons(in_file, periods_affected=None):
         if tmp_path.exists():
             try:
                 driver.DeleteDataSource(str(tmp_path))
-            except Exception:
+            except RuntimeError:
                 pass
         out_ds = driver.CreateDataSource(str(tmp_path))
         if out_ds is None:
@@ -320,35 +320,26 @@ def _get_error_recode_polygons(in_file, periods_affected=None):
         ds_in = None
         with open(tmp_path, "r") as f:
             as_json = json.load(f)
-            try:
-                for feat in as_json.get("features", []):
-                    props = feat.get("properties")
-                    if props is None:
-                        feat["properties"] = {}
-                        props = feat["properties"]
-                    val = props.get("periods_affected")
-                    if isinstance(val, str):
-                        val_list = [val]
-                    elif isinstance(val, (list, tuple)):
-                        val_list = [x for x in val if isinstance(x, str)]
-                    else:
-                        val_list = []
-                    val_list = [x for x in val_list if "baseline" in x or "report" in x]
-                    if not val_list:
-                        if periods_affected:
-                            props["periods_affected"] = periods_affected
-                        else:
-                            props["periods_affected"] = ["baseline"]
-                    else:
-                        props["periods_affected"] = val_list
-            except Exception:
-                pass
+            for feat in as_json.get("features", []):
+                props = feat.get("properties")
+                if not isinstance(props, dict):
+                    props = {}
+                    feat["properties"] = props
+                val = props.get("periods_affected")
+                if isinstance(val, str):
+                    val_list = [val]
+                elif isinstance(val, (list, tuple)):
+                    val_list = [x for x in val if isinstance(x, str)]
+                else:
+                    val_list = []
+                val_list = [x for x in val_list if "baseline" in x or "report" in x]
+                if not val_list:
+                    props["periods_affected"] = periods_affected or ["baseline"]
+                else:
+                    props["periods_affected"] = val_list
             polys = ErrorRecodePolygons.Schema().load(as_json)
 
-    try:
-        parsed_count = len(polys.features)
-    except Exception:
-        parsed_count = -1
+    parsed_count = len(polys.features)
 
     if feat_count > 0 and parsed_count == 0:
         layer_names = []
@@ -358,9 +349,9 @@ def _get_error_recode_polygons(in_file, periods_affected=None):
                 for i in range(ds_check.GetLayerCount()):
                     try:
                         layer_names.append(ds_check.GetLayerByIndex(i).GetName())
-                    except Exception:
+                    except (AttributeError, RuntimeError):
                         continue
-        except Exception:
+        except RuntimeError:
             pass
         raise RuntimeError(
             f"Layer '{src_name}' in '{in_file}' reported {feat_count} features "
@@ -471,14 +462,16 @@ def _set_error_recode(in_file, out_file, error_recode_polys):
                     sdg_areas["Improved"] += area
 
         # Validate area accounting and persist error-recode summary for this period
-        assert all(value >= 0 for value in sdg_areas.values()), (
-            f"sdg_areas should all be greater than zero, but values are {sdg_areas}"
-        )
+        if not all(value >= 0 for value in sdg_areas.values()):
+            raise RuntimeError(
+                f"sdg_areas must be non-negative, but values are {sdg_areas}"
+            )
         total_area_final = sum(sdg_areas.values())
-        assert abs(total_area_initial - total_area_final) < 0.001, (
-            f"total_area_initial ({total_area_initial}) differs "
-            f"from total_area_final ({total_area_final})"
-        )
+        if not abs(total_area_initial - total_area_final) < 0.001:
+            raise RuntimeError(
+                f"total_area_initial ({total_area_initial}) differs "
+                f"from total_area_final ({total_area_final})"
+            )
 
         pa_obj.sdg_error_recode = reporting.AreaList(
             "SDG Indicator 15.3.1 (progress since baseline), with errors recoded",

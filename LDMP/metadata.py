@@ -92,7 +92,7 @@ def _iter_result_uris(results):
     if callable(get_all):
         try:
             return get_all()
-        except Exception:  # pragma: no cover - defensive guard
+        except (AttributeError, RuntimeError, TypeError, ValueError):  # pragma: no cover
             pass
 
     uris = []

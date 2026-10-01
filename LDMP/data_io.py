@@ -2803,7 +2803,7 @@ def _connect_usable_data_cache_invalidation():
         if signal is not None:
             try:
                 signal.connect(invalidate_usable_data_caches)
-            except Exception:  # pragma: no cover - defensive
+            except (RuntimeError, TypeError):  # pragma: no cover - defensive
                 pass
     _usable_data_cache_invalidation_connected = True
 

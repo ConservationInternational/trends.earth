@@ -992,9 +992,8 @@ class ReportProcessHandlerTask(QgsTask):
         if self.isCanceled():
             return False
 
-        if (
-            not os.path.isabs(self._qgs_proc_path)
-            or not os.path.isfile(self._qgs_proc_path)
+        if not os.path.isabs(self._qgs_proc_path) or not os.path.isfile(
+            self._qgs_proc_path
         ):
             raise FileNotFoundError("QGIS processing executable path is not valid.")
 

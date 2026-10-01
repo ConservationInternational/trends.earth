@@ -92,7 +92,12 @@ def _iter_result_uris(results):
     if callable(get_all):
         try:
             return get_all()
-        except (AttributeError, RuntimeError, TypeError, ValueError):  # pragma: no cover
+        except (
+            AttributeError,
+            RuntimeError,
+            TypeError,
+            ValueError,
+        ):  # pragma: no cover
             pass
 
     uris = []

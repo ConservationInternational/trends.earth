@@ -2669,7 +2669,10 @@ def security_scan(c, filename=None):
             check=False,
         )
         if result.returncode:
-            raise Exit("Critical security findings block this plugin version", code=result.returncode)
+            raise Exit(
+                "Critical security findings block this plugin version",
+                code=result.returncode,
+            )
 
 
 ns = Collection(

@@ -4,8 +4,8 @@
 import argparse
 import json
 import os
-import subprocess
 import shutil
+import subprocess
 import sys
 import tempfile
 import zipfile
@@ -28,7 +28,9 @@ def run_command(command, cwd=None):
     elif shutil.which(command[0]) is None:
         raise RuntimeError(f"Required scanner not installed: {command[0]}")
     try:
-        return subprocess.run(command, cwd=cwd, capture_output=True, text=True, check=False)
+        return subprocess.run(
+            command, cwd=cwd, capture_output=True, text=True, check=False
+        )
     except FileNotFoundError as error:
         raise RuntimeError(f"Required scanner not installed: {command[0]}") from error
 
@@ -53,7 +55,9 @@ def scan_bandit(scan_root, rules):
     except json.JSONDecodeError as error:
         raise RuntimeError("Bandit returned invalid JSON output") from error
     if result.returncode not in (0, 1):
-        raise RuntimeError(f"Bandit failed with exit code {result.returncode}: {result.stderr.strip()}")
+        raise RuntimeError(
+            f"Bandit failed with exit code {result.returncode}: {result.stderr.strip()}"
+        )
 
     formatted = []
     for issue in findings:
@@ -129,7 +133,9 @@ def scan_flake8(scan_root, plugin_root, rules):
 
     result = run_command(command)
     if result.returncode not in (0, 1):
-        raise RuntimeError(f"Flake8 failed with exit code {result.returncode}: {result.stderr.strip()}")
+        raise RuntimeError(
+            f"Flake8 failed with exit code {result.returncode}: {result.stderr.strip()}"
+        )
     findings = result.stdout.splitlines()
     report_findings("Flake8 (informational)", findings)
 
@@ -158,7 +164,10 @@ def scan_archive_files(archive_path, rules):
 
     report_findings(
         "File permissions (informational)",
-        [f"{name} - Python file has executable permission" for name in executable_python],
+        [
+            f"{name} - Python file has executable permission"
+            for name in executable_python
+        ],
     )
     report_findings("Suspicious files (informational)", suspicious)
 
@@ -166,7 +175,9 @@ def scan_archive_files(archive_path, rules):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("archive", type=Path, help="Packaged plugin ZIP to scan")
-    parser.add_argument("--plugin-name", default="LDMP", help="Top-level plugin directory in the ZIP")
+    parser.add_argument(
+        "--plugin-name", default="LDMP", help="Top-level plugin directory in the ZIP"
+    )
     args = parser.parse_args()
 
     archive_path = args.archive.resolve()
@@ -181,7 +192,9 @@ def main():
                 archive.extractall(scan_root)
             plugin_root = scan_root / args.plugin_name
             if not plugin_root.is_dir():
-                raise RuntimeError(f"Plugin directory {args.plugin_name} not found in {archive_path}")
+                raise RuntimeError(
+                    f"Plugin directory {args.plugin_name} not found in {archive_path}"
+                )
 
             bandit_failed = scan_bandit(scan_root, rules)
             secrets_failed = scan_secrets(scan_root, plugin_root, rules)

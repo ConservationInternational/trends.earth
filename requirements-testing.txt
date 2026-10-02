@@ -6,3 +6,4 @@ flask
 plotly
 pyqtgraph
 pytest
+coverage

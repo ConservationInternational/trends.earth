@@ -18,7 +18,7 @@ import tempfile
 
 from osgeo import gdal
 from qgis.core import Qgis
-from qgis.PyQt import Qt
+from qgis.PyQt.QtCore import QT_VERSION_STR
 
 
 def _run_tests(test_suite, package_name, with_coverage=False):
@@ -32,7 +32,7 @@ def _run_tests(test_suite, package_name, with_coverage=False):
     print("%s tests has been discovered in %s" % (count, package_name))
     print("QGIS : %s" % version)
     print("Python GDAL : %s" % gdal.VersionInfo("VERSION_NUM"))
-    print("QT : %s" % Qt.QT_VERSION_STR)
+    print("QT : %s" % QT_VERSION_STR)
     print("Run slow tests : %s" % (not os.environ.get("ON_TRAVIS", "")))
     print("########")
     if with_coverage:

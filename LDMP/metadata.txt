@@ -27,6 +27,7 @@ deprecated=False
 hasProcessingProvider=yes
 
 changelog=2.3.4 (September 29, 2026)
+  - Fix formatting of "Soil organic carbon change from initial year to final year" table
   - Remove no longer used SOC by transition table from land degradation report template
   - Add rows to drought excel report template to allow for longer timeseries
   - Fix off-by-one bug in worst drought calculation (fourth year of every period was not considered)

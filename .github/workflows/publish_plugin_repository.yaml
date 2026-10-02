@@ -117,6 +117,7 @@ jobs:
             fi
 
             RUN_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/${REPO_WORKFLOW_ID}/runs" \
+              --method GET \
               -f branch="$PR_BRANCH" \
               -f event=pull_request \
               -f status=completed \

@@ -419,7 +419,7 @@ class LocalJobTask(QgsTask):
     running_job = QtCore.pyqtSignal()
 
     def __init__(self, description, job, area_of_interest):
-        super().__init__(description, QgsTask.CanCancel)
+        super().__init__(description, QgsTask.Flag.CanCancel)
         self.job = job
         self.job_copy = deepcopy(job)  # ensure job in main thread is not accessed
         self.area_of_interest = area_of_interest
@@ -641,7 +641,7 @@ class DownloadJobResultsTask(QgsTask):
 
     def __init__(self, job: Job, job_manager: "JobManager"):
         task_name = job.task_name or str(job.id)
-        super().__init__(f"Downloading results: {task_name}", QgsTask.CanCancel)
+        super().__init__(f"Downloading results: {task_name}", QgsTask.Flag.CanCancel)
         self.job = job
         self.job_manager = job_manager
         self.error_message = None
@@ -769,7 +769,7 @@ class DownloadJobResultsTask(QgsTask):
         err = blocking_request.head(head_req, True)
 
         total_size = None
-        if err == QgsBlockingNetworkRequest.NoError:
+        if err == QgsBlockingNetworkRequest.ErrorCode.NoError:
             raw = blocking_request.reply().rawHeader(b"Content-Length")
             if raw:
                 try:
@@ -794,7 +794,7 @@ class DownloadJobResultsTask(QgsTask):
                     blocking_request = QgsBlockingNetworkRequest()
                     err = blocking_request.get(chunk_req, True)
 
-                    if err != QgsBlockingNetworkRequest.NoError:
+                    if err != QgsBlockingNetworkRequest.ErrorCode.NoError:
                         log(
                             f"Range request failed for {output_path.name} "
                             f"bytes={offset}-{end}: "
@@ -825,7 +825,7 @@ class DownloadJobResultsTask(QgsTask):
         blocking_request = QgsBlockingNetworkRequest()
         err = blocking_request.get(network_request, True)
 
-        if err != QgsBlockingNetworkRequest.NoError:
+        if err != QgsBlockingNetworkRequest.ErrorCode.NoError:
             log(
                 f"Network error downloading {output_path.name}: "
                 f"{blocking_request.errorMessage()}"
@@ -1785,7 +1785,7 @@ class JobManager(QtCore.QObject):
         message_bar_item.layout().addWidget(progress_bar)
         message_bar_item.layout().addWidget(cancel_button)
         message_bar = iface.messageBar()
-        message_bar.pushWidget(message_bar_item, Qgis.Info)
+        message_bar.pushWidget(message_bar_item, Qgis.MessageLevel.Info)
 
         def _set_progress_bar_value(value: float):
             try:
@@ -1943,7 +1943,7 @@ class JobManager(QtCore.QObject):
                         f"'{job.task_name or job.id}' queued — "
                         "will start when the current download finishes."
                     ),
-                    level=Qgis.Info,
+                    level=Qgis.MessageLevel.Info,
                     duration=4,
                 )
             return
@@ -1953,7 +1953,7 @@ class JobManager(QtCore.QObject):
             iface.messageBar().pushMessage(
                 self.tr("Download"),
                 self.tr("This job is already being downloaded by another process."),
-                level=Qgis.Warning,
+                level=Qgis.MessageLevel.Warning,
             )
             return
 
@@ -1979,7 +1979,7 @@ class JobManager(QtCore.QObject):
         cancel_button.setText("Cancel")
         message_bar_item.layout().addWidget(progress_bar)
         message_bar_item.layout().addWidget(cancel_button)
-        iface.messageBar().pushWidget(message_bar_item, Qgis.Info)
+        iface.messageBar().pushWidget(message_bar_item, Qgis.MessageLevel.Info)
 
         def _set_progress_bar_value(value: float):
             try:

@@ -1141,7 +1141,9 @@ def set_default_stats_value(v_path, band_datas):
     __main__.__dict__["error_recode_form_open"] = error_recode_form_open
 
     config = layer.editFormConfig()
-    config.setInitCodeSource(QgsEditFormConfig.CodeSourceEnvironment)
+    config.setInitCodeSource(
+        QgsEditFormConfig.PythonInitCodeSource.CodeSourceEnvironment
+    )
     config.setInitFunction("error_recode_form_open")
     layer.setEditFormConfig(config)
 

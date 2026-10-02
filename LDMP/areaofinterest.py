@@ -605,7 +605,7 @@ def qgs_error_message(error_title="Error", error_desciption="", timeout=0):
     settings_btn.pressed.connect(open_settings)
     msg_widget.layout().addWidget(settings_btn)
 
-    message_bar.pushWidget(msg_widget, level=Qgis.Info, duration=timeout)
+    message_bar.pushWidget(msg_widget, level=Qgis.MessageLevel.Info, duration=timeout)
 
 
 def open_settings():

@@ -63,7 +63,7 @@ except ImportError:
         "If you're running from source, please run 'invoke set-version' to generate version information. "
         "See SETUPTOOLS_SCM_GUIDE.md for details.",
         "Trends.Earth",
-        Qgis.Warning,
+        Qgis.MessageLevel.Warning,
     )
 
 

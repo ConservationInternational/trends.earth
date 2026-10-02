@@ -139,9 +139,11 @@ class BaseChart:
         Converts length measurement to equivalent pixels taking into account
         the resolution.
         """
-        measurement = QgsLayoutMeasurement(length, QgsUnitTypes.LayoutMillimeters)
+        measurement = QgsLayoutMeasurement(
+            length, QgsUnitTypes.LayoutUnit.LayoutMillimeters
+        )
         pix_measurement = self._measurement_converter.convert(
-            measurement, QgsUnitTypes.LayoutPixels
+            measurement, QgsUnitTypes.LayoutUnit.LayoutPixels
         )
 
         return pix_measurement.length()
@@ -222,7 +224,7 @@ class BaseUniqueValuesChart(BaseChart):
         ext_geom = QgsGeometry.fromRect(layer.extent())
         extents_area = area_calc.measureArea(ext_geom)
         area_km = area_calc.convertAreaMeasurement(
-            extents_area, QgsUnitTypes.AreaSquareKilometers
+            extents_area, QgsUnitTypes.AreaUnit.AreaSquareKilometers
         )
         pixel_area = area_km / pixel_count
 
@@ -239,7 +241,7 @@ class BaseUniqueValuesChart(BaseChart):
 
             # Get label and color defined in the band style
             label = ""
-            clr = Qt.lightGray
+            clr = Qt.GlobalColor.lightGray
             int_pix_val = int(pix_val)
             if int_pix_val in idx_clr_ramp:
                 ramp_item = idx_clr_ramp[int_pix_val]

@@ -201,7 +201,7 @@ def _boundary_download_feedback(
                 progress.setTextVisible(False)
                 progress.setFormat("%p%")
                 message_widget.layout().addWidget(progress)
-            message_bar.pushWidget(message_widget, Qgis.Info)
+            message_bar.pushWidget(message_widget, Qgis.MessageLevel.Info)
 
     try:
         if app:
@@ -538,7 +538,10 @@ def get_admin_bounds() -> dict[str, Country]:
             _admin_bounds_session_cache = cached_boundaries
             return _admin_bounds_session_cache
 
-        log("No administrative boundaries available from API or cache", Qgis.Critical)
+        log(
+            "No administrative boundaries available from API or cache",
+            Qgis.MessageLevel.Critical,
+        )
         return {}
     except Exception as e:
         log(f"Error loading boundaries from API: {e}")
@@ -638,13 +641,19 @@ def _get_boundaries_from_local_cache() -> dict[str, Country] | None:
             boundaries_list = data
 
         if not boundaries_list:
-            log("Packaged boundaries cache is empty or malformed", Qgis.Warning)
+            log(
+                "Packaged boundaries cache is empty or malformed",
+                Qgis.MessageLevel.Warning,
+            )
             return None
 
         log("Loaded administrative boundaries from packaged cache")
         return _convert_api_boundaries_to_countries(boundaries_list)
     except Exception as exc:
-        log(f"Error loading boundaries from packaged cache: {exc}", Qgis.Warning)
+        log(
+            f"Error loading boundaries from packaged cache: {exc}",
+            Qgis.MessageLevel.Warning,
+        )
         return None
 
 
@@ -1166,7 +1175,7 @@ class DownloadFileTask(QgsTask):
         description: str | None = None,
     ):
         desc = description or f"Downloading {Path(output_path).name}"
-        super().__init__(desc, QgsTask.CanCancel)
+        super().__init__(desc, QgsTask.Flag.CanCancel)
         self.url = url
         self.output_path = Path(output_path)
         self.expected_etag = expected_etag

@@ -431,6 +431,7 @@ def release_github(c):
     payload = {
         "tag_name": f"v{v}",
         "name": f"Version {v}",
+        "draft": True,
         "body": """To install this release, download the LDMP.zip file below and then follow [the instructions for installing a release from Github](https://github.com/ConservationInternational/trends.earth#stable-version-from-zipfile).""",
     }
 
@@ -508,6 +509,13 @@ def release_github(c):
         upload_url, params={"name": zipfile_name}, headers=headers, data=asset_data
     )
     upload_response.raise_for_status()
+
+    publish_response = requests.patch(
+        f"{c.github.api_url}/repos/{c.github.repo_owner}/{c.github.repo_name}/releases/{release_id}",
+        json={"draft": False},
+        headers={"Authorization": f"token {c.github.token}"},
+    )
+    publish_response.raise_for_status()
 
     print(f"Successfully uploaded {zipfile_name} to release v{v}")
     print(f"Release URL: {release_data['html_url']}")

@@ -416,111 +416,6 @@ def set_version(c, modules=False, gee=False, version=None):
                 subprocess.check_call(["invoke", "set-version"], cwd=module_path)
 
 
-@task()
-def release_github(c):
-    v = get_version(c)
-
-    # Build the plugin zipfile
-    print("Building plugin zipfile for release...")
-    zipfile_path = zipfile_build(c, clean=True, version=3, tests=False)
-    zipfile_name = os.path.basename(zipfile_path)
-
-    print(f"Plugin zipfile created at: {zipfile_path}")
-
-    # Make release
-    payload = {
-        "tag_name": f"v{v}",
-        "name": f"Version {v}",
-        "draft": True,
-        "body": """To install this release, download the LDMP.zip file below and then follow [the instructions for installing a release from Github](https://github.com/ConservationInternational/trends.earth#stable-version-from-zipfile).""",
-    }
-
-    print("Creating GitHub release...")
-    print(f"Repository: {c.github.repo_owner}/{c.github.repo_name}")
-    print(f"API URL: {c.github.api_url}")
-
-    # Verify token is configured
-    if not hasattr(c.github, "token") or not c.github.token:
-        raise ValueError(
-            "GitHub token not found. Please set 'github.token' in your invoke.yaml file.\n"
-            "The token needs 'repo' scope to create releases.\n"
-            "Create a token at: https://github.com/settings/tokens/new"
-        )
-
-    headers = {"Authorization": f"token {c.github.token}"}
-
-    # Test authentication first
-    auth_test = requests.get(f"{c.github.api_url}/user", headers=headers)
-
-    if auth_test.status_code == 401:
-        raise ValueError(
-            "GitHub token authentication failed (401 Unauthorized).\n"
-            "Your token may be expired or invalid.\n"
-            "Please update 'github.token' in your invoke.yaml file.\n"
-            "Create a new token with 'repo' scope at: https://github.com/settings/tokens/new"
-        )
-    elif auth_test.status_code == 403:
-        raise ValueError(
-            "GitHub token lacks required permissions (403 Forbidden).\n"
-            "Your token needs 'repo' scope to create releases.\n"
-            "Update your token at: https://github.com/settings/tokens"
-        )
-
-    auth_test.raise_for_status()
-    user_data = auth_test.json()
-    print(f"Authenticated as: {user_data.get('login', 'unknown')}")
-
-    r = requests.post(
-        f"{c.github.api_url}/repos/{c.github.repo_owner}/{c.github.repo_name}/releases",
-        json=payload,
-        headers=headers,
-    )
-
-    if r.status_code == 401:
-        raise ValueError(
-            "GitHub API authentication failed when creating release.\n"
-            "Please verify your token has 'repo' scope."
-        )
-    elif r.status_code == 404:
-        raise ValueError(
-            f"Repository not found: {c.github.repo_owner}/{c.github.repo_name}\n"
-            "Please verify the repository name and that your token has access to it."
-        )
-
-    r.raise_for_status()
-
-    release_data = r.json()
-    release_id = release_data["id"]
-    upload_url = release_data["upload_url"].replace("{?name,label}", "")
-
-    print(f"Release created with ID: {release_id}")
-    print(f"Uploading asset: {zipfile_name}")
-
-    # Upload the zipfile as a release asset
-    with open(zipfile_path, "rb") as f:
-        asset_data = f.read()
-
-    headers = {
-        "Authorization": f"token {c.github.token}",
-        "Content-Type": "application/zip",
-    }
-
-    upload_response = requests.post(
-        upload_url, params={"name": zipfile_name}, headers=headers, data=asset_data
-    )
-    upload_response.raise_for_status()
-
-    publish_response = requests.patch(
-        f"{c.github.api_url}/repos/{c.github.repo_owner}/{c.github.repo_name}/releases/{release_id}",
-        json={"draft": False},
-        headers={"Authorization": f"token {c.github.token}"},
-    )
-    publish_response.raise_for_status()
-
-    print(f"Successfully uploaded {zipfile_name} to release v{v}")
-    print(f"Release URL: {release_data['html_url']}")
-
-
 @task(
     help={
         "modules": "Also set tag for any modules specified in ext_libs.local_modules",
@@ -2705,7 +2600,6 @@ ns = Collection(
     tecli_logs,
     zipfile_build,
     zipfile_deploy,
-    release_github,
     update_script_ids,
     testdata_sync,
     rtd_pre_build,

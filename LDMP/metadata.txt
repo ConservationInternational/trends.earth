@@ -34,7 +34,7 @@ changelog=2.3.4 (September 29, 2026)
   - Fixed WorldPop population exports and processing to preserve totals and precision during resampling
   - Improved performance and progress reporting for zonal statistics, including FWv2 processing resolution
   - Added options to configure notification emails during registration and profile updates
-  - Added experimental LDN planning analysis and report-generation support
+  - Added experimental LDN planning analysis support
   - Updated translations and dependencies
   - Applied security and maintenance fixes
   - Security fixes for QGIS plugin website

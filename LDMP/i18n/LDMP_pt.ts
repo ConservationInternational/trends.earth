@@ -4253,27 +4253,27 @@ Se se esqueceu da palavra-passe, pode redefini-la.</translation>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="1770"/>
+        <location filename="../jobs/manager.py" line="1778"/>
         <source>Processing: {task_name}</source>
         <translation>Em processamento: {task_name}</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1965"/>
+        <location filename="../jobs/manager.py" line="1973"/>
         <source>Downloading: {job.task_name or job.id}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1945"/>
+        <location filename="../jobs/manager.py" line="1953"/>
         <source>Download</source>
         <translation>Baixar</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1932"/>
+        <location filename="../jobs/manager.py" line="1940"/>
         <source>'{job.task_name or job.id}' queued — will start when the current download finishes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1945"/>
+        <location filename="../jobs/manager.py" line="1953"/>
         <source>This job is already being downloaded by another process.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4712,32 +4712,32 @@ Se se esqueceu da palavra-passe, pode redefini-la.</translation>
 <context>
     <name>ReportGeneratorManager</name>
     <message>
-        <location filename="../reports/generator.py" line="1091"/>
+        <location filename="../reports/generator.py" line="1109"/>
         <source>Report Status</source>
         <translation>Estado do Relatório</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1121"/>
+        <location filename="../reports/generator.py" line="1139"/>
         <source>Cannot process report due to write permission to</source>
         <translation>Não é possível processar o relatório devido a permissão para escrita para</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1153"/>
+        <location filename="../reports/generator.py" line="1171"/>
         <source>could not be found in your system. Unable to run the report generator.</source>
         <translation>não ter sido encontrada no seu sistema. Não é possível correr o criador de relatórios.</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1182"/>
+        <location filename="../reports/generator.py" line="1200"/>
         <source>reports</source>
         <translation>relatórios</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1196"/>
+        <location filename="../reports/generator.py" line="1214"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
         <translation>estão a ser processados (id {[str(job.id) for job in ctx.jobs]})...</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1164"/>
+        <location filename="../reports/generator.py" line="1182"/>
         <source>queued (waiting for a free worker slot)</source>
         <translation>na fila (a aguardar por uma vaga de trabalhador livre)</translation>
     </message>
@@ -6050,17 +6050,17 @@ for running algorithms and their results.</source>
         <translation>A autenticação foi efetuada com êxito, mas não foram devolvidos tokens. O método de autenticação da API poderá ter sido alterado.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="982"/>
+        <location filename="../api.py" line="984"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation>O servidor do Trends.Earth está temporariamente indisponível (erro {status}). Normalmente, trata-se de um problema temporário. Tente novamente dentro de alguns instantes.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="988"/>
+        <location filename="../api.py" line="990"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation>O servidor do Trends.Earth encontrou um erro interno (erro 500). Tente novamente. Se o problema persistir, contacte a equipa do Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="994"/>
+        <location filename="../api.py" line="996"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation>Falha na autenticação. Verifique as credenciais de início de sessão.</translation>
     </message>
@@ -6075,7 +6075,7 @@ for running algorithms and their results.</source>
         <translation>Não é possível obter as credenciais guardadas. Introduza o seu nome de utilizador e palavra-passe nas definições da Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="972"/>
+        <location filename="../api.py" line="974"/>
         <source>This script requires Google Earth Engine. You must accept confirm understanding of the GEE terms of use before running it. Please update your profile in the Trends.Earth plugin settings to do so.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6121,42 +6121,42 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_auth</name>
     <message>
-        <location filename="../auth.py" line="170"/>
+        <location filename="../auth.py" line="171"/>
         <source>Cannot init auth configuration</source>
         <translation>Não é possível iniciar configuração auth</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="177"/>
+        <location filename="../auth.py" line="178"/>
         <source>Cannot update auth configuration</source>
         <translation>Não é possível atualizar configuração auth</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="191"/>
+        <location filename="../auth.py" line="192"/>
         <source>No authentication set for {auth_setup.name}. Setup in Trends.Earth settings</source>
         <translation>Sem autenticação definida para {auth_setup.name}. Configure nas definições do Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="202"/>
+        <location filename="../auth.py" line="203"/>
         <source>Cannot remove auth configuration for {auth_setup.name} with id: {authConfigId}</source>
         <translation>Não é possível remover configuração auth para {auth_setup.name} com identificador: {authConfigId}</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="262"/>
+        <location filename="../auth.py" line="263"/>
         <source>Cannot retrieve credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
         <translation>Não é possível obter credenciais com identificador {authConfigId}. Configure nome de utilizador e palavra-passe antes de usar funções {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="250"/>
+        <location filename="../auth.py" line="251"/>
         <source>No authentication set. Setup username and password before using {auth_setup.name}.</source>
         <translation>Não existe autenticação definida. Configure o nome de utilizador e a palavra-passe antes de utilizar {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="276"/>
+        <location filename="../auth.py" line="277"/>
         <source>{auth_setup.name} credentials with id {authConfigId} are not valid.  Setup username and password before using {auth_setup.name}.</source>
         <translation>As credenciais de {auth_setup.name} com o ID {authConfigId} não são válidas. Configure o nome de utilizador e a palavra-passe antes de utilizar {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="287"/>
+        <location filename="../auth.py" line="288"/>
         <source>Auth method with id {authConfigId} is &apos;{authConfig.method()}&apos;. This method is not supported by {auth_setup.name}.</source>
         <translation>O método de autenticação com o ID {authConfigId} é &quot;{authConfig.method()}&quot;. Este método não é suportado por {auth_setup.name}.</translation>
     </message>
@@ -7943,42 +7943,42 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_reports_charts</name>
     <message>
-        <location filename="../reports/charts.py" line="728"/>
+        <location filename="../reports/charts.py" line="726"/>
         <source>Land Cover Area</source>
         <translation>Área de Cobertura de Solo</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="729"/>
+        <location filename="../reports/charts.py" line="727"/>
         <source>in</source>
         <translation>em</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="815"/>
+        <location filename="../reports/charts.py" line="813"/>
         <source>Summary of SDG 15.3.1 Indicator</source>
         <translation>Resumo do Indicador ODS 15.3.1</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="859"/>
+        <location filename="../reports/charts.py" line="857"/>
         <source>Change in Land Cover</source>
         <translation>Alteração da Cobertura do Solo</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="882"/>
+        <location filename="../reports/charts.py" line="880"/>
         <source>Change in Soil Organic Carbon (Tonnes)</source>
         <translation>ALteração do Carbono Orgânico do Solo (Toneladas)</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="898"/>
+        <location filename="../reports/charts.py" line="896"/>
         <source>Tonnes</source>
         <translation>Toneladas</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="905"/>
+        <location filename="../reports/charts.py" line="903"/>
         <source>Land Cover Change by Productivity Class</source>
         <translation>Alteração de Cobertura do Solo por Classe de Produtividade</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="917"/>
+        <location filename="../reports/charts.py" line="915"/>
         <source>%</source>
         <translation>%</translation>
     </message>

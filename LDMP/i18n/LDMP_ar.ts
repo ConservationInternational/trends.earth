@@ -4285,27 +4285,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="1770"/>
+        <location filename="../jobs/manager.py" line="1778"/>
         <source>Processing: {task_name}</source>
         <translation>جارٍ المعالجة: {task_name}</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1965"/>
+        <location filename="../jobs/manager.py" line="1973"/>
         <source>Downloading: {job.task_name or job.id}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1945"/>
+        <location filename="../jobs/manager.py" line="1953"/>
         <source>Download</source>
         <translation>تحميل</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1932"/>
+        <location filename="../jobs/manager.py" line="1940"/>
         <source>'{job.task_name or job.id}' queued — will start when the current download finishes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1945"/>
+        <location filename="../jobs/manager.py" line="1953"/>
         <source>This job is already being downloaded by another process.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4745,32 +4745,32 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportGeneratorManager</name>
     <message>
-        <location filename="../reports/generator.py" line="1091"/>
+        <location filename="../reports/generator.py" line="1109"/>
         <source>Report Status</source>
         <translation>حالة التقرير</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1121"/>
+        <location filename="../reports/generator.py" line="1139"/>
         <source>Cannot process report due to write permission to</source>
         <translation>يتعذر معالجة التقرير بسبب إذن الكتابة لـ</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1153"/>
+        <location filename="../reports/generator.py" line="1171"/>
         <source>could not be found in your system. Unable to run the report generator.</source>
         <translation>يتعذر العثور عليه في نظامك. يتعذر تشغيل مولد التقرير.</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1182"/>
+        <location filename="../reports/generator.py" line="1200"/>
         <source>reports</source>
         <translation>التقارير</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1196"/>
+        <location filename="../reports/generator.py" line="1214"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
         <translation>قيد المعالجة (id {[str(job.id) for job in ctx.jobs]})...</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1164"/>
+        <location filename="../reports/generator.py" line="1182"/>
         <source>queued (waiting for a free worker slot)</source>
         <translation>قيد الانتظار (في قائمة الانتظار لوجود عامل متاح)</translation>
     </message>
@@ -6087,17 +6087,17 @@ for running algorithms and their results.</source>
         <translation>نجحت عملية المصادقة، ولكن لم يتم إرجاع أي رموز مميّزة (Tokens). قد تكون طريقة مصادقة واجهة برمجة التطبيقات (API) قد تغيّرت.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="982"/>
+        <location filename="../api.py" line="984"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation>خادم Trends.Earth غير متاح مؤقتاً (خطأ {status}). عادةً ما تكون هذه مشكلة مؤقتة. يرجى المحاولة مرة أخرى بعد لحظات قليلة.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="988"/>
+        <location filename="../api.py" line="990"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation>تعرض خادم Trends.Earth لخطأ داخلي (خطأ 500). يرجى المحاولة مرة أخرى. إذا استمرت المشكلة، يرجى التواصل مع فريق Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="994"/>
+        <location filename="../api.py" line="996"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation>فشلت المصادقة. يرجى التحقق من بيانات الاعتماد الخاصة بك.</translation>
     </message>
@@ -6112,7 +6112,7 @@ for running algorithms and their results.</source>
         <translation>تعذر استرداد بيانات الاعتماد المحفوظة. يرجى إعادة إدخال اسم المستخدم وكلمة المرور في إعدادات Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="972"/>
+        <location filename="../api.py" line="974"/>
         <source>This script requires Google Earth Engine. You must accept confirm understanding of the GEE terms of use before running it. Please update your profile in the Trends.Earth plugin settings to do so.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6158,42 +6158,42 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_auth</name>
     <message>
-        <location filename="../auth.py" line="170"/>
+        <location filename="../auth.py" line="171"/>
         <source>Cannot init auth configuration</source>
         <translation>لا يمكن بدء تكوين المصادقة</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="177"/>
+        <location filename="../auth.py" line="178"/>
         <source>Cannot update auth configuration</source>
         <translation>لا يمكن تحديث تكوين المصادقة</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="191"/>
+        <location filename="../auth.py" line="192"/>
         <source>No authentication set for {auth_setup.name}. Setup in Trends.Earth settings</source>
         <translation>لم يتم إعداد مصادقة لـ {auth_setup.name}. قمْ بإعدادها ضمن إعدادات Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="202"/>
+        <location filename="../auth.py" line="203"/>
         <source>Cannot remove auth configuration for {auth_setup.name} with id: {authConfigId}</source>
         <translation>لا يمكن إزالة تكوين المصادقة لـ {auth_setup.name} باستخدام معرّف: {authConfigId}</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="262"/>
+        <location filename="../auth.py" line="263"/>
         <source>Cannot retrieve credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
         <translation>لا يمكن استرجاع أوراق الاعتماد باستخدام معرّف {authConfigId}. قمْ بإعداد اسم المستخدم وكلمة المرور قبل استخدام وظائف {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="250"/>
+        <location filename="../auth.py" line="251"/>
         <source>No authentication set. Setup username and password before using {auth_setup.name}.</source>
         <translation>لم يتم إعداد المصادقة. قم بإعداد اسم المستخدم وكلمة المرور قبل استخدام {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="276"/>
+        <location filename="../auth.py" line="277"/>
         <source>{auth_setup.name} credentials with id {authConfigId} are not valid.  Setup username and password before using {auth_setup.name}.</source>
         <translation>بيانات اعتماد {auth_setup.name} بالمعرّف {authConfigId} غير صحيحة. قم بإعداد اسم المستخدم وكلمة المرور قبل استخدام {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="287"/>
+        <location filename="../auth.py" line="288"/>
         <source>Auth method with id {authConfigId} is &apos;{authConfig.method()}&apos;. This method is not supported by {auth_setup.name}.</source>
         <translation>طريقة المصادقة بالمعرّف {authConfigId} هي '{authConfig.method()}'. هذه الطريقة غير مدعومة من قبل {auth_setup.name}.</translation>
     </message>
@@ -7981,42 +7981,42 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_reports_charts</name>
     <message>
-        <location filename="../reports/charts.py" line="728"/>
+        <location filename="../reports/charts.py" line="726"/>
         <source>Land Cover Area</source>
         <translation>مساحة غطاء الأرض</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="729"/>
+        <location filename="../reports/charts.py" line="727"/>
         <source>in</source>
         <translation>في</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="815"/>
+        <location filename="../reports/charts.py" line="813"/>
         <source>Summary of SDG 15.3.1 Indicator</source>
         <translation>ملخص مؤشر هدف التنمية المستدامة (SDG) 15.3.1</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="859"/>
+        <location filename="../reports/charts.py" line="857"/>
         <source>Change in Land Cover</source>
         <translation>تغيير في الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="882"/>
+        <location filename="../reports/charts.py" line="880"/>
         <source>Change in Soil Organic Carbon (Tonnes)</source>
         <translation>تغيير في الكربون العضوي للتربة (بالأطنان)</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="898"/>
+        <location filename="../reports/charts.py" line="896"/>
         <source>Tonnes</source>
         <translation>أطنان</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="905"/>
+        <location filename="../reports/charts.py" line="903"/>
         <source>Land Cover Change by Productivity Class</source>
         <translation>تغيير الغطاء الأرضي حسب فئة الإنتاجية</translation>
     </message>
     <message>
-        <location filename="../reports/charts.py" line="917"/>
+        <location filename="../reports/charts.py" line="915"/>
         <source>%</source>
         <translation>٪</translation>
     </message>

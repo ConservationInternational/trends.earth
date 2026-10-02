@@ -6,6 +6,9 @@ This page lists the version history of |trends.earth|.
 `2.3.4 (September 29, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.3.4>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
+  - Remove no longer used SOC by transition table from land degradation report template
+  - Add rows to drought excel report template to allow for longer timeseries
+  - Fix off-by-one bug in worst drought calculation (fourth year of every period was not considered)
   - Added support for importing male and female population rasters
   - Fixed WorldPop population exports and processing to preserve totals and precision during resampling
   - Improved performance and progress reporting for zonal statistics, including FWv2 processing resolution
@@ -13,6 +16,7 @@ This page lists the version history of |trends.earth|.
   - Added experimental LDN planning analysis and report-generation support
   - Updated translations and dependencies
   - Applied security and maintenance fixes
+  - Security fixes for QGIS plugin website
 
 `2.3.2 (July 2, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.3.2>`_
 -----------------------------------------------------------------------------------------------------------------------------

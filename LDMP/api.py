@@ -101,7 +101,7 @@ class RequestTask(QgsTask):
         headers,
         timeout=30,
     ):
-        super().__init__(description, QgsTask.CanCancel | QgsTask.Silent)
+        super().__init__(description, QgsTask.Flag.CanCancel | QgsTask.Flag.Silent)
 
         self.description = description
         self.url = url

@@ -118,7 +118,9 @@ class UserAbortedNotification(Exception):
 def start_worker(worker, iface, message, with_progress=True):
     message_bar_item = qgis.gui.QgsMessageBar.createMessage(message)
     progress_bar = QProgressBar()
-    progress_bar.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+    progress_bar.setAlignment(
+        Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
+    )
     if not with_progress:
         progress_bar.setMinimum(0)
         progress_bar.setMaximum(0)
@@ -128,7 +130,7 @@ def start_worker(worker, iface, message, with_progress=True):
     message_bar_item.layout().addWidget(progress_bar)
     message_bar_item.layout().addWidget(cancel_button)
     message_bar = iface.messageBar()
-    message_bar.pushWidget(message_bar_item, Qgis.Info)
+    message_bar.pushWidget(message_bar_item, Qgis.MessageLevel.Info)
 
     # start the worker in a new thread
     # let Qt take ownership of the QThread

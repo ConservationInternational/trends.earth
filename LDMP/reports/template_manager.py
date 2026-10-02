@@ -44,7 +44,10 @@ class TemplateManager:
         if os.path.exists(self.path):
             self._template_file_exists = True
         else:
-            log(f"Report templates file {self.path} not found.", Qgis.Warning)
+            log(
+                f"Report templates file {self.path} not found.",
+                Qgis.MessageLevel.Warning,
+            )
 
         if load_on_init:
             self.load()
@@ -173,7 +176,7 @@ class TemplateManager:
             log(
                 "Unable to copy report configuration. Path to the report "
                 "directory in the base data folder could not be determined.",
-                Qgis.Warning,
+                Qgis.MessageLevel.Warning,
             )
             return False
 
@@ -185,7 +188,7 @@ class TemplateManager:
             shutil.copytree(self._template_dir, self._data_report_dir)
         except OSError as exc:
             msg = f"Unable to copy report configuration. {exc!s}"
-            log(msg, Qgis.Warning)
+            log(msg, Qgis.MessageLevel.Warning)
             return False
 
         return True
@@ -218,9 +221,9 @@ class TemplateManager:
                     self._configs.append(cf)
             except ValidationError as ve:
                 err_msg = str(ve.messages)
-                log(err_msg, Qgis.Warning)
+                log(err_msg, Qgis.MessageLevel.Warning)
             except Exception as exc:
-                log(str(exc), Qgis.Warning)
+                log(str(exc), Qgis.MessageLevel.Warning)
             finally:
                 tf.close()
 

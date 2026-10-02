@@ -1,0 +1,112 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2026, Conservation International
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 2.3.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-02 04:10+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh\n"
+"Language-Team: zh <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../source/for_users/advanced/index.rst:4
+msgid "Advanced"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:7
+msgid "Installing Numba for local calculations"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:9
+msgid ""
+"Numba can speed up some local Trends.Earth calculations. It is not "
+"included by default with the Trends.Earth installer given limitations on "
+"packaging binaries for distribution via the standard QGIS repositories. "
+"To use it, install it in the Python environment used by QGIS. Close QGIS "
+"before installing packages, and restart it afterward."
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:16
+msgid "Windows"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:18
+msgid ""
+"Open the **OSGeo4W Shell** installed with your QGIS installation (use the"
+" shell for the same QGIS version you run Trends.Earth in). Run::"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:23
+msgid ""
+"If the shell reports that pip is unavailable, or the installation "
+"conflicts with packages supplied by QGIS, consult your QGIS "
+"distribution's package manager rather than replacing its bundled "
+"packages."
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:28
+msgid "macOS"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:30
+msgid "Open **Plugins > Python Console** in QGIS and run::"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:35
+msgid ""
+"Quit QGIS. If the printed path points to a Python executable, use that "
+"exact path in Terminal (substitute your own path for "
+"``/path/to/qgis/python3``)::"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:40
+msgid ""
+"If the path points to the QGIS application instead of Python, use the "
+"Python interpreter provided by your QGIS installation. For example, with "
+"a Homebrew installation, use the Python from the same Homebrew "
+"environment as QGIS; with a standalone QGIS app, check the app bundle for"
+" its Python interpreter."
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:46
+msgid "Linux"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:48
+msgid ""
+"For QGIS installed from your distribution's package manager, install the "
+"matching Numba package from that same distribution. For example, on "
+"Debian/Ubuntu::"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:54
+msgid ""
+"If QGIS instead uses a separate Python environment, activate that "
+"environment and install Numba there::"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:59
+msgid ""
+"To check the result on any platform, restart QGIS and run this in "
+"**Plugins > Python Console**::"
+msgstr ""
+
+#: ../../source/for_users/advanced/index.rst:65
+msgid ""
+"If this raises ``ModuleNotFoundError``, Numba was installed in a "
+"different Python environment. Check ``sys.executable`` and ``sys.prefix``"
+" in the QGIS Python Console and select the Python environment associated "
+"with that QGIS installation before trying again."
+msgstr ""
+

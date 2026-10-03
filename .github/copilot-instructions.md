@@ -1,103 +1,26 @@
 # Copilot Instructions for trends.earth
 
-## Accessing GitHub Actions Workflow Logs
+## GitHub Actions
 
-When investigating CI failures or checking workflow runs, use the GitHub MCP (Model Context Protocol) server that is configured in `.vscode/settings.json`.
+Use the authenticated `gh` CLI for GitHub operations, including workflow investigations. Do not read a `GITHUB_TOKEN` environment variable, construct REST requests, or use PowerShell API calls. Check authentication with `gh auth status`; if it is not configured, ask the user to authenticate with `gh auth login`.
 
-### Setup
+```bash
+# List recent workflow runs
+gh run list --repo ConservationInternational/trends.earth --limit 10
 
-The MCP server for GitHub is already configured and uses the `GITHUB_TOKEN` environment variable for authentication:
+# Inspect a run and list its jobs
+gh run view RUN_ID --repo ConservationInternational/trends.earth
 
-```json
-"mcp.servers": {
-    "github": {
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-github"],
-        "env": {
-            "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_TOKEN}"
-        }
-    }
-}
+# Show logs for a job, or only failed-step logs for a run
+gh run view --job JOB_ID --log --repo ConservationInternational/trends.earth
+gh run view RUN_ID --log-failed --repo ConservationInternational/trends.earth
+
+# Download the per-QGIS Docker log artifact
+gh run download RUN_ID --repo ConservationInternational/trends.earth \
+  --name docker-compose-logs-4.2-trixie --dir ./workflow-logs
 ```
 
-### How to Access Workflow Logs
-
-Use PowerShell scripts to interact with the GitHub REST API, avoiding `gh` CLI commands or manual API calls:
-
-| Step | Goal | API Endpoint |
-|------|------|-------------|
-| 1 | List recent workflow runs | `GET /repos/{owner}/{repo}/actions/runs` |
-| 2 | Get jobs for a run | `GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs` |
-| 3 | Get logs for a job | `GET /repos/{owner}/{repo}/actions/jobs/{job_id}/logs` |
-| 4 | Download artifact logs | `GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip` |
-
-#### 1. Get Recent Workflow Runs
-
-```powershell
-$token = [System.Environment]::GetEnvironmentVariable('GITHUB_TOKEN', 'User')
-$headers = @{ Authorization = "Bearer $token"; Accept = "application/vnd.github+json" }
-$response = Invoke-RestMethod -Uri "https://api.github.com/repos/ConservationInternational/trends.earth/actions/runs?per_page=10" -Headers $headers
-$response.workflow_runs | Select-Object -First 5 name, status, conclusion, created_at, id
-```
-
-#### 2. Get Jobs for a Specific Run
-
-```powershell
-$runId = <run_id_from_above>
-$jobs = Invoke-RestMethod -Uri "https://api.github.com/repos/ConservationInternational/trends.earth/actions/runs/$runId/jobs" -Headers $headers
-$jobs.jobs | Select-Object name, status, conclusion, started_at
-```
-
-#### 3. Get Logs for a Failed Job
-
-```powershell
-$jobId = <job_id_from_above>
-$logs = Invoke-RestMethod -Uri "https://api.github.com/repos/ConservationInternational/trends.earth/actions/jobs/$jobId/logs" -Headers $headers
-$logs | Select-String -Pattern "error|fail|Error|FAIL" -Context 3,3 | Select-Object -First 20
-```
-
-#### 4. Download Artifact Logs
-
-```powershell
-$artifactId = <artifact_id_from_workflow>
-$artifactUrl = "https://api.github.com/repos/ConservationInternational/trends.earth/actions/artifacts/$artifactId/zip"
-Invoke-RestMethod -Uri $artifactUrl -Headers $headers -OutFile "$env:TEMP\logs.zip"
-Expand-Archive -Path "$env:TEMP\logs.zip" -DestinationPath "$env:TEMP\logs" -Force
-Get-Content "$env:TEMP\logs\docker-compose-logs.txt"
-```
-
-### Common Workflow Investigation Pattern
-
-1. **List recent runs** to find the failing workflow
-2. **Get jobs for that run** to identify which specific job failed
-3. **Retrieve job logs** to see the detailed error output
-4. **Download artifacts** if docker-compose logs or other debug files are available
-
-### Example: Full Investigation Flow
-
-```powershell
-# 1. Find recent CI failures
-$token = [System.Environment]::GetEnvironmentVariable('GITHUB_TOKEN', 'User')
-$headers = @{ Authorization = "Bearer $token"; Accept = "application/vnd.github+json" }
-$runs = Invoke-RestMethod -Uri "https://api.github.com/repos/ConservationInternational/trends.earth/actions/runs?per_page=10" -Headers $headers
-$failedRun = $runs.workflow_runs | Where-Object { $_.conclusion -eq 'failure' } | Select-Object -First 1
-
-# 2. Get jobs for the failed run
-$jobs = Invoke-RestMethod -Uri "https://api.github.com/repos/ConservationInternational/trends.earth/actions/runs/$($failedRun.id)/jobs" -Headers $headers
-$failedJob = $jobs.jobs | Where-Object { $_.conclusion -eq 'failure' }
-
-# 3. Get detailed logs
-$logs = Invoke-RestMethod -Uri "https://api.github.com/repos/ConservationInternational/trends.earth/actions/jobs/$($failedJob.id)/logs" -Headers $headers
-$logs | Select-String -Pattern "ERROR|FAIL" -Context 5,5
-```
-
-### Notes
-
-- The GitHub token is stored in the User environment variable `GITHUB_TOKEN`
-- Access it with: `[System.Environment]::GetEnvironmentVariable('GITHUB_TOKEN', 'User')`
-- If the `GITHUB_TOKEN` environment variable is missing or invalid, prompt the user to configure it correctly before proceeding.
-- The MCP server provides structured access to GitHub data, but direct API calls via PowerShell are more reliable for workflow logs
-- Always check for artifacts when investigating test failures - they contain docker-compose logs and other debug information
+The test workflow uploads Compose logs as artifacts even when a job fails. Use `gh run download` when the job log does not contain enough container detail.
 
 ## Repository Structure
 
@@ -111,14 +34,32 @@ This is the main Trends.Earth QGIS plugin repository. Key directories:
 ## Testing
 
 ### Local Testing
+
+Run the full Docker-based suite from the repository root. The Linux runner defaults to the QGIS tag in `.env` or `release-3_34`; pass a tag to select a matrix image:
+
 ```bash
-.\run_tests.ps1
+./run_tests.sh 3.44
+./run_tests.sh 4.2-trixie
 ```
 
+Optional arguments are `[qgis-version-tag] [test-target]`; the default target is `test_suite.test_package`. Use `SHOW_DOCKER_LOGS=true ./run_tests.sh 4.2-trixie` to print container logs after the run. `run_docker_test_environment.sh [qgis-version-tag]` only starts the Compose service for manual inspection.
+
+On Windows, use the equivalent PowerShell runner:
+
+```powershell
+.\run_tests.ps1 -QgisVersion 3.44
+.\run_tests.ps1 -QgisVersion 4.2-trixie
+```
+
+The Linux runner uses the isolated `trends-earth-tests` Compose project, reads only the needed image/tag settings from `.env`, pulls the image, installs test dependencies, prints QGIS/GDAL/Python versions, runs the suite, and tears the project down. It does not source or print `.env`. Set `KEEP_TEST_CONTAINERS=true` to leave its service running. The PowerShell runner writes `.env` to select the image and uses the default Compose project for the repository; its default cleanup tears that project down, so avoid running it while another Compose stack from this checkout needs to remain up.
+
 ### CI Testing
-The CI runs tests on multiple QGIS versions (3.34, 3.36) using Docker containers.
+
+The workflow at `.github/workflows/test.yaml` tests `release-3_34`, `release-3_36`, `3.44`, and `4.2-trixie` in Docker. The informational Marshmallow 4 job uses the same matrix.
+
+The shared Docker setup handles differences in the newer Debian-based images: PEP 668 pip installs, the `git` and `unbuffer` utilities, and images without `supervisord` (the entrypoint falls back to Xvfb). Compose configures Qt for offscreen operation and disables the WebEngine sandbox for root-run containers. `coverage` is installed with the test dependencies; do not rely on the test harness to install it dynamically.
 
 Common failure points:
-- QGIS 3.26 may have dependency compatibility issues (setuptools, packaging versions)
-- Docker container startup failures often happen in `docker/trends-earth-test-pre-scripts.sh`
-- Dependency installation issues with `trends.earth-schemas` from Git
+- QGIS 4 currently runs the suite but has five job-filter test errors because `setFilterRegExp` is unavailable, plus the NumPy single-element-array error.
+- QGIS 3.44 currently has the NumPy single-element-array error.
+- Startup or dependency-installation failures should be diagnosed from the uploaded `docker-compose-logs-{qgis-version-tag}` artifact or by rerunning locally with `SHOW_DOCKER_LOGS=true`.

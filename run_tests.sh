@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-# Usage: ./run_docker_tests.sh [qgis-version-tag] [test-target]
-# Examples: ./run_docker_tests.sh 3.44
-#           ./run_docker_tests.sh 4.2-trixie
+# Usage: ./run_tests.sh [qgis-version-tag] [test-target]
+# Examples: ./run_tests.sh 3.44
+#           ./run_tests.sh 4.2-trixie
+# Set SHOW_DOCKER_LOGS=true to print container logs on failure.
 
 read_env_setting() {
 	local key="$1" line
@@ -33,7 +34,7 @@ export WITH_PYTHON_PEP="${WITH_PYTHON_PEP:-true}"
 
 cleanup() {
 	local exit_code=$?
-	if (( exit_code != 0 )); then
+	if [[ "${SHOW_DOCKER_LOGS:-false}" == "true" ]]; then
 		docker compose -p "$COMPOSE_PROJECT" logs "$SERVICE" >&2 || true
 	fi
 	if [[ "${KEEP_TEST_CONTAINERS:-false}" != "true" ]]; then

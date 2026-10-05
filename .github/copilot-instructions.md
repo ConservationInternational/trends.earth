@@ -60,6 +60,4 @@ The workflow at `.github/workflows/test.yaml` tests `release-3_34`, `release-3_3
 The shared Docker setup handles differences in the newer Debian-based images: PEP 668 pip installs, the `git` and `unbuffer` utilities, and images without `supervisord` (the entrypoint falls back to Xvfb). Compose configures Qt for offscreen operation and disables the WebEngine sandbox for root-run containers. `coverage` is installed with the test dependencies; do not rely on the test harness to install it dynamically.
 
 Common failure points:
-- QGIS 4 currently runs the suite but has five job-filter test errors because `setFilterRegExp` is unavailable, plus the NumPy single-element-array error.
-- QGIS 3.44 currently has the NumPy single-element-array error.
 - Startup or dependency-installation failures should be diagnosed from the uploaded `docker-compose-logs-{qgis-version-tag}` artifact or by rerunning locally with `SHOW_DOCKER_LOGS=true`.

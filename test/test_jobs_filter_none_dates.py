@@ -101,7 +101,7 @@ class TestJobsFilterNoneDates(unittest.TestCase):
         proxy = JobsSortFilterProxyModel(SortField.DATE)
         proxy.setSourceModel(source_model)
         proxy.type_filter = TypeFilter.ALL
-        proxy.setFilterRegExp(".*")
+        proxy.setFilterWildcard("*")
 
         # Set date filter
         start_filter = QtCore.QDateTime.fromString(
@@ -138,7 +138,7 @@ class TestJobsFilterNoneDates(unittest.TestCase):
         proxy = JobsSortFilterProxyModel(SortField.DATE)
         proxy.setSourceModel(source_model)
         proxy.type_filter = TypeFilter.ALL
-        proxy.setFilterRegExp(".*")
+        proxy.setFilterWildcard("*")
 
         # Set date filter
         start_filter = QtCore.QDateTime.fromString(
@@ -169,7 +169,7 @@ class TestJobsFilterNoneDates(unittest.TestCase):
         proxy = JobsSortFilterProxyModel(SortField.DATE)
         proxy.setSourceModel(source_model)
         proxy.type_filter = TypeFilter.ALL
-        proxy.setFilterRegExp(".*")
+        proxy.setFilterWildcard("*")
 
         # Set date filter
         start_filter = QtCore.QDateTime.fromString(
@@ -205,7 +205,7 @@ class TestJobsFilterNoneDates(unittest.TestCase):
         proxy = JobsSortFilterProxyModel(SortField.DATE)
         proxy.setSourceModel(source_model)
         proxy.type_filter = TypeFilter.ALL
-        proxy.setFilterRegExp(".*")
+        proxy.setFilterWildcard("*")
 
         # Set date filter for January 2025
         start_filter = QtCore.QDateTime.fromString(
@@ -236,7 +236,7 @@ class TestJobsFilterNoneDates(unittest.TestCase):
         proxy = JobsSortFilterProxyModel(SortField.DATE)
         proxy.setSourceModel(source_model)
         proxy.type_filter = TypeFilter.ALL
-        proxy.setFilterRegExp(".*")
+        proxy.setFilterWildcard("*")
 
         # Set date filter for January 2025
         start_filter = QtCore.QDateTime.fromString(

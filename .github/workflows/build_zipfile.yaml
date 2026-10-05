@@ -35,4 +35,4 @@ jobs:
         run: |
           # Sanitize branch name by replacing / with - to avoid path issues
           SAFE_REF_NAME=$(echo "$GITHUB_REF_NAME" | tr '/' '-')
-          invoke zipfile-deploy --filename LDMP_${SAFE_REF_NAME}.zip -q 3.22
+          invoke zipfile-deploy --filename LDMP_${SAFE_REF_NAME}.zip

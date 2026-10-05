@@ -129,7 +129,7 @@ rst_epilog = f"""
    :alt: Trends.Earth
 .. |CURRENT| replace:: {version}
 .. |CURRENT_YEAR| replace:: {date.today().year}
-.. |qgisMinVersion| replace:: 3.22
+.. |qgisMinVersion| replace:: 3.44
 """
 
 # There are two options for replacing |today|: either, you set today to some

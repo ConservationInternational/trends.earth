@@ -2242,14 +2242,13 @@ def _make_zip(zipFile, c):
 
 @task(
     help={
-        "qgis": "QGIS version to target",
         "clean": "Clean out dependencies and untracked data files before packaging",
         "pip": 'Path to pip (usually "pip" or "pip3"',
         "tag": "Whether to tag on Github",
         "filename": "Name for output file",
     }
 )
-def zipfile_deploy(c, qgis, clean=True, pip="pip", tag=False, filename=None):
+def zipfile_deploy(c, clean=True, pip="pip", tag=False, filename=None):
     filename = zipfile_build(c, pip=pip, clean=clean, tag=tag, filename=filename)
     client = _get_s3_client()
 

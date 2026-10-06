@@ -68,7 +68,8 @@ QGIS, you will also need a local version of Python that you can setup with the
 software needed to manage the plugin. The easiest way to manage multiple
 versions of Python is through the `Anaconda distribution
 <https://www.anaconda.com>`_. For work developing the plugin, Python
-3 is required. To download Python 3.7 (recommended) through Anaconda,
+3.12 or newer is required, both locally and in the QGIS runtime. To download
+Python through Anaconda,
 `see this page <https://www.anaconda.com/distribution/#download-section>`_.
 
 Python dependencies
@@ -84,7 +85,7 @@ code folder and typing::
    pip install -r requirements-dev.txt
 
 .. note::
-   If you are using Anaconda, you will first want to activate a Python 3.7
+   If you are using Anaconda, you will first want to activate a Python 3.12 or newer
    virtual environment before running the above command (and any of the other
    invoke commands listed on the page). One way to do this is by starting an
    "Anaconda prompt", by `following the instructions on this Anaconda page

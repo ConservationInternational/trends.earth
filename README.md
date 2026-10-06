@@ -39,6 +39,9 @@ the plugin.
 
 ## Installation of stable version of plugin
 
+The plugin requires Python 3.12 or newer, including the Python runtime bundled
+with QGIS.
+
 The easiest way to install the plugin is from within QGIS, using the [QGIS
 plugin repository](http://plugins.qgis.org/plugins/LDMP/). However, It is also
 possible to install the plugin manually from a zipfile, which can be useful to

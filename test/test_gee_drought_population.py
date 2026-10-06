@@ -1,4 +1,5 @@
 import importlib.util
+import sys
 import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
@@ -17,7 +18,15 @@ class TestDroughtPopulationExport(unittest.TestCase):
         )
         spec = importlib.util.spec_from_file_location("drought_gee", source)
         module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
+        # This unit test does not use Earth Engine or the remote download helper.
+        with patch.dict(
+            sys.modules,
+            {
+                "ee": MagicMock(),
+                "te_algorithms.gee.download": MagicMock(),
+            },
+        ):
+            spec.loader.exec_module(module)
 
         collection = MagicMock()
         collection.select.return_value = collection

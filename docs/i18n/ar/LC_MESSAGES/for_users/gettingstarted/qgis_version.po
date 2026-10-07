@@ -1,26 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2026, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2026
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-16 04:09+0000\n"
+"POT-Creation-Date: 2026-10-07 04:10+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
-"Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Language-Team: Arabic (https://app.transifex.com/conservation-"
+"international/teams/80165/ar/)\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
+"n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:4
 msgid "Installing Trends.Earth"
@@ -32,20 +35,21 @@ msgstr "تثبيت QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:11
 msgid ""
-"Before installing the plugin, QGIS version |qgisMinVersion| or higher needs "
-"to be installed on your computer."
+"Before installing the plugin, QGIS version |qgisMinVersion| or higher "
+"needs to be installed on your computer."
 msgstr ""
-"قبل تثبيت البرنامج المساعد، يجب تثبيت إصدار QGIS |qgisMinVersion| أو أعلى "
-"على الحاسوب الخاص بك."
+"قبل تثبيت البرنامج المساعد، يجب تثبيت إصدار QGIS |qgisMinVersion| أو أعلى"
+" على الحاسوب الخاص بك."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:15
 msgid "Download QGIS"
 msgstr "تنزيل QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:17
+#, fuzzy
 msgid ""
-"Download QGIS To install the plugin, you must have QGIS version "
-"|qgisMinVersion| or higher. For that, access the `QGIS Download "
+"To install the plugin, you must have QGIS version |qgisMinVersion| or "
+"higher. For that, access the `QGIS Download "
 "<https://qgis.org/download/>`_ page and select the appropriate installer "
 "depending on your operating system (i.e. Windows, MacOS, Linux)."
 msgstr ""
@@ -54,198 +58,200 @@ msgstr ""
 "<https://qgis.org/download/>' واخترْ برنامج التثبيت المناسب وفقاً لنظام "
 "التشغيل الخاص بك (مثل Windows أو MacOS أو Linux)."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:24
+#: ../../source/for_users/gettingstarted/qgis_version.rst:23
 msgid "Install QGIS"
 msgstr "قم بتثبيت QGIS"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:26
+#: ../../source/for_users/gettingstarted/qgis_version.rst:25
 msgid ""
 "Once the installer is downloaded from the website, it needs to be run "
 "(double click on it). Select the Default settings for all options."
 msgstr ""
-"بمجرد تنزيل المثبت من موقع الويب، يجب تشغيله (انقر نقراً مزدوجاً فوقه). حدد "
-"الإعدادات الافتراضية لجميع الخيارات."
+"بمجرد تنزيل المثبت من موقع الويب، يجب تشغيله (انقر نقراً مزدوجاً فوقه). "
+"حدد الإعدادات الافتراضية لجميع الخيارات."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:30
+#: ../../source/for_users/gettingstarted/qgis_version.rst:29
 msgid "Installing older versions of QGIS"
 msgstr "تثبيت الإصدارات القديمة من QGIS"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:32
+#: ../../source/for_users/gettingstarted/qgis_version.rst:31
 msgid ""
-"Older versions of QGIS can be accessed at the below links. We recommend the "
-"latest version of QGIS (see instructions above) but the below links might be"
-" useful if you have a specific need for accessing an older version of QGIS "
-"(for example if you need to install an older version of |trends.earth|)."
+"Older versions of QGIS can be accessed at the below links. We recommend "
+"the latest version of QGIS (see instructions above) but the below links "
+"might be useful if you have a specific need for accessing an older "
+"version of QGIS (for example if you need to install an older version of "
+"|trends.earth|)."
 msgstr ""
 "يُمكن الوصول إلى الإصدارات القديمة من QGIS على الروابط أدناه. نوصي بأحدث "
-"إصدار من QGIS (انظر التعليمات أعلاه) ولكن الروابط أدناه قد تكون مفيدة إذا "
-"كانت لديك حاجة محددة للوصول إلى إصدار أقدم من QGIS (على سبيل المثال إذا كنت "
-"بحاجة إلى تثبيت إصدار أقدم من |اتجاهات.الأرض|)."
+"إصدار من QGIS (انظر التعليمات أعلاه) ولكن الروابط أدناه قد تكون مفيدة إذا"
+" كانت لديك حاجة محددة للوصول إلى إصدار أقدم من QGIS (على سبيل المثال إذا "
+"كنت بحاجة إلى تثبيت إصدار أقدم من |اتجاهات.الأرض|)."
 
 #: ../../../<rst_epilogue>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:37
+#: ../../source/for_users/gettingstarted/qgis_version.rst:36
 msgid ""
 "Windows: `Download older versions of QGIS for Windows here "
 "<https://qgis.org/downloads/>`_."
 msgstr ""
-"نظام التشغيل ويندوز: `قم بتنزيل إصدارات أقدم من QGIS لنظام التشغيل ويندوز من"
-" هنا <https://qgis.org/downloads/>` _."
+"نظام التشغيل ويندوز: `قم بتنزيل إصدارات أقدم من QGIS لنظام التشغيل ويندوز"
+" من هنا <https://qgis.org/downloads/>` _."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:40
+#: ../../source/for_users/gettingstarted/qgis_version.rst:39
 msgid ""
 "MacOS: `Download older versions of QGIS for MacOS here "
 "<https://qgis.org/downloads/macOS>`_."
 msgstr ""
-"نظام التشغيل ماك: `قم بتنزيل إصدارات أقدم من QGIS لنظام التشغيل ماك من هنا "
-"<https://qgis.org/downloads/macOS>` _."
+"نظام التشغيل ماك: `قم بتنزيل إصدارات أقدم من QGIS لنظام التشغيل ماك من "
+"هنا <https://qgis.org/downloads/macOS>` _."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:46
+#: ../../source/for_users/gettingstarted/qgis_version.rst:45
 msgid "Trends.Earth installation"
 msgstr "تثبيت اتجاهات.الأرض"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:48
+#: ../../source/for_users/gettingstarted/qgis_version.rst:47
 msgid ""
-"There are different ways to install |trends.earth|, depending on whether you"
-" want to install the stable version (recommended) or the development "
+"There are different ways to install |trends.earth|, depending on whether "
+"you want to install the stable version (recommended) or the development "
 "version."
 msgstr ""
-"توجد طرق مختلفة لتثبيت |trends.earth|، اعتماداً على ما إذا كنت تريد تثبيت "
-"الإصدار الثابت (موصى به) أو إصدار التطوير."
+"توجد طرق مختلفة لتثبيت |trends.earth|، اعتماداً على ما إذا كنت تريد تثبيت"
+" الإصدار الثابت (موصى به) أو إصدار التطوير."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:52
+#: ../../source/for_users/gettingstarted/qgis_version.rst:51
 msgid "Installing the stable version (recommended)"
 msgstr "تثبيت الإصدار الثابت (موصى به)"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:54
+#: ../../source/for_users/gettingstarted/qgis_version.rst:53
 msgid ""
-"The preferred way to install the |trends.earth| is through QGIS. To install "
-"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
-"bar at the top of the program and select `Manage and install plugins`."
+"The preferred way to install the |trends.earth| is through QGIS. To "
+"install from within QGIS, first launch QGIS, and then go to `Plugins` in "
+"the menu bar at the top of the program and select `Manage and install "
+"plugins`."
 msgstr ""
-"الطريقة المفضلة لتثبيت | Trends.earth | من خلال QGIS. للتثبيت من داخل QGIS، "
-"قم أولاً بتشغيل QGIS، ثم انتقل إلى \" البرامج الإضافية\" في شريط القائمة "
-"أعلى البرنامج وحدد \"إدارة وتثبيت البرامج الإضافية\"."
+"الطريقة المفضلة لتثبيت | Trends.earth | من خلال QGIS. للتثبيت من داخل "
+"QGIS، قم أولاً بتشغيل QGIS، ثم انتقل إلى \" البرامج الإضافية\" في شريط "
+"القائمة أعلى البرنامج وحدد \"إدارة وتثبيت البرامج الإضافية\"."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:61
+#: ../../source/for_users/gettingstarted/qgis_version.rst:60
 msgid ""
-"Then search for a plugin called `trends.earth` and select `Install plugin` "
-"at the bottom right of the screen."
+"Then search for a plugin called `trends.earth` and select `Install "
+"plugin` at the bottom right of the screen."
 msgstr ""
-"ثم ابحث عن برنامج إضافي يسمى `trends.earth` وحدد \"تثبيت البرنامج الإضافي\" "
-"في أسفل يمين الشاشة."
+"ثم ابحث عن برنامج إضافي يسمى `trends.earth` وحدد \"تثبيت البرنامج "
+"الإضافي\" في أسفل يمين الشاشة."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:67
+#: ../../source/for_users/gettingstarted/qgis_version.rst:66
 msgid ""
-"If your plugin has been installed properly, there will be a menu bar in the "
-"top left of your browser that looks like this:"
+"If your plugin has been installed properly, there will be a menu bar in "
+"the top left of your browser that looks like this:"
 msgstr ""
-"إذا تم تثبيت البرنامج الإضافي الخاص بك بشكل صحيح، فسيكون هناك شريط قوائم في "
-"الجزء العلوي الأيسر من متصفحك يبدو كالتالي:"
+"إذا تم تثبيت البرنامج الإضافي الخاص بك بشكل صحيح، فسيكون هناك شريط قوائم "
+"في الجزء العلوي الأيسر من متصفحك يبدو كالتالي:"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:74
+#: ../../source/for_users/gettingstarted/qgis_version.rst:73
 msgid "If problems arise during installation"
 msgstr "إذا واجهت مشكلات أثناء التثبيت"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:76
+#: ../../source/for_users/gettingstarted/qgis_version.rst:75
 msgid ""
 "If you encounter any issues when installing or upgrading the plugin, we "
 "recommend you try the following before contacting the developers of "
 "|Trends.Earth|:"
 msgstr ""
-"إذا واجهت أي مشكلات عند تثبيت البرنامج المساعد أو ترقيته، نوصيك بتجربة ما "
-"يلي قبل التواصل مع مطوري |اتجاهات.الأرض|:"
+"إذا واجهت أي مشكلات عند تثبيت البرنامج المساعد أو ترقيته، نوصيك بتجربة ما"
+" يلي قبل التواصل مع مطوري |اتجاهات.الأرض|:"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:79
+#: ../../source/for_users/gettingstarted/qgis_version.rst:78
 msgid ""
 "Try restarting QGIS after installing or upgrading the plugin - this can "
 "solve many common installation issues."
 msgstr ""
-"جرّب إعادة تشغيل QGIS بعد تثبيت البرنامج المساعد أو ترقيته - يُمكن أن يؤدي "
-"ذلك إلى إصلاح العديد من مشكلات التثبيت الشائعة."
+"جرّب إعادة تشغيل QGIS بعد تثبيت البرنامج المساعد أو ترقيته - يُمكن أن "
+"يؤدي ذلك إلى إصلاح العديد من مشكلات التثبيت الشائعة."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:82
+#: ../../source/for_users/gettingstarted/qgis_version.rst:81
 msgid ""
-"If you are having a problem upgrading the plugin, try uninstalling the old "
-"version of Trends.Earth before installing the new one. This can be done from"
-" within the `Installed tab of the plugins window "
-"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html#the-"
-"installed-tab>`_."
+"If you are having a problem upgrading the plugin, try uninstalling the "
+"old version of Trends.Earth before installing the new one. This can be "
+"done from within the `Installed tab of the plugins window "
+"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html"
+"#the-installed-tab>`_."
 msgstr ""
 "إذا كنت تواجه مشكلة في ترقية البرنامج المساعد، فحاول إلغاء تثبيت الإصدار "
-"القديم من اتجاهات.الأرض قبل تثبيت الإصدار الجديد. يُمكن القيام بذلك من داخل "
-"علامة التبويب المُثبتة في نافذة البرامج المساعدة "
-"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html#the-"
-"installed-tab>`_."
+"القديم من اتجاهات.الأرض قبل تثبيت الإصدار الجديد. يُمكن القيام بذلك من "
+"داخل علامة التبويب المُثبتة في نافذة البرامج المساعدة "
+"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html"
+"#the-installed-tab>`_."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:87
+#: ../../source/for_users/gettingstarted/qgis_version.rst:86
 msgid ""
-"If the above don't work, please contact us at trends.earth@conservation.org."
+"If the above don't work, please contact us at "
+"trends.earth@conservation.org."
 msgstr ""
 "إذا لم يصلح ما ورد أعلاه المشكلة، فيُرجى التواصل معنا عن طريق "
 "trends.earth@conservation.org."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:90
+#: ../../source/for_users/gettingstarted/qgis_version.rst:89
 msgid "Installing the development version (advanced users)"
 msgstr "تثبيت النسخة التطويرية (مستخدمون متقدمون)"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:92
+#: ../../source/for_users/gettingstarted/qgis_version.rst:91
 msgid ""
 "There are two ways to install the development version of the plugin. For "
 "more details, see the `README "
 "<https://github.com/ConservationInternational/trends.earth#development-"
 "version>`_ for |trends.earth|."
 msgstr ""
-"هناك طريقتان لتثبيت إصدار التطوير من البرنامج المساعد. لمزيد من التفاصيل، "
-"راجع `README "
-"<https://github.com/ConservationInternational/trends.earth#development-"
-"version>`_ for |trends.earth|."
+"هناك طريقتان لتثبيت إصدار التطوير من البرنامج المساعد. لمزيد من التفاصيل،"
+" راجع `README <https://github.com/ConservationInternational/trends.earth"
+"#development-version>`_ for |trends.earth|."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:101
+#: ../../source/for_users/gettingstarted/qgis_version.rst:100
 msgid "Trends.Earth registration"
 msgstr "تسجيل اتجاهات.الأرض"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:104
+#: ../../source/for_users/gettingstarted/qgis_version.rst:103
 msgid ""
-"To Register, click the **Register for Trends.Earth (step 1)** button from "
-"the \"Settings\" dialog box under **Trends.Earth login information**."
+"To Register, click the **Register for Trends.Earth (step 1)** button from"
+" the \"Settings\" dialog box under **Trends.Earth login information**."
 msgstr ""
-"للتسجيل، انقر فوق الزر **التسجيل لـ Trends.Earth (الخطوة 1)** من مربع الحوار"
-" \"الإعدادات\" ضمن **معلومات تسجيل الدخول إلى Trends.Earth**."
+"للتسجيل، انقر فوق الزر **التسجيل لـ Trends.Earth (الخطوة 1)** من مربع "
+"الحوار \"الإعدادات\" ضمن **معلومات تسجيل الدخول إلى Trends.Earth**."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:109
+#: ../../source/for_users/gettingstarted/qgis_version.rst:108
 msgid "Enter your email, name, organization and country of residence."
 msgstr "أدخل بريدك الإلكتروني والاسم والمنظمة وبلد الإقامة."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:114
+#: ../../source/for_users/gettingstarted/qgis_version.rst:113
 msgid ""
 "Select **Ok** and you will see a message indicating your user has been "
 "registered."
-msgstr ""
-"اختر **موافق** وستظهر لك رسالة تشير إلى أن المستخدم الخاص بك قد تم تسجيله."
+msgstr "اختر **موافق** وستظهر لك رسالة تشير إلى أن المستخدم الخاص بك قد تم تسجيله."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:119
+#: ../../source/for_users/gettingstarted/qgis_version.rst:118
 msgid ""
-"4. After registering, you will receive an email from api@trends.earth with "
-"your password. If you don't see the email in your inbox after 15-20 seconds,"
-" please check your spam folder in case the email was sent there. Once you "
-"receive this email , click on \"Enter username and password (step 2)\". "
-"Enter the password you received from api@trends.earth and click \"OK\": :"
+"4. After registering, you will receive an email from api@trends.earth "
+"with your password. If you don't see the email in your inbox after 15-20 "
+"seconds, please check your spam folder in case the email was sent there. "
+"Once you receive this email , click on \"Enter username and password "
+"(step 2)\". Enter the password you received from api@trends.earth and "
+"click \"OK\": :"
 msgstr ""
 "4. بعد التسجيل، ستتلقى رسالة بريد إلكتروني من api@trends.earth تحتوي على "
-"كلمة المرور الخاصة بك. إذا لم تجد الرسالة في صندوق الوارد بعد 15-20 ثانية، "
-"يُرجى التحقق من مجلد البريد العشوائي، فقد تكون الرسالة قد أُرسلت إليه. "
-"وبمجرد استلام هذا البريد الإلكتروني، انقرْ على \"إدخال اسم المستخدم وكلمة "
-"المرور (الخطوة 2)\". أدخِلْ كلمة المرور التي استلمتها من api@trends.earth "
-"وانقرْ على \"موافق\": :"
+"كلمة المرور الخاصة بك. إذا لم تجد الرسالة في صندوق الوارد بعد 15-20 "
+"ثانية، يُرجى التحقق من مجلد البريد العشوائي، فقد تكون الرسالة قد أُرسلت "
+"إليه. وبمجرد استلام هذا البريد الإلكتروني، انقرْ على \"إدخال اسم المستخدم"
+" وكلمة المرور (الخطوة 2)\". أدخِلْ كلمة المرور التي استلمتها من "
+"api@trends.earth وانقرْ على \"موافق\": :"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:125
-msgid ""
-"You will see a message indicating you have successfully been logged in:"
+#: ../../source/for_users/gettingstarted/qgis_version.rst:124
+msgid "You will see a message indicating you have successfully been logged in:"
 msgstr "ستظهر لك رسالة تشير إلى تسجيل دخولك بنجاح:"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:130
+#: ../../source/for_users/gettingstarted/qgis_version.rst:129
 msgid "You are now ready to start using Trends.Earth!"
 msgstr "أنت الآن جاهز لبدء استخدام برنامج Trends.Earth!"
+

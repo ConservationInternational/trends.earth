@@ -303,12 +303,12 @@
         <translation>Impossible d'ouvrir le fichier de rapport.</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="218"/>
+        <location filename="../reports/mvc.py" line="221"/>
         <source>Open Layouts</source>
         <translation>Mises en page ouvertes</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="218"/>
+        <location filename="../reports/mvc.py" line="221"/>
         <source>Unable to open the QGIS project file.</source>
         <translation>Impossible d'ouvrir le fichier du projet QGIS.</translation>
     </message>
@@ -3186,22 +3186,22 @@ p, li { white-space: pre-wrap; }
         <translation>Sélectionner le répertoire de sortie du rapport</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="136"/>
+        <location filename="../generate_report_dialog.py" line="137"/>
         <source>Validation</source>
         <translation>Validation</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="142"/>
+        <location filename="../generate_report_dialog.py" line="143"/>
         <source>No template selected.</source>
         <translation>Aucun modèle sélectionné.</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="155"/>
+        <location filename="../generate_report_dialog.py" line="156"/>
         <source>No output directory specified.</source>
         <translation>Aucun répertoire de sortie n'est spécifié.</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="172"/>
+        <location filename="../generate_report_dialog.py" line="173"/>
         <source>dataset not specified.</source>
         <translation>ensemble de données non spécifié</translation>
     </message>
@@ -3993,32 +3993,32 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
         <translation>Série de données climatiques</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="86"/>
+        <location filename="../timeseries.py" line="88"/>
         <source>Submit request</source>
         <translation>Soumettre une demande</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="330"/>
+        <location filename="../timeseries.py" line="332"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="320"/>
+        <location filename="../timeseries.py" line="322"/>
         <source>Submitted</source>
         <translation>Soumis</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="320"/>
+        <location filename="../timeseries.py" line="322"/>
         <source>Time series calculation task submitted to Trends.Earth server.</source>
         <translation>Activité de calcul de séries temporelles soumise au serveur Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="330"/>
+        <location filename="../timeseries.py" line="332"/>
         <source>Unable to submit time series calculation task to Trends.Earth server</source>
         <translation>Impossible de soumettre une activité de calcul de séries temporelles au serveur Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="272"/>
+        <location filename="../timeseries.py" line="274"/>
         <source>The bounding box of the requested area (approximately {aoi_area:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4253,27 +4253,27 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="1770"/>
+        <location filename="../jobs/manager.py" line="1778"/>
         <source>Processing: {task_name}</source>
         <translation>Traitement : {task_name}</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1965"/>
+        <location filename="../jobs/manager.py" line="1973"/>
         <source>Downloading: {job.task_name or job.id}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1945"/>
+        <location filename="../jobs/manager.py" line="1953"/>
         <source>Download</source>
         <translation>Télécharger</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1932"/>
+        <location filename="../jobs/manager.py" line="1940"/>
         <source>'{job.task_name or job.id}' queued — will start when the current download finishes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1945"/>
+        <location filename="../jobs/manager.py" line="1953"/>
         <source>This job is already being downloaded by another process.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4554,12 +4554,12 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
 <context>
     <name>MultiscopeJobReportModel</name>
     <message>
-        <location filename="../reports/mvc.py" line="267"/>
+        <location filename="../reports/mvc.py" line="270"/>
         <source>Scope Name</source>
         <translation>Nom du champ d'application</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="267"/>
+        <location filename="../reports/mvc.py" line="270"/>
         <source>Source Dataset</source>
         <translation>Ensemble de données source</translation>
     </message>
@@ -4712,32 +4712,32 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
 <context>
     <name>ReportGeneratorManager</name>
     <message>
-        <location filename="../reports/generator.py" line="1091"/>
+        <location filename="../reports/generator.py" line="1106"/>
         <source>Report Status</source>
         <translation>État du rapport</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1121"/>
+        <location filename="../reports/generator.py" line="1136"/>
         <source>Cannot process report due to write permission to</source>
         <translation>Impossible de traiter le rapport en raison d'un droit d'écriture sur</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1153"/>
+        <location filename="../reports/generator.py" line="1168"/>
         <source>could not be found in your system. Unable to run the report generator.</source>
         <translation>n'a pas pu être trouvé dans votre système. Impossible d'exécuter le générateur de rapports.</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1182"/>
+        <location filename="../reports/generator.py" line="1197"/>
         <source>reports</source>
         <translation>rapports</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1196"/>
+        <location filename="../reports/generator.py" line="1211"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
         <translation>sont en cours de traitement (ID {[str(job.id) for job in ctx.jobs]})...</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1164"/>
+        <location filename="../reports/generator.py" line="1179"/>
         <source>queued (waiting for a free worker slot)</source>
         <translation>en file d'attente (en attente d'un créneau de travail libre)</translation>
     </message>
@@ -4755,22 +4755,22 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
         <translation>Générer un rapport à partir d'une tâche</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="57"/>
+        <location filename="../processing_provider/report.py" line="54"/>
         <source>File containing report context task information</source>
         <translation>Fichier contenant des informations sur les tâches du contexte du rapport</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="66"/>
+        <location filename="../processing_provider/report.py" line="63"/>
         <source>Summary result status of the algorithm.</source>
         <translation>Résumé de l'état du résultat de l'algorithme.</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="86"/>
+        <location filename="../processing_provider/report.py" line="83"/>
         <source>Task file not found.</source>
         <translation>Fichier de tâche non trouvé.</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="95"/>
+        <location filename="../processing_provider/report.py" line="92"/>
         <source>Could not read report task context file</source>
         <translation>Impossible de lire le fichier de contexte de la tâche de rapport</translation>
     </message>
@@ -4778,17 +4778,17 @@ Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser.</transla
 <context>
     <name>ReportTaskProcessor</name>
     <message>
-        <location filename="../reports/generator.py" line="709"/>
+        <location filename="../reports/generator.py" line="706"/>
         <source>Simple</source>
         <translation>Simple</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="711"/>
+        <location filename="../reports/generator.py" line="708"/>
         <source>Full</source>
         <translation>Entier</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="713"/>
+        <location filename="../reports/generator.py" line="710"/>
         <source>All</source>
         <translation>Tous</translation>
     </message>
@@ -6053,17 +6053,17 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>L'authentification a réussi, mais aucun jeton n'a été renvoyé. La méthode d'authentification API a peut-être changé.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="982"/>
+        <location filename="../api.py" line="984"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation>Le serveur Trends.Earth est temporairement indisponible (erreur {status}). Ce problème est généralement temporaire. Veuillez réessayer dans quelques instants.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="988"/>
+        <location filename="../api.py" line="990"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation>Le serveur Trends.Earth a rencontré une erreur interne (erreur 500). Veuillez réessayer. Si le problème persiste, contactez l'équipe Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="994"/>
+        <location filename="../api.py" line="996"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation>L'authentification a échoué. Veuillez vérifier vos identifiants de connexion.</translation>
     </message>
@@ -6078,7 +6078,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Impossible de récupérer les identifiants enregistrés. Veuillez saisir à nouveau votre nom d'utilisateur et votre mot de passe dans les paramètres de Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="972"/>
+        <location filename="../api.py" line="974"/>
         <source>This script requires Google Earth Engine. You must accept confirm understanding of the GEE terms of use before running it. Please update your profile in the Trends.Earth plugin settings to do so.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6124,42 +6124,42 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_auth</name>
     <message>
-        <location filename="../auth.py" line="170"/>
+        <location filename="../auth.py" line="171"/>
         <source>Cannot init auth configuration</source>
         <translation>Impossible d'initier la configuration de l'authentification</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="177"/>
+        <location filename="../auth.py" line="178"/>
         <source>Cannot update auth configuration</source>
         <translation>Impossible de mettre à jour la configuration de l'authentification</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="191"/>
+        <location filename="../auth.py" line="192"/>
         <source>No authentication set for {auth_setup.name}. Setup in Trends.Earth settings</source>
         <translation>Aucune authentification n'a été définie pour {auth_setup.name}. Configuration dans les paramètres de Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="202"/>
+        <location filename="../auth.py" line="203"/>
         <source>Cannot remove auth configuration for {auth_setup.name} with id: {authConfigId}</source>
         <translation>Impossible de supprimer la configuration d'authentification pour {auth_setup.name} avec l'identifiant : {authConfigId}</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="262"/>
+        <location filename="../auth.py" line="263"/>
         <source>Cannot retrieve credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
         <translation>Impossible de récupérer les informations d'identification avec l'identifiant {authConfigId}. Configurez le nom d'utilisateur et le mot de passe avant d'utiliser les fonctions {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="250"/>
+        <location filename="../auth.py" line="251"/>
         <source>No authentication set. Setup username and password before using {auth_setup.name}.</source>
         <translation>Aucune authentification configurée. Veuillez définir un nom d'utilisateur et un mot de passe avant d'utiliser {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="276"/>
+        <location filename="../auth.py" line="277"/>
         <source>{auth_setup.name} credentials with id {authConfigId} are not valid.  Setup username and password before using {auth_setup.name}.</source>
         <translation>Les informations d'identification {auth_setup.name} associées à l'identifiant {authConfigId} ne sont pas valides. Configurez le nom d'utilisateur et le mot de passe avant d'utiliser {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="287"/>
+        <location filename="../auth.py" line="288"/>
         <source>Auth method with id {authConfigId} is &apos;{authConfig.method()}&apos;. This method is not supported by {auth_setup.name}.</source>
         <translation>La méthode d'authentification associée à l'identifiant {authConfigId} est « {authConfig.method()} ». Cette méthode n'est pas prise en charge par {auth_setup.name}.</translation>
     </message>
@@ -6774,7 +6774,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="1132"/>
+        <location filename="../download.py" line="1141"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -6784,42 +6784,42 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Le dossier n&amp;#39;existe pas</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1115"/>
+        <location filename="../download.py" line="1124"/>
         <source>Downloading {}</source>
         <translation>Téléchargement {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1126"/>
+        <location filename="../download.py" line="1135"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>Échec du téléchargement. Vérifiez votre connection internet.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1067"/>
+        <location filename="../download.py" line="1076"/>
         <source>Error in downloading file, {}</source>
         <translation>Erreur lors du téléchargement du fichier, {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1074"/>
+        <location filename="../download.py" line="1083"/>
         <source>Error while downloading file to {self.outfile}, {error}</source>
         <translation>Erreur lors du téléchargement du fichier vers {self.outfile}, {error}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1078"/>
+        <location filename="../download.py" line="1087"/>
         <source>Finished downloading file to {self.outfile}</source>
         <translation>Téléchargement du fichier terminé vers {self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1081"/>
+        <location filename="../download.py" line="1090"/>
         <source>Download exited {self.outfile}</source>
         <translation>Téléchargement terminé {self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1132"/>
+        <location filename="../download.py" line="1141"/>
         <source>Problem running task for downloading file</source>
         <translation>Problème lors de l'exécution de la tâche de téléchargement du fichier</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1137"/>
+        <location filename="../download.py" line="1146"/>
         <source>An error occured when running task for</source>
         <translation>Une erreur s'est produite lors de l'exécution de la tâche pour</translation>
     </message>
@@ -6829,7 +6829,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Téléchargement des limites</translation>
     </message>
     <message>
-        <location filename="../download.py" line="889"/>
+        <location filename="../download.py" line="898"/>
         <source>Downloading boundaries for {}...</source>
         <translation>Téléchargement des limites pour {}...</translation>
     </message>
@@ -7457,12 +7457,12 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Type de sol USDA</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="848"/>
+        <location filename="../layers.py" line="851"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="848"/>
+        <location filename="../layers.py" line="851"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>Trends.Earth n&amp;#39;a pas de style attribué à &amp;quot;{}&amp;quot; (bande {} en {}). Pour utiliser cette couche, ajoutez-la manuellement à votre carte.</translation>
     </message>
@@ -8012,7 +8012,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_worker</name>
     <message>
-        <location filename="../worker.py" line="262"/>
+        <location filename="../worker.py" line="264"/>
         <source>Processing: {process_name}</source>
         <translation type="unfinished"></translation>
     </message>

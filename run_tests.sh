@@ -44,8 +44,8 @@ cleanup() {
 }
 trap cleanup EXIT
 
-echo "Pulling QGIS image: ${IMAGE}:${QGIS_VERSION_TAG}"
-docker compose -p "$COMPOSE_PROJECT" pull "$SERVICE"
+echo "Building QGIS test image from: ${IMAGE}:${QGIS_VERSION_TAG}"
+docker compose -p "$COMPOSE_PROJECT" build --pull "$SERVICE"
 
 echo "Starting QGIS test environment"
 docker compose -p "$COMPOSE_PROJECT" up -d "$SERVICE"
@@ -53,17 +53,6 @@ if [[ "$STARTUP_WAIT" != "0" ]]; then
 	sleep "$STARTUP_WAIT"
 fi
 docker compose -p "$COMPOSE_PROJECT" ps
-
-echo "Installing test runner dependencies"
-docker compose -p "$COMPOSE_PROJECT" exec -T "$SERVICE" sh -lc '
-	export PIP_BREAK_SYSTEM_PACKAGES=1
-	if ! command -v pip3 >/dev/null 2>&1; then
-		apt-get update
-		apt-get install -y --no-install-recommends python3-pip
-		rm -rf /var/lib/apt/lists/*
-	fi
-	python3 -m pip install --no-cache-dir -U pytest python-dotenv coverage
-'
 
 echo "Testing QGIS version and runtime"
 docker compose -p "$COMPOSE_PROJECT" exec -T "$SERVICE" python3 -c '

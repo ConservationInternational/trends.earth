@@ -45,7 +45,7 @@
     "access": "public",
     "assets": {
         "thumbnail": {
-            "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/USGS/usgs-world-terrestrial-ecosystems/thumbnails/world-terrestrial-ecosystems_thumbnail_global.png",
+            "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/usgs/world-terrestrial-ecosystems/thumbnails/world-terrestrial-ecosystems-thumbnail-global.png",
             "type": "image/png",
             "roles": [
                 "thumbnail"

@@ -62,15 +62,15 @@
             ],
             "assets": {
                 "thumbnail": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/UNEP-WCMC/Nature-Map/areas-of-global-significance-for-restoration/thumbnails/areas-global-significance-for-restoration-v1-2020.png",
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/unep-wcmc/nature-map/areas-of-global-significance-for-restoration/thumbnails/areas-global-significance-for-restoration-v1-2020.png",
                     "type": "image/png",
                     "roles": [
                         "thumbnail"
                     ],
                     "title": "Thumbnail"
                 },
-                "global-priorities-restoration": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/UNEP-WCMC/Nature-Map/areas-of-global-significance-for-restoration/items/cogs/areas-of-global-significance-restoration-v1-2020.tif",
+                "global_priorities_restoration": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/unep-wcmc/nature-map/areas-of-global-significance-for-restoration/items/cogs/areas-of-global-significance-restoration-v1-2020.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -89,14 +89,14 @@
                     ],
                     "raster:bands": [
                         {
-                            "scale": 1,
-                            "nodata": 255,
-                            "offset": 0,
+                            "scale": 1.0,
+                            "nodata": 255.0,
+                            "offset": 0.0,
                             "sampling": "area",
                             "data_type": "uint8",
                             "histogram": {
-                                "max": 21,
-                                "min": 1,
+                                "max": 21.0,
+                                "min": 1.0,
                                 "count": 11,
                                 "buckets": [
                                     5407,
@@ -150,14 +150,14 @@
                     "classification": "continuous",
                     "proj:transform": [
                         0.04642391068858139,
-                        0,
+                        0.0,
                         -179.87896164729798,
-                        0,
+                        0.0,
                         -0.04642391068858139,
                         85.07288135595564,
-                        0,
-                        0,
-                        1
+                        0.0,
+                        0.0,
+                        1.0
                     ]
                 }
             },
@@ -193,7 +193,6 @@
                 "access": "public",
                 "license": "CC-BY-NC-SA-4.0",
                 "sci:doi": "10.1038/s41586-020-2784-9",
-                "version": "v1",
                 "datetime": "2015-07-01T00:00:00Z",
                 "summaries": {
                     "gsd": [
@@ -210,7 +209,7 @@
                 "end_datetime": "2015-12-31T23:59:00+00:00",
                 "sci:citation": "Bernardo B. N. Strassburg, Alvaro Iribarrem, Hawthorne L. Beyer, Carlos Leandro Cordeiro, Renato Crouzeilles, Catarina Jakovac, André Junqueira, Eduardo Lacerda, Agnieszka E. Latawiec, Andrew Balmford, Thomas M. Brooks, Stuart H. M. Butchart, Robin L. Chazdon, Karl-Heinz Erb, Pedro Brancalion, Graeme Buchanan, David Cooper, Sandra Diaz, Paul F. Donald, Valerie Kapos, David Leclere, Lera Miles, Michael Obersteiner, Christoph Plutzar, Carlos Alberto de M. Scaramuzza, Fabio R. Scarano, Piero Visconti (2020). Global priority areas for ecosystem restoration. Nature, 586(7831), pp.724-729. https://doi.org/10.1038/s41586-020-2784-9\n\n\n\nIIS (2021) Areas of global importance for restoration of biodiversity and carbon sequestration in United Nations Environment Programme (2022). Strengthening Synergies: Climate change mitigation benefits from achieving global biodiversity targets. United Nations Environment Programme World Conservation Monitoring Centre, Cambridge.",
                 "start_datetime": "1992-01-01T00:00:00+00:00",
-                "UNBL:last_updated": "2026-09-25 07:23:41 UTC"
+                "UNBL:last_updated": "2026-10-01 01:11:57 UTC"
             },
             "stac_version": "1.0.0",
             "stac_extensions": [

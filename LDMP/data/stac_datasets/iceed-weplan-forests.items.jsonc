@@ -24,7 +24,7 @@
     ],
     "features": [
         {
-            "id": "WePlan-Forests",
+            "id": "v2",
             "bbox": [
                 -118.10952131595887,
                 -25.006229905157486,
@@ -51,12 +51,648 @@
                 {
                     "rel": "self",
                     "type": "application/geo+json",
-                    "href": "https://unbl-prod-stac.azurewebsites.net/collections/iceed-weplan-forests/items/WePlan-Forests"
+                    "href": "https://unbl-prod-stac.azurewebsites.net/collections/iceed-weplan-forests/items/v2"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-maximum-benefit-weight-4",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Maximum benefit Weight 4' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-maximum-benefit-weight-10",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Maximum benefit Weight 10' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-maximum-benefit-weight-4",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Maximum benefit Weight 4' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-maximum-benefit-weight-3",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Maximum benefit Weight 3' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-maximum-benefit-weight-7",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Maximum benefit Weight 7' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-cost-effectiveness-weight-1",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Cost-effectiveness Weight 1' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-cost-effectiveness-weight-1",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Cost-effectiveness Weight 1' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-cost-effectiveness-weight-2",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Cost-effectiveness Weight 2' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-maximum-benefit-weight-8",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Maximum benefit Weight 8' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-cost-effectiveness-weight-10",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Cost-effectiveness Weight 10' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-maximum-benefit-weight-3",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Maximum benefit Weight 3' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-cost-effectiveness-weight-3",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Cost-effectiveness Weight 3' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-cost-effectiveness-weight-1",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Cost-effectiveness Weight 1' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-cost-effectiveness-weight-10",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Cost-effectiveness Weight 10' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-cost-effectiveness-weight-4",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Cost-effectiveness Weight 4' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-maximum-benefit-weight-10",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Maximum benefit Weight 10' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-cost-effectiveness-weight-8",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Cost-effectiveness Weight 8' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-cost-effectiveness-weight-8",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Cost-effectiveness Weight 8' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-maximum-benefit-weight-7",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Maximum benefit Weight 7' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-maximum-benefit-weight-1",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Maximum benefit Weight 1' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-cost-effectiveness-weight-9",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Cost-effectiveness Weight 9' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-cost-effectiveness-weight-1",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Cost-effectiveness Weight 1' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-maximum-benefit-weight-4",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Maximum benefit Weight 4' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-maximum-benefit-weight-5",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Maximum benefit Weight 5' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-cost-effectiveness-weight-2",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Cost-effectiveness Weight 2' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-cost-effectiveness-weight-7",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Cost-effectiveness Weight 7' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-cost-effectiveness-weight-2",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Cost-effectiveness Weight 2' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-cost-effectiveness-weight-7",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Cost-effectiveness Weight 7' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-maximum-benefit-weight-9",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Maximum benefit Weight 9' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-maximum-benefit-weight-8",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Maximum benefit Weight 8' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-maximum-benefit-weight-7",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Maximum benefit Weight 7' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-maximum-benefit-weight-10",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Maximum benefit Weight 10' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-cost-effectiveness-weight-10",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Cost-effectiveness Weight 10' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-cost-effectiveness-weight-9",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Cost-effectiveness Weight 9' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-cost-effectiveness-weight-5",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Cost-effectiveness Weight 5' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-cost-effectiveness-weight-6",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Cost-effectiveness Weight 6' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-cost-effectiveness-weight-3",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Cost-effectiveness Weight 3' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-maximum-benefit-weight-6",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Maximum benefit Weight 6' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-maximum-benefit-weight-6",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Maximum benefit Weight 6' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-maximum-benefit-weight-2",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Maximum benefit Weight 2' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-cost-effectiveness-weight-10",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Cost-effectiveness Weight 10' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-maximum-benefit-weight-2",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Maximum benefit Weight 2' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-target-2-minimum-cost",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Minimum cost' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-maximum-benefit-weight-4",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Maximum benefit Weight 4' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-cost-effectiveness-weight-6",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Cost-effectiveness Weight 6' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-maximum-benefit-weight-9",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Maximum benefit Weight 9' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-cost-effectiveness-weight-4",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Cost-effectiveness Weight 4' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-cost-effectiveness-weight-9",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Cost-effectiveness Weight 9' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-maximum-benefit-weight-1",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Maximum benefit Weight 1' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-maximum-benefit-weight-2",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Maximum benefit Weight 2' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-cost-effectiveness-weight-6",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Cost-effectiveness Weight 6' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-cost-effectiveness-weight-4",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Cost-effectiveness Weight 4' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-cost-effectiveness-weight-1",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Cost-effectiveness Weight 1' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-cost-effectiveness-weight-8",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Cost-effectiveness Weight 8' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-maximum-benefit-weight-2",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Maximum benefit Weight 2' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-maximum-benefit-weight-10",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Maximum benefit Weight 10' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-cost-effectiveness-weight-6",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Cost-effectiveness Weight 6' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-maximum-benefit-weight-2",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Maximum benefit Weight 2' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-cost-effectiveness-weight-3",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Cost-effectiveness Weight 3' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-cost-effectiveness-weight-9",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Cost-effectiveness Weight 9' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-cost-effectiveness-weight-9",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Cost-effectiveness Weight 9' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-cost-effectiveness-weight-6",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Cost-effectiveness Weight 6' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-cost-effectiveness-weight-2",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Cost-effectiveness Weight 2' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-cost-effectiveness-weight-5",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Cost-effectiveness Weight 5' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-maximum-benefit-weight-4",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Maximum benefit Weight 4' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-maximum-benefit-weight-5",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Maximum benefit Weight 5' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-cost-effectiveness-weight-7",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Cost-effectiveness Weight 7' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-maximum-benefit-weight-1",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Maximum benefit Weight 1' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-maximum-benefit-weight-6",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Maximum benefit Weight 6' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-maximum-benefit-weight-6",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Maximum benefit Weight 6' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-maximum-benefit-weight-7",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Maximum benefit Weight 7' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-maximum-benefit-weight-8",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Maximum benefit Weight 8' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-maximum-benefit-weight-5",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Maximum benefit Weight 5' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-maximum-benefit-weight-7",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Maximum benefit Weight 7' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-cost-effectiveness-weight-4",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Cost-effectiveness Weight 4' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-maximum-benefit-weight-10",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Maximum benefit Weight 10' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-cost-effectiveness-weight-5",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Cost-effectiveness Weight 5' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-cost-effectiveness-weight-5",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Cost-effectiveness Weight 5' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-maximum-benefit-weight-9",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Maximum benefit Weight 9' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-cost-effectiveness-weight-4",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Cost-effectiveness Weight 4' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-maximum-benefit-weight-1",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Maximum benefit Weight 1' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-maximum-benefit-weight-9",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Maximum benefit Weight 9' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-cost-effectiveness-weight-7",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Cost-effectiveness Weight 7' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-maximum-benefit-weight-3",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Maximum benefit Weight 3' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-cost-effectiveness-weight-8",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Cost-effectiveness Weight 8' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-cost-effectiveness-weight-2",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Cost-effectiveness Weight 2' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-cost-effectiveness-weight-10",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Cost-effectiveness Weight 10' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-target-4-minimum-cost",
+                    "type": "text/html",
+                    "title": "View 'Target 4 : Minimum cost' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-cost-effectiveness-weight-5",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Cost-effectiveness Weight 5' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-maximum-benefit-weight-5",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Maximum benefit Weight 5' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-5-maximum-benefit-weight-5",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Maximum benefit Weight 5' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-cost-effectiveness-weight-8",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Cost-effectiveness Weight 8' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-target-3-minimum-cost",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Minimum cost' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-maximum-benefit-weight-9",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Maximum benefit Weight 9' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-cost-effectiveness-weight-7",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Cost-effectiveness Weight 7' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-available-areas",
+                    "type": "text/html",
+                    "title": "View 'WePlan - Available Areas' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-target-1-minimum-cost",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Minimum cost' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.weplan-target-5-minimum-cost",
+                    "type": "text/html",
+                    "title": "View 'Target 5: Minimum cost' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-4-maximum-benefit-weight-1",
+                    "type": "text/html",
+                    "title": "View 'Target 4: Maximum benefit Weight 1' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-cost-effectiveness-weight-3",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Cost-effectiveness Weight 3' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-maximum-benefit-weight-6",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Maximum benefit Weight 6' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-maximum-benefit-weight-8",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Maximum benefit Weight 8' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-2-maximum-benefit-weight-3",
+                    "type": "text/html",
+                    "title": "View 'Target 2: Maximum benefit Weight 3' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-1-maximum-benefit-weight-8",
+                    "type": "text/html",
+                    "title": "View 'Target 1: Maximum benefit Weight 8' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-maximum-benefit-weight-3",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Maximum benefit Weight 3' layer on UN Biodiversity Lab"
+                },
+                {
+                    "rel": "UNBL:layers",
+                    "href": "https://map.unbiodiversitylab.org/earth?layers=UNBL.layer.target-3-cost-effectiveness-weight-3",
+                    "type": "text/html",
+                    "title": "View 'Target 3: Cost-effectiveness Weight 3' layer on UN Biodiversity Lab"
                 }
             ],
             "assets": {
                 "thumbnail": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/thumbnails/weplan-available-areas_thumbnail_global.png",
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/thumbnails/weplan-available-areas-thumbnail-global.png",
                     "type": "image/png",
                     "roles": [
                         "thumbnail"
@@ -64,7 +700,7 @@
                     "title": "Thumbnail"
                 },
                 "available_areas": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-available-v002.tif",
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-available-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -136,8 +772,8 @@
                         1
                     ]
                 },
-                "mincost-target-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-mincost-target-1-v002.tif",
+                "mincost_target_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-mincost-target-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -209,8 +845,8 @@
                         1
                     ]
                 },
-                "mincost-target-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-mincost-target-2-v002.tif",
+                "mincost_target_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-mincost-target-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -282,8 +918,8 @@
                         1
                     ]
                 },
-                "mincost-target-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-mincost-target-3-v002.tif",
+                "mincost_target_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-mincost-target-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -355,8 +991,8 @@
                         1
                     ]
                 },
-                "mincost-target-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-mincost-target-4-v002.tif",
+                "mincost_target_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-mincost-target-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -428,8 +1064,8 @@
                         1
                     ]
                 },
-                "mincost-target-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-mincost-target-5-v002.tif",
+                "mincost_target_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-mincost-target-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -501,8 +1137,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-1-weight-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-1-weight-1-v002.tif",
+                "tradeoffs_ce_target_1_weight_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-1-weight-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -574,8 +1210,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-1-weight-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-1-weight-2-v002.tif",
+                "tradeoffs_ce_target_1_weight_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-1-weight-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -647,8 +1283,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-1-weight-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-1-weight-3-v002.tif",
+                "tradeoffs_ce_target_1_weight_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-1-weight-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -720,8 +1356,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-1-weight-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-1-weight-4-v002.tif",
+                "tradeoffs_ce_target_1_weight_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-1-weight-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -793,8 +1429,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-1-weight-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-1-weight-5-v002.tif",
+                "tradeoffs_ce_target_1_weight_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-1-weight-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -866,8 +1502,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-1-weight-6": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-1-weight-6-v002.tif",
+                "tradeoffs_ce_target_1_weight_6": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-1-weight-6-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -939,8 +1575,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-1-weight-7": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-1-weight-7-v002.tif",
+                "tradeoffs_ce_target_1_weight_7": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-1-weight-7-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1012,8 +1648,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-1-weight-8": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-1-weight-8-v002.tif",
+                "tradeoffs_ce_target_1_weight_8": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-1-weight-8-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1085,8 +1721,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-1-weight-9": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-1-weight-9-v002.tif",
+                "tradeoffs_ce_target_1_weight_9": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-1-weight-9-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1158,8 +1794,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-2-weight-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-2-weight-1-v002.tif",
+                "tradeoffs_ce_target_2_weight_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-2-weight-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1231,8 +1867,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-2-weight-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-2-weight-2-v002.tif",
+                "tradeoffs_ce_target_2_weight_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-2-weight-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1304,8 +1940,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-2-weight-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-2-weight-3-v002.tif",
+                "tradeoffs_ce_target_2_weight_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-2-weight-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1377,8 +2013,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-2-weight-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-2-weight-4-v002.tif",
+                "tradeoffs_ce_target_2_weight_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-2-weight-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1450,8 +2086,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-2-weight-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-2-weight-5-v002.tif",
+                "tradeoffs_ce_target_2_weight_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-2-weight-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1523,8 +2159,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-2-weight-6": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-2-weight-6-v002.tif",
+                "tradeoffs_ce_target_2_weight_6": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-2-weight-6-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1596,8 +2232,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-2-weight-7": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-2-weight-7-v002.tif",
+                "tradeoffs_ce_target_2_weight_7": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-2-weight-7-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1669,8 +2305,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-2-weight-8": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-2-weight-8-v002.tif",
+                "tradeoffs_ce_target_2_weight_8": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-2-weight-8-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1742,8 +2378,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-2-weight-9": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-2-weight-9-v002.tif",
+                "tradeoffs_ce_target_2_weight_9": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-2-weight-9-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1815,8 +2451,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-3-weight-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-3-weight-1-v002.tif",
+                "tradeoffs_ce_target_3_weight_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-3-weight-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1888,8 +2524,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-3-weight-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-3-weight-2-v002.tif",
+                "tradeoffs_ce_target_3_weight_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-3-weight-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -1961,8 +2597,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-3-weight-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-3-weight-3-v002.tif",
+                "tradeoffs_ce_target_3_weight_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-3-weight-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2034,8 +2670,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-3-weight-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-3-weight-4-v002.tif",
+                "tradeoffs_ce_target_3_weight_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-3-weight-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2107,8 +2743,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-3-weight-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-3-weight-5-v002.tif",
+                "tradeoffs_ce_target_3_weight_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-3-weight-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2180,8 +2816,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-3-weight-6": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-3-weight-6-v002.tif",
+                "tradeoffs_ce_target_3_weight_6": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-3-weight-6-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2253,8 +2889,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-3-weight-7": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-3-weight-7-v002.tif",
+                "tradeoffs_ce_target_3_weight_7": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-3-weight-7-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2326,8 +2962,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-3-weight-8": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-3-weight-8-v002.tif",
+                "tradeoffs_ce_target_3_weight_8": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-3-weight-8-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2399,8 +3035,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-3-weight-9": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-3-weight-9-v002.tif",
+                "tradeoffs_ce_target_3_weight_9": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-3-weight-9-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2472,8 +3108,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-4-weight-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-4-weight-1-v002.tif",
+                "tradeoffs_ce_target_4_weight_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-4-weight-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2545,8 +3181,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-4-weight-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-4-weight-2-v002.tif",
+                "tradeoffs_ce_target_4_weight_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-4-weight-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2618,8 +3254,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-4-weight-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-4-weight-3-v002.tif",
+                "tradeoffs_ce_target_4_weight_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-4-weight-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2691,8 +3327,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-4-weight-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-4-weight-4-v002.tif",
+                "tradeoffs_ce_target_4_weight_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-4-weight-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2764,8 +3400,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-4-weight-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-4-weight-5-v002.tif",
+                "tradeoffs_ce_target_4_weight_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-4-weight-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2837,8 +3473,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-4-weight-6": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-4-weight-6-v002.tif",
+                "tradeoffs_ce_target_4_weight_6": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-4-weight-6-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2910,8 +3546,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-4-weight-7": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-4-weight-7-v002.tif",
+                "tradeoffs_ce_target_4_weight_7": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-4-weight-7-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -2983,8 +3619,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-4-weight-8": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-4-weight-8-v002.tif",
+                "tradeoffs_ce_target_4_weight_8": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-4-weight-8-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3056,8 +3692,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-4-weight-9": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-4-weight-9-v002.tif",
+                "tradeoffs_ce_target_4_weight_9": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-4-weight-9-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3129,8 +3765,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-5-weight-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-5-weight-1-v002.tif",
+                "tradeoffs_ce_target_5_weight_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-5-weight-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3202,8 +3838,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-5-weight-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-5-weight-2-v002.tif",
+                "tradeoffs_ce_target_5_weight_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-5-weight-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3275,8 +3911,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-5-weight-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-5-weight-3-v002.tif",
+                "tradeoffs_ce_target_5_weight_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-5-weight-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3348,8 +3984,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-5-weight-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-5-weight-4-v002.tif",
+                "tradeoffs_ce_target_5_weight_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-5-weight-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3421,8 +4057,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-5-weight-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-5-weight-5-v002.tif",
+                "tradeoffs_ce_target_5_weight_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-5-weight-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3494,8 +4130,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-5-weight-6": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-5-weight-6-v002.tif",
+                "tradeoffs_ce_target_5_weight_6": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-5-weight-6-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3567,8 +4203,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-5-weight-7": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-5-weight-7-v002.tif",
+                "tradeoffs_ce_target_5_weight_7": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-5-weight-7-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3640,8 +4276,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-5-weight-8": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-5-weight-8-v002.tif",
+                "tradeoffs_ce_target_5_weight_8": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-5-weight-8-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3713,8 +4349,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-5-weight-9": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-5-weight-9-v002.tif",
+                "tradeoffs_ce_target_5_weight_9": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-5-weight-9-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3786,8 +4422,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-1-weight-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-1-weight-1-v002.tif",
+                "tradeoffs_mb_target_1_weight_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-1-weight-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3859,8 +4495,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-1-weight-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-1-weight-2-v002.tif",
+                "tradeoffs_mb_target_1_weight_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-1-weight-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -3932,8 +4568,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-1-weight-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-1-weight-3-v002.tif",
+                "tradeoffs_mb_target_1_weight_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-1-weight-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4005,8 +4641,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-1-weight-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-1-weight-4-v002.tif",
+                "tradeoffs_mb_target_1_weight_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-1-weight-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4078,8 +4714,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-1-weight-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-1-weight-5-v002.tif",
+                "tradeoffs_mb_target_1_weight_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-1-weight-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4151,8 +4787,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-1-weight-6": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-1-weight-6-v002.tif",
+                "tradeoffs_mb_target_1_weight_6": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-1-weight-6-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4224,8 +4860,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-1-weight-7": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-1-weight-7-v002.tif",
+                "tradeoffs_mb_target_1_weight_7": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-1-weight-7-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4297,8 +4933,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-1-weight-8": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-1-weight-8-v002.tif",
+                "tradeoffs_mb_target_1_weight_8": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-1-weight-8-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4370,8 +5006,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-1-weight-9": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-1-weight-9-v002.tif",
+                "tradeoffs_mb_target_1_weight_9": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-1-weight-9-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4443,8 +5079,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-2-weight-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-2-weight-1-v002.tif",
+                "tradeoffs_mb_target_2_weight_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-2-weight-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4516,8 +5152,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-2-weight-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-2-weight-2-v002.tif",
+                "tradeoffs_mb_target_2_weight_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-2-weight-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4589,8 +5225,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-2-weight-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-2-weight-3-v002.tif",
+                "tradeoffs_mb_target_2_weight_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-2-weight-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4662,8 +5298,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-2-weight-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-2-weight-4-v002.tif",
+                "tradeoffs_mb_target_2_weight_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-2-weight-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4735,8 +5371,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-2-weight-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-2-weight-5-v002.tif",
+                "tradeoffs_mb_target_2_weight_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-2-weight-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4808,8 +5444,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-2-weight-6": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-2-weight-6-v002.tif",
+                "tradeoffs_mb_target_2_weight_6": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-2-weight-6-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4881,8 +5517,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-2-weight-7": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-2-weight-7-v002.tif",
+                "tradeoffs_mb_target_2_weight_7": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-2-weight-7-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -4954,8 +5590,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-2-weight-8": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-2-weight-8-v002.tif",
+                "tradeoffs_mb_target_2_weight_8": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-2-weight-8-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5027,8 +5663,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-2-weight-9": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-2-weight-9-v002.tif",
+                "tradeoffs_mb_target_2_weight_9": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-2-weight-9-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5100,8 +5736,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-3-weight-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-3-weight-1-v002.tif",
+                "tradeoffs_mb_target_3_weight_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-3-weight-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5173,8 +5809,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-3-weight-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-3-weight-2-v002.tif",
+                "tradeoffs_mb_target_3_weight_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-3-weight-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5246,8 +5882,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-3-weight-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-3-weight-3-v002.tif",
+                "tradeoffs_mb_target_3_weight_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-3-weight-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5319,8 +5955,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-3-weight-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-3-weight-4-v002.tif",
+                "tradeoffs_mb_target_3_weight_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-3-weight-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5392,8 +6028,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-3-weight-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-3-weight-5-v002.tif",
+                "tradeoffs_mb_target_3_weight_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-3-weight-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5465,8 +6101,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-3-weight-6": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-3-weight-6-v002.tif",
+                "tradeoffs_mb_target_3_weight_6": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-3-weight-6-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5538,8 +6174,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-3-weight-7": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-3-weight-7-v002.tif",
+                "tradeoffs_mb_target_3_weight_7": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-3-weight-7-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5611,8 +6247,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-3-weight-8": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-3-weight-8-v002.tif",
+                "tradeoffs_mb_target_3_weight_8": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-3-weight-8-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5684,8 +6320,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-3-weight-9": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-3-weight-9-v002.tif",
+                "tradeoffs_mb_target_3_weight_9": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-3-weight-9-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5757,8 +6393,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-4-weight-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-4-weight-1-v002.tif",
+                "tradeoffs_mb_target_4_weight_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-4-weight-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5830,8 +6466,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-4-weight-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-4-weight-2-v002.tif",
+                "tradeoffs_mb_target_4_weight_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-4-weight-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5903,8 +6539,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-4-weight-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-4-weight-3-v002.tif",
+                "tradeoffs_mb_target_4_weight_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-4-weight-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -5976,8 +6612,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-4-weight-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-4-weight-4-v002.tif",
+                "tradeoffs_mb_target_4_weight_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-4-weight-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6049,8 +6685,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-4-weight-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-4-weight-5-v002.tif",
+                "tradeoffs_mb_target_4_weight_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-4-weight-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6122,8 +6758,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-4-weight-6": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-4-weight-6-v002.tif",
+                "tradeoffs_mb_target_4_weight_6": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-4-weight-6-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6195,8 +6831,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-4-weight-7": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-4-weight-7-v002.tif",
+                "tradeoffs_mb_target_4_weight_7": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-4-weight-7-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6268,8 +6904,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-4-weight-8": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-4-weight-8-v002.tif",
+                "tradeoffs_mb_target_4_weight_8": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-4-weight-8-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6341,8 +6977,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-4-weight-9": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-4-weight-9-v002.tif",
+                "tradeoffs_mb_target_4_weight_9": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-4-weight-9-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6414,8 +7050,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-5-weight-1": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-5-weight-1-v002.tif",
+                "tradeoffs_mb_target_5_weight_1": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-5-weight-1-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6487,8 +7123,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-5-weight-2": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-5-weight-2-v002.tif",
+                "tradeoffs_mb_target_5_weight_2": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-5-weight-2-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6560,8 +7196,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-5-weight-3": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-5-weight-3-v002.tif",
+                "tradeoffs_mb_target_5_weight_3": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-5-weight-3-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6633,8 +7269,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-5-weight-4": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-5-weight-4-v002.tif",
+                "tradeoffs_mb_target_5_weight_4": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-5-weight-4-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6706,8 +7342,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-5-weight-5": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-5-weight-5-v002.tif",
+                "tradeoffs_mb_target_5_weight_5": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-5-weight-5-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6779,8 +7415,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-5-weight-6": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-5-weight-6-v002.tif",
+                "tradeoffs_mb_target_5_weight_6": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-5-weight-6-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6852,8 +7488,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-5-weight-7": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-5-weight-7-v002.tif",
+                "tradeoffs_mb_target_5_weight_7": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-5-weight-7-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6925,8 +7561,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-5-weight-8": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-5-weight-8-v002.tif",
+                "tradeoffs_mb_target_5_weight_8": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-5-weight-8-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -6998,8 +7634,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-5-weight-9": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-5-weight-9-v002.tif",
+                "tradeoffs_mb_target_5_weight_9": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-5-weight-9-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7071,8 +7707,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-1-weight-10": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-1-weight-10-v002.tif",
+                "tradeoffs_ce_target_1_weight_10": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-1-weight-10-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7144,8 +7780,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-2-weight-10": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-2-weight-10-v002.tif",
+                "tradeoffs_ce_target_2_weight_10": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-2-weight-10-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7217,8 +7853,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-3-weight-10": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-3-weight-10-v002.tif",
+                "tradeoffs_ce_target_3_weight_10": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-3-weight-10-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7290,8 +7926,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-4-weight-10": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-4-weight-10-v002.tif",
+                "tradeoffs_ce_target_4_weight_10": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-4-weight-10-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7363,8 +7999,8 @@
                         1
                     ]
                 },
-                "tradeoffs-ce-target-5-weight-10": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-ce-target-5-weight-10-v002.tif",
+                "tradeoffs_ce_target_5_weight_10": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-ce-target-5-weight-10-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7436,8 +8072,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-1-weight-10": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-1-weight-10-v002.tif",
+                "tradeoffs_mb_target_1_weight_10": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-1-weight-10-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7509,8 +8145,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-2-weight-10": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-2-weight-10-v002.tif",
+                "tradeoffs_mb_target_2_weight_10": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-2-weight-10-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7582,8 +8218,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-3-weight-10": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-3-weight-10-v002.tif",
+                "tradeoffs_mb_target_3_weight_10": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-3-weight-10-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7655,8 +8291,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-4-weight-10": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-4-weight-10-v002.tif",
+                "tradeoffs_mb_target_4_weight_10": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-4-weight-10-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7728,8 +8364,8 @@
                         1
                     ]
                 },
-                "tradeoffs-mb-target-5-weight-10": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/ICEED/WePlan-Forests/global-mosaics/items/cogs/global-scen-tradeoffs-mb-target-5-weight-10-v002.tif",
+                "tradeoffs_mb_target_5_weight_10": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/weplan-forests/items/cogs/global-scen-tradeoffs-mb-target-5-weight-10-v002.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
@@ -7838,16 +8474,441 @@
                 "access": "public",
                 "contact": "contact@iceed.au",
                 "license": "CC-BY-4.0",
-                "version": "v1 (2020)",
                 "datetime": "2020-07-01T00:00:00Z",
                 "summaries": {
                     "gsd": [
                         1000
                     ]
                 },
+                "UNBL:layers": [
+                    {
+                        "id": "1cf5d3d2-8775-4b01-a1a1-c38ef9f6424a",
+                        "name": "Target 4: Maximum benefit Weight 4"
+                    },
+                    {
+                        "id": "1f7fce9b-6b26-48e0-ac37-bada7c926f5f",
+                        "name": "Target 5: Maximum benefit Weight 10"
+                    },
+                    {
+                        "id": "2ab51a06-d4b8-419b-a867-c860541f8a3d",
+                        "name": "Target 3: Maximum benefit Weight 4"
+                    },
+                    {
+                        "id": "3b22cd8d-a67e-4760-b5d8-2873e7359080",
+                        "name": "Target 5: Maximum benefit Weight 3"
+                    },
+                    {
+                        "id": "3bf65e16-e471-420f-ba4e-33af9e0d70dd",
+                        "name": "Target 3: Maximum benefit Weight 7"
+                    },
+                    {
+                        "id": "3c173191-65e4-4194-87c0-1f1455cbf5e5",
+                        "name": "Target 1: Cost-effectiveness Weight 1"
+                    },
+                    {
+                        "id": "3d2b565b-0dde-4735-9138-63066331cdd2",
+                        "name": "Target 4: Cost-effectiveness Weight 1"
+                    },
+                    {
+                        "id": "3e09d929-05a4-4aad-8a62-11e505b5fde6",
+                        "name": "Target 2: Cost-effectiveness Weight 2"
+                    },
+                    {
+                        "id": "3e517f70-5ef4-4003-9c67-7883a90c3bea",
+                        "name": "Target 5: Maximum benefit Weight 8"
+                    },
+                    {
+                        "id": "04dda00b-6f52-4082-a4be-83feec89d42d",
+                        "name": "Target 1: Cost-effectiveness Weight 10"
+                    },
+                    {
+                        "id": "4de86c72-6fc0-4e3d-8310-745e45b1048d",
+                        "name": "Target 1: Maximum benefit Weight 3"
+                    },
+                    {
+                        "id": "5a503b1e-5695-4329-8b49-01bfcdbd4b79",
+                        "name": "Target 5: Cost-effectiveness Weight 3"
+                    },
+                    {
+                        "id": "5e3ae87b-0b46-44d5-a3d7-373a2816cfc2",
+                        "name": "Target 2: Cost-effectiveness Weight 1"
+                    },
+                    {
+                        "id": "5ec09a61-9792-4ba1-8aff-384ab40fd5f8",
+                        "name": "Target 4: Cost-effectiveness Weight 10"
+                    },
+                    {
+                        "id": "6a64cb45-4450-4b57-b586-bd983dbaae8f",
+                        "name": "Target 1: Cost-effectiveness Weight 4"
+                    },
+                    {
+                        "id": "6b5695b3-3000-4ca2-8f48-7a8f28a6662d",
+                        "name": "Target 2: Maximum benefit Weight 10"
+                    },
+                    {
+                        "id": "6db2ade4-4d31-4518-9084-97cfb43d9733",
+                        "name": "Target 2: Cost-effectiveness Weight 8"
+                    },
+                    {
+                        "id": "6eb57221-882a-43f4-9e5e-4ee962b06b12",
+                        "name": "Target 5: Cost-effectiveness Weight 8"
+                    },
+                    {
+                        "id": "6ec91220-b655-4efc-9322-6bf95bb834d3",
+                        "name": "Target 1: Maximum benefit Weight 7"
+                    },
+                    {
+                        "id": "7d3653b9-6e23-48b4-93f8-54bffb4a07f4",
+                        "name": "Target 1: Maximum benefit Weight 1"
+                    },
+                    {
+                        "id": "7e7dea99-d1d3-4314-9998-e1f54014f1c2",
+                        "name": "Target 2: Cost-effectiveness Weight 9"
+                    },
+                    {
+                        "id": "8b9359c3-f940-47e8-af6d-c1458483bcfd",
+                        "name": "Target 3: Cost-effectiveness Weight 1"
+                    },
+                    {
+                        "id": "8e0c17b0-f9c8-403e-98d9-a2150980ed6f",
+                        "name": "Target 1: Maximum benefit Weight 4"
+                    },
+                    {
+                        "id": "9a462aad-07dd-482e-889b-565c2405d21d",
+                        "name": "Target 1: Maximum benefit Weight 5"
+                    },
+                    {
+                        "id": "9c81d631-b83c-4d64-83f7-d8eff89d78a2",
+                        "name": "Target 4: Cost-effectiveness Weight 2"
+                    },
+                    {
+                        "id": "9c66391a-6865-4cf4-88ed-fdf9d521c62f",
+                        "name": "Target 2: Cost-effectiveness Weight 7"
+                    },
+                    {
+                        "id": "9df888ae-ff41-4160-b699-86c7a7ffb34b",
+                        "name": "Target 5: Cost-effectiveness Weight 2"
+                    },
+                    {
+                        "id": "9e0e1eca-4708-4f6e-8425-b8797d7c70a7",
+                        "name": "Target 3: Cost-effectiveness Weight 7"
+                    },
+                    {
+                        "id": "9e25ddf0-82c8-45c7-8eec-2d3bebdec2a3",
+                        "name": "Target 2: Maximum benefit Weight 9"
+                    },
+                    {
+                        "id": "25e71049-c9ce-416d-a4d4-fdf971fcfc82",
+                        "name": "Target 2: Maximum benefit Weight 8"
+                    },
+                    {
+                        "id": "36ced8af-c1cc-4a1b-84df-49827090dfd7",
+                        "name": "Target 2: Maximum benefit Weight 7"
+                    },
+                    {
+                        "id": "38c0da5d-aab8-4525-8bf1-35df6136224b",
+                        "name": "Target 4: Maximum benefit Weight 10"
+                    },
+                    {
+                        "id": "42a2ab16-d585-4d5f-a5d2-a0966c7952b9",
+                        "name": "Target 2: Cost-effectiveness Weight 10"
+                    },
+                    {
+                        "id": "46a37a9e-04cb-4ed8-9258-e1fd853648a4",
+                        "name": "Target 5: Cost-effectiveness Weight 9"
+                    },
+                    {
+                        "id": "56bf2fe7-a408-45a7-a13e-8b25994d9f88",
+                        "name": "Target 3: Cost-effectiveness Weight 5"
+                    },
+                    {
+                        "id": "63b4aed0-bb82-4643-b492-12fa56af7334",
+                        "name": "Target 1: Cost-effectiveness Weight 6"
+                    },
+                    {
+                        "id": "75ce49b8-0788-4e0e-92b0-5eb808f43914",
+                        "name": "Target 1: Cost-effectiveness Weight 3"
+                    },
+                    {
+                        "id": "78e70b5d-1d66-4c66-b596-59aa6840975c",
+                        "name": "Target 3: Maximum benefit Weight 6"
+                    },
+                    {
+                        "id": "79b73c56-1769-4771-99b7-095b659cfd90",
+                        "name": "Target 5: Maximum benefit Weight 6"
+                    },
+                    {
+                        "id": "94f926cf-77b2-4d13-975f-6b6ebf55287f",
+                        "name": "Target 2: Maximum benefit Weight 2"
+                    },
+                    {
+                        "id": "129f006c-3fc0-4547-b8d0-5f9b31659a38",
+                        "name": "Target 5: Cost-effectiveness Weight 10"
+                    },
+                    {
+                        "id": "136c56b4-7416-49ea-8da7-69a9f2a6a008",
+                        "name": "Target 5: Maximum benefit Weight 2"
+                    },
+                    {
+                        "id": "213b07eb-c4bb-478a-8906-19f1bf4a4222",
+                        "name": "Target 2: Minimum cost"
+                    },
+                    {
+                        "id": "252d28a6-894c-4b09-863a-c681e7a149b4",
+                        "name": "Target 5: Maximum benefit Weight 4"
+                    },
+                    {
+                        "id": "361ec28c-aed0-4885-9758-a4432150c20f",
+                        "name": "Target 4: Cost-effectiveness Weight 6"
+                    },
+                    {
+                        "id": "373d1f42-9ed6-4673-8979-8bf756f75a2e",
+                        "name": "Target 5: Maximum benefit Weight 9"
+                    },
+                    {
+                        "id": "388e8b6c-5992-466d-ab4a-5ce103469512",
+                        "name": "Target 5: Cost-effectiveness Weight 4"
+                    },
+                    {
+                        "id": "416aeb75-3c73-4239-b56e-463ffc22eebc",
+                        "name": "Target 3: Cost-effectiveness Weight 9"
+                    },
+                    {
+                        "id": "505cb446-f769-4c5a-8166-b27a5033aa1a",
+                        "name": "Target 2: Maximum benefit Weight 1"
+                    },
+                    {
+                        "id": "517e635a-11c7-43c5-9c10-60fda2fe024b",
+                        "name": "Target 3: Maximum benefit Weight 2"
+                    },
+                    {
+                        "id": "601bc5cb-1f01-4b54-97d9-529004f73620",
+                        "name": "Target 2: Cost-effectiveness Weight 6"
+                    },
+                    {
+                        "id": "837aaba8-c153-45a8-8a41-60a6c340ae89",
+                        "name": "Target 4: Cost-effectiveness Weight 4"
+                    },
+                    {
+                        "id": "952b42f2-bf12-41c1-be1b-b602c0f5905f",
+                        "name": "Target 5: Cost-effectiveness Weight 1"
+                    },
+                    {
+                        "id": "1436c9fe-d290-4fd4-9b69-c27cfcefbdc3",
+                        "name": "Target 4: Cost-effectiveness Weight 8"
+                    },
+                    {
+                        "id": "1659a983-fdfc-4554-82df-9773ccf4684a",
+                        "name": "Target 1: Maximum benefit Weight 2"
+                    },
+                    {
+                        "id": "4777f4dd-e738-4270-8426-d5d54432453b",
+                        "name": "Target 3: Maximum benefit Weight 10"
+                    },
+                    {
+                        "id": "4850df8f-d734-4b2a-88ce-b78a90cf8ece",
+                        "name": "Target 3: Cost-effectiveness Weight 6"
+                    },
+                    {
+                        "id": "6807b865-722f-4d7a-9239-b26a217a31fe",
+                        "name": "Target 4: Maximum benefit Weight 2"
+                    },
+                    {
+                        "id": "6812a404-c283-4b4d-9663-0d3baa129267",
+                        "name": "Target 4: Cost-effectiveness Weight 3"
+                    },
+                    {
+                        "id": "8876e355-ade8-44db-b8a0-fe105080a79c",
+                        "name": "Target 1: Cost-effectiveness Weight 9"
+                    },
+                    {
+                        "id": "13283a1b-f97e-45b8-af83-128ba269283d",
+                        "name": "Target 4: Cost-effectiveness Weight 9"
+                    },
+                    {
+                        "id": "52229c44-48e2-41c0-ad41-1eeeed0cd381",
+                        "name": "Target 5: Cost-effectiveness Weight 6"
+                    },
+                    {
+                        "id": "085885c4-f910-4cbb-bbec-5100b4dd5f77",
+                        "name": "Target 1: Cost-effectiveness Weight 2"
+                    },
+                    {
+                        "id": "204919d9-4203-4b18-8932-72fd44abe28c",
+                        "name": "Target 5: Cost-effectiveness Weight 5"
+                    },
+                    {
+                        "id": "358450c8-2b27-4e50-9e97-98c02e686420",
+                        "name": "Target 2: Maximum benefit Weight 4"
+                    },
+                    {
+                        "id": "440878ae-a039-4528-b436-a6d2c1387c77",
+                        "name": "Target 2: Maximum benefit Weight 5"
+                    },
+                    {
+                        "id": "641831b1-189b-407a-9c35-8179655c86a1",
+                        "name": "Target 4: Cost-effectiveness Weight 7"
+                    },
+                    {
+                        "id": "4696349d-4a28-43a0-8953-55c9adf19f11",
+                        "name": "Target 3: Maximum benefit Weight 1"
+                    },
+                    {
+                        "id": "7073362d-c327-4b68-ace6-b0a12ef0dfe4",
+                        "name": "Target 1: Maximum benefit Weight 6"
+                    },
+                    {
+                        "id": "7646209c-37fa-4454-9569-b8b30ef9e763",
+                        "name": "Target 4: Maximum benefit Weight 6"
+                    },
+                    {
+                        "id": "73019947-c4ea-4cf1-8392-cccc204ab925",
+                        "name": "Target 4: Maximum benefit Weight 7"
+                    },
+                    {
+                        "id": "82384133-0903-4997-b8ff-bd2f23864a61",
+                        "name": "Target 4: Maximum benefit Weight 8"
+                    },
+                    {
+                        "id": "a0e3e94d-901e-4d05-b084-a6808d229fc0",
+                        "name": "Target 4: Maximum benefit Weight 5"
+                    },
+                    {
+                        "id": "a787f91b-fa48-48a4-93cf-7123b481d0b7",
+                        "name": "Target 5: Maximum benefit Weight 7"
+                    },
+                    {
+                        "id": "a177128c-9574-4602-a78a-14b3f9263cec",
+                        "name": "Target 3: Cost-effectiveness Weight 4"
+                    },
+                    {
+                        "id": "ab0d7f24-1b6f-4e33-8bab-68c1eac8af06",
+                        "name": "Target 1: Maximum benefit Weight 10"
+                    },
+                    {
+                        "id": "ab5bc4c2-980c-4eec-b136-1868087d52fb",
+                        "name": "Target 2: Cost-effectiveness Weight 5"
+                    },
+                    {
+                        "id": "abff7138-a84b-4351-b83f-12ee5802bd98",
+                        "name": "Target 4: Cost-effectiveness Weight 5"
+                    },
+                    {
+                        "id": "ac0048e7-539f-4269-8f94-bb5d438fe288",
+                        "name": "Target 4: Maximum benefit Weight 9"
+                    },
+                    {
+                        "id": "ace841ff-f7da-4f92-8402-2789d409851d",
+                        "name": "Target 2: Cost-effectiveness Weight 4"
+                    },
+                    {
+                        "id": "b8d23ffa-b50e-4f04-a0f7-5e8ec5e66d33",
+                        "name": "Target 5: Maximum benefit Weight 1"
+                    },
+                    {
+                        "id": "b030b819-0287-4e07-90de-d682e44171cd",
+                        "name": "Target 3: Maximum benefit Weight 9"
+                    },
+                    {
+                        "id": "b40c6b74-46af-4fea-95e6-f8213ed22080",
+                        "name": "Target 5: Cost-effectiveness Weight 7"
+                    },
+                    {
+                        "id": "ba2d18f8-ab16-4baa-8a4c-5c7ee7a7a492",
+                        "name": "Target 4: Maximum benefit Weight 3"
+                    },
+                    {
+                        "id": "bc2b9569-fb31-4442-bb4a-7f8724cd9aa6",
+                        "name": "Target 3: Cost-effectiveness Weight 8"
+                    },
+                    {
+                        "id": "bdd0c6ba-00e8-455e-8588-44d6e5de74b0",
+                        "name": "Target 3: Cost-effectiveness Weight 2"
+                    },
+                    {
+                        "id": "bff43540-6eeb-4df2-bc49-47a42a00aa87",
+                        "name": "Target 3: Cost-effectiveness Weight 10"
+                    },
+                    {
+                        "id": "c88f4113-b567-4d62-8b90-4ca7e80dfe14",
+                        "name": "Target 4 : Minimum cost"
+                    },
+                    {
+                        "id": "c0012897-7cc4-4f47-882a-274a5dc970d1",
+                        "name": "Target 1: Cost-effectiveness Weight 5"
+                    },
+                    {
+                        "id": "d1b43c30-323c-4146-82a8-8b4b37b3c03f",
+                        "name": "Target 3: Maximum benefit Weight 5"
+                    },
+                    {
+                        "id": "d2c5159a-6896-4cfe-96b1-572aaf04247f",
+                        "name": "Target 5: Maximum benefit Weight 5"
+                    },
+                    {
+                        "id": "d64d2fb6-19be-479f-8e63-6c93511c4b57",
+                        "name": "Target 1: Cost-effectiveness Weight 8"
+                    },
+                    {
+                        "id": "d0853f31-25b1-491c-ad7b-bcf60c9b23a1",
+                        "name": "Target 3: Minimum cost"
+                    },
+                    {
+                        "id": "d8207373-1fba-4aa3-854b-352a478b17cf",
+                        "name": "Target 1: Maximum benefit Weight 9"
+                    },
+                    {
+                        "id": "da0e6da1-2d14-4e31-b111-ec2a8b63c46a",
+                        "name": "Target 1: Cost-effectiveness Weight 7"
+                    },
+                    {
+                        "id": "dea4244c-bf27-45a8-a22b-aabb623acd92",
+                        "name": "WePlan - Available Areas"
+                    },
+                    {
+                        "id": "e0a197d2-c4b7-41d9-80e9-d4171dd346de",
+                        "name": "Target 1: Minimum cost"
+                    },
+                    {
+                        "id": "e0f9243c-b445-4d30-8497-cc3ca4229180",
+                        "name": "Target 5: Minimum cost"
+                    },
+                    {
+                        "id": "e6bb7f86-5465-420e-a87e-be92a2f813e4",
+                        "name": "Target 4: Maximum benefit Weight 1"
+                    },
+                    {
+                        "id": "e25b15a6-9040-416e-aab1-53c5b6a5a8fd",
+                        "name": "Target 2: Cost-effectiveness Weight 3"
+                    },
+                    {
+                        "id": "eb7077b0-e3f3-451b-b791-ab213f2c57a4",
+                        "name": "Target 2: Maximum benefit Weight 6"
+                    },
+                    {
+                        "id": "eec729e8-4645-4ca6-aecd-a8f0c38f5f54",
+                        "name": "Target 3: Maximum benefit Weight 8"
+                    },
+                    {
+                        "id": "f0cebde3-0859-46db-88cb-7c8ecf04eb49",
+                        "name": "Target 2: Maximum benefit Weight 3"
+                    },
+                    {
+                        "id": "ff114685-8ae5-4df6-9898-72e59f2d99c4",
+                        "name": "Target 1: Maximum benefit Weight 8"
+                    },
+                    {
+                        "id": "ff409193-9fba-41f4-b9cb-f73a11207c17",
+                        "name": "Target 3: Maximum benefit Weight 3"
+                    },
+                    {
+                        "id": "ffe3ab19-6b90-4538-a698-26064daf114b",
+                        "name": "Target 3: Cost-effectiveness Weight 3"
+                    }
+                ],
                 "description": "WePlan - Forests is a decision support platform for tropical and subtropical forest ecosystem restoration planning that aims to maximise the climate change mitigation, biodiversity conservation and poverty alleviation benefits arising from forest restoration. The project provides quantitative, spatial, evidence-based planning support to developing countries that are party to the Convention on Biological Diversity in order to facilitate the realisation of forest restoration pledges and targets. The platform consists of a user-friendly web-based interface that automates the technical and computing requirements of complex spatial analyses and allows users without spatial modelling and optimisation expertise to explore a broad range of results and scenarios. This project is developed by the Institute for Capacity Exchange in Environmental Decisions (formerly International Institute for Sustainability Australia) and International Institute for Sustainability Rio, in partnership with the Convention on Biological Diversity Secretariat. This work is generously supported by the Korea Forest Service of the Republic of Korea as part of the Forest Ecosystem Restoration Initiative, with additional financial assistance from the European Union.",
                 "sci:citation": "WePlan Forests (2020). Areas available for restoration. Available at: https://www.weplan-forests.org/methodology",
-                "UNBL:last_updated": "2026-07-03 05:42:07 UTC"
+                "UNBL:last_updated": "2026-10-05 03:09:41 UTC"
             },
             "stac_version": "1.0.0",
             "stac_extensions": [

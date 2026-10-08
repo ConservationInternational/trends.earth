@@ -24,7 +24,7 @@
     ],
     "features": [
         {
-            "id": "usgs-world-terrestrial-ecosystems-2015",
+            "id": "2015",
             "bbox": [
                 -179.999999,
                 -55.99952999999999,
@@ -51,7 +51,7 @@
                 {
                     "rel": "self",
                     "type": "application/geo+json",
-                    "href": "https://unbl-prod-stac.azurewebsites.net/collections/usgs-world-terrestrial-ecosystems/items/usgs-world-terrestrial-ecosystems-2015"
+                    "href": "https://unbl-prod-stac.azurewebsites.net/collections/usgs-world-terrestrial-ecosystems/items/2015"
                 },
                 {
                     "rel": "UNBL:layers",
@@ -61,13 +61,21 @@
                 }
             ],
             "assets": {
-                "wte": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/USGS/usgs-world-terrestrial-ecosystems/items/cogs/usgs-world-terrestrial-ecosystems.tif",
+                "thumbnail": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/usgs/world-terrestrial-ecosystems/thumbnails/world-terrestrial-ecosystems-thumbnail-global.png",
+                    "type": "image/png",
+                    "roles": [
+                        "thumbnail"
+                    ],
+                    "title": "Thumbnail"
+                },
+                "world_terrestrial_ecosystems": {
+                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/usgs/world-terrestrial-ecosystems/items/cogs/usgs-world-terrestrial-ecosystems.tif",
                     "type": "image/tiff; application=geotiff",
                     "roles": [
                         "data"
                     ],
-                    "title": "Stream or Download Geotiff (COG)",
+                    "title": "World Terrestrial Ecosystems",
                     "proj:bbox": [
                         -179.999999,
                         -55.99952999999999,
@@ -134,14 +142,6 @@
                         0,
                         1
                     ]
-                },
-                "thumbnail": {
-                    "href": "https://unblrasterprod.blob.core.windows.net/data-prod/UNBL/USGS/usgs-world-terrestrial-ecosystems/thumbnails/world-terrestrial-ecosystems_thumbnail_global.png",
-                    "type": "image/png",
-                    "roles": [
-                        "thumbnail"
-                    ],
-                    "title": "Thumbnail"
                 }
             },
             "geometry": {
@@ -191,7 +191,7 @@
                 ],
                 "description": "This item represents the global distribution of 431 terrestrial ecosystems for the reference year 2015. It was created by overlaying global temperature domains, moisture domains, landforms, and vegetation/land cover.",
                 "sci:citation": "Sayre, R., et al. (2020). An assessment of the representation of ecosystems in global protected areas using new maps of World Climate Regions and World Ecosystems. Global Ecology and Conservation, 21, e00860.",
-                "UNBL:last_updated": "2026-06-25 23:07:26 UTC"
+                "UNBL:last_updated": "2026-10-02 07:31:24 UTC"
             },
             "stac_version": "1.0.0",
             "stac_extensions": [

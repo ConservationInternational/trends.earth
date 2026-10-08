@@ -53,6 +53,16 @@ On Windows, use the equivalent PowerShell runner:
 
 The Linux runner uses the isolated `trends-earth-tests` Compose project, reads only the needed image/tag settings from `.env`, pulls the image, installs test dependencies, prints QGIS/GDAL/Python versions, runs the suite, and tears the project down. It does not source or print `.env`. Set `KEEP_TEST_CONTAINERS=true` to leave its service running. The PowerShell runner writes `.env` to select the image and uses the default Compose project for the repository; its default cleanup tears that project down, so avoid running it while another Compose stack from this checkout needs to remain up.
 
+### End-to-end Tests (live API)
+
+`test/e2e/` contains opt-in tests that drive the real plugin dialogs against the live Trends.Earth API. Per country, they run SDG 15.3.1 and drought (remote job → summary → UNCCD/PRAIS package) and then build a combined package. They authenticate only with an OAuth2 client-credentials service credential (`TE_E2E_CLIENT_ID`/`TE_E2E_CLIENT_SECRET`, scopes `execution:read execution:write script:read user:read boundary:read`). They skip under `test_suite.test_package`. Run them with:
+
+```bash
+TE_E2E_CLIENT_ID=... TE_E2E_CLIENT_SECRET=... TE_E2E_COUNTRIES=STP ./run_tests.sh 3.44 test_suite.test_e2e
+```
+
+`.github/workflows/e2e.yaml` runs them on demand and every three days at 22:00 America/New_York, with one matrix job per ISO3 code from the `TE_E2E_COUNTRIES` repository variable (or the `countries` dispatch input). A `plan` job handles the DST and 3-day gating. Each job uploads `e2e-<ISO>-qgis-<tag>` with `summary.md`, the job JSON, summaries, packages and the Compose logs. Never print or log the client secret or access tokens.
+
 ### CI Testing
 
 The workflow at `.github/workflows/test.yaml` tests `release-3_34`, `release-3_36`, `3.44`, and `4.2-trixie` in Docker. The informational Marshmallow 4 job uses the same matrix.

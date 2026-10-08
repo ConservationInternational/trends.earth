@@ -12,6 +12,14 @@ services:
       QT_QPA_PLATFORM: "offscreen"
       QTWEBENGINE_DISABLE_SANDBOX: "1"
       DISPLAY: ":99"
+      TE_E2E_CLIENT_ID: "${TE_E2E_CLIENT_ID:-}"
+      TE_E2E_CLIENT_SECRET: "${TE_E2E_CLIENT_SECRET:-}"
+      TE_E2E_API_URL: "${TE_E2E_API_URL:-}"
+      TE_E2E_COUNTRIES: "${TE_E2E_COUNTRIES:-}"
+      TE_E2E_TIMEOUT_MIN: "${TE_E2E_TIMEOUT_MIN:-}"
+      TE_E2E_POLL_SEC: "${TE_E2E_POLL_SEC:-}"
+      TE_E2E_LOCAL_TIMEOUT_MIN: "${TE_E2E_LOCAL_TIMEOUT_MIN:-}"
+      TE_E2E_OUTPUT_DIR: "${TE_E2E_OUTPUT_DIR:-}"
     working_dir: /tests_directory
     entrypoint: /tests_directory/docker/qgis-testing-entrypoint.sh
     # Enable "command:" line below to immediately run unittests upon docker-compose up

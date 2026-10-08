@@ -1,0 +1,183 @@
+# Opt-in end-to-end test: submits SDG 15.3.1 and drought jobs to the real
+# Trends.Earth API, then runs summaries and UNCCD/PRAIS packaging via the plugin dialogs.
+name: E2E remote pipelines
+
+on:
+  workflow_dispatch:
+    inputs:
+      countries:
+        description: "Comma-separated ISO3 codes (overrides the TE_E2E_COUNTRIES repository variable)"
+        required: false
+        default: ""
+      qgis_version_tag:
+        description: "QGIS Docker image tag"
+        required: false
+        default: "3.44"
+  schedule:
+    # 22:00 America/New_York every three days. Cron is UTC, so both DST
+    # candidates are scheduled daily and the `plan` job picks the right one.
+    - cron: "0 2 * * *" # 22:00 EDT
+    - cron: "0 3 * * *" # 22:00 EST
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-remote-pipelines
+  cancel-in-progress: false
+
+env:
+  IMAGE: qgis/qgis
+  WITH_PYTHON_PEP: "true"
+  MUTE_LOGS: "true"
+  SERVICE: qgis-testing-environment
+  DEFAULT_QGIS_VERSION_TAG: "3.44"
+
+jobs:
+  plan:
+    name: Decide whether to run and resolve countries
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
+      countries: ${{ steps.countries.outputs.json }}
+      qgis_version_tag: ${{ steps.countries.outputs.qgis_version_tag }}
+    steps:
+      - name: Schedule gate (22:00 ET, every three days)
+        id: gate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" != "schedule" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          offset="$(TZ=America/New_York date +%z)" # -0400 (EDT) or -0500 (EST)
+          case "${SCHEDULE}|${offset}" in
+            "0 2 * * *|-0400" | "0 3 * * *|-0500") ;;
+            *)
+              echo "Cron '${SCHEDULE}' is not the 22:00 ET slot for offset ${offset}; skipping."
+              echo "run=false" >> "$GITHUB_OUTPUT"
+              exit 0
+              ;;
+          esac
+          ny_date="$(TZ=America/New_York date +%F)"
+          day_number=$(( $(date -u -d "${ny_date}" +%s) / 86400 ))
+          if [ $(( day_number % 3 )) -eq 0 ]; then
+            echo "New York date ${ny_date} is a run day."
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "New York date ${ny_date} is not a run day (day ${day_number} mod 3 != 0); skipping."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Resolve country list
+        id: countries
+        if: steps.gate.outputs.run == 'true'
+        env:
+          INPUT_COUNTRIES: ${{ inputs.countries }}
+          VAR_COUNTRIES: ${{ vars.TE_E2E_COUNTRIES }}
+          INPUT_QGIS_VERSION_TAG: ${{ inputs.qgis_version_tag }}
+        run: |
+          set -euo pipefail
+          raw="${INPUT_COUNTRIES:-${VAR_COUNTRIES:-}}"
+          raw="$(printf '%s' "$raw" | tr -d '[:space:]' | tr '[:lower:]' '[:upper:]')"
+          if ! [[ "$raw" =~ ^[A-Z]{3}(,[A-Z]{3})*$ ]]; then
+            echo "::error::Set repository variable TE_E2E_COUNTRIES (or the 'countries' input) to a comma-delimited list of ISO3 codes, e.g. FJI,STP,GUY. Got: '${raw}'"
+            exit 1
+          fi
+          json="$(printf '%s' "$raw" | tr ',' '\n' | sort -u | jq -R . | jq -cs .)"
+          echo "Countries: ${json}"
+          echo "json=${json}" >> "$GITHUB_OUTPUT"
+          echo "qgis_version_tag=${INPUT_QGIS_VERSION_TAG:-$DEFAULT_QGIS_VERSION_TAG}" >> "$GITHUB_OUTPUT"
+
+  e2e:
+    name: E2E ${{ matrix.country }} (QGIS ${{ needs.plan.outputs.qgis_version_tag }})
+    needs: plan
+    if: needs.plan.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix:
+        country: ${{ fromJSON(needs.plan.outputs.countries) }}
+    env:
+      QGIS_VERSION_TAG: ${{ needs.plan.outputs.qgis_version_tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - name: Check credentials are configured
+        env:
+          TE_E2E_CLIENT_ID: ${{ secrets.TE_E2E_CLIENT_ID }}
+          TE_E2E_CLIENT_SECRET: ${{ secrets.TE_E2E_CLIENT_SECRET }}
+        run: |
+          if [ -z "${TE_E2E_CLIENT_ID}" ] || [ -z "${TE_E2E_CLIENT_SECRET}" ]; then
+            echo "::error::Repository secrets TE_E2E_CLIENT_ID and TE_E2E_CLIENT_SECRET must be set."
+            exit 1
+          fi
+
+      - name: Preparing docker compose environment
+        run: |
+          cat << EOF > .env
+          QGIS_VERSION_TAG=${QGIS_VERSION_TAG}
+          IMAGE=${IMAGE}
+          ON_TRAVIS=true
+          MUTE_LOGS=${MUTE_LOGS}
+          WITH_PYTHON_PEP=${WITH_PYTHON_PEP}
+          EOF
+
+      - name: Start test stack
+        env:
+          TE_E2E_CLIENT_ID: ${{ secrets.TE_E2E_CLIENT_ID }}
+          TE_E2E_CLIENT_SECRET: ${{ secrets.TE_E2E_CLIENT_SECRET }}
+          TE_E2E_API_URL: ${{ vars.TE_E2E_API_URL }}
+          TE_E2E_COUNTRIES: ${{ matrix.country }}
+          TE_E2E_OUTPUT_DIR: /tests_directory/e2e-artifacts
+          TE_E2E_TIMEOUT_MIN: "240"
+        run: |
+          set -euo pipefail
+          docker pull "${IMAGE}:${QGIS_VERSION_TAG}"
+          docker compose up -d
+          sleep 60
+          docker compose ps
+
+      - name: Install test dependencies inside container
+        run: |
+          set -euo pipefail
+          docker compose exec -T "${SERVICE}" sh -lc '
+            if ! command -v pip3 >/dev/null 2>&1; then
+              apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*
+            fi
+            PIP_BREAK_SYSTEM_PACKAGES=1 python3 -m pip install --no-cache-dir -U pytest python-dotenv coverage
+          '
+
+      - name: Run end-to-end pipelines
+        run: |
+          set -euo pipefail
+          docker compose exec -T "${SERVICE}" sh -lc 'qgis_testrunner.sh test_suite.test_e2e'
+
+      - name: Collect logs
+        if: always()
+        run: |
+          mkdir -p e2e-artifacts
+          if [ -f e2e-artifacts/summary.md ]; then
+            cat e2e-artifacts/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+          docker compose logs > e2e-artifacts/docker-compose-logs.txt || true
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-${{ matrix.country }}-qgis-${{ env.QGIS_VERSION_TAG }}
+          path: e2e-artifacts/
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v || true

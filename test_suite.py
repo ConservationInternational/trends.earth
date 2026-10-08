@@ -74,7 +74,7 @@ def test_e2e(package="test"):
     """Run the opt-in end-to-end tests against the live Trends.Earth API.
 
     Requires TE_E2E_CLIENT_ID and TE_E2E_CLIENT_SECRET (an OAuth2 service
-    credential for the e2e test user); see README.md.
+    credential for the e2e test user); see test/README.md.
     """
     os.environ["TE_E2E_ENABLE"] = "1"
     if not (

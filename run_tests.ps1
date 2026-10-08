@@ -5,6 +5,8 @@
 #
 # Usage:
 #   .\run_tests.ps1                    # Run all tests with cleanup
+#   .\run_tests.ps1 -QgisVersion 3.44
+#   .\run_tests.ps1 -QgisVersion 4.2-trixie
 #   .\run_tests.ps1 -Verbose          # Run with verbose output
 #   .\run_tests.ps1 -CleanUp:$false   # Leave containers running after tests
 #
@@ -41,21 +43,25 @@ try {
 
 # Check Docker Compose
 $composeCmd = "docker-compose"
+$composeArgs = @()
+$composeAvailable = $false
 try {
     & docker-compose --version 2>$null
-    if ($LASTEXITCODE -ne 0) {
-        $composeCmd = "docker compose"
-        & docker compose version
-        if ($LASTEXITCODE -ne 0) {
-            throw "Neither docker-compose nor docker compose work"
-        }
-    }
+    $composeAvailable = $LASTEXITCODE -eq 0
 } catch {
-    Write-Error "Docker Compose is not available. Please install Docker Desktop."
-    exit 1
+    $composeAvailable = $false
+}
+if (-not $composeAvailable) {
+    $composeCmd = "docker"
+    $composeArgs = @("compose")
+    & docker compose version
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Docker Compose is not available. Please install Docker Desktop."
+        exit 1
+    }
 }
 
-Write-Host "✓ Using Docker Compose: $composeCmd" -ForegroundColor Green
+Write-Host "✓ Using Docker Compose: $composeCmd $($composeArgs -join ' ')" -ForegroundColor Green
 
 # Check required files
 $requiredFiles = @("docker-compose.yml", ".env", "test_suite.py", "LDMP")
@@ -104,7 +110,7 @@ Write-Host "✓ Docker image ready" -ForegroundColor Green
 # Clean up any existing containers
 if ($CleanUp) {
     Write-Host "Cleaning up any existing containers..." -ForegroundColor Yellow
-    & $composeCmd down 2>$null | Out-Null
+    & $composeCmd @composeArgs down 2>$null | Out-Null
 }
 
 # Write .env like CI (overwrites existing)
@@ -112,7 +118,7 @@ if ($CleanUp) {
 
 # Start Docker environment
 Write-Host "Starting QGIS testing environment (full stack)..." -ForegroundColor Yellow
-& $composeCmd up -d
+& $composeCmd @composeArgs up -d
 
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Failed to start Docker environment"
@@ -124,23 +130,27 @@ Write-Host "Sleeping 60s to allow container initialization..." -ForegroundColor 
 Start-Sleep -Seconds 60
 
 # Post-initialization container status check
-$status = (& $composeCmd ps qgis-testing-environment 2>$null) -join "`n"
+$status = (& $composeCmd @composeArgs ps qgis-testing-environment 2>$null) -join "`n"
 if (-not ($status -match 'Up') -or $status -match 'Exited') {
     Write-Error "Container exited during initialization. Capturing diagnostics..."
     Write-Host "---- docker compose ps ----" -ForegroundColor DarkGray
-    try { & $composeCmd ps } catch { $null }
+    try { & $composeCmd @composeArgs ps } catch { $null }
     Write-Host "---- container logs ----" -ForegroundColor DarkGray
-    try { & $composeCmd logs qgis-testing-environment } catch { Write-Warning "Log retrieval failed: $($_.Exception.Message)" }
+    try { & $composeCmd @composeArgs logs qgis-testing-environment } catch { Write-Warning "Log retrieval failed: $($_.Exception.Message)" }
     Write-Host "---- entrypoint script (head) ----" -ForegroundColor DarkGray
     if (Test-Path docker/qgis-testing-entrypoint.sh) { Get-Content docker/qgis-testing-entrypoint.sh -TotalCount 40 }
     Write-Host "---- pre-script (head) ----" -ForegroundColor DarkGray
     if (Test-Path docker/trends-earth-test-pre-scripts.sh) { Get-Content docker/trends-earth-test-pre-scripts.sh -TotalCount 60 }
-    if ($CleanUp) { & $composeCmd down -v | Out-Null }
+    if ($CleanUp) { & $composeCmd @composeArgs down -v | Out-Null }
     exit 1
 }
 
-Write-Host "Installing test dependencies (pytest, python-dotenv) ..." -ForegroundColor Yellow
-& $composeCmd exec -T qgis-testing-environment sh -lc "if ! command -v pip3 >/dev/null 2>&1; then apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*; fi && python3 -m pip install --no-cache-dir -U pytest python-dotenv" | Out-Null
+Write-Host "Installing test dependencies (pytest, python-dotenv, coverage) ..." -ForegroundColor Yellow
+& $composeCmd @composeArgs exec -T qgis-testing-environment sh -lc "export PIP_BREAK_SYSTEM_PACKAGES=1; if ! command -v pip3 >/dev/null 2>&1; then apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*; fi && python3 -m pip install --no-cache-dir -U pytest python-dotenv coverage"
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Failed to install test dependencies"
+    exit 1
+}
 
 # Run the tests
 Write-Host ""
@@ -162,10 +172,10 @@ Write-Host "Running primary test attempt ($TestTarget)..." -ForegroundColor Yell
 
 # Preflight diagnostic to show Python, QGIS, GDAL versions (mirrors what CI logs expose)
 if ($Verbose) {
-    & $composeCmd exec -w /tests_directory qgis-testing-environment python3 -c "import qgis.core,osgeo.gdal as gdal,sys;print('QGIS',qgis.core.Qgis.QGIS_VERSION_INT,'GDAL',gdal.VersionInfo('RELEASE_NAME'),'Python',sys.version.split()[0])" 2>&1
+    & $composeCmd @composeArgs exec -w /tests_directory qgis-testing-environment python3 -c "import qgis.core,osgeo.gdal as gdal,sys;print('QGIS',qgis.core.Qgis.QGIS_VERSION,'GDAL',gdal.VersionInfo('RELEASE_NAME'),'Python',sys.version.split()[0])" 2>&1
 }
 
-& $composeCmd exec -T qgis-testing-environment sh -lc "qgis_testrunner.sh $TestTarget"
+& $composeCmd @composeArgs exec -T qgis-testing-environment sh -lc "qgis_testrunner.sh $TestTarget"
 $exitCode = $LASTEXITCODE
 
 Remove-Variable exitCode -ErrorAction SilentlyContinue
@@ -181,6 +191,6 @@ if ($exitCode -eq 0) { Write-Host "✓ Tests passed" -ForegroundColor Green } el
 
 # Cleanup
 Write-Host ""
-if ($CleanUp) { & $composeCmd down -v | Out-Null } else { Write-Host "(Leaving containers running)" -ForegroundColor Yellow }
+if ($CleanUp) { & $composeCmd @composeArgs down -v | Out-Null } else { Write-Host "(Leaving containers running)" -ForegroundColor Yellow }
 
 exit $exitCode

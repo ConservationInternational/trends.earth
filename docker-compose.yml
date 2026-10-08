@@ -8,6 +8,9 @@ services:
       WITH_PYTHON_PEP: "${WITH_PYTHON_PEP}"
       ON_TRAVIS: "${ON_TRAVIS}"
       MUTE_LOGS: "${MUTE_LOGS}"
+      PIP_BREAK_SYSTEM_PACKAGES: "1"
+      QT_QPA_PLATFORM: "offscreen"
+      QTWEBENGINE_DISABLE_SANDBOX: "1"
       DISPLAY: ":99"
     working_dir: /tests_directory
     entrypoint: /tests_directory/docker/qgis-testing-entrypoint.sh

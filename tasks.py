@@ -13,11 +13,11 @@ import zipfile
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path, PurePath
-from tempfile import NamedTemporaryFile, mkstemp
+from tempfile import NamedTemporaryFile, TemporaryDirectory, mkstemp
 
 import boto3
 import requests
-from invoke import Collection, task
+from invoke import Collection, Exit, task
 
 
 class ReleaseFetchError(RuntimeError):
@@ -414,103 +414,6 @@ def set_version(c, modules=False, gee=False, version=None):
             ret = query_yes_no(f"Also set version for {module['name']}?")
             if ret:
                 subprocess.check_call(["invoke", "set-version"], cwd=module_path)
-
-
-@task()
-def release_github(c):
-    v = get_version(c)
-
-    # Build the plugin zipfile
-    print("Building plugin zipfile for release...")
-    zipfile_path = zipfile_build(c, clean=True, version=3, tests=False)
-    zipfile_name = os.path.basename(zipfile_path)
-
-    print(f"Plugin zipfile created at: {zipfile_path}")
-
-    # Make release
-    payload = {
-        "tag_name": f"v{v}",
-        "name": f"Version {v}",
-        "body": """To install this release, download the LDMP.zip file below and then follow [the instructions for installing a release from Github](https://github.com/ConservationInternational/trends.earth#stable-version-from-zipfile).""",
-    }
-
-    print("Creating GitHub release...")
-    print(f"Repository: {c.github.repo_owner}/{c.github.repo_name}")
-    print(f"API URL: {c.github.api_url}")
-
-    # Verify token is configured
-    if not hasattr(c.github, "token") or not c.github.token:
-        raise ValueError(
-            "GitHub token not found. Please set 'github.token' in your invoke.yaml file.\n"
-            "The token needs 'repo' scope to create releases.\n"
-            "Create a token at: https://github.com/settings/tokens/new"
-        )
-
-    headers = {"Authorization": f"token {c.github.token}"}
-
-    # Test authentication first
-    auth_test = requests.get(f"{c.github.api_url}/user", headers=headers)
-
-    if auth_test.status_code == 401:
-        raise ValueError(
-            "GitHub token authentication failed (401 Unauthorized).\n"
-            "Your token may be expired or invalid.\n"
-            "Please update 'github.token' in your invoke.yaml file.\n"
-            "Create a new token with 'repo' scope at: https://github.com/settings/tokens/new"
-        )
-    elif auth_test.status_code == 403:
-        raise ValueError(
-            "GitHub token lacks required permissions (403 Forbidden).\n"
-            "Your token needs 'repo' scope to create releases.\n"
-            "Update your token at: https://github.com/settings/tokens"
-        )
-
-    auth_test.raise_for_status()
-    user_data = auth_test.json()
-    print(f"Authenticated as: {user_data.get('login', 'unknown')}")
-
-    r = requests.post(
-        f"{c.github.api_url}/repos/{c.github.repo_owner}/{c.github.repo_name}/releases",
-        json=payload,
-        headers=headers,
-    )
-
-    if r.status_code == 401:
-        raise ValueError(
-            "GitHub API authentication failed when creating release.\n"
-            "Please verify your token has 'repo' scope."
-        )
-    elif r.status_code == 404:
-        raise ValueError(
-            f"Repository not found: {c.github.repo_owner}/{c.github.repo_name}\n"
-            "Please verify the repository name and that your token has access to it."
-        )
-
-    r.raise_for_status()
-
-    release_data = r.json()
-    release_id = release_data["id"]
-    upload_url = release_data["upload_url"].replace("{?name,label}", "")
-
-    print(f"Release created with ID: {release_id}")
-    print(f"Uploading asset: {zipfile_name}")
-
-    # Upload the zipfile as a release asset
-    with open(zipfile_path, "rb") as f:
-        asset_data = f.read()
-
-    headers = {
-        "Authorization": f"token {c.github.token}",
-        "Content-Type": "application/zip",
-    }
-
-    upload_response = requests.post(
-        upload_url, params={"name": zipfile_name}, headers=headers, data=asset_data
-    )
-    upload_response.raise_for_status()
-
-    print(f"Successfully uploaded {zipfile_name} to release v{v}")
-    print(f"Release URL: {release_data['html_url']}")
 
 
 @task(
@@ -1193,7 +1096,7 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
     }
 )
 def plugin_install(
-    c, clean=False, version=3, profile="default", fast=False, link=False
+    c, clean=False, version=4, profile="default", fast=False, link=False
 ):
     """install plugin to qgis (version 3 or 4)"""
     set_version(c)
@@ -2320,7 +2223,17 @@ def _make_zip(zipFile, c):
             # normalizer.exe, etc.) are not needed at runtime by the plugin.
             if f.endswith(".exe"):
                 continue
-            zipFile.write(src_path, os.path.join(relpath, f))
+            archive_path = os.path.join(relpath, f)
+            file_mode = os.stat(src_path).st_mode
+            if f.endswith(".py") and file_mode & 0o111:
+                info = zipfile.ZipInfo.from_file(src_path, archive_path)
+                permissions = stat.S_IMODE(file_mode) & ~0o111
+                info.external_attr = (stat.S_IFREG | permissions) << 16
+                info.compress_type = zipFile.compression
+                with open(src_path, "rb") as source:
+                    zipFile.writestr(info, source.read())
+            else:
+                zipFile.write(src_path, archive_path)
 
     # Include the license file within the plugin zipfile (it is in root of
     # repo, so otherwise would be skipped)
@@ -2329,14 +2242,13 @@ def _make_zip(zipFile, c):
 
 @task(
     help={
-        "qgis": "QGIS version to target",
         "clean": "Clean out dependencies and untracked data files before packaging",
         "pip": 'Path to pip (usually "pip" or "pip3"',
         "tag": "Whether to tag on Github",
         "filename": "Name for output file",
     }
 )
-def zipfile_deploy(c, qgis, clean=True, pip="pip", tag=False, filename=None):
+def zipfile_deploy(c, clean=True, pip="pip", tag=False, filename=None):
     filename = zipfile_build(c, pip=pip, clean=clean, tag=tag, filename=filename)
     client = _get_s3_client()
 
@@ -2637,90 +2549,32 @@ def testdata_sync(c):
 
 @task(
     help={
-        "fix": "attempt to auto-fix issues where possible",
+        "filename": "Existing plugin ZIP to scan (defaults to packaging the current source)",
     }
 )
-def security_scan(c, fix=False):
-    """Run the QGIS plugin repository security checks (bandit, detect-secrets, flake8)."""
-    plugin_dir = c.plugin.source_dir
-    ext_libs = c.plugin.ext_libs["path"]
+def security_scan(c, filename=None):
+    """Build and scan the plugin ZIP with the shared QGIS security scanner."""
+    with TemporaryDirectory() as temporary_dir:
+        if filename is None:
+            filename = os.path.join(temporary_dir, "plugin.zip")
+            with zipfile.ZipFile(filename, "w", zipfile.ZIP_DEFLATED) as archive:
+                _make_zip(archive, c)
 
-    bandit_findings = []
-    bandit_cmd = [
-        "bandit",
-        "-r",
-        plugin_dir,
-        "-f",
-        "json",
-        "-ll",
-        "--quiet",
-    ]
-    result = subprocess.run(bandit_cmd, capture_output=True, text=True, check=False)
-    if result.stdout and result.stdout.strip():
-        try:
-            bandit_scan = json.loads(result.stdout)
-            for issue in bandit_scan.get("results", []):
-                bandit_findings.append(
-                    {
-                        "file": issue.get("filename", ""),
-                        "line": issue.get("line_number", 0),
-                        "type": issue.get("test_id", ""),
-                        "message": issue.get("issue_text", ""),
-                    }
-                )
-        except json.JSONDecodeError:
-            if result.stderr:
-                print(result.stderr)
-
-    if bandit_findings:
-        print("=== Bandit (static security analysis) ===")
-        for finding in bandit_findings:
-            print(
-                f"  {finding['file']}:{finding['line']} - "
-                f"{finding['type']}: {finding['message']}"
-            )
-
-    secrets_findings = []
-    ds_cmd = [
-        "detect-secrets",
-        "scan",
-        "--all-files",
-        ".",
-    ]
-    result = subprocess.run(
-        ds_cmd, capture_output=True, text=True, cwd=plugin_dir, check=False
-    )
-    if result.returncode != 0:
-        print(result.stderr)
-    elif result.stdout and result.stdout.strip():
-        scan = json.loads(result.stdout)
-        results = scan.get("results", {})
-        if results:
-            for filepath, findings in sorted(results.items()):
-                for f in findings:
-                    secrets_findings.append(
-                        {
-                            "file": filepath,
-                            "line": f.get("line_number", 0),
-                        }
-                    )
-
-    ds_count = len(secrets_findings)
-    if ds_count:
-        print(
-            f"\n=== detect-secrets (hardcoded secrets detection): {ds_count} potential issue(s) found ==="
+        result = subprocess.run(
+            [
+                sys.executable,
+                os.path.join(os.path.dirname(__file__), "scripts", "security_scan.py"),
+                os.path.abspath(filename),
+                "--plugin-name",
+                c.plugin.name,
+            ],
+            check=False,
         )
-        print(f"  Run 'detect-secrets scan --all-files .' in {plugin_dir} for details.")
-
-    print("\n=== Flake8 (code quality) ===")
-    flake8_cmd = [
-        sys.executable,
-        "-m",
-        "flake8",
-        plugin_dir,
-        f"--exclude={ext_libs}",
-    ]
-    subprocess.run(flake8_cmd, check=False)
+        if result.returncode:
+            raise Exit(
+                "Critical security findings block this plugin version",
+                code=result.returncode,
+            )
 
 
 ns = Collection(
@@ -2745,7 +2599,6 @@ ns = Collection(
     tecli_logs,
     zipfile_build,
     zipfile_deploy,
-    release_github,
     update_script_ids,
     testdata_sync,
     rtd_pre_build,

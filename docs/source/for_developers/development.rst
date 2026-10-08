@@ -68,7 +68,8 @@ QGIS, you will also need a local version of Python that you can setup with the
 software needed to manage the plugin. The easiest way to manage multiple
 versions of Python is through the `Anaconda distribution
 <https://www.anaconda.com>`_. For work developing the plugin, Python
-3 is required. To download Python 3.7 (recommended) through Anaconda,
+3.12 or newer is required, both locally and in the QGIS runtime. To download
+Python through Anaconda,
 `see this page <https://www.anaconda.com/distribution/#download-section>`_.
 
 Python dependencies
@@ -84,7 +85,7 @@ code folder and typing::
    pip install -r requirements-dev.txt
 
 .. note::
-   If you are using Anaconda, you will first want to activate a Python 3.7
+   If you are using Anaconda, you will first want to activate a Python 3.12 or newer
    virtual environment before running the above command (and any of the other
    invoke commands listed on the page). One way to do this is by starting an
    "Anaconda prompt", by `following the instructions on this Anaconda page
@@ -1009,24 +1010,17 @@ This creates the plugin's annotated git tag (e.g., ``v2.1.20``) and pushes it
 to GitHub. If you have uncommitted changes, the task will prompt you to commit
 them first.
 
-**6. Create GitHub release**
+**6. Publish stable GitHub release**
 
-Run the ``release-github`` task to create a release on GitHub with the plugin
-zipfile attached::
+Pushing the version tag automatically builds and publishes the GitHub release
+when the final numeric component is even (for example, ``v2.1.20``). The
+workflow builds the ZIP from that exact tag, embeds its commit SHA, and attaches
+the archive to the release. Tags whose final numeric component is odd are
+treated as development versions and do not create a GitHub release.
 
-   invoke release-github
+To rebuild or replace an existing release asset without moving its tag, run::
 
-This command will:
-
-  - Build a clean plugin zipfile (e.g., ``LDMP_2.1.20.zip``) with all
-    dependencies
-  - Remove all ``.pyc`` files to comply with QGIS repository security
-    requirements
-  - Create a GitHub release with plugin zipfile attached as a downloadable asset
-
-.. note:: You will need a GitHub personal access token with ``repo`` scope
-   configured in your ``invoke.yaml`` file for this command to work. See the
-   error messages if authentication fails for instructions on creating a token.
+   gh workflow run publish_plugin_repository.yaml -f tag=v2.3.4
 
 **7. Publish to QGIS repository**
 

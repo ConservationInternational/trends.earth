@@ -39,7 +39,9 @@ def show_time_series(iface, parent=None, use_tool_flag=True):
     """
     time_series_dlg = DlgTimeseries(iface, KNOWN_SCRIPTS["time-series"], parent)
     if use_tool_flag:
-        time_series_dlg.setWindowFlags(time_series_dlg.windowFlags() | Qt.Tool)
+        time_series_dlg.setWindowFlags(
+            time_series_dlg.windowFlags() | Qt.WindowType.Tool
+        )
         time_series_dlg.show()
     else:
         time_series_dlg.exec()

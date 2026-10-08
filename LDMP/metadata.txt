@@ -1,9 +1,9 @@
 [general]
 name=trends.earth
-qgisMinimumVersion=3.22
+qgisMinimumVersion=3.44
 qgisMaximumVersion=4.99
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.3.2
+version=2.3.6
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -26,7 +26,24 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.3.2 (July 2, 2026)
+changelog=2.3.6 (October 6, 2026)
+  - Fixed drought vulnerability calculations to preserve population values as floating-point numbers
+  - Improved compatibility with QGIS 4 and Qt 6
+  - Requires QGIS 3.44 or newer, changed supported Python version to 3.12 or newer
+ 2.3.4 (September 29, 2026)
+  - Fix formatting of "Soil organic carbon change from initial year to final year" table
+  - Remove no longer used SOC by transition table from land degradation report template
+  - Add rows to drought excel report template to allow for longer timeseries
+  - Fix off-by-one bug in worst drought calculation (fourth year of every period was not considered)
+  - Added support for importing male and female population rasters
+  - Fixed WorldPop population exports and processing to preserve totals and precision during resampling
+  - Improved performance and progress reporting for zonal statistics, including FWv2 processing resolution
+  - Added options to configure notification emails during registration and profile updates
+  - Added experimental LDN planning analysis support
+  - Updated translations and dependencies
+  - Applied security and maintenance fixes
+  - Security fixes for QGIS plugin website
+ 2.3.2 (July 2, 2026)
   - Added support for 30-meter resolution land productivity datasets (FWv2)
   - Fixed incorrect date range handling for JRC (Joint Research Centre) datasets
   - Fixed Qt 6 compatibility issues causing charts not to display correctly

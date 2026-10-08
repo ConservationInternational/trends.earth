@@ -49,10 +49,7 @@ from qgis.PyQt.QtCore import (
 from qgis.PyQt.QtXml import QDomDocument
 from qgis.utils import iface
 
-try:
-    _EXPORT_SUCCESS = QgsLayoutExporter.Success
-except AttributeError:
-    _EXPORT_SUCCESS = QgsLayoutExporter.ExportResult.Success
+_EXPORT_SUCCESS = QgsLayoutExporter.ExportResult.Success
 from te_schemas.results import Band as JobBand
 
 from ..jobs.models import Job
@@ -152,16 +149,16 @@ class ReportTaskProcessor:
 
         # Log to feedback object if specified
         if self._feedback:
-            if level == Qgis.Info:
+            if level == Qgis.MessageLevel.Info:
                 self._feedback.pushInfo(message)
-            elif level == Qgis.Warning:
+            elif level == Qgis.MessageLevel.Warning:
                 self._feedback.reportError(message)
 
     def _append_warning_msg(self, msg):
-        self._append_message(Qgis.Warning, msg)
+        self._append_message(Qgis.MessageLevel.Warning, msg)
 
     def _append_info_msg(self, msg):
-        self._append_message(Qgis.Info, msg)
+        self._append_message(Qgis.MessageLevel.Info, msg)
 
     def _process_cancelled(self) -> bool:
         # Check if there is a request to cancel the process, True to cancel.
@@ -764,7 +761,7 @@ class ReportTaskProcessor:
         for i in range(1, layout_model.rowCount()):
             item_idx = layout_model.index(i, 0)
             item = layout_model.itemFromIndex(item_idx)
-            if item.type() == QgsLayoutItemRegistry.LayoutLegend:
+            if item.type() == QgsLayoutItemRegistry.ItemType.LayoutLegend:
                 if item.linkedMap().uuid() == map_item.uuid():
                     item.setLegendFilterByMapEnabled(True)
                     self._update_map_legend_items(item)
@@ -789,9 +786,9 @@ class ReportTaskProcessor:
         child_layers = layer_root.findLayers()
         for cl in child_layers:
             if self._legend_renderer_ctx.remove_sub_group_heading:
-                QgsLegendRenderer.setNodeLegendStyle(cl, QgsLegendStyle.Hidden)
+                QgsLegendRenderer.setNodeLegendStyle(cl, QgsLegendStyle.Style.Hidden)
             else:
-                QgsLegendRenderer.setNodeLegendStyle(cl, QgsLegendStyle.Subgroup)
+                QgsLegendRenderer.setNodeLegendStyle(cl, QgsLegendStyle.Style.Subgroup)
 
             # Also check if we need to remove category title e.g.
             # Band xx: xxx...
@@ -848,7 +845,7 @@ class ReportTaskProcessor:
         # Get template contents
         template_file = QFile(path)
         try:
-            if not template_file.open(QIODevice.ReadOnly):
+            if not template_file.open(QIODevice.OpenModeFlag.ReadOnly):
                 self._append_warning_msg(f"Cannot read '{path}'.")
                 return False, None
 
@@ -870,7 +867,7 @@ class ReportProcessHandlerTask(QgsTask):
     """
 
     def __init__(self, ctx_file_path: str, qgis_proc_path: str, description):
-        super().__init__(description, QgsTask.CanCancel)
+        super().__init__(description, QgsTask.Flag.CanCancel)
         self._ctx_file_path = ctx_file_path
         self._qgs_proc_path = qgis_proc_path
         self._process = None
@@ -900,8 +897,20 @@ class ReportProcessHandlerTask(QgsTask):
             # (not PIPE) so no pipe file objects are opened, and keep a
             # reference so the helper process can be reaped rather than
             # leaking and emitting a ResourceWarning when garbage collected.
+            taskkill_path = os.path.abspath(
+                os.path.join(
+                    os.environ.get("SystemRoot", r"C:\Windows"),
+                    "System32",
+                    "taskkill.exe",
+                )
+            )
+            if not os.path.isfile(taskkill_path):
+                raise FileNotFoundError(
+                    "Could not locate the Windows taskkill executable."
+                )
+            # The PID is this task's child; the system executable and argv are fixed.
             killer = subprocess.Popen(
-                ["TASKKILL", "/F", "/PID", str(pid), "/T"],
+                [taskkill_path, "/F", "/PID", str(pid), "/T"],  # nosec B603
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
@@ -980,6 +989,11 @@ class ReportProcessHandlerTask(QgsTask):
         if self.isCanceled():
             return False
 
+        if not os.path.isabs(self._qgs_proc_path) or not os.path.isfile(
+            self._qgs_proc_path
+        ):
+            raise FileNotFoundError("QGIS processing executable path is not valid.")
+
         input_file = f"INPUT={self._ctx_file_path}"
         args = [self._qgs_proc_path, "run", "trendsearth:reporttask", "--", input_file]
 
@@ -989,7 +1003,8 @@ class ReportProcessHandlerTask(QgsTask):
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
         # Start process
-        self._process = subprocess.Popen(args, startupinfo=startupinfo)
+        # The executable is validated as an absolute path from the QGIS install.
+        self._process = subprocess.Popen(args, startupinfo=startupinfo)  # nosec B603
 
         # Monitor the report output directory for file changes; if nothing
         # is written for _INACTIVITY_TIMEOUT_S the process is killed.
@@ -1091,13 +1106,13 @@ class ReportGeneratorManager(QObject):
         push_message(self.message_bar, self.tr("Report Status"), msg, level)
 
     def _push_info_message(self, msg):
-        self._push_message(msg, Qgis.Info)
+        self._push_message(msg, Qgis.MessageLevel.Info)
 
     def _push_warning_message(self, msg):
-        self._push_message(msg, Qgis.Warning)
+        self._push_message(msg, Qgis.MessageLevel.Warning)
 
     def _push_success_message(self, msg):
-        self._push_message(msg, Qgis.Success)
+        self._push_message(msg, Qgis.MessageLevel.Success)
 
     def _write_context_to_file(self, ctx, task_id: str) -> str:
         # Write report task context to file.
@@ -1270,8 +1285,8 @@ class ReportGeneratorManager(QObject):
             return False
 
         if (
-            handler.status() != QgsTask.Complete
-            or handler.status() != QgsTask.Terminated
+            handler.status() != QgsTask.TaskStatus.Complete
+            or handler.status() != QgsTask.TaskStatus.Terminated
         ):
             handler.cancel()
 
@@ -1316,11 +1331,11 @@ class ReportGeneratorManager(QObject):
         if ctx is None:
             return
 
-        if status == QgsTask.Running:
+        if status == QgsTask.TaskStatus.Running:
             self.task_running.emit(ctx.id())
 
         # Remove context file if task has been successfully completed.
-        elif status == QgsTask.Complete:
+        elif status == QgsTask.TaskStatus.Complete:
             if ctx in self._ctx_file_paths:
                 ctx_file_path = self._ctx_file_paths[ctx]
                 ctx_file = QFile(ctx_file_path)
@@ -1337,7 +1352,7 @@ class ReportGeneratorManager(QObject):
             # Launch next queued task(s) if any
             self._drain_queue()
 
-        elif status == QgsTask.Terminated:
+        elif status == QgsTask.TaskStatus.Terminated:
             # Persist failure count for genuine failures (not user-initiated
             # cancellations) so that the retry limit survives restarts.
             handler = self.handler_task_from_context(ctx)

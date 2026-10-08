@@ -231,7 +231,7 @@ class LDMPPlugin:
         self.toolbar.setObjectName("trends_earth_toolbar")
         self.toolButton = QToolButton()
         self.toolButton.setMenu(QMenu())
-        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
+        self.toolButton.setPopupMode(QToolButton.ToolButtonPopupMode.MenuButtonPopup)
         self.toolBtnAction = self.toolbar.addWidget(self.toolButton)
         self.actions.append(self.toolBtnAction)
         self.dlg_about = about.DlgAbout()
@@ -389,7 +389,9 @@ class LDMPPlugin:
                 self.dock_widget = main_widget.MainWidget(
                     self.iface, parent=self.iface.mainWindow()
                 )
-                self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
+                self.iface.addDockWidget(
+                    Qt.DockWidgetArea.RightDockWidgetArea, self.dock_widget
+                )
                 self.dock_widget.visibilityChanged.connect(
                     self.on_dock_visibility_changed
                 )
@@ -447,7 +449,7 @@ class LDMPPlugin:
     def on_layout_designer_opened(self, designer: QgsLayoutDesignerInterface):
         # Register custom report variables in a print layout only.
         layout_type = designer.masterLayout().layoutType()
-        if layout_type == QgsMasterLayoutInterface.PrintLayout:
+        if layout_type == QgsMasterLayoutInterface.Type.PrintLayout:
             layout = designer.layout()
             ReportExpressionUtils.register_variables(layout)
 

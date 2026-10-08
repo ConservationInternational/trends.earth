@@ -101,7 +101,7 @@ class RequestTask(QgsTask):
         headers,
         timeout=30,
     ):
-        super().__init__(description, QgsTask.CanCancel | QgsTask.Silent)
+        super().__init__(description, QgsTask.Flag.CanCancel | QgsTask.Flag.Silent)
 
         self.description = description
         self.url = url
@@ -543,7 +543,7 @@ class APIClient(QtCore.QObject):
         log("Attempting to refresh access token")
 
         resp = self.call_api(
-            "/auth/refresh?legacy=false",
+            "/auth/refresh?legacy=false&rotate=true",
             method="post",
             payload={"refresh_token": refresh_token},
             use_token=False,  # Don't use token for refresh endpoint
@@ -709,7 +709,12 @@ class APIClient(QtCore.QObject):
         if access_token:
             try:
                 # Call logout endpoint to revoke the token on server side
-                resp = self.call_api("/auth/logout", method="post", use_token=True)
+                resp = self.call_api(
+                    "/auth/logout",
+                    method="post",
+                    payload={"refresh_token": refresh_token},
+                    use_token=True,
+                )
                 if resp:
                     log("Server-side logout successful")
                 else:
@@ -832,10 +837,12 @@ class APIClient(QtCore.QObject):
         clean_payload = payload.copy()
 
         if "password" in clean_payload:
-            clean_payload["password"] = "**REMOVED**"
+            # A redaction marker replaces the real password in logged payloads.
+            clean_payload["password"] = "**REMOVED**"  # nosec B105
 
         if "refresh_token" in clean_payload:
-            clean_payload["refresh_token"] = "**REMOVED**"
+            # A redaction marker replaces the real token in logged payloads.
+            clean_payload["refresh_token"] = "**REMOVED**"  # nosec B105
 
         return clean_payload
 
@@ -1055,17 +1062,9 @@ class APIClient(QtCore.QObject):
     ################################################################################
     # Functions supporting access to individual api endpoints
 
-    def recover_pwd(self, email, legacy=False):
-        """Request password recovery.
-
-        Args:
-            email: User's email address
-            legacy: If True, uses legacy mode (password emailed directly).
-                   If False (default), uses secure mode (reset link emailed).
-        """
-        endpoint = "/api/v1/user/{}/recover-password?legacy={}".format(
-            quote_plus(email), "true" if legacy else "false"
-        )
+    def recover_pwd(self, email):
+        """Request a secure password-reset link."""
+        endpoint = f"/api/v1/user/{quote_plus(email)}/recover-password"
         return self.call_api(endpoint, "post")
 
     def get_user(self, email="me"):
@@ -1090,7 +1089,6 @@ class APIClient(QtCore.QObject):
         name,
         organization,
         country,
-        legacy=False,
         role_title=None,
         sector=None,
         sector_other=None,
@@ -1111,9 +1109,6 @@ class APIClient(QtCore.QObject):
             name: User's full name
             organization: User's organization/institution
             country: User's country
-            legacy: If True, uses legacy mode (password emailed directly).
-                   If False (default), uses secure mode (reset link emailed
-                   so user can set their own password).
             role_title: User's role or job title
             sector: User's sector
             sector_other: Free-text sector description (when other is selected)
@@ -1163,8 +1158,7 @@ class APIClient(QtCore.QObject):
             payload["email_subscription_system_updates"] = (
                 email_subscription_system_updates
             )
-        endpoint = "/api/v1/user?legacy={}".format("true" if legacy else "false")
-        return self.call_api(endpoint, method="post", payload=payload)
+        return self.call_api("/api/v1/user", method="post", payload=payload)
 
     def update_user(
         self,

@@ -2,14 +2,13 @@
 
 import os
 from pathlib import Path
-from zipfile import ZipFile
 
 import qgis.core
 import qgis.gui
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.jobs import JobStatus
 
-from . import metadata, openFolder, utils
+from . import dataset_export, metadata, openFolder, utils
 from .jobs import manager
 from .jobs.models import Job
 from .json_viewer import JsonViewerWidget
@@ -168,20 +167,36 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
                 if uri_path is not None:
                     result_uris.append(uri_path)
 
-        paths_to_zip = result_uris + [current_job_file_path] + metadata_paths
         try:
-            with ZipFile(target_path, "w") as zip:
-                for path in paths_to_zip:
-                    zip.write(str(path), path.name)
-        except RuntimeError:
+            summary = dataset_export.write_dataset_archive(
+                target_path,
+                result_uris,
+                [current_job_file_path, *metadata_paths],
+            )
+        except (OSError, RuntimeError, ValueError) as exc:
+            log(f"Error exporting dataset {self.job}: {exc}")
             message_bar_item = self.bar.createMessage(
                 self.tr(f"Error exporting dataset {self.job}")
             )
             self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Critical)
         else:
-            message_bar_item = self.bar.createMessage(
-                self.tr(f"Dataset exported to {target_path!r}")
-            )
-            self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info)
+            if summary.missing_files:
+                log(
+                    f"Dataset export {target_path!s} is missing "
+                    f"{len(summary.missing_files)} file(s): {summary.missing_files}"
+                )
+                message_bar_item = self.bar.createMessage(
+                    self.tr(
+                        f"Dataset exported to {target_path!r}, but "
+                        f"{len(summary.missing_files)} referenced file(s) could "
+                        "not be found. Some layers in the export may not load."
+                    )
+                )
+                self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Warning)
+            else:
+                message_bar_item = self.bar.createMessage(
+                    self.tr(f"Dataset exported to {target_path!r}")
+                )
+                self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info)
         finally:
             self.export_btn.setEnabled(True)

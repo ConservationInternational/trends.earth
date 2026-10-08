@@ -98,11 +98,14 @@ foreach ($sp in $scriptPaths) {
     }
 }
 
-# Pull QGIS image
-Write-Host "Pulling QGIS image ($QgisVersion) ..." -ForegroundColor Yellow
-docker pull qgis/qgis:$QgisVersion
+# Write .env like CI (overwrites existing)
+"QGIS_VERSION_TAG=$QgisVersion`nIMAGE=qgis/qgis`nON_TRAVIS=true`nMUTE_LOGS=true`nWITH_PYTHON_PEP=true" | Set-Content .env -Encoding UTF8
+
+# Build the test image (QGIS base image plus test dependencies)
+Write-Host "Building QGIS test image ($QgisVersion) ..." -ForegroundColor Yellow
+& $composeCmd @composeArgs build --pull qgis-testing-environment
 if ($LASTEXITCODE -ne 0) {
-    Write-Error "Failed to pull Docker image"
+    Write-Error "Failed to build Docker test image"
     exit 1
 }
 Write-Host "✓ Docker image ready" -ForegroundColor Green
@@ -112,9 +115,6 @@ if ($CleanUp) {
     Write-Host "Cleaning up any existing containers..." -ForegroundColor Yellow
     & $composeCmd @composeArgs down 2>$null | Out-Null
 }
-
-# Write .env like CI (overwrites existing)
-"QGIS_VERSION_TAG=$QgisVersion`nIMAGE=qgis/qgis`nON_TRAVIS=true`nMUTE_LOGS=true`nWITH_PYTHON_PEP=true" | Set-Content .env -Encoding UTF8
 
 # Start Docker environment
 Write-Host "Starting QGIS testing environment (full stack)..." -ForegroundColor Yellow
@@ -142,13 +142,6 @@ if (-not ($status -match 'Up') -or $status -match 'Exited') {
     Write-Host "---- pre-script (head) ----" -ForegroundColor DarkGray
     if (Test-Path docker/trends-earth-test-pre-scripts.sh) { Get-Content docker/trends-earth-test-pre-scripts.sh -TotalCount 60 }
     if ($CleanUp) { & $composeCmd @composeArgs down -v | Out-Null }
-    exit 1
-}
-
-Write-Host "Installing test dependencies (pytest, python-dotenv, coverage) ..." -ForegroundColor Yellow
-& $composeCmd @composeArgs exec -T qgis-testing-environment sh -lc "export PIP_BREAK_SYSTEM_PACKAGES=1; if ! command -v pip3 >/dev/null 2>&1; then apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*; fi && python3 -m pip install --no-cache-dir -U pytest python-dotenv coverage"
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "Failed to install test dependencies"
     exit 1
 }
 

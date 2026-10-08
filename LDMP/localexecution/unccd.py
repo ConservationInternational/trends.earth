@@ -513,9 +513,13 @@ def compute_unccd_report(
 
     with tempfile.TemporaryDirectory() as temp_dir:
         paths = []
-        orig_summary_path_so1_so2 = Path(params["so1_so2_summary_path"])
+        orig_summary_path_so1_so2 = (
+            Path(params["so1_so2_summary_path"])
+            if params.get("include_so1_so2")
+            else None
+        )
 
-        if params["include_error_recode"]:
+        if params["include_error_recode"] and orig_summary_path_so1_so2 is not None:
             new_summary_path_so1_so2 = Path(temp_dir) / orig_summary_path_so1_so2.name
             inferred_periods = _infer_periods_affected_from_summary(
                 orig_summary_path_so1_so2

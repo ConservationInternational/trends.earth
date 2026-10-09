@@ -16,68 +16,41 @@ from qgis.PyQt import QtCore, QtWidgets
 from . import stac_conf
 from .jobs.manager import job_manager
 
+GEOTIFF_TYPE = "image/tiff; application=geotiff"
+
 
 def _stac_dataset_item(category, collection_id, stac):
     collection = stac["collection"]
     features = stac["items"]["features"]
-    min_x = min(f["bbox"][0] for f in features)
-    min_y = min(f["bbox"][1] for f in features)
-    max_x = max(f["bbox"][2] for f in features)
-    max_y = max(f["bbox"][3] for f in features)
-    temporal = collection["extent"].get("temporal", {})
-    interval = temporal.get("interval", [[None, None]])[0]
-    start_year = "NA"
-    end_year = "NA"
-    if (interval[0] or "")[:4]:
-        start_year = int(interval[0][:4])
-    if (interval[1] or "")[:4]:
-        end_year = int(interval[1][:4])
-
-    if start_year == end_year:
-        start_year = "NA"
-        end_year = "NA"
-
-    gsd = collection.get("summaries", {}).get("gsd", [])
     assets = {
         key: asset
         for feature in features
         for key, asset in feature["assets"].items()
-        if "data" in asset.get("roles", [])
+        if asset.get("type") == GEOTIFF_TYPE
     }
     return {
         "category": category,
         "title": collection.get("title", collection_id),
         "Units": "",
-        "Spatial Resolution": f"{gsd[0]} m" if gsd else "",
-        "Start year": start_year,
-        "End year": end_year,
-        "extent_lat": f"{min_y:.3f} - {max_y:.3f}",
-        "extent_lon": f"{min_x:.3f} - {max_x:.3f}",
+        "Spatial Resolution": stac["Spatial Resolution"],
+        "Start year": stac["Start year"],
+        "End year": stac["End year"],
+        "extent_lat": f"{stac['Min Latitude']} - {stac['Max Latitude']}",
+        "extent_lon": f"{stac['Min Longitude']} - {stac['Max Longitude']}",
         "Data source": ", ".join(p["name"] for p in collection.get("providers", [])),
         "Source": collection_id,
         "Citation": collection.get("sci:citation", ""),
         "stac_collection": collection_id,
         "assets": {key: asset["href"] for key, asset in assets.items()},
-        "layers": {
-            layer: {
-                key: assets[key].get("title", key) for key in layer_config["assets"]
-            }
-            for layer, layer_config in stac["layers"].items()
-        },
+        "asset_titles": {key: asset.get("title", key) for key, asset in assets.items()},
         "styles": {
-            key: layer_config["style"]
-            for layer_config in stac["layers"].values()
-            for key in layer_config["assets"]
+            key: stac.get("asset_styles", {}).get(key, stac["style"]) for key in assets
         },
     }
 
 
 def _stac_params(dataset, keys, task_name):
-    titles = {
-        key: title
-        for assets in dataset["layers"].values()
-        for key, title in assets.items()
-    }
+    titles = dataset["asset_titles"]
     return {
         "task_name": task_name,
         "task_notes": "",
@@ -131,20 +104,12 @@ class DlgDownloadStacMixin:
 
     def update_layers_tree(self, dataset):
         self.layers_selector.clear()
-        self.layers_selector_group.setVisible("layers" in dataset)
-        for layer, assets in dataset.get("layers", {}).items():
-            layer_item = QtWidgets.QTreeWidgetItem(self.layers_selector, [layer])
-            layer_item.setFlags(
-                layer_item.flags()
-                | QtCore.Qt.ItemIsUserCheckable
-                | QtCore.Qt.ItemIsAutoTristate
-            )
-            layer_item.setCheckState(0, QtCore.Qt.Unchecked)
-            for key, title in assets.items():
-                asset_item = QtWidgets.QTreeWidgetItem(layer_item, [title])
-                asset_item.setData(0, QtCore.Qt.UserRole, key)
-                asset_item.setFlags(asset_item.flags() | QtCore.Qt.ItemIsUserCheckable)
-                asset_item.setCheckState(0, QtCore.Qt.Unchecked)
+        self.layers_selector_group.setVisible("asset_titles" in dataset)
+        for key, title in dataset.get("asset_titles", {}).items():
+            asset_item = QtWidgets.QTreeWidgetItem(self.layers_selector, [title])
+            asset_item.setData(0, QtCore.Qt.UserRole, key)
+            asset_item.setFlags(asset_item.flags() | QtCore.Qt.ItemIsUserCheckable)
+            asset_item.setCheckState(0, QtCore.Qt.Unchecked)
         self.update_show_online_button()
 
     def update_show_online_button(self):
@@ -153,11 +118,9 @@ class DlgDownloadStacMixin:
     def checked_layers(self):
         keys = []
         for i in range(self.layers_selector.topLevelItemCount()):
-            layer_item = self.layers_selector.topLevelItem(i)
-            for j in range(layer_item.childCount()):
-                asset_item = layer_item.child(j)
-                if asset_item.checkState(0) == QtCore.Qt.Checked:
-                    keys.append(asset_item.data(0, QtCore.Qt.UserRole))
+            asset_item = self.layers_selector.topLevelItem(i)
+            if asset_item.checkState(0) == QtCore.Qt.Checked:
+                keys.append(asset_item.data(0, QtCore.Qt.UserRole))
         return keys
 
     def check_stac_layers(self, selected_datasets):

@@ -3,17 +3,41 @@
     "iceed-weplan-forests": {
       "collection": "iceed-weplan-forests.jsonc",
       "items": "iceed-weplan-forests.items.jsonc",
-      "layers": "iceed-weplan-forests.layers.jsonc"
+      "Start year": "NA",
+      "End year": "NA",
+      "Spatial Resolution": "1000 m",
+      "Min Longitude": -118.11,
+      "Max Longitude": 149.751,
+      "Min Latitude": -25.006,
+      "Max Latitude": 24.997,
+      "style": "WePlan restoration priority",
+      "asset_styles": {
+        "available_areas": "WePlan available areas"
+      }
     },
     "naturemap-areas-global-significance-for-restoration": {
       "collection": "naturemap-areas-global-significance-for-restoration.jsonc",
       "items": "naturemap-areas-global-significance-for-restoration.items.jsonc",
-      "layers": "naturemap-areas-global-significance-for-restoration.layers.jsonc"
+      "Start year": "NA",
+      "End year": "NA",
+      "Spatial Resolution": "10000 m",
+      "Min Longitude": -179.879,
+      "Max Longitude": 179.86,
+      "Min Latitude": -72.351,
+      "Max Latitude": 85.073,
+      "style": "Nature Map restoration priority"
     },
     "usgs-world-terrestrial-ecosystems": {
       "collection": "usgs-world-terrestrial-ecosystems.jsonc",
       "items": "usgs-world-terrestrial-ecosystems.items.jsonc",
-      "layers": "usgs-world-terrestrial-ecosystems.layers.jsonc"
+      "Start year": "NA",
+      "End year": "NA",
+      "Spatial Resolution": "250 m",
+      "Min Longitude": -180.0,
+      "Max Longitude": 179.999,
+      "Min Latitude": -56.0,
+      "Max Latitude": 83.624,
+      "style": "World Terrestrial Ecosystems"
     }
   }
 }

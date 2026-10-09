@@ -24,13 +24,13 @@ stac_datasets_dir = os.path.join(
 STAC_DATASETS = {
     category: {
         collection_id: {
+            **config,
             "collection": _load_jsonc(
-                os.path.join(stac_datasets_dir, files["collection"])
+                os.path.join(stac_datasets_dir, config["collection"])
             ),
-            "items": _load_jsonc(os.path.join(stac_datasets_dir, files["items"])),
-            "layers": _load_jsonc(os.path.join(stac_datasets_dir, files["layers"])),
+            "items": _load_jsonc(os.path.join(stac_datasets_dir, config["items"])),
         }
-        for collection_id, files in collections.items()
+        for collection_id, config in collections.items()
     }
     for category, collections in _load_jsonc(stac_datasets_file).items()
 }

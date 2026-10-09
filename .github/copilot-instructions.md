@@ -35,7 +35,7 @@ This is the main Trends.Earth QGIS plugin repository. Key directories:
 
 ### Local Testing
 
-Run the full Docker-based suite from the repository root. The Linux runner defaults to the QGIS tag in `.env` or `release-3_34`; pass a tag to select a matrix image:
+Run the full Docker-based suite from the repository root. The Linux runner defaults to the QGIS tag in `.env` or `3.44`; pass a tag to select a matrix image:
 
 ```bash
 ./run_tests.sh 3.44
@@ -65,7 +65,7 @@ TE_E2E_CLIENT_ID=... TE_E2E_CLIENT_SECRET=... TE_E2E_COUNTRIES=STP ./run_tests.s
 
 ### CI Testing
 
-The workflow at `.github/workflows/test.yaml` tests `3.44`, and `4.2-trixie` in Docker. The informational Marshmallow 4 job uses the same matrix.
+The workflow at `.github/workflows/test.yaml` tests `3.44` and `4.2-trixie` in Docker. The informational Marshmallow 4 job uses the same matrix.
 
 Compose builds `docker/test.Dockerfile` on top of `${IMAGE}:${QGIS_VERSION_TAG}`. The image build installs `requirements-testing.txt` plus `pytest`, `python-dotenv` and `coverage`, so containers do not install packages at startup. The Dockerfile handles differences in the newer Debian-based images: PEP 668 pip installs and the `git`, `unbuffer` and `pip` utilities. The entrypoint falls back to Xvfb for images without `supervisord`. Compose configures Qt for offscreen operation and disables the WebEngine sandbox for root-run containers. Add new test dependencies to `requirements-testing.txt` or the Dockerfile, not to workflow steps.
 

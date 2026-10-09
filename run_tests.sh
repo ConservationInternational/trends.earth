@@ -21,7 +21,7 @@ read_env_setting() {
 
 DOTENV_QGIS_VERSION_TAG="$(read_env_setting QGIS_VERSION_TAG)"
 DOTENV_IMAGE="$(read_env_setting IMAGE)"
-QGIS_VERSION_TAG="${1:-${QGIS_VERSION_TAG:-${DOTENV_QGIS_VERSION_TAG:-release-3_34}}}"
+QGIS_VERSION_TAG="${1:-${QGIS_VERSION_TAG:-${DOTENV_QGIS_VERSION_TAG:-3.44}}}"
 TEST_TARGET="${2:-test_suite.test_package}"
 IMAGE="${IMAGE:-${DOTENV_IMAGE:-qgis/qgis}}"
 SERVICE="${SERVICE:-qgis-testing-environment}"

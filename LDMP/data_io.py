@@ -839,7 +839,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
             aoi_name = path.stem.replace("_", " ").replace("-", " ")
 
             # Generate current timestamp
-            now = datetime.datetime.now(datetime.timezone.utc)
+            now = datetime.datetime.now(datetime.UTC)
             timestamp = now.isoformat()
 
             # Build the wrapped Job structure

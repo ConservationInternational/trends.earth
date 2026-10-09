@@ -505,7 +505,7 @@ class LocalJobTask(QgsTask):
 
     def finished(self, result):
         logger.debug("Finished task")
-        self.job.end_date = dt.datetime.now(dt.timezone.utc)
+        self.job.end_date = dt.datetime.now(dt.UTC)
         self.job.progress = 100
         if result:
             self.job.results = self.results
@@ -1403,7 +1403,7 @@ class JobManager(QtCore.QObject):
                         f"is no longer running)"
                     )
                     if j.end_date is None:
-                        j.end_date = dt.datetime.now(dt.timezone.utc)
+                        j.end_date = dt.datetime.now(dt.UTC)
                     self._change_job_status(j, jobs.JobStatus.FAILED)
                 else:
                     self._known_running_jobs[j.id] = j
@@ -1513,7 +1513,7 @@ class JobManager(QtCore.QObject):
           job metadata file to the `finished-jobs` directory on disk
 
         """
-        now = dt.datetime.now(tz=dt.timezone.utc)
+        now = dt.datetime.now(tz=dt.UTC)
 
         # Determine if we need a full refresh (auto-trigger after interval)
         do_full_refresh = full_refresh
@@ -1750,7 +1750,7 @@ class JobManager(QtCore.QObject):
             id=uuid.uuid4(),
             params=final_params,
             progress=0,
-            start_date=dt.datetime.now(dt.timezone.utc),
+            start_date=dt.datetime.now(dt.UTC),
             status=jobs.JobStatus.PENDING,
             local_context=_get_local_context(),
             task_name=task_name,
@@ -1828,7 +1828,7 @@ class JobManager(QtCore.QObject):
             id=uuid.uuid4(),
             params=final_params,
             progress=0,
-            start_date=dt.datetime.now(dt.timezone.utc),
+            start_date=dt.datetime.now(dt.UTC),
             status=jobs.JobStatus.PENDING,
             local_context=_get_local_context(),
             task_name=task_name,
@@ -1856,14 +1856,14 @@ class JobManager(QtCore.QObject):
             logger.exception("Execution handler raised an exception")
             job_logger.error(traceback.format_exc())
             job.status = jobs.JobStatus.FAILED
-            job.end_date = dt.datetime.now(dt.timezone.utc)
+            job.end_date = dt.datetime.now(dt.UTC)
             self.fail_local_job(job)
             return
 
         if done_job is None:
             job_logger.error("Execution handler returned no results")
             job.status = jobs.JobStatus.FAILED
-            job.end_date = dt.datetime.now(dt.timezone.utc)
+            job.end_date = dt.datetime.now(dt.UTC)
             self.fail_local_job(job)
             return
 
@@ -2240,7 +2240,7 @@ class JobManager(QtCore.QObject):
             script = conf.KNOWN_SCRIPTS["sdg-15-3-1-sub-indicators"]
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")
-        now = dt.datetime.now(tz=dt.timezone.utc)
+        now = dt.datetime.now(tz=dt.UTC)
         rasters = {
             DataType.INT16.value: Raster(
                 uri=URI(uri=dataset_path),
@@ -2254,7 +2254,7 @@ class JobManager(QtCore.QObject):
             id=uuid.uuid4(),
             params=params,
             progress=100,
-            start_date=dt.datetime.now(dt.timezone.utc),
+            start_date=dt.datetime.now(dt.UTC),
             status=jobs.JobStatus.GENERATED_LOCALLY,
             local_context=_get_local_context(),
             results=RasterResults(
@@ -2271,7 +2271,7 @@ class JobManager(QtCore.QObject):
         return job
 
     def create_error_recode(self, task_name, lc, soil, prod, sdg):
-        now = dt.datetime.now(dt.timezone.utc)
+        now = dt.datetime.now(dt.UTC)
         job_id = uuid.uuid4()
         job = Job(
             id=job_id,
@@ -2556,7 +2556,7 @@ class JobManager(QtCore.QObject):
                         f"is no longer running)"
                     )
                     if old_running_job.end_date is None:
-                        old_running_job.end_date = dt.datetime.now(dt.timezone.utc)
+                        old_running_job.end_date = dt.datetime.now(dt.UTC)
                     self._change_job_status(old_running_job, jobs.JobStatus.FAILED)
                 else:
                     self._known_running_jobs[old_running_job.id] = old_running_job
@@ -2911,7 +2911,7 @@ class JobManager(QtCore.QObject):
         def is_naive(d):
             return d.tzinfo is None or d.tzinfo.utcoffset(d) is None
 
-        now = dt.datetime.now(tz=dt.timezone.utc)
+        now = dt.datetime.now(tz=dt.UTC)
 
         self._known_finished_jobs = {}
 
@@ -2946,7 +2946,7 @@ class JobManager(QtCore.QObject):
         deleted from disk.
         """
 
-        now = dt.datetime.now(tz=dt.timezone.utc)
+        now = dt.datetime.now(tz=dt.UTC)
         self._known_failed_jobs = {}
 
         for failed_job in self._get_local_jobs(jobs.JobStatus.FAILED):

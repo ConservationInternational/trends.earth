@@ -54,7 +54,7 @@ def compute_total_carbon_summary_table(
         name="total_carbon_summary",
         uri=URI(uri=summary_table_output_path),
     )
-    tc_job.end_date = dt.datetime.now(dt.timezone.utc)
+    tc_job.end_date = dt.datetime.now(dt.UTC)
     tc_job.progress = 100
 
     return tc_job

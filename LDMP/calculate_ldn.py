@@ -12,21 +12,25 @@
 """
 
 # pylint: disable=import-error
+import copy
 import json
+import math
 import time
 import weakref
 from dataclasses import asdict, dataclass, fields
 from pathlib import Path
 
+import qgis.core
 import qgis.gui
 import te_algorithms.gdal.land_deg.config as ld_config
+from osgeo import gdal
 from qgis.core import QgsGeometry
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
 
-from . import conf, lc_setup
+from . import GetTempFilename, areaofinterest, conf, lc_setup
 from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import ldn
@@ -53,6 +57,109 @@ DlgTimelinePeriodGraphUi, _ = uic.loadUiType(
 class tr_calculate_ldn:
     def tr(self, message):
         return QtCore.QCoreApplication.translate("tr_calculate_ldn", message)
+
+
+def subnational_period_key(period_name: str) -> str:
+    """
+    Normalise a period name so the sub-indicator dialog names
+    ("baseline", "reporting_1", ...) match the summary dialog names
+    ("baseline", "report_1", ...).
+    """
+    if period_name == "baseline":
+        return period_name
+    prefix, sep, number = (period_name or "").rpartition("_")
+    if sep and prefix in ("report", "reporting") and number.isdigit():
+        return f"reporting_{int(number)}"
+    return period_name
+
+
+def job_matches_subnational_unit(job, unit: dict, period_name=None) -> bool:
+    """
+    Return True if a sub-indicator job was run for the given subnational unit
+    and, when ``period_name`` is given, for that period.
+    """
+    params = job.params or {}
+    tag = params.get("subnational_unit")
+
+    if isinstance(tag, dict) and tag.get("id"):
+        if tag["id"] != unit.get("id"):
+            return False
+        job_period = (params.get("period") or {}).get("name", "")
+    else:
+        task_name = (job.task_name or "").strip()
+        head, sep, job_period = task_name.rpartition(" - ")
+        if not sep or head != unit.get("name", ""):
+            return False
+
+    if period_name is None:
+        return True
+    return subnational_period_key(job_period) == subnational_period_key(period_name)
+
+
+def _raster_grid(path: str):
+    """Return (pixel_width, pixel_height, origin_x, origin_y, srs) for a raster."""
+    ds = gdal.Open(path)
+    if ds is None:
+        raise RuntimeError(f"Unable to open {path}")
+    origin_x, pixel_width, _, origin_y, _, pixel_height = ds.GetGeoTransform()
+    srs = ds.GetSpatialRef()
+    ds = None
+    return pixel_width, pixel_height, origin_x, origin_y, srs
+
+
+def check_subnational_rasters_consistent(unit_rasters) -> str | None:
+    """
+    Check that per-unit sub-indicator rasters can be mosaicked without
+    resampling: same pixel size, CRS, pixel grid alignment and band names.
+
+    ``unit_rasters`` is a list of ``(unit_name, path, band_names)``. Returns
+    None when all rasters match the first one, otherwise a message listing
+    the units that differ.
+    """
+    if len(unit_rasters) < 2:
+        return None
+
+    try:
+        grids = [_raster_grid(path) for _, path, _ in unit_rasters]
+    except RuntimeError as e:
+        return str(e)
+
+    ref_name, _, ref_bands = unit_rasters[0]
+    ref_w, ref_h, ref_x, ref_y, ref_srs = grids[0]
+
+    def _describe(width, height, srs):
+        units = srs.GetLinearUnitsName() if srs and srs.IsProjected() else "degrees"
+        return f"{abs(width):.6g} x {abs(height):.6g} {units}"
+
+    problems = []
+    for (name, _, bands), (width, height, x, y, srs) in zip(
+        unit_rasters[1:], grids[1:]
+    ):
+        if not math.isclose(width, ref_w, rel_tol=1e-6) or not math.isclose(
+            height, ref_h, rel_tol=1e-6
+        ):
+            problems.append(
+                f"'{name}' has a pixel size of {_describe(width, height, srs)}, "
+                f"but '{ref_name}' has {_describe(ref_w, ref_h, ref_srs)}."
+            )
+        elif ref_srs is None or srs is None or not srs.IsSame(ref_srs):
+            problems.append(
+                f"'{name}' uses a different coordinate system than '{ref_name}'."
+            )
+        elif any(
+            abs(offset - round(offset)) > 0.01
+            for offset in ((x - ref_x) / ref_w, (y - ref_y) / ref_h)
+        ):
+            problems.append(
+                f"'{name}' is not aligned to the same pixel grid as '{ref_name}'."
+            )
+        elif bands != ref_bands:
+            problems.append(
+                f"'{name}' has different bands than '{ref_name}' (were they "
+                "run with a different productivity mode or dataset?)."
+            )
+
+    return "\n".join(f"• {p}" for p in problems) or None
 
 
 @dataclass
@@ -1062,6 +1169,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.radio_lpd_fwv2.toggled.connect(self.toggle_lpd_options)
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
+        self.subnational_matrix_widgets: dict[
+            str, lc_setup.LCDefineDegradationWidget
+        ] = {}
 
         self.checkBox_progress_period.toggled.connect(self.toggle_progress_period)
         self.toggle_progress_period()
@@ -2001,6 +2111,47 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             layout.addWidget(self.lc_define_deg_widget)
             self.effects_content.setLayout(layout)
 
+        self._setup_subnational_matrix_tabs()
+
+    def _setup_subnational_matrix_tabs(self):
+        """
+        When subnational analysis units are defined, show one land cover
+        transition matrix tab per unit (each with its own persisted matrix)
+        instead of the single plugin-wide matrix widget.
+        """
+        subnational_enabled = conf.settings_manager.get_value(
+            conf.Setting.SUBNATIONAL_ENABLED
+        )
+        units = []
+        if subnational_enabled:
+            try:
+                units = json.loads(
+                    conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS)
+                    or "[]"
+                )
+            except (TypeError, ValueError):
+                units = []
+
+        if not units:
+            self.land_cover_effects.setVisible(True)
+            self.land_cover_subnational_matrices.setVisible(False)
+            return
+
+        self.land_cover_effects.setVisible(False)
+        self.land_cover_subnational_matrices.setVisible(True)
+
+        if self.subnational_matrix_tabs.count() > 0:
+            # Already built for this dialog instance.
+            return
+
+        for unit in units:
+            unit_id = unit.get("id")
+            widget = lc_setup.LCDefineDegradationWidget(unit_key=unit_id)
+            self.subnational_matrix_widgets[unit_id] = widget
+            self.subnational_matrix_tabs.addTab(
+                widget, unit.get("name") or self.tr("Unit")
+            )
+
     def toggle_progress_period(self):
         if self.checkBox_progress_period.isChecked():
             self.groupBox_progress_period.setVisible(True)
@@ -2546,8 +2697,54 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             payloads.append(payload)
 
+        subnational_enabled = conf.settings_manager.get_value(
+            conf.Setting.SUBNATIONAL_ENABLED
+        )
+        units = []
+        if subnational_enabled:
+            try:
+                units = json.loads(
+                    conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS)
+                    or "[]"
+                )
+            except (TypeError, ValueError):
+                units = []
+
+        if subnational_enabled and units:
+            disjoint_names = []
+            for unit in units:
+                try:
+                    unit_aoi = areaofinterest.aoi_from_unit(unit)
+                    if self.aoi.calc_disjoint(unit_aoi.get_unary_geometry()):
+                        disjoint_names.append(unit.get("name") or unit.get("id"))
+                except RuntimeError:
+                    pass
+
+            if disjoint_names:
+                names_list = "\n".join(f"• {n}" for n in disjoint_names)
+                reply = QtWidgets.QMessageBox.warning(
+                    self,
+                    self.tr("Units outside selected region"),
+                    self.tr(
+                        "The following subnational units do not overlap the "
+                        "selected region:\n\n"
+                        f"{names_list}\n\n"
+                        "Continue anyway?"
+                    ),
+                    QtWidgets.QMessageBox.StandardButton.Yes
+                    | QtWidgets.QMessageBox.StandardButton.No,
+                )
+                if reply == QtWidgets.QMessageBox.StandardButton.No:
+                    return
+
         self.close()
 
+        if subnational_enabled and units:
+            self._submit_subnational(payloads, units)
+        else:
+            self._submit_payloads(payloads)
+
+    def _submit_payloads(self, payloads):
         for payload in payloads:
             resp = job_manager.submit_remote_job(payload, self.script.id)
 
@@ -2562,6 +2759,91 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             push_message(
                 self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
             )
+
+    def _submit_subnational(self, payloads, units):
+        """
+        Submit one GEE job per (time period x subnational unit).
+        """
+        for unit in units:
+            unit_name = unit.get("name", "unit")
+
+            try:
+                unit_aoi = areaofinterest.aoi_from_unit(unit)
+            except RuntimeError as e:
+                push_message(
+                    self.mb,
+                    self.tr("Subnational unit error"),
+                    self.tr(str(e)),
+                    level=2,
+                    duration=10,
+                )
+                continue
+
+            ret = unit_aoi.bounding_box_gee_geojson()
+            if not ret:
+                push_message(
+                    self.mb,
+                    self.tr("Error"),
+                    self.tr(
+                        f"Unable to calculate bounding box for unit '{unit_name}'."
+                    ),
+                    level=2,
+                    duration=10,
+                )
+                continue
+
+            unit_crosses_180th, unit_geojsons = ret
+
+            unit_id = unit.get("id")
+            unit_matrix_widget = self.subnational_matrix_widgets.get(unit_id)
+
+            for payload in payloads:
+                unit_payload = dict(payload)
+                unit_payload["geojsons"] = unit_geojsons
+                unit_payload["crs"] = unit_aoi.get_crs_dst_wkt()
+                unit_payload["crosses_180th"] = unit_crosses_180th
+                period_part = payload.get("period", {}).get("name", "")
+                unit_payload["task_name"] = (
+                    f"{unit_name} - {period_part}" if period_part else unit_name
+                )
+                unit_payload["subnational_unit"] = {
+                    "id": unit.get("id"),
+                    "name": unit_name,
+                }
+
+                if unit_matrix_widget is not None:
+                    unit_trans_matrix = (
+                        unit_matrix_widget.get_trans_matrix_from_widget()
+                    )
+                    dumped = LCTransitionDefinitionDeg.Schema().dump(unit_trans_matrix)
+                    unit_payload["trans_matrix"] = dumped
+                    unit_payload["land_cover"] = copy.deepcopy(payload["land_cover"])
+                    unit_payload["land_cover"]["trans_matrix"] = dumped
+
+                resp = job_manager.submit_remote_job(unit_payload, self.script.id)
+
+                if resp:
+                    push_message(
+                        self.mb,
+                        self.tr("Submitted"),
+                        self.tr(
+                            f"SDG sub-indicator task for unit '{unit_name}' "
+                            f"submitted to Trends.Earth server."
+                        ),
+                        level=0,
+                        duration=5,
+                    )
+                else:
+                    push_message(
+                        self.mb,
+                        self.tr("Error"),
+                        self.tr(
+                            f"Unable to submit SDG sub-indicator task for unit "
+                            f"'{unit_name}' to Trends.Earth server."
+                        ),
+                        level=2,
+                        duration=5,
+                    )
 
 
 class DlgCalculateLDNSummaryTableAdmin(
@@ -2683,8 +2965,42 @@ class DlgCalculateLDNSummaryTableAdmin(
 
     def populate_combos(self):
         start = time.perf_counter()
-        for combo in self.combo_boxes.values():
-            combo.populate()
+
+        subnational_enabled = conf.settings_manager.get_value(
+            conf.Setting.SUBNATIONAL_ENABLED
+        )
+        units = []
+        if subnational_enabled:
+            try:
+                units = json.loads(
+                    conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS)
+                    or "[]"
+                )
+            except (TypeError, ValueError):
+                units = []
+
+        if subnational_enabled and units:
+            # Find job IDs of sub-indicator results run for any defined unit.
+            from te_schemas.jobs import JobStatus as _JobStatus
+
+            allowed_job_ids = {
+                str(job.id)
+                for job in job_manager.relevant_jobs
+                if hasattr(job, "script")
+                and job.script is not None
+                and job.script.name == "sdg-15-3-1-sub-indicators"
+                and job.status in (_JobStatus.DOWNLOADED, _JobStatus.GENERATED_LOCALLY)
+                and any(job_matches_subnational_unit(job, unit) for unit in units)
+            }
+            area_name = conf.settings_manager.get_value(conf.Setting.AREA_NAME)
+            n_units = len(units)
+            for combo in self.combo_boxes.values():
+                combo.populate_with_aoi(None, allowed_job_ids=allowed_job_ids)
+                combo.set_subnational_label(area_name, n_units)
+        else:
+            for combo in self.combo_boxes.values():
+                combo.populate()
+
         elapsed = time.perf_counter() - start
         log(f"SDG 15.3.1 dialog populate_combos took {elapsed:.3f}s")
 
@@ -3026,6 +3342,16 @@ class DlgCalculateLDNSummaryTableAdmin(
         if not ret:
             return
 
+        # In subnational mode the selected layers only cover one unit's area,
+        # not the full national AOI.
+        subnational_mode = conf.settings_manager.get_value(
+            conf.Setting.SUBNATIONAL_ENABLED
+        ) and bool(
+            json.loads(
+                conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS) or "[]"
+            )
+        )
+
         # Baseline
         #
 
@@ -3034,19 +3360,16 @@ class DlgCalculateLDNSummaryTableAdmin(
         else:
             pop_mode_baseline = ldn.PopulationMode.Total.value
 
-        if (
-            not self.validate_layer_selections(
+        baseline_valid = self.validate_layer_selections(
+            self.combo_boxes["baseline"], pop_mode_baseline
+        ) and self.validate_layer_crs(self.combo_boxes["baseline"], pop_mode_baseline)
+        if not subnational_mode:
+            baseline_valid = baseline_valid and self.validate_layer_extents(
                 self.combo_boxes["baseline"], pop_mode_baseline
             )
-            or not self.validate_layer_crs(
-                self.combo_boxes["baseline"], pop_mode_baseline
-            )
-            or not self.validate_layer_extents(
-                self.combo_boxes["baseline"], pop_mode_baseline
-            )
-        ):
-            log("failed baseline layer validation")
 
+        if not baseline_valid:
+            log("failed baseline layer validation")
             return
 
         prod_mode_baseline = self._get_prod_mode(
@@ -3098,19 +3421,16 @@ class DlgCalculateLDNSummaryTableAdmin(
                 else:
                     pop_mode_progress = ldn.PopulationMode.Total.value
 
-                if (
-                    not self.validate_layer_selections(
+                progress_valid = self.validate_layer_selections(
+                    self.combo_boxes[key], pop_mode_progress
+                ) and self.validate_layer_crs(self.combo_boxes[key], pop_mode_progress)
+                if not subnational_mode:
+                    progress_valid = progress_valid and self.validate_layer_extents(
                         self.combo_boxes[key], pop_mode_progress
                     )
-                    or not self.validate_layer_crs(
-                        self.combo_boxes[key], pop_mode_progress
-                    )
-                    or not self.validate_layer_extents(
-                        self.combo_boxes[key], pop_mode_progress
-                    )
-                ):
-                    log("failed progress layer validation")
 
+                if not progress_valid:
+                    log("failed progress layer validation")
                     return
 
                 periods.append(
@@ -3142,8 +3462,34 @@ class DlgCalculateLDNSummaryTableAdmin(
                     }
                 )
 
+        subnational_enabled = conf.settings_manager.get_value(
+            conf.Setting.SUBNATIONAL_ENABLED
+        )
+        units = []
+        if subnational_enabled:
+            try:
+                units = json.loads(
+                    conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS)
+                    or "[]"
+                )
+            except (TypeError, ValueError):
+                units = []
+
+        if subnational_enabled and units:
+            summary_aoi, patched_periods, error = self._build_subnational_summary(
+                periods, units
+            )
+            if error:
+                QtWidgets.QMessageBox.critical(
+                    self, self.tr("Subnational summary error"), error
+                )
+                return
+        else:
+            summary_aoi = self.aoi
+            patched_periods = periods
+
         params = {
-            "periods": periods,
+            "periods": patched_periods,
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
         }
@@ -3151,8 +3497,178 @@ class DlgCalculateLDNSummaryTableAdmin(
         self.close()
 
         job_manager.submit_local_job_as_qgstask(
-            params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=self.aoi
+            params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=summary_aoi
         )
+
+    def _build_subnational_summary(self, periods, units):
+        """
+        For each period, build mosaic VRTs from the N per-unit sub-indicator
+        raster results and patch the layer paths in the period params.
+
+        Returns (union_aoi, patched_periods, error_string_or_None).
+        """
+        from te_schemas.jobs import JobStatus
+        from te_schemas.results import RasterResults
+
+        # Build union AOI from all units
+        unit_aois = []
+        for unit in units:
+            try:
+                unit_aois.append(areaofinterest.aoi_from_unit(unit))
+            except RuntimeError as e:
+                return None, None, str(e)
+
+        # Union all unit geometries into one AOI
+        unit_geometries = []
+        for ua in unit_aois:
+            for f in ua.get_layer_wgs84().getFeatures():
+                unit_geometries.append(f.geometry())
+
+        if not unit_geometries:
+            return None, None, self.tr("No valid unit geometries found.")
+
+        combined_geom = QgsGeometry.unaryUnion(unit_geometries)
+        union_geojson = json.loads(combined_geom.asJson())
+
+        if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
+            crs_dst = qgis.core.QgsCoordinateReferenceSystem(
+                conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS)
+            )
+        else:
+            crs_dst = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
+
+        union_aoi = areaofinterest.AOI(crs_dst)
+        union_aoi.update_from_geojson(
+            geojson=union_geojson, crs_src="epsg:4326", wrap=False
+        )
+
+        # Find completed sub-indicator jobs that match each unit name
+        completed_jobs = [
+            job
+            for job in job_manager.relevant_jobs
+            if hasattr(job, "script")
+            and job.script is not None
+            and job.script.name == "sdg-15-3-1-sub-indicators"
+            and job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
+        ]
+
+        def _jobs_for_unit_period(unit, period_name):
+            """Return completed jobs for a given unit and period."""
+            return [
+                job
+                for job in completed_jobs
+                if job_matches_subnational_unit(job, unit, period_name)
+            ]
+
+        # For each period, build mosaic VRTs for every raster layer
+        patched_periods = []
+
+        RASTER_PATH_KEYS = [
+            "layer_lc_path",
+            "layer_soc_path",
+            "layer_traj_path",
+            "layer_perf_path",
+            "layer_state_path",
+            "layer_lpd_path",
+            "layer_population_paths",
+        ]
+
+        for period in periods:
+            period_name = period.get("name", "")
+            period_params = dict(period.get("params", period))
+
+            # Gather rasters per path key across all units
+            per_key_paths: dict[str, list[str]] = {}
+
+            missing_units = []
+            unit_rasters = []
+            for unit in units:
+                unit_name = unit.get("name", "")
+                unit_jobs = _jobs_for_unit_period(unit, period_name)
+
+                if not unit_jobs:
+                    missing_units.append(unit_name)
+                    continue
+
+                # Use the most recent completed job for this unit
+                unit_job = max(unit_jobs, key=lambda j: j.start_date)
+                raster_result = unit_job.get_first_result_by_type(RasterResults)
+
+                if raster_result is None:
+                    continue
+
+                # Collect main VRT/TIF path for this unit result
+                result_path = str(raster_result.uri.uri) if raster_result.uri else None
+                if result_path:
+                    per_key_paths.setdefault("_main_uri", []).append(result_path)
+                    unit_rasters.append(
+                        (
+                            unit_name,
+                            result_path,
+                            [band.name for band in raster_result.get_bands()],
+                        )
+                    )
+
+            if missing_units:
+                return (
+                    None,
+                    None,
+                    self.tr(
+                        "The following subnational units do not have a completed "
+                        "sub-indicator result for the {} period: {}.\n\n"
+                        "Run the sub-indicator calculation for all units first."
+                    ).format(period_name, ", ".join(missing_units)),
+                )
+
+            # Refuse to mosaic unit results that are not on the same grid or
+            # do not share the same bands
+            mismatch = check_subnational_rasters_consistent(unit_rasters)
+            if mismatch:
+                return (
+                    None,
+                    None,
+                    self.tr(
+                        "The sub-indicator results of the subnational units for "
+                        "the {} period cannot be combined:\n\n{}\n\n"
+                        "Re-run the sub-indicator calculation for all units with "
+                        "the same settings and datasets."
+                    ).format(period_name, mismatch),
+                )
+
+            # Build a mosaic VRT from all unit main URIs for this period
+            main_uris = per_key_paths.get("_main_uri", [])
+            if main_uris:
+                vrt_path = GetTempFilename(".vrt")
+                ds = gdal.BuildVRT(vrt_path, main_uris)
+                if ds is None:
+                    return (
+                        None,
+                        None,
+                        self.tr("Failed to build mosaic VRT for period '{}'.").format(
+                            period_name
+                        ),
+                    )
+                ds.FlushCache()
+                ds = None
+
+                # Patch the primary raster path keys to point to the VRT.
+                for key in RASTER_PATH_KEYS:
+                    if key == "layer_population_paths":
+                        if key in period_params and period_params[key]:
+                            n_pop_paths = len(period_params[key])
+                            period_params[key] = [vrt_path] * n_pop_paths
+                    elif key in period_params:
+                        period_params[key] = vrt_path
+
+            # Patch geojsons/crs with the union AOI
+            crosses_180th, geojsons = union_aoi.bounding_box_gee_geojson()
+            period_params["geojsons"] = json.dumps(geojsons)
+            period_params["crs"] = union_aoi.get_crs_dst_wkt()
+            period_params["crosses_180th"] = crosses_180th
+
+            patched_periods.append({"name": period_name, "params": period_params})
+
+        return union_aoi, patched_periods, None
 
 
 class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi):

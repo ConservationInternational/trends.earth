@@ -187,14 +187,19 @@
 <context>
     <name>DatasetDetailsDialogue</name>
     <message>
-        <location filename="../datasets_dialog.py" line="177"/>
+        <location filename="../datasets_dialog.py" line="178"/>
         <source>Error exporting dataset {self.job}</source>
         <translation>Erreur d'exportation du jeu de données {self.job}</translation>
     </message>
     <message>
-        <location filename="../datasets_dialog.py" line="182"/>
+        <location filename="../datasets_dialog.py" line="197"/>
         <source>Dataset exported to {target_path!r}</source>
         <translation>Ensemble de données exporté vers {target_path!r}</translation>
+    </message>
+    <message>
+        <location filename="../datasets_dialog.py" line="188"/>
+        <source>Dataset exported to {target_path!r}, but {len(summary.missing_files)} referenced file(s) could not be found. Some layers in the export may not load.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6536,7 +6541,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Fichier de données tramées (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2852"/>
+        <location filename="../data_io.py" line="2854"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -6611,7 +6616,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Aucune couche disponible dans cette région</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2852"/>
+        <location filename="../data_io.py" line="2854"/>
         <source>Select a layer to load.</source>
         <translation>Sélectionner une couche à charger.</translation>
     </message>

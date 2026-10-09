@@ -3,9 +3,10 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`2.3.6 (October 6, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.3.6>`_
+`2.3.6 (October 9, 2026) <https://github.com/ConservationInternational/trends.earth/releases/tag/v2.3.6>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
+  - Ensure results VRTs do not reference tiffs written to temp folder
   - Fixed drought vulnerability calculations to preserve population values as floating-point numbers
   - Improved compatibility with QGIS 4 and Qt 6
   - Requires QGIS 3.44 or newer, changed supported Python version to 3.12 or newer

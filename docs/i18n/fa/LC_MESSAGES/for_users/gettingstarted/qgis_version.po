@@ -1,25 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2026, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.3.2\n"
+"Project-Id-Version: Trends.Earth 2.3.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-07 04:10+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: fa\n"
-"Language-Team: Persian (https://app.transifex.com/conservation-"
-"international/teams/80165/fa/)\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language-Team: Persian (https://app.transifex.com/conservation-international/teams/80165/fa/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:4
 msgid "Installing Trends.Earth"
@@ -31,8 +27,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:11
 msgid ""
-"Before installing the plugin, QGIS version |qgisMinVersion| or higher "
-"needs to be installed on your computer."
+"Before installing the plugin, QGIS version |qgisMinVersion| or higher needs "
+"to be installed on your computer."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:15
@@ -42,9 +38,9 @@ msgstr ""
 #: ../../source/for_users/gettingstarted/qgis_version.rst:17
 msgid ""
 "To install the plugin, you must have QGIS version |qgisMinVersion| or "
-"higher. For that, access the `QGIS Download "
-"<https://qgis.org/download/>`_ page and select the appropriate installer "
-"depending on your operating system (i.e. Windows, MacOS, Linux)."
+"higher. For that, access the `QGIS Download <https://qgis.org/download/>`_ "
+"page and select the appropriate installer depending on your operating system"
+" (i.e. Windows, MacOS, Linux)."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:23
@@ -63,11 +59,10 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:31
 msgid ""
-"Older versions of QGIS can be accessed at the below links. We recommend "
-"the latest version of QGIS (see instructions above) but the below links "
-"might be useful if you have a specific need for accessing an older "
-"version of QGIS (for example if you need to install an older version of "
-"|trends.earth|)."
+"Older versions of QGIS can be accessed at the below links. We recommend the "
+"latest version of QGIS (see instructions above) but the below links might be"
+" useful if you have a specific need for accessing an older version of QGIS "
+"(for example if you need to install an older version of |trends.earth|)."
 msgstr ""
 
 #: ../../../<rst_epilogue>:6
@@ -92,8 +87,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:47
 msgid ""
-"There are different ways to install |trends.earth|, depending on whether "
-"you want to install the stable version (recommended) or the development "
+"There are different ways to install |trends.earth|, depending on whether you"
+" want to install the stable version (recommended) or the development "
 "version."
 msgstr ""
 
@@ -103,22 +98,21 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:53
 msgid ""
-"The preferred way to install the |trends.earth| is through QGIS. To "
-"install from within QGIS, first launch QGIS, and then go to `Plugins` in "
-"the menu bar at the top of the program and select `Manage and install "
-"plugins`."
+"The preferred way to install the |trends.earth| is through QGIS. To install "
+"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
+"bar at the top of the program and select `Manage and install plugins`."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:60
 msgid ""
-"Then search for a plugin called `trends.earth` and select `Install "
-"plugin` at the bottom right of the screen."
+"Then search for a plugin called `trends.earth` and select `Install plugin` "
+"at the bottom right of the screen."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:66
 msgid ""
-"If your plugin has been installed properly, there will be a menu bar in "
-"the top left of your browser that looks like this:"
+"If your plugin has been installed properly, there will be a menu bar in the "
+"top left of your browser that looks like this:"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:73
@@ -140,17 +134,16 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:81
 msgid ""
-"If you are having a problem upgrading the plugin, try uninstalling the "
-"old version of Trends.Earth before installing the new one. This can be "
-"done from within the `Installed tab of the plugins window "
-"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html"
-"#the-installed-tab>`_."
+"If you are having a problem upgrading the plugin, try uninstalling the old "
+"version of Trends.Earth before installing the new one. This can be done from"
+" within the `Installed tab of the plugins window "
+"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html#the-"
+"installed-tab>`_."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:86
 msgid ""
-"If the above don't work, please contact us at "
-"trends.earth@conservation.org."
+"If the above don't work, please contact us at trends.earth@conservation.org."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:89
@@ -171,8 +164,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:103
 msgid ""
-"To Register, click the **Register for Trends.Earth (step 1)** button from"
-" the \"Settings\" dialog box under **Trends.Earth login information**."
+"To Register, click the **Register for Trends.Earth (step 1)** button from "
+"the \"Settings\" dialog box under **Trends.Earth login information**."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:108
@@ -187,30 +180,18 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:118
 msgid ""
-"4. After registering, you will receive an email from api@trends.earth "
-"with your password. If you don't see the email in your inbox after 15-20 "
-"seconds, please check your spam folder in case the email was sent there. "
-"Once you receive this email , click on \"Enter username and password "
-"(step 2)\". Enter the password you received from api@trends.earth and "
-"click \"OK\": :"
+"4. After registering, you will receive an email from api@trends.earth with "
+"your password. If you don't see the email in your inbox after 15-20 seconds,"
+" please check your spam folder in case the email was sent there. Once you "
+"receive this email , click on \"Enter username and password (step 2)\". "
+"Enter the password you received from api@trends.earth and click \"OK\": :"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:124
-msgid "You will see a message indicating you have successfully been logged in:"
+msgid ""
+"You will see a message indicating you have successfully been logged in:"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:129
 msgid "You are now ready to start using Trends.Earth!"
 msgstr ""
-
-#~ msgid ""
-#~ "Download QGIS To install the plugin, "
-#~ "you must have QGIS version "
-#~ "|qgisMinVersion| or higher. For that, "
-#~ "access the `QGIS Download "
-#~ "<https://qgis.org/download/>`_ page and select "
-#~ "the appropriate installer depending on "
-#~ "your operating system (i.e. Windows, "
-#~ "MacOS, Linux)."
-#~ msgstr ""
-

@@ -56,20 +56,11 @@ jobs:
       - name: Start test stack
         run: |
           set -euxo pipefail
-          docker pull "${IMAGE}:${{ matrix.qgis_version_tag }}"
+          docker compose build --pull
           docker compose up -d
           # simple wait; replace with healthchecks if available
           sleep 60
           docker compose ps
-      - name: Install test dependencies inside container (pytest, python-dotenv)
-        run: |
-          set -euxo pipefail
-          docker compose exec -T "${SERVICE}" sh -lc '
-            if ! command -v pip3 >/dev/null 2>&1; then
-              apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*
-            fi
-            PIP_BREAK_SYSTEM_PACKAGES=1 python3 -m pip install --no-cache-dir -U pytest python-dotenv coverage
-          '
       - name: Run test suite
         run: |
           set -euxo pipefail
@@ -117,19 +108,15 @@ jobs:
       - name: Start test stack
         run: |
           set -euxo pipefail
-          docker pull "${IMAGE}:${{ matrix.qgis_version_tag }}"
+          docker compose build --pull
           docker compose up -d
           sleep 60
           docker compose ps
 
-      - name: Install deps and upgrade marshmallow to 4.x
+      - name: Upgrade marshmallow to 4.x
         run: |
           set -euxo pipefail
           docker compose exec -T "${SERVICE}" sh -lc '
-            if ! command -v pip3 >/dev/null 2>&1; then
-              apt-get update && apt-get install -y --no-install-recommends python3-pip && rm -rf /var/lib/apt/lists/*
-            fi
-            PIP_BREAK_SYSTEM_PACKAGES=1 python3 -m pip install --no-cache-dir -U pytest python-dotenv coverage
             PIP_BREAK_SYSTEM_PACKAGES=1 python3 -m pip install --no-cache-dir "marshmallow>=4.2.2" "marshmallow-dataclass>=8.7.1"
             python3 -c "from importlib.metadata import version; v=version(\"marshmallow\"); print(\"marshmallow\", v); assert int(v.split(\".\")[0]) >= 4"
           '

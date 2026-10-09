@@ -495,6 +495,27 @@ class TestCheckDatasetOverlapRaster(unittest.TestCase):
                     log_message = mock_log.call_args[0][0]
                     self.assertNotIn("No valid extents found", str(log_message))
 
+    def test_check_dataset_overlap_recalculates_unset_extents(self):
+        """Unset (None) extents, as on a just-finished local job, are recalculated"""
+        mock_aoi = Mock()
+        mock_aoi.calc_frac_overlap.return_value = 1.0
+        mock_job = Mock()
+
+        mock_raster_results = Mock()
+        mock_raster_results.get_extents.side_effect = [
+            [None],
+            [(0.0, 0.0, 10.0, 10.0)],
+        ]
+
+        with patch("LDMP.jobs.manager.set_results_extents") as mock_set_extents:
+            with patch("LDMP.data_io._extent_as_geom", return_value=Mock()):
+                result = self._check_dataset_overlap_raster(
+                    mock_aoi, mock_raster_results, job=mock_job
+                )
+
+        mock_set_extents.assert_called_once_with(mock_job, force=True)
+        self.assertTrue(result)
+
 
 if __name__ == "__main__":
     unittest.main()

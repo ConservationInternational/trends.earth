@@ -303,12 +303,12 @@
         <translation>Не удалось открыть файл отчета.</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="218"/>
+        <location filename="../reports/mvc.py" line="221"/>
         <source>Open Layouts</source>
         <translation>Открытые макеты</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="218"/>
+        <location filename="../reports/mvc.py" line="221"/>
         <source>Unable to open the QGIS project file.</source>
         <translation>Не удалось открыть файл проекта QGIS.</translation>
     </message>
@@ -3186,22 +3186,22 @@ p, li { white-space: pre-wrap; }
         <translation>Выбрать каталог вывода отчета</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="136"/>
+        <location filename="../generate_report_dialog.py" line="137"/>
         <source>Validation</source>
         <translation>Проверка</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="142"/>
+        <location filename="../generate_report_dialog.py" line="143"/>
         <source>No template selected.</source>
         <translation>Шаблон не выбран.</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="155"/>
+        <location filename="../generate_report_dialog.py" line="156"/>
         <source>No output directory specified.</source>
         <translation>Каталог вывода не указан.</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="172"/>
+        <location filename="../generate_report_dialog.py" line="173"/>
         <source>dataset not specified.</source>
         <translation>Набор данных не указан.</translation>
     </message>
@@ -3993,32 +3993,32 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>Набор климатических данных</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="86"/>
+        <location filename="../timeseries.py" line="88"/>
         <source>Submit request</source>
         <translation>Отправить запрос</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="330"/>
+        <location filename="../timeseries.py" line="332"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="320"/>
+        <location filename="../timeseries.py" line="322"/>
         <source>Submitted</source>
         <translation>Отправлено</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="320"/>
+        <location filename="../timeseries.py" line="322"/>
         <source>Time series calculation task submitted to Trends.Earth server.</source>
         <translation>Задача расчета временных рядов отправлена ​​на сервер Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="330"/>
+        <location filename="../timeseries.py" line="332"/>
         <source>Unable to submit time series calculation task to Trends.Earth server</source>
         <translation>Не удалось отправить задачу расчета временных рядов на сервер Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="272"/>
+        <location filename="../timeseries.py" line="274"/>
         <source>The bounding box of the requested area (approximately {aoi_area:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4253,27 +4253,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="1770"/>
+        <location filename="../jobs/manager.py" line="1778"/>
         <source>Processing: {task_name}</source>
         <translation>Обработка: {task_name}</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1965"/>
+        <location filename="../jobs/manager.py" line="1973"/>
         <source>Downloading: {job.task_name or job.id}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1945"/>
+        <location filename="../jobs/manager.py" line="1953"/>
         <source>Download</source>
         <translation>Скачать</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1932"/>
+        <location filename="../jobs/manager.py" line="1940"/>
         <source>'{job.task_name or job.id}' queued — will start when the current download finishes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1945"/>
+        <location filename="../jobs/manager.py" line="1953"/>
         <source>This job is already being downloaded by another process.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4554,12 +4554,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>MultiscopeJobReportModel</name>
     <message>
-        <location filename="../reports/mvc.py" line="267"/>
+        <location filename="../reports/mvc.py" line="270"/>
         <source>Scope Name</source>
         <translation>Имя области</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="267"/>
+        <location filename="../reports/mvc.py" line="270"/>
         <source>Source Dataset</source>
         <translation>Исходный набор данных</translation>
     </message>
@@ -4712,32 +4712,32 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportGeneratorManager</name>
     <message>
-        <location filename="../reports/generator.py" line="1091"/>
+        <location filename="../reports/generator.py" line="1106"/>
         <source>Report Status</source>
         <translation>Статус отчета</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1121"/>
+        <location filename="../reports/generator.py" line="1136"/>
         <source>Cannot process report due to write permission to</source>
         <translation>Невозможно обработать отчет из-за разрешения на запись в</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1153"/>
+        <location filename="../reports/generator.py" line="1168"/>
         <source>could not be found in your system. Unable to run the report generator.</source>
         <translation>не удалось найти в вашей системе. Не удалось запустить генератор отчетов.</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1182"/>
+        <location filename="../reports/generator.py" line="1197"/>
         <source>reports</source>
         <translation>отчеты</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1196"/>
+        <location filename="../reports/generator.py" line="1211"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
         <translation>обрабатываются (id {[str(job.id) for job in ctx.jobs]})...</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1164"/>
+        <location filename="../reports/generator.py" line="1179"/>
         <source>queued (waiting for a free worker slot)</source>
         <translation>в очереди (ожидание свободного рабочего места)</translation>
     </message>
@@ -4755,22 +4755,22 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>Создать отчет из задачи</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="57"/>
+        <location filename="../processing_provider/report.py" line="54"/>
         <source>File containing report context task information</source>
         <translation>Файл, содержащий информацию о задаче контекста отчета</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="66"/>
+        <location filename="../processing_provider/report.py" line="63"/>
         <source>Summary result status of the algorithm.</source>
         <translation>Итоговый статус результата алгоритма.</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="86"/>
+        <location filename="../processing_provider/report.py" line="83"/>
         <source>Task file not found.</source>
         <translation>Файл задания не найден.</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="95"/>
+        <location filename="../processing_provider/report.py" line="92"/>
         <source>Could not read report task context file</source>
         <translation>Не удалось прочитать файл контекста задачи отчета</translation>
     </message>
@@ -4778,17 +4778,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportTaskProcessor</name>
     <message>
-        <location filename="../reports/generator.py" line="709"/>
+        <location filename="../reports/generator.py" line="706"/>
         <source>Simple</source>
         <translation>Простой</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="711"/>
+        <location filename="../reports/generator.py" line="708"/>
         <source>Full</source>
         <translation>Полный</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="713"/>
+        <location filename="../reports/generator.py" line="710"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
@@ -6053,17 +6053,17 @@ for running algorithms and their results.</source>
 </translation>
     </message>
     <message>
-        <location filename="../api.py" line="982"/>
+        <location filename="../api.py" line="984"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation>Сервер Trends.Earth временно недоступен (ошибка {status}). Эта проблема обычно носит временный характер. Повторите попытку через несколько минут.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="988"/>
+        <location filename="../api.py" line="990"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation>На сервере Trends.Earth произошла внутренняя ошибка (ошибка 500). Повторите попытку. Если проблема не устраняется, обратитесь в службу поддержки Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="994"/>
+        <location filename="../api.py" line="996"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation>Аутентификация не удалась. Проверьте учетные данные для входа.</translation>
     </message>
@@ -6078,7 +6078,7 @@ for running algorithms and their results.</source>
         <translation>Не удается получить сохраненные учетные данные. Пожалуйста, введите свое имя пользователя и пароль в настройках Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="972"/>
+        <location filename="../api.py" line="974"/>
         <source>This script requires Google Earth Engine. You must accept confirm understanding of the GEE terms of use before running it. Please update your profile in the Trends.Earth plugin settings to do so.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6124,42 +6124,42 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_auth</name>
     <message>
-        <location filename="../auth.py" line="170"/>
+        <location filename="../auth.py" line="171"/>
         <source>Cannot init auth configuration</source>
         <translation>Не удается инициализировать настройки авторизации</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="177"/>
+        <location filename="../auth.py" line="178"/>
         <source>Cannot update auth configuration</source>
         <translation>Не удается обновить настройки авторизации</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="191"/>
+        <location filename="../auth.py" line="192"/>
         <source>No authentication set for {auth_setup.name}. Setup in Trends.Earth settings</source>
         <translation>Для {auth_setup.name} не задана авторизация. Конфигурация в настройках Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="202"/>
+        <location filename="../auth.py" line="203"/>
         <source>Cannot remove auth configuration for {auth_setup.name} with id: {authConfigId}</source>
         <translation>Не удается удалить настройки авторизации для {auth_setup.name} с идентификатором id: {authConfigId}</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="262"/>
+        <location filename="../auth.py" line="263"/>
         <source>Cannot retrieve credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
         <translation>Не удается извлечь учетные данные с идентификатором {authConfigId}. Настройте имя пользователя и пароль, перед тем как пользоваться функциями {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="250"/>
+        <location filename="../auth.py" line="251"/>
         <source>No authentication set. Setup username and password before using {auth_setup.name}.</source>
         <translation>Аутентификация не настроена. Настройте имя пользователя и пароль перед использованием {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="276"/>
+        <location filename="../auth.py" line="277"/>
         <source>{auth_setup.name} credentials with id {authConfigId} are not valid.  Setup username and password before using {auth_setup.name}.</source>
         <translation>Учетные данные {auth_setup.name} с идентификатором {authConfigId} недействительны.  Назначьте имя пользователя и пароль перед использованием {auth_setup.name}.</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="287"/>
+        <location filename="../auth.py" line="288"/>
         <source>Auth method with id {authConfigId} is &apos;{authConfig.method()}&apos;. This method is not supported by {auth_setup.name}.</source>
         <translation>Метод аутентификации с идентификатором {authConfigId} — «{authConfig.method()}». Этот метод не поддерживается {auth_setup.name}.</translation>
     </message>
@@ -6774,7 +6774,7 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="1132"/>
+        <location filename="../download.py" line="1141"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
@@ -6784,42 +6784,42 @@ for running algorithms and their results.</source>
         <translation>Папка не существует</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1115"/>
+        <location filename="../download.py" line="1124"/>
         <source>Downloading {}</source>
         <translation>Загрузка {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1126"/>
+        <location filename="../download.py" line="1135"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>Ошибка загрузки. Проверьте подключение к интернету.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1067"/>
+        <location filename="../download.py" line="1076"/>
         <source>Error in downloading file, {}</source>
         <translation>Не удалось загрузить файл, {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1074"/>
+        <location filename="../download.py" line="1083"/>
         <source>Error while downloading file to {self.outfile}, {error}</source>
         <translation>Ошибка при загрузке файла в {self.outfile}, {error}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1078"/>
+        <location filename="../download.py" line="1087"/>
         <source>Finished downloading file to {self.outfile}</source>
         <translation>Завершена загрузка файла в {self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1081"/>
+        <location filename="../download.py" line="1090"/>
         <source>Download exited {self.outfile}</source>
         <translation>Завершение загрузки {self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1132"/>
+        <location filename="../download.py" line="1141"/>
         <source>Problem running task for downloading file</source>
         <translation>Проблема с запуском задачи по загрузке файла</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1137"/>
+        <location filename="../download.py" line="1146"/>
         <source>An error occured when running task for</source>
         <translation>Произошла ошибка при выполнении задачи по</translation>
     </message>
@@ -6829,7 +6829,7 @@ for running algorithms and their results.</source>
         <translation>Загрузка границ</translation>
     </message>
     <message>
-        <location filename="../download.py" line="889"/>
+        <location filename="../download.py" line="898"/>
         <source>Downloading boundaries for {}...</source>
         <translation>Загрузка границ для {}...</translation>
     </message>
@@ -7457,12 +7457,12 @@ for running algorithms and their results.</source>
         <translation>USDA Тип почвы</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="848"/>
+        <location filename="../layers.py" line="851"/>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="848"/>
+        <location filename="../layers.py" line="851"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>Trends.Earth не имеет стиля, назначенного для &amp;quot;{}&amp;quot; (группа {} в {}). Чтобы использовать этот слой, добавьте его вручную на карту.</translation>
     </message>
@@ -8012,7 +8012,7 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_worker</name>
     <message>
-        <location filename="../worker.py" line="262"/>
+        <location filename="../worker.py" line="264"/>
         <source>Processing: {process_name}</source>
         <translation type="unfinished"></translation>
     </message>

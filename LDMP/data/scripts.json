@@ -5,15 +5,15 @@
         "name": "change-biomass-summary-table",
         "name_readable": "Biomass change (summary)",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Download data from Google Earth Engine assets.",
-        "id": "410dfde6-6e45-470b-823c-ac5a62659542",
+        "id": "0ac163cb-7c6c-4af7-93b6-232d6bc103df",
         "name": "download-data",
         "name_readable": "Download raw data",
         "run_mode": "remote",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Download LandPKS data",
@@ -21,15 +21,15 @@
         "name": "download-landpks",
         "name_readable": "Download LandPKS data",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate indicators of drought vulnerability",
-        "id": "c315b3e3-c448-4f90-9bd3-63c09d310fcd",
+        "id": "00da4380-7452-41f7-a2a0-6c9289cf19eb",
         "name": "drought-vulnerability",
         "name_readable": "Drought vulnerability",
         "run_mode": "remote",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate change in drought vulnerability indicators",
@@ -37,15 +37,15 @@
         "name": "drought-vulnerability-summary",
         "name_readable": "Drought vulnerability summary",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate land cover change",
-        "id": "ee5141d2-a5e1-44be-a194-4f92581cb468",
+        "id": "3dc9034b-9115-4b2c-819a-7ea5b3ad26de",
         "name": "land-cover",
         "name_readable": "Land cover change",
         "run_mode": "remote",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate land cover change",
@@ -53,7 +53,7 @@
         "name": "local-land-cover",
         "name_readable": "Land cover change",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate change in soil organic carbon",
@@ -61,7 +61,7 @@
         "name": "local-soil-organic-carbon",
         "name_readable": "Soil organic carbon change",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate emissions due to deforestation",
@@ -69,7 +69,7 @@
         "name": "local-total-carbon",
         "name_readable": "Total carbon change",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "additional_configuration": {
@@ -113,27 +113,27 @@
             }
         },
         "description": "Calculate productivity state, performance, and/or trajectory indicators",
-        "id": "72589b1d-6995-455a-8863-da6399e0eb71",
+        "id": "4ed800ad-58e7-437b-a007-56e88442aa76",
         "name": "productivity",
         "name_readable": "Land productivity",
         "run_mode": "remote",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate potential change in biomass with restoration",
-        "id": "2b7998e4-8f7b-4e8d-90b4-32e24a0cc6ad",
+        "id": "0f65ee10-a57f-4519-a084-e7777df07f00",
         "name": "restoration-biomass",
         "name_readable": "Biomass change",
         "run_mode": "remote",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate all three SDG 15.3.1 sub-indicators in one step",
-        "id": "8a299e5f-979e-4f40-b7eb-46cb3809144b",
+        "id": "678e6473-17c4-4097-9d13-7598d1487fd1",
         "name": "sdg-15-3-1-sub-indicators",
         "name_readable": "SDG 15.3.1 sub-indicators",
         "run_mode": "remote",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate change in SDG 15.3.1",
@@ -141,38 +141,38 @@
         "name": "sdg-15-3-1-summary",
         "name_readable": "SDG 15.3.1",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate change in soil organic carbon",
-        "id": "4280b023-5a5f-4fb6-ad46-8f42dd1e71c8",
+        "id": "eae4fd5d-faa6-4334-be3d-33ad8ec47354",
         "name": "soil-organic-carbon",
         "name_readable": "Soil organic carbon change",
         "run_mode": "remote",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculates time series of Trends.Earth data",
-        "id": "fb5e2d0f-4942-436a-9730-db698e49e27b",
+        "id": "b06976af-57b9-449a-a503-45126a99fe50",
         "name": "time-series",
         "name_readable": "Time series",
         "run_mode": "remote",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculates total carbon in biomass (above and below ground).",
-        "id": "b766f32d-2c7f-41b9-913a-4f04c4958a39",
+        "id": "31abab9f-63e6-4267-98a4-31a0de67d0b8",
         "name": "total-carbon",
         "name_readable": "Total carbon change",
         "run_mode": "remote",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "execution_callable": "LDMP.localexecution.totalcarbon.compute_total_carbon_summary_table",
         "name": "total-carbon-summary",
         "name_readable": "Total carbon change (summary)",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Generate package for UNCCD reporting",
@@ -180,15 +180,15 @@
         "name": "unccd-report",
         "name_readable": "UNCCD reporting package",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Calculate change in urban area, in support of SDG 11.3.1",
-        "id": "263ba602-8b7d-4f81-8fa3-63205649e144",
+        "id": "13595c1a-9ee4-4e83-9c9a-f957115ad60c",
         "name": "urban-area",
         "name_readable": "Urban area change (summary)",
         "run_mode": "remote",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Summarizes urban area change (land consumption rate)",
@@ -196,7 +196,7 @@
         "name": "urban-change-summary-table",
         "name_readable": "Urban area change (summary)",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Assess LDN counterbalancing across land types",
@@ -204,7 +204,7 @@
         "name": "ldn-counterbalancing",
         "name_readable": "LDN Counterbalancing Assessment",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "Download data from STAC catalog assets.",
@@ -212,7 +212,7 @@
         "name": "download-stac",
         "name_readable": "Download STAC data",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     },
     {
         "description": "View STAC catalog assets online without downloading them.",
@@ -220,6 +220,6 @@
         "name": "view-stac",
         "name_readable": "View STAC data online",
         "run_mode": "local",
-        "version": "2.3.4"
+        "version": "2.3.6"
     }
 ]

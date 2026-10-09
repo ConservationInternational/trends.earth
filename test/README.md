@@ -30,11 +30,30 @@ TE_E2E_CLIENT_ID=... TE_E2E_CLIENT_SECRET=... TE_E2E_COUNTRIES=STP \
 | `TE_E2E_COUNTRIES` | Comma-delimited ISO3 codes | `FJI,STP,GUY` |
 | `TE_E2E_TIMEOUT_MIN` | Remote job and download timeout (minutes) | `240` |
 | `TE_E2E_POLL_SEC` | Remote polling interval (seconds) | `60` |
+| `TE_E2E_SUBMIT_ATTEMPTS` | Attempts per remote submission on rate limits, 5xx or no response | `4` |
 | `TE_E2E_LOCAL_TIMEOUT_MIN` | Timeout per local summary/package job (minutes) | `60` |
 | `TE_E2E_OUTPUT_DIR` | Where job JSON, summaries and packages are copied | temporary dir |
 | `TE_E2E_CHECK_AREA_TOL` | Allowed difference between summary area and AOI area | `0.10` |
 | `TE_E2E_CHECK_MAX_NODATA_FRAC` | No data fraction that fails a summary check | `0.30` |
 | `TE_E2E_CHECK_WARN_NODATA_FRAC` | No data fraction that triggers a warning | `0.10` |
+
+### Remote submissions
+
+Jobs are submitted through the plugin dialogs. Jobs that the API queues (status
+`PENDING`, because the user already has the maximum number of running jobs) count
+as submitted. If the plugin gets no job back, the test checks whether the server
+created the execution anyway (matching on task name). If it didn't, the test
+retries after HTTP 429, 5xx or no response, honouring `Retry-After`. A failure
+reports the HTTP status and response body. Each country submits four remote jobs
+(baseline, two reporting periods and drought), and the API rate-limits the run
+endpoint (by default 10 per minute and 40 per hour per user). Repeated runs in
+one hour can therefore hit the limit.
+
+While polling, `PENDING`, `READY`, `RUNNING` and `CANCELLING` are in progress.
+Only `FAILED`, `CANCELLED` or a timeout stop the chain. A job still queued or
+running at `TE_E2E_TIMEOUT_MIN` is reported with its last status rather than as
+failed. Only three jobs per user run at once by default, and the rest wait in
+the queue, so allow for queue time when choosing the timeout.
 
 ### Summary checks
 

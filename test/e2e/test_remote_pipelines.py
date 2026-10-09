@@ -22,6 +22,7 @@ from .harness import (
     LocalJobTracker,
     copy_job_artifacts,
     country_aoi_area_km2,
+    describe_remote_outcome,
     download_jobs,
     e2e_enabled,
     find_job,
@@ -199,11 +200,13 @@ class RemotePipelinesE2ETest(unittest.TestCase):
         if not run.remote:
             raise RuntimeError("the dialog did not submit any job")
         periods = {}
-        for params, job in run.remote:
-            period = (params.get("period") or {}).get("name", "baseline")
-            if job is None:
-                raise RuntimeError(f"the API rejected the {period} job")
-            periods[period] = job
+        for submission in run.remote:
+            period = (submission.params.get("period") or {}).get("name", "baseline")
+            if submission.job is None:
+                raise RuntimeError(
+                    f"the {period} job was not submitted: {submission.failure}"
+                )
+            periods[period] = submission.job
         if "baseline" not in periods:
             raise RuntimeError(f"no baseline period submitted: {sorted(periods)}")
         # Summary dialog keys: baseline, report_1, report_2, ...
@@ -232,10 +235,12 @@ class RemotePipelinesE2ETest(unittest.TestCase):
             raise RuntimeError("; ".join(run.errors))
         if len(run.remote) != 1:
             raise RuntimeError(f"expected 1 submission, got {len(run.remote)}")
-        job = run.remote[0][1]
-        if job is None:
-            raise RuntimeError("the API rejected the drought job")
-        return {"drought": job}
+        submission = run.remote[0]
+        if submission.job is None:
+            raise RuntimeError(
+                f"the drought job was not submitted: {submission.failure}"
+            )
+        return {"drought": submission.job}
 
     @classmethod
     def _wait_and_download(cls):
@@ -255,8 +260,10 @@ class RemotePipelinesE2ETest(unittest.TestCase):
             for key, job in jobs.items():
                 st = final.get(job.id)
                 if st not in REMOTE_SUCCESS_STATUSES:
-                    label = st.value.lower() if st else "not finished before timeout"
-                    problems.append(f"{key} job {job.id} ended as {label}")
+                    problems.append(
+                        f"{key} job {job.id} "
+                        + describe_remote_outcome(st, cls.config.timeout_min)
+                    )
                 elif download_errors.get(job.id):
                     problems.append(f"{key} job {job.id}: {download_errors[job.id]}")
                 else:

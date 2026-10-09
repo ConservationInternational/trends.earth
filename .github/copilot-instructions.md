@@ -55,7 +55,7 @@ The Linux runner uses the isolated `trends-earth-tests` Compose project, reads o
 
 ### End-to-end Tests (live API)
 
-`test/e2e/` contains opt-in tests that drive the real plugin dialogs against the live Trends.Earth API. Per country, they run SDG 15.3.1 and drought (remote job → summary → UNCCD/PRAIS package) and then build a combined package. They authenticate only with an OAuth2 client-credentials service credential (`TE_E2E_CLIENT_ID`/`TE_E2E_CLIENT_SECRET`, scopes `execution:read execution:write script:read user:read boundary:read`). They skip under `test_suite.test_package`. Run them with:
+`test/e2e/` contains opt-in tests that drive the real plugin dialogs against the live Trends.Earth API. Per country, they run SDG 15.3.1 and drought (remote job → summary → summary JSON sanity checks in `test/e2e/summary_checks.py` → UNCCD/PRAIS package) and then build a combined package. They authenticate only with an OAuth2 client-credentials service credential (`TE_E2E_CLIENT_ID`/`TE_E2E_CLIENT_SECRET`, scopes `execution:read execution:write script:read user:read boundary:read`). They skip under `test_suite.test_package`. Run them with:
 
 ```bash
 TE_E2E_CLIENT_ID=... TE_E2E_CLIENT_SECRET=... TE_E2E_COUNTRIES=STP ./run_tests.sh 3.44 test_suite.test_e2e
@@ -65,7 +65,7 @@ TE_E2E_CLIENT_ID=... TE_E2E_CLIENT_SECRET=... TE_E2E_COUNTRIES=STP ./run_tests.s
 
 ### CI Testing
 
-The workflow at `.github/workflows/test.yaml` tests `release-3_34`, `release-3_36`, `3.44`, and `4.2-trixie` in Docker. The informational Marshmallow 4 job uses the same matrix.
+The workflow at `.github/workflows/test.yaml` tests `3.44`, and `4.2-trixie` in Docker. The informational Marshmallow 4 job uses the same matrix.
 
 Compose builds `docker/test.Dockerfile` on top of `${IMAGE}:${QGIS_VERSION_TAG}`. The image build installs `requirements-testing.txt` plus `pytest`, `python-dotenv` and `coverage`, so containers do not install packages at startup. The Dockerfile handles differences in the newer Debian-based images: PEP 668 pip installs and the `git`, `unbuffer` and `pip` utilities. The entrypoint falls back to Xvfb for images without `supervisord`. Compose configures Qt for offscreen operation and disables the WebEngine sandbox for root-run containers. Add new test dependencies to `requirements-testing.txt` or the Dockerfile, not to workflow steps.
 

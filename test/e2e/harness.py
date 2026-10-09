@@ -384,8 +384,105 @@ class ModalGuard:
 
 
 @dataclasses.dataclass
+class RemoteSubmission:
+    params: dict
+    job: object  # Job | None
+    failure: str | None = None  # why ``job`` is None
+
+
+# HTTP statuses after which a run submission is retried. ``None`` means no
+# response (timeout or connection error).
+RETRYABLE_SUBMIT_STATUSES = {None, 429, 500, 502, 503, 504}
+MAX_SUBMIT_RETRY_WAIT_SEC = 900
+
+
+def _last_api_response():
+    client = job_manager.api_client
+    record = getattr(client, "last_response", None)
+    describe = getattr(client, "describe_last_response", None)
+    return record, (describe() if describe else "no API response recorded")
+
+
+def _as_utc(value):
+    if value is None:
+        return None
+    if value.tzinfo is None:
+        return value.replace(tzinfo=dt.UTC)
+    return value
+
+
+def find_submitted_execution(task_name, script_id, since):
+    """Return the server-side execution for ``task_name`` created after ``since``.
+
+    Used when a run request appears to fail on the client (timeout, dropped
+    connection, unparseable response) although the server may have accepted it.
+    """
+    from LDMP.jobs.manager import _get_job_schema, get_remote_jobs
+
+    if not task_name:
+        return None
+    remote_jobs = get_remote_jobs() or []
+    window_start = since - dt.timedelta(minutes=2)
+    for candidate in remote_jobs:
+        script = getattr(candidate, "script", None)
+        if script is not None and str(script.id) != str(script_id):
+            continue
+        started = _as_utc(candidate.start_date)
+        if started is not None and started < window_start:
+            continue
+        resp = job_manager.api_client.call_api(
+            f"/api/v1/execution/{candidate.id}", method="get", use_token=True
+        )
+        raw = resp.get("data") if isinstance(resp, dict) else None
+        if not raw or (raw.get("params") or {}).get("task_name") != task_name:
+            continue
+        return _get_job_schema().load(raw)
+    return None
+
+
+def submit_with_recovery(submit, params, script_id):
+    """Submit a remote job, distinguishing real rejections from client failures.
+
+    Returns ``(job, failure)``. When the plugin reports no job, check whether the
+    server created the execution anyway, and retry rate-limited or transient
+    failures. Queued (PENDING) executions are successful submissions.
+    """
+    attempts = max(1, int(os.environ.get("TE_E2E_SUBMIT_ATTEMPTS", "4")))
+    task_name = params.get("task_name")
+    failure = None
+    for attempt in range(1, attempts + 1):
+        since = dt.datetime.now(dt.UTC)
+        job = submit(params, script_id)
+        if job is not None:
+            return job, None
+        record, failure = _last_api_response()
+        status = record.get("status") if record else None
+        say(f"submission of {task_name!r} failed (attempt {attempt}): {failure}")
+        try:
+            job = find_submitted_execution(task_name, script_id, since)
+        except Exception as exc:  # noqa: BLE001 - lookup is best effort
+            say(f"could not look up {task_name!r} on the server: {exc}")
+            job = None
+        if job is not None:
+            say(f"{task_name!r} was accepted by the server as {job.id}")
+            with contextlib.suppress(Exception):
+                job_manager.write_job_metadata_file(job)
+                job_manager._update_known_jobs_with_newly_submitted_job(job)
+            return job, None
+        if status not in RETRYABLE_SUBMIT_STATUSES or attempt == attempts:
+            break
+        retry_after = (record or {}).get("retry_after") or 30 * attempt
+        if retry_after > MAX_SUBMIT_RETRY_WAIT_SEC:
+            failure += f" (Retry-After {retry_after:.0f}s exceeds the retry limit)"
+            break
+        say(f"retrying {task_name!r} in {retry_after:.0f}s")
+        process_events_for(retry_after)
+    return None, failure
+
+
+@dataclasses.dataclass
 class DialogRun:
-    remote: list  # [(params, Job | None)]
+    remote: list  # [RemoteSubmission]
     local: list  # [Job]
     messages: list
     errors: list
@@ -409,8 +506,10 @@ class DialogDriver:
         original_submit_remote = job_manager.submit_remote_job
 
         def submit_remote_spy(params, script_id):
-            job = original_submit_remote(params, script_id)
-            remote.append((params, job))
+            job, failure = submit_with_recovery(
+                original_submit_remote, params, script_id
+            )
+            remote.append(RemoteSubmission(params, job, failure))
             return job
 
         def on_local(job):
@@ -547,11 +646,26 @@ def local_log_excerpt(job, lines=40):
         return f"(local job log unavailable: {exc})"
 
 
+def describe_remote_outcome(status, timeout_min):
+    """Describe a remote job that did not finish successfully."""
+    if status is None:
+        return f"was not seen on the server within {timeout_min} min"
+    if status in REMOTE_TERMINAL_STATUSES:
+        return f"ended as {status.value.lower()}"
+    return (
+        f"was still {status.value.lower()} after {timeout_min} min "
+        "(in progress or queued, not failed; raise TE_E2E_TIMEOUT_MIN)"
+    )
+
+
 def wait_for_remote(job_ids, timeout_min, poll_sec):
     """Poll the API until all ``job_ids`` reach a terminal state.
 
-    Returns ``{job_id: JobStatus | None}``; ``None`` means the job was not
-    seen or did not finish before the timeout.
+    Returns ``{job_id: JobStatus | None}`` with the last status seen (``None``
+    if the job was never seen). PENDING (including jobs queued by the API's
+    per-user concurrency limit), READY, RUNNING and CANCELLING are in progress,
+    so a job still in one of those states at the timeout keeps that status
+    rather than being reported as failed.
     """
     pending = set(job_ids)
     final = {job_id: None for job_id in job_ids}
@@ -577,8 +691,6 @@ def wait_for_remote(job_ids, timeout_min, poll_sec):
             break
         if time.monotonic() > deadline:
             say(f"timed out waiting for {len(pending)} remote job(s)")
-            for job_id in pending:
-                final[job_id] = None
             break
         process_events_for(poll_sec)
     return final

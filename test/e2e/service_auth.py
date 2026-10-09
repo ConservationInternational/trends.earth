@@ -10,6 +10,8 @@ never written to the QGIS auth database.
 import threading
 import time
 
+from qgis.PyQt import QtNetwork
+
 from LDMP.api import APIClient
 from LDMP.logger import log
 
@@ -27,6 +29,7 @@ class ServiceCredentialAPIClient(APIClient):
         self._spy_lock = threading.Lock()
         self.password_login_calls = 0
         self.token_mints = 0
+        self.last_response = None
 
     def __repr__(self):
         return f"ServiceCredentialAPIClient(url={self.url!r})"
@@ -105,4 +108,48 @@ class ServiceCredentialAPIClient(APIClient):
         if url.rstrip("/").endswith("/auth"):
             with self._spy_lock:
                 self.password_login_calls += 1
-        return super()._make_request(description, **kwargs)
+        resp = super()._make_request(description, **kwargs)
+        self._record_response(kwargs.get("method", "get"), url, resp)
+        return resp
+
+    def _record_response(self, method, url, resp):
+        """Remember the outcome of the latest request for failure diagnostics.
+
+        The plugin only logs API errors, so without this a rejected call is
+        indistinguishable from a timeout or a rate limit.
+        """
+        record = {
+            "method": str(method).upper(),
+            "endpoint": url.removeprefix(self.url),
+            "status": None,
+            "body": "",
+            "retry_after": None,
+        }
+        if resp is None:
+            record["body"] = "no response (timed out or connection failed)"
+        else:
+            try:
+                record["status"] = resp.attribute(
+                    QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
+                )
+                if hasattr(resp, "peek"):
+                    # peek() leaves the body unread for the plugin's parser.
+                    body = bytes(resp.peek(2000))
+                else:
+                    body = bytes(resp.content())[:2000]
+                record["body"] = body.decode("utf-8", errors="replace")
+                retry_after = bytes(resp.rawHeader(b"Retry-After")).decode()
+                record["retry_after"] = float(retry_after) if retry_after else None
+            except Exception as exc:  # noqa: BLE001 - diagnostics only
+                record["body"] = f"could not read response: {exc}"
+        self.last_response = record
+
+    def describe_last_response(self):
+        record = getattr(self, "last_response", None)
+        if not record:
+            return "no API response recorded"
+        status = record["status"] if record["status"] is not None else "none"
+        body = " ".join(record["body"].split())[:300]
+        return self.redact(
+            f"{record['method']} {record['endpoint']} -> HTTP {status}: {body}"
+        )

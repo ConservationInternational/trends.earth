@@ -16,7 +16,7 @@
 #   - Run from the trends.earth root directory
 
 param(
-    [string]$QgisVersion = "release-3_34",
+    [string]$QgisVersion = "3.44",
     [string]$TestTarget = "test_suite.test_package",
     [switch]$Verbose = $false,
     [switch]$CleanUp = $true

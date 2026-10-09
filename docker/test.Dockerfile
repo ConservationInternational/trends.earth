@@ -1,7 +1,7 @@
 # QGIS test image with the plugin's test dependencies preinstalled, so that
 # containers do not need network access to PyPI or apt when they start.
 ARG IMAGE=qgis/qgis
-ARG QGIS_VERSION_TAG=release-3_34
+ARG QGIS_VERSION_TAG=3.44
 FROM ${IMAGE}:${QGIS_VERSION_TAG}
 
 ENV PIP_BREAK_SYSTEM_PACKAGES=1 \

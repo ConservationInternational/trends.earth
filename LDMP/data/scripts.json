@@ -205,5 +205,21 @@
         "name_readable": "LDN Counterbalancing Assessment",
         "run_mode": "local",
         "version": "2.3.6"
+    },
+    {
+        "description": "Download data from STAC catalog assets.",
+        "execution_callable": "LDMP.localexecution.download_stac.download_stac",
+        "name": "download-stac",
+        "name_readable": "Download STAC data",
+        "run_mode": "local",
+        "version": "2.3.6"
+    },
+    {
+        "description": "View STAC catalog assets online without downloading them.",
+        "execution_callable": "LDMP.localexecution.download_stac.view_stac",
+        "name": "view-stac",
+        "name_readable": "View STAC data online",
+        "run_mode": "local",
+        "version": "2.3.6"
     }
 ]

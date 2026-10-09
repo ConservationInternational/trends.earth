@@ -1,0 +1,1212 @@
+"""
+/***************************************************************************
+ LDMP - A QGIS plugin
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
+ and in support of the SDG Land Degradation Neutrality (LDN) target.
+                              -------------------
+        begin                : 2017-05-23
+        git sha              : $Format:%H$
+        copyright            : (C) 2017 by Conservation International
+        email                : trends.earth@conservation.org
+ ***************************************************************************/
+"""
+
+from qgis.PyQt.QtCore import QCoreApplication
+
+
+class tr_layers:
+    def tr(message):
+        return QCoreApplication.translate("tr_layers", message)
+
+
+style_text_dict = {
+    # WePlan-Forests (STAC)
+    "weplan_available_areas_title": tr_layers.tr("WePlan - {asset_title}"),
+    "weplan_available_areas_0": tr_layers.tr("0%"),
+    "weplan_available_areas_100": tr_layers.tr("100%"),
+    "weplan_restoration_priority_title": tr_layers.tr("WePlan - {asset_title}"),
+    "weplan_restoration_priority_0": tr_layers.tr("0%"),
+    "weplan_restoration_priority_25": tr_layers.tr("25%"),
+    "weplan_restoration_priority_50": tr_layers.tr("50%"),
+    "weplan_restoration_priority_75": tr_layers.tr("75%"),
+    "weplan_restoration_priority_100": tr_layers.tr("100%"),
+    # Nature Map (STAC)
+    "nature_map_restoration_priority_title": tr_layers.tr("Nature Map - {asset_title}"),
+    "nature_map_restoration_priority_1": tr_layers.tr("Top 5%"),
+    "nature_map_restoration_priority_2": tr_layers.tr("10%"),
+    "nature_map_restoration_priority_3": tr_layers.tr("15%"),
+    "nature_map_restoration_priority_4": tr_layers.tr("20%"),
+    "nature_map_restoration_priority_6": tr_layers.tr("30%"),
+    "nature_map_restoration_priority_8": tr_layers.tr("40%"),
+    "nature_map_restoration_priority_11": tr_layers.tr("55%"),
+    "nature_map_restoration_priority_14": tr_layers.tr("70%"),
+    "nature_map_restoration_priority_17": tr_layers.tr("85%"),
+    "nature_map_restoration_priority_20": tr_layers.tr("100%"),
+    # World Terrestrial Ecosystems (STAC)
+    "world_terrestrial_ecosystems_title": tr_layers.tr("World Terrestrial Ecosystems"),
+    "world_terrestrial_ecosystems_1": tr_layers.tr(
+        "Polar Moist Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_2": tr_layers.tr(
+        "Polar Moist Snow and Ice on Plains"
+    ),
+    "world_terrestrial_ecosystems_3": tr_layers.tr(
+        "Polar Dry Snow and Ice on Mountains"
+    ),
+    "world_terrestrial_ecosystems_4": tr_layers.tr(
+        "Polar Dry Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_5": tr_layers.tr(
+        "Polar Moist Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_6": tr_layers.tr(
+        "Polar Moist Snow and Ice on Mountains"
+    ),
+    "world_terrestrial_ecosystems_7": tr_layers.tr(
+        "Polar Dry Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_8": tr_layers.tr(
+        "Polar Dry Snow and Ice on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_9": tr_layers.tr("Polar Dry Snow and Ice on Plains"),
+    "world_terrestrial_ecosystems_10": tr_layers.tr(
+        "Polar Moist Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_11": tr_layers.tr(
+        "Polar Moist Snow and Ice on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_12": tr_layers.tr(
+        "Polar Dry Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_13": tr_layers.tr("Polar Dry Snow and Ice on Hills"),
+    "world_terrestrial_ecosystems_14": tr_layers.tr(
+        "Polar Dry Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_15": tr_layers.tr(
+        "Polar Moist Snow and Ice on Hills"
+    ),
+    "world_terrestrial_ecosystems_16": tr_layers.tr(
+        "Polar Moist Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_17": tr_layers.tr("Polar Dry Grassland on Mountains"),
+    "world_terrestrial_ecosystems_18": tr_layers.tr(
+        "Polar Moist Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_19": tr_layers.tr("Polar Moist Shrubland on Plains"),
+    "world_terrestrial_ecosystems_20": tr_layers.tr("Polar Moist Shrubland on Hills"),
+    "world_terrestrial_ecosystems_21": tr_layers.tr("Polar Moist Grassland on Hills"),
+    "world_terrestrial_ecosystems_22": tr_layers.tr("Polar Moist Grassland on Plains"),
+    "world_terrestrial_ecosystems_23": tr_layers.tr("Polar Dry Grassland on Hills"),
+    "world_terrestrial_ecosystems_24": tr_layers.tr(
+        "Polar Moist Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_25": tr_layers.tr(
+        "Polar Moist Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_26": tr_layers.tr(
+        "Polar Moist Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_27": tr_layers.tr("Polar Moist Forest on Plains"),
+    "world_terrestrial_ecosystems_28": tr_layers.tr("Polar Moist Forest on Hills"),
+    "world_terrestrial_ecosystems_29": tr_layers.tr("Polar Moist Forest on Mountains"),
+    "world_terrestrial_ecosystems_30": tr_layers.tr("Polar Moist Forest on Tablelands"),
+    "world_terrestrial_ecosystems_31": tr_layers.tr("Polar Dry Grassland on Plains"),
+    "world_terrestrial_ecosystems_32": tr_layers.tr("Polar Dry Shrubland on Hills"),
+    "world_terrestrial_ecosystems_33": tr_layers.tr(
+        "Polar Moist Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_34": tr_layers.tr("Polar Dry Shrubland on Plains"),
+    "world_terrestrial_ecosystems_35": tr_layers.tr(
+        "Polar Dry Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_36": tr_layers.tr("Polar Dry Forest on Plains"),
+    "world_terrestrial_ecosystems_37": tr_layers.tr("Polar Moist Cropland on Hills"),
+    "world_terrestrial_ecosystems_38": tr_layers.tr(
+        "Polar Dry Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_39": tr_layers.tr(
+        "Polar Moist Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_40": tr_layers.tr("Polar Moist Cropland on Plains"),
+    "world_terrestrial_ecosystems_41": tr_layers.tr("Polar Dry Shrubland on Mountains"),
+    "world_terrestrial_ecosystems_42": tr_layers.tr(
+        "Polar Moist Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_43": tr_layers.tr("Polar Dry Forest on Hills"),
+    "world_terrestrial_ecosystems_44": tr_layers.tr("Polar Dry Forest on Tablelands"),
+    "world_terrestrial_ecosystems_45": tr_layers.tr(
+        "Boreal Moist Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_46": tr_layers.tr("Boreal Moist Grassland on Plains"),
+    "world_terrestrial_ecosystems_47": tr_layers.tr(
+        "Boreal Moist Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_48": tr_layers.tr("Boreal Moist Grassland on Hills"),
+    "world_terrestrial_ecosystems_49": tr_layers.tr("Boreal Moist Shrubland on Hills"),
+    "world_terrestrial_ecosystems_50": tr_layers.tr("Boreal Moist Forest on Hills"),
+    "world_terrestrial_ecosystems_51": tr_layers.tr(
+        "Boreal Moist Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_52": tr_layers.tr("Boreal Moist Shrubland on Plains"),
+    "world_terrestrial_ecosystems_53": tr_layers.tr("Boreal Moist Forest on Plains"),
+    "world_terrestrial_ecosystems_54": tr_layers.tr(
+        "Boreal Moist Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_55": tr_layers.tr("Boreal Moist Forest on Mountains"),
+    "world_terrestrial_ecosystems_56": tr_layers.tr(
+        "Boreal Moist Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_57": tr_layers.tr(
+        "Boreal Moist Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_58": tr_layers.tr(
+        "Boreal Moist Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_59": tr_layers.tr(
+        "Boreal Moist Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_60": tr_layers.tr("Boreal Moist Cropland on Hills"),
+    "world_terrestrial_ecosystems_61": tr_layers.tr("Polar Dry Cropland on Plains"),
+    "world_terrestrial_ecosystems_62": tr_layers.tr("Boreal Moist Cropland on Plains"),
+    "world_terrestrial_ecosystems_63": tr_layers.tr(
+        "Boreal Moist Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_64": tr_layers.tr("Polar Moist Settlement on Plains"),
+    "world_terrestrial_ecosystems_65": tr_layers.tr("Polar Dry Forest on Mountains"),
+    "world_terrestrial_ecosystems_66": tr_layers.tr(
+        "Boreal Dry Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_67": tr_layers.tr(
+        "Boreal Moist Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_68": tr_layers.tr("Boreal Dry Forest on Plains"),
+    "world_terrestrial_ecosystems_69": tr_layers.tr("Boreal Dry Shrubland on Plains"),
+    "world_terrestrial_ecosystems_70": tr_layers.tr(
+        "Boreal Dry Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_71": tr_layers.tr("Boreal Dry Shrubland on Hills"),
+    "world_terrestrial_ecosystems_72": tr_layers.tr("Boreal Dry Forest on Hills"),
+    "world_terrestrial_ecosystems_73": tr_layers.tr(
+        "Boreal Moist Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_74": tr_layers.tr("Boreal Dry Grassland on Hills"),
+    "world_terrestrial_ecosystems_75": tr_layers.tr("Boreal Dry Grassland on Plains"),
+    "world_terrestrial_ecosystems_76": tr_layers.tr("Polar Dry Cropland on Hills"),
+    "world_terrestrial_ecosystems_77": tr_layers.tr("Boreal Dry Cropland on Plains"),
+    "world_terrestrial_ecosystems_78": tr_layers.tr(
+        "Boreal Dry Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_79": tr_layers.tr("Polar Dry Cropland on Mountains"),
+    "world_terrestrial_ecosystems_80": tr_layers.tr("Polar Dry Cropland on Tablelands"),
+    "world_terrestrial_ecosystems_81": tr_layers.tr(
+        "Boreal Dry Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_82": tr_layers.tr("Boreal Dry Forest on Tablelands"),
+    "world_terrestrial_ecosystems_83": tr_layers.tr(
+        "Boreal Dry Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_84": tr_layers.tr("Boreal Dry Settlement on Plains"),
+    "world_terrestrial_ecosystems_85": tr_layers.tr("Boreal Dry Cropland on Hills"),
+    "world_terrestrial_ecosystems_86": tr_layers.tr(
+        "Boreal Moist Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_87": tr_layers.tr("Boreal Moist Settlement on Hills"),
+    "world_terrestrial_ecosystems_88": tr_layers.tr(
+        "Boreal Dry Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_89": tr_layers.tr(
+        "Boreal Dry Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_90": tr_layers.tr("Boreal Dry Forest on Mountains"),
+    "world_terrestrial_ecosystems_91": tr_layers.tr(
+        "Boreal Dry Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_92": tr_layers.tr(
+        "Boreal Dry Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_93": tr_layers.tr("Boreal Dry Cropland on Mountains"),
+    "world_terrestrial_ecosystems_94": tr_layers.tr(
+        "Boreal Moist Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_95": tr_layers.tr("Polar Dry Settlement on Plains"),
+    "world_terrestrial_ecosystems_96": tr_layers.tr(
+        "Cool Temperate Moist Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_97": tr_layers.tr(
+        "Cool Temperate Moist Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_98": tr_layers.tr(
+        "Cool Temperate Moist Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_99": tr_layers.tr(
+        "Cool Temperate Moist Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_100": tr_layers.tr(
+        "Cool Temperate Moist Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_101": tr_layers.tr(
+        "Cool Temperate Moist Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_102": tr_layers.tr(
+        "Cool Temperate Moist Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_103": tr_layers.tr(
+        "Cool Temperate Moist Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_104": tr_layers.tr(
+        "Cool Temperate Moist Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_105": tr_layers.tr(
+        "Cool Temperate Moist Forest on Hills"
+    ),
+    "world_terrestrial_ecosystems_106": tr_layers.tr(
+        "Cool Temperate Moist Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_107": tr_layers.tr(
+        "Cool Temperate Moist Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_108": tr_layers.tr(
+        "Cool Temperate Moist Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_109": tr_layers.tr(
+        "Cool Temperate Moist Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_110": tr_layers.tr(
+        "Cool Temperate Moist Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_111": tr_layers.tr(
+        "Cool Temperate Moist Forest on Plains"
+    ),
+    "world_terrestrial_ecosystems_112": tr_layers.tr(
+        "Cool Temperate Moist Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_113": tr_layers.tr(
+        "Cool Temperate Moist Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_114": tr_layers.tr(
+        "Cool Temperate Moist Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_115": tr_layers.tr(
+        "Cool Temperate Moist Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_116": tr_layers.tr(
+        "Cool Temperate Moist Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_117": tr_layers.tr("Boreal Dry Settlement on Hills"),
+    "world_terrestrial_ecosystems_118": tr_layers.tr(
+        "Cool Temperate Moist Snow and Ice on Mountains"
+    ),
+    "world_terrestrial_ecosystems_119": tr_layers.tr(
+        "Polar Dry Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_120": tr_layers.tr(
+        "Cool Temperate Moist Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_121": tr_layers.tr(
+        "Boreal Moist Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_122": tr_layers.tr(
+        "Boreal Dry Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_123": tr_layers.tr(
+        "Boreal Dry Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_124": tr_layers.tr(
+        "Boreal Moist Snow and Ice on Mountains"
+    ),
+    "world_terrestrial_ecosystems_125": tr_layers.tr(
+        "Boreal Moist Snow and Ice on Hills"
+    ),
+    "world_terrestrial_ecosystems_126": tr_layers.tr(
+        "Boreal Moist Snow and Ice on Plains"
+    ),
+    "world_terrestrial_ecosystems_127": tr_layers.tr("Polar Moist Settlement on Hills"),
+    "world_terrestrial_ecosystems_128": tr_layers.tr(
+        "Cool Temperate Moist Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_129": tr_layers.tr(
+        "Cool Temperate Moist Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_130": tr_layers.tr(
+        "Boreal Dry Snow and Ice on Mountains"
+    ),
+    "world_terrestrial_ecosystems_131": tr_layers.tr(
+        "Boreal Moist Snow and Ice on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_132": tr_layers.tr(
+        "Cool Temperate Moist Snow and Ice on Plains"
+    ),
+    "world_terrestrial_ecosystems_133": tr_layers.tr(
+        "Cool Temperate Moist Snow and Ice on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_134": tr_layers.tr(
+        "Cool Temperate Moist Snow and Ice on Hills"
+    ),
+    "world_terrestrial_ecosystems_135": tr_layers.tr(
+        "Cool Temperate Dry Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_136": tr_layers.tr(
+        "Cool Temperate Dry Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_137": tr_layers.tr(
+        "Cool Temperate Dry Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_138": tr_layers.tr(
+        "Cool Temperate Dry Forest on Plains"
+    ),
+    "world_terrestrial_ecosystems_139": tr_layers.tr(
+        "Cool Temperate Dry Forest on Hills"
+    ),
+    "world_terrestrial_ecosystems_140": tr_layers.tr(
+        "Cool Temperate Dry Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_141": tr_layers.tr(
+        "Cool Temperate Dry Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_142": tr_layers.tr(
+        "Cool Temperate Dry Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_143": tr_layers.tr(
+        "Cool Temperate Dry Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_144": tr_layers.tr(
+        "Cool Temperate Dry Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_145": tr_layers.tr(
+        "Cool Temperate Dry Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_146": tr_layers.tr(
+        "Cool Temperate Dry Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_147": tr_layers.tr(
+        "Cool Temperate Dry Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_148": tr_layers.tr(
+        "Cool Temperate Dry Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_149": tr_layers.tr(
+        "Cool Temperate Dry Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_150": tr_layers.tr(
+        "Cool Temperate Dry Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_151": tr_layers.tr(
+        "Cool Temperate Dry Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_152": tr_layers.tr(
+        "Cool Temperate Dry Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_153": tr_layers.tr(
+        "Cool Temperate Dry Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_154": tr_layers.tr(
+        "Cool Temperate Dry Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_155": tr_layers.tr(
+        "Cool Temperate Dry Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_156": tr_layers.tr(
+        "Cool Temperate Dry Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_157": tr_layers.tr(
+        "Cool Temperate Dry Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_158": tr_layers.tr(
+        "Cool Temperate Dry Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_159": tr_layers.tr(
+        "Warm Temperate Moist Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_160": tr_layers.tr(
+        "Warm Temperate Moist Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_161": tr_layers.tr(
+        "Warm Temperate Moist Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_162": tr_layers.tr(
+        "Warm Temperate Moist Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_163": tr_layers.tr(
+        "Warm Temperate Moist Forest on Hills"
+    ),
+    "world_terrestrial_ecosystems_164": tr_layers.tr(
+        "Warm Temperate Moist Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_165": tr_layers.tr(
+        "Warm Temperate Moist Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_166": tr_layers.tr(
+        "Warm Temperate Moist Forest on Plains"
+    ),
+    "world_terrestrial_ecosystems_167": tr_layers.tr(
+        "Warm Temperate Moist Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_168": tr_layers.tr(
+        "Warm Temperate Moist Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_169": tr_layers.tr(
+        "Warm Temperate Moist Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_170": tr_layers.tr(
+        "Warm Temperate Moist Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_171": tr_layers.tr(
+        "Warm Temperate Moist Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_172": tr_layers.tr(
+        "Warm Temperate Moist Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_173": tr_layers.tr(
+        "Warm Temperate Moist Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_174": tr_layers.tr(
+        "Warm Temperate Moist Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_175": tr_layers.tr(
+        "Warm Temperate Moist Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_176": tr_layers.tr(
+        "Warm Temperate Moist Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_177": tr_layers.tr(
+        "Warm Temperate Moist Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_178": tr_layers.tr(
+        "Warm Temperate Moist Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_179": tr_layers.tr(
+        "Warm Temperate Moist Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_180": tr_layers.tr(
+        "Warm Temperate Moist Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_181": tr_layers.tr(
+        "Warm Temperate Moist Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_182": tr_layers.tr(
+        "Warm Temperate Moist Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_183": tr_layers.tr(
+        "Warm Temperate Dry Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_184": tr_layers.tr(
+        "Warm Temperate Dry Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_185": tr_layers.tr(
+        "Warm Temperate Dry Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_186": tr_layers.tr(
+        "Warm Temperate Dry Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_187": tr_layers.tr(
+        "Warm Temperate Dry Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_188": tr_layers.tr(
+        "Warm Temperate Dry Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_189": tr_layers.tr(
+        "Warm Temperate Dry Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_190": tr_layers.tr(
+        "Warm Temperate Dry Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_191": tr_layers.tr(
+        "Warm Temperate Dry Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_192": tr_layers.tr(
+        "Warm Temperate Dry Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_193": tr_layers.tr(
+        "Warm Temperate Dry Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_194": tr_layers.tr(
+        "Warm Temperate Dry Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_195": tr_layers.tr(
+        "Warm Temperate Dry Forest on Plains"
+    ),
+    "world_terrestrial_ecosystems_196": tr_layers.tr(
+        "Warm Temperate Dry Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_197": tr_layers.tr(
+        "Warm Temperate Dry Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_198": tr_layers.tr(
+        "Warm Temperate Dry Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_199": tr_layers.tr(
+        "Warm Temperate Dry Forest on Hills"
+    ),
+    "world_terrestrial_ecosystems_200": tr_layers.tr(
+        "Warm Temperate Dry Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_201": tr_layers.tr(
+        "Warm Temperate Dry Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_202": tr_layers.tr(
+        "Warm Temperate Dry Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_203": tr_layers.tr(
+        "Warm Temperate Dry Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_204": tr_layers.tr(
+        "Warm Temperate Dry Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_205": tr_layers.tr(
+        "Warm Temperate Dry Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_206": tr_layers.tr(
+        "Warm Temperate Dry Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_207": tr_layers.tr(
+        "Cool Temperate Desert Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_208": tr_layers.tr(
+        "Cool Temperate Desert Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_209": tr_layers.tr(
+        "Cool Temperate Desert Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_210": tr_layers.tr(
+        "Cool Temperate Desert Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_211": tr_layers.tr(
+        "Cool Temperate Desert Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_212": tr_layers.tr(
+        "Cool Temperate Desert Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_213": tr_layers.tr(
+        "Cool Temperate Desert Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_214": tr_layers.tr(
+        "Cool Temperate Desert Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_215": tr_layers.tr(
+        "Cool Temperate Desert Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_216": tr_layers.tr(
+        "Cool Temperate Desert Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_217": tr_layers.tr(
+        "Cool Temperate Dry Snow and Ice on Mountains"
+    ),
+    "world_terrestrial_ecosystems_218": tr_layers.tr(
+        "Warm Temperate Desert Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_219": tr_layers.tr(
+        "Cool Temperate Desert Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_220": tr_layers.tr(
+        "Cool Temperate Desert Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_221": tr_layers.tr(
+        "Warm Temperate Desert Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_222": tr_layers.tr(
+        "Cool Temperate Desert Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_223": tr_layers.tr(
+        "Warm Temperate Desert Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_224": tr_layers.tr(
+        "Warm Temperate Desert Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_225": tr_layers.tr(
+        "Warm Temperate Desert Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_226": tr_layers.tr(
+        "Warm Temperate Desert Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_227": tr_layers.tr(
+        "Warm Temperate Desert Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_228": tr_layers.tr(
+        "Cool Temperate Desert Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_229": tr_layers.tr(
+        "Cool Temperate Desert Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_230": tr_layers.tr(
+        "Warm Temperate Desert Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_231": tr_layers.tr(
+        "Warm Temperate Desert Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_232": tr_layers.tr(
+        "Warm Temperate Desert Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_233": tr_layers.tr(
+        "Warm Temperate Desert Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_234": tr_layers.tr(
+        "Warm Temperate Desert Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_235": tr_layers.tr(
+        "Warm Temperate Desert Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_236": tr_layers.tr(
+        "Warm Temperate Desert Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_237": tr_layers.tr(
+        "Warm Temperate Desert Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_238": tr_layers.tr(
+        "Warm Temperate Desert Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_239": tr_layers.tr(
+        "Warm Temperate Desert Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_240": tr_layers.tr(
+        "Warm Temperate Desert Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_241": tr_layers.tr(
+        "Warm Temperate Desert Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_242": tr_layers.tr(
+        "Cool Temperate Desert Forest on Plains"
+    ),
+    "world_terrestrial_ecosystems_243": tr_layers.tr(
+        "Warm Temperate Desert Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_244": tr_layers.tr(
+        "Cool Temperate Desert Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_245": tr_layers.tr(
+        "Cool Temperate Desert Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_246": tr_layers.tr(
+        "Cool Temperate Desert Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_247": tr_layers.tr(
+        "Cool Temperate Desert Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_248": tr_layers.tr(
+        "Cool Temperate Desert Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_249": tr_layers.tr(
+        "Warm Temperate Desert Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_250": tr_layers.tr(
+        "Warm Temperate Desert Forest on Hills"
+    ),
+    "world_terrestrial_ecosystems_251": tr_layers.tr(
+        "Boreal Desert Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_252": tr_layers.tr(
+        "Boreal Desert Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_253": tr_layers.tr(
+        "Boreal Desert Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_254": tr_layers.tr(
+        "Polar Desert Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_255": tr_layers.tr(
+        "Boreal Desert Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_256": tr_layers.tr(
+        "Boreal Desert Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_257": tr_layers.tr(
+        "Boreal Desert Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_258": tr_layers.tr(
+        "Boreal Desert Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_259": tr_layers.tr(
+        "Warm Temperate Desert Forest on Plains"
+    ),
+    "world_terrestrial_ecosystems_260": tr_layers.tr(
+        "Cool Temperate Desert Forest on Hills"
+    ),
+    "world_terrestrial_ecosystems_261": tr_layers.tr(
+        "Sub Tropical Moist Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_262": tr_layers.tr(
+        "Sub Tropical Moist Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_263": tr_layers.tr(
+        "Sub Tropical Moist Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_264": tr_layers.tr(
+        "Sub Tropical Moist Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_265": tr_layers.tr(
+        "Sub Tropical Moist Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_266": tr_layers.tr(
+        "Sub Tropical Dry Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_267": tr_layers.tr(
+        "Sub Tropical Moist Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_268": tr_layers.tr(
+        "Sub Tropical Moist Forest on Hills"
+    ),
+    "world_terrestrial_ecosystems_269": tr_layers.tr(
+        "Sub Tropical Moist Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_270": tr_layers.tr(
+        "Sub Tropical Moist Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_271": tr_layers.tr(
+        "Sub Tropical Moist Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_272": tr_layers.tr(
+        "Sub Tropical Dry Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_273": tr_layers.tr(
+        "Sub Tropical Dry Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_274": tr_layers.tr(
+        "Sub Tropical Dry Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_275": tr_layers.tr(
+        "Sub Tropical Dry Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_276": tr_layers.tr(
+        "Sub Tropical Dry Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_277": tr_layers.tr(
+        "Sub Tropical Dry Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_278": tr_layers.tr(
+        "Sub Tropical Dry Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_279": tr_layers.tr(
+        "Sub Tropical Dry Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_280": tr_layers.tr(
+        "Cool Temperate Desert Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_281": tr_layers.tr(
+        "Sub Tropical Dry Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_282": tr_layers.tr(
+        "Sub Tropical Dry Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_283": tr_layers.tr(
+        "Sub Tropical Dry Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_284": tr_layers.tr(
+        "Sub Tropical Dry Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_285": tr_layers.tr(
+        "Sub Tropical Dry Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_286": tr_layers.tr(
+        "Sub Tropical Dry Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_287": tr_layers.tr(
+        "Sub Tropical Dry Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_288": tr_layers.tr(
+        "Sub Tropical Dry Forest on Plains"
+    ),
+    "world_terrestrial_ecosystems_289": tr_layers.tr(
+        "Sub Tropical Dry Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_290": tr_layers.tr(
+        "Sub Tropical Dry Forest on Hills"
+    ),
+    "world_terrestrial_ecosystems_291": tr_layers.tr(
+        "Sub Tropical Dry Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_292": tr_layers.tr(
+        "Polar Desert Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_293": tr_layers.tr(
+        "Sub Tropical Dry Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_294": tr_layers.tr(
+        "Sub Tropical Dry Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_295": tr_layers.tr(
+        "Sub Tropical Moist Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_296": tr_layers.tr(
+        "Sub Tropical Dry Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_297": tr_layers.tr(
+        "Sub Tropical Moist Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_298": tr_layers.tr(
+        "Sub Tropical Dry Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_299": tr_layers.tr(
+        "Sub Tropical Moist Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_300": tr_layers.tr(
+        "Sub Tropical Moist Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_301": tr_layers.tr(
+        "Sub Tropical Moist Forest on Plains"
+    ),
+    "world_terrestrial_ecosystems_302": tr_layers.tr(
+        "Sub Tropical Moist Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_303": tr_layers.tr(
+        "Sub Tropical Moist Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_304": tr_layers.tr(
+        "Sub Tropical Moist Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_305": tr_layers.tr(
+        "Sub Tropical Moist Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_306": tr_layers.tr(
+        "Polar Desert Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_307": tr_layers.tr(
+        "Sub Tropical Moist Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_308": tr_layers.tr(
+        "Sub Tropical Moist Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_309": tr_layers.tr(
+        "Polar Desert Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_310": tr_layers.tr(
+        "Sub Tropical Desert Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_311": tr_layers.tr(
+        "Sub Tropical Moist Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_312": tr_layers.tr(
+        "Sub Tropical Desert Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_313": tr_layers.tr(
+        "Sub Tropical Desert Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_314": tr_layers.tr(
+        "Sub Tropical Desert Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_315": tr_layers.tr(
+        "Cool Temperate Desert Snow and Ice on Mountains"
+    ),
+    "world_terrestrial_ecosystems_316": tr_layers.tr(
+        "Sub Tropical Moist Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_317": tr_layers.tr(
+        "Boreal Desert Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_318": tr_layers.tr(
+        "Polar Dry Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_319": tr_layers.tr("Polar Dry Settlement on Hills"),
+    "world_terrestrial_ecosystems_320": tr_layers.tr(
+        "Sub Tropical Desert Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_321": tr_layers.tr(
+        "Polar Desert Snow and Ice on Mountains"
+    ),
+    "world_terrestrial_ecosystems_322": tr_layers.tr(
+        "Sub Tropical Desert Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_323": tr_layers.tr(
+        "Boreal Desert Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_324": tr_layers.tr(
+        "Polar Desert Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_325": tr_layers.tr(
+        "Boreal Desert Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_326": tr_layers.tr(
+        "Boreal Desert Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_327": tr_layers.tr(
+        "Sub Tropical Desert Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_328": tr_layers.tr(
+        "Sub Tropical Desert Forest on Plains"
+    ),
+    "world_terrestrial_ecosystems_329": tr_layers.tr(
+        "Sub Tropical Desert Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_330": tr_layers.tr(
+        "Sub Tropical Desert Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_331": tr_layers.tr(
+        "Sub Tropical Desert Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_332": tr_layers.tr(
+        "Tropical Dry Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_333": tr_layers.tr("Tropical Dry Cropland on Plains"),
+    "world_terrestrial_ecosystems_334": tr_layers.tr(
+        "Tropical Dry Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_335": tr_layers.tr("Tropical Dry Shrubland on Hills"),
+    "world_terrestrial_ecosystems_336": tr_layers.tr("Tropical Dry Cropland on Hills"),
+    "world_terrestrial_ecosystems_337": tr_layers.tr(
+        "Tropical Dry Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_338": tr_layers.tr(
+        "Tropical Dry Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_339": tr_layers.tr(
+        "Tropical Dry Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_340": tr_layers.tr(
+        "Sub Tropical Desert Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_341": tr_layers.tr(
+        "Tropical Dry Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_342": tr_layers.tr(
+        "Tropical Dry Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_343": tr_layers.tr(
+        "Tropical Dry Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_344": tr_layers.tr(
+        "Tropical Dry Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_345": tr_layers.tr(
+        "Tropical Dry Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_346": tr_layers.tr(
+        "Sub Tropical Desert Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_347": tr_layers.tr(
+        "Sub Tropical Desert Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_348": tr_layers.tr(
+        "Sub Tropical Moist Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_349": tr_layers.tr(
+        "Sub Tropical Desert Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_350": tr_layers.tr(
+        "Sub Tropical Desert Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_351": tr_layers.tr(
+        "Sub Tropical Desert Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_352": tr_layers.tr(
+        "Sub Tropical Desert Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_353": tr_layers.tr(
+        "Sub Tropical Desert Forest on Hills"
+    ),
+    "world_terrestrial_ecosystems_354": tr_layers.tr(
+        "Sub Tropical Desert Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_355": tr_layers.tr(
+        "Sub Tropical Desert Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_356": tr_layers.tr(
+        "Tropical Dry Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_357": tr_layers.tr(
+        "Sub Tropical Desert Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_358": tr_layers.tr(
+        "Tropical Dry Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_359": tr_layers.tr("Tropical Dry Grassland on Hills"),
+    "world_terrestrial_ecosystems_360": tr_layers.tr(
+        "Tropical Dry Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_361": tr_layers.tr("Tropical Dry Forest on Plains"),
+    "world_terrestrial_ecosystems_362": tr_layers.tr(
+        "Tropical Desert Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_363": tr_layers.tr("Tropical Dry Forest on Hills"),
+    "world_terrestrial_ecosystems_364": tr_layers.tr(
+        "Tropical Dry Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_365": tr_layers.tr(
+        "Tropical Dry Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_366": tr_layers.tr(
+        "Sub Tropical Desert Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_367": tr_layers.tr(
+        "Tropical Desert Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_368": tr_layers.tr(
+        "Tropical Dry Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_369": tr_layers.tr(
+        "Tropical Desert Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_370": tr_layers.tr(
+        "Tropical Desert Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_371": tr_layers.tr(
+        "Tropical Desert Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_372": tr_layers.tr(
+        "Tropical Desert Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_373": tr_layers.tr(
+        "Tropical Desert Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_374": tr_layers.tr(
+        "Tropical Desert Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_375": tr_layers.tr(
+        "Tropical Desert Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_376": tr_layers.tr(
+        "Tropical Desert Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_377": tr_layers.tr(
+        "Tropical Desert Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_378": tr_layers.tr(
+        "Tropical Desert Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_379": tr_layers.tr(
+        "Tropical Desert Forest on Plains"
+    ),
+    "world_terrestrial_ecosystems_380": tr_layers.tr(
+        "Tropical Desert Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_381": tr_layers.tr(
+        "Tropical Desert Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_382": tr_layers.tr(
+        "Tropical Dry Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_383": tr_layers.tr(
+        "Tropical Desert Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_384": tr_layers.tr(
+        "Tropical Desert Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_385": tr_layers.tr(
+        "Tropical Desert Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_386": tr_layers.tr(
+        "Tropical Desert Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_387": tr_layers.tr(
+        "Tropical Moist Cropland on Plains"
+    ),
+    "world_terrestrial_ecosystems_388": tr_layers.tr(
+        "Tropical Moist Settlement on Plains"
+    ),
+    "world_terrestrial_ecosystems_389": tr_layers.tr("Tropical Moist Forest on Plains"),
+    "world_terrestrial_ecosystems_390": tr_layers.tr(
+        "Tropical Moist Cropland on Hills"
+    ),
+    "world_terrestrial_ecosystems_391": tr_layers.tr(
+        "Tropical Moist Cropland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_392": tr_layers.tr(
+        "Tropical Moist Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_393": tr_layers.tr(
+        "Tropical Moist Grassland on Plains"
+    ),
+    "world_terrestrial_ecosystems_394": tr_layers.tr(
+        "Tropical Dry Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_395": tr_layers.tr(
+        "Tropical Moist Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_396": tr_layers.tr(
+        "Tropical Moist Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_397": tr_layers.tr(
+        "Tropical Desert Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_398": tr_layers.tr("Tropical Moist Forest on Hills"),
+    "world_terrestrial_ecosystems_399": tr_layers.tr(
+        "Warm Temperate Moist Snow and Ice on Mountains"
+    ),
+    "world_terrestrial_ecosystems_400": tr_layers.tr(
+        "Sub Tropical Desert Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_401": tr_layers.tr(
+        "Tropical Moist Grassland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_402": tr_layers.tr(
+        "Tropical Moist Sparsley or Non vegetated on Mountains"
+    ),
+    "world_terrestrial_ecosystems_403": tr_layers.tr(
+        "Tropical Moist Grassland on Hills"
+    ),
+    "world_terrestrial_ecosystems_404": tr_layers.tr(
+        "Tropical Moist Shrubland on Mountains"
+    ),
+    "world_terrestrial_ecosystems_405": tr_layers.tr(
+        "Tropical Moist Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_406": tr_layers.tr("Tropical Desert Forest on Hills"),
+    "world_terrestrial_ecosystems_407": tr_layers.tr(
+        "Tropical Moist Settlement on Hills"
+    ),
+    "world_terrestrial_ecosystems_408": tr_layers.tr(
+        "Tropical Moist Shrubland on Hills"
+    ),
+    "world_terrestrial_ecosystems_409": tr_layers.tr(
+        "Tropical Moist Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_410": tr_layers.tr(
+        "Tropical Moist Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_411": tr_layers.tr(
+        "Tropical Moist Cropland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_412": tr_layers.tr(
+        "Tropical Desert Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_413": tr_layers.tr(
+        "Tropical Moist Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_414": tr_layers.tr(
+        "Tropical Moist Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_415": tr_layers.tr(
+        "Tropical Moist Sparsley or Non vegetated on Hills"
+    ),
+    "world_terrestrial_ecosystems_416": tr_layers.tr(
+        "Tropical Moist Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_417": tr_layers.tr(
+        "Tropical Desert Forest on Mountains"
+    ),
+    "world_terrestrial_ecosystems_418": tr_layers.tr(
+        "Tropical Desert Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_419": tr_layers.tr(
+        "Warm Temperate Dry Snow and Ice on Mountains"
+    ),
+    "world_terrestrial_ecosystems_420": tr_layers.tr(
+        "Cool Temperate Dry Snow and Ice on Plains"
+    ),
+    "world_terrestrial_ecosystems_421": tr_layers.tr(
+        "Polar Desert Sparsley or Non vegetated on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_422": tr_layers.tr(
+        "Polar Desert Settlement on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_423": tr_layers.tr(
+        "Polar Desert Shrubland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_424": tr_layers.tr(
+        "Polar Desert Sparsley or Non vegetated on Plains"
+    ),
+    "world_terrestrial_ecosystems_425": tr_layers.tr(
+        "Polar Desert Shrubland on Plains"
+    ),
+    "world_terrestrial_ecosystems_426": tr_layers.tr("Polar Desert Cropland on Plains"),
+    "world_terrestrial_ecosystems_427": tr_layers.tr("Polar Desert Forest on Plains"),
+    "world_terrestrial_ecosystems_428": tr_layers.tr(
+        "Polar Desert Settlement on Mountains"
+    ),
+    "world_terrestrial_ecosystems_429": tr_layers.tr(
+        "Warm Temperate Desert Forest on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_430": tr_layers.tr(
+        "Polar Desert Grassland on Tablelands"
+    ),
+    "world_terrestrial_ecosystems_431": tr_layers.tr(
+        "Polar Desert Grassland on Plains"
+    ),
+}

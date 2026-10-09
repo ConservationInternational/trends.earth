@@ -106,6 +106,7 @@ SOURCES = ../about.py \
 ../region_selector.py \
 ../select_dataset.py \
 ../settings.py \
+../style_text_dict.py \
 ../summary.py \
 ../timeseries.py \
 ../utils.py \

@@ -23,6 +23,7 @@ from te_schemas.algorithms import ExecutionScript
 from . import calculate, conf
 from .conf import Setting, settings_manager
 from .dataset_additional_metadata import DataSetAdditionalMetadataDialog
+from .download_data_stac import DlgDownloadStacMixin
 from .jobs.manager import job_manager
 from .logger import log
 from .utils import push_message
@@ -116,7 +117,7 @@ class DataTableModel(QtCore.QAbstractTableModel):
         return QtCore.QAbstractTableModel.headerData(self, section, orientation, role)
 
 
-class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
+class DlgDownload(DlgDownloadStacMixin, calculate.DlgCalculateBase, DlgDownloadUi):
     def __init__(
         self,
         iface: qgis.gui.QgisInterface,
@@ -144,6 +145,8 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                     extent_lon = f"{min_x} - {max_x}"
                     item.update({"extent_lat": extent_lat, "extent_lon": extent_lon})
                 self.datasets.append(item)
+
+        self.setup_stac()
 
         self.update_data_table()
         self.data_view.selectionModel().selectionChanged.connect(self.selection_changed)
@@ -178,6 +181,8 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 self.year_final.setMinimumDate(year_initial)
                 self.year_final.setMaximumDate(year_final)
                 self.year_final.setDate(year_final)
+
+            self.stac_selection_changed()
 
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
@@ -258,11 +263,18 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
             d for d in self.datasets if d["category"] + d["title"] in selected_names
         ]
 
+        if not self.check_stac_layers(selected_datasets):
+            return
+
         self.close()
 
         crosses_180th, geojsons = self.gee_bounding_box
         log(f"selected_datasets: {selected_datasets}")
         for dataset in selected_datasets:
+            if "stac_collection" in dataset:
+                self.submit_stac_download(dataset)
+                continue
+
             payload = {
                 "geojsons": json.dumps(geojsons),
                 "crs": self.aoi.get_crs_dst_wkt(),

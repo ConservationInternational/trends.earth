@@ -42,6 +42,7 @@ from qgis.utils import iface
 from te_schemas.land_cover import LCLegendNesting
 
 from .logger import log
+from .style_text_dict import style_text_dict as additional_style_text_dict
 
 
 def convert_vsis3_to_vsicurl(path: str) -> str:
@@ -400,6 +401,7 @@ style_text_dict = {
     # Soil Organic C
     "soil_grids_250_soc": tr_layers.tr("Soil Grids 250"),
 }
+style_text_dict.update(additional_style_text_dict)
 
 with open(
     os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "styles.json")

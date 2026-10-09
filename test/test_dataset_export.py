@@ -139,6 +139,49 @@ class TestDatasetExport(unittest.TestCase):
         self.assertEqual(len(missing), 2)
         self.assertTrue(any("tmpgone.vrt" in path for path in missing))
 
+    def test_does_not_expand_xml_entities(self):
+        secret = self.root / "secret.txt"
+        secret.write_text("do-not-export", encoding="utf-8")
+        top = self.dataset_dir / "top.vrt"
+        top.write_text(
+            '<?xml version="1.0"?>\n'
+            f'<!DOCTYPE VRTDataset [<!ENTITY ext SYSTEM "{secret.as_uri()}">]>\n'
+            "<VRTDataset rasterXSize='1' rasterYSize='1'>"
+            "<VRTRasterBand dataType='Byte' band='1'><SimpleSource>"
+            "<SourceFilename relativeToVRT='1'>&ext;</SourceFilename>"
+            "<SourceBand>1</SourceBand></SimpleSource>"
+            "</VRTRasterBand></VRTDataset>",
+            encoding="utf-8",
+        )
+
+        files, missing = collect_dataset_files([top])
+
+        self.assertEqual(files, [top.resolve()])
+        self.assertEqual(missing, [])
+
+    def test_rewrites_vrt_with_xml_declaration(self):
+        external_dir = self.root / "elsewhere"
+        external_dir.mkdir()
+        source = _write_tif(external_dir / "source.tif", 9)
+        generated = _write_vrt(self.root / "generated.vrt", [source])
+        top = self.dataset_dir / "top.vrt"
+        top.write_text(
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            + generated.read_text(encoding="utf-8").replace(
+                'relativeToVRT="1">elsewhere/source.tif',
+                f'relativeToVRT="0">{source}',
+            ),
+            encoding="utf-8",
+        )
+
+        summary, names, extracted = self._export_and_extract([top])
+
+        self.assertIn("source.tif", names)
+        self.assertEqual(summary.rewritten_vrts, [top.resolve()])
+        rewritten = (extracted / "top.vrt").read_text(encoding="utf-8")
+        self.assertNotIn(str(external_dir), rewritten)
+        self.assertEqual(_band_values(extracted / "top.vrt"), [9])
+
     def test_ignores_vsi_sources(self):
         top = self.dataset_dir / "top.vrt"
         top.write_text(

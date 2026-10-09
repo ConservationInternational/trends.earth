@@ -8,10 +8,12 @@ under a different archive name is rewritten to a relative sibling path.
 import ntpath
 import os
 import posixpath
-import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
+
+import defusedxml.ElementTree as DefusedET
+from defusedxml import DefusedXmlException
 
 _VRT_SOURCE_TAGS = ("SourceFilename", "SourceDataset")
 _SIDECAR_SUFFIXES = (".aux.xml", ".ovr", ".msk")
@@ -32,21 +34,21 @@ def _is_absolute_source(path: str) -> bool:
     return posixpath.isabs(path) or ntpath.isabs(path)
 
 
-def _is_relative_to_vrt(element: ET.Element) -> bool:
+def _is_relative_to_vrt(element) -> bool:
     for name, value in element.attrib.items():
         if name.lower() == "relativetovrt":
             return value.strip() == "1"
     return False
 
 
-def _set_relative_to_vrt(element: ET.Element) -> None:
+def _set_relative_to_vrt(element) -> None:
     for name in list(element.attrib):
         if name.lower() == "relativetovrt":
             del element.attrib[name]
     element.set("relativeToVRT", "1")
 
 
-def _resolve_source(vrt_path: Path, element: ET.Element) -> Path | None:
+def _resolve_source(vrt_path: Path, element) -> Path | None:
     source = (element.text or "").strip()
     if not source or _is_vsi_path(source):
         return None
@@ -65,14 +67,15 @@ def _resolve_source(vrt_path: Path, element: ET.Element) -> Path | None:
     return Path(candidates[-1])
 
 
-def _read_vrt(path: Path) -> ET.ElementTree | None:
+def _read_vrt(path: Path):
+    """Parse a VRT, or return None if it is unreadable or uses DTD entities."""
     try:
-        return ET.parse(path)
-    except (ET.ParseError, OSError):
+        return DefusedET.parse(path)
+    except (DefusedET.ParseError, DefusedXmlException, OSError):
         return None
 
 
-def _source_elements(tree: ET.ElementTree):
+def _source_elements(tree):
     for tag in _VRT_SOURCE_TAGS:
         yield from tree.iter(tag)
 
@@ -160,7 +163,7 @@ def _rewrite_vrt(path: Path, archive_names: dict[Path, str]) -> bytes | None:
 
     if not changed:
         return None
-    return ET.tostring(tree.getroot(), encoding="utf-8", xml_declaration=False)
+    return DefusedET.tostring(tree.getroot(), encoding="utf-8", xml_declaration=False)
 
 
 def write_dataset_archive(

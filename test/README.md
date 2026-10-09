@@ -10,6 +10,19 @@ Docker test environment against the real Trends.Earth API. For each country it:
 - runs the SDG 15.3.1 and drought summaries;
 - sanity checks each summary JSON (see below);
 - builds SDG-only, drought-only and combined UNCCD/PRAIS packages.
+- submits productivity (trajectory, performance and state), land cover and
+  soil organic carbon through their separate remote dialogs, waits for GEE
+  execution and downloads the results;
+- selects those three separate outputs in the SDG 15.3.1 calculation dialog
+  and runs the same summary JSON sanity checks on the resulting indicator.
+
+The separate-input calculation covers the baseline: productivity 2001–2015
+(state baseline 2001–2012, comparison 2013–2015), land cover and SOC 2000–2015.
+Population comes from the existing all-in-one baseline job; the productivity,
+land cover and SOC layers must come from their own submissions, not that job.
+Both the selected job IDs and the local calculation's input file paths are
+verified. This additional baseline summary is checked independently and does
+not replace the existing baseline/reporting-period summaries or packages.
 
 The test authenticates as a dedicated test user with an OAuth2 **service
 credential** (client-credentials grant), never with an email and password. The
@@ -44,9 +57,10 @@ Jobs are submitted through the plugin dialogs. Jobs that the API queues (status
 as submitted. If the plugin gets no job back, the test checks whether the server
 created the execution anyway (matching on task name). If it didn't, the test
 retries after HTTP 429, 5xx or no response, honouring `Retry-After`. A failure
-reports the HTTP status and response body. Each country submits four remote jobs
-(baseline, two reporting periods and drought), and the API rate-limits the run
-endpoint (by default 10 per minute and 40 per hour per user). Repeated runs in
+reports the HTTP status and response body. Each country submits seven remote jobs
+(baseline, two reporting periods, drought, productivity, land cover and SOC).
+The API rate-limits the run endpoint (by default 10 per minute and 40 per hour
+per user). Repeated runs in
 one hour can therefore hit the limit.
 
 While polling, `PENDING`, `READY`, `RUNNING` and `CANCELLING` are in progress.
@@ -86,11 +100,13 @@ or more of the valid area in a single class (all Stable or all Degraded),
 moderate No data, no reporting periods,
 large year-to-year changes in SOC stock or population, and empty crosstabs.
 Warnings are logged and listed in `summary.md`. The full results are saved to
-`<ISO>/<sdg|drought>/checks/checks.json` and in `summary.json`.
+`<ISO>/<sdg|drought|sdg_separate>/checks/checks.json` and in `summary.json`.
 
 The checks have offline unit tests in
 [`e2e/test_summary_checks.py`](e2e/test_summary_checks.py), which run with the
 normal test suite.
+[`e2e/test_subindicators.py`](e2e/test_subindicators.py) also tests the real dialog
+submission payloads offline and verifies separate-input selection and provenance.
 
 A run takes one to several hours. The [`e2e.yaml`](../.github/workflows/e2e.yaml) workflow
 runs it on demand, and every three days at 22:00 US Eastern, with one job per

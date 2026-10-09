@@ -3,7 +3,8 @@
 For each country this submits remote jobs to the real Trends.Earth API through
 the plugin's own dialogs, waits for them, downloads the results, runs the
 summary tools, and builds UNCCD/PRAIS packages (SDG only, drought only, and
-combined).
+combined). It also submits productivity, land cover and SOC separately and
+calculates and checks an SDG baseline using those three returned outputs.
 
 The test authenticates as a dedicated test user with an OAuth2 service
 credential and only runs via ``test_suite.test_e2e`` with
@@ -39,6 +40,14 @@ from .harness import (
     validate_package,
     wait_for_remote,
 )
+from .subindicators import (
+    check_subindicator_bands,
+    configure_land_cover,
+    configure_productivity,
+    configure_soc,
+    select_separate_inputs,
+    verify_separate_input_paths,
+)
 from .summary_checks import Thresholds, check_drought_summary, check_sdg_summary
 
 SDG_PRESET = "UNCCD Reporting (2026 reporting cycle - Default Data, Trends.Earth)"
@@ -55,6 +64,14 @@ STAGES = (
     "drought_checks",
     "drought_package",
     "combined_package",
+    "productivity_remote",
+    "productivity_outputs",
+    "land_cover_remote",
+    "land_cover_outputs",
+    "soc_remote",
+    "soc_outputs",
+    "sdg_separate_summary",
+    "sdg_separate_checks",
 )
 DEPENDS_ON = {
     "sdg_summary": ("sdg_remote",),
@@ -64,6 +81,16 @@ DEPENDS_ON = {
     "drought_checks": ("drought_summary",),
     "drought_package": ("drought_checks",),
     "combined_package": ("sdg_checks", "drought_checks"),
+    "productivity_outputs": ("productivity_remote",),
+    "land_cover_outputs": ("land_cover_remote",),
+    "soc_outputs": ("soc_remote",),
+    "sdg_separate_summary": (
+        "productivity_outputs",
+        "land_cover_outputs",
+        "soc_outputs",
+        "sdg_remote",
+    ),
+    "sdg_separate_checks": ("sdg_separate_summary",),
 }
 
 
@@ -162,12 +189,15 @@ class RemotePipelinesE2ETest(unittest.TestCase):
                 set_country_aoi(iso3)
             except Exception as exc:  # noqa: BLE001
                 reason = cls.client.redact(f"failed: {exc}")
-                cls.status[(iso3, "sdg_remote")] = reason
-                cls.status[(iso3, "drought_remote")] = reason
+                for chain in ("sdg", "drought", "productivity", "land_cover", "soc"):
+                    cls.status[(iso3, f"{chain}_remote")] = reason
                 continue
             for chain, submit in (
                 ("sdg", cls._submit_sdg),
                 ("drought", cls._submit_drought),
+                ("productivity", cls._submit_productivity),
+                ("land_cover", cls._submit_land_cover),
+                ("soc", cls._submit_soc),
             ):
                 try:
                     cls.remote_jobs[(iso3, chain)] = submit(iso3)
@@ -241,6 +271,54 @@ class RemotePipelinesE2ETest(unittest.TestCase):
                 f"the drought job was not submitted: {submission.failure}"
             )
         return {"drought": submission.job}
+
+    @classmethod
+    def _submit_subindicator(cls, iso3, chain, dlg_cls, script_name, configure):
+        def configure_named(dlg):
+            configure(dlg)
+            dlg.execution_name_le.setText(cls._task_name(iso3, chain))
+            dlg.task_notes.setPlainText(TASK_NOTES)
+            dlg.options_tab.task_notes.setPlainText(TASK_NOTES)
+
+        run = cls.driver.run(dlg_cls, script_name, configure_named)
+        if run.errors:
+            raise RuntimeError("; ".join(run.errors))
+        if len(run.remote) != 1:
+            raise RuntimeError(f"expected 1 {chain} submission, got {len(run.remote)}")
+        submission = run.remote[0]
+        if submission.job is None:
+            raise RuntimeError(
+                f"the {chain} job was not submitted: {submission.failure}"
+            )
+        return {chain: submission.job}
+
+    @classmethod
+    def _submit_productivity(cls, iso3):
+        from LDMP.calculate_prod import DlgCalculateProd
+
+        return cls._submit_subindicator(
+            iso3,
+            "productivity",
+            DlgCalculateProd,
+            "productivity",
+            configure_productivity,
+        )
+
+    @classmethod
+    def _submit_land_cover(cls, iso3):
+        from LDMP.calculate_lc import DlgCalculateLC
+
+        return cls._submit_subindicator(
+            iso3, "land_cover", DlgCalculateLC, "land-cover", configure_land_cover
+        )
+
+    @classmethod
+    def _submit_soc(cls, iso3):
+        from LDMP.calculate_soc import DlgCalculateSOC
+
+        return cls._submit_subindicator(
+            iso3, "soc", DlgCalculateSOC, "soil-organic-carbon", configure_soc
+        )
 
     @classmethod
     def _wait_and_download(cls):
@@ -342,6 +420,8 @@ class RemotePipelinesE2ETest(unittest.TestCase):
             bands = job_band_names(job)
             if not bands:
                 raise AssertionError(f"{key} results have no bands")
+            if chain in ("productivity", "land_cover", "soc"):
+                check_subindicator_bands(chain, bands)
             say(f"{iso3} {chain} {key} bands: {bands}")
 
     def _make_package(self, iso3, name, sdg_summary=None, drought_summary=None):
@@ -556,6 +636,83 @@ class RemotePipelinesE2ETest(unittest.TestCase):
             "The e2e run must authenticate only with the service credential",
         )
         self.assertGreaterEqual(self.client.token_mints, 1)
+
+    # ------------------------------------------------------------------
+    # Separate productivity, land cover and SOC -> SDG 15.3.1
+    # ------------------------------------------------------------------
+
+    def test_5_productivity_dialog_pipeline(self):
+        for iso3 in self.config.countries:
+            self._run_chain(
+                iso3,
+                (
+                    ("productivity_remote", None),
+                    (
+                        "productivity_outputs",
+                        lambda iso: self._check_remote_outputs(iso, "productivity"),
+                    ),
+                ),
+            )
+
+    def test_6_land_cover_dialog_pipeline(self):
+        for iso3 in self.config.countries:
+            self._run_chain(
+                iso3,
+                (
+                    ("land_cover_remote", None),
+                    (
+                        "land_cover_outputs",
+                        lambda iso: self._check_remote_outputs(iso, "land_cover"),
+                    ),
+                ),
+            )
+
+    def test_7_soc_dialog_pipeline(self):
+        for iso3 in self.config.countries:
+            self._run_chain(
+                iso3,
+                (
+                    ("soc_remote", None),
+                    ("soc_outputs", lambda iso: self._check_remote_outputs(iso, "soc")),
+                ),
+            )
+
+    def _sdg_separate_summary(self, iso3):
+        from LDMP.calculate_ldn import DlgCalculateLDNSummaryTableAdmin
+        from LDMP.data_io import invalidate_usable_data_caches
+
+        productivity = self.remote_jobs[(iso3, "productivity")]["productivity"]
+        land_cover = self.remote_jobs[(iso3, "land_cover")]["land_cover"]
+        soc = self.remote_jobs[(iso3, "soc")]["soc"]
+        population = self.remote_jobs[(iso3, "sdg")]["baseline"]
+        set_country_aoi(iso3)
+
+        def configure(dlg):
+            invalidate_usable_data_caches()
+            select_separate_inputs(dlg, productivity, land_cover, soc, population)
+            dlg.execution_name_le.setText(self._task_name(iso3, "sdg-separate-summary"))
+            dlg.task_notes.setPlainText(TASK_NOTES)
+
+        job = self._run_local(
+            DlgCalculateLDNSummaryTableAdmin, "sdg-15-3-1-summary", configure
+        )
+        verify_separate_input_paths(job, productivity, land_cover, soc)
+        find_summary_json(job)
+        self.summary_jobs[(iso3, "sdg_separate")] = job
+        copy_job_artifacts(job, self._artifact_dir(iso3, "sdg_separate", "summary"))
+
+    def _sdg_separate_checks(self, iso3):
+        self._check_summary(iso3, "sdg_separate", check_sdg_summary)
+
+    def test_8_sdg_from_separate_subindicators(self):
+        for iso3 in self.config.countries:
+            self._run_chain(
+                iso3,
+                (
+                    ("sdg_separate_summary", self._sdg_separate_summary),
+                    ("sdg_separate_checks", self._sdg_separate_checks),
+                ),
+            )
 
     # ------------------------------------------------------------------
     # Reporting

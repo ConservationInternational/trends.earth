@@ -14,8 +14,8 @@ on:
         required: false
         default: "3.44"
   schedule:
-    # Approximately every third day at 02:00 UTC (22:00 EDT / 21:00 EST).
-    - cron: "0 2 */3 * *"
+    # Sunday night in North American time zones (02:00 UTC Monday).
+    - cron: "0 2 * * 1"
 
 permissions:
   contents: read

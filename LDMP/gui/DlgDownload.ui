@@ -210,6 +210,19 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_layers">
       <item>
+       <widget class="QLabel" name="layers_loading">
+        <property name="visible">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Loading layers...</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QTreeWidget" name="layers_selector">
         <property name="minimumSize">
          <size>

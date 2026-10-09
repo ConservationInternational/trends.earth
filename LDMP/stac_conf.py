@@ -18,19 +18,4 @@ from .conf import _load_jsonc
 stac_datasets_file = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "data", "stac_datasets.jsonc"
 )
-stac_datasets_dir = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "data", "stac_datasets"
-)
-STAC_DATASETS = {
-    category: {
-        collection_id: {
-            **config,
-            "collection": _load_jsonc(
-                os.path.join(stac_datasets_dir, config["collection"])
-            ),
-            "items": _load_jsonc(os.path.join(stac_datasets_dir, config["items"])),
-        }
-        for collection_id, config in collections.items()
-    }
-    for category, collections in _load_jsonc(stac_datasets_file).items()
-}
+STAC_DATASETS = _load_jsonc(stac_datasets_file)

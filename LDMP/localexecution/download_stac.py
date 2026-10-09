@@ -120,7 +120,7 @@ def _stac_to_raster(
                 in_vrt = tempfile.NamedTemporaryFile(suffix=".vrt").name
             ds_vrt = gdal.BuildVRT(
                 in_vrt,
-                [_vsicurl(a["href"]) for a in group_assets],
+                [_vsicurl(group["href"]) for group in group_assets],
                 separate=True,
             )
             if ds_vrt is None:
@@ -175,15 +175,15 @@ def _stac_to_raster(
                 uri=URI(uri=out_file),
                 bands=[
                     JobBand(
-                        name=a["style"],
+                        name=group["style"],
                         metadata={
                             "stac_collection": job.params["stac_collection"],
-                            "asset": a["key"],
-                            "asset_title": a["title"],
+                            "asset": group["key"],
+                            "asset_title": group["title"],
                         },
                         no_data_value=no_data_value,
                     )
-                    for a in group_assets
+                    for group in group_assets
                 ],
                 datatype=datatype,
                 filetype=RasterFileType.GEOTIFF,

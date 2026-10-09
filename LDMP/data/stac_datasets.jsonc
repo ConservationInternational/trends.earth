@@ -1,8 +1,11 @@
 {
   "Restoration": {
     "iceed-weplan-forests": {
-      "collection": "iceed-weplan-forests.jsonc",
-      "items": "iceed-weplan-forests.items.jsonc",
+      "title": "WePlan-Forests",
+      "Data source": "WePlan Forests, Institute for Capacity Exchange in Environmental Decisions, UN Biodiversity Lab (UNBL)",
+      "Citation": "WePlan Forests (2020). Areas available for restoration. Available at: https://www.weplan-forests.org/methodology",
+      "collection_url": "https://unbl-prod-stac.azurewebsites.net/collections/iceed-weplan-forests",
+      "storage_domain": "https://unblrasterprod.blob.core.windows.net",
       "Start year": "NA",
       "End year": "NA",
       "Spatial Resolution": "1000 m",
@@ -16,8 +19,11 @@
       }
     },
     "naturemap-areas-global-significance-for-restoration": {
-      "collection": "naturemap-areas-global-significance-for-restoration.jsonc",
-      "items": "naturemap-areas-global-significance-for-restoration.items.jsonc",
+      "title": "Areas of Global Significance for Restoration",
+      "Data source": "International Institute for Applied Systems Analysis (IIASA), \"Instituto Internacional para Sustentabilidade (IIS), UN Sustainable Development Solutions Network (UNSDN), UNEP-WCMC, UN Biodiversity Lab (UNBL)",
+      "Citation": "Bernardo B. N. Strassburg, Alvaro Iribarrem, Hawthorne L. Beyer, Carlos Leandro Cordeiro, Renato Crouzeilles, Catarina Jakovac, André Junqueira, Eduardo Lacerda, Agnieszka E. Latawiec, Andrew Balmford, Thomas M. Brooks, Stuart H. M. Butchart, Robin L. Chazdon, Karl-Heinz Erb, Pedro Brancalion, Graeme Buchanan, David Cooper, Sandra Diaz, Paul F. Donald, Valerie Kapos, David Leclere, Lera Miles, Michael Obersteiner, Christoph Plutzar, Carlos Alberto de M. Scaramuzza, Fabio R. Scarano, Piero Visconti (2020). Global priority areas for ecosystem restoration. Nature, 586(7831), pp.724-729. https://doi.org/10.1038/s41586-020-2784-9",
+      "collection_url": "https://unbl-prod-stac.azurewebsites.net/collections/naturemap-areas-global-significance-for-restoration",
+      "storage_domain": "https://unblrasterprod.blob.core.windows.net",
       "Start year": "NA",
       "End year": "NA",
       "Spatial Resolution": "10000 m",
@@ -28,8 +34,11 @@
       "style": "Nature Map restoration priority"
     },
     "usgs-world-terrestrial-ecosystems": {
-      "collection": "usgs-world-terrestrial-ecosystems.jsonc",
-      "items": "usgs-world-terrestrial-ecosystems.items.jsonc",
+      "title": "World Terrestrial Ecosystems",
+      "Data source": "U.S. Geological Survey (USGS), ESRI, The Nature Conservancy (TNC), UN Biodiversity Lab (UNBL)",
+      "Citation": "Sayre, R., Karagulle, D., Frye, C., Boucher, T., Wolff, N.H., Breyer, S., Wright, D., Martin, M., Butler, K., Van Graafeiland, K., Touval, J., Sotomayor, L., McGowan, J., Game, E.T., Possingham, H., 2020. An assessment of the representation of ecosystems in global protected areas using new maps of World Climate Regions and World Ecosystems. Global Ecology and Conservation 21, e00860. https://doi.org/10.1016/j.gecco.2019.e00860",
+      "collection_url": "https://unbl-prod-stac.azurewebsites.net/collections/usgs-world-terrestrial-ecosystems",
+      "storage_domain": "https://unblrasterprod.blob.core.windows.net",
       "Start year": "NA",
       "End year": "NA",
       "Spatial Resolution": "250 m",

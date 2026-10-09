@@ -5,7 +5,7 @@ import unittest
 import uuid
 from unittest.mock import Mock
 
-UTC = datetime.timezone.utc
+UTC = datetime.UTC
 
 from qgis.PyQt import QtCore
 from te_schemas.jobs import JobStatus

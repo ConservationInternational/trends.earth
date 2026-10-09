@@ -27,6 +27,9 @@ services:
       TE_E2E_POLL_SEC: "${TE_E2E_POLL_SEC:-}"
       TE_E2E_LOCAL_TIMEOUT_MIN: "${TE_E2E_LOCAL_TIMEOUT_MIN:-}"
       TE_E2E_OUTPUT_DIR: "${TE_E2E_OUTPUT_DIR:-}"
+      TE_E2E_CHECK_AREA_TOL: "${TE_E2E_CHECK_AREA_TOL:-}"
+      TE_E2E_CHECK_MAX_NODATA_FRAC: "${TE_E2E_CHECK_MAX_NODATA_FRAC:-}"
+      TE_E2E_CHECK_WARN_NODATA_FRAC: "${TE_E2E_CHECK_WARN_NODATA_FRAC:-}"
     working_dir: /tests_directory
     entrypoint: /tests_directory/docker/qgis-testing-entrypoint.sh
     # Enable "command:" line below to immediately run unittests upon docker-compose up

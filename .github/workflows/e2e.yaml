@@ -138,6 +138,9 @@ jobs:
           TE_E2E_COUNTRIES: ${{ matrix.country }}
           TE_E2E_OUTPUT_DIR: /tests_directory/e2e-artifacts
           TE_E2E_TIMEOUT_MIN: "240"
+          TE_E2E_CHECK_AREA_TOL: ${{ vars.TE_E2E_CHECK_AREA_TOL }}
+          TE_E2E_CHECK_MAX_NODATA_FRAC: ${{ vars.TE_E2E_CHECK_MAX_NODATA_FRAC }}
+          TE_E2E_CHECK_WARN_NODATA_FRAC: ${{ vars.TE_E2E_CHECK_WARN_NODATA_FRAC }}
         run: |
           set -euo pipefail
           docker compose build --pull

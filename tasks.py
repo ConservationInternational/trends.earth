@@ -11,7 +11,7 @@ import subprocess
 import sys
 import zipfile
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path, PurePath
 from tempfile import NamedTemporaryFile, TemporaryDirectory, mkstemp
 
@@ -1938,7 +1938,7 @@ def generate_plugin_repo_xml(
                 "url": prerelease_url,
                 "published_at": datetime.strptime(
                     prerelease_time, "%Y-%m-%dT%H:%M:%SZ"
-                ).replace(tzinfo=timezone.utc),
+                ).replace(tzinfo=UTC),
             }
         ]
     else:
@@ -2051,7 +2051,7 @@ def _get_existing_releases(c):
                         "url": zip_download_url,
                         "published_at": datetime.strptime(
                             release["published_at"], "%Y-%m-%dT%H:%M:%SZ"
-                        ).replace(tzinfo=timezone.utc),
+                        ).replace(tzinfo=UTC),
                     }
                 )
     else:
@@ -2501,7 +2501,7 @@ def download_boundaries_cache(c, release_type="gbOpen", output=None):
 
     cache_payload = {
         "_cache_metadata": {
-            "cached_at": datetime.now(timezone.utc).isoformat(),
+            "cached_at": datetime.now(UTC).isoformat(),
             "server_last_updated": last_updated,
         },
         "data": boundaries_list,

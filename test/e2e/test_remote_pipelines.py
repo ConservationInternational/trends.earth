@@ -21,6 +21,7 @@ from .harness import (
     E2EConfig,
     LocalJobTracker,
     copy_job_artifacts,
+    country_aoi_area_km2,
     download_jobs,
     e2e_enabled,
     find_job,
@@ -37,6 +38,7 @@ from .harness import (
     validate_package,
     wait_for_remote,
 )
+from .summary_checks import Thresholds, check_drought_summary, check_sdg_summary
 
 SDG_PRESET = "UNCCD Reporting (2026 reporting cycle - Default Data, Trends.Earth)"
 TASK_NOTES = "Automated e2e test"
@@ -45,18 +47,22 @@ MIN_DROUGHT_YEARS = 5
 STAGES = (
     "sdg_remote",
     "sdg_summary",
+    "sdg_checks",
     "sdg_package",
     "drought_remote",
     "drought_summary",
+    "drought_checks",
     "drought_package",
     "combined_package",
 )
 DEPENDS_ON = {
     "sdg_summary": ("sdg_remote",),
-    "sdg_package": ("sdg_summary",),
+    "sdg_checks": ("sdg_summary",),
+    "sdg_package": ("sdg_checks",),
     "drought_summary": ("drought_remote",),
-    "drought_package": ("drought_summary",),
-    "combined_package": ("sdg_summary", "drought_summary"),
+    "drought_checks": ("drought_summary",),
+    "drought_package": ("drought_checks",),
+    "combined_package": ("sdg_checks", "drought_checks"),
 }
 
 
@@ -79,6 +85,7 @@ class RemotePipelinesE2ETest(unittest.TestCase):
         cls.remote_jobs = {}
         cls.summary_jobs = {}
         cls.packages = {}
+        cls.checks = {}
         cls._stack = contextlib.ExitStack()
         cls.tracker = None
         try:
@@ -363,6 +370,33 @@ class RemotePipelinesE2ETest(unittest.TestCase):
         self.packages[(iso3, name)] = str(target)
         say(f"{iso3} {name} package: {target.name} {json.dumps(found)}")
 
+    def _check_summary(self, iso3, chain, check):
+        """Sanity check a summary JSON before it is packaged."""
+        path = find_summary_json(self.summary_jobs[(iso3, chain)])
+        data = json.loads(path.read_text())
+        report = check(
+            data,
+            aoi_area_km2=country_aoi_area_km2(iso3),
+            thresholds=Thresholds.from_env(),
+        )
+        self.checks[(iso3, chain)] = report.as_dict()
+        dest = self._artifact_dir(iso3, chain, "checks")
+        dest.mkdir(parents=True, exist_ok=True)
+        (dest / "checks.json").write_text(json.dumps(report.as_dict(), indent=2))
+        for warning in report.warnings:
+            say(f"{iso3} {chain} check warning: {warning}")
+        say(
+            f"{iso3} {chain} checks: {len(report.errors)} error(s), "
+            f"{len(report.warnings)} warning(s); "
+            f"area {report.metrics.get('total_area_km2') or 0:,.0f} sq km "
+            f"(AOI {report.metrics.get('aoi_area_km2') or 0:,.0f} sq km)"
+        )
+        if report.errors:
+            raise AssertionError(
+                f"{len(report.errors)} summary check(s) failed: "
+                + "; ".join(report.errors)
+            )
+
     # ------------------------------------------------------------------
     # SDG 15.3.1 chain
     # ------------------------------------------------------------------
@@ -426,6 +460,9 @@ class RemotePipelinesE2ETest(unittest.TestCase):
         self.summary_jobs[(iso3, "sdg")] = job
         copy_job_artifacts(job, self._artifact_dir(iso3, "sdg", "summary"))
 
+    def _sdg_checks(self, iso3):
+        self._check_summary(iso3, "sdg", check_sdg_summary)
+
     def _sdg_package(self, iso3):
         self._make_package(iso3, "sdg", sdg_summary=self.summary_jobs[(iso3, "sdg")])
 
@@ -436,6 +473,7 @@ class RemotePipelinesE2ETest(unittest.TestCase):
                 (
                     ("sdg_remote", None),
                     ("sdg_summary", self._sdg_summary),
+                    ("sdg_checks", self._sdg_checks),
                     ("sdg_package", self._sdg_package),
                 ),
             )
@@ -468,6 +506,9 @@ class RemotePipelinesE2ETest(unittest.TestCase):
         self.summary_jobs[(iso3, "drought")] = job
         copy_job_artifacts(job, self._artifact_dir(iso3, "drought", "summary"))
 
+    def _drought_checks(self, iso3):
+        self._check_summary(iso3, "drought", check_drought_summary)
+
     def _drought_package(self, iso3):
         self._make_package(
             iso3, "drought", drought_summary=self.summary_jobs[(iso3, "drought")]
@@ -480,6 +521,7 @@ class RemotePipelinesE2ETest(unittest.TestCase):
                 (
                     ("drought_remote", None),
                     ("drought_summary", self._drought_summary),
+                    ("drought_checks", self._drought_checks),
                     ("drought_package", self._drought_package),
                 ),
             )
@@ -543,12 +585,23 @@ class RemotePipelinesE2ETest(unittest.TestCase):
                         "packages": {
                             f"{k[0]}/{k[1]}": v for k, v in cls.packages.items()
                         },
+                        "checks": {f"{k[0]}/{k[1]}": v for k, v in cls.checks.items()},
                     },
                     indent=2,
                 )
             )
+            notes = [
+                f"- {key[0]} {key[1]}: {warning}"
+                for key, report in cls.checks.items()
+                for warning in report["warnings"]
+            ]
+            warnings_md = (
+                "\n### Summary check warnings\n\n" + "\n".join(notes) + "\n"
+                if notes
+                else ""
+            )
             (out / "summary.md").write_text(
-                f"## E2E remote pipelines ({cls.stamp})\n\n{table}\n"
+                f"## E2E remote pipelines ({cls.stamp})\n\n{table}\n{warnings_md}"
             )
         except OSError as exc:
             say(f"could not write summary: {exc}")

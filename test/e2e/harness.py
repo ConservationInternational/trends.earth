@@ -294,6 +294,18 @@ def set_country_aoi(iso3):
     return country_name
 
 
+def country_aoi_area_km2(iso3):
+    """Return the equal-area size (sq km) of the country AOI used by the plugin."""
+    from LDMP.areaofinterest import prepare_area_of_interest
+
+    set_country_aoi(iso3)
+    aoi = prepare_area_of_interest(show_errors=False)
+    area = aoi.get_area() if aoi is not None else None
+    if not area:
+        raise RuntimeError(f"Could not compute the area of interest for {iso3}")
+    return area / 1e6
+
+
 # ---------------------------------------------------------------------------
 # Dialog driving
 # ---------------------------------------------------------------------------

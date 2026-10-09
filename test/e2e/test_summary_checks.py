@@ -245,6 +245,27 @@ class SdgSummaryChecksTest(unittest.TestCase):
     def test_aoi_area_mismatch_fails(self):
         self.assert_error(self.check(sdg_summary(), aoi_area_km2=2000.0), "AOI area")
 
+    def test_land_cover_transitions_checked_per_period(self):
+        # One full-area crosstab per distinct transition period (e.g. when the
+        # productivity period differs from the land cover period).
+        data = sdg_summary()
+        lc = data["land_condition"]["baseline"]["period_assessment"]["land_cover"]
+        lc["crosstabs_by_land_cover_class"].append(
+            crosstab({("Tree-covered", "Tree-covered"): 950.0})
+        )
+        self.assertEqual(self.check(data).errors, [])
+
+        lc["crosstabs_by_land_cover_class"][1]["values"][0]["value"] = 1500.0
+        self.assert_error(self.check(data), "baseline land cover transitions [1]")
+
+    def test_productivity_crosstabs_summed_across_classes(self):
+        data = sdg_summary()
+        prod = data["land_condition"]["baseline"]["period_assessment"]["productivity"]
+        prod["crosstabs_by_productivity_class"].append(
+            crosstab({("Tree-covered", "Tree-covered"): 600.0})
+        )
+        self.assert_error(self.check(data), "productivity by land cover transition")
+
     def test_implausible_population_density_fails(self):
         data = sdg_summary()
         for period in ("baseline", "report_1"):

@@ -362,20 +362,31 @@ def _check_change(report, label, change, total, thresholds):
             )
 
 
-def _check_crosstab_list(report, label, crosstabs, total, thresholds):
+def _check_crosstab_list(report, label, crosstabs, total, thresholds, partition):
+    """Check a list of crosstabs against the total area.
+
+    With ``partition`` the crosstabs split the area between them (e.g. one per
+    productivity class), so their combined sum is checked. Otherwise each
+    crosstab covers the whole area on its own (e.g. one land cover transition
+    crosstab per distinct period), so each is checked separately.
+    """
     if not crosstabs:
         report.warn(f"{label}: no crosstabs")
         return
-    combined = 0.0
+    sums = []
     for crosstab in crosstabs:
         value = _crosstab_sum(report, label, crosstab)
         if value is None:
             return
-        combined += value
-    if combined <= 0:
-        report.error(f"{label}: all values are zero")
-    elif combined > total * (1 + thresholds.identity_tol):
-        report.error(f"{label}: sum {combined:,.1f} exceeds total area {total:,.1f}")
+        sums.append(value)
+    if partition:
+        sums = [sum(sums)]
+    for index, value in enumerate(sums):
+        name = label if len(sums) == 1 else f"{label} [{index}]"
+        if value <= 0:
+            report.error(f"{name}: all values are zero")
+        elif value > total * (1 + thresholds.identity_tol):
+            report.error(f"{name}: sum {value:,.1f} exceeds total area {total:,.1f}")
 
 
 def check_sdg_summary(data, aoi_area_km2=None, thresholds=None):
@@ -457,6 +468,7 @@ def check_sdg_summary(data, aoi_area_km2=None, thresholds=None):
             land_cover.get("crosstabs_by_land_cover_class"),
             total,
             thresholds,
+            partition=False,
         )
         _check_crosstab_list(
             report,
@@ -464,6 +476,7 @@ def check_sdg_summary(data, aoi_area_km2=None, thresholds=None):
             (pa.get("productivity") or {}).get("crosstabs_by_productivity_class"),
             total,
             thresholds,
+            partition=True,
         )
 
         if period != "baseline":

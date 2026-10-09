@@ -20,7 +20,14 @@ import uuid
 from pathlib import Path
 from unittest import mock
 
-from qgis.core import QgsApplication, QgsAuthMethodConfig
+from qgis.core import (
+    QgsApplication,
+    QgsAuthMethodConfig,
+    QgsCoordinateReferenceSystem,
+    QgsDistanceArea,
+    QgsGeometry,
+    QgsProject,
+)
 from qgis.PyQt import QtCore, QtWidgets
 from te_schemas.jobs import JobStatus
 
@@ -295,12 +302,27 @@ def set_country_aoi(iso3):
 
 
 def country_aoi_area_km2(iso3):
-    """Return the equal-area size (sq km) of the country AOI used by the plugin."""
+    """Return the ellipsoidal polygon area (sq km) of the country AOI.
+
+    ``AOI.get_area`` measures bounding boxes (it is used for size limits), so
+    it overstates the area of sparse or antimeridian-crossing AOIs such as
+    Fiji. Measure the polygons themselves instead, split at the antimeridian
+    into east and west pieces so no piece wraps around the globe.
+    """
     from LDMP.areaofinterest import prepare_area_of_interest
 
     set_country_aoi(iso3)
     aoi = prepare_area_of_interest(show_errors=False)
-    area = aoi.get_area() if aoi is not None else None
+    if aoi is None:
+        raise RuntimeError(f"Could not prepare the area of interest for {iso3}")
+    pieces = aoi.meridian_split(out_type="layer", out_format="wkt", warn=False)[1]
+    calc = QgsDistanceArea()
+    calc.setSourceCrs(
+        QgsCoordinateReferenceSystem("EPSG:4326"),
+        QgsProject.instance().transformContext(),
+    )
+    calc.setEllipsoid("WGS84")
+    area = sum(calc.measureArea(QgsGeometry.fromWkt(wkt)) for wkt in pieces or [])
     if not area:
         raise RuntimeError(f"Could not compute the area of interest for {iso3}")
     return area / 1e6
@@ -447,7 +469,7 @@ def submit_with_recovery(submit, params, script_id):
     server created the execution anyway, and retry rate-limited or transient
     failures. Queued (PENDING) executions are successful submissions.
     """
-    attempts = max(1, int(os.environ.get("TE_E2E_SUBMIT_ATTEMPTS", "4")))
+    attempts = max(1, int(os.environ.get("TE_E2E_SUBMIT_ATTEMPTS") or "4"))
     task_name = params.get("task_name")
     failure = None
     for attempt in range(1, attempts + 1):

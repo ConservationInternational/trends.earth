@@ -14,10 +14,8 @@ on:
         required: false
         default: "3.44"
   schedule:
-    # 22:00 America/New_York every three days. Cron is UTC, so both DST
-    # candidates are scheduled daily and the `plan` job picks the right one.
-    - cron: "0 2 * * *" # 22:00 EDT
-    - cron: "0 3 * * *" # 22:00 EST
+    # Approximately every third day at 02:00 UTC (22:00 EDT / 21:00 EST).
+    - cron: "0 2 */3 * *"
 
 permissions:
   contents: read
@@ -35,46 +33,14 @@ env:
 
 jobs:
   plan:
-    name: Decide whether to run and resolve countries
+    name: Resolve countries
     runs-on: ubuntu-latest
     outputs:
-      run: ${{ steps.gate.outputs.run }}
       countries: ${{ steps.countries.outputs.json }}
       qgis_version_tag: ${{ steps.countries.outputs.qgis_version_tag }}
     steps:
-      - name: Schedule gate (22:00 ET, every three days)
-        id: gate
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          SCHEDULE: ${{ github.event.schedule }}
-        run: |
-          set -euo pipefail
-          if [ "$EVENT_NAME" != "schedule" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          offset="$(TZ=America/New_York date +%z)" # -0400 (EDT) or -0500 (EST)
-          case "${SCHEDULE}|${offset}" in
-            "0 2 * * *|-0400" | "0 3 * * *|-0500") ;;
-            *)
-              echo "Cron '${SCHEDULE}' is not the 22:00 ET slot for offset ${offset}; skipping."
-              echo "run=false" >> "$GITHUB_OUTPUT"
-              exit 0
-              ;;
-          esac
-          ny_date="$(TZ=America/New_York date +%F)"
-          day_number=$(( $(date -u -d "${ny_date}" +%s) / 86400 ))
-          if [ $(( day_number % 3 )) -eq 0 ]; then
-            echo "New York date ${ny_date} is a run day."
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "New York date ${ny_date} is not a run day (day ${day_number} mod 3 != 0); skipping."
-            echo "run=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Resolve country list
         id: countries
-        if: steps.gate.outputs.run == 'true'
         env:
           INPUT_COUNTRIES: ${{ inputs.countries }}
           VAR_COUNTRIES: ${{ vars.TE_E2E_COUNTRIES }}
@@ -95,7 +61,6 @@ jobs:
   e2e:
     name: E2E ${{ matrix.country }} (QGIS ${{ needs.plan.outputs.qgis_version_tag }})
     needs: plan
-    if: needs.plan.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 355
     strategy:

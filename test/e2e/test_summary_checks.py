@@ -151,7 +151,7 @@ def drought_summary():
         "drought": {
             "tier_one": {str(y): year_areas(y) for y in years},
             "tier_two": {str(y): population() for y in years},
-            "tier_three": {"2018": {"name": "Mean value", "value": 0.42}},
+            "tier_three": {"2018": {"name": "Mean value", "value": 42.0}},
         }
     }
 
@@ -349,17 +349,28 @@ class DroughtSummaryChecksTest(unittest.TestCase):
         self.assertEqual(report.errors, [])
         self.assertEqual(report.warnings, [])
         self.assertEqual(report.metrics["years"], [2000, 2019])
-        self.assertEqual(report.metrics["dvi"], 0.42)
+        self.assertEqual(report.metrics["dvi"], 42.0)
 
     def test_missing_dvi_fails(self):
         data = drought_summary()
         data["drought"]["tier_three"]["2018"]["value"] = None
         self.assert_error(self.check(data), "vulnerability index is None")
 
+    def test_dvi_in_range_passes(self):
+        for value in (0.0, 0.42, 1.0, 1.5, 4.9843152592944655, 100.0):
+            with self.subTest(value=value):
+                data = drought_summary()
+                data["drought"]["tier_three"]["2018"]["value"] = value
+                report = self.check(data)
+                self.assertEqual(report.errors, [])
+                self.assertEqual(report.metrics["dvi"], value)
+
     def test_dvi_out_of_range_fails(self):
-        data = drought_summary()
-        data["drought"]["tier_three"]["2018"]["value"] = 1.5
-        self.assert_error(self.check(data), "outside 0-1")
+        for value in (-0.01, 100.01):
+            with self.subTest(value=value):
+                data = drought_summary()
+                data["drought"]["tier_three"]["2018"]["value"] = value
+                self.assert_error(self.check(data), "outside 0-100")
 
     def test_inconsistent_year_total_fails(self):
         data = drought_summary()

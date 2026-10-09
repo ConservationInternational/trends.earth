@@ -625,8 +625,8 @@ def check_drought_summary(data, aoi_area_km2=None, thresholds=None):
         value = (entry or {}).get("value")
         if not _is_number(value):
             report.error(f"drought vulnerability index is {value!r}")
-        elif not 0 <= value <= 1:
-            report.error(f"drought vulnerability index {value} is outside 0-1")
+        elif not 0 <= value <= 100:
+            report.error(f"drought vulnerability index {value} is outside 0-100")
         else:
             report.metrics["dvi"] = value
 

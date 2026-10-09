@@ -73,7 +73,8 @@ the queue, so allow for queue time when choosing the timeout.
 
 Before packaging, [`e2e/summary_checks.py`](e2e/summary_checks.py) checks each
 summary JSON. A failed check stops that indicator's package and the combined
-package. Errors are:
+package. The combined-package test is skipped when a prerequisite summary check
+fails; the originating pipeline test reports the failure. Errors are:
 
 - missing, negative or non-numeric values, or missing classes;
 - a total area that differs from the area of the country's boundary polygon
@@ -91,7 +92,7 @@ package. Errors are:
   land cover classes;
 - for drought: non-contiguous years, no drought area in any year, no Non-drought
   area in any year, or a drought vulnerability index that is missing or outside
-  0–1;
+  0–100 (inclusive);
 - missing or zero population, male + female not matching the total, or an
   implausible population density (outside 0.01–50,000 people per sq km).
 

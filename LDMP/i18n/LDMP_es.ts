@@ -189,14 +189,19 @@
 <context>
     <name>DatasetDetailsDialogue</name>
     <message>
-        <location filename="../datasets_dialog.py" line="177"/>
+        <location filename="../datasets_dialog.py" line="178"/>
         <source>Error exporting dataset {self.job}</source>
         <translation>Error al exportar el conjunto de datos {self.job}</translation>
     </message>
     <message>
-        <location filename="../datasets_dialog.py" line="182"/>
+        <location filename="../datasets_dialog.py" line="197"/>
         <source>Dataset exported to {target_path!r}</source>
         <translation>Conjunto de datos exportado a {target_path!r}</translation>
+    </message>
+    <message>
+        <location filename="../datasets_dialog.py" line="188"/>
+        <source>Dataset exported to {target_path!r}, but {len(summary.missing_files)} referenced file(s) could not be found. Some layers in the export may not load.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6619,7 +6624,7 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
         <translation>Archivo renderizado (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2852"/>
+        <location filename="../data_io.py" line="2854"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -6694,7 +6699,7 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
         <translation>No hay capas disponibles en esta región</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2852"/>
+        <location filename="../data_io.py" line="2854"/>
         <source>Select a layer to load.</source>
         <translation>Seleccione una capa para cargar.</translation>
     </message>

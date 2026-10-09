@@ -187,14 +187,19 @@
 <context>
     <name>DatasetDetailsDialogue</name>
     <message>
-        <location filename="../datasets_dialog.py" line="177"/>
+        <location filename="../datasets_dialog.py" line="178"/>
         <source>Error exporting dataset {self.job}</source>
         <translation>导出数据集{self.job}时出错</translation>
     </message>
     <message>
-        <location filename="../datasets_dialog.py" line="182"/>
+        <location filename="../datasets_dialog.py" line="197"/>
         <source>Dataset exported to {target_path!r}</source>
         <translation>导出到{target_path!r}的数据集</translation>
+    </message>
+    <message>
+        <location filename="../datasets_dialog.py" line="188"/>
+        <source>Dataset exported to {target_path!r}, but {len(summary.missing_files)} referenced file(s) could not be found. Some layers in the export may not load.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6536,7 +6541,7 @@ for running algorithms and their results.</source>
         <translation>光栅文件 (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2852"/>
+        <location filename="../data_io.py" line="2854"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -6611,7 +6616,7 @@ for running algorithms and their results.</source>
         <translation>此地区没有可用的图层</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2852"/>
+        <location filename="../data_io.py" line="2854"/>
         <source>Select a layer to load.</source>
         <translation>选择要加载的图层。</translation>
     </message>

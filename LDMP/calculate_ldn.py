@@ -1303,6 +1303,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.subnational_matrix_widgets: dict[
             str, lc_setup.LCDefineDegradationWidget
         ] = {}
+        self.changed_region.connect(self._setup_subnational_matrix_tabs)
 
         self.checkBox_progress_period.toggled.connect(self.toggle_progress_period)
         self.toggle_progress_period()
@@ -2250,18 +2251,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         transition matrix tab per unit (each with its own persisted matrix)
         instead of the single plugin-wide matrix widget.
         """
-        subnational_enabled = conf.settings_manager.get_value(
-            conf.Setting.SUBNATIONAL_ENABLED
-        )
-        units = []
-        if subnational_enabled:
-            try:
-                units = json.loads(
-                    conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS)
-                    or "[]"
-                )
-            except (TypeError, ValueError):
-                units = []
+        units = self._subnational_units()
 
         if not units:
             self.land_cover_effects.setVisible(True)
@@ -2271,17 +2261,41 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.land_cover_effects.setVisible(False)
         self.land_cover_subnational_matrices.setVisible(True)
 
-        if self.subnational_matrix_tabs.count() > 0:
-            # Already built for this dialog instance.
-            return
+        unit_ids = [unit.get("id") for unit in units]
+        for unit_id in list(self.subnational_matrix_widgets):
+            if unit_id not in unit_ids:
+                widget = self.subnational_matrix_widgets.pop(unit_id)
+                self.subnational_matrix_tabs.removeTab(
+                    self.subnational_matrix_tabs.indexOf(widget)
+                )
+                widget.deleteLater()
 
-        for unit in units:
+        for index, unit in enumerate(units):
             unit_id = unit.get("id")
-            widget = lc_setup.LCDefineDegradationWidget(unit_key=unit_id)
-            self.subnational_matrix_widgets[unit_id] = widget
-            self.subnational_matrix_tabs.addTab(
-                widget, unit.get("name") or self.tr("Unit")
+            label = unit.get("name") or self.tr("Unit")
+            widget = self.subnational_matrix_widgets.get(unit_id)
+            if widget is None:
+                widget = lc_setup.LCDefineDegradationWidget(unit_key=unit_id)
+                self.subnational_matrix_widgets[unit_id] = widget
+                self.subnational_matrix_tabs.insertTab(index, widget, label)
+            else:
+                current = self.subnational_matrix_tabs.indexOf(widget)
+                if current != index:
+                    self.subnational_matrix_tabs.removeTab(current)
+                    self.subnational_matrix_tabs.insertTab(index, widget, label)
+                else:
+                    self.subnational_matrix_tabs.setTabText(index, label)
+
+    def _subnational_units(self) -> list[dict]:
+        """Return the saved subnational units, or [] when the mode is off."""
+        if not conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_ENABLED):
+            return []
+        try:
+            return json.loads(
+                conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS) or "[]"
             )
+        except (TypeError, ValueError):
+            return []
 
     def toggle_progress_period(self):
         if self.checkBox_progress_period.isChecked():
@@ -2556,8 +2570,37 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if not ret:
             return
 
+        units = self._subnational_units()
         trans_matrix = self.lc_define_deg_widget.get_trans_matrix_from_widget()
-        lc_setup.trans_matrix_to_settings(trans_matrix)
+
+        if units:
+            missing_matrix = [
+                unit.get("name") or unit.get("id")
+                for unit in units
+                if unit.get("id") not in self.subnational_matrix_widgets
+            ]
+            if missing_matrix:
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    self.tr("Subnational unit error"),
+                    self.tr(
+                        "No land cover transition matrix is set up for the "
+                        "following subnational units: {}.\n\n"
+                        "Close and reopen this dialog, then check their matrices."
+                    ).format(", ".join(missing_matrix)),
+                )
+                return
+
+            for unit in units:
+                unit_id = unit.get("id")
+                lc_setup.trans_matrix_to_settings(
+                    self.subnational_matrix_widgets[
+                        unit_id
+                    ].get_trans_matrix_from_widget(),
+                    unit_id,
+                )
+        else:
+            lc_setup.trans_matrix_to_settings(trans_matrix)
 
         periods = {"baseline": self._get_period_years(self.widgets_baseline)}
 
@@ -2828,20 +2871,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             payloads.append(payload)
 
-        subnational_enabled = conf.settings_manager.get_value(
-            conf.Setting.SUBNATIONAL_ENABLED
-        )
-        units = []
-        if subnational_enabled:
-            try:
-                units = json.loads(
-                    conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS)
-                    or "[]"
-                )
-            except (TypeError, ValueError):
-                units = []
-
-        if subnational_enabled and units:
+        if units:
             disjoint_names = []
             for unit in units:
                 try:
@@ -2870,7 +2900,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self.close()
 
-        if subnational_enabled and units:
+        if units:
             self._submit_subnational(payloads, units)
         else:
             self._submit_payloads(payloads)
@@ -2925,8 +2955,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             unit_crosses_180th, unit_geojsons = ret
 
-            unit_id = unit.get("id")
-            unit_matrix_widget = self.subnational_matrix_widgets.get(unit_id)
+            unit_matrix_widget = self.subnational_matrix_widgets[unit.get("id")]
 
             for payload in payloads:
                 unit_payload = dict(payload)
@@ -2943,14 +2972,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     "geometry_hash": unit.get("geometry_hash"),
                 }
 
-                if unit_matrix_widget is not None:
-                    unit_trans_matrix = (
-                        unit_matrix_widget.get_trans_matrix_from_widget()
-                    )
-                    dumped = LCTransitionDefinitionDeg.Schema().dump(unit_trans_matrix)
-                    unit_payload["trans_matrix"] = dumped
-                    unit_payload["land_cover"] = copy.deepcopy(payload["land_cover"])
-                    unit_payload["land_cover"]["trans_matrix"] = dumped
+                dumped = LCTransitionDefinitionDeg.Schema().dump(
+                    unit_matrix_widget.get_trans_matrix_from_widget()
+                )
+                unit_payload["trans_matrix"] = dumped
+                unit_payload["land_cover"] = copy.deepcopy(payload["land_cover"])
+                unit_payload["land_cover"]["trans_matrix"] = dumped
 
                 resp = job_manager.submit_remote_job(unit_payload, self.script.id)
 

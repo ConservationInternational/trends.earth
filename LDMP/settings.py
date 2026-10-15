@@ -456,18 +456,78 @@ class AreaWidgetSection(Flag):
     DISCLAIMER = auto()
 
 
+# Field names that usually hold a human-readable name in boundary layers, in
+# order of preference (compared case-insensitively)
+_LABEL_FIELD_CANDIDATES = (
+    "name",
+    "shapename",
+    "admin",
+    "name_3",
+    "name_2",
+    "name_1",
+    "name_0",
+    "adm3_en",
+    "adm2_en",
+    "adm1_en",
+    "adm0_en",
+)
+
+
+def guess_label_field(layer) -> str | None:
+    """Return the layer field that most likely holds feature names, if any."""
+    field_names = {field.name().casefold(): field.name() for field in layer.fields()}
+    for candidate in _LABEL_FIELD_CANDIDATES:
+        if candidate in field_names:
+            return field_names[candidate]
+    return None
+
+
+def feature_label(feature, layer, label_field: str | None = None) -> str:
+    """
+    Label for a feature: the value of ``label_field`` when given, otherwise the
+    layer's display expression, falling back to the feature id.
+    """
+    if label_field and layer.fields().indexOf(label_field) >= 0:
+        value = feature[label_field]
+        if value not in (None, "") and not qgis.core.QgsVariantUtils.isNull(value):
+            return str(value)
+    elif not label_field:
+        display_expression = layer.displayExpression() or ""
+        if display_expression:
+            context = qgis.core.QgsExpressionContext()
+            context.appendScopes(
+                qgis.core.QgsExpressionContextUtils.globalProjectLayerScopes(layer)
+            )
+            context.setFeature(feature)
+            value = qgis.core.QgsExpression(display_expression).evaluate(context)
+            if value not in (None, "") and not qgis.core.QgsVariantUtils.isNull(value):
+                return str(value)
+    return str(feature.id())
+
+
 class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
     """
     Dialog for defining a subnational analysis unit.
+
+    ``existing_units`` are the units already in the list. Features that belong
+    to them are marked in the feature list.
     """
 
-    def __init__(self, parent=None):
+    LABEL_ROLE = QtCore.Qt.UserRole + 1
+
+    def __init__(self, parent=None, existing_units=None):
         super().__init__(parent)
 
         self.setupUi(self)
 
+        self._existing_units = list(existing_units or [])
+
         self.button_add_to_list.setEnabled(False)
         self.features_list.itemChanged.connect(self.update_add_button_state)
+        self.features_list.itemChanged.connect(self.update_overlap_warning)
+        self.features_filter.textChanged.connect(self.apply_features_filter)
+        self.button_uncheck_all.clicked.connect(self.uncheck_all_features)
+        self.label_field_combo.currentIndexChanged.connect(self._on_label_field_changed)
 
         self.unit_name.textChanged.connect(self.update_add_button_state)
 
@@ -476,7 +536,7 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
         self.button_browse_file.clicked.connect(self.open_vector_browse)
 
         self.populate_layer_combo()
-        self.layer_combo.currentIndexChanged.connect(self.populate_features_list)
+        self.layer_combo.currentIndexChanged.connect(self._on_layer_changed)
 
         self.radio_from_layer.toggled.connect(self._on_method_toggled)
         self.radio_upload_file.toggled.connect(self._on_method_toggled)
@@ -485,7 +545,7 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
         # dialog lifetime so features can be read from it.
         self._upload_layer: qgis.core.QgsVectorLayer | None = None
 
-        self.populate_features_list()
+        self._on_layer_changed()
 
     def populate_layer_combo(self):
         self.layer_combo.clear()
@@ -517,54 +577,146 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
 
         return qgis.core.QgsProject.instance().mapLayer(layer_id)
 
-    def populate_features_list(self):
+    def _on_layer_changed(self, *args):
+        self.populate_label_field_combo()
+        self.populate_features_list()
+
+    def populate_label_field_combo(self):
+        """List the layer's fields, preselecting the one that looks like a name."""
+        self.label_field_combo.blockSignals(True)
+        self.label_field_combo.clear()
+        self.label_field_combo.addItem(self.tr("Layer display name"), None)
+
+        layer = self.current_layer()
+        if layer is not None:
+            for field in layer.fields():
+                self.label_field_combo.addItem(field.name(), field.name())
+
+            guessed = guess_label_field(layer)
+            if guessed:
+                self.label_field_combo.setCurrentIndex(
+                    self.label_field_combo.findData(guessed)
+                )
+
+        self.label_field_combo.setEnabled(layer is not None)
+        self.label_field_combo.blockSignals(False)
+
+    def _on_label_field_changed(self, *args):
+        self.populate_features_list(keep_checked=True)
+
+    def _label_field(self) -> str | None:
+        return self.label_field_combo.currentData()
+
+    def _features_in_other_units(self, layer) -> dict[int, str]:
+        """Map feature id -> name of the existing unit that already uses it."""
+        used = {}
+        for unit in self._existing_units:
+            if unit.get("layer_id") != layer.id():
+                continue
+            for feature_id in unit.get("feature_ids") or []:
+                used.setdefault(feature_id, unit.get("name") or "")
+        return used
+
+    def populate_features_list(self, keep_checked: bool = False):
+        checked_ids = set(self.selected_feature_ids()) if keep_checked else set()
+
+        self.features_list.blockSignals(True)
         self.features_list.clear()
-        self.update_add_button_state()
 
         layer = self.current_layer()
 
-        if layer is None:
-            self.features_list.setEnabled(False)
+        self.features_list.setEnabled(layer is not None)
+        self.features_filter.setEnabled(layer is not None)
+        self.button_uncheck_all.setEnabled(layer is not None)
+
+        if layer is not None:
+            label_field = self._label_field()
+            used = self._features_in_other_units(layer)
+            labelled = sorted(
+                (feature_label(feature, layer, label_field), feature.id())
+                for feature in layer.getFeatures()
+            )
+
+            for label, feature_id in labelled:
+                other_unit = used.get(feature_id)
+                text = (
+                    self.tr("{} (in unit '{}')").format(label, other_unit)
+                    if other_unit is not None
+                    else label
+                )
+                item = QtWidgets.QListWidgetItem(text)
+                item.setData(QtCore.Qt.UserRole, feature_id)
+                item.setData(self.LABEL_ROLE, label)
+                item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+                item.setCheckState(
+                    QtCore.Qt.Checked
+                    if feature_id in checked_ids
+                    else QtCore.Qt.Unchecked
+                )
+                if other_unit is not None:
+                    item.setForeground(QtGui.QBrush(QtGui.QColor("#9ca3af")))
+                    item.setToolTip(
+                        self.tr("Already part of the unit '{}'").format(other_unit)
+                    )
+                self.features_list.addItem(item)
+
+        self.features_list.blockSignals(False)
+        self.apply_features_filter()
+        self.update_overlap_warning()
+        self.update_add_button_state()
+
+    def update_overlap_warning(self, *args):
+        """Warn when checked features already belong to other units."""
+        layer = self.current_layer()
+        if layer is None or not self.radio_from_layer.isChecked():
+            self.label_overlap_warning.setVisible(False)
             return
 
-        self.features_list.setEnabled(True)
-        display_expression = layer.displayExpression() or ""
+        used = self._features_in_other_units(layer)
+        units = sorted(
+            {
+                used[feature_id]
+                for feature_id in self.selected_feature_ids()
+                if feature_id in used
+            }
+        )
+        if units:
+            self.label_overlap_warning.setText(
+                self.tr(
+                    "Some checked features already belong to other units "
+                    "({}). Units should not overlap."
+                ).format(", ".join(f"'{name}'" for name in units))
+            )
+        self.label_overlap_warning.setVisible(bool(units))
 
-        feature_labels = []
+    def apply_features_filter(self, *args):
+        """Hide features whose label does not contain the search text."""
+        text = self.features_filter.text().strip().casefold()
+        for row in range(self.features_list.count()):
+            item = self.features_list.item(row)
+            item.setHidden(bool(text) and text not in item.text().casefold())
 
-        for feature in layer.getFeatures():
-            if display_expression:
-                context = qgis.core.QgsExpressionContext()
-                context.setFeature(feature)
-                label = qgis.core.QgsExpression(display_expression).evaluate(context)
-                label = str(label) if label not in (None, "") else str(feature.id())
-            else:
-                label = str(feature.id())
-
-            feature_labels.append((label, feature.id()))
-            feature_labels.sort(key=lambda x: x[0])
-
-        for feature_label, feature_id in feature_labels:
-            item = QtWidgets.QListWidgetItem(feature_label)
-            item.setData(QtCore.Qt.UserRole, feature_id)
-            item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
-            item.setCheckState(QtCore.Qt.Unchecked)
-            self.features_list.addItem(item)
+    def uncheck_all_features(self):
+        """Uncheck every feature, including those hidden by the search."""
+        self.features_list.blockSignals(True)
+        for row in range(self.features_list.count()):
+            self.features_list.item(row).setCheckState(QtCore.Qt.Unchecked)
+        self.features_list.blockSignals(False)
+        self.update_overlap_warning()
+        self.update_add_button_state()
 
     def _on_method_toggled(self):
         from_layer = self.radio_from_layer.isChecked()
         self.frame_from_layer.setEnabled(from_layer)
         self.frame_upload_file.setEnabled(not from_layer)
         self.update_add_button_state()
+        self.update_overlap_warning()
 
     def update_add_button_state(self, *args):
         has_name = len(self.unit_name.text().strip()) > 0
 
         if self.radio_from_layer.isChecked():
-            ready = has_name and any(
-                self.features_list.item(i).checkState() == QtCore.Qt.Checked
-                for i in range(self.features_list.count())
-            )
+            ready = has_name and bool(self.selected_feature_ids())
         else:
             ready = has_name and bool(self.upload_file_path.text().strip())
 
@@ -601,12 +753,17 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
             "source": source,
             "layer": self._active_layer(),
             "feature_ids": self.selected_feature_ids(),
+            "label_field": self._label_field()
+            if self.radio_from_layer.isChecked()
+            else None,
             "upload_file_path": self.upload_file_path.text().strip()
             if self.radio_upload_file.isChecked()
             else None,
         }
 
-    def set_initial_data(self, name, layer_id, feature_ids, upload_file_path=None):
+    def set_initial_data(
+        self, name, layer_id, feature_ids, upload_file_path=None, label_field=None
+    ):
         self.unit_name.setText(name)
 
         if upload_file_path:
@@ -624,6 +781,11 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
             index = self.layer_combo.findData(layer_id)
             if index != -1:
                 self.layer_combo.setCurrentIndex(index)
+
+            if label_field and self.label_field_combo.findData(label_field) != -1:
+                self.label_field_combo.setCurrentIndex(
+                    self.label_field_combo.findData(label_field)
+                )
 
             feature_ids = set(feature_ids or [])
             for row in range(self.features_list.count()):
@@ -1344,33 +1506,41 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         return widget
 
     def open_add_subnational_unit_dialog(self):
-        dialog = DlgAddSubnationalUnit(self)
+        dialog = DlgAddSubnationalUnit(self, existing_units=self.subnational_units)
 
         if dialog.exec() == QtWidgets.QDialog.Accepted:
-            unit = self._unit_dict_from_dialog(dialog)
+            unit = self._unit_dict_from_data(dialog.get_unit_data())
             unit["id"] = str(uuid.uuid4())
             unit["stored_geometry_path"] = self._save_unit_geometry(unit)
             self.subnational_units.append(unit)
+            self._persist_subnational_units()
             self._refresh_subnational_table()
 
     def edit_subnational_unit(self, row):
         unit = self.subnational_units[row]
 
-        dialog = DlgAddSubnationalUnit(self)
+        dialog = DlgAddSubnationalUnit(
+            self,
+            existing_units=[
+                u for i, u in enumerate(self.subnational_units) if i != row
+            ],
+        )
         dialog.set_initial_data(
             unit["name"],
             unit.get("layer_id"),
             unit.get("feature_ids"),
             upload_file_path=unit.get("upload_file_path"),
+            label_field=unit.get("label_field"),
         )
 
         if dialog.exec() == QtWidgets.QDialog.Accepted:
-            updated_unit = self._unit_dict_from_dialog(dialog)
+            updated_unit = self._unit_dict_from_data(dialog.get_unit_data())
             updated_unit["id"] = unit.get("id") or str(uuid.uuid4())
             updated_unit["stored_geometry_path"] = self._save_unit_geometry(
                 updated_unit
             )
             self.subnational_units[row] = updated_unit
+            self._persist_subnational_units()
             self._refresh_subnational_table()
 
     def delete_subnational_unit(self, row):
@@ -1397,11 +1567,24 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                 pass
 
         del self.subnational_units[row]
+        self._persist_subnational_units()
         self._refresh_subnational_table()
 
-    def _unit_dict_from_dialog(self, dialog):
-        unit_data = dialog.get_unit_data()
+    def _persist_subnational_units(self):
+        """
+        Save the unit list right away. Adding, editing or removing a unit
+        already rewrites or deletes its geometry file in BASE_DIR, so the
+        stored list must follow, otherwise other dialogs (e.g. the SDG
+        summary) keep seeing the previous version of the unit until the
+        settings page is saved.
+        """
+        settings_manager.write_value(
+            Setting.SUBNATIONAL_UNITS, json.dumps(self.subnational_units)
+        )
+
+    def _unit_dict_from_data(self, unit_data):
         layer = unit_data["layer"]
+        label_field = unit_data.get("label_field")
 
         return {
             "name": unit_data["name"],
@@ -1409,7 +1592,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             "area_km2": compute_features_area_km2(layer, unit_data["feature_ids"]),
             "layer_id": layer.id() if layer is not None else None,
             "feature_ids": unit_data["feature_ids"],
-            "feature_labels": self._get_feature_labels(layer, unit_data["feature_ids"]),
+            "feature_labels": self._get_feature_labels(
+                layer, unit_data["feature_ids"], label_field
+            ),
+            "label_field": label_field,
             "upload_file_path": unit_data.get("upload_file_path"),
         }
 
@@ -1488,25 +1674,16 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         return gpkg_path
 
-    def _get_feature_labels(self, layer, feature_ids):
+    def _get_feature_labels(self, layer, feature_ids, label_field=None):
         if layer is None or not feature_ids:
             return []
 
         request = qgis.core.QgsFeatureRequest().setFilterFids(feature_ids)
-        display_expression = layer.displayExpression() or ""
-        labels = []
 
-        for feature in layer.getFeatures(request):
-            if display_expression:
-                context = qgis.core.QgsExpressionContext()
-                context.setFeature(feature)
-                label = qgis.core.QgsExpression(display_expression).evaluate(context)
-                label = str(label) if label not in (None, "") else str(feature.id())
-            else:
-                label = str(feature.id())
-            labels.append(label)
-
-        return sorted(labels)
+        return sorted(
+            feature_label(feature, layer, label_field)
+            for feature in layer.getFeatures(request)
+        )
 
 
 class ProfileFormMixin:

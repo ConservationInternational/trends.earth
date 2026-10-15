@@ -2250,7 +2250,14 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             return False
 
         layer_name = self.get_layer_name(
-            self.tr(f"Land productivity (imported - {self.datatype_cb.currentText()})")
+            self.tr(
+                "Land productivity (imported - {datatype}, "
+                "{year_initial}-{year_final})"
+            ).format(
+                datatype=self.datatype_cb.currentText(),
+                year_initial=int(self.spinBox_year_initial.text()),
+                year_final=int(self.spinBox_year_final.text()),
+            )
         )
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),

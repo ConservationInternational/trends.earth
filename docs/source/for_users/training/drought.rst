@@ -81,9 +81,37 @@ The region of interest is already set up in Settings. If you need to change, sel
 .. image:: ../../../resources/en/documentation/calculate/summarise_so3.png
    :align: center
 
-5. Select **Execute locally** button.
+5. In **Population exposed to drought**, choose the population data to use:
 
-5. In the **Trends.Earth** panel, select the **Datasets** tab. The task submitted will appear 
+   * **Use annual population from the drought dataset** is selected by default.
+     Keep this option to use the annual population series included in the
+     selected drought dataset.
+   * To use custom data, first import it through **Import custom Population
+     dataset** in the Trends.Earth import menu. Specify the population year,
+     whether the data represents total, male, or female population, and the
+     correct input units: **People per pixel**, **People per hectare**, or
+     **People per square kilometre**. For sex-disaggregated data, import the
+     male and female layers separately.
+   * Return to the drought summary dialog and choose **Total population** to
+     enable the total-population dropdown, or **Population broken down by sex**
+     to enable the male and female dropdowns. Select the corresponding imported
+     layers. Male and female layers must represent the same year.
+
+   Each selected population layer must cover the region of interest. The
+   dropdowns filter layers by population type and region coverage; a total
+   population import will not appear in the male or female dropdowns.
+
+.. important::
+    Selecting population layers defines a **fixed-population scenario**. The
+    selected population is reused for every drought year, even when its source
+    year differs from the drought years. This measures exposure under a constant
+    population distribution, not annual population change. The source population
+    year is retained in the job parameters. To restore the original annual
+    series, select **Use annual population from the drought dataset**.
+
+6. Select **Execute locally** button.
+
+7. In the **Trends.Earth** panel, select the **Datasets** tab. The task submitted will appear 
    in the menu if the **Download remotely-generated datasets automatically** is checked in settings.
 
 .. note::
@@ -91,12 +119,12 @@ The region of interest is already set up in Settings. If you need to change, sel
 
    Select the Refresh button if the analysis does not appear in the menu. 
 
-6. Select the add layer drop-down button to **Add default layers from this layer to the map**
+8. Select the add layer drop-down button to **Add default layers from this layer to the map**
 
 .. image:: ../../../resources/en/documentation/data_download/download_datasets.png
    :align: center
 
-7. The data for SO 3 Indicators will be added to the map for the region of interest.
+9. The data for SO 3 Indicators will be added to the map for the region of interest.
 
 .. note::
     Population values remain floating point from the remote download through

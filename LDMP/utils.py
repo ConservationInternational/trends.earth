@@ -1,4 +1,5 @@
 import importlib
+import json
 import os
 import subprocess
 import sys
@@ -66,6 +67,36 @@ def compute_features_area_km2(
     return distance_area.convertAreaMeasurement(
         area_m2, qgis.core.QgsUnitTypes.AreaSquareKilometers
     )
+
+
+def geojsons_envelope(geojsons) -> tuple[float, float, float, float] | None:
+    """
+    Return (min_x, min_y, max_x, max_y) over all coordinates of a GeoJSON
+    geometry list (or its JSON string), or None if there are none.
+    """
+    if isinstance(geojsons, str):
+        try:
+            geojsons = json.loads(geojsons)
+        except ValueError:
+            return None
+
+    xs, ys = [], []
+
+    def _walk(coords):
+        if coords and isinstance(coords[0], (int, float)):
+            xs.append(coords[0])
+            ys.append(coords[1])
+        else:
+            for c in coords or []:
+                _walk(c)
+
+    for geometry in geojsons or []:
+        if isinstance(geometry, dict):
+            _walk(geometry.get("coordinates"))
+
+    if not xs:
+        return None
+    return min(xs), min(ys), max(xs), max(ys)
 
 
 def load_object(python_path: str) -> typing.Any:

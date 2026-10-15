@@ -74,7 +74,7 @@ def compute_land_cover(
     )
 
     if result:
-        lc_job.end_date = dt.datetime.now(dt.timezone.utc)
+        lc_job.end_date = dt.datetime.now(dt.UTC)
         lc_job.progress = 100
         bands = [
             JobBand(

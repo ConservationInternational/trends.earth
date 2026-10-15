@@ -1225,7 +1225,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def _on_finish_updating_local_state(self):
         # Slot raised when job_manager has finished refreshing the local state.
-        self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
+        self.last_refreshed_local_state = dt.datetime.now(tz=dt.UTC)
         self.refreshing_local_state = False
         # Clear references to allow garbage collection - must be done here
         # before any deleteLater would execute to avoid accessing deleted objects
@@ -1286,7 +1286,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def _on_finish_updating_remote_state(self):
         # Slot raised when job_manager has finished refreshing the remote state.
-        self.last_refreshed_remote_state = dt.datetime.now(tz=dt.timezone.utc)
+        self.last_refreshed_remote_state = dt.datetime.now(tz=dt.UTC)
         self.set_remote_refresh_running(False)
         self.update_refresh_button_status()
         # Clear references to allow garbage collection - must be done here
@@ -1558,7 +1558,7 @@ def maybe_download_finished_results():
 
 def _should_run(periodic_frequency_seconds: int, last_run: dt.datetime):
     """Check whether some periodic task should be run"""
-    now = dt.datetime.now(tz=dt.timezone.utc)
+    now = dt.datetime.now(tz=dt.UTC)
     try:
         delta = now - last_run
     except TypeError:

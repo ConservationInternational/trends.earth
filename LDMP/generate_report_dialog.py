@@ -59,7 +59,7 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
 
         self.load_templates()
 
-        ok_btn = self.buttonBox.button(QDialogButtonBox.Ok)
+        ok_btn = self.buttonBox.button(QDialogButtonBox.StandardButton.Ok)
         if ok_btn is not None:
             ok_btn.setText(self.tr("Generate"))
         self.buttonBox.accepted.connect(self.generate)
@@ -123,7 +123,8 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
             self,
             self.tr("Select Report Output Directory"),
             init_dir,
-            options=QFileDialog.DontResolveSymlinks | QFileDialog.ShowDirsOnly,
+            options=QFileDialog.Option.DontResolveSymlinks
+            | QFileDialog.Option.ShowDirsOnly,
         )
 
         if output_dir:
@@ -134,7 +135,7 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
         # Validate user options.
         status = True
         title = self.tr("Validation")
-        level = Qgis.Warning
+        level = Qgis.MessageLevel.Warning
         duration = 5
 
         # Check template
@@ -165,7 +166,7 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
         for r in range(self._scope_job_model.rowCount()):
             scope_name = self._scope_job_model.item(r, 0).text()
             idx = self._scope_job_model.index(r, 1)
-            job = self._scope_job_model.data(idx, Qt.EditRole)
+            job = self._scope_job_model.data(idx, Qt.ItemDataRole.EditRole)
             if job is None:
                 if status:
                     status = False

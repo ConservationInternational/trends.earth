@@ -98,7 +98,7 @@ class LocalJobLogHandler(logging.Handler):
             entry = {
                 "text": text,
                 "level": record.levelname,
-                "register_date": dt.datetime.now(dt.timezone.utc).isoformat(),
+                "register_date": dt.datetime.now(dt.UTC).isoformat(),
             }
 
             with open(self.log_file_path, "a", encoding="utf-8") as f:

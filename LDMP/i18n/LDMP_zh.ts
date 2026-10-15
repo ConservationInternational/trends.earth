@@ -303,12 +303,12 @@
         <translation>无法打开报告文件。</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="218"/>
+        <location filename="../reports/mvc.py" line="221"/>
         <source>Open Layouts</source>
         <translation>打开布局</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="218"/>
+        <location filename="../reports/mvc.py" line="221"/>
         <source>Unable to open the QGIS project file.</source>
         <translation>无法打开 QGIS 项目文件。</translation>
     </message>
@@ -2749,6 +2749,26 @@
         <source>Load a Custom Population dataset</source>
         <translation>加载自定义人口数据集</translation>
     </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="38"/>
+        <source>Population type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="44"/>
+        <source>Total population</source>
+        <translation>总人口</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="54"/>
+        <source>Male population</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="61"/>
+        <source>Female population</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgDataIOImportProd</name>
@@ -2805,7 +2825,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768：无数据&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2135"/>
+        <location filename="../data_io.py" line="2147"/>
         <source>Land productivity (imported - {self.datatype_cb.currentText()})</source>
         <translation>土地生产力（已导入 - {self.datatype_cb.currentText()}）</translation>
     </message>
@@ -3166,22 +3186,22 @@ p, li { white-space: pre-wrap; }
         <translation>选择报告输出目录</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="136"/>
+        <location filename="../generate_report_dialog.py" line="137"/>
         <source>Validation</source>
         <translation>核实</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="142"/>
+        <location filename="../generate_report_dialog.py" line="143"/>
         <source>No template selected.</source>
         <translation>未选择模板</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="155"/>
+        <location filename="../generate_report_dialog.py" line="156"/>
         <source>No output directory specified.</source>
         <translation>未指定输出目录</translation>
     </message>
     <message>
-        <location filename="../generate_report_dialog.py" line="172"/>
+        <location filename="../generate_report_dialog.py" line="173"/>
         <source>dataset not specified.</source>
         <translation>未指定数据集</translation>
     </message>
@@ -3474,32 +3494,32 @@ p, li { white-space: pre-wrap; }
         <translation>输入你的电子邮箱地址...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1470"/>
+        <location filename="../settings.py" line="1469"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1470"/>
+        <location filename="../settings.py" line="1469"/>
         <source>Enter your email address to reset your password.</source>
         <translation>输入您的电子邮件地址来重置您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1478"/>
+        <location filename="../settings.py" line="1477"/>
         <source>Reset password?</source>
         <translation>重设密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1495"/>
+        <location filename="../settings.py" line="1494"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1478"/>
+        <location filename="../settings.py" line="1477"/>
         <source>Are you sure you want to reset the password for {self.email.text()}? A password reset link will be emailed to you.</source>
         <translation>您确定要为 {self.email.text()} 重置密码吗？密码重置链接将通过电子邮件发送给您。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1495"/>
+        <location filename="../settings.py" line="1494"/>
         <source>A password reset link has been sent to {self.email.text()}. Please check your email and click the link to set a new password, then return to Trends.Earth to login.</source>
         <translation>密码重置链接已发送至 {self.email.text()}。请检查您的电子邮件并点击链接设置新密码，然后返回 Trends.Earth 登录。</translation>
     </message>
@@ -3512,12 +3532,12 @@ p, li { white-space: pre-wrap; }
         <translation>更新用户信息</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1624"/>
+        <location filename="../settings.py" line="1623"/>
         <source>Saved</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1624"/>
+        <location filename="../settings.py" line="1623"/>
         <source>Updated information for {}.</source>
         <translation>{}的更新信息。</translation>
     </message>
@@ -3660,47 +3680,47 @@ p, li { white-space: pre-wrap; }
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1290"/>
+        <location filename="../settings.py" line="1289"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1284"/>
+        <location filename="../settings.py" line="1283"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1290"/>
+        <location filename="../settings.py" line="1289"/>
         <source>Enter your password.</source>
         <translation>输入您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1301"/>
+        <location filename="../settings.py" line="1300"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1301"/>
+        <location filename="../settings.py" line="1300"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
         <translation>以{self.email.text()}登录 Trends.Earth 服务器。&lt;html&gt;&lt;p&gt;欢迎来到 Trends.Earth！&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;加入 Trends.Earth 用户电子邮件组&lt;a/&gt;&lt;/p&gt;&lt;p&gt;确保加入 Trends.Earth 用户电子邮件组，了解关于支持可持续发展目标监测的工具、方法和数据集的更新和问答。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1370"/>
+        <location filename="../settings.py" line="1369"/>
         <source>Login Failed</source>
         <translation>登录失败</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1370"/>
+        <location filename="../settings.py" line="1369"/>
         <source>Invalid username or password. Please check your credentials and try again.</source>
         <translation>无效的用户名或密码。请检查您的凭证并重试。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1362"/>
+        <location filename="../settings.py" line="1361"/>
         <source>Account Locked</source>
         <translation>账户已锁定</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1336"/>
+        <location filename="../settings.py" line="1335"/>
         <source>Your account has been locked due to too many failed login attempts.
 
 You must reset your password to regain access.
@@ -3713,12 +3733,12 @@ Would you like to reset your password now?</source>
 是否立即重置密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1351"/>
+        <location filename="../settings.py" line="1350"/>
         <source>Account Temporarily Locked</source>
         <translation>账户暂时锁定</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1351"/>
+        <location filename="../settings.py" line="1350"/>
         <source>Your account is temporarily locked.
 
 Please try again in {minutes_remaining} minute(s).
@@ -3731,7 +3751,7 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 如果您忘记了密码，可以重置密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1362"/>
+        <location filename="../settings.py" line="1361"/>
         <source>Your account is locked.</source>
         <translation>您的账户已被锁定。</translation>
     </message>
@@ -3739,27 +3759,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="1413"/>
+        <location filename="../settings.py" line="1412"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1407"/>
+        <location filename="../settings.py" line="1406"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1413"/>
+        <location filename="../settings.py" line="1412"/>
         <source>Enter your password.</source>
         <translation>输入密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1432"/>
+        <location filename="../settings.py" line="1431"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1432"/>
+        <location filename="../settings.py" line="1431"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
         <translation>以{self.email.text()}成功设置登录到 LandPKS 服务器。</translation>
     </message>
@@ -3772,12 +3792,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>注册新用户</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1250"/>
+        <location filename="../settings.py" line="1249"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1231"/>
+        <location filename="../settings.py" line="1230"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
@@ -3877,12 +3897,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>请输入有效的电子邮件地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1231"/>
+        <location filename="../settings.py" line="1230"/>
         <source>User registered. A password setup link has been emailed to {email}. Please check your email and click the link to set your password, then return to Trends.Earth settings to login.</source>
         <translation>用户已注册。密码设置链接已发送至您的邮箱 {email}。请查收邮件并点击链接设置密码，然后返回 Trends.Earth 设置页面进行登录。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1250"/>
+        <location filename="../settings.py" line="1249"/>
         <source>Registration failed. Please check your information and try again. If the problem persists, the email address may be invalid or already be registered.</source>
         <translation>注册失败。请检查您填写的信息，然后再试一次。如果问题仍然存在，则可能是您的电子邮件地址无效或已被注册。</translation>
     </message>
@@ -3973,32 +3993,32 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>气候数据集</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="86"/>
+        <location filename="../timeseries.py" line="88"/>
         <source>Submit request</source>
         <translation>提交请求</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="330"/>
+        <location filename="../timeseries.py" line="332"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="320"/>
+        <location filename="../timeseries.py" line="322"/>
         <source>Submitted</source>
         <translation>提交</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="320"/>
+        <location filename="../timeseries.py" line="322"/>
         <source>Time series calculation task submitted to Trends.Earth server.</source>
         <translation>时间序列计算任务提交到 Trends.Earth 服务器。</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="330"/>
+        <location filename="../timeseries.py" line="332"/>
         <source>Unable to submit time series calculation task to Trends.Earth server</source>
         <translation>无法向 Trends.Earth 服务器提交时间序列计算任务</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="272"/>
+        <location filename="../timeseries.py" line="274"/>
         <source>The bounding box of the requested area (approximately {aoi_area:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4233,27 +4253,27 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../jobs/manager.py" line="1770"/>
+        <location filename="../jobs/manager.py" line="1778"/>
         <source>Processing: {task_name}</source>
         <translation>正在处理：{task_name}</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1965"/>
+        <location filename="../jobs/manager.py" line="1973"/>
         <source>Downloading: {job.task_name or job.id}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1945"/>
+        <location filename="../jobs/manager.py" line="1953"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1932"/>
+        <location filename="../jobs/manager.py" line="1940"/>
         <source>'{job.task_name or job.id}' queued — will start when the current download finishes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="1945"/>
+        <location filename="../jobs/manager.py" line="1953"/>
         <source>This job is already being downloaded by another process.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4307,17 +4327,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverClassSelectionDialog</name>
     <message>
-        <location filename="../settings.py" line="2766"/>
+        <location filename="../settings.py" line="2765"/>
         <source>&lt;b&gt;Select a parent for each of the below class names&lt;/b&gt;</source>
         <translation>&lt;b&gt;为以下每个类别名称选择一个父类别&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2811"/>
+        <location filename="../settings.py" line="2810"/>
         <source>Accept</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2813"/>
+        <location filename="../settings.py" line="2812"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -4325,37 +4345,37 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassEditor</name>
     <message>
-        <location filename="../settings.py" line="2912"/>
+        <location filename="../settings.py" line="2911"/>
         <source>Class Color</source>
         <translation>类别颜色</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2963"/>
+        <location filename="../settings.py" line="2962"/>
         <source>Land Cover</source>
         <translation>土地覆盖</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2999"/>
+        <location filename="../settings.py" line="2998"/>
         <source>Class name cannot be empty.</source>
         <translation>类别名称不能为空。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="3003"/>
+        <location filename="../settings.py" line="3002"/>
         <source>Invalid color selected.</source>
         <translation>选择的颜色无效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="3007"/>
+        <location filename="../settings.py" line="3006"/>
         <source>Parent class cannot be empty.</source>
         <translation>父类不能为空。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="3012"/>
+        <location filename="../settings.py" line="3011"/>
         <source>Invalid class code value.</source>
         <translation>类别代码值无效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="3016"/>
+        <location filename="../settings.py" line="3015"/>
         <source>Code value &apos;{code!s}&apos; is already in use.</source>
         <translation>代码值“{code！s}”已使用。</translation>
     </message>
@@ -4363,112 +4383,112 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>LandCoverCustomClassesManager</name>
     <message>
-        <location filename="../settings.py" line="2194"/>
+        <location filename="../settings.py" line="2193"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2194"/>
+        <location filename="../settings.py" line="2193"/>
         <source>Code</source>
         <translation>代码</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2194"/>
+        <location filename="../settings.py" line="2193"/>
         <source>Parent</source>
         <translation>父</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2296"/>
+        <location filename="../settings.py" line="2295"/>
         <source>Land Cover</source>
         <translation>土地覆盖</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2562"/>
+        <location filename="../settings.py" line="2561"/>
         <source>Maximum number of classes reached.</source>
         <translation>已达到最多类别数上限。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2367"/>
+        <location filename="../settings.py" line="2366"/>
         <source>Nothing to save</source>
         <translation>没有要保存的内容</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2374"/>
+        <location filename="../settings.py" line="2373"/>
         <source>Save Land Cover Classes</source>
         <translation>保存土地覆盖类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2398"/>
+        <location filename="../settings.py" line="2397"/>
         <source>Select Land Cover Classes File</source>
         <translation>选择土地覆盖类别文件</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2416"/>
+        <location filename="../settings.py" line="2415"/>
         <source>No land cover classes found.</source>
         <translation>未找到土地覆盖类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2481"/>
+        <location filename="../settings.py" line="2480"/>
         <source>Land Cover Class Editor</source>
         <translation>土地覆盖类别编辑器</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2545"/>
+        <location filename="../settings.py" line="2544"/>
         <source>Invalid row for land cover class</source>
         <translation>土地覆盖类别的行无效</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2550"/>
+        <location filename="../settings.py" line="2549"/>
         <source>Unable to update class.</source>
         <translation>无法更新类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2569"/>
+        <location filename="../settings.py" line="2568"/>
         <source>Unable to add new class.</source>
         <translation>无法添加新类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2595"/>
+        <location filename="../settings.py" line="2594"/>
         <source>class does not have children assigned to it</source>
         <translation>该类别未被分配子类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2615"/>
+        <location filename="../settings.py" line="2614"/>
         <source>class has not been assigned a parent</source>
         <translation>该类别尚未分配父类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2741"/>
+        <location filename="../settings.py" line="2740"/>
         <source>There must be at least one class defined. You can create a new one then delete this one or you can restore the default UNCCD classes by clicking on the Restore button.</source>
         <translation>必须至少定义一个类别。您可以创建一个新的类别然后将其删除，也可以单击“恢复”按钮恢复默认的《荒漠化公约》类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2746"/>
+        <location filename="../settings.py" line="2745"/>
         <source>Delete Failed</source>
         <translation>删除失败</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2229"/>
+        <location filename="../settings.py" line="2228"/>
         <source>Import CSV</source>
         <translation>导入 CSV</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2230"/>
+        <location filename="../settings.py" line="2229"/>
         <source>Import land cover classes from a CSV file</source>
         <translation>从 CSV 文件导入土地覆盖类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2251"/>
+        <location filename="../settings.py" line="2250"/>
         <source>Import Land Cover Classes</source>
         <translation>导入土地覆盖类别</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2258"/>
+        <location filename="../settings.py" line="2257"/>
         <source>CSV files</source>
         <translation>CSV 文件</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2260"/>
+        <location filename="../settings.py" line="2259"/>
         <source>Select CSV file with land cover classes</source>
         <translation>选择包含土地覆盖类别的 CSV 文件</translation>
     </message>
@@ -4534,12 +4554,12 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>MultiscopeJobReportModel</name>
     <message>
-        <location filename="../reports/mvc.py" line="267"/>
+        <location filename="../reports/mvc.py" line="270"/>
         <source>Scope Name</source>
         <translation>范围名称</translation>
     </message>
     <message>
-        <location filename="../reports/mvc.py" line="267"/>
+        <location filename="../reports/mvc.py" line="270"/>
         <source>Source Dataset</source>
         <translation>源数据集</translation>
     </message>
@@ -4692,32 +4712,32 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportGeneratorManager</name>
     <message>
-        <location filename="../reports/generator.py" line="1091"/>
+        <location filename="../reports/generator.py" line="1106"/>
         <source>Report Status</source>
         <translation>报告状态</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1121"/>
+        <location filename="../reports/generator.py" line="1136"/>
         <source>Cannot process report due to write permission to</source>
         <translation>由于写入权限，无法处理报告</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1153"/>
+        <location filename="../reports/generator.py" line="1168"/>
         <source>could not be found in your system. Unable to run the report generator.</source>
         <translation>在您的系统中找不到。无法运行报告生成器。</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1182"/>
+        <location filename="../reports/generator.py" line="1197"/>
         <source>reports</source>
         <translation>报告</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1196"/>
+        <location filename="../reports/generator.py" line="1211"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
         <translation>正在处理(编号{[str(工作.编号) for 工作 in ctx.工作]})...</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="1164"/>
+        <location filename="../reports/generator.py" line="1179"/>
         <source>queued (waiting for a free worker slot)</source>
         <translation>已加入队列（等待空闲工作线程）</translation>
     </message>
@@ -4735,22 +4755,22 @@ If you&apos;ve forgotten your password, you can reset it.</source>
         <translation>从任务生成报告</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="57"/>
+        <location filename="../processing_provider/report.py" line="54"/>
         <source>File containing report context task information</source>
         <translation>包含报告上下文任务信息的文件</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="66"/>
+        <location filename="../processing_provider/report.py" line="63"/>
         <source>Summary result status of the algorithm.</source>
         <translation>算法的汇总结果状态。</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="86"/>
+        <location filename="../processing_provider/report.py" line="83"/>
         <source>Task file not found.</source>
         <translation>找不到任务文件。</translation>
     </message>
     <message>
-        <location filename="../processing_provider/report.py" line="95"/>
+        <location filename="../processing_provider/report.py" line="92"/>
         <source>Could not read report task context file</source>
         <translation>无法读取报告任务上下文文件</translation>
     </message>
@@ -4758,17 +4778,17 @@ If you&apos;ve forgotten your password, you can reset it.</source>
 <context>
     <name>ReportTaskProcessor</name>
     <message>
-        <location filename="../reports/generator.py" line="709"/>
+        <location filename="../reports/generator.py" line="706"/>
         <source>Simple</source>
         <translation>简单</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="711"/>
+        <location filename="../reports/generator.py" line="708"/>
         <source>Full</source>
         <translation>满</translation>
     </message>
     <message>
-        <location filename="../reports/generator.py" line="713"/>
+        <location filename="../reports/generator.py" line="710"/>
         <source>All</source>
         <translation>全部</translation>
     </message>
@@ -5595,12 +5615,12 @@ p, li { white-space: pre-wrap; }
         <translation>启用 LandPKS 数据访问</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1992"/>
+        <location filename="../settings.py" line="1991"/>
         <source>No base data directory set</source>
         <translation>没有设置基本数据目录</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1972"/>
+        <location filename="../settings.py" line="1971"/>
         <source>Offline mode is enabled.</source>
         <translation>离线模式已启用。</translation>
     </message>
@@ -5645,7 +5665,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">保存</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1822"/>
+        <location filename="../settings.py" line="1821"/>
         <source>Connect GEE Account</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5660,122 +5680,122 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1735"/>
+        <location filename="../settings.py" line="1734"/>
         <source>Log in to Trends.Earth to manage your Google Earth Engine account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1752"/>
+        <location filename="../settings.py" line="1751"/>
         <source>Unable to retrieve GEE status.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1757"/>
+        <location filename="../settings.py" line="1756"/>
         <source>OAuth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1757"/>
+        <location filename="../settings.py" line="1756"/>
         <source>Service Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1760"/>
+        <location filename="../settings.py" line="1759"/>
         <source>Connected ({type_str})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1773"/>
+        <location filename="../settings.py" line="1772"/>
         <source>Using default Trends.Earth Google Earth Engine account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1790"/>
+        <location filename="../settings.py" line="1789"/>
         <source>Failed to initiate GEE OAuth.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1797"/>
+        <location filename="../settings.py" line="1796"/>
         <source>No authorization URL received.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1803"/>
+        <location filename="../settings.py" line="1802"/>
         <source>Browser opened — complete the Google authorization and return here.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1812"/>
+        <location filename="../settings.py" line="1811"/>
         <source>Connecting…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1823"/>
+        <location filename="../settings.py" line="1822"/>
         <source>Connection timed out. Please try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1837"/>
+        <location filename="../settings.py" line="1836"/>
         <source>GEE connected! Enter your GCP project ID below and click Save.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1847"/>
+        <location filename="../settings.py" line="1846"/>
         <source>Disconnect GEE Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1847"/>
+        <location filename="../settings.py" line="1846"/>
         <source>Are you sure you want to disconnect your Google Earth Engine account?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1864"/>
+        <location filename="../settings.py" line="1863"/>
         <source>GEE account disconnected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1868"/>
+        <location filename="../settings.py" line="1867"/>
         <source>Failed to disconnect GEE account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1878"/>
+        <location filename="../settings.py" line="1877"/>
         <source>Please enter a project ID.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1884"/>
+        <location filename="../settings.py" line="1883"/>
         <source>Invalid project ID. Must be 6–30 characters, lowercase letters, digits and hyphens, starting with a letter and not ending with a hyphen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1896"/>
+        <location filename="../settings.py" line="1895"/>
         <source>GEE project ID saved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1900"/>
+        <location filename="../settings.py" line="1899"/>
         <source>Failed to save project ID.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1917"/>
+        <location filename="../settings.py" line="1916"/>
         <source>GEE Connection Test</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1911"/>
+        <location filename="../settings.py" line="1910"/>
         <source>GEE credentials are valid and working.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1917"/>
+        <location filename="../settings.py" line="1916"/>
         <source>GEE credentials test failed. Check your connection and project ID.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2002"/>
+        <location filename="../settings.py" line="2001"/>
         <source>Unable to write to {new_base_directory}. Try a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5833,27 +5853,27 @@ p, li { white-space: pre-wrap; }
         <translation>在输出目录中记录警告</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2076"/>
+        <location filename="../settings.py" line="2075"/>
         <source>Select Report Template Search Path</source>
         <translation>选择报告模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2086"/>
+        <location filename="../settings.py" line="2085"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>需要重新启动 QGIS 才能使更改生效。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2088"/>
+        <location filename="../settings.py" line="2087"/>
         <source>Template Search Path</source>
         <translation>模板搜索路径</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2102"/>
+        <location filename="../settings.py" line="2101"/>
         <source>All Images</source>
         <translation>所有图片</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2117"/>
+        <location filename="../settings.py" line="2116"/>
         <source>Select Organization Logo</source>
         <translation>选择组织徽标</translation>
     </message>
@@ -5985,17 +6005,17 @@ for running algorithms and their results.</source>
 <context>
     <name>self.parent</name>
     <message>
-        <location filename="../settings.py" line="2772"/>
+        <location filename="../settings.py" line="2771"/>
         <source>The class name value that will imported, should not exceed 120 characters. </source>
         <translation>将要导入的类别名称值不得超过 120 个字符。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2777"/>
+        <location filename="../settings.py" line="2776"/>
         <source>Select the parent for the corresponding class name.</source>
         <translation>请为相应的类别名称选择父类别。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="2834"/>
+        <location filename="../settings.py" line="2833"/>
         <source>Maximum number of codes reached.</source>
         <translation>达到最大编码数量。</translation>
     </message>
@@ -6033,17 +6053,17 @@ for running algorithms and their results.</source>
         <translation>身份验证成功但未返回 Token。API 身份验证方法可能已更改。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="977"/>
+        <location filename="../api.py" line="984"/>
         <source>The Trends.Earth server is temporarily unavailable (error {status}). This is usually a temporary issue. Please try again in a few moments.</source>
         <translation>Trends.Earth 服务器暂时不可用（错误 {status}）。这通常是临时性问题。请稍后再试。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="983"/>
+        <location filename="../api.py" line="990"/>
         <source>The Trends.Earth server encountered an internal error (error 500). Please try again. If the problem persists, contact the Trends.Earth team.</source>
         <translation>Trends.Earth 服务器遇到内部错误（错误代码 500）。请重试。如果问题仍然存在，请联系 Trends.Earth 团队。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="989"/>
+        <location filename="../api.py" line="996"/>
         <source>Authentication failed. Please check your login credentials.</source>
         <translation>身份认证失败。请检查您的登录凭证。</translation>
     </message>
@@ -6058,7 +6078,7 @@ for running algorithms and their results.</source>
         <translation>无法检索存储的凭据。请在 Trends.Earth 设置中重新输入您的用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="967"/>
+        <location filename="../api.py" line="974"/>
         <source>This script requires Google Earth Engine. You must accept confirm understanding of the GEE terms of use before running it. Please update your profile in the Trends.Earth plugin settings to do so.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6104,42 +6124,42 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_auth</name>
     <message>
-        <location filename="../auth.py" line="170"/>
+        <location filename="../auth.py" line="171"/>
         <source>Cannot init auth configuration</source>
         <translation>无法初始化身份验证配置</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="177"/>
+        <location filename="../auth.py" line="178"/>
         <source>Cannot update auth configuration</source>
         <translation>无法更新身份验证配置</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="191"/>
+        <location filename="../auth.py" line="192"/>
         <source>No authentication set for {auth_setup.name}. Setup in Trends.Earth settings</source>
         <translation>没有为{auth_setup.name}设置身份验证。Trends.Earth 设置中的设置</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="202"/>
+        <location filename="../auth.py" line="203"/>
         <source>Cannot remove auth configuration for {auth_setup.name} with id: {authConfigId}</source>
         <translation>无法删除 ID 为{authConfigId}的{auth_setup.name}身份验证配置</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="262"/>
+        <location filename="../auth.py" line="263"/>
         <source>Cannot retrieve credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
         <translation>无法检索 ID 为{authConfigId}的凭据。在使用{auth_setup.name}函数之前设置用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="250"/>
+        <location filename="../auth.py" line="251"/>
         <source>No authentication set. Setup username and password before using {auth_setup.name}.</source>
         <translation>尚未设置身份验证。请先设置用户名和密码，然后再使用{auth_setup.name}。</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="276"/>
+        <location filename="../auth.py" line="277"/>
         <source>{auth_setup.name} credentials with id {authConfigId} are not valid.  Setup username and password before using {auth_setup.name}.</source>
         <translation>ID 为{authConfigId}的{auth_setup.name}凭据无效。请先设置用户名和密码，然后再使用{auth_setup.name}。</translation>
     </message>
     <message>
-        <location filename="../auth.py" line="287"/>
+        <location filename="../auth.py" line="288"/>
         <source>Auth method with id {authConfigId} is &apos;{authConfig.method()}&apos;. This method is not supported by {auth_setup.name}.</source>
         <translation>ID 为{authConfigId}的身份验证方法是'{authConfig.method()}'。{auth_setup.name}不支持此方法。</translation>
     </message>
@@ -6516,7 +6536,7 @@ for running algorithms and their results.</source>
         <translation>光栅文件 (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2840"/>
+        <location filename="../data_io.py" line="2852"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -6576,12 +6596,12 @@ for running algorithms and their results.</source>
         <translation>光栅导入失败。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1896"/>
+        <location filename="../data_io.py" line="1908"/>
         <source>Enter the year of the input data.</source>
         <translation>输入输入数据的年份。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2096"/>
+        <location filename="../data_io.py" line="2108"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -6591,7 +6611,7 @@ for running algorithms and their results.</source>
         <translation>此地区没有可用的图层</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2840"/>
+        <location filename="../data_io.py" line="2852"/>
         <source>Select a layer to load.</source>
         <translation>选择要加载的图层。</translation>
     </message>
@@ -6601,15 +6621,10 @@ for running algorithms and their results.</source>
         <translation>此地区没有可用的数据集</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1990"/>
+        <location filename="../data_io.py" line="2002"/>
         <source>Soil organic carbon ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation>土壤有机碳
 ({int(self.input_widget.spinBox_data_year.text())}, imported)</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1866"/>
-        <source>Population ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
-        <translation>人口（{int(self.input_widget.spinBox_data_year.text())}，已导入）</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="124"/>
@@ -6632,12 +6647,12 @@ for running algorithms and their results.</source>
         <translation>未选择任何区域。请选择一个区域，或取消勾选“裁剪至区域”以导入完整数据集范围。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2410"/>
+        <location filename="../data_io.py" line="2422"/>
         <source>Please select a region in the Trends.Earth settings before using {tool_name}.</source>
         <translation>在使用 {tool_name} 前，请在 Trends.Earth 设置中选择一个区域。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2419"/>
+        <location filename="../data_io.py" line="2431"/>
         <source>You must select a {layer_name} layer before you can use {tool_name}.</source>
         <translation>在使用 {tool_name} 前，您必须选择一个 {layer_name} 图层。</translation>
     </message>
@@ -6677,7 +6692,7 @@ for running algorithms and their results.</source>
         <translation>与导入图层关联的备注。</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2041"/>
+        <location filename="../data_io.py" line="2053"/>
         <source>On the settings tab, enter the intial and final year applying to this input data.</source>
         <translation>在设置选项卡上，输入适用于此输入数据的起始和结束年份。</translation>
     </message>
@@ -6702,60 +6717,65 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1921"/>
+        <location filename="../data_io.py" line="1933"/>
         <source>The chosen field ({field}) is not numeric. Choose a numeric field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1811"/>
+        <location filename="../data_io.py" line="1822"/>
         <source>The input file ({in_file}) does not appear to be a valid population input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1824"/>
+        <location filename="../data_io.py" line="1835"/>
         <source>The input file ({in_file}) does not appear to be a valid population input file. The minimum value in this file is {stats[0]}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1837"/>
+        <location filename="../data_io.py" line="1848"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {stats[1]}. The maximum value allowed is {max_max} tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1935"/>
+        <location filename="../data_io.py" line="1947"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1948"/>
+        <location filename="../data_io.py" line="1960"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {stats[0]}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1961"/>
+        <location filename="../data_io.py" line="1973"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {stats[1]}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2069"/>
+        <location filename="../data_io.py" line="2081"/>
         <source>The chosen field ({field}) is not numeric. Choose a field that contains numbers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2083"/>
+        <location filename="../data_io.py" line="2095"/>
         <source>The input file ({in_file}) does not appear to be a valid productivity input file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2096"/>
+        <location filename="../data_io.py" line="2108"/>
         <source>The input file ({in_file}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {len(invalid_values)} value(s) in the input file that were not recognized.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1878"/>
+        <source>{population_type.capitalize()} population ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="1132"/>
+        <location filename="../download.py" line="1141"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -6765,42 +6785,42 @@ for running algorithms and their results.</source>
         <translation>资料夹不存在</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1115"/>
+        <location filename="../download.py" line="1124"/>
         <source>Downloading {}</source>
         <translation>正在下载{}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1126"/>
+        <location filename="../download.py" line="1135"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>下载失败。检查您的互联网连接。</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1067"/>
+        <location filename="../download.py" line="1076"/>
         <source>Error in downloading file, {}</source>
         <translation>下载文件时出错，{}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1074"/>
+        <location filename="../download.py" line="1083"/>
         <source>Error while downloading file to {self.outfile}, {error}</source>
         <translation>下载文件到{self.outfile}时出错，{error}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1078"/>
+        <location filename="../download.py" line="1087"/>
         <source>Finished downloading file to {self.outfile}</source>
         <translation>文件已成功下载至{self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1081"/>
+        <location filename="../download.py" line="1090"/>
         <source>Download exited {self.outfile}</source>
         <translation>下载结束{self.outfile}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1132"/>
+        <location filename="../download.py" line="1141"/>
         <source>Problem running task for downloading file</source>
         <translation>运行下载文件任务时出错</translation>
     </message>
     <message>
-        <location filename="../download.py" line="1137"/>
+        <location filename="../download.py" line="1146"/>
         <source>An error occured when running task for</source>
         <translation>运行任务时发生错误</translation>
     </message>
@@ -6810,7 +6830,7 @@ for running algorithms and their results.</source>
         <translation>正在下载边界</translation>
     </message>
     <message>
-        <location filename="../download.py" line="889"/>
+        <location filename="../download.py" line="898"/>
         <source>Downloading boundaries for {}...</source>
         <translation>正在下载{}的边界...</translation>
     </message>
@@ -7440,12 +7460,12 @@ for running algorithms and their results.</source>
         <translation>USDA土壤类型</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="848"/>
+        <location filename="../layers.py" line="851"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="848"/>
+        <location filename="../layers.py" line="851"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>Trends.Earth没有为“ {}”分配样式（{}中的带{}）。要使用此图层，请手动将其添加到地图中。</translation>
     </message>
@@ -7995,7 +8015,7 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_worker</name>
     <message>
-        <location filename="../worker.py" line="262"/>
+        <location filename="../worker.py" line="264"/>
         <source>Processing: {process_name}</source>
         <translation type="unfinished"></translation>
     </message>

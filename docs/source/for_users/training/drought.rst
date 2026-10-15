@@ -97,3 +97,9 @@ The region of interest is already set up in Settings. If you need to change, sel
    :align: center
 
 7. The data for SO 3 Indicators will be added to the map for the region of interest.
+
+.. note::
+    Population values remain floating point from the remote download through
+    the local summary raster, preserving fractional people per pixel.
+    In the population-at-maximum-drought layers, negative values indicate
+    exposure to drought; missing population data remains nodata (-32768).

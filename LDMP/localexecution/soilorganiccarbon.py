@@ -78,7 +78,7 @@ def compute_soil_organic_carbon(
     )
 
     if soc_work:
-        soc_job.end_date = dt.datetime.now(dt.timezone.utc)
+        soc_job.end_date = dt.datetime.now(dt.UTC)
         soc_job.progress = 100
         bands = [
             JobBand(

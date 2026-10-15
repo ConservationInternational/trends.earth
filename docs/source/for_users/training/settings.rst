@@ -184,7 +184,7 @@ Log warnings in output directory
 When checked, the output report folder will contain a html file with details of any warning or errors that arose
 during the report generation process. It is useful for debugging purposes. By default, it is unchecked.
 
-.. _advanced:
+.. _settings_advanced:
 
 Advanced
 ---------

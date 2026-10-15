@@ -414,6 +414,9 @@ def round_to_n(x, sf=3):
     is_scalar = isinstance(x, (int, float)) or (hasattr(x, "size") and x.size == 1)
 
     if is_scalar:
+        # NumPy 2.x no longer implicitly converts ndim > 0 arrays to scalars
+        if hasattr(x, "item"):
+            x = x.item()
         if np.isnan(x):
             return x
         elif x == 0:
@@ -1141,7 +1144,9 @@ def set_default_stats_value(v_path, band_datas):
     __main__.__dict__["error_recode_form_open"] = error_recode_form_open
 
     config = layer.editFormConfig()
-    config.setInitCodeSource(QgsEditFormConfig.CodeSourceEnvironment)
+    config.setInitCodeSource(
+        QgsEditFormConfig.PythonInitCodeSource.CodeSourceEnvironment
+    )
     config.setInitFunction("error_recode_form_open")
     layer.setEditFormConfig(config)
 

@@ -14,6 +14,8 @@ pip>=10.0.0
 requests>=2.33.1
 PyQt5
 black[jupyter]
+bandit
+detect-secrets
 flake8
 reorder-python-imports
 setuptools>=64

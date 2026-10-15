@@ -839,7 +839,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
             aoi_name = path.stem.replace("_", " ").replace("-", " ")
 
             # Generate current timestamp
-            now = datetime.datetime.now(datetime.timezone.utc)
+            now = datetime.datetime.now(datetime.UTC)
             timestamp = now.isoformat()
 
             # Build the wrapped Job structure
@@ -2593,7 +2593,9 @@ def _check_band_overlap(aoi, raster):
 
 def _check_dataset_overlap_raster(aoi, raster_results, dataset_name=None, job=None):
     dataset_label = f" for dataset '{dataset_name}'" if dataset_name else ""
-    extents = raster_results.get_extents()
+    # Rasters whose extent was never computed report None (e.g. local jobs
+    # that just finished and have not yet been reloaded from disk)
+    extents = [e for e in raster_results.get_extents() if e is not None]
 
     # Check if we have any extents at all - if missing, try to recalculate them
     if not extents:
@@ -2602,7 +2604,7 @@ def _check_dataset_overlap_raster(aoi, raster_results, dataset_name=None, job=No
 
             try:
                 jobs.manager.set_results_extents(job, force=True)
-                extents = raster_results.get_extents()
+                extents = [e for e in raster_results.get_extents() if e is not None]
             except Exception as e:
                 log(
                     f"Failed to recalculate extents{dataset_label}: {type(e).__name__}: {e}"
@@ -2816,7 +2818,7 @@ def _connect_usable_data_cache_invalidation():
         if signal is not None:
             try:
                 signal.connect(invalidate_usable_data_caches)
-            except Exception:  # pragma: no cover - defensive
+            except (RuntimeError, TypeError):  # pragma: no cover - defensive
                 pass
     _usable_data_cache_invalidation_connected = True
 

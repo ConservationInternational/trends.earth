@@ -1,9 +1,18 @@
+import copy
 import dataclasses
 import json
 import multiprocessing
+import tempfile
 from pathlib import Path
 
+from osgeo import gdal
+from qgis.PyQt import QtWidgets
 from te_algorithms.gdal.drought import summarise_drought_vulnerability
+from te_algorithms.gdal.population import (
+    COUNTS,
+    DENSITY_HA,
+    normalize_population_raster,
+)
 from te_schemas.aoi import AOI
 from te_schemas.results import Band as JobBand
 
@@ -25,10 +34,27 @@ class SummaryTableDroughtWidgets:
 
     combo_dataset_drought: data_io.WidgetDataIOSelectTEDatasetExisting
     combo_layer_so3_vulnerability: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_population_total: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_population_male: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_population_female: data_io.WidgetDataIOSelectTELayerExisting
+    radio_population_dataset: QtWidgets.QRadioButton
+    radio_population_total: QtWidgets.QRadioButton
 
     def populate(self):
         self.combo_dataset_drought.populate()
         self.combo_layer_so3_vulnerability.populate()
+        self.combo_layer_population_total.populate()
+        self.combo_layer_population_male.populate()
+        self.combo_layer_population_female.populate()
+
+    def selected_population_widgets(
+        self,
+    ) -> list[data_io.WidgetDataIOSelectTELayerExisting]:
+        if self.radio_population_dataset.isChecked():
+            return []
+        if self.radio_population_total.isChecked():
+            return [self.combo_layer_population_total]
+        return [self.combo_layer_population_male, self.combo_layer_population_female]
 
 
 @dataclasses.dataclass()
@@ -90,9 +116,29 @@ def get_main_drought_summary_job_params(
     combo_dataset_drought: data_io.WidgetDataIOSelectTEDatasetExisting,
     combo_layer_so3_vulnerability: data_io.WidgetDataIOSelectTELayerExisting,
     task_notes: str | None = "",
+    population_bands: list[data_io.Band] | None = None,
 ) -> dict:
     spi_input = _get_drought_inputs(combo_dataset_drought, SPI_SPEI_BAND_NAMES)
-    population_input = _get_drought_inputs(combo_dataset_drought, POPULATION_BAND_NAME)
+    if population_bands is None:
+        population_input = _get_drought_inputs(
+            combo_dataset_drought, POPULATION_BAND_NAME
+        )
+        population_params = {"layer_population_path": str(population_input.path)}
+    else:
+        if not population_bands:
+            raise ValueError(
+                "Select population bands for the fixed population scenario"
+            )
+        population_input = DroughtInputInfo(
+            path=population_bands[0].path,
+            bands=[band.band_info for band in population_bands],
+            indices=[band.band_index for band in population_bands],
+            years=[band.band_info.metadata["year"] for band in population_bands],
+        )
+        population_params = {
+            "population_mode": "fixed",
+            "layer_population_paths": [str(band.path) for band in population_bands],
+        }
     spi_lag = _get_spi_lag(combo_dataset_drought)
 
     jrc_input = _get_jrc_input(combo_layer_so3_vulnerability)
@@ -102,7 +148,7 @@ def get_main_drought_summary_job_params(
     return {
         "task_name": task_name,
         "task_notes": task_notes,
-        "layer_population_path": str(population_input.path),
+        **population_params,
         "layer_population_bands": [
             JobBand.Schema().dump(b) for b in population_input.bands
         ],
@@ -165,6 +211,49 @@ def get_main_drought_summary_job_params(
 #     )
 
 
+def _prepare_population_override(params: dict, directory: Path) -> dict:
+    paths = params["layer_population_paths"]
+    bands = params["layer_population_bands"]
+    indices = params["layer_population_band_indices"]
+    if not paths or not (len(paths) == len(bands) == len(indices)):
+        raise ValueError("Fixed population paths, bands and indices must match")
+    types = [band["metadata"]["type"] for band in bands]
+    if sorted(types) not in (["total"], ["female", "male"]):
+        raise ValueError("Select total population or one male and one female band")
+    if len({band["metadata"]["year"] for band in bands}) != 1:
+        raise ValueError("Male and female population layers must use the same year")
+
+    normalized_paths = []
+    normalized_bands = []
+    for index, (path, band, band_index) in enumerate(zip(paths, bands, indices)):
+        normalized_path = directory / f"population_{index}.tif"
+        # Normalize on each source grid before stacking different resolutions.
+        normalize_population_raster(
+            path, normalized_path, band["metadata"].get("units", COUNTS), band_index
+        )
+        normalized_paths.append(str(normalized_path))
+        normalized_bands.append(
+            {**band, "metadata": {**band["metadata"], "units": DENSITY_HA}}
+        )
+
+    population_path = directory / "population.vrt"
+    dataset = gdal.BuildVRT(
+        str(population_path), normalized_paths, separate=True, resolution="highest"
+    )
+    if dataset is None or dataset.RasterCount != len(bands):
+        raise RuntimeError("Unable to combine the selected population layers")
+    dataset.FlushCache()
+    dataset = None
+    year_count = len(params["layer_spi_years"])
+    return {
+        **params,
+        "layer_population_path": str(population_path),
+        "layer_population_bands": normalized_bands * year_count,
+        "layer_population_band_indices": list(range(1, len(bands) + 1)) * year_count,
+        "layer_population_years": params["layer_population_years"] * year_count,
+    }
+
+
 def compute_drought_vulnerability(
     drought_job: Job,
     aoi: AOI,
@@ -175,12 +264,18 @@ def compute_drought_vulnerability(
 ) -> Job:
     """Calculate drought vulnerability indicators and save to disk"""
 
-    return summarise_drought_vulnerability(
-        drought_job,
-        AOI(aoi.get_geojson()),
-        job_output_path,
-        n_cpus=max(1, multiprocessing.cpu_count() - 1),
-        killed_callback=kill_callback,
-        parallel_backend="thread",
-        progress_callback=progress_callback,
-    )
+    with tempfile.TemporaryDirectory(prefix="te_drought_population_") as directory:
+        if drought_job.params.get("population_mode") == "fixed":
+            drought_job = copy.copy(drought_job)
+            drought_job.params = _prepare_population_override(
+                drought_job.params, Path(directory)
+            )
+        return summarise_drought_vulnerability(
+            drought_job,
+            AOI(aoi.get_geojson()),
+            job_output_path,
+            n_cpus=max(1, multiprocessing.cpu_count() - 1),
+            killed_callback=kill_callback,
+            parallel_backend="thread",
+            progress_callback=progress_callback,
+        )

@@ -21,7 +21,7 @@ import unittest
 
 import numpy as np
 
-from LDMP.layers import _get_cutoff, round_to_n
+from LDMP.layers import _get_cutoff, get_band_title, round_to_n
 
 
 class TestGetCutoffEdgeCases(unittest.TestCase):
@@ -236,6 +236,47 @@ class TestColorRampEdgeCases(unittest.TestCase):
         result = round_to_n(42.5, 2)
         self.assertIsInstance(result, float)
         self.assertAlmostEqual(result, 43.0, delta=1.0)
+
+
+class TestPopulationLayerTitles(unittest.TestCase):
+    def test_population_count_title_includes_metadata_units(self):
+        title = get_band_title(
+            {
+                "name": "Population (number of people)",
+                "metadata": {
+                    "type": "total",
+                    "year": 2020,
+                    "units": "people per hectare",
+                },
+            }
+        )
+
+        self.assertEqual(title, "Population (total, 2020, people per hectare)")
+
+    def test_population_density_title_uses_metadata_units(self):
+        title = get_band_title(
+            {
+                "name": "Population (density, persons per sq km / 10)",
+                "metadata": {
+                    "year": 2020,
+                    "units": "people per square kilometre",
+                },
+            }
+        )
+
+        self.assertEqual(
+            title, "Population density (2020, people per square kilometre)"
+        )
+
+    def test_population_title_without_units_remains_unchanged(self):
+        title = get_band_title(
+            {
+                "name": "Population (number of people)",
+                "metadata": {"type": "male", "year": 2020},
+            }
+        )
+
+        self.assertEqual(title, "Population (male, 2020)")
 
 
 class TestDataSampleGeneration(unittest.TestCase):

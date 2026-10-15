@@ -26,6 +26,7 @@ from te_schemas.results import Band, DataType, RasterResults
 
 from LDMP import conf, data_io, lc_setup, worker
 from LDMP.jobs.manager import job_manager
+from LDMP.localexecution import drought as local_drought
 from LDMP.summary import calc_cell_area as plugin_cell_area
 
 from .harness import ModalGuard, isolated_plugin_state, job_output_path
@@ -267,7 +268,13 @@ class CustomPopulationE2ETest(unittest.TestCase):
         return path, bands
 
     def run_summaries(
-        self, units, by_sex, legacy=False, lc_resolution=0.001, custom_population=True
+        self,
+        units,
+        by_sex,
+        legacy=False,
+        lc_resolution=0.001,
+        custom_population=True,
+        fixed_population=False,
     ):
         population_jobs = self.population_inputs(
             units, by_sex, legacy, custom=custom_population
@@ -365,13 +372,45 @@ class CustomPopulationE2ETest(unittest.TestCase):
             "layer_water_band": dump(Band(drought.WATER_MASK_BAND_NAME, metadata={})),
             "layer_water_band_index": 1,
         }
-        results = drought.summarise_drought_vulnerability(
-            job,
-            self.aoi,
-            self.root / "drought.json",
-            n_cpus=1,
-            parallel_backend="thread",
-        )
+        if fixed_population:
+            job.params.update(
+                population_mode="fixed",
+                layer_population_paths=source_paths,
+                layer_population_band_indices=[1] * len(population_jobs),
+                layer_population_years=[2015] * len(population_jobs),
+                layer_spi_bands=[
+                    dump(
+                        Band(drought.SPI_BAND_NAME, metadata={"year": year, "lag": 12})
+                    )
+                    for year in (2015, 2016)
+                ],
+                layer_spi_band_indices=[1, 1],
+                layer_spi_years=[2015, 2016],
+            )
+            with patch.object(
+                local_drought.multiprocessing, "cpu_count", return_value=2
+            ):
+                results = local_drought.compute_drought_vulnerability(
+                    job,
+                    self.aoi,
+                    self.root / "drought.json",
+                    self.root / "drought.tif",
+                    None,
+                    None,
+                )
+            data = json.loads((self.root / "drought_summary.json").read_text())
+            self.assertEqual(
+                data["drought"]["tier_two"]["2015"],
+                data["drought"]["tier_two"]["2016"],
+            )
+        else:
+            results = drought.summarise_drought_vulnerability(
+                job,
+                self.aoi,
+                self.root / "drought.json",
+                n_cpus=1,
+                parallel_backend="thread",
+            )
         self.check_results(results, "drought", by_sex, min(lc_resolution, 0.001))
 
     def check_results(self, results, kind, by_sex, resolution=0.001):
@@ -441,6 +480,19 @@ class CustomPopulationE2ETest(unittest.TestCase):
         for by_sex in (False, True):
             with self.subTest(by_sex=by_sex):
                 self.run_summaries(COUNTS, by_sex, legacy=True)
+
+    def test_fixed_population_drought_scenarios_repeat_for_each_year(self):
+        for units, legacy in (
+            (COUNTS, False),
+            (DENSITY_HA, False),
+            (DENSITY_KM2, False),
+            (COUNTS, True),
+        ):
+            for by_sex in (False, True):
+                with self.subTest(units=units, by_sex=by_sex, legacy=legacy):
+                    self.run_summaries(
+                        units, by_sex, legacy=legacy, fixed_population=True
+                    )
 
     def test_custom_land_cover_resolution_with_custom_and_default_population(self):
         for resolution in (0.0005, 0.001, 0.002):

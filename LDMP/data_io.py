@@ -29,6 +29,13 @@ import te_algorithms.gdal.land_deg.config as ld_conf
 from osgeo import gdal, osr
 from qgis.PyQt import QtCore, QtWidgets, uic
 from qgis.PyQt.QtCore import QSettings
+from te_algorithms.gdal.population import (
+    COUNTS,
+    DENSITY_HA,
+    DENSITY_KM2,
+    normalize_population_raster,
+    validate_population_count_grid,
+)
 from te_schemas.jobs import JobStatus
 from te_schemas.productivity import ProductivityMode
 from te_schemas.results import Band as JobBand
@@ -1555,6 +1562,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_file,
             out_res,
             attribute,
+            self.warp_data_type,
         )
 
         if not rasterize_worker.success:
@@ -1573,12 +1581,12 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         temp_tif = GetTempFilename(".tif")
         target_bounds = self.extent_as_list()
 
-        gdal.Translate(
-            temp_tif,
-            in_file,
-            bandList=[band_number],
-            outputType=self.warp_data_type,
-        )
+        try:
+            self._prepare_import_raster(in_file, temp_tif, band_number)
+        except (ValueError, RuntimeError):
+            if os.path.exists(temp_tif):
+                os.remove(temp_tif)
+            raise
 
         # Convert target_bounds [xmin, ymin, xmax, ymax] to the
         # outputBounds format expected by gdal.Warp: [minX, minY, maxX, maxY]
@@ -1619,6 +1627,11 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             return False
         else:
             return True
+
+    def _prepare_import_raster(self, in_file, out_file, band_number):
+        gdal.Translate(
+            out_file, in_file, bandList=[band_number], outputType=self.warp_data_type
+        )
 
     def open_metadata_editor(self):
         dlg = metadata_dialog.DlgDatasetMetadata(self)
@@ -1758,10 +1771,55 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulation):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.datatype = "continuous"
+        self.warp_data_type = gdal.GDT_Float32
+        self.population_grid_warning = QtWidgets.QLabel(self)
+        self.population_grid_warning.setWordWrap(True)
+        self.tab_settings_layout.addWidget(self.population_grid_warning)
+        self.combo_population_units.currentIndexChanged.connect(
+            self._update_population_grid_warning
+        )
+        self.input_widget.lineEdit_raster_file.textChanged.connect(
+            self._update_population_grid_warning
+        )
+        self.input_widget.radio_raster_input.toggled.connect(
+            self._update_population_grid_warning
+        )
+        self._update_population_grid_warning()
+
+    def _update_population_grid_warning(self, *_args):
+        error = ""
+        path = self.input_widget.lineEdit_raster_file.text()
+        if (
+            path
+            and self.input_widget.radio_raster_input.isChecked()
+            and self._population_units() == COUNTS
+        ):
+            try:
+                dataset = gdal.Open(path)
+                validate_population_count_grid(dataset)
+            except (ValueError, RuntimeError) as exc:
+                error = str(exc)
+        self.population_grid_warning.setText(error)
+        self.population_grid_warning.setVisible(bool(error))
+        return error
 
     def _move_dialog_settings_to_tab(self):
         self.groupBox_population_type.setParent(None)
         self.tab_settings_layout.addWidget(self.groupBox_population_type)
+        self.groupBox_population_units.setParent(None)
+        self.tab_settings_layout.addWidget(self.groupBox_population_units)
+
+    def _population_units(self):
+        index = self.combo_population_units.currentIndex()
+        if index not in (0, 1, 2):
+            raise ValueError("Select the input population units")
+        return (COUNTS, DENSITY_HA, DENSITY_KM2)[index]
+
+    def _prepare_import_raster(self, in_file, out_file, band_number):
+        normalize_population_raster(
+            in_file, out_file, self._population_units(), band_number
+        )
 
     def _population_type(self):
         if self.radio_population_male.isChecked():
@@ -1770,8 +1828,30 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
             return "female"
         return "total"
 
+    def _population_band_metadata(self, population_type):
+        return {
+            "year": int(self.input_widget.spinBox_data_year.text()),
+            "source": "custom data",
+            "type": population_type,
+            "units": DENSITY_HA,
+            "input_units": self._population_units(),
+        }
+
     def validate_input(self, value):
         max_max = 10000000  # Maximum value for population
+        if (
+            not self.input_widget.radio_raster_input.isChecked()
+            and self._population_units() == COUNTS
+        ):
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "Vector population inputs must contain density (people per "
+                    "hectare or square kilometre), not counts per polygon."
+                ),
+            )
+            return
         if (
             self.input_widget.spinBox_data_year.text()
             == self.input_widget.spinBox_data_year.specialValueText()
@@ -1787,6 +1867,13 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
         ret = self._validate_base_input(value)
 
         if not ret:
+            return
+
+        error = self._update_population_grid_warning()
+        if error:
+            QtWidgets.QMessageBox.warning(
+                self, tr_data_io.tr("Incompatible population grid"), error
+            )
             return
 
         if self.input_widget.radio_raster_input.isChecked():
@@ -1824,8 +1911,8 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
                     f"The input file ({in_file}) does not appear to be a valid population "
-                    "input file. The file should contain values of soil "
-                    "organic carbon in tonnes / hectare."
+                    "input file. The file must contain non-negative population "
+                    "values in the selected units."
                 ),
             )
 
@@ -1849,19 +1936,30 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
                 self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    f"The input file ({in_file}) does not appear to be a valid soil organic "
-                    f"carbon input file. The maximum value in this file is {stats[1]}. "
-                    f"The maximum value allowed is {max_max} tonnes / hectare."
+                    f"The input file ({in_file}) does not appear to be a valid population "
+                    f"input file. The maximum value in this file is {stats[1]}. "
+                    f"The maximum value allowed is {max_max} in the selected units."
                 ),
             )
 
             return
 
-        super().done(value)
-
-        self.ok_clicked()
+        if self.ok_clicked():
+            super().done(value)
 
     def ok_clicked(self):
+        try:
+            return self._import_population()
+        except (ValueError, RuntimeError) as error:
+            log(f"Population import failed: {error}")
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr("Population import failed: ") + str(error),
+            )
+            return False
+
+    def _import_population(self):
         out_file = self._output_raster_path
         population_type = self._population_type()
 
@@ -1871,6 +1969,16 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
             in_file = self.input_widget.lineEdit_vector_file.text()
             attribute = self.input_widget.comboBox_fieldname.currentText()
             ret = self.rasterize_vector(in_file, out_file, attribute)
+            if ret:
+                density_file = GetTempFilename(".tif")
+                try:
+                    normalize_population_raster(
+                        out_file, density_file, self._population_units()
+                    )
+                    os.replace(density_file, out_file)
+                finally:
+                    if os.path.exists(density_file):
+                        os.remove(density_file)
 
         if not ret:
             return False
@@ -1884,15 +1992,12 @@ class DlgDataIOImportPopulation(DlgDataIOImportBase, Ui_DlgDataIOImportPopulatio
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),
             band_name="Population (number of people)",
-            band_metadata={
-                "year": int(self.input_widget.spinBox_data_year.text()),
-                "source": "custom data",
-                "type": population_type,
-            },
+            band_metadata=self._population_band_metadata(population_type),
             task_name=layer_name,
             task_notes=self.get_task_notes(),
         )
         self.finalize_import(job)
+        return True
 
 
 class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):

@@ -66,6 +66,26 @@
      </widget>
     </item>
    <item>
+    <widget class="QGroupBox" name="groupBox_population_units">
+     <property name="title"><string>Input population units</string></property>
+     <layout class="QVBoxLayout" name="population_units_layout">
+      <item>
+       <widget class="QComboBox" name="combo_population_units">
+        <item><property name="text"><string>People per pixel (counts; raster only)</string></property></item>
+        <item><property name="text"><string>People per hectare (density)</string></property></item>
+        <item><property name="text"><string>People per square kilometre (density)</string></property></item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_population_units">
+        <property name="text"><string>Imported values are stored as people per hectare before resampling. For vector inputs, supply a density attribute, not a total per polygon.</string></property>
+        <property name="wordWrap"><bool>true</bool></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QDialogButtonBox" name="btnBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

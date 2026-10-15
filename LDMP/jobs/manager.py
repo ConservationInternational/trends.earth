@@ -2241,11 +2241,16 @@ class JobManager(QtCore.QObject):
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")
         now = dt.datetime.now(tz=dt.UTC)
+        datatype = (
+            DataType.FLOAT32
+            if band_name == ld_conf.POPULATION_BAND_NAME
+            else DataType.INT16
+        )
         rasters = {
-            DataType.INT16.value: Raster(
+            datatype.value: Raster(
                 uri=URI(uri=dataset_path),
                 bands=[band_info],
-                datatype=DataType.INT16,
+                datatype=datatype,
                 filetype=RasterFileType.GEOTIFF,
                 extent=_get_extent_tuple_raster(dataset_path),
             )

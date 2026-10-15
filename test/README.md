@@ -1,5 +1,11 @@
 # Trends.Earth plugin tests
 
+GUI tests reuse the application already running under `qgis_testrunner.sh`.
+When run standalone, the sub-indicator dialog tests start an application with
+`qgis.testing.start_app()` only if `QgsApplication.instance()` is `None`.
+Calling `start_app()` unconditionally inside the QGIS runner can create a
+second application and fail during QGIS initialization.
+
 ## Generated custom-data end-to-end tests (offline)
 
 [`e2e/test_custom_population.py`](e2e/test_custom_population.py) runs without

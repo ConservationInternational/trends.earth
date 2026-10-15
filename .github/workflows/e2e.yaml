@@ -8,7 +8,7 @@ on:
       countries:
         description: "Comma-separated ISO3 codes (overrides the TE_E2E_COUNTRIES repository variable)"
         required: false
-        default: ""
+        default: "STP,GUY"
       qgis_version_tag:
         description: "QGIS Docker image tag"
         required: false

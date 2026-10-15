@@ -13,6 +13,7 @@
 
 import csv
 import functools
+import hashlib
 import json
 import os
 import uuid
@@ -1462,6 +1463,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             crs_src, crs_dst, qgis.core.QgsProject.instance()
         )
         combined.transform(transform)
+        canonical = qgis.core.QgsGeometry(combined)
+        canonical.normalize()
+        unit["geometry_hash"] = hashlib.sha256(
+            canonical.asWkt(6).encode("utf-8")
+        ).hexdigest()
         feat.setGeometry(combined)
         provider.addFeature(feat)
         mem_layer.updateExtents()

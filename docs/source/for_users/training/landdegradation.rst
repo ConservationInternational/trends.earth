@@ -123,7 +123,38 @@ Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3
 
 .. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.png
    :align: center
-   
+
+To use custom population data instead of WorldPop:
+
+* Import the data through **Import custom Population dataset** in the
+  Trends.Earth import menu. Specify the population year, whether the data
+  represents total, male, or female population, and the correct input units:
+  **People per pixel**, **People per hectare**, or **People per square
+  kilometre**. Import male and female layers separately when using
+  sex-disaggregated data.
+* Open or reopen the land degradation summary dialog, select the baseline
+  and any reporting datasets first, then expand **Advanced** for each period.
+  Keep the **Population** box checked and select **Total population** to
+  enable the total-population dropdown, or **Population broken down by sex**
+  to enable the male and female dropdowns. Select the corresponding imported
+  layers instead of the automatically selected population layers.
+* Configure population separately for the baseline and each reporting
+  period. Choose population years appropriate to the periods being
+  summarized. For male and female layers, use data from the same year and
+  with matching coordinate systems and pixel resolutions.
+
+.. note::
+    The import dialog defaults to **Total population**, while the summary
+    dialog defaults to **Population broken down by sex**. A total-population
+    import will appear only in the total-population dropdown, not in the male
+    or female dropdowns. Select **Total population** in the summary dialog to
+    use it. Total population supports overall exposure estimates, but not
+    sex-disaggregated exposure estimates.
+
+    Population layers must cover the selected region of interest to appear
+    in the dropdowns. If a layer is missing, check its imported population type
+    and region coverage.
+
 5. Select **Execute locally** button.
 
 6. When the analysis is completed a **Success** message will notify you.   
@@ -545,4 +576,3 @@ Exploring NDVI (Plot Data)
 --------------------------------
 
 - **Coming soon**
-

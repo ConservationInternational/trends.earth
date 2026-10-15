@@ -258,7 +258,7 @@ def _check_by_year(report, label, by_year, expected_total, thresholds, max_chang
     return totals
 
 
-def _check_population(report, label, summary, thresholds):
+def _check_population(report, label, summary, thresholds, classes):
     """Check a {pop type: PopulationList} mapping and return the total."""
     if not isinstance(summary, dict) or "Total population" not in summary:
         report.error(f"{label}: no Total population")
@@ -272,6 +272,9 @@ def _check_population(report, label, summary, thresholds):
             "name",
             "population",
         )
+        missing = [name for name in (*classes, NO_DATA) if name not in values]
+        if missing:
+            report.error(f"{label} {pop_type}: missing population classes {missing}")
         total = sum(values.values())
         totals[pop_type] = total
         if total <= 0:
@@ -497,7 +500,7 @@ def check_sdg_summary(data, aoi_area_km2=None, thresholds=None):
 
         pop_summary = (affected.get(period) or {}).get("summary")
         population = _check_population(
-            report, f"{period} population", pop_summary, thresholds
+            report, f"{period} population", pop_summary, thresholds, DEG_CLASSES
         )
         if population is not None:
             populations[period] = population
@@ -588,7 +591,11 @@ def check_drought_summary(data, aoi_area_km2=None, thresholds=None):
 
         if year in pop_by_year:
             population = _check_population(
-                report, f"{year} drought population", pop_by_year[year], thresholds
+                report,
+                f"{year} drought population",
+                pop_by_year[year],
+                thresholds,
+                (*DROUGHT_CLASSES, NON_DROUGHT),
             )
             if population is not None:
                 populations[year] = population

@@ -41,6 +41,7 @@ from .harness import (
     wait_for_remote,
 )
 from .subindicators import (
+    check_population_bands,
     check_subindicator_bands,
     configure_land_cover,
     configure_productivity,
@@ -422,6 +423,8 @@ class RemotePipelinesE2ETest(unittest.TestCase):
                 raise AssertionError(f"{key} results have no bands")
             if chain in ("productivity", "land_cover", "soc"):
                 check_subindicator_bands(chain, bands)
+            elif chain in ("sdg", "drought"):
+                check_population_bands(job.results.get_bands())
             say(f"{iso3} {chain} {key} bands: {bands}")
 
     def _make_package(self, iso3, name, sdg_summary=None, drought_summary=None):

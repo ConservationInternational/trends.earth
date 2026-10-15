@@ -2,6 +2,7 @@
 
 from qgis.PyQt import QtCore
 from te_algorithms.gdal.land_deg import config as ld_config
+from te_algorithms.gdal.population import COUNTS, DENSITY_HA, DENSITY_KM2
 
 from .harness import layer_matches_job, select_dataset_by_job_id
 
@@ -9,6 +10,31 @@ BASELINE_START = 2000
 PRODUCTIVITY_START = 2001
 BASELINE_END = 2015
 STATE_BASELINE_END = 2012
+
+
+def check_population_bands(bands):
+    """Check units and total/sex completeness for every population year."""
+    by_year = {}
+    for band in bands:
+        if band.name != ld_config.POPULATION_BAND_NAME:
+            continue
+        metadata = band.metadata or {}
+        units = metadata.get("units", COUNTS)
+        if units not in (COUNTS, DENSITY_HA, DENSITY_KM2):
+            raise AssertionError(f"Unsupported population units: {units!r}")
+        if "year" not in metadata:
+            raise AssertionError("Population band is missing its year")
+        pop_type = metadata.get("type")
+        if pop_type not in ("total", "male", "female"):
+            raise AssertionError(f"Unsupported population type: {pop_type!r}")
+        by_year.setdefault(metadata["year"], set()).add(pop_type)
+    if not by_year:
+        raise AssertionError("Results have no population bands")
+    for year, types in by_year.items():
+        if ("male" in types) != ("female" in types):
+            raise AssertionError(f"{year}: incomplete male/female population pair")
+        if "total" not in types and not {"male", "female"} <= types:
+            raise AssertionError(f"{year}: no total or sex-disaggregated population")
 
 
 def check_subindicator_bands(chain, bands):

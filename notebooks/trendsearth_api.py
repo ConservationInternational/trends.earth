@@ -9,7 +9,7 @@ import json
 import logging
 import os
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -105,12 +105,12 @@ class TrendsEarthAPIClient:
                 # Calculate token expiration time if provided
                 expires_in = auth_result.get("expires_in")  # usually in seconds
                 if expires_in:
-                    self.token_expires_at = datetime.now(timezone.utc) + timedelta(
+                    self.token_expires_at = datetime.now(UTC) + timedelta(
                         seconds=expires_in
                     )
                 else:
                     # Default to 1 hour if not provided
-                    self.token_expires_at = datetime.now(timezone.utc) + timedelta(
+                    self.token_expires_at = datetime.now(UTC) + timedelta(
                         hours=1
                     )
 
@@ -152,7 +152,7 @@ class TrendsEarthAPIClient:
 
         # Consider token expired if it expires within 5 minutes
         buffer_time = timedelta(minutes=5)
-        return datetime.now(timezone.utc) >= (self.token_expires_at - buffer_time)
+        return datetime.now(UTC) >= (self.token_expires_at - buffer_time)
 
     def refresh_access_token(self) -> bool:
         """
@@ -185,12 +185,12 @@ class TrendsEarthAPIClient:
                 # Update token expiration time
                 expires_in = auth_result.get("expires_in")
                 if expires_in:
-                    self.token_expires_at = datetime.now(timezone.utc) + timedelta(
+                    self.token_expires_at = datetime.now(UTC) + timedelta(
                         seconds=expires_in
                     )
                 else:
                     # Default to 1 hour if not provided
-                    self.token_expires_at = datetime.now(timezone.utc) + timedelta(
+                    self.token_expires_at = datetime.now(UTC) + timedelta(
                         hours=1
                     )
 
@@ -319,7 +319,7 @@ class TrendsEarthAPIClient:
 
         try:
             # Calculate date filter
-            now = datetime.now(tz=timezone.utc)
+            now = datetime.now(tz=UTC)
             relevant_date = now - timedelta(days=days_back)
 
             # Get jobs from API

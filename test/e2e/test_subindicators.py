@@ -9,6 +9,7 @@ import uuid
 from pathlib import Path
 from unittest import mock
 
+from qgis.core import QgsApplication
 from qgis.gui import QgsMapCanvas, QgsMessageBar
 from qgis.PyQt import QtCore, QtWidgets
 from qgis.testing import start_app
@@ -24,10 +25,36 @@ from .harness import DialogDriver, job_manager
 from .test_remote_pipelines import TASK_NOTES
 
 
+class ApplicationSetupTest(unittest.TestCase):
+    def test_setup_reuses_running_qgis_application(self):
+        app = QgsApplication.instance() or start_app()
+        for test_class in (SubindicatorDialogTest, ScriptConfigurationTest):
+            with (
+                self.subTest(test_class=test_class.__name__),
+                mock.patch.object(test_class, "app", None, create=True),
+                mock.patch(f"{__name__}.start_app") as start,
+            ):
+                test_class.setUpClass()
+                self.assertIs(test_class.app, app)
+                start.assert_not_called()
+
+    def test_setup_starts_application_when_none_is_running(self):
+        for test_class in (SubindicatorDialogTest, ScriptConfigurationTest):
+            with (
+                self.subTest(test_class=test_class.__name__),
+                mock.patch.object(test_class, "app", None, create=True),
+                mock.patch.object(QgsApplication, "instance", return_value=None),
+                mock.patch(f"{__name__}.start_app") as start,
+            ):
+                test_class.setUpClass()
+                self.assertIs(test_class.app, start.return_value)
+                start.assert_called_once_with()
+
+
 class SubindicatorDialogTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.app = start_app()
+        cls.app = QgsApplication.instance() or start_app()
 
     def setUp(self):
         self.stack = contextlib.ExitStack()
@@ -170,7 +197,7 @@ class ScriptConfigurationTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.app = start_app()
+        cls.app = QgsApplication.instance() or start_app()
 
     def test_e2e_scripts_match_scripts_json(self):
         with Path(conf.script_file).open(encoding="utf-8") as stream:

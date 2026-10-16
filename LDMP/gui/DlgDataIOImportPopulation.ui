@@ -32,12 +32,18 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetMinimumSize</enum>
+   </property>
     <item>
      <widget class="QGroupBox" name="groupBox_population_type">
       <property name="title">
         <string>Population type</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_population_type">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetMinimumSize</enum>
+       </property>
         <item>
          <widget class="QRadioButton" name="radio_population_total">
           <property name="text">
@@ -69,8 +75,23 @@
     <widget class="QGroupBox" name="groupBox_population_units">
      <property name="title"><string>Input population units</string></property>
      <layout class="QVBoxLayout" name="population_units_layout">
-      <item>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinimumSize</enum>
+      </property>
+      <item alignment="Qt::AlignTop">
        <widget class="QComboBox" name="combo_population_units">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <item><property name="text"><string>People per pixel (counts; raster only)</string></property></item>
         <item><property name="text"><string>People per hectare (density)</string></property></item>
         <item><property name="text"><string>People per square kilometre (density)</string></property></item>
@@ -78,6 +99,12 @@
       </item>
       <item>
        <widget class="QLabel" name="label_population_units">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text"><string>Imported values are stored as people per hectare before resampling. For vector inputs, supply a density attribute, not a total per polygon.</string></property>
         <property name="wordWrap"><bool>true</bool></property>
        </widget>

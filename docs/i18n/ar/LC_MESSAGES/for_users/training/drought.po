@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.3.2\n"
+"Project-Id-Version: Trends.Earth 2.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-07 04:10+0000\n"
+"POT-Creation-Date: 2026-10-16 04:08+0000\n"
 "PO-Revision-Date: 2022-07-01 20:25+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language: ar\n"
@@ -127,7 +127,7 @@ msgstr ""
 "الجفاف، ومستوى التعرض له، ومدى تأثر الأرض أو المجتمع بالجفاف."
 
 #: ../../source/for_users/training/drought.rst:33
-#: ../../source/for_users/training/drought.rst:86
+#: ../../source/for_users/training/drought.rst:114
 msgid ""
 "In the **Trends.Earth** panel, select the **Datasets** tab. The task "
 "submitted will appear in the menu if the **Download remotely-generated "
@@ -138,7 +138,7 @@ msgstr ""
 "عن بُعد تلقائياً** محدداً في الإعدادات.\n"
 
 #: ../../source/for_users/training/drought.rst:36
-#: ../../source/for_users/training/drought.rst:90
+#: ../../source/for_users/training/drought.rst:118
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more "
 "about **Advanced settings**"
@@ -151,7 +151,7 @@ msgid ". Select the Refresh button if the analysis does not appear in the menu."
 msgstr ". اختر الزر \"تحديث\" إذا لم يظهر التحليل في القائمة.\n"
 
 #: ../../source/for_users/training/drought.rst:40
-#: ../../source/for_users/training/drought.rst:94
+#: ../../source/for_users/training/drought.rst:122
 msgid ""
 "Select the add layer drop-down button to **Add default layers from this "
 "layer to the map**"
@@ -233,14 +233,61 @@ msgstr ""
 "تلقائياً\n"
 
 #: ../../source/for_users/training/drought.rst:84
+msgid "In **Population exposed to drought**, choose the population data to use:"
+msgstr ""
+
+#: ../../source/for_users/training/drought.rst:86
+msgid ""
+"**Use annual population from the drought dataset** is selected by "
+"default. Keep this option to use the annual population series included in"
+" the selected drought dataset."
+msgstr ""
+
+#: ../../source/for_users/training/drought.rst:89
+msgid ""
+"To use custom data, first import it through **Import custom Population "
+"dataset** in the Trends.Earth import menu. Specify the population year, "
+"whether the data represents total, male, or female population, and the "
+"correct input units: **People per pixel**, **People per hectare**, or "
+"**People per square kilometre**. For sex-disaggregated data, import the "
+"male and female layers separately."
+msgstr ""
+
+#: ../../source/for_users/training/drought.rst:95
+msgid ""
+"Return to the drought summary dialog and choose **Total population** to "
+"enable the total-population dropdown, or **Population broken down by "
+"sex** to enable the male and female dropdowns. Select the corresponding "
+"imported layers. Male and female layers must represent the same year."
+msgstr ""
+
+#: ../../source/for_users/training/drought.rst:100
+msgid ""
+"Each selected population layer must cover the region of interest. The "
+"dropdowns filter layers by population type and region coverage; a total "
+"population import will not appear in the male or female dropdowns."
+msgstr ""
+
+#: ../../source/for_users/training/drought.rst:105
+msgid ""
+"Selecting population layers defines a **fixed-population scenario**. The "
+"selected population is reused for every drought year, even when its "
+"source year differs from the drought years. This measures exposure under "
+"a constant population distribution, not annual population change. The "
+"source population year is retained in the job parameters. To restore the "
+"original annual series, select **Use annual population from the drought "
+"dataset**."
+msgstr ""
+
+#: ../../source/for_users/training/drought.rst:112
 msgid "Select **Execute locally** button."
 msgstr "حدد زر **التنفيذ محلياً**. "
 
-#: ../../source/for_users/training/drought.rst:92
+#: ../../source/for_users/training/drought.rst:120
 msgid "Select the Refresh button if the analysis does not appear in the menu."
 msgstr "اضغط على زر \"تحديث\" إذا لم يظهر التحليل في القائمة.\n"
 
-#: ../../source/for_users/training/drought.rst:99
+#: ../../source/for_users/training/drought.rst:127
 msgid ""
 "The data for SO 3 Indicators will be added to the map for the region of "
 "interest."
@@ -248,7 +295,7 @@ msgstr ""
 "ستضاف بيانات مؤشرات الهدف الاستراتيجي رقم 3 إلى خريطة المنطقة التي تعنيك."
 "\n"
 
-#: ../../source/for_users/training/drought.rst:102
+#: ../../source/for_users/training/drought.rst:130
 msgid ""
 "Population values remain floating point from the remote download through "
 "the local summary raster, preserving fractional people per pixel. In the "

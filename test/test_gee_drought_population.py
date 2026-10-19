@@ -33,6 +33,9 @@ class TestDroughtPopulationExport(unittest.TestCase):
         image = collection.toBands.return_value
         image.rename.return_value = image
         image.addBands.return_value = image
+        image.divide.return_value = image
+        image.multiply.return_value = image
+        image.reproject.return_value = image
         image.unmask.return_value = image
         image.float.return_value = image
 
@@ -42,6 +45,11 @@ class TestDroughtPopulationExport(unittest.TestCase):
             )
 
         image.unmask.assert_called_once_with(-32768)
+        image.divide.assert_called_once_with(module.ee.Image.pixelArea.return_value)
+        image.multiply.assert_called_once_with(10000)
+        image.reproject.assert_called_once_with(
+            module.ee.ImageCollection.return_value.first.return_value.select.return_value.projection.return_value
+        )
         image.float.assert_called_once_with()
         image.int16.assert_not_called()
         self.assertIs(result["image"], image)
@@ -51,4 +59,5 @@ class TestDroughtPopulationExport(unittest.TestCase):
             self.assertEqual(band.no_data_value, -32768)
             self.assertEqual(band.metadata["type"], pop_type)
             self.assertEqual(band.metadata["year"], 2020)
+            self.assertEqual(band.metadata["units"], "people per hectare")
             self.assertTrue(band.add_to_map)

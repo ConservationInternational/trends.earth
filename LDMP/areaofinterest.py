@@ -719,8 +719,8 @@ def aoi_from_unit(unit: dict) -> "AOI":
     Resolution order:
       1. stored_geometry_path : a GeoPackage saved to BASE_DIR when the
          unit was first defined
-      2. upload_file_path : the original uploaded vector file.
-      3. layer_id + feature_ids : live QGIS layer.
+      2. upload_file_path + feature_ids : the original uploaded vector file
+      3. layer_id + feature_ids : live QGIS layer
     """
     if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
         crs_dst = qgis.core.QgsCoordinateReferenceSystem(
@@ -735,31 +735,36 @@ def aoi_from_unit(unit: dict) -> "AOI":
         aoi.update_from_file(f=stored_path, wrap=False)
         return aoi
 
-    upload_path = unit.get("upload_file_path")
-    if upload_path and Path(upload_path).is_file():
-        aoi = AOI(crs_dst)
-        aoi.update_from_file(f=upload_path, wrap=False)
-        return aoi
-
-    layer_id = unit.get("layer_id")
     feature_ids = unit.get("feature_ids") or []
+    upload_path = unit.get("upload_file_path")
+    layer = None
 
-    if not layer_id:
-        raise RuntimeError(
-            f"Subnational unit '{unit.get('name')}' has no stored geometry, "
-            f"no uploaded file, and no layer reference. Please re-open the "
-            f"settings and re-add this unit."
-        )
+    if upload_path and Path(upload_path).is_file():
+        layer = qgis.core.QgsVectorLayer(upload_path, "upload_preview", "ogr")
+        if not layer.isValid():
+            layer = None
 
-    layer = qgis.core.QgsProject.instance().mapLayer(layer_id)
     if layer is None:
-        raise RuntimeError(
-            f"Layer for subnational unit '{unit.get('name')}' is no longer "
-            f"loaded in the QGIS project (id: {layer_id}). Please re-open "
-            f"the settings and re-save this unit to store its geometry."
-        )
+        layer_id = unit.get("layer_id")
 
-    request = qgis.core.QgsFeatureRequest().setFilterFids(feature_ids)
+        if not layer_id:
+            raise RuntimeError(
+                f"Subnational unit '{unit.get('name')}' has no stored geometry, "
+                f"no uploaded file, and no layer reference. Please re-open "
+                f"the settings and re-add this unit."
+            )
+
+        layer = qgis.core.QgsProject.instance().mapLayer(layer_id)
+        if layer is None:
+            raise RuntimeError(
+                f"Layer for subnational unit '{unit.get('name')}' is no longer "
+                f"loaded in the QGIS project (id: {layer_id}). Please re-open "
+                f"the settings and re-save this unit to store its geometry."
+            )
+
+    request = qgis.core.QgsFeatureRequest()
+    if feature_ids:
+        request.setFilterFids(feature_ids)
     geometries = [
         f.geometry() for f in layer.getFeatures(request) if not f.geometry().isEmpty()
     ]
@@ -769,6 +774,13 @@ def aoi_from_unit(unit: dict) -> "AOI":
         )
 
     combined = qgis.core.QgsGeometry.unaryUnion(geometries)
+    wgs84 = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
+    if layer.crs() != wgs84:
+        combined.transform(
+            qgis.core.QgsCoordinateTransform(
+                layer.crs(), wgs84, qgis.core.QgsProject.instance()
+            )
+        )
     geojson = json.loads(combined.asJson())
 
     aoi = AOI(crs_dst)

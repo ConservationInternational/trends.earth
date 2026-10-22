@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>520</width>
-    <height>460</height>
+    <height>640</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,97 +73,6 @@
              <width>0</width>
              <height>30</height>
             </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_label_field">
-           <item>
-            <widget class="QLabel" name="label_label_field">
-             <property name="text">
-              <string>Label features by:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="label_field_combo"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_features">
-           <property name="text">
-            <string>Feature(s) to use as this unit</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_features_filter">
-           <item>
-            <widget class="QLineEdit" name="features_filter">
-             <property name="placeholderText">
-              <string>Search features...</string>
-             </property>
-             <property name="clearButtonEnabled">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="button_uncheck_all">
-             <property name="text">
-              <string>Uncheck all</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QListWidget" name="features_list">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>120</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_features_hint">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>15</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_features_hint">
-           <property name="text">
-            <string>Check one or more features to combine into this unit.</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_overlap_warning">
-           <property name="visible">
-            <bool>false</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: #b45309;</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -235,6 +144,113 @@
         </layout>
        </widget>
       </item>
+     </layout>
+    </widget>
+   </item>
+  <item>
+    <widget class="QGroupBox" name="groupbox_features">
+     <property name="title">
+      <string>Features</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_features">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_label_field">
+           <item>
+            <widget class="QLabel" name="label_label_field">
+             <property name="text">
+              <string>Label features by:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="label_field_combo"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_features">
+           <property name="text">
+            <string>Feature(s) to use as this unit</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_features_filter">
+           <item>
+            <widget class="QLineEdit" name="features_filter">
+             <property name="placeholderText">
+              <string>Search features...</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="button_uncheck_all">
+             <property name="text">
+              <string>Uncheck all</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QListWidget" name="features_list">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>120</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_features_hint">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>15</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_features_hint">
+           <property name="text">
+            <string>Check one or more features to combine into one unit.</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_overlap_warning">
+           <property name="visible">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: #b45309;</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkbox_one_unit_per_feature">
+           <property name="text">
+            <string>Create one unit per checked feature (named after each feature)</string>
+           </property>
+          </widget>
+         </item>
      </layout>
     </widget>
    </item>

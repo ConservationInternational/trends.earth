@@ -507,10 +507,15 @@ def feature_label(feature, layer, label_field: str | None = None) -> str:
 
 class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
     """
-    Dialog for defining a subnational analysis unit.
+    Dialog for defining subnational analysis units, from a layer loaded in
+    QGIS or from an uploaded polygon file.
+
+    The checked features are combined into one unit, or become one unit each
+    when "Create one unit per checked feature" is on.
 
     ``existing_units`` are the units already in the list. Features that belong
-    to them are marked in the feature list.
+    to them are marked in the feature list, and unit names are made unique
+    against them.
     """
 
     LABEL_ROLE = QtCore.Qt.UserRole + 1
@@ -522,11 +527,16 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
 
         self._existing_units = list(existing_units or [])
 
+        # Temporary layer loaded from an uploaded file, kept alive for the
+        # dialog lifetime so features can be read from it.
+        self._upload_layer: qgis.core.QgsVectorLayer | None = None
+
         self.button_add_to_list.setEnabled(False)
         self.features_list.itemChanged.connect(self.update_add_button_state)
         self.features_list.itemChanged.connect(self.update_overlap_warning)
         self.features_filter.textChanged.connect(self.apply_features_filter)
         self.button_uncheck_all.clicked.connect(self.uncheck_all_features)
+        self.checkbox_one_unit_per_feature.toggled.connect(self._on_bulk_toggled)
         self.label_field_combo.currentIndexChanged.connect(self._on_label_field_changed)
 
         self.unit_name.textChanged.connect(self.update_add_button_state)
@@ -536,16 +546,12 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
         self.button_browse_file.clicked.connect(self.open_vector_browse)
 
         self.populate_layer_combo()
-        self.layer_combo.currentIndexChanged.connect(self._on_layer_changed)
+        self.layer_combo.currentIndexChanged.connect(self._on_source_changed)
 
         self.radio_from_layer.toggled.connect(self._on_method_toggled)
         self.radio_upload_file.toggled.connect(self._on_method_toggled)
 
-        # Temporary layer loaded from an uploaded file, kept alive for the
-        # dialog lifetime so features can be read from it.
-        self._upload_layer: qgis.core.QgsVectorLayer | None = None
-
-        self._on_layer_changed()
+        self._on_source_changed()
 
     def populate_layer_combo(self):
         self.layer_combo.clear()
@@ -577,7 +583,14 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
 
         return qgis.core.QgsProject.instance().mapLayer(layer_id)
 
-    def _on_layer_changed(self, *args):
+    def _active_layer(self):
+        """The layer the features come from: the chosen one or the uploaded file."""
+        if self.radio_from_layer.isChecked():
+            return self.current_layer()
+        return self._upload_layer
+
+    def _on_source_changed(self, *args):
+        """The layer or the uploaded file changed: reload labels and features."""
         self.populate_label_field_combo()
         self.populate_features_list()
 
@@ -587,7 +600,7 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
         self.label_field_combo.clear()
         self.label_field_combo.addItem(self.tr("Layer display name"), None)
 
-        layer = self.current_layer()
+        layer = self._active_layer()
         if layer is not None:
             for field in layer.fields():
                 self.label_field_combo.addItem(field.name(), field.name())
@@ -607,23 +620,33 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
     def _label_field(self) -> str | None:
         return self.label_field_combo.currentData()
 
-    def _features_in_other_units(self, layer) -> dict[int, str]:
+    def _uses_active_source(self, unit: dict) -> bool:
+        """True if the unit was made from the layer or file now shown."""
+        if self.radio_from_layer.isChecked():
+            layer = self.current_layer()
+            return layer is not None and unit.get("layer_id") == layer.id()
+        upload_path = unit.get("upload_file_path")
+        return bool(upload_path) and upload_path == self.upload_file_path.text().strip()
+
+    def _features_in_other_units(self) -> dict[int, str]:
         """Map feature id -> name of the existing unit that already uses it."""
         used = {}
         for unit in self._existing_units:
-            if unit.get("layer_id") != layer.id():
+            if not self._uses_active_source(unit):
                 continue
             for feature_id in unit.get("feature_ids") or []:
                 used.setdefault(feature_id, unit.get("name") or "")
         return used
 
-    def populate_features_list(self, keep_checked: bool = False):
+    def populate_features_list(
+        self, keep_checked: bool = False, check_all: bool = False
+    ):
         checked_ids = set(self.selected_feature_ids()) if keep_checked else set()
 
         self.features_list.blockSignals(True)
         self.features_list.clear()
 
-        layer = self.current_layer()
+        layer = self._active_layer()
 
         self.features_list.setEnabled(layer is not None)
         self.features_filter.setEnabled(layer is not None)
@@ -631,7 +654,7 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
 
         if layer is not None:
             label_field = self._label_field()
-            used = self._features_in_other_units(layer)
+            used = self._features_in_other_units()
             labelled = sorted(
                 (feature_label(feature, layer, label_field), feature.id())
                 for feature in layer.getFeatures()
@@ -650,7 +673,7 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
                 item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
                 item.setCheckState(
                     QtCore.Qt.Checked
-                    if feature_id in checked_ids
+                    if check_all or feature_id in checked_ids
                     else QtCore.Qt.Unchecked
                 )
                 if other_unit is not None:
@@ -667,12 +690,7 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
 
     def update_overlap_warning(self, *args):
         """Warn when checked features already belong to other units."""
-        layer = self.current_layer()
-        if layer is None or not self.radio_from_layer.isChecked():
-            self.label_overlap_warning.setVisible(False)
-            return
-
-        used = self._features_in_other_units(layer)
+        used = self._features_in_other_units()
         units = sorted(
             {
                 used[feature_id]
@@ -709,33 +727,37 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
         from_layer = self.radio_from_layer.isChecked()
         self.frame_from_layer.setEnabled(from_layer)
         self.frame_upload_file.setEnabled(not from_layer)
+        self._on_source_changed()
+
+    def _bulk_mode(self) -> bool:
+        """True when each checked feature becomes its own unit."""
+        return (
+            self.checkbox_one_unit_per_feature.isVisibleTo(self)
+            and self.checkbox_one_unit_per_feature.isChecked()
+        )
+
+    def _on_bulk_toggled(self, *args):
+        bulk = self._bulk_mode()
+        self.unit_name.setEnabled(not bulk)
+        self.unit_name.setPlaceholderText(
+            self.tr("Each unit is named after its feature") if bulk else ""
+        )
         self.update_add_button_state()
-        self.update_overlap_warning()
 
     def update_add_button_state(self, *args):
         has_name = len(self.unit_name.text().strip()) > 0
+        n_checked = len(self.selected_feature_ids())
 
-        if self.radio_from_layer.isChecked():
-            ready = has_name and bool(self.selected_feature_ids())
-        else:
-            ready = has_name and bool(self.upload_file_path.text().strip())
-
-        self.button_add_to_list.setEnabled(ready)
-
-    def _active_layer(self):
-        if self.radio_from_layer.isChecked():
-            return self.current_layer()
-        return self._upload_layer
+        self.button_add_to_list.setText(
+            self.tr("Add {} units to list").format(n_checked)
+            if self._bulk_mode() and n_checked > 1
+            else self.tr("Add to list")
+        )
+        self.button_add_to_list.setEnabled(
+            n_checked > 0 and (has_name or self._bulk_mode())
+        )
 
     def selected_feature_ids(self):
-        layer = self._active_layer()
-
-        if layer is None:
-            return []
-
-        if self.radio_upload_file.isChecked():
-            return [f.id() for f in layer.getFeatures()]
-
         return [
             self.features_list.item(row).data(QtCore.Qt.UserRole)
             for row in range(self.features_list.count())
@@ -743,62 +765,88 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
         ]
 
     def get_unit_data(self):
-        if self.radio_from_layer.isChecked():
-            source = self.tr("QGIS layer")
-        else:
-            source = self.tr("Uploaded file")
+        from_layer = self.radio_from_layer.isChecked()
 
         return {
             "name": self.unit_name.text().strip(),
-            "source": source,
+            "source": self.tr("QGIS layer") if from_layer else self.tr("Uploaded file"),
             "layer": self._active_layer(),
             "feature_ids": self.selected_feature_ids(),
-            "label_field": self._label_field()
-            if self.radio_from_layer.isChecked()
-            else None,
-            "upload_file_path": self.upload_file_path.text().strip()
-            if self.radio_upload_file.isChecked()
-            else None,
+            "label_field": self._label_field(),
+            "upload_file_path": None
+            if from_layer
+            else self.upload_file_path.text().strip(),
         }
+
+    def get_units_data(self) -> list[dict]:
+        """
+        Return the unit(s) to add: one unit, or one per checked feature (named
+        after the feature) when "Create one unit per checked feature" is on.
+        """
+        base = self.get_unit_data()
+        if not self._bulk_mode():
+            return [base]
+
+        taken = {(unit.get("name") or "").casefold() for unit in self._existing_units}
+        units = []
+        for row in range(self.features_list.count()):
+            item = self.features_list.item(row)
+            if item.checkState() != QtCore.Qt.Checked:
+                continue
+
+            label = item.data(self.LABEL_ROLE) or str(item.data(QtCore.Qt.UserRole))
+            name, n = label, 1
+            while name.casefold() in taken:
+                n += 1
+                name = f"{label} ({n})"
+            taken.add(name.casefold())
+
+            units.append(
+                {**base, "name": name, "feature_ids": [item.data(QtCore.Qt.UserRole)]}
+            )
+        return units
 
     def set_initial_data(
         self, name, layer_id, feature_ids, upload_file_path=None, label_field=None
     ):
+        # Editing a single unit: creating one unit per feature does not apply
+        self.checkbox_one_unit_per_feature.setChecked(False)
+        self.checkbox_one_unit_per_feature.setVisible(False)
+        self._on_bulk_toggled()
+
         self.unit_name.setText(name)
 
         if upload_file_path:
-            # Restore upload mode
-            self.radio_upload_file.setChecked(True)
-            self._on_method_toggled()
             layer = qgis.core.QgsVectorLayer(upload_file_path, "upload_preview", "ogr")
             if layer.isValid():
                 self._upload_layer = layer
-                self.upload_file_path.setText(upload_file_path)
+            self.upload_file_path.setText(upload_file_path)
+            self.radio_upload_file.setChecked(True)
         else:
-            # Restore QGIS layer mode
             self.radio_from_layer.setChecked(True)
-            self._on_method_toggled()
             index = self.layer_combo.findData(layer_id)
             if index != -1:
                 self.layer_combo.setCurrentIndex(index)
 
-            if label_field and self.label_field_combo.findData(label_field) != -1:
-                self.label_field_combo.setCurrentIndex(
-                    self.label_field_combo.findData(label_field)
-                )
+        self._on_source_changed()
 
-            feature_ids = set(feature_ids or [])
-            for row in range(self.features_list.count()):
-                item = self.features_list.item(row)
-                if item.data(QtCore.Qt.UserRole) in feature_ids:
-                    item.setCheckState(QtCore.Qt.Checked)
+        if label_field and self.label_field_combo.findData(label_field) != -1:
+            self.label_field_combo.setCurrentIndex(
+                self.label_field_combo.findData(label_field)
+            )
+
+        feature_ids = set(feature_ids or [])
+        for row in range(self.features_list.count()):
+            item = self.features_list.item(row)
+            if item.data(QtCore.Qt.UserRole) in feature_ids:
+                item.setCheckState(QtCore.Qt.Checked)
 
         self.update_add_button_state()
 
     def open_vector_browse(self):
         vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
-            self.tr("Select a polygon file defining this unit"),
+            self.tr("Select a polygon file defining the unit(s)"),
             str(Path.home()),
             self.tr("Vector file (*.shp *.zip *.kml *.kmz *.gpkg *.geojson)"),
         )
@@ -828,7 +876,10 @@ class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
 
         self._upload_layer = layer
         self.upload_file_path.setText(vector_file)
-        self.update_add_button_state()
+        self.populate_label_field_combo()
+        # All features start checked, so a file with a single polygon still
+        # becomes one unit with no extra clicks
+        self.populate_features_list(check_all=True)
 
 
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
@@ -1508,13 +1559,21 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     def open_add_subnational_unit_dialog(self):
         dialog = DlgAddSubnationalUnit(self, existing_units=self.subnational_units)
 
-        if dialog.exec() == QtWidgets.QDialog.Accepted:
-            unit = self._unit_dict_from_data(dialog.get_unit_data())
-            unit["id"] = str(uuid.uuid4())
-            unit["stored_geometry_path"] = self._save_unit_geometry(unit)
-            self.subnational_units.append(unit)
-            self._persist_subnational_units()
-            self._refresh_subnational_table()
+        if dialog.exec() != QtWidgets.QDialog.Accepted:
+            return
+
+        QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        try:
+            for unit_data in dialog.get_units_data():
+                unit = self._unit_dict_from_data(unit_data)
+                unit["id"] = str(uuid.uuid4())
+                unit["stored_geometry_path"] = self._save_unit_geometry(unit)
+                self.subnational_units.append(unit)
+        finally:
+            QtWidgets.QApplication.restoreOverrideCursor()
+
+        self._persist_subnational_units()
+        self._refresh_subnational_table()
 
     def edit_subnational_unit(self, row):
         unit = self.subnational_units[row]
@@ -1618,11 +1677,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if src_layer is None or not src_layer.isValid():
             return None
 
-        if upload_path:
-            geometries = [f.geometry() for f in src_layer.getFeatures()]
-        else:
-            request = qgis.core.QgsFeatureRequest().setFilterFids(feature_ids)
-            geometries = [f.geometry() for f in src_layer.getFeatures(request)]
+        # A file can define several units, so only use the unit's own features
+        request = qgis.core.QgsFeatureRequest()
+        if feature_ids:
+            request.setFilterFids(feature_ids)
+        geometries = [f.geometry() for f in src_layer.getFeatures(request)]
 
         if not geometries:
             return None

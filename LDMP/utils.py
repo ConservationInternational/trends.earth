@@ -99,6 +99,36 @@ def geojsons_envelope(geojsons) -> tuple[float, float, float, float] | None:
     return min(xs), min(ys), max(xs), max(ys)
 
 
+def features_geometry_wgs84(
+    layer: qgis.core.QgsVectorLayer | None,
+    feature_ids: typing.Sequence[int] | None,
+) -> qgis.core.QgsGeometry | None:
+    """
+    Union of the given features of a layer, in WGS84, or None if there are none.
+    """
+    if layer is None or not feature_ids:
+        return None
+
+    request = qgis.core.QgsFeatureRequest().setFilterFids(list(feature_ids))
+    geometries = [
+        feature.geometry()
+        for feature in layer.getFeatures(request)
+        if not feature.geometry().isEmpty()
+    ]
+    if not geometries:
+        return None
+
+    combined = qgis.core.QgsGeometry.unaryUnion(geometries)
+    wgs84 = qgis.core.QgsCoordinateReferenceSystem("EPSG:4326")
+    if layer.crs() != wgs84:
+        combined.transform(
+            qgis.core.QgsCoordinateTransform(
+                layer.crs(), wgs84, qgis.core.QgsProject.instance()
+            )
+        )
+    return combined
+
+
 def load_object(python_path: str) -> typing.Any:
     module_path, object_name = python_path.rpartition(".")[::2]
     loaded_module = importlib.import_module(module_path)

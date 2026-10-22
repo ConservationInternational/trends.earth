@@ -28,7 +28,7 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 
-from . import api, auth, conf, download, openFolder
+from . import api, areaofinterest, auth, conf, download, openFolder
 from .conf import (
     OPTIONS_ICON,
     OPTIONS_TITLE,
@@ -41,7 +41,12 @@ from .constants import TIMEOUT, get_api_url
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils, LCClassInfo, get_default_esa_nesting
 from .logger import log
-from .utils import FileUtils, compute_features_area_km2, push_message
+from .utils import (
+    FileUtils,
+    compute_features_area_km2,
+    features_geometry_wgs84,
+    push_message,
+)
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
@@ -471,6 +476,9 @@ _LABEL_FIELD_CANDIDATES = (
     "adm1_en",
     "adm0_en",
 )
+
+
+MIN_UNIT_INSIDE_REGION_PCT = 95.0
 
 
 def guess_label_field(layer) -> str | None:
@@ -1457,16 +1465,29 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         log("area settings have been saved")
 
+        # The region may have changed, so recheck where each unit lies
+        if self._ensure_inside_region_values():
+            for row, unit in enumerate(self.subnational_units):
+                self._set_inside_region_item(row, unit)
+
     def _setup_subnational_table(self):
-        self.table_subnational_units.setColumnCount(6)
+        self.table_subnational_units.setColumnCount(7)
         self.table_subnational_units.setHorizontalHeaderLabels(
-            ["", "Unit name", "Source", "Features", "Area (approx.)", ""]
+            [
+                "",
+                "Unit name",
+                "Source",
+                "Features",
+                "Area (approx.)",
+                self.tr("Inside region"),
+                "",
+            ]
         )
         header = self.table_subnational_units.horizontalHeader()
         header.setStretchLastSection(False)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
-        header.setSectionResizeMode(5, QtWidgets.QHeaderView.Fixed)
-        self.table_subnational_units.setColumnWidth(5, 190)
+        header.setSectionResizeMode(6, QtWidgets.QHeaderView.Fixed)
+        self.table_subnational_units.setColumnWidth(6, 190)
         self.table_subnational_units.verticalHeader().setVisible(False)
         self._refresh_subnational_table()
 
@@ -1481,10 +1502,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             )
             placeholder.setTextAlignment(QtCore.Qt.AlignCenter)
             placeholder.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.table_subnational_units.setSpan(0, 0, 1, 6)
+            self.table_subnational_units.setSpan(0, 0, 1, 7)
             self.table_subnational_units.setItem(0, 0, placeholder)
             self.label_subnational_count.setText(self.tr("0 units defined"))
             return
+
+        self._ensure_inside_region_values()
 
         self.table_subnational_units.setRowCount(len(self.subnational_units))
         total_area_km2 = 0.0
@@ -1518,8 +1541,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                     self.tr("{:,.0f} km2").format(unit["area_km2"])
                 ),
             )
+            self._set_inside_region_item(row, unit)
             self.table_subnational_units.setCellWidget(
-                row, 5, self._build_subnational_row_actions(row)
+                row, 6, self._build_subnational_row_actions(row)
             )
             total_area_km2 += unit["area_km2"]
 
@@ -1530,6 +1554,63 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         )
 
         self.generate_name_setting()
+
+    def _ensure_inside_region_values(self) -> bool:
+        """
+        Make sure each unit's "inside region" value was computed for the
+        current region of interest, recomputing the ones that were not. Returns
+        True if any value changed.
+        """
+        signature = areaofinterest.region_signature()
+        stale = [
+            unit
+            for unit in self.subnational_units
+            if unit.get("region_signature") != signature
+        ]
+        if not stale:
+            return False
+
+        QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        try:
+            for unit in stale:
+                try:
+                    geometry = areaofinterest.aoi_from_unit(unit).get_unary_geometry()
+                    unit["inside_region_pct"] = areaofinterest.percent_inside_region(
+                        geometry
+                    )
+                except (RuntimeError, ValueError) as e:
+                    log(
+                        f"Could not check unit '{unit.get('name')}' against region: {e}"
+                    )
+                    unit["inside_region_pct"] = None
+                unit["region_signature"] = signature
+        finally:
+            QtWidgets.QApplication.restoreOverrideCursor()
+
+        self._persist_subnational_units()
+        return True
+
+    def _set_inside_region_item(self, row: int, unit: dict):
+        pct = unit.get("inside_region_pct")
+        if pct is None:
+            item = QtWidgets.QTableWidgetItem(self.tr("—"))
+            item.setToolTip(
+                self.tr(
+                    "Not available: no region of interest is set, or the unit "
+                    "could not be read."
+                )
+            )
+        else:
+            item = QtWidgets.QTableWidgetItem(f"{pct:.1f}%")
+            if pct < MIN_UNIT_INSIDE_REGION_PCT:
+                item.setForeground(QtGui.QBrush(QtGui.QColor("#b45309")))
+                item.setToolTip(
+                    self.tr(
+                        "Only part of this unit lies inside the region of interest."
+                    )
+                )
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_subnational_units.setItem(row, 5, item)
 
     def _build_subnational_row_actions(self, row):
         widget = QtWidgets.QWidget()
@@ -1564,16 +1645,27 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         try:
-            for unit_data in dialog.get_units_data():
-                unit = self._unit_dict_from_data(unit_data)
+            units = [
+                self._unit_dict_from_data(unit_data)
+                for unit_data in dialog.get_units_data()
+            ]
+        finally:
+            QtWidgets.QApplication.restoreOverrideCursor()
+
+        units = self._confirm_units_inside_region(units)
+
+        QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        try:
+            for unit in units:
                 unit["id"] = str(uuid.uuid4())
                 unit["stored_geometry_path"] = self._save_unit_geometry(unit)
                 self.subnational_units.append(unit)
         finally:
             QtWidgets.QApplication.restoreOverrideCursor()
 
-        self._persist_subnational_units()
-        self._refresh_subnational_table()
+        if units:
+            self._persist_subnational_units()
+            self._refresh_subnational_table()
 
     def edit_subnational_unit(self, row):
         unit = self.subnational_units[row]
@@ -1592,15 +1684,61 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             label_field=unit.get("label_field"),
         )
 
-        if dialog.exec() == QtWidgets.QDialog.Accepted:
+        if dialog.exec() != QtWidgets.QDialog.Accepted:
+            return
+
+        QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        try:
             updated_unit = self._unit_dict_from_data(dialog.get_unit_data())
-            updated_unit["id"] = unit.get("id") or str(uuid.uuid4())
-            updated_unit["stored_geometry_path"] = self._save_unit_geometry(
-                updated_unit
-            )
-            self.subnational_units[row] = updated_unit
-            self._persist_subnational_units()
-            self._refresh_subnational_table()
+        finally:
+            QtWidgets.QApplication.restoreOverrideCursor()
+
+        if not self._confirm_units_inside_region([updated_unit]):
+            return
+
+        updated_unit["id"] = unit.get("id") or str(uuid.uuid4())
+        updated_unit["stored_geometry_path"] = self._save_unit_geometry(updated_unit)
+        self.subnational_units[row] = updated_unit
+        self._persist_subnational_units()
+        self._refresh_subnational_table()
+
+    def _confirm_units_inside_region(self, units: list[dict]) -> list[dict]:
+        """
+        Warn about units that are mostly outside the region of interest and ask
+        whether to add them anyway. Returns the units to add.
+        """
+        outside = [
+            unit
+            for unit in units
+            if unit.get("inside_region_pct") is not None
+            and unit["inside_region_pct"] < MIN_UNIT_INSIDE_REGION_PCT
+        ]
+        if not outside:
+            return units
+
+        listing = "\n".join(
+            f"• {unit['name']}: {unit['inside_region_pct']:.1f}%" for unit in outside
+        )
+        box = QtWidgets.QMessageBox(self)
+        box.setIcon(QtWidgets.QMessageBox.Warning)
+        box.setWindowTitle(self.tr("Unit outside the region of interest"))
+        box.setText(
+            self.tr(
+                "Less than {:.0f}% of the following units lies inside the "
+                "region of interest:\n\n{}\n\n"
+                "Results are only calculated where the data covers the unit, "
+                "so check that the region and the unit are the ones you intend."
+            ).format(MIN_UNIT_INSIDE_REGION_PCT, listing)
+        )
+        add_button = box.addButton(
+            self.tr("Add anyway"), QtWidgets.QMessageBox.AcceptRole
+        )
+        box.addButton(self.tr("Do not add"), QtWidgets.QMessageBox.RejectRole)
+        box.exec()
+
+        if box.clickedButton() is add_button:
+            return units
+        return [unit for unit in units if unit not in outside]
 
     def delete_subnational_unit(self, row):
         unit = self.subnational_units[row]
@@ -1656,6 +1794,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             ),
             "label_field": label_field,
             "upload_file_path": unit_data.get("upload_file_path"),
+            "inside_region_pct": areaofinterest.percent_inside_region(
+                features_geometry_wgs84(layer, unit_data["feature_ids"])
+            ),
+            "region_signature": areaofinterest.region_signature(),
         }
 
     def _save_unit_geometry(self, unit: dict) -> str | None:

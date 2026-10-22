@@ -1,4 +1,5 @@
 import functools
+import hashlib
 import json
 import typing
 from pathlib import Path
@@ -881,6 +882,84 @@ def try_get_aoi_geometry() -> qgis.core.QgsGeometry | None:
         return None
 
     return geom
+
+
+_INSIDE_REGION_SIMPLIFY_TOLERANCE = 0.001
+
+_region_shape_cache_key: str | None = None
+_region_shape_cache_value: qgis.core.QgsGeometry | None = None
+
+
+def region_signature() -> str:
+    """
+    Short fingerprint of the settings that define the region of interest.
+
+    Values derived from the region (e.g. how much of a unit is inside it) are
+    stored together with this and recomputed when it changes.
+    """
+    return hashlib.md5(repr(_current_aoi_settings_key()).encode("utf-8")).hexdigest()
+
+
+def _simplified_valid(geometry: qgis.core.QgsGeometry) -> qgis.core.QgsGeometry:
+    simplified = geometry.simplify(_INSIDE_REGION_SIMPLIFY_TOLERANCE)
+    if simplified.isNull() or simplified.isEmpty():
+        simplified = geometry
+    if not simplified.isGeosValid():
+        simplified = simplified.makeValid()
+    return simplified
+
+
+def _region_shape() -> qgis.core.QgsGeometry | None:
+    """The region's real outline (not its bounding box), simplified and cached."""
+    global _region_shape_cache_key, _region_shape_cache_value
+
+    key = region_signature()
+    if key == _region_shape_cache_key:
+        return _region_shape_cache_value
+
+    shape = try_get_aoi_geometry()
+    if shape is not None:
+        shape = _simplified_valid(shape)
+
+    _region_shape_cache_key = key
+    _region_shape_cache_value = shape
+    return shape
+
+
+def percent_inside_region(unit_geometry: qgis.core.QgsGeometry) -> float | None:
+    """
+    Share, from 0 to 100, of a unit's area (``unit_geometry`` in WGS84) that lies
+    inside the region of interest.
+
+    Returns None if no region of interest is set or the unit has no area.
+    """
+    if unit_geometry is None or unit_geometry.isNull() or unit_geometry.isEmpty():
+        return None
+
+    region = _region_shape()
+    if region is None:
+        return None
+
+    unit = _simplified_valid(unit_geometry)
+    inside = unit.intersection(region)
+
+    wgs84 = qgis.core.QgsCoordinateReferenceSystem("EPSG:4326")
+    distance_area = qgis.core.QgsDistanceArea()
+    distance_area.setSourceCrs(
+        wgs84, qgis.core.QgsProject.instance().transformContext()
+    )
+    distance_area.setEllipsoid("WGS84")
+
+    unit_area = distance_area.measureArea(unit)
+    if unit_area <= 0:
+        return None
+
+    inside_area = (
+        0.0
+        if inside.isNull() or inside.isEmpty()
+        else distance_area.measureArea(inside)
+    )
+    return max(0.0, min(100.0, inside_area / unit_area * 100.0))
 
 
 def get_aligned_output_bounds(f, wkt_bounding_boxes):

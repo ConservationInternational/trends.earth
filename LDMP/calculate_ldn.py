@@ -34,6 +34,7 @@ from te_schemas.productivity import ProductivityMode
 
 from . import GetTempFilename, areaofinterest, conf, lc_setup
 from .calculate import DlgCalculateBase
+from .data_io import SubnationalBand
 from .jobs.manager import job_manager
 from .localexecution import ldn
 from .logger import log
@@ -396,6 +397,29 @@ def mask_raster_to_cutline(path: str, cutline_path: str) -> str | None:
     ds.FlushCache()
     ds = None
     return out_path
+
+
+def subnational_mosaic_key(band, units) -> tuple:
+    """
+    Identify the mosaic of a combined subnational band: the result file of each
+    unit it is made from. Layers that selected the same run share one mosaic.
+    """
+    return tuple(
+        (unit["id"], str(band.unit_bands[unit["id"]].path))
+        for unit in units
+        if unit["id"] in band.unit_bands
+    )
+
+
+def plan_subnational_mosaics(selection: dict, units) -> dict[str, list[tuple]]:
+    """
+    For each layer path key in ``selection`` (key -> list of selected combined
+    bands), return the mosaic key of each of its bands.
+    """
+    return {
+        path_key: [subnational_mosaic_key(band, units) for band in bands]
+        for path_key, bands in selection.items()
+    }
 
 
 def build_subnational_mosaic(vrt_path: str, unit_rasters) -> str | None:
@@ -3289,14 +3313,19 @@ class DlgCalculateLDNSummaryTableAdmin(
                 and job.script.name == "sdg-15-3-1-sub-indicators"
                 and job.status in (_JobStatus.DOWNLOADED, _JobStatus.GENERATED_LOCALLY)
             ]
+            # Jobs are listed without their parameters; the unit tag and run id
+            # are in the parameters
+            for job in completed_jobs:
+                job_manager.ensure_params_loaded(job)
+
             runs = group_subnational_runs(
                 completed_jobs, units, subnational_unit_bboxes(units)
             )
-            area_name = conf.settings_manager.get_value(conf.Setting.AREA_NAME)
-            n_units = len(units)
-            for combo in self.combo_boxes.values():
-                combo.populate_with_subnational_runs(runs)
-                combo.set_subnational_label(area_name, n_units)
+            for key, combo in self.combo_boxes.items():
+                period_key = subnational_period_key(key)
+                combo.populate_with_subnational_runs(
+                    [run for run in runs if run.period_key == period_key]
+                )
         else:
             for combo in self.combo_boxes.values():
                 combo.populate()
@@ -3676,6 +3705,12 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.radio_lpd_te, self.radio_fao_wocat
         )
 
+        selections = {}
+        if subnational_mode:
+            selections["baseline"] = ldn.get_subnational_selection(
+                self.combo_boxes["baseline"], prod_mode_baseline, pop_mode_baseline
+            )
+
         periods = [
             {
                 "name": "baseline",
@@ -3733,6 +3768,11 @@ class DlgCalculateLDNSummaryTableAdmin(
                     log("failed progress layer validation")
                     return
 
+                if subnational_mode:
+                    selections[key] = ldn.get_subnational_selection(
+                        self.combo_boxes[key], prod_mode_progress, pop_mode_progress
+                    )
+
                 periods.append(
                     {
                         "name": key,
@@ -3777,7 +3817,7 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         if subnational_enabled and units:
             summary_aoi, patched_periods, error = self._build_subnational_summary(
-                periods, units
+                periods, units, selections
             )
             if error:
                 QtWidgets.QMessageBox.critical(
@@ -3800,14 +3840,24 @@ class DlgCalculateLDNSummaryTableAdmin(
             params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=summary_aoi
         )
 
-    def _build_subnational_summary(self, periods, units):
+    SUBNATIONAL_PATH_KEYS = (
+        "layer_lc_path",
+        "layer_lc_trans_path",
+        "layer_soc_path",
+        "layer_traj_path",
+        "layer_perf_path",
+        "layer_state_path",
+        "layer_lpd_path",
+        "layer_population_paths",
+    )
+
+    def _build_subnational_summary(self, periods, units, selections):
         """
         For each period, build mosaic VRTs from the N per-unit sub-indicator
         raster results and patch the layer paths in the period params.
 
         Returns (union_aoi, patched_periods, error_string_or_None).
         """
-        from te_schemas.jobs import JobStatus
         from te_schemas.results import RasterResults
 
         # Build union AOI from all units
@@ -3822,10 +3872,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         # geometry as a cutline to mask its result before mosaicking
         unit_geometries = []
         unit_cutlines = {}
-        unit_bboxes = {}
         for unit, ua in zip(units, unit_aois):
-            bbox = ua.bounding_box_gee_geojson()
-            unit_bboxes[unit.get("id")] = bbox[1] if bbox else None
             geometries = [f.geometry() for f in ua.get_layer_wgs84().getFeatures()]
             if not geometries:
                 continue
@@ -3852,147 +3899,106 @@ class DlgCalculateLDNSummaryTableAdmin(
             geojson=union_geojson, crs_src="epsg:4326", wrap=False
         )
 
-        # Find completed sub-indicator jobs that match each unit name
-        completed_jobs = [
-            job
-            for job in job_manager.relevant_jobs
-            if hasattr(job, "script")
-            and job.script is not None
-            and job.script.name == "sdg-15-3-1-sub-indicators"
-            and job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
-        ]
+        # One mosaic per distinct run selected, shared by the layers that chose it
+        mosaic_cache: dict[tuple, str] = {}
 
-        def _jobs_for_unit_period(unit, period_name):
-            """Return completed jobs for a given unit and period."""
-            return [
-                job
-                for job in completed_jobs
-                if job_matches_subnational_unit(
-                    job, unit, period_name, unit_bbox=unit_bboxes.get(unit.get("id"))
+        def _mosaic_for(band, period_name):
+            """Return (path of the mosaic of the band's run, error message)."""
+            if not isinstance(band, SubnationalBand):
+                return None, self.tr(
+                    "A result of a single unit is selected for the {} period.\n\n"
+                    "Select the entries that cover all subnational units."
+                ).format(period_name)
+
+            if not band.complete:
+                return None, self.tr(
+                    "The selected result for the {} period is incomplete "
+                    "(no result for: {}; boundary changed since calculation: "
+                    "{}).\n\nSelect a complete run, or run the sub-indicator "
+                    "calculation for these units."
+                ).format(
+                    period_name,
+                    ", ".join(band.missing_units) or "-",
+                    ", ".join(band.stale_units) or "-",
                 )
-            ]
 
-        # For each period, build mosaic VRTs for every raster layer
-        patched_periods = []
+            key = subnational_mosaic_key(band, units)
+            if key in mosaic_cache:
+                return mosaic_cache[key], None
 
-        RASTER_PATH_KEYS = [
-            "layer_lc_path",
-            "layer_soc_path",
-            "layer_traj_path",
-            "layer_perf_path",
-            "layer_state_path",
-            "layer_lpd_path",
-            "layer_population_paths",
-        ]
-
-        for period in periods:
-            period_name = period.get("name", "")
-            period_params = dict(period.get("params", period))
-
-            missing_units = []
-            stale_units = []
-            unit_mosaic_inputs = []
+            unit_inputs = []
             unit_rasters = []
             for unit in units:
                 unit_name = unit.get("name", "")
-                unit_jobs = _jobs_for_unit_period(unit, period_name)
-
-                if not unit_jobs:
-                    if any(
-                        job_matches_subnational_unit(
-                            job,
-                            unit,
-                            period_name,
-                            include_stale=True,
-                        )
-                        for job in completed_jobs
-                    ):
-                        stale_units.append(unit_name)
-                    else:
-                        missing_units.append(unit_name)
-                    continue
-
-                # Use the most recent completed job for this unit
-                unit_job = max(unit_jobs, key=lambda j: j.start_date)
-                raster_result = unit_job.get_first_result_by_type(RasterResults)
-
-                if raster_result is None:
-                    continue
-
-                # Collect main VRT/TIF path for this unit result
-                result_path = str(raster_result.uri.uri) if raster_result.uri else None
-                if result_path:
-                    unit_mosaic_inputs.append(
-                        (unit_name, result_path, unit_cutlines.get(unit.get("id")))
-                    )
-                    unit_rasters.append(
-                        (
-                            unit_name,
-                            result_path,
-                            [band.name for band in raster_result.get_bands()],
-                        )
-                    )
-
-            if stale_units:
-                return (
-                    None,
-                    None,
-                    self.tr(
-                        "The boundary of the following subnational units was "
-                        "changed after their {} sub-indicator result was "
-                        "calculated: {}.\n\n"
-                        "Re-run the sub-indicator calculation for these units."
-                    ).format(period_name, ", ".join(stale_units)),
+                unit_band = band.unit_bands.get(unit.get("id"))
+                raster_result = (
+                    unit_band.job.get_first_result_by_type(RasterResults)
+                    if unit_band is not None
+                    else None
                 )
+                if raster_result is None:
+                    return None, self.tr(
+                        "The unit '{}' has no raster result in the selected {} run."
+                    ).format(unit_name, period_name)
 
-            if missing_units:
-                return (
-                    None,
-                    None,
-                    self.tr(
-                        "The following subnational units do not have a completed "
-                        "sub-indicator result for the {} period: {}.\n\n"
-                        "Run the sub-indicator calculation for all units first."
-                    ).format(period_name, ", ".join(missing_units)),
+                path = str(unit_band.path)
+                unit_inputs.append((unit_name, path, unit_cutlines.get(unit.get("id"))))
+                unit_rasters.append(
+                    (unit_name, path, [b.name for b in raster_result.get_bands()])
                 )
 
             # Refuse to mosaic unit results that are not on the same grid or
             # do not share the same bands
             mismatch = check_subnational_rasters_consistent(unit_rasters)
             if mismatch:
-                return (
-                    None,
-                    None,
-                    self.tr(
-                        "The sub-indicator results of the subnational units for "
-                        "the {} period cannot be combined:\n\n{}\n\n"
-                        "Re-run the sub-indicator calculation for all units with "
-                        "the same settings and datasets."
-                    ).format(period_name, mismatch),
-                )
+                return None, self.tr(
+                    "The sub-indicator results of the subnational units for "
+                    "the {} period cannot be combined:\n\n{}\n\n"
+                    "Re-run the sub-indicator calculation for all units with "
+                    "the same settings and datasets."
+                ).format(period_name, mismatch)
 
-            # Build a mosaic VRT from all unit results for this period, each
-            # masked to its own unit polygon
-            if unit_mosaic_inputs:
-                vrt_path = GetTempFilename(".vrt")
-                failed_unit = build_subnational_mosaic(vrt_path, unit_mosaic_inputs)
-                if failed_unit:
+            vrt_path = GetTempFilename(".vrt")
+            failed_unit = build_subnational_mosaic(vrt_path, unit_inputs)
+            if failed_unit:
+                return None, self.tr(
+                    "Failed to build mosaic VRT for period '{}' (unit: {})."
+                ).format(period_name, failed_unit)
+
+            mosaic_cache[key] = vrt_path
+            return vrt_path, None
+
+        patched_periods = []
+
+        for period in periods:
+            period_name = period.get("name", "")
+            period_params = dict(period.get("params", period))
+            period_selection = selections.get(period_name) or {}
+
+            for path_key in self.SUBNATIONAL_PATH_KEYS:
+                if path_key not in period_params:
+                    continue
+
+                bands = period_selection.get(path_key)
+                if not bands:
                     return (
                         None,
                         None,
                         self.tr(
-                            "Failed to build mosaic VRT for period '{}' (unit: {})."
-                        ).format(period_name, failed_unit),
+                            "No subnational result is selected for {} ({} period)."
+                        ).format(path_key, period_name),
                     )
 
-                # Patch the primary raster path keys to point to the VRT.
-                for key in RASTER_PATH_KEYS:
-                    if key == "layer_population_paths":
-                        if key in period_params and period_params[key]:
-                            n_pop_paths = len(period_params[key])
-                            period_params[key] = [vrt_path] * n_pop_paths
-                    elif key in period_params:
-                        period_params[key] = vrt_path
+                paths = []
+                for band in bands:
+                    path, error = _mosaic_for(band, period_name)
+                    if error:
+                        return None, None, error
+                    paths.append(path)
+
+                period_params[path_key] = (
+                    paths if path_key == "layer_population_paths" else paths[0]
+                )
 
             # Patch geojsons/crs with the union AOI
             crosses_180th, geojsons = union_aoi.bounding_box_gee_geojson()

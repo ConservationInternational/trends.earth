@@ -79,6 +79,29 @@ class SummaryTableLDWidgets:
         self.populate_layer_combo_boxes_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
         self.combo_datasets.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
 
+    def populate_with_subnational_runs(self, runs):
+        """
+        Populate all combos with the results of whole subnational runs (all
+        units together) instead of each unit's own results.
+        """
+        for combo in (
+            self.combo_layer_lpd,
+            self.combo_layer_traj,
+            self.combo_layer_perf,
+            self.combo_layer_state,
+            self.combo_layer_lc,
+            self.combo_layer_soc,
+            self.combo_layer_pop_total,
+            self.combo_layer_pop_male,
+            self.combo_layer_pop_female,
+        ):
+            combo.populate_with_subnational_runs(runs)
+
+        allowed_job_ids = {
+            str(job.id) for run in runs for job in run.jobs_by_unit.values()
+        }
+        self.combo_datasets.populate_with_aoi(None, allowed_job_ids=allowed_job_ids)
+
     def set_subnational_label(self, area_name, n_units):
         """Collapse the dataset combo to a single consolidated label."""
         self.combo_datasets.set_subnational_label(area_name, n_units)

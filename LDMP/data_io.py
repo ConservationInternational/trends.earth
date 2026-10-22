@@ -201,6 +201,59 @@ class Band:
 
 
 @dataclasses.dataclass()
+class SubnationalBand(Band):
+    """
+    One band of the results of a subnational calculation run, for all units
+    together. The inherited fields describe the band in the first unit's result
+    (they are identical for every unit); ``unit_bands`` has each unit's band.
+    """
+
+    unit_bands: dict = dataclasses.field(default_factory=dict)  # unit id -> Band
+    period_name: str = ""
+    n_units: int = 0
+    missing_units: list = dataclasses.field(default_factory=list)
+    stale_units: list = dataclasses.field(default_factory=list)
+    job_ids: set = dataclasses.field(default_factory=set)
+
+    @property
+    def complete(self) -> bool:
+        return not self.missing_units and not self.stale_units
+
+    def _date_text(self) -> str:
+        try:
+            return utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
+        except (AttributeError, ValueError, TypeError):
+            return ""
+
+    def get_name_info(self):
+        title = layers.get_band_title(JobBand.Schema().dump(self.band_info))
+        if self.complete:
+            units_text = tr_data_io.tr("all {} subnational units").format(self.n_units)
+        else:
+            units_text = tr_data_io.tr("incomplete: {} of {} units").format(
+                len(self.unit_bands), self.n_units
+            )
+        parts = [title, self.period_name, units_text, self._date_text()]
+        return " - ".join(part for part in parts if part)
+
+    def get_hover_info(self):
+        lines = [self.get_name_info()]
+        if self.missing_units:
+            lines.append(
+                tr_data_io.tr("No result yet for: {}").format(
+                    ", ".join(self.missing_units)
+                )
+            )
+        if self.stale_units:
+            lines.append(
+                tr_data_io.tr("Unit boundary changed since calculation: {}").format(
+                    ", ".join(self.stale_units)
+                )
+            )
+        return "\n".join(lines)
+
+
+@dataclasses.dataclass()
 class Dataset:
     job: Job
     path: Path
@@ -2465,7 +2518,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
             aoi, selected_job_id=selected_job_id, allowed_job_ids=allowed_job_ids
         )
 
-    def _populate_with_aoi(self, aoi, selected_job_id=None, allowed_job_ids=None):
+    def _collect_usable_bands(self, aoi, selected_job_id=None) -> list[Band]:
         layer_types = self.property("layer_type").split(";")
         prod_mode = self.property("prod_mode")
         usable_bands = []
@@ -2480,10 +2533,74 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
                     prod_mode=prod_mode,
                 )
             )
+        return usable_bands
+
+    def _populate_with_aoi(self, aoi, selected_job_id=None, allowed_job_ids=None):
+        usable_bands = self._collect_usable_bands(aoi, selected_job_id)
 
         if allowed_job_ids is not None:
             usable_bands = [b for b in usable_bands if str(b.job.id) in allowed_job_ids]
 
+        self._fill_combo(usable_bands)
+
+    def populate_with_subnational_runs(self, runs):
+        """
+        List the layer as results of whole subnational runs (all units
+        together), instead of as each unit's own result.
+
+        ``runs`` are the ``SubnationalRun`` objects to offer. Complete runs come
+        first; incomplete ones are listed greyed out so it is visible why they
+        cannot be used.
+        """
+        bands_by_job: dict = {}
+        for band in self._collect_usable_bands(None):
+            bands_by_job.setdefault(band.job.id, []).append(band)
+
+        combined = []
+        for run in runs:
+            if not run.jobs_by_unit:
+                continue
+            first_job = next(iter(run.jobs_by_unit.values()))
+            for first_band in bands_by_job.get(first_job.id, []):
+                unit_bands = {}
+                for unit_id, job in run.jobs_by_unit.items():
+                    match = next(
+                        (
+                            b
+                            for b in bands_by_job.get(job.id, [])
+                            if b.band_index == first_band.band_index
+                            and b.band_info.name == first_band.band_info.name
+                        ),
+                        None,
+                    )
+                    if match is None:
+                        break
+                    unit_bands[unit_id] = match
+                else:
+                    combined.append(
+                        SubnationalBand(
+                            job=first_band.job,
+                            path=first_band.path,
+                            band_index=first_band.band_index,
+                            band_info=first_band.band_info,
+                            unit_bands=unit_bands,
+                            period_name=run.period_key,
+                            n_units=run.n_units,
+                            missing_units=list(run.missing_units),
+                            stale_units=list(run.stale_units),
+                            job_ids={job.id for job in run.jobs_by_unit.values()},
+                        )
+                    )
+
+        # Usable runs first, most recent first within each group
+        combined.sort(
+            key=lambda b: b.job.start_date.timestamp() if b.job.start_date else 0,
+            reverse=True,
+        )
+        combined.sort(key=lambda b: not b.complete)
+        self._fill_combo(combined)
+
+    def _fill_combo(self, usable_bands: list[Band]):
         self.layer_list = usable_bands
         old_text = self.currentText()
         self.comboBox_layers.clear()
@@ -2496,8 +2613,21 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
                 self.comboBox_layers.setItemData(
                     i, usable_band.get_hover_info(), QtCore.Qt.ToolTipRole
                 )
+                if (
+                    isinstance(usable_band, SubnationalBand)
+                    and not usable_band.complete
+                ):
+                    self.comboBox_layers.model().item(i).setEnabled(False)
         if not self.set_index_from_text(old_text):
-            self.comboBox_layers.setCurrentIndex(0)
+            first_usable = next(
+                (
+                    i
+                    for i, band in enumerate(usable_bands)
+                    if not isinstance(band, SubnationalBand) or band.complete
+                ),
+                0,
+            )
+            self.comboBox_layers.setCurrentIndex(first_usable)
 
     def has_valid_selection(self) -> bool:
         """Check if a valid layer is currently selected.
@@ -2520,6 +2650,11 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
             return LayerValidationStatus.NO_REGION
         if current_text == self.NO_LAYERS_MESSAGE:
             return LayerValidationStatus.NO_LAYERS
+        index = self.comboBox_layers.currentIndex()
+        if 0 <= index < len(self.layer_list):
+            band = self.layer_list[index]
+            if isinstance(band, SubnationalBand) and not band.complete:
+                return LayerValidationStatus.NO_LAYERS
         return LayerValidationStatus.VALID
 
     def show_validation_error(
@@ -2594,7 +2729,10 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     def set_index_from_job_id(self, job_id):
         if self.layer_list:
             for i in range(len(self.layer_list)):
-                if self.layer_list[i].job.id == job_id:
+                job_ids = getattr(self.layer_list[i], "job_ids", None) or {
+                    self.layer_list[i].job.id
+                }
+                if job_id in job_ids:
                     self.comboBox_layers.setCurrentIndex(i)
 
                     return True

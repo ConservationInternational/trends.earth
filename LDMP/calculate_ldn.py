@@ -13,11 +13,13 @@
 
 # pylint: disable=import-error
 import copy
+import datetime as dt
 import json
 import math
 import time
+import uuid
 import weakref
-from dataclasses import asdict, dataclass, fields
+from dataclasses import asdict, dataclass, field, fields
 from pathlib import Path
 
 import qgis.core
@@ -125,6 +127,139 @@ def job_matches_subnational_unit(
     if period_name is None:
         return True
     return subnational_period_key(job_period) == subnational_period_key(period_name)
+
+
+SUBNATIONAL_RUN_WINDOW = dt.timedelta(minutes=2)
+
+
+@dataclass
+class SubnationalRun:
+    """
+    The sub-indicator results of one calculation run for one period: one job
+    per subnational unit, submitted together.
+    """
+
+    period_key: str
+    start_date: dt.datetime
+    jobs_by_unit: dict = field(default_factory=dict)
+    missing_units: list = field(default_factory=list)
+    stale_units: list = field(default_factory=list)
+    n_units: int = 0
+    run_id: str | None = None
+
+    @property
+    def complete(self) -> bool:
+        return not self.missing_units and not self.stale_units
+
+
+def _job_period_key(job) -> str:
+    """Normalised period name ("baseline", "reporting_1", ...) of a job."""
+    params = job.params or {}
+    name = (params.get("period") or {}).get("name")
+    if not name:
+        name = (job.task_name or "").strip().rpartition(" - ")[2]
+    return subnational_period_key(name)
+
+
+def group_subnational_runs(jobs, units, unit_bboxes=None) -> list[SubnationalRun]:
+    """
+    Group completed sub-indicator jobs into runs (one job per unit and period).
+
+    Returns the runs, most recent first.
+    """
+    unit_bboxes = unit_bboxes or {}
+    min_date = dt.datetime.min.replace(tzinfo=dt.UTC)
+    entries = []
+    for job in jobs:
+        for unit in units:
+            bbox = unit_bboxes.get(unit.get("id"))
+            if job_matches_subnational_unit(
+                job, unit, include_stale=True, unit_bbox=bbox
+            ):
+                entries.append(
+                    (
+                        job,
+                        unit,
+                        _job_period_key(job),
+                        job_is_stale_for_subnational_unit(job, unit, bbox),
+                    )
+                )
+                break
+
+    def _start(entry):
+        return entry[0].start_date or min_date
+
+    groups: dict[tuple, list] = {}
+    legacy_by_period: dict[str, list] = {}
+    for entry in entries:
+        tag = (entry[0].params or {}).get("subnational_unit")
+        run_id = tag.get("run_id") if isinstance(tag, dict) else None
+        if run_id:
+            groups.setdefault((run_id, entry[2]), []).append(entry)
+        else:
+            legacy_by_period.setdefault(entry[2], []).append(entry)
+
+    for period_key, period_entries in legacy_by_period.items():
+        cluster, cluster_n = [], 0
+        for entry in sorted(period_entries, key=_start):
+            if cluster and _start(entry) - _start(cluster[-1]) > SUBNATIONAL_RUN_WINDOW:
+                groups[(f"legacy-{period_key}-{cluster_n}", period_key)] = cluster
+                cluster, cluster_n = [], cluster_n + 1
+            cluster.append(entry)
+        if cluster:
+            groups[(f"legacy-{period_key}-{cluster_n}", period_key)] = cluster
+
+    runs = []
+    for (group_id, period_key), group in groups.items():
+        latest: dict[str, tuple] = {}
+        stale_names = set()
+        for entry in sorted(group, key=_start):
+            job, unit, _, stale = entry
+            if stale:
+                stale_names.add(unit.get("name") or unit.get("id"))
+                continue
+            latest[unit.get("id")] = entry
+
+        if not latest:
+            continue
+
+        jobs_by_unit = {
+            unit["id"]: latest[unit["id"]][0]
+            for unit in units
+            if unit.get("id") in latest
+        }
+        missing = [
+            unit.get("name") or unit.get("id")
+            for unit in units
+            if unit.get("id") not in latest
+        ]
+        stale = [name for name in missing if name in stale_names]
+        runs.append(
+            SubnationalRun(
+                period_key=period_key,
+                start_date=max(_start(e) for e in latest.values()),
+                jobs_by_unit=jobs_by_unit,
+                missing_units=[name for name in missing if name not in stale],
+                stale_units=stale,
+                n_units=len(units),
+                run_id=None if group_id.startswith("legacy-") else group_id,
+            )
+        )
+
+    return sorted(runs, key=lambda run: run.start_date, reverse=True)
+
+
+def subnational_unit_bboxes(units) -> dict:
+    """Current GEE bounding-box geojsons of each unit, keyed by unit id."""
+    bboxes = {}
+    for unit in units:
+        try:
+            ret = areaofinterest.aoi_from_unit(unit).bounding_box_gee_geojson()
+        except (RuntimeError, ValueError):
+            continue
+        if ret:
+            bboxes[unit.get("id")] = ret[1]
+    return bboxes
 
 
 def _raster_grid(path: str):
@@ -2925,6 +3060,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         """
         Submit one GEE job per (time period x subnational unit).
         """
+        # All jobs of this submission share one id, so their results can be
+        # offered together as one run
+        run_id = str(uuid.uuid4())
+
         for unit in units:
             unit_name = unit.get("name", "unit")
 
@@ -2970,6 +3109,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     "id": unit.get("id"),
                     "name": unit_name,
                     "geometry_hash": unit.get("geometry_hash"),
+                    "run_id": run_id,
                 }
 
                 dumped = LCTransitionDefinitionDeg.Schema().dump(
@@ -3139,22 +3279,23 @@ class DlgCalculateLDNSummaryTableAdmin(
                 units = []
 
         if subnational_enabled and units:
-            # Find job IDs of sub-indicator results run for any defined unit.
             from te_schemas.jobs import JobStatus as _JobStatus
 
-            allowed_job_ids = {
-                str(job.id)
+            completed_jobs = [
+                job
                 for job in job_manager.relevant_jobs
                 if hasattr(job, "script")
                 and job.script is not None
                 and job.script.name == "sdg-15-3-1-sub-indicators"
                 and job.status in (_JobStatus.DOWNLOADED, _JobStatus.GENERATED_LOCALLY)
-                and any(job_matches_subnational_unit(job, unit) for unit in units)
-            }
+            ]
+            runs = group_subnational_runs(
+                completed_jobs, units, subnational_unit_bboxes(units)
+            )
             area_name = conf.settings_manager.get_value(conf.Setting.AREA_NAME)
             n_units = len(units)
             for combo in self.combo_boxes.values():
-                combo.populate_with_aoi(None, allowed_job_ids=allowed_job_ids)
+                combo.populate_with_subnational_runs(runs)
                 combo.set_subnational_label(area_name, n_units)
         else:
             for combo in self.combo_boxes.values():

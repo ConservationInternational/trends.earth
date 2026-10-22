@@ -3,7 +3,7 @@ name=trends.earth
 qgisMinimumVersion=3.44
 qgisMaximumVersion=4.99
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.3.6
+version=2.3.8
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -26,7 +26,11 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.3.6 (October 9, 2026)
+changelog=2.3.8 (October 16, 2026)
+  - Added support for using custom total or sex-disaggregated population data in drought and land degradation population-exposure analyses
+  - Standardized population data handling as densities and improved preservation of population totals and precision during resampling
+  - Other misc fixes
+ 2.3.6 (October 9, 2026)
   - Ensure results VRTs do not reference tiffs written to temp folder
   - Fixed drought vulnerability calculations to preserve population values as floating-point numbers
   - Improved compatibility with QGIS 4 and Qt 6

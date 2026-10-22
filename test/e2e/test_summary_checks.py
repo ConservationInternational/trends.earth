@@ -57,9 +57,18 @@ def by_cover():
     }
 
 
-def population(total=600_000):
+def population(total=600_000, drought=False):
     def pop_list(scale):
         shares = {"Improved": 0.2, "Stable": 0.6, "Degraded": 0.15, "No data": 0.05}
+        if drought:
+            shares = {
+                "Mild drought": 0.1,
+                "Moderate drought": 0.1,
+                "Severe drought": 0.1,
+                "Extreme drought": 0.1,
+                "Non-drought": 0.55,
+                "No data": 0.05,
+            }
         return {
             "name": "Population",
             "values": [
@@ -150,7 +159,7 @@ def drought_summary():
     return {
         "drought": {
             "tier_one": {str(y): year_areas(y) for y in years},
-            "tier_two": {str(y): population() for y in years},
+            "tier_two": {str(y): population(drought=True) for y in years},
             "tier_three": {"2018": {"name": "Mean value", "value": 42.0}},
         }
     }
@@ -181,6 +190,13 @@ class SdgSummaryChecksTest(unittest.TestCase):
         self.assertEqual(report.errors, [])
         self.assertEqual(report.warnings, [])
         self.assertAlmostEqual(report.metrics["total_area_km2"], TOTAL)
+
+    def test_missing_population_class_fails(self):
+        data = sdg_summary()
+        data["affected_population"]["baseline"]["summary"]["Total population"][
+            "values"
+        ].pop()
+        self.assert_error(self.check(data), "missing population classes")
 
     def test_mismatched_indicator_total_fails(self):
         data = sdg_summary()
@@ -350,6 +366,11 @@ class DroughtSummaryChecksTest(unittest.TestCase):
         self.assertEqual(report.warnings, [])
         self.assertEqual(report.metrics["years"], [2000, 2019])
         self.assertEqual(report.metrics["dvi"], 42.0)
+
+    def test_missing_population_class_fails(self):
+        data = drought_summary()
+        data["drought"]["tier_two"]["2000"]["Total population"]["values"].pop()
+        self.assert_error(self.check(data), "missing population classes")
 
     def test_missing_dvi_fails(self):
         data = drought_summary()

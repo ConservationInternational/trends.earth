@@ -242,8 +242,15 @@ class StartWorker:
         self.worker = worker_class(*args)
 
         pause = QEventLoop()
-        self.worker.finished.connect(pause.quit)
-        self.worker.successfully_finished.connect(self.save_success)
+
+        def on_finished(result):
+            if result is not None:
+                self.save_success(result)
+            # Allow the other finished slot to stop and clean up the QThread
+            # before the caller can destroy its parent window.
+            QTimer.singleShot(0, pause.quit)
+
+        self.worker.finished.connect(on_finished)
         self.worker.error.connect(self.save_exception)
 
         # Inactivity watchdog: resets every time the worker reports any

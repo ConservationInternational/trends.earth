@@ -42,7 +42,7 @@ def _run_tests(test_suite, package_name, with_coverage=False):
         )
         cov.start()
 
-    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(test_suite)
+    result = unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(test_suite)
 
     if with_coverage:
         cov.stop()
@@ -54,6 +54,7 @@ def _run_tests(test_suite, package_name, with_coverage=False):
         report.close()
         with open(report.name, "r") as fin:
             print(fin.read())
+    return result
 
 
 def test_package(package="test"):
@@ -87,4 +88,17 @@ def test_e2e(package="test"):
     test_suite = unittest.defaultTestLoader.discover(
         package, pattern="test_remote_pipelines.py"
     )
-    _run_tests(test_suite, package)
+    test_suite.addTests(
+        unittest.defaultTestLoader.discover(package, pattern="test_custom_population.py")
+    )
+    if not _run_tests(test_suite, package).wasSuccessful():
+        raise AssertionError("End-to-end tests failed")
+
+
+def test_e2e_custom(package="test"):
+    """Run generated custom-data E2E tests without network access or credentials."""
+    test_suite = unittest.defaultTestLoader.discover(
+        package, pattern="test_custom_population.py"
+    )
+    if not _run_tests(test_suite, package).wasSuccessful():
+        raise AssertionError("Custom-data end-to-end tests failed")

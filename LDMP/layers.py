@@ -317,8 +317,15 @@ style_text_dict = {
     # Population titles
     "population_title": tr_layers.tr("Population ({year})"),
     "population_number_of_people": tr_layers.tr("Population ({type}, {year})"),
+    "population_title_with_units": tr_layers.tr("Population ({year}, {units})"),
+    "population_number_of_people_with_units": tr_layers.tr(
+        "Population ({type}, {year}, {units})"
+    ),
     "population_density_title": tr_layers.tr(
         "Population density ({year}, per sq km / 10)"
+    ),
+    "population_density_title_with_units": tr_layers.tr(
+        "Population density ({year}, {units})"
     ),
     "population_density_affected_by_degradation_title": tr_layers.tr(
         "Population exposed to degradation (population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})"
@@ -1000,9 +1007,19 @@ def get_band_title(band_info):
     result = band_info["name"]
 
     if style:
-        title_pattern = tr_style_text(style["title"])
+        metadata = band_info["metadata"]
+        title_key = style["title"]
+        title_key_with_units = {
+            "population_title": "population_title_with_units",
+            "population_number_of_people": "population_number_of_people_with_units",
+            "population_density_title": "population_density_title_with_units",
+        }.get(title_key)
+        if title_key_with_units and metadata.get("units"):
+            title_key = title_key_with_units
+
+        title_pattern = tr_style_text(title_key)
         try:
-            result = title_pattern.format(**band_info["metadata"])
+            result = title_pattern.format(**metadata)
         except KeyError as exc:
             log(
                 f"Unable to find a proper name for {band_info['name']} because "

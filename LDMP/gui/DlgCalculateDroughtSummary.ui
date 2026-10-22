@@ -183,6 +183,77 @@
             </widget>
            </item>
            <item>
+            <widget class="QGroupBox" name="groupBox_population">
+             <property name="title">
+              <string>Population exposed to drought</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_population">
+              <item row="0" column="0" colspan="2">
+               <widget class="QRadioButton" name="radio_population_dataset">
+                <property name="text">
+                 <string>Use annual population from the drought dataset</string>
+                </property>
+                <property name="checked"><bool>true</bool></property>
+               </widget>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <widget class="QLabel" name="label_population_scenario">
+                <property name="text">
+                 <string>Alternatively, select a fixed population scenario below. The selected population is used for every drought year, not as an annual population time series.</string>
+                </property>
+                <property name="wordWrap"><bool>true</bool></property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="2">
+               <widget class="QRadioButton" name="radio_population_total">
+                <property name="text"><string>Total population</string></property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_total_population">
+                <property name="text"><string>Total population</string></property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_population_total">
+                <property name="layer_type" stdset="0"><string notr="true">Population (number of people)</string></property>
+                <property name="layer_filter_field" stdset="0"><string notr="true">type</string></property>
+                <property name="layer_filter_value" stdset="0"><string notr="true">total</string></property>
+               </widget>
+              </item>
+              <item row="4" column="0" colspan="2">
+               <widget class="QRadioButton" name="radio_population_bysex">
+                <property name="text"><string>Population broken down by sex</string></property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_male_population">
+                <property name="text"><string>Male population</string></property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_population_male">
+                <property name="layer_type" stdset="0"><string notr="true">Population (number of people)</string></property>
+                <property name="layer_filter_field" stdset="0"><string notr="true">type</string></property>
+                <property name="layer_filter_value" stdset="0"><string notr="true">male</string></property>
+               </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="label_female_population">
+                <property name="text"><string>Female population</string></property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_population_female">
+                <property name="layer_type" stdset="0"><string notr="true">Population (number of people)</string></property>
+                <property name="layer_filter_field" stdset="0"><string notr="true">type</string></property>
+                <property name="layer_filter_value" stdset="0"><string notr="true">female</string></property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
             <widget class="QFrame" name="setup_frame">
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>

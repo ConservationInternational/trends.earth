@@ -1,5 +1,49 @@
 # Trends.Earth plugin tests
 
+GUI tests reuse the application already running under `qgis_testrunner.sh`.
+When run standalone, the sub-indicator dialog tests start an application with
+`qgis.testing.start_app()` only if `QgsApplication.instance()` is `None`.
+Calling `start_app()` unconditionally inside the QGIS runner can create a
+second application and fail during QGIS initialization.
+
+## Generated custom-data end-to-end tests (offline)
+
+[`e2e/test_custom_population.py`](e2e/test_custom_population.py) runs without
+API credentials or network access. It imports generated land-cover and
+population rasters through the real import dialogs and threaded workers, then
+runs the production land degradation and drought summary engines, including
+JSON and Excel reporting and persisted raster outputs. Drought uses a water
+mask derived from the imported land cover; productivity, SOC, SPI and JRC
+vulnerability inputs are generated as well.
+
+Eight scenarios cover all three population input units, total and
+sex-disaggregated population, and legacy count rasters without units metadata.
+An additional 12 scenarios vary imported land-cover resolution between
+0.0005, 0.001 and 0.002 degrees (finer than, equal to, and coarser than the
+productivity/SPI grid), with total and sex-disaggregated population. Each
+resolution is tested both with custom population imports and without them,
+using generated WorldPop-style people-per-hectare inputs. These fixtures
+exercise the downloaded-population metadata path but do not download live
+WorldPop data. The live API suite continues to cover actual remote datasets.
+Both summaries check population totals and affected classes after regridding;
+SDG uses its productivity reference resolution, while drought uses the finest
+input resolution, including the native land-cover-derived water mask.
+The population grid is ten times coarser in each dimension than the land-cover
+and SPI grids in the original eight scenarios. Tests verify conservation of
+**1,750.875 people**, affected
+population by class, fractional Float32 values, signed exposure outputs,
+nodata, units metadata saved to disk, and output readability after temporary
+normalization inputs have been cleaned up.
+
+These tests run in the normal suite and alongside the live E2E suite, or alone:
+
+```bash
+./run_tests.sh 3.44 test_suite.test_e2e_custom
+```
+
+When testing unreleased coordinated plugin/algorithms changes, the container
+must use the matching algorithms source or package, not an older pinned release.
+
 ## End-to-end tests against the live API (optional)
 
 [`e2e/test_remote_pipelines.py`](e2e/test_remote_pipelines.py) drives the plugin dialogs in the QGIS
@@ -35,6 +79,12 @@ Engine jobs. The tests are skipped unless they are run through
 TE_E2E_CLIENT_ID=... TE_E2E_CLIENT_SECRET=... TE_E2E_COUNTRIES=STP \
   ./run_tests.sh 3.44 test_suite.test_e2e
 ```
+
+Script IDs, versions and configuration come from the plugin's
+[`LDMP/data/scripts.json`](../LDMP/data/scripts.json) via `conf.KNOWN_SCRIPTS`,
+just as they do in the plugin UI. The e2e harness selects scripts by name,
+without pinning UUIDs, versions or copying script definitions. Updating that
+file updates the scripts exercised by the next test run.
 
 | Variable | Purpose | Default |
 | --- | --- | --- |
@@ -94,7 +144,10 @@ fails; the originating pipeline test reports the failure. Errors are:
   area in any year, or a drought vulnerability index that is missing or outside
   0–100 (inclusive);
 - missing or zero population, male + female not matching the total, or an
-  implausible population density (outside 0.01–50,000 people per sq km).
+  implausible population density (outside 0.01–50,000 people per sq km);
+- missing population classes in any SDG period or drought year. Downloaded
+  population bands must also have supported units (untagged legacy counts are
+  allowed), a year, and either total population or a complete male/female pair.
 
 Unusual but possible results are warnings: zero Improved or Degraded area, 95%
 or more of the valid area in a single class (all Stable or all Degraded),

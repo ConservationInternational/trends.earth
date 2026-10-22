@@ -1,11 +1,15 @@
 """Offline regression tests for the dialog-driven separate sub-indicators."""
 
 import contextlib
+import dataclasses
+import json
 import types
 import unittest
+import uuid
 from pathlib import Path
 from unittest import mock
 
+from qgis.core import QgsApplication
 from qgis.gui import QgsMapCanvas, QgsMessageBar
 from qgis.PyQt import QtCore, QtWidgets
 from qgis.testing import start_app
@@ -21,10 +25,36 @@ from .harness import DialogDriver, job_manager
 from .test_remote_pipelines import TASK_NOTES
 
 
+class ApplicationSetupTest(unittest.TestCase):
+    def test_setup_reuses_running_qgis_application(self):
+        app = QgsApplication.instance() or start_app()
+        for test_class in (SubindicatorDialogTest, ScriptConfigurationTest):
+            with (
+                self.subTest(test_class=test_class.__name__),
+                mock.patch.object(test_class, "app", None, create=True),
+                mock.patch(f"{__name__}.start_app") as start,
+            ):
+                test_class.setUpClass()
+                self.assertIs(test_class.app, app)
+                start.assert_not_called()
+
+    def test_setup_starts_application_when_none_is_running(self):
+        for test_class in (SubindicatorDialogTest, ScriptConfigurationTest):
+            with (
+                self.subTest(test_class=test_class.__name__),
+                mock.patch.object(test_class, "app", None, create=True),
+                mock.patch.object(QgsApplication, "instance", return_value=None),
+                mock.patch(f"{__name__}.start_app") as start,
+            ):
+                test_class.setUpClass()
+                self.assertIs(test_class.app, start.return_value)
+                start.assert_called_once_with()
+
+
 class SubindicatorDialogTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.app = start_app()
+        cls.app = QgsApplication.instance() or start_app()
 
     def setUp(self):
         self.stack = contextlib.ExitStack()
@@ -127,12 +157,83 @@ class SubindicatorDialogTest(unittest.TestCase):
         self.assertEqual(payload["fl"], "per pixel")
         self.assertIs(payload["download_annual_lc"], True)
 
+    def test_remote_dialogs_follow_changed_script_configuration(self):
+        for dlg_cls, name, configure in (
+            (DlgCalculateProd, "productivity", subindicators.configure_productivity),
+            (DlgCalculateLC, "land-cover", subindicators.configure_land_cover),
+            (DlgCalculateSOC, "soil-organic-carbon", subindicators.configure_soc),
+        ):
+            configured = conf.KNOWN_SCRIPTS[name]
+            changed = dataclasses.replace(
+                configured, id=uuid.uuid4(), version=f"{configured.version}.1"
+            )
+            with (
+                self.subTest(script=name),
+                mock.patch.dict(conf.KNOWN_SCRIPTS, {name: changed}),
+            ):
+                self.submit.reset_mock()
+                self.run_dialog(dlg_cls, name, configure)
+                self.assertEqual(self.submit.call_args.args[1], changed.id)
+
     def test_unavailable_year_is_an_error_not_silently_clamped(self):
         widget = QtWidgets.QDateEdit()
         self.addCleanup(widget.deleteLater)
         widget.setMaximumDate(QtCore.QDate(2005, 1, 1))
         with self.assertRaisesRegex(ValueError, "does not support year 2015"):
             subindicators.set_year(widget, 2015)
+
+
+class ScriptConfigurationTest(unittest.TestCase):
+    SCRIPT_NAMES = (
+        "sdg-15-3-1-sub-indicators",
+        "drought-vulnerability",
+        "productivity",
+        "land-cover",
+        "soil-organic-carbon",
+        "sdg-15-3-1-summary",
+        "drought-vulnerability-summary",
+        "unccd-report",
+    )
+
+    @classmethod
+    def setUpClass(cls):
+        cls.app = QgsApplication.instance() or start_app()
+
+    def test_e2e_scripts_match_scripts_json(self):
+        with Path(conf.script_file).open(encoding="utf-8") as stream:
+            configured = conf._load_script_config(json.load(stream))
+        for name in self.SCRIPT_NAMES:
+            with self.subTest(script=name):
+                self.assertEqual(conf.KNOWN_SCRIPTS[name], configured[name])
+
+    def test_driver_uses_current_configured_script_including_version(self):
+        seen = []
+
+        class RecordingDialog(QtWidgets.QDialog):
+            def __init__(self, iface, script, parent):
+                super().__init__(parent)
+                seen.append(script)
+                self.button_box = QtWidgets.QDialogButtonBox(
+                    QtWidgets.QDialogButtonBox.Ok, self
+                )
+                self.button_box.accepted.connect(self.accept)
+
+        driver = DialogDriver(mock.Mock())
+        self.addCleanup(driver.main_dock.deleteLater)
+        with mock.patch.object(harness, "process_events_for"):
+            for name in self.SCRIPT_NAMES:
+                configured = conf.KNOWN_SCRIPTS[name]
+                changed = dataclasses.replace(
+                    configured, version=f"{configured.version}.1"
+                )
+                if configured.id is not None:
+                    changed = dataclasses.replace(changed, id=uuid.uuid4())
+                with (
+                    self.subTest(script=name),
+                    mock.patch.dict(conf.KNOWN_SCRIPTS, {name: changed}),
+                ):
+                    driver.run(RecordingDialog, name, lambda dlg: None)
+                    self.assertIs(seen[-1], changed)
 
 
 class SeparateInputTest(unittest.TestCase):

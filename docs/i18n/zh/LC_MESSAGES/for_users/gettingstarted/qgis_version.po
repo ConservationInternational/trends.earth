@@ -1,28 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2026, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2026
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.3.2\n"
+"Project-Id-Version: Trends.Earth 2.3.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-07 04:10+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
-"Language: zh\n"
-"Language-Team: Chinese (https://app.transifex.com/conservation-"
-"international/teams/80165/zh/)\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Team: Chinese (https://app.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:4
 msgid "Installing Trends.Earth"
@@ -34,8 +32,8 @@ msgstr "QGIS安装"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:11
 msgid ""
-"Before installing the plugin, QGIS version |qgisMinVersion| or higher "
-"needs to be installed on your computer."
+"Before installing the plugin, QGIS version |qgisMinVersion| or higher needs "
+"to be installed on your computer."
 msgstr "在安装插件之前，需要在您的计算机上安装QGIS版本|qgisMinVersion|或更高版本。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:15
@@ -43,16 +41,12 @@ msgid "Download QGIS"
 msgstr "下载 QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:17
-#, fuzzy
 msgid ""
 "To install the plugin, you must have QGIS version |qgisMinVersion| or "
-"higher. For that, access the `QGIS Download "
-"<https://qgis.org/download/>`_ page and select the appropriate installer "
-"depending on your operating system (i.e. Windows, MacOS, Linux)."
+"higher. For that, access the `QGIS Download <https://qgis.org/download/>`_ "
+"page and select the appropriate installer depending on your operating system"
+" (i.e. Windows, MacOS, Linux)."
 msgstr ""
-"下载 QGIS 要安装该插件，必须使用 QGIS 版本 |qgisMinVersion| 或更高版本。为此，请访问 `QGIS Download "
-"<https://qgis.org/download/>`_页面，并根据你的操作系统（即 "
-"Windows、MacOS、Linux）选择相应的安装程序。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:23
 msgid "Install QGIS"
@@ -70,12 +64,12 @@ msgstr "安装旧版本的 QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:31
 msgid ""
-"Older versions of QGIS can be accessed at the below links. We recommend "
-"the latest version of QGIS (see instructions above) but the below links "
-"might be useful if you have a specific need for accessing an older "
-"version of QGIS (for example if you need to install an older version of "
-"|trends.earth|)."
-msgstr "可以通过下方链接访问QGIS的旧版本。我们建议使用最新版本的QGIS（请参阅上方的说明），但如果您有访问较旧版本QGIS的特定需求（例如，如果您需要安装较旧版本的|trends.earth|），下方的链接可能会对您很有用。"
+"Older versions of QGIS can be accessed at the below links. We recommend the "
+"latest version of QGIS (see instructions above) but the below links might be"
+" useful if you have a specific need for accessing an older version of QGIS "
+"(for example if you need to install an older version of |trends.earth|)."
+msgstr ""
+"可以通过下方链接访问QGIS的旧版本。我们建议使用最新版本的QGIS（请参阅上方的说明），但如果您有访问较旧版本QGIS的特定需求（例如，如果您需要安装较旧版本的|trends.earth|），下方的链接可能会对您很有用。"
 
 #: ../../../<rst_epilogue>:6
 msgid "Trends.Earth"
@@ -99,8 +93,8 @@ msgstr "Trends.Earth安装"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:47
 msgid ""
-"There are different ways to install |trends.earth|, depending on whether "
-"you want to install the stable version (recommended) or the development "
+"There are different ways to install |trends.earth|, depending on whether you"
+" want to install the stable version (recommended) or the development "
 "version."
 msgstr "|trends.earth| 有不同的安装方式，这取决于您要安装稳定版（推荐）还是开发版。"
 
@@ -110,24 +104,23 @@ msgstr "安装稳定版（推荐）"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:53
 msgid ""
-"The preferred way to install the |trends.earth| is through QGIS. To "
-"install from within QGIS, first launch QGIS, and then go to `Plugins` in "
-"the menu bar at the top of the program and select `Manage and install "
-"plugins`."
+"The preferred way to install the |trends.earth| is through QGIS. To install "
+"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
+"bar at the top of the program and select `Manage and install plugins`."
 msgstr ""
 "安装|trends.earth| 的首选方式是通过QGIS。要从 QGIS 中安装，首先启动 "
 "QGIS，然后转到程序顶部菜单栏中的“插件”，然后选择“管理和安装插件”。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:60
 msgid ""
-"Then search for a plugin called `trends.earth` and select `Install "
-"plugin` at the bottom right of the screen."
+"Then search for a plugin called `trends.earth` and select `Install plugin` "
+"at the bottom right of the screen."
 msgstr "然后搜索名为 \"trends.earth\" 的插件，并选择屏幕右下方的“安装插件”。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:66
 msgid ""
-"If your plugin has been installed properly, there will be a menu bar in "
-"the top left of your browser that looks like this:"
+"If your plugin has been installed properly, there will be a menu bar in the "
+"top left of your browser that looks like this:"
 msgstr "如果您的插件已正确安装，您的浏览器左上角会出现一个菜单栏，如下所示："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:73
@@ -149,19 +142,18 @@ msgstr "尝试在安装或升级插件后重新启动QGIS——这可以解决�
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:81
 msgid ""
-"If you are having a problem upgrading the plugin, try uninstalling the "
-"old version of Trends.Earth before installing the new one. This can be "
-"done from within the `Installed tab of the plugins window "
-"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html"
-"#the-installed-tab>`_."
+"If you are having a problem upgrading the plugin, try uninstalling the old "
+"version of Trends.Earth before installing the new one. This can be done from"
+" within the `Installed tab of the plugins window "
+"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html#the-"
+"installed-tab>`_."
 msgstr ""
-"如果您在升级插件时遇到问题，请尝试在安装新版本之前卸载旧版本的Trends.Earth。您可以从插件窗口<（https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html"
-"#the-installed-tab>'_的“已安装”选项卡中完成。"
+"如果您在升级插件时遇到问题，请尝试在安装新版本之前卸载旧版本的Trends.Earth。您可以从插件窗口<（https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html#the-"
+"installed-tab>'_的“已安装”选项卡中完成。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:86
 msgid ""
-"If the above don't work, please contact us at "
-"trends.earth@conservation.org."
+"If the above don't work, please contact us at trends.earth@conservation.org."
 msgstr "如果上述方法均不起作用，请通过trends.earth@conservation.org联系我们。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:89
@@ -185,8 +177,8 @@ msgstr "Trends.Earth 注册"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:103
 msgid ""
-"To Register, click the **Register for Trends.Earth (step 1)** button from"
-" the \"Settings\" dialog box under **Trends.Earth login information**."
+"To Register, click the **Register for Trends.Earth (step 1)** button from "
+"the \"Settings\" dialog box under **Trends.Earth login information**."
 msgstr "要注册，请在**Trends.Earth 登录信息** 下的“设置”对话框中单击**注册 Trends.Earth（步骤 1）** 按钮。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:108
@@ -201,22 +193,21 @@ msgstr "选择** Ok **，您将看到一条消息，表明您的用户已注册�
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:118
 msgid ""
-"4. After registering, you will receive an email from api@trends.earth "
-"with your password. If you don't see the email in your inbox after 15-20 "
-"seconds, please check your spam folder in case the email was sent there. "
-"Once you receive this email , click on \"Enter username and password "
-"(step 2)\". Enter the password you received from api@trends.earth and "
-"click \"OK\": :"
+"4. After registering, you will receive an email from api@trends.earth with "
+"your password. If you don't see the email in your inbox after 15-20 seconds,"
+" please check your spam folder in case the email was sent there. Once you "
+"receive this email , click on \"Enter username and password (step 2)\". "
+"Enter the password you received from api@trends.earth and click \"OK\": :"
 msgstr ""
 "4. 注册后，您将收到一封来自 api@trends.earth 的电子邮件，内含您的密码。如果您在 15-20 "
 "秒后未在收件箱中看到该邮件，请检查您的垃圾邮件文件夹，以防邮件被发送至那里。收到此邮件后，请点击“输入用户名和密码（第 2 步）”。输入您从 "
 "api@trends.earth 收到的密码，然后点击“确定”："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:124
-msgid "You will see a message indicating you have successfully been logged in:"
+msgid ""
+"You will see a message indicating you have successfully been logged in:"
 msgstr "您将看到一条消息，表明您已成功登录："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:129
 msgid "You are now ready to start using Trends.Earth!"
 msgstr "您现在可以开始使用Trends.Earth了！"
-

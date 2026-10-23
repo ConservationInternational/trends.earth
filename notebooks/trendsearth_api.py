@@ -110,9 +110,7 @@ class TrendsEarthAPIClient:
                     )
                 else:
                     # Default to 1 hour if not provided
-                    self.token_expires_at = datetime.now(UTC) + timedelta(
-                        hours=1
-                    )
+                    self.token_expires_at = datetime.now(UTC) + timedelta(hours=1)
 
                 if self.access_token:
                     # Set authorization header for future requests
@@ -190,9 +188,7 @@ class TrendsEarthAPIClient:
                     )
                 else:
                     # Default to 1 hour if not provided
-                    self.token_expires_at = datetime.now(UTC) + timedelta(
-                        hours=1
-                    )
+                    self.token_expires_at = datetime.now(UTC) + timedelta(hours=1)
 
                 if self.access_token:
                     # Update authorization header

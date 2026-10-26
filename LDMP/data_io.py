@@ -2251,8 +2251,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
         layer_name = self.get_layer_name(
             self.tr(
-                "Land productivity (imported - {datatype}, "
-                "{year_initial}-{year_final})"
+                "Land productivity (imported - {datatype}, {year_initial}-{year_final})"
             ).format(
                 datatype=self.datatype_cb.currentText(),
                 year_initial=int(self.spinBox_year_initial.text()),

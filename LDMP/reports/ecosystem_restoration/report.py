@@ -1,5 +1,6 @@
 """Ecosystem restoration progress report."""
 
+import datetime as dt
 from pathlib import Path
 
 from ...logger import log
@@ -10,6 +11,11 @@ from .writer.chart import (
     write_current_progress_indicator_chart,
     write_progress_to_bar_chart,
 )
+
+
+# QGIS print layout template of the report
+TEMPLATE_PATH = Path(__file__).parent / "template.qpt"
+INDICATOR_NAMES = ("indicator_1", "indicator_3", "indicator_4")
 
 
 def _log_export(chart_name: str, result: tuple[bool, list]) -> bool:
@@ -158,13 +164,61 @@ def _mock_data() -> IndicatorDataModel:
     )
 
 
-def generate_report(output_dir: Path) -> Path:
-    """Generate the report charts in output_dir and a PDF with all of them.
-    Returns the path of the PDF."""
+def _progress_variables(prefix: str, data: RestorationDataModel) -> dict[str, str]:
+    """
+    Target, reported progress, spatially supported area and target achieved
+    of the data, as the variables <prefix>_reporting_target, etc. Shown with
+    the unit in the template, e.g. "8,700 ha" and "77 %".
+    """
+    target = data.target or 0
+    reported_progress = data.reported_progress or 0
+    spatially_supported = data.spatially_supported or 0
+    return {
+        f"{prefix}_reporting_target": f"{target:,.0f}",
+        f"{prefix}_reported_progress": f"{reported_progress:,.0f}",
+        f"{prefix}_spatially_supported": f"{spatially_supported:,.0f}",
+        f"{prefix}_target_achieved": (
+            f"{spatially_supported / target * 100:.0f}" if target > 0 else "-"
+        ),
+    }
+
+
+def _report_variables(global_data: IndicatorDataModel) -> dict[str, str]:
+    """Values of the [% @te_restoration_... %] expressions in the template labels."""
+    variables = {
+        "te_restoration_reporting_scope": "Project 1",
+        "te_restoration_country": "Indonesia",
+        "te_restoration_gef_child_project": "ABC12345",
+        "te_restoration_analysis_area": "Indonesia",
+        "te_restoration_reporting_period": "2024 to 2026",
+        "te_restoration_report_generated": dt.date.today().strftime("%d %B %Y"),
+        "te_restoration_spatial_data_version": "0.0.1",
+    }
+
+    # All indicators, e.g. te_restoration_global_reporting_target
+    variables.update(_progress_variables("te_restoration_global", global_data))
+
+    for indicator_name, indicator in zip(
+        INDICATOR_NAMES, global_data.sub_indicator_data
+    ):
+        # Indicator
+        prefix = f"te_restoration_{indicator_name}"
+        variables.update(_progress_variables(prefix, indicator))
+
+        # Sub-indicators data
+        for number, sub_indicator in enumerate(indicator.sub_indicator_data, start=1):
+            variables.update(_progress_variables(f"{prefix}_{number}", sub_indicator))
+
+    return variables
+
+
+def generate_report(output_dir: Path) -> Path | None:
+    """Generate the report charts in output_dir and the PDF of the report.
+    Returns the path of the PDF, or None when it could not be exported."""
     global_data = _mock_data()
     indicators = global_data.sub_indicator_data
-    # Exported charts, in the order they are added to the PDF
-    chart_names = []
+    # Image of each picture item of the template, by item id
+    pictures = {}
 
     # All indicators
     if _log_export(
@@ -173,18 +227,20 @@ def generate_report(output_dir: Path) -> Path:
             global_data.label, indicators, output_dir, "summary"
         ),
     ):
-        chart_names.append("summary")
+        pictures["Global.SummaryChart"] = _chart_path(output_dir, "summary")
 
     # Generate each indicator
-    for indicator_name, indicator in zip(
-        ("indicator_1", "indicator_3", "indicator_4"), indicators
-    ):
+    for indicator_name, indicator in zip(INDICATOR_NAMES, indicators):
+        # Prefix of the indicator items in the template, e.g. Indicator_1
+        item_prefix = indicator_name.capitalize()
         chart_name = f"{indicator_name}_current_progress"
         if _log_export(
             chart_name,
             write_current_progress_indicator_chart(indicator, output_dir, chart_name),
         ):
-            chart_names.append(chart_name)
+            pictures[f"{item_prefix}.CurrentProgressChart"] = _chart_path(
+                output_dir, chart_name
+            )
 
         chart_name = f"summary_{indicator_name}"
         if _log_export(
@@ -196,9 +252,13 @@ def generate_report(output_dir: Path) -> Path:
                 chart_name,
             ),
         ):
-            chart_names.append(chart_name)
+            pictures[f"{item_prefix}.SubIndicatorChart"] = _chart_path(
+                output_dir, chart_name
+            )
 
     return write_pdf(
-        [_chart_path(output_dir, name) for name in chart_names],
+        TEMPLATE_PATH,
+        _report_variables(global_data),
+        pictures,
         output_dir / "ecosystem_restoration_report.pdf",
     )

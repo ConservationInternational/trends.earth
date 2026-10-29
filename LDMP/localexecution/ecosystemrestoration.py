@@ -25,13 +25,13 @@ def create_ecosystem_restoration_progress_report(
     }
     job_output_path.write_text(json.dumps(inputs, indent=2))
 
-    generate_report(job_output_path.parent)
+    pdf_path = generate_report(job_output_path.parent)
 
     job.end_date = dt.datetime.now(dt.timezone.utc)
     job.progress = 100
     job.results = FileResults(
         name="ecosystem_restoration",
-        uri=URI(uri=job_output_path),
+        uri=URI(uri=pdf_path or job_output_path),
         data=inputs,
     )
 

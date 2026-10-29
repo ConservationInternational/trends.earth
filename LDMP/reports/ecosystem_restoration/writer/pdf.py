@@ -1,58 +1,70 @@
-"""PDF of the ecosystem restoration progress report charts."""
+"""PDF of the ecosystem restoration progress report, from a QGIS print layout
+template (.qpt)."""
 
 from pathlib import Path
 
-from qgis.PyQt.QtCore import QMarginsF, QRectF
-from qgis.PyQt.QtGui import QImage, QPageLayout, QPageSize, QPainter, QPdfWriter
+from qgis.core import (
+    QgsExpressionContextUtils,
+    QgsLayoutExporter,
+    QgsLayoutItemPicture,
+    QgsPrintLayout,
+    QgsProject,
+    QgsReadWriteContext,
+)
+from qgis.PyQt.QtXml import QDomDocument
 
 from ....logger import log
 
-PDF_FULL_WIDTH_PX = 900
+try:
+    _EXPORT_SUCCESS = QgsLayoutExporter.Success
+except AttributeError:
+    _EXPORT_SUCCESS = QgsLayoutExporter.ExportResult.Success
 
 
-def _enum(cls, scope: str, name: str):
-    """Qt enum value for both Qt5 (cls.name) and Qt6 (cls.scope.name)."""
-    value = getattr(cls, name, None)
-    if value is not None:
-        return value
-    return getattr(getattr(cls, scope), name)
+def write_pdf(
+    template_path: Path,
+    variables: dict[str, str],
+    pictures: dict[str, Path],
+    pdf_path: Path,
+) -> Path | None:
+    """
+    Export the template as PDF.
 
+    variables are set as layout variables, used in the labels of the template
+    as [% @name %]. pictures maps the id of a picture item to its image, the
+    picture items without an image are hidden.
+    Returns the path of the PDF, or None when it could not be exported.
+    """
+    document = QDomDocument()
+    if not document.setContent(template_path.read_text(encoding="utf-8")):
+        log(f"Could not read the report template {template_path}")
+        return None
 
-def write_pdf(image_paths: list[Path], pdf_path: Path) -> Path:
-    """Write the images one below the other on A4 pages."""
-    writer = QPdfWriter(str(pdf_path))
-    writer.setPageSize(QPageSize(_enum(QPageSize, "PageSizeId", "A4")))
-    writer.setPageMargins(
-        QMarginsF(15, 15, 15, 15), _enum(QPageLayout, "Unit", "Millimeter")
+    # The layout belongs to a project of its own, not to the opened project
+    project = QgsProject()
+    layout = QgsPrintLayout(project)
+    _, loaded = layout.loadFromTemplate(document, QgsReadWriteContext())
+    if not loaded:
+        log(f"Could not load the report template {template_path}")
+        return None
+
+    for name, value in variables.items():
+        QgsExpressionContextUtils.setLayoutVariable(layout, name, value)
+
+    for item in layout.items():
+        if not isinstance(item, QgsLayoutItemPicture):
+            continue
+        image_path = pictures.get(item.id())
+        if image_path is not None and image_path.exists():
+            item.setPicturePath(str(image_path))
+        else:
+            item.setVisibility(False)
+
+    result = QgsLayoutExporter(layout).exportToPdf(
+        str(pdf_path), QgsLayoutExporter.PdfExportSettings()
     )
-    writer.setResolution(150)
-
-    painter = QPainter(writer)
-    try:
-        page_width = writer.width()
-        page_height = writer.height()
-        spacing = page_height * 0.02
-        y = 0.0
-        for image_path in image_paths:
-            image = QImage(str(image_path))
-            if image.isNull():
-                log(f"Image {image_path.name} could not be added to the PDF")
-                continue
-
-            # Keep the relative size of the charts, a full width chart fills
-            # the page width
-            width = min(page_width, page_width * image.width() / PDF_FULL_WIDTH_PX)
-            height = image.height() * width / image.width()
-            if height > page_height:
-                width *= page_height / height
-                height = page_height
-            if y > 0 and y + height > page_height:
-                writer.newPage()
-                y = 0.0
-
-            painter.drawImage(QRectF((page_width - width) / 2, y, width, height), image)
-            y += height + spacing
-    finally:
-        painter.end()
+    if result != _EXPORT_SUCCESS:
+        log(f"Could not export the report PDF {pdf_path.name}: {result}")
+        return None
 
     return pdf_path

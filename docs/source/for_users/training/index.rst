@@ -8,6 +8,7 @@ Training Manual
    :caption: Training Manual
 
    Settings <settings>
+   High-resolution SDG 15.3.1 (30m, SIDS) <sdg1531_high_resolution>
    Land Degradation <landdegradation>
    Drought <drought>
    UNCCD Reporting <unccdreporting>

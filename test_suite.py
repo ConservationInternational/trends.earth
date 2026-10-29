@@ -89,7 +89,9 @@ def test_e2e(package="test"):
         package, pattern="test_remote_pipelines.py"
     )
     test_suite.addTests(
-        unittest.defaultTestLoader.discover(package, pattern="test_custom_population.py")
+        unittest.defaultTestLoader.discover(
+            package, pattern="test_custom_population.py"
+        )
     )
     if not _run_tests(test_suite, package).wasSuccessful():
         raise AssertionError("End-to-end tests failed")

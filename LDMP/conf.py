@@ -637,6 +637,28 @@ _ALGORITHM_CONFIG = [
             },
         ],
     },
+    {
+        "name": tr_conf.tr("Ecosystems Restoration Monitoring"),
+        "algorithms": [
+            {
+                "id": "00cb877f-9c91-4b85-8450-ba73b8549887",
+                "name": tr_conf.tr("Reporting Restoration Progress"),
+                "description": tr_conf.tr(
+                    "Tools for creating, monitoring, and reporting on GEF-8 "
+                    "Ecosystem Restoration Integrated Program (ERIP) core spatial "
+                    "indicators - tracking terrestrial protected areas under "
+                    "improved management, land and ecosystems under restoration, "
+                    "and landscapes under improved management practices."
+                ),
+                "scripts": [
+                    {
+                        "script": KNOWN_SCRIPTS["ecosystem-restoration-progress-local"],
+                        "parametrization_dialogue": "LDMP.ecosystems_restoration_monitoring.DlgEcosystemReportingRestorationProgress",
+                    },
+                ],
+            },
+        ],
+    },
 ]
 
 

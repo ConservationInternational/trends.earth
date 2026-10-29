@@ -205,5 +205,13 @@
         "name_readable": "LDN Counterbalancing Assessment",
         "run_mode": "local",
         "version": "2.3.2"
+    },
+    {
+        "description": "Report progress on Ecosystem Restoration Monitoring.",
+        "execution_callable": "LDMP.localexecution.ecosystemrestoration.create_ecosystem_restoration_progress_report",
+        "name": "ecosystem-restoration-progress-local",
+        "name_readable": "Reporting Restoration Progress",
+        "run_mode": "local",
+        "version": "2.3.2"
     }
 ]

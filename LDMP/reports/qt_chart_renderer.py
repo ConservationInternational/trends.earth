@@ -424,7 +424,18 @@ class QtChartRenderer:
                         self._format_number(value),
                     )
                 elif not stacked:
-                    label_width = max(width, 60)
+                    label = self._format_number(value)
+                    # Custom text of the bar, unless plotly formats it with a texttemplate
+                    texts = trace.get("text")
+                    if (
+                        not trace.get("texttemplate")
+                        and isinstance(texts, (list, tuple))
+                        and category_index < len(texts)
+                    ):
+                        label = self._plain_text(texts[category_index])
+                    label_width = max(
+                        width, 60, painter.fontMetrics().horizontalAdvance(label) + 8
+                    )
                     label_y = rect.top() - 22 if value >= 0 else rect.bottom() + 2
                     painter.setPen(QColor("#1f2933"))
                     painter.drawText(
@@ -435,7 +446,7 @@ class QtChartRenderer:
                             20,
                         ),
                         align_center,
-                        self._format_number(value),
+                        label,
                     )
 
         if show_legend:

@@ -9,6 +9,7 @@ from .model import IndicatorDataModel, RestorationDataModel, SpatialSupportedOve
 from .writer.pdf import write_pdf
 from .writer.chart import (
     write_current_progress_indicator_chart,
+    write_progress_over_time_chart,
     write_progress_to_bar_chart,
 )
 
@@ -239,6 +240,15 @@ def generate_report(output_dir: Path) -> Path | None:
             write_current_progress_indicator_chart(indicator, output_dir, chart_name),
         ):
             pictures[f"{item_prefix}.CurrentProgressChart"] = _chart_path(
+                output_dir, chart_name
+            )
+
+        chart_name = f"{indicator_name}_progress_over_time"
+        if _log_export(
+            chart_name,
+            write_progress_over_time_chart(indicator, output_dir, chart_name),
+        ):
+            pictures[f"{item_prefix}.ProgressOverTimeChart"] = _chart_path(
                 output_dir, chart_name
             )
 

@@ -1,4 +1,4 @@
-"""Vertical grouped bar chart."""
+"""Vertical bar chart."""
 
 import typing
 from dataclasses import dataclass
@@ -46,10 +46,10 @@ class BarChart(BaseChart):
         self.axis_color: typing.Optional[str] = kwargs.pop("axis_color", None)
         self.grid_color: typing.Optional[str] = kwargs.pop("grid_color", None)
 
-        self.font_size_title: int = kwargs.pop("font_size_title", 18)
-        self.font_size_body: int = kwargs.pop("font_size_body", 13)
-        self.font_size_legend: int = kwargs.pop("font_size_legend", 13)
-        self.font_size_labels: int = kwargs.pop("font_size_labels", 11)
+        self.font_size_title: int = kwargs.pop("font_size_title", 36)
+        self.font_size_body: int = kwargs.pop("font_size_body", 26)
+        self.font_size_legend: int = kwargs.pop("font_size_legend", 26)
+        self.font_size_labels: int = kwargs.pop("font_size_labels", 22)
 
     @property
     def preferred_size(self) -> tuple[int, int]:

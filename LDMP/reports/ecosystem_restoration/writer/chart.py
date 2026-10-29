@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import List
 
 from ...chart_type.bar_chart import BarChart, BarSeries
+from ...chart_type.line_chart import LineChart, LineSeries
 from ..model import RestorationDataModel
 from ..styles import (
     tr_ecosystem_restoration,
@@ -37,7 +38,7 @@ def write_progress_to_bar_chart(
 
     chart = BarChart(
         root_output_dir=str(output_dir),
-        size=(1500, 700),
+        size=(1000, 510),
         categories=[tr(d.label) for d in data],
         series=[
             BarSeries(tr("Country target"), targets, TARGET_COLOR),
@@ -71,7 +72,7 @@ def write_current_progress_indicator_chart(
 
     chart = BarChart(
         root_output_dir=str(output_dir),
-        size=(450, 360),
+        size=(760, 460),
         show_legend=False,
         categories=[tr("Target"), tr("Reported"), tr("Spatially supported")],
         series=[
@@ -92,4 +93,48 @@ def write_current_progress_indicator_chart(
     chart.plot_title = tr("Current progress")
     chart.value_axis_label = tr("Area (ha)")
 
+    return chart.export()
+
+
+def write_progress_over_time_chart(
+    data: RestorationDataModel, output_dir: Path, chart_name: str
+) -> tuple[bool, list]:
+    """Save the progress over time chart of the data as line chart."""
+    tr = tr_ecosystem_restoration.tr
+    points = sorted(data.spatially_supported_overtime or [], key=lambda p: p.year)
+    if not points:
+        return False, ["No spatially supported area over time."]
+
+    years = [point.year for point in points]
+    target = float(data.target or 0)
+
+    chart = LineChart(
+        root_output_dir=str(output_dir),
+        size=(760, 460),
+        series=[
+            LineSeries(
+                tr("Spatially supported area"),
+                years,
+                [float(point.value or 0) for point in points],
+                REPORTED_COLOR,
+                fill=True,
+            ),
+            LineSeries(
+                tr("Target"),
+                years,
+                [target] * len(years),
+                TARGET_COLOR,
+                dash="dash",
+                width=2.5,
+                markers=False,
+            ),
+        ],
+        font_family=FONT_FAMILY,
+        text_color=TEXT_COLOR,
+        axis_color=AXIS_COLOR,
+        grid_color=GRID_COLOR,
+    )
+    chart.base_chart_name = chart_name
+    chart.plot_title = tr("Progress over time")
+    chart.value_axis_label = tr("Area (ha)")
     return chart.export()

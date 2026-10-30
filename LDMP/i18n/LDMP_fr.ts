@@ -187,14 +187,19 @@
 <context>
     <name>DatasetDetailsDialogue</name>
     <message>
-        <location filename="../datasets_dialog.py" line="177"/>
+        <location filename="../datasets_dialog.py" line="178"/>
         <source>Error exporting dataset {self.job}</source>
         <translation>Erreur d'exportation du jeu de données {self.job}</translation>
     </message>
     <message>
-        <location filename="../datasets_dialog.py" line="182"/>
+        <location filename="../datasets_dialog.py" line="197"/>
         <source>Dataset exported to {target_path!r}</source>
         <translation>Ensemble de données exporté vers {target_path!r}</translation>
+    </message>
+    <message>
+        <location filename="../datasets_dialog.py" line="188"/>
+        <source>Dataset exported to {target_path!r}, but {len(summary.missing_files)} referenced file(s) could not be found. Some layers in the export may not load.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -548,58 +553,103 @@
         <translation>Ensemble de données sur la sécheresse pour la vulnérabilité</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="223"/>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="294"/>
         <source>The current selected region of interest</source>
         <translation>La région d'intérêt actuellement sélectionnée</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="236"/>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="307"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; Ouvre le dialogue de paramétrage afin de modifier la région d'intérêt. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="239"/>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="310"/>
         <source>Change region</source>
         <translation>Changer de région</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="248"/>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="319"/>
         <source>Execution name:</source>
         <translation>Nom de l'exécution :</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="255"/>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="326"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Entrée pour le nom qui sera attribué à la tâche d'exécution ; s'il n'est pas rempli, le nom de l'algorithme sera utilisé comme nom de la tâche.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="262"/>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="333"/>
         <source>Notes:</source>
         <translation>Remarques:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="287"/>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="358"/>
         <source>User notes associated with the executed task.</source>
         <translation>Notes de l'utilisateur associées à la tâche exécutée.</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="339"/>
+        <location filename="../calculate_drought_vulnerability.py" line="394"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="302"/>
+        <location filename="../calculate_drought_vulnerability.py" line="325"/>
         <source>You must select a {dataset_name} layer before you can use the drought tool.</source>
         <translation>Vous devez sélectionner une couche {dataset_name} avant de pouvoir utiliser l'outil de sécheresse.</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="339"/>
+        <location filename="../calculate_drought_vulnerability.py" line="379"/>
         <source>Area of interest is not entirely within the drought dataset.</source>
         <translation>La région d'intérêt n'est pas entièrement dans l'ensemble de données sur la sécheresse.</translation>
     </message>
     <message>
-        <location filename="../calculate_drought_vulnerability.py" line="283"/>
-        <source>&lt;h3&gt;Drought summary&lt;/h3&gt;&lt;p&gt;This tool facilitates summarizing indicators of drought vulnerability for assessment of maximum drought (over four year periods within the interval selected). The output of this tool can be used to assess drought indicators within a particular region, or to prepare data for reporting to UNCCD on Strategic Objective 3.&lt;/p&gt;&lt;p&gt;&lt;a href=&apos;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&apos;&gt;More information&lt;/a&gt;&lt;/p&gt;</source>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="188"/>
+        <source>Population exposed to drought</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="194"/>
+        <source>Use annual population from the drought dataset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="202"/>
+        <source>Alternatively, select a fixed population scenario below. The selected population is used for every drought year, not as an annual population time series.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="214"/>
+        <source>Total population</source>
+        <translation>Population totale</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="226"/>
+        <source>Population broken down by sex</source>
+        <translation>Population ventilée par sexe</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="231"/>
+        <source>Male population</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateDroughtSummary.ui" line="243"/>
+        <source>Female population</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_drought_vulnerability.py" line="302"/>
+        <source>&lt;h3&gt;Drought summary&lt;/h3&gt;&lt;p&gt;This tool facilitates summarizing indicators of drought vulnerability for assessment of maximum drought (over four year periods within the interval selected). The output of this tool can be used to assess drought indicators within a particular region, or to prepare data for reporting to UNCCD on Strategic Objective 3.&lt;/p&gt;&lt;p&gt;By default, annual population comes from the drought dataset. Alternatively, select total population or male and female population layers for a fixed-population scenario. These layers are used for every drought year; male and female layers must use the same year.&lt;/p&gt;&lt;p&gt;&lt;a href=&apos;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&apos;&gt;More information&lt;/a&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_drought_vulnerability.py" line="358"/>
+        <source>Male and female population layers must use the same year.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_drought_vulnerability.py" line="394"/>
+        <source>Area of interest is not entirely within the selected population layer.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2664,12 +2714,12 @@
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="1359"/>
+        <location filename="../data_io.py" line="1366"/>
         <source>Missing or invalid CRS for input file.</source>
         <translation>CRS manquant ou invalide pour le fichier d'entrée.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1384"/>
+        <location filename="../data_io.py" line="1391"/>
         <source>Output file will be resized to &apos;{reg_name}&apos; extent.</source>
         <translation>Le fichier de sortie sera redimensionné à l'étendue « {reg_name} ».</translation>
     </message>
@@ -2750,23 +2800,48 @@
         <translation>Charger un ensemble de données démographiques personnalisé</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOImportPopulation.ui" line="38"/>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="41"/>
         <source>Population type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOImportPopulation.ui" line="44"/>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="50"/>
         <source>Total population</source>
         <translation>Population totale</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOImportPopulation.ui" line="54"/>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="60"/>
         <source>Male population</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOImportPopulation.ui" line="61"/>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="67"/>
         <source>Female population</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="76"/>
+        <source>Input population units</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="95"/>
+        <source>People per pixel (counts; raster only)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="96"/>
+        <source>People per hectare (density)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="97"/>
+        <source>People per square kilometre (density)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOImportPopulation.ui" line="108"/>
+        <source>Imported values are stored as people per hectare before resampling. For vector inputs, supply a density attribute, not a total per polygon.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2825,9 +2900,9 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 ou -32 768 : aucune donnée&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2147"/>
-        <source>Land productivity (imported - {self.datatype_cb.currentText()})</source>
-        <translation>Productivité des terres (importée - {self.datatype_cb.currentText()})</translation>
+        <location filename="../data_io.py" line="2252"/>
+        <source>Land productivity (imported - {datatype}, {year_initial}-{year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6516,258 +6591,273 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_data_io</name>
     <message>
-        <location filename="../data_io.py" line="741"/>
+        <location filename="../data_io.py" line="748"/>
         <source>Could not load file</source>
         <translation>Impossible de charger le fichier</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="786"/>
+        <location filename="../data_io.py" line="793"/>
         <source>Could not parse the selected file into a valid JSON</source>
         <translation>Impossible d'analyser le fichier sélectionné dans un format JSON valide</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="944"/>
+        <location filename="../data_io.py" line="951"/>
         <source>Select a raster input file</source>
         <translation>Sélectionner un fichier d'entrée raster</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="944"/>
+        <location filename="../data_io.py" line="951"/>
         <source>Raster file (*.tif *.dat *.img *.vrt)</source>
         <translation>Fichier de données tramées (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2852"/>
+        <location filename="../data_io.py" line="2966"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="984"/>
+        <location filename="../data_io.py" line="991"/>
         <source>Select a vector input file</source>
         <translation>Sélectionner un fichier d'entrée de vecteur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="984"/>
+        <location filename="../data_io.py" line="991"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Fichier vectoriel (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1070"/>
+        <location filename="../data_io.py" line="1077"/>
         <source>Choose a name for the output file</source>
         <translation>Choisir un nom pour le fichier de sortie</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1070"/>
+        <location filename="../data_io.py" line="1077"/>
         <source>Raster file (*.tif)</source>
         <translation>Fichier raster (* .tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1221"/>
+        <location filename="../data_io.py" line="1228"/>
         <source>Metadata</source>
         <translation>Métadonnées</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1669"/>
+        <location filename="../data_io.py" line="1682"/>
         <source>Choose an input raster file.</source>
         <translation>Choisir un fichier raster en entrée.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1680"/>
+        <location filename="../data_io.py" line="1693"/>
         <source>Choose an input polygon dataset.</source>
         <translation>Choisir un jeu de données polygone en entrée.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1515"/>
+        <location filename="../data_io.py" line="1522"/>
         <source>Vector remapping failed.</source>
         <translation>Le remappage du vecteur a échoué.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1537"/>
+        <location filename="../data_io.py" line="1544"/>
         <source>Raster remapping failed.</source>
         <translation>Échec du remappage de la trame.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1561"/>
+        <location filename="../data_io.py" line="1569"/>
         <source>Rasterizing failed.</source>
         <translation>Échec du tramage.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1616"/>
+        <location filename="../data_io.py" line="1624"/>
         <source>Raster import failed.</source>
         <translation>L'importation raster a échoué.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1908"/>
+        <location filename="../data_io.py" line="2013"/>
         <source>Enter the year of the input data.</source>
         <translation>Entrez l'année des données d'entrée.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2108"/>
+        <location filename="../data_io.py" line="2213"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="128"/>
+        <location filename="../data_io.py" line="135"/>
         <source>No layers available in this region</source>
         <translation>Aucune couche disponible dans cette région</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2852"/>
+        <location filename="../data_io.py" line="2966"/>
         <source>Select a layer to load.</source>
         <translation>Sélectionner une couche à charger.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="132"/>
+        <location filename="../data_io.py" line="139"/>
         <source>No datasets available in this region</source>
         <translation>Aucun ensemble de données disponible dans cette région</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2002"/>
+        <location filename="../data_io.py" line="2107"/>
         <source>Soil organic carbon ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
         <translation>Carbone organique du sol ({int(self.input_widget.spinBox_data_year.text())}, importé)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="124"/>
+        <location filename="../data_io.py" line="131"/>
         <source>Select a region first</source>
         <translation>Sélectionnez d'abord une région</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1169"/>
+        <location filename="../data_io.py" line="1176"/>
         <source>Clip to region</source>
         <translation>Limiter à la région</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1312"/>
+        <location filename="../data_io.py" line="1319"/>
         <source>No region selected. Select a region or uncheck &apos;Clip to region&apos; to import the full dataset.</source>
         <translation>Aucune région sélectionnée. Sélectionnez une région ou décochez « Limiter à la région » pour importer l'ensemble complet des données.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1424"/>
+        <location filename="../data_io.py" line="1431"/>
         <source>No region is selected. Either select a region or uncheck &apos;Clip to region&apos; to import the full dataset extent.</source>
         <translation>Aucune région n'est sélectionnée. Sélectionnez une région ou décochez « Clipper à la région » pour importer l'intégralité de l'ensemble de données.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2422"/>
+        <location filename="../data_io.py" line="2534"/>
         <source>Please select a region in the Trends.Earth settings before using {tool_name}.</source>
         <translation>Veuillez sélectionner une région dans les paramètres de Trends.Earth avant d'utiliser {tool_name}.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2431"/>
+        <location filename="../data_io.py" line="2543"/>
         <source>You must select a {layer_name} layer before you can use {tool_name}.</source>
         <translation>Vous devez sélectionner un calque {layer_name} avant de pouvoir utiliser {tool_name}.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1183"/>
+        <location filename="../data_io.py" line="1190"/>
         <source>Input file</source>
         <translation>Fichier d'entrée</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1202"/>
+        <location filename="../data_io.py" line="1209"/>
         <source>Settings</source>
         <translation>Réglages</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1213"/>
+        <location filename="../data_io.py" line="1220"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1242"/>
+        <location filename="../data_io.py" line="1249"/>
         <source>Layer name:</source>
         <translation>Nom du calque :</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1247"/>
+        <location filename="../data_io.py" line="1254"/>
         <source>Name that will be assigned to the imported layer.</source>
         <translation>Nom qui sera attribué au calque importé.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1253"/>
+        <location filename="../data_io.py" line="1260"/>
         <source>Notes:</source>
         <translation>Remarques:</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1258"/>
+        <location filename="../data_io.py" line="1265"/>
         <source>Notes associated with the imported layer.</source>
         <translation>Notes associées au calque importé.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2053"/>
+        <location filename="../data_io.py" line="2158"/>
         <source>On the settings tab, enter the intial and final year applying to this input data.</source>
         <translation>Dans l'onglet Paramètres, saisissez l'année initiale et l'année finale applicables à ces données d'entrée.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="959"/>
+        <location filename="../data_io.py" line="966"/>
         <source>Cannot read {raster_file}. Choose a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="999"/>
+        <location filename="../data_io.py" line="1006"/>
         <source>Cannot read {vector_file}. Choose a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1086"/>
+        <location filename="../data_io.py" line="1093"/>
         <source>Cannot write to {raw_output_path}. Choose a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1697"/>
+        <location filename="../data_io.py" line="1710"/>
         <source>Cannot process {in_file}. Unknown geometry type:{layer.wkbType()}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1933"/>
+        <location filename="../data_io.py" line="2038"/>
         <source>The chosen field ({field}) is not numeric. Choose a numeric field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1822"/>
-        <source>The input file ({in_file}) does not appear to be a valid population input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1835"/>
+        <location filename="../data_io.py" line="1922"/>
         <source>The input file ({in_file}) does not appear to be a valid population input file. The minimum value in this file is {stats[0]}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1848"/>
-        <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {stats[1]}. The maximum value allowed is {max_max} tonnes / hectare.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1947"/>
+        <location filename="../data_io.py" line="2052"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1960"/>
+        <location filename="../data_io.py" line="2065"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {stats[0]}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1973"/>
+        <location filename="../data_io.py" line="2078"/>
         <source>The input file ({in_file}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {stats[1]}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2081"/>
+        <location filename="../data_io.py" line="2186"/>
         <source>The chosen field ({field}) is not numeric. Choose a field that contains numbers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2095"/>
+        <location filename="../data_io.py" line="2200"/>
         <source>The input file ({in_file}) does not appear to be a valid productivity input file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="2108"/>
+        <location filename="../data_io.py" line="2213"/>
         <source>The input file ({in_file}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {len(invalid_values)} value(s) in the input file that were not recognized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1878"/>
+        <location filename="../data_io.py" line="1986"/>
         <source>{population_type.capitalize()} population ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1846"/>
+        <source>Vector population inputs must contain density (people per hectare or square kilometre), not counts per polygon.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1874"/>
+        <source>Incompatible population grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1909"/>
+        <source>The input file ({in_file}) does not appear to be a valid population input file. The file must contain non-negative population values in the selected units.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1935"/>
+        <source>The input file ({in_file}) does not appear to be a valid population input file. The maximum value in this file is {stats[1]}. The maximum value allowed is {max_max} in the selected units.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1955"/>
+        <source>Population import failed: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7287,182 +7377,182 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation>Population ({type}, {year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="320"/>
+        <location filename="../layers.py" line="324"/>
         <source>Population density ({year}, per sq km / 10)</source>
         <translation>Densité de la population ({year}, par km² / 10)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="323"/>
+        <location filename="../layers.py" line="330"/>
         <source>Population exposed to degradation (population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})</source>
         <translation>Population exposée à la dégradation (population en {population_year}, par km² / 10, période de dégradation {deg_year_initial}-{deg_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="326"/>
+        <location filename="../layers.py" line="333"/>
         <source>Population exposed to degradation ({type} population in {population_year}, degradation period {deg_year_initial}-{deg_year_final})</source>
         <translation>Population exposée à la dégradation ({type} de population en {population_year}, période de dégradation {deg_year_initial}-{deg_year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="329"/>
+        <location filename="../layers.py" line="336"/>
         <source>Population density at maximum drought (density per sq km / 10, {year_initial}-{year_final} period)</source>
         <translation>Densité de la population au moment de la sécheresse maximale (densité par km² / 10, période {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="332"/>
+        <location filename="../layers.py" line="339"/>
         <source>Population at maximum drought ({type}, {year_initial}-{year_final} period)</source>
         <translation>Population à la sécheresse maximale ({type}, période {year_initial}-{year_final})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="336"/>
+        <location filename="../layers.py" line="343"/>
         <source>Standardized Precipitation Index (SPI, {year}, {lag} month lag, * 1000)</source>
         <translation>Indice de précipitations normalisé (SPI, {year}, {lag} mois de décalage, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="339"/>
+        <location filename="../layers.py" line="346"/>
         <source>SPI at maximum drought during {year_initial}-{year_final} ({lag} month lag, * 1000)</source>
         <translation>Indice SPI à la sécheresse maximale pendant {year_initial}-{year_final} ({lag} mois de décalage, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="342"/>
+        <location filename="../layers.py" line="349"/>
         <source>Drought Vulnerability (JRC, {year}, * 1000)</source>
         <translation>Vulnérabilité à la sécheresse (JRC, {year}, * 1000)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="362"/>
+        <location filename="../layers.py" line="369"/>
         <source>Extreme drought</source>
         <translation>Sécheresse extrême</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="363"/>
+        <location filename="../layers.py" line="370"/>
         <source>Severe drought</source>
         <translation>Sécheresse grave</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="364"/>
+        <location filename="../layers.py" line="371"/>
         <source>Moderate drought</source>
         <translation>Sécheresse modérée</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="365"/>
+        <location filename="../layers.py" line="372"/>
         <source>Mild drought</source>
         <translation>Sécheresse légère</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="366"/>
+        <location filename="../layers.py" line="373"/>
         <source>Normal</source>
         <translation>Normale</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="367"/>
+        <location filename="../layers.py" line="374"/>
         <source>Mildly wet</source>
         <translation>Légèrement humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="368"/>
+        <location filename="../layers.py" line="375"/>
         <source>Moderately wet</source>
         <translation>Modérément humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="369"/>
+        <location filename="../layers.py" line="376"/>
         <source>Severely wet</source>
         <translation>Fortement humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="370"/>
+        <location filename="../layers.py" line="377"/>
         <source>Extremely wet</source>
         <translation>Extrêmement humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="372"/>
+        <location filename="../layers.py" line="379"/>
         <source>Biomass (tonnes CO2e per ha, {year})</source>
         <translation>Biomasse (tonnes de CO2e par ha, {year})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="373"/>
+        <location filename="../layers.py" line="380"/>
         <source>Change in biomass (tonnes CO2e per ha, {type} after {years} years)</source>
         <translation>Modification de la biomasse (tonnes de CO2e par ha, {type} après {years} années)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="377"/>
+        <location filename="../layers.py" line="384"/>
         <source>Agro Ecological Zones V3.0</source>
         <translation>Zones agroécologiques V3.0</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="378"/>
+        <location filename="../layers.py" line="385"/>
         <source>Climatic Zones</source>
         <translation>Zones climatiques</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="380"/>
+        <location filename="../layers.py" line="387"/>
         <source>Hansen</source>
         <translation>Hansen</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="382"/>
+        <location filename="../layers.py" line="389"/>
         <source>MOD16A2</source>
         <translation>MOD16A2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="384"/>
+        <location filename="../layers.py" line="391"/>
         <source>CHIRPS</source>
         <translation>CHIRPS</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="385"/>
+        <location filename="../layers.py" line="392"/>
         <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
         <translation>GPCC V7 (Global Precipitation Climatology Center)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="386"/>
+        <location filename="../layers.py" line="393"/>
         <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
         <translation>GPCP v2.3 1 mois (Global Precipitation Climatology Project)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="389"/>
+        <location filename="../layers.py" line="396"/>
         <source>PERSIANN-CDR</source>
         <translation>PERSIANN-CDR</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="391"/>
+        <location filename="../layers.py" line="398"/>
         <source>ERA I</source>
         <translation>ERA I</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="392"/>
+        <location filename="../layers.py" line="399"/>
         <source>MERRA 2</source>
         <translation>MERRA 2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="394"/>
+        <location filename="../layers.py" line="401"/>
         <source>MODIS (MOD13Q1, annual)</source>
         <translation>MODIS (MOD13Q1, annuel)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="395"/>
+        <location filename="../layers.py" line="402"/>
         <source>AVHRR (GIMMS3g.v1, annual)</source>
         <translation>AVHRR (GIMMS3g.v1, annuel)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="396"/>
+        <location filename="../layers.py" line="403"/>
         <source>MODIS (MOD13Q1, 16 day)</source>
         <translation>MODIS (MOD13Q1, 16 jours)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="401"/>
+        <location filename="../layers.py" line="408"/>
         <source>Soil Grids 250</source>
         <translation>Grilles de sol 250</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="399"/>
+        <location filename="../layers.py" line="406"/>
         <source>USDA Soil Type</source>
         <translation>Type de sol USDA</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="851"/>
+        <location filename="../layers.py" line="858"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="851"/>
+        <location filename="../layers.py" line="858"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>Trends.Earth n&amp;#39;a pas de style attribué à &amp;quot;{}&amp;quot; (bande {} en {}). Pour utiliser cette couche, ajoutez-la manuellement à votre carte.</translation>
     </message>
@@ -7582,12 +7672,12 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="355"/>
+        <location filename="../layers.py" line="362"/>
         <source>Standardized Precipitation Evapotranspiration Index (SPEI, {year}, {lag} month lag, * 1000)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="359"/>
+        <location filename="../layers.py" line="366"/>
         <source>SPEI at maximum drought during {year_initial}-{year_final} ({lag} month lag, * 1000)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7634,6 +7724,21 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
     <message>
         <location filename="../layers.py" line="215"/>
         <source>Land productivity dynamics (FWv2, {year_initial}-{year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="321"/>
+        <source>Population ({type}, {year}, {units})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="327"/>
+        <source>Population density ({year}, {units})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="320"/>
+        <source>Population ({year}, {units})</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8012,7 +8117,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_worker</name>
     <message>
-        <location filename="../worker.py" line="264"/>
+        <location filename="../worker.py" line="271"/>
         <source>Processing: {process_name}</source>
         <translation type="unfinished"></translation>
     </message>

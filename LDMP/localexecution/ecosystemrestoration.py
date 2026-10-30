@@ -1,3 +1,4 @@
+import csv
 import datetime as dt
 import json
 from pathlib import Path
@@ -18,14 +19,26 @@ def create_ecosystem_restoration_progress_report(
     killed_callback,
 ) -> Job:
     """Calculation function for ecosystem restoration progress."""
+    data_csv = job.params.get("data_csv")
     inputs = {
         "region": area_of_interest.get_geojson() if area_of_interest else None,
         "execution_name": job.task_name,
         "notes": job.task_notes,
+        "data_csv": data_csv,
     }
     job_output_path.write_text(json.dumps(inputs, indent=2))
 
-    pdf_path = generate_report(job_output_path.parent)
+    if not data_csv:
+        raise ValueError("No report data CSV was given.")
+    if not Path(data_csv).is_file():
+        raise FileNotFoundError(f"Report data CSV not found: {data_csv}")
+
+    with open(data_csv, newline="", encoding="utf-8") as csv_file:
+        data = list(csv.DictReader(csv_file))
+    if not data:
+        raise ValueError(f"Report data CSV has no rows: {data_csv}")
+
+    pdf_path = generate_report(job_output_path.parent, data)
 
     job.end_date = dt.datetime.now(dt.timezone.utc)
     job.progress = 100

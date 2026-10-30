@@ -31,146 +31,114 @@ def _chart_path(output_dir: Path, chart_name: str) -> Path:
     return output_dir / f"{slugify(f'chart-{chart_name}')}.png"
 
 
-def _mock_data() -> IndicatorDataModel:
-    """Mock the data until the report inputs are available."""
-    return IndicatorDataModel(
-        "Progress against reporting targets",
-        [
-            IndicatorDataModel(
-                "Indicator 1: Under improved management",
-                sub_indicator_data=[
-                    RestorationDataModel(
-                        label="1.1 Protected areas newly created",
-                        target=500,
-                        reported_progress=450,
-                        spatially_supported=400,
-                        spatially_supported_overtime=[
-                            SpatialSupportedOvertime(2024, 0),
-                            SpatialSupportedOvertime(2025, 200),
-                            SpatialSupportedOvertime(2026, 400),
-                        ],
-                    ),
-                    RestorationDataModel(
-                        label="1.2 Improved management effectiveness",
-                        target=2000,
-                        reported_progress=1750,
-                        spatially_supported=1600,
-                        spatially_supported_overtime=[
-                            SpatialSupportedOvertime(2024, 0),
-                            SpatialSupportedOvertime(2025, 800),
-                            SpatialSupportedOvertime(2026, 1600),
-                        ],
-                    ),
-                ],
-            ),
-            IndicatorDataModel(
-                "Indicator 3: Under restoration",
-                sub_indicator_data=[
-                    RestorationDataModel(
-                        label="3.1 Degraded agricultural lands",
-                        target=900,
-                        reported_progress=800,
-                        spatially_supported=700,
-                        spatially_supported_overtime=[
-                            SpatialSupportedOvertime(2024, 0),
-                            SpatialSupportedOvertime(2025, 300),
-                            SpatialSupportedOvertime(2026, 700),
-                        ],
-                    ),
-                    RestorationDataModel(
-                        label="3.2 Forest and forest land",
-                        target=1700,
-                        reported_progress=1350,
-                        spatially_supported=1200,
-                        spatially_supported_overtime=[
-                            SpatialSupportedOvertime(2024, 0),
-                            SpatialSupportedOvertime(2025, 600),
-                            SpatialSupportedOvertime(2026, 1200),
-                        ],
-                    ),
-                    RestorationDataModel(
-                        label="3.3 Natural grasslands and woodlands",
-                        target=700,
-                        reported_progress=500,
-                        spatially_supported=400,
-                        spatially_supported_overtime=[
-                            SpatialSupportedOvertime(2024, 0),
-                            SpatialSupportedOvertime(2025, 200),
-                            SpatialSupportedOvertime(2026, 400),
-                        ],
-                    ),
-                    RestorationDataModel(
-                        label="3.4 Wetlands, estuaries and mangroves",
-                        target=500,
-                        reported_progress=350,
-                        spatially_supported=300,
-                        spatially_supported_overtime=[
-                            SpatialSupportedOvertime(2024, 0),
-                            SpatialSupportedOvertime(2025, 150),
-                            SpatialSupportedOvertime(2026, 300),
-                        ],
-                    ),
-                ],
-            ),
-            IndicatorDataModel(
-                "Indicator 4: Under improved practices",
-                sub_indicator_data=[
-                    RestorationDataModel(
-                        label="4.1 Management benefiting biodiversity",
-                        target=900,
-                        reported_progress=850,
-                        spatially_supported=800,
-                        spatially_supported_overtime=[
-                            SpatialSupportedOvertime(2024, 0),
-                            SpatialSupportedOvertime(2025, 400),
-                            SpatialSupportedOvertime(2026, 800),
-                        ],
-                    ),
-                    RestorationDataModel(
-                        label="4.2 Third-party certification",
-                        target=500,
-                        reported_progress=430,
-                        spatially_supported=400,
-                        spatially_supported_overtime=[
-                            SpatialSupportedOvertime(2024, 0),
-                            SpatialSupportedOvertime(2025, 200),
-                            SpatialSupportedOvertime(2026, 400),
-                        ],
-                    ),
-                    RestorationDataModel(
-                        label="4.3 Sustainable production systems",
-                        target=650,
-                        reported_progress=620,
-                        spatially_supported=600,
-                        spatially_supported_overtime=[
-                            SpatialSupportedOvertime(2024, 0),
-                            SpatialSupportedOvertime(2025, 300),
-                            SpatialSupportedOvertime(2026, 600),
-                        ],
-                    ),
-                    RestorationDataModel(
-                        label="4.4 HCV forest loss avoided",
-                        target=350,
-                        reported_progress=300,
-                        spatially_supported=300,
-                        spatially_supported_overtime=[
-                            SpatialSupportedOvertime(2024, 0),
-                            SpatialSupportedOvertime(2025, 150),
-                            SpatialSupportedOvertime(2026, 300),
-                        ],
-                    ),
-                ],
-            ),
+def _mock_spatially_data() -> dict[str, list]:
+    """Mock the spatial data until the report inputs are available."""
+
+    mock_spatial_data = {
+        "1.1 Protected areas newly created": [
+            SpatialSupportedOvertime(2024, 0),
+            SpatialSupportedOvertime(2025, 200),
+            SpatialSupportedOvertime(2026, 400),
         ],
-    )
+        "1.2 Improved management effectiveness": [
+            SpatialSupportedOvertime(2024, 0),
+            SpatialSupportedOvertime(2025, 800),
+            SpatialSupportedOvertime(2026, 1600),
+        ],
+        "3.1 Degraded agricultural lands": [
+            SpatialSupportedOvertime(2024, 0),
+            SpatialSupportedOvertime(2025, 300),
+            SpatialSupportedOvertime(2026, 700),
+        ],
+        "3.2 Forest and forest land": [
+            SpatialSupportedOvertime(2024, 0),
+            SpatialSupportedOvertime(2025, 600),
+            SpatialSupportedOvertime(2026, 1200),
+        ],
+        "3.3 Natural grasslands and woodlands": [
+            SpatialSupportedOvertime(2024, 0),
+            SpatialSupportedOvertime(2025, 200),
+            SpatialSupportedOvertime(2026, 400),
+        ],
+        "3.4 Wetlands, estuaries and mangroves": [
+            SpatialSupportedOvertime(2024, 0),
+            SpatialSupportedOvertime(2025, 150),
+            SpatialSupportedOvertime(2026, 300),
+        ],
+        "4.1 Management benefiting biodiversity": [
+            SpatialSupportedOvertime(2024, 0),
+            SpatialSupportedOvertime(2025, 400),
+            SpatialSupportedOvertime(2026, 800),
+        ],
+        "4.2 Third-party certification": [
+            SpatialSupportedOvertime(2024, 0),
+            SpatialSupportedOvertime(2025, 200),
+            SpatialSupportedOvertime(2026, 400),
+        ],
+        "4.3 Sustainable production systems": [
+            SpatialSupportedOvertime(2024, 0),
+            SpatialSupportedOvertime(2025, 300),
+            SpatialSupportedOvertime(2026, 600),
+        ],
+        "4.4 HCV forest loss avoided": [
+            SpatialSupportedOvertime(2024, 0),
+            SpatialSupportedOvertime(2025, 150),
+            SpatialSupportedOvertime(2026, 300),
+        ],
+    }
+    return mock_spatial_data
+
+
+def _number(value: str) -> float | None:
+    """Number of a CSV cell, None when it is empty."""
+    value = (value or "").strip().replace(",", "")
+    return float(value) if value else None
+
+
+def _sub_indicator_code(label: str) -> str:
+    """Code at the start of a sub-indicator label, e.g. 1.1."""
+    return (label or "").strip().split(" ", 1)[0]
+
+
+def _format_data(data: list[dict]) -> IndicatorDataModel:
+    """Format the report data, one dict per sub-indicator, as an
+    IndicatorDataModel."""
+    rows_by_indicator = {}
+    for row in data:
+        rows_by_indicator.setdefault(row["indicator"].strip(), []).append(row)
+
+    # Mock spatial data by the code of the sub-indicator, e.g. 1.1
+    spatial_data = {
+        _sub_indicator_code(label): overtime
+        for label, overtime in _mock_spatially_data().items()
+    }
+
+    indicator_models = []
+    for indicator, rows in rows_by_indicator.items():
+        sub_indicators = []
+        for row in rows:
+            label = row["sub_indicator"].strip()
+            # Sort spatially supported overtime
+            overtime = sorted(
+                spatial_data.get(_sub_indicator_code(label), []),
+                key=lambda point: point.year,
+            )
+            sub_indicators.append(
+                RestorationDataModel(
+                    label=label,
+                    target=_number(row["target"]),
+                    reported_progress=_number(row["reported_progress"]),
+                    spatially_supported=overtime[-1].value if overtime else None,
+                    spatially_supported_overtime=overtime or None,
+                )
+            )
+        indicator_models.append(IndicatorDataModel(indicator, sub_indicators))
+
+    return IndicatorDataModel("Progress against reporting targets", indicator_models)
 
 
 def _progress_variables(prefix: str, data: RestorationDataModel) -> dict[str, str]:
-    """
-    Target, reported progress, spatially supported area and target achieved
-    of the data, as the variables <prefix>_reporting_target, etc. Shown with
-    the unit in the template, e.g. "8,700 ha" and "77 %".
-    """
+    """Convert RestorationDataModel as context for report."""
     target = data.target or 0
     reported_progress = data.reported_progress or 0
     spatially_supported = data.spatially_supported or 0
@@ -213,10 +181,12 @@ def _report_variables(global_data: IndicatorDataModel) -> dict[str, str]:
     return variables
 
 
-def generate_report(output_dir: Path) -> Path | None:
-    """Generate the report charts in output_dir and the PDF of the report.
-    Returns the path of the PDF, or None when it could not be exported."""
-    global_data = _mock_data()
+def generate_report(output_dir: Path, data: list[dict]) -> Path | None:
+    """Generate the PDF report of Ecosystem Restoration Progress.
+
+    Returns the path of the PDF, or None when it could not be exported.
+    """
+    global_data = _format_data(data)
     indicators = global_data.sub_indicator_data
     # Image of each picture item of the template, by item id
     pictures = {}

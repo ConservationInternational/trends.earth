@@ -11,6 +11,7 @@
  ***************************************************************************/
 """
 
+import csv
 from pathlib import Path
 
 import qgis.gui
@@ -19,6 +20,7 @@ from te_schemas.algorithms import ExecutionScript
 
 from . import calculate
 from .jobs.manager import job_manager
+from .reports.ecosystem_restoration.report import REQUIRED_DATA_COLUMNS
 
 DlgEcosystemReportingRestorationProgressUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgEcosystemReportingRestorationProgress.ui")
@@ -61,12 +63,63 @@ class DlgEcosystemReportingRestorationProgress(
                 "<p>Each indicator is summarized with its sub-indicator "
                 "breakdown, satellite monitoring evidence, and the remaining "
                 "gap to target.</p>"
+                "<h4>Report data (CSV)</h4>"
+                "<p>The CSV file has one row per sub-indicator and a header "
+                "row with these columns:</p>"
+                "<ul>"
+                "<li><b>indicator</b>: name of the indicator. Rows with the "
+                "same name are the sub-indicators of one indicator, and the "
+                "indicators are in the order of the file: Indicator 1, then "
+                "Indicator 3, then Indicator 4.</li>"
+                "<li><b>sub_indicator</b>: name of the sub-indicator, e.g. "
+                "<i>1.1 Protected areas newly created</i>.</li>"
+                "<li><b>target</b>: reporting target, in hectares.</li>"
+                "<li><b>reported_progress</b>: reported progress, in "
+                "hectares.</li>"
+                "</ul>"
+                "<p>The indicator totals are the sums of their "
+                "sub-indicators. Names that contain a comma must be in double "
+                "quotes. Example:</p>"
+                "<pre>"
+                "indicator,sub_indicator,target,reported_progress\n"
+                "Indicator 1,1.1 Protected areas newly created,500,450\n"
+                "Indicator 1,1.2 Improved management effectiveness,2000,1750"
+                "</pre>"
             )
         )
+
+    def _check_data_csv(self, path: str) -> bool:
+        """Shows an error and returns False when the CSV cannot be used."""
+        if not path:
+            message = self.tr("Choose the CSV file with the report data.")
+        elif not Path(path).is_file():
+            message = self.tr("The report data file does not exist.")
+        else:
+            try:
+                with open(path, newline="", encoding="utf-8") as csv_file:
+                    columns = next(csv.reader(csv_file), [])
+            except (OSError, UnicodeDecodeError):
+                columns = None
+            if columns is None:
+                message = self.tr("Cannot read the report data file.")
+            else:
+                missing = [c for c in REQUIRED_DATA_COLUMNS if c not in columns]
+                if not missing:
+                    return True
+                message = self.tr("The report data file has no column: {}").format(
+                    ", ".join(missing)
+                )
+
+        QtWidgets.QMessageBox.critical(None, self.tr("Error"), message)
+        return False
 
     def btn_calculate(self):
         ret = super().btn_calculate()
         if not ret:
+            return
+
+        data_csv = self.data_csv_fw.filePath()
+        if not self._check_data_csv(data_csv):
             return
 
         self.close()
@@ -74,6 +127,7 @@ class DlgEcosystemReportingRestorationProgress(
         job_params = {
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
+            "data_csv": data_csv,
         }
         job_manager.submit_local_job_as_qgstask(
             job_params, self.LOCAL_SCRIPT_NAME, self.aoi

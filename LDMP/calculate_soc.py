@@ -251,7 +251,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 self.tr("Warning"),
                 self.tr(
                     f"The initial year ({year_initial}) is greater than or "
-                    "equal to the final year ({year_final}) - this analysis "
+                    f"equal to the final year ({year_final}) - this analysis "
                     "might generate strange results."
                 ),
             )
@@ -343,6 +343,17 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                     f"SOC analysis cannot start before the baseline year "
                     f"{SOC_MIN_YEAR}. The selected initial year is {year_initial}. "
                     f"Please select an initial year >= {SOC_MIN_YEAR}."
+                ),
+            )
+            return
+
+        if year_initial >= year_final:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    f"The initial year ({year_initial}) must be less than the final "
+                    f"year ({year_final}). Please select a valid time period."
                 ),
             )
             return

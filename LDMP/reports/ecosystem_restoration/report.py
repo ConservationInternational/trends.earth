@@ -138,14 +138,19 @@ def _rows_by_sub_indicator(data: list[dict]) -> dict[str, dict]:
     return rows
 
 
-def _format_data(data: list[dict], spatial_data: list[dict]) -> IndicatorDataModel:
+def _format_data(
+    data: list[dict], spatial_data: list[dict]
+) -> tuple[IndicatorDataModel, list[int]]:
     """Format the report data, one dict per sub-indicator, as an IndicatorDataModel."""
 
     # Spatially supported area over time by sub-indicator label
     # Calculated from spatial_data
     spatial_by_sub_indicator: dict[str, list[SpatialSupportedOvertime]] = {}
+    years = set()
     for row in spatial_data:
-        sub_indicator = _check_indicator(f"Spatial input, year {row['year']}", row)
+        year = row["year"]
+        years.add(year)
+        sub_indicator = _check_indicator(f"Spatial input, year {year}", row)
         spatial_by_sub_indicator.setdefault(sub_indicator, []).append(
             SpatialSupportedOvertime(year=row["year"], value=row["area"])
         )
@@ -176,7 +181,19 @@ def _format_data(data: list[dict], spatial_data: list[dict]) -> IndicatorDataMod
             )
         indicator_models.append(IndicatorDataModel(indicator["label"], sub_indicators))
 
-    return IndicatorDataModel("Progress against reporting targets", indicator_models)
+    global_data = IndicatorDataModel(
+        "Progress against reporting targets", indicator_models
+    )
+    return global_data, sorted(years)
+
+
+def _reporting_period(years: list[int]) -> str:
+    """Reporting period of the sorted years, e.g. 2025 to 2026."""
+    if not years:
+        return "-"
+    if years[0] == years[-1]:
+        return str(years[0])
+    return f"{years[0]} to {years[-1]}"
 
 
 def _progress_variables(prefix: str, data: RestorationDataModel) -> dict[str, str]:
@@ -194,14 +211,17 @@ def _progress_variables(prefix: str, data: RestorationDataModel) -> dict[str, st
     }
 
 
-def _report_variables(global_data: IndicatorDataModel) -> dict[str, str]:
+def _report_variables(
+    global_data: IndicatorDataModel, countries: list[str], years: list[int]
+) -> dict[str, str]:
     """Values of the [% @te_restoration_... %] expressions in the template labels."""
     variables = {
         "te_restoration_reporting_scope": "Project 1",
-        "te_restoration_country": "Indonesia",
+        "te_restoration_country": " • ".join(countries),
         "te_restoration_gef_child_project": "ABC12345",
-        "te_restoration_analysis_area": "Indonesia",
-        "te_restoration_reporting_period": "2024 to 2026",
+        "te_restoration_analysis_area": "National boundary",
+        # Years of the spatial data
+        "te_restoration_reporting_period": _reporting_period(years),
         "te_restoration_report_generated": dt.date.today().strftime("%d %B %Y"),
         "te_restoration_spatial_data_version": "0.0.1",
     }
@@ -233,12 +253,13 @@ def generate_report(
     output_dir: Path,
     data: list[dict],
     spatial_data: list[dict],
+    countries: list[str],
 ) -> Path | None:
     """Generate the PDF report of Ecosystem Restoration Progress.
 
     Returns the path of the PDF, or None when it could not be exported.
     """
-    global_data = _format_data(data, spatial_data)
+    global_data, years = _format_data(data, spatial_data)
     indicators = global_data.sub_indicator_data
     # Image of each picture item of the template, by item id
     pictures = {}
@@ -290,7 +311,7 @@ def generate_report(
 
     return write_pdf(
         TEMPLATE_PATH,
-        _report_variables(global_data),
+        _report_variables(global_data, countries, years),
         pictures,
         output_dir / "Restoration_Progress_Report.pdf",
     )

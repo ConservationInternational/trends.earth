@@ -14,7 +14,13 @@ from qgis.PyQt.QtCore import QDate, QDateTime
 INDICATOR_FIELD = "Indicator"
 SUB_INDICATOR_FIELD = "Sub_Indicator"
 DATE_FIELD = "Date"
-REQUIRED_SPATIAL_FIELDS = (INDICATOR_FIELD, SUB_INDICATOR_FIELD, DATE_FIELD)
+COUNTRY_FIELD = "Country"
+REQUIRED_SPATIAL_FIELDS = (
+    INDICATOR_FIELD,
+    SUB_INDICATOR_FIELD,
+    DATE_FIELD,
+    COUNTRY_FIELD,
+)
 
 
 def _year(value) -> int | None:
@@ -62,3 +68,12 @@ def calculate_spatially_supported(layer: QgsVectorLayer) -> list[dict]:
             }
         )
     return areas
+
+
+def read_countries(layer: QgsVectorLayer) -> list[str]:
+    """Countries of the restoration sites, sorted, without empty values."""
+    countries = {
+        str(feature[COUNTRY_FIELD] or "").strip() for feature in layer.getFeatures()
+    }
+    countries.discard("")
+    return sorted(countries)

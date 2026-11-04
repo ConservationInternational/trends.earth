@@ -18,6 +18,7 @@ from ..reports.ecosystem_restoration.report import CSV_DELIMITER, generate_repor
 from ..reports.ecosystem_restoration.spatial import (
     REQUIRED_SPATIAL_FIELDS,
     calculate_spatially_supported,
+    read_countries,
 )
 
 
@@ -63,8 +64,9 @@ def create_ecosystem_restoration_progress_report(
     if missing:
         raise ValueError(f"Spatial input layer has no field: {', '.join(missing)}")
     spatial_data = calculate_spatially_supported(layer)
+    countries = read_countries(layer)
 
-    pdf_path = generate_report(job_output_path.parent, data, spatial_data)
+    pdf_path = generate_report(job_output_path.parent, data, spatial_data, countries)
 
     # Save the validated restoration sites as GeoJSON, in WGS 84
     sites_path = job_output_path.parent / "Validated_Restoration_Sites.geojson"

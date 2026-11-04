@@ -3,11 +3,22 @@ import datetime as dt
 import json
 from pathlib import Path
 
+from qgis.core import (
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
+    QgsCoordinateTransformContext,
+    QgsVectorFileWriter,
+    QgsVectorLayer,
+)
 from te_schemas.results import URI, FileResults
 
 from ..areaofinterest import AOI
 from ..jobs.models import Job
-from ..reports.ecosystem_restoration.report import generate_report
+from ..reports.ecosystem_restoration.report import CSV_DELIMITER, generate_report
+from ..reports.ecosystem_restoration.spatial import (
+    REQUIRED_SPATIAL_FIELDS,
+    calculate_spatially_supported,
+)
 
 
 def create_ecosystem_restoration_progress_report(
@@ -20,11 +31,14 @@ def create_ecosystem_restoration_progress_report(
 ) -> Job:
     """Calculation function for ecosystem restoration progress."""
     data_csv = job.params.get("data_csv")
+    spatial_layer = job.params.get("spatial_layer")
+    spatial_layer_provider = job.params.get("spatial_layer_provider") or "ogr"
     inputs = {
         "region": area_of_interest.get_geojson() if area_of_interest else None,
         "execution_name": job.task_name,
         "notes": job.task_notes,
         "data_csv": data_csv,
+        "spatial_layer": spatial_layer,
     }
     job_output_path.write_text(json.dumps(inputs, indent=2))
 
@@ -34,11 +48,38 @@ def create_ecosystem_restoration_progress_report(
         raise FileNotFoundError(f"Report data CSV not found: {data_csv}")
 
     with open(data_csv, newline="", encoding="utf-8") as csv_file:
-        data = list(csv.DictReader(csv_file))
+        data = list(csv.DictReader(csv_file, delimiter=CSV_DELIMITER))
     if not data:
         raise ValueError(f"Report data CSV has no rows: {data_csv}")
 
-    pdf_path = generate_report(job_output_path.parent, data)
+    # Open the layer
+    if not spatial_layer:
+        raise ValueError("No spatial input layer was given.")
+    layer = QgsVectorLayer(spatial_layer, "restoration_sites", spatial_layer_provider)
+    if not layer.isValid():
+        raise ValueError(f"Spatial input layer cannot be opened: {spatial_layer}")
+
+    missing = [f for f in REQUIRED_SPATIAL_FIELDS if layer.fields().indexOf(f) < 0]
+    if missing:
+        raise ValueError(f"Spatial input layer has no field: {', '.join(missing)}")
+    spatial_data = calculate_spatially_supported(layer)
+
+    pdf_path = generate_report(job_output_path.parent, data, spatial_data)
+
+    # Save the validated restoration sites as GeoJSON, in WGS 84
+    sites_path = job_output_path.parent / "Validated_Restoration_Sites.geojson"
+    transform_context = QgsCoordinateTransformContext()
+    options = QgsVectorFileWriter.SaveVectorOptions()
+    options.driverName = "GeoJSON"
+    options.fileEncoding = "UTF-8"
+    options.ct = QgsCoordinateTransform(
+        layer.crs(), QgsCoordinateReferenceSystem("EPSG:4326"), transform_context
+    )
+    error, message, *_ = QgsVectorFileWriter.writeAsVectorFormatV3(
+        layer, str(sites_path), transform_context, options
+    )
+    if error != QgsVectorFileWriter.NoError:
+        raise RuntimeError(f"Validated restoration sites not saved: {message}")
 
     job.end_date = dt.datetime.now(dt.timezone.utc)
     job.progress = 100

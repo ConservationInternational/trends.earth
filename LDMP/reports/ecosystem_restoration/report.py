@@ -16,7 +16,55 @@ from .writer.chart import (
 
 # QGIS print layout template of the report
 TEMPLATE_PATH = Path(__file__).parent / "template.qpt"
-INDICATOR_NAMES = ("indicator_1", "indicator_3", "indicator_4")
+
+# Separator of the columns of the report data CSV
+# We are using ; as the indicator has comma
+CSV_DELIMITER = ";"
+
+# Every report data CSV has
+REQUIRED_DATA_COLUMNS = (
+    "indicator",
+    "sub_indicator",
+    "target",
+    "reported_progress",
+)
+
+# Indicators
+INDICATORS = {
+    "indicator_1": {
+        "label": "1. Under improved management",
+        "sub_indicators": [
+            "1.1 Protected areas newly created",
+            "1.2 Improved management effectiveness",
+        ],
+    },
+    "indicator_3": {
+        "label": "3. Under restoration",
+        "sub_indicators": [
+            "3.1 Degraded agricultural lands",
+            "3.2 Forest and forest land",
+            "3.3 Natural grasslands and woodlands",
+            "3.4 Wetlands, estuaries and mangroves",
+        ],
+    },
+    "indicator_4": {
+        "label": "4. Under improved practices",
+        "sub_indicators": [
+            "4.1 Management benefiting biodiversity",
+            "4.2 Third-party certification",
+            "4.3 Sustainable production systems",
+            "4.4 HCV forest loss avoided",
+        ],
+    },
+}
+
+
+# Indicator label of each sub-indicator label in INDICATORS
+INDICATOR_BY_SUB_INDICATOR = {
+    sub_indicator: indicator["label"]
+    for indicator in INDICATORS.values()
+    for sub_indicator in indicator["sub_indicators"]
+}
 
 
 def _log_export(chart_name: str, result: tuple[bool, list]) -> bool:
@@ -31,108 +79,89 @@ def _chart_path(output_dir: Path, chart_name: str) -> Path:
     return output_dir / f"{slugify(f'chart-{chart_name}')}.png"
 
 
-def _mock_spatially_data() -> dict[str, list]:
-    """Mock the spatial data until the report inputs are available."""
-
-    mock_spatial_data = {
-        "1.1 Protected areas newly created": [
-            SpatialSupportedOvertime(2024, 0),
-            SpatialSupportedOvertime(2025, 200),
-            SpatialSupportedOvertime(2026, 400),
-        ],
-        "1.2 Improved management effectiveness": [
-            SpatialSupportedOvertime(2024, 0),
-            SpatialSupportedOvertime(2025, 800),
-            SpatialSupportedOvertime(2026, 1600),
-        ],
-        "3.1 Degraded agricultural lands": [
-            SpatialSupportedOvertime(2024, 0),
-            SpatialSupportedOvertime(2025, 300),
-            SpatialSupportedOvertime(2026, 700),
-        ],
-        "3.2 Forest and forest land": [
-            SpatialSupportedOvertime(2024, 0),
-            SpatialSupportedOvertime(2025, 600),
-            SpatialSupportedOvertime(2026, 1200),
-        ],
-        "3.3 Natural grasslands and woodlands": [
-            SpatialSupportedOvertime(2024, 0),
-            SpatialSupportedOvertime(2025, 200),
-            SpatialSupportedOvertime(2026, 400),
-        ],
-        "3.4 Wetlands, estuaries and mangroves": [
-            SpatialSupportedOvertime(2024, 0),
-            SpatialSupportedOvertime(2025, 150),
-            SpatialSupportedOvertime(2026, 300),
-        ],
-        "4.1 Management benefiting biodiversity": [
-            SpatialSupportedOvertime(2024, 0),
-            SpatialSupportedOvertime(2025, 400),
-            SpatialSupportedOvertime(2026, 800),
-        ],
-        "4.2 Third-party certification": [
-            SpatialSupportedOvertime(2024, 0),
-            SpatialSupportedOvertime(2025, 200),
-            SpatialSupportedOvertime(2026, 400),
-        ],
-        "4.3 Sustainable production systems": [
-            SpatialSupportedOvertime(2024, 0),
-            SpatialSupportedOvertime(2025, 300),
-            SpatialSupportedOvertime(2026, 600),
-        ],
-        "4.4 HCV forest loss avoided": [
-            SpatialSupportedOvertime(2024, 0),
-            SpatialSupportedOvertime(2025, 150),
-            SpatialSupportedOvertime(2026, 300),
-        ],
-    }
-    return mock_spatial_data
-
-
 def _number(value: str) -> float | None:
     """Number of a CSV cell, None when it is empty."""
     value = (value or "").strip().replace(",", "")
     return float(value) if value else None
 
 
-def _sub_indicator_code(label: str) -> str:
-    """Code at the start of a sub-indicator label, e.g. 1.1."""
-    return (label or "").strip().split(" ", 1)[0]
+def _check_indicator(source: str, row: dict) -> str:
+    """Sub-indicator of the row, checked against the label of indicator.
+
+    Raises ValueError when the sub-indicator is not in any indicator, or the
+    indicator is not the one of the sub-indicator.
+    """
+    indicator = (row["indicator"] or "").strip()
+    sub_indicator = (row["sub_indicator"] or "").strip()
+    if sub_indicator not in INDICATOR_BY_SUB_INDICATOR:
+        raise ValueError(f"{source}: unknown sub-indicator '{sub_indicator}'.")
+    if indicator != INDICATOR_BY_SUB_INDICATOR[sub_indicator]:
+        raise ValueError(
+            f"{source}: sub-indicator '{sub_indicator}' is not under "
+            f"indicator '{indicator}', it is under "
+            f"'{INDICATOR_BY_SUB_INDICATOR[sub_indicator]}'."
+        )
+    return sub_indicator
 
 
-def _format_data(data: list[dict]) -> IndicatorDataModel:
-    """Format the report data, one dict per sub-indicator, as an
-    IndicatorDataModel."""
-    rows_by_indicator = {}
-    for row in data:
-        rows_by_indicator.setdefault(row["indicator"].strip(), []).append(row)
+def _rows_by_sub_indicator(data: list[dict]) -> dict[str, dict]:
+    """CSV rows by sub-indicator label, checked against INDICATORS.
 
-    # Mock spatial data by the code of the sub-indicator, e.g. 1.1
-    spatial_data = {
-        _sub_indicator_code(label): overtime
-        for label, overtime in _mock_spatially_data().items()
-    }
+    Raises ValueError When a sub-indicator is in more than one row.
+    """
+    rows = {}
+    # Row 1 of the CSV is the header
+    for number, row in enumerate(data, start=2):
+        source = f"Report data row {number}"
+        sub_indicator = _check_indicator(source, row)
+        if sub_indicator in rows:
+            raise ValueError(
+                f"{source}: sub-indicator '{sub_indicator}' is in more than one row."
+            )
+        rows[sub_indicator] = row
+    return rows
+
+
+def _format_data(data: list[dict], spatial_data: list[dict]) -> IndicatorDataModel:
+    """Format the report data, one dict per sub-indicator, as an IndicatorDataModel.
+
+    The indicators and sub-indicators, and their order, are the ones of
+    INDICATORS. A sub-indicator without a row in the data has no target and
+    no reported progress.
+    """
+    rows = _rows_by_sub_indicator(data)
+
+    # Spatially supported area over time by sub-indicator label
+    spatial_by_sub_indicator: dict[str, list[SpatialSupportedOvertime]] = {}
+    for row in spatial_data:
+        sub_indicator = _check_indicator(f"Spatial input, year {row['year']}", row)
+        spatial_by_sub_indicator.setdefault(sub_indicator, []).append(
+            SpatialSupportedOvertime(year=row["year"], value=row["area"])
+        )
 
     indicator_models = []
-    for indicator, rows in rows_by_indicator.items():
+    for indicator in INDICATORS.values():
         sub_indicators = []
-        for row in rows:
-            label = row["sub_indicator"].strip()
-            # Sort spatially supported overtime
+        for label in indicator["sub_indicators"]:
+            row = rows.get(label, {})
+
+            # Sort spatially supported overtime by year
             overtime = sorted(
-                spatial_data.get(_sub_indicator_code(label), []),
+                spatial_by_sub_indicator.get(label, []),
                 key=lambda point: point.year,
             )
+
+            # Append RestorationDataModel to sub_indicators data
             sub_indicators.append(
                 RestorationDataModel(
                     label=label,
-                    target=_number(row["target"]),
-                    reported_progress=_number(row["reported_progress"]),
-                    spatially_supported=overtime[-1].value if overtime else None,
+                    target=_number(row.get("target")),
+                    reported_progress=_number(row.get("reported_progress")),
+                    spatially_supported=overtime[-1].value if overtime else 0,
                     spatially_supported_overtime=overtime or None,
                 )
             )
-        indicator_models.append(IndicatorDataModel(indicator, sub_indicators))
+        indicator_models.append(IndicatorDataModel(indicator["label"], sub_indicators))
 
     return IndicatorDataModel("Progress against reporting targets", indicator_models)
 
@@ -167,26 +196,36 @@ def _report_variables(global_data: IndicatorDataModel) -> dict[str, str]:
     # All indicators, e.g. te_restoration_global_reporting_target
     variables.update(_progress_variables("te_restoration_global", global_data))
 
-    for indicator_name, indicator in zip(
-        INDICATOR_NAMES, global_data.sub_indicator_data
-    ):
-        # Indicator
+    # Models of _format_data are in the order of INDICATORS
+    indicators = dict(zip(INDICATORS, global_data.sub_indicator_data))
+    for indicator_name, indicator_config in INDICATORS.items():
+        # Indicator, e.g. te_restoration_indicator_1_reporting_target
+        indicator = indicators[indicator_name]
         prefix = f"te_restoration_{indicator_name}"
+        variables[f"{prefix}_label"] = indicator_config["label"]
         variables.update(_progress_variables(prefix, indicator))
 
-        # Sub-indicators data
-        for number, sub_indicator in enumerate(indicator.sub_indicator_data, start=1):
+        # Sub-indicators, e.g. te_restoration_indicator_1_1_reporting_target
+        for number, (label, sub_indicator) in enumerate(
+            zip(indicator_config["sub_indicators"], indicator.sub_indicator_data),
+            start=1,
+        ):
+            variables[f"{prefix}_{number}_label"] = label
             variables.update(_progress_variables(f"{prefix}_{number}", sub_indicator))
 
     return variables
 
 
-def generate_report(output_dir: Path, data: list[dict]) -> Path | None:
+def generate_report(
+    output_dir: Path,
+    data: list[dict],
+    spatial_data: list[dict],
+) -> Path | None:
     """Generate the PDF report of Ecosystem Restoration Progress.
 
     Returns the path of the PDF, or None when it could not be exported.
     """
-    global_data = _format_data(data)
+    global_data = _format_data(data, spatial_data)
     indicators = global_data.sub_indicator_data
     # Image of each picture item of the template, by item id
     pictures = {}
@@ -201,7 +240,7 @@ def generate_report(output_dir: Path, data: list[dict]) -> Path | None:
         pictures["Global.SummaryChart"] = _chart_path(output_dir, "summary")
 
     # Generate each indicator
-    for indicator_name, indicator in zip(INDICATOR_NAMES, indicators):
+    for indicator_name, indicator in zip(INDICATORS, indicators):
         # Prefix of the indicator items in the template, e.g. Indicator_1
         item_prefix = indicator_name.capitalize()
         chart_name = f"{indicator_name}_current_progress"
@@ -240,5 +279,5 @@ def generate_report(output_dir: Path, data: list[dict]) -> Path | None:
         TEMPLATE_PATH,
         _report_variables(global_data),
         pictures,
-        output_dir / "ecosystem_restoration_report.pdf",
+        output_dir / "Restoration_Progress_Report.pdf",
     )

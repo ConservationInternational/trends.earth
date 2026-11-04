@@ -16,7 +16,7 @@ from pathlib import Path
 
 import qgis.gui
 from qgis.core import Qgis, QgsMapLayerProxyModel, QgsVectorLayer
-from qgis.PyQt import QtWidgets, uic
+from qgis.PyQt import QtCore, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
 from . import calculate
@@ -51,6 +51,11 @@ class DlgEcosystemReportingRestorationProgress(
             or QgsMapLayerProxyModel.PolygonLayer
         )
         self.spatial_layer_cb.setFilters(polygon_filter)
+
+        # Reporting period, by default from the start of last year to today
+        today = QtCore.QDate.currentDate()
+        self.baseline_date_de.setDate(QtCore.QDate(today.year() - 1, 1, 1))
+        self.latest_monitoring_date_de.setDate(today)
         self._finish_initialization()
 
     def _setup_alg_help(self):
@@ -150,6 +155,13 @@ class DlgEcosystemReportingRestorationProgress(
         if not ret:
             return
 
+        project_name = self.project_name_le.text().strip()
+        if not project_name:
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Enter the project name.")
+            )
+            return
+
         data_csv = self.data_csv_fw.filePath()
         if not self._check_data_csv(data_csv):
             return
@@ -158,16 +170,30 @@ class DlgEcosystemReportingRestorationProgress(
         if not self._check_spatial_layer(spatial_layer):
             return
 
+        baseline_date = self.baseline_date_de.date()
+        latest_monitoring_date = self.latest_monitoring_date_de.date()
+        if baseline_date > latest_monitoring_date:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("The baseline date is after the latest monitoring date."),
+            )
+            return
+
         self.close()
 
         job_params = {
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
+            "project_name": project_name,
             "data_csv": data_csv,
             # The source, as the job opens the layer again outside of the
             # main thread
             "spatial_layer": spatial_layer.source(),
             "spatial_layer_provider": spatial_layer.providerType(),
+            # Reporting period, as YYYY-MM-DD
+            "baseline_date": baseline_date.toString("yyyy-MM-dd"),
+            "latest_monitoring_date": latest_monitoring_date.toString("yyyy-MM-dd"),
         }
         job_manager.submit_local_job_as_qgstask(
             job_params, self.LOCAL_SCRIPT_NAME, self.aoi

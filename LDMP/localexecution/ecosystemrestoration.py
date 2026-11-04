@@ -31,17 +31,40 @@ def create_ecosystem_restoration_progress_report(
     killed_callback,
 ) -> Job:
     """Calculation function for ecosystem restoration progress."""
+    project_name = (job.params.get("project_name") or "").strip()
     data_csv = job.params.get("data_csv")
     spatial_layer = job.params.get("spatial_layer")
     spatial_layer_provider = job.params.get("spatial_layer_provider") or "ogr"
+    baseline_date = job.params.get("baseline_date")
+    latest_monitoring_date = job.params.get("latest_monitoring_date")
     inputs = {
         "region": area_of_interest.get_geojson() if area_of_interest else None,
         "execution_name": job.task_name,
         "notes": job.task_notes,
+        "project_name": project_name,
         "data_csv": data_csv,
         "spatial_layer": spatial_layer,
+        "baseline_date": baseline_date,
+        "latest_monitoring_date": latest_monitoring_date,
     }
     job_output_path.write_text(json.dumps(inputs, indent=2))
+
+    if not project_name:
+        raise ValueError("No project name was given.")
+
+    # Reporting period
+    try:
+        reporting_period = (
+            dt.date.fromisoformat(baseline_date),
+            dt.date.fromisoformat(latest_monitoring_date),
+        )
+    except (TypeError, ValueError):
+        raise ValueError(
+            "The baseline date and the latest monitoring date must be dates "
+            f"as YYYY-MM-DD: {baseline_date!r}, {latest_monitoring_date!r}"
+        )
+    if reporting_period[0] > reporting_period[1]:
+        raise ValueError("The baseline date is after the latest monitoring date.")
 
     if not data_csv:
         raise ValueError("No report data CSV was given.")
@@ -66,7 +89,14 @@ def create_ecosystem_restoration_progress_report(
     spatial_data = calculate_spatially_supported(layer)
     countries = read_countries(layer)
 
-    pdf_path = generate_report(job_output_path.parent, data, spatial_data, countries)
+    pdf_path = generate_report(
+        job_output_path.parent,
+        project_name,
+        data,
+        spatial_data,
+        countries,
+        reporting_period,
+    )
 
     # Save the validated restoration sites as GeoJSON, in WGS 84
     sites_path = job_output_path.parent / "Validated_Restoration_Sites.geojson"

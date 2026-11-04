@@ -49,6 +49,29 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
+         <widget class="QLabel" name="project_name_la">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Name of the project, the reporting scope of the report.</string>
+          </property>
+          <property name="text">
+           <string>Project name:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="project_name_le">
+          <property name="toolTip">
+           <string>Name of the project, the reporting scope of the report.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="data_csv_la">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -111,6 +134,88 @@
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Polygon layer of the restoration sites, with the fields Sub_Indicator and Date. The spatially supported area of each sub-indicator per year is the area of its polygons of that year.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="reporting_period_layout">
+          <item>
+           <layout class="QVBoxLayout" name="baseline_date_layout">
+            <item>
+             <widget class="QLabel" name="baseline_date_la">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Start date of the reporting period of the report.</string>
+              </property>
+              <property name="text">
+               <string>Baseline date:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDateEdit" name="baseline_date_de">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Start date of the reporting period of the report.</string>
+              </property>
+              <property name="displayFormat">
+               <string>yyyy-MM-dd</string>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="latest_monitoring_date_layout">
+            <item>
+             <widget class="QLabel" name="latest_monitoring_date_la">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>End date of the reporting period of the report, the date of the latest monitoring.</string>
+              </property>
+              <property name="text">
+               <string>Latest monitoring date:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDateEdit" name="latest_monitoring_date_de">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>End date of the reporting period of the report, the date of the latest monitoring.</string>
+              </property>
+              <property name="displayFormat">
+               <string>yyyy-MM-dd</string>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="Line" name="line">

@@ -35,6 +35,7 @@ def create_ecosystem_restoration_progress_report(
     data_csv = job.params.get("data_csv")
     spatial_layer = job.params.get("spatial_layer")
     spatial_layer_provider = job.params.get("spatial_layer_provider") or "ogr"
+    spatial_layer_name = job.params.get("spatial_layer_name") or ""
     baseline_date = job.params.get("baseline_date")
     latest_monitoring_date = job.params.get("latest_monitoring_date")
     inputs = {
@@ -44,6 +45,7 @@ def create_ecosystem_restoration_progress_report(
         "project_name": project_name,
         "data_csv": data_csv,
         "spatial_layer": spatial_layer,
+        "spatial_layer_name": spatial_layer_name,
         "baseline_date": baseline_date,
         "latest_monitoring_date": latest_monitoring_date,
     }
@@ -96,6 +98,7 @@ def create_ecosystem_restoration_progress_report(
         spatial_data,
         countries,
         reporting_period,
+        spatial_layer_name,
     )
 
     # Save the validated restoration sites as GeoJSON, in WGS 84

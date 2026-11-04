@@ -138,17 +138,20 @@ def _rows_by_sub_indicator(data: list[dict]) -> dict[str, dict]:
     return rows
 
 
-def _format_data(data: list[dict], spatial_data: list[dict]) -> IndicatorDataModel:
+def _format_data(
+    data: list[dict],
+    spatial_data: list[dict],
+    reporting_period: tuple[dt.date, dt.date],
+) -> IndicatorDataModel:
     """Format the report data, one dict per sub-indicator, as an IndicatorDataModel."""
+    years = list(range(reporting_period[0].year, reporting_period[1].year + 1))
 
-    # Spatially supported area over time by sub-indicator label
+    # Spatially supported area by sub-indicator label and year
     # Calculated from spatial_data
-    spatial_by_sub_indicator: dict[str, list[SpatialSupportedOvertime]] = {}
+    areas: dict[str, dict[int, float]] = {}
     for row in spatial_data:
         sub_indicator = _check_indicator(f"Spatial input, year {row['year']}", row)
-        spatial_by_sub_indicator.setdefault(sub_indicator, []).append(
-            SpatialSupportedOvertime(year=row["year"], value=row["area"])
-        )
+        areas.setdefault(sub_indicator, {})[row["year"]] = row["area"]
 
     # Formatting the data
     rows = _rows_by_sub_indicator(data)
@@ -158,11 +161,12 @@ def _format_data(data: list[dict], spatial_data: list[dict]) -> IndicatorDataMod
         for label in indicator["sub_indicators"]:
             row = rows.get(label, {})
 
-            # Sort spatially supported overtime by year
-            overtime = sorted(
-                spatial_by_sub_indicator.get(label, []),
-                key=lambda point: point.year,
-            )
+            # Spatially supported area of every year of the reporting period
+            area_by_year = areas.get(label, {})
+            overtime = [
+                SpatialSupportedOvertime(year=year, value=area_by_year.get(year, 0))
+                for year in years
+            ]
 
             # Append RestorationDataModel to sub_indicators data
             sub_indicators.append(
@@ -170,8 +174,8 @@ def _format_data(data: list[dict], spatial_data: list[dict]) -> IndicatorDataMod
                     label=label,
                     target=row.get("target"),
                     reported_progress=row.get("reported_progress"),
-                    spatially_supported=overtime[-1].value if overtime else 0,
-                    spatially_supported_overtime=overtime or None,
+                    spatially_supported=overtime[-1].value,
+                    spatially_supported_overtime=overtime,
                 )
             )
         indicator_models.append(IndicatorDataModel(indicator["label"], sub_indicators))
@@ -199,6 +203,7 @@ def _report_variables(
     global_data: IndicatorDataModel,
     countries: list[str],
     reporting_period: tuple[dt.date, dt.date],
+    spatial_data_version: str,
 ) -> dict[str, str]:
     """Values of the [% @te_restoration_... %] expressions in the template labels."""
     variables = {
@@ -211,7 +216,8 @@ def _report_variables(
             f"{reporting_period[0]} to {reporting_period[1]}"
         ),
         "te_restoration_report_generated": dt.date.today().strftime("%Y-%m-%d"),
-        "te_restoration_spatial_data_version": "0.0.1",
+        # Name of the spatial input layer, e.g. PROJ_1_V20261231
+        "te_restoration_spatial_data_version": spatial_data_version,
     }
 
     # All indicators, e.g. te_restoration_global_reporting_target
@@ -244,13 +250,14 @@ def generate_report(
     spatial_data: list[dict],
     countries: list[str],
     reporting_period: tuple[dt.date, dt.date],
+    spatial_data_version: str,
 ) -> Path | None:
     """Generate the PDF report of Ecosystem Restoration Progress.
 
     The reporting period is the baseline date and the latest monitoring date.
     Returns the path of the PDF, or None when it could not be exported.
     """
-    global_data = _format_data(data, spatial_data)
+    global_data = _format_data(data, spatial_data, reporting_period)
     indicators = global_data.sub_indicator_data
     # Image of each picture item of the template, by item id
     pictures = {}
@@ -302,7 +309,13 @@ def generate_report(
 
     return write_pdf(
         TEMPLATE_PATH,
-        _report_variables(project_name, global_data, countries, reporting_period),
+        _report_variables(
+            project_name,
+            global_data,
+            countries,
+            reporting_period,
+            spatial_data_version,
+        ),
         pictures,
         output_dir / "Restoration_Progress_Report.pdf",
     )

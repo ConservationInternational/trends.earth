@@ -191,6 +191,8 @@ class DlgEcosystemReportingRestorationProgress(
             # main thread
             "spatial_layer": spatial_layer.source(),
             "spatial_layer_provider": spatial_layer.providerType(),
+            # Name of the layer, the spatial data version of the report
+            "spatial_layer_name": spatial_layer.name(),
             # Reporting period, as YYYY-MM-DD
             "baseline_date": baseline_date.toString("yyyy-MM-dd"),
             "latest_monitoring_date": latest_monitoring_date.toString("yyyy-MM-dd"),

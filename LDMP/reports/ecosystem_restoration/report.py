@@ -21,8 +21,11 @@ TEMPLATE_PATH = Path(__file__).parent / "template.qpt"
 # We are using ; as the indicator has comma
 CSV_DELIMITER = ";"
 
+GEF_CP_ID = "GEF_CP_ID"
+
 # Every report data CSV has
 REQUIRED_DATA_COLUMNS = (
+    GEF_CP_ID,
     "indicator",
     "sub_indicator",
     "target",
@@ -109,29 +112,37 @@ def _rows_by_sub_indicator(data: list[dict]) -> dict[str, dict]:
 
     Raises ValueError When a sub-indicator is in more than one row.
     """
+    found_rows = []
     rows = {}
     # Row 1 of the CSV is the header
     for number, row in enumerate(data, start=2):
         source = f"Report data row {number}"
+        gef_cp_id = (row[GEF_CP_ID] or "").strip()
+        if not gef_cp_id:
+            raise ValueError(f"{source}: '{gef_cp_id}' is empty")
+
         sub_indicator = _check_indicator(source, row)
-        if sub_indicator in rows:
+        identifier = f"{gef_cp_id}:{sub_indicator}"
+        if identifier in found_rows:
             raise ValueError(
-                f"{source}: sub-indicator '{sub_indicator}' is in more than one row."
+                f"{source}: sub-indicator '{sub_indicator}' for child project {gef_cp_id} "
+                "is in more than one row."
             )
-        rows[sub_indicator] = row
+        found_rows.append(identifier)
+
+        total = rows.setdefault(sub_indicator, {"target": 0, "reported_progress": 0})
+        for key in total:
+            value = _number(row[key])
+            if value is not None:
+                total[key] = (total[key] or 0) + value
     return rows
 
 
 def _format_data(data: list[dict], spatial_data: list[dict]) -> IndicatorDataModel:
-    """Format the report data, one dict per sub-indicator, as an IndicatorDataModel.
-
-    The indicators and sub-indicators, and their order, are the ones of
-    INDICATORS. A sub-indicator without a row in the data has no target and
-    no reported progress.
-    """
-    rows = _rows_by_sub_indicator(data)
+    """Format the report data, one dict per sub-indicator, as an IndicatorDataModel."""
 
     # Spatially supported area over time by sub-indicator label
+    # Calculated from spatial_data
     spatial_by_sub_indicator: dict[str, list[SpatialSupportedOvertime]] = {}
     for row in spatial_data:
         sub_indicator = _check_indicator(f"Spatial input, year {row['year']}", row)
@@ -139,6 +150,8 @@ def _format_data(data: list[dict], spatial_data: list[dict]) -> IndicatorDataMod
             SpatialSupportedOvertime(year=row["year"], value=row["area"])
         )
 
+    # Formatting the data
+    rows = _rows_by_sub_indicator(data)
     indicator_models = []
     for indicator in INDICATORS.values():
         sub_indicators = []
@@ -155,8 +168,8 @@ def _format_data(data: list[dict], spatial_data: list[dict]) -> IndicatorDataMod
             sub_indicators.append(
                 RestorationDataModel(
                     label=label,
-                    target=_number(row.get("target")),
-                    reported_progress=_number(row.get("reported_progress")),
+                    target=row.get("target"),
+                    reported_progress=row.get("reported_progress"),
                     spatially_supported=overtime[-1].value if overtime else 0,
                     spatially_supported_overtime=overtime or None,
                 )

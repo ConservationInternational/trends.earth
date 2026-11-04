@@ -86,6 +86,7 @@ def create_ecosystem_restoration_progress_report(
     job.results = FileResults(
         name="ecosystem_restoration",
         uri=URI(uri=pdf_path or job_output_path),
+        other_uris=[URI(uri=sites_path)],
         data=inputs,
     )
 

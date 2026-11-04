@@ -204,12 +204,13 @@ def _report_variables(
     countries: list[str],
     reporting_period: tuple[dt.date, dt.date],
     spatial_data_version: str,
+    gef_child_project: str,
 ) -> dict[str, str]:
     """Values of the [% @te_restoration_... %] expressions in the template labels."""
     variables = {
         "te_restoration_reporting_scope": project_name,
         "te_restoration_country": " • ".join(countries),
-        "te_restoration_gef_child_project": "ABC12345",
+        "te_restoration_gef_child_project": gef_child_project,
         "te_restoration_analysis_area": "National boundary",
         # Baseline date to latest monitoring date
         "te_restoration_reporting_period": (
@@ -251,6 +252,7 @@ def generate_report(
     countries: list[str],
     reporting_period: tuple[dt.date, dt.date],
     spatial_data_version: str,
+    gef_child_project: str,
 ) -> Path | None:
     """Generate the PDF report of Ecosystem Restoration Progress.
 
@@ -315,6 +317,7 @@ def generate_report(
             countries,
             reporting_period,
             spatial_data_version,
+            gef_child_project,
         ),
         pictures,
         output_dir / "Restoration_Progress_Report.pdf",

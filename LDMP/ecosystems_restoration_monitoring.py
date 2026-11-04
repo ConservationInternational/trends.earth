@@ -23,6 +23,7 @@ from . import calculate
 from .jobs.manager import job_manager
 from .reports.ecosystem_restoration.report import (
     CSV_DELIMITER,
+    GEF_CP_ID,
     REQUIRED_DATA_COLUMNS,
 )
 from .reports.ecosystem_restoration.spatial import REQUIRED_SPATIAL_FIELDS
@@ -56,7 +57,29 @@ class DlgEcosystemReportingRestorationProgress(
         today = QtCore.QDate.currentDate()
         self.baseline_date_de.setDate(QtCore.QDate(today.year() - 1, 1, 1))
         self.latest_monitoring_date_de.setDate(today)
+
+        # Child projects of the CSV, searched by any part of their GEF_CP_ID
+        completer = self.child_project_cb.completer()
+        completer.setFilterMode(QtCore.Qt.MatchContains)
+        completer.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
+        completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.child_project_rb.toggled.connect(self.child_project_cb.setEnabled)
+        self.data_csv_fw.fileChanged.connect(self._load_child_projects)
         self._finish_initialization()
+
+    def _load_child_projects(self, path: str):
+        """List the GEF_CP_ID of the CSV in the child project input."""
+        child_projects = set()
+        if path and Path(path).is_file():
+            try:
+                with open(path, newline="", encoding="utf-8") as csv_file:
+                    for row in csv.DictReader(csv_file, delimiter=CSV_DELIMITER):
+                        child_projects.add((row.get(GEF_CP_ID) or "").strip())
+            except (OSError, UnicodeDecodeError, csv.Error):
+                pass
+        child_projects.discard("")
+        self.child_project_cb.clear()
+        self.child_project_cb.addItems(sorted(child_projects))
 
     def _setup_alg_help(self):
         self.alg_help.setHtml(
@@ -166,8 +189,30 @@ class DlgEcosystemReportingRestorationProgress(
         if not self._check_data_csv(data_csv):
             return
 
+        # GEF_CP_ID of the child project, None for all the child projects
+        gef_cp_id = None
+        if self.child_project_rb.isChecked():
+            gef_cp_id = self.child_project_cb.currentText().strip()
+            if self.child_project_cb.findText(gef_cp_id) < 0:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr("Choose a child project of the report data file."),
+                )
+                return
+
         spatial_layer = self.spatial_layer_cb.currentLayer()
         if not self._check_spatial_layer(spatial_layer):
+            return
+        if gef_cp_id and spatial_layer.fields().indexOf(GEF_CP_ID) < 0:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "The restoration sites layer has no field {}, to select "
+                    "the sites of the child project."
+                ).format(GEF_CP_ID),
+            )
             return
 
         baseline_date = self.baseline_date_de.date()
@@ -187,6 +232,7 @@ class DlgEcosystemReportingRestorationProgress(
             "task_notes": self.task_notes.toPlainText(),
             "project_name": project_name,
             "data_csv": data_csv,
+            "gef_cp_id": gef_cp_id,
             # The source, as the job opens the layer again outside of the
             # main thread
             "spatial_layer": spatial_layer.source(),

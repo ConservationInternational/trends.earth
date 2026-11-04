@@ -14,7 +14,11 @@ from te_schemas.results import URI, FileResults
 
 from ..areaofinterest import AOI
 from ..jobs.models import Job
-from ..reports.ecosystem_restoration.report import CSV_DELIMITER, generate_report
+from ..reports.ecosystem_restoration.report import (
+    CSV_DELIMITER,
+    GEF_CP_ID,
+    generate_report,
+)
 from ..reports.ecosystem_restoration.spatial import (
     REQUIRED_SPATIAL_FIELDS,
     calculate_spatially_supported,
@@ -33,6 +37,8 @@ def create_ecosystem_restoration_progress_report(
     """Calculation function for ecosystem restoration progress."""
     project_name = (job.params.get("project_name") or "").strip()
     data_csv = job.params.get("data_csv")
+    # GEF_CP_ID of the child project, None for all the child projects
+    gef_cp_id = (job.params.get("gef_cp_id") or "").strip() or None
     spatial_layer = job.params.get("spatial_layer")
     spatial_layer_provider = job.params.get("spatial_layer_provider") or "ogr"
     spatial_layer_name = job.params.get("spatial_layer_name") or ""
@@ -44,6 +50,7 @@ def create_ecosystem_restoration_progress_report(
         "notes": job.task_notes,
         "project_name": project_name,
         "data_csv": data_csv,
+        "gef_cp_id": gef_cp_id,
         "spatial_layer": spatial_layer,
         "spatial_layer_name": spatial_layer_name,
         "baseline_date": baseline_date,
@@ -77,6 +84,12 @@ def create_ecosystem_restoration_progress_report(
         data = list(csv.DictReader(csv_file, delimiter=CSV_DELIMITER))
     if not data:
         raise ValueError(f"Report data CSV has no rows: {data_csv}")
+    if gef_cp_id:
+        data = [row for row in data if (row.get(GEF_CP_ID) or "").strip() == gef_cp_id]
+        if not data:
+            raise ValueError(
+                f"Report data CSV has no rows of child project {gef_cp_id}"
+            )
 
     # Open the layer
     if not spatial_layer:
@@ -88,6 +101,17 @@ def create_ecosystem_restoration_progress_report(
     missing = [f for f in REQUIRED_SPATIAL_FIELDS if layer.fields().indexOf(f) < 0]
     if missing:
         raise ValueError(f"Spatial input layer has no field: {', '.join(missing)}")
+
+    # Only the restoration sites of the child project
+    if gef_cp_id:
+        if layer.fields().indexOf(GEF_CP_ID) < 0:
+            raise ValueError(f"Spatial input layer has no field: {GEF_CP_ID}")
+        quoted_id = gef_cp_id.replace("'", "''")
+        subset = f"\"{GEF_CP_ID}\" = '{quoted_id}'"
+        if layer.subsetString():
+            subset = f"({layer.subsetString()}) AND {subset}"
+        if not layer.setSubsetString(subset):
+            raise ValueError(f"Spatial input layer cannot be filtered: {subset}")
     spatial_data = calculate_spatially_supported(layer)
     countries = read_countries(layer)
 
@@ -99,6 +123,8 @@ def create_ecosystem_restoration_progress_report(
         countries,
         reporting_period,
         spatial_layer_name,
+        # GEF child project of the report
+        f"{gef_cp_id} • {project_name}" if gef_cp_id else "All projects",
     )
 
     # Save the validated restoration sites as GeoJSON, in WGS 84

@@ -26,7 +26,7 @@ from .reports.ecosystem_restoration.report import (
     GEF_CP_ID,
     REQUIRED_DATA_COLUMNS,
 )
-from .reports.ecosystem_restoration.spatial import REQUIRED_SPATIAL_FIELDS
+from .reports.ecosystem_restoration.spatial import missing_fields, validate_sites
 
 DlgEcosystemReportingRestorationProgressUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgEcosystemReportingRestorationProgress.ui")
@@ -191,14 +191,18 @@ class DlgEcosystemReportingRestorationProgress(
                 "Save the restoration sites layer to a file, e.g. a GeoPackage."
             )
         else:
-            missing = [
-                f for f in REQUIRED_SPATIAL_FIELDS if layer.fields().indexOf(f) < 0
-            ]
-            if not missing:
+            missing = missing_fields(layer)
+            errors = [] if missing else validate_sites(layer)
+            if missing:
+                message = self.tr(
+                    "The restoration sites layer has no field: {}"
+                ).format(", ".join(missing))
+            elif errors:
+                message = self.tr(
+                    "The restoration sites layer has invalid sites:\n{}"
+                ).format("\n".join(errors))
+            else:
                 return True
-            message = self.tr("The restoration sites layer has no field: {}").format(
-                ", ".join(missing)
-            )
 
         QtWidgets.QMessageBox.critical(None, self.tr("Error"), message)
         return False
@@ -233,16 +237,6 @@ class DlgEcosystemReportingRestorationProgress(
 
         spatial_layer = self.spatial_layer.currentLayer()
         if not self._check_spatial_layer(spatial_layer):
-            return
-        if gef_cp_id and spatial_layer.fields().indexOf(GEF_CP_ID) < 0:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "The restoration sites layer has no field {}, to select "
-                    "the sites of the child project."
-                ).format(GEF_CP_ID),
-            )
             return
 
         baseline_date = self.baseline_date.date()

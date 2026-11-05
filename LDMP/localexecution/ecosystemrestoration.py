@@ -20,9 +20,11 @@ from ..reports.ecosystem_restoration.report import (
     generate_report,
 )
 from ..reports.ecosystem_restoration.spatial import (
-    REQUIRED_SPATIAL_FIELDS,
+    GEF_CP_ID_FIELD,
     calculate_spatially_supported,
+    missing_fields,
     read_countries,
+    validate_sites,
 )
 
 
@@ -98,16 +100,20 @@ def create_ecosystem_restoration_progress_report(
     if not layer.isValid():
         raise ValueError(f"Spatial input layer cannot be opened: {spatial_layer}")
 
-    missing = [f for f in REQUIRED_SPATIAL_FIELDS if layer.fields().indexOf(f) < 0]
+    missing = missing_fields(layer)
     if missing:
         raise ValueError(f"Spatial input layer has no field: {', '.join(missing)}")
+    errors = validate_sites(layer)
+    if errors:
+        raise ValueError(
+            "Spatial input layer has invalid restoration sites:\n" + "\n".join(errors)
+        )
 
     # Only the restoration sites of the child project
     if gef_cp_id:
-        if layer.fields().indexOf(GEF_CP_ID) < 0:
-            raise ValueError(f"Spatial input layer has no field: {GEF_CP_ID}")
+        field = layer.fields().field(layer.fields().lookupField(GEF_CP_ID_FIELD))
         quoted_id = gef_cp_id.replace("'", "''")
-        subset = f"\"{GEF_CP_ID}\" = '{quoted_id}'"
+        subset = f"\"{field.name()}\" = '{quoted_id}'"
         if layer.subsetString():
             subset = f"({layer.subsetString()}) AND {subset}"
         if not layer.setSubsetString(subset):

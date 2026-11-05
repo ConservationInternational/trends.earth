@@ -15,7 +15,7 @@ import csv
 from pathlib import Path
 
 import qgis.gui
-from qgis.core import Qgis, QgsMapLayerProxyModel, QgsVectorLayer
+from qgis.core import QgsProject, QgsVectorLayer, QgsWkbTypes
 from qgis.PyQt import QtCore, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
@@ -26,7 +26,12 @@ from .reports.ecosystem_restoration.report import (
     GEF_CP_ID,
     REQUIRED_DATA_COLUMNS,
 )
-from .reports.ecosystem_restoration.spatial import missing_fields, validate_sites
+from .reports.ecosystem_restoration.spatial import (
+    check_layer_file,
+    layer_dates,
+    missing_fields,
+    validate_sites,
+)
 
 DlgEcosystemReportingRestorationProgressUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgEcosystemReportingRestorationProgress.ui")
@@ -46,17 +51,6 @@ class DlgEcosystemReportingRestorationProgress(
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
-        # Only polygon layers, Qgis.LayerFilter since QGIS 3.34
-        polygon_filter = (
-            getattr(getattr(Qgis, "LayerFilter", None), "PolygonLayer", None)
-            or QgsMapLayerProxyModel.PolygonLayer
-        )
-        self.spatial_layer.setFilters(polygon_filter)
-
-        # Reporting period, by default from the start of last year to today
-        today = QtCore.QDate.currentDate()
-        self.baseline_date.setDate(QtCore.QDate(today.year() - 1, 1, 1))
-        self.latest_monitoring_date.setDate(today)
 
         # Child projects of the CSV, searched by any part of their GEF_CP_ID
         completer = self.child_project.completer()
@@ -66,36 +60,103 @@ class DlgEcosystemReportingRestorationProgress(
         self.child_project_radio_button.toggled.connect(self.child_project.setEnabled)
         self.data_csv.fileChanged.connect(self._load_child_projects)
 
-        self.spatial_layer_import_button.clicked.connect(self._import_spatial_layer)
+        # Spatial input layers, and the reporting period from their names
+        self.spatial_layers.checkedItemsChanged.connect(self._update_reporting_period)
+        self.spatial_layers_import_button.clicked.connect(self._import_spatial_layer)
+        self._load_spatial_layers()
         self._finish_initialization()
 
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._load_spatial_layers()
+
+    def _load_spatial_layers(self, checked_ids: list[str] | None = None):
+        """List the polygon layers of the project in the spatial input."""
+        checked_ids = set(checked_ids or []) | set(
+            self.spatial_layers.checkedItemsData()
+        )
+        self.spatial_layers.blockSignals(True)
+        self.spatial_layers.clear()
+        layers = sorted(
+            (
+                layer
+                for layer in QgsProject.instance().mapLayers().values()
+                if isinstance(layer, QgsVectorLayer)
+                and layer.geometryType() == QgsWkbTypes.PolygonGeometry
+            ),
+            key=lambda layer: layer.name(),
+        )
+        for layer in layers:
+            self.spatial_layers.addItemWithCheckState(
+                layer.name(),
+                QtCore.Qt.Checked if layer.id() in checked_ids else QtCore.Qt.Unchecked,
+                layer.id(),
+            )
+        self.spatial_layers.blockSignals(False)
+        self._update_reporting_period()
+
+    def _checked_spatial_layers(self) -> list[QgsVectorLayer]:
+        """Checked layers of the spatial input, still in the project."""
+        project = QgsProject.instance()
+        layers = [
+            project.mapLayer(layer_id)
+            for layer_id in self.spatial_layers.checkedItemsData()
+        ]
+        return [layer for layer in layers if layer]
+
+    def _update_reporting_period(self):
+        """Show the reporting period, from the names of the checked layers."""
+        names = [layer.name() for layer in self._checked_spatial_layers()]
+        dates, errors = layer_dates(names)
+        if errors:
+            text = "<br>".join(errors)
+            self.reporting_period_label.setText(
+                f"<span style='color:red'>{text}</span>"
+            )
+        elif dates:
+            self.reporting_period_label.setText(
+                self.tr("Baseline date: {} • Latest monitoring date: {}").format(
+                    min(dates.values()), max(dates.values())
+                )
+            )
+        else:
+            self.reporting_period_label.setText(
+                self.tr("Choose the layers, one per year for a country.")
+            )
+
     def _import_spatial_layer(self):
-        """Add a vector layer to the project and select it in the spatial input."""
-        path, _ = QtWidgets.QFileDialog.getOpenFileName(
+        """Add vector layers to the project and select them in the spatial input."""
+        paths, _ = QtWidgets.QFileDialog.getOpenFileNames(
             self,
             self.tr("Import restoration sites"),
             "",
             self.tr(
-                "Vector files (*.geojson *.json *.kml *.gpkg *.shp);;"
-                "GeoJSON (*.geojson *.json);;"
+                "Vector files (*.geojson *.kml *.shp);;"
+                "GeoJSON (*.geojson);;"
                 "KML (*.kml);;"
-                "GeoPackage (*.gpkg);;"
                 "Shapefile (*.shp)"
             ),
         )
-        if not path:
+        if not paths:
             return
 
-        layer = self.iface.addVectorLayer(path, Path(path).stem, "ogr")
-        if not layer or not layer.isValid():
+        layer_ids = []
+        failed_paths = []
+        for path in paths:
+            layer = self.iface.addVectorLayer(path, Path(path).stem, "ogr")
+            if layer and layer.isValid():
+                layer_ids.append(layer.id())
+            else:
+                failed_paths.append(path)
+
+        # List the layers of the project, now with the loaded layers checked
+        self._load_spatial_layers(layer_ids)
+        if failed_paths:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
-                self.tr("Cannot load the layer: {}").format(path),
+                self.tr("Cannot load the layers:\n{}").format("\n".join(failed_paths)),
             )
-            return
-        # The combobox lists the polygon layers of the project, now with this layer
-        self.spatial_layer.setLayer(layer)
 
     def _load_child_projects(self, path: str):
         """List the GEF_CP_ID of the CSV in the child project input."""
@@ -185,22 +246,20 @@ class DlgEcosystemReportingRestorationProgress(
     def _check_spatial_layer(self, layer) -> bool:
         """Shows an error and returns False when the layer cannot be used."""
         if not isinstance(layer, QgsVectorLayer):
-            message = self.tr("Choose the polygon layer of the restoration sites.")
-        elif layer.providerType() == "memory":
-            message = self.tr(
-                "Save the restoration sites layer to a file, e.g. a GeoPackage."
-            )
+            message = self.tr("The restoration sites layer is not a vector layer.")
+        elif check_layer_file(layer):
+            message = "\n".join(check_layer_file(layer))
         else:
             missing = missing_fields(layer)
             errors = [] if missing else validate_sites(layer)
             if missing:
-                message = self.tr(
-                    "The restoration sites layer has no field: {}"
-                ).format(", ".join(missing))
+                message = self.tr("The layer {} has no field: {}").format(
+                    layer.name(), ", ".join(missing)
+                )
             elif errors:
-                message = self.tr(
-                    "The restoration sites layer has invalid sites:\n{}"
-                ).format("\n".join(errors))
+                message = self.tr("The layer {} has invalid sites:\n{}").format(
+                    layer.name(), "\n".join(errors)
+                )
             else:
                 return True
 
@@ -235,19 +294,23 @@ class DlgEcosystemReportingRestorationProgress(
                 )
                 return
 
-        spatial_layer = self.spatial_layer.currentLayer()
-        if not self._check_spatial_layer(spatial_layer):
-            return
-
-        baseline_date = self.baseline_date.date()
-        latest_monitoring_date = self.latest_monitoring_date.date()
-        if baseline_date > latest_monitoring_date:
+        # Spatial input layers, named [ISO COUNTRY]_V[YYYYMMDD], one per year
+        # for a country
+        spatial_layers = self._checked_spatial_layers()
+        if not spatial_layers:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
-                self.tr("The baseline date is after the latest monitoring date."),
+                self.tr("Choose the polygon layers of the restoration sites."),
             )
             return
+        _, errors = layer_dates([layer.name() for layer in spatial_layers])
+        if errors:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), "\n".join(errors))
+            return
+        for spatial_layer in spatial_layers:
+            if not self._check_spatial_layer(spatial_layer):
+                return
 
         self.close()
 
@@ -257,15 +320,14 @@ class DlgEcosystemReportingRestorationProgress(
             "project_name": project_name,
             "data_csv": data_csv,
             "gef_cp_id": gef_cp_id,
-            # The source, as the job opens the layer again outside of the
-            # main thread
-            "spatial_layer": spatial_layer.source(),
-            "spatial_layer_provider": spatial_layer.providerType(),
-            # Name of the layer, the spatial data version of the report
-            "spatial_layer_name": spatial_layer.name(),
-            # Reporting period, as YYYY-MM-DD
-            "baseline_date": baseline_date.toString("yyyy-MM-dd"),
-            "latest_monitoring_date": latest_monitoring_date.toString("yyyy-MM-dd"),
+            "spatial_layers": [
+                {
+                    "name": spatial_layer.name(),
+                    "source": spatial_layer.source(),
+                    "provider": spatial_layer.providerType(),
+                }
+                for spatial_layer in spatial_layers
+            ],
         }
         job_manager.submit_local_job_as_qgstask(
             job_params, self.LOCAL_SCRIPT_NAME, self.aoi

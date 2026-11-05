@@ -151,7 +151,9 @@ def _format_data(
     areas: dict[str, dict[int, float]] = {}
     for row in spatial_data:
         sub_indicator = _check_indicator(f"Spatial input, year {row['year']}", row)
-        areas.setdefault(sub_indicator, {})[row["year"]] = row["area"]
+        # The layers of the countries of a year are summed
+        area_by_year = areas.setdefault(sub_indicator, {})
+        area_by_year[row["year"]] = area_by_year.get(row["year"], 0) + row["area"]
 
     # Formatting the data
     rows = _rows_by_sub_indicator(data)
@@ -217,7 +219,7 @@ def _report_variables(
             f"{reporting_period[0]} to {reporting_period[1]}"
         ),
         "te_restoration_report_generated": dt.date.today().strftime("%Y-%m-%d"),
-        # Name of the spatial input layer, e.g. PROJ_1_V20261231
+        # Name of the spatial input layer, e.g. IND_V20251231
         "te_restoration_spatial_data_version": spatial_data_version,
     }
 

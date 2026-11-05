@@ -211,7 +211,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="spatial_layer_label">
+         <widget class="QLabel" name="spatial_layers_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -219,7 +219,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>Polygon layer of the restoration sites, with the fields Sub_Indicator and Date.</string>
+           <string>Polygon layers of the restoration sites, one per year for a country, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.</string>
           </property>
           <property name="text">
            <string>Spatial input (restoration sites):</string>
@@ -227,9 +227,9 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="spatial_layer_layout">
+         <layout class="QHBoxLayout" name="spatial_layers_layout">
           <item>
-           <widget class="QgsMapLayerComboBox" name="spatial_layer">
+           <widget class="QgsCheckableComboBox" name="spatial_layers">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -237,14 +237,14 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Polygon layer of the restoration sites, with the fields Sub_Indicator and Date. The spatially supported area of each sub-indicator per year is the area of its polygons of that year.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Polygon layers of the restoration sites, one per year for a country, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231, GeoJSON, KML or Shapefile files in WGS 84 (EPSG:4326). The dates of the layer names are the reporting period, the spatially supported area of a year is the area of the polygons of its layers.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="spatial_layer_import_button">
+           <widget class="QPushButton" name="spatial_layers_import_button">
             <property name="toolTip">
-             <string>Load a GeoJSON, KML, GeoPackage or Shapefile of the restoration sites into the project, and select it.</string>
+             <string>Load GeoJSON, KML or Shapefile files of the restoration sites into the project, and select them.</string>
             </property>
             <property name="text">
              <string>Import</string>
@@ -252,6 +252,16 @@
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="reporting_period_label">
+          <property name="toolTip">
+           <string>Reporting period of the report, from the dates of the names of the spatial input layers.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="verticalSpacer_5">
@@ -268,88 +278,6 @@
            </size>
           </property>
          </spacer>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="reporting_period_layout">
-          <item>
-           <layout class="QVBoxLayout" name="baseline_date_layout">
-            <item>
-             <widget class="QLabel" name="baseline_date_label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>Start date of the reporting period of the report.</string>
-              </property>
-              <property name="text">
-               <string>Baseline date:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDateEdit" name="baseline_date">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>Start date of the reporting period of the report.</string>
-              </property>
-              <property name="displayFormat">
-               <string>yyyy-MM-dd</string>
-              </property>
-              <property name="calendarPopup">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="latest_monitoring_date_layout">
-            <item>
-             <widget class="QLabel" name="latest_monitoring_date_label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>End date of the reporting period of the report, the date of the latest monitoring.</string>
-              </property>
-              <property name="text">
-               <string>Latest monitoring date:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDateEdit" name="latest_monitoring_date">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>End date of the reporting period of the report, the date of the latest monitoring.</string>
-              </property>
-              <property name="displayFormat">
-               <string>yyyy-MM-dd</string>
-              </property>
-              <property name="calendarPopup">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
         </item>
         <item>
          <widget class="Line" name="line">
@@ -525,9 +453,9 @@ p, li { white-space: pre-wrap; }
    <header>qgsfilewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>QgsMapLayerComboBox</class>
+   <class>QgsCheckableComboBox</class>
    <extends>QComboBox</extends>
-   <header>qgsmaplayercombobox.h</header>
+   <header>qgscheckablecombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

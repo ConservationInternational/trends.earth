@@ -1,15 +1,10 @@
 import csv
 import datetime as dt
 import json
+import shutil
 from pathlib import Path
 
-from qgis.core import (
-    QgsCoordinateReferenceSystem,
-    QgsCoordinateTransform,
-    QgsCoordinateTransformContext,
-    QgsVectorFileWriter,
-    QgsVectorLayer,
-)
+from qgis.core import QgsVectorLayer
 from te_schemas.results import URI, FileResults
 
 from ..areaofinterest import AOI
@@ -22,10 +17,50 @@ from ..reports.ecosystem_restoration.report import (
 from ..reports.ecosystem_restoration.spatial import (
     GEF_CP_ID_FIELD,
     calculate_spatially_supported,
+    check_layer_file,
+    layer_dates,
+    layer_files,
     missing_fields,
     read_countries,
     validate_sites,
 )
+
+
+def _open_layer(spatial_layer: dict) -> QgsVectorLayer:
+    """Open and validate a spatial input layer."""
+    name = spatial_layer.get("name")
+    layer = QgsVectorLayer(
+        spatial_layer.get("source"), name, spatial_layer.get("provider") or "ogr"
+    )
+    if not layer.isValid():
+        raise ValueError(f"Spatial input layer {name} cannot be opened.")
+
+    errors = check_layer_file(layer)
+    if errors:
+        raise ValueError("\n".join(errors))
+    missing = missing_fields(layer)
+    if missing:
+        raise ValueError(
+            f"Spatial input layer {name} has no field: {', '.join(missing)}"
+        )
+    errors = validate_sites(layer)
+    if errors:
+        raise ValueError(
+            f"Spatial input layer {name} has invalid restoration sites:\n"
+            + "\n".join(errors)
+        )
+    return layer
+
+
+def _filter_child_project(layer: QgsVectorLayer, gef_cp_id: str):
+    """Keep only the restoration sites of the child project in the layer."""
+    field = layer.fields().field(layer.fields().lookupField(GEF_CP_ID_FIELD))
+    quoted_id = gef_cp_id.replace("'", "''")
+    subset = f"\"{field.name()}\" = '{quoted_id}'"
+    if layer.subsetString():
+        subset = f"({layer.subsetString()}) AND {subset}"
+    if not layer.setSubsetString(subset):
+        raise ValueError(f"Spatial input layer {layer.name()} cannot be filtered.")
 
 
 def create_ecosystem_restoration_progress_report(
@@ -41,11 +76,8 @@ def create_ecosystem_restoration_progress_report(
     data_csv = job.params.get("data_csv")
     # GEF_CP_ID of the child project, None for all the child projects
     gef_cp_id = (job.params.get("gef_cp_id") or "").strip() or None
-    spatial_layer = job.params.get("spatial_layer")
-    spatial_layer_provider = job.params.get("spatial_layer_provider") or "ogr"
-    spatial_layer_name = job.params.get("spatial_layer_name") or ""
-    baseline_date = job.params.get("baseline_date")
-    latest_monitoring_date = job.params.get("latest_monitoring_date")
+    # Name, source and provider of each spatial input layer
+    spatial_layers = job.params.get("spatial_layers") or []
     inputs = {
         "region": area_of_interest.get_geojson() if area_of_interest else None,
         "execution_name": job.task_name,
@@ -53,29 +85,12 @@ def create_ecosystem_restoration_progress_report(
         "project_name": project_name,
         "data_csv": data_csv,
         "gef_cp_id": gef_cp_id,
-        "spatial_layer": spatial_layer,
-        "spatial_layer_name": spatial_layer_name,
-        "baseline_date": baseline_date,
-        "latest_monitoring_date": latest_monitoring_date,
+        "spatial_layers": spatial_layers,
     }
     job_output_path.write_text(json.dumps(inputs, indent=2))
 
     if not project_name:
         raise ValueError("No project name was given.")
-
-    # Reporting period
-    try:
-        reporting_period = (
-            dt.date.fromisoformat(baseline_date),
-            dt.date.fromisoformat(latest_monitoring_date),
-        )
-    except (TypeError, ValueError):
-        raise ValueError(
-            "The baseline date and the latest monitoring date must be dates "
-            f"as YYYY-MM-DD: {baseline_date!r}, {latest_monitoring_date!r}"
-        )
-    if reporting_period[0] > reporting_period[1]:
-        raise ValueError("The baseline date is after the latest monitoring date.")
 
     if not data_csv:
         raise ValueError("No report data CSV was given.")
@@ -93,67 +108,63 @@ def create_ecosystem_restoration_progress_report(
                 f"Report data CSV has no rows of child project {gef_cp_id}"
             )
 
-    # Open the layer
-    if not spatial_layer:
+    # Check spatial layers
+    if not spatial_layers:
         raise ValueError("No spatial input layer was given.")
-    layer = QgsVectorLayer(spatial_layer, "restoration_sites", spatial_layer_provider)
-    if not layer.isValid():
-        raise ValueError(f"Spatial input layer cannot be opened: {spatial_layer}")
 
-    missing = missing_fields(layer)
-    if missing:
-        raise ValueError(f"Spatial input layer has no field: {', '.join(missing)}")
-    errors = validate_sites(layer)
+    # Dates of the layers, from their names, sorted by date
+    layers_by_name = {
+        spatial_layer.get("name"): spatial_layer for spatial_layer in spatial_layers
+    }
+    dates, errors = layer_dates(list(layers_by_name))
     if errors:
-        raise ValueError(
-            "Spatial input layer has invalid restoration sites:\n" + "\n".join(errors)
-        )
+        raise ValueError("\n".join(errors))
 
-    # Only the restoration sites of the child project
-    if gef_cp_id:
-        field = layer.fields().field(layer.fields().lookupField(GEF_CP_ID_FIELD))
-        quoted_id = gef_cp_id.replace("'", "''")
-        subset = f"\"{field.name()}\" = '{quoted_id}'"
-        if layer.subsetString():
-            subset = f"({layer.subsetString()}) AND {subset}"
-        if not layer.setSubsetString(subset):
-            raise ValueError(f"Spatial input layer cannot be filtered: {subset}")
-    spatial_data = calculate_spatially_supported(layer)
-    countries = read_countries(layer)
+    # Reporting period, from the date of the first layer to the date of the last
+    reporting_period = (min(dates.values()), max(dates.values()))
+
+    # Spatially supported area of each layer, for the year of its name
+    spatial_data = []
+    sites_paths = []
+    countries = set()
+    for name, date in dates.items():
+        layer = _open_layer(layers_by_name[name])
+
+        # Copy the files of the validated restoration sites, as they are,
+        # with the sites of all the child projects
+        for file in layer_files(layer.source()):
+            sites_paths.append(
+                Path(shutil.copy2(file, job_output_path.parent / file.name))
+            )
+
+        # The report has only the restoration sites of the child project
+        if gef_cp_id:
+            _filter_child_project(layer, gef_cp_id)
+        spatial_data.extend(calculate_spatially_supported(layer, date.year))
+        countries.update(read_countries(layer))
 
     pdf_path = generate_report(
         job_output_path.parent,
         project_name,
         data,
         spatial_data,
-        countries,
+        sorted(countries),
         reporting_period,
-        spatial_layer_name,
-        # GEF child project of the report
+        # Names of the layers of the last year, for every country
+        " • ".join(
+            name
+            for name, date in dates.items()
+            if date.year == reporting_period[1].year
+        ),
         f"{gef_cp_id} • {project_name}" if gef_cp_id else "All projects",
     )
-
-    # Save the validated restoration sites as GeoJSON, in WGS 84
-    sites_path = job_output_path.parent / "Validated_Restoration_Sites.geojson"
-    transform_context = QgsCoordinateTransformContext()
-    options = QgsVectorFileWriter.SaveVectorOptions()
-    options.driverName = "GeoJSON"
-    options.fileEncoding = "UTF-8"
-    options.ct = QgsCoordinateTransform(
-        layer.crs(), QgsCoordinateReferenceSystem("EPSG:4326"), transform_context
-    )
-    error, message, *_ = QgsVectorFileWriter.writeAsVectorFormatV3(
-        layer, str(sites_path), transform_context, options
-    )
-    if error != QgsVectorFileWriter.NoError:
-        raise RuntimeError(f"Validated restoration sites not saved: {message}")
 
     job.end_date = dt.datetime.now(dt.timezone.utc)
     job.progress = 100
     job.results = FileResults(
         name="ecosystem_restoration",
         uri=URI(uri=pdf_path or job_output_path),
-        other_uris=[URI(uri=sites_path)],
+        other_uris=[URI(uri=sites_path) for sites_path in sites_paths],
         data=inputs,
     )
 

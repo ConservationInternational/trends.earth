@@ -3,6 +3,7 @@
 import datetime as dt
 import glob
 import re
+import zipfile
 from pathlib import Path
 
 from qgis.core import (
@@ -50,6 +51,11 @@ LAYER_NAME_FORMAT = "[ISO COUNTRY]_V[YYYYMMDD]"
 LAYER_NAME_REGEX = re.compile(r"^([A-Z]{3})_V(\d{8})$")
 LAYER_FILE_EXTENSIONS = (".geojson", ".kml", ".shp")
 LAYER_CRS = "EPSG:4326"
+
+# Empty Shapefile of the restoration sites, with its QGIS form in the .qml
+SPATIAL_TEMPLATE_DIR = Path(__file__).parent / "spatial_template"
+# Name of the files of the template, and of its ZIP file
+SPATIAL_TEMPLATE_NAME = "XXX_VYYYYMMDD"
 
 
 def _year(value) -> int | None:
@@ -101,6 +107,14 @@ def layer_dates(names: list[str]) -> tuple[dict[str, dt.date], list[str]]:
             )
 
     return dict(sorted(dates.items(), key=lambda item: item[1])), errors
+
+
+def write_spatial_template(path: Path):
+    """Write the files of SPATIAL_TEMPLATE_DIR in a ZIP file."""
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zip_file:
+        for file in sorted(SPATIAL_TEMPLATE_DIR.iterdir()):
+            if file.is_file():
+                zip_file.write(file, file.name)
 
 
 def layer_file(source: str) -> Path:

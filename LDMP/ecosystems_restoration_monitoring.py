@@ -25,12 +25,15 @@ from .reports.ecosystem_restoration.report import (
     CSV_DELIMITER,
     GEF_CP_ID,
     REQUIRED_DATA_COLUMNS,
+    write_data_template,
 )
 from .reports.ecosystem_restoration.spatial import (
+    SPATIAL_TEMPLATE_NAME,
     check_layer_file,
     layer_dates,
     missing_fields,
     validate_sites,
+    write_spatial_template,
 )
 
 DlgEcosystemReportingRestorationProgressUi, _ = uic.loadUiType(
@@ -59,10 +62,14 @@ class DlgEcosystemReportingRestorationProgress(
         completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
         self.child_project_radio_button.toggled.connect(self.child_project.setEnabled)
         self.data_csv.fileChanged.connect(self._load_child_projects)
+        self.data_csv_template_label.linkActivated.connect(self._download_data_template)
 
         # Spatial input layers, and the reporting period from their names
         self.spatial_layers.checkedItemsChanged.connect(self._update_reporting_period)
         self.spatial_layers_import_button.clicked.connect(self._import_spatial_layer)
+        self.spatial_layers_template_label.linkActivated.connect(
+            self._download_spatial_template
+        )
         self._load_spatial_layers()
         self._finish_initialization()
 
@@ -156,6 +163,49 @@ class DlgEcosystemReportingRestorationProgress(
                 None,
                 self.tr("Error"),
                 self.tr("Cannot load the layers:\n{}").format("\n".join(failed_paths)),
+            )
+
+    def _download_data_template(self):
+        """Save the report data CSV template."""
+        path, _ = QtWidgets.QFileDialog.getSaveFileName(
+            self,
+            self.tr("Save report data template"),
+            "restoration_progress_report_data.csv",
+            self.tr("CSV files (*.csv)"),
+        )
+        if not path:
+            return
+        if Path(path).suffix.lower() != ".csv":
+            path = f"{path}.csv"
+        try:
+            write_data_template(Path(path))
+        except OSError as error:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Cannot save the template: {}").format(error),
+            )
+            return
+
+    def _download_spatial_template(self):
+        """Save the ZIP of the Shapefile template of the restoration sites."""
+        path, _ = QtWidgets.QFileDialog.getSaveFileName(
+            self,
+            self.tr("Save restoration sites template"),
+            f"{SPATIAL_TEMPLATE_NAME}.zip",
+            self.tr("ZIP files (*.zip)"),
+        )
+        if not path:
+            return
+        if Path(path).suffix.lower() != ".zip":
+            path = f"{path}.zip"
+        try:
+            write_spatial_template(Path(path))
+        except OSError as error:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Cannot save the template: {}").format(error),
             )
 
     def _load_child_projects(self, path: str):

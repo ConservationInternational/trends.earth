@@ -1,5 +1,6 @@
 """Ecosystem restoration progress report."""
 
+import csv
 import datetime as dt
 from pathlib import Path
 
@@ -68,6 +69,19 @@ INDICATOR_BY_SUB_INDICATOR = {
     for indicator in INDICATORS.values()
     for sub_indicator in indicator["sub_indicators"]
 }
+
+
+def write_data_template(path: Path):
+    """Write a report data CSV with a row for every sub-indicator of INDICATORS.
+
+    The GEF_CP_ID, the target and the reported progress are empty.
+    """
+    with open(path, "w", newline="", encoding="utf-8") as csv_file:
+        writer = csv.writer(csv_file, delimiter=CSV_DELIMITER)
+        writer.writerow(REQUIRED_DATA_COLUMNS)
+        for indicator in INDICATORS.values():
+            for sub_indicator in indicator["sub_indicators"]:
+                writer.writerow(["", indicator["label"], sub_indicator, "", ""])
 
 
 def _log_export(chart_name: str, result: tuple[bool, list]) -> bool:

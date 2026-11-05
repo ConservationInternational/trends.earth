@@ -123,6 +123,16 @@
          </widget>
         </item>
         <item>
+         <widget class="QLabel" name="data_csv_template_label">
+          <property name="text">
+           <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::RichText</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer_3">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -252,6 +262,19 @@
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="spatial_layers_template_label">
+          <property name="toolTip">
+           <string>Save a ZIP with an empty Shapefile of the restoration sites, with its fields and QGIS form. Rename the files [ISO COUNTRY]_V[YYYYMMDD] before importing them.</string>
+          </property>
+          <property name="text">
+           <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::RichText</enum>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="reporting_period_label">

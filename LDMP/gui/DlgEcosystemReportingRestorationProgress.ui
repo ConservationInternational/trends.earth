@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>460</height>
+    <height>507</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -43,13 +43,13 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>390</width>
-         <height>454</height>
+         <width>437</width>
+         <height>699</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QLabel" name="project_name_la">
+         <widget class="QLabel" name="project_name_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -65,14 +65,30 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="project_name_le">
+         <widget class="QLineEdit" name="project_name">
           <property name="toolTip">
            <string>Name of the project, the reporting scope of the report.</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="data_csv_la">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="data_csv_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -88,7 +104,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QgsFileWidget" name="data_csv_fw">
+         <widget class="QgsFileWidget" name="data_csv">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -107,9 +123,32 @@
          </widget>
         </item>
         <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Filter data by projects:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="child_project_layout">
           <item>
-           <widget class="QRadioButton" name="all_child_projects_rb">
+           <widget class="QRadioButton" name="all_child_projects_radio_button">
             <property name="toolTip">
              <string>Report all the child projects of the CSV file.</string>
             </property>
@@ -122,7 +161,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="child_project_rb">
+           <widget class="QRadioButton" name="child_project_radio_button">
             <property name="toolTip">
              <string>Report only one child project of the CSV file.</string>
             </property>
@@ -132,7 +171,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="child_project_cb">
+           <widget class="QComboBox" name="child_project">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -156,7 +195,23 @@
          </layout>
         </item>
         <item>
-         <widget class="QLabel" name="spatial_layer_la">
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="spatial_layer_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -172,24 +227,54 @@
          </widget>
         </item>
         <item>
-         <widget class="QgsMapLayerComboBox" name="spatial_layer_cb">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <layout class="QHBoxLayout" name="spatial_layer_layout">
+          <item>
+           <widget class="QgsMapLayerComboBox" name="spatial_layer">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Polygon layer of the restoration sites, with the fields Sub_Indicator and Date. The spatially supported area of each sub-indicator per year is the area of its polygons of that year.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="spatial_layer_import_button">
+            <property name="toolTip">
+             <string>Load a GeoJSON, KML, GeoPackage or Shapefile of the restoration sites into the project, and select it.</string>
+            </property>
+            <property name="text">
+             <string>Import</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Polygon layer of the restoration sites, with the fields Sub_Indicator and Date. The spatially supported area of each sub-indicator per year is the area of its polygons of that year.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
           </property>
-         </widget>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <layout class="QHBoxLayout" name="reporting_period_layout">
           <item>
            <layout class="QVBoxLayout" name="baseline_date_layout">
             <item>
-             <widget class="QLabel" name="baseline_date_la">
+             <widget class="QLabel" name="baseline_date_label">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -205,7 +290,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QDateEdit" name="baseline_date_de">
+             <widget class="QDateEdit" name="baseline_date">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -228,7 +313,7 @@
           <item>
            <layout class="QVBoxLayout" name="latest_monitoring_date_layout">
             <item>
-             <widget class="QLabel" name="latest_monitoring_date_la">
+             <widget class="QLabel" name="latest_monitoring_date_label">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -244,7 +329,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QDateEdit" name="latest_monitoring_date_de">
+             <widget class="QDateEdit" name="latest_monitoring_date">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -319,7 +404,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QLabel" name="execution_name_la">
+         <widget class="QLabel" name="execution_name_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -335,14 +420,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="execution_name_le">
+         <widget class="QLineEdit" name="execution_name">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="task_notes_la">
+         <widget class="QLabel" name="task_notes_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>

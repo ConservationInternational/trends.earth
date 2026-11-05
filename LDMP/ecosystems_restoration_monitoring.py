@@ -51,21 +51,51 @@ class DlgEcosystemReportingRestorationProgress(
             getattr(getattr(Qgis, "LayerFilter", None), "PolygonLayer", None)
             or QgsMapLayerProxyModel.PolygonLayer
         )
-        self.spatial_layer_cb.setFilters(polygon_filter)
+        self.spatial_layer.setFilters(polygon_filter)
 
         # Reporting period, by default from the start of last year to today
         today = QtCore.QDate.currentDate()
-        self.baseline_date_de.setDate(QtCore.QDate(today.year() - 1, 1, 1))
-        self.latest_monitoring_date_de.setDate(today)
+        self.baseline_date.setDate(QtCore.QDate(today.year() - 1, 1, 1))
+        self.latest_monitoring_date.setDate(today)
 
         # Child projects of the CSV, searched by any part of their GEF_CP_ID
-        completer = self.child_project_cb.completer()
+        completer = self.child_project.completer()
         completer.setFilterMode(QtCore.Qt.MatchContains)
         completer.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
         completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
-        self.child_project_rb.toggled.connect(self.child_project_cb.setEnabled)
-        self.data_csv_fw.fileChanged.connect(self._load_child_projects)
+        self.child_project_radio_button.toggled.connect(self.child_project.setEnabled)
+        self.data_csv.fileChanged.connect(self._load_child_projects)
+
+        self.spatial_layer_import_button.clicked.connect(self._import_spatial_layer)
         self._finish_initialization()
+
+    def _import_spatial_layer(self):
+        """Add a vector layer to the project and select it in the spatial input."""
+        path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr("Import restoration sites"),
+            "",
+            self.tr(
+                "Vector files (*.geojson *.json *.kml *.gpkg *.shp);;"
+                "GeoJSON (*.geojson *.json);;"
+                "KML (*.kml);;"
+                "GeoPackage (*.gpkg);;"
+                "Shapefile (*.shp)"
+            ),
+        )
+        if not path:
+            return
+
+        layer = self.iface.addVectorLayer(path, Path(path).stem, "ogr")
+        if not layer or not layer.isValid():
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Cannot load the layer: {}").format(path),
+            )
+            return
+        # The combobox lists the polygon layers of the project, now with this layer
+        self.spatial_layer.setLayer(layer)
 
     def _load_child_projects(self, path: str):
         """List the GEF_CP_ID of the CSV in the child project input."""
@@ -78,8 +108,8 @@ class DlgEcosystemReportingRestorationProgress(
             except (OSError, UnicodeDecodeError, csv.Error):
                 pass
         child_projects.discard("")
-        self.child_project_cb.clear()
-        self.child_project_cb.addItems(sorted(child_projects))
+        self.child_project.clear()
+        self.child_project.addItems(sorted(child_projects))
 
     def _setup_alg_help(self):
         self.alg_help.setHtml(
@@ -178,22 +208,22 @@ class DlgEcosystemReportingRestorationProgress(
         if not ret:
             return
 
-        project_name = self.project_name_le.text().strip()
+        project_name = self.project_name.text().strip()
         if not project_name:
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Enter the project name.")
             )
             return
 
-        data_csv = self.data_csv_fw.filePath()
+        data_csv = self.data_csv.filePath()
         if not self._check_data_csv(data_csv):
             return
 
         # GEF_CP_ID of the child project, None for all the child projects
         gef_cp_id = None
-        if self.child_project_rb.isChecked():
-            gef_cp_id = self.child_project_cb.currentText().strip()
-            if self.child_project_cb.findText(gef_cp_id) < 0:
+        if self.child_project_radio_button.isChecked():
+            gef_cp_id = self.child_project.currentText().strip()
+            if self.child_project.findText(gef_cp_id) < 0:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
@@ -201,7 +231,7 @@ class DlgEcosystemReportingRestorationProgress(
                 )
                 return
 
-        spatial_layer = self.spatial_layer_cb.currentLayer()
+        spatial_layer = self.spatial_layer.currentLayer()
         if not self._check_spatial_layer(spatial_layer):
             return
         if gef_cp_id and spatial_layer.fields().indexOf(GEF_CP_ID) < 0:
@@ -215,8 +245,8 @@ class DlgEcosystemReportingRestorationProgress(
             )
             return
 
-        baseline_date = self.baseline_date_de.date()
-        latest_monitoring_date = self.latest_monitoring_date_de.date()
+        baseline_date = self.baseline_date.date()
+        latest_monitoring_date = self.latest_monitoring_date.date()
         if baseline_date > latest_monitoring_date:
             QtWidgets.QMessageBox.critical(
                 None,
@@ -228,7 +258,7 @@ class DlgEcosystemReportingRestorationProgress(
         self.close()
 
         job_params = {
-            "task_name": self.execution_name_le.text(),
+            "task_name": self.execution_name.text(),
             "task_notes": self.task_notes.toPlainText(),
             "project_name": project_name,
             "data_csv": data_csv,

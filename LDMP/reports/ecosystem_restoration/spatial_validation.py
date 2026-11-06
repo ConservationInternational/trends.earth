@@ -4,7 +4,14 @@ import datetime as dt
 import re
 
 from osgeo import gdal
-from qgis.core import Qgis, QgsFeature, QgsVectorLayer, QgsWkbTypes
+from qgis.core import (
+    Qgis,
+    QgsFeature,
+    QgsGeometry,
+    QgsSpatialIndex,
+    QgsVectorLayer,
+    QgsWkbTypes,
+)
 from qgis.PyQt.QtCore import QDate, QDateTime
 
 from .spatial import (
@@ -12,6 +19,7 @@ from .spatial import (
     DATE_FIELD,
     GEF_CP_ID_FIELD,
     GEF_CP_ID_REGEX,
+    INDICATOR_FIELD,
     LAYER_NAME_REGEX,
     REQUIRED_SPATIAL_FIELDS,
     SITE_ID_FIELD,
@@ -173,6 +181,48 @@ class LayerValidation:
             )
         return errors
 
+    def _validate_overlapping(self, skipped_ids: set[int]) -> dict[int, list[str]]:
+        """Errors of the sites overlapping another site of the same Indicator,
+        by feature id.
+
+        Sites of different indicators can overlap. Two sites overlap when their
+        interiors intersect, a site nested in another too. Sites touching only
+        on their boundaries do not overlap. The sites of skipped_ids, e.g. with
+        an invalid boundary, are not checked.
+        """
+        sites_by_indicator: dict[str, dict[int, tuple[str, QgsGeometry]]] = {}
+        indexes: dict[str, QgsSpatialIndex] = {}
+        for feature in self.layer.getFeatures():
+            indicator = str(feature[INDICATOR_FIELD] or "").strip()
+            if feature.id() in skipped_ids or not indicator:
+                continue
+            site_id = str(feature[SITE_ID_FIELD] or "").strip() or (
+                f"feature {feature.id()}"
+            )
+            sites_by_indicator.setdefault(indicator, {})[feature.id()] = (
+                site_id,
+                feature.geometry(),
+            )
+            indexes.setdefault(indicator, QgsSpatialIndex()).addFeature(feature)
+
+        errors = {}
+        for indicator, sites in sites_by_indicator.items():
+            for feature_id, (site_id, geometry) in sites.items():
+                engine = QgsGeometry.createGeometryEngine(geometry.constGet())
+                engine.prepareGeometry()
+                for other_id in indexes[indicator].intersects(geometry.boundingBox()):
+                    if other_id >= feature_id:
+                        continue
+                    other_site_id, other_geometry = sites[other_id]
+                    other = other_geometry.constGet()
+                    if not engine.intersects(other) or engine.touches(other):
+                        continue
+                    errors.setdefault(feature_id, []).append(
+                        f"boundary overlaps Site {other_site_id} of the same "
+                        f"{INDICATOR_FIELD} {indicator}."
+                    )
+        return errors
+
     def run(self) -> list[str]:
         """Run all the validations, returns their errors and empty when the layer is valid."""
         # Check the file of the layer: a GeoJSON, KML or Shapefile in EPSG:4326.
@@ -188,6 +238,10 @@ class LayerValidation:
         # Validate closed polygon
         boundary_errors = self._validate_closed_polygon()
 
+        # Validate overlapping of the sites of the same indicator, for the
+        # sites with a valid boundary
+        overlap_errors = self._validate_overlapping(set(boundary_errors))
+
         # Validate features
         match = LAYER_NAME_REGEX.match(self.layer.name() or "")
         layer_country = match.group(1) if match else None
@@ -198,6 +252,7 @@ class LayerValidation:
 
             site_errors = self._validate_attributes(feature, layer_country)
             site_errors += boundary_errors.get(feature.id(), [])
+            site_errors += overlap_errors.get(feature.id(), [])
             if site_id in site_ids:
                 site_errors.append(f"{SITE_ID_FIELD} is not unique.")
             elif site_id:

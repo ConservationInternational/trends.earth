@@ -7,16 +7,12 @@ import zipfile
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-from osgeo import gdal
 from qgis.core import (
-    Qgis,
     QgsCoordinateTransformContext,
     QgsDistanceArea,
     QgsGeometry,
     QgsVectorLayer,
-    QgsWkbTypes,
 )
-from qgis.PyQt.QtCore import QDate, QDateTime
 
 
 GEF_CP_ID_FIELD = "GEF_CP_ID"
@@ -51,34 +47,11 @@ SPATIAL_FIELDS = REQUIRED_SPATIAL_FIELDS + OPTIONAL_VALUE_SPATIAL_FIELDS
 # Regex for GEF identification of a child project [GEF8 Code], five numbers, e.g. 11130
 GEF_CP_ID_REGEX = re.compile(r"^\d{5}$")
 
-# Regex for identifier of a restoration site, [ISO3 Code]_[SiteNumber], e.g. HTI_0023
-SITE_ID_FORMAT = "[ISO3 Code]_[SiteNumber]"
-SITE_ID_REGEX = re.compile(r"^([A-Z]{3})_\d{4}$")
-
-# Most errors listed by validate_sites
-MAX_SITE_ERRORS = 10
-
 LAYER_NAME_FORMAT = "[ISO COUNTRY]_V[YYYYMMDD]"
 LAYER_NAME_REGEX = re.compile(r"^([A-Z]{3})_V(\d{8})$")
-LAYER_FILE_EXTENSIONS = (".geojson", ".kml", ".shp")
-LAYER_CRS = "EPSG:4326"
 
 # Empty Shapefile of the restoration sites, with its QGIS form in the .qml
 SPATIAL_TEMPLATE_DIR = Path(__file__).parent / "spatial_template"
-
-
-def _year(value) -> int | None:
-    """Year of a date attribute, None when it is empty or not a date."""
-    if isinstance(value, QDateTime):
-        value = value.date()
-    if isinstance(value, QDate):
-        return value.year() if value.isValid() else None
-    if isinstance(value, (dt.date, dt.datetime)):
-        return value.year
-    text = str(value or "").strip()
-    if len(text) >= 4 and text[:4].isdigit():
-        return int(text[:4])
-    return None
 
 
 def layer_date(name: str) -> dt.date | None:
@@ -167,145 +140,6 @@ def layer_files(source: str) -> list[Path]:
         for file in path.parent.glob(f"{glob.escape(path.stem)}.*")
         if file.is_file()
     )
-
-
-def check_layer_file(layer: QgsVectorLayer) -> list[str]:
-    """Check layer based on extensions, not a file or not using EPSG:4326."""
-    errors = []
-    path = layer_file(layer.source())
-    if not path.is_file():
-        errors.append(f"Layer {layer.name()} is not a file.")
-    elif path.suffix.lower() not in LAYER_FILE_EXTENSIONS:
-        errors.append(
-            f"Layer {layer.name()} is not a GeoJSON, KML or Shapefile: {path.name}"
-        )
-    if layer.crs().authid() != LAYER_CRS:
-        errors.append(
-            f"Layer {layer.name()} is not in {LAYER_CRS}: "
-            f"{layer.crs().authid() or 'no CRS'}"
-        )
-    return errors
-
-
-def missing_fields(layer: QgsVectorLayer) -> list[str]:
-    """SPATIAL_FIELDS that the layer has not, field names are not case-sensitive."""
-    return [name for name in SPATIAL_FIELDS if layer.fields().lookupField(name) < 0]
-
-
-def validate_closed_polygon(layer: QgsVectorLayer) -> dict[int, list[str]]:
-    """Errors of the boundary of each site of the layer, by feature id.
-
-    A boundary is closed polygons: the rings of the polygons are closed, with
-    4 points at least, and the polygons are valid, no self-intersection or
-    dangling vertex. A site with a valid boundary has no errors.
-    """
-    is_file = layer.providerType() == "ogr" and layer_file(layer.source()).is_file()
-    option = "OGR_GEOMETRY_ACCEPT_UNCLOSED_RING"
-    previous = gdal.GetThreadLocalConfigOption(option, None)
-    if is_file:
-        gdal.SetThreadLocalConfigOption(option, "NO")
-    try:
-        if is_file:
-            layer = QgsVectorLayer(layer.source(), layer.name(), "ogr")
-
-        errors = {}
-        for feature in layer.getFeatures():
-            geometry = feature.geometry()
-            if geometry.isNull() or geometry.isEmpty():
-                errors[feature.id()] = ["no boundary, or the boundary is not closed."]
-                continue
-            if geometry.type() != QgsWkbTypes.PolygonGeometry:
-                geometry_type = QgsWkbTypes.geometryDisplayString(geometry.type())
-                errors[feature.id()] = [
-                    f"boundary is a {geometry_type}, not a closed polygon."
-                ]
-                continue
-
-            rings = [
-                ring
-                for part in geometry.constParts()
-                for ring in [part.exteriorRing()]
-                + [part.interiorRing(index) for index in range(part.numInteriorRings())]
-            ]
-            if any(
-                ring is None or not ring.isClosed() or ring.numPoints() < 4
-                for ring in rings
-            ):
-                errors[feature.id()] = ["boundary is not closed."]
-                continue
-
-            invalid = geometry.validateGeometry(Qgis.GeometryValidationEngine.Geos)
-            if invalid:
-                errors[feature.id()] = [
-                    f"boundary is not valid: {error.what()}" for error in invalid
-                ]
-        return errors
-    finally:
-        if is_file:
-            gdal.SetThreadLocalConfigOption(option, previous)
-
-
-def validate_sites(layer: QgsVectorLayer) -> list[str]:
-    """Errors of the restoration sites, empty when they are valid."""
-    errors = []
-    site_ids = set()
-
-    # Country of the layer name, checked with layer_dates
-    match = LAYER_NAME_REGEX.match(layer.name() or "")
-    layer_country = match.group(1) if match else None
-
-    # Validate closed polygon
-    boundary_errors = validate_closed_polygon(layer)
-    for feature in layer.getFeatures():
-        site_id = str(feature[SITE_ID_FIELD] or "").strip()
-        site = f"Site {site_id}" if site_id else f"Feature {feature.id()}"
-
-        empty = [
-            name
-            for name in REQUIRED_SPATIAL_FIELDS
-            if not str(feature[name] or "").strip()
-        ]
-        if empty:
-            errors.append(f"{site}: no value for {', '.join(empty)}.")
-        else:
-            if _year(feature[DATE_FIELD]) is None:
-                errors.append(f"{site}: {DATE_FIELD} is not a date.")
-            gef_cp_id = str(feature[GEF_CP_ID_FIELD]).strip()
-            if not GEF_CP_ID_REGEX.match(gef_cp_id):
-                errors.append(
-                    f"{site}: {GEF_CP_ID_FIELD} {gef_cp_id} is not five numbers."
-                )
-
-            country = str(feature[COUNTRY_FIELD]).strip()
-            if layer_country and country != layer_country:
-                errors.append(
-                    f"{site}: {COUNTRY_FIELD} {country} is not {layer_country}, "
-                    f"the country of layer {layer.name()}."
-                )
-            site_id_match = SITE_ID_REGEX.match(site_id)
-            if not site_id_match:
-                errors.append(
-                    f"{site}: {SITE_ID_FIELD} is not {SITE_ID_FORMAT}, e.g. HTI_0023."
-                )
-            elif site_id_match.group(1) != country:
-                errors.append(
-                    f"{site}: {SITE_ID_FIELD} does not start with "
-                    f"{COUNTRY_FIELD} {country}."
-                )
-
-        errors.extend(
-            f"{site}: {error}" for error in boundary_errors.get(feature.id(), [])
-        )
-
-        if site_id in site_ids:
-            errors.append(f"{site}: {SITE_ID_FIELD} is not unique.")
-        elif site_id:
-            site_ids.add(site_id)
-
-        if len(errors) >= MAX_SITE_ERRORS:
-            errors.append("...")
-            break
-    return errors
 
 
 def calculate_spatially_supported(layer: QgsVectorLayer, year: int) -> list[dict]:

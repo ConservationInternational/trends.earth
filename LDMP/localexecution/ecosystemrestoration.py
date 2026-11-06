@@ -17,13 +17,11 @@ from ..reports.ecosystem_restoration.report import (
 from ..reports.ecosystem_restoration.spatial import (
     GEF_CP_ID_FIELD,
     calculate_spatially_supported,
-    check_layer_file,
     layer_dates,
     layer_files,
-    missing_fields,
     read_countries,
-    validate_sites,
 )
+from ..reports.ecosystem_restoration.spatial_validation import LayerValidation
 
 
 def _open_layer(spatial_layer: dict) -> QgsVectorLayer:
@@ -35,19 +33,10 @@ def _open_layer(spatial_layer: dict) -> QgsVectorLayer:
     if not layer.isValid():
         raise ValueError(f"Spatial input layer {name} cannot be opened.")
 
-    errors = check_layer_file(layer)
-    if errors:
-        raise ValueError("\n".join(errors))
-    missing = missing_fields(layer)
-    if missing:
-        raise ValueError(
-            f"Spatial input layer {name} has no field: {', '.join(missing)}"
-        )
-    errors = validate_sites(layer)
+    errors = LayerValidation(layer).run()
     if errors:
         raise ValueError(
-            f"Spatial input layer {name} has invalid restoration sites:\n"
-            + "\n".join(errors)
+            f"Spatial input layer {name} is not valid:\n" + "\n".join(errors)
         )
     return layer
 

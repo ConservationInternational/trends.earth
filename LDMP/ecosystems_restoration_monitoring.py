@@ -30,13 +30,11 @@ from .reports.ecosystem_restoration.report import (
 )
 from .reports.ecosystem_restoration.spatial import (
     LAYER_NAME_REGEX,
-    check_layer_file,
     layer_dates,
     layer_name,
-    missing_fields,
-    validate_sites,
     write_spatial_template,
 )
+from .reports.ecosystem_restoration.spatial_validation import LayerValidation
 
 DlgEcosystemReportingRestorationProgressUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgEcosystemReportingRestorationProgress.ui")
@@ -348,21 +346,13 @@ class DlgEcosystemReportingRestorationProgress(
         """Shows an error and returns False when the layer cannot be used."""
         if not isinstance(layer, QgsVectorLayer):
             message = self.tr("The restoration sites layer is not a vector layer.")
-        elif check_layer_file(layer):
-            message = "\n".join(check_layer_file(layer))
         else:
-            missing = missing_fields(layer)
-            errors = [] if missing else validate_sites(layer)
-            if missing:
-                message = self.tr("The layer {} has no field: {}").format(
-                    layer.name(), ", ".join(missing)
-                )
-            elif errors:
-                message = self.tr("The layer {} has invalid sites:\n{}").format(
-                    layer.name(), "\n".join(errors)
-                )
-            else:
+            errors = LayerValidation(layer).run()
+            if not errors:
                 return True
+            message = self.tr("The layer {} is not valid:\n{}").format(
+                layer.name(), "\n".join(errors)
+            )
 
         QtWidgets.QMessageBox.critical(None, self.tr("Error"), message)
         return False

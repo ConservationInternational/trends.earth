@@ -9,13 +9,12 @@ from ...logger import log
 from ..models import slugify
 from .model import IndicatorDataModel, RestorationDataModel, SpatialSupportedOvertime
 from .spatial import GEF_CP_ID_REGEX
-from .writer.pdf import write_pdf
 from .writer.chart import (
     write_current_progress_indicator_chart,
     write_progress_over_time_chart,
     write_progress_to_bar_chart,
 )
-
+from .writer.pdf import write_pdf
 
 # QGIS print layout template of the report
 TEMPLATE_PATH = Path(__file__).parent / "template.qpt"

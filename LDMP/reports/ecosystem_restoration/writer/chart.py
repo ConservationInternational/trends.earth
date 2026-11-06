@@ -8,7 +8,6 @@ from ...chart_type.bar_chart import BarChart, BarSeries
 from ...chart_type.line_chart import LineChart, LineSeries
 from ..model import RestorationDataModel
 from ..styles import (
-    tr_ecosystem_restoration,
     AXIS_COLOR,
     FONT_FAMILY,
     GRID_COLOR,
@@ -16,6 +15,7 @@ from ..styles import (
     SPATIAL_COLOR,
     TARGET_COLOR,
     TEXT_COLOR,
+    tr_ecosystem_restoration,
 )
 
 

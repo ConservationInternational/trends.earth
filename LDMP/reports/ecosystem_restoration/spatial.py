@@ -14,7 +14,6 @@ from qgis.core import (
     QgsVectorLayer,
 )
 
-
 GEF_CP_ID_FIELD = "GEF_CP_ID"
 COUNTRY_FIELD = "Country"
 SITE_ID_FIELD = "Site_ID"

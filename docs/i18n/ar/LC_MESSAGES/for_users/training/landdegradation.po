@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.3.2\n"
+"Project-Id-Version: Trends.Earth 2.3.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-16 04:09+0000\n"
+"POT-Creation-Date: 2026-10-19 04:09+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/conservation-international/teams/80165/ar/)\n"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: ../../source/for_users/training/landdegradation.rst:26
 #: ../../source/for_users/training/landdegradation.rst:101
-#: ../../source/for_users/training/landdegradation.rst:395
+#: ../../source/for_users/training/landdegradation.rst:426
 msgid ""
 "The region of interest is already set up in Settings. If you need to change,"
 " select the **Change region** button."
@@ -78,7 +78,7 @@ msgstr ""
 
 #: ../../source/for_users/training/landdegradation.rst:29
 #: ../../source/for_users/training/landdegradation.rst:106
-#: ../../source/for_users/training/landdegradation.rst:398
+#: ../../source/for_users/training/landdegradation.rst:429
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual for more information"
 " on setting up your area of interest."
@@ -218,16 +218,16 @@ msgstr ""
 " ومخرجات مجدولة مع تقدير المساحات. "
 
 #: ../../source/for_users/training/landdegradation.rst:84
-#: ../../source/for_users/training/landdegradation.rst:227
-#: ../../source/for_users/training/landdegradation.rst:433
+#: ../../source/for_users/training/landdegradation.rst:258
+#: ../../source/for_users/training/landdegradation.rst:464
 msgid "**Estimated time of completion**: 20 minutes"
 msgstr "** الوقت المقدر للانتهاء **: 20 دقيقة"
 
 #: ../../source/for_users/training/landdegradation.rst:86
-#: ../../source/for_users/training/landdegradation.rst:152
-#: ../../source/for_users/training/landdegradation.rst:229
-#: ../../source/for_users/training/landdegradation.rst:295
-#: ../../source/for_users/training/landdegradation.rst:435
+#: ../../source/for_users/training/landdegradation.rst:183
+#: ../../source/for_users/training/landdegradation.rst:260
+#: ../../source/for_users/training/landdegradation.rst:326
+#: ../../source/for_users/training/landdegradation.rst:466
 msgid "**Internet access**: Not required"
 msgstr "** الوصول إلى الإنترنت **: غير مطلوب"
 
@@ -244,7 +244,7 @@ msgstr ""
 " و: المرجع:` tut_custom_soc`. "
 
 #: ../../source/for_users/training/landdegradation.rst:91
-#: ../../source/for_users/training/landdegradation.rst:492
+#: ../../source/for_users/training/landdegradation.rst:523
 msgid ""
 "Search for the Trends.Earth toolbar within QGIS, and click on the "
 "Trends.Earth icon."
@@ -314,26 +314,75 @@ msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
 #: ../../source/for_users/training/landdegradation.rst:127
+msgid "To use custom population data instead of WorldPop:"
+msgstr ""
+
+#: ../../source/for_users/training/landdegradation.rst:129
+msgid ""
+"Import the data through **Import custom Population dataset** in the "
+"Trends.Earth import menu. Specify the population year, whether the data "
+"represents total, male, or female population, and the correct input units: "
+"**People per pixel**, **People per hectare**, or **People per square "
+"kilometre**. Import male and female layers separately when using sex-"
+"disaggregated data."
+msgstr ""
+
+#: ../../source/for_users/training/landdegradation.rst:135
+msgid ""
+"Open or reopen the land degradation summary dialog, select the baseline and "
+"any reporting datasets first, then expand **Advanced** for each period. Keep"
+" the **Population** box checked and select **Total population** to enable "
+"the total-population dropdown, or **Population broken down by sex** to "
+"enable the male and female dropdowns. Select the corresponding imported "
+"layers instead of the automatically selected population layers."
+msgstr ""
+
+#: ../../source/for_users/training/landdegradation.rst:141
+msgid ""
+"Configure population separately for the baseline and each reporting period. "
+"Choose population years appropriate to the periods being summarized. For "
+"male and female layers, use data from the same year and with matching "
+"coordinate systems and pixel resolutions."
+msgstr ""
+
+#: ../../source/for_users/training/landdegradation.rst:147
+msgid ""
+"The import dialog defaults to **Total population**, while the summary dialog"
+" defaults to **Population broken down by sex**. A total-population import "
+"will appear only in the total-population dropdown, not in the male or female"
+" dropdowns. Select **Total population** in the summary dialog to use it. "
+"Total population supports overall exposure estimates, but not sex-"
+"disaggregated exposure estimates."
+msgstr ""
+
+#: ../../source/for_users/training/landdegradation.rst:154
+msgid ""
+"Population layers must cover the selected region of interest to appear in "
+"the dropdowns. If a layer is missing, check its imported population type and"
+" region coverage."
+msgstr ""
+
+#: ../../source/for_users/training/landdegradation.rst:158
 msgid "Select **Execute locally** button."
 msgstr "حدد زر **التنفيذ محلياً**. "
 
-#: ../../source/for_users/training/landdegradation.rst:129
+#: ../../source/for_users/training/landdegradation.rst:160
 msgid "When the analysis is completed a **Success** message will notify you."
 msgstr "عند اكتمال التحليل، ستخطرك رسالة **تم بنجاح**"
 
-#: ../../source/for_users/training/landdegradation.rst:131
+#: ../../source/for_users/training/landdegradation.rst:162
 msgid ""
 "In the **Datasets** window, click on **Load dataset onto QGIS map area**"
 msgstr ""
 "في نافذة **Datasets**، انقر على **تحميل مجموعة البيانات إلى منطقة خريطة "
 "QGIS**"
 
-#: ../../source/for_users/training/landdegradation.rst:136
+#: ../../source/for_users/training/landdegradation.rst:167
 msgid ""
 "The SDG 15.3.1 data will be added to the map for the region of interest."
 msgstr "ستتم إضافة بيانات SDG 15.3.1 إلى خريطة المنطقة محل الاهتمام. "
 
-#: ../../source/for_users/training/landdegradation.rst:143
+#: ../../source/for_users/training/landdegradation.rst:174
 msgid ""
 "Refer to the :ref:`background_landdegradation` background for interpreting "
 "the results of this analysis."
@@ -341,11 +390,11 @@ msgstr ""
 "راجع: المرجع: خلفية \"background_landdegradation\" لتفسير نتائج هذا التحليل."
 " "
 
-#: ../../source/for_users/training/landdegradation.rst:146
+#: ../../source/for_users/training/landdegradation.rst:177
 msgid "SDG 15.3.1 Land Degradation Summary"
 msgstr "الهدف SDG 15.3.1 ملخص تدهور الأراضي"
 
-#: ../../source/for_users/training/landdegradation.rst:148
+#: ../../source/for_users/training/landdegradation.rst:179
 msgid ""
 "**Objective**: Learn how to open and interpret the summary tables produced "
 "by Trends.Earth when calculating the final SDG 15.3.1 Indicator layer."
@@ -354,11 +403,11 @@ msgstr ""
 "الأرض عند حساب طبقة المؤشر النهائية للهدف SDG 15.3.1 من أهداف التنمية "
 "المستدامة."
 
-#: ../../source/for_users/training/landdegradation.rst:150
+#: ../../source/for_users/training/landdegradation.rst:181
 msgid "**Estimated time of completion**: 25 minutes"
 msgstr "**الوقت المقدر للانتهاء**: 25 دقيقة"
 
-#: ../../source/for_users/training/landdegradation.rst:154
+#: ../../source/for_users/training/landdegradation.rst:185
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_"
@@ -366,7 +415,7 @@ msgstr ""
 "`قم بتنزيل هذه الصفحة كملف PDF للاستخدام دون اتصال <../ pdfs / "
 "Trends.Earth_Tutorial08_The_Summary_Table.pdf>` _"
 
-#: ../../source/for_users/training/landdegradation.rst:158
+#: ../../source/for_users/training/landdegradation.rst:189
 msgid ""
 "You will need to have previously computed SDG 15.3.1 using the **Indicator "
 "for SDG 15.3.1** tool. Refer to the section "
@@ -377,7 +426,7 @@ msgstr ""
 "**. راجع القسم: المرجع: \"training_final_ldindicator\" للحصول على إرشادات "
 "حول كيفية إجراء هذا التحليل."
 
-#: ../../source/for_users/training/landdegradation.rst:160
+#: ../../source/for_users/training/landdegradation.rst:191
 msgid ""
 "When you calculate Indicator for SDG 15.3.1 an Excel file is created with "
 "the summary table. In the **Datasets** window, click on click on **Open "
@@ -387,7 +436,7 @@ msgstr ""
 "باستخدام جدول الملخص. في نافذة **Datasets**، انقر فوق **Open Dataset "
 "Directory**"
 
-#: ../../source/for_users/training/landdegradation.rst:167
+#: ../../source/for_users/training/landdegradation.rst:198
 msgid ""
 "The directory where the summary table was saved along with the geospatial "
 "data will open. You will see two summary tables in case both Baseline and "
@@ -397,7 +446,7 @@ msgstr ""
 "جدولين ملخّصين في حالة احتساب هدف التنمية المستدامة SDG 15.3.1 على حد سواء "
 "وفترة خط الأساس"
 
-#: ../../source/for_users/training/landdegradation.rst:172
+#: ../../source/for_users/training/landdegradation.rst:203
 msgid ""
 "The summary table file contains 6 tabs, which you can explore by clicking on"
 " each of the different names the bottom of the screen: SDG 15.3.1, "
@@ -407,7 +456,7 @@ msgstr ""
 "كل من الأسماء المختلفة أسفل الشاشة: SDG 15.3.1 والإنتاجية والكربون العضوي "
 "للتربة والغطاء الأرضي والسكان واتفاقية الأمم المتحدة لمكافحة التصحر SO1-1."
 
-#: ../../source/for_users/training/landdegradation.rst:174
+#: ../../source/for_users/training/landdegradation.rst:205
 msgid ""
 "In the **SDG 15.3.1** tab you will find the area calculations derived from "
 "the indicator map you explored in QGIS."
@@ -415,7 +464,7 @@ msgstr ""
 "في علامة التبويب **SDG 15.3.1** ستجد حسابات المنطقة المشتقة من خريطة المؤشر "
 "التي استكشفتها في QGIS."
 
-#: ../../source/for_users/training/landdegradation.rst:176
+#: ../../source/for_users/training/landdegradation.rst:207
 msgid ""
 "For the area you run the analysis, you will see the total land area "
 "(excluding water bodies): land that experienced improvement, which remained "
@@ -429,7 +478,7 @@ msgstr ""
 "لا توجد بيانات في الهدف SDG 15.3.1 من أهداف التنمية المستدامة تشير إلى عدم "
 "وجود بيانات في بعض مجموعات بيانات الإدخال المستخدمة في التحليل."
 
-#: ../../source/for_users/training/landdegradation.rst:181
+#: ../../source/for_users/training/landdegradation.rst:212
 msgid ""
 "In the **Productivity** tab you will find at the top, a similar summary as "
 "previously explained, but in this case representing the results of the land "
@@ -439,7 +488,7 @@ msgstr ""
 "موضح سابقاً، ولكن في هذه الحالة يمثل نتائج المؤشر الفرعي لإنتاجية الأرض "
 "وحده."
 
-#: ../../source/for_users/training/landdegradation.rst:183
+#: ../../source/for_users/training/landdegradation.rst:214
 msgid ""
 "In the sections below you will find two tables, each containing area "
 "information (in sq. km) for each of the land cover transitions found in the "
@@ -452,7 +501,7 @@ msgstr ""
 " تحليلها بواسطة كل فئة من فئات إنتاجية الأرض الخمسة النهائية: متزايد ومستقر،"
 " مستقرة لكنها مضغوطة، علامات مبكرة على التراجع والانحدار."
 
-#: ../../source/for_users/training/landdegradation.rst:188
+#: ../../source/for_users/training/landdegradation.rst:219
 msgid ""
 "In the **Soil organic carbon** tab you will find at the top, a similar "
 "summary as previously explained, but in this case representing the results "
@@ -462,12 +511,12 @@ msgstr ""
 "مشابهاً كما هو موضح سابقاً، ولكن في هذه الحالة يمثل نتائج المؤشر الفرعي "
 "للكربون العضوي للتربة وحده."
 
-#: ../../source/for_users/training/landdegradation.rst:190
-#: ../../source/for_users/training/landdegradation.rst:200
+#: ../../source/for_users/training/landdegradation.rst:221
+#: ../../source/for_users/training/landdegradation.rst:231
 msgid "In the sections below you will find two tables:"
 msgstr "ستجد في الأقسام أدناه جدولين:"
 
-#: ../../source/for_users/training/landdegradation.rst:192
+#: ../../source/for_users/training/landdegradation.rst:223
 msgid ""
 "The first one contains information on changes in carbon stocks from the "
 "baseline (initial year of analysis) to the target (final year of analysis)."
@@ -475,7 +524,7 @@ msgstr ""
 "الأول يحتوي على معلومات عن التغيرات في مخزونات الكربون من خط الأساس (السنة "
 "الأولى للتحليل) إلى الهدف (السنة الأخيرة للتحليل)."
 
-#: ../../source/for_users/training/landdegradation.rst:193
+#: ../../source/for_users/training/landdegradation.rst:224
 msgid ""
 "The second presents information soil organic carbon change from baseline to "
 "target by type of land cover transition (as percentage of initial stock)."
@@ -483,7 +532,7 @@ msgstr ""
 "يعرض الثاني معلومات عن تغير الكربون العضوي في التربة من خط الأساس إلى الهدف "
 "حسب نوع انتقال الغطاء الأرضي (كنسبة مئوية من المخزون الأولي)."
 
-#: ../../source/for_users/training/landdegradation.rst:198
+#: ../../source/for_users/training/landdegradation.rst:229
 msgid ""
 "In the **Land cover** tab you will find at the top, a similar summary as "
 "previously explained, but in this case representing the results of the land "
@@ -493,7 +542,7 @@ msgstr ""
 "هو موضح سابقاً، ولكن في هذه الحالة يمثل نتائج المؤشر الفرعي لتغيير الغطاء "
 "الأرضي وحده."
 
-#: ../../source/for_users/training/landdegradation.rst:202
+#: ../../source/for_users/training/landdegradation.rst:233
 msgid ""
 "The first contains information on land cover change by cover class (sq, km "
 "and %)."
@@ -501,7 +550,7 @@ msgstr ""
 "الأول يحتوي على معلومات عن تغير الغطاء الأرضي حسب فئة الغطاء (قدم مربع، كم "
 "ونسبة مئوية)."
 
-#: ../../source/for_users/training/landdegradation.rst:203
+#: ../../source/for_users/training/landdegradation.rst:234
 msgid ""
 "The second contains information on land area by type of land cover "
 "transition (sq. km)."
@@ -509,7 +558,7 @@ msgstr ""
 "والثاني يحتوي على معلومات عن مساحة الأرض حسب نوع انتقال الغطاء الأرضي "
 "(كيلومتر مربع)."
 
-#: ../../source/for_users/training/landdegradation.rst:208
+#: ../../source/for_users/training/landdegradation.rst:239
 msgid ""
 "In the **Population** tab you will find a summary of population affected by "
 "land degradation classes, with absolute and percent values reported."
@@ -517,7 +566,7 @@ msgstr ""
 "في علامة التبويب **السكان** ستجد ملخصًا للسكان المتأثرين بفئات تدهور "
 "الأراضي، مع القيم المطلقة والنسبة المئوية المبلغ عنها"
 
-#: ../../source/for_users/training/landdegradation.rst:213
+#: ../../source/for_users/training/landdegradation.rst:244
 msgid ""
 "In the **UNCCD SO1-1** tab you will find five tables containing similar "
 "information as the one presented in the previous tabs, but in this case "
@@ -531,17 +580,17 @@ msgstr ""
 "التصحر. يشير كل جدول في الجزء العلوي إلى رقم الصفحة وقسم النموذج الذي تشير "
 "إليه المعلومات."
 
-#: ../../source/for_users/training/landdegradation.rst:219
+#: ../../source/for_users/training/landdegradation.rst:250
 msgid ""
 "Refer to the :ref:`indicator-productivity` to learn more on land "
 "productivity."
 msgstr "راجع: المرجع: \"مؤشر الإنتاجية\" لمعرفة المزيد عن إنتاجية الأرض."
 
-#: ../../source/for_users/training/landdegradation.rst:224
+#: ../../source/for_users/training/landdegradation.rst:255
 msgid "Custom Data - Productivity"
 msgstr "بيانات مخصصة - إنتاجية"
 
-#: ../../source/for_users/training/landdegradation.rst:225
+#: ../../source/for_users/training/landdegradation.rst:256
 msgid ""
 "**Objective**: Learn how to load custom land productivity data computed "
 "outside of Trends.Earth."
@@ -549,7 +598,7 @@ msgstr ""
 "**الهدف**: تعرف على كيفية تحميل بيانات إنتاجية الأرض المخصصة والمحسوبة خارج "
 "برنامج Trends.Earth"
 
-#: ../../source/for_users/training/landdegradation.rst:232
+#: ../../source/for_users/training/landdegradation.rst:263
 msgid ""
 "Land productivity data should be formatted following UNCCD guidelines for "
 "reporting indicating areas of Declining, Moderate decline, Stressed, Stable,"
@@ -559,38 +608,38 @@ msgstr ""
 "المتحدة لمكافحة التصحر للإبلاغ عن مجالات التراجع أو التدهور المعتدل أو "
 "الإجهاد أو الاستقرار أو الزيادة."
 
-#: ../../source/for_users/training/landdegradation.rst:235
+#: ../../source/for_users/training/landdegradation.rst:266
 msgid ""
 "For the productivity data to be used in Trends.Earth the file need to be "
 "coded in the following way:"
 msgstr ""
 "لاستخدام بيانات الإنتاجية في المؤشرات، يجب ترميز الأرض بالطريقة التالية:"
 
-#: ../../source/for_users/training/landdegradation.rst:236
+#: ../../source/for_users/training/landdegradation.rst:267
 msgid "Declining = 1"
 msgstr "التراجع = 1"
 
-#: ../../source/for_users/training/landdegradation.rst:237
+#: ../../source/for_users/training/landdegradation.rst:268
 msgid "Moderate decline = 2"
 msgstr "التدهور المعتدل = 2"
 
-#: ../../source/for_users/training/landdegradation.rst:238
+#: ../../source/for_users/training/landdegradation.rst:269
 msgid "Stressed = 3"
 msgstr "الإجهاد = 3"
 
-#: ../../source/for_users/training/landdegradation.rst:239
+#: ../../source/for_users/training/landdegradation.rst:270
 msgid "Stable = 4"
 msgstr "الاستقرار = 4"
 
-#: ../../source/for_users/training/landdegradation.rst:240
+#: ../../source/for_users/training/landdegradation.rst:271
 msgid "Increasing = 5"
 msgstr "الزيادة = 5"
 
-#: ../../source/for_users/training/landdegradation.rst:241
+#: ../../source/for_users/training/landdegradation.rst:272
 msgid "No data = 0 or -32768"
 msgstr "لا توجد بيانات = 0 أو -32768"
 
-#: ../../source/for_users/training/landdegradation.rst:243
+#: ../../source/for_users/training/landdegradation.rst:274
 msgid ""
 "If your layer is not coded in such a way, please do the necessary "
 "adjustments/reclassification prior to importing it into Trends.Earth."
@@ -598,7 +647,7 @@ msgstr ""
 "إذا لم تكن الطبقة مُرمّزة بهذه الطريقة، يُرجى إجراء التعديلات أو إعادة "
 "التصنيفات اللازمة قبل استيرادها من Trends.Earth."
 
-#: ../../source/for_users/training/landdegradation.rst:245
+#: ../../source/for_users/training/landdegradation.rst:276
 msgid ""
 "To load a **custom productivity data** click on the **Datasets** window, and"
 " then click on **Import dataset**."
@@ -606,7 +655,7 @@ msgstr ""
 "لتحميل **بيانات إنتاجية مخصصة**، انقر فوق نافذة **مجموعة البيانات**، ثم انقر"
 " فوق **استيراد مجموعة البيانات**."
 
-#: ../../source/for_users/training/landdegradation.rst:250
+#: ../../source/for_users/training/landdegradation.rst:281
 msgid ""
 "Several options will appear. Select **Import custom Productivity dataset** "
 "from the list."
@@ -614,7 +663,7 @@ msgstr ""
 "ستظهر عدة خيارات. حدد **استيراد مجموعة بيانات الإنتاجية المخصصة** من "
 "القائمة."
 
-#: ../../source/for_users/training/landdegradation.rst:255
+#: ../../source/for_users/training/landdegradation.rst:286
 msgid ""
 "In the **Load a Custom Land Productivity Dataset** use the radio button to "
 "select the format of the input file (raster or vector). For this tutorial "
@@ -626,7 +675,7 @@ msgstr ""
 " البيانات النقطية، نظراً لأن البيانات الموزعة بواسطة UNCCD بتنسيق نقطي. انقر"
 " فوق **تصفح** للانتقال إلى ملف الإنتاجية الذي ترغب في استيراده."
 
-#: ../../source/for_users/training/landdegradation.rst:261
+#: ../../source/for_users/training/landdegradation.rst:292
 msgid ""
 "In the **Load a Custom Land Productivity Dataset** window you have options "
 "for selecting the band number in which the productivity data is stored, in "
@@ -640,7 +689,7 @@ msgstr ""
 "دقة الملف. نوصي بترك هذه الإعدادات الافتراضية إلا إذا كانت لديك أسباب وجيهة "
 "لتغييرها."
 
-#: ../../source/for_users/training/landdegradation.rst:264
+#: ../../source/for_users/training/landdegradation.rst:295
 msgid ""
 "Click **Browse** at the bottom of the window to select the **Output raster "
 "file** and navigate to the folder where you want to save the file. Type in a"
@@ -649,7 +698,7 @@ msgstr ""
 "انقر فوق **تصفح** في أسفل النافذة لتحديد **إخراج الملف النقطي** وانتقل إلى "
 "المجلد الذي تريد حفظ الملف فيه. اكتب اسماً وانقر على **موافق**."
 
-#: ../../source/for_users/training/landdegradation.rst:267
+#: ../../source/for_users/training/landdegradation.rst:298
 msgid ""
 "Back at the **Load a Custom Land Productivity Dataset** window click **OK** "
 "on the lower right corner to process the data."
@@ -657,7 +706,7 @@ msgstr ""
 "قم بالعودة إلى نافذة **تحميل مجموعة بيانات إنتاجية الأراضي المخصصة**، انقر "
 "على **موافق** في الزاوية اليمنى السفلية لمعالجة البيانات."
 
-#: ../../source/for_users/training/landdegradation.rst:269
+#: ../../source/for_users/training/landdegradation.rst:300
 msgid ""
 "If the values of the input file do not exactly match the requirements "
 "described above, you will see a warning message. In many cases the warning "
@@ -670,7 +719,7 @@ msgstr ""
 "بيانات\"، لكن الأداة ستظل تحاول استيراده. لهذا السبب، من **المهم "
 "جداً**استكشاف طبقة الإخراج للتأكد من تعيين النتائج بالشكل المتوقع."
 
-#: ../../source/for_users/training/landdegradation.rst:274
+#: ../../source/for_users/training/landdegradation.rst:305
 msgid ""
 "Once you click **OK** a progress bar will appear showing the percentage of "
 "the task completed."
@@ -678,7 +727,7 @@ msgstr ""
 "بمجرد النقر فوق **موافق**، سيظهر شريط تقدم يوضح النسبة المئوية للمهمة "
 "المكتملة."
 
-#: ../../source/for_users/training/landdegradation.rst:279
+#: ../../source/for_users/training/landdegradation.rst:310
 msgid ""
 "In the **Datasets** window, find the **Imported dataset (land "
 "productivity)** on click on **Load dataset onto QGIS map area**."
@@ -686,15 +735,15 @@ msgstr ""
 "في نافذة **مجموعات البيانات**، ابحث عن **مجموعة البيانات المستوردة (إنتاجية "
 "الأرض)** انقر على **تحميل مجموعة البيانات على منطقة خريطة QGIS**."
 
-#: ../../source/for_users/training/landdegradation.rst:285
+#: ../../source/for_users/training/landdegradation.rst:316
 msgid "Refer to the :ref:`indicator-land-cover` to learn more on land cover."
 msgstr "راجع: المرجع: \"المؤشر - الغطاء الأرضي\" لمعرفة المزيد عن الغطاء الأرضي."
 
-#: ../../source/for_users/training/landdegradation.rst:290
+#: ../../source/for_users/training/landdegradation.rst:321
 msgid "Custom Data - Land Cover"
 msgstr "البيانات المخصصة - الغطاء الأرضي"
 
-#: ../../source/for_users/training/landdegradation.rst:291
+#: ../../source/for_users/training/landdegradation.rst:322
 msgid ""
 "**Objective**: Learn how to load custom land cover data and to compute the "
 "land cover change sub-indicator using Trends.Earth."
@@ -702,11 +751,11 @@ msgstr ""
 "** الهدف **: تعلم كيفية تحميل بيانات مخصصة للغطاء الأرضي وحساب المؤشر الفرعي"
 " لتغير الغطاء الأرضي باستخدام Trends.Earth."
 
-#: ../../source/for_users/training/landdegradation.rst:293
+#: ../../source/for_users/training/landdegradation.rst:324
 msgid "**Estimated time of completion**: 40 minutes"
 msgstr "** الوقت المقدر للانتهاء **: 40 دقيقة"
 
-#: ../../source/for_users/training/landdegradation.rst:297
+#: ../../source/for_users/training/landdegradation.rst:328
 msgid ""
 "The land cover dataset for this tutorial were provided by the `Regional "
 "Centre For Mapping Resource For Development "
@@ -721,7 +770,7 @@ msgstr ""
 "<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>`"
 " _."
 
-#: ../../source/for_users/training/landdegradation.rst:303
+#: ../../source/for_users/training/landdegradation.rst:334
 msgid ""
 "To load a custom productivity data click on the **Datasets** window, and "
 "then click on **Import dataset**."
@@ -729,7 +778,7 @@ msgstr ""
 "لتحميل بيانات إنتاجية مخصصة، انقر فوق نافذة **مجموعات البيانات**، ثم انقر "
 "فوق **استيراد مجموعة البيانات**."
 
-#: ../../source/for_users/training/landdegradation.rst:308
+#: ../../source/for_users/training/landdegradation.rst:339
 msgid ""
 "Several options will appear. Select **Import custom Land Cover dataset** "
 "from the list."
@@ -737,7 +786,7 @@ msgstr ""
 "ستظهر عدة خيارات. حدد **استيراد مجموعة بيانات مخصصة للغطاء الأرضي** من "
 "القائمة."
 
-#: ../../source/for_users/training/landdegradation.rst:313
+#: ../../source/for_users/training/landdegradation.rst:344
 msgid ""
 "In the **Load a Custom Land Cover Dataset** window, use the radio button to "
 "select the format of the input file (raster or vector). For this tutorial "
@@ -750,7 +799,7 @@ msgstr ""
 "بتنسيق نقطي. انقر فوق **تصفح** للانتقال إلى ملف الغطاء الأرضي الذي ترغب في "
 "استيراده."
 
-#: ../../source/for_users/training/landdegradation.rst:318
+#: ../../source/for_users/training/landdegradation.rst:349
 msgid ""
 "In the **Load a Custom Land Cover Dataset** window you also have options for"
 " selecting the band number in which the land cover data is stored, in case "
@@ -764,7 +813,7 @@ msgstr ""
 "دقة الملف. نوصي بترك هذه الإعدادات الافتراضية إلا إذا كانت لديك أسباب وجيهة "
 "لتغييرها."
 
-#: ../../source/for_users/training/landdegradation.rst:320
+#: ../../source/for_users/training/landdegradation.rst:351
 msgid ""
 "Define the year of reference for the data. In this case, since the land "
 "cover dataset for Uganda was developed for the **year 2000**, define it as "
@@ -774,7 +823,7 @@ msgstr ""
 " الأرضي لأوغندا تم تطويرها لعام **2000**، حددها على هذا النحو. تأكد من تخصيص"
 " **سنة البيانات** الصحيحة."
 
-#: ../../source/for_users/training/landdegradation.rst:322
+#: ../../source/for_users/training/landdegradation.rst:353
 msgid ""
 "Click on the **Edit definition** button, this will open the **Setup "
 "aggregation of land cover data menu**. Here you need to assign each of the "
@@ -785,12 +834,12 @@ msgstr ""
 "الغطاء الأرضي**. هنا تحتاج إلى تعيين كل من قيم الإدخال الأصلية لمجموعة "
 "البيانات الخاصة بك إلى إحدى فئات الغطاء الأرضي السبع التي أوصت بها UNCCD."
 
-#: ../../source/for_users/training/landdegradation.rst:327
+#: ../../source/for_users/training/landdegradation.rst:358
 msgid "For this example, the Uganda dataset has 18 land cover classes:"
 msgstr ""
 "في هذا المثال، تحتوي مجموعة بيانات أوغندا على 18 فئة من فئات الغطاء الأرضي:"
 
-#: ../../source/for_users/training/landdegradation.rst:332
+#: ../../source/for_users/training/landdegradation.rst:363
 msgid ""
 "From the Metadata of the land cover dataset, we know that the best "
 "aggregation approach is the following:"
@@ -798,39 +847,39 @@ msgstr ""
 "من البيانات الوصفية لمجموعة بيانات الغطاء الأرضي، نعلم أن أفضل نهج للتجميع "
 "هو ما يلي:"
 
-#: ../../source/for_users/training/landdegradation.rst:333
+#: ../../source/for_users/training/landdegradation.rst:364
 msgid "No data = 0"
 msgstr "لا توجد بيانات = 0"
 
-#: ../../source/for_users/training/landdegradation.rst:334
+#: ../../source/for_users/training/landdegradation.rst:365
 msgid "Tree covered = 1 through 7"
 msgstr "مغطاة بالشجر = 1 إلى 7"
 
-#: ../../source/for_users/training/landdegradation.rst:335
+#: ../../source/for_users/training/landdegradation.rst:366
 msgid "Grassland = 8 through 11"
 msgstr "مراعي = 8 إلى 11"
 
-#: ../../source/for_users/training/landdegradation.rst:336
+#: ../../source/for_users/training/landdegradation.rst:367
 msgid "Cropland = 12 through 14"
 msgstr "أراضي مزروعة = 12 إلى 14"
 
-#: ../../source/for_users/training/landdegradation.rst:337
+#: ../../source/for_users/training/landdegradation.rst:368
 msgid "Wetland = 15"
 msgstr "أراضي رطبة = 15"
 
-#: ../../source/for_users/training/landdegradation.rst:338
+#: ../../source/for_users/training/landdegradation.rst:369
 msgid "Water body = 16"
 msgstr "جسم مائي = 16"
 
-#: ../../source/for_users/training/landdegradation.rst:339
+#: ../../source/for_users/training/landdegradation.rst:370
 msgid "Artificial = 17"
 msgstr "اصطناعية = 17"
 
-#: ../../source/for_users/training/landdegradation.rst:340
+#: ../../source/for_users/training/landdegradation.rst:371
 msgid "Other land = 18"
 msgstr "أراضي أخرى = 18"
 
-#: ../../source/for_users/training/landdegradation.rst:342
+#: ../../source/for_users/training/landdegradation.rst:373
 msgid ""
 "Use the **Setup aggregation of land cover data menu** to assign to each "
 "number in the **Input class** its corresponding **Output class**."
@@ -838,7 +887,7 @@ msgstr ""
 "استخدم **تجميع إعداد قائمة بيانات الغطاء الأرضي** للتخصيص لكل رقم في **فئة "
 "الإدخال** المقابلة لـ**فئة الإخراج**."
 
-#: ../../source/for_users/training/landdegradation.rst:344
+#: ../../source/for_users/training/landdegradation.rst:375
 msgid ""
 "When you are done editing, click **Save definition file**. This option will "
 "save you time next time you run the tool, by simply loading the definition "
@@ -848,11 +897,11 @@ msgstr ""
 "الخيار الوقت في المرة القادمة التي تقوم فيها بتشغيل الأداة ، بمجرد تحميل ملف"
 " التعريف الذي قمت بحفظه مسبقًا."
 
-#: ../../source/for_users/training/landdegradation.rst:346
+#: ../../source/for_users/training/landdegradation.rst:377
 msgid "Click **Save** to continue"
 msgstr "انقر ** حفظ ** للمتابعة"
 
-#: ../../source/for_users/training/landdegradation.rst:351
+#: ../../source/for_users/training/landdegradation.rst:382
 msgid ""
 "Back at the **Load a Custom Land Cover dataset** window, click **Browse** at"
 " the bottom of the window to select the **Output raster file** and navigate "
@@ -863,12 +912,12 @@ msgstr ""
 "**تصفح** في أسفل النافذة لتحديد **إخراج الملف النقطي** وانتقل إلى المجلد "
 "الذي تريد حفظ الملف فيه. اكتب اسماً وانقر على **موافق**."
 
-#: ../../source/for_users/training/landdegradation.rst:356
+#: ../../source/for_users/training/landdegradation.rst:387
 msgid ""
 "A progress bar will appear showing the percentage of the task completed."
 msgstr "سيظهر شريط تقدم يوضح النسبة المئوية للمهمة المكتملة."
 
-#: ../../source/for_users/training/landdegradation.rst:361
+#: ../../source/for_users/training/landdegradation.rst:392
 msgid ""
 "In the **Datasets** window, find the **Imported dataset (land cover "
 "change)** on click on **Load dataset onto QGIS map area**."
@@ -876,11 +925,11 @@ msgstr ""
 "في نافذة **مجموعات البيانات**، ابحث عن **مجموعة البيانات المستوردة (تغيير "
 "الغطاء الأرضي)** انقر على **تحميل مجموعة البيانات على منطقة خريطة QGIS**."
 
-#: ../../source/for_users/training/landdegradation.rst:366
+#: ../../source/for_users/training/landdegradation.rst:397
 msgid ".The imported land cover dataset will be loaded to QGIS."
 msgstr "سيتم تحميل مجموعة بيانات الغطاء الأرضي المستوردة إلى QGIS."
 
-#: ../../source/for_users/training/landdegradation.rst:371
+#: ../../source/for_users/training/landdegradation.rst:402
 msgid ""
 "You have one imported custom land cover data for one year (2000), but two "
 "are needed to perform the land cover change analysis. Repeat now steps 1 "
@@ -894,7 +943,7 @@ msgstr ""
 " أخرى للغطاء الأرضي من أوغندا اعتباراً من عام 2015. **تأكد من تغيير تاريخ "
 "العام في قائمة الاستيراد**."
 
-#: ../../source/for_users/training/landdegradation.rst:373
+#: ../../source/for_users/training/landdegradation.rst:404
 msgid ""
 "Once you have imported the land cover maps for years 2000 and 2015, you "
 "should have them both loaded to QGIS."
@@ -902,11 +951,11 @@ msgstr ""
 "بمجرد قيامك باستيراد خرائط الغطاء الأرضي للعامين 2000 و 2015، يجب أن يتم "
 "تحميلهما كليهما على QGIS."
 
-#: ../../source/for_users/training/landdegradation.rst:379
+#: ../../source/for_users/training/landdegradation.rst:410
 msgid "Calculating Land Cover sub-indicator with custom data"
 msgstr "حساب المؤشر الفرعي للغطاء الأرضي بالبيانات المخصصة"
 
-#: ../../source/for_users/training/landdegradation.rst:381
+#: ../../source/for_users/training/landdegradation.rst:412
 msgid ""
 "Now that both land cover datasets have been imported into Trends.Earth, the "
 "land cover change analysis tool needs to be run. In the **Algorithm "
@@ -916,7 +965,7 @@ msgstr ""
 "(Trends.Earth)، يجب تشغيل أداة تحليل تغير الغطاء الأرضي. في **نافذة "
 "الخوارزمية**، انقر على **التنفيذ محلياً** تحت **تغيير الغطاء الأرضي**."
 
-#: ../../source/for_users/training/landdegradation.rst:390
+#: ../../source/for_users/training/landdegradation.rst:421
 msgid ""
 "The **Land Cover | Land Degradation** window will open. Use the drop down "
 "option next to **Initial year layer** and **Target year layer** to change "
@@ -926,7 +975,7 @@ msgstr ""
 " بجوار **طبقة السنة الأولية** و **طبقة السنة المستهدفة** لتغيير التواريخ "
 "وفقاً لذلك."
 
-#: ../../source/for_users/training/landdegradation.rst:401
+#: ../../source/for_users/training/landdegradation.rst:432
 msgid ""
 "Click on **Advanced** to expand it. Here you will define the meaning of each"
 " land cover transition in terms of degradation. Transitions indicated in "
@@ -940,7 +989,7 @@ msgstr ""
 "أنها مستقرة، وسيتم تحديد التحولات باللون الأخضر (علامة زائد) على أنها "
 "تحسينات."
 
-#: ../../source/for_users/training/landdegradation.rst:403
+#: ../../source/for_users/training/landdegradation.rst:434
 msgid ""
 "For example, by default it is considered that a pixel that changed from "
 "**Grassland** to **Tree-covered** will be considered as improved. However, "
@@ -953,7 +1002,7 @@ msgstr ""
 "كان التعدي على النباتات الخشبية في منطقة دراستك هو عملية تدهور ، فيجب تغيير "
 "هذا الانتقال لمنطقة الدراسة المحددة إلى التحلل (علامة ناقص)."
 
-#: ../../source/for_users/training/landdegradation.rst:405
+#: ../../source/for_users/training/landdegradation.rst:436
 msgid ""
 "If you did change the meaning of some of the transitions, click on **Save "
 "table to file...** to save the definition for later use."
@@ -961,7 +1010,7 @@ msgstr ""
 "إذا قمت بتغيير معنى بعض الانتقالات، فانقر فوق **حفظ الجدول في ملف ...** لحفظ"
 " التعريف لاستخدامه لاحقاً."
 
-#: ../../source/for_users/training/landdegradation.rst:410
+#: ../../source/for_users/training/landdegradation.rst:441
 msgid ""
 ". If you have made no changes to the default matrix, simply click **Execute "
 "locally**."
@@ -969,8 +1018,8 @@ msgstr ""
 ". إذا لم تجر أي تغييرات على المصفوفة الافتراضية، فما عليك سوى الضغط على "
 "**التنفيذ محلياً**. "
 
-#: ../../source/for_users/training/landdegradation.rst:413
-#: ../../source/for_users/training/landdegradation.rst:476
+#: ../../source/for_users/training/landdegradation.rst:444
+#: ../../source/for_users/training/landdegradation.rst:507
 msgid ""
 "When you click **Execute locally**, a progress bar will appear showing the "
 "percentage of the task completed."
@@ -978,7 +1027,7 @@ msgstr ""
 "عند الضغط على **التنفيذ محلياً**، سيظهر شريط تقدم يوضح النسبة المئوية للمهمة"
 " المكتملة.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:420
+#: ../../source/for_users/training/landdegradation.rst:451
 msgid ""
 "In the **Datasets** window, find the **Land cover change** sub-indicator "
 "dataset calculated using custom Land Cover data and click on click on **Add "
@@ -988,11 +1037,11 @@ msgstr ""
 "الغطاء الأرضي** المحسوبة باستخدام بيانات الغطاء الأرضي المخصصة واضغط على "
 "**إضافة طبقات افتراضية من مجموعة البيانات هذه إلى الخريطة**."
 
-#: ../../source/for_users/training/landdegradation.rst:429
+#: ../../source/for_users/training/landdegradation.rst:460
 msgid "Custom Data - SOC"
 msgstr "بيانات مخصصة - كربون التربة العضوي (SOC)"
 
-#: ../../source/for_users/training/landdegradation.rst:431
+#: ../../source/for_users/training/landdegradation.rst:462
 msgid ""
 "**Objective**: Learn how to load custom soil organic carbon data to compute "
 "the carbon change sub-indicator using Trends.Earth."
@@ -1000,11 +1049,11 @@ msgstr ""
 "**الهدف**: تعلّم كيفية تحميل بيانات مخصصة لكربون التربة العضوي لحساب المؤشر "
 "الفرعي لتغير الكربون باستخدام Trends.Earth."
 
-#: ../../source/for_users/training/landdegradation.rst:440
+#: ../../source/for_users/training/landdegradation.rst:471
 msgid "Loading custom soil organic carbon data"
 msgstr "تحميل بيانات مخصصة لكربون التربة العضوي\n"
 
-#: ../../source/for_users/training/landdegradation.rst:442
+#: ../../source/for_users/training/landdegradation.rst:473
 msgid ""
 "This tool assumes that the units of the raster layer to be imported are "
 "**Metrics Tons of organic carbon per hectare**. If your layer is in "
@@ -1015,7 +1064,7 @@ msgstr ""
 "متري من الكربون العضوي لكل هكتار**. إذا كانت الطبقة التي تستخدمها مقاسة "
 "بوحدة مختلفة، فيرجى إجراء التحويلات اللازمة قبل استخدامها في Trends.Earth.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:444
+#: ../../source/for_users/training/landdegradation.rst:475
 msgid ""
 "To load a custom Soil Organic Carbon data click on the **Datasets** window, "
 "and then click on **Import dataset**."
@@ -1023,7 +1072,7 @@ msgstr ""
 "لتحميل بيانات مخصصة لكربون التربة العضوي، يرجى الضغط على النافذة **مجموعات "
 "البيانات**، ثم اضغط على **استيراد مجموعة بيانات**.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:450
+#: ../../source/for_users/training/landdegradation.rst:481
 msgid ""
 "Several options will appear. Select **Import custom Soil Organic Carbon** "
 "from the list."
@@ -1031,7 +1080,7 @@ msgstr ""
 "ستظهر عدة خيارات. اختر **استيراد بيانات مخصصة لكربون التربة العضوي** من "
 "القائمة.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:456
+#: ../../source/for_users/training/landdegradation.rst:487
 msgid ""
 "In the **Load a Custom Soil Organic Carbon (SOC) dataset** window, use the "
 "radio button to select the format of the input file (raster or vector). For "
@@ -1045,7 +1094,7 @@ msgstr ""
 "يوزعها UNCCD نقطي. اضغط على **تصفح** للانتقال إلى ملف كربون التربة العضوي "
 "(SOC) الذي تود استيراده.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:462
+#: ../../source/for_users/training/landdegradation.rst:493
 msgid ""
 "In the **Load a Custom Soil Organic Carbon (SOC) dataset** window you also "
 "have options for selecting the band number in which the SOC data is stored, "
@@ -1059,7 +1108,7 @@ msgstr ""
 "تعديل دقة الملف. نوصي بترك هذه الإعدادات الافتراضية كما هي إلا إذا كانت لديك"
 " أسباب وجيهة لتغييرها."
 
-#: ../../source/for_users/training/landdegradation.rst:464
+#: ../../source/for_users/training/landdegradation.rst:495
 msgid ""
 "Define the year of reference for the data. In this case, since the SOC "
 "dataset for Uganda was developed for the **year 2000**, define it as such. "
@@ -1069,20 +1118,20 @@ msgstr ""
 "التربة العضوي (SOC) لأوغندا تم تطويرها لعام **2000**، حدد السنة على هذا "
 "النحو. يُرجى التأكد من تحديد السنة الصحيحة.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:466
+#: ../../source/for_users/training/landdegradation.rst:497
 msgid ""
 "Click **Browse** at the bottom of the window to select the **Output raster "
 "file**."
 msgstr ""
 "انقر على ** تصفح ** في أسفل النافذة لتحديد ** ملف البيانات النقطية **."
 
-#: ../../source/for_users/training/landdegradation.rst:468
+#: ../../source/for_users/training/landdegradation.rst:499
 msgid ""
 "Navigate to the folder where you want to save the file. Assign it a name and"
 " click **Save**."
 msgstr "انتقل إلى المجلد حيث تريد حفظ الملف. قم بتعيينه وانقر فوق ** Save **."
 
-#: ../../source/for_users/training/landdegradation.rst:473
+#: ../../source/for_users/training/landdegradation.rst:504
 msgid ""
 "Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** click **OK**"
 " for the tool to run."
@@ -1090,7 +1139,7 @@ msgstr ""
 "بالعودة إلى **تحميل مجموعة بيانات مخصصة لكربون التربة العضوي (SOC)** اضغط "
 "على **موافق** لتشغيل الأداة.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:479
+#: ../../source/for_users/training/landdegradation.rst:510
 msgid ""
 "In the **Datasets** window, find the **Imported dataset (Soil Organic "
 "Carbon) and click on click on **Load dataset onto QGIS map area**."
@@ -1098,11 +1147,11 @@ msgstr ""
 "في نافذة **مجموعات البيانات**، ابحث عن **مجموعة البيانات المستوردة (كربون "
 "التربة العضوي) واضغط على **تحميل مجموعة البيانات على منطقة خريطة QGIS**."
 
-#: ../../source/for_users/training/landdegradation.rst:487
+#: ../../source/for_users/training/landdegradation.rst:518
 msgid "Calculating soil organic carbon sub-indicator with custom data"
 msgstr "حساب المؤشر الفرعي لكربون التربة العضوي ببيانات مخصصة\n"
 
-#: ../../source/for_users/training/landdegradation.rst:489
+#: ../../source/for_users/training/landdegradation.rst:520
 msgid ""
 "Once you have imported a custom soil organic carbon dataset, it is possible "
 "to calculate soil organic carbon degradation from that data. To do so, first"
@@ -1114,7 +1163,7 @@ msgstr ""
 "البيانات المخصصة لكربون التربة العضوي داخل QGIS (اطلع "
 "على:ref:`load_custom_soc`).\n"
 
-#: ../../source/for_users/training/landdegradation.rst:497
+#: ../../source/for_users/training/landdegradation.rst:528
 msgid ""
 "The **Trends.Earth** panel will open. In the **Algorithm** window, click on "
 "**SDG 15.3.1- Land Degradation** and select **Execute locally** under **Soil"
@@ -1124,7 +1173,7 @@ msgstr ""
 "التنمية المستدامة (SDG) رقم 15.3.1 - تدهور الأرض** واختر **التنفيذ محلياً** "
 "المضمّن تحت **كربون التربة العضوي**.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:505
+#: ../../source/for_users/training/landdegradation.rst:536
 msgid ""
 "The **Soil Organic Carbon | Land Degradation** window will open. Click on "
 "the drop-down lists and select the **Initial year layer** and the **Target "
@@ -1143,7 +1192,7 @@ msgstr ""
 "على المزيد من المعلومات حول تحميل مجموعات بيانات الغطاء الأرضي. أدخل **اسم "
 "التنفيذ** وتأكد من كتابة بعض الملاحظات للرجوع إليها مستقبلاً.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:512
+#: ../../source/for_users/training/landdegradation.rst:543
 msgid ""
 "Under **Advanced configuration**, you have the options to set a **Climate "
 "regime** that is most appropriate for you region of interest. You can leave "
@@ -1156,7 +1205,7 @@ msgstr ""
 " عن طريق تحديد إحدى المناطق المناخية العالمية المدرجة ضمن القائمة المنسدلة، "
 "أو إدخال **قيمة مخصصة** في حالة وجود أسباب وجيهة لتغييرها."
 
-#: ../../source/for_users/training/landdegradation.rst:518
+#: ../../source/for_users/training/landdegradation.rst:549
 msgid ""
 "Still under **Advanced configuration**, check the **Custom initial soil "
 "organic carbon dataset** box and select the custom dataset representing SOC "
@@ -1166,7 +1215,7 @@ msgstr ""
 "مخصصة لكربون التربة العضوي** وحدد مجموعة البيانات المخصصة التي تمثل كربون "
 "التربة العضوي (SOC) التي استوردتها للتو باعتبارها **طبقة السنة الأولية**\n"
 
-#: ../../source/for_users/training/landdegradation.rst:523
+#: ../../source/for_users/training/landdegradation.rst:554
 msgid ""
 "Click **Execute locally**. A progress bar will appear on your screen. Do not"
 " quit QGIS or turn off your computer until the calculation is complete."
@@ -1174,7 +1223,7 @@ msgstr ""
 "اضغط على **التنفيذ محلياً**. سيظهر شريط تقدم على شاشتك. لا تخرج من QGIS أو "
 "توقف تشغيل الكمبيوتر حتى يكتمل الحساب.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:529
+#: ../../source/for_users/training/landdegradation.rst:560
 msgid ""
 "In the **Datasets** window, find the **Soil organic carbon change** task and"
 " click on click on **Add default layers from this dataset to map** under "
@@ -1184,13 +1233,13 @@ msgstr ""
 "واضغط على **إضافة طبقات افتراضية من مجموعة البيانات إلى الخريطة** تحت "
 "**تحميل مجموعة البيانات على منطقة خريطة QGIS**.\n"
 
-#: ../../source/for_users/training/landdegradation.rst:534
+#: ../../source/for_users/training/landdegradation.rst:565
 msgid ""
 "For example, we can see areas of degradation in soil carbon around Kampala:"
 msgstr ""
 "على سبيل المثال، يمكننا رؤية مناطق التدهور في كربون التربة حول كمبالا:\n"
 
-#: ../../source/for_users/training/landdegradation.rst:540
+#: ../../source/for_users/training/landdegradation.rst:571
 msgid ""
 "Refer to the :ref:`indicator-soc` tutorial for instructions on how to use "
 "the imported soil organic carbon data to compute the final SDG 15.3.1 after "
@@ -1201,10 +1250,10 @@ msgstr ""
 "النهائي للتنمية المستدامة (SDG) رقم 15.3.1 بعد التكامل مع الغطاء الأرضي "
 "وإنتاجية الأرض."
 
-#: ../../source/for_users/training/landdegradation.rst:545
+#: ../../source/for_users/training/landdegradation.rst:576
 msgid "Exploring NDVI (Plot Data)"
 msgstr "استكشاف NDVI (رسم بياني)\n"
 
-#: ../../source/for_users/training/landdegradation.rst:547
+#: ../../source/for_users/training/landdegradation.rst:578
 msgid "**Coming soon**"
 msgstr "**قريباً**\n"

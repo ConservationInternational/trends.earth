@@ -12,7 +12,11 @@
 """
 
 import csv
+import functools
+import hashlib
+import json
 import os
+import uuid
 from enum import Flag, auto
 from pathlib import Path
 
@@ -24,7 +28,7 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 
-from . import api, auth, conf, download, openFolder
+from . import api, areaofinterest, auth, conf, download, openFolder
 from .conf import (
     OPTIONS_ICON,
     OPTIONS_TITLE,
@@ -37,7 +41,12 @@ from .constants import TIMEOUT, get_api_url
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils, LCClassInfo, get_default_esa_nesting
 from .logger import log
-from .utils import FileUtils, push_message
+from .utils import (
+    FileUtils,
+    compute_features_area_km2,
+    features_geometry_wgs84,
+    push_message,
+)
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
@@ -59,6 +68,9 @@ Ui_DlgSettingsRegister, _ = uic.loadUiType(
 )
 Ui_WidgetSelectArea, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSelectArea.ui")
+)
+Ui_DlgAddSubnationalUnit, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgAddSubnationalUnit.ui")
 )
 Ui_WidgetSettingsAdvanced, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSettingsAdvanced.ui")
@@ -449,6 +461,435 @@ class AreaWidgetSection(Flag):
     DISCLAIMER = auto()
 
 
+# Field names that usually hold a human-readable name in boundary layers, in
+# order of preference (compared case-insensitively)
+_LABEL_FIELD_CANDIDATES = (
+    "name",
+    "shapename",
+    "admin",
+    "name_3",
+    "name_2",
+    "name_1",
+    "name_0",
+    "adm3_en",
+    "adm2_en",
+    "adm1_en",
+    "adm0_en",
+)
+
+
+MIN_UNIT_INSIDE_REGION_PCT = 95.0
+
+
+def guess_label_field(layer) -> str | None:
+    """Return the layer field that most likely holds feature names, if any."""
+    field_names = {field.name().casefold(): field.name() for field in layer.fields()}
+    for candidate in _LABEL_FIELD_CANDIDATES:
+        if candidate in field_names:
+            return field_names[candidate]
+    return None
+
+
+def feature_label(feature, layer, label_field: str | None = None) -> str:
+    """
+    Label for a feature: the value of ``label_field`` when given, otherwise the
+    layer's display expression, falling back to the feature id.
+    """
+    if label_field and layer.fields().indexOf(label_field) >= 0:
+        value = feature[label_field]
+        if value not in (None, "") and not qgis.core.QgsVariantUtils.isNull(value):
+            return str(value)
+    elif not label_field:
+        display_expression = layer.displayExpression() or ""
+        if display_expression:
+            context = qgis.core.QgsExpressionContext()
+            context.appendScopes(
+                qgis.core.QgsExpressionContextUtils.globalProjectLayerScopes(layer)
+            )
+            context.setFeature(feature)
+            value = qgis.core.QgsExpression(display_expression).evaluate(context)
+            if value not in (None, "") and not qgis.core.QgsVariantUtils.isNull(value):
+                return str(value)
+    return str(feature.id())
+
+
+class DlgAddSubnationalUnit(QtWidgets.QDialog, Ui_DlgAddSubnationalUnit):
+    """
+    Dialog for defining subnational analysis units, from a layer loaded in
+    QGIS or from an uploaded polygon file.
+
+    The checked features are combined into one unit, or become one unit each
+    when "Create one unit per checked feature" is on.
+
+    ``existing_units`` are the units already in the list. Features that belong
+    to them are marked in the feature list, and unit names are made unique
+    against them.
+    """
+
+    LABEL_ROLE = QtCore.Qt.UserRole + 1
+
+    def __init__(self, parent=None, existing_units=None):
+        super().__init__(parent)
+
+        self.setupUi(self)
+
+        self._existing_units = list(existing_units or [])
+
+        # Temporary layer loaded from an uploaded file, kept alive for the
+        # dialog lifetime so features can be read from it.
+        self._upload_layer: qgis.core.QgsVectorLayer | None = None
+
+        self.button_add_to_list.setEnabled(False)
+        self.features_list.itemChanged.connect(self.update_add_button_state)
+        self.features_list.itemChanged.connect(self.update_overlap_warning)
+        self.features_filter.textChanged.connect(self.apply_features_filter)
+        self.button_uncheck_all.clicked.connect(self.uncheck_all_features)
+        self.checkbox_one_unit_per_feature.toggled.connect(self._on_bulk_toggled)
+        self.label_field_combo.currentIndexChanged.connect(self._on_label_field_changed)
+
+        self.unit_name.textChanged.connect(self.update_add_button_state)
+
+        self.button_cancel.clicked.connect(self.reject)
+        self.button_add_to_list.clicked.connect(self.accept)
+        self.button_browse_file.clicked.connect(self.open_vector_browse)
+
+        self.populate_layer_combo()
+        self.layer_combo.currentIndexChanged.connect(self._on_source_changed)
+
+        self.radio_from_layer.toggled.connect(self._on_method_toggled)
+        self.radio_upload_file.toggled.connect(self._on_method_toggled)
+
+        self._on_source_changed()
+
+    def populate_layer_combo(self):
+        self.layer_combo.clear()
+
+        polygon_layers = [
+            layer
+            for layer in qgis.core.QgsProject.instance().mapLayers().values()
+            if isinstance(layer, qgis.core.QgsVectorLayer)
+            and layer.geometryType() == qgis.core.QgsWkbTypes.PolygonGeometry
+        ]
+
+        if not polygon_layers:
+            self.layer_combo.addItem(self.tr("No polygon layers loaded"), None)
+            self.layer_combo.setEnabled(False)
+            return
+
+        self.layer_combo.setEnabled(True)
+        for layer in polygon_layers:
+            self.layer_combo.addItem(
+                self.tr("{} ({} features)").format(layer.name(), layer.featureCount()),
+                layer.id(),
+            )
+
+    def current_layer(self):
+        layer_id = self.layer_combo.currentData()
+
+        if not layer_id:
+            return None
+
+        return qgis.core.QgsProject.instance().mapLayer(layer_id)
+
+    def _active_layer(self):
+        """The layer the features come from: the chosen one or the uploaded file."""
+        if self.radio_from_layer.isChecked():
+            return self.current_layer()
+        return self._upload_layer
+
+    def _on_source_changed(self, *args):
+        """The layer or the uploaded file changed: reload labels and features."""
+        self.populate_label_field_combo()
+        self.populate_features_list()
+
+    def populate_label_field_combo(self):
+        """List the layer's fields, preselecting the one that looks like a name."""
+        self.label_field_combo.blockSignals(True)
+        self.label_field_combo.clear()
+        self.label_field_combo.addItem(self.tr("Layer display name"), None)
+
+        layer = self._active_layer()
+        if layer is not None:
+            for field in layer.fields():
+                self.label_field_combo.addItem(field.name(), field.name())
+
+            guessed = guess_label_field(layer)
+            if guessed:
+                self.label_field_combo.setCurrentIndex(
+                    self.label_field_combo.findData(guessed)
+                )
+
+        self.label_field_combo.setEnabled(layer is not None)
+        self.label_field_combo.blockSignals(False)
+
+    def _on_label_field_changed(self, *args):
+        self.populate_features_list(keep_checked=True)
+
+    def _label_field(self) -> str | None:
+        return self.label_field_combo.currentData()
+
+    def _uses_active_source(self, unit: dict) -> bool:
+        """True if the unit was made from the layer or file now shown."""
+        if self.radio_from_layer.isChecked():
+            layer = self.current_layer()
+            return layer is not None and unit.get("layer_id") == layer.id()
+        upload_path = unit.get("upload_file_path")
+        return bool(upload_path) and upload_path == self.upload_file_path.text().strip()
+
+    def _features_in_other_units(self) -> dict[int, str]:
+        """Map feature id -> name of the existing unit that already uses it."""
+        used = {}
+        for unit in self._existing_units:
+            if not self._uses_active_source(unit):
+                continue
+            for feature_id in unit.get("feature_ids") or []:
+                used.setdefault(feature_id, unit.get("name") or "")
+        return used
+
+    def populate_features_list(
+        self, keep_checked: bool = False, check_all: bool = False
+    ):
+        checked_ids = set(self.selected_feature_ids()) if keep_checked else set()
+
+        self.features_list.blockSignals(True)
+        self.features_list.clear()
+
+        layer = self._active_layer()
+
+        self.features_list.setEnabled(layer is not None)
+        self.features_filter.setEnabled(layer is not None)
+        self.button_uncheck_all.setEnabled(layer is not None)
+
+        if layer is not None:
+            label_field = self._label_field()
+            used = self._features_in_other_units()
+            labelled = sorted(
+                (feature_label(feature, layer, label_field), feature.id())
+                for feature in layer.getFeatures()
+            )
+
+            for label, feature_id in labelled:
+                other_unit = used.get(feature_id)
+                text = (
+                    self.tr("{} (in unit '{}')").format(label, other_unit)
+                    if other_unit is not None
+                    else label
+                )
+                item = QtWidgets.QListWidgetItem(text)
+                item.setData(QtCore.Qt.UserRole, feature_id)
+                item.setData(self.LABEL_ROLE, label)
+                item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+                item.setCheckState(
+                    QtCore.Qt.Checked
+                    if check_all or feature_id in checked_ids
+                    else QtCore.Qt.Unchecked
+                )
+                if other_unit is not None:
+                    item.setForeground(QtGui.QBrush(QtGui.QColor("#9ca3af")))
+                    item.setToolTip(
+                        self.tr("Already part of the unit '{}'").format(other_unit)
+                    )
+                self.features_list.addItem(item)
+
+        self.features_list.blockSignals(False)
+        self.apply_features_filter()
+        self.update_overlap_warning()
+        self.update_add_button_state()
+
+    def update_overlap_warning(self, *args):
+        """Warn when checked features already belong to other units."""
+        used = self._features_in_other_units()
+        units = sorted(
+            {
+                used[feature_id]
+                for feature_id in self.selected_feature_ids()
+                if feature_id in used
+            }
+        )
+        if units:
+            self.label_overlap_warning.setText(
+                self.tr(
+                    "Some checked features already belong to other units "
+                    "({}). Units should not overlap."
+                ).format(", ".join(f"'{name}'" for name in units))
+            )
+        self.label_overlap_warning.setVisible(bool(units))
+
+    def apply_features_filter(self, *args):
+        """Hide features whose label does not contain the search text."""
+        text = self.features_filter.text().strip().casefold()
+        for row in range(self.features_list.count()):
+            item = self.features_list.item(row)
+            item.setHidden(bool(text) and text not in item.text().casefold())
+
+    def uncheck_all_features(self):
+        """Uncheck every feature, including those hidden by the search."""
+        self.features_list.blockSignals(True)
+        for row in range(self.features_list.count()):
+            self.features_list.item(row).setCheckState(QtCore.Qt.Unchecked)
+        self.features_list.blockSignals(False)
+        self.update_overlap_warning()
+        self.update_add_button_state()
+
+    def _on_method_toggled(self):
+        from_layer = self.radio_from_layer.isChecked()
+        self.frame_from_layer.setEnabled(from_layer)
+        self.frame_upload_file.setEnabled(not from_layer)
+        self._on_source_changed()
+
+    def _bulk_mode(self) -> bool:
+        """True when each checked feature becomes its own unit."""
+        return (
+            self.checkbox_one_unit_per_feature.isVisibleTo(self)
+            and self.checkbox_one_unit_per_feature.isChecked()
+        )
+
+    def _on_bulk_toggled(self, *args):
+        bulk = self._bulk_mode()
+        self.unit_name.setEnabled(not bulk)
+        self.unit_name.setPlaceholderText(
+            self.tr("Each unit is named after its feature") if bulk else ""
+        )
+        self.update_add_button_state()
+
+    def update_add_button_state(self, *args):
+        has_name = len(self.unit_name.text().strip()) > 0
+        n_checked = len(self.selected_feature_ids())
+
+        self.button_add_to_list.setText(
+            self.tr("Add {} units to list").format(n_checked)
+            if self._bulk_mode() and n_checked > 1
+            else self.tr("Add to list")
+        )
+        self.button_add_to_list.setEnabled(
+            n_checked > 0 and (has_name or self._bulk_mode())
+        )
+
+    def selected_feature_ids(self):
+        return [
+            self.features_list.item(row).data(QtCore.Qt.UserRole)
+            for row in range(self.features_list.count())
+            if self.features_list.item(row).checkState() == QtCore.Qt.Checked
+        ]
+
+    def get_unit_data(self):
+        from_layer = self.radio_from_layer.isChecked()
+
+        return {
+            "name": self.unit_name.text().strip(),
+            "source": self.tr("QGIS layer") if from_layer else self.tr("Uploaded file"),
+            "layer": self._active_layer(),
+            "feature_ids": self.selected_feature_ids(),
+            "label_field": self._label_field(),
+            "upload_file_path": None
+            if from_layer
+            else self.upload_file_path.text().strip(),
+        }
+
+    def get_units_data(self) -> list[dict]:
+        """
+        Return the unit(s) to add: one unit, or one per checked feature (named
+        after the feature) when "Create one unit per checked feature" is on.
+        """
+        base = self.get_unit_data()
+        if not self._bulk_mode():
+            return [base]
+
+        taken = {(unit.get("name") or "").casefold() for unit in self._existing_units}
+        units = []
+        for row in range(self.features_list.count()):
+            item = self.features_list.item(row)
+            if item.checkState() != QtCore.Qt.Checked:
+                continue
+
+            label = item.data(self.LABEL_ROLE) or str(item.data(QtCore.Qt.UserRole))
+            name, n = label, 1
+            while name.casefold() in taken:
+                n += 1
+                name = f"{label} ({n})"
+            taken.add(name.casefold())
+
+            units.append(
+                {**base, "name": name, "feature_ids": [item.data(QtCore.Qt.UserRole)]}
+            )
+        return units
+
+    def set_initial_data(
+        self, name, layer_id, feature_ids, upload_file_path=None, label_field=None
+    ):
+        # Editing a single unit: creating one unit per feature does not apply
+        self.checkbox_one_unit_per_feature.setChecked(False)
+        self.checkbox_one_unit_per_feature.setVisible(False)
+        self._on_bulk_toggled()
+
+        self.unit_name.setText(name)
+
+        if upload_file_path:
+            layer = qgis.core.QgsVectorLayer(upload_file_path, "upload_preview", "ogr")
+            if layer.isValid():
+                self._upload_layer = layer
+            self.upload_file_path.setText(upload_file_path)
+            self.radio_upload_file.setChecked(True)
+        else:
+            self.radio_from_layer.setChecked(True)
+            index = self.layer_combo.findData(layer_id)
+            if index != -1:
+                self.layer_combo.setCurrentIndex(index)
+
+        self._on_source_changed()
+
+        if label_field and self.label_field_combo.findData(label_field) != -1:
+            self.label_field_combo.setCurrentIndex(
+                self.label_field_combo.findData(label_field)
+            )
+
+        feature_ids = set(feature_ids or [])
+        for row in range(self.features_list.count()):
+            item = self.features_list.item(row)
+            if item.data(QtCore.Qt.UserRole) in feature_ids:
+                item.setCheckState(QtCore.Qt.Checked)
+
+        self.update_add_button_state()
+
+    def open_vector_browse(self):
+        vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr("Select a polygon file defining the unit(s)"),
+            str(Path.home()),
+            self.tr("Vector file (*.shp *.zip *.kml *.kmz *.gpkg *.geojson)"),
+        )
+
+        if not vector_file:
+            return
+
+        layer = qgis.core.QgsVectorLayer(vector_file, "upload_preview", "ogr")
+
+        if not layer.isValid():
+            QtWidgets.QMessageBox.critical(
+                self,
+                self.tr("Invalid file"),
+                self.tr(
+                    "Could not load {}. Make sure it is a valid polygon vector file."
+                ).format(vector_file),
+            )
+            return
+
+        if layer.geometryType() != qgis.core.QgsWkbTypes.PolygonGeometry:
+            QtWidgets.QMessageBox.warning(
+                self,
+                self.tr("Not a polygon layer"),
+                self.tr("The selected file does not contain polygon features."),
+            )
+            return
+
+        self._upload_layer = layer
+        self.upload_file_path.setText(vector_file)
+        self.populate_label_field_combo()
+        # All features start checked, so a file with a single polygon still
+        # becomes one unit with no extra clicks
+        self.populate_features_list(check_all=True)
+
+
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     admin_bounds_key: dict[str, download.Country]
     cities: dict[str, dict[str, download.City]]
@@ -499,6 +940,13 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_fromfile_file.textChanged.connect(self.generate_name_setting)
         self.buffer_size_km.valueChanged.connect(self.generate_name_setting)
         self.checkbox_buffer.toggled.connect(self.generate_name_setting)
+        self.checkbox_subnational.toggled.connect(self.generate_name_setting)
+
+        self.subnational_units = []
+        self._setup_subnational_table()
+        self.button_add_subnational_unit.clicked.connect(
+            self.open_add_subnational_unit_dialog
+        )
 
         # Initial population first
         self.populate_admin_1()
@@ -508,7 +956,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.load_settings()
 
         self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
-        self.area_fromadmin.clicked.connect(self.area_type_toggle)
+        self.area_fromadmin.clicked.connect(self._on_admin_selected)
         self.area_fromfile.clicked.connect(self.area_type_toggle)
 
         self.radioButton_secondLevel_region.clicked.connect(
@@ -538,9 +986,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         if area_from_option in {"country_region", "country_city"}:
             self.area_fromadmin.setChecked(True)
+            self.groupbox_other_area_options.setCollapsed(False)
         elif area_from_option == "point":
             self.area_frompoint.setChecked(True)
-        elif area_from_option == "vector_layer":
+            self.groupbox_other_area_options.setCollapsed(False)
+        else:
+            # Default: area from file (encouraged primary option)
             self.area_fromfile.setChecked(True)
 
         self.area_frompoint_point_x.setText(
@@ -609,6 +1060,19 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.checkbox_buffer.setChecked(buffer_checked)
         self.area_settings_name.setText(settings_manager.get_value(Setting.AREA_NAME))
         self.generate_name_setting()
+
+        self.checkbox_subnational.setChecked(
+            settings_manager.get_value(Setting.SUBNATIONAL_ENABLED)
+        )
+        self.frame_subnational.setVisible(self.checkbox_subnational.isChecked())
+
+        try:
+            self.subnational_units = json.loads(
+                settings_manager.get_value(Setting.SUBNATIONAL_UNITS) or "[]"
+            )
+        except (TypeError, ValueError):
+            self.subnational_units = []
+        self._refresh_subnational_table()
 
     def populate_cities(self):
         country_code = self.area_admin_0.currentData()
@@ -717,10 +1181,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         return ""
 
     def area_type_toggle(self):
-        # if self.area_frompoint.isChecked():
-        #     self.area_fromfile.setChecked(not self.area_frompoint.isChecked())
-        #     self.area_fromadmin.setChecked(not self.area_frompoint.isChecked())
-
         self.area_frompoint_point_x.setEnabled(self.area_frompoint.isChecked())
         self.area_frompoint_point_y.setEnabled(self.area_frompoint.isChecked())
         self.area_frompoint_choose_point.setEnabled(self.area_frompoint.isChecked())
@@ -728,11 +1188,36 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_admin_0.setEnabled(self.area_fromadmin.isChecked())
         self.first_level_label.setEnabled(self.area_fromadmin.isChecked())
         self.second_level.setEnabled(self.area_fromadmin.isChecked())
-        self.label_disclaimer.setEnabled(self.area_fromadmin.isChecked())
 
         self.area_fromfile_file.setEnabled(self.area_fromfile.isChecked())
         self.area_fromfile_browse.setEnabled(self.area_fromfile.isChecked())
         self.generate_name_setting()
+
+    def _on_admin_selected(self):
+        """Show the boundary disclaimer every time user selects Country/Region.
+        If they decline, revert to 'Area from file'."""
+        disclaimer = self.tr(
+            "<p>The provided boundaries are from "
+            "<a href='https://www.geoboundaries.org'>geoBoundaries</a> and are "
+            "under a <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a> "
+            "license.</p>"
+            "<p>The boundaries and names used, and the designations used, in "
+            "Trends.Earth do not imply official endorsement or acceptance by "
+            "Conservation International Foundation, or by its partner organizations "
+            "and contributors.</p>"
+            "<p>Do you wish to continue using these boundaries?</p>"
+        )
+        answer = QtWidgets.QMessageBox.question(
+            self,
+            self.tr("Boundary data disclaimer"),
+            disclaimer,
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No,
+        )
+        if answer != QtWidgets.QMessageBox.Yes:
+            self.area_fromfile.setChecked(True)
+
+        self.area_type_toggle()
 
     def radioButton_secondLevel_toggle(self):
         self.secondLevel_area_admin_1.setEnabled(
@@ -787,10 +1272,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if bool(sections & AreaWidgetSection.REGION):
             self.second_level_label.setVisible(show)
             self.second_level.setVisible(show)
-
-        # Disclaimer
-        if bool(sections & AreaWidgetSection.DISCLAIMER):
-            self.label_disclaimer.setVisible(show)
 
         # Point
         if bool(sections & AreaWidgetSection.POINT):
@@ -859,6 +1340,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         if self.checkbox_buffer.isChecked():
             name = f"{name}-buffer-{self.buffer_size_km.value():.3f}"
+
+        if self.checkbox_subnational.isChecked() and self.subnational_units:
+            name = f"{name}-subnational-{len(self.subnational_units)}units"
+
         self.area_settings_name.setText(name)
 
     def set_point_coords(self, point, button):
@@ -971,8 +1456,435 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         )
         settings_manager.write_value(Setting.BUFFER_SIZE, self.buffer_size_km.value())
         settings_manager.write_value(Setting.AREA_NAME, self.area_settings_name.text())
+        settings_manager.write_value(
+            Setting.SUBNATIONAL_ENABLED, self.checkbox_subnational.isChecked()
+        )
+        settings_manager.write_value(
+            Setting.SUBNATIONAL_UNITS, json.dumps(self.subnational_units)
+        )
 
         log("area settings have been saved")
+
+        # The region may have changed, so recheck where each unit lies
+        if self._ensure_inside_region_values():
+            for row, unit in enumerate(self.subnational_units):
+                self._set_inside_region_item(row, unit)
+
+    def _setup_subnational_table(self):
+        self.table_subnational_units.setColumnCount(7)
+        self.table_subnational_units.setHorizontalHeaderLabels(
+            [
+                "",
+                "Unit name",
+                "Source",
+                "Features",
+                "Area (approx.)",
+                self.tr("Inside region"),
+                "",
+            ]
+        )
+        header = self.table_subnational_units.horizontalHeader()
+        header.setStretchLastSection(False)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(6, QtWidgets.QHeaderView.Fixed)
+        self.table_subnational_units.setColumnWidth(6, 190)
+        self.table_subnational_units.verticalHeader().setVisible(False)
+        self._refresh_subnational_table()
+
+    def _refresh_subnational_table(self):
+        self.table_subnational_units.setRowCount(0)
+
+        if not self.subnational_units:
+            # No units defined yet; show the empty-state placeholder row.
+            self.table_subnational_units.setRowCount(1)
+            placeholder = QtWidgets.QTableWidgetItem(
+                self.tr('No subnational units defined yet, use "Add unit" below.')
+            )
+            placeholder.setTextAlignment(QtCore.Qt.AlignCenter)
+            placeholder.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.table_subnational_units.setSpan(0, 0, 1, 7)
+            self.table_subnational_units.setItem(0, 0, placeholder)
+            self.label_subnational_count.setText(self.tr("0 units defined"))
+            return
+
+        self._ensure_inside_region_values()
+
+        self.table_subnational_units.setRowCount(len(self.subnational_units))
+        total_area_km2 = 0.0
+
+        for row, unit in enumerate(self.subnational_units):
+            self.table_subnational_units.setItem(
+                row, 0, QtWidgets.QTableWidgetItem(str(row + 1))
+            )
+            self.table_subnational_units.setItem(
+                row, 1, QtWidgets.QTableWidgetItem(unit["name"])
+            )
+            self.table_subnational_units.setItem(
+                row, 2, QtWidgets.QTableWidgetItem(unit["source"])
+            )
+
+            feature_labels = unit.get("feature_labels") or []
+            if not feature_labels:
+                features_text = self.tr("—")
+            elif len(feature_labels) <= 2:
+                features_text = ", ".join(feature_labels)
+            else:
+                features_text = self.tr("{} features").format(len(feature_labels))
+            features_item = QtWidgets.QTableWidgetItem(features_text)
+            features_item.setToolTip(", ".join(feature_labels))
+            self.table_subnational_units.setItem(row, 3, features_item)
+
+            self.table_subnational_units.setItem(
+                row,
+                4,
+                QtWidgets.QTableWidgetItem(
+                    self.tr("{:,.0f} km2").format(unit["area_km2"])
+                ),
+            )
+            self._set_inside_region_item(row, unit)
+            self.table_subnational_units.setCellWidget(
+                row, 6, self._build_subnational_row_actions(row)
+            )
+            total_area_km2 += unit["area_km2"]
+
+        self.label_subnational_count.setText(
+            self.tr("{} unit(s) defined, covering {:,.0f} km2").format(
+                len(self.subnational_units), total_area_km2
+            )
+        )
+
+        self.generate_name_setting()
+
+    def _ensure_inside_region_values(self) -> bool:
+        """
+        Make sure each unit's "inside region" value was computed for the
+        current region of interest, recomputing the ones that were not. Returns
+        True if any value changed.
+        """
+        signature = areaofinterest.region_signature()
+        stale = [
+            unit
+            for unit in self.subnational_units
+            if unit.get("region_signature") != signature
+        ]
+        if not stale:
+            return False
+
+        QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        try:
+            for unit in stale:
+                try:
+                    geometry = areaofinterest.aoi_from_unit(unit).get_unary_geometry()
+                    unit["inside_region_pct"] = areaofinterest.percent_inside_region(
+                        geometry
+                    )
+                except (RuntimeError, ValueError) as e:
+                    log(
+                        f"Could not check unit '{unit.get('name')}' against region: {e}"
+                    )
+                    unit["inside_region_pct"] = None
+                unit["region_signature"] = signature
+        finally:
+            QtWidgets.QApplication.restoreOverrideCursor()
+
+        self._persist_subnational_units()
+        return True
+
+    def _set_inside_region_item(self, row: int, unit: dict):
+        pct = unit.get("inside_region_pct")
+        if pct is None:
+            item = QtWidgets.QTableWidgetItem(self.tr("—"))
+            item.setToolTip(
+                self.tr(
+                    "Not available: no region of interest is set, or the unit "
+                    "could not be read."
+                )
+            )
+        else:
+            item = QtWidgets.QTableWidgetItem(f"{pct:.1f}%")
+            if pct < MIN_UNIT_INSIDE_REGION_PCT:
+                item.setForeground(QtGui.QBrush(QtGui.QColor("#b45309")))
+                item.setToolTip(
+                    self.tr(
+                        "Only part of this unit lies inside the region of interest."
+                    )
+                )
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_subnational_units.setItem(row, 5, item)
+
+    def _build_subnational_row_actions(self, row):
+        widget = QtWidgets.QWidget()
+        layout = QtWidgets.QHBoxLayout(widget)
+        layout.setContentsMargins(2, 0, 2, 0)
+        layout.setSpacing(4)
+
+        button_edit = QtWidgets.QPushButton(
+            QIcon(os.path.join(ICON_PATH, "mActionToggleEditing.svg")),
+            self.tr("Edit"),
+        )
+        button_edit.clicked.connect(functools.partial(self.edit_subnational_unit, row))
+        layout.addWidget(button_edit)
+
+        button_delete = QtWidgets.QPushButton(
+            QIcon(os.path.join(ICON_PATH, "mActionDeleteSelected.svg")),
+            self.tr("Delete"),
+        )
+        button_delete.setToolTip(self.tr("Remove this unit"))
+        button_delete.clicked.connect(
+            functools.partial(self.delete_subnational_unit, row)
+        )
+        layout.addWidget(button_delete)
+
+        return widget
+
+    def open_add_subnational_unit_dialog(self):
+        dialog = DlgAddSubnationalUnit(self, existing_units=self.subnational_units)
+
+        if dialog.exec() != QtWidgets.QDialog.Accepted:
+            return
+
+        QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        try:
+            units = [
+                self._unit_dict_from_data(unit_data)
+                for unit_data in dialog.get_units_data()
+            ]
+        finally:
+            QtWidgets.QApplication.restoreOverrideCursor()
+
+        units = self._confirm_units_inside_region(units)
+
+        QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        try:
+            for unit in units:
+                unit["id"] = str(uuid.uuid4())
+                unit["stored_geometry_path"] = self._save_unit_geometry(unit)
+                self.subnational_units.append(unit)
+        finally:
+            QtWidgets.QApplication.restoreOverrideCursor()
+
+        if units:
+            self._persist_subnational_units()
+            self._refresh_subnational_table()
+
+    def edit_subnational_unit(self, row):
+        unit = self.subnational_units[row]
+
+        dialog = DlgAddSubnationalUnit(
+            self,
+            existing_units=[
+                u for i, u in enumerate(self.subnational_units) if i != row
+            ],
+        )
+        dialog.set_initial_data(
+            unit["name"],
+            unit.get("layer_id"),
+            unit.get("feature_ids"),
+            upload_file_path=unit.get("upload_file_path"),
+            label_field=unit.get("label_field"),
+        )
+
+        if dialog.exec() != QtWidgets.QDialog.Accepted:
+            return
+
+        QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        try:
+            updated_unit = self._unit_dict_from_data(dialog.get_unit_data())
+        finally:
+            QtWidgets.QApplication.restoreOverrideCursor()
+
+        if not self._confirm_units_inside_region([updated_unit]):
+            return
+
+        updated_unit["id"] = unit.get("id") or str(uuid.uuid4())
+        updated_unit["stored_geometry_path"] = self._save_unit_geometry(updated_unit)
+        self.subnational_units[row] = updated_unit
+        self._persist_subnational_units()
+        self._refresh_subnational_table()
+
+    def _confirm_units_inside_region(self, units: list[dict]) -> list[dict]:
+        """
+        Warn about units that are mostly outside the region of interest and ask
+        whether to add them anyway. Returns the units to add.
+        """
+        outside = [
+            unit
+            for unit in units
+            if unit.get("inside_region_pct") is not None
+            and unit["inside_region_pct"] < MIN_UNIT_INSIDE_REGION_PCT
+        ]
+        if not outside:
+            return units
+
+        listing = "\n".join(
+            f"• {unit['name']}: {unit['inside_region_pct']:.1f}%" for unit in outside
+        )
+        box = QtWidgets.QMessageBox(self)
+        box.setIcon(QtWidgets.QMessageBox.Warning)
+        box.setWindowTitle(self.tr("Unit outside the region of interest"))
+        box.setText(
+            self.tr(
+                "Less than {:.0f}% of the following units lies inside the "
+                "region of interest:\n\n{}\n\n"
+                "Results are only calculated where the data covers the unit, "
+                "so check that the region and the unit are the ones you intend."
+            ).format(MIN_UNIT_INSIDE_REGION_PCT, listing)
+        )
+        add_button = box.addButton(
+            self.tr("Add anyway"), QtWidgets.QMessageBox.AcceptRole
+        )
+        box.addButton(self.tr("Do not add"), QtWidgets.QMessageBox.RejectRole)
+        box.exec()
+
+        if box.clickedButton() is add_button:
+            return units
+        return [unit for unit in units if unit not in outside]
+
+    def delete_subnational_unit(self, row):
+        unit = self.subnational_units[row]
+
+        answer = QtWidgets.QMessageBox.warning(
+            self,
+            self.tr("Remove subnational unit"),
+            self.tr('Remove the unit "{}"? This cannot be undone.').format(
+                unit["name"]
+            ),
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No,
+        )
+
+        if answer != QtWidgets.QMessageBox.Yes:
+            return
+
+        stored_path = unit.get("stored_geometry_path")
+        if stored_path and os.path.isfile(stored_path):
+            try:
+                os.remove(stored_path)
+            except OSError:
+                pass
+
+        del self.subnational_units[row]
+        self._persist_subnational_units()
+        self._refresh_subnational_table()
+
+    def _persist_subnational_units(self):
+        """
+        Save the unit list right away. Adding, editing or removing a unit
+        already rewrites or deletes its geometry file in BASE_DIR, so the
+        stored list must follow, otherwise other dialogs (e.g. the SDG
+        summary) keep seeing the previous version of the unit until the
+        settings page is saved.
+        """
+        settings_manager.write_value(
+            Setting.SUBNATIONAL_UNITS, json.dumps(self.subnational_units)
+        )
+
+    def _unit_dict_from_data(self, unit_data):
+        layer = unit_data["layer"]
+        label_field = unit_data.get("label_field")
+
+        return {
+            "name": unit_data["name"],
+            "source": unit_data["source"],
+            "area_km2": compute_features_area_km2(layer, unit_data["feature_ids"]),
+            "layer_id": layer.id() if layer is not None else None,
+            "feature_ids": unit_data["feature_ids"],
+            "feature_labels": self._get_feature_labels(
+                layer, unit_data["feature_ids"], label_field
+            ),
+            "label_field": label_field,
+            "upload_file_path": unit_data.get("upload_file_path"),
+            "inside_region_pct": areaofinterest.percent_inside_region(
+                features_geometry_wgs84(layer, unit_data["feature_ids"])
+            ),
+            "region_signature": areaofinterest.region_signature(),
+        }
+
+    def _save_unit_geometry(self, unit: dict) -> str | None:
+        """
+        Union the unit's features and write them to a GeoPackage inside
+        BASE_DIR/subnational_units/.
+        """
+        upload_path = unit.get("upload_file_path")
+        layer_id = unit.get("layer_id")
+        feature_ids = unit.get("feature_ids") or []
+
+        if upload_path:
+            src_layer = qgis.core.QgsVectorLayer(upload_path, "upload_preview", "ogr")
+        elif layer_id:
+            src_layer = qgis.core.QgsProject.instance().mapLayer(layer_id)
+        else:
+            return None
+
+        if src_layer is None or not src_layer.isValid():
+            return None
+
+        # A file can define several units, so only use the unit's own features
+        request = qgis.core.QgsFeatureRequest()
+        if feature_ids:
+            request.setFilterFids(feature_ids)
+        geometries = [f.geometry() for f in src_layer.getFeatures(request)]
+
+        if not geometries:
+            return None
+
+        combined = qgis.core.QgsGeometry.unaryUnion(geometries)
+
+        unit_id = unit.get("id")
+        if not unit_id:
+            return None
+
+        base_dir = Path(settings_manager.get_value(Setting.BASE_DIR))
+        units_dir = base_dir / "subnational_units"
+        units_dir.mkdir(parents=True, exist_ok=True)
+        gpkg_path = str(units_dir / f"{unit_id}.gpkg")
+
+        mem_layer = qgis.core.QgsVectorLayer(
+            "MultiPolygon?crs=EPSG:4326", "unit", "memory"
+        )
+        provider = mem_layer.dataProvider()
+        feat = qgis.core.QgsFeature()
+        crs_src = src_layer.crs()
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem("EPSG:4326")
+        transform = qgis.core.QgsCoordinateTransform(
+            crs_src, crs_dst, qgis.core.QgsProject.instance()
+        )
+        combined.transform(transform)
+        canonical = qgis.core.QgsGeometry(combined)
+        canonical.normalize()
+        unit["geometry_hash"] = hashlib.sha256(
+            canonical.asWkt(6).encode("utf-8")
+        ).hexdigest()
+        feat.setGeometry(combined)
+        provider.addFeature(feat)
+        mem_layer.updateExtents()
+
+        options = qgis.core.QgsVectorFileWriter.SaveVectorOptions()
+        options.driverName = "GPKG"
+        options.fileEncoding = "UTF-8"
+        error, msg, _, _ = qgis.core.QgsVectorFileWriter.writeAsVectorFormatV3(
+            mem_layer,
+            gpkg_path,
+            qgis.core.QgsProject.instance().transformContext(),
+            options,
+        )
+
+        if error != qgis.core.QgsVectorFileWriter.NoError:
+            log(f"Failed to save subnational unit geometry to {gpkg_path}: {msg}")
+            return None
+
+        return gpkg_path
+
+    def _get_feature_labels(self, layer, feature_ids, label_field=None):
+        if layer is None or not feature_ids:
+            return []
+
+        request = qgis.core.QgsFeatureRequest().setFilterFids(feature_ids)
+
+        return sorted(
+            feature_label(feature, layer, label_field)
+            for feature in layer.getFeatures(request)
+        )
 
 
 class ProfileFormMixin:

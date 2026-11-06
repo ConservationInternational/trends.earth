@@ -11,26 +11,28 @@
  ***************************************************************************/
 """
 
-import csv
+import shutil
 from pathlib import Path
 
 import qgis.gui
 from qgis.core import QgsProject, QgsVectorLayer, QgsWkbTypes
-from qgis.PyQt import QtCore, QtWidgets, uic
+from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
 from . import calculate
 from .jobs.manager import job_manager
 from .reports.ecosystem_restoration.report import (
-    CSV_DELIMITER,
+    DATA_TEMPLATE_PATH,
+    DATA_XLSX_NAME,
     GEF_CP_ID,
     REQUIRED_DATA_COLUMNS,
-    write_data_template,
+    read_data,
 )
 from .reports.ecosystem_restoration.spatial import (
-    SPATIAL_TEMPLATE_NAME,
+    LAYER_NAME_REGEX,
     check_layer_file,
     layer_dates,
+    layer_name,
     missing_fields,
     validate_sites,
     write_spatial_template,
@@ -39,6 +41,44 @@ from .reports.ecosystem_restoration.spatial import (
 DlgEcosystemReportingRestorationProgressUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgEcosystemReportingRestorationProgress.ui")
 )
+DlgSpatialTemplateUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgSpatialTemplate.ui")
+)
+
+
+class DlgSpatialTemplate(QtWidgets.QDialog, DlgSpatialTemplateUi):
+    """ISO3 of the country and date of the restoration sites template."""
+
+    def __init__(self, parent: QtWidgets.QWidget = None):
+        super().__init__(parent)
+        self.setupUi(self)
+        # Only letters, upper case when accepted
+        self.country.setValidator(
+            QtGui.QRegularExpressionValidator(
+                QtCore.QRegularExpression("[A-Za-z]{0,3}"), self.country
+            )
+        )
+        self.date.setDate(QtCore.QDate.currentDate())
+        self.button_box.accepted.connect(self.accept)
+        self.button_box.rejected.connect(self.reject)
+
+    def accept(self):
+        self.country.setText(self.country.text().strip().upper())
+        if not LAYER_NAME_REGEX.match(self.layer_name()):
+            QtWidgets.QMessageBox.critical(
+                self,
+                self.tr("Error"),
+                self.tr(
+                    "Enter the three-letter ISO 3166-1 alpha-3 code of the "
+                    "country, e.g. IND."
+                ),
+            )
+            return
+        super().accept()
+
+    def layer_name(self) -> str:
+        """Name of the files of the template, e.g. IND_V20261231."""
+        return layer_name(self.country.text(), self.date.date().toPyDate())
 
 
 class DlgEcosystemReportingRestorationProgress(
@@ -55,14 +95,16 @@ class DlgEcosystemReportingRestorationProgress(
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
-        # Child projects of the CSV, searched by any part of their GEF_CP_ID
+        # Child projects of the report data, searched by any part of their GEF_CP_ID
         completer = self.child_project.completer()
         completer.setFilterMode(QtCore.Qt.MatchContains)
         completer.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
         completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
         self.child_project_radio_button.toggled.connect(self.child_project.setEnabled)
-        self.data_csv.fileChanged.connect(self._load_child_projects)
-        self.data_csv_template_label.linkActivated.connect(self._download_data_template)
+        self.data_xlsx.fileChanged.connect(self._load_child_projects)
+        self.data_xlsx_template_label.linkActivated.connect(
+            self._download_data_template
+        )
 
         # Spatial input layers, and the reporting period from their names
         self.spatial_layers.checkedItemsChanged.connect(self._update_reporting_period)
@@ -166,19 +208,19 @@ class DlgEcosystemReportingRestorationProgress(
             )
 
     def _download_data_template(self):
-        """Save the report data CSV template."""
+        """Save the report data XLSX template."""
         path, _ = QtWidgets.QFileDialog.getSaveFileName(
             self,
             self.tr("Save report data template"),
-            "restoration_progress_report_data.csv",
-            self.tr("CSV files (*.csv)"),
+            DATA_XLSX_NAME,
+            self.tr("Excel files (*.xlsx)"),
         )
         if not path:
             return
-        if Path(path).suffix.lower() != ".csv":
-            path = f"{path}.csv"
+        if Path(path).suffix.lower() != ".xlsx":
+            path = f"{path}.xlsx"
         try:
-            write_data_template(Path(path))
+            shutil.copyfile(DATA_TEMPLATE_PATH, path)
         except OSError as error:
             QtWidgets.QMessageBox.critical(
                 None,
@@ -188,11 +230,19 @@ class DlgEcosystemReportingRestorationProgress(
             return
 
     def _download_spatial_template(self):
-        """Save the ZIP of the Shapefile template of the restoration sites."""
+        """Save the ZIP of the Shapefile template of the restoration sites.
+
+        The files are named after the ISO3 and the date entered in
+        DlgSpatialTemplate, e.g. IND_V20261231.
+        """
+        dialog = DlgSpatialTemplate(self)
+        if dialog.exec() != QtWidgets.QDialog.Accepted:
+            return
+
         path, _ = QtWidgets.QFileDialog.getSaveFileName(
             self,
             self.tr("Save restoration sites template"),
-            f"{SPATIAL_TEMPLATE_NAME}.zip",
+            f"{dialog.layer_name()}.zip",
             self.tr("ZIP files (*.zip)"),
         )
         if not path:
@@ -200,7 +250,9 @@ class DlgEcosystemReportingRestorationProgress(
         if Path(path).suffix.lower() != ".zip":
             path = f"{path}.zip"
         try:
-            write_spatial_template(Path(path))
+            write_spatial_template(
+                Path(path), dialog.country.text(), dialog.date.date().toPyDate()
+            )
         except OSError as error:
             QtWidgets.QMessageBox.critical(
                 None,
@@ -209,15 +261,19 @@ class DlgEcosystemReportingRestorationProgress(
             )
 
     def _load_child_projects(self, path: str):
-        """List the GEF_CP_ID of the CSV in the child project input."""
+        """List the GEF_CP_ID of the report data in the child project input."""
         child_projects = set()
         if path and Path(path).is_file():
             try:
-                with open(path, newline="", encoding="utf-8") as csv_file:
-                    for row in csv.DictReader(csv_file, delimiter=CSV_DELIMITER):
-                        child_projects.add((row.get(GEF_CP_ID) or "").strip())
-            except (OSError, UnicodeDecodeError, csv.Error):
-                pass
+                _, data = read_data(path)
+            except Exception as error:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr("Cannot read the report data file: {}").format(error),
+                )
+                data = []
+            child_projects.update(row.get(GEF_CP_ID, "") for row in data)
         child_projects.discard("")
         self.child_project.clear()
         self.child_project.addItems(sorted(child_projects))
@@ -243,11 +299,13 @@ class DlgEcosystemReportingRestorationProgress(
                 "<p>Each indicator is summarized with its sub-indicator "
                 "breakdown, satellite monitoring evidence, and the remaining "
                 "gap to target.</p>"
-                "<h4>Report data (CSV)</h4>"
-                "<p>The CSV file has one row per sub-indicator, columns "
-                "separated by semicolons (;), and a header row with these "
-                "columns:</p>"
+                "<h4>Report data (XLSX)</h4>"
+                "<p>The first sheet of the XLSX file has a header row with "
+                "these columns, and one row per sub-indicator of a child "
+                "project:</p>"
                 "<ul>"
+                "<li><b>GEF_CP_ID</b>: GEF identification of the child "
+                "project.</li>"
                 "<li><b>indicator</b>: full name of the indicator, e.g. "
                 "<i>1. Under improved management</i>.</li>"
                 "<li><b>sub_indicator</b>: full name of the sub-indicator, "
@@ -257,31 +315,24 @@ class DlgEcosystemReportingRestorationProgress(
                 "hectares.</li>"
                 "</ul>"
                 "<p>The indicator totals are the sums of their "
-                "sub-indicators. Example:</p>"
-                "<pre>"
-                "indicator;sub_indicator;target;reported_progress\n"
-                "1. Under improved management;"
-                "1.1 Protected areas newly created;500;450\n"
-                "1. Under improved management;"
-                "1.2 Improved management effectiveness;2000;1750"
-                "</pre>"
+                "sub-indicators. Download the template for an example.</p>"
             )
         )
 
-    def _check_data_csv(self, path: str) -> bool:
-        """Shows an error and returns False when the CSV cannot be used."""
+    def _check_data_xlsx(self, path: str) -> bool:
+        """Shows an error and returns False when the XLSX cannot be used."""
         if not path:
-            message = self.tr("Choose the CSV file with the report data.")
+            message = self.tr("Choose the XLSX file with the report data.")
         elif not Path(path).is_file():
             message = self.tr("The report data file does not exist.")
         else:
             try:
-                with open(path, newline="", encoding="utf-8") as csv_file:
-                    columns = next(csv.reader(csv_file, delimiter=CSV_DELIMITER), [])
-            except (OSError, UnicodeDecodeError):
-                columns = None
-            if columns is None:
-                message = self.tr("Cannot read the report data file.")
+                columns, _ = read_data(path)
+                error = None
+            except Exception as read_error:
+                error = read_error
+            if error is not None:
+                message = self.tr("Cannot read the report data file: {}").format(error)
             else:
                 missing = [c for c in REQUIRED_DATA_COLUMNS if c not in columns]
                 if not missing:
@@ -328,8 +379,8 @@ class DlgEcosystemReportingRestorationProgress(
             )
             return
 
-        data_csv = self.data_csv.filePath()
-        if not self._check_data_csv(data_csv):
+        data_xlsx = self.data_xlsx.filePath()
+        if not self._check_data_xlsx(data_xlsx):
             return
 
         # GEF_CP_ID of the child project, None for all the child projects
@@ -368,7 +419,7 @@ class DlgEcosystemReportingRestorationProgress(
             "task_name": self.execution_name.text(),
             "task_notes": self.task_notes.toPlainText(),
             "project_name": project_name,
-            "data_csv": data_csv,
+            "data_xlsx": data_xlsx,
             "gef_cp_id": gef_cp_id,
             "spatial_layers": [
                 {

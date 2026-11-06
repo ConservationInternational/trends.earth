@@ -1,12 +1,14 @@
 """Ecosystem restoration progress report."""
 
-import csv
 import datetime as dt
 from pathlib import Path
+
+import openpyxl
 
 from ...logger import log
 from ..models import slugify
 from .model import IndicatorDataModel, RestorationDataModel, SpatialSupportedOvertime
+from .spatial import GEF_CP_ID_REGEX
 from .writer.pdf import write_pdf
 from .writer.chart import (
     write_current_progress_indicator_chart,
@@ -18,13 +20,18 @@ from .writer.chart import (
 # QGIS print layout template of the report
 TEMPLATE_PATH = Path(__file__).parent / "template.qpt"
 
-# Separator of the columns of the report data CSV
-# We are using ; as the indicator has comma
-CSV_DELIMITER = ";"
-
 GEF_CP_ID = "GEF_CP_ID"
 
-# Every report data CSV has
+# Template of the report data XLSX
+DATA_TEMPLATE_PATH = (
+    Path(__file__).parent
+    / "data_progress_template"
+    / "restoration_progress_report_data.xlsx"
+)
+# Name of the report data XLSX
+DATA_XLSX_NAME = DATA_TEMPLATE_PATH.name
+
+# Every report data XLSX has
 REQUIRED_DATA_COLUMNS = (
     GEF_CP_ID,
     "indicator",
@@ -71,17 +78,34 @@ INDICATOR_BY_SUB_INDICATOR = {
 }
 
 
-def write_data_template(path: Path):
-    """Write a report data CSV with a row for every sub-indicator of INDICATORS.
+def _cell_text(value) -> str:
+    """Text of an XLSX cell."""
+    if value is None:
+        return ""
+    if isinstance(value, float) and value.is_integer():
+        value = int(value)
+    return str(value).strip()
 
-    The GEF_CP_ID, the target and the reported progress are empty.
+
+def read_data(path: str | Path) -> tuple[list[str], list[dict]]:
+    """Columns and rows of the first sheet of the report data XLSX.
+
+    The first row is the columns, every other row is a dict of the text of its
+    cells by column. Empty rows are skipped.
     """
-    with open(path, "w", newline="", encoding="utf-8") as csv_file:
-        writer = csv.writer(csv_file, delimiter=CSV_DELIMITER)
-        writer.writerow(REQUIRED_DATA_COLUMNS)
-        for indicator in INDICATORS.values():
-            for sub_indicator in indicator["sub_indicators"]:
-                writer.writerow(["", indicator["label"], sub_indicator, "", ""])
+    workbook = openpyxl.load_workbook(path, read_only=True, data_only=True)
+    try:
+        rows = workbook.worksheets[0].iter_rows(values_only=True)
+        columns = [_cell_text(value) for value in next(rows, ())]
+        data = []
+        for row in rows:
+            values = [_cell_text(value) for value in row]
+            if any(values):
+                values += [""] * (len(columns) - len(values))
+                data.append(dict(zip(columns, values)))
+        return columns, data
+    finally:
+        workbook.close()
 
 
 def _log_export(chart_name: str, result: tuple[bool, list]) -> bool:
@@ -97,7 +121,7 @@ def _chart_path(output_dir: Path, chart_name: str) -> Path:
 
 
 def _number(value: str) -> float | None:
-    """Number of a CSV cell, None when it is empty."""
+    """Number of a report data cell, None when it is empty."""
     value = (value or "").strip().replace(",", "")
     return float(value) if value else None
 
@@ -122,18 +146,20 @@ def _check_indicator(source: str, row: dict) -> str:
 
 
 def _rows_by_sub_indicator(data: list[dict]) -> dict[str, dict]:
-    """CSV rows by sub-indicator label, checked against INDICATORS.
+    """Report data rows by sub-indicator label, checked against INDICATORS.
 
     Raises ValueError When a sub-indicator is in more than one row.
     """
     found_rows = []
     rows = {}
-    # Row 1 of the CSV is the header
+    # Row 1 of the XLSX is the header
     for number, row in enumerate(data, start=2):
         source = f"Report data row {number}"
         gef_cp_id = (row[GEF_CP_ID] or "").strip()
         if not gef_cp_id:
             raise ValueError(f"{source}: '{gef_cp_id}' is empty")
+        if not GEF_CP_ID_REGEX.match(gef_cp_id):
+            raise ValueError(f"{source}: {GEF_CP_ID} {gef_cp_id} is not five numbers.")
 
         sub_indicator = _check_indicator(source, row)
         identifier = f"{gef_cp_id}:{sub_indicator}"

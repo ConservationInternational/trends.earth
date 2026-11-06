@@ -44,12 +44,18 @@
          <x>0</x>
          <y>0</y>
          <width>437</width>
-         <height>699</height>
+         <height>712</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QLabel" name="project_name_label">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -88,7 +94,13 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="data_csv_label">
+         <widget class="QLabel" name="data_xlsx_label">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -96,15 +108,15 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>CSV file with the target and the reported progress of each sub-indicator.</string>
+           <string>XLSX file with the target and the reported progress of each sub-indicator.</string>
           </property>
           <property name="text">
-           <string>Restoration Progress Report data (CSV):</string>
+           <string>Restoration Progress Report data:</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QgsFileWidget" name="data_csv">
+         <widget class="QgsFileWidget" name="data_xlsx">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -112,10 +124,10 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CSV file with one row per sub-indicator and the columns indicator, sub_indicator, target and reported_progress.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;XLSX file with one row per sub-indicator of a child project and the columns GEF_CP_ID, indicator, sub_indicator, target and reported_progress.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="filter">
-           <string>CSV files (*.csv)</string>
+           <string>Excel files (*.xlsx)</string>
           </property>
           <property name="storageMode">
            <enum>QgsFileWidget::GetFile</enum>
@@ -123,7 +135,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="data_csv_template_label">
+         <widget class="QLabel" name="data_xlsx_template_label">
           <property name="text">
            <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
           </property>
@@ -150,6 +162,12 @@
         </item>
         <item>
          <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Filter data by projects:</string>
           </property>
@@ -160,7 +178,7 @@
           <item>
            <widget class="QRadioButton" name="all_child_projects_radio_button">
             <property name="toolTip">
-             <string>Report all the child projects of the CSV file.</string>
+             <string>Report all the child projects of the report data file.</string>
             </property>
             <property name="text">
              <string>All child projects</string>
@@ -173,7 +191,7 @@
           <item>
            <widget class="QRadioButton" name="child_project_radio_button">
             <property name="toolTip">
-             <string>Report only one child project of the CSV file.</string>
+             <string>Report only one child project of the report data file.</string>
             </property>
             <property name="text">
              <string>Child project:</string>
@@ -192,7 +210,7 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>GEF_CP_ID of the child project, from the CSV file. Type to search.</string>
+             <string>GEF_CP_ID of the child project, from the report data file. Type to search.</string>
             </property>
             <property name="editable">
              <bool>true</bool>
@@ -222,6 +240,12 @@
         </item>
         <item>
          <widget class="QLabel" name="spatial_layers_label">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -233,6 +257,16 @@
           </property>
           <property name="text">
            <string>Spatial input (restoration sites):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="spatial_layers_help_label">
+          <property name="text">
+           <string>A spatial boundary refers to the precise geographic extent of a restoration site, delineated using a closed polygon to define the specific area undergoing this intervention. This boundary should accurately reflect the restoration site, excluding any surrounding areas that are not part of the project implementation. For instance, if the restoration site is located within private property or protected area, the spatial boundary should only include the actual area(s) where restoration intervention is taking place and not the entire private property or protected area.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -266,7 +300,7 @@
         <item>
          <widget class="QLabel" name="spatial_layers_template_label">
           <property name="toolTip">
-           <string>Save a ZIP with an empty Shapefile of the restoration sites, with its fields and QGIS form. Rename the files [ISO COUNTRY]_V[YYYYMMDD] before importing them.</string>
+           <string>Save a ZIP with an empty Shapefile of the restoration sites of a country, with its fields, QGIS form and legend, named [ISO COUNTRY]_V[YYYYMMDD] from the ISO3 and the date entered.</string>
           </property>
           <property name="text">
            <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
@@ -325,6 +359,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLabel" name="region_la">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -356,6 +396,12 @@
         </item>
         <item>
          <widget class="QLabel" name="execution_name_label">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -379,6 +425,12 @@
         </item>
         <item>
          <widget class="QLabel" name="task_notes_label">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -471,14 +523,14 @@ p, li { white-space: pre-wrap; }
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QgsFileWidget</class>
-   <extends>QWidget</extends>
-   <header>qgsfilewidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>QgsCheckableComboBox</class>
    <extends>QComboBox</extends>
    <header>qgscheckablecombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsFileWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsfilewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

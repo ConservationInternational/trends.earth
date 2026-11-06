@@ -1,4 +1,3 @@
-import csv
 import datetime as dt
 import json
 import shutil
@@ -10,9 +9,10 @@ from te_schemas.results import URI, FileResults
 from ..areaofinterest import AOI
 from ..jobs.models import Job
 from ..reports.ecosystem_restoration.report import (
-    CSV_DELIMITER,
+    DATA_XLSX_NAME,
     GEF_CP_ID,
     generate_report,
+    read_data,
 )
 from ..reports.ecosystem_restoration.spatial import (
     GEF_CP_ID_FIELD,
@@ -73,7 +73,7 @@ def create_ecosystem_restoration_progress_report(
 ) -> Job:
     """Calculation function for ecosystem restoration progress."""
     project_name = (job.params.get("project_name") or "").strip()
-    data_csv = job.params.get("data_csv")
+    data_xlsx = job.params.get("data_xlsx")
     # GEF_CP_ID of the child project, None for all the child projects
     gef_cp_id = (job.params.get("gef_cp_id") or "").strip() or None
     # Name, source and provider of each spatial input layer
@@ -83,7 +83,7 @@ def create_ecosystem_restoration_progress_report(
         "execution_name": job.task_name,
         "notes": job.task_notes,
         "project_name": project_name,
-        "data_csv": data_csv,
+        "data_xlsx": data_xlsx,
         "gef_cp_id": gef_cp_id,
         "spatial_layers": spatial_layers,
     }
@@ -92,20 +92,19 @@ def create_ecosystem_restoration_progress_report(
     if not project_name:
         raise ValueError("No project name was given.")
 
-    if not data_csv:
-        raise ValueError("No report data CSV was given.")
-    if not Path(data_csv).is_file():
-        raise FileNotFoundError(f"Report data CSV not found: {data_csv}")
+    if not data_xlsx:
+        raise ValueError("No report data XLSX was given.")
+    if not Path(data_xlsx).is_file():
+        raise FileNotFoundError(f"Report data XLSX not found: {data_xlsx}")
 
-    with open(data_csv, newline="", encoding="utf-8") as csv_file:
-        data = list(csv.DictReader(csv_file, delimiter=CSV_DELIMITER))
+    _, data = read_data(data_xlsx)
     if not data:
-        raise ValueError(f"Report data CSV has no rows: {data_csv}")
+        raise ValueError(f"Report data XLSX has no rows: {data_xlsx}")
     if gef_cp_id:
         data = [row for row in data if (row.get(GEF_CP_ID) or "").strip() == gef_cp_id]
         if not data:
             raise ValueError(
-                f"Report data CSV has no rows of child project {gef_cp_id}"
+                f"Report data XLSX has no rows of child project {gef_cp_id}"
             )
 
     # Check spatial layers
@@ -143,6 +142,11 @@ def create_ecosystem_restoration_progress_report(
         spatial_data.extend(calculate_spatially_supported(layer, date.year))
         countries.update(read_countries(layer))
 
+    # Copy the report data XLSX, as it is, with the rows of all the child projects
+    data_xlsx_path = Path(
+        shutil.copy2(data_xlsx, job_output_path.parent / DATA_XLSX_NAME)
+    )
+
     pdf_path = generate_report(
         job_output_path.parent,
         project_name,
@@ -164,7 +168,8 @@ def create_ecosystem_restoration_progress_report(
     job.results = FileResults(
         name="ecosystem_restoration",
         uri=URI(uri=pdf_path or job_output_path),
-        other_uris=[URI(uri=sites_path) for sites_path in sites_paths],
+        other_uris=[URI(uri=data_xlsx_path)]
+        + [URI(uri=sites_path) for sites_path in sites_paths],
         data=inputs,
     )
 

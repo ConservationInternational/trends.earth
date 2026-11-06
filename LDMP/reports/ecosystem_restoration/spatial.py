@@ -5,6 +5,7 @@ import glob
 import re
 import zipfile
 from pathlib import Path
+from xml.sax.saxutils import escape
 
 from qgis.core import (
     QgsCoordinateTransformContext,
@@ -44,6 +45,13 @@ OPTIONAL_VALUE_SPATIAL_FIELDS = (
 
 SPATIAL_FIELDS = REQUIRED_SPATIAL_FIELDS + OPTIONAL_VALUE_SPATIAL_FIELDS
 
+# Regex for GEF identification of a child project [GEF8 Code], five numbers, e.g. 11130
+GEF_CP_ID_REGEX = re.compile(r"^\d{5}$")
+
+# Regex for identifier of a restoration site, [ISO3 Code]_[SiteNumber], e.g. HTI_0023
+SITE_ID_FORMAT = "[ISO3 Code]_[SiteNumber]"
+SITE_ID_REGEX = re.compile(r"^([A-Z]{3})_\d{4}$")
+
 # Most errors listed by validate_sites
 MAX_SITE_ERRORS = 10
 
@@ -54,8 +62,6 @@ LAYER_CRS = "EPSG:4326"
 
 # Empty Shapefile of the restoration sites, with its QGIS form in the .qml
 SPATIAL_TEMPLATE_DIR = Path(__file__).parent / "spatial_template"
-# Name of the files of the template, and of its ZIP file
-SPATIAL_TEMPLATE_NAME = "XXX_VYYYYMMDD"
 
 
 def _year(value) -> int | None:
@@ -109,12 +115,38 @@ def layer_dates(names: list[str]) -> tuple[dict[str, dt.date], list[str]]:
     return dict(sorted(dates.items(), key=lambda item: item[1])), errors
 
 
-def write_spatial_template(path: Path):
+def layer_name(country: str, date: dt.date) -> str:
+    """Layer name of the country and the date, e.g. IND_V20261231."""
+    return f"{country}_V{date:%Y%m%d}"
+
+
+def _set_default(qml: str, field: str, value: str) -> str:
+    """QML with the default value of the field, a text."""
+    expression = escape("'{}'".format(value.replace("'", "''")), {'"': "&quot;"})
+    return re.sub(
+        rf'<default\b[^>]*\bfield="{field}"[^>]*/>',
+        lambda match: re.sub(
+            r'\bexpression="[^"]*"', f'expression="{expression}"', match.group(0)
+        ),
+        qml,
+    )
+
+
+def write_spatial_template(path: Path, country: str, date: dt.date):
     """Write the files of SPATIAL_TEMPLATE_DIR in a ZIP file."""
+    name = layer_name(country, date)
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zip_file:
         for file in sorted(SPATIAL_TEMPLATE_DIR.iterdir()):
-            if file.is_file():
-                zip_file.write(file, file.name)
+            if not file.is_file():
+                continue
+            # Update qml with default country and site id
+            if file.suffix.lower() == ".qml":
+                qml = file.read_text(encoding="utf-8")
+                qml = _set_default(qml, COUNTRY_FIELD, country)
+                qml = _set_default(qml, SITE_ID_FIELD, f"{country}_")
+                zip_file.writestr(f"{name}{file.suffix}", qml)
+            else:
+                zip_file.write(file, f"{name}{file.suffix}")
 
 
 def layer_file(source: str) -> Path:
@@ -158,13 +190,13 @@ def missing_fields(layer: QgsVectorLayer) -> list[str]:
 
 
 def validate_sites(layer: QgsVectorLayer) -> list[str]:
-    """Errors of the restoration sites, empty when they are valid.
-
-    Every site has a value for REQUIRED_SPATIAL_FIELDS, a date and a unique
-    Site_ID. The layer has all SPATIAL_FIELDS, checked with missing_fields.
-    """
+    """Errors of the restoration sites, empty when they are valid."""
     errors = []
     site_ids = set()
+
+    # Country of the layer name, checked with layer_dates
+    match = LAYER_NAME_REGEX.match(layer.name() or "")
+    layer_country = match.group(1) if match else None
     for feature in layer.getFeatures():
         site_id = str(feature[SITE_ID_FIELD] or "").strip()
         site = f"Site {site_id}" if site_id else f"Feature {feature.id()}"
@@ -176,8 +208,31 @@ def validate_sites(layer: QgsVectorLayer) -> list[str]:
         ]
         if empty:
             errors.append(f"{site}: no value for {', '.join(empty)}.")
-        elif _year(feature[DATE_FIELD]) is None:
-            errors.append(f"{site}: {DATE_FIELD} is not a date.")
+        else:
+            if _year(feature[DATE_FIELD]) is None:
+                errors.append(f"{site}: {DATE_FIELD} is not a date.")
+            gef_cp_id = str(feature[GEF_CP_ID_FIELD]).strip()
+            if not GEF_CP_ID_REGEX.match(gef_cp_id):
+                errors.append(
+                    f"{site}: {GEF_CP_ID_FIELD} {gef_cp_id} is not five numbers."
+                )
+
+            country = str(feature[COUNTRY_FIELD]).strip()
+            if layer_country and country != layer_country:
+                errors.append(
+                    f"{site}: {COUNTRY_FIELD} {country} is not {layer_country}, "
+                    f"the country of layer {layer.name()}."
+                )
+            site_id_match = SITE_ID_REGEX.match(site_id)
+            if not site_id_match:
+                errors.append(
+                    f"{site}: {SITE_ID_FIELD} is not {SITE_ID_FORMAT}, e.g. HTI_0023."
+                )
+            elif site_id_match.group(1) != country:
+                errors.append(
+                    f"{site}: {SITE_ID_FIELD} does not start with "
+                    f"{COUNTRY_FIELD} {country}."
+                )
 
         if site_id in site_ids:
             errors.append(f"{site}: {SITE_ID_FIELD} is not unique.")

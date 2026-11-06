@@ -20,6 +20,9 @@ from .writer.chart import (
 # QGIS print layout template of the report
 TEMPLATE_PATH = Path(__file__).parent / "template.qpt"
 
+# Folder of the charts of the report, in the output folder
+CHARTS_DIR_NAME = "charts"
+
 GEF_CP_ID = "GEF_CP_ID"
 
 # Template of the report data XLSX
@@ -178,6 +181,22 @@ def _rows_by_sub_indicator(data: list[dict]) -> dict[str, dict]:
     return rows
 
 
+def validate_data(columns: list[str], data: list[dict]) -> list[str]:
+    """Errors of the report data, empty when it is valid.
+
+    The report data has REQUIRED_DATA_COLUMNS, and its rows are checked by
+    _rows_by_sub_indicator.
+    """
+    missing = [column for column in REQUIRED_DATA_COLUMNS if column not in columns]
+    if missing:
+        return [f"Report data has no column: {', '.join(missing)}"]
+    try:
+        _rows_by_sub_indicator(data)
+    except ValueError as error:
+        return [str(error)]
+    return []
+
+
 def _format_data(
     data: list[dict],
     spatial_data: list[dict],
@@ -303,6 +322,9 @@ def generate_report(
     """
     global_data = _format_data(data, spatial_data, reporting_period)
     indicators = global_data.sub_indicator_data
+    # Charts of the report, in the charts folder
+    charts_dir = output_dir / CHARTS_DIR_NAME
+    charts_dir.mkdir(parents=True, exist_ok=True)
     # Image of each picture item of the template, by item id
     pictures = {}
 
@@ -310,10 +332,10 @@ def generate_report(
     if _log_export(
         "summary",
         write_progress_to_bar_chart(
-            global_data.label, indicators, output_dir, "summary"
+            global_data.label, indicators, charts_dir, "summary"
         ),
     ):
-        pictures["Global.SummaryChart"] = _chart_path(output_dir, "summary")
+        pictures["Global.SummaryChart"] = _chart_path(charts_dir, "summary")
 
     # Generate each indicator
     for indicator_name, indicator in zip(INDICATORS, indicators):
@@ -322,19 +344,19 @@ def generate_report(
         chart_name = f"{indicator_name}_current_progress"
         if _log_export(
             chart_name,
-            write_current_progress_indicator_chart(indicator, output_dir, chart_name),
+            write_current_progress_indicator_chart(indicator, charts_dir, chart_name),
         ):
             pictures[f"{item_prefix}.CurrentProgressChart"] = _chart_path(
-                output_dir, chart_name
+                charts_dir, chart_name
             )
 
         chart_name = f"{indicator_name}_progress_over_time"
         if _log_export(
             chart_name,
-            write_progress_over_time_chart(indicator, output_dir, chart_name),
+            write_progress_over_time_chart(indicator, charts_dir, chart_name),
         ):
             pictures[f"{item_prefix}.ProgressOverTimeChart"] = _chart_path(
-                output_dir, chart_name
+                charts_dir, chart_name
             )
 
         chart_name = f"summary_{indicator_name}"
@@ -343,12 +365,12 @@ def generate_report(
             write_progress_to_bar_chart(
                 indicator.label,
                 indicator.sub_indicator_data,
-                output_dir,
+                charts_dir,
                 chart_name,
             ),
         ):
             pictures[f"{item_prefix}.SubIndicatorChart"] = _chart_path(
-                output_dir, chart_name
+                charts_dir, chart_name
             )
 
     return write_pdf(

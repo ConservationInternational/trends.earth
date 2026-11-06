@@ -14,7 +14,6 @@ needs to be installed on your computer.
 Download QGIS
 ~~~~~~~~~~~~~~
 
-Download QGIS
 To install the plugin, you must have QGIS version |qgisMinVersion| or higher. 
 For that, access the `QGIS Download <https://qgis.org/download/>`_ page and select the appropriate installer 
 depending on your operating system (i.e. Windows, MacOS, Linux).

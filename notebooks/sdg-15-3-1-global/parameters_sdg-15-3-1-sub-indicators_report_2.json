@@ -1465,13 +1465,13 @@
 	},
 	"script": {
 		"additional_configuration": {},
-		"slug": "sdg-15-3-1-indicator-2-1-20",
+		"slug": "sdg-15-3-1-indicator-2-3-4",
 		"description": "Calculate SDG 15.3.1 indicator in one step",
 		"id": "3210ba53-4044-4a72-b753-75df89f09424",
 		"name": "sdg-15-3-1-indicator",
 		"name_readable": "SDG 15.3.1 indicator",
 		"run_mode": "remote",
-		"version": "2.1.20"
+		"version": "2.3.4"
 	},
 	"soil_organic_carbon": {
 		"fake_data": false,

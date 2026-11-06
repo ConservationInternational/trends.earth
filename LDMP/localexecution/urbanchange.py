@@ -112,7 +112,7 @@ def compute_urban_change_summary_table(
     summary_table_output_path = job_output_path.parent / f"{job_output_path.stem}.xlsx"
     save_summary_table(areas, populations, summary_table_output_path)
 
-    urban_change_job.end_date = dt.datetime.now(dt.timezone.utc)
+    urban_change_job.end_date = dt.datetime.now(dt.UTC)
     urban_change_job.progress = 100
     bands = []
 

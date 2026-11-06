@@ -18,7 +18,7 @@ import tempfile
 
 from osgeo import gdal
 from qgis.core import Qgis
-from qgis.PyQt import Qt
+from qgis.PyQt.QtCore import QT_VERSION_STR
 
 
 def _run_tests(test_suite, package_name, with_coverage=False):
@@ -32,7 +32,7 @@ def _run_tests(test_suite, package_name, with_coverage=False):
     print("%s tests has been discovered in %s" % (count, package_name))
     print("QGIS : %s" % version)
     print("Python GDAL : %s" % gdal.VersionInfo("VERSION_NUM"))
-    print("QT : %s" % Qt.QT_VERSION_STR)
+    print("QT : %s" % QT_VERSION_STR)
     print("Run slow tests : %s" % (not os.environ.get("ON_TRAVIS", "")))
     print("########")
     if with_coverage:
@@ -42,7 +42,7 @@ def _run_tests(test_suite, package_name, with_coverage=False):
         )
         cov.start()
 
-    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(test_suite)
+    result = unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(test_suite)
 
     if with_coverage:
         cov.stop()
@@ -54,6 +54,7 @@ def _run_tests(test_suite, package_name, with_coverage=False):
         report.close()
         with open(report.name, "r") as fin:
             print(fin.read())
+    return result
 
 
 def test_package(package="test"):
@@ -68,3 +69,36 @@ def test_package(package="test"):
     except ImportError:
         test_suite = unittest.TestSuite()
     _run_tests(test_suite, package)
+
+
+def test_e2e(package="test"):
+    """Run the opt-in end-to-end tests against the live Trends.Earth API.
+
+    Requires TE_E2E_CLIENT_ID and TE_E2E_CLIENT_SECRET (an OAuth2 service
+    credential for the e2e test user); see test/README.md.
+    """
+    os.environ["TE_E2E_ENABLE"] = "1"
+    if not (
+        os.environ.get("TE_E2E_CLIENT_ID", "").strip()
+        and os.environ.get("TE_E2E_CLIENT_SECRET", "").strip()
+    ):
+        print("TE_E2E_CLIENT_ID/TE_E2E_CLIENT_SECRET not set; e2e tests will skip")
+    # Discover from the same root as test_package so the stdlib "test" package
+    # does not shadow ours; the pattern limits the run to the e2e module.
+    test_suite = unittest.defaultTestLoader.discover(
+        package, pattern="test_remote_pipelines.py"
+    )
+    test_suite.addTests(
+        unittest.defaultTestLoader.discover(package, pattern="test_custom_population.py")
+    )
+    if not _run_tests(test_suite, package).wasSuccessful():
+        raise AssertionError("End-to-end tests failed")
+
+
+def test_e2e_custom(package="test"):
+    """Run generated custom-data E2E tests without network access or credentials."""
+    test_suite = unittest.defaultTestLoader.discover(
+        package, pattern="test_custom_population.py"
+    )
+    if not _run_tests(test_suite, package).wasSuccessful():
+        raise AssertionError("Custom-data end-to-end tests failed")

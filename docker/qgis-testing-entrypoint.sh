@@ -6,9 +6,12 @@ set -e
 
 source /tests_directory/docker/trends-earth-test-pre-scripts.sh
 
-# Run supervisor
-# This is the default command of qgis/qgis but we will run it in background
-supervisord -c /etc/supervisor/supervisord.conf &
+# Run the image's virtual display service.
+if command -v supervisord >/dev/null 2>&1; then
+	supervisord -c /etc/supervisor/supervisord.conf &
+else
+	Xvfb :99 -screen 0 1024x768x24 -nolisten tcp &
+fi
 
 # Wait for XVFB
 sleep 10

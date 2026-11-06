@@ -505,7 +505,7 @@ def run(params, logger):
     logger.debug("Calling calculate_error_recode.")
     return calculate_error_recode(
         error_polygons,
-        "sdg-15-3-1-summary-2-1-17",
+        "sdg-15-3-1-summary-2-3-4",
         iso,
         boundary_dataset,
         substr_regexs,

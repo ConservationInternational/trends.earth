@@ -316,7 +316,7 @@ class TEMapToolMixin:
 class PolygonMapTool(QgsMapToolDigitizeFeature, TEMapToolMixin):
     def __init__(self, canvas: QgsMapCanvas):
         super().__init__(
-            canvas, iface.cadDockWidget(), QgsMapToolCapture.CapturePolygon
+            canvas, iface.cadDockWidget(), QgsMapToolCapture.CaptureMode.CapturePolygon
         )
 
         self.canvas = canvas
@@ -506,7 +506,7 @@ class BufferMapTool(QgsMapToolAdvancedDigitizing):
     def update_rubberband(self, radius):
         layer = self.currentVectorLayer()
         f = QgsUnitTypes.fromUnitToUnitFactor(
-            QgsUnitTypes.DistanceKilometers, layer.crs().mapUnits()
+            QgsUnitTypes.DistanceUnit.DistanceKilometers, layer.crs().mapUnits()
         )
         if self.active:
             self.radius = radius * f
@@ -526,7 +526,7 @@ class BufferMapTool(QgsMapToolAdvancedDigitizing):
             p = e.mapPoint()
             layer = self.currentVectorLayer()
             f = QgsUnitTypes.fromUnitToUnitFactor(
-                layer.crs().mapUnits(), QgsUnitTypes.DistanceKilometers
+                layer.crs().mapUnits(), QgsUnitTypes.DistanceUnit.DistanceKilometers
             )
             radius = self.distance(self.start_point, p) * f
 
@@ -558,7 +558,7 @@ class BufferMapTool(QgsMapToolAdvancedDigitizing):
         if e.modifiers() & QtCore.Qt.ControlModifier:
             if self.center_point is None:
                 self.center_point = QgsVertexMarker(self.canvas)
-                self.center_point.setIconType(QgsVertexMarker.ICON_CROSS)
+                self.center_point.setIconType(QgsVertexMarker.IconType.ICON_CROSS)
 
             self.center_point.setCenter(e.mapPoint())
             self.start_point = e.mapPoint()
@@ -578,7 +578,7 @@ class BufferMapTool(QgsMapToolAdvancedDigitizing):
 
             if self.center_point is None:
                 self.center_point = QgsVertexMarker(self.canvas)
-                self.center_point.setIconType(QgsVertexMarker.ICON_CROSS)
+                self.center_point.setIconType(QgsVertexMarker.IconType.ICON_CROSS)
                 self.center_point.setCenter(e.mapPoint())
                 self.start_point = e.mapPoint()
 
@@ -612,7 +612,7 @@ class BufferMapTool(QgsMapToolAdvancedDigitizing):
         g = None
         if convert:
             f = QgsUnitTypes.fromUnitToUnitFactor(
-                QgsUnitTypes.DistanceKilometers, layer.crs().mapUnits()
+                QgsUnitTypes.DistanceUnit.DistanceKilometers, layer.crs().mapUnits()
             )
             g = QgsGeometry.fromPointXY(self.start_point).buffer(self.radius * f, 10)
         else:

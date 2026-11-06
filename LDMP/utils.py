@@ -188,16 +188,18 @@ def open_qgis_project(project_path: str) -> bool:
     warning = qgis.core.Qgis.Warning
 
     exec_path = qgis_exec_path()
-    if not exec_path:
+    if not exec_path or not os.path.isabs(exec_path) or not os.path.isfile(exec_path):
         log("Cannot open project. QGIS executable not found.", warning)
         return False
 
+    project_path = os.path.abspath(project_path)
     if not os.path.exists(project_path):
         log(f"QGIS project '{project_path}' does not exist.", warning)
         return False
 
     params = [exec_path, "--project", project_path]
-    subprocess.Popen(params)
+    # The executable comes from the active QGIS installation; argv is fixed.
+    subprocess.Popen(params)  # nosec B603
 
     return True
 

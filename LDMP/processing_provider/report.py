@@ -50,10 +50,7 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         return self.tr("Generate Report from Task")
 
     def initAlgorithm(self, config=None):
-        try:
-            file_behavior = QgsProcessingParameterFile.File
-        except AttributeError:
-            file_behavior = QgsProcessingParameterFile.Behavior.File
+        file_behavior = QgsProcessingParameterFile.Behavior.File
         self.addParameter(
             QgsProcessingParameterFile(
                 "INPUT",
@@ -153,14 +150,9 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         Will be flagged as a deprecated algorithm due to hiding from
         modeler and toolbox.
         """
-        try:
-            flag_no_threading = QgsProcessingAlgorithm.FlagNoThreading
-            flag_hide_modeler = QgsProcessingAlgorithm.FlagHideFromModeler
-            flag_hide_toolbox = QgsProcessingAlgorithm.FlagHideFromToolbox
-        except AttributeError:
-            flag_no_threading = QgsProcessingAlgorithm.Flag.FlagNoThreading
-            flag_hide_modeler = QgsProcessingAlgorithm.Flag.FlagHideFromModeler
-            flag_hide_toolbox = QgsProcessingAlgorithm.Flag.FlagHideFromToolbox
+        flag_no_threading = QgsProcessingAlgorithm.Flag.FlagNoThreading
+        flag_hide_modeler = QgsProcessingAlgorithm.Flag.FlagHideFromModeler
+        flag_hide_toolbox = QgsProcessingAlgorithm.Flag.FlagHideFromToolbox
         return (
             super().flags() | flag_no_threading | flag_hide_modeler | flag_hide_toolbox
         )

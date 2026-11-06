@@ -19,3 +19,4 @@ Trends.Earth User Guide
     datasets/index
     designingreports/index
     downloads/index
+    advanced/index

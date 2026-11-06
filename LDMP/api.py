@@ -101,7 +101,7 @@ class RequestTask(QgsTask):
         headers,
         timeout=30,
     ):
-        super().__init__(description, QgsTask.CanCancel | QgsTask.Silent)
+        super().__init__(description, QgsTask.Flag.CanCancel | QgsTask.Flag.Silent)
 
         self.description = description
         self.url = url
@@ -543,7 +543,7 @@ class APIClient(QtCore.QObject):
         log("Attempting to refresh access token")
 
         resp = self.call_api(
-            "/auth/refresh?legacy=false",
+            "/auth/refresh?legacy=false&rotate=true",
             method="post",
             payload={"refresh_token": refresh_token},
             use_token=False,  # Don't use token for refresh endpoint
@@ -709,7 +709,12 @@ class APIClient(QtCore.QObject):
         if access_token:
             try:
                 # Call logout endpoint to revoke the token on server side
-                resp = self.call_api("/auth/logout", method="post", use_token=True)
+                resp = self.call_api(
+                    "/auth/logout",
+                    method="post",
+                    payload={"refresh_token": refresh_token},
+                    use_token=True,
+                )
                 if resp:
                     log("Server-side logout successful")
                 else:
@@ -832,10 +837,12 @@ class APIClient(QtCore.QObject):
         clean_payload = payload.copy()
 
         if "password" in clean_payload:
-            clean_payload["password"] = "**REMOVED**"
+            # A redaction marker replaces the real password in logged payloads.
+            clean_payload["password"] = "**REMOVED**"  # nosec B105
 
         if "refresh_token" in clean_payload:
-            clean_payload["refresh_token"] = "**REMOVED**"
+            # A redaction marker replaces the real token in logged payloads.
+            clean_payload["refresh_token"] = "**REMOVED**"  # nosec B105
 
         return clean_payload
 

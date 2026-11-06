@@ -176,7 +176,7 @@ class DatasetReportHandler(QObject):
                 self.tr("Invalid File"),
                 self.tr("Report output directory does not exist."),
             )
-            log(f"Report file '{rpt_dir}' not found.", Qgis.Warning)
+            log(f"Report file '{rpt_dir}' not found.", Qgis.MessageLevel.Warning)
             return
 
         openFolder(rpt_dir)
@@ -190,7 +190,7 @@ class DatasetReportHandler(QObject):
                 self.tr("Invalid File"),
                 self.tr("Report output directory does not exist."),
             )
-            log(f"Report file '{rpt_dir}' not found.", Qgis.Warning)
+            log(f"Report file '{rpt_dir}' not found.", Qgis.MessageLevel.Warning)
             return
 
         proj_path = FileUtils.project_path_from_report_task(
@@ -203,14 +203,17 @@ class DatasetReportHandler(QObject):
             self._push_refactor_message(
                 self.tr("Invalid File"), self.tr("Project file does not exist.")
             )
-            log(f"Project file '{proj_path}' not found.", Qgis.Warning)
+            log(f"Project file '{proj_path}' not found.", Qgis.MessageLevel.Warning)
             return
 
         if not os.access(proj_path, os.R_OK):
             self._push_refactor_message(
                 self.tr("File Read Permission"), self.tr("Unable to open report file.")
             )
-            log(f"Project file '{proj_path}' cannot be opened.", Qgis.Warning)
+            log(
+                f"Project file '{proj_path}' cannot be opened.",
+                Qgis.MessageLevel.Warning,
+            )
             return
 
         status = open_qgis_project(proj_path)
@@ -294,7 +297,7 @@ class MultiscopeJobReportModel(QStandardItemModel):
         for r in range(self.rowCount()):
             scope_name = self.item(r, 0).text()
             idx = self.index(r, 1)
-            job = self.data(idx, Qt.EditRole)
+            job = self.data(idx, Qt.ItemDataRole.EditRole)
             if job is not None:
                 sj_mapping[scope_name] = job
 
@@ -303,9 +306,13 @@ class MultiscopeJobReportModel(QStandardItemModel):
     def flags(self, index: QModelIndex):
         col = index.column()
         if col == 1:
-            return Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsSelectable
+            return (
+                Qt.ItemFlag.ItemIsEnabled
+                | Qt.ItemFlag.ItemIsEditable
+                | Qt.ItemFlag.ItemIsSelectable
+            )
 
-        return Qt.ItemIsEnabled | Qt.ItemIsSelectable
+        return Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable
 
 
 class JobSelectionItemDelegate(QStyledItemDelegate):
@@ -355,7 +362,7 @@ class JobSelectionItemDelegate(QStyledItemDelegate):
         return job_combo
 
     def setEditorData(self, combo: QComboBox, idx: QModelIndex):
-        job = idx.model().data(idx, Qt.EditRole)
+        job = idx.model().data(idx, Qt.ItemDataRole.EditRole)
         if job is None:
             return
 
@@ -368,7 +375,7 @@ class JobSelectionItemDelegate(QStyledItemDelegate):
     ):
         job = combo.itemData(combo.currentIndex())
         if job is not None:
-            model.setData(idx, job, Qt.EditRole)
+            model.setData(idx, job, Qt.ItemDataRole.EditRole)
 
     def _on_job_changed(self, idx: int):
         # Commit job to the model

@@ -781,7 +781,7 @@ class JobCache:
                                         return _PROD_MODE_FOR_BAND[name]
                                 except ImportError:
                                     pass
-            except Exception:
+            except (AttributeError, ImportError, RuntimeError, TypeError, ValueError):
                 pass
 
         return None
@@ -810,7 +810,7 @@ class JobCache:
                         ]
                         if names:
                             return json.dumps(names)
-        except Exception:
+        except (AttributeError, ImportError, RuntimeError, TypeError, ValueError):
             pass
 
         return None
@@ -834,7 +834,7 @@ class JobCache:
                     uri_path = getattr(uri_obj, "uri", None)
                     if uri_path is not None:
                         return str(uri_path)
-        except Exception:
+        except (AttributeError, RuntimeError, TypeError, ValueError):
             pass
 
         return None
@@ -877,7 +877,7 @@ class JobCache:
                     extents = result.get_extents()
                     if extents:
                         all_extents.extend(extents)
-                except Exception:
+                except (AttributeError, RuntimeError, TypeError, ValueError):
                     pass
 
             # Try direct extent attribute (single extent)
@@ -886,7 +886,7 @@ class JobCache:
                     ext = result.extent
                     if isinstance(ext, (tuple, list)) and len(ext) == 4:
                         all_extents.append(tuple(ext))
-                except Exception:
+                except (AttributeError, RuntimeError, TypeError, ValueError):
                     pass
 
             # Try extents attribute (list of extents, e.g., TiledRaster)
@@ -895,7 +895,7 @@ class JobCache:
                     for ext in result.extents:
                         if isinstance(ext, (tuple, list)) and len(ext) == 4:
                             all_extents.append(tuple(ext))
-                except Exception:
+                except (AttributeError, RuntimeError, TypeError, ValueError):
                     pass
 
             # Try rasters attribute (container with multiple rasters)
@@ -910,7 +910,7 @@ class JobCache:
                             for ext in raster.extents:
                                 if isinstance(ext, (tuple, list)) and len(ext) == 4:
                                     all_extents.append(tuple(ext))
-                except Exception:
+                except (AttributeError, RuntimeError, TypeError, ValueError):
                     pass
 
         if not all_extents:

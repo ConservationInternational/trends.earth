@@ -46,8 +46,9 @@ TE_API_AUTH_SETUP = AuthSetup(name="Trends.Earth")
 LANDPKS_AUTH_SETUP = AuthSetup(name="LandPKS")
 
 # Auth config for JWT token storage (encrypted via QGIS Auth Manager)
-_TOKEN_AUTH_CONFIG_NAME = "Trends.Earth JWT Tokens"
-_TOKEN_AUTH_CONFIG_SETTINGS_KEY = "trendsearth/token_auth_id"
+# The following values identify encrypted auth storage; neither is a credential.
+_TOKEN_AUTH_CONFIG_NAME = "Trends.Earth JWT Tokens"  # nosec B105
+_TOKEN_AUTH_CONFIG_SETTINGS_KEY = "trendsearth/token_auth_id"  # nosec B105
 
 
 def store_jwt_tokens(access_token=None, refresh_token=None):

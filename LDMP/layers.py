@@ -317,8 +317,15 @@ style_text_dict = {
     # Population titles
     "population_title": tr_layers.tr("Population ({year})"),
     "population_number_of_people": tr_layers.tr("Population ({type}, {year})"),
+    "population_title_with_units": tr_layers.tr("Population ({year}, {units})"),
+    "population_number_of_people_with_units": tr_layers.tr(
+        "Population ({type}, {year}, {units})"
+    ),
     "population_density_title": tr_layers.tr(
         "Population density ({year}, per sq km / 10)"
+    ),
+    "population_density_title_with_units": tr_layers.tr(
+        "Population density ({year}, {units})"
     ),
     "population_density_affected_by_degradation_title": tr_layers.tr(
         "Population exposed to degradation (population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})"
@@ -414,6 +421,9 @@ def round_to_n(x, sf=3):
     is_scalar = isinstance(x, (int, float)) or (hasattr(x, "size") and x.size == 1)
 
     if is_scalar:
+        # NumPy 2.x no longer implicitly converts ndim > 0 arrays to scalars
+        if hasattr(x, "item"):
+            x = x.item()
         if np.isnan(x):
             return x
         elif x == 0:
@@ -997,9 +1007,19 @@ def get_band_title(band_info):
     result = band_info["name"]
 
     if style:
-        title_pattern = tr_style_text(style["title"])
+        metadata = band_info["metadata"]
+        title_key = style["title"]
+        title_key_with_units = {
+            "population_title": "population_title_with_units",
+            "population_number_of_people": "population_number_of_people_with_units",
+            "population_density_title": "population_density_title_with_units",
+        }.get(title_key)
+        if title_key_with_units and metadata.get("units"):
+            title_key = title_key_with_units
+
+        title_pattern = tr_style_text(title_key)
         try:
-            result = title_pattern.format(**band_info["metadata"])
+            result = title_pattern.format(**metadata)
         except KeyError as exc:
             log(
                 f"Unable to find a proper name for {band_info['name']} because "
@@ -1141,7 +1161,9 @@ def set_default_stats_value(v_path, band_datas):
     __main__.__dict__["error_recode_form_open"] = error_recode_form_open
 
     config = layer.editFormConfig()
-    config.setInitCodeSource(QgsEditFormConfig.CodeSourceEnvironment)
+    config.setInitCodeSource(
+        QgsEditFormConfig.PythonInitCodeSource.CodeSourceEnvironment
+    )
     config.setInitFunction("error_recode_form_open")
     layer.setEditFormConfig(config)
 

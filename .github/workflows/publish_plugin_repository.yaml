@@ -1,0 +1,242 @@
+name: Publish plugin repository
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag to publish or repair (for example v2.3.4)
+        required: true
+        type: string
+  workflow_run:
+    types: [completed]
+    workflows:
+      - Build plugin zipfile
+      - Create plugin package in the PR
+  pull_request_target:
+    types: [closed]
+  schedule:
+    - cron: '17 0 */2 * *'
+
+permissions:
+  contents: write
+  actions: read
+  pull-requests: read
+
+jobs:
+  publish:
+    if: >-
+      ((github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) ||
+       github.event_name == 'workflow_dispatch') ||
+      github.event_name == 'schedule' ||
+      github.event_name == 'pull_request_target' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       (github.event.workflow_run.name == 'Create plugin package in the PR' ||
+        (github.event.workflow_run.name == 'Build plugin zipfile' &&
+         github.event.workflow_run.head_branch == 'main')))
+    runs-on: ubuntu-latest
+    concurrency:
+      group: release-plugin-repository
+      cancel-in-progress: false
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event_name == 'push' && github.ref || inputs.tag || 'main' }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Check stable version tag
+        id: stable_tag
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        env:
+          RELEASE_TAG: ${{ github.event_name == 'push' && github.ref_name || inputs.tag }}
+        run: |
+          VERSION="${RELEASE_TAG#v}"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Tag $RELEASE_TAG is not a stable semantic version; skipping release publication."
+            echo "stable=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          LAST_COMPONENT="${VERSION##*.}"
+          if (( 10#$LAST_COMPONENT % 2 == 0 )); then
+            echo "stable=true" >> "$GITHUB_OUTPUT"
+            echo "Tag $RELEASE_TAG is stable."
+          else
+            echo "stable=false" >> "$GITHUB_OUTPUT"
+            echo "Tag $RELEASE_TAG is a development version; skipping GitHub release publication."
+          fi
+
+      - name: Setup Python environment
+        if: >-
+          ((github.event_name != 'push' && github.event_name != 'workflow_dispatch') ||
+           steps.stable_tag.outputs.stable == 'true') &&
+          (github.event_name != 'workflow_run' ||
+           github.event.workflow_run.name != 'Build plugin zipfile')
+        uses: ./.github/actions/setup-python-env
+
+      - name: Checkout release branch
+        if: >-
+          (github.event_name != 'push' && github.event_name != 'workflow_dispatch') ||
+          steps.stable_tag.outputs.stable == 'true'
+        uses: actions/checkout@v6
+        with:
+          ref: release
+          path: release
+          fetch-depth: 0
+
+      - name: Build stable release ZIP
+        if: >-
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+          steps.stable_tag.outputs.stable == 'true'
+        uses: ./.github/actions/build-plugin-zip
+        with:
+          filename: LDMP-release.zip
+
+      - name: Create GitHub release and upload ZIP
+        if: >-
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+          steps.stable_tag.outputs.stable == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.event_name == 'push' && github.ref_name || inputs.tag }}
+        run: |
+          VERSION="${RELEASE_TAG#v}"
+          ASSET_NAME="LDMP_${VERSION}.zip"
+          mv LDMP-release.zip "$ASSET_NAME"
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "$ASSET_NAME" --clobber
+          else
+            gh release create "$RELEASE_TAG" "$ASSET_NAME" \
+              --verify-tag \
+              --title "Version $VERSION" \
+              --notes "To install this release, download the LDMP.zip file below and then follow [the instructions for installing a release from Github](https://github.com/ConservationInternational/trends.earth#stable-version-from-zipfile)."
+          fi
+
+      - name: Publish stable release index
+        if: >-
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+          steps.stable_tag.outputs.stable == 'true'
+        run: |
+          invoke set-version
+          invoke generate-plugin-repo-xml
+          echo " " >> docs/repository/plugins.xml
+          cp docs/repository/plugins.xml release/docs/repository/plugins.xml
+
+      - name: Build main pre-release plugin
+        if: >-
+          github.event_name == 'workflow_run' &&
+          github.event.workflow_run.name == 'Build plugin zipfile'
+        uses: ./.github/actions/build-plugin-zip
+        with:
+          filename: LDMP.zip
+
+      - name: Publish main pre-release and development indexes
+        if: >-
+          github.event_name == 'workflow_run' &&
+          github.event.workflow_run.name == 'Build plugin zipfile'
+        run: |
+          mkdir -p release/docs/repository/main
+          cp LDMP.zip release/docs/repository/main/LDMP.zip
+          DOWNLOAD_URL="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/refs/heads/release/docs/repository/main/LDMP.zip"
+
+          invoke generate-plugin-repo-xml \
+            --prerelease \
+            --prerelease-url "$DOWNLOAD_URL" \
+            --prerelease-time "$(date +'%Y-%m-%dT%H:%M:%SZ')" \
+            --prerelease-filename "LDMP.zip"
+          echo " " >> docs/repository/plugins.xml
+          cp docs/repository/plugins.xml release/docs/repository/plugins.xml
+
+          invoke generate-plugin-repo-xml \
+            --prerelease \
+            --prerelease-url "https://s3.amazonaws.com/trends.earth/sharing/LDMP_main.zip" \
+            --prerelease-time "$(date +'%Y-%m-%dT%H:%M:%SZ')" \
+            --prerelease-filename "LDMP.zip"
+          mkdir -p release/docs/repository/dev
+          cp docs/repository/plugins.xml release/docs/repository/dev/plugins.xml
+
+      - name: Reconcile open PR packages
+        if: >-
+          (github.event_name != 'push' && github.event_name != 'workflow_dispatch') ||
+          steps.stable_tag.outputs.stable == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          invoke set-version --modules
+          REPO_WORKFLOW_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/pr_package.yml" --jq '.id')
+          OPEN_PRS=$(gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls?state=open&per_page=100" \
+            --jq ".[] | select(.head.repo.full_name == \"${GITHUB_REPOSITORY}\") | [.number, .head.ref, .head.sha] | @tsv")
+          OPEN_BRANCHES=$(printf '%s\n' "$OPEN_PRS" | cut -f2 | tr '/' '_' | sort -u)
+
+          while IFS=$'\t' read -r PR_NUMBER PR_BRANCH PR_SHA; do
+            [ -n "$PR_NUMBER" ] || continue
+            SAFE_BRANCH=$(echo "$PR_BRANCH" | tr '/' '_')
+            BRANCH_DIR="release/docs/repository/branches/${SAFE_BRANCH}"
+            MARKER="${BRANCH_DIR}/head.sha"
+
+            if [ -f "$MARKER" ] && [ "$(cat "$MARKER")" = "$PR_SHA" ] && \
+              [ -f "${BRANCH_DIR}/LDMP.zip" ] && [ -f "${BRANCH_DIR}/plugins.xml" ]; then
+              continue
+            fi
+
+            RUN_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/${REPO_WORKFLOW_ID}/runs" \
+              --method GET \
+              -f branch="$PR_BRANCH" \
+              -f event=pull_request \
+              -f status=completed \
+              -F per_page=100 \
+              --jq ".workflow_runs[] | select(.conclusion == \"success\" and any(.pull_requests[]?; .number == ${PR_NUMBER} and .head.sha == \"${PR_SHA}\")) | .id" \
+              | head -n 1)
+            if [ -z "$RUN_ID" ]; then
+              echo "No successful package build found for open PR #${PR_NUMBER} at ${PR_SHA}; leaving its published package unchanged."
+              continue
+            fi
+
+            ARTIFACT_DIR=$(mktemp -d)
+            if ! gh run download "$RUN_ID" --name plugin_zip --dir "$ARTIFACT_DIR"; then
+              echo "::warning::Could not download the plugin artifact for PR #${PR_NUMBER} (run ${RUN_ID})."
+              rm -rf "$ARTIFACT_DIR"
+              continue
+            fi
+
+            mkdir -p "$BRANCH_DIR"
+            cp "${ARTIFACT_DIR}/LDMP.zip" "${BRANCH_DIR}/LDMP.zip"
+            rm -rf "$ARTIFACT_DIR"
+
+            DOWNLOAD_URL="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/refs/heads/release/docs/repository/branches/${SAFE_BRANCH}/LDMP.zip"
+            invoke generate-plugin-repo-xml \
+              --prerelease \
+              --prerelease-url "$DOWNLOAD_URL" \
+              --prerelease-time "$(date +'%Y-%m-%dT%H:%M:%SZ')" \
+              --prerelease-filename "LDMP.zip"
+            cp docs/repository/plugins.xml "${BRANCH_DIR}/plugins.xml"
+            printf '%s\n' "$PR_SHA" > "$MARKER"
+          done <<< "$OPEN_PRS"
+
+          for BRANCH_DIR in release/docs/repository/branches/*; do
+            [ -d "$BRANCH_DIR" ] || continue
+            SAFE_BRANCH=${BRANCH_DIR##*/}
+            if ! grep -Fxq "$SAFE_BRANCH" <<< "$OPEN_BRANCHES"; then
+              rm -rf "$BRANCH_DIR"
+            fi
+          done
+
+      - name: Commit repository updates
+        if: >-
+          (github.event_name != 'push' && github.event_name != 'workflow_dispatch') ||
+          steps.stable_tag.outputs.stable == 'true'
+        run: |
+          git -C release config user.name "github-actions[bot]"
+          git -C release config user.email "github-actions[bot]@users.noreply.github.com"
+          git -C release add docs/repository
+          if git -C release diff --cached --quiet; then
+            echo "Plugin repository is already up to date."
+            exit 0
+          fi
+          git -C release commit -m "Update plugin repository"
+          git -C release push origin release

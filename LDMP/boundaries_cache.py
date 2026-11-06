@@ -15,7 +15,7 @@ import gzip
 import json
 import time
 import typing
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from qgis.PyQt import QtCore
@@ -140,7 +140,7 @@ class BoundariesCache:
         try:
             cache_data = {
                 "_cache_metadata": {
-                    "cached_at": datetime.now(timezone.utc).isoformat(),
+                    "cached_at": datetime.now(UTC).isoformat(),
                     "server_last_updated": server_timestamp,
                 },
                 "data": data,

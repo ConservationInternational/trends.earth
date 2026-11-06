@@ -152,7 +152,7 @@ def compute_biomass_restoration(
             ),
         },
     )
-    biomass_job.end_date = dt.datetime.now(dt.timezone.utc)
+    biomass_job.end_date = dt.datetime.now(dt.UTC)
     biomass_job.progress = 100
 
     return biomass_job.results

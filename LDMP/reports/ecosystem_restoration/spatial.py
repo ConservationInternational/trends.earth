@@ -7,11 +7,14 @@ import zipfile
 from pathlib import Path
 from xml.sax.saxutils import escape
 
+from osgeo import gdal
 from qgis.core import (
+    Qgis,
     QgsCoordinateTransformContext,
     QgsDistanceArea,
     QgsGeometry,
     QgsVectorLayer,
+    QgsWkbTypes,
 )
 from qgis.PyQt.QtCore import QDate, QDateTime
 
@@ -189,6 +192,59 @@ def missing_fields(layer: QgsVectorLayer) -> list[str]:
     return [name for name in SPATIAL_FIELDS if layer.fields().lookupField(name) < 0]
 
 
+def validate_closed_polygon(layer: QgsVectorLayer) -> dict[int, list[str]]:
+    """Errors of the boundary of each site of the layer, by feature id.
+
+    A boundary is closed polygons: the rings of the polygons are closed, with
+    4 points at least, and the polygons are valid, no self-intersection or
+    dangling vertex. A site with a valid boundary has no errors.
+    """
+    is_file = layer.providerType() == "ogr" and layer_file(layer.source()).is_file()
+    option = "OGR_GEOMETRY_ACCEPT_UNCLOSED_RING"
+    previous = gdal.GetThreadLocalConfigOption(option, None)
+    if is_file:
+        gdal.SetThreadLocalConfigOption(option, "NO")
+    try:
+        if is_file:
+            layer = QgsVectorLayer(layer.source(), layer.name(), "ogr")
+
+        errors = {}
+        for feature in layer.getFeatures():
+            geometry = feature.geometry()
+            if geometry.isNull() or geometry.isEmpty():
+                errors[feature.id()] = ["no boundary, or the boundary is not closed."]
+                continue
+            if geometry.type() != QgsWkbTypes.PolygonGeometry:
+                geometry_type = QgsWkbTypes.geometryDisplayString(geometry.type())
+                errors[feature.id()] = [
+                    f"boundary is a {geometry_type}, not a closed polygon."
+                ]
+                continue
+
+            rings = [
+                ring
+                for part in geometry.constParts()
+                for ring in [part.exteriorRing()]
+                + [part.interiorRing(index) for index in range(part.numInteriorRings())]
+            ]
+            if any(
+                ring is None or not ring.isClosed() or ring.numPoints() < 4
+                for ring in rings
+            ):
+                errors[feature.id()] = ["boundary is not closed."]
+                continue
+
+            invalid = geometry.validateGeometry(Qgis.GeometryValidationEngine.Geos)
+            if invalid:
+                errors[feature.id()] = [
+                    f"boundary is not valid: {error.what()}" for error in invalid
+                ]
+        return errors
+    finally:
+        if is_file:
+            gdal.SetThreadLocalConfigOption(option, previous)
+
+
 def validate_sites(layer: QgsVectorLayer) -> list[str]:
     """Errors of the restoration sites, empty when they are valid."""
     errors = []
@@ -197,6 +253,9 @@ def validate_sites(layer: QgsVectorLayer) -> list[str]:
     # Country of the layer name, checked with layer_dates
     match = LAYER_NAME_REGEX.match(layer.name() or "")
     layer_country = match.group(1) if match else None
+
+    # Validate closed polygon
+    boundary_errors = validate_closed_polygon(layer)
     for feature in layer.getFeatures():
         site_id = str(feature[SITE_ID_FIELD] or "").strip()
         site = f"Site {site_id}" if site_id else f"Feature {feature.id()}"
@@ -233,6 +292,10 @@ def validate_sites(layer: QgsVectorLayer) -> list[str]:
                     f"{site}: {SITE_ID_FIELD} does not start with "
                     f"{COUNTRY_FIELD} {country}."
                 )
+
+        errors.extend(
+            f"{site}: {error}" for error in boundary_errors.get(feature.id(), [])
+        )
 
         if site_id in site_ids:
             errors.append(f"{site}: {SITE_ID_FIELD} is not unique.")

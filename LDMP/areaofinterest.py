@@ -897,7 +897,9 @@ def region_signature() -> str:
     Values derived from the region (e.g. how much of a unit is inside it) are
     stored together with this and recomputed when it changes.
     """
-    return hashlib.md5(repr(_current_aoi_settings_key()).encode("utf-8")).hexdigest()
+    return hashlib.md5(
+        repr(_current_aoi_settings_key()).encode("utf-8"), usedforsecurity=False
+    ).hexdigest()
 
 
 def _simplified_valid(geometry: qgis.core.QgsGeometry) -> qgis.core.QgsGeometry:

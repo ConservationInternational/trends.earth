@@ -20,10 +20,8 @@ from qgis.PyQt.QtWidgets import QSpinBox
 from te_schemas.algorithms import ExecutionScript
 from te_schemas.productivity import ProductivityMode
 
-from . import calculate, conf
-from .jobs.manager import job_manager
+from . import calculate, conf, subnational
 from .logger import log
-from .utils import push_message
 
 DlgCalculateProdUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateProd.ui")
@@ -89,6 +87,41 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
         self.low_value_spinbox.valueChanged.connect(self.biomass_value_update)
         self.high_value_spinbox.valueChanged.connect(self.biomass_value_update)
+
+        self.unit_bar = subnational.SubnationalUnitBar(
+            [
+                self.dataset_ndvi,
+                self.traj_climate,
+                self.traj_indic,
+                self.modis_combo_box,
+                self.groupBox_traj,
+                self.groupBox_perf,
+                self.groupBox_state,
+                self.traj_year_start,
+                self.traj_year_end,
+                self.perf_year_start,
+                self.perf_year_end,
+                self.state_year_bl_start,
+                self.state_year_bl_end,
+                self.state_year_tg_start,
+                self.state_year_tg_end,
+                self.fao_wocat_year_start,
+                self.fao_wocat_year_end,
+                self.low_value_spinbox,
+                self.high_value_spinbox,
+                self.period_interval.findChild(QSpinBox, "spinBox"),
+            ],
+            parent=self,
+        )
+        self.advance_configurations.layout().insertWidget(0, self.unit_bar)
+        self.changed_region.connect(self._refresh_units)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._refresh_units()
+
+    def _refresh_units(self):
+        self.unit_bar.set_units(subnational.get_subnational_units())
 
     def _setup_alg_help(self):
         self.alg_help.setHtml(
@@ -396,6 +429,34 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             return ProductivityMode.JRC_5_CLASS_LPD.value
 
     def btn_calculate(self):
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+        ret = super().btn_calculate()
+
+        if not ret:
+            return
+
+        self.unit_bar.set_units(subnational.get_subnational_units())
+        units = self.unit_bar.units
+
+        if units:
+            self.submit_subnational_remote(
+                units,
+                lambda unit, unit_aoi: self._build_payload(),
+                self.tr("Productivity"),
+            )
+            return
+
+        payload = self._build_payload()
+        if payload is None:
+            return
+
+        self.close()
+        self.submit_remote_job_with_message(payload, self.tr("Productivity"))
+
+    def _build_payload(self) -> dict | None:
+        """Build the job payload from the dialog; None if it is not valid."""
         if self.mode_te_prod.isChecked() and not (
             self.groupBox_traj.isChecked()
             or self.groupBox_perf.isChecked()
@@ -407,15 +468,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                 self.tr("Choose one or more productivity sub-indicator to calculate."),
             )
 
-            return
-
-        # Note that the super class has several tests in it - if they fail it
-        # returns False, which would mean this function should stop execution
-        # as well.
-        ret = super().btn_calculate()
-
-        if not ret:
-            return
+            return None
 
         ndvi_dataset = conf.REMOTE_DATASETS["NDVI"][self.dataset_ndvi.currentText()][
             "GEE Dataset"
@@ -455,7 +508,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                         "Please select a climate dataset before submitting."
                     ),
                 )
-                return
+                return None
 
             # Validate trajectory period if trajectory is selected
             # (trajectory uses Mann-Kendall test which requires at least 4 years)
@@ -475,7 +528,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                             f"only spans {traj_years} years. Please select a longer time period."
                         ),
                     )
-                    return
+                    return None
 
             payload["crs"] = self.aoi.get_crs_dst_wkt()
 
@@ -513,7 +566,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
                         f"only spans {fao_years} years. Please select a longer time period."
                     ),
                 )
-                return
+                return None
 
             modis_mode = self.modis_combo_box.currentText()
             spin = self.period_interval.findChild(QSpinBox, "spinBox")
@@ -549,17 +602,4 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         else:
             raise ValueError("Unknown prod_mode {prod_mode}")
 
-        self.close()
-
-        resp = job_manager.submit_remote_job(payload, self.script.id)
-
-        if resp:
-            main_msg = "Submitted"
-            description = "Productivity task submitted to Trends.Earth server."
-
-        else:
-            main_msg = "Error"
-            description = "Unable to submit productivity task to Trends.Earth server."
-        push_message(
-            self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
-        )
+        return payload

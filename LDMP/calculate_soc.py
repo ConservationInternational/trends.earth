@@ -19,10 +19,9 @@ from qgis.PyQt import QtGui, QtWidgets, uic
 from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 from te_schemas.land_cover import LCLegendNesting
 
-from . import calculate, data_io, lc_setup
+from . import areaofinterest, calculate, data_io, lc_setup, subnational
 from .jobs.manager import job_manager
 from .logger import log
-from .utils import push_message
 
 # SOC baseline year - the SOC reference dataset is from 2000, so analysis cannot start earlier
 SOC_MIN_YEAR = 2000
@@ -64,7 +63,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
         if self.script.run_mode == AlgorithmRunMode.LOCAL:
             self.lc_setup_widget = lc_setup.LandCoverSetupLocalExecutionWidget(self)
-            self.changed_region.connect(self.lc_setup_widget.populate_combos)
+            self.changed_region.connect(self.populate_layer_lists)
         elif self.script.run_mode == AlgorithmRunMode.REMOTE:
             self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
                 parent=self,
@@ -85,6 +84,22 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         self.fl_radio_default.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_chooseRegime.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_custom.toggled.connect(self.fl_radios_toggled)
+
+        self.unit_bar = subnational.SubnationalUnitBar(
+            [
+                self.groupBox_custom_SOC,
+                self.comboBox_custom_soc.comboBox_layers,
+                self.fl_radio_default,
+                self.fl_radio_chooseRegime,
+                self.fl_radio_custom,
+                self.fl_chooseRegime_comboBox,
+                self.fl_custom_lineEdit,
+                self.download_annual_lc,
+            ],
+            parent=self,
+            on_unit_shown=self.populate_layer_lists_for_unit,
+        )
+        self.advance_configurations.layout().insertWidget(0, self.unit_bar)
         self._finish_initialization()
 
     def _setup_alg_help(self):
@@ -152,7 +167,12 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         # self.lc_setup_widget.groupBox_custom_bl.show()
         # self.lc_setup_widget.groupBox_custom_tg.show()
 
-        self.comboBox_custom_soc.populate()
+        units = subnational.get_subnational_units()
+        if not units:
+            self.comboBox_custom_soc.populate()
+        self.unit_bar.set_units(units)
+        self.populate_lc_layer_lists()
+
         # self.lc_setup_widget.use_custom_initial.populate()
         # self.lc_setup_widget.use_custom_final.populate()
 
@@ -162,6 +182,33 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         # self.lc_setup_widget.custom_frame.setVisible(
         #     self.script.run_mode == AlgorithmRunMode.LOCAL
         # )
+
+    def populate_layer_lists(self):
+        """Populate the layer lists when the region changes."""
+        self.populate_lc_layer_lists()
+        unit_id = self.unit_bar.current_unit_id
+        unit = next((u for u in self.unit_bar.units if u.get("id") == unit_id), None)
+        if unit is not None:
+            self.populate_layer_lists_for_unit(unit)
+
+    def populate_lc_layer_lists(self):
+        """
+        List the initial and target land cover layers that cover every unit.
+        """
+        if self.script.run_mode == AlgorithmRunMode.LOCAL:
+            self.lc_setup_widget.populate_combos_for_units(
+                subnational.get_subnational_units()
+            )
+
+    def populate_layer_lists_for_unit(self, unit: dict):
+        """List the custom SOC layers that cover ``unit``."""
+        try:
+            unit_aoi = areaofinterest.aoi_from_unit(unit)
+        except RuntimeError as e:
+            log(f"Unable to use the boundary of unit {unit.get('id')}: {e}")
+            self.comboBox_custom_soc.populate()
+            return
+        self.comboBox_custom_soc.populate_with_aoi(unit_aoi)
 
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():
@@ -194,15 +241,48 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         if not ret:
             return
 
-        if (
-            self.script.run_mode == AlgorithmRunMode.LOCAL
-            or self.groupBox_custom_SOC.isChecked()
-        ):
-            self.calculate_locally()
+        self.unit_bar.set_units(subnational.get_subnational_units())
+        units = self.unit_bar.units
+        if self._runs_locally():
+            if units:
+                self.calculate_locally_subnational(units)
+            else:
+                self.calculate_locally()
+        elif units:
+            self.calculate_on_GEE_subnational(units)
         else:
             self.calculate_on_GEE()
 
+    def _runs_locally(self) -> bool:
+        return (
+            self.script.run_mode == AlgorithmRunMode.LOCAL
+            or self.groupBox_custom_SOC.isChecked()
+        )
+
+    def calculate_locally_subnational(self, units):
+        """Run one local job per unit, each using that unit's tab settings."""
+        self.submit_subnational_local(
+            units, lambda unit, unit_aoi: self._local_job_params(unit_aoi)
+        )
+
+    def calculate_on_GEE_subnational(self, units):
+        """Submit one GEE job per unit, each using that unit's tab settings."""
+        self.submit_subnational_remote(
+            units,
+            lambda unit, unit_aoi: self._gee_payload(),
+            self.tr("Soil organic carbon"),
+        )
+
     def calculate_locally(self):
+        params = self._local_job_params(self.aoi)
+        if params is None:
+            return
+        self.close()
+        job_manager.submit_local_job_as_qgstask(
+            params, self.LOCAL_SCRIPT_NAME, self.aoi
+        )
+
+    def _local_job_params(self, aoi) -> dict | None:
         if not self.groupBox_custom_SOC.isChecked():
             QtWidgets.QMessageBox.critical(
                 None,
@@ -259,7 +339,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         initial_layer = self.lc_setup_widget.initial_year_layer_cb.get_layer()
         # initial_layer = self.lc_setup_widget.use_custom_initial.get_layer()
         initial_extent_geom = qgis.core.QgsGeometry.fromRect(initial_layer.extent())
-        if self.aoi.calc_frac_overlap(initial_extent_geom) < 0.99:
+        if aoi.calc_frac_overlap(initial_extent_geom) < 0.99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -273,7 +353,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         final_layer = self.lc_setup_widget.target_year_layer_cb.get_layer()
         # final_layer = self.lc_setup_widget.use_custom_final.get_layer()
         final_extent_geom = qgis.core.QgsGeometry.fromRect(final_layer.extent())
-        if self.aoi.calc_frac_overlap(final_extent_geom) < 0.99:
+        if aoi.calc_frac_overlap(final_extent_geom) < 0.99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -283,8 +363,6 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 ),
             )
             return
-
-        self.close()
 
         initial_usable = self.lc_setup_widget.initial_year_layer_cb.get_current_band()
         final_usable = self.lc_setup_widget.target_year_layer_cb.get_current_band()
@@ -324,13 +402,20 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             ),
             "fl": self.get_fl(),
         }
-        job_manager.submit_local_job_as_qgstask(
-            job_params, self.LOCAL_SCRIPT_NAME, self.aoi
-        )
+        return job_params
 
     def calculate_on_GEE(self):
         log("inside calculate_on_GEE...")
+        payload = self._gee_payload()
+        if payload is None:
+            return
 
+        self.close()
+        self.submit_remote_job_with_message(payload, self.tr("Soil organic carbon"))
+        log("leaving calculate_on_GEE...")
+
+    def _gee_payload(self) -> dict | None:
+        """Build the GEE job payload from the dialog; None if it is not valid."""
         year_initial = self.lc_setup_widget.initial_year_de.date().year()
         year_final = self.lc_setup_widget.target_year_de.date().year()
 
@@ -345,12 +430,10 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                     f"Please select an initial year >= {SOC_MIN_YEAR}."
                 ),
             )
-            return
-
-        self.close()
+            return None
 
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {
+        return {
             "year_initial": year_initial,
             "year_final": year_final,
             "fl": self.get_fl(),
@@ -367,18 +450,3 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             "task_name": self.execution_name_le.text(),
             "task_notes": self.options_tab.task_notes.toPlainText(),
         }
-
-        resp = job_manager.submit_remote_job(payload, self.script.id)
-        if resp:
-            main_msg = "Submitted"
-            description = "Soil organic carbon task submitted to Trends.Earth server."
-
-        else:
-            main_msg = "Error"
-            description = (
-                "Unable to submit Soil organic carbon task to Trends.Earth server."
-            )
-        push_message(
-            self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
-        )
-        log("leaving calculate_on_GEE...")

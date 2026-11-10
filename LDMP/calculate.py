@@ -11,6 +11,7 @@
  ***************************************************************************/
 """
 
+import contextlib
 import datetime as dt
 import functools
 import json
@@ -25,8 +26,10 @@ from osgeo import gdal
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
-from . import GetTempFilename, areaofinterest, auth, download, worker
+from . import GetTempFilename, areaofinterest, auth, download, subnational, worker
 from .conf import OPTIONS_TITLE, REMOTE_DATASETS, AreaSetting, Setting, settings_manager
+from .jobs.manager import job_manager
+from .utils import push_message
 
 if TYPE_CHECKING:
     from .main_widget import MainWidget
@@ -526,6 +529,116 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
     def settings_btn_clicked(self):
         self.iface.showOptionsDialog(self.iface.mainWindow(), currentPage=OPTIONS_TITLE)
+
+    def unit_settings(self, unit: dict):
+        unit_bar = getattr(self, "unit_bar", None)
+        if unit_bar is None:
+            return contextlib.nullcontext()
+        return unit_bar.unit_applied(unit["id"])
+
+    def _build_unit_jobs(
+        self, units: list[dict], build, local: bool
+    ) -> list[tuple[dict, str, dict, "areaofinterest.AOI"]] | None:
+        """
+        Build one job per unit. Returns a
+        ``(unit, unit_name, job, unit_aoi)`` tuple per unit, or None
+        if any unit's job cannot be built.
+        """
+        run_id = str(uuid.uuid4())
+        jobs = []
+        for unit in units:
+            unit_name = unit.get("name") or unit.get("id")
+            try:
+                unit_aoi = areaofinterest.aoi_from_unit(unit)
+            except RuntimeError as e:
+                QtWidgets.QMessageBox.critical(
+                    None, tr_calculate.tr("Subnational unit error"), str(e)
+                )
+                return None
+
+            with self.unit_settings(unit):
+                job = build(unit, unit_aoi)
+            if job is None:
+                return None
+
+            job = dict(job)
+            job["task_name"] = subnational.unit_task_name(
+                unit, job.get("task_name", "")
+            )
+            job["subnational_unit"] = subnational.unit_tag(unit, run_id)
+            if not local:
+                job = subnational.set_unit_geometry(job, unit_aoi)
+                if job is None:
+                    QtWidgets.QMessageBox.critical(
+                        None,
+                        tr_calculate.tr("Subnational unit error"),
+                        tr_calculate.tr(
+                            f"Unable to use the boundary of unit '{unit_name}'."
+                        ),
+                    )
+                    return None
+            jobs.append((unit, unit_name, job, unit_aoi))
+        return jobs
+
+    def submit_subnational_remote(
+        self, units: list[dict], build, label: str, on_submit=None
+    ) -> bool:
+        """
+        Submit one job per subnational unit to the Trends.Earth server, all
+        sharing one run id.
+        """
+        jobs = self._build_unit_jobs(units, build, local=False)
+        if jobs is None:
+            return False
+
+        self.close()
+        for unit, unit_name, job, _ in jobs:
+            if on_submit is not None:
+                on_submit(unit)
+            self.submit_remote_job_with_message(job, label, unit_name)
+        return True
+
+    def submit_subnational_local(
+        self, units: list[dict], build, on_submit=None
+    ) -> bool:
+        """
+        Run one local job per subnational unit, on the unit's polygon through
+        ``self.LOCAL_SCRIPT_NAME``, all sharing one run id.
+        """
+        jobs = self._build_unit_jobs(units, build, local=True)
+        if jobs is None:
+            return False
+
+        self.close()
+        for unit, _, job, unit_aoi in jobs:
+            if on_submit is not None:
+                on_submit(unit)
+            job_manager.submit_local_job_as_qgstask(
+                job, self.LOCAL_SCRIPT_NAME, unit_aoi
+            )
+        return True
+
+    def submit_remote_job_with_message(
+        self, payload: dict, label: str, unit_name: str | None = None
+    ):
+        """
+        Submit a job to the Trends.Earth server and report the outcome in the
+        message bar. Returns the submitted job, or None if the submission failed.
+        """
+        job = job_manager.submit_remote_job(payload, self.script.id)
+        target = f" for unit '{unit_name}'" if unit_name else ""
+        if job:
+            title = tr_calculate.tr("Submitted")
+            text = tr_calculate.tr(
+                f"{label} task{target} submitted to Trends.Earth server."
+            )
+        else:
+            title = tr_calculate.tr("Error")
+            text = tr_calculate.tr(
+                f"Unable to submit {label.lower()} task{target} to Trends.Earth server."
+            )
+        push_message(self.mb, title, text, level=0 if job else 2, duration=5)
+        return job
 
     def btn_calculate(self):
         if self.script.run_mode == AlgorithmRunMode.REMOTE:

@@ -2750,17 +2750,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 )
                 return
 
-            for unit in units:
-                unit_id = unit.get("id")
-                lc_setup.trans_matrix_to_settings(
-                    self.subnational_matrix_widgets[
-                        unit_id
-                    ].get_trans_matrix_from_widget(),
-                    unit_id,
-                )
-        else:
-            lc_setup.trans_matrix_to_settings(trans_matrix)
-
         periods = {"baseline": self._get_period_years(self.widgets_baseline)}
 
         progress_period = self._get_period_years(self.widgets_progress)
@@ -3057,6 +3046,19 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 if reply == QtWidgets.QMessageBox.StandardButton.No:
                     return
 
+        # Only save the matrices once nothing can cancel the submission
+        if units:
+            for unit in units:
+                unit_id = unit.get("id")
+                lc_setup.trans_matrix_to_settings(
+                    self.subnational_matrix_widgets[
+                        unit_id
+                    ].get_trans_matrix_from_widget(),
+                    unit_id,
+                )
+        else:
+            lc_setup.trans_matrix_to_settings(trans_matrix)
+
         self.close()
 
         if units:
@@ -3286,49 +3288,58 @@ class DlgCalculateLDNSummaryTableAdmin(
             )
         )
 
+    def subnational_runs(self) -> list[SubnationalRun] | None:
+        """
+        The subnational runs to offer, or None when subnational mode is off or
+        has no units (each combo then lists the ordinary results).
+        """
+        if not conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_ENABLED):
+            return None
+        try:
+            units = json.loads(
+                conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS) or "[]"
+            )
+        except (TypeError, ValueError):
+            units = []
+        if not units:
+            return None
+
+        from te_schemas.jobs import JobStatus as _JobStatus
+
+        completed_jobs = [
+            job
+            for job in job_manager.relevant_jobs
+            if hasattr(job, "script")
+            and job.script is not None
+            and job.script.name == "sdg-15-3-1-sub-indicators"
+            and job.status in (_JobStatus.DOWNLOADED, _JobStatus.GENERATED_LOCALLY)
+        ]
+        # Jobs are listed without their parameters; the unit tag and run id
+        # are in the parameters
+        for job in completed_jobs:
+            job_manager.ensure_params_loaded(job)
+
+        return group_subnational_runs(
+            completed_jobs, units, subnational_unit_bboxes(units)
+        )
+
+    @staticmethod
+    def _populate_period_combo(key, combo, runs):
+        """Fill the combos of period ``key`` (with the runs of that period)."""
+        if runs is None:
+            combo.populate()
+            return
+        period_key = subnational_period_key(key)
+        combo.populate_with_subnational_runs(
+            [run for run in runs if run.period_key == period_key]
+        )
+
     def populate_combos(self):
         start = time.perf_counter()
 
-        subnational_enabled = conf.settings_manager.get_value(
-            conf.Setting.SUBNATIONAL_ENABLED
-        )
-        units = []
-        if subnational_enabled:
-            try:
-                units = json.loads(
-                    conf.settings_manager.get_value(conf.Setting.SUBNATIONAL_UNITS)
-                    or "[]"
-                )
-            except (TypeError, ValueError):
-                units = []
-
-        if subnational_enabled and units:
-            from te_schemas.jobs import JobStatus as _JobStatus
-
-            completed_jobs = [
-                job
-                for job in job_manager.relevant_jobs
-                if hasattr(job, "script")
-                and job.script is not None
-                and job.script.name == "sdg-15-3-1-sub-indicators"
-                and job.status in (_JobStatus.DOWNLOADED, _JobStatus.GENERATED_LOCALLY)
-            ]
-            # Jobs are listed without their parameters; the unit tag and run id
-            # are in the parameters
-            for job in completed_jobs:
-                job_manager.ensure_params_loaded(job)
-
-            runs = group_subnational_runs(
-                completed_jobs, units, subnational_unit_bboxes(units)
-            )
-            for key, combo in self.combo_boxes.items():
-                period_key = subnational_period_key(key)
-                combo.populate_with_subnational_runs(
-                    [run for run in runs if run.period_key == period_key]
-                )
-        else:
-            for combo in self.combo_boxes.values():
-                combo.populate()
+        runs = self.subnational_runs()
+        for key, combo in self.combo_boxes.items():
+            self._populate_period_combo(key, combo, runs)
 
         elapsed = time.perf_counter() - start
         log(f"SDG 15.3.1 dialog populate_combos took {elapsed:.3f}s")
@@ -3396,12 +3407,17 @@ class DlgCalculateLDNSummaryTableAdmin(
             if key.startswith("report_")
         ]
         next_idx = max(existing_report_numbers, default=0) + 1
-        grp.setTitle(f"Reporting period #{next_idx}")
+        grp.setTitle(f"Progress dataset #{next_idx}")
         layout = QtWidgets.QVBoxLayout(grp)
 
         key = f"report_{next_idx}"
+
+        combo_datasets = dlg_instance.combo_datasets_progress
+        combo_datasets.NO_DATASETS_MESSAGE = (
+            self.combo_datasets_progress.NO_DATASETS_MESSAGE
+        )
         self.combo_boxes[key] = ldn.SummaryTableLDWidgets(
-            combo_datasets=dlg_instance.combo_datasets_baseline,
+            combo_datasets=combo_datasets,
             combo_layer_traj=dlg_instance.combo_layer_traj_progress,
             combo_layer_traj_label=dlg_instance.combo_layer_traj_label_progress,
             combo_layer_perf=dlg_instance.combo_layer_perf_progress,
@@ -3420,9 +3436,10 @@ class DlgCalculateLDNSummaryTableAdmin(
             radio_lpd_fwv2=self.radio_lpd_fwv2,
             radio_lpd_custom=self.radio_lpd_custom,
         )
-        self.combo_boxes[key].populate()
+        # With subnational units, list the runs of this period
+        self._populate_period_combo(key, self.combo_boxes[key], self.subnational_runs())
 
-        layout.insertWidget(0, dlg_instance.combo_datasets_baseline)
+        layout.insertWidget(0, combo_datasets)
         count = self.verticalLayout_progress.count()
         self.verticalLayout_progress.insertWidget(count - 1, grp)
         dlg_instance.advanced_configuration_progress.setTitle(

@@ -20,9 +20,8 @@ from qgis.PyQt import QtWidgets, uic
 from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 from te_schemas.land_cover import LCLegendNesting, LCTransitionDefinitionDeg
 
-from . import calculate, lc_setup
+from . import calculate, lc_setup, subnational
 from .jobs.manager import job_manager
-from .utils import push_message
 
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui")
@@ -58,7 +57,53 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         self.advanced_configurations.setCollapsed(True)
         self.scrollAreaWidgetContents.layout().insertWidget(0, self.lc_setup_widget)
         self.advanced_configurations.layout().insertWidget(0, self.lc_define_deg_widget)
+
+        # Subnational units
+        self.unit_matrix_widgets: dict[str, lc_setup.LCDefineDegradationWidget] = {}
+        self.unit_matrix_tabs = QtWidgets.QTabWidget()
+        self.unit_matrix_tabs.setVisible(False)
+        self.advanced_configurations.layout().insertWidget(1, self.unit_matrix_tabs)
+        self._units: list[dict] = []
+        self.changed_region.connect(self._refresh_units)
+
         self._finish_initialization()
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._refresh_units()
+
+    def _refresh_units(self):
+        units = subnational.get_subnational_units()
+        self._units = units
+
+        unit_ids = [u.get("id") for u in units]
+        for unit_id in list(self.unit_matrix_widgets):
+            if unit_id not in unit_ids:
+                widget = self.unit_matrix_widgets.pop(unit_id)
+                self.unit_matrix_tabs.removeTab(self.unit_matrix_tabs.indexOf(widget))
+                widget.deleteLater()
+
+        for index, unit in enumerate(units):
+            unit_id = unit.get("id")
+            label = unit.get("name") or self.tr("Unit")
+            widget = self.unit_matrix_widgets.get(unit_id)
+            if widget is None:
+                widget = lc_setup.LCDefineDegradationWidget(unit_key=unit_id)
+                self.unit_matrix_widgets[unit_id] = widget
+                self.unit_matrix_tabs.insertTab(index, widget, label)
+            else:
+                current = self.unit_matrix_tabs.indexOf(widget)
+                if current != index:
+                    self.unit_matrix_tabs.removeTab(current)
+                    self.unit_matrix_tabs.insertTab(index, widget, label)
+                else:
+                    self.unit_matrix_tabs.setTabText(index, label)
+
+        self.lc_define_deg_widget.setVisible(not units)
+        self.unit_matrix_tabs.setVisible(bool(units))
+
+        if self.script.run_mode == AlgorithmRunMode.LOCAL:
+            self.lc_setup_widget.populate_combos_for_units(units)
 
     def _setup_alg_help(self):
         self.alg_help.setHtml(
@@ -98,21 +143,48 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         if not ret:
             return
 
+        self._refresh_units()
+        units = self._units
+
         if self.script.run_mode == AlgorithmRunMode.REMOTE:
-            self.calculate_on_GEE()
+            if units:
+                self.calculate_on_GEE_subnational(units)
+            else:
+                self.calculate_on_GEE()
         elif self.script.run_mode == AlgorithmRunMode.LOCAL:
-            self.calculate_locally()
+            if units:
+                self.calculate_locally_subnational(units)
+            else:
+                self.calculate_locally()
         else:
             raise NotImplementedError
 
+    def calculate_on_GEE_subnational(self, units):
+        def build(unit, unit_aoi):
+            matrix = self.unit_matrix_widgets[unit["id"]].get_trans_matrix_from_widget()
+            return self._gee_payload(matrix)
+
+        self.submit_subnational_remote(
+            units, build, self.tr("Land cover"), on_submit=self._save_unit_matrix
+        )
+
+    def _save_unit_matrix(self, unit: dict):
+        lc_setup.trans_matrix_to_settings(
+            self.unit_matrix_widgets[unit["id"]].get_trans_matrix_from_widget(),
+            unit["id"],
+        )
+
     def calculate_on_GEE(self):
         self.close()
-        crosses_180th, geojsons = self.gee_bounding_box
-
         trans_matrix = self.lc_define_deg_widget.get_trans_matrix_from_widget()
         lc_setup.trans_matrix_to_settings(trans_matrix)
+        payload = self._gee_payload(trans_matrix)
+        self.submit_remote_job_with_message(payload, self.tr("Land cover"))
 
-        payload = {
+    def _gee_payload(self, trans_matrix) -> dict:
+        crosses_180th, geojsons = self.gee_bounding_box
+
+        return {
             "year_initial": self.lc_setup_widget.initial_year_de.date().year(),
             "year_final": self.lc_setup_widget.target_year_de.date().year(),
             "geojsons": json.dumps(geojsons),
@@ -128,19 +200,9 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
         }
-        job = job_manager.submit_remote_job(payload, self.script.id)
 
-        if job is not None:
-            main_msg = "Submitted"
-            description = "Land cover task submitted to Trends.Earth server."
-        else:
-            main_msg = "Error"
-            description = "Unable to submit land cover task to Trends.Earth server."
-        push_message(
-            self.mb, self.tr(main_msg), self.tr(description), level=0, duration=5
-        )
-
-    def calculate_locally(self):
+    def _local_job_params(self, aoi, matrix_widget) -> dict | None:
+        """Validate the selection against ``aoi``; None if it is not usable."""
         if self.lc_setup_widget.initial_year_layer_cb.show_validation_error(
             self, "initial land cover", "the calculation"
         ):
@@ -171,7 +233,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
 
         initial_layer = self.lc_setup_widget.initial_year_layer_cb.get_layer()
         initial_extent_geom = qgis.core.QgsGeometry.fromRect(initial_layer.extent())
-        if self.aoi.calc_frac_overlap(initial_extent_geom) < 0.99:
+        if aoi.calc_frac_overlap(initial_extent_geom) < 0.99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -184,7 +246,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
 
         final_layer = self.lc_setup_widget.target_year_layer_cb.get_layer()
         final_extent_geom = qgis.core.QgsGeometry.fromRect(final_layer.extent())
-        if self.aoi.calc_frac_overlap(final_extent_geom) < 0.99:
+        if aoi.calc_frac_overlap(final_extent_geom) < 0.99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -212,12 +274,9 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             )
             return
 
-        self.close()
+        trans_matrix = matrix_widget.get_trans_matrix_from_widget()
 
-        trans_matrix = self.lc_define_deg_widget.get_trans_matrix_from_widget()
-        lc_setup.trans_matrix_to_settings(trans_matrix)
-
-        job_params = {
+        return {
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
             "year_initial": year_initial,
@@ -229,6 +288,24 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "legend_nesting": initial_nesting,
             "trans_matrix": LCTransitionDefinitionDeg.Schema().dumps(trans_matrix),
         }
+
+    def calculate_locally(self):
+        job_params = self._local_job_params(self.aoi, self.lc_define_deg_widget)
+        if job_params is None:
+            return
+
+        self.close()
+        lc_setup.trans_matrix_to_settings(
+            self.lc_define_deg_widget.get_trans_matrix_from_widget()
+        )
         job_manager.submit_local_job_as_qgstask(
             job_params, self.LOCAL_SCRIPT_NAME, self.aoi
         )
+
+    def calculate_locally_subnational(self, units):
+        def build(unit, unit_aoi):
+            return self._local_job_params(
+                unit_aoi, self.unit_matrix_widgets[unit["id"]]
+            )
+
+        self.submit_subnational_local(units, build, on_submit=self._save_unit_matrix)

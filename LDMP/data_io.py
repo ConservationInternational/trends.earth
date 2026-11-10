@@ -2600,6 +2600,21 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
         self._fill_combo(usable_bands)
 
+    def populate_with_aois(self, aois):
+        """List only the layers that cover every one of ``aois``."""
+        if not aois:
+            self._fill_combo([])
+            return
+
+        def key(band):
+            return (band.job.id, band.band_index, band.band_info.name)
+
+        usable_bands = self._collect_usable_bands(aois[0])
+        for aoi in aois[1:]:
+            keys = {key(b) for b in self._collect_usable_bands(aoi)}
+            usable_bands = [b for b in usable_bands if key(b) in keys]
+        self._fill_combo(usable_bands)
+
     def populate_with_subnational_runs(self, runs):
         """
         List the layer as results of whole subnational runs (all units

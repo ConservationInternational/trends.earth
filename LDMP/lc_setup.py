@@ -31,7 +31,7 @@ from te_schemas.land_cover import (
     LCTransitionMeaningDeg,
 )
 
-from . import conf, data_io
+from . import areaofinterest, conf, data_io
 from .jobs.manager import job_manager
 from .logger import log
 
@@ -1582,6 +1582,25 @@ class LandCoverSetupLocalExecutionWidget(
     def populate_combos(self):
         self.initial_year_layer_cb.populate()
         self.target_year_layer_cb.populate()
+
+    def populate_combos_for_units(self, units):
+        """
+        List the layers covering every subnational unit in ``units``, as one
+        initial and one target layer are used for all of them. Falls back to
+        the layers covering the region when there are no usable units.
+        """
+        aois = []
+        for unit in units:
+            try:
+                aois.append(areaofinterest.aoi_from_unit(unit))
+            except RuntimeError as e:
+                # Reported when the calculation is submitted
+                log(f"Unable to use the boundary of unit {unit.get('id')}: {e}")
+        if not aois:
+            self.populate_combos()
+            return
+        self.initial_year_layer_cb.populate_with_aois(aois)
+        self.target_year_layer_cb.populate_with_aois(aois)
 
     def get_initial_year(self):
         usable_band_info = self.initial_year_layer_cb.get_current_band()

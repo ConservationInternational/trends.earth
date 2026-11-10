@@ -106,6 +106,20 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             raise NotImplementedError
 
     def calculate_on_GEE(self):
+        year_initial = self.lc_setup_widget.initial_year_de.date().year()
+        year_final = self.lc_setup_widget.target_year_de.date().year()
+
+        if year_initial >= year_final:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    f"The initial year ({year_initial}) must be less than the final "
+                    f"year ({year_final}). Please select a valid time period."
+                ),
+            )
+            return
+
         self.close()
         crosses_180th, geojsons = self.gee_bounding_box
 
@@ -113,8 +127,8 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         lc_setup.trans_matrix_to_settings(trans_matrix)
 
         payload = {
-            "year_initial": self.lc_setup_widget.initial_year_de.date().year(),
-            "year_final": self.lc_setup_widget.target_year_de.date().year(),
+            "year_initial": year_initial,
+            "year_final": year_final,
             "geojsons": json.dumps(geojsons),
             "crs": self.aoi.get_crs_dst_wkt(),
             "crosses_180th": crosses_180th,

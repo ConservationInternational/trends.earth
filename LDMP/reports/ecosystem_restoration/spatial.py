@@ -55,12 +55,13 @@ LAYER_NAME_REGEX = re.compile(r"^([A-Z]{3})_V(\d{8})$")
 SITE_DATE_FORMAT = "YYYY_MM_DD"
 SITE_DATE_REGEX = re.compile(r"^(\d{4})_(\d{2})_(\d{2})$")
 
-# Accepted files of the spatial input: GeoJSON, KML and Shapefile
-SPATIAL_FILE_EXTENSIONS = (".geojson", ".kml", ".shp")
+# Accepted files of the spatial input: GeoJSON, KML, KMZ (zipped KML) and
+# Shapefile
+SPATIAL_FILE_EXTENSIONS = (".geojson", ".kml", ".kmz", ".shp")
 SPATIAL_FILE_FILTER = (
-    "Vector files (*.geojson *.kml *.shp);;"
+    "Vector files (*.geojson *.kml *.kmz *.shp);;"
     "GeoJSON (*.geojson);;"
-    "KML (*.kml);;"
+    "KML (*.kml *.kmz);;"
     "Shapefile (*.shp)"
 )
 

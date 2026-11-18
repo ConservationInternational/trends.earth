@@ -182,7 +182,7 @@
                 </sizepolicy>
                </property>
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GeoJSON, KML or Shapefile files of the restoration sites of one country, in WGS 84 (EPSG:4326), with one layer each, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.shp. The files are read, not added to the project, use Load to QGIS to add them. The Date of a site is not after the date of its file name. A site has one record in a year, the record of the latest file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GeoJSON, KML, KMZ or Shapefile files of the restoration sites of one country, in WGS 84 (EPSG:4326), with one layer each, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.shp. The files are read, not added to the project, use Load to QGIS to add them. The Date of a site is not after the date of its file name. A site has one record in a year, the record of the latest file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="storageMode">
                 <enum>QgsFileWidget::GetMultipleFiles</enum>

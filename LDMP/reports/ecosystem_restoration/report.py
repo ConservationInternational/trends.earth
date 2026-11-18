@@ -43,6 +43,11 @@ REQUIRED_DATA_COLUMNS = (
     "reported_progress",
 )
 
+# Reporting period, from the baseline year to the reporting year,
+# by default from 2 years before this year
+MIN_REPORTING_YEAR = 2000
+DEFAULT_BASELINE_YEARS_BEFORE = 2
+
 # Indicators
 INDICATORS = {
     "indicator_1": {
@@ -197,20 +202,46 @@ def validate_data(columns: list[str], data: list[dict]) -> list[str]:
     return []
 
 
+def validate_reporting_period(baseline_year, reporting_year) -> list[str]:
+    """Validate reporting periods."""
+    years = {"Baseline year": baseline_year, "Monitoring year": reporting_year}
+    errors = [
+        f"{name} is not a year: {year}"
+        for name, year in years.items()
+        if not isinstance(year, int) or isinstance(year, bool)
+    ]
+    if errors:
+        return errors
+
+    this_year = dt.date.today().year
+    for name, year in years.items():
+        if year < MIN_REPORTING_YEAR:
+            errors.append(f"{name} {year} is before {MIN_REPORTING_YEAR}.")
+    if reporting_year > this_year:
+        errors.append(
+            f"Monitoring year {reporting_year} is after this year {this_year}."
+        )
+    if baseline_year > reporting_year:
+        errors.append(
+            f"Baseline year {baseline_year} is after monitoring year {reporting_year}."
+        )
+    return errors
+
+
 def _format_data(
     data: list[dict],
     spatial_data: list[dict],
-    reporting_period: tuple[dt.date, dt.date],
+    reporting_period: tuple[int, int],
 ) -> IndicatorDataModel:
     """Format the report data, one dict per sub-indicator, as an IndicatorDataModel."""
-    years = list(range(reporting_period[0].year, reporting_period[1].year + 1))
+    years = list(range(reporting_period[0], reporting_period[1] + 1))
 
     # Spatially supported area by sub-indicator label and year
     # Calculated from spatial_data
     areas: dict[str, dict[int, float]] = {}
     for row in spatial_data:
         sub_indicator = _check_indicator(f"Spatial input, year {row['year']}", row)
-        # The layers of the countries of a year are summed
+        # The areas of a sub-indicator in a year are summed
         area_by_year = areas.setdefault(sub_indicator, {})
         area_by_year[row["year"]] = area_by_year.get(row["year"], 0) + row["area"]
 
@@ -263,7 +294,7 @@ def _report_variables(
     project_name: str,
     global_data: IndicatorDataModel,
     countries: list[str],
-    reporting_period: tuple[dt.date, dt.date],
+    reporting_period: tuple[int, int],
     spatial_data_version: str,
     gef_child_project: str,
 ) -> dict[str, str]:
@@ -273,7 +304,7 @@ def _report_variables(
         "te_restoration_country": " • ".join(countries),
         "te_restoration_gef_child_project": gef_child_project,
         "te_restoration_analysis_area": "National boundary",
-        # Baseline date to latest monitoring date
+        # Baseline year to reporting year
         "te_restoration_reporting_period": (
             f"{reporting_period[0]} to {reporting_period[1]}"
         ),
@@ -311,13 +342,13 @@ def generate_report(
     data: list[dict],
     spatial_data: list[dict],
     countries: list[str],
-    reporting_period: tuple[dt.date, dt.date],
+    reporting_period: tuple[int, int],
     spatial_data_version: str,
     gef_child_project: str,
 ) -> Path | None:
     """Generate the PDF report of Ecosystem Restoration Progress.
 
-    The reporting period is the baseline date and the latest monitoring date.
+    The reporting period is the baseline year and the reporting year.
     Returns the path of the PDF, or None when it could not be exported.
     """
     global_data = _format_data(data, spatial_data, reporting_period)

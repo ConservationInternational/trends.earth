@@ -18,16 +18,20 @@ from ..reports.ecosystem_restoration.report import (
     generate_report,
     read_data,
     validate_data,
+    validate_reporting_period,
 )
 from ..reports.ecosystem_restoration.spatial import (
-    GEF_CP_ID_FIELD,
     LAYER_NAME_REGEX,
     calculate_spatially_supported,
-    layer_dates,
+    layer_date,
     layer_files,
-    read_countries,
+    read_sites_yearly,
+    validate_spatial_layer_name,
 )
-from ..reports.ecosystem_restoration.spatial_validation import LayerValidation
+from ..reports.ecosystem_restoration.spatial_validation import (
+    LayerValidation,
+    validate_spatial_data,
+)
 
 # Folder of the copies of the spatial input layers, in the output folder
 SPATIAL_DATA_DIR_NAME = "spatial_data"
@@ -51,17 +55,6 @@ def _open_layer(spatial_layer: dict) -> QgsVectorLayer:
     if not layer.isValid():
         raise ValueError(f"Spatial input layer {name} cannot be opened.")
     return layer
-
-
-def _filter_child_project(layer: QgsVectorLayer, gef_cp_id: str):
-    """Keep only the restoration sites of the child project in the layer."""
-    field = layer.fields().field(layer.fields().lookupField(GEF_CP_ID_FIELD))
-    quoted_id = gef_cp_id.replace("'", "''")
-    subset = f"\"{field.name()}\" = '{quoted_id}'"
-    if layer.subsetString():
-        subset = f"({layer.subsetString()}) AND {subset}"
-    if not layer.setSubsetString(subset):
-        raise ValueError(f"Spatial input layer {layer.name()} cannot be filtered.")
 
 
 def _create_manifest(job: Job, project_name: str, gef_cp_id: str | None) -> dict:
@@ -97,9 +90,11 @@ def _create_manifest(job: Job, project_name: str, gef_cp_id: str | None) -> dict
         "checksums": {},
         "validation": {
             "status": "not run",
+            "reporting_period": None,
             "report_data": None,
             "layer_names": None,
             "spatial_layers": [],
+            "spatial_data": None,
         },
         "export": {"status": "not run"},
     }
@@ -164,6 +159,8 @@ def _create_report(
         "project_name": project_name,
         "data_xlsx": data_xlsx,
         "gef_cp_id": gef_cp_id,
+        "baseline_year": job.params.get("baseline_year"),
+        "reporting_year": job.params.get("reporting_year"),
         "spatial_layers": spatial_layers,
     }
     job_output_path.write_text(json.dumps(inputs, indent=2))
@@ -171,6 +168,17 @@ def _create_report(
 
     if not project_name:
         raise ValueError("No project name was given.")
+
+    # Reporting period, from the baseline year to the reporting year
+    reporting_period = (inputs["baseline_year"], inputs["reporting_year"])
+    errors = validate_reporting_period(*reporting_period)
+    validation["reporting_period"] = _validation(errors)
+    if errors:
+        raise ValueError("\n".join(errors))
+    manifest["scope"]["reporting_period"] = {
+        "baseline_year": reporting_period[0],
+        "reporting_year": reporting_period[1],
+    }
 
     # Report data
     if not data_xlsx:
@@ -200,32 +208,32 @@ def _create_report(
     # Copy the report data XLSX, as it is, with the rows of all the child projects
     data_xlsx_path = Path(shutil.copy2(data_xlsx, output_dir / DATA_XLSX_NAME))
 
-    # Spatial layers, dates from their names, sorted by date
+    # Spatial layers of one country, sorted by name, the versions of the
+    # country from the earliest to the latest, e.g. IND_V20260301 before
+    # IND_V20261231
     if not spatial_layers:
         raise ValueError("No spatial input layer was given.")
     layers_by_name = {
-        spatial_layer.get("name"): spatial_layer for spatial_layer in spatial_layers
+        spatial_layer.get("name"): spatial_layer
+        for spatial_layer in sorted(
+            spatial_layers, key=lambda spatial_layer: spatial_layer.get("name")
+        )
     }
-    dates, errors = layer_dates(list(layers_by_name))
+    errors = validate_spatial_layer_name(list(layers_by_name))
     validation["layer_names"] = _validation(errors)
     if errors:
         raise ValueError("\n".join(errors))
 
-    # Reporting period, from the date of the first layer to the date of the last
-    reporting_period = (min(dates.values()), max(dates.values()))
-    # Names of the layers of the last year, for every country
-    spatial_data_version = " • ".join(
-        name for name, date in dates.items() if date.year == reporting_period[1].year
-    )
+    # Names of all the layers, versions of the country
+    spatial_data_version = " • ".join(layers_by_name)
 
-    # Spatially supported area of each layer, for the year of its name
-    spatial_data = []
+    # Validated layers, sorted by name
+    layers = []
     sites_paths = []
-    countries = set()
     # Copies of the files of the spatial input layers
     spatial_data_dir = output_dir / SPATIAL_DATA_DIR_NAME
     spatial_data_dir.mkdir(parents=True, exist_ok=True)
-    for name, date in dates.items():
+    for name in layers_by_name:
         layer = _open_layer(layers_by_name[name])
         errors = LayerValidation(layer).run()
         validation["spatial_layers"].append({"name": name, **_validation(errors)})
@@ -246,26 +254,40 @@ def _create_report(
                 "name": name,
                 "source": layers_by_name[name].get("source"),
                 "country": LAYER_NAME_REGEX.match(name).group(1),
-                "date": date,
+                "date": layer_date(name),
                 "sites": layer.featureCount(),
                 "files": [_relative(file, output_dir) for file in files],
             }
         )
+        layers.append(layer)
 
-        # The report has only the restoration sites of the child project
-        if gef_cp_id:
-            _filter_child_project(layer, gef_cp_id)
-        spatial_data.extend(calculate_spatially_supported(layer, date.year))
-        countries.update(read_countries(layer))
+    # Sites of all the child projects, one record of a site in a year, the
+    # sites of an indicator in a year do not overlap
+    sites = read_sites_yearly(layers)
+    errors = validate_spatial_data(sites)
+    validation["spatial_data"] = _validation(errors)
+    if errors:
+        raise ValueError(
+            "The spatial input layers are not valid:\n" + "\n".join(errors)
+        )
     validation["status"] = "passed"
+
+    # Spatially supported area, the report has only the restoration sites of
+    # the child project
+    spatial_data = calculate_spatially_supported(sites, gef_cp_id)
+    if not spatial_data:
+        raise ValueError(
+            f"The spatial input layers have no restoration sites of child "
+            f"project {gef_cp_id}."
+            if gef_cp_id
+            else "The spatial input layers have no restoration sites."
+        )
+    # Country of the layer names, the layers are of one country
+    countries = {LAYER_NAME_REGEX.match(name).group(1) for name in layers_by_name}
 
     manifest["scope"].update(
         {
             "countries": sorted(countries),
-            "reporting_period": {
-                "baseline_date": reporting_period[0],
-                "latest_monitoring_date": reporting_period[1],
-            },
             "spatial_data_version": spatial_data_version,
         }
     )

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>958</width>
     <height>507</height>
    </rect>
   </property>
@@ -43,38 +43,31 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>437</width>
-         <height>712</height>
+         <width>652</width>
+         <height>962</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QLabel" name="project_name_label">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QGroupBox" name="project_name_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
           </property>
           <property name="toolTip">
            <string>Name of the project, the reporting scope of the report.</string>
           </property>
-          <property name="text">
-           <string>Project name:</string>
+          <property name="title">
+           <string>Project name</string>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="project_name">
-          <property name="toolTip">
-           <string>Name of the project, the reporting scope of the report.</string>
-          </property>
+          <layout class="QVBoxLayout" name="project_name_box_layout">
+           <item>
+            <widget class="QLineEdit" name="project_name">
+             <property name="toolTip">
+              <string>Name of the project, the reporting scope of the report.</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
@@ -94,54 +87,50 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="data_xlsx_label">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QGroupBox" name="data_xlsx_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
           </property>
           <property name="toolTip">
            <string>XLSX file with the target and the reported progress of each sub-indicator.</string>
           </property>
-          <property name="text">
-           <string>Restoration Progress Report data:</string>
+          <property name="title">
+           <string>Restoration Progress Report data</string>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QgsFileWidget" name="data_xlsx">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;XLSX file with one row per sub-indicator of a child project and the columns GEF_CP_ID, indicator, sub_indicator, target and reported_progress.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="filter">
-           <string>Excel files (*.xlsx)</string>
-          </property>
-          <property name="storageMode">
-           <enum>QgsFileWidget::GetFile</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="data_xlsx_template_label">
-          <property name="text">
-           <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
-          </property>
-          <property name="textFormat">
-           <enum>Qt::RichText</enum>
-          </property>
+          <layout class="QVBoxLayout" name="data_xlsx_box_layout">
+           <item>
+            <widget class="QgsFileWidget" name="data_xlsx">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;XLSX file with one row per sub-indicator of a child project and the columns GEF_CP_ID, indicator, sub_indicator, target and reported_progress.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="filter">
+              <string>Excel files (*.xlsx)</string>
+             </property>
+             <property name="storageMode">
+              <enum>QgsFileWidget::GetFile</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="data_xlsx_template_label">
+             <property name="text">
+              <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
@@ -161,66 +150,65 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="label">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
+         <widget class="QGroupBox" name="child_project_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
           </property>
-          <property name="text">
-           <string>Filter data by projects:</string>
+          <property name="title">
+           <string>Filter data by projects</string>
           </property>
+          <layout class="QVBoxLayout" name="child_project_layout">
+           <item>
+            <widget class="QRadioButton" name="all_child_projects_radio_button">
+             <property name="toolTip">
+              <string>Report all the child projects of the report data file.</string>
+             </property>
+             <property name="text">
+              <string>All child projects</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="select_child_project_layout">
+             <item>
+              <widget class="QRadioButton" name="child_project_radio_button">
+               <property name="toolTip">
+                <string>Report only one child project of the report data file.</string>
+               </property>
+               <property name="text">
+                <string>Child project:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="child_project">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>GEF_CP_ID of the child project, from the report data file. Type to search.</string>
+               </property>
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+               <property name="insertPolicy">
+                <enum>QComboBox::NoInsert</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="child_project_layout">
-          <item>
-           <widget class="QRadioButton" name="all_child_projects_radio_button">
-            <property name="toolTip">
-             <string>Report all the child projects of the report data file.</string>
-            </property>
-            <property name="text">
-             <string>All child projects</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="child_project_radio_button">
-            <property name="toolTip">
-             <string>Report only one child project of the report data file.</string>
-            </property>
-            <property name="text">
-             <string>Child project:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="child_project">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>GEF_CP_ID of the child project, from the report data file. Type to search.</string>
-            </property>
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-            <property name="insertPolicy">
-             <enum>QComboBox::NoInsert</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </item>
         <item>
          <spacer name="verticalSpacer_4">
@@ -239,85 +227,168 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="spatial_layers_label">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QGroupBox" name="spatial_layers_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
           </property>
           <property name="toolTip">
-           <string>Polygon layers of the restoration sites, one per year for a country, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.</string>
+           <string>Polygon layers of the restoration sites of one country, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.</string>
           </property>
-          <property name="text">
-           <string>Spatial input (restoration sites):</string>
+          <property name="title">
+           <string>Spatial input (restoration sites)</string>
           </property>
+          <layout class="QVBoxLayout" name="spatial_layers_box_layout">
+           <item>
+            <widget class="QLabel" name="spatial_layers_help_label">
+             <property name="text">
+              <string>A spatial boundary refers to the precise geographic extent of a restoration site, delineated using a closed polygon to define the specific area undergoing this intervention. This boundary should accurately reflect the restoration site, excluding any surrounding areas that are not part of the project implementation. For instance, if the restoration site is located within private property or protected area, the spatial boundary should only include the actual area(s) where restoration intervention is taking place and not the entire private property or protected area.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="spatial_layers_layout">
+             <item>
+              <widget class="QgsCheckableComboBox" name="spatial_layers">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Polygon layers of the restoration sites of one country, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231, vector files of any format in WGS 84 (EPSG:4326). The Date of a site is not after the date of its layer name. The Date of the sites is the reporting period, the spatially supported area of a year is the area of the sites of that year. A site of a later layer, with the same Site_ID and Date, replaces the site of an earlier layer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="spatial_layers_import_button">
+               <property name="toolTip">
+                <string>Load vector files of the restoration sites into the project, and select them.</string>
+               </property>
+               <property name="text">
+                <string>Import</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="spatial_layers_template_label">
+             <property name="toolTip">
+              <string>Save a ZIP with an empty Shapefile of the restoration sites of a country, with its fields, QGIS form and legend, named [ISO COUNTRY]_V[YYYYMMDD] from the ISO3 and the date entered.</string>
+             </property>
+             <property name="text">
+              <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="spatial_layers_help_label">
-          <property name="text">
-           <string>A spatial boundary refers to the precise geographic extent of a restoration site, delineated using a closed polygon to define the specific area undergoing this intervention. This boundary should accurately reflect the restoration site, excluding any surrounding areas that are not part of the project implementation. For instance, if the restoration site is located within private property or protected area, the spatial boundary should only include the actual area(s) where restoration intervention is taking place and not the entire private property or protected area.</string>
+         <widget class="QGroupBox" name="reporting_period_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
           </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="spatial_layers_layout">
-          <item>
-           <widget class="QgsCheckableComboBox" name="spatial_layers">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Polygon layers of the restoration sites, one per year for a country, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231, GeoJSON, KML or Shapefile files in WGS 84 (EPSG:4326). The dates of the layer names are the reporting period, the spatially supported area of a year is the area of the polygons of its layers.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="spatial_layers_import_button">
-            <property name="toolTip">
-             <string>Load GeoJSON, KML or Shapefile files of the restoration sites into the project, and select them.</string>
-            </property>
-            <property name="text">
-             <string>Import</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QLabel" name="spatial_layers_template_label">
           <property name="toolTip">
-           <string>Save a ZIP with an empty Shapefile of the restoration sites of a country, with its fields, QGIS form and legend, named [ISO COUNTRY]_V[YYYYMMDD] from the ISO3 and the date entered.</string>
+           <string>Reporting period of the report, from the baseline year to the monitoring year. The spatially supported area of a year is the area of the sites with a Date in that year.</string>
           </property>
-          <property name="text">
-           <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
+          <property name="title">
+           <string>Reporting period</string>
           </property>
-          <property name="textFormat">
-           <enum>Qt::RichText</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="reporting_period_label">
-          <property name="toolTip">
-           <string>Reporting period of the report, from the dates of the names of the spatial input layers.</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
+          <layout class="QVBoxLayout" name="reporting_period_box_layout">
+           <item>
+            <layout class="QHBoxLayout" name="reporting_period_layout">
+             <item>
+              <spacer name="reporting_period_left_spacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="baseline_year_layout">
+               <item>
+                <widget class="QLabel" name="baseline_year_label">
+                 <property name="text">
+                  <string>Baseline year</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="baseline_year">
+                 <property name="toolTip">
+                  <string>First year of the reporting period, not after the monitoring year.</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="reporting_period_middle_spacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>24</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="reporting_year_layout">
+               <item>
+                <widget class="QLabel" name="reporting_year_label">
+                 <property name="text">
+                  <string>Monitoring year</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="reporting_year">
+                 <property name="toolTip">
+                  <string>Last year of the reporting period, not after this year.</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="reporting_period_right_spacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
@@ -359,12 +430,6 @@
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLabel" name="region_la">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -396,12 +461,6 @@
         </item>
         <item>
          <widget class="QLabel" name="execution_name_label">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -425,12 +484,6 @@
         </item>
         <item>
          <widget class="QLabel" name="task_notes_label">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>

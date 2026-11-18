@@ -1,4 +1,4 @@
-"""Validation of a spatial input layer of restoration sites."""
+"""Validation of the spatial input layers of restoration sites."""
 
 import datetime as dt
 import re
@@ -12,7 +12,6 @@ from qgis.core import (
     QgsVectorLayer,
     QgsWkbTypes,
 )
-from qgis.PyQt.QtCore import QDate, QDateTime
 
 from .spatial import (
     COUNTRY_FIELD,
@@ -22,34 +21,22 @@ from .spatial import (
     INDICATOR_FIELD,
     LAYER_NAME_REGEX,
     REQUIRED_SPATIAL_FIELDS,
+    SITE_DATE_FORMAT,
     SITE_ID_FIELD,
     SPATIAL_FIELDS,
+    layer_date,
     layer_file,
+    site_date,
 )
 
-LAYER_FILE_EXTENSIONS = (".geojson", ".kml", ".shp")
 LAYER_CRS = "EPSG:4326"
 
 # Regex for identifier of a restoration site, [ISO3 Code]_[SiteNumber], e.g. HTI_0023
 SITE_ID_FORMAT = "[ISO3 Code]_[SiteNumber]"
 SITE_ID_REGEX = re.compile(r"^([A-Z]{3})_\d{4}$")
 
-# Most errors listed by LayerValidation.run
+# Most errors listed by LayerValidation.run and validate_spatial_data
 MAX_SITE_ERRORS = 10
-
-
-def _year(value) -> int | None:
-    """Year of a date attribute, None when it is empty or not a date."""
-    if isinstance(value, QDateTime):
-        value = value.date()
-    if isinstance(value, QDate):
-        return value.year() if value.isValid() else None
-    if isinstance(value, (dt.date, dt.datetime)):
-        return value.year
-    text = str(value or "").strip()
-    if len(text) >= 4 and text[:4].isdigit():
-        return int(text[:4])
-    return None
 
 
 class LayerValidation:
@@ -59,17 +46,12 @@ class LayerValidation:
         self.layer = layer
 
     def _validate_file(self) -> list[str]:
-        """Errors of the file of the layer: not a file,
-        not a GeoJSON, KML or Shapefile, or not in EPSG:4326."""
+        """Errors of the file of the layer: not a file, or not in EPSG:4326.
+        The file can be of any vector format."""
         errors = []
         path = layer_file(self.layer.source())
         if not path.is_file():
             errors.append(f"Layer {self.layer.name()} is not a file.")
-        elif path.suffix.lower() not in LAYER_FILE_EXTENSIONS:
-            errors.append(
-                f"Layer {self.layer.name()} is not a GeoJSON, KML or Shapefile: "
-                f"{path.name}"
-            )
         if self.layer.crs().authid() != LAYER_CRS:
             errors.append(
                 f"Layer {self.layer.name()} is not in {LAYER_CRS}: "
@@ -143,13 +125,16 @@ class LayerValidation:
                 gdal.SetThreadLocalConfigOption(option, previous)
 
     def _validate_attributes(
-        self, feature: QgsFeature, layer_country: str | None
+        self,
+        feature: QgsFeature,
+        layer_country: str | None,
+        layer_version_date: dt.date | None,
     ) -> list[str]:
         """Errors of the attributes of a site, empty when they are valid.
 
-        The site has a value for REQUIRED_SPATIAL_FIELDS, a date, a GEF_CP_ID
-        of five numbers, the country of the layer name and a Site_ID of its
-        Country, e.g. HTI_0023.
+        The site has a value for REQUIRED_SPATIAL_FIELDS, a date not after the
+        date of the layer name, a GEF_CP_ID of five numbers, the country of
+        the layer name and a Site_ID of its Country, e.g. HTI_0023.
         """
         empty = [
             name
@@ -160,8 +145,17 @@ class LayerValidation:
             return [f"no value for {', '.join(empty)}."]
 
         errors = []
-        if _year(feature[DATE_FIELD]) is None:
-            errors.append(f"{DATE_FIELD} is not a date.")
+        date = site_date(feature[DATE_FIELD])
+        if date is None:
+            errors.append(
+                f"{DATE_FIELD} is not a date, or a text {SITE_DATE_FORMAT}, "
+                "e.g. 2026_05_26."
+            )
+        elif layer_version_date and date > layer_version_date:
+            errors.append(
+                f"{DATE_FIELD} {date} is after {layer_version_date}, "
+                f"the date of layer {self.layer.name()}."
+            )
         gef_cp_id = str(feature[GEF_CP_ID_FIELD]).strip()
         if not GEF_CP_ID_REGEX.match(gef_cp_id):
             errors.append(f"{GEF_CP_ID_FIELD} {gef_cp_id} is not five numbers.")
@@ -181,51 +175,9 @@ class LayerValidation:
             )
         return errors
 
-    def _validate_overlapping(self, skipped_ids: set[int]) -> dict[int, list[str]]:
-        """Errors of the sites overlapping another site of the same Indicator,
-        by feature id.
-
-        Sites of different indicators can overlap. Two sites overlap when their
-        interiors intersect, a site nested in another too. Sites touching only
-        on their boundaries do not overlap. The sites of skipped_ids, e.g. with
-        an invalid boundary, are not checked.
-        """
-        sites_by_indicator: dict[str, dict[int, tuple[str, QgsGeometry]]] = {}
-        indexes: dict[str, QgsSpatialIndex] = {}
-        for feature in self.layer.getFeatures():
-            indicator = str(feature[INDICATOR_FIELD] or "").strip()
-            if feature.id() in skipped_ids or not indicator:
-                continue
-            site_id = str(feature[SITE_ID_FIELD] or "").strip() or (
-                f"feature {feature.id()}"
-            )
-            sites_by_indicator.setdefault(indicator, {})[feature.id()] = (
-                site_id,
-                feature.geometry(),
-            )
-            indexes.setdefault(indicator, QgsSpatialIndex()).addFeature(feature)
-
-        errors = {}
-        for indicator, sites in sites_by_indicator.items():
-            for feature_id, (site_id, geometry) in sites.items():
-                engine = QgsGeometry.createGeometryEngine(geometry.constGet())
-                engine.prepareGeometry()
-                for other_id in indexes[indicator].intersects(geometry.boundingBox()):
-                    if other_id >= feature_id:
-                        continue
-                    other_site_id, other_geometry = sites[other_id]
-                    other = other_geometry.constGet()
-                    if not engine.intersects(other) or engine.touches(other):
-                        continue
-                    errors.setdefault(feature_id, []).append(
-                        f"boundary overlaps Site {other_site_id} of the same "
-                        f"{INDICATOR_FIELD} {indicator}."
-                    )
-        return errors
-
     def run(self) -> list[str]:
         """Run all the validations, returns their errors and empty when the layer is valid."""
-        # Check the file of the layer: a GeoJSON, KML or Shapefile in EPSG:4326.
+        # Check the file of the layer: a file in EPSG:4326.
         errors = self._validate_file()
         if errors:
             return errors
@@ -238,21 +190,19 @@ class LayerValidation:
         # Validate closed polygon
         boundary_errors = self._validate_closed_polygon()
 
-        # Validate overlapping of the sites of the same indicator, for the
-        # sites with a valid boundary
-        overlap_errors = self._validate_overlapping(set(boundary_errors))
-
         # Validate features
         match = LAYER_NAME_REGEX.match(self.layer.name() or "")
         layer_country = match.group(1) if match else None
+        layer_version_date = layer_date(self.layer.name())
         site_ids = set()
         for feature in self.layer.getFeatures():
             site_id = str(feature[SITE_ID_FIELD] or "").strip()
             site = f"Site {site_id}" if site_id else f"Feature {feature.id()}"
 
-            site_errors = self._validate_attributes(feature, layer_country)
+            site_errors = self._validate_attributes(
+                feature, layer_country, layer_version_date
+            )
             site_errors += boundary_errors.get(feature.id(), [])
-            site_errors += overlap_errors.get(feature.id(), [])
             if site_id in site_ids:
                 site_errors.append(f"{SITE_ID_FIELD} is not unique.")
             elif site_id:
@@ -263,3 +213,53 @@ class LayerValidation:
                 errors.append("...")
                 break
         return errors
+
+
+def validate_spatial_data(sites: dict[tuple[str, int], list[dict]]) -> list[str]:
+    """Validate spatial data, returns the errors and empty when it is valid.
+
+    The sites are from read_sites_yearly, of the layers validated by
+    LayerValidation, one record of a site in a year, from any layer.
+
+    Validation conditions:
+    - Sites of the same Indicator in the same year do not overlap, also when
+      they are from different layers or of different sub-indicators.
+    - Sites of different indicators can overlap.
+    - Sites of different years can overlap.
+    - Two sites overlap when their interiors intersect, a site nested in
+      another too.
+    - Sites touching only on their boundaries, on an edge or a corner, do not
+      overlap.
+    """
+    errors = []
+    for (indicator, year), group in sites.items():
+        # Sites of the indicator in the year, with a spatial index
+        bbox_index = QgsSpatialIndex()
+        for idx, site in enumerate(group):
+            # Bounding box of the site, to find the earlier sites in the index
+            geometry = site["geometry"]
+            bbox = geometry.boundingBox()
+
+            # Prepare engine
+            engine = QgsGeometry.createGeometryEngine(geometry.constGet())
+            engine.prepareGeometry()
+
+            # Earlier sites with an intersecting bounding box, they overlap when
+            # their interiors intersect, not only touch
+            for intersect_idx in sorted(bbox_index.intersects(bbox)):
+                other_site = group[intersect_idx]
+                other = other_site["geometry"].constGet()
+                if not engine.intersects(other) or engine.touches(other):
+                    continue
+                errors.append(
+                    f"Site {site['site_id']} ({site['layer']}): boundary overlaps "
+                    f"Site {other_site['site_id']} ({other_site['layer']}) of the same "
+                    f"{INDICATOR_FIELD} {indicator} in {year}."
+                )
+                if len(errors) >= MAX_SITE_ERRORS:
+                    errors.append("...")
+                    return errors
+
+            # Add the site after checking it, so the index has only
+            bbox_index.addFeature(idx, bbox)
+    return errors

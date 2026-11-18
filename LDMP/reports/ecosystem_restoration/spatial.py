@@ -8,11 +8,12 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 from qgis.core import (
+    QgsCoordinateReferenceSystem,
     QgsCoordinateTransformContext,
     QgsDistanceArea,
-    QgsGeometry,
     QgsVectorLayer,
 )
+from qgis.PyQt.QtCore import QDate, QDateTime
 
 
 GEF_CP_ID_FIELD = "GEF_CP_ID"
@@ -50,6 +51,14 @@ GEF_CP_ID_REGEX = re.compile(r"^\d{5}$")
 LAYER_NAME_FORMAT = "[ISO COUNTRY]_V[YYYYMMDD]"
 LAYER_NAME_REGEX = re.compile(r"^([A-Z]{3})_V(\d{8})$")
 
+# Date of a site in a text field, YYYY_MM_DD, e.g. 2026_05_26
+SITE_DATE_FORMAT = "YYYY_MM_DD"
+SITE_DATE_REGEX = re.compile(r"^(\d{4})_(\d{2})_(\d{2})$")
+
+# Files of a layer with several files, e.g. a Shapefile and its .dbf, .shx,
+# .prj, etc., with the same name
+MULTI_FILE_EXTENSIONS = (".shp", ".tab", ".mif")
+
 # Empty Shapefile of the restoration sites, with its QGIS form in the .qml
 SPATIAL_TEMPLATE_DIR = Path(__file__).parent / "spatial_template"
 
@@ -65,30 +74,43 @@ def layer_date(name: str) -> dt.date | None:
         return None
 
 
-def layer_dates(names: list[str]) -> tuple[dict[str, dt.date], list[str]]:
-    """Return dates of layer by the names, and return errors found.
-
-    A country (ISO3 of the name) has only one layer per year.
-    """
-    dates = {}
+def validate_spatial_layer_name(names: list[str]) -> list[str]:
+    """Validate spatial layer name."""
     errors = []
-    names_by_country_year: dict[tuple[str, int], list[str]] = {}
+    countries = set()
     for name in names:
-        date = layer_date(name)
-        if date is None:
+        if layer_date(name) is None:
             errors.append(f"Layer {name} is not named {LAYER_NAME_FORMAT}.")
             continue
-        dates[name] = date
-        country = LAYER_NAME_REGEX.match(name).group(1)
-        names_by_country_year.setdefault((country, date.year), []).append(name)
+        countries.add(LAYER_NAME_REGEX.match(name).group(1))
 
-    for (country, year), year_names in sorted(names_by_country_year.items()):
-        if len(year_names) > 1:
-            errors.append(
-                f"{country} has more than one layer in {year}: {', '.join(year_names)}."
-            )
+    if len(countries) > 1:
+        errors.append(
+            f"The layers are of more than one country: {', '.join(sorted(countries))}. "
+            "A report is for one country."
+        )
 
-    return dict(sorted(dates.items(), key=lambda item: item[1])), errors
+    return errors
+
+
+def site_date(value) -> dt.date | None:
+    """Date of a site, from its Date attribute: a value of a Date field, or a
+    text YYYY_MM_DD, e.g. 2026_05_26."""
+    if isinstance(value, QDateTime):
+        value = value.date()
+    if isinstance(value, QDate):
+        return value.toPyDate() if value.isValid() else None
+    if isinstance(value, dt.datetime):
+        return value.date()
+    if isinstance(value, dt.date):
+        return value
+    match = SITE_DATE_REGEX.match(str(value or "").strip())
+    if not match:
+        return None
+    try:
+        return dt.date(*(int(part) for part in match.groups()))
+    except ValueError:
+        return None
 
 
 def layer_name(country: str, date: dt.date) -> str:
@@ -133,7 +155,7 @@ def layer_file(source: str) -> Path:
 def layer_files(source: str) -> list[Path]:
     """Files of a layer source, a Shapefile has its .dbf, .shx, .prj, etc. too."""
     path = layer_file(source)
-    if path.suffix.lower() != ".shp":
+    if path.suffix.lower() not in MULTI_FILE_EXTENSIONS:
         return [path]
     return sorted(
         file
@@ -142,42 +164,68 @@ def layer_files(source: str) -> list[Path]:
     )
 
 
-def calculate_spatially_supported(layer: QgsVectorLayer, year: int) -> list[dict]:
-    """Calculate spatially supported area of the restoration sites, from their polygons by year"""
-    geometries: dict[tuple[str, str], list[QgsGeometry]] = {}
-
-    # We try to find geometries per sub indicator
-    for feature in layer.getFeatures():
-        indicator = str(feature[INDICATOR_FIELD] or "").strip()
-        sub_indicator = str(feature[SUB_INDICATOR_FIELD] or "").strip()
-        geometry = feature.geometry()
-        if not sub_indicator or geometry.isEmpty():
-            continue
-        geometries.setdefault((indicator, sub_indicator), []).append(geometry)
-
-    # We union geometries by sub indicator
+def read_sites_yearly(
+    layers: list[QgsVectorLayer],
+) -> dict[tuple[str, int], list[dict]]:
+    """Restoration sites of the validated layers, by Indicator and year of
+    their Date, with their area in hectares."""
     distance_area = QgsDistanceArea()
-    distance_area.setSourceCrs(layer.crs(), QgsCoordinateTransformContext())
+    distance_area.setSourceCrs(
+        QgsCoordinateReferenceSystem("EPSG:4326"), QgsCoordinateTransformContext()
+    )
     distance_area.setEllipsoid("WGS84")
 
-    areas = []
-    for (indicator, sub_indicator), polygons in sorted(geometries.items()):
-        union = QgsGeometry.unaryUnion(polygons)
-        areas.append(
-            {
-                "indicator": indicator,
-                "sub_indicator": sub_indicator,
-                "year": year,
-                "area": distance_area.measureArea(union) / 10000,
-            }
-        )
-    return areas
+    site_found: set[tuple[str, int]] = set()
+
+    sites: dict[tuple[str, int], list[dict]] = {}
+    for layer in sorted(layers, key=lambda layer: layer.name(), reverse=True):
+        for feature in layer.getFeatures():
+            site_id = str(feature[SITE_ID_FIELD] or "").strip()
+            date = site_date(feature[DATE_FIELD])
+            if not site_id or date is None or (site_id, date.year) in site_found:
+                continue
+            site_found.add((site_id, date.year))
+
+            indicator = str(feature[INDICATOR_FIELD] or "").strip()
+            geometry = feature.geometry()
+            sites.setdefault((indicator, date.year), []).append(
+                {
+                    "site_id": site_id,
+                    "layer": layer.name(),
+                    "date": date,
+                    "gef_cp_id": str(feature[GEF_CP_ID_FIELD] or "").strip(),
+                    "sub_indicator": str(feature[SUB_INDICATOR_FIELD] or "").strip(),
+                    "geometry": geometry,
+                    "area": distance_area.measureArea(geometry) / 10000,
+                }
+            )
+    return sites
 
 
-def read_countries(layer: QgsVectorLayer) -> list[str]:
-    """Countries of the restoration sites, sorted, without empty values."""
-    countries = {
-        str(feature[COUNTRY_FIELD] or "").strip() for feature in layer.getFeatures()
-    }
-    countries.discard("")
-    return sorted(countries)
+def calculate_spatially_supported(
+    sites: dict[tuple[str, int], list[dict]],
+    gef_cp_id: str | None = None,
+) -> list[dict]:
+    """Calculate spatially supported area of the restoration sites by
+    sub-indicator and year, the year of the Date of the sites.
+
+    Only the sites of the child project gef_cp_id, all the sites when it is
+    None.
+    """
+    areas: dict[tuple[str, str, int], float] = {}
+    for (indicator, year), group in sites.items():
+        for site in group:
+            if gef_cp_id and site["gef_cp_id"] != gef_cp_id:
+                continue
+            key = (indicator, site["sub_indicator"], year)
+            areas[key] = areas.get(key, 0) + site["area"]
+
+    return [
+        {
+            "indicator": indicator,
+            "sub_indicator": sub_indicator,
+            "year": year,
+            "area": area,
+        }
+        for (indicator, sub_indicator, year), area in sorted(areas.items())
+    ]

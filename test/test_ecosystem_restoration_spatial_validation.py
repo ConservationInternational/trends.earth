@@ -21,6 +21,8 @@ LAYER_EXTENSIONS = (".geojson", ".kml", ".shp", ".gpkg")
 INDICATOR_1 = "1. Under improved management"
 INDICATOR_3 = "3. Under restoration"
 
+DATE_ERROR = "Date is not a date, or a text YYYY_MM_DD, e.g. 2026_05_26."
+
 
 def open_layer(case: str, extension: str | None = None) -> QgsVectorLayer:
     """Layer of the case folder, named after its file, e.g. IND_V20261231."""
@@ -94,7 +96,7 @@ class TestAttributesValidation(unittest.TestCase):
                 "Site IND_0006: no value for Sub_Indic.",
                 "Site IND_0007: no value for Indicator.",
                 "Site IND_0008: no value for GEF_CP_ID, Date.",
-                "Site IND_0009: Date is not a date.",
+                f"Site IND_0009: {DATE_ERROR}",
                 "Site IND_0010: GEF_CP_ID 1113 is not five numbers.",
                 "Site IND_0011: GEF_CP_ID 111300 is not five numbers.",
                 "Site IND_0012: GEF_CP_ID 11a30 is not five numbers.",
@@ -118,12 +120,19 @@ class TestAttributesValidation(unittest.TestCase):
             ]
             # A site with several errors
             + [
-                "Site IND_0023: Date is not a date.",
+                f"Site IND_0023: {DATE_ERROR}",
                 "Site IND_0023: GEF_CP_ID 1113 is not five numbers.",
                 "Site IND_0023: Country ZAF is not IND, the country of layer "
                 f"{LAYER_NAME}.",
                 "Site IND_0023: Site_ID does not start with Country ZAF.",
-            ],
+            ]
+            # A Date after the date of the layer name
+            + [
+                "Site IND_0024: Date 2027-01-01 is after 2026-12-31, the date of "
+                f"layer {LAYER_NAME}.",
+            ]
+            # A text Date that is not YYYY_MM_DD
+            + [f"Site IND_0025: {DATE_ERROR}"],
         )
 
     def test_most_errors(self):

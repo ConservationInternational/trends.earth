@@ -15,7 +15,12 @@ import shutil
 from pathlib import Path
 
 import qgis.gui
-from qgis.core import QgsProject, QgsVectorLayer, QgsWkbTypes
+from qgis.core import (
+    QgsProject,
+    QgsProviderRegistry,
+    QgsVectorLayer,
+    QgsWkbTypes,
+)
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
@@ -25,16 +30,23 @@ from .reports.ecosystem_restoration.report import (
     DATA_TEMPLATE_PATH,
     DATA_XLSX_NAME,
     GEF_CP_ID,
+    DEFAULT_BASELINE_YEARS_BEFORE,
+    MIN_REPORTING_YEAR,
     REQUIRED_DATA_COLUMNS,
     read_data,
+    validate_reporting_period,
 )
 from .reports.ecosystem_restoration.spatial import (
     LAYER_NAME_REGEX,
-    layer_dates,
     layer_name,
+    read_sites_yearly,
+    validate_spatial_layer_name,
     write_spatial_template,
 )
-from .reports.ecosystem_restoration.spatial_validation import LayerValidation
+from .reports.ecosystem_restoration.spatial_validation import (
+    LayerValidation,
+    validate_spatial_data,
+)
 
 DlgEcosystemReportingRestorationProgressUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgEcosystemReportingRestorationProgress.ui")
@@ -104,13 +116,26 @@ class DlgEcosystemReportingRestorationProgress(
             self._download_data_template
         )
 
-        # Spatial input layers, and the reporting period from their names
-        self.spatial_layers.checkedItemsChanged.connect(self._update_reporting_period)
+        # Spatial input layers
         self.spatial_layers_import_button.clicked.connect(self._import_spatial_layer)
         self.spatial_layers_template_label.linkActivated.connect(
             self._download_spatial_template
         )
         self._load_spatial_layers()
+
+        # Reporting period, from the baseline year to the reporting year, the
+        # baseline year is not after the reporting year
+        this_year = QtCore.QDate.currentDate().year()
+        for spin_box in (self.baseline_year, self.reporting_year):
+            spin_box.setRange(MIN_REPORTING_YEAR, this_year)
+        self.reporting_year.setValue(this_year)
+        # Year inputs twice as wide as their default width
+        for spin_box in (self.baseline_year, self.reporting_year):
+            spin_box.setMinimumWidth(2 * spin_box.sizeHint().width())
+        self.baseline_year.setValue(this_year - DEFAULT_BASELINE_YEARS_BEFORE)
+        self.baseline_year.setMaximum(self.reporting_year.value())
+        self.reporting_year.valueChanged.connect(self._reporting_year_changed)
+        self.baseline_year.valueChanged.connect(self._baseline_year_changed)
         self._finish_initialization()
 
     def showEvent(self, event):
@@ -140,7 +165,6 @@ class DlgEcosystemReportingRestorationProgress(
                 layer.id(),
             )
         self.spatial_layers.blockSignals(False)
-        self._update_reporting_period()
 
     def _checked_spatial_layers(self) -> list[QgsVectorLayer]:
         """Checked layers of the spatial input, still in the project."""
@@ -151,25 +175,18 @@ class DlgEcosystemReportingRestorationProgress(
         ]
         return [layer for layer in layers if layer]
 
-    def _update_reporting_period(self):
-        """Show the reporting period, from the names of the checked layers."""
-        names = [layer.name() for layer in self._checked_spatial_layers()]
-        dates, errors = layer_dates(names)
-        if errors:
-            text = "<br>".join(errors)
-            self.reporting_period_label.setText(
-                f"<span style='color:red'>{text}</span>"
-            )
-        elif dates:
-            self.reporting_period_label.setText(
-                self.tr("Baseline date: {} • Latest monitoring date: {}").format(
-                    min(dates.values()), max(dates.values())
-                )
-            )
-        else:
-            self.reporting_period_label.setText(
-                self.tr("Choose the layers, one per year for a country.")
-            )
+    def _reporting_year_changed(self, year: int):
+        """The baseline year is not after the reporting year, it is changed to
+        the reporting year when it is."""
+        if self.baseline_year.value() > year:
+            self.baseline_year.setValue(year)
+        self.baseline_year.setMaximum(year)
+
+    def _baseline_year_changed(self, year: int):
+        """The reporting year is not before the baseline year, it is changed
+        to the baseline year when it is."""
+        if self.reporting_year.value() < year:
+            self.reporting_year.setValue(year)
 
     def _import_spatial_layer(self):
         """Add vector layers to the project and select them in the spatial input."""
@@ -177,12 +194,7 @@ class DlgEcosystemReportingRestorationProgress(
             self,
             self.tr("Import restoration sites"),
             "",
-            self.tr(
-                "Vector files (*.geojson *.kml *.shp);;"
-                "GeoJSON (*.geojson);;"
-                "KML (*.kml);;"
-                "Shapefile (*.shp)"
-            ),
+            QgsProviderRegistry.instance().fileVectorFilters(),
         )
         if not paths:
             return
@@ -385,8 +397,15 @@ class DlgEcosystemReportingRestorationProgress(
                 )
                 return
 
-        # Spatial input layers, named [ISO COUNTRY]_V[YYYYMMDD], one per year
-        # for a country
+        # Reporting period, the baseline year is not after the reporting year
+        baseline_year = self.baseline_year.value()
+        reporting_year = self.reporting_year.value()
+        errors = validate_reporting_period(baseline_year, reporting_year)
+        if errors:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), "\n".join(errors))
+            return
+
+        # Spatial input layers of one country, named [ISO COUNTRY]_V[YYYYMMDD]
         spatial_layers = self._checked_spatial_layers()
         if not spatial_layers:
             QtWidgets.QMessageBox.critical(
@@ -395,13 +414,25 @@ class DlgEcosystemReportingRestorationProgress(
                 self.tr("Choose the polygon layers of the restoration sites."),
             )
             return
-        _, errors = layer_dates([layer.name() for layer in spatial_layers])
+        errors = validate_spatial_layer_name([layer.name() for layer in spatial_layers])
         if errors:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), "\n".join(errors))
             return
         for spatial_layer in spatial_layers:
             if not self._check_spatial_layer(spatial_layer):
                 return
+        # Sites of the layers, one record of a site in a year, the sites of an
+        # indicator in a year do not overlap
+        errors = validate_spatial_data(read_sites_yearly(spatial_layers))
+        if errors:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("The spatial input layers are not valid:\n{}").format(
+                    "\n".join(errors)
+                ),
+            )
+            return
 
         self.close()
 
@@ -411,6 +442,8 @@ class DlgEcosystemReportingRestorationProgress(
             "project_name": project_name,
             "data_xlsx": data_xlsx,
             "gef_cp_id": gef_cp_id,
+            "baseline_year": baseline_year,
+            "reporting_year": reporting_year,
             "spatial_layers": [
                 {
                     "name": spatial_layer.name(),

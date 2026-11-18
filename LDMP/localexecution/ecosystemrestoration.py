@@ -3,7 +3,7 @@ import json
 import shutil
 from pathlib import Path
 
-from qgis.core import Qgis, QgsVectorLayer
+from qgis.core import Qgis
 from te_schemas.results import URI, FileResults
 
 from .. import __revision__, __version__
@@ -25,6 +25,7 @@ from ..reports.ecosystem_restoration.spatial import (
     calculate_spatially_supported,
     layer_date,
     layer_files,
+    open_spatial_file,
     read_sites_yearly,
     validate_spatial_layer_name,
 )
@@ -44,17 +45,6 @@ def _now() -> str:
 def _relative(path: Path, output_dir: Path) -> str:
     """Path of a file of the output folder, in the folder."""
     return Path(path).relative_to(output_dir).as_posix()
-
-
-def _open_layer(spatial_layer: dict) -> QgsVectorLayer:
-    """Open a spatial input layer."""
-    name = spatial_layer.get("name")
-    layer = QgsVectorLayer(
-        spatial_layer.get("source"), name, spatial_layer.get("provider") or "ogr"
-    )
-    if not layer.isValid():
-        raise ValueError(f"Spatial input layer {name} cannot be opened.")
-    return layer
 
 
 def _create_manifest(job: Job, project_name: str, gef_cp_id: str | None) -> dict:
@@ -234,7 +224,7 @@ def _create_report(
     spatial_data_dir = output_dir / SPATIAL_DATA_DIR_NAME
     spatial_data_dir.mkdir(parents=True, exist_ok=True)
     for name in layers_by_name:
-        layer = _open_layer(layers_by_name[name])
+        layer = open_spatial_file(layers_by_name[name].get("source"))
         errors = LayerValidation(layer).run()
         validation["spatial_layers"].append({"name": name, **_validation(errors)})
         if errors:

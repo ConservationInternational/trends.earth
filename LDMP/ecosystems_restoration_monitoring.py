@@ -15,12 +15,8 @@ import shutil
 from pathlib import Path
 
 import qgis.gui
-from qgis.core import (
-    QgsProject,
-    QgsProviderRegistry,
-    QgsVectorLayer,
-    QgsWkbTypes,
-)
+from qgis.core import QgsProject, QgsVectorLayer
+from qgis.gui import QgsFileWidget
 from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
@@ -38,7 +34,9 @@ from .reports.ecosystem_restoration.report import (
 )
 from .reports.ecosystem_restoration.spatial import (
     LAYER_NAME_REGEX,
+    SPATIAL_FILE_FILTER,
     layer_name,
+    open_spatial_file,
     read_sites_yearly,
     validate_spatial_layer_name,
     write_spatial_template,
@@ -116,12 +114,12 @@ class DlgEcosystemReportingRestorationProgress(
             self._download_data_template
         )
 
-        # Spatial input layers
-        self.spatial_layers_import_button.clicked.connect(self._import_spatial_layer)
+        # Spatial input files
+        self.spatial_layers.setFilter(self.tr(SPATIAL_FILE_FILTER))
+        self.spatial_layers_load_button.clicked.connect(self._load_spatial_files)
         self.spatial_layers_template_label.linkActivated.connect(
             self._download_spatial_template
         )
-        self._load_spatial_layers()
 
         # Reporting period, from the baseline year to the reporting year, the
         # baseline year is not after the reporting year
@@ -138,42 +136,31 @@ class DlgEcosystemReportingRestorationProgress(
         self.baseline_year.valueChanged.connect(self._baseline_year_changed)
         self._finish_initialization()
 
-    def showEvent(self, event):
-        super().showEvent(event)
-        self._load_spatial_layers()
-
-    def _load_spatial_layers(self, checked_ids: list[str] | None = None):
-        """List the polygon layers of the project in the spatial input."""
-        checked_ids = set(checked_ids or []) | set(
-            self.spatial_layers.checkedItemsData()
-        )
-        self.spatial_layers.blockSignals(True)
-        self.spatial_layers.clear()
-        layers = sorted(
-            (
-                layer
-                for layer in QgsProject.instance().mapLayers().values()
-                if isinstance(layer, QgsVectorLayer)
-                and layer.geometryType() == QgsWkbTypes.PolygonGeometry
-            ),
-            key=lambda layer: layer.name(),
-        )
-        for layer in layers:
-            self.spatial_layers.addItemWithCheckState(
-                layer.name(),
-                QtCore.Qt.Checked if layer.id() in checked_ids else QtCore.Qt.Unchecked,
-                layer.id(),
+    def _load_spatial_files(self):
+        """Add the selected spatial input files to the QGIS project."""
+        paths = QgsFileWidget.splitFilePaths(self.spatial_layers.filePath())
+        if not paths:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Choose the files of the restoration sites."),
             )
-        self.spatial_layers.blockSignals(False)
+            return
 
-    def _checked_spatial_layers(self) -> list[QgsVectorLayer]:
-        """Checked layers of the spatial input, still in the project."""
-        project = QgsProject.instance()
-        layers = [
-            project.mapLayer(layer_id)
-            for layer_id in self.spatial_layers.checkedItemsData()
-        ]
-        return [layer for layer in layers if layer]
+        errors = []
+        for path in paths:
+            try:
+                layer = open_spatial_file(path)
+            except ValueError as error:
+                errors.append(str(error))
+                continue
+            QgsProject.instance().addMapLayer(layer)
+        if errors:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Cannot load the files:\n{}").format("\n".join(errors)),
+            )
 
     def _reporting_year_changed(self, year: int):
         """The baseline year is not after the reporting year, it is changed to
@@ -187,35 +174,6 @@ class DlgEcosystemReportingRestorationProgress(
         to the baseline year when it is."""
         if self.reporting_year.value() < year:
             self.reporting_year.setValue(year)
-
-    def _import_spatial_layer(self):
-        """Add vector layers to the project and select them in the spatial input."""
-        paths, _ = QtWidgets.QFileDialog.getOpenFileNames(
-            self,
-            self.tr("Import restoration sites"),
-            "",
-            QgsProviderRegistry.instance().fileVectorFilters(),
-        )
-        if not paths:
-            return
-
-        layer_ids = []
-        failed_paths = []
-        for path in paths:
-            layer = self.iface.addVectorLayer(path, Path(path).stem, "ogr")
-            if layer and layer.isValid():
-                layer_ids.append(layer.id())
-            else:
-                failed_paths.append(path)
-
-        # List the layers of the project, now with the loaded layers checked
-        self._load_spatial_layers(layer_ids)
-        if failed_paths:
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr("Cannot load the layers:\n{}").format("\n".join(failed_paths)),
-            )
 
     def _download_data_template(self):
         """Save the report data XLSX template."""
@@ -405,15 +363,22 @@ class DlgEcosystemReportingRestorationProgress(
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), "\n".join(errors))
             return
 
-        # Spatial input layers of one country, named [ISO COUNTRY]_V[YYYYMMDD]
-        spatial_layers = self._checked_spatial_layers()
-        if not spatial_layers:
+        # Spatial input files of one country
+        paths = QgsFileWidget.splitFilePaths(self.spatial_layers.filePath())
+        if not paths:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
-                self.tr("Choose the polygon layers of the restoration sites."),
+                self.tr("Choose the files of the restoration sites."),
             )
             return
+        spatial_layers = []
+        for path in paths:
+            try:
+                spatial_layers.append(open_spatial_file(path))
+            except ValueError as error:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"), str(error))
+                return
         errors = validate_spatial_layer_name([layer.name() for layer in spatial_layers])
         if errors:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), "\n".join(errors))

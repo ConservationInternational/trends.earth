@@ -150,6 +150,77 @@
          </spacer>
         </item>
         <item>
+         <widget class="QGroupBox" name="spatial_layers_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
+          </property>
+          <property name="toolTip">
+           <string>Polygon layers of the restoration sites of one country, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.</string>
+          </property>
+          <property name="title">
+           <string>Spatial input (restoration sites)</string>
+          </property>
+          <layout class="QVBoxLayout" name="spatial_layers_box_layout">
+           <item>
+            <widget class="QLabel" name="spatial_layers_help_label">
+             <property name="text">
+              <string>A spatial boundary refers to the precise geographic extent of a restoration site, delineated using a closed polygon to define the specific area undergoing this intervention. This boundary should accurately reflect the restoration site, excluding any surrounding areas that are not part of the project implementation. For instance, if the restoration site is located within private property or protected area, the spatial boundary should only include the actual area(s) where restoration intervention is taking place and not the entire private property or protected area.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="spatial_layers_layout">
+             <item>
+              <widget class="QgsFileWidget" name="spatial_layers">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GeoJSON, KML or Shapefile files of the restoration sites of one country, in WGS 84 (EPSG:4326), with one layer each, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.shp. The files are read, not added to the project, use Load to QGIS to add them. The Date of a site is not after the date of its file name. A site has one record in a year, the record of the latest file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="storageMode">
+                <enum>QgsFileWidget::GetMultipleFiles</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="spatial_layers_load_button">
+               <property name="toolTip">
+                <string>Load the selected files into the QGIS project, to view or edit them.</string>
+               </property>
+               <property name="text">
+                <string>Load to QGIS</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="spatial_layers_template_label">
+             <property name="toolTip">
+              <string>Save a ZIP with an empty Shapefile of the restoration sites of a country, with its fields, QGIS form and legend, named [ISO COUNTRY]_V[YYYYMMDD] from the ISO3 and the date entered.</string>
+             </property>
+             <property name="text">
+              <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QGroupBox" name="child_project_box">
           <property name="styleSheet">
            <string notr="true">QGroupBox { font-weight: bold; }</string>
@@ -225,74 +296,6 @@
            </size>
           </property>
          </spacer>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="spatial_layers_box">
-          <property name="styleSheet">
-           <string notr="true">QGroupBox { font-weight: bold; }</string>
-          </property>
-          <property name="toolTip">
-           <string>Polygon layers of the restoration sites of one country, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.</string>
-          </property>
-          <property name="title">
-           <string>Spatial input (restoration sites)</string>
-          </property>
-          <layout class="QVBoxLayout" name="spatial_layers_box_layout">
-           <item>
-            <widget class="QLabel" name="spatial_layers_help_label">
-             <property name="text">
-              <string>A spatial boundary refers to the precise geographic extent of a restoration site, delineated using a closed polygon to define the specific area undergoing this intervention. This boundary should accurately reflect the restoration site, excluding any surrounding areas that are not part of the project implementation. For instance, if the restoration site is located within private property or protected area, the spatial boundary should only include the actual area(s) where restoration intervention is taking place and not the entire private property or protected area.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="spatial_layers_layout">
-             <item>
-              <widget class="QgsCheckableComboBox" name="spatial_layers">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Polygon layers of the restoration sites of one country, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231, vector files of any format in WGS 84 (EPSG:4326). The Date of a site is not after the date of its layer name. The Date of the sites is the reporting period, the spatially supported area of a year is the area of the sites of that year. A site of a later layer, with the same Site_ID and Date, replaces the site of an earlier layer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="spatial_layers_import_button">
-               <property name="toolTip">
-                <string>Load vector files of the restoration sites into the project, and select them.</string>
-               </property>
-               <property name="text">
-                <string>Import</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QLabel" name="spatial_layers_template_label">
-             <property name="toolTip">
-              <string>Save a ZIP with an empty Shapefile of the restoration sites of a country, with its fields, QGIS form and legend, named [ISO COUNTRY]_V[YYYYMMDD] from the ISO3 and the date entered.</string>
-             </property>
-             <property name="text">
-              <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
-             </property>
-             <property name="textFormat">
-              <enum>Qt::RichText</enum>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
         </item>
         <item>
          <widget class="QGroupBox" name="reporting_period_box">
@@ -575,11 +578,6 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>QgsCheckableComboBox</class>
-   <extends>QComboBox</extends>
-   <header>qgscheckablecombobox.h</header>
-  </customwidget>
   <customwidget>
    <class>QgsFileWidget</class>
    <extends>QWidget</extends>

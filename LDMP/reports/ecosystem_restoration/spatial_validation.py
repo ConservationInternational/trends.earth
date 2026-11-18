@@ -24,6 +24,7 @@ from .spatial import (
     SITE_DATE_FORMAT,
     SITE_ID_FIELD,
     SPATIAL_FIELDS,
+    SPATIAL_FILE_EXTENSIONS,
     layer_date,
     layer_file,
     site_date,
@@ -46,12 +47,17 @@ class LayerValidation:
         self.layer = layer
 
     def _validate_file(self) -> list[str]:
-        """Errors of the file of the layer: not a file, or not in EPSG:4326.
-        The file can be of any vector format."""
+        """Errors of the file of the layer: not a file, not a GeoJSON, KML or
+        Shapefile, or not in EPSG:4326."""
         errors = []
         path = layer_file(self.layer.source())
         if not path.is_file():
             errors.append(f"Layer {self.layer.name()} is not a file.")
+        elif path.suffix.lower() not in SPATIAL_FILE_EXTENSIONS:
+            errors.append(
+                f"Layer {self.layer.name()} is not a GeoJSON, KML or Shapefile: "
+                f"{path.name}"
+            )
         if self.layer.crs().authid() != LAYER_CRS:
             errors.append(
                 f"Layer {self.layer.name()} is not in {LAYER_CRS}: "

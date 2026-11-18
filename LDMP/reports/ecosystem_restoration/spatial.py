@@ -55,9 +55,18 @@ LAYER_NAME_REGEX = re.compile(r"^([A-Z]{3})_V(\d{8})$")
 SITE_DATE_FORMAT = "YYYY_MM_DD"
 SITE_DATE_REGEX = re.compile(r"^(\d{4})_(\d{2})_(\d{2})$")
 
+# Accepted files of the spatial input: GeoJSON, KML and Shapefile
+SPATIAL_FILE_EXTENSIONS = (".geojson", ".kml", ".shp")
+SPATIAL_FILE_FILTER = (
+    "Vector files (*.geojson *.kml *.shp);;"
+    "GeoJSON (*.geojson);;"
+    "KML (*.kml);;"
+    "Shapefile (*.shp)"
+)
+
 # Files of a layer with several files, e.g. a Shapefile and its .dbf, .shx,
 # .prj, etc., with the same name
-MULTI_FILE_EXTENSIONS = (".shp", ".tab", ".mif")
+MULTI_FILE_EXTENSIONS = (".shp",)
 
 # Empty Shapefile of the restoration sites, with its QGIS form in the .qml
 SPATIAL_TEMPLATE_DIR = Path(__file__).parent / "spatial_template"
@@ -145,6 +154,21 @@ def write_spatial_template(path: Path, country: str, date: dt.date):
                 zip_file.writestr(f"{name}{file.suffix}", qml)
             else:
                 zip_file.write(file, f"{name}{file.suffix}")
+
+
+def open_spatial_file(path: str) -> QgsVectorLayer:
+    """Open a spatial input file."""
+    name = Path(path).stem
+    layer = QgsVectorLayer(path, name, "ogr")
+    if not layer.isValid():
+        raise ValueError(f"Spatial input file {path} cannot be opened.")
+    layers = layer.dataProvider().subLayers()
+    if len(layers) > 1:
+        raise ValueError(
+            f"Spatial input file {path} has more than one layer, "
+            f"it has {len(layers)} layers."
+        )
+    return layer
 
 
 def layer_file(source: str) -> Path:

@@ -11,9 +11,15 @@ from qgis.core import (
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransformContext,
     QgsDistanceArea,
+    QgsFeature,
+    QgsField,
+    QgsFields,
+    QgsGeometry,
+    QgsVectorFileWriter,
     QgsVectorLayer,
+    QgsWkbTypes,
 )
-from qgis.PyQt.QtCore import QDate, QDateTime
+from qgis.PyQt.QtCore import QDate, QDateTime, QMetaType
 
 
 GEF_CP_ID_FIELD = "GEF_CP_ID"
@@ -71,6 +77,21 @@ MULTI_FILE_EXTENSIONS = (".shp",)
 
 # Empty Shapefile of the restoration sites, with its QGIS form in the .qml
 SPATIAL_TEMPLATE_DIR = Path(__file__).parent / "spatial_template"
+
+# Formats of the spatial template, with the extension of the saved file, the
+# Shapefile template is a ZIP of its files
+TEMPLATE_FORMATS = {
+    "Shapefile": ".zip",
+    "GeoJSON": ".geojson",
+    "KML": ".kml",
+    "KMZ": ".kmz",
+}
+
+# Field of the name of a KML placemark, written as its <name>
+KML_NAME_FIELD = "Name"
+
+# Child project of the example site of the GeoJSON and KML templates
+EXAMPLE_GEF_CP_ID = "99999"
 
 
 def layer_date(name: str) -> dt.date | None:
@@ -140,7 +161,17 @@ def _set_default(qml: str, field: str, value: str) -> str:
     )
 
 
-def write_spatial_template(path: Path, country: str, date: dt.date):
+def write_spatial_template(
+    path: Path, country: str, date: dt.date, template_format: str = "Shapefile"
+):
+    """Write the spatial template of the country and the date."""
+    if template_format == "Shapefile":
+        _write_shapefile_template(path, country, date)
+    else:
+        _write_vector_template(path, country, date, template_format)
+
+
+def _write_shapefile_template(path: Path, country: str, date: dt.date):
     """Write the files of SPATIAL_TEMPLATE_DIR in a ZIP file."""
     name = layer_name(country, date)
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zip_file:
@@ -155,6 +186,59 @@ def write_spatial_template(path: Path, country: str, date: dt.date):
                 zip_file.writestr(f"{name}{file.suffix}", qml)
             else:
                 zip_file.write(file, f"{name}{file.suffix}")
+
+
+def _write_vector_template(
+    path: Path, country: str, date: dt.date, template_format: str
+):
+    """Write a GeoJSON, KML or KMZ template, with the fields of the Shapefile
+    template."""
+    template = QgsVectorLayer(
+        str(next(SPATIAL_TEMPLATE_DIR.glob("*.shp"))), "template", "ogr"
+    )
+    is_kml = template_format in ("KML", "KMZ")
+    fields = QgsFields()
+    for field in template.fields():
+        if is_kml and field.type() == QMetaType.Type.QDate:
+            field = QgsField(field.name(), QMetaType.Type.QString, "String", 10)
+        fields.append(field)
+    if is_kml:
+        # Name of the placemark, the label of the site in Google Earth
+        fields.append(QgsField(KML_NAME_FIELD, QMetaType.Type.QString, "String"))
+
+    options = QgsVectorFileWriter.SaveVectorOptions()
+    options.driverName = "LIBKML" if is_kml else "GeoJSON"
+    options.layerName = layer_name(country, date)
+    options.fileEncoding = "UTF-8"
+    writer = QgsVectorFileWriter.create(
+        str(path),
+        fields,
+        QgsWkbTypes.Polygon,
+        QgsCoordinateReferenceSystem("EPSG:4326"),
+        QgsCoordinateTransformContext(),
+        options,
+    )
+    if writer.hasError() != QgsVectorFileWriter.NoError:
+        raise OSError(writer.errorMessage())
+
+    # Example site
+    feature = QgsFeature(fields)
+    feature[GEF_CP_ID_FIELD] = EXAMPLE_GEF_CP_ID
+    feature[COUNTRY_FIELD] = country
+    feature[SITE_ID_FIELD] = f"{country}_0001"
+    if is_kml:
+        feature[KML_NAME_FIELD] = feature[SITE_ID_FIELD]
+    feature[DATE_FIELD] = (
+        date.strftime("%Y_%m_%d") if is_kml else QDate(date.year, date.month, date.day)
+    )
+    feature[INDICATOR_FIELD] = "3. Under restoration"
+    feature[SUB_INDICATOR_FIELD] = "3.2 Forest and forest land"
+    feature[AREA_TYPE_FIELD] = "Example site, delete it"
+    feature.setGeometry(
+        QgsGeometry.fromWkt("POLYGON((0 0,0.01 0,0.01 0.01,0 0.01,0 0))")
+    )
+    writer.addFeature(feature)
+    del writer
 
 
 def open_spatial_file(path: str) -> QgsVectorLayer:

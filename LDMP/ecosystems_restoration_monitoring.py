@@ -35,6 +35,7 @@ from .reports.ecosystem_restoration.report import (
 from .reports.ecosystem_restoration.spatial import (
     LAYER_NAME_REGEX,
     SPATIAL_FILE_FILTER,
+    TEMPLATE_FORMATS,
     layer_name,
     open_spatial_file,
     read_sites_yearly,
@@ -67,6 +68,7 @@ class DlgSpatialTemplate(QtWidgets.QDialog, DlgSpatialTemplateUi):
             )
         )
         self.date.setDate(QtCore.QDate.currentDate())
+        self.template_format.addItems(list(TEMPLATE_FORMATS))
         self.button_box.accepted.connect(self.accept)
         self.button_box.rejected.connect(self.reject)
 
@@ -198,28 +200,33 @@ class DlgEcosystemReportingRestorationProgress(
             return
 
     def _download_spatial_template(self):
-        """Save the ZIP of the Shapefile template of the restoration sites.
-
-        The files are named after the ISO3 and the date entered in
-        DlgSpatialTemplate, e.g. IND_V20261231.
-        """
+        """Save the template of the restoration sites, in the format chosen in
+        DlgSpatialTemplate."""
         dialog = DlgSpatialTemplate(self)
         if dialog.exec() != QtWidgets.QDialog.Accepted:
             return
 
+        template_format = dialog.template_format.currentText()
+        extension = TEMPLATE_FORMATS[template_format]
         path, _ = QtWidgets.QFileDialog.getSaveFileName(
             self,
             self.tr("Save restoration sites template"),
-            f"{dialog.layer_name()}.zip",
-            self.tr("ZIP files (*.zip)"),
+            f"{dialog.layer_name()}{extension}",
+            self.tr("{} files (*{})").format(
+                "ZIP" if template_format == "Shapefile" else template_format,
+                extension,
+            ),
         )
         if not path:
             return
-        if Path(path).suffix.lower() != ".zip":
-            path = f"{path}.zip"
+        if Path(path).suffix.lower() != extension:
+            path = f"{path}{extension}"
         try:
             write_spatial_template(
-                Path(path), dialog.country.text(), dialog.date.date().toPyDate()
+                Path(path),
+                dialog.country.text(),
+                dialog.date.date().toPyDate(),
+                template_format,
             )
         except OSError as error:
             QtWidgets.QMessageBox.critical(

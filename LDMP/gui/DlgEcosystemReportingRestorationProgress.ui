@@ -204,7 +204,7 @@
            <item>
             <widget class="QLabel" name="spatial_layers_template_label">
              <property name="toolTip">
-              <string>Save a ZIP with an empty Shapefile of the restoration sites of a country, with its fields, QGIS form and legend, named [ISO COUNTRY]_V[YYYYMMDD] from the ISO3 and the date entered.</string>
+              <string>Save a template of the restoration sites of a country, named [ISO COUNTRY]_V[YYYYMMDD] from the ISO3 and the date entered: a ZIP of a Shapefile with its fields, QGIS form and legend, or a GeoJSON, KML or KMZ with one example site to delete.</string>
              </property>
              <property name="text">
               <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>140</height>
+    <height>170</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -65,6 +65,26 @@
        </property>
        <property name="calendarPopup">
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="template_format_label">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Format:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QComboBox" name="template_format">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shapefile: a ZIP with the QGIS form, legend and default values. GeoJSON, KML and KMZ: with one example site of child project 99999, delete it. The Date of KML and KMZ is a text YYYY_MM_DD.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>

@@ -16,6 +16,7 @@ from qgis.core import (
 from .spatial import (
     COUNTRY_FIELD,
     DATE_FIELD,
+    EXAMPLE_GEF_CP_ID,
     GEF_CP_ID_FIELD,
     GEF_CP_ID_REGEX,
     INDICATOR_FIELD,
@@ -165,6 +166,11 @@ class LayerValidation:
         gef_cp_id = str(feature[GEF_CP_ID_FIELD]).strip()
         if not GEF_CP_ID_REGEX.match(gef_cp_id):
             errors.append(f"{GEF_CP_ID_FIELD} {gef_cp_id} is not five numbers.")
+        elif gef_cp_id == EXAMPLE_GEF_CP_ID:
+            errors.append(
+                f"{GEF_CP_ID_FIELD} {gef_cp_id} is the example site of the "
+                "template, delete it."
+            )
 
         country = str(feature[COUNTRY_FIELD]).strip()
         if layer_country and country != layer_country:

@@ -320,7 +320,8 @@ def _progress_variables(prefix: str, data: RestorationDataModel) -> dict[str, st
 
 
 def _report_variables(
-    project_name: str,
+    report_title: str,
+    reporting_scope: str,
     global_data: IndicatorDataModel,
     countries: list[str],
     reporting_period: tuple[int, int],
@@ -329,7 +330,8 @@ def _report_variables(
 ) -> dict[str, str]:
     """Values of the [% @te_restoration_... %] expressions in the template labels."""
     variables = {
-        "te_restoration_reporting_scope": project_name,
+        "te_restoration_title": report_title,
+        "te_restoration_reporting_scope": reporting_scope,
         "te_restoration_country": " • ".join(countries),
         "te_restoration_gef_child_project": gef_child_project,
         "te_restoration_analysis_area": "National boundary",
@@ -367,7 +369,8 @@ def _report_variables(
 
 def generate_report(
     output_dir: Path,
-    project_name: str,
+    report_title: str,
+    reporting_scope: str,
     data: list[dict],
     spatial_data: list[dict],
     countries: list[str],
@@ -436,7 +439,8 @@ def generate_report(
     return write_pdf(
         TEMPLATE_PATH,
         _report_variables(
-            project_name,
+            report_title,
+            reporting_scope,
             global_data,
             countries,
             reporting_period,

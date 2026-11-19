@@ -14687,7 +14687,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem size="180,30,mm" marginX="2" uuid="{a9571d78-66b4-40f0-b571-4607c20f0667}" positionOnPage="15.15,31.2961,mm" id="Page1.Title" templateUuid="{a9571d78-66b4-40f0-b571-4607c20f0667}" referencePoint="0" itemRotation="0" positionLock="false" zValue="51" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="15.15,31.2961,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="[% @te_restoration_reporting_scope %]&#xa;Restoration Progress Report" valign="128" halign="4" groupUuid="">
+ <LayoutItem size="180,30,mm" marginX="2" uuid="{a9571d78-66b4-40f0-b571-4607c20f0667}" positionOnPage="15.15,31.2961,mm" id="Page1.Title" templateUuid="{a9571d78-66b4-40f0-b571-4607c20f0667}" referencePoint="0" itemRotation="0" positionLock="false" zValue="51" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="15.15,31.2961,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="[% @te_restoration_title %]" valign="128" halign="4" groupUuid="">
   <FrameColor green="0" blue="0" alpha="255" red="0"/>
   <BackgroundColor green="255" blue="255" alpha="255" red="255"/>
   <LayoutObject>

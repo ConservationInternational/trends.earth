@@ -341,10 +341,10 @@ class DlgEcosystemReportingRestorationProgress(
         if not ret:
             return
 
-        project_name = self.project_name.text().strip()
-        if not project_name:
+        report_title = self.report_title.text().strip()
+        if not report_title:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Enter the project name.")
+                None, self.tr("Error"), self.tr("Enter the report title.")
             )
             return
 
@@ -413,7 +413,7 @@ class DlgEcosystemReportingRestorationProgress(
         job_params = {
             "task_name": self.execution_name.text(),
             "task_notes": self.task_notes.toPlainText(),
-            "project_name": project_name,
+            "report_title": report_title,
             "data_xlsx": data_xlsx,
             "gef_cp_id": gef_cp_id,
             "baseline_year": baseline_year,

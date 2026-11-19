@@ -51,7 +51,7 @@ def _relative(path: Path, output_dir: Path) -> str:
     return Path(path).relative_to(output_dir).as_posix()
 
 
-def _create_manifest(job: Job, project_name: str, gef_cp_id: str | None) -> dict:
+def _create_manifest(job: Job, report_title: str, gef_cp_id: str | None) -> dict:
     """Manifest of the report, before its inputs are read."""
     script = getattr(job, "script", None)
     return {
@@ -63,7 +63,7 @@ def _create_manifest(job: Job, project_name: str, gef_cp_id: str | None) -> dict
             "end_date": None,
         },
         "scope": {
-            "project_name": project_name,
+            "report_title": report_title,
             "gef_child_project": gef_cp_id or "All projects",
             "countries": [],
             "reporting_period": None,
@@ -112,13 +112,13 @@ def create_ecosystem_restoration_progress_report(
     report cannot be created, with the error in its export status.
     """
     output_dir = job_output_path.parent
-    project_name = (job.params.get("project_name") or "").strip()
+    report_title = (job.params.get("report_title") or "").strip()
     # GEF_CP_ID of the child project, None for all the child projects
     gef_cp_id = (job.params.get("gef_cp_id") or "").strip() or None
-    manifest = _create_manifest(job, project_name, gef_cp_id)
+    manifest = _create_manifest(job, report_title, gef_cp_id)
     try:
         results = _create_report(
-            job, area_of_interest, job_output_path, project_name, gef_cp_id, manifest
+            job, area_of_interest, job_output_path, report_title, gef_cp_id, manifest
         )
     except Exception as error:
         if manifest["validation"]["status"] != "passed":
@@ -141,7 +141,7 @@ def _create_report(
     job: Job,
     area_of_interest: AOI,
     job_output_path: Path,
-    project_name: str,
+    report_title: str,
     gef_cp_id: str | None,
     manifest: dict,
 ) -> FileResults:
@@ -154,7 +154,7 @@ def _create_report(
         "region": area_of_interest.get_geojson() if area_of_interest else None,
         "execution_name": job.task_name,
         "notes": job.task_notes,
-        "project_name": project_name,
+        "report_title": report_title,
         "data_xlsx": data_xlsx,
         "gef_cp_id": gef_cp_id,
         "baseline_year": job.params.get("baseline_year"),
@@ -164,8 +164,8 @@ def _create_report(
     job_output_path.write_text(json.dumps(inputs, indent=2))
     validation = manifest["validation"]
 
-    if not project_name:
-        raise ValueError("No project name was given.")
+    if not report_title:
+        raise ValueError("No report title was given.")
 
     # Reporting period, from the baseline year to the reporting year
     reporting_period = (inputs["baseline_year"], inputs["reporting_year"])
@@ -299,13 +299,14 @@ def _create_report(
 
     pdf_path = generate_report(
         output_dir,
-        project_name,
+        report_title,
+        "Project",
         data,
         spatial_data,
         sorted(countries),
         reporting_period,
         spatial_data_version,
-        f"{gef_cp_id} • {project_name}" if gef_cp_id else "All projects",
+        f"{gef_cp_id}" if gef_cp_id else "All projects",
     )
 
     job.end_date = dt.datetime.now(dt.timezone.utc)

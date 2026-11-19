@@ -49,21 +49,24 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QGroupBox" name="project_name_box">
+         <widget class="QGroupBox" name="report_title_box">
           <property name="styleSheet">
            <string notr="true">QGroupBox { font-weight: bold; }</string>
           </property>
           <property name="toolTip">
-           <string>Name of the project, the reporting scope of the report.</string>
+           <string>Title of the report, on its first page and its reporting scope.</string>
           </property>
           <property name="title">
-           <string>Project name</string>
+           <string>Report title</string>
           </property>
-          <layout class="QVBoxLayout" name="project_name_box_layout">
+          <layout class="QVBoxLayout" name="report_title_box_layout">
            <item>
-            <widget class="QLineEdit" name="project_name">
+            <widget class="QLineEdit" name="report_title">
              <property name="toolTip">
-              <string>Name of the project, the reporting scope of the report.</string>
+              <string>Title of the report, on its first page and its reporting scope.</string>
+             </property>
+             <property name="text">
+              <string>Project Restoration Progress Report</string>
              </property>
             </widget>
            </item>

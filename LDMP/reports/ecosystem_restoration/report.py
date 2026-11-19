@@ -202,6 +202,35 @@ def validate_data(columns: list[str], data: list[dict]) -> list[str]:
     return []
 
 
+def validate_reported_progress(
+    data: list[dict], sites: dict[tuple[str, int], list[dict]], reporting_year: int
+) -> list[str]:
+    """Validate reported progress, empty when it is valid.
+
+    A target needs no sites, but a reported progress greater than zero needs one site at least
+    in the reporting year, of the GEF_CP_ID and the sub-indicator of the row.
+    """
+    site_keys = {
+        (site["gef_cp_id"], site["sub_indicator"])
+        for (_, year), group in sites.items()
+        if year == reporting_year
+        for site in group
+    }
+    errors = []
+
+    # Row 1 of the XLSX is the header
+    for number, row in enumerate(data, start=2):
+        gef_cp_id = (row[GEF_CP_ID] or "").strip()
+        sub_indicator = (row["sub_indicator"] or "").strip()
+        reported_progress = _number(row["reported_progress"]) or 0
+        if reported_progress > 0 and (gef_cp_id, sub_indicator) not in site_keys:
+            errors.append(
+                f"Report data row {number}: reported progress of sub-indicator "
+                f"'{sub_indicator}' for child project {gef_cp_id} has no site."
+            )
+    return errors
+
+
 def validate_reporting_period(baseline_year, reporting_year) -> list[str]:
     """Validate reporting periods."""
     years = {"Baseline year": baseline_year, "Monitoring year": reporting_year}

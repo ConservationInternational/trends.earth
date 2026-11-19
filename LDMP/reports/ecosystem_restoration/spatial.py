@@ -2,6 +2,7 @@
 
 import datetime as dt
 import glob
+import json
 import re
 import zipfile
 from pathlib import Path
@@ -309,6 +310,57 @@ def read_sites_yearly(
                 }
             )
     return sites
+
+
+def write_validated_sites(
+    sites: dict[tuple[str, int], list[dict]],
+    output_dir: Path,
+    reporting_period: tuple[int, int],
+    gef_cp_id: str | None = None,
+) -> list[Path]:
+    """Write the sites used by the report, one GeoJSON per year, e.g.
+    2025.geojson, returns the paths of the GeoJSON."""
+    features_by_year: dict[int, list[dict]] = {}
+    for (indicator, year), group in sorted(sites.items(), key=lambda item: item[0]):
+        if not reporting_period[0] <= year <= reporting_period[1]:
+            continue
+        for site in group:
+            if gef_cp_id and site["gef_cp_id"] != gef_cp_id:
+                continue
+            features_by_year.setdefault(year, []).append(
+                {
+                    "type": "Feature",
+                    "properties": {
+                        GEF_CP_ID_FIELD: site["gef_cp_id"],
+                        COUNTRY_FIELD: LAYER_NAME_REGEX.match(site["layer"]).group(1),
+                        SITE_ID_FIELD: site["site_id"],
+                        INDICATOR_FIELD: indicator,
+                        SUB_INDICATOR_FIELD: site["sub_indicator"],
+                        DATE_FIELD: site["date"].isoformat(),
+                        "Area_ha": site["area"],
+                        "Layer": site["layer"],
+                    },
+                    "geometry": json.loads(site["geometry"].asJson()),
+                }
+            )
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    paths = []
+    for year, features in sorted(features_by_year.items()):
+        path = output_dir / f"{year}.geojson"
+        features.sort(key=lambda feature: feature["properties"][SITE_ID_FIELD])
+        collection = {
+            "type": "FeatureCollection",
+            "name": str(year),
+            "crs": {
+                "type": "name",
+                "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"},
+            },
+            "features": features,
+        }
+        path.write_text(json.dumps(collection))
+        paths.append(path)
+    return paths
 
 
 def calculate_spatially_supported(

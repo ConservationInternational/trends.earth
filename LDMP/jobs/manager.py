@@ -519,6 +519,7 @@ class LocalJobTask(QgsTask):
                 self.job.status = jobs.JobStatus.CANCELLED
             else:
                 self.job.status = jobs.JobStatus.FAILED
+                self.job.task_notes = self.job_copy.task_notes
             self.failed_job.emit(self.job)
             logger.debug(f"Task failed with status {self.job.status.value}")
 

@@ -18,6 +18,7 @@ from ..reports.ecosystem_restoration.report import (
     generate_report,
     read_data,
     validate_data,
+    validate_reported_progress,
     validate_reporting_period,
 )
 from ..reports.ecosystem_restoration.spatial import (
@@ -28,6 +29,7 @@ from ..reports.ecosystem_restoration.spatial import (
     open_spatial_file,
     read_sites_yearly,
     validate_spatial_layer_name,
+    write_validated_sites,
 )
 from ..reports.ecosystem_restoration.spatial_validation import (
     LayerValidation,
@@ -36,6 +38,8 @@ from ..reports.ecosystem_restoration.spatial_validation import (
 
 # Folder of the copies of the spatial input layers, in the output folder
 SPATIAL_DATA_DIR_NAME = "spatial_data"
+# Folder of the validated sites used by the report, one GeoJSON per year
+VALIDATED_SITES_DIR_NAME = "validated_restoration_sites"
 
 
 def _now() -> str:
@@ -122,6 +126,10 @@ def create_ecosystem_restoration_progress_report(
         manifest["export"] = {"status": "failed", "error": str(error)}
         manifest["job"]["end_date"] = _now()
         write_manifest(output_dir, manifest)
+
+        # The error in the notes of the job, shown as the comments of the dataset
+        notes = (job.task_notes or "").strip()
+        job.task_notes = f"{notes}\n\nError:\n{error}" if notes else f"Error:\n{error}"
         raise
 
     manifest_path = write_manifest(output_dir, manifest)
@@ -255,6 +263,8 @@ def _create_report(
     # sites of an indicator in a year do not overlap
     sites = read_sites_yearly(layers)
     errors = validate_spatial_data(sites)
+    # A reported progress greater than zero has sites in the reporting year
+    errors += validate_reported_progress(data, sites, reporting_period[1])
     validation["spatial_data"] = _validation(errors)
     if errors:
         raise ValueError(
@@ -272,6 +282,11 @@ def _create_report(
             if gef_cp_id
             else "The spatial input layers have no restoration sites."
         )
+    # Validated sites used by the report, one GeoJSON per year
+    validated_sites_paths = write_validated_sites(
+        sites, output_dir / VALIDATED_SITES_DIR_NAME, reporting_period, gef_cp_id
+    )
+
     # Country of the layer names, the layers are of one country
     countries = {LAYER_NAME_REGEX.match(name).group(1) for name in layers_by_name}
 
@@ -307,13 +322,17 @@ def _create_report(
         ],
         "report_data": _relative(data_xlsx_path, output_dir),
         "spatial_data": [_relative(path, output_dir) for path in sites_paths],
+        "validated_sites": [
+            _relative(path, output_dir) for path in validated_sites_paths
+        ],
     }
 
     job.results = FileResults(
         name="ecosystem_restoration",
         uri=URI(uri=pdf_path or job_output_path),
         other_uris=[URI(uri=data_xlsx_path)]
-        + [URI(uri=sites_path) for sites_path in sites_paths],
+        + [URI(uri=sites_path) for sites_path in sites_paths]
+        + [URI(uri=path) for path in validated_sites_paths],
         data=inputs,
     )
     return job.results

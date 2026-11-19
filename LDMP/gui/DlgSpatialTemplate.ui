@@ -84,7 +84,17 @@
      <item row="2" column="1">
       <widget class="QComboBox" name="template_format">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shapefile: a ZIP with the QGIS form, legend and default values. GeoJSON, KML and KMZ: with one example site of child project 99999, delete it. The Date of KML and KMZ is a text YYYY_MM_DD.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shapefile: its .shp, .dbf, .shx, .prj, .cpg and the .qml of the QGIS form, legend and default values. GeoJSON, KML and KMZ: with one example site of child project 99999, delete it. The Date of KML and KMZ is a text YYYY_MM_DD.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QCheckBox" name="separate_attributes">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The polygons have only a Name, their Site_ID, and their attributes are in an XLSX of the same name, e.g. IND_V20261231.kml and IND_V20261231.xlsx, e.g. for Google Earth. Keep both files in the same folder.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Attributes in a separate XLSX</string>
        </property>
       </widget>
      </item>

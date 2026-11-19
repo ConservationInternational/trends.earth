@@ -4,7 +4,7 @@ import datetime as dt
 import glob
 import json
 import re
-import zipfile
+import shutil
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -21,7 +21,6 @@ from qgis.core import (
     QgsWkbTypes,
 )
 from qgis.PyQt.QtCore import QDate, QDateTime, QMetaType
-
 
 GEF_CP_ID_FIELD = "GEF_CP_ID"
 COUNTRY_FIELD = "Country"
@@ -80,9 +79,9 @@ MULTI_FILE_EXTENSIONS = (".shp",)
 SPATIAL_TEMPLATE_DIR = Path(__file__).parent / "spatial_template"
 
 # Formats of the spatial template, with the extension of the saved file, the
-# Shapefile template is a ZIP of its files
+# Shapefile template is its .shp and the files next to it
 TEMPLATE_FORMATS = {
-    "Shapefile": ".zip",
+    "Shapefile": ".shp",
     "GeoJSON": ".geojson",
     "KML": ".kml",
     "KMZ": ".kmz",
@@ -91,8 +90,15 @@ TEMPLATE_FORMATS = {
 # Field of the name of a KML placemark, written as its <name>
 KML_NAME_FIELD = "Name"
 
+# Custom property of a layer joined with its attributes XLSX, its spatial
+# input file
+SPATIAL_FILE_PROPERTY = "ecosystem_restoration/spatial_file"
+
 # Child project of the example site of the GeoJSON and KML templates
 EXAMPLE_GEF_CP_ID = "99999"
+EXAMPLE_INDICATOR = "3. Under restoration"
+EXAMPLE_SUB_INDICATOR = "3.2 Forest and forest land"
+EXAMPLE_AREA_TYPE = "Example site, delete it"
 
 
 def layer_date(name: str) -> dt.date | None:
@@ -163,52 +169,84 @@ def _set_default(qml: str, field: str, value: str) -> str:
 
 
 def write_spatial_template(
-    path: Path, country: str, date: dt.date, template_format: str = "Shapefile"
+    path: Path,
+    country: str,
+    date: dt.date,
+    template_format: str = "Shapefile",
+    separate_attributes: bool = False,
 ):
-    """Write the spatial template of the country and the date."""
-    if template_format == "Shapefile":
-        _write_shapefile_template(path, country, date)
-    else:
-        _write_vector_template(path, country, date, template_format)
+    """Write the spatial template of the country and the date.
+
+    With separate_attributes, the polygons have only a Name, their Site_ID,
+    and their attributes are in an XLSX of the same name.
+    """
+    if not separate_attributes:
+        if template_format == "Shapefile":
+            _write_shapefile_template(path, country, date)
+        else:
+            _write_vector_template(path, country, date, template_format)
+        return
+
+    # Imported here, attribute imports spatial
+    from .attribute import ATTRIBUTES_FILE_EXTENSION, write_attributes_template
+
+    _write_vector_template(path, country, date, template_format, True)
+    write_attributes_template(
+        path.with_suffix(ATTRIBUTES_FILE_EXTENSION), country, date
+    )
 
 
 def _write_shapefile_template(path: Path, country: str, date: dt.date):
-    """Write the files of SPATIAL_TEMPLATE_DIR in a ZIP file."""
-    name = layer_name(country, date)
-    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zip_file:
-        for file in sorted(SPATIAL_TEMPLATE_DIR.iterdir()):
-            if not file.is_file():
-                continue
-            # Update qml with default country and site id
-            if file.suffix.lower() == ".qml":
-                qml = file.read_text(encoding="utf-8")
-                qml = _set_default(qml, COUNTRY_FIELD, country)
-                qml = _set_default(qml, SITE_ID_FIELD, f"{country}_")
-                zip_file.writestr(f"{name}{file.suffix}", qml)
-            else:
-                zip_file.write(file, f"{name}{file.suffix}")
+    """Write the files of SPATIAL_TEMPLATE_DIR next to the .shp path, named as
+    the path, e.g. IND_V20261231.shp, .dbf, .shx, .prj, .cpg and .qml."""
+    for file in sorted(SPATIAL_TEMPLATE_DIR.iterdir()):
+        if not file.is_file():
+            continue
+        target = path.with_suffix(file.suffix)
+        # Update qml with default country and site id
+        if file.suffix.lower() == ".qml":
+            qml = file.read_text(encoding="utf-8")
+            qml = _set_default(qml, COUNTRY_FIELD, country)
+            qml = _set_default(qml, SITE_ID_FIELD, f"{country}_")
+            target.write_text(qml, encoding="utf-8")
+        else:
+            shutil.copyfile(file, target)
 
 
 def _write_vector_template(
-    path: Path, country: str, date: dt.date, template_format: str
+    path: Path,
+    country: str,
+    date: dt.date,
+    template_format: str,
+    name_only: bool = False,
 ):
     """Write a GeoJSON, KML or KMZ template, with the fields of the Shapefile
-    template."""
-    template = QgsVectorLayer(
-        str(next(SPATIAL_TEMPLATE_DIR.glob("*.shp"))), "template", "ogr"
-    )
+    template, with one example site.
+
+    With name_only, the template has only the Name field, the Site_ID of the
+    polygons, its attributes are in an attributes XLSX. It can be a Shapefile
+    too.
+    """
     is_kml = template_format in ("KML", "KMZ")
     fields = QgsFields()
-    for field in template.fields():
-        if is_kml and field.type() == QMetaType.Type.QDate:
-            field = QgsField(field.name(), QMetaType.Type.QString, "String", 10)
-        fields.append(field)
-    if is_kml:
+    if not name_only:
+        template = QgsVectorLayer(
+            str(next(SPATIAL_TEMPLATE_DIR.glob("*.shp"))), "template", "ogr"
+        )
+        for field in template.fields():
+            if is_kml and field.type() == QMetaType.Type.QDate:
+                field = QgsField(field.name(), QMetaType.Type.QString, "String", 10)
+            fields.append(field)
+    if is_kml or name_only:
         # Name of the placemark, the label of the site in Google Earth
-        fields.append(QgsField(KML_NAME_FIELD, QMetaType.Type.QString, "String"))
+        fields.append(QgsField(KML_NAME_FIELD, QMetaType.Type.QString, "String", 254))
 
     options = QgsVectorFileWriter.SaveVectorOptions()
-    options.driverName = "LIBKML" if is_kml else "GeoJSON"
+    options.driverName = {
+        "KML": "LIBKML",
+        "KMZ": "LIBKML",
+        "Shapefile": "ESRI Shapefile",
+    }.get(template_format, "GeoJSON")
     options.layerName = layer_name(country, date)
     options.fileEncoding = "UTF-8"
     writer = QgsVectorFileWriter.create(
@@ -224,17 +262,20 @@ def _write_vector_template(
 
     # Example site
     feature = QgsFeature(fields)
-    feature[GEF_CP_ID_FIELD] = EXAMPLE_GEF_CP_ID
-    feature[COUNTRY_FIELD] = country
-    feature[SITE_ID_FIELD] = f"{country}_0001"
-    if is_kml:
-        feature[KML_NAME_FIELD] = feature[SITE_ID_FIELD]
-    feature[DATE_FIELD] = (
-        date.strftime("%Y_%m_%d") if is_kml else QDate(date.year, date.month, date.day)
-    )
-    feature[INDICATOR_FIELD] = "3. Under restoration"
-    feature[SUB_INDICATOR_FIELD] = "3.2 Forest and forest land"
-    feature[AREA_TYPE_FIELD] = "Example site, delete it"
+    if is_kml or name_only:
+        feature[KML_NAME_FIELD] = f"{country}_0001"
+    if not name_only:
+        feature[GEF_CP_ID_FIELD] = EXAMPLE_GEF_CP_ID
+        feature[COUNTRY_FIELD] = country
+        feature[SITE_ID_FIELD] = f"{country}_0001"
+        feature[DATE_FIELD] = (
+            date.strftime("%Y_%m_%d")
+            if is_kml
+            else QDate(date.year, date.month, date.day)
+        )
+        feature[INDICATOR_FIELD] = EXAMPLE_INDICATOR
+        feature[SUB_INDICATOR_FIELD] = EXAMPLE_SUB_INDICATOR
+        feature[AREA_TYPE_FIELD] = EXAMPLE_AREA_TYPE
     feature.setGeometry(
         QgsGeometry.fromWkt("POLYGON((0 0,0.01 0,0.01 0.01,0 0.01,0 0))")
     )
@@ -254,7 +295,19 @@ def open_spatial_file(path: str) -> QgsVectorLayer:
             f"Spatial input file {path} has more than one layer, "
             f"it has {len(layers)} layers."
         )
-    return layer
+
+    # Imported here, attribute imports spatial
+    from .attribute import attributes_file, join_attributes
+
+    xlsx = attributes_file(path)
+    if xlsx is None:
+        return layer
+    return join_attributes(layer, path, xlsx)
+
+
+def spatial_file(layer: QgsVectorLayer) -> Path:
+    """Spatial input file of a layer opened by open_spatial_file."""
+    return layer_file(layer.customProperty(SPATIAL_FILE_PROPERTY) or layer.source())
 
 
 def layer_file(source: str) -> Path:
@@ -263,15 +316,21 @@ def layer_file(source: str) -> Path:
 
 
 def layer_files(source: str) -> list[Path]:
-    """Files of a layer source, a Shapefile has its .dbf, .shx, .prj, etc. too."""
+    """Files of a layer source, a Shapefile has its .dbf, .shx, .prj, etc. too,
+    and the attributes XLSX of the same name too."""
+    # Imported here, attribute imports spatial
+    from .attribute import ATTRIBUTES_FILE_EXTENSION, attributes_file
+
     path = layer_file(source)
-    if path.suffix.lower() not in MULTI_FILE_EXTENSIONS:
-        return [path]
-    return sorted(
-        file
-        for file in path.parent.glob(f"{glob.escape(path.stem)}.*")
-        if file.is_file()
-    )
+    files = [path]
+    if path.suffix.lower() in MULTI_FILE_EXTENSIONS:
+        files = sorted(
+            file
+            for file in path.parent.glob(f"{glob.escape(path.stem)}.*")
+            if file.is_file() and file.suffix.lower() != ATTRIBUTES_FILE_EXTENSION
+        )
+    xlsx = attributes_file(str(path))
+    return files + [xlsx] if xlsx else files
 
 
 def read_sites_yearly(

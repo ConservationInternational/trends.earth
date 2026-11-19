@@ -38,6 +38,7 @@ from .reports.ecosystem_restoration.spatial import (
     TEMPLATE_FORMATS,
     layer_name,
     open_spatial_file,
+    spatial_file,
     read_sites_yearly,
     validate_spatial_layer_name,
     write_spatial_template,
@@ -213,7 +214,7 @@ class DlgEcosystemReportingRestorationProgress(
             self.tr("Save restoration sites template"),
             f"{dialog.layer_name()}{extension}",
             self.tr("{} files (*{})").format(
-                "ZIP" if template_format == "Shapefile" else template_format,
+                template_format,
                 extension,
             ),
         )
@@ -227,6 +228,7 @@ class DlgEcosystemReportingRestorationProgress(
                 dialog.country.text(),
                 dialog.date.date().toPyDate(),
                 template_format,
+                dialog.separate_attributes.isChecked(),
             )
         except OSError as error:
             QtWidgets.QMessageBox.critical(
@@ -419,7 +421,7 @@ class DlgEcosystemReportingRestorationProgress(
             "spatial_layers": [
                 {
                     "name": spatial_layer.name(),
-                    "source": spatial_layer.source(),
+                    "source": str(spatial_file(spatial_layer)),
                     "provider": spatial_layer.providerType(),
                 }
                 for spatial_layer in spatial_layers

@@ -244,7 +244,7 @@ def _create_report(
         # with the sites of all the child projects
         files = [
             Path(shutil.copy2(file, spatial_data_dir / file.name))
-            for file in layer_files(layer.source())
+            for file in layer_files(layers_by_name[name].get("source"))
         ]
         sites_paths.extend(files)
         manifest["inputs"]["spatial_layers"].append(

@@ -29,6 +29,7 @@ from .spatial import (
     layer_date,
     layer_file,
     site_date,
+    spatial_file,
 )
 
 LAYER_CRS = "EPSG:4326"
@@ -51,7 +52,7 @@ class LayerValidation:
         """Errors of the file of the layer: not a file, not a GeoJSON, KML,
         KMZ or Shapefile, or not in EPSG:4326."""
         errors = []
-        path = layer_file(self.layer.source())
+        path = spatial_file(self.layer)
         if not path.is_file():
             errors.append(f"Layer {self.layer.name()} is not a file.")
         elif path.suffix.lower() not in SPATIAL_FILE_EXTENSIONS:

@@ -164,7 +164,7 @@
            <item>
             <widget class="QLabel" name="spatial_layers_help_label">
              <property name="text">
-              <string>A spatial boundary refers to the precise geographic extent of a restoration site, delineated using a closed polygon to define the specific area undergoing this intervention. This boundary should accurately reflect the restoration site, excluding any surrounding areas that are not part of the project implementation. For instance, if the restoration site is located within private property or protected area, the spatial boundary should only include the actual area(s) where restoration intervention is taking place and not the entire private property or protected area.</string>
+              <string>A spatial boundary refers to the boundary of a restoration site using a closed polygon. This boundary should accurately reflect the restoration site, excluding any surrounding areas that are not part of the project implementation, private property or protected area.</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -182,7 +182,7 @@
                 </sizepolicy>
                </property>
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GeoJSON, KML, KMZ or Shapefile files of the restoration sites of one country, in WGS 84 (EPSG:4326), with one layer each, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.shp. The files are read, not added to the project, use Load to QGIS to add them. The Date of a site is not after the date of its file name. A site has one record in a year, the record of the latest file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GeoJSON, KML, KMZ or Shapefile files of the restoration sites of one country, in WGS 84 (EPSG:4326), with one layer each, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.shp. A site has one record in a year, the record of the latest file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="storageMode">
                 <enum>QgsFileWidget::GetMultipleFiles</enum>
@@ -202,9 +202,19 @@
             </layout>
            </item>
            <item>
+            <widget class="QLabel" name="spatial_layers_attributes_help_label">
+             <property name="text">
+              <string>The attributes of the sites are in the spatial layer, or can be separated in an XLSX of the same name in the same folder, e.g. IND_V20261231.kml and IND_V20261231.xlsx. The XLSX has the ERIP defined attributes as columns, one row per site, and the Name of each polygon is its Site_ID.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QLabel" name="spatial_layers_template_label">
              <property name="toolTip">
-              <string>Save a template of the restoration sites of a country, named [ISO COUNTRY]_V[YYYYMMDD] from the ISO3 and the date entered: a ZIP of a Shapefile with its fields, QGIS form and legend, or a GeoJSON, KML or KMZ with one example site to delete.</string>
+              <string>Save a template of the restoration sites of a country, named [ISO COUNTRY]_V[YYYYMMDD] from the ISO3 and the date entered: a Shapefile with its fields, QGIS form and legend, or a GeoJSON, KML or KMZ with one example site to delete.</string>
              </property>
              <property name="text">
               <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>

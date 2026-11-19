@@ -110,7 +110,7 @@
               </sizepolicy>
              </property>
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;XLSX file with one row per sub-indicator of a child project and the columns GEF_CP_ID, indicator, sub_indicator, target and reported_progress.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;XLSX file with one row per sub-indicator of a child project and the columns GEF_CP_ID, Country, indicator, sub_indicator, target and reported_progress.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="filter">
               <string>Excel files (*.xlsx)</string>
@@ -234,6 +234,54 @@
          </widget>
         </item>
         <item>
+         <widget class="QGroupBox" name="reporting_scope_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
+          </property>
+          <property name="toolTip">
+           <string>Reporting scope of the report: the child projects of the report data, the restoration sites of a country, or a custom AOI.</string>
+          </property>
+          <property name="title">
+           <string>Reporting scope</string>
+          </property>
+          <layout class="QVBoxLayout" name="reporting_scope_layout">
+           <item>
+            <widget class="QRadioButton" name="reporting_scope_project_radio_button">
+             <property name="toolTip">
+              <string>Report all the child projects, or one child project, of the report data.</string>
+             </property>
+             <property name="text">
+              <string>Project</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="reporting_scope_country_radio_button">
+             <property name="toolTip">
+              <string>Report the rows of the report data and the restoration sites of a country.</string>
+             </property>
+             <property name="text">
+              <string>Country</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="reporting_scope_custom_aoi_radio_button">
+             <property name="toolTip">
+              <string>Report the restoration sites of the current region. For now, all the restoration sites of all the child projects.</string>
+             </property>
+             <property name="text">
+              <string>Custom AOI</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QGroupBox" name="child_project_box">
           <property name="styleSheet">
            <string notr="true">QGroupBox { font-weight: bold; }</string>
@@ -290,6 +338,31 @@
               </widget>
              </item>
             </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="country_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
+          </property>
+          <property name="title">
+           <string>Select country</string>
+          </property>
+          <layout class="QVBoxLayout" name="country_layout">
+           <item>
+            <widget class="QComboBox" name="country">
+             <property name="toolTip">
+              <string>ISO3 of the country of the report, from the Country of the report data file: its rows and the restoration sites of the country. Type to search.</string>
+             </property>
+             <property name="editable">
+              <bool>true</bool>
+             </property>
+             <property name="insertPolicy">
+              <enum>QComboBox::NoInsert</enum>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

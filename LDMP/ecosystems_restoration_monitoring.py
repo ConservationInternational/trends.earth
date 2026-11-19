@@ -25,9 +25,13 @@ from .jobs.manager import job_manager
 from .reports.ecosystem_restoration.report import (
     DATA_TEMPLATE_PATH,
     DATA_XLSX_NAME,
+    COUNTRY,
     GEF_CP_ID,
     DEFAULT_BASELINE_YEARS_BEFORE,
     MIN_REPORTING_YEAR,
+    REPORTING_SCOPE_COUNTRY,
+    REPORTING_SCOPE_CUSTOM_AOI,
+    REPORTING_SCOPE_PROJECT,
     REQUIRED_DATA_COLUMNS,
     read_data,
     validate_reporting_period,
@@ -106,12 +110,26 @@ class DlgEcosystemReportingRestorationProgress(
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
+        # Reporting scope: the project shows the filter of the child projects,
+        # the country the countries, the custom AOI the current region
+        for radio_button in (
+            self.reporting_scope_project_radio_button,
+            self.reporting_scope_country_radio_button,
+            self.reporting_scope_custom_aoi_radio_button,
+        ):
+            radio_button.toggled.connect(self._update_reporting_scope)
+
         # Child projects of the report data, searched by any part of their GEF_CP_ID
         completer = self.child_project.completer()
         completer.setFilterMode(QtCore.Qt.MatchContains)
         completer.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
         completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
         self.child_project_radio_button.toggled.connect(self.child_project.setEnabled)
+        # Countries of the report data, searched by any part of their ISO3
+        completer = self.country.completer()
+        completer.setFilterMode(QtCore.Qt.MatchContains)
+        completer.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
+        completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
         self.data_xlsx.fileChanged.connect(self._load_child_projects)
         self.data_xlsx_template_label.linkActivated.connect(
             self._download_data_template
@@ -138,6 +156,25 @@ class DlgEcosystemReportingRestorationProgress(
         self.reporting_year.valueChanged.connect(self._reporting_year_changed)
         self.baseline_year.valueChanged.connect(self._baseline_year_changed)
         self._finish_initialization()
+        self._update_reporting_scope()
+
+    def _reporting_scope(self) -> str:
+        """Reporting scope of the checked radio button."""
+        if self.reporting_scope_country_radio_button.isChecked():
+            return REPORTING_SCOPE_COUNTRY
+        if self.reporting_scope_custom_aoi_radio_button.isChecked():
+            return REPORTING_SCOPE_CUSTOM_AOI
+        return REPORTING_SCOPE_PROJECT
+
+    def _update_reporting_scope(self):
+        """Show the inputs of the reporting scope: the filter of the child
+        projects, the country, or the current region."""
+        reporting_scope = self._reporting_scope()
+        self.child_project_box.setVisible(reporting_scope == REPORTING_SCOPE_PROJECT)
+        self.country_box.setVisible(reporting_scope == REPORTING_SCOPE_COUNTRY)
+        is_custom_aoi = reporting_scope == REPORTING_SCOPE_CUSTOM_AOI
+        self.region_la.setVisible(is_custom_aoi)
+        self.region_button.setVisible(is_custom_aoi)
 
     def _load_spatial_files(self):
         """Add the selected spatial input files to the QGIS project."""
@@ -238,8 +275,10 @@ class DlgEcosystemReportingRestorationProgress(
             )
 
     def _load_child_projects(self, path: str):
-        """List the GEF_CP_ID of the report data in the child project input."""
+        """List the GEF_CP_ID of the report data in the child project input,
+        and its Country in the country input."""
         child_projects = set()
+        countries = set()
         if path and Path(path).is_file():
             try:
                 _, data = read_data(path)
@@ -251,9 +290,13 @@ class DlgEcosystemReportingRestorationProgress(
                 )
                 data = []
             child_projects.update(row.get(GEF_CP_ID, "") for row in data)
+            countries.update(row.get(COUNTRY, "") for row in data)
         child_projects.discard("")
+        countries.discard("")
         self.child_project.clear()
         self.child_project.addItems(sorted(child_projects))
+        self.country.clear()
+        self.country.addItems(sorted(countries))
 
     def _setup_alg_help(self):
         self.alg_help.setHtml(
@@ -283,6 +326,8 @@ class DlgEcosystemReportingRestorationProgress(
                 "<ul>"
                 "<li><b>GEF_CP_ID</b>: GEF identification of the child "
                 "project.</li>"
+                "<li><b>Country</b>: ISO3 code of the country of the child "
+                "project, e.g. <i>IND</i>.</li>"
                 "<li><b>indicator</b>: full name of the indicator, e.g. "
                 "<i>1. Under improved management</i>.</li>"
                 "<li><b>sub_indicator</b>: full name of the sub-indicator, "
@@ -352,9 +397,25 @@ class DlgEcosystemReportingRestorationProgress(
         if not self._check_data_xlsx(data_xlsx):
             return
 
-        # GEF_CP_ID of the child project, None for all the child projects
+        # Reporting scope, the GEF_CP_ID of the child project of the project
+        # scope, None for all the child projects, and the ISO3 of the country
+        # of the country scope
+        reporting_scope = self._reporting_scope()
+        country = None
+        if reporting_scope == REPORTING_SCOPE_COUNTRY:
+            country = self.country.currentText().strip()
+            if self.country.findText(country) < 0:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr("Choose a country of the report data file."),
+                )
+                return
         gef_cp_id = None
-        if self.child_project_radio_button.isChecked():
+        if (
+            reporting_scope == REPORTING_SCOPE_PROJECT
+            and self.child_project_radio_button.isChecked()
+        ):
             gef_cp_id = self.child_project.currentText().strip()
             if self.child_project.findText(gef_cp_id) < 0:
                 QtWidgets.QMessageBox.critical(
@@ -392,6 +453,19 @@ class DlgEcosystemReportingRestorationProgress(
         if errors:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), "\n".join(errors))
             return
+        # The sites of the country are in the layers of the country
+        layer_countries = {
+            LAYER_NAME_REGEX.match(layer.name()).group(1) for layer in spatial_layers
+        }
+        if country and country not in layer_countries:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "The spatial input layers are of {}, not of the country {}."
+                ).format(", ".join(sorted(layer_countries)), country),
+            )
+            return
         for spatial_layer in spatial_layers:
             if not self._check_spatial_layer(spatial_layer):
                 return
@@ -415,6 +489,8 @@ class DlgEcosystemReportingRestorationProgress(
             "task_notes": self.task_notes.toPlainText(),
             "report_title": report_title,
             "data_xlsx": data_xlsx,
+            "reporting_scope": reporting_scope,
+            "country": country,
             "gef_cp_id": gef_cp_id,
             "baseline_year": baseline_year,
             "reporting_year": reporting_year,

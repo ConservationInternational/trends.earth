@@ -333,16 +333,32 @@ def layer_files(source: str) -> list[Path]:
     return files + [xlsx] if xlsx else files
 
 
-def read_sites_yearly(
-    layers: list[QgsVectorLayer],
-) -> dict[tuple[str, int], list[dict]]:
-    """Restoration sites of the validated layers, by Indicator and year of
-    their Date, with their area in hectares."""
+def _distance_area() -> QgsDistanceArea:
+    """Area of EPSG:4326 geometries on the WGS84 ellipsoid."""
     distance_area = QgsDistanceArea()
     distance_area.setSourceCrs(
         QgsCoordinateReferenceSystem("EPSG:4326"), QgsCoordinateTransformContext()
     )
     distance_area.setEllipsoid("WGS84")
+    return distance_area
+
+
+def read_sites_yearly(
+    layers: list[QgsVectorLayer],
+    aoi: QgsGeometry | None = None,
+) -> dict[tuple[str, int], list[dict]]:
+    """Restoration sites of the validated layers, by Indicator and year of
+    their Date, with their area in hectares.
+
+    With an AOI, in EPSG:4326, only the sites that intersect the AOI, with
+    the area of their part in the AOI. Their geometry is not changed, a site
+    touching the AOI only on its boundary is not in the AOI.
+    """
+    distance_area = _distance_area()
+    if aoi is not None:
+        aoi_engine = QgsGeometry.createGeometryEngine(aoi.constGet())
+        aoi_engine.prepareGeometry()
+        aoi_bbox = aoi.boundingBox()
 
     site_found: set[tuple[str, int]] = set()
 
@@ -355,8 +371,23 @@ def read_sites_yearly(
                 continue
             site_found.add((site_id, date.year))
 
-            indicator = str(feature[INDICATOR_FIELD] or "").strip()
+            # The latest record of the site in the year, also when it is not
+            # in the AOI
             geometry = feature.geometry()
+            if aoi is None:
+                area = distance_area.measureArea(geometry) / 10000
+            elif aoi_bbox.intersects(geometry.boundingBox()) and aoi_engine.intersects(
+                geometry.constGet()
+            ):
+                # Area of the part of the site in the AOI
+                part = QgsGeometry(aoi_engine.intersection(geometry.constGet()))
+                area = distance_area.measureArea(part) / 10000
+            else:
+                continue
+            if area <= 0:
+                continue
+
+            indicator = str(feature[INDICATOR_FIELD] or "").strip()
             sites.setdefault((indicator, date.year), []).append(
                 {
                     "site_id": site_id,
@@ -365,10 +396,22 @@ def read_sites_yearly(
                     "gef_cp_id": str(feature[GEF_CP_ID_FIELD] or "").strip(),
                     "sub_indicator": str(feature[SUB_INDICATOR_FIELD] or "").strip(),
                     "geometry": geometry,
-                    "area": distance_area.measureArea(geometry) / 10000,
+                    "area": area,
                 }
             )
     return sites
+
+
+def site_country(site: dict) -> str:
+    """Country of a site of read_sites_yearly."""
+    return LAYER_NAME_REGEX.match(site["layer"]).group(1)
+
+
+def in_scope(site: dict, gef_cp_id: str | None, country: str | None) -> bool:
+    """The condition of filtering site."""
+    return (not gef_cp_id or site["gef_cp_id"] == gef_cp_id) and (
+        not country or site_country(site) == country
+    )
 
 
 def write_validated_sites(
@@ -376,6 +419,7 @@ def write_validated_sites(
     output_dir: Path,
     reporting_period: tuple[int, int],
     gef_cp_id: str | None = None,
+    country: str | None = None,
 ) -> list[Path]:
     """Write the sites used by the report, one GeoJSON per year, e.g.
     2025.geojson, returns the paths of the GeoJSON."""
@@ -384,14 +428,14 @@ def write_validated_sites(
         if not reporting_period[0] <= year <= reporting_period[1]:
             continue
         for site in group:
-            if gef_cp_id and site["gef_cp_id"] != gef_cp_id:
+            if not in_scope(site, gef_cp_id, country):
                 continue
             features_by_year.setdefault(year, []).append(
                 {
                     "type": "Feature",
                     "properties": {
                         GEF_CP_ID_FIELD: site["gef_cp_id"],
-                        COUNTRY_FIELD: LAYER_NAME_REGEX.match(site["layer"]).group(1),
+                        COUNTRY_FIELD: site_country(site),
                         SITE_ID_FIELD: site["site_id"],
                         INDICATOR_FIELD: indicator,
                         SUB_INDICATOR_FIELD: site["sub_indicator"],
@@ -425,17 +469,18 @@ def write_validated_sites(
 def calculate_spatially_supported(
     sites: dict[tuple[str, int], list[dict]],
     gef_cp_id: str | None = None,
+    country: str | None = None,
 ) -> list[dict]:
     """Calculate spatially supported area of the restoration sites by
     sub-indicator and year, the year of the Date of the sites.
 
-    Only the sites of the child project gef_cp_id, all the sites when it is
-    None.
+    Only the sites of the child project gef_cp_id and of the country, any
+    child project or country when it is None.
     """
     areas: dict[tuple[str, str, int], float] = {}
     for (indicator, year), group in sites.items():
         for site in group:
-            if gef_cp_id and site["gef_cp_id"] != gef_cp_id:
+            if not in_scope(site, gef_cp_id, country):
                 continue
             key = (indicator, site["sub_indicator"], year)
             areas[key] = areas.get(key, 0) + site["area"]

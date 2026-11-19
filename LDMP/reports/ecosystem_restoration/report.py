@@ -1,6 +1,7 @@
 """Ecosystem restoration progress report."""
 
 import datetime as dt
+import re
 from pathlib import Path
 
 import openpyxl
@@ -24,6 +25,9 @@ TEMPLATE_PATH = Path(__file__).parent / "template.qpt"
 CHARTS_DIR_NAME = "charts"
 
 GEF_CP_ID = "GEF_CP_ID"
+# ISO3 of the country of the child project of a row of the report data
+COUNTRY = "Country"
+COUNTRY_REGEX = re.compile(r"^[A-Z]{3}$")
 
 # Template of the report data XLSX
 DATA_TEMPLATE_PATH = (
@@ -37,11 +41,28 @@ DATA_XLSX_NAME = DATA_TEMPLATE_PATH.name
 # Every report data XLSX has
 REQUIRED_DATA_COLUMNS = (
     GEF_CP_ID,
+    COUNTRY,
     "indicator",
     "sub_indicator",
     "target",
     "reported_progress",
 )
+
+# Reporting scopes, of the report label by their parameter value
+REPORTING_SCOPE_PROJECT = "project"
+REPORTING_SCOPE_COUNTRY = "country"
+REPORTING_SCOPE_CUSTOM_AOI = "custom_aoi"
+REPORTING_SCOPES = {
+    REPORTING_SCOPE_PROJECT: "Project",
+    REPORTING_SCOPE_COUNTRY: "Country",
+    REPORTING_SCOPE_CUSTOM_AOI: "Custom AOI",
+}
+# Analysis area of the report of each reporting scope
+ANALYSIS_AREAS = {
+    REPORTING_SCOPE_PROJECT: "Project intervention area",
+    REPORTING_SCOPE_COUNTRY: "National boundary",
+    REPORTING_SCOPE_CUSTOM_AOI: "Custom AOI",
+}
 
 # Reporting period, from the baseline year to the reporting year,
 # by default from 2 years before this year
@@ -168,6 +189,11 @@ def _rows_by_sub_indicator(data: list[dict]) -> dict[str, dict]:
             raise ValueError(f"{source}: '{gef_cp_id}' is empty")
         if not GEF_CP_ID_REGEX.match(gef_cp_id):
             raise ValueError(f"{source}: {GEF_CP_ID} {gef_cp_id} is not five numbers.")
+        country = (row[COUNTRY] or "").strip()
+        if not COUNTRY_REGEX.match(country):
+            raise ValueError(
+                f"{source}: {COUNTRY} '{country}' is not an ISO3 code, e.g. IND."
+            )
 
         sub_indicator = _check_indicator(source, row)
         identifier = f"{gef_cp_id}:{sub_indicator}"
@@ -328,13 +354,13 @@ def _report_variables(
     spatial_data_version: str,
     gef_child_project: str,
 ) -> dict[str, str]:
-    """Values of the [% @te_restoration_... %] expressions in the template labels."""
+    """Values for the reports."""
     variables = {
         "te_restoration_title": report_title,
-        "te_restoration_reporting_scope": reporting_scope,
+        "te_restoration_reporting_scope": REPORTING_SCOPES[reporting_scope],
         "te_restoration_country": " • ".join(countries),
         "te_restoration_gef_child_project": gef_child_project,
-        "te_restoration_analysis_area": "National boundary",
+        "te_restoration_analysis_area": ANALYSIS_AREAS[reporting_scope],
         # Baseline year to reporting year
         "te_restoration_reporting_period": (
             f"{reporting_period[0]} to {reporting_period[1]}"

@@ -3,7 +3,7 @@ import json
 import shutil
 from pathlib import Path
 
-from qgis.core import Qgis
+from qgis.core import Qgis, QgsGeometry, QgsWkbTypes
 from te_schemas.results import URI, FileResults
 
 from .. import __revision__, __version__
@@ -12,8 +12,13 @@ from ..jobs.models import Job
 from ..reports.ecosystem_restoration.manifest import write_manifest
 from ..reports.ecosystem_restoration.report import (
     CHARTS_DIR_NAME,
+    COUNTRY,
     DATA_XLSX_NAME,
     GEF_CP_ID,
+    REPORTING_SCOPE_COUNTRY,
+    REPORTING_SCOPE_CUSTOM_AOI,
+    REPORTING_SCOPE_PROJECT,
+    REPORTING_SCOPES,
     TEMPLATE_PATH,
     generate_report,
     read_data,
@@ -40,6 +45,8 @@ from ..reports.ecosystem_restoration.spatial_validation import (
 SPATIAL_DATA_DIR_NAME = "spatial_data"
 # Folder of the validated sites used by the report, one GeoJSON per year
 VALIDATED_SITES_DIR_NAME = "validated_restoration_sites"
+# GeoJSON of the custom AOI of the report, in the output folder
+CUSTOM_AOI_FILE_NAME = "custom_aoi.geojson"
 
 
 def _now() -> str:
@@ -64,6 +71,8 @@ def _create_manifest(job: Job, report_title: str, gef_cp_id: str | None) -> dict
         },
         "scope": {
             "report_title": report_title,
+            "reporting_scope": None,
+            "country": None,
             "gef_child_project": gef_cp_id or "All projects",
             "countries": [],
             "reporting_period": None,
@@ -94,6 +103,27 @@ def _create_manifest(job: Job, report_title: str, gef_cp_id: str | None) -> dict
     }
 
 
+def _write_custom_aoi(path: Path, aoi_geometry: QgsGeometry) -> Path:
+    """Write the custom AOI, its polygons in EPSG:4326, as a GeoJSON."""
+    collection = {
+        "type": "FeatureCollection",
+        "name": path.stem,
+        "crs": {
+            "type": "name",
+            "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"},
+        },
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": json.loads(aoi_geometry.asJson()),
+            }
+        ],
+    }
+    path.write_text(json.dumps(collection))
+    return path
+
+
 def _validation(errors: list[str]) -> dict:
     return {"status": "failed" if errors else "passed", "errors": errors}
 
@@ -113,8 +143,10 @@ def create_ecosystem_restoration_progress_report(
     """
     output_dir = job_output_path.parent
     report_title = (job.params.get("report_title") or "").strip()
-    # GEF_CP_ID of the child project, None for all the child projects
-    gef_cp_id = (job.params.get("gef_cp_id") or "").strip() or None
+    reporting_scope = job.params.get("reporting_scope") or REPORTING_SCOPE_PROJECT
+    gef_cp_id = None
+    if reporting_scope == REPORTING_SCOPE_PROJECT:
+        gef_cp_id = (job.params.get("gef_cp_id") or "").strip() or None
     manifest = _create_manifest(job, report_title, gef_cp_id)
     try:
         results = _create_report(
@@ -156,6 +188,8 @@ def _create_report(
         "notes": job.task_notes,
         "report_title": report_title,
         "data_xlsx": data_xlsx,
+        "reporting_scope": job.params.get("reporting_scope") or REPORTING_SCOPE_PROJECT,
+        "country": job.params.get("country"),
         "gef_cp_id": gef_cp_id,
         "baseline_year": job.params.get("baseline_year"),
         "reporting_year": job.params.get("reporting_year"),
@@ -166,6 +200,29 @@ def _create_report(
 
     if not report_title:
         raise ValueError("No report title was given.")
+
+    # Reporting scope, the sites of the country of the country scope
+    reporting_scope = inputs["reporting_scope"]
+    if reporting_scope not in REPORTING_SCOPES:
+        raise ValueError(f"Unknown reporting scope: {reporting_scope}")
+    country = None
+    if reporting_scope == REPORTING_SCOPE_COUNTRY:
+        country = (inputs["country"] or "").strip() or None
+        if not country:
+            raise ValueError("No country of the reporting scope was given.")
+    # Polygons of the custom AOI, in EPSG:4326
+    aoi_geometry = None
+    if reporting_scope == REPORTING_SCOPE_CUSTOM_AOI:
+        if area_of_interest is None:
+            raise ValueError("No custom AOI was given.")
+        aoi_geometry = area_of_interest.get_unary_geometry()
+        if aoi_geometry.isEmpty() or aoi_geometry.type() != QgsWkbTypes.PolygonGeometry:
+            raise ValueError(
+                "The custom AOI is not a polygon: "
+                f"{QgsWkbTypes.geometryDisplayString(aoi_geometry.type())}."
+            )
+    manifest["scope"]["reporting_scope"] = REPORTING_SCOPES[reporting_scope]
+    manifest["scope"]["country"] = country
 
     # Reporting period, from the baseline year to the reporting year
     reporting_period = (inputs["baseline_year"], inputs["reporting_year"])
@@ -188,6 +245,8 @@ def _create_report(
     data = all_data
     if gef_cp_id:
         data = [row for row in data if (row.get(GEF_CP_ID) or "").strip() == gef_cp_id]
+    if country:
+        data = [row for row in data if (row.get(COUNTRY) or "").strip() == country]
     manifest["inputs"]["report_data"] = {
         "source": data_xlsx,
         "file": DATA_XLSX_NAME,
@@ -198,7 +257,12 @@ def _create_report(
     if not all_data:
         errors.insert(0, f"Report data XLSX has no rows: {data_xlsx}")
     elif not data:
-        errors.insert(0, f"Report data XLSX has no rows of child project {gef_cp_id}")
+        errors.insert(
+            0,
+            f"Report data XLSX has no rows of child project {gef_cp_id}"
+            if gef_cp_id
+            else f"Report data XLSX has no rows of country {country}",
+        )
     validation["report_data"] = _validation(errors)
     if errors:
         raise ValueError("\n".join(errors))
@@ -260,11 +324,14 @@ def _create_report(
         layers.append(layer)
 
     # Sites of all the child projects, one record of a site in a year, the
-    # sites of an indicator in a year do not overlap
-    sites = read_sites_yearly(layers)
+    # sites of an indicator in a year do not overlap. With a custom AOI, the
+    # sites in the AOI, of their area in the AOI
+    sites = read_sites_yearly(layers, aoi_geometry)
     errors = validate_spatial_data(sites)
-    # A reported progress greater than zero has sites in the reporting year
-    errors += validate_reported_progress(data, sites, reporting_period[1])
+    # A reported progress greater than zero has sites in the reporting year,
+    # not with a custom AOI, its sites are not all the sites
+    if aoi_geometry is None:
+        errors += validate_reported_progress(data, sites, reporting_period[1])
     validation["spatial_data"] = _validation(errors)
     if errors:
         raise ValueError(
@@ -273,19 +340,34 @@ def _create_report(
     validation["status"] = "passed"
 
     # Spatially supported area, the report has only the restoration sites of
-    # the child project
-    spatial_data = calculate_spatially_supported(sites, gef_cp_id)
+    # the child project, of the country or in the custom AOI
+    spatial_data = calculate_spatially_supported(sites, gef_cp_id, country)
     if not spatial_data:
-        raise ValueError(
-            f"The spatial input layers have no restoration sites of child "
-            f"project {gef_cp_id}."
-            if gef_cp_id
-            else "The spatial input layers have no restoration sites."
-        )
+        if gef_cp_id:
+            scope = f" of child project {gef_cp_id}"
+        elif country:
+            scope = f" of country {country}"
+        elif reporting_scope == REPORTING_SCOPE_CUSTOM_AOI:
+            scope = " in the custom AOI"
+        else:
+            scope = ""
+        raise ValueError(f"The spatial input layers have no restoration sites{scope}.")
+
     # Validated sites used by the report, one GeoJSON per year
     validated_sites_paths = write_validated_sites(
-        sites, output_dir / VALIDATED_SITES_DIR_NAME, reporting_period, gef_cp_id
+        sites,
+        output_dir / VALIDATED_SITES_DIR_NAME,
+        reporting_period,
+        gef_cp_id,
+        country,
     )
+
+    # Custom AOI of the report, its polygons in EPSG:4326
+    custom_aoi_path = None
+    if aoi_geometry is not None:
+        custom_aoi_path = _write_custom_aoi(
+            output_dir / CUSTOM_AOI_FILE_NAME, aoi_geometry
+        )
 
     # Country of the layer names, the layers are of one country
     countries = {LAYER_NAME_REGEX.match(name).group(1) for name in layers_by_name}
@@ -300,7 +382,7 @@ def _create_report(
     pdf_path = generate_report(
         output_dir,
         report_title,
-        "Project",
+        reporting_scope,
         data,
         spatial_data,
         sorted(countries),
@@ -326,6 +408,9 @@ def _create_report(
         "validated_sites": [
             _relative(path, output_dir) for path in validated_sites_paths
         ],
+        "custom_aoi": (
+            _relative(custom_aoi_path, output_dir) if custom_aoi_path else None
+        ),
     }
 
     job.results = FileResults(
@@ -333,7 +418,8 @@ def _create_report(
         uri=URI(uri=pdf_path or job_output_path),
         other_uris=[URI(uri=data_xlsx_path)]
         + [URI(uri=sites_path) for sites_path in sites_paths]
-        + [URI(uri=path) for path in validated_sites_paths],
+        + [URI(uri=path) for path in validated_sites_paths]
+        + ([URI(uri=custom_aoi_path)] if custom_aoi_path else []),
         data=inputs,
     )
     return job.results

@@ -70,8 +70,39 @@ class SummaryTableLDWidgets:
             return ProductivityMode.JRC_5_CLASS_LPD.value
 
     def populate(self):
+        for combo in (*self._layer_combos(), self.combo_datasets):
+            combo.subnational_runs = None
         self.populate_layer_combo_boxes()
         self.combo_datasets.populate()
+
+    def populate_with_aoi(self, aoi, allowed_job_ids=None):
+        """Populate all combos using a caller-supplied AOI.
+        Pass allowed_job_ids to restrict to specific jobs."""
+        self.populate_layer_combo_boxes_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_datasets.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+
+    def populate_with_subnational_runs(self, runs):
+        """
+        Populate all combos with the results of whole subnational runs (all
+        units together) instead of each unit's own results.
+        """
+        for combo in self._layer_combos():
+            combo.populate_with_subnational_runs(runs)
+        # Last, as choosing a run here selects it in the layer combos
+        self.combo_datasets.populate_with_subnational_runs(runs)
+
+    def _layer_combos(self):
+        return (
+            self.combo_layer_lpd,
+            self.combo_layer_traj,
+            self.combo_layer_perf,
+            self.combo_layer_state,
+            self.combo_layer_lc,
+            self.combo_layer_soc,
+            self.combo_layer_pop_total,
+            self.combo_layer_pop_male,
+            self.combo_layer_pop_female,
+        )
 
     def radio_lpd_te_toggled(self):
         if self.radio_lpd_te.isChecked():
@@ -138,6 +169,23 @@ class SummaryTableLDWidgets:
         self.combo_layer_pop_total.populate()
         self.combo_layer_pop_male.populate()
         self.combo_layer_pop_female.populate()
+
+    def populate_layer_combo_boxes_with_aoi(self, aoi, allowed_job_ids=None):
+        self.combo_layer_lpd.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_traj.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_perf.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_state.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_lc.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_soc.populate_with_aoi(aoi, allowed_job_ids=allowed_job_ids)
+        self.combo_layer_pop_total.populate_with_aoi(
+            aoi, allowed_job_ids=allowed_job_ids
+        )
+        self.combo_layer_pop_male.populate_with_aoi(
+            aoi, allowed_job_ids=allowed_job_ids
+        )
+        self.combo_layer_pop_female.populate_with_aoi(
+            aoi, allowed_job_ids=allowed_job_ids
+        )
 
     def set_combo_selections_from_job_id(self, job_id):
         self.combo_layer_lpd.set_index_from_job_id(job_id)
@@ -293,6 +341,40 @@ def _get_ld_input_aux_band(
         "band": aux_band[0],
         "band_index": aux_band[1],
     }
+
+
+def get_subnational_selection(
+    widgets: SummaryTableLDWidgets, prod_mode: str, pop_mode: str
+) -> dict[str, list]:
+    """
+    The band selected in each layer dropdown, keyed by the layer path it
+    provides in the job parameters.
+    """
+    land_cover = widgets.combo_layer_lc.get_current_band()
+    selection = {
+        "layer_lc_path": [land_cover],
+        "layer_lc_trans_path": [land_cover],
+        "layer_soc_path": [widgets.combo_layer_soc.get_current_band()],
+    }
+
+    if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+        selection["layer_traj_path"] = [widgets.combo_layer_traj.get_current_band()]
+        selection["layer_perf_path"] = [widgets.combo_layer_perf.get_current_band()]
+        selection["layer_state_path"] = [widgets.combo_layer_state.get_current_band()]
+    else:
+        selection["layer_lpd_path"] = [widgets.combo_layer_lpd.get_current_band()]
+
+    if pop_mode == PopulationMode.Total.value:
+        selection["layer_population_paths"] = [
+            widgets.combo_layer_pop_total.get_current_band()
+        ]
+    else:
+        selection["layer_population_paths"] = [
+            widgets.combo_layer_pop_male.get_current_band(),
+            widgets.combo_layer_pop_female.get_current_band(),
+        ]
+
+    return selection
 
 
 def get_main_sdg_15_3_1_job_params(

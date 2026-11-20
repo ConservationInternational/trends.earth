@@ -1,5 +1,4 @@
 import time
-from threading import Thread
 
 import requests
 from flask import request
@@ -7,11 +6,10 @@ from flask import request
 from .trends_api_server_app import app
 
 
-class MockApiServer(Thread):
+class MockApiServer:
     """Mock a live API server with health check support"""
 
     def __init__(self, port=5000):
-        super().__init__()
         self.port = port
         self.app = app
         self.url = "http://localhost:%s" % self.port
@@ -26,6 +24,9 @@ class MockApiServer(Thread):
         except AssertionError:
             pass
 
+    def __reduce__(self):
+        return (self.__class__, (self.port,))
+
     def _health_check(self):
         """Health check endpoint for server readiness"""
         return {"status": "ok"}, 200
@@ -38,7 +39,6 @@ class MockApiServer(Thread):
 
     def shutdown_server(self):
         requests.get("http://localhost:%s/shutdown" % self.port)
-        self.join()
 
     def wait_until_ready(self, timeout=10):
         """Wait for the server to be ready to accept connections

@@ -6,7 +6,7 @@ import re
 import typing
 
 from qgis.PyQt.QtCore import QPointF, QRectF, Qt
-from qgis.PyQt.QtGui import QColor, QFont, QImage, QPainter, QPen
+from qgis.PyQt.QtGui import QColor, QFont, QImage, QPainter, QPen, QPolygonF
 
 
 class QtChartRenderer:
@@ -273,7 +273,7 @@ class QtChartRenderer:
         if span <= 0:
             span = 1.0
         padding = span * 0.1
-        return low - padding, high + padding
+        return (low - padding if low < 0 else low), high + padding
 
     def _draw_axes(
         self,
@@ -424,7 +424,18 @@ class QtChartRenderer:
                         self._format_number(value),
                     )
                 elif not stacked:
-                    label_width = max(width, 60)
+                    label = self._format_number(value)
+                    # Custom text of the bar, unless plotly formats it with a texttemplate
+                    texts = trace.get("text")
+                    if (
+                        not trace.get("texttemplate")
+                        and isinstance(texts, (list, tuple))
+                        and category_index < len(texts)
+                    ):
+                        label = self._plain_text(texts[category_index])
+                    label_width = max(
+                        width, 60, painter.fontMetrics().horizontalAdvance(label) + 8
+                    )
                     label_y = rect.top() - 22 if value >= 0 else rect.bottom() + 2
                     painter.setPen(QColor("#1f2933"))
                     painter.drawText(
@@ -435,7 +446,7 @@ class QtChartRenderer:
                             20,
                         ),
                         align_center,
-                        self._format_number(value),
+                        label,
                     )
 
         if show_legend:
@@ -443,6 +454,119 @@ class QtChartRenderer:
                 painter,
                 [self._plain_text(trace.get("name", "")) for trace in traces],
                 [self._color(trace, 0) for trace in traces],
+                plot_rect.right() + 30,
+                115,
+                legend_width - 35,
+            )
+        return True
+
+    @classmethod
+    def _rgba_color(cls, value: typing.Any) -> typing.Optional[QColor]:
+        """Color from a plotly color, including "rgba(r, g, b, a)"."""
+        if not value:
+            return None
+        match = re.match(
+            r"rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*(?:,\s*([\d.]+))?\s*\)",
+            str(value),
+        )
+        if match:
+            red, green, blue = (int(float(v)) for v in match.groups()[:3])
+            alpha = float(match.group(4)) if match.group(4) is not None else 1.0
+            return QColor(red, green, blue, int(alpha * 255))
+        color = QColor(str(value))
+        return color if color.isValid() else None
+
+    def _line_color(self, trace: dict, index: int) -> QColor:
+        line = trace.get("line", {})
+        color = self._rgba_color(line.get("color") if isinstance(line, dict) else None)
+        return color or self._color(trace, index)
+
+    def _draw_scatter(self, painter: QPainter, traces: list[dict]) -> bool:
+        """Scatter traces as lines, markers or both, with the x values as
+        categories."""
+        bounds = self._bar_bounds(traces, stacked=False)
+        if bounds is None:
+            return False
+        low, high = bounds
+
+        x_values = sorted(
+            {x for trace in traces for x in trace.get("x", [])},
+            key=lambda x: (self._number(x), str(x)),
+        )
+        if not x_values:
+            return False
+        labels = [self._plain_text(x) for x in x_values]
+
+        show_legend = bool(self._layout.get("showlegend", True))
+        legend_width = 230 if show_legend else 20
+        plot_rect = QRectF(
+            95, 100, self._width - 115 - legend_width, self._height - 235
+        )
+        self._draw_axes(painter, plot_rect, low, high, labels)
+
+        slot_width = plot_rect.width() / len(x_values)
+        baseline = plot_rect.bottom() - (0 - low) * plot_rect.height() / (high - low)
+
+        dash_line = self._qt_attr("DashLine", "PenStyle")
+        no_pen = self._qt_attr("NoPen", "PenStyle")
+
+        def point(x, y) -> QPointF:
+            return QPointF(
+                plot_rect.left() + slot_width * (x_values.index(x) + 0.5),
+                plot_rect.bottom()
+                - (self._number(y) - low) * plot_rect.height() / (high - low),
+            )
+
+        for index, trace in enumerate(traces):
+            points = [
+                point(x, y)
+                for x, y in sorted(
+                    zip(trace.get("x", []), trace.get("y", [])),
+                    key=lambda xy: x_values.index(xy[0]),
+                )
+            ]
+            if not points:
+                continue
+            color = self._line_color(trace, index)
+
+            # Fill area between the line and zero
+            fill_color = self._rgba_color(trace.get("fillcolor"))
+            if fill_color and trace.get("fill") in ("tozeroy", "tonexty"):
+                area = QPolygonF(
+                    [QPointF(points[0].x(), baseline)]
+                    + points
+                    + [QPointF(points[-1].x(), baseline)]
+                )
+                painter.setPen(no_pen)
+                painter.setBrush(fill_color)
+                painter.drawPolygon(area)
+
+            # Plotly mode, e.g. "lines", "markers" or "lines+markers"
+            mode = str(trace.get("mode") or "lines+markers")
+            if "lines" in mode:
+                line = trace.get("line")
+                line = line if isinstance(line, dict) else {}
+                pen = QPen(color, self._number(line.get("width")) or 2)
+                if line.get("dash") and line.get("dash") != "solid":
+                    pen.setStyle(dash_line)
+                painter.setPen(pen)
+                painter.setBrush(self._qt_attr("NoBrush", "BrushStyle"))
+                painter.drawPolyline(QPolygonF(points))
+
+            # When there is markers, draw ellipse
+            if "markers" in mode:
+                marker = trace.get("marker", {})
+                radius = (self._number(marker.get("size")) or 8) / 2
+                painter.setPen(no_pen)
+                painter.setBrush(color)
+                for p in points:
+                    painter.drawEllipse(p, radius, radius)
+
+        if show_legend:
+            self._draw_legend(
+                painter,
+                [self._plain_text(trace.get("name", "")) for trace in traces],
+                [self._line_color(trace, 0) for trace in traces],
                 plot_rect.right() + 30,
                 115,
                 legend_width - 35,
@@ -464,6 +588,10 @@ class QtChartRenderer:
                 trace.get("type") == "bar" for trace in self._traces
             ):
                 rendered = self._draw_bars(painter, self._traces)
+            elif self._traces and all(
+                trace.get("type") == "scatter" for trace in self._traces
+            ):
+                rendered = self._draw_scatter(painter, self._traces)
             else:
                 rendered = False
         finally:

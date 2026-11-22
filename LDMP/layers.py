@@ -16,6 +16,7 @@ import json
 import math
 import os
 import tempfile
+import typing
 from math import floor, log10
 from operator import attrgetter
 from pathlib import Path
@@ -298,6 +299,30 @@ style_text_dict = {
     "ldn_planning_hotspots_90_100": tr_layers.tr("90-100% degraded"),
     # LDN Planning - Analysis Zones
     "ldn_planning_zones_title": tr_layers.tr("LDN Planning - Land Types"),
+    "ldn_priority_title": tr_layers.tr("LDN Planning - Relative priority"),
+    "ldn_candidate_title": tr_layers.tr("LDN Planning - Candidate areas (not approved)"),
+    "ldn_not_selected": tr_layers.tr("Not selected"),
+    "ldn_priority_low": tr_layers.tr("Low relative priority"),
+    "ldn_priority_medium": tr_layers.tr("Medium relative priority"),
+    "ldn_priority_high": tr_layers.tr("High relative priority"),
+    "ldn_arr_reason_title": tr_layers.tr("LDN Planning - ARR assignment reason"),
+    "ldn_priority_input_title": tr_layers.tr(
+        "LDN Planning input - {description}"
+    ),
+    "ldn_arr_unknown_status": tr_layers.tr("Unknown status"),
+    "ldn_arr_degraded": tr_layers.tr("Degraded status"),
+    "ldn_arr_stressed": tr_layers.tr("Stressed productivity"),
+    "ldn_arr_risk": tr_layers.tr("Risk above threshold"),
+    "ldn_arr_stressed_risk": tr_layers.tr("Stressed productivity and risk above threshold"),
+    "ldn_arr_default": tr_layers.tr("No risk source: default Avoid"),
+    "ldn_arr_missing_input": tr_layers.tr("Required risk input missing"),
+    "ldn_arr_no_signal": tr_layers.tr("Configured risk inputs: no risk signal"),
+    "ldn_coverage_avoid_title": tr_layers.tr("LDN Planning - Avoid priority coverage"),
+    "ldn_coverage_reduce_title": tr_layers.tr("LDN Planning - Reduce priority coverage"),
+    "ldn_coverage_reverse_title": tr_layers.tr("LDN Planning - Reverse priority coverage"),
+    "ldn_coverage_unscored": tr_layers.tr("Eligible but unscored"),
+    "ldn_coverage_scored": tr_layers.tr("Score available"),
+    "ldn_coverage_excluded": tr_layers.tr("Excluded"),
     # LDN Planning - Scenario probability surfaces
     "ldn_planning_scenario_reverse_title": tr_layers.tr(
         "LDN Planning - Scenario P(restoration) (%, {year_initial}-{year_final})"

@@ -19,6 +19,11 @@ from pathlib import Path
 import qgis.gui
 import te_algorithms.gdal.land_deg.config as ld_config
 from qgis.PyQt import QtCore, QtWidgets
+from te_algorithms.common.checksum import file_checksum
+from te_algorithms.gdal.land_deg.ldn_planning_inputs import (
+    inspect_targets_file,
+    polygon_target,
+)
 from te_schemas.algorithms import ExecutionScript
 
 from . import conf, data_io, download
@@ -69,8 +74,16 @@ def _add_region_buttons(layout: QtWidgets.QVBoxLayout):
     return region_la, region_btn
 
 
+def _planning_help(html: str) -> QtWidgets.QTextBrowser:
+    help_browser = QtWidgets.QTextBrowser()
+    help_browser.setOpenExternalLinks(True)
+    help_browser.setMinimumWidth(200)
+    help_browser.setHtml(html)
+    return help_browser
+
+
 def _build_splitter_with_ok_cancel(
-    dialog: QtWidgets.QDialog, left_content: QtWidgets.QWidget
+    dialog: QtWidgets.QDialog, left_content: QtWidgets.QWidget, help_html: str
 ) -> tuple:
     """
     Wrap *left_content* in a QSplitter + add a button box, as required by
@@ -80,7 +93,7 @@ def _build_splitter_with_ok_cancel(
     """
     splitter = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
     splitter.addWidget(left_content)
-    splitter.addWidget(QtWidgets.QWidget())  # empty right pane
+    splitter.addWidget(_planning_help(help_html))
 
     button_box = QtWidgets.QDialogButtonBox(
         QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
@@ -143,81 +156,6 @@ def _resolve_admin_zones(parent: QtWidgets.QWidget) -> typing.Optional[str]:
     with open(tmp.name, "w", encoding="utf-8") as fh:
         json.dump(geojson, fh)
     return tmp.name
-
-
-def _inspect_targets_file(path: str) -> dict:
-    """Inspect a vector file and return field/feature statistics for the import dialog.
-
-    Returns a dict with:
-      - field_names: list of all field names
-      - string_fields: fields of string type
-      - numeric_fields: fields of numeric type (OFTReal / OFTInteger / OFTInteger64)
-      - feature_count: total features
-      - intervention_counts: dict {value: count} if 'intervention' field detected
-      - effectiveness_range: (min, max) tuple if 'effectiveness' field detected, else None
-      - invalid_effectiveness_count: count of records with effectiveness outside [0, 100]
-    """
-    from osgeo import ogr
-
-    result: dict = {
-        "field_names": [],
-        "string_fields": [],
-        "numeric_fields": [],
-        "feature_count": 0,
-        "intervention_counts": {},
-        "effectiveness_range": None,
-        "invalid_effectiveness_count": 0,
-    }
-
-    ds = ogr.Open(path, 0)
-    if ds is None:
-        return result
-
-    try:
-        lyr = ds.GetLayer(0)
-        if lyr is None:
-            return result
-
-        lyr_defn = lyr.GetLayerDefn()
-        for i in range(lyr_defn.GetFieldCount()):
-            fld = lyr_defn.GetFieldDefn(i)
-            name = fld.GetName()
-            ftype = fld.GetType()
-            result["field_names"].append(name)
-            if ftype in (ogr.OFTString, ogr.OFTWideString):
-                result["string_fields"].append(name)
-            elif ftype in (ogr.OFTReal, ogr.OFTInteger, ogr.OFTInteger64):
-                result["numeric_fields"].append(name)
-
-        result["feature_count"] = lyr.GetFeatureCount()
-
-        has_intervention = "intervention" in result["field_names"]
-        has_effectiveness = "effectiveness" in result["field_names"]
-        eff_values: typing.List[float] = []
-
-        lyr.ResetReading()
-        for feat in lyr:
-            if has_intervention:
-                val = feat.GetField("intervention")
-                key = (val or "").strip()
-                result["intervention_counts"][key] = (
-                    result["intervention_counts"].get(key, 0) + 1
-                )
-            if has_effectiveness:
-                eff = feat.GetField("effectiveness")
-                if eff is not None:
-                    eff_values.append(float(eff))
-
-        if eff_values:
-            mn, mx = min(eff_values), max(eff_values)
-            result["effectiveness_range"] = (mn, mx)
-            result["invalid_effectiveness_count"] = sum(
-                1 for v in eff_values if v < 0 or v > 100
-            )
-    finally:
-        ds = None  # noqa: F841 — closes OGR datasource
-
-    return result
 
 
 # ---------------------------------------------------------------------------
@@ -340,6 +278,11 @@ class DlgImportTargetsFile(QtWidgets.QDialog):
         eff_grp.addWidget(self.lbl_eff_summary)
 
         self.combo_eff_field.currentIndexChanged.connect(self._update_ui)
+        self.combo_eff_units = QtWidgets.QComboBox()
+        self.combo_eff_units.addItem(self.tr("Fraction (0-1)"), "fraction")
+        self.combo_eff_units.addItem(self.tr("Percent (0-100)"), "percent")
+        eff_grp.addWidget(self.combo_eff_units)
+        self.combo_eff_units.currentIndexChanged.connect(self._update_ui)
 
         self.button_box = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
@@ -411,14 +354,10 @@ class DlgImportTargetsFile(QtWidgets.QDialog):
             if eff_field == "effectiveness" and rng is not None:
                 mn, mx = rng
                 summary = self.tr("Values range from %.3g to %.3g.") % (mn, mx)
-                if mx > 1.0:
-                    summary += self.tr(
-                        " Values > 1 will be treated as percentages (÷ 100)."
-                    )
                 if invalid_count:
                     summary += (
                         self.tr(
-                            "\n\u26a0 %d value(s) outside 0\u2013100 will be clamped."
+                            "\n\u26a0 %d invalid value(s) must be corrected before import."
                         )
                         % invalid_count
                     )
@@ -441,6 +380,7 @@ class DlgImportTargetsFile(QtWidgets.QDialog):
                 None if int_field is not None else self._intervention_fallback_key()
             ),
             "effectiveness_field": eff_field,
+            "effectiveness_units": self.combo_eff_units.currentData(),
             "default_effectiveness": (
                 None if eff_field is not None else self.spin_eff_fallback.value()
             ),
@@ -488,6 +428,13 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
         )
         self.combo_status = data_io.WidgetDataIOSelectTELayerExisting()
         inner.addWidget(self.combo_status)
+        self.combo_status_type = QtWidgets.QComboBox()
+        self.combo_status_type.addItem(self.tr("7-class expanded status"), "7class")
+        self.combo_status_type.addItem(self.tr("3-class indicator"), "3class")
+        inner.addWidget(
+            QtWidgets.QLabel(self.tr("Status encoding (not inferred from values)"))
+        )
+        inner.addWidget(self.combo_status_type)
 
         # -- Land Productivity Dynamics layer (optional) --
         inner_traj = _make_group(
@@ -517,8 +464,8 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
         inner_risk.addWidget(
             QtWidgets.QLabel(
                 self.tr(
-                    "Optional: Binary raster — pixels with value > 0 will be\n"
-                    "classified as Reduce (at risk)."
+                    "Optional: pixels above the selected risk threshold are\n"
+                    "classified as Reduce (at risk). Missing supplied risk remains unknown."
                 )
             )
         )
@@ -531,6 +478,15 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
         self.lbl_risk_path.setWordWrap(True)
         inner_risk.addWidget(self.lbl_risk_path)
         self._risk_path: typing.Optional[str] = None
+        self.spin_risk_band = QtWidgets.QSpinBox()
+        self.spin_risk_band.setRange(1, 10000)
+        inner_risk.addWidget(QtWidgets.QLabel(self.tr("Risk raster band")))
+        inner_risk.addWidget(self.spin_risk_band)
+        self.spin_risk_threshold = QtWidgets.QDoubleSpinBox()
+        self.spin_risk_threshold.setRange(-1e12, 1e12)
+        self.spin_risk_threshold.setDecimals(6)
+        inner_risk.addWidget(QtWidgets.QLabel(self.tr("At risk when value exceeds")))
+        inner_risk.addWidget(self.spin_risk_threshold)
 
         self.chk_use_risk.toggled.connect(self.btn_select_risk.setEnabled)
         self.btn_select_risk.clicked.connect(self._select_risk)
@@ -542,7 +498,19 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
 
         left = QtWidgets.QWidget()
         left.setLayout(layout)
-        self.splitter, self.button_box = _build_splitter_with_ok_cancel(self, left)
+        self.splitter, self.button_box = _build_splitter_with_ok_cancel(
+            self,
+            left,
+            self.tr(
+                "<h3>Avoid / Reduce / Reverse</h3>"
+                "<p>Select an SDG 15.3.1 status layer and its encoding. Optional "
+                "productivity and risk data identify non-degraded areas at risk.</p>"
+                "<p>Without risk inputs, valid non-degraded areas default to Avoid. "
+                "Check the assignment-reason band and areas with missing data.</p>"
+                "<p><a href='https://docs.trends.earth/en/latest/for_users/training/ldnplanning.html'>"
+                "LDN planning tutorial</a></p>"
+            ),
+        )
         self.setWindowTitle(
             self.tr("LDN Planning — Avoid/Reduce/Reverse Classification")
         )
@@ -623,9 +591,12 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
             "task_notes": self.task_notes.toPlainText(),
             "status_layer_path": str(status_info.path),
             "status_band_index": status_info.band_index,
+            "status_type": self.combo_status_type.currentData(),
             "trajectory_path": traj_path,
             "trajectory_band_index": traj_band_index,
             "risk_layer_path": risk_path,
+            "risk_band_index": self.spin_risk_band.value(),
+            "risk_threshold": self.spin_risk_threshold.value(),
             "year_initial": meta.get(
                 "year_initial", meta.get("reporting_year_initial")
             ),
@@ -734,7 +705,19 @@ class DlgCalculateLDNPlanningHotspots(DlgCalculateBase):
 
         left = QtWidgets.QWidget()
         left.setLayout(layout)
-        self.splitter, self.button_box = _build_splitter_with_ok_cancel(self, left)
+        self.splitter, self.button_box = _build_splitter_with_ok_cancel(
+            self,
+            left,
+            self.tr(
+                "<h3>Degradation hotspots</h3>"
+                "<p>Select an SDG 15.3.1 status layer and administrative units, "
+                "your own polygons, or a regular grid. Zones are ranked by their "
+                "fraction of degraded land.</p>"
+                "<p>Review the zone map and report alongside local knowledge.</p>"
+                "<p><a href='https://docs.trends.earth/en/latest/for_users/training/ldnplanning.html'>"
+                "LDN planning tutorial</a></p>"
+            ),
+        )
         self.setWindowTitle(
             self.tr("LDN Planning — Degradation Hotspot Prioritization")
         )
@@ -816,6 +799,86 @@ class DlgCalculateLDNPlanningHotspots(DlgCalculateBase):
 # ---------------------------------------------------------------------------
 
 
+class DlgApproveCandidates(QtWidgets.QDialog):
+    """Readable per-class review of a candidate-area dataset before approval.
+
+    Shows each selected ARR class with its actual selected area and lets the
+    planner assign a separate expected effectiveness per class. Approval adds
+    immutable scenario references; it never claims observed gains.
+    """
+
+    def __init__(self, job, report: dict, classes, default_effectiveness, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle(self.tr("Approve candidate areas"))
+        self.effectiveness_by_class: typing.Dict[str, float] = {}
+        layout = QtWidgets.QVBoxLayout(self)
+        intro = QtWidgets.QLabel(
+            self.tr(
+                "Review the candidate raster on the map before approving "
+                "'%s'. Each class receives its effect only where the ARR class "
+                "matches. Effectiveness is the expected fraction of the "
+                "candidate area where the intervention succeeds; these are "
+                "projected effects, not observed gains."
+            )
+            % (job.task_name or str(job.id))
+        )
+        intro.setWordWrap(True)
+        layout.addWidget(intro)
+        class_labels = {
+            "avoid": self.tr("Avoid"),
+            "reduce": self.tr("Reduce"),
+            "reverse": self.tr("Reverse"),
+        }
+        summaries = report.get("summary", {}).get("selections", {})
+        self.table = QtWidgets.QTableWidget(0, 4)
+        self.table.setHorizontalHeaderLabels(
+            [
+                self.tr("Class"),
+                self.tr("Selected area (km²)"),
+                self.tr("Selected pixels"),
+                self.tr("Effectiveness (0–1)"),
+            ]
+        )
+        self.table.horizontalHeader().setStretchLastSection(True)
+        self._spins: typing.Dict[str, QtWidgets.QDoubleSpinBox] = {}
+        for key in classes:
+            row = self.table.rowCount()
+            self.table.insertRow(row)
+            summary = summaries.get(key, {})
+            for column, text in (
+                (0, class_labels.get(key, key)),
+                (1, f"{summary.get('selected_area_km2', 0):.2f}"),
+                (2, str(summary.get("selected_pixels", ""))),
+            ):
+                item = QtWidgets.QTableWidgetItem(text)
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.table.setItem(row, column, item)
+            spin = QtWidgets.QDoubleSpinBox()
+            spin.setRange(0, 1)
+            spin.setDecimals(3)
+            spin.setSingleStep(0.05)
+            spin.setValue(default_effectiveness)
+            self.table.setCellWidget(row, 3, spin)
+            self._spins[key] = spin
+        layout.addWidget(self.table)
+        buttons = QtWidgets.QDialogButtonBox(
+            QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
+        )
+        buttons.button(QtWidgets.QDialogButtonBox.Ok).setText(
+            self.tr("Approve these areas")
+        )
+        buttons.accepted.connect(self._accept)
+        buttons.rejected.connect(self.reject)
+        layout.addWidget(buttons)
+        self.resize(560, 320)
+
+    def _accept(self):
+        self.effectiveness_by_class = {
+            key: spin.value() for key, spin in self._spins.items()
+        }
+        self.accept()
+
+
 class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
     """Combined Scenario & BAU Projection tool.
 
@@ -880,6 +943,10 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         )
         self.combo_baseline = data_io.WidgetDataIOSelectTELayerExisting()
         inner_bl.addWidget(self.combo_baseline)
+        self.combo_baseline_type = QtWidgets.QComboBox()
+        self.combo_baseline_type.addItem(self.tr("3-class indicator"), "3class")
+        self.combo_baseline_type.addItem(self.tr("7-class expanded status"), "7class")
+        inner_bl.addWidget(self.combo_baseline_type)
 
         inner_rp = _make_group(
             self.tr("Reporting Period Status Layer (optional)"), data_layout
@@ -891,6 +958,15 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         self.combo_reporting = data_io.WidgetDataIOSelectTELayerExisting()
         self.combo_reporting.setEnabled(False)
         inner_rp.addWidget(self.combo_reporting)
+        self.combo_reporting_type = QtWidgets.QComboBox()
+        self.combo_reporting_type.addItem(self.tr("3-class indicator"), "3class")
+        self.combo_reporting_type.addItem(self.tr("7-class expanded status"), "7class")
+        inner_rp.addWidget(self.combo_reporting_type)
+        self.combo_comparison = QtWidgets.QComboBox()
+        data_layout.addWidget(
+            QtWidgets.QLabel(self.tr("Compare with a saved scenario (optional)"))
+        )
+        data_layout.addWidget(self.combo_comparison)
         self.chk_use_reporting.toggled.connect(self.combo_reporting.setEnabled)
         data_layout.addStretch()
 
@@ -923,8 +999,9 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         info = QtWidgets.QLabel(
             self.tr(
                 "LDN frame of reference: the target equals the baseline "
-                "(no net loss). Neutrality is the minimum objective. The "
-                "scenario is evaluated at the target year against BAU."
+                "(no net loss). The national scenario comparison is a simplified "
+                "aggregate, not proof of like-for-like neutrality. Avoided losses "
+                "are upper-bound estimates, not guaranteed effects."
             )
         )
         info.setWordWrap(True)
@@ -1007,6 +1084,25 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         inner_t.addWidget(self.targets_list)
 
         self._targets_jobs: typing.List = []
+        self.combo_candidates = QtWidgets.QComboBox()
+        inner_t.addWidget(QtWidgets.QLabel(self.tr("Reviewed candidate-area dataset")))
+        inner_t.addWidget(self.combo_candidates)
+        self.spin_candidate_eff = QtWidgets.QDoubleSpinBox()
+        self.spin_candidate_eff.setRange(0, 1)
+        self.spin_candidate_eff.setValue(0.8)
+        self.spin_candidate_eff.setSingleStep(0.05)
+        inner_t.addWidget(QtWidgets.QLabel(self.tr("Expected effectiveness (0-1)")))
+        inner_t.addWidget(self.spin_candidate_eff)
+        self.btn_approve_candidates = QtWidgets.QPushButton(
+            self.tr("Review and approve candidate areas...")
+        )
+        self.btn_approve_candidates.clicked.connect(self._approve_candidates)
+        inner_t.addWidget(self.btn_approve_candidates)
+        self.btn_preview_candidates = QtWidgets.QPushButton(
+            self.tr("Open selected candidate map for review")
+        )
+        self.btn_preview_candidates.clicked.connect(self._preview_candidates)
+        inner_t.addWidget(self.btn_preview_candidates)
         t_layout.addStretch()
 
         # ================= Tab 4: Breakdown =================
@@ -1093,7 +1189,20 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
 
         left = QtWidgets.QWidget()
         left.setLayout(layout)
-        self.splitter, self.button_box = _build_splitter_with_ok_cancel(self, left)
+        self.splitter, self.button_box = _build_splitter_with_ok_cancel(
+            self,
+            left,
+            self.tr(
+                "<h3>Scenario &amp; BAU projection</h3>"
+                "<p>Choose ARR and baseline layers, a planning period, and "
+                "intervention targets. A reporting-period layer enables a BAU rate.</p>"
+                "<p>Review and approve candidate areas or load target polygons. "
+                "Reverse produces expected gains; Avoid and Reduce produce expected "
+                "avoided losses. Review results by land type.</p>"
+                "<p><a href='https://docs.trends.earth/en/latest/for_users/training/ldnplanning.html'>"
+                "LDN planning tutorial</a></p>"
+            ),
+        )
         self.setWindowTitle(self.tr("LDN Planning — Scenario & BAU Projection"))
         self.resize(680, 600)
 
@@ -1242,7 +1351,7 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
 
         QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         try:
-            info = _inspect_targets_file(path)
+            info = inspect_targets_file(path)
         finally:
             QtWidgets.QApplication.restoreOverrideCursor()
 
@@ -1374,15 +1483,16 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         n_added = 0
         n_invalid_interv = 0
         n_null_eff = 0
+        n_empty_geom = 0
         _valid = {"avoid", "reduce", "reverse"}
         _default_eff = 0.8
 
+        loaded_targets = []
         if qgs_layer is not None:
-            if qgs_layer.isEditable():
-                qgs_layer.commitChanges(stopEditing=False)
             for feat in qgs_layer.getFeatures():
                 geom = feat.geometry()
                 if geom.isEmpty():
+                    n_empty_geom += 1
                     continue
                 interv = (feat["intervention"] or "").lower().strip()
                 if interv not in _valid:
@@ -1392,13 +1502,19 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
                 if eff is None or (isinstance(eff, float) and eff != eff):
                     n_null_eff += 1
                     eff = _default_eff
-                self._targets.append(
-                    {
-                        "wkt_geometry": geom.asWkt(),
-                        "intervention": interv,
-                        "effectiveness": float(eff),
-                    }
-                )
+                try:
+                    loaded_targets.append(
+                        polygon_target(
+                            geom.asWkt(), interv, eff, qgs_layer.crs().toWkt()
+                        )
+                    )
+                except (ValueError, TypeError) as exc:
+                    QtWidgets.QMessageBox.critical(
+                        self,
+                        self.tr("Invalid target"),
+                        self.tr("Feature %s: %s") % (feat.id(), str(exc)),
+                    )
+                    return
                 n_added += 1
         else:
             from osgeo import ogr as _ogr
@@ -1413,6 +1529,7 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
             for feat in lyr:
                 geom = feat.GetGeometryRef()
                 if geom is None:
+                    n_empty_geom += 1
                     continue
                 interv = (feat.GetField("intervention") or "").lower().strip()
                 if interv not in _valid:
@@ -1422,17 +1539,26 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
                 if eff is None:
                     n_null_eff += 1
                     eff = _default_eff
-                self._targets.append(
-                    {
-                        "wkt_geometry": geom.ExportToWkt(),
-                        "intervention": interv,
-                        "effectiveness": float(eff),
-                    }
-                )
+                try:
+                    loaded_targets.append(
+                        polygon_target(
+                            geom.ExportToWkt(),
+                            interv,
+                            eff,
+                            lyr.GetSpatialRef().ExportToWkt()
+                            if lyr.GetSpatialRef()
+                            else None,
+                        )
+                    )
+                except (ValueError, TypeError) as exc:
+                    QtWidgets.QMessageBox.critical(
+                        self, self.tr("Invalid target"), str(exc)
+                    )
+                    return
                 n_added += 1
             del ds
 
-        if n_added == 0 and n_invalid_interv == 0:
+        if n_added == 0 and n_invalid_interv == 0 and n_empty_geom == 0:
             QtWidgets.QMessageBox.information(
                 self,
                 self.tr("No polygons"),
@@ -1446,6 +1572,11 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
 
         # Warn about validation issues
         warnings_parts = []
+        if n_empty_geom:
+            warnings_parts.append(
+                self.tr("%d target(s) had empty geometry and were skipped.")
+                % n_empty_geom
+            )
         if n_invalid_interv:
             warnings_parts.append(
                 self.tr(
@@ -1473,6 +1604,15 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         if n_added == 0:
             return
 
+        source_id = str(job.id)
+        self._targets = [
+            target
+            for target in self._targets
+            if target.get("source_job_id") != source_id
+        ]
+        for target in loaded_targets:
+            target["source_job_id"] = source_id
+        self._targets.extend(loaded_targets)
         item_text = self.tr("%d polygon(s) from '%s'") % (
             n_added,
             job.task_name or str(job.id),
@@ -1485,6 +1625,169 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
     def showEvent(self, event):
         super().showEvent(event)
         self._populate_combos()
+        from .calculate_ldn_priority import planning_raster_jobs
+
+        preselect_arr = getattr(self, "preselect_arr_job_id", None)
+        if preselect_arr:
+            from .ldn_planning_actions import select_job_band
+
+            select_job_band(
+                self.combo_arr, preselect_arr, self, self.tr("ARR classification")
+            )
+            self.preselect_arr_job_id = None
+        preselect_baseline = getattr(self, "preselect_baseline_job_id", None)
+        if preselect_baseline:
+            from .ldn_planning_actions import select_job_band
+
+            select_job_band(
+                self.combo_baseline,
+                preselect_baseline,
+                self,
+                self.tr("baseline indicator"),
+                band_index=getattr(self, "preselect_baseline_band_index", None),
+            )
+            self.preselect_baseline_job_id = None
+            self.preselect_baseline_band_index = None
+        preselect_land_types = getattr(self, "preselect_land_type_job_id", None)
+        if preselect_land_types:
+            index = self.combo_scn_zones_job.findData(preselect_land_types)
+            if index >= 0:
+                self.rb_lt_saved.setChecked(True)
+                self.combo_scn_zones_job.setCurrentIndex(index)
+            else:
+                self.rb_lt_saved.setChecked(True)
+                self.combo_scn_zones_job.setCurrentIndex(-1)
+                QtWidgets.QMessageBox.warning(
+                    self,
+                    self.tr("Dataset unavailable"),
+                    self.tr("The selected land types are unavailable. Choose another."),
+                )
+            self.preselect_land_type_job_id = None
+
+        preselect = getattr(self, "preselect_candidate_job_id", None)
+        previous_candidate = preselect or self.combo_candidates.currentData()
+        self.preselect_candidate_job_id = None
+        self._candidate_jobs = planning_raster_jobs("ldn-planning-selection")
+        self.combo_candidates.clear()
+        for job in self._candidate_jobs:
+            self.combo_candidates.addItem(job.task_name or str(job.id), str(job.id))
+        if previous_candidate is not None:
+            index = self.combo_candidates.findData(previous_candidate)
+            if index >= 0:
+                self.combo_candidates.setCurrentIndex(index)
+            elif preselect:
+                self.combo_candidates.setCurrentIndex(-1)
+                QtWidgets.QMessageBox.warning(
+                    self,
+                    self.tr("Dataset unavailable"),
+                    self.tr("The selected candidate dataset is unavailable. Choose another."),
+                )
+        preselect_comparison = getattr(self, "preselect_comparison_job_id", None)
+        previous_comparison = preselect_comparison or self.combo_comparison.currentData()
+        self.preselect_comparison_job_id = None
+        self._comparison_jobs = planning_raster_jobs("ldn-planning-projection")
+        self.combo_comparison.clear()
+        self.combo_comparison.addItem(self.tr("No scenario comparison"), None)
+        for job in self._comparison_jobs:
+            self.combo_comparison.addItem(job.task_name or str(job.id), str(job.id))
+        if previous_comparison is not None:
+            index = self.combo_comparison.findData(previous_comparison)
+            if index >= 0:
+                self.combo_comparison.setCurrentIndex(index)
+            elif preselect_comparison:
+                self.combo_comparison.setCurrentIndex(-1)
+                QtWidgets.QMessageBox.warning(
+                    self,
+                    self.tr("Dataset unavailable"),
+                    self.tr("The selected scenario is unavailable for comparison."),
+                )
+
+    def _confirm_approval(
+        self, job, report: dict, classes: typing.List[str]
+    ) -> typing.Optional[typing.Dict[str, float]]:
+        """Show the readable per-class approval dialog.
+
+        Returns {arr_class: effectiveness} on approval, or None if cancelled.
+        """
+        dialog = DlgApproveCandidates(
+            job, report, classes, self.spin_candidate_eff.value(), self
+        )
+        if dialog.exec() != QtWidgets.QDialog.Accepted:
+            return None
+        return dialog.effectiveness_by_class
+
+    def _approve_candidates(self):
+        from .calculate_ldn_priority import CLASSES, job_raster_path
+
+        index = self.combo_candidates.currentIndex()
+        if index < 0:
+            QtWidgets.QMessageBox.information(
+                self,
+                self.tr("No candidate areas"),
+                self.tr("Create and review a candidate-area dataset first."),
+            )
+            return
+        job = self._candidate_jobs[index]
+        try:
+            path, result = job_raster_path(job)
+            if not job_manager.ensure_params_loaded(job) or not job.params.get(
+                "selections"
+            ):
+                raise ValueError(self.tr("Candidate selection settings are missing."))
+            checksum = file_checksum(path)
+            if checksum != result.data.get("report", {}).get("summary", {}).get(
+                "mask_sha256"
+            ):
+                raise ValueError(
+                    self.tr(
+                        "Candidate raster no longer matches its report. Generate a new selection."
+                    )
+                )
+        except (ValueError, OSError) as exc:
+            QtWidgets.QMessageBox.critical(
+                self, self.tr("Cannot load candidates"), str(exc)
+            )
+            return
+        report = result.data.get("report", {})
+        classes = [key for key in CLASSES if key in job.params.get("selections", {})]
+        effectiveness_by_class = self._confirm_approval(job, report, classes)
+        if not effectiveness_by_class:
+            return
+        source_id = str(job.id)
+        self._targets = [
+            target
+            for target in self._targets
+            if target.get("source_job_id") != source_id
+        ]
+        for key, effectiveness in effectiveness_by_class.items():
+            self._targets.append(
+                {
+                    "selected_mask_path": path,
+                    "intervention": key,
+                    "effectiveness": effectiveness,
+                    "source_job_id": source_id,
+                    "approved": True,
+                    "priority_params": job.params,
+                    "mask_sha256": checksum,
+                }
+            )
+        self.targets_list.addItem(
+            self.tr("Approved candidate dataset: %s") % (job.task_name or source_id)
+        )
+
+    def _preview_candidates(self):
+        index = self.combo_candidates.currentIndex()
+        if index < 0:
+            QtWidgets.QMessageBox.information(
+                self,
+                self.tr("No candidate areas"),
+                self.tr("Create a candidate-area dataset first."),
+            )
+            return
+        job = self._candidate_jobs[index]
+        job_manager.ensure_results_loaded(job)
+        job_manager.display_selected_job_results(job, [1])
+        self.hide()
 
     def _clear_targets(self):
         self._targets.clear()
@@ -1492,6 +1795,14 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
 
     def btn_calculate(self):
         if not super().btn_calculate():
+            return
+
+        if self.combo_comparison.currentIndex() < 0:
+            QtWidgets.QMessageBox.critical(
+                self,
+                self.tr("Cannot compare"),
+                self.tr("Choose a scenario to compare, or select no comparison."),
+            )
             return
 
         arr_info = self.combo_arr.get_current_band()
@@ -1525,6 +1836,19 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
                     ),
                 )
                 return
+
+        if (
+            self.spin_yr_initial.value() >= self.spin_yr_final.value()
+            or self.spin_target_yr.value() < self.spin_yr_final.value()
+        ):
+            QtWidgets.QMessageBox.critical(
+                self,
+                self.tr("Invalid planning years"),
+                self.tr(
+                    "Initial year must precede reporting end; target year cannot precede it."
+                ),
+            )
+            return
 
         if not self._targets:
             reply = QtWidgets.QMessageBox.question(
@@ -1580,8 +1904,10 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
             "arr_band_index": arr_info.band_index,
             "status_baseline_path": str(bl_info.path),
             "status_baseline_band_index": bl_info.band_index,
+            "status_baseline_type": self.combo_baseline_type.currentData(),
             "status_reporting_path": str(rp_info.path) if rp_info else None,
             "status_reporting_band_index": rp_info.band_index if rp_info else 1,
+            "status_reporting_type": self.combo_reporting_type.currentData(),
             "year_initial": self.spin_yr_initial.value(),
             "year_final": self.spin_yr_final.value(),
             "target_year": self.spin_target_yr.value(),
@@ -1591,6 +1917,33 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
             "land_type_labels": land_type_labels,
             "jurisdictions_path": jurisdictions_path,
         }
+        comparison_index = self.combo_comparison.currentIndex() - 1
+        if comparison_index >= 0:
+            comparison_job = self._comparison_jobs[comparison_index]
+            job_manager.ensure_results_loaded(comparison_job)
+            if not job_manager.ensure_params_loaded(comparison_job):
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    self.tr("Cannot compare"),
+                    self.tr("The saved scenario parameters are missing."),
+                )
+                return
+            from te_schemas.results import RasterResults
+
+            comparison_result = comparison_job.get_first_result_by_type(RasterResults)
+            if comparison_result is None:
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    self.tr("Cannot compare"),
+                    self.tr("The saved scenario has no results."),
+                )
+                return
+            params["comparison"] = {
+                "job_id": str(comparison_job.id),
+                "task_name": comparison_job.task_name,
+                "projection": comparison_result.data.get("projection"),
+                "parameters": comparison_job.params,
+            }
         self.close()
         job_manager.submit_local_job_as_qgstask(
             params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=self.aoi
@@ -1660,7 +2013,19 @@ class DlgCalculateLDNPlanningLandTypes(DlgCalculateBase):
 
         left = QtWidgets.QWidget()
         left.setLayout(layout)
-        self.splitter, self.button_box = _build_splitter_with_ok_cancel(self, left)
+        self.splitter, self.button_box = _build_splitter_with_ok_cancel(
+            self,
+            left,
+            self.tr(
+                "<h3>Define land types</h3>"
+                "<p>Add categorical rasters representing land potential, such as "
+                "land cover and soil classes. Each combination becomes a land type.</p>"
+                "<p>Use the saved layer for like-for-like scenario breakdowns or "
+                "the LDN counterbalancing assessment.</p>"
+                "<p><a href='https://docs.trends.earth/en/latest/for_users/training/ldnplanning.html'>"
+                "LDN planning tutorial</a></p>"
+            ),
+        )
         self.setWindowTitle(self.tr("LDN Planning — Define Land Types"))
         self.resize(600, 460)
 

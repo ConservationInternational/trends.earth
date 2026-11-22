@@ -589,6 +589,34 @@ _ALGORITHM_CONFIG = [
                         ],
                     },
                     {
+                        "id": "c1f2a3b4-d5e6-7890-abcd-ef1234567805",
+                        "name": tr_conf.tr("Prioritize interventions"),
+                        "description": tr_conf.tr(
+                            "Preview class-specific weighted priorities using natural-capital "
+                            "or other user-defined criteria, with explicit coverage and exclusions."
+                        ),
+                        "scripts": [
+                            {
+                                "script": KNOWN_SCRIPTS["ldn-planning-priority"],
+                                "parametrization_dialogue": "LDMP.calculate_ldn_priority.DlgCalculateLDNPlanningPriority",
+                            }
+                        ],
+                    },
+                    {
+                        "id": "c1f2a3b4-d5e6-7890-abcd-ef1234567806",
+                        "name": tr_conf.tr("Select candidate areas"),
+                        "description": tr_conf.tr(
+                            "Select areas by class-specific score threshold or physical-area "
+                            "limit, then review and approve them in a scenario."
+                        ),
+                        "scripts": [
+                            {
+                                "script": KNOWN_SCRIPTS["ldn-planning-selection"],
+                                "parametrization_dialogue": "LDMP.calculate_ldn_priority.DlgCalculateLDNPlanningSelection",
+                            }
+                        ],
+                    },
+                    {
                         "id": "c1f2a3b4-d5e6-7890-abcd-ef1234567804",
                         "name": tr_conf.tr("Scenario & BAU Projection"),
                         "description": tr_conf.tr(

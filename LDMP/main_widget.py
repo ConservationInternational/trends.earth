@@ -956,6 +956,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         action_import_population_dataset.triggered.connect(
             self.import_population_dataset
         )
+        action_import_planning_input = self.import_menu.addAction(
+            self.tr("Import LDN prioritization input...")
+        )
+        action_import_planning_input.triggered.connect(self.import_planning_input)
         self.import_dataset_pb.setMenu(self.import_menu)
         self.import_dataset_pb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionSharingImport.svg"))
@@ -1578,6 +1582,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     def import_population_dataset(self, action: QtWidgets.QAction):
         log("import_population_dataset called")
         dialogue = DlgDataIOImportPopulation(self)
+        dialogue.exec()
+
+    def import_planning_input(self, action: QtWidgets.QAction = None):
+        log("import_planning_input called")
+        from .ldn_planning_assets import DlgImportPlanningInput
+
+        dialogue = DlgImportPlanningInput(self)
         dialogue.exec()
 
 

@@ -268,6 +268,16 @@ class LDMPPlugin:
         )
 
         self.add_action(
+            os.path.join(os.path.dirname(__file__), "icons", "layout.svg"),
+            text=tr_plugin.tr("LDN planning panel"),
+            callback=self.run_planning_panel,
+            parent=self.iface.mainWindow(),
+            status_tip=tr_plugin.tr(
+                "Open the LDN planning project panel"
+            ),
+        )
+
+        self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "info.svg"),
             text=tr_plugin.tr("About"),
             callback=self.run_about,
@@ -357,6 +367,14 @@ class LDMPPlugin:
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
 
+        # Close the planning panel before the dock it depends on.
+        try:
+            from .ldn_planning_panel import close_panel
+
+            close_panel()
+        except Exception as exc:
+            log(f"Could not close planning panel: {exc}")
+
         # Close and destroy the dock widget first so that its background
         # threads (timers, QThread workers) are stopped before the rest of
         # the plugin is torn down.  Without this, orphaned timers and
@@ -382,6 +400,16 @@ class LDMPPlugin:
         # Clean up cached modules to allow proper reload when upgrading the plugin
         # without restarting QGIS. This must be done last after all other cleanup.
         _cleanup_plugin_modules()
+
+    def run_planning_panel(self):
+        """Open the docked LDN planning project panel."""
+        if self.dock_widget is None:
+            self.run_docked_interface(True)
+            if self.start_action is not None:
+                self.start_action.setChecked(True)
+        from .ldn_planning_panel import open_panel
+
+        open_panel(self.dock_widget)
 
     def run_docked_interface(self, checked):
         if checked:

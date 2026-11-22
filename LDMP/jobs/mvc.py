@@ -479,15 +479,28 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
         self.report_pb.setIcon(FileUtils.get_icon("report.svg"))
 
-        # Initialize report handler with error handling
+        # Planning datasets host workflow/report actions on the report button;
+        # all other datasets keep the normal template-based report handler.
+        self._report_handler = None
+        planning_actions_attached = False
         try:
-            self._report_handler = DatasetReportHandler(
-                self.report_pb, self.job, self.main_dock.iface, parent=self
+            from ..ldn_planning_actions import attach_planning_actions
+
+            planning_actions_attached = attach_planning_actions(
+                self.report_pb, self.job, self.main_dock
             )
         except Exception as e:
-            # If report handler fails to initialize, create a dummy one to prevent crashes
-            print(f"Warning: Failed to initialize report handler: {e}")
-            self._report_handler = None
+            print(f"Warning: Failed to attach planning actions: {e}")
+        if not planning_actions_attached:
+            # Initialize report handler with error handling
+            try:
+                self._report_handler = DatasetReportHandler(
+                    self.report_pb, self.job, self.main_dock.iface, parent=self
+                )
+            except Exception as e:
+                # If report handler fails to initialize, create a dummy one to prevent crashes
+                print(f"Warning: Failed to initialize report handler: {e}")
+                self._report_handler = None
         # self.add_to_canvas_pb.setFixedSize(self.view_logs_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.view_logs_tb.size())
 

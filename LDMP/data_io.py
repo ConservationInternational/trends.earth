@@ -2502,6 +2502,8 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         """
         if not self.layer_list:
             return LayerValidationStatus.NO_REGION
+        if self.comboBox_layers.currentIndex() < 0:
+            return LayerValidationStatus.NO_LAYERS
         current_text = self.comboBox_layers.currentText()
         if current_text == self.NO_REGION_MESSAGE:
             return LayerValidationStatus.NO_REGION

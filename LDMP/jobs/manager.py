@@ -2091,13 +2091,31 @@ class JobManager(QtCore.QObject):
                 layers.add_vector_layer(str(layer_path), result.name)
 
     def display_selected_job_results(self, job: Job, band_numbers):
-        # For now, only handle raster results with band selection
+        # For now, only handle raster results with band selection.
+        # Band numbers are global across every raster in the result (matching
+        # RasterResults.get_bands()); each band must be loaded from its own
+        # owning raster file with its band index local to that file. Results
+        # such as priority previews carry several rasters (scores + coverage),
+        # so the main result URI is not necessarily the owner.
         raster_result = job.get_first_result_by_type(RasterResults)
-        if raster_result and raster_result.uri.uri.suffix in [".tif", ".vrt"]:
-            for n, band in enumerate(raster_result.get_bands(), start=1):
-                if n in band_numbers:
+        if raster_result is None:
+            return
+        global_band = 0
+        for raster in raster_result.rasters.values():
+            for local_index, band in enumerate(raster.bands, start=1):
+                global_band += 1
+                if global_band not in band_numbers:
+                    continue
+                uri = raster.uri or raster_result.uri
+                if uri is None or uri.uri is None:
+                    log(
+                        f"No raster file for band {global_band} of job {job.id}; "
+                        "cannot add it to the map"
+                    )
+                    continue
+                if Path(str(uri.uri)).suffix in [".tif", ".vrt"]:
                     layers.add_layer(
-                        str(raster_result.uri.uri), n, JobBand.Schema().dump(band)
+                        str(uri.uri), local_index, JobBand.Schema().dump(band)
                     )
 
     def display_error_recode_layer(self, job: Job):
@@ -2463,7 +2481,9 @@ class JobManager(QtCore.QObject):
         """
         from pathlib import Path as _Path
 
-        from osgeo import ogr
+        from te_algorithms.gdal.land_deg.ldn_planning_inputs import (
+            copy_planning_targets,
+        )
 
         now = dt.datetime.now(dt.timezone.utc)
         job_id = uuid.uuid4()
@@ -2497,66 +2517,7 @@ class JobManager(QtCore.QObject):
 
         output_path = self.get_job_file_path(job).with_suffix(".gpkg")
 
-        # Copy normalised features from the source file into the destination GPKG.
-        src_ds = ogr.Open(path, 0)
-        if src_ds is None:
-            raise OSError(f"Cannot open source file: {path}")
-
-        dst_ds = ogr.Open(str(output_path), 1)  # update mode
-        if dst_ds is None:
-            src_ds = None  # noqa: F841
-            raise OSError(f"Cannot open destination GPKG: {output_path}")
-
-        try:
-            src_lyr = src_ds.GetLayer(0)
-            dst_lyr = dst_ds.GetLayer(0)
-
-            int_field: str | None = field_config.get("intervention_field")
-            default_int: str | None = field_config.get("default_intervention")
-            eff_field: str | None = field_config.get("effectiveness_field")
-            default_eff: float = float(field_config.get("default_effectiveness") or 0.8)
-
-            valid_interventions = {"avoid", "reduce", "reverse"}
-
-            for feat in src_lyr:
-                geom = feat.GetGeometryRef()
-                if geom is None:
-                    continue
-
-                # Resolve intervention value.
-                if int_field is not None:
-                    raw = feat.GetField(int_field)
-                    interv = (raw or "").strip().lower()
-                else:
-                    interv = default_int or "avoid"
-
-                if interv not in valid_interventions:
-                    continue  # skip — import dialog warned the user
-
-                # Resolve effectiveness value.
-                if eff_field is not None:
-                    eff_raw = feat.GetField(eff_field)
-                    if eff_raw is None:
-                        eff: float = default_eff
-                    else:
-                        eff = float(eff_raw)
-                        if eff > 1.0:
-                            eff = eff / 100.0  # treat as percentage
-                        eff = max(0.0, min(1.0, eff))
-                else:
-                    eff = default_eff
-
-                out_feat = ogr.Feature(dst_lyr.GetLayerDefn())
-                out_feat.SetGeometry(geom.Clone())
-                out_feat.SetField("intervention", interv)
-                out_feat.SetField("effectiveness", eff)
-                dst_lyr.CreateFeature(out_feat)
-                out_feat = None  # noqa: F841
-
-            dst_ds.FlushCache()
-        finally:
-            src_ds = None  # noqa: F841
-            dst_ds = None  # noqa: F841
+        copy_planning_targets(path, output_path, field_config)
 
         # Refresh extent now that features have been written.
         vec_extent = _get_extent_tuple_vector(str(output_path))
@@ -2693,6 +2654,254 @@ class JobManager(QtCore.QObject):
         if vector_result is None or vector_result.uri is None:
             return
         layers.edit(str(vector_result.uri.uri))
+
+    def register_planning_input_job(
+        self,
+        source_path: str,
+        task_name: str,
+        task_notes: str,
+        provenance: typing.Optional[dict] = None,
+        input_kind: str = "raster",
+        vector_layer_name: typing.Optional[str] = None,
+        qgis_metadata=None,
+    ) -> Job:
+        """Register a reusable LDN-planning prioritization input as a managed dataset.
+
+        Rasters are copied preserving their data type, band structure and
+        nodata values (no Int16 conversion or recoding). For vectors, the
+        selected sublayer is materialized as a single-layer GeoPackage so that
+        downstream algorithms that read the first OGR layer use exactly the
+        layer the user chose.
+
+        Metadata is optional and follows the same approach as the other import
+        tools: ``qgis_metadata`` (a ``QgsLayerMetadata`` from the shared
+        editor) is persisted as the dataset's .qmd sidecars, and any
+        ``provenance`` entries (source/date/units/license) are stored on the
+        job and inherited by every scoring profile and criterion that
+        references it. Missing entries are recorded as "Not specified".
+        """
+        from te_algorithms.gdal.util import dataset_checksums
+
+        provenance = provenance or {}
+        if input_kind not in ("raster", "vector"):
+            raise ValueError("input_kind must be 'raster' or 'vector'.")
+        if not task_name.strip():
+            raise ValueError("Planning inputs need a name.")
+
+        now = dt.datetime.now(dt.timezone.utc)
+        job_id = uuid.uuid4()
+        script = ExecutionScript(
+            id="ldn-planning-input",
+            name="ldn-planning-input",
+            run_mode=AlgorithmRunMode.LOCAL,
+        )
+        params: dict = {
+            "input_kind": input_kind,
+            "provenance": {
+                key: str(provenance.get(key) or "").strip()
+                for key in ("source", "date", "units", "license")
+            },
+            "source_path": str(source_path),
+            "scoring_profiles": [],
+        }
+
+        if input_kind == "raster":
+            source = gdal.Open(str(source_path))
+            if source is None:
+                raise ValueError(f"Cannot open raster input: {source_path}")
+            gdal_type_names = {
+                "Byte": DataType.BYTE,
+                "UInt16": DataType.UINT16,
+                "Int16": DataType.INT16,
+                "UInt32": DataType.UINT32,
+                "Int32": DataType.INT32,
+                "Float32": DataType.FLOAT32,
+                "Float64": DataType.FLOAT64,
+            }
+            band_info = []
+            job_bands = []
+            for index in range(1, source.RasterCount + 1):
+                band = source.GetRasterBand(index)
+                type_name = gdal.GetDataTypeName(band.DataType)
+                if type_name not in gdal_type_names:
+                    raise ValueError(
+                        f"Unsupported raster data type for planning input: {type_name}"
+                    )
+                description = band.GetDescription() or f"Band {index}"
+                nodata = band.GetNoDataValue()
+                band_info.append(
+                    {
+                        "band_index": index,
+                        "description": description,
+                        "data_type": type_name,
+                        "no_data_value": nodata,
+                    }
+                )
+                band_kwargs = {} if nodata is None else {"no_data_value": nodata}
+                job_bands.append(
+                    JobBand(
+                        name="LDN Planning - Priority input",
+                        metadata={
+                            "description": description,
+                            "units": params["provenance"]["units"],
+                            "source_no_data": nodata,
+                        },
+                        **band_kwargs,
+                    )
+                )
+            datatype = gdal_type_names[
+                gdal.GetDataTypeName(source.GetRasterBand(1).DataType)
+            ]
+            del source
+            params["band_info"] = band_info
+
+            results_obj = RasterResults(
+                name="ldn-planning-input",
+                uri=None,
+                rasters={},
+            )
+            job = Job(
+                id=job_id,
+                params=params,
+                progress=100,
+                start_date=now,
+                status=jobs.JobStatus.GENERATED_LOCALLY,
+                local_context=_get_local_context(),
+                results=results_obj,
+                script=script,
+                task_name=task_name,
+                task_notes=task_notes,
+                end_date=now,
+            )
+            output_path = self.get_job_file_path(job).with_suffix(".tif")
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            # Preserve data type, bands and nodata; never force Int16.
+            translated = gdal.Translate(str(output_path), str(source_path))
+            if translated is None:
+                raise ValueError(f"Cannot copy raster input: {source_path}")
+            del translated
+            job.results.uri = URI(uri=output_path)
+            job.results.rasters = {
+                datatype.value: Raster(
+                    uri=URI(uri=output_path),
+                    bands=job_bands,
+                    datatype=datatype,
+                    filetype=RasterFileType.GEOTIFF,
+                    extent=_get_extent_tuple_raster(str(output_path)),
+                )
+            }
+        else:
+            source = gdal.OpenEx(str(source_path), gdal.OF_VECTOR)
+            if source is None:
+                raise ValueError(f"Cannot open vector input: {source_path}")
+            layer_names = [
+                source.GetLayer(index).GetName()
+                for index in range(source.GetLayerCount())
+            ]
+            if vector_layer_name is None:
+                if len(layer_names) != 1:
+                    raise ValueError(
+                        "Select which layer of the multi-layer source to import."
+                    )
+                vector_layer_name = layer_names[0]
+            if vector_layer_name not in layer_names:
+                raise ValueError(
+                    f"Vector source has no layer named {vector_layer_name!r}."
+                )
+            layer = source.GetLayerByName(vector_layer_name)
+            if layer.GetSpatialRef() is None:
+                raise ValueError("Planning vector inputs must declare a CRS.")
+            from osgeo import ogr
+
+            definition = layer.GetLayerDefn()
+            numeric_fields = []
+            for index in range(definition.GetFieldCount()):
+                field = definition.GetFieldDefn(index)
+                if field.GetType() in (
+                    ogr.OFTReal,
+                    ogr.OFTInteger,
+                    ogr.OFTInteger64,
+                ):
+                    numeric_fields.append(
+                        {
+                            "name": field.GetName(),
+                            "alias": field.GetAlternativeName() or "",
+                            "type": field.GetFieldTypeName(field.GetType()),
+                        }
+                    )
+            params["vector_layer_name"] = vector_layer_name
+            params["numeric_fields"] = numeric_fields
+            params["feature_count"] = layer.GetFeatureCount()
+            del source
+
+            job = Job(
+                id=job_id,
+                params=params,
+                progress=100,
+                start_date=now,
+                status=jobs.JobStatus.GENERATED_LOCALLY,
+                local_context=_get_local_context(),
+                results=VectorResults(
+                    name="ldn-planning-input",
+                    vector=Vector(uri=None, type=VectorType.GENERIC),
+                    type=ResultType.VECTOR_RESULTS,
+                ),
+                script=script,
+                task_name=task_name,
+                task_notes=task_notes,
+                end_date=now,
+            )
+            output_path = self.get_job_file_path(job).with_suffix(".gpkg")
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            # Materialize only the selected sublayer: scoring reads layer 0.
+            translated = gdal.VectorTranslate(
+                str(output_path), str(source_path), layers=[vector_layer_name]
+            )
+            if translated is None:
+                raise ValueError(
+                    f"Cannot copy vector layer {vector_layer_name!r} from {source_path}"
+                )
+            del translated
+            job.results.vector.uri = URI(uri=output_path)
+            vec_extent = _get_extent_tuple_vector(str(output_path))
+            if vec_extent is not None:
+                job.results.extent = vec_extent
+
+        params["checksums"] = dataset_checksums(output_path)
+        try:
+            set_results_extents(job)
+        except Exception as exc:
+            log(
+                f"Failed to set extents for planning input job {job.id}: "
+                f"{type(exc).__name__}: {exc}"
+            )
+        self.write_job_metadata_file(job)
+        # Same approach as the other import tools: persist optional, preset
+        # metadata from the shared editor (or name/notes defaults) as .qmd.
+        try:
+            metadata.init_dataset_metadata(job, qgis_metadata)
+        except Exception as exc:
+            log(
+                f"Failed to save metadata for planning input job {job.id}: "
+                f"{type(exc).__name__}: {exc}"
+            )
+        self._set_known_job(jobs.JobStatus.DOWNLOADED, job)
+        self.imported_job.emit(job)
+        return job
+
+    def get_planning_input_jobs(self) -> List[Job]:
+        """Return registered LDN-planning prioritization input datasets."""
+        result = []
+        for j in self.relevant_jobs:
+            script_id = getattr(getattr(j, "script", None), "id", None) or ""
+            if script_id == "ldn-planning-input":
+                result.append(j)
+        return result
+
+    def save_planning_input_profiles(self, job: Job, profiles: List[dict]):
+        """Persist the scoring profiles stored on a planning input dataset."""
+        job.params["scoring_profiles"] = profiles
+        self.write_job_metadata_file(job)
 
     def get_ldn_targets_jobs(self) -> List[Job]:
         """Return all LDN Planning Target vector jobs visible in the Datasets panel.

@@ -237,5 +237,21 @@
         "name_readable": "LDN Planning — Scenario & BAU Projection",
         "run_mode": "local",
         "version": "2.3.2"
+    },
+    {
+        "description": "Score eligible ARR areas using class-specific criteria",
+        "execution_callable": "LDMP.localexecution.ldn_planning.compute_priority_local",
+        "name": "ldn-planning-priority",
+        "name_readable": "LDN Planning - Prioritize interventions",
+        "run_mode": "local",
+        "version": "2.3.8"
+    },
+    {
+        "description": "Select candidate areas for review before scenario approval",
+        "execution_callable": "LDMP.localexecution.ldn_planning.compute_selection_local",
+        "name": "ldn-planning-selection",
+        "name_readable": "LDN Planning - Select candidate areas",
+        "run_mode": "local",
+        "version": "2.3.8"
     }
 ]

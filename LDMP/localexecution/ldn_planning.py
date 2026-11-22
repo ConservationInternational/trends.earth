@@ -10,20 +10,27 @@ All follow the same signature and mirror localexecution/counterbalancing.py.
 """
 
 import logging
+import shutil
 from pathlib import Path
 
+from te_algorithms.common.checksum import file_checksum
 from te_algorithms.gdal.land_deg import zones as _zones
 from te_algorithms.gdal.land_deg.ldn_planning import (
     apply_scenario,
+    compare_scenarios,
     compute_arr_classification,
     compute_bau_rate,
     compute_hotspots,
     project_scenario_against_bau,
 )
 from te_algorithms.gdal.land_deg.ldn_planning_report import (
+    load_hotspot_zones,
     save_ldn_planning_excel,
     save_ldn_planning_json,
+    save_priority_reports,
 )
+from te_algorithms.gdal.land_deg.ldn_planning_inputs import area_checksum
+from te_algorithms.gdal.util import dataset_checksums, geojson_bounds
 from te_schemas.aoi import AOI
 from te_schemas.results import (
     URI,
@@ -74,6 +81,9 @@ def compute_arr_local(
         trajectory_band_index=params.get("trajectory_band_index", 1),
         risk_layer_path=params.get("risk_layer_path"),
         risk_band_index=params.get("risk_band_index", 1),
+        risk_threshold=params.get("risk_threshold", 0),
+        status_type=params.get("status_type", "auto"),
+        aoi=aoi,
         progress_callback=lambda p: (
             progress_callback(p * 0.85) if progress_callback else None
         ),
@@ -108,13 +118,125 @@ def compute_arr_local(
                             "year_initial": year_initial,
                             "year_final": year_final,
                         },
-                    )
+                    ),
+                    Band(
+                        name="LDN Planning - ARR Assignment Reason",
+                        no_data_value=255,
+                        metadata={
+                            "arr_reason": True,
+                            "reason_codes": summary["reason_codes"],
+                        },
+                    ),
                 ],
                 datatype=DataType.INT16,
                 filetype=RasterFileType.GEOTIFF,
             ),
         },
         data={"report": report_data},
+    )
+    return job.results
+
+
+def compute_priority_local(
+    job,
+    aoi,
+    job_output_path,
+    dataset_output_path,
+    progress_callback=None,
+    killed_callback=None,
+):
+    from te_algorithms.gdal.land_deg.ldn_priority import compute_prioritization
+
+    params = job.params
+    summary, path = compute_prioritization(
+        arr_path=params["arr_layer_path"],
+        arr_band_index=params.get("arr_band_index", 1),
+        criteria=params["criteria"],
+        output_path=str(job_output_path.with_suffix(".tif")),
+        exclusion_path=params.get("exclusion_path"),
+        land_type_path=params.get("land_type_path"),
+        zones_path=params.get("zones_path"),
+        aoi=aoi,
+        progress_callback=progress_callback,
+        killed_callback=killed_callback,
+    )
+    report = save_priority_reports(job_output_path, summary, params)
+    job.results = RasterResults(
+        name="ldn-planning-priority",
+        uri=URI(uri=Path(path)),
+        rasters={
+            DataType.FLOAT32.value: Raster(
+                uri=URI(uri=Path(path)),
+                bands=[
+                    Band(
+                        name=f"LDN Planning - Priority ({key})",
+                        metadata={"priority_class": key},
+                    )
+                    for key in ("avoid", "reduce", "reverse")
+                ],
+                datatype=DataType.FLOAT32,
+                filetype=RasterFileType.GEOTIFF,
+            ),
+            DataType.BYTE.value: Raster(
+                uri=URI(uri=Path(summary["coverage_path"])),
+                bands=[
+                    Band(
+                        name=f"LDN Planning - Priority coverage ({key})",
+                        no_data_value=255,
+                        metadata={"coverage_class": key},
+                    )
+                    for key in ("avoid", "reduce", "reverse")
+                ],
+                datatype=DataType.BYTE,
+                filetype=RasterFileType.GEOTIFF,
+            ),
+        },
+        data={"report": report},
+    )
+    return job.results
+
+
+def compute_selection_local(
+    job,
+    aoi,
+    job_output_path,
+    dataset_output_path,
+    progress_callback=None,
+    killed_callback=None,
+):
+    from te_algorithms.gdal.land_deg.ldn_priority import select_priority_areas
+
+    params = job.params
+    summary, path = select_priority_areas(
+        score_path=params["score_path"],
+        output_path=str(job_output_path.with_suffix(".tif")),
+        selections=params["selections"],
+        progress_callback=progress_callback,
+        killed_callback=killed_callback,
+    )
+    summary["mask_sha256"] = file_checksum(path)
+    report = save_priority_reports(job_output_path, summary, params)
+    job.results = RasterResults(
+        name="ldn-planning-selection",
+        uri=URI(uri=Path(path)),
+        rasters={
+            DataType.INT16.value: Raster(
+                uri=URI(uri=Path(path)),
+                bands=[
+                    Band(
+                        name="LDN Planning - Candidate areas",
+                        metadata={
+                            "candidate_areas": True,
+                            "approved": False,
+                            "priority_job_id": params["priority_job_id"],
+                        },
+                    )
+                ],
+                datatype=DataType.INT16,
+                filetype=RasterFileType.GEOTIFF,
+            )
+        },
+        data={"report": report},
     )
     return job.results
 
@@ -161,30 +283,7 @@ def compute_hotspots_local(
     excel_path = job_output_path.parent / f"{job_output_path.stem}_hotspots.xlsx"
     json_path = job_output_path.parent / f"{job_output_path.stem}_hotspots.json"
 
-    # Build per-zone list from the output vector for the Excel report
-    from osgeo import ogr as _ogr
-
-    hotspot_zones = []
-    ds = _ogr.Open(vector_path, 0)
-    if ds:
-        lyr = ds.GetLayer(0)
-        for feat in lyr:
-            hotspot_zones.append(
-                {
-                    "fid": feat.GetFID(),
-                    "zone_id": feat.GetField("zone_id")
-                    if feat.GetFieldIndex("zone_id") >= 0
-                    else feat.GetFID(),
-                    "total_pixels": feat.GetField("total_pixels"),
-                    "deg_pixels": feat.GetField("deg_pixels"),
-                    "deg_area_km2": feat.GetField("deg_area_km2"),
-                    "deg_fraction": feat.GetField("deg_fraction"),
-                    "priority_rank": feat.GetField("priority_rank"),
-                }
-            )
-        del ds
-
-    save_ldn_planning_excel(excel_path, hotspot_zones=hotspot_zones)
+    save_ldn_planning_excel(excel_path, hotspot_zones=load_hotspot_zones(vector_path))
     report_data = save_ldn_planning_json(
         json_path,
         task_name=params.get("task_name", "LDN Hotspots"),
@@ -256,6 +355,23 @@ def compute_planning_local(
     """
     params = job.params
     out_path = str(job_output_path.with_suffix("")) + "_scenario.tif"
+    input_keys = (
+        "arr_layer_path",
+        "status_baseline_path",
+        "status_reporting_path",
+        "land_type_path",
+        "jurisdictions_path",
+    )
+    input_checksums = {
+        key: dataset_checksums(params[key]) for key in input_keys if params.get(key)
+    }
+    if params.get("input_checksums") and params["input_checksums"] != input_checksums:
+        raise ValueError("Scenario inputs changed since this job was saved.")
+    params["input_checksums"] = input_checksums
+    aoi_checksum = area_checksum(aoi.get_geojson() if aoi is not None else None)
+    if "aoi_checksum" in params and params["aoi_checksum"] != aoi_checksum:
+        raise ValueError("Scenario AOI changed since this job was saved.")
+    params["aoi_checksum"] = aoi_checksum
 
     year_initial = params.get("year_initial", 2000)
     year_final = params.get("year_final", 2015)
@@ -267,6 +383,32 @@ def compute_planning_local(
         {int(k): v for k, v in raw_labels.items()} if raw_labels else None
     )
     jurisdictions_path = params.get("jurisdictions_path")
+    copied_masks = {}
+    for target in params.get("targets", []):
+        mask_path = target.get("selected_mask_path")
+        if not mask_path:
+            continue
+        if not target.get("approved"):
+            raise ValueError(
+                "Candidate masks must be explicitly approved before scenario execution."
+            )
+        checksum = file_checksum(mask_path)
+        if checksum != target.get("mask_sha256"):
+            raise ValueError(
+                "Candidate raster changed after review. Review and approve it again."
+            )
+        if mask_path not in copied_masks:
+            snapshot = job_output_path.parent / (
+                f"{job_output_path.stem}_approved_{len(copied_masks)}.tif"
+            )
+            if Path(mask_path).resolve() != snapshot.resolve():
+                shutil.copyfile(mask_path, snapshot)
+            if file_checksum(snapshot) != checksum:
+                raise ValueError(
+                    "Candidate raster changed while copying. Review and approve it again."
+                )
+            copied_masks[mask_path] = str(snapshot)
+        target["selected_mask_path"] = copied_masks[mask_path]
 
     # 1. BAU projection (0–40%)
     bau_summary = compute_bau_rate(
@@ -283,6 +425,9 @@ def compute_planning_local(
         land_type_path=params.get("land_type_path"),
         land_type_band_index=params.get("land_type_band_index", 1),
         land_type_labels=land_type_labels,
+        status_baseline_type=params.get("status_baseline_type", "auto"),
+        status_reporting_type=params.get("status_reporting_type", "auto"),
+        aoi=aoi,
         progress_callback=lambda p: (
             progress_callback(p * 0.4) if progress_callback else None
         ),
@@ -301,6 +446,7 @@ def compute_planning_local(
         zones_path=jurisdictions_path,
         zones_raster_path=None,
         zones_raster_labels=None,
+        aoi=aoi,
         progress_callback=lambda p: (
             progress_callback(40 + p * 0.5) if progress_callback else None
         ),
@@ -311,6 +457,12 @@ def compute_planning_local(
     projection = project_scenario_against_bau(
         bau_summary, scenario_summary, target_year
     )
+    if any(
+        dataset_checksums(params[key]) != value
+        for key, value in input_checksums.items()
+    ):
+        raise ValueError("Scenario inputs changed during execution.")
+    comparison = compare_scenarios(params, projection)
 
     excel_path = job_output_path.parent / f"{job_output_path.stem}.xlsx"
     json_path = job_output_path.parent / f"{job_output_path.stem}.json"
@@ -319,13 +471,22 @@ def compute_planning_local(
         bau_summary=bau_summary,
         scenario_summary=scenario_summary,
         projection_summary=projection,
+        scenario_comparison=comparison,
     )
+    extra_data = {
+        "target_provenance": params.get("targets", []),
+        "input_checksums": input_checksums,
+        "aoi_checksum": aoi_checksum,
+    }
+    if comparison:
+        extra_data["scenario_comparison"] = comparison
     report_data = save_ldn_planning_json(
         json_path,
         task_name=params.get("task_name", "LDN Planning — Scenario & BAU"),
         bau_summary=bau_summary,
         scenario_summary=scenario_summary,
         projection_summary=projection,
+        extra_data=extra_data,
     )
 
     if progress_callback:
@@ -399,68 +560,12 @@ def compute_create_land_types_local(
     band_indices = params.get("band_indices")
     out_path = str(job_output_path.with_suffix("")) + "_land_types.tif"
 
-    # Extract AOI bounding box so create_zones can clip large/global rasters
-    # before any array is allocated (prevents OOM on global datasets).
-    #
-    # aoi.get_geojson() may return a plain Geometry, a Feature, or a
-    # FeatureCollection — ogr.CreateGeometryFromJson only handles the plain
-    # Geometry case, so we must unwrap Feature/FeatureCollection ourselves.
     aoi_bounds = None
-    try:
-        import json as _json
-
-        from osgeo import ogr as _ogr
-
-        geojson = aoi.get_geojson()
-        if geojson is not None:
-            gtype = geojson.get("type", "")
-
-            def _env_from_geom_dict(g):
-                ogr_geom = _ogr.CreateGeometryFromJson(_json.dumps(g))
-                if ogr_geom is not None:
-                    return ogr_geom.GetEnvelope()  # (minx, maxx, miny, maxy)
-                return None
-
-            envs = []
-            if gtype == "FeatureCollection":
-                for feat in geojson.get("features", []):
-                    g = (feat or {}).get("geometry")
-                    if g:
-                        e = _env_from_geom_dict(g)
-                        if e is not None:
-                            envs.append(e)
-            elif gtype == "Feature":
-                g = geojson.get("geometry")
-                if g:
-                    e = _env_from_geom_dict(g)
-                    if e is not None:
-                        envs.append(e)
-            else:
-                # Plain GeoJSON geometry
-                e = _env_from_geom_dict(geojson)
-                if e is not None:
-                    envs.append(e)
-
-            if envs:
-                aoi_bounds = (
-                    min(e[0] for e in envs),  # minx
-                    min(e[2] for e in envs),  # miny
-                    max(e[1] for e in envs),  # maxx
-                    max(e[3] for e in envs),  # maxy
-                )
-                logger.info(
-                    "Define Land Types: AOI clip bounds (%.4f, %.4f, %.4f, %.4f)",
-                    *aoi_bounds,
-                )
-            else:
-                logger.warning(
-                    "Define Land Types: could not extract AOI bounds from GeoJSON "
-                    "(type=%s); processing full raster extent.",
-                    gtype,
-                )
-    except Exception as exc:  # noqa: BLE001
-        logger.warning(
-            "compute_create_land_types_local: AOI bounds extraction failed: %s", exc
+    if aoi is not None:
+        aoi_bounds = geojson_bounds(aoi.get_geojson())
+        logger.info(
+            "Define Land Types: AOI clip bounds (%.4f, %.4f, %.4f, %.4f)",
+            *aoi_bounds,
         )
 
     land_types_raster, labels, layer_names = _zones.create_zones(

@@ -37,6 +37,31 @@ University with additional funding from the Global Environment Facility (GEF).
 See the [user guide](http://trends.earth) for information on how to use
 the plugin.
 
+### Sharing web maps
+
+Add the local result layers to the QGIS project, then choose **Share web map**
+from the Trends.Earth menu. Configure each layer's name, attribution and style;
+for vectors explicitly select only public-safe attributes and set the zoom
+range. Vector exports include a generated feature identifier. The tool checks
+for omitted features and changed selected attributes at each zoom; tiling still
+clips and quantizes geometry. Unsupported styles must be replaced with a
+supported style in the editor. Review the prepared size, styles and attribution,
+confirm sharing rights and the absence of sensitive content, then upload and
+publish. Uploads can be cancelled or retried while the dialog remains open.
+Failed or abandoned drafts remain reserved until revoked or expired.
+
+**Manage web-map shares** lists shares, storage usage, validation errors and
+UTC expiry, and can publish validated drafts, rotate links or revoke shares.
+Copy a new link when it is shown: it cannot be retrieved again. Anyone with the
+link can forward it or save the displayed content. Revocation is immediate, but
+storage remains reserved until server cleanup succeeds. Sharing requires an
+authenticated account and a server with public web-map sharing enabled.
+Sharing uses QGIS proxy resolution and supports HTTP CONNECT and SOCKS5 proxies,
+including configured credentials and proxy exclusions. HTTPS-to-proxy connections
+and interactive proxy authentication are not supported. The sharing transport
+uses the system TLS trust store; set `REQUESTS_CA_BUNDLE` or `CURL_CA_BUNDLE`
+when a different CA bundle is needed. It does not use QGIS's custom CA store.
+
 ## Installation of stable version of plugin
 
 The plugin requires Python 3.12 or newer, including the Python runtime bundled

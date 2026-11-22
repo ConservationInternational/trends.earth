@@ -456,7 +456,9 @@ class LDMPPlugin:
         from .webmap_dialog import show_link
 
         parent = self.iface.mainWindow()
-        CreateWebmapDialog(parent, on_published=lambda result: show_link(parent, result)).exec()
+        CreateWebmapDialog(
+            parent, on_published=lambda result: show_link(parent, result)
+        ).exec()
 
     def activate_polygon_tool(self):
         self.iface.mapCanvas().setMapTool(self.polygon_tool)

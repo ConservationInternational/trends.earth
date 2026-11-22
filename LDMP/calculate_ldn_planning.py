@@ -3,13 +3,13 @@
 Dialogs, all inheriting DlgCalculateBase:
   - DlgCalculateLDNPlanningARR         (ldn-planning-arr)
   - DlgCalculateLDNPlanningHotspots    (ldn-planning-hotspots)
-  - DlgCalculateLDNPlanningProjection  (ldn-planning-projection) — Scenario & BAU
   - DlgCalculateLDNPlanningLandTypes      (ldn-planning-land-types) — Define Land Types
 
 All UIs are built programmatically (no .ui file), following the pattern in
 LDMP/calculate_counterbalancing.py.
 """
 
+import copy
 import json
 import logging
 import tempfile
@@ -36,6 +36,23 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # Shared helpers
 # ---------------------------------------------------------------------------
+
+
+def _status_type(band: data_io.Band) -> str:
+    """Resolve the encoding from the selected Trends.Earth band metadata."""
+    if band.band_info.name == ld_config.SDG_BAND_NAME:
+        return "3class"
+    if band.band_info.name == ld_config.SDG_STATUS_BAND_NAME:
+        return "7class"
+    raise ValueError(
+        QtCore.QCoreApplication.translate(
+            "ldn_planning",
+            "The selected dataset does not identify an SDG status encoding.",
+        )
+    )
+
+
+_SDG_STATUS_LAYERS = ";".join((ld_config.SDG_BAND_NAME, ld_config.SDG_STATUS_BAND_NAME))
 
 
 def _make_group(title: str, parent_layout: QtWidgets.QLayout) -> QtWidgets.QVBoxLayout:
@@ -428,14 +445,6 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
         )
         self.combo_status = data_io.WidgetDataIOSelectTELayerExisting()
         inner.addWidget(self.combo_status)
-        self.combo_status_type = QtWidgets.QComboBox()
-        self.combo_status_type.addItem(self.tr("7-class expanded status"), "7class")
-        self.combo_status_type.addItem(self.tr("3-class indicator"), "3class")
-        inner.addWidget(
-            QtWidgets.QLabel(self.tr("Status encoding (not inferred from values)"))
-        )
-        inner.addWidget(self.combo_status_type)
-
         # -- Land Productivity Dynamics layer (optional) --
         inner_traj = _make_group(
             self.tr("Land Productivity Dynamics Layer (optional)"), layout
@@ -503,7 +512,7 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
             left,
             self.tr(
                 "<h3>Avoid / Reduce / Reverse</h3>"
-                "<p>Select an SDG 15.3.1 status layer and its encoding. Optional "
+                "<p>Select an SDG 15.3.1 indicator or status layer. Optional "
                 "productivity and risk data identify non-degraded areas at risk.</p>"
                 "<p>Without risk inputs, valid non-degraded areas default to Avoid. "
                 "Check the assignment-reason band and areas with missing data.</p>"
@@ -517,7 +526,7 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
         self.resize(600, 560)
 
     def _populate_combos(self):
-        self.combo_status.setProperty("layer_type", ld_config.SDG_STATUS_BAND_NAME)
+        self.combo_status.setProperty("layer_type", _SDG_STATUS_LAYERS)
         self.combo_status.populate()
         lpd_types = ";".join(
             [
@@ -557,6 +566,12 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
             )
             return
 
+        try:
+            status_type = _status_type(status_info)
+        except ValueError as exc:
+            QtWidgets.QMessageBox.critical(self, self.tr("Error"), str(exc))
+            return
+
         traj_path = None
         traj_band_index = 1
         if self.chk_use_trajectory.isChecked():
@@ -591,9 +606,11 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
             "task_notes": self.task_notes.toPlainText(),
             "status_layer_path": str(status_info.path),
             "status_band_index": status_info.band_index,
-            "status_type": self.combo_status_type.currentData(),
+            "status_job_id": str(status_info.job.id),
+            "status_type": status_type,
             "trajectory_path": traj_path,
             "trajectory_band_index": traj_band_index,
+            "trajectory_job_id": str(lpd_info.job.id) if traj_path else None,
             "risk_layer_path": risk_path,
             "risk_band_index": self.spin_risk_band.value(),
             "risk_threshold": self.spin_risk_threshold.value(),
@@ -713,7 +730,7 @@ class DlgCalculateLDNPlanningHotspots(DlgCalculateBase):
                 "<p>Select an SDG 15.3.1 status layer and administrative units, "
                 "your own polygons, or a regular grid. Zones are ranked by their "
                 "fraction of degraded land.</p>"
-                "<p>Review the zone map and report alongside local knowledge.</p>"
+                "<p>Inspect the zone map and report alongside local knowledge.</p>"
                 "<p><a href='https://docs.trends.earth/en/latest/for_users/training/ldnplanning.html'>"
                 "LDN planning tutorial</a></p>"
             ),
@@ -724,7 +741,7 @@ class DlgCalculateLDNPlanningHotspots(DlgCalculateBase):
         self.resize(600, 560)
 
     def _populate_combos(self):
-        self.combo_status.setProperty("layer_type", ld_config.SDG_STATUS_BAND_NAME)
+        self.combo_status.setProperty("layer_type", _SDG_STATUS_LAYERS)
         self.combo_status.populate()
 
     def showEvent(self, event):
@@ -756,6 +773,12 @@ class DlgCalculateLDNPlanningHotspots(DlgCalculateBase):
             )
             return
 
+        try:
+            status_type = _status_type(status_info)
+        except ValueError as exc:
+            QtWidgets.QMessageBox.critical(self, self.tr("Error"), str(exc))
+            return
+
         # Resolve the zoning source
         zones_path = None
         if self.rb_zones_admin.isChecked():
@@ -781,6 +804,7 @@ class DlgCalculateLDNPlanningHotspots(DlgCalculateBase):
             "task_notes": self.task_notes.toPlainText(),
             "status_layer_path": str(status_info.path),
             "status_band_index": status_info.band_index,
+            "status_type": status_type,
             "zones_path": zones_path,
             "grid_size_km": self.spin_grid_km.value(),
             "year_initial": meta.get(
@@ -795,27 +819,27 @@ class DlgCalculateLDNPlanningHotspots(DlgCalculateBase):
 
 
 # ---------------------------------------------------------------------------
-# Dialog 3 — Scenario & BAU Projection (combined)
+# Scenario target configuration
 # ---------------------------------------------------------------------------
 
 
-class DlgApproveCandidates(QtWidgets.QDialog):
-    """Readable per-class review of a candidate-area dataset before approval.
+class DlgConfigureCandidateTargets(QtWidgets.QDialog):
+    """Configure scenario targets from a candidate-area dataset.
 
     Shows each selected ARR class with its actual selected area and lets the
-    planner assign a separate expected effectiveness per class. Approval adds
-    immutable scenario references; it never claims observed gains.
+    planner assign a separate expected effectiveness per class. Added targets
+    are immutable scenario references; their effects are projected, not observed.
     """
 
     def __init__(self, job, report: dict, classes, default_effectiveness, parent=None):
         super().__init__(parent)
-        self.setWindowTitle(self.tr("Approve candidate areas"))
+        self.setWindowTitle(self.tr("Configure candidate targets"))
         self.effectiveness_by_class: typing.Dict[str, float] = {}
         layout = QtWidgets.QVBoxLayout(self)
         intro = QtWidgets.QLabel(
             self.tr(
-                "Review the candidate raster on the map before approving "
-                "'%s'. Each class receives its effect only where the ARR class "
+                "Set expected effectiveness for each candidate class in '%s'. "
+                "Each class receives its effect only where the ARR class "
                 "matches. Effectiveness is the expected fraction of the "
                 "candidate area where the intervention succeeds; these are "
                 "projected effects, not observed gains."
@@ -865,7 +889,7 @@ class DlgApproveCandidates(QtWidgets.QDialog):
             QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
         )
         buttons.button(QtWidgets.QDialogButtonBox.Ok).setText(
-            self.tr("Approve these areas")
+            self.tr("Add targets to scenario")
         )
         buttons.accepted.connect(self._accept)
         buttons.rejected.connect(self.reject)
@@ -879,154 +903,37 @@ class DlgApproveCandidates(QtWidgets.QDialog):
         self.accept()
 
 
-class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
-    """Combined Scenario & BAU Projection tool.
+class ScenarioTargetsWidget(QtWidgets.QWidget):
+    """Scenario-specific target editing inside the planning tab."""
 
-    Computes the Business-As-Usual degradation trajectory, applies planning
-    targets over the same horizon, and compares the scenario against BAU.
+    changed = QtCore.pyqtSignal()
 
-    The dialog is organised into tabs (Data / Time / Targets / Breakdown) so it
-    stays compact on small screens. The balance sheet separates:
-      - Gains  = Reverse targets (only these feed counterbalancing)
-      - Avoided losses = Avoid + Reduce targets
-    per Cowie et al. (2018) and GPG Addendum §2.2.
-    """
-
-    LOCAL_SCRIPT_NAME: str = "ldn-planning-projection"
-
-    def __init__(
-        self,
-        iface: qgis.gui.QgisInterface,
-        script: ExecutionScript,
-        parent: QtWidgets.QWidget = None,
-    ):
-        super().__init__(iface, script, parent)
+    def __init__(self, panel):
+        super().__init__(panel)
+        self.panel = panel
+        self.main_dock = panel._main_dock
+        self._targets: list[dict] = []
         self._build_ui()
-        self._finish_initialization()
-        self.changed_region.connect(self._populate_combos)
-        self._targets: typing.List[typing.Dict] = []
 
     def _build_ui(self):
-        layout = QtWidgets.QVBoxLayout()
-        tabs = QtWidgets.QTabWidget()
-        layout.addWidget(tabs)
-
-        # ================= Tab 1: Data =================
-        tab_data = QtWidgets.QWidget()
-        data_layout = QtWidgets.QVBoxLayout()
-        tab_data.setLayout(data_layout)
-        tabs.addTab(tab_data, self.tr("Data"))
-
-        inner_arr = _make_group(
-            self.tr("ARR Classification Layer (required)"), data_layout
-        )
-        inner_arr.addWidget(
-            QtWidgets.QLabel(
-                self.tr(
-                    "Select the Avoid/Reduce/Reverse raster produced by\n"
-                    "LDN Planning — ARR Classification:"
-                )
-            )
-        )
-        self.combo_arr = data_io.WidgetDataIOSelectTELayerExisting()
-        inner_arr.addWidget(self.combo_arr)
-
-        inner_bl = _make_group(
-            self.tr("Baseline SDG 15.3.1 Indicator (required)"), data_layout
-        )
-        inner_bl.addWidget(
-            QtWidgets.QLabel(
-                self.tr(
-                    "Select the SDG 15.3.1 Indicator layer for the baseline period:"
-                )
-            )
-        )
-        self.combo_baseline = data_io.WidgetDataIOSelectTELayerExisting()
-        inner_bl.addWidget(self.combo_baseline)
-        self.combo_baseline_type = QtWidgets.QComboBox()
-        self.combo_baseline_type.addItem(self.tr("3-class indicator"), "3class")
-        self.combo_baseline_type.addItem(self.tr("7-class expanded status"), "7class")
-        inner_bl.addWidget(self.combo_baseline_type)
-
-        inner_rp = _make_group(
-            self.tr("Reporting Period Status Layer (optional)"), data_layout
-        )
-        self.chk_use_reporting = QtWidgets.QCheckBox(
-            self.tr("Include reporting period layer (needed for the BAU rate)")
-        )
-        inner_rp.addWidget(self.chk_use_reporting)
-        self.combo_reporting = data_io.WidgetDataIOSelectTELayerExisting()
-        self.combo_reporting.setEnabled(False)
-        inner_rp.addWidget(self.combo_reporting)
-        self.combo_reporting_type = QtWidgets.QComboBox()
-        self.combo_reporting_type.addItem(self.tr("3-class indicator"), "3class")
-        self.combo_reporting_type.addItem(self.tr("7-class expanded status"), "7class")
-        inner_rp.addWidget(self.combo_reporting_type)
-        self.combo_comparison = QtWidgets.QComboBox()
-        data_layout.addWidget(
-            QtWidgets.QLabel(self.tr("Compare with a saved scenario (optional)"))
-        )
-        data_layout.addWidget(self.combo_comparison)
-        self.chk_use_reporting.toggled.connect(self.combo_reporting.setEnabled)
-        data_layout.addStretch()
-
-        # ================= Tab 2: Time =================
-        tab_time = QtWidgets.QWidget()
-        time_layout = QtWidgets.QVBoxLayout()
-        tab_time.setLayout(time_layout)
-        tabs.addTab(tab_time, self.tr("Time"))
-
-        inner_yr = _make_group(self.tr("Projection Time Period"), time_layout)
-        yr_grid = QtWidgets.QGridLayout()
-        yr_grid.addWidget(QtWidgets.QLabel(self.tr("Baseline start year:")), 0, 0)
-        self.spin_yr_initial = QtWidgets.QSpinBox()
-        self.spin_yr_initial.setRange(1980, 2100)
-        self.spin_yr_initial.setValue(2000)
-        yr_grid.addWidget(self.spin_yr_initial, 0, 1)
-        yr_grid.addWidget(
-            QtWidgets.QLabel(self.tr("Baseline / reporting end year:")), 1, 0
-        )
-        self.spin_yr_final = QtWidgets.QSpinBox()
-        self.spin_yr_final.setRange(1980, 2100)
-        self.spin_yr_final.setValue(2015)
-        yr_grid.addWidget(self.spin_yr_final, 1, 1)
-        yr_grid.addWidget(QtWidgets.QLabel(self.tr("Projection target year:")), 2, 0)
-        self.spin_target_yr = QtWidgets.QSpinBox()
-        self.spin_target_yr.setRange(2000, 2100)
-        self.spin_target_yr.setValue(2030)
-        yr_grid.addWidget(self.spin_target_yr, 2, 1)
-        inner_yr.addLayout(yr_grid)
-        info = QtWidgets.QLabel(
-            self.tr(
-                "LDN frame of reference: the target equals the baseline "
-                "(no net loss). The national scenario comparison is a simplified "
-                "aggregate, not proof of like-for-like neutrality. Avoided losses "
-                "are upper-bound estimates, not guaranteed effects."
-            )
-        )
-        info.setWordWrap(True)
-        inner_yr.addWidget(info)
-        time_layout.addStretch()
-
-        # ================= Tab 3: Targets =================
-        tab_targets = QtWidgets.QWidget()
-        t_layout = QtWidgets.QVBoxLayout()
-        tab_targets.setLayout(t_layout)
-        tabs.addTab(tab_targets, self.tr("Targets"))
-
-        inner_t = _make_group(self.tr("Planning Targets"), t_layout)
+        layout = QtWidgets.QVBoxLayout(self)
+        self.use_candidates = QtWidgets.QCheckBox(self.tr("Include candidate areas"))
+        self.use_polygons = QtWidgets.QCheckBox(self.tr("Include polygon targets"))
+        layout.addWidget(self.use_candidates)
+        layout.addWidget(self.use_polygons)
+        inner_t = _make_group(self.tr("Polygon targets"), layout)
 
         # Intervention description
-        inner_t.addWidget(
-            QtWidgets.QLabel(
-                self.tr(
-                    "Add target polygons.  Assign each one an intervention:\n"
-                    "  Reverse = restoration → generates counterbalancing GAINS\n"
-                    "  Reduce  = SLM         → avoids losses (not gains)\n"
-                    "  Avoid   = protection  → avoids losses (not gains)"
-                )
+        description = QtWidgets.QLabel(
+            self.tr(
+                "Add target polygons.  Assign each one an intervention:\n"
+                "  Reverse = restoration → generates counterbalancing GAINS\n"
+                "  Reduce  = SLM         → avoids losses (not gains)\n"
+                "  Avoid   = protection  → avoids losses (not gains)"
             )
         )
+        description.setWordWrap(True)
+        inner_t.addWidget(description)
 
         # Collapsible required-fields help section
         self.btn_targets_help = QtWidgets.QToolButton()
@@ -1059,7 +966,7 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         inner_t.addWidget(self.combo_targets_layer)
 
         # Three action buttons
-        action_row = QtWidgets.QHBoxLayout()
+        action_row = QtWidgets.QVBoxLayout()
         self.btn_create_targets = QtWidgets.QPushButton(
             self.tr("Create layer to draw...")
         )
@@ -1083,131 +990,35 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         self.targets_list.setMaximumHeight(90)
         inner_t.addWidget(self.targets_list)
 
-        self._targets_jobs: typing.List = []
-        self.combo_candidates = QtWidgets.QComboBox()
-        inner_t.addWidget(QtWidgets.QLabel(self.tr("Reviewed candidate-area dataset")))
-        inner_t.addWidget(self.combo_candidates)
+        self._targets_jobs: list = []
         self.spin_candidate_eff = QtWidgets.QDoubleSpinBox()
         self.spin_candidate_eff.setRange(0, 1)
         self.spin_candidate_eff.setValue(0.8)
         self.spin_candidate_eff.setSingleStep(0.05)
-        inner_t.addWidget(QtWidgets.QLabel(self.tr("Expected effectiveness (0-1)")))
-        inner_t.addWidget(self.spin_candidate_eff)
-        self.btn_approve_candidates = QtWidgets.QPushButton(
-            self.tr("Review and approve candidate areas...")
+        inner_t.addWidget(
+            QtWidgets.QLabel(self.tr("Default effectiveness (0-1)"))
         )
-        self.btn_approve_candidates.clicked.connect(self._approve_candidates)
-        inner_t.addWidget(self.btn_approve_candidates)
+        inner_t.addWidget(self.spin_candidate_eff)
+        self.btn_configure_candidates = QtWidgets.QPushButton(
+            self.tr("Set candidate targets...")
+        )
+        self.btn_configure_candidates.clicked.connect(self._configure_candidates)
+        inner_t.addWidget(self.btn_configure_candidates)
         self.btn_preview_candidates = QtWidgets.QPushButton(
-            self.tr("Open selected candidate map for review")
+            self.tr("Show selected candidate map")
         )
         self.btn_preview_candidates.clicked.connect(self._preview_candidates)
         inner_t.addWidget(self.btn_preview_candidates)
-        t_layout.addStretch()
-
-        # ================= Tab 4: Breakdown =================
-        tab_bd = QtWidgets.QWidget()
-        bd_layout = QtWidgets.QVBoxLayout()
-        tab_bd.setLayout(bd_layout)
-        tabs.addTab(tab_bd, self.tr("Breakdown"))
-
-        inner_lt = _make_group(
-            self.tr("Land types (for per-land-type balance sheet)"), bd_layout
-        )
-        inner_lt.addWidget(
-            QtWidgets.QLabel(
-                self.tr(
-                    "Choose how land types (land potential classes) are defined\n"
-                    "for the 'like for like' balance sheet."
-                )
-            )
-        )
-        self.rb_lt_lc = QtWidgets.QRadioButton(self.tr("Land cover layer"))
-        self.rb_lt_lc.setChecked(True)
-        inner_lt.addWidget(self.rb_lt_lc)
-        self.combo_land_type = data_io.WidgetDataIOSelectTELayerExisting()
-        inner_lt.addWidget(self.combo_land_type)
-        self.rb_lt_saved = QtWidgets.QRadioButton(
-            self.tr("Saved land types layer (from the Define Land Types tool)")
-        )
-        inner_lt.addWidget(self.rb_lt_saved)
-        saved_lt_row = QtWidgets.QHBoxLayout()
-        self.combo_scn_zones_job = QtWidgets.QComboBox()
-        self.combo_scn_zones_job.setEnabled(False)
-        saved_lt_row.addWidget(self.combo_scn_zones_job)
-        inner_lt.addLayout(saved_lt_row)
-        self.rb_lt_saved.toggled.connect(self.combo_scn_zones_job.setEnabled)
-        self.rb_lt_none = QtWidgets.QRadioButton(self.tr("No land type breakdown"))
-        inner_lt.addWidget(self.rb_lt_none)
-        self.rb_lt_lc.toggled.connect(self.combo_land_type.setEnabled)
-
-        inner_j = _make_group(
-            self.tr("Jurisdictions (for per-jurisdiction balance sheet, optional)"),
-            bd_layout,
-        )
-        inner_j.addWidget(
-            QtWidgets.QLabel(
-                self.tr(
-                    "Optionally break down gains and avoided losses by sub-national\n"
-                    "jurisdiction (administrative units or custom polygons)."
-                )
-            )
-        )
-        self.rb_jur_none = QtWidgets.QRadioButton(
-            self.tr("No jurisdictions — national totals only")
-        )
-        self.rb_jur_none.setChecked(True)
-        inner_j.addWidget(self.rb_jur_none)
-        self.rb_jur_admin = QtWidgets.QRadioButton(
-            self.tr("Administrative units (level 1) of the selected country")
-        )
-        inner_j.addWidget(self.rb_jur_admin)
-        self.rb_jur_upload = QtWidgets.QRadioButton(self.tr("Upload a polygon layer"))
-        inner_j.addWidget(self.rb_jur_upload)
-        scn_zone_row = QtWidgets.QHBoxLayout()
-        self.le_scn_zones = QtWidgets.QLineEdit()
-        self.le_scn_zones.setPlaceholderText(self.tr("No file selected"))
-        self.le_scn_zones.setReadOnly(True)
-        self.btn_scn_zones = QtWidgets.QPushButton(self.tr("Browse..."))
-        self.btn_scn_zones.clicked.connect(self._select_scn_zones)
-        scn_zone_row.addWidget(self.le_scn_zones)
-        scn_zone_row.addWidget(self.btn_scn_zones)
-        inner_j.addLayout(scn_zone_row)
-        self._scn_zones_path: typing.Optional[str] = None
-        self._land_types_jobs: typing.List = []
-        self.le_scn_zones.setEnabled(False)
-        self.btn_scn_zones.setEnabled(False)
-        self.rb_jur_upload.toggled.connect(self.le_scn_zones.setEnabled)
-        self.rb_jur_upload.toggled.connect(self.btn_scn_zones.setEnabled)
-        bd_layout.addStretch()
-
-        # ================= Below tabs (always visible) =================
         self.execution_name_le, self.task_notes = _add_task_name_notes(
             layout, "LDN Planning — Scenario & BAU"
         )
-        self.region_la, self.region_button = _add_region_buttons(layout)
-
-        left = QtWidgets.QWidget()
-        left.setLayout(layout)
-        self.splitter, self.button_box = _build_splitter_with_ok_cancel(
-            self,
-            left,
-            self.tr(
-                "<h3>Scenario &amp; BAU projection</h3>"
-                "<p>Choose ARR and baseline layers, a planning period, and "
-                "intervention targets. A reporting-period layer enables a BAU rate.</p>"
-                "<p>Review and approve candidate areas or load target polygons. "
-                "Reverse produces expected gains; Avoid and Reduce produce expected "
-                "avoided losses. Review results by land type.</p>"
-                "<p><a href='https://docs.trends.earth/en/latest/for_users/training/ldnplanning.html'>"
-                "LDN planning tutorial</a></p>"
-            ),
-        )
-        self.setWindowTitle(self.tr("LDN Planning — Scenario & BAU Projection"))
-        self.resize(680, 600)
+        self.use_candidates.toggled.connect(self.changed)
+        self.use_polygons.toggled.connect(self.changed)
+        self.execution_name_le.textChanged.connect(self.changed)
+        self.task_notes.textChanged.connect(self.changed)
 
     # Land cover 7-class IPCC labels for per-land-type reporting.
-    _LC_LABELS = {
+    _LC_LABELS: typing.ClassVar[dict[int, str]] = {
         1: "Tree-covered",
         2: "Grassland",
         3: "Cropland",
@@ -1217,79 +1028,8 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         7: "Water body",
     }
 
-    def _select_scn_zones(self):
-        path, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self,
-            self.tr("Select land types vector layer"),
-            "",
-            self.tr("Vector files (*.gpkg *.shp *.geojson);;All files (*)"),
-        )
-        if path:
-            self._scn_zones_path = path
-            self.le_scn_zones.setText(path)
-
-    def _selected_saved_land_types(self):
-        """Return (land_types_raster_path, {id: label}) for the selected land types job."""
-        from te_schemas.results import RasterResults
-
-        idx = self.combo_scn_zones_job.currentIndex()
-        if idx < 0 or not self._land_types_jobs:
-            QtWidgets.QMessageBox.critical(
-                self,
-                self.tr("Error"),
-                self.tr("No saved land types layer is available."),
-            )
-            return None, None
-        job = self._land_types_jobs[idx]
-        job_manager.ensure_results_loaded(job)
-        rr = job.get_first_result_by_type(RasterResults)
-        if rr is None or rr.uri is None or rr.uri.uri is None:
-            QtWidgets.QMessageBox.critical(
-                self,
-                self.tr("Error"),
-                self.tr("The selected land types layer has no raster data."),
-            )
-            return None, None
-        labels = {}
-        data = getattr(rr, "data", None) or {}
-        units = (data.get("land_types_key") or {}).get("units", {})
-        for k, v in units.items():
-            try:
-                labels[int(k)] = (
-                    v.get("label", str(k)) if isinstance(v, dict) else str(v)
-                )
-            except (TypeError, ValueError):
-                continue
-        return str(rr.uri.uri), labels
-
-    def _populate_combos(self):
-        self.combo_arr.setProperty("layer_type", "LDN Planning - Avoid/Reduce/Reverse")
-        self.combo_arr.populate()
-        self.combo_baseline.setProperty("layer_type", ld_config.SDG_BAND_NAME)
-        self.combo_baseline.populate()
-        self.combo_reporting.setProperty("layer_type", ld_config.SDG_STATUS_BAND_NAME)
-        self.combo_reporting.populate()
-        # Land cover layers (7-class or standard) act as the land-type proxy.
-        lc_types = ld_config.LC_BAND_NAME
-        if isinstance(lc_types, (list, tuple)):
-            lc_types = ";".join(lc_types)
-        self.combo_land_type.setProperty("layer_type", lc_types)
-        self.combo_land_type.populate()
-        # Saved land types (from the Define Land Types tool)
-        self._land_types_jobs = job_manager.get_ldn_land_types_jobs()
-        self.combo_scn_zones_job.clear()
-        if not self._land_types_jobs:
-            self.combo_scn_zones_job.addItem(self.tr("(no saved land types)"))
-            self.rb_lt_saved.setEnabled(False)
-        else:
-            self.rb_lt_saved.setEnabled(True)
-            for j in self._land_types_jobs:
-                self.combo_scn_zones_job.addItem(j.task_name or str(j.id), str(j.id))
-        self._targets_jobs = job_manager.get_ldn_targets_jobs()
-        self._refresh_targets_combo()
-
     def _create_targets_layer(self):
-        """Create an editable targets layer and close so the user can digitize."""
+        """Create an editable targets layer without closing the planning tab."""
         if self.main_dock is None:
             QtWidgets.QMessageBox.warning(
                 self,
@@ -1310,11 +1050,11 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
                 "(avoid / reduce / reverse) and 'effectiveness' (0\u20131) in the "
                 "attribute form.\n"
                 "3. When finished, save the layer (Layer → Save Layer Edits).\n"
-                "4. Re-open this tool, select the layer in the combo, and click "
+                "4. Return to LDN Planning, select the layer and click "
                 "'Load from selected layer'."
             ),
         )
-        self.reject()
+        self._refresh_targets_combo()
 
     def _toggle_targets_help(self, checked: bool):
         self.btn_targets_help.setText(
@@ -1326,6 +1066,7 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
 
     def _refresh_targets_combo(self):
         """Repopulate the targets layer combo from the job manager."""
+        previous = self.combo_targets_layer.currentData()
         self._targets_jobs = job_manager.get_ldn_targets_jobs()
         self.combo_targets_layer.clear()
         if not self._targets_jobs:
@@ -1337,6 +1078,9 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
             self.btn_load_targets.setEnabled(True)
             for j in self._targets_jobs:
                 self.combo_targets_layer.addItem(j.task_name or str(j.id), str(j.id))
+            index = self.combo_targets_layer.findData(previous)
+            if index >= 0:
+                self.combo_targets_layer.setCurrentIndex(index)
 
     def _import_targets_from_file(self):
         """Import an external vector file as a new TE targets dataset."""
@@ -1352,6 +1096,11 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         try:
             info = inspect_targets_file(path)
+        except (OSError, ValueError, RuntimeError) as exc:
+            QtWidgets.QMessageBox.critical(
+                self, self.tr("Cannot inspect targets"), str(exc)
+            )
+            return
         finally:
             QtWidgets.QApplication.restoreOverrideCursor()
 
@@ -1414,6 +1163,7 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
             )
             return
         job = self._targets_jobs[idx]
+        job_manager.ensure_results_loaded(job)
 
         from qgis.core import QgsProject
 
@@ -1438,8 +1188,11 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
                 fp = job_manager.get_job_file_path(job).with_suffix(".gpkg")
                 if fp.exists():
                     uri_path = str(fp)
-            except Exception:
-                uri_path = None
+            except (OSError, ValueError) as exc:
+                QtWidgets.QMessageBox.critical(
+                    self, self.tr("Cannot locate targets"), str(exc)
+                )
+                return
 
         # Secondary fallback: find the layer in the project by normalised source
         # path.  This is needed when job_id was stamped on a temporary layer
@@ -1612,6 +1365,7 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         ]
         for target in loaded_targets:
             target["source_job_id"] = source_id
+            target["source_name"] = job.task_name or source_id
         self._targets.extend(loaded_targets)
         item_text = self.tr("%d polygon(s) from '%s'") % (
             n_added,
@@ -1621,114 +1375,37 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
         logger.info(
             "Loaded %d target polygon(s) from saved layer (job %s)", n_added, job.id
         )
+        self.use_polygons.setChecked(True)
+        self.changed.emit()
 
-    def showEvent(self, event):
-        super().showEvent(event)
-        self._populate_combos()
-        from .calculate_ldn_priority import planning_raster_jobs
+    def _configure_candidate_targets(
+        self, job, report: dict, classes: list[str]
+    ) -> dict[str, float] | None:
+        """Set the expected effectiveness for candidate classes.
 
-        preselect_arr = getattr(self, "preselect_arr_job_id", None)
-        if preselect_arr:
-            from .ldn_planning_actions import select_job_band
-
-            select_job_band(
-                self.combo_arr, preselect_arr, self, self.tr("ARR classification")
-            )
-            self.preselect_arr_job_id = None
-        preselect_baseline = getattr(self, "preselect_baseline_job_id", None)
-        if preselect_baseline:
-            from .ldn_planning_actions import select_job_band
-
-            select_job_band(
-                self.combo_baseline,
-                preselect_baseline,
-                self,
-                self.tr("baseline indicator"),
-                band_index=getattr(self, "preselect_baseline_band_index", None),
-            )
-            self.preselect_baseline_job_id = None
-            self.preselect_baseline_band_index = None
-        preselect_land_types = getattr(self, "preselect_land_type_job_id", None)
-        if preselect_land_types:
-            index = self.combo_scn_zones_job.findData(preselect_land_types)
-            if index >= 0:
-                self.rb_lt_saved.setChecked(True)
-                self.combo_scn_zones_job.setCurrentIndex(index)
-            else:
-                self.rb_lt_saved.setChecked(True)
-                self.combo_scn_zones_job.setCurrentIndex(-1)
-                QtWidgets.QMessageBox.warning(
-                    self,
-                    self.tr("Dataset unavailable"),
-                    self.tr("The selected land types are unavailable. Choose another."),
-                )
-            self.preselect_land_type_job_id = None
-
-        preselect = getattr(self, "preselect_candidate_job_id", None)
-        previous_candidate = preselect or self.combo_candidates.currentData()
-        self.preselect_candidate_job_id = None
-        self._candidate_jobs = planning_raster_jobs("ldn-planning-selection")
-        self.combo_candidates.clear()
-        for job in self._candidate_jobs:
-            self.combo_candidates.addItem(job.task_name or str(job.id), str(job.id))
-        if previous_candidate is not None:
-            index = self.combo_candidates.findData(previous_candidate)
-            if index >= 0:
-                self.combo_candidates.setCurrentIndex(index)
-            elif preselect:
-                self.combo_candidates.setCurrentIndex(-1)
-                QtWidgets.QMessageBox.warning(
-                    self,
-                    self.tr("Dataset unavailable"),
-                    self.tr("The selected candidate dataset is unavailable. Choose another."),
-                )
-        preselect_comparison = getattr(self, "preselect_comparison_job_id", None)
-        previous_comparison = preselect_comparison or self.combo_comparison.currentData()
-        self.preselect_comparison_job_id = None
-        self._comparison_jobs = planning_raster_jobs("ldn-planning-projection")
-        self.combo_comparison.clear()
-        self.combo_comparison.addItem(self.tr("No scenario comparison"), None)
-        for job in self._comparison_jobs:
-            self.combo_comparison.addItem(job.task_name or str(job.id), str(job.id))
-        if previous_comparison is not None:
-            index = self.combo_comparison.findData(previous_comparison)
-            if index >= 0:
-                self.combo_comparison.setCurrentIndex(index)
-            elif preselect_comparison:
-                self.combo_comparison.setCurrentIndex(-1)
-                QtWidgets.QMessageBox.warning(
-                    self,
-                    self.tr("Dataset unavailable"),
-                    self.tr("The selected scenario is unavailable for comparison."),
-                )
-
-    def _confirm_approval(
-        self, job, report: dict, classes: typing.List[str]
-    ) -> typing.Optional[typing.Dict[str, float]]:
-        """Show the readable per-class approval dialog.
-
-        Returns {arr_class: effectiveness} on approval, or None if cancelled.
+        Returns {arr_class: effectiveness}, or None if cancelled.
         """
-        dialog = DlgApproveCandidates(
+        dialog = DlgConfigureCandidateTargets(
             job, report, classes, self.spin_candidate_eff.value(), self
         )
         if dialog.exec() != QtWidgets.QDialog.Accepted:
             return None
         return dialog.effectiveness_by_class
 
-    def _approve_candidates(self):
+    def _configure_candidates(self):
         from .calculate_ldn_priority import CLASSES, job_raster_path
 
-        index = self.combo_candidates.currentIndex()
-        if index < 0:
+        self.panel._update_status()
+        job = self.panel._selected("candidate")
+        if job is None:
             QtWidgets.QMessageBox.information(
                 self,
                 self.tr("No candidate areas"),
-                self.tr("Create and review a candidate-area dataset first."),
+                self.tr("Create a candidate-area dataset first."),
             )
             return
-        job = self._candidate_jobs[index]
         try:
+            context = self.panel.candidate_target_context()
             path, result = job_raster_path(job)
             if not job_manager.ensure_params_loaded(job) or not job.params.get(
                 "selections"
@@ -1750,14 +1427,31 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
             return
         report = result.data.get("report", {})
         classes = [key for key in CLASSES if key in job.params.get("selections", {})]
-        effectiveness_by_class = self._confirm_approval(job, report, classes)
+        effectiveness_by_class = self._configure_candidate_targets(
+            job, report, classes
+        )
         if not effectiveness_by_class:
+            return
+        try:
+            current_context = self.panel.candidate_target_context()
+        except (ValueError, OSError, RuntimeError) as exc:
+            QtWidgets.QMessageBox.critical(
+                self, self.tr("Cannot configure candidate targets"), str(exc)
+            )
+            return
+        if context != current_context:
+            QtWidgets.QMessageBox.warning(
+                self,
+                self.tr("Inputs changed"),
+                self.tr(
+                    "Project inputs changed while configuring candidate targets. "
+                    "Configure them again to use the current inputs."
+                ),
+            )
             return
         source_id = str(job.id)
         self._targets = [
-            target
-            for target in self._targets
-            if target.get("source_job_id") != source_id
+            target for target in self._targets if not target.get("selected_mask_path")
         ]
         for key, effectiveness in effectiveness_by_class.items():
             self._targets.append(
@@ -1765,189 +1459,77 @@ class DlgCalculateLDNPlanningProjection(DlgCalculateBase):
                     "selected_mask_path": path,
                     "intervention": key,
                     "effectiveness": effectiveness,
+                    "configured_effectiveness": effectiveness,
                     "source_job_id": source_id,
-                    "approved": True,
+                    "source_name": job.task_name or source_id,
                     "priority_params": job.params,
                     "mask_sha256": checksum,
+                    "configuration_context": context,
                 }
             )
         self.targets_list.addItem(
-            self.tr("Approved candidate dataset: %s") % (job.task_name or source_id)
+            self.tr("Candidate targets from: %s") % (job.task_name or source_id)
         )
+        self.use_candidates.setChecked(True)
+        self.changed.emit()
 
     def _preview_candidates(self):
-        index = self.combo_candidates.currentIndex()
-        if index < 0:
+        job = self.panel._selected("candidate")
+        if job is None:
             QtWidgets.QMessageBox.information(
                 self,
                 self.tr("No candidate areas"),
                 self.tr("Create a candidate-area dataset first."),
             )
             return
-        job = self._candidate_jobs[index]
         job_manager.ensure_results_loaded(job)
         job_manager.display_selected_job_results(job, [1])
-        self.hide()
 
     def _clear_targets(self):
         self._targets.clear()
         self.targets_list.clear()
+        self.changed.emit()
 
-    def btn_calculate(self):
-        if not super().btn_calculate():
-            return
+    def restore(self, draft):
+        self._targets = copy.deepcopy(draft["targets"])
+        self.use_candidates.setChecked(draft["use_candidates"])
+        self.use_polygons.setChecked(draft["use_polygons"])
+        self.execution_name_le.setText(draft["task_name"])
+        self.task_notes.setPlainText(draft["task_notes"])
+        self.spin_candidate_eff.setValue(draft["default_effectiveness"])
+        self._refresh_target_list()
 
-        if self.combo_comparison.currentIndex() < 0:
-            QtWidgets.QMessageBox.critical(
-                self,
-                self.tr("Cannot compare"),
-                self.tr("Choose a scenario to compare, or select no comparison."),
+    def _refresh_target_list(self):
+        self.targets_list.clear()
+        sources = {}
+        for target in self._targets:
+            key = (bool(target.get("selected_mask_path")), target.get("source_job_id"))
+            sources.setdefault(key, []).append(target)
+        for (candidate, _source), targets in sources.items():
+            effects = ", ".join(
+                "%s %.0f%%" % (target["intervention"], 100 * target["effectiveness"])
+                for target in targets
             )
-            return
-
-        arr_info = self.combo_arr.get_current_band()
-        if arr_info is None:
-            QtWidgets.QMessageBox.critical(
-                self,
-                self.tr("Error"),
-                self.tr("Please select a valid ARR classification layer."),
-            )
-            return
-
-        bl_info = self.combo_baseline.get_current_band()
-        if bl_info is None:
-            QtWidgets.QMessageBox.critical(
-                self,
-                self.tr("Error"),
-                self.tr("Please select a baseline status layer (Data tab)."),
-            )
-            return
-
-        rp_info = None
-        if self.chk_use_reporting.isChecked():
-            rp_info = self.combo_reporting.get_current_band()
-            if rp_info is None:
-                QtWidgets.QMessageBox.critical(
-                    self,
-                    self.tr("Error"),
-                    self.tr(
-                        "Please select a reporting status layer or uncheck the "
-                        "option (Data tab)."
-                    ),
+            self.targets_list.addItem(
+                "%s: %s (%s)"
+                % (
+                    self.tr("Candidate targets")
+                    if candidate
+                    else self.tr("Polygon snapshot"),
+                    targets[0].get("source_name") or self.tr("Targets"),
+                    effects,
                 )
-                return
-
-        if (
-            self.spin_yr_initial.value() >= self.spin_yr_final.value()
-            or self.spin_target_yr.value() < self.spin_yr_final.value()
-        ):
-            QtWidgets.QMessageBox.critical(
-                self,
-                self.tr("Invalid planning years"),
-                self.tr(
-                    "Initial year must precede reporting end; target year cannot precede it."
-                ),
             )
-            return
 
-        if not self._targets:
-            reply = QtWidgets.QMessageBox.question(
-                self,
-                self.tr("No targets"),
-                self.tr(
-                    "No planning targets have been added. "
-                    "The scenario will produce no changes. Continue anyway?"
-                ),
-                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-            )
-            if reply != QtWidgets.QMessageBox.Yes:
-                return
-
-        # Land-type layer: land cover combo OR saved land types raster
-        land_type_path = None
-        land_type_band_index = 1
-        land_type_labels = None
-        if self.rb_lt_lc.isChecked():
-            lt_info = self.combo_land_type.get_current_band()
-            if lt_info is not None:
-                land_type_path = str(lt_info.path)
-                land_type_band_index = lt_info.band_index
-                land_type_labels = self._LC_LABELS
-        elif self.rb_lt_saved.isChecked():
-            _lt_raster, _lt_labels = self._selected_saved_land_types()
-            if _lt_raster is None:
-                return
-            land_type_path = _lt_raster
-            land_type_band_index = 1
-            land_type_labels = _lt_labels
-
-        # Jurisdiction source (optional): admin boundaries / uploaded vector
-        jurisdictions_path = None
-        if self.rb_jur_admin.isChecked():
-            jurisdictions_path = _resolve_admin_zones(self)
-            if jurisdictions_path is None:
-                return
-        elif self.rb_jur_upload.isChecked():
-            jurisdictions_path = self._scn_zones_path
-            if not jurisdictions_path:
-                QtWidgets.QMessageBox.critical(
-                    self,
-                    self.tr("Error"),
-                    self.tr("Please select a polygon layer for jurisdictions."),
-                )
-                return
-
-        params = {
+    def draft_values(self):
+        return {
+            "targets": copy.deepcopy(self._targets),
+            "use_candidates": self.use_candidates.isChecked(),
+            "use_polygons": self.use_polygons.isChecked(),
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
-            "arr_layer_path": str(arr_info.path),
-            "arr_band_index": arr_info.band_index,
-            "status_baseline_path": str(bl_info.path),
-            "status_baseline_band_index": bl_info.band_index,
-            "status_baseline_type": self.combo_baseline_type.currentData(),
-            "status_reporting_path": str(rp_info.path) if rp_info else None,
-            "status_reporting_band_index": rp_info.band_index if rp_info else 1,
-            "status_reporting_type": self.combo_reporting_type.currentData(),
-            "year_initial": self.spin_yr_initial.value(),
-            "year_final": self.spin_yr_final.value(),
-            "target_year": self.spin_target_yr.value(),
-            "targets": self._targets,
-            "land_type_path": land_type_path,
-            "land_type_band_index": land_type_band_index,
-            "land_type_labels": land_type_labels,
-            "jurisdictions_path": jurisdictions_path,
+            "default_effectiveness": self.spin_candidate_eff.value(),
         }
-        comparison_index = self.combo_comparison.currentIndex() - 1
-        if comparison_index >= 0:
-            comparison_job = self._comparison_jobs[comparison_index]
-            job_manager.ensure_results_loaded(comparison_job)
-            if not job_manager.ensure_params_loaded(comparison_job):
-                QtWidgets.QMessageBox.critical(
-                    self,
-                    self.tr("Cannot compare"),
-                    self.tr("The saved scenario parameters are missing."),
-                )
-                return
-            from te_schemas.results import RasterResults
-
-            comparison_result = comparison_job.get_first_result_by_type(RasterResults)
-            if comparison_result is None:
-                QtWidgets.QMessageBox.critical(
-                    self,
-                    self.tr("Cannot compare"),
-                    self.tr("The saved scenario has no results."),
-                )
-                return
-            params["comparison"] = {
-                "job_id": str(comparison_job.id),
-                "task_name": comparison_job.task_name,
-                "projection": comparison_result.data.get("projection"),
-                "parameters": comparison_job.params,
-            }
-        self.close()
-        job_manager.submit_local_job_as_qgstask(
-            params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=self.aoi
-        )
 
 
 # ---------------------------------------------------------------------------

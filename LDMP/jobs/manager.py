@@ -399,6 +399,16 @@ def _set_band_descriptions_on_result(
         if not path.exists():
             continue
         names = generate_sanitized_band_names(raster.bands)
+        ds = gdal.Open(str(path))
+        if ds is not None and all(
+            ds.GetRasterBand(i).GetDescription() == name
+            for i, name in enumerate(names[: ds.RasterCount], start=1)
+        ):
+            # Opening for update rewrites the file, invalidating recorded
+            # checksums such as candidate-area mask digests.
+            ds = None
+            continue
+        ds = None
         ds = gdal.Open(str(path), gdal.GA_Update)
         if ds is None:
             logger.warning(
@@ -511,6 +521,7 @@ class LocalJobTask(QgsTask):
         self.job.progress = 100
         if result:
             self.job.results = self.results
+            self.job.params = self.job_copy.params
             if isinstance(self.results, RasterResults):
                 _set_band_descriptions_on_result(self.results)
             self.job._cached_has_loadable_result = None
@@ -2412,7 +2423,7 @@ class JobManager(QtCore.QObject):
         ``notes``).  It is registered as a GENERIC VectorResults job so it
         appears in the Datasets browser, added to the map with a styled
         renderer, and put into edit mode so the user can digitize target
-        polygons.  The scenario dialog then reads targets from this layer.
+        polygons. The LDN Planning tab then snapshots targets from this layer.
         """
         now = dt.datetime.now(dt.timezone.utc)
         job_id = uuid.uuid4()

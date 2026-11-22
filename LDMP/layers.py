@@ -300,7 +300,7 @@ style_text_dict = {
     # LDN Planning - Analysis Zones
     "ldn_planning_zones_title": tr_layers.tr("LDN Planning - Land Types"),
     "ldn_priority_title": tr_layers.tr("LDN Planning - Relative priority"),
-    "ldn_candidate_title": tr_layers.tr("LDN Planning - Candidate areas (not approved)"),
+    "ldn_candidate_title": tr_layers.tr("LDN Planning - Candidate areas"),
     "ldn_not_selected": tr_layers.tr("Not selected"),
     "ldn_priority_low": tr_layers.tr("Low relative priority"),
     "ldn_priority_medium": tr_layers.tr("Medium relative priority"),

@@ -545,21 +545,6 @@ _ALGORITHM_CONFIG = [
                 ),
                 "algorithms": [
                     {
-                        "id": "c1f2a3b4-d5e6-7890-abcd-ef1234567801",
-                        "name": tr_conf.tr("Avoid / Reduce / Reverse Classification"),
-                        "description": tr_conf.tr(
-                            "Classify land into the LDN response hierarchy "
-                            "(Avoid > Reduce > Reverse). "
-                            "Only Reverse actions generate gains that can counterbalance losses."
-                        ),
-                        "scripts": [
-                            {
-                                "script": KNOWN_SCRIPTS["ldn-planning-arr"],
-                                "parametrization_dialogue": "LDMP.calculate_ldn_planning.DlgCalculateLDNPlanningARR",
-                            }
-                        ],
-                    },
-                    {
                         "id": "c1f2a3b4-d5e6-7890-abcd-ef1234567802",
                         "name": tr_conf.tr("Degradation Hotspot Prioritization"),
                         "description": tr_conf.tr(
@@ -570,66 +555,6 @@ _ALGORITHM_CONFIG = [
                             {
                                 "script": KNOWN_SCRIPTS["ldn-planning-hotspots"],
                                 "parametrization_dialogue": "LDMP.calculate_ldn_planning.DlgCalculateLDNPlanningHotspots",
-                            }
-                        ],
-                    },
-                    {
-                        "id": "c1f2a3b4-d5e6-7890-abcd-ef1234567803",
-                        "name": tr_conf.tr("Define Land Types"),
-                        "description": tr_conf.tr(
-                            "Combine categorical rasters (land cover, soil types, "
-                            "...) into a reusable layer assessing land potential (land types) layer. The saved land types layer can be "
-                            "reused across analyses without recomputation."
-                        ),
-                        "scripts": [
-                            {
-                                "script": KNOWN_SCRIPTS["ldn-planning-land-types"],
-                                "parametrization_dialogue": "LDMP.calculate_ldn_planning.DlgCalculateLDNPlanningLandTypes",
-                            }
-                        ],
-                    },
-                    {
-                        "id": "c1f2a3b4-d5e6-7890-abcd-ef1234567805",
-                        "name": tr_conf.tr("Prioritize interventions"),
-                        "description": tr_conf.tr(
-                            "Preview class-specific weighted priorities using natural-capital "
-                            "or other user-defined criteria, with explicit coverage and exclusions."
-                        ),
-                        "scripts": [
-                            {
-                                "script": KNOWN_SCRIPTS["ldn-planning-priority"],
-                                "parametrization_dialogue": "LDMP.calculate_ldn_priority.DlgCalculateLDNPlanningPriority",
-                            }
-                        ],
-                    },
-                    {
-                        "id": "c1f2a3b4-d5e6-7890-abcd-ef1234567806",
-                        "name": tr_conf.tr("Select candidate areas"),
-                        "description": tr_conf.tr(
-                            "Select areas by class-specific score threshold or physical-area "
-                            "limit, then review and approve them in a scenario."
-                        ),
-                        "scripts": [
-                            {
-                                "script": KNOWN_SCRIPTS["ldn-planning-selection"],
-                                "parametrization_dialogue": "LDMP.calculate_ldn_priority.DlgCalculateLDNPlanningSelection",
-                            }
-                        ],
-                    },
-                    {
-                        "id": "c1f2a3b4-d5e6-7890-abcd-ef1234567804",
-                        "name": tr_conf.tr("Scenario & BAU Projection"),
-                        "description": tr_conf.tr(
-                            "Project the Business-As-Usual (BAU) degradation trajectory and "
-                            "apply Avoid / Reduce / Reverse interventions to planning "
-                            "targets over a chosen horizon, producing an anticipatory "
-                            "balance sheet of gains versus avoided losses and a "
-                            "comparison against BAU."
-                        ),
-                        "scripts": [
-                            {
-                                "script": KNOWN_SCRIPTS["ldn-planning-projection"],
-                                "parametrization_dialogue": "LDMP.calculate_ldn_planning.DlgCalculateLDNPlanningProjection",
                             }
                         ],
                     },

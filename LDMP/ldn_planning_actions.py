@@ -153,7 +153,9 @@ def show_planning_summary(job, parent=None):
     DlgPlanningSummary(job, parent).exec()
 
 
-def launch_calculate_dialog(main_dock, factory, draft_name=None, **preselect):
+def launch_calculate_dialog(
+    main_dock, factory, draft_name=None, project_inputs=None, **preselect
+):
     from .conf import KNOWN_SCRIPTS
 
     dialog_class, script_name = factory()
@@ -163,6 +165,8 @@ def launch_calculate_dialog(main_dock, factory, draft_name=None, **preselect):
     )
     for key, value in preselect.items():
         setattr(dialog, key, value)
+    if project_inputs is not None:
+        dialog.project_inputs = project_inputs
     main_dock.pause_scheduler()
     try:
         dialog.exec()
@@ -189,6 +193,23 @@ def select_job_band(widget, job_id, parent, label, band_index=None):
     )
 
 
+def validate_project_dialog(dialog):
+    inputs = getattr(dialog, "project_inputs", None)
+    if inputs is None:
+        return
+    from .ldn_planning_panel import current_area
+
+    if (
+        inputs["panel"].operation_context() != inputs["state"]
+        or current_area()["sha256"] != inputs["state"]["area"]["sha256"]
+    ):
+        raise ValueError(
+            dialog.tr(
+                "Project inputs or region changed. Reopen the operation from LDN Planning."
+            )
+        )
+
+
 def priority_factory():
     from .calculate_ldn_priority import DlgCalculateLDNPlanningPriority
 
@@ -199,12 +220,6 @@ def selection_factory():
     from .calculate_ldn_priority import DlgCalculateLDNPlanningSelection
 
     return DlgCalculateLDNPlanningSelection, "ldn-planning-selection"
-
-
-def projection_factory():
-    from .calculate_ldn_planning import DlgCalculateLDNPlanningProjection
-
-    return DlgCalculateLDNPlanningProjection, "ldn-planning-projection"
 
 
 def arr_factory():
@@ -222,8 +237,16 @@ def land_types_factory():
 def configure_scoring_profile(job, parent=None):
     from .ldn_planning_assets import DlgScoringProfile
 
-    job_manager.ensure_params_loaded(job)
-    DlgScoringProfile(job, parent).exec()
+    try:
+        dialog = DlgScoringProfile(job, parent)
+    except (OSError, ValueError) as exc:
+        QtWidgets.QMessageBox.critical(
+            parent,
+            QtWidgets.QApplication.translate("ldn_planning", "Cannot use input"),
+            str(exc),
+        )
+        return
+    dialog.exec()
 
 
 def attach_planning_actions(button, job, main_dock) -> bool:
@@ -243,7 +266,7 @@ def attach_planning_actions(button, job, main_dock) -> bool:
         )
         menu.addAction(
             tr("Use in prioritization..."),
-            lambda: launch_calculate_dialog(main_dock, priority_factory),
+            lambda: open_planning_panel(main_dock),
         )
     else:
         menu.addAction(
@@ -257,21 +280,15 @@ def attach_planning_actions(button, job, main_dock) -> bool:
         if name == "ldn-planning-priority":
             menu.addAction(
                 tr("Select candidate areas..."),
-                lambda: launch_calculate_dialog(
-                    main_dock, selection_factory, preselect_priority_job_id=str(job.id)
-                ),
+                lambda: use_in_project(main_dock, job, "priority"),
             )
         elif name == "ldn-planning-selection":
             menu.addAction(
                 tr("Use in scenario..."),
-                lambda: launch_calculate_dialog(
-                    main_dock,
-                    projection_factory,
-                    preselect_candidate_job_id=str(job.id),
-                ),
+                lambda: use_in_project(main_dock, job, "candidate"),
             )
     menu.addAction(
-        tr("Open LDN planning panel..."),
+        tr("Open LDN Planning tab..."),
         lambda: open_planning_panel(main_dock),
     )
     button.setMenu(menu)
@@ -284,3 +301,47 @@ def open_planning_panel(main_dock):
     from .ldn_planning_panel import open_panel
 
     return open_panel(main_dock)
+
+
+def use_in_project(main_dock, job, key):
+    panel = open_planning_panel(main_dock)
+    projects = panel.data["projects"] if panel.data else []
+    if not projects:
+        QtWidgets.QMessageBox.information(
+            panel,
+            panel.tr("Planning project"),
+            panel.tr("Create a project in LDN Planning first."),
+        )
+        return
+    names = [p["name"] for p in projects]
+    name, accepted = QtWidgets.QInputDialog.getItem(
+        panel,
+        panel.tr("Choose planning project"),
+        panel.tr("Use dataset in project"),
+        names,
+        max(0, names.index(panel._project()["name"]) if panel._project() else 0),
+        False,
+    )
+    if not accepted:
+        return
+    project = next(p for p in projects if p["name"] == name)
+    if (
+        QtWidgets.QMessageBox.question(
+            panel,
+            panel.tr("Change project selection"),
+            panel.tr(
+                "Use '%s' in '%s'? Existing results are unchanged; affected drafts need review."
+            )
+            % (job.task_name or str(job.id), name),
+        )
+        != QtWidgets.QMessageBox.StandardButton.Yes
+    ):
+        return
+    panel.data["current"] = project["id"]
+    project["selections"][key] = {
+        "job_id": str(job.id),
+        "area_sha256": project["area"]["sha256"],
+    }
+    panel._save()
+    panel.refresh()
+    panel._focus_section("targets" if key == "candidate" else "candidate")

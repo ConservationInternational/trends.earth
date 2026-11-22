@@ -104,3 +104,12 @@ def test_e2e_custom(package="test"):
     )
     if not _run_tests(test_suite, package).wasSuccessful():
         raise AssertionError("Custom-data end-to-end tests failed")
+
+
+def test_planning(package="test"):
+    """Run the LDN planning unit and embedded-tab integration tests."""
+    suite = unittest.TestSuite()
+    for pattern in ("test_ldn_prioritization.py", "test_ldn_planning_integration.py"):
+        suite.addTests(unittest.defaultTestLoader.discover(package, pattern=pattern))
+    if not _run_tests(suite, package).wasSuccessful():
+        raise AssertionError("LDN planning tests failed")

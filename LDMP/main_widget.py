@@ -177,7 +177,8 @@ class RemoteStateRefreshWorker(UpdateWorker):
 class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     _SUB_INDICATORS_TAB_PAGE: int = 0
     _DATASETS_TAB_PAGE: int = 1
-    _NEWS_TAB_PAGE: int = 2
+    _PLANNING_TAB_PAGE: int = 2
+    _NEWS_TAB_PAGE: int = 3
 
     iface: qgis.gui.QgisInterface
     refreshing_filesystem_cache: bool
@@ -218,6 +219,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.scheduler_paused = False
         self._pending_cache_refresh = False
         self.setupUi(self)
+        self.setup_planning_tab()
 
         # Initialize the news tab
         self._setup_news_tab()
@@ -634,6 +636,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.rs_worker = None
 
         super().closeEvent(event)
+
+    def setup_planning_tab(self):
+        from .ldn_planning_panel import PlanningPanel
+
+        self.planning_panel = PlanningPanel(self, self)
+        self.tabWidget.insertTab(
+            self._PLANNING_TAB_PAGE, self.planning_panel, self.tr("LDN Planning")
+        )
 
     def _setup_news_tab(self) -> None:
         """Initialize the news tab with news widgets."""

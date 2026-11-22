@@ -1,11 +1,13 @@
-"""Criteria configuration and candidate-area review for LDN Planning."""
+"""Criteria configuration and candidate-area selection for LDN Planning."""
 
+import copy
 import json
 import math
 import typing
 from pathlib import Path
 
 from qgis.PyQt import QtCore, QtWidgets
+from te_schemas.jobs import JobStatus
 from te_schemas.results import RasterResults
 
 from . import data_io
@@ -24,6 +26,10 @@ CLASSES = ("avoid", "reduce", "reverse")
 def planning_raster_jobs(result_name):
     jobs = []
     for job in job_manager.relevant_jobs:
+        if job.status not in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
+            continue
+        if not job_manager.ensure_results_loaded(job):
+            continue
         result = job.get_first_result_by_type(RasterResults)
         if result is not None and result.name == result_name:
             jobs.append(job)
@@ -254,12 +260,18 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         row.addWidget(button)
         inner.addWidget(QtWidgets.QLabel(label))
         inner.addLayout(row)
-        inner.addWidget(QtWidgets.QLabel(self.tr("Land-type summaries (optional)")))
+        self.land_types_label = QtWidgets.QLabel(
+            self.tr("Land-type summaries (optional)")
+        )
+        inner.addWidget(self.land_types_label)
         self.combo_land_types = QtWidgets.QComboBox()
         inner.addWidget(self.combo_land_types)
         self._land_types_jobs: typing.List = []
         self._pending_land_type_job_id = None
-        inner.addWidget(QtWidgets.QLabel(self.tr("Jurisdiction summaries (optional)")))
+        self.jurisdictions_label = QtWidgets.QLabel(
+            self.tr("Jurisdiction summaries (optional)")
+        )
+        inner.addWidget(self.jurisdictions_label)
         self.rb_zones_none = QtWidgets.QRadioButton(
             self.tr("No jurisdiction breakdown")
         )
@@ -289,7 +301,8 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             self.tr(
                 "Complete-case scoring: pixels missing any required criterion remain "
                 "unscored. Scores are comparable only within an ARR class. "
-                "This creates preview maps and reports, not approved targets. "
+                "This creates preview maps and reports, not scenario targets. "
+                "Add candidate areas to a scenario draft to compare outcomes. "
                 "Repeat with different weights to examine sensitivity. "
                 "Your configuration is kept as a draft between sessions."
             )
@@ -312,7 +325,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                 "provenance and scoring settings are stored with the input, so "
                 "they are configured once and reused across plans.</p>"
                 "<p>Scores are comparable within a class. Missing criterion data "
-                "remain unscored. Review coverage and test alternative weights.</p>"
+                "remain unscored. Inspect coverage and compare alternative weights.</p>"
                 "<p><a href='https://docs.trends.earth/en/latest/for_users/training/ldnplanning.html'>"
                 "LDN planning tutorial</a></p>"
             ),
@@ -326,6 +339,25 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
     def showEvent(self, event):
         super().showEvent(event)
         self.combo_arr.populate()
+        settings = getattr(self, "preselect_priority_settings", None)
+        if settings is not None:
+            self.preselect_priority_settings = None
+            if "entries" not in settings:
+                QtWidgets.QMessageBox.warning(
+                    self,
+                    self.tr("Settings unavailable"),
+                    self.tr(
+                        "The saved priority has no editable criteria settings. "
+                        "Inspect the current draft before running."
+                    ),
+                )
+            else:
+                self.entries = copy.deepcopy(settings["entries"])
+                for key, widget in self.paths.items():
+                    widget.setText(settings.get(key) or "")
+                self._apply_zones_source(settings.get("zones_source"))
+                self._pending_land_type_job_id = settings.get("land_type_job_id")
+                self._refresh()
         preselect_arr = getattr(self, "preselect_arr_job_id", None)
         if preselect_arr:
             from .ldn_planning_actions import select_job_band
@@ -341,21 +373,42 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         self.combo_land_types.addItem(self.tr("No land-type summaries"), None)
         for job in self._land_types_jobs:
             self.combo_land_types.addItem(job.task_name or str(job.id), str(job.id))
-        preselect_land_types = getattr(self, "preselect_land_type_job_id", None)
-        if preselect_land_types:
-            previous = preselect_land_types
-            self.preselect_land_type_job_id = None
+        if hasattr(self, "preselect_land_type_job_id"):
+            previous = self.preselect_land_type_job_id
+            del self.preselect_land_type_job_id
         if previous is not None:
             index = self.combo_land_types.findData(previous)
             if index >= 0:
                 self.combo_land_types.setCurrentIndex(index)
-            elif preselect_land_types:
+            else:
                 self.combo_land_types.setCurrentIndex(-1)
                 QtWidgets.QMessageBox.warning(
                     self,
                     self.tr("Dataset unavailable"),
                     self.tr("The selected land types are unavailable. Choose another."),
                 )
+        if getattr(self, "project_inputs", None):
+            self.combo_arr.parentWidget().hide()
+            self.combo_land_types.hide()
+            self.land_types_label.hide()
+            self.region_button.hide()
+            self.region_la.hide()
+            context = self.project_inputs["state"]["context"]
+            self._apply_zones_source(
+                {"none": "none", "file": "file", "admin": "admin_level_1"}[
+                    context["jurisdictions"]
+                ]
+            )
+            self.paths["zones_path"].setText(context["jurisdictions_path"] or "")
+            for widget in (
+                self.jurisdictions_label,
+                self.rb_zones_none,
+                self.rb_zones_admin,
+                self.rb_zones_file,
+                self.paths["zones_path"],
+                self.btn_zones_browse,
+            ):
+                widget.hide()
 
     def closeEvent(self, event):
         self._store_draft()
@@ -563,9 +616,13 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         self._configure_entry_for_job(inputs[labels.index(label)])
 
     def _configure_entry_for_job(self, job):
-        from .ldn_planning_assets import DlgScoringProfile
+        from .ldn_planning_assets import DlgScoringProfile, input_params
 
-        profiles = list(job.params.get("scoring_profiles", []))
+        try:
+            profiles = list(input_params(job).get("scoring_profiles", []))
+        except ValueError as exc:
+            QtWidgets.QMessageBox.critical(self, self.tr("Cannot use input"), str(exc))
+            return
         profile = None
         if profiles:
             labels = [
@@ -585,7 +642,13 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             if label != self.tr("New profile..."):
                 profile = profiles[labels.index(label)]
         if profile is None:
-            dialog = DlgScoringProfile(job, self)
+            try:
+                dialog = DlgScoringProfile(job, self)
+            except (OSError, ValueError) as exc:
+                QtWidgets.QMessageBox.critical(
+                    self, self.tr("Cannot use input"), str(exc)
+                )
+                return
             if dialog.exec() != QtWidgets.QDialog.Accepted or dialog.profile is None:
                 return
             profile = dialog.profile
@@ -675,7 +738,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             )
 
     def _settings(self):
-        return {
+        settings = {
             "entries": self.entries,
             "zones_source": self._zones_source(),
             "land_type_job_id": self.combo_land_types.currentData(),
@@ -683,6 +746,21 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                 key: widget.text().strip() or None for key, widget in self.paths.items()
             },
         }
+        if getattr(self, "project_inputs", None):
+            state = self.project_inputs["state"]
+            context = state["context"]
+            settings["land_type_job_id"] = (
+                (state["selections"].get("land_types") or {}).get("job_id")
+                if context["breakdown"] == "saved"
+                else None
+            )
+            settings["zones_source"] = {
+                "none": "none",
+                "file": "file",
+                "admin": "admin_level_1",
+            }[context["jurisdictions"]]
+            settings["zones_path"] = context["jurisdictions_path"]
+        return settings
 
     def _build_criteria(self) -> typing.List[dict]:
         from .ldn_planning_assets import build_criterion
@@ -718,6 +796,21 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             return
         info = self.combo_arr.get_current_band()
         try:
+            from .ldn_planning_actions import validate_project_dialog
+
+            validate_project_dialog(self)
+            if getattr(self, "project_inputs", None):
+                selected_id = self.project_inputs["state"]["selections"]["arr"][
+                    "job_id"
+                ]
+                info = next(
+                    (
+                        band
+                        for band in self.combo_arr.layer_list
+                        if str(band.job.id) == selected_id
+                    ),
+                    None,
+                )
             if info is None:
                 raise ValueError(self.tr("Select an ARR classification layer."))
             if self.combo_land_types.currentIndex() < 0:
@@ -732,13 +825,14 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             if exclusion and not Path(exclusion).is_file():
                 raise ValueError(self.tr("The exclusion raster does not exist."))
             zones_path = None
-            if self.rb_zones_file.isChecked():
+            if settings["zones_source"] == "file":
                 zones_path = settings["zones_path"]
                 if not zones_path or not Path(zones_path).is_file():
                     raise ValueError(
                         self.tr("Choose an existing polygon layer for jurisdictions.")
                     )
             land_type_path = None
+            land_type_labels = None
             land_type_job_id = settings["land_type_job_id"]
             if land_type_job_id is not None:
                 land_type_job = next(
@@ -753,11 +847,22 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                     raise ValueError(
                         self.tr("The selected land-types dataset is unavailable.")
                     )
-                land_type_path, _ = job_raster_path(land_type_job)
+                land_type_path, land_type_result = job_raster_path(land_type_job)
+                units = (
+                    (getattr(land_type_result, "data", None) or {}).get(
+                        "land_types_key"
+                    )
+                    or {}
+                ).get("units", {})
+                land_type_labels = {
+                    str(key): unit.get("label", str(key))
+                    for key, unit in units.items()
+                    if isinstance(unit, dict)
+                }
         except (ValueError, ImportError) as exc:
             QtWidgets.QMessageBox.critical(self, self.tr("Cannot prioritize"), str(exc))
             return
-        if self.rb_zones_admin.isChecked():
+        if settings["zones_source"] == "admin_level_1":
             # Shows its own error dialogs and returns None on failure.
             from .calculate_ldn_planning import _resolve_admin_zones
 
@@ -769,10 +874,12 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             criteria=criteria,
             zones_path=zones_path,
             land_type_path=land_type_path,
+            land_type_labels=land_type_labels,
             task_name=self.execution_name_le.text(),
             task_notes=self.task_notes.toPlainText(),
             arr_layer_path=str(info.path),
             arr_band_index=info.band_index,
+            arr_job_id=str(info.job.id),
         )
         self._store_draft()
         self.close()
@@ -847,9 +954,9 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
             self.tr(
                 "Threshold selection includes all scored pixels at or above the threshold. "
                 "Area selection ranks by score with deterministic ties and does not exceed "
-                "the physical-area limit. Review the output map and selected-area report, "
-                "then explicitly approve it in Scenario & BAU Projection. This step never "
-                "changes existing targets."
+                "the physical-area limit. Inspect the output map and selected-area "
+                "report, then configure desired areas as scenario targets in the "
+                "LDN Planning tab. This step does not modify existing scenario drafts."
             )
         )
         note.setWordWrap(True)
@@ -867,8 +974,8 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
                 "<h3>Select candidate areas</h3>"
                 "<p>Choose a priority preview and enable the response classes "
                 "to select. Set a minimum score or a maximum area for each class.</p>"
-                "<p>Inspect the resulting map and selected-area report. Approve "
-                "reviewed areas in Scenario &amp; BAU Projection.</p>"
+                "<p>Inspect the resulting map and selected-area report. Add "
+                "desired areas as scenario targets in the LDN Planning tab.</p>"
                 "<p><a href='https://docs.trends.earth/en/latest/for_users/training/ldnplanning.html'>"
                 "LDN planning tutorial</a></p>"
             ),
@@ -879,6 +986,30 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
 
     def showEvent(self, event):
         super().showEvent(event)
+        selections = getattr(self, "preselect_selections", None)
+        if selections is not None:
+            self.preselect_selections = None
+            try:
+                for key, (enabled, mode, threshold, area) in self.rows.items():
+                    selected = selections.get(key)
+                    enabled.setChecked(selected is not None)
+                    if selected is not None:
+                        index = mode.findData(selected["mode"])
+                        if index < 0:
+                            raise ValueError(
+                                self.tr("Unknown candidate selection mode.")
+                            )
+                        mode.setCurrentIndex(index)
+                        threshold.setValue(selected["threshold"])
+                        area.setValue(selected["area_km2"])
+            except (KeyError, TypeError, ValueError) as exc:
+                for enabled, _mode, _threshold, _area in self.rows.values():
+                    enabled.setChecked(False)
+                QtWidgets.QMessageBox.warning(
+                    self,
+                    self.tr("Settings unavailable"),
+                    self.tr("Cannot restore candidate settings: %s") % str(exc),
+                )
         preselect = getattr(self, "preselect_priority_job_id", None)
         previous = preselect or self.combo_priority.currentData()
         self.preselect_priority_job_id = None
@@ -895,8 +1026,14 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
                 QtWidgets.QMessageBox.warning(
                     self,
                     self.tr("Dataset unavailable"),
-                    self.tr("The selected priority preview is unavailable. Choose another."),
+                    self.tr(
+                        "The selected priority preview is unavailable. Choose another."
+                    ),
                 )
+        if getattr(self, "project_inputs", None):
+            self.combo_priority.hide()
+            self.region_button.hide()
+            self.region_la.hide()
 
     def _preview_selection(self):
         """Sampled per-class estimate of selection size; the run stays exact."""
@@ -975,10 +1112,25 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
         if not super().btn_calculate():
             return
         try:
+            from .ldn_planning_actions import validate_project_dialog
+
+            validate_project_dialog(self)
             index = self.combo_priority.currentIndex()
             if index < 0:
                 raise ValueError(self.tr("First create a priority preview dataset."))
-            job = self.jobs[index]
+            if getattr(self, "project_inputs", None):
+                selected_id = self.project_inputs["state"]["selections"]["priority"][
+                    "job_id"
+                ]
+                job = next(
+                    (job for job in self.jobs if str(job.id) == selected_id), None
+                )
+                if job is None:
+                    raise ValueError(
+                        self.tr("The project's priority preview is unavailable.")
+                    )
+            else:
+                job = self.jobs[index]
             path, _ = job_raster_path(job)
             if not job_manager.ensure_params_loaded(job):
                 raise ValueError(

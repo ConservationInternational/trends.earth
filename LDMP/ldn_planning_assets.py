@@ -30,8 +30,26 @@ CLASSES = ("avoid", "reduce", "reverse")
 PROFILE_VERSION = 1
 
 
+def input_params(job) -> dict:
+    if not job_manager.ensure_params_loaded(job):
+        raise ValueError(
+            QtCore.QCoreApplication.translate(
+                "ldn_planning",
+                "The planning input's saved metadata is unavailable.",
+            )
+        )
+    return job.params
+
+
 def input_kind(job) -> str:
-    return job.params.get("input_kind", "raster")
+    kind = input_params(job).get("input_kind")
+    if kind not in ("raster", "vector"):
+        raise ValueError(
+            QtCore.QCoreApplication.translate(
+                "ldn_planning", "The planning input's type is missing or invalid."
+            )
+        )
+    return kind
 
 
 def input_path(job) -> str:
@@ -51,8 +69,11 @@ def input_path(job) -> str:
 
 
 def input_display_name(job) -> str:
+    try:
+        kind = input_kind(job)
+    except ValueError:
+        return f"{job.task_name} ({QtCore.QCoreApplication.translate('ldn_planning', 'metadata unavailable')})"
     provenance = job.params.get("provenance", {})
-    kind = input_kind(job)
     return f"{job.task_name} ({kind}; {provenance.get('source', '?')})"
 
 
@@ -79,7 +100,7 @@ def histogram_text(values: np.ndarray, bins: int = 24) -> str:
 
 def save_scoring_profile(job, profile: dict) -> dict:
     """Store a scoring profile on the input dataset as a new revision."""
-    profiles = list(job.params.get("scoring_profiles", []))
+    profiles = list(input_params(job).get("scoring_profiles", []))
     profile = dict(profile)
     profile.setdefault("id", str(uuid.uuid4()))
     profile["version"] = PROFILE_VERSION
@@ -99,7 +120,7 @@ def build_criterion(job, profile: dict, arr_class: str, weight: float) -> dict:
     from the profile snapshot, and provenance from the dataset. Extra keys
     identify the source for run provenance and are preserved by validation.
     """
-    provenance = job.params.get("provenance", {})
+    provenance = input_params(job).get("provenance", {})
     not_specified = "Not specified"
     criterion = {
         "name": f"{job.task_name}: {profile['name']}",
@@ -352,7 +373,15 @@ class DlgScoringProfile(QtWidgets.QDialog):
         self.band_combo = QtWidgets.QComboBox()
         self.field_combo = QtWidgets.QComboBox()
         if self.kind == "raster":
-            for band in job.params.get("band_info", []):
+            bands = job.params.get("band_info")
+            if not bands:
+                raster = inspect_source(input_path(job))["raster"]
+                bands = raster["bands"] if raster else []
+            if not bands:
+                raise ValueError(
+                    self.tr("The planning input has no readable raster bands.")
+                )
+            for band in bands:
                 self.band_combo.addItem(
                     self.tr("Band %d — %s (%s)")
                     % (band["band_index"], band["description"], band["data_type"]),
@@ -360,8 +389,20 @@ class DlgScoringProfile(QtWidgets.QDialog):
                 )
             form.addRow(self.tr("Raster band"), self.band_combo)
         else:
-            for field in job.params.get("numeric_fields", []):
-                label = field["name"] + (
+            fields = job.params.get("numeric_fields")
+            if not fields:
+                vector = inspect_source(input_path(job))["vector"]
+                fields = (
+                    vector["layers"][0]["numeric_fields"]
+                    if vector and vector["layers"]
+                    else []
+                )
+            if not fields:
+                raise ValueError(
+                    self.tr("The planning input has no readable numeric fields.")
+                )
+            for field in fields:
+                label = field.get("label") or field["name"] + (
                     f" ({field['alias']})" if field.get("alias") else ""
                 )
                 self.field_combo.addItem(label, field["name"])
@@ -465,7 +506,10 @@ class DlgScoringProfile(QtWidgets.QDialog):
         self.categorical_box.setVisible(not continuous)
 
     def _selected_band(self) -> int:
-        return int(self.band_combo.currentData() or 1)
+        band = self.band_combo.currentData()
+        if band is None:
+            raise ValueError(self.tr("Choose an available raster band."))
+        return int(band)
 
     def _selected_field(self) -> str:
         return str(self.field_combo.currentData() or "")
@@ -518,7 +562,7 @@ class DlgScoringProfile(QtWidgets.QDialog):
             discovered = discover_categories(
                 input_path(self.job),
                 self.kind,
-                band_index=self._selected_band(),
+                band_index=self._selected_band() if self.kind == "raster" else 1,
                 field=self._selected_field(),
             )
         except (ValueError, OSError) as exc:
@@ -585,10 +629,14 @@ class DlgScoringProfile(QtWidgets.QDialog):
             index = self.band_combo.findData(profile.get("band_index", 1))
             if index >= 0:
                 self.band_combo.setCurrentIndex(index)
+            else:
+                self.band_combo.setCurrentIndex(-1)
         else:
             index = self.field_combo.findData(profile.get("field", ""))
             if index >= 0:
                 self.field_combo.setCurrentIndex(index)
+            else:
+                self.field_combo.setCurrentIndex(-1)
         if profile.get("categories"):
             self.categorical_radio.setChecked(True)
             self._populate_categories(profile["categories"])
@@ -645,8 +693,9 @@ class DlgScoringProfile(QtWidgets.QDialog):
                     categories=categories,
                     resampling="nearest",
                 )
-        except ValueError as exc:
+            saved_profile = save_scoring_profile(self.job, profile)
+        except (OSError, ValueError) as exc:
             QtWidgets.QMessageBox.critical(self, self.tr("Invalid profile"), str(exc))
             return
-        self.profile = save_scoring_profile(self.job, profile)
+        self.profile = saved_profile
         self.accept()

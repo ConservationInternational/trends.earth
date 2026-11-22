@@ -13,6 +13,8 @@ import logging
 import shutil
 from pathlib import Path
 
+from osgeo import gdal
+from te_algorithms.common.band_names import generate_sanitized_band_names
 from te_algorithms.common.checksum import file_checksum
 from te_algorithms.gdal.land_deg import zones as _zones
 from te_algorithms.gdal.land_deg.ldn_planning import (
@@ -22,14 +24,15 @@ from te_algorithms.gdal.land_deg.ldn_planning import (
     compute_bau_rate,
     compute_hotspots,
     project_scenario_against_bau,
+    summarize_land_types,
 )
+from te_algorithms.gdal.land_deg.ldn_planning_inputs import area_checksum
 from te_algorithms.gdal.land_deg.ldn_planning_report import (
     load_hotspot_zones,
     save_ldn_planning_excel,
     save_ldn_planning_json,
     save_priority_reports,
 )
-from te_algorithms.gdal.land_deg.ldn_planning_inputs import area_checksum
 from te_algorithms.gdal.util import dataset_checksums, geojson_bounds
 from te_schemas.aoi import AOI
 from te_schemas.results import (
@@ -71,6 +74,8 @@ def compute_arr_local(
         task_name (str): User-provided task label.
     """
     params = job.params
+    if aoi is not None:
+        params["aoi_checksum"] = area_checksum(aoi.get_geojson())
     arr_path = str(job_output_path.with_suffix("")) + "_arr.tif"
 
     summary, arr_raster_path = compute_arr_classification(
@@ -148,6 +153,8 @@ def compute_priority_local(
     from te_algorithms.gdal.land_deg.ldn_priority import compute_prioritization
 
     params = job.params
+    if aoi is not None:
+        params["aoi_checksum"] = area_checksum(aoi.get_geojson())
     summary, path = compute_prioritization(
         arr_path=params["arr_layer_path"],
         arr_band_index=params.get("arr_band_index", 1),
@@ -157,10 +164,15 @@ def compute_priority_local(
         land_type_path=params.get("land_type_path"),
         zones_path=params.get("zones_path"),
         aoi=aoi,
+        land_type_labels=params.get("land_type_labels"),
         progress_callback=progress_callback,
         killed_callback=killed_callback,
     )
-    report = save_priority_reports(job_output_path, summary, params)
+    report = save_priority_reports(
+        job_output_path.parent / f"{job_output_path.stem}_priority.json",
+        summary,
+        params,
+    )
     job.results = RasterResults(
         name="ldn-planning-priority",
         uri=URI(uri=Path(path)),
@@ -207,6 +219,9 @@ def compute_selection_local(
     from te_algorithms.gdal.land_deg.ldn_priority import select_priority_areas
 
     params = job.params
+    source_area = (params.get("priority_params") or {}).get("aoi_checksum")
+    if source_area:
+        params["aoi_checksum"] = source_area
     summary, path = select_priority_areas(
         score_path=params["score_path"],
         output_path=str(job_output_path.with_suffix(".tif")),
@@ -214,24 +229,30 @@ def compute_selection_local(
         progress_callback=progress_callback,
         killed_callback=killed_callback,
     )
+    band = Band(
+        name="LDN Planning - Candidate areas",
+        metadata={
+            "candidate_areas": True,
+            "priority_job_id": params["priority_job_id"],
+        },
+    )
+    # Write final band descriptions before hashing the candidate mask.
+    dataset = gdal.Open(str(path), gdal.GA_Update)
+    dataset.GetRasterBand(1).SetDescription(generate_sanitized_band_names([band])[0])
+    dataset = None
     summary["mask_sha256"] = file_checksum(path)
-    report = save_priority_reports(job_output_path, summary, params)
+    report = save_priority_reports(
+        job_output_path.parent / f"{job_output_path.stem}_candidates.json",
+        summary,
+        params,
+    )
     job.results = RasterResults(
         name="ldn-planning-selection",
         uri=URI(uri=Path(path)),
         rasters={
             DataType.INT16.value: Raster(
                 uri=URI(uri=Path(path)),
-                bands=[
-                    Band(
-                        name="LDN Planning - Candidate areas",
-                        metadata={
-                            "candidate_areas": True,
-                            "approved": False,
-                            "priority_job_id": params["priority_job_id"],
-                        },
-                    )
-                ],
+                bands=[band],
                 datatype=DataType.INT16,
                 filetype=RasterFileType.GEOTIFF,
             )
@@ -259,6 +280,7 @@ def compute_hotspots_local(
     Expected ``job.params`` keys:
         status_layer_path (str): SDG 15.3.1 status raster.
         status_band_index (int): Band index (default 1).
+        status_type (str): Declared 3-class or 7-class encoding.
         zones_path (str | None): Zones vector layer; if None a fishnet is used.
         grid_size_km (float): Fishnet cell size in km (default 50).
         task_name (str): User label.
@@ -270,6 +292,7 @@ def compute_hotspots_local(
     summary, vector_path, raster_path = compute_hotspots(
         status_path=params["status_layer_path"],
         status_band_index=params.get("status_band_index", 1),
+        status_type=params.get("status_type", "auto"),
         zones_path=params.get("zones_path"),
         grid_size_km=float(params.get("grid_size_km", 25.0)),
         output_vector_path=vec_path,
@@ -388,24 +411,42 @@ def compute_planning_local(
         mask_path = target.get("selected_mask_path")
         if not mask_path:
             continue
-        if not target.get("approved"):
+        configuration = target.get("configuration_context") or target.get(
+            "approval_context"
+        )
+        configured_effectiveness = target.get(
+            "configured_effectiveness", target.get("approved_effectiveness")
+        )
+        if (
+            configuration is not None
+            and (
+                configuration.get("area_sha256") != params["aoi_checksum"]
+                or configuration.get("arr_job_id") != params.get("arr_job_id")
+            )
+        ) or (
+            configured_effectiveness is not None
+            and configured_effectiveness != target.get("effectiveness")
+        ):
             raise ValueError(
-                "Candidate masks must be explicitly approved before scenario execution."
+                "Candidate target settings no longer match this scenario's "
+                "area, ARR or effectiveness."
             )
         checksum = file_checksum(mask_path)
         if checksum != target.get("mask_sha256"):
             raise ValueError(
-                "Candidate raster changed after review. Review and approve it again."
+                "Candidate raster changed. Generate new candidate areas and "
+                "update the scenario targets."
             )
         if mask_path not in copied_masks:
             snapshot = job_output_path.parent / (
-                f"{job_output_path.stem}_approved_{len(copied_masks)}.tif"
+                f"{job_output_path.stem}_candidate_targets_{len(copied_masks)}.tif"
             )
             if Path(mask_path).resolve() != snapshot.resolve():
                 shutil.copyfile(mask_path, snapshot)
             if file_checksum(snapshot) != checksum:
                 raise ValueError(
-                    "Candidate raster changed while copying. Review and approve it again."
+                    "Candidate raster changed while copying. Generate new "
+                    "candidate areas and update the scenario targets."
                 )
             copied_masks[mask_path] = str(snapshot)
         target["selected_mask_path"] = copied_masks[mask_path]
@@ -464,8 +505,8 @@ def compute_planning_local(
         raise ValueError("Scenario inputs changed during execution.")
     comparison = compare_scenarios(params, projection)
 
-    excel_path = job_output_path.parent / f"{job_output_path.stem}.xlsx"
-    json_path = job_output_path.parent / f"{job_output_path.stem}.json"
+    excel_path = job_output_path.parent / f"{job_output_path.stem}_scenario.xlsx"
+    json_path = job_output_path.parent / f"{job_output_path.stem}_scenario.json"
     save_ldn_planning_excel(
         excel_path,
         bau_summary=bau_summary,
@@ -562,6 +603,7 @@ def compute_create_land_types_local(
 
     aoi_bounds = None
     if aoi is not None:
+        params["aoi_checksum"] = area_checksum(aoi.get_geojson())
         aoi_bounds = geojson_bounds(aoi.get_geojson())
         logger.info(
             "Define Land Types: AOI clip bounds (%.4f, %.4f, %.4f, %.4f)",
@@ -588,6 +630,17 @@ def compute_create_land_types_local(
         },
     }
 
+    summary = summarize_land_types(land_types_raster, labels, layer_names)
+    report_base = job_output_path.parent / f"{job_output_path.stem}_land_types"
+    save_ldn_planning_excel(
+        report_base.parent / f"{report_base.name}.xlsx", land_types_summary=summary
+    )
+    report = save_ldn_planning_json(
+        report_base.parent / f"{report_base.name}.json",
+        task_name=params.get("task_name", "LDN land types"),
+        land_types_summary=summary,
+    )
+
     if progress_callback:
         progress_callback(100.0)
 
@@ -612,6 +665,6 @@ def compute_create_land_types_local(
                 filetype=RasterFileType.GEOTIFF,
             ),
         },
-        data={"land_types_key": land_types_key},
+        data={"land_types_key": land_types_key, "report": report},
     )
     return job.results

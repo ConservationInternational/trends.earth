@@ -1599,9 +1599,10 @@
     }
   },
   "LDN Planning - Priority (avoid)": {
-    "title": "ldn_priority_title",
+    "title": "ldn_priority_avoid_title",
     "ramp": {
       "type": "discrete", "shader": "discrete",
+      "nodata transparent": true,
       "items": [
         { "value": -32768, "color": "#000000", "label": "nodata" },
         { "value": 0.333333, "color": "#edf8e9", "label": "ldn_priority_low" },
@@ -1611,9 +1612,10 @@
     }
   },
   "LDN Planning - Priority (reduce)": {
-    "title": "ldn_priority_title",
+    "title": "ldn_priority_reduce_title",
     "ramp": {
       "type": "discrete", "shader": "discrete",
+      "nodata transparent": true,
       "items": [
         { "value": -32768, "color": "#000000", "label": "nodata" },
         { "value": 0.333333, "color": "#edf8e9", "label": "ldn_priority_low" },
@@ -1623,9 +1625,10 @@
     }
   },
   "LDN Planning - Priority (reverse)": {
-    "title": "ldn_priority_title",
+    "title": "ldn_priority_reverse_title",
     "ramp": {
       "type": "discrete", "shader": "discrete",
+      "nodata transparent": true,
       "items": [
         { "value": -32768, "color": "#000000", "label": "nodata" },
         { "value": 0.333333, "color": "#edf8e9", "label": "ldn_priority_low" },

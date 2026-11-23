@@ -215,6 +215,16 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         self.entries: typing.List[dict] = []
         layout = QtWidgets.QVBoxLayout()
         inner = _make_group(self.tr("ARR classification"), layout)
+        self.project_context_label = QtWidgets.QLabel()
+        self.project_context_label.setWordWrap(True)
+        self.project_context_label.hide()
+        inner.addWidget(self.project_context_label)
+        self.change_project_button = QtWidgets.QPushButton(
+            self.tr("Change in project")
+        )
+        self.change_project_button.clicked.connect(self._change_project_inputs)
+        self.change_project_button.hide()
+        inner.addWidget(self.change_project_button)
         self.combo_arr = data_io.WidgetDataIOSelectTELayerExisting()
         self.combo_arr.setProperty("layer_type", "LDN Planning - Avoid/Reduce/Reverse")
         inner.addWidget(self.combo_arr)
@@ -227,25 +237,38 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         self.criteria_table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         inner.addWidget(self.criteria_table)
         row = QtWidgets.QHBoxLayout()
-        for label, callback in (
-            (self.tr("Add imported input..."), self._add_managed),
-            (self.tr("Import new input..."), self._import_input),
-            (self.tr("Remove selected"), self._remove),
-        ):
-            button = QtWidgets.QPushButton(label)
-            button.clicked.connect(callback)
-            row.addWidget(button)
+        add_menu = QtWidgets.QMenu(self)
+        add_menu.addAction(self.tr("Add imported input..."), self._add_managed)
+        add_menu.addAction(self.tr("Import dataset..."), self._import_input)
+        add_button = QtWidgets.QPushButton(self.tr("Add criterion..."))
+        add_button.setMenu(add_menu)
+        row.addWidget(add_button)
+        remove_button = QtWidgets.QPushButton(self.tr("Remove selected"))
+        remove_button.clicked.connect(self._remove)
+        row.addWidget(remove_button)
+        more_menu = QtWidgets.QMenu(self)
+        more_menu.addAction(self.tr("Advanced: add from file..."), self._add)
+        more_menu.addAction(self.tr("Import settings..."), self._load_settings)
+        more_menu.addAction(self.tr("Export settings..."), self._save_settings)
+        more_button = QtWidgets.QPushButton(self.tr("More"))
+        more_button.setMenu(more_menu)
+        row.addWidget(more_button)
         inner.addLayout(row)
-        row = QtWidgets.QHBoxLayout()
-        for label, callback in (
-            (self.tr("Advanced: add from file..."), self._add),
-            (self.tr("Load settings..."), self._load_settings),
-            (self.tr("Save settings..."), self._save_settings),
-        ):
-            button = QtWidgets.QPushButton(label)
-            button.clicked.connect(callback)
-            row.addWidget(button)
-        inner.addLayout(row)
+        optional = _make_group(
+            self.tr("Optional exclusions and breakdowns"), layout
+        )
+        optional_box = layout.itemAt(layout.count() - 1).widget()
+        optional_box.setCheckable(True)
+        optional_box.setChecked(False)
+        optional_box.toggled.connect(
+            lambda checked: [
+                widget.setVisible(checked)
+                for widget in optional_box.findChildren(
+                    QtWidgets.QWidget,
+                    options=QtCore.Qt.FindChildOption.FindDirectChildrenOnly,
+                )
+            ]
+        )
         self.paths = {}
         key, label = (
             "exclusion_path",
@@ -258,20 +281,20 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         button = QtWidgets.QPushButton(self.tr("Browse..."))
         button.clicked.connect(lambda checked=False, w=path: self._browse(w))
         row.addWidget(button)
-        inner.addWidget(QtWidgets.QLabel(label))
-        inner.addLayout(row)
+        optional.addWidget(QtWidgets.QLabel(label))
+        optional.addLayout(row)
         self.land_types_label = QtWidgets.QLabel(
             self.tr("Land-type summaries (optional)")
         )
-        inner.addWidget(self.land_types_label)
+        optional.addWidget(self.land_types_label)
         self.combo_land_types = QtWidgets.QComboBox()
-        inner.addWidget(self.combo_land_types)
+        optional.addWidget(self.combo_land_types)
         self._land_types_jobs: typing.List = []
         self._pending_land_type_job_id = None
         self.jurisdictions_label = QtWidgets.QLabel(
             self.tr("Jurisdiction summaries (optional)")
         )
-        inner.addWidget(self.jurisdictions_label)
+        optional.addWidget(self.jurisdictions_label)
         self.rb_zones_none = QtWidgets.QRadioButton(
             self.tr("No jurisdiction breakdown")
         )
@@ -281,7 +304,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         )
         self.rb_zones_file = QtWidgets.QRadioButton(self.tr("Upload a polygon layer"))
         for radio in (self.rb_zones_none, self.rb_zones_admin, self.rb_zones_file):
-            inner.addWidget(radio)
+            optional.addWidget(radio)
         row = QtWidgets.QHBoxLayout()
         zones_edit = QtWidgets.QLineEdit()
         zones_edit.setPlaceholderText(self.tr("No file selected"))
@@ -292,25 +315,31 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             lambda checked=False, w=zones_edit: self._browse(w)
         )
         row.addWidget(self.btn_zones_browse)
-        inner.addLayout(row)
+        optional.addLayout(row)
         zones_edit.setEnabled(False)
         self.btn_zones_browse.setEnabled(False)
         self.rb_zones_file.toggled.connect(zones_edit.setEnabled)
         self.rb_zones_file.toggled.connect(self.btn_zones_browse.setEnabled)
+        if not optional_box.isChecked():
+            for widget in optional_box.findChildren(
+                QtWidgets.QWidget,
+                options=QtCore.Qt.FindChildOption.FindDirectChildrenOnly,
+            ):
+                widget.hide()
         note = QtWidgets.QLabel(
             self.tr(
                 "Complete-case scoring: pixels missing any required criterion remain "
                 "unscored. Scores are comparable only within an ARR class. "
-                "This creates preview maps and reports, not scenario targets. "
+                "This creates a priority map, not scenario targets. "
                 "Add candidate areas to a scenario draft to compare outcomes. "
                 "Repeat with different weights to examine sensitivity. "
                 "Your configuration is kept as a draft between sessions."
             )
         )
         note.setWordWrap(True)
-        inner.addWidget(note)
+        layout.addWidget(note)
         self.execution_name_le, self.task_notes = _add_task_name_notes(
-            layout, "LDN Planning - Priority"
+            layout, "LDN Planning - Intervention priorities"
         )
         self.region_la, self.region_button = _add_region_buttons(layout)
         left = QtWidgets.QWidget()
@@ -319,7 +348,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             self,
             left,
             self.tr(
-                "<h3>Prioritize interventions</h3>"
+                "<h3>Rank intervention areas</h3>"
                 "<p>Select an ARR layer, then add imported prioritization inputs "
                 "and their scoring profiles to each response class. Dataset "
                 "provenance and scoring settings are stored with the input, so "
@@ -331,7 +360,10 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             ),
         )
         self._finish_initialization()
-        self.setWindowTitle(self.tr("LDN Planning - Prioritize interventions"))
+        self.button_box.button(QtWidgets.QDialogButtonBox.Ok).setText(
+            self.tr("Create ranking")
+        )
+        self.setWindowTitle(self.tr("Rank intervention areas"))
         self.resize(950, 700)
         self.changed_region.connect(self.combo_arr.populate)
         self._restore_draft()
@@ -388,12 +420,27 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                     self.tr("The selected land types are unavailable. Choose another."),
                 )
         if getattr(self, "project_inputs", None):
-            self.combo_arr.parentWidget().hide()
+            self.combo_arr.hide()
             self.combo_land_types.hide()
             self.land_types_label.hide()
             self.region_button.hide()
             self.region_la.hide()
-            context = self.project_inputs["state"]["context"]
+            state = self.project_inputs["state"]
+            context = state["context"]
+            panel = self.project_inputs["panel"]
+            arr = panel._selected("arr")
+            land_types = panel._selected("land_types")
+            self.project_context_label.setText(
+                self.tr("Using project inputs — ARR: %s; land types: %s")
+                % (
+                    arr.task_name if arr is not None else self.tr("Not selected"),
+                    land_types.task_name
+                    if land_types is not None
+                    else self.tr("None"),
+                )
+            )
+            self.project_context_label.show()
+            self.change_project_button.show()
             self._apply_zones_source(
                 {"none": "none", "file": "file", "admin": "admin_level_1"}[
                     context["jurisdictions"]
@@ -409,6 +456,13 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                 self.btn_zones_browse,
             ):
                 widget.hide()
+
+    def _change_project_inputs(self):
+        project_inputs = getattr(self, "project_inputs", None)
+        if project_inputs is None:
+            return
+        project_inputs["panel"]._focus_section("prepare")
+        self.reject()
 
     def closeEvent(self, event):
         self._store_draft()
@@ -894,24 +948,39 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
     def __init__(self, iface, script, parent=None):
         super().__init__(iface, script, parent)
         layout = QtWidgets.QVBoxLayout()
+        source = _make_group(self.tr("Intervention priorities"), layout)
+        self.project_context_label = QtWidgets.QLabel()
+        self.project_context_label.setWordWrap(True)
+        self.project_context_label.hide()
+        source.addWidget(self.project_context_label)
+        self.change_project_button = QtWidgets.QPushButton(
+            self.tr("Change in project")
+        )
+        self.change_project_button.clicked.connect(self._change_project_inputs)
+        self.change_project_button.hide()
+        source.addWidget(self.change_project_button)
         self.combo_priority = QtWidgets.QComboBox()
-        layout.addWidget(QtWidgets.QLabel(self.tr("Priority preview dataset")))
-        layout.addWidget(self.combo_priority)
+        source.addWidget(self.combo_priority)
+        self.source_note = QtWidgets.QLabel()
+        self.source_note.setWordWrap(True)
+        source.addWidget(self.source_note)
         self.rows = {}
-        self.preview_labels = {}
+        self.estimate_labels = {}
         for key, label in (
             ("avoid", self.tr("Avoid")),
             ("reduce", self.tr("Reduce")),
             ("reverse", self.tr("Reverse")),
         ):
             inner = _make_group(label, layout)
-            enabled = QtWidgets.QCheckBox(self.tr("Select candidate areas"))
+            enabled = QtWidgets.QCheckBox(
+                self.tr("Include %s candidate areas") % key.title()
+            )
             mode = QtWidgets.QComboBox()
             mode.addItem(
                 self.tr("Keep every pixel at or above a minimum score"), "threshold"
             )
             mode.addItem(self.tr("Keep the best pixels up to a maximum area"), "area")
-            threshold_label = QtWidgets.QLabel(self.tr("Minimum priority score (0-1)"))
+            threshold_label = QtWidgets.QLabel(self.tr("Minimum ranking score (0-1)"))
             threshold = QtWidgets.QDoubleSpinBox()
             threshold.setRange(0, 1)
             threshold.setDecimals(6)
@@ -926,30 +995,42 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
 
             def _mode_changed(
                 index=None,
+                enabled=enabled,
                 mode=mode,
                 threshold_label=threshold_label,
                 threshold=threshold,
                 area_label=area_label,
                 area=area,
             ):
+                active = enabled.isChecked()
                 by_area = mode.currentData() == "area"
-                threshold_label.setVisible(not by_area)
-                threshold.setVisible(not by_area)
-                area_label.setVisible(by_area)
-                area.setVisible(by_area)
+                mode.setVisible(active)
+                threshold_label.setVisible(active and not by_area)
+                threshold.setVisible(active and not by_area)
+                area_label.setVisible(active and by_area)
+                area.setVisible(active and by_area)
 
             mode.currentIndexChanged.connect(_mode_changed)
+            enabled.toggled.connect(_mode_changed)
             _mode_changed()
             self.rows[key] = (enabled, mode, threshold, area)
-            preview = QtWidgets.QLabel("")
-            preview.setWordWrap(True)
-            inner.addWidget(preview)
-            self.preview_labels[key] = preview
-        preview_button = QtWidgets.QPushButton(
-            self.tr("Preview estimated selection sizes")
-        )
-        preview_button.clicked.connect(self._preview_selection)
-        layout.addWidget(preview_button)
+            estimate = QtWidgets.QLabel("")
+            estimate.setWordWrap(True)
+            inner.addWidget(estimate)
+            self.estimate_labels[key] = estimate
+        estimate_button = QtWidgets.QPushButton(self.tr("Estimate selected area"))
+        estimate_button.clicked.connect(self._estimate_selection)
+        layout.addWidget(estimate_button)
+        self.estimate_status = QtWidgets.QLabel()
+        self.estimate_status.setWordWrap(True)
+        layout.addWidget(self.estimate_status)
+        self._estimate_signature = None
+        self.combo_priority.currentIndexChanged.connect(self._invalidate_estimates)
+        for enabled, mode, threshold, area in self.rows.values():
+            enabled.toggled.connect(self._invalidate_estimates)
+            mode.currentIndexChanged.connect(self._invalidate_estimates)
+            threshold.valueChanged.connect(self._invalidate_estimates)
+            area.valueChanged.connect(self._invalidate_estimates)
         note = QtWidgets.QLabel(
             self.tr(
                 "Threshold selection includes all scored pixels at or above the threshold. "
@@ -962,7 +1043,7 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
         note.setWordWrap(True)
         layout.addWidget(note)
         self.execution_name_le, self.task_notes = _add_task_name_notes(
-            layout, "LDN Planning - Candidate areas"
+            layout,             "LDN Planning - Candidate areas"
         )
         self.region_la, self.region_button = _add_region_buttons(layout)
         left = QtWidgets.QWidget()
@@ -972,7 +1053,7 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
             left,
             self.tr(
                 "<h3>Select candidate areas</h3>"
-                "<p>Choose a priority preview and enable the response classes "
+                "<p>Choose intervention priorities and enable the response classes "
                 "to select. Set a minimum score or a maximum area for each class.</p>"
                 "<p>Inspect the resulting map and selected-area report. Add "
                 "desired areas as scenario targets in the LDN Planning tab.</p>"
@@ -981,6 +1062,9 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
             ),
         )
         self._finish_initialization()
+        self.button_box.button(QtWidgets.QDialogButtonBox.Ok).setText(
+            self.tr("Create candidate areas")
+        )
         self.setWindowTitle(self.tr("LDN Planning - Select candidate areas"))
         self.resize(650, 750)
 
@@ -1027,15 +1111,61 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
                     self,
                     self.tr("Dataset unavailable"),
                     self.tr(
-                        "The selected priority preview is unavailable. Choose another."
+                        "The selected intervention priorities are unavailable."
                     ),
                 )
         if getattr(self, "project_inputs", None):
+            selection = self.project_inputs["state"]["selections"].get(
+                "priority", {}
+            )
+            source_job = next(
+                (
+                    job
+                    for job in self.jobs
+                    if str(job.id) == selection.get("job_id")
+                ),
+                None,
+            )
+            self.project_context_label.setText(
+                self.tr("Using project ranking: %s")
+                % (
+                    source_job.task_name
+                    if source_job is not None
+                    else self.tr("Unavailable")
+                )
+            )
+            self.project_context_label.show()
+            self.change_project_button.show()
             self.combo_priority.hide()
             self.region_button.hide()
             self.region_la.hide()
+            self.source_note.setText(
+                self.tr(
+                    "This source is inherited from the project. Change it in the "
+                    "Rank intervention areas section."
+                )
+            )
 
-    def _preview_selection(self):
+    def _change_project_inputs(self):
+        project_inputs = getattr(self, "project_inputs", None)
+        if project_inputs is None:
+            return
+        project_inputs["panel"]._focus_section("ranking")
+        self.reject()
+
+    def _invalidate_estimates(self, *_args):
+        had_estimate = bool(
+            self._estimate_signature is not None
+            or any(label.text() for label in self.estimate_labels.values())
+        )
+        self._estimate_signature = None
+        for label in self.estimate_labels.values():
+            label.clear()
+        self.estimate_status.setText(
+            self.tr("Settings changed; estimate again.") if had_estimate else ""
+        )
+
+    def _estimate_selection(self):
         """Sampled per-class estimate of selection size; the run stays exact."""
         from te_algorithms.gdal.land_deg.ldn_priority_inputs import estimate_selection
 
@@ -1043,22 +1173,29 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
         if index < 0 or not self.jobs:
             QtWidgets.QMessageBox.information(
                 self,
-                self.tr("No priority preview"),
-                self.tr("First create and choose a priority preview dataset."),
+                self.tr("No intervention priorities"),
+                self.tr("First create and choose intervention priorities."),
+            )
+            return
+        if not any(row[0].isChecked() for row in self.rows.values()):
+            QtWidgets.QMessageBox.information(
+                self,
+                self.tr("No response classes"),
+                self.tr("Include at least one response class to estimate its area."),
             )
             return
         job = self.jobs[index]
         try:
             path, result = job_raster_path(job)
         except ValueError as exc:
-            QtWidgets.QMessageBox.critical(self, self.tr("Cannot preview"), str(exc))
+            QtWidgets.QMessageBox.critical(self, self.tr("Cannot estimate"), str(exc))
             return
         class_stats = (
             (result.data or {}).get("report", {}).get("summary", {}).get("classes", {})
         )
         for band_index, key in enumerate(CLASSES, start=1):
             enabled, mode, threshold, area = self.rows[key]
-            label = self.preview_labels[key]
+            label = self.estimate_labels[key]
             if not enabled.isChecked():
                 label.setText("")
                 continue
@@ -1095,7 +1232,7 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
                 parts.append(
                     self.tr(
                         "Scored area unknown for this dataset; rerun the "
-                        "priority preview to enable area estimates."
+                        "ranking to enable area estimates."
                     )
                 )
             if estimate.get("binding_score") is not None:
@@ -1107,6 +1244,25 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
                 self.tr("Sampled estimate: %s. The final run is exact.")
                 % "; ".join(parts)
             )
+        self._estimate_signature = self._current_selection_signature()
+        self.estimate_status.setText(
+            self.tr("Sampled estimate. The final selection uses the exact algorithm.")
+        )
+
+    def _current_selection_signature(self):
+        return (
+            self.combo_priority.currentData(),
+            tuple(
+                (
+                    key,
+                    enabled.isChecked(),
+                    mode.currentData(),
+                    threshold.value(),
+                    area.value(),
+                )
+                for key, (enabled, mode, threshold, area) in self.rows.items()
+            ),
+        )
 
     def btn_calculate(self):
         if not super().btn_calculate():
@@ -1117,7 +1273,9 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
             validate_project_dialog(self)
             index = self.combo_priority.currentIndex()
             if index < 0:
-                raise ValueError(self.tr("First create a priority preview dataset."))
+                raise ValueError(
+                    self.tr("First create intervention priorities.")
+                )
             if getattr(self, "project_inputs", None):
                 selected_id = self.project_inputs["state"]["selections"]["priority"][
                     "job_id"
@@ -1127,7 +1285,7 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
                 )
                 if job is None:
                     raise ValueError(
-                        self.tr("The project's priority preview is unavailable.")
+                        self.tr("The project's intervention priorities are unavailable.")
                     )
             else:
                 job = self.jobs[index]

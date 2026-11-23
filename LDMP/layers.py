@@ -299,12 +299,20 @@ style_text_dict = {
     "ldn_planning_hotspots_90_100": tr_layers.tr("90-100% degraded"),
     # LDN Planning - Analysis Zones
     "ldn_planning_zones_title": tr_layers.tr("LDN Planning - Land Types"),
-    "ldn_priority_title": tr_layers.tr("LDN Planning - Relative priority"),
+    "ldn_priority_avoid_title": tr_layers.tr("LDN Planning - Avoid relative priority"),
+    "ldn_priority_reduce_title": tr_layers.tr(
+        "LDN Planning - Reduce relative priority"
+    ),
+    "ldn_priority_reverse_title": tr_layers.tr(
+        "LDN Planning - Reverse relative priority"
+    ),
     "ldn_candidate_title": tr_layers.tr("LDN Planning - Candidate areas"),
     "ldn_not_selected": tr_layers.tr("Not selected"),
-    "ldn_priority_low": tr_layers.tr("Low relative priority"),
-    "ldn_priority_medium": tr_layers.tr("Medium relative priority"),
-    "ldn_priority_high": tr_layers.tr("High relative priority"),
+    "ldn_priority_low": tr_layers.tr("Low relative priority (0-0.333333)"),
+    "ldn_priority_medium": tr_layers.tr(
+        "Medium relative priority (>0.333333-0.666667)"
+    ),
+    "ldn_priority_high": tr_layers.tr("High relative priority (>0.666667-1)"),
     "ldn_arr_reason_title": tr_layers.tr("LDN Planning - ARR assignment reason"),
     "ldn_priority_input_title": tr_layers.tr("LDN Planning input - {description}"),
     "ldn_arr_unknown_status": tr_layers.tr("Unknown status"),
@@ -840,7 +848,7 @@ def _create_color_ramp(
 ):
     ramp_type = style_config["ramp"]["type"]
 
-    if ramp_type == "categorical":
+    if ramp_type in ("categorical", "discrete"):
         result = create_categorical_color_ramp(style_config["ramp"]["items"])
     elif ramp_type == "categorical from legend":
         result = create_categorical_color_ramp_from_legend(
@@ -1067,7 +1075,9 @@ def style_layer(
             # Capture the nodata colour from the ramp item before stripping it,
             # so it can be written into the QML renderer's nodataColor attribute.
             nodata_items = [item for item in color_ramp if item.value == no_data_value]
-            if nodata_items:
+            if style.get("ramp", {}).get("nodata transparent", False):
+                nodata_color = ""
+            elif nodata_items:
                 nodata_color = nodata_items[0].color.name()
             else:
                 # For stretch ramps the nodata item is stored at a scaled value;

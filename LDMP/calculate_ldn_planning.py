@@ -12,6 +12,7 @@ LDMP/calculate_counterbalancing.py.
 import copy
 import json
 import logging
+import math
 import tempfile
 import typing
 from pathlib import Path
@@ -521,7 +522,7 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
             ),
         )
         self.setWindowTitle(
-            self.tr("LDN Planning — Avoid/Reduce/Reverse Classification")
+            self.tr("Classify land for Avoid, Reduce, and Reverse")
         )
         self.resize(600, 560)
 
@@ -833,7 +834,7 @@ class DlgConfigureCandidateTargets(QtWidgets.QDialog):
 
     def __init__(self, job, report: dict, classes, default_effectiveness, parent=None):
         super().__init__(parent)
-        self.setWindowTitle(self.tr("Configure candidate targets"))
+        self.setWindowTitle(self.tr("Set expected effectiveness"))
         self.effectiveness_by_class: typing.Dict[str, float] = {}
         layout = QtWidgets.QVBoxLayout(self)
         intro = QtWidgets.QLabel(
@@ -848,6 +849,16 @@ class DlgConfigureCandidateTargets(QtWidgets.QDialog):
         )
         intro.setWordWrap(True)
         layout.addWidget(intro)
+        default_form = QtWidgets.QFormLayout()
+        self.default_effectiveness = QtWidgets.QDoubleSpinBox()
+        self.default_effectiveness.setRange(0, 1)
+        self.default_effectiveness.setDecimals(3)
+        self.default_effectiveness.setSingleStep(0.05)
+        self.default_effectiveness.setValue(default_effectiveness)
+        default_form.addRow(
+            self.tr("Default expected effectiveness"), self.default_effectiveness
+        )
+        layout.addLayout(default_form)
         class_labels = {
             "avoid": self.tr("Avoid"),
             "reduce": self.tr("Reduce"),
@@ -869,10 +880,25 @@ class DlgConfigureCandidateTargets(QtWidgets.QDialog):
             row = self.table.rowCount()
             self.table.insertRow(row)
             summary = summaries.get(key, {})
+            selected_area = summary.get("selected_area_km2")
+            area_text = (
+                f"{selected_area:.2f}"
+                if isinstance(selected_area, (int, float))
+                and not isinstance(selected_area, bool)
+                and math.isfinite(selected_area)
+                else self.tr("Not available")
+            )
+            selected_pixels = summary.get("selected_pixels")
+            pixels_text = (
+                str(selected_pixels)
+                if isinstance(selected_pixels, int)
+                and not isinstance(selected_pixels, bool)
+                else self.tr("Not available")
+            )
             for column, text in (
                 (0, class_labels.get(key, key)),
-                (1, f"{summary.get('selected_area_km2', 0):.2f}"),
-                (2, str(summary.get("selected_pixels", ""))),
+                (1, area_text),
+                (2, pixels_text),
             ):
                 item = QtWidgets.QTableWidgetItem(text)
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
@@ -881,7 +907,7 @@ class DlgConfigureCandidateTargets(QtWidgets.QDialog):
             spin.setRange(0, 1)
             spin.setDecimals(3)
             spin.setSingleStep(0.05)
-            spin.setValue(default_effectiveness)
+            spin.setValue(self.default_effectiveness.value())
             self.table.setCellWidget(row, 3, spin)
             self._spins[key] = spin
         layout.addWidget(self.table)
@@ -897,6 +923,7 @@ class DlgConfigureCandidateTargets(QtWidgets.QDialog):
         self.resize(560, 320)
 
     def _accept(self):
+        self.default_effectiveness_value = self.default_effectiveness.value()
         self.effectiveness_by_class = {
             key: spin.value() for key, spin in self._spins.items()
         }
@@ -918,102 +945,97 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
     def _build_ui(self):
         layout = QtWidgets.QVBoxLayout(self)
         self.use_candidates = QtWidgets.QCheckBox(self.tr("Include candidate areas"))
-        self.use_polygons = QtWidgets.QCheckBox(self.tr("Include polygon targets"))
         layout.addWidget(self.use_candidates)
-        layout.addWidget(self.use_polygons)
-        inner_t = _make_group(self.tr("Polygon targets"), layout)
+        candidate_group_box = QtWidgets.QGroupBox(self.tr("Candidate areas"))
+        self.candidate_group = QtWidgets.QVBoxLayout(candidate_group_box)
+        layout.addWidget(candidate_group_box)
+        self.candidate_summary = QtWidgets.QLabel()
+        self.candidate_summary.setWordWrap(True)
+        self.candidate_group.addWidget(self.candidate_summary)
+        self.btn_configure_candidates = QtWidgets.QPushButton(
+            self.tr("Set expected effectiveness...")
+        )
+        self.btn_configure_candidates.clicked.connect(self._configure_candidates)
+        self.candidate_group.addWidget(self.btn_configure_candidates)
+        self.btn_clear_candidate_targets = QtWidgets.QPushButton(
+            self.tr("Remove candidate targets")
+        )
+        self.btn_clear_candidate_targets.clicked.connect(
+            self._clear_candidate_targets
+        )
+        self.candidate_group.addWidget(self.btn_clear_candidate_targets)
 
-        # Intervention description
+        self.use_polygons = QtWidgets.QCheckBox(
+            self.tr("Include drawn or imported polygons")
+        )
+        layout.addWidget(self.use_polygons)
+        polygon_group_box = QtWidgets.QGroupBox(self.tr("Polygon targets"))
+        self.polygon_group = QtWidgets.QVBoxLayout(polygon_group_box)
+        layout.addWidget(polygon_group_box)
+
         description = QtWidgets.QLabel(
             self.tr(
-                "Add target polygons.  Assign each one an intervention:\n"
-                "  Reverse = restoration → generates counterbalancing GAINS\n"
-                "  Reduce  = SLM         → avoids losses (not gains)\n"
-                "  Avoid   = protection  → avoids losses (not gains)"
+                "Each polygon needs an intervention (Avoid, Reduce, or Reverse) "
+                "and expected effectiveness from 0 to 1."
             )
         )
         description.setWordWrap(True)
-        inner_t.addWidget(description)
+        self.polygon_group.addWidget(description)
 
-        # Collapsible required-fields help section
         self.btn_targets_help = QtWidgets.QToolButton()
-        self.btn_targets_help.setText(self.tr("▶ Required dataset fields"))
+        self.btn_targets_help.setText(self.tr("Required polygon fields"))
         self.btn_targets_help.setCheckable(True)
         self.btn_targets_help.setStyleSheet("QToolButton { border: none; }")
-        inner_t.addWidget(self.btn_targets_help)
+        self.polygon_group.addWidget(self.btn_targets_help)
 
         self._help_widget = QtWidgets.QLabel(
             self.tr(
-                "Datasets must have these attribute fields:\n"
-                "  intervention  (text)   — 'avoid', 'reduce', or 'reverse'\n"
-                "  effectiveness (number) — 0.0\u20131.0  (or 0\u2013100%)\n"
-                "  notes         (text, optional)\n\n"
-                "Use 'Create layer to draw...' to create a new blank dataset\n"
-                "  and digitize polygons directly on the map.\n"
-                "Use 'Import from file...' to create a dataset from an existing\n"
-                "  GeoJSON, GPKG, or SHP file that already has these fields."
+                "Required attributes: intervention (avoid, reduce, reverse) "
+                "and effectiveness (0–1 or 0–100%). Notes are optional."
             )
         )
         self._help_widget.setWordWrap(True)
         self._help_widget.setVisible(False)
         self._help_widget.setContentsMargins(12, 0, 0, 0)
-        inner_t.addWidget(self._help_widget)
+        self.polygon_group.addWidget(self._help_widget)
         self.btn_targets_help.toggled.connect(self._toggle_targets_help)
 
-        # Combo listing all TE target layers (drawn + imported)
-        inner_t.addWidget(QtWidgets.QLabel(self.tr("Select a targets layer:")))
+        self.polygon_group.addWidget(
+            QtWidgets.QLabel(self.tr("Saved target layer"))
+        )
         self.combo_targets_layer = QtWidgets.QComboBox()
-        inner_t.addWidget(self.combo_targets_layer)
+        self.polygon_group.addWidget(self.combo_targets_layer)
 
-        # Three action buttons
-        action_row = QtWidgets.QVBoxLayout()
-        self.btn_create_targets = QtWidgets.QPushButton(
-            self.tr("Create layer to draw...")
+        add_menu = QtWidgets.QMenu(self)
+        add_menu.addAction(self.tr("Draw new polygons..."), self._create_targets_layer)
+        add_menu.addAction(self.tr("Import polygon file..."), self._import_targets_from_file)
+        self.load_targets_action = add_menu.addAction(
+            self.tr("Use selected saved layer"), self._load_targets_from_job
         )
-        self.btn_create_targets.clicked.connect(self._create_targets_layer)
-        self.btn_import_targets = QtWidgets.QPushButton(self.tr("Import from file..."))
-        self.btn_import_targets.clicked.connect(self._import_targets_from_file)
-        self.btn_load_targets = QtWidgets.QPushButton(
-            self.tr("Load from selected layer")
-        )
-        self.btn_load_targets.clicked.connect(self._load_targets_from_job)
-        action_row.addWidget(self.btn_create_targets)
-        action_row.addWidget(self.btn_import_targets)
-        action_row.addWidget(self.btn_load_targets)
-        inner_t.addLayout(action_row)
-
-        btn_clear = QtWidgets.QPushButton(self.tr("Clear loaded targets"))
-        btn_clear.clicked.connect(self._clear_targets)
-        inner_t.addWidget(btn_clear)
+        self.btn_add_polygons = QtWidgets.QPushButton(self.tr("Add polygons..."))
+        self.btn_add_polygons.setMenu(add_menu)
+        self.polygon_group.addWidget(self.btn_add_polygons)
 
         self.targets_list = QtWidgets.QListWidget()
         self.targets_list.setMaximumHeight(90)
-        inner_t.addWidget(self.targets_list)
-
+        self.polygon_group.addWidget(self.targets_list)
+        self.btn_clear_polygon_targets = QtWidgets.QPushButton(
+            self.tr("Remove polygon targets")
+        )
+        self.btn_clear_polygon_targets.clicked.connect(self._clear_polygon_targets)
+        self.polygon_group.addWidget(self.btn_clear_polygon_targets)
         self._targets_jobs: list = []
-        self.spin_candidate_eff = QtWidgets.QDoubleSpinBox()
-        self.spin_candidate_eff.setRange(0, 1)
-        self.spin_candidate_eff.setValue(0.8)
-        self.spin_candidate_eff.setSingleStep(0.05)
-        inner_t.addWidget(QtWidgets.QLabel(self.tr("Default effectiveness (0-1)")))
-        inner_t.addWidget(self.spin_candidate_eff)
-        self.btn_configure_candidates = QtWidgets.QPushButton(
-            self.tr("Set candidate targets...")
-        )
-        self.btn_configure_candidates.clicked.connect(self._configure_candidates)
-        inner_t.addWidget(self.btn_configure_candidates)
-        self.btn_preview_candidates = QtWidgets.QPushButton(
-            self.tr("Show selected candidate map")
-        )
-        self.btn_preview_candidates.clicked.connect(self._preview_candidates)
-        inner_t.addWidget(self.btn_preview_candidates)
+        self.default_effectiveness = 0.8
         self.execution_name_le, self.task_notes = _add_task_name_notes(
-            layout, "LDN Planning — Scenario & BAU"
+            layout, "LDN Planning — Scenario"
         )
         self.use_candidates.toggled.connect(self.changed)
         self.use_polygons.toggled.connect(self.changed)
+        self.use_candidates.toggled.connect(self._update_source_visibility)
+        self.use_polygons.toggled.connect(self._update_source_visibility)
         self.execution_name_le.textChanged.connect(self.changed)
         self.task_notes.textChanged.connect(self.changed)
+        self._update_source_visibility()
 
     # Land cover 7-class IPCC labels for per-land-type reporting.
     _LC_LABELS: typing.ClassVar[dict[int, str]] = {
@@ -1048,19 +1070,54 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
                 "(avoid / reduce / reverse) and 'effectiveness' (0\u20131) in the "
                 "attribute form.\n"
                 "3. When finished, save the layer (Layer → Save Layer Edits).\n"
-                "4. Return to LDN Planning, select the layer and click "
-                "'Load from selected layer'."
+                "4. Return to LDN Planning, select the layer, then choose "
+                "'Add polygons... → Use selected saved layer'."
             ),
         )
         self._refresh_targets_combo()
 
     def _toggle_targets_help(self, checked: bool):
-        self.btn_targets_help.setText(
-            self.tr("▼ Required dataset fields")
-            if checked
-            else self.tr("▶ Required dataset fields")
-        )
         self._help_widget.setVisible(checked)
+
+    def _update_source_visibility(self, *_args):
+        self.candidate_group.parentWidget().setVisible(self.use_candidates.isChecked())
+        self.polygon_group.parentWidget().setVisible(self.use_polygons.isChecked())
+        self.btn_clear_candidate_targets.setVisible(
+            self.use_candidates.isChecked()
+            and any(target.get("selected_mask_path") for target in self._targets)
+        )
+        self.btn_clear_polygon_targets.setVisible(
+            self.use_polygons.isChecked()
+            and any(not target.get("selected_mask_path") for target in self._targets)
+        )
+        self._refresh_target_list()
+
+    def update_candidate_summary(self):
+        job = self.panel._selected("candidate")
+        self.btn_configure_candidates.setEnabled(job is not None)
+        if job is None:
+            self.candidate_summary.setText(
+                self.tr("No candidate-area result selected.")
+            )
+        else:
+            self.candidate_summary.setText(
+                f"{job.task_name or str(job.id)}\n"
+                f"{self.panel._result_metrics('candidate', job)}"
+            )
+        configured = [
+            f"{target['intervention'].title()} "
+            f"{100 * target['effectiveness']:.0f}%"
+            for target in self._targets
+            if target.get("selected_mask_path")
+        ]
+        if configured:
+            self.candidate_summary.setText(
+                self.candidate_summary.text()
+                + "\n"
+                + self.tr("Configured effectiveness: {0}").format(
+                    ", ".join(configured)
+                )
+            )
 
     def _refresh_targets_combo(self):
         """Repopulate the targets layer combo from the job manager."""
@@ -1070,10 +1127,10 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
         if not self._targets_jobs:
             self.combo_targets_layer.addItem(self.tr("(no saved targets layers)"))
             self.combo_targets_layer.setEnabled(False)
-            self.btn_load_targets.setEnabled(False)
+            self.load_targets_action.setEnabled(False)
         else:
             self.combo_targets_layer.setEnabled(True)
-            self.btn_load_targets.setEnabled(True)
+            self.load_targets_action.setEnabled(True)
             for j in self._targets_jobs:
                 self.combo_targets_layer.addItem(j.task_name or str(j.id), str(j.id))
             index = self.combo_targets_layer.findData(previous)
@@ -1356,6 +1413,19 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
             return
 
         source_id = str(job.id)
+        if any(
+            target.get("source_job_id") == source_id
+            and not target.get("selected_mask_path")
+            for target in self._targets
+        ) and QtWidgets.QMessageBox.question(
+            self,
+            self.tr("Replace polygon snapshot"),
+            self.tr(
+                "Replace the existing snapshot from '%s' with the selected layer?"
+            )
+            % (job.task_name or source_id),
+        ) != QtWidgets.QMessageBox.StandardButton.Yes:
+            return
         self._targets = [
             target
             for target in self._targets
@@ -1384,10 +1454,11 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
         Returns {arr_class: effectiveness}, or None if cancelled.
         """
         dialog = DlgConfigureCandidateTargets(
-            job, report, classes, self.spin_candidate_eff.value(), self
+            job, report, classes, self.default_effectiveness, self
         )
         if dialog.exec() != QtWidgets.QDialog.Accepted:
             return None
+        self.default_effectiveness = dialog.default_effectiveness_value
         return dialog.effectiveness_by_class
 
     def _configure_candidates(self):
@@ -1463,27 +1534,38 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
                     "configuration_context": context,
                 }
             )
-        self.targets_list.addItem(
-            self.tr("Candidate targets from: %s") % (job.task_name or source_id)
-        )
         self.use_candidates.setChecked(True)
         self.changed.emit()
 
-    def _preview_candidates(self):
-        job = self.panel._selected("candidate")
-        if job is None:
-            QtWidgets.QMessageBox.information(
-                self,
-                self.tr("No candidate areas"),
-                self.tr("Create a candidate-area dataset first."),
-            )
-            return
-        job_manager.ensure_results_loaded(job)
-        job_manager.display_selected_job_results(job, [1])
-
     def _clear_targets(self):
+        if not self._targets:
+            return
+        if (
+            QtWidgets.QMessageBox.question(
+                self,
+                self.tr("Remove all targets"),
+                self.tr("Remove all candidate and polygon targets from this draft?"),
+            )
+            != QtWidgets.QMessageBox.StandardButton.Yes
+        ):
+            return
         self._targets.clear()
         self.targets_list.clear()
+        self._update_source_visibility()
+        self.changed.emit()
+
+    def _clear_candidate_targets(self):
+        self._targets = [
+            target for target in self._targets if not target.get("selected_mask_path")
+        ]
+        self._update_source_visibility()
+        self.changed.emit()
+
+    def _clear_polygon_targets(self):
+        self._targets = [
+            target for target in self._targets if target.get("selected_mask_path")
+        ]
+        self._update_source_visibility()
         self.changed.emit()
 
     def restore(self, draft):
@@ -1492,29 +1574,28 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
         self.use_polygons.setChecked(draft["use_polygons"])
         self.execution_name_le.setText(draft["task_name"])
         self.task_notes.setPlainText(draft["task_notes"])
-        self.spin_candidate_eff.setValue(draft["default_effectiveness"])
+        self.default_effectiveness = draft["default_effectiveness"]
         self._refresh_target_list()
+        self.update_candidate_summary()
+        self._update_source_visibility()
 
     def _refresh_target_list(self):
         self.targets_list.clear()
         sources = {}
         for target in self._targets:
-            key = (bool(target.get("selected_mask_path")), target.get("source_job_id"))
-            sources.setdefault(key, []).append(target)
-        for (candidate, _source), targets in sources.items():
+            if target.get("selected_mask_path"):
+                continue
+            sources.setdefault(target.get("source_job_id"), []).append(target)
+        for targets in sources.values():
             effects = ", ".join(
-                "%s %.0f%%" % (target["intervention"], 100 * target["effectiveness"])
+                f"{target['intervention']} "
+                f"{100 * target['effectiveness']:.0f}%"
                 for target in targets
             )
             self.targets_list.addItem(
-                "%s: %s (%s)"
-                % (
-                    self.tr("Candidate targets")
-                    if candidate
-                    else self.tr("Polygon snapshot"),
-                    targets[0].get("source_name") or self.tr("Targets"),
-                    effects,
-                )
+                f"{self.tr('Polygon snapshot')} — "
+                f"{len(targets)} {self.tr('polygon(s) from')} "
+                f"{targets[0].get('source_name') or self.tr('Targets')} ({effects})"
             )
 
     def draft_values(self):
@@ -1524,7 +1605,7 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
             "use_polygons": self.use_polygons.isChecked(),
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
-            "default_effectiveness": self.spin_candidate_eff.value(),
+            "default_effectiveness": self.default_effectiveness,
         }
 
 

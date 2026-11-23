@@ -523,7 +523,7 @@ def compute_planning_local(
         extra_data["scenario_comparison"] = comparison
     report_data = save_ldn_planning_json(
         json_path,
-        task_name=params.get("task_name", "LDN Planning — Scenario & BAU"),
+        task_name=params.get("task_name", "LDN Planning — Scenario"),
         bau_summary=bau_summary,
         scenario_summary=scenario_summary,
         projection_summary=projection,

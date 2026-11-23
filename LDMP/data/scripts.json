@@ -234,7 +234,7 @@
         "description": "Project BAU degradation and apply scenario targets over a horizon",
         "execution_callable": "LDMP.localexecution.ldn_planning.compute_planning_local",
         "name": "ldn-planning-projection",
-        "name_readable": "LDN Planning — Scenario & BAU Projection",
+        "name_readable": "LDN Planning — Scenario",
         "run_mode": "local",
         "version": "2.3.9"
     },
@@ -242,7 +242,7 @@
         "description": "Score eligible ARR areas using class-specific criteria",
         "execution_callable": "LDMP.localexecution.ldn_planning.compute_priority_local",
         "name": "ldn-planning-priority",
-        "name_readable": "LDN Planning - Prioritize interventions",
+        "name_readable": "LDN Planning — Intervention priorities",
         "run_mode": "local",
         "version": "2.3.9"
     },
@@ -250,7 +250,7 @@
         "description": "Select candidate areas for review before scenario approval",
         "execution_callable": "LDMP.localexecution.ldn_planning.compute_selection_local",
         "name": "ldn-planning-selection",
-        "name_readable": "LDN Planning - Select candidate areas",
+        "name_readable": "LDN Planning — Candidate areas",
         "run_mode": "local",
         "version": "2.3.9"
     }

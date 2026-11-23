@@ -17,6 +17,13 @@ PLANNING_REPORT_SCRIPTS = {
     "ldn-planning-projection",
     "ldn-counterbalancing",
 }
+PANEL_REPORT_SCRIPTS = {
+    "ldn-planning-arr",
+    "ldn-planning-land-types",
+    "ldn-planning-priority",
+    "ldn-planning-selection",
+    "ldn-planning-projection",
+}
 _AVAILABLE = (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
 
 
@@ -269,14 +276,15 @@ def attach_planning_actions(button, job, main_dock) -> bool:
             lambda: open_planning_panel(main_dock),
         )
     else:
-        menu.addAction(
-            tr("View planning summary..."),
-            lambda: show_planning_summary(job, main_dock),
-        )
-        menu.addAction(
-            tr("Open Excel report"), lambda: open_excel_report(job, main_dock)
-        )
         menu.addAction(tr("Open report folder"), lambda: open_report_folder(job))
+        if name not in PANEL_REPORT_SCRIPTS:
+            menu.addAction(
+                tr("View planning summary..."),
+                lambda: show_planning_summary(job, main_dock),
+            )
+            menu.addAction(
+                tr("Open Excel report"), lambda: open_excel_report(job, main_dock)
+            )
         if name == "ldn-planning-priority":
             menu.addAction(
                 tr("Select candidate areas..."),

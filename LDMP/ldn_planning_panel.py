@@ -15,18 +15,19 @@ from .ldn_planning_actions import (
     arr_factory,
     land_types_factory,
     launch_calculate_dialog,
+    open_excel_report,
     priority_factory,
     selection_factory,
-    show_planning_summary,
 )
 
 SETTINGS_KEY = "trends_earth/ldn_planning_projects"
+VIEW_SETTINGS_KEY = "trends_earth/ldn_planning_view"
 RESULTS = (
-    ("arr", "ARR classification", "ldn-planning-arr", (1,)),
-    ("land_types", "Land types", "ldn-planning-land-types", (1,)),
-    ("priority", "Priority preview", "ldn-planning-priority", (1, 2, 3)),
+    ("arr", "Avoid / Reduce / Reverse", "ldn-planning-arr", (1,)),
+    ("land_types", "Land types (optional)", "ldn-planning-land-types", (1,)),
+    ("priority", "Intervention priorities", "ldn-planning-priority", (1, 2, 3)),
     ("candidate", "Candidate areas", "ldn-planning-selection", (1,)),
-    ("scenario", "Scenario", "ldn-planning-projection", (1, 2, 3)),
+    ("scenario", "Saved scenario results", "ldn-planning-projection", (1, 2, 3)),
 )
 AVAILABLE = (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
 AUTO_SELECT_RESULT_KEYS = {
@@ -284,9 +285,11 @@ class PlanningPanel(QtWidgets.QWidget):
             QtWidgets.QSizePolicy.Policy.Fixed,
         )
         project_row.addWidget(self.project_combo)
-        new_project = QtWidgets.QPushButton(self.tr("New project..."))
-        new_project.clicked.connect(self._new_project)
-        project_row.addWidget(new_project)
+        project_menu = QtWidgets.QMenu(self)
+        project_menu.addAction(self.tr("New project..."), self._new_project)
+        self.project_menu_button = QtWidgets.QPushButton(self.tr("Project menu"))
+        self.project_menu_button.setMenu(project_menu)
+        project_row.addWidget(self.project_menu_button)
         layout.addLayout(project_row)
 
         from .region_selector import RegionSelector
@@ -302,23 +305,63 @@ class PlanningPanel(QtWidgets.QWidget):
             self.tr("Change project area to current region...")
         )
         self.adopt_area_button.clicked.connect(self._adopt_area)
+        self.adopt_area_button.setVisible(False)
         layout.addWidget(self.adopt_area_button)
+        self.view_save_status = QtWidgets.QLabel()
+        self.view_save_status.setWordWrap(True)
+        self.view_save_status.setVisible(False)
+        layout.addWidget(self.view_save_status)
 
         scroll = QtWidgets.QScrollArea()
         scroll.setWidgetResizable(True)
+        scroll.setHorizontalScrollBarPolicy(
+            QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff
+        )
         body = QtWidgets.QWidget()
+        body.setMinimumWidth(0)
+        body.setSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Ignored,
+            QtWidgets.QSizePolicy.Policy.Preferred,
+        )
         body_layout = QtWidgets.QVBoxLayout(body)
         note = QtWidgets.QLabel(
             self.tr(
-                "Choose saved results for this project. Results are snapshots: "
-                "changing a selection does not update or rerun other results. "
-                "Configure shared inputs here, then design and run a scenario below. "
-                "Configure candidate targets in the scenario draft before running it."
+                "Each revision creates a new result; saved results are unchanged. "
+                "A result is not updated until you select it for this project."
             )
         )
         note.setWordWrap(True)
         body_layout.addWidget(note)
+        self.section_groups = {}
+        self.section_layouts = {}
+        self.section_titles = {}
+        for key, title in (
+            ("prepare", self.tr("1  Prepare inputs")),
+            ("ranking", self.tr("2  Rank intervention areas")),
+            ("candidates", self.tr("3  Select candidate areas")),
+        ):
+            section = QtWidgets.QGroupBox(title)
+            section_layout = QtWidgets.QVBoxLayout(section)
+            self._make_collapsible(section)
+            self.section_groups[key] = section
+            self.section_layouts[key] = section_layout
+            self.section_titles[key] = title
+            body_layout.addWidget(section)
+
+        scenario_group = QtWidgets.QGroupBox(self.tr("4  Build scenarios"))
+        self.scenario_group = scenario_group
+        self.section_groups["scenario"] = scenario_group
+        self.section_titles["scenario"] = self.tr("4  Build scenarios")
+        self.scenario_layout = QtWidgets.QVBoxLayout(scenario_group)
+        self._make_collapsible(scenario_group)
+        body_layout.addWidget(scenario_group)
+
+        self.input_context_group = QtWidgets.QGroupBox(
+            self.tr("Scenario inputs and projection period")
+        )
+        input_context_layout = QtWidgets.QVBoxLayout(self.input_context_group)
         baseline_group = QtWidgets.QGroupBox(self.tr("Baseline indicator"))
+        self.baseline_group = baseline_group
         baseline_layout = QtWidgets.QVBoxLayout(baseline_group)
         self.baseline_combo = QtWidgets.QComboBox()
         self.baseline_combo.currentIndexChanged.connect(self._baseline_changed)
@@ -326,15 +369,15 @@ class PlanningPanel(QtWidgets.QWidget):
         self.baseline_status = QtWidgets.QLabel()
         self.baseline_status.setWordWrap(True)
         baseline_layout.addWidget(self.baseline_status)
-        body_layout.addWidget(baseline_group)
         self.reporting_combo = QtWidgets.QComboBox()
-        body_layout.addWidget(
+        input_context_layout.addWidget(
             QtWidgets.QLabel(self.tr("Reporting period (optional, sets BAU rate)"))
         )
-        body_layout.addWidget(self.reporting_combo)
+        input_context_layout.addWidget(self.reporting_combo)
         self.reporting_combo.currentIndexChanged.connect(self._reporting_changed)
+        input_context_layout.addWidget(baseline_group)
         self.context_group = QtWidgets.QGroupBox(
-            self.tr("Period and reporting breakdown")
+            self.tr("Projection period and breakdown")
         )
         context_layout = QtWidgets.QFormLayout(self.context_group)
         context_layout.setRowWrapPolicy(
@@ -375,23 +418,24 @@ class PlanningPanel(QtWidgets.QWidget):
         for label, value in (
             (self.tr("No jurisdictions"), "none"),
             (self.tr("Administrative units (level 1)"), "admin"),
-            (self.tr("Polygon file"), "file"),
+            (self.tr("Choose polygon file..."), "file"),
         ):
             self.jurisdictions_combo.addItem(label, value)
         context_layout.addRow(self.tr("Jurisdictions"), self.jurisdictions_combo)
-        self.jurisdictions_combo.currentIndexChanged.connect(self._context_changed)
-        self.jurisdictions_path = QtWidgets.QLineEdit()
-        self.jurisdictions_path.setReadOnly(True)
-        browse = QtWidgets.QPushButton(self.tr("Choose jurisdiction boundaries..."))
-        browse.clicked.connect(self._choose_jurisdictions)
-        context_layout.addRow(self.jurisdictions_path)
-        context_layout.addRow(browse)
+        self.jurisdictions_combo.activated.connect(self._choose_jurisdictions)
         self._make_collapsible(self.context_group)
-        body_layout.addWidget(self.context_group)
+        input_context_layout.addWidget(self.context_group)
+        self._make_collapsible(self.input_context_group)
+        self.input_context_group.setChecked(False)
+        self.scenario_layout.addWidget(self.input_context_group)
+
         self.combos = {}
         self.status_labels = {}
         self.status_icons = {}
         self.step_buttons = {}
+        self.map_buttons = {}
+        self.result_summary_labels = {}
+        self.export_buttons = {}
         self._lineage_states = {}
         for key, label, _result, bands in RESULTS:
             group = QtWidgets.QGroupBox(self.tr(label))
@@ -409,6 +453,9 @@ class PlanningPanel(QtWidgets.QWidget):
             status_row.addWidget(status_icon)
             status_row.addWidget(status, 1)
             inner.addLayout(status_row)
+            result_summary = QtWidgets.QLabel()
+            result_summary.setWordWrap(True)
+            inner.addWidget(result_summary)
             step_button = QtWidgets.QPushButton()
             step_button.clicked.connect(lambda _checked=False, k=key: self._run_step(k))
             step_button.setToolTip(
@@ -418,48 +465,71 @@ class PlanningPanel(QtWidgets.QWidget):
                 )
             )
             inner.addWidget(step_button)
-            row = QtWidgets.QHBoxLayout()
-            map_button = QtWidgets.QPushButton(self.tr("Show on map"))
+            row = QtWidgets.QVBoxLayout()
+            map_button = QtWidgets.QPushButton(self.tr("Map"))
             map_button.clicked.connect(
                 lambda _checked=False, k=key, b=bands: self._show_map(k, b)
             )
             row.addWidget(map_button)
-            summary_button = QtWidgets.QPushButton(self.tr("Summary..."))
-            summary_button.clicked.connect(
-                lambda _checked=False, k=key: self._summary(k)
+            export_button = QtWidgets.QPushButton(self.tr("Export scenario report..."))
+            export_button.clicked.connect(
+                lambda _checked=False, k=key: self._export_scenario_report(k)
             )
-            row.addWidget(summary_button)
+            export_button.setVisible(key == "scenario")
+            row.addWidget(export_button)
             inner.addLayout(row)
             self.combos[key] = combo
             self.status_labels[key] = status
             self.status_icons[key] = status_icon
             self.step_buttons[key] = step_button
+            self.map_buttons[key] = map_button
+            self.result_summary_labels[key] = result_summary
+            self.export_buttons[key] = export_button
+            section_key = {
+                "arr": "prepare",
+                "land_types": "prepare",
+                "priority": "ranking",
+                "candidate": "candidates",
+                "scenario": "scenario",
+            }[key]
             if key == "scenario":
-                self._build_scenario_editor(body_layout)
-            self._make_collapsible(group)
-            body_layout.addWidget(group)
+                self._build_scenario_editor()
+            self.section_layouts.get(section_key, self.scenario_layout).addWidget(
+                group
+            )
+        self.scenario_layout.addLayout(self.comparison_layout)
         self.scroll = scroll
         body_layout.addStretch()
         scroll.setWidget(body)
         layout.addWidget(scroll, 1)
-
-        actions = QtWidgets.QMenu(self)
-        for label, callback in (
-            ("Import prioritization input...", self._import_input),
-            ("Create ARR classification...", lambda: self._launch(arr_factory)),
-            ("Define land types...", lambda: self._launch(land_types_factory)),
-            ("Prioritize interventions...", self._prioritize),
-            ("Select candidate areas...", self._select_candidates),
-            ("Run current scenario draft", self._scenario),
-            ("Create alternative from selected scenario...", self._alternative),
-            ("Compare with selected scenario...", self._compare),
-        ):
-            actions.addAction(self.tr(label), callback)
-        self.actions_button = QtWidgets.QPushButton(self.tr("Planning actions"))
-        self.actions_button.setMenu(actions)
-        layout.addWidget(self.actions_button)
+        for widget in body.findChildren(QtWidgets.QWidget):
+            widget.setMinimumWidth(0)
+            if isinstance(widget, (QtWidgets.QGroupBox, QtWidgets.QPushButton)):
+                widget.setSizePolicy(
+                    QtWidgets.QSizePolicy.Policy.Expanding,
+                    widget.sizePolicy().verticalPolicy(),
+                )
+            elif isinstance(widget, QtWidgets.QComboBox):
+                widget.setSizePolicy(
+                    QtWidgets.QSizePolicy.Policy.Expanding,
+                    QtWidgets.QSizePolicy.Policy.Fixed,
+                )
+        for section_key, section in self.section_groups.items():
+            section.toggled.connect(
+                lambda _checked, key=section_key: self._save_view_state(key)
+            )
+            section.toggled.connect(
+                lambda _checked, key=section_key: self._update_section_title(key)
+            )
+        self._view_save_timer = QtCore.QTimer(self)
+        self._view_save_timer.setSingleShot(True)
+        self._view_save_timer.setInterval(300)
+        self._view_save_timer.timeout.connect(self._save_view_state)
+        self.scroll.verticalScrollBar().valueChanged.connect(
+            lambda _value: self._view_save_timer.start()
+        )
         for combo in self.findChildren(QtWidgets.QComboBox):
-            combo.setMinimumContentsLength(15)
+            combo.setMinimumContentsLength(10)
             combo.setSizeAdjustPolicy(
                 QtWidgets.QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon
             )
@@ -709,6 +779,9 @@ class PlanningPanel(QtWidgets.QWidget):
         limits["target_year"] = (target_minimum, 2100)
         for key, spin in self.years.items():
             blocked = spin.blockSignals(True)
+            spin.setSpecialValueText(
+                self.tr("Not configured") if limits[key][0] == 1979 else ""
+            )
             spin.setRange(*limits[key])
             spin.setValue(context[key] or 1979)
             if key != "target_year":
@@ -761,28 +834,224 @@ class PlanningPanel(QtWidgets.QWidget):
     def _make_collapsible(self, group):
         group.setCheckable(True)
         group.setChecked(True)
-        widgets = group.findChildren(
-            QtWidgets.QWidget, options=QtCore.Qt.FindChildOption.FindDirectChildrenOnly
-        )
         group.toggled.connect(
-            lambda checked: [widget.setVisible(checked) for widget in widgets]
+            lambda checked, parent=group: [
+                widget.setVisible(checked)
+                for widget in parent.findChildren(
+                    QtWidgets.QWidget,
+                    options=QtCore.Qt.FindChildOption.FindDirectChildrenOnly,
+                )
+            ]
         )
 
-    def _build_scenario_editor(self, layout):
+    def _save_view_state(self, _section_key=None):
+        project = self._project()
+        if project is None or getattr(self, "_restoring_view_state", False):
+            return
+        state = {
+            "expanded": {
+                key: group.isChecked() for key, group in self.section_groups.items()
+            },
+            "scroll": self.scroll.verticalScrollBar().value(),
+        }
+        try:
+            self._settings.setValue(
+                f"{VIEW_SETTINGS_KEY}/{project['id']}", json.dumps(state)
+            )
+            self._settings.sync()
+            if self._settings.status() != QtCore.QSettings.Status.NoError:
+                raise OSError("Could not save LDN Planning view preferences.")
+        except OSError as exc:
+            self.view_save_status.setText(str(exc))
+            self.view_save_status.setVisible(True)
+        else:
+            self.view_save_status.clear()
+            self.view_save_status.setVisible(False)
+
+    def _restore_view_state(self, project):
+        defaults = {
+            "prepare": True,
+            "ranking": False,
+            "candidates": False,
+            "scenario": True,
+        }
+        state = {}
+        if project is not None:
+            raw = self._settings.value(f"{VIEW_SETTINGS_KEY}/{project['id']}", "")
+            try:
+                state = json.loads(raw) if raw else {}
+            except (TypeError, ValueError):
+                state = {}
+        expanded = state.get("expanded", {}) if isinstance(state, dict) else {}
+        if not isinstance(expanded, dict):
+            expanded = {}
+        self._restoring_view_state = True
+        try:
+            for key, group in self.section_groups.items():
+                value = expanded.get(key, defaults[key])
+                group.setChecked(value if type(value) is bool else defaults[key])
+            scroll = state.get("scroll", 0) if isinstance(state, dict) else 0
+            if type(scroll) is int:
+                self.scroll.verticalScrollBar().setValue(max(0, scroll))
+        finally:
+            self._restoring_view_state = False
+
+    @staticmethod
+    def _format_area(value):
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            return None
+        if not math.isfinite(value):
+            return None
+        return f"{value:,.2f} km²"
+
+    def _result_metrics(self, key, job):
+        if not hasattr(job, "results"):
+            return self.tr("Result details are not available.")
+        if not job_manager.ensure_results_loaded(job):
+            return self.tr("Result details are unavailable.")
+        data = getattr(job.results, "data", None) or {}
+        report = data.get("report")
+        if not isinstance(report, dict):
+            return self.tr("Result details are not available.")
+        summary = report.get("summary")
+        summary = summary if isinstance(summary, dict) else {}
+
+        def area(label, value):
+            formatted = self._format_area(value)
+            return (
+                f"{label}: {formatted}"
+                if formatted is not None
+                else f"{label}: {self.tr('Not available')}"
+            )
+
+        if key == "arr":
+            values = report.get("arr", {})
+            values = values if isinstance(values, dict) else {}
+            items = [
+                area(self.tr(name.title()), values.get(f"{name}_km2"))
+                for name in ("avoid", "reduce", "reverse")
+            ]
+        elif key == "land_types":
+            values = report.get("land_types")
+            values = values.get("land_types") if isinstance(values, dict) else values
+            items = (
+                [self.tr("Land types: %d") % len(values)]
+                if isinstance(values, list)
+                else [self.tr("Land types: Not available")]
+            )
+        elif key == "priority":
+            classes = summary.get("classes", {})
+            classes = classes if isinstance(classes, dict) else {}
+            items = []
+            for name in ("avoid", "reduce", "reverse"):
+                value = classes.get(name, {})
+                value = value if isinstance(value, dict) else {}
+                scored = area(self.tr(name.title()), value.get("scored_area_km2"))
+                coverage = value.get("coverage_fraction")
+                if scored:
+                    items.append(scored)
+                if isinstance(coverage, (int, float)) and not isinstance(
+                    coverage, bool
+                ) and math.isfinite(coverage):
+                    items.append(
+                        self.tr("%s coverage: %s%%")
+                        % (name.title(), f"{coverage * 100:.1f}")
+                    )
+                else:
+                    items.append(
+                        self.tr("%s coverage: Not available") % name.title()
+                    )
+            items.append(self.tr("Scores compare only within each class."))
+        elif key == "candidate":
+            selections = summary.get("selections", {})
+            selections = selections if isinstance(selections, dict) else {}
+            items = [
+                area(
+                    self.tr(name.title()),
+                    (
+                        selection.get("selected_area_km2")
+                        if isinstance(selection := selections.get(name), dict)
+                        else None
+                    ),
+                )
+                for name in ("avoid", "reduce", "reverse")
+            ]
+            if job_manager.ensure_params_loaded(job):
+                settings = (job.params or {}).get("selections")
+                if isinstance(settings, dict):
+                    for name in ("avoid", "reduce", "reverse"):
+                        setting = settings.get(name)
+                        if not isinstance(setting, dict):
+                            continue
+                        method = {
+                            "area": self.tr("area limit"),
+                            "threshold": self.tr("minimum score"),
+                        }.get(setting.get("mode"), self.tr("Not available"))
+                        items.append(self.tr("%s: %s") % (name.title(), method))
+                else:
+                    items.append(self.tr("Selection method: Not available."))
+            else:
+                items.append(self.tr("Selection method: Not available."))
+        else:
+            projection = report.get("projection", {})
+            projection = projection if isinstance(projection, dict) else {}
+            scenario = report.get("scenario", {})
+            scenario = scenario if isinstance(scenario, dict) else {}
+            items = []
+            target_year = projection.get("target_year")
+            if target_year is not None:
+                items.append(self.tr("Projection year: %s") % target_year)
+            else:
+                items.append(self.tr("Projection year: Not available"))
+            for label, value in (
+                (
+                    self.tr("Expected gains"),
+                    projection.get("scenario_gains_km2"),
+                ),
+                (
+                    self.tr("Expected avoided losses"),
+                    projection.get("scenario_avoided_losses_km2"),
+                ),
+            ):
+                formatted = area(label, value)
+                if formatted:
+                    items.append(formatted)
+            bau = projection.get("bau_projection_km2")
+            formatted = area(self.tr("BAU projection"), bau)
+            if formatted:
+                items.append(formatted)
+            if not items and scenario:
+                total = area(
+                    self.tr("Expected avoided losses"),
+                    scenario.get("total_avoided_losses_km2"),
+                )
+                if total:
+                    items.append(total)
+        return "  •  ".join(items) if items else self.tr("Result details are not available.")
+
+    def _build_scenario_editor(self):
         from .calculate_ldn_planning import ScenarioTargetsWidget
 
-        self.scenario_group = QtWidgets.QGroupBox(self.tr("Scenario design"))
-        inner = QtWidgets.QVBoxLayout(self.scenario_group)
+        inner = self.scenario_layout
+        draft_row = QtWidgets.QHBoxLayout()
         self.draft_combo = QtWidgets.QComboBox()
         self.draft_combo.currentIndexChanged.connect(self._draft_changed)
-        inner.addWidget(self.draft_combo)
-        new_button = QtWidgets.QPushButton(self.tr("New scenario draft"))
-        new_button.clicked.connect(self._new_draft)
-        inner.addWidget(new_button)
+        draft_row.addWidget(self.draft_combo, 1)
+        draft_menu = QtWidgets.QMenu(self)
+        draft_menu.addAction(self.tr("New draft"), self._new_draft)
+        draft_menu.addAction(
+            self.tr("Duplicate selected result as new draft..."), self._alternative
+        )
+        self.draft_menu_button = QtWidgets.QPushButton(self.tr("Draft menu"))
+        self.draft_menu_button.setMenu(draft_menu)
+        draft_row.addWidget(self.draft_menu_button)
+        inner.addLayout(draft_row)
         self.scenario_editor = ScenarioTargetsWidget(self)
         self.scenario_editor.changed.connect(self._store_editor)
-        self.scenario_editor.spin_candidate_eff.valueChanged.connect(self._store_editor)
         inner.addWidget(self.scenario_editor)
+        self.draft_save_status = QtWidgets.QLabel()
+        self.draft_save_status.setWordWrap(True)
+        inner.addWidget(self.draft_save_status)
         self.readiness_label = QtWidgets.QLabel()
         self.readiness_label.setWordWrap(True)
         self.readiness_label.setTextInteractionFlags(
@@ -794,27 +1063,29 @@ class PlanningPanel(QtWidgets.QWidget):
         self.completion_label.setWordWrap(True)
         inner.addWidget(self.completion_label)
         self.use_result_button = QtWidgets.QPushButton(
-            self.tr("Use latest result from this draft")
+            self.tr("Select this result")
         )
         self.use_result_button.clicked.connect(self._use_result)
         inner.addWidget(self.use_result_button)
-        alternative = QtWidgets.QPushButton(
-            self.tr("Create alternative from selected result...")
-        )
-        alternative.clicked.connect(self._alternative)
-        inner.addWidget(alternative)
-        save_button = QtWidgets.QPushButton(self.tr("Save draft"))
-        save_button.clicked.connect(self._store_editor)
-        inner.addWidget(save_button)
         self.step_buttons["scenario"].setToolTip(
-            self.tr("Run this draft as a new immutable scenario result.")
+            self.tr("Run this draft as a new saved scenario result.")
         )
         inner.addWidget(self.step_buttons["scenario"])
-        clear_comparison = QtWidgets.QPushButton(self.tr("Clear scenario comparison"))
-        clear_comparison.clicked.connect(self._clear_comparison)
-        inner.addWidget(clear_comparison)
-        self._make_collapsible(self.scenario_group)
-        layout.addWidget(self.scenario_group)
+        self.comparison_layout = QtWidgets.QHBoxLayout()
+        self.compare_button = QtWidgets.QPushButton(
+            self.tr("Compare with selected scenario...")
+        )
+        self.compare_button.setToolTip(
+            self.tr("Run the current draft against the selected saved scenario.")
+        )
+        self.compare_button.clicked.connect(self._compare)
+        self.comparison_layout.addWidget(self.compare_button)
+        self.comparison_label = QtWidgets.QLabel()
+        self.comparison_label.setWordWrap(True)
+        self.comparison_layout.addWidget(self.comparison_label, 1)
+        self.clear_comparison_button = QtWidgets.QPushButton(self.tr("Remove"))
+        self.clear_comparison_button.clicked.connect(self._clear_comparison)
+        self.comparison_layout.addWidget(self.clear_comparison_button)
 
     def _draft(self):
         project = self._project()
@@ -838,7 +1109,7 @@ class PlanningPanel(QtWidgets.QWidget):
         self.jurisdictions_combo.setCurrentIndex(
             self.jurisdictions_combo.findData(context["jurisdictions"])
         )
-        self.jurisdictions_path.setText(context["jurisdictions_path"] or "")
+        self._update_jurisdiction_label(context)
         for draft in project["drafts"]:
             self.draft_combo.addItem(
                 draft["task_name"] or self.tr("Unnamed scenario"), draft["id"]
@@ -875,7 +1146,10 @@ class PlanningPanel(QtWidgets.QWidget):
             self.draft_combo.currentIndex(),
             self._draft()["task_name"] or self.tr("Unnamed scenario"),
         )
-        self._save()
+        saved = self._save()
+        self.draft_save_status.setText(
+            self.tr("Changes saved.") if saved else self.tr("Changes were not saved.")
+        )
         self._update_status()
 
     def _context_changed(self, changed_year=None, *_args):
@@ -891,7 +1165,6 @@ class PlanningPanel(QtWidgets.QWidget):
                 },
                 "breakdown": self.breakdown_combo.currentData(),
                 "jurisdictions": self.jurisdictions_combo.currentData(),
-                "jurisdictions_path": self.jurisdictions_path.text() or None,
             }
         )
         supported_years = self._baseline_year_range()
@@ -927,51 +1200,58 @@ class PlanningPanel(QtWidgets.QWidget):
         self._save()
         self._update_status()
 
-    def _choose_jurisdictions(self):
-        admin_source = self.tr(
-            "Trends.Earth administrative boundaries for the selected country"
+    def _update_jurisdiction_label(self, context):
+        path = context["jurisdictions_path"]
+        selected_file = context["jurisdictions"] == "file" and path
+        self.jurisdictions_combo.setItemText(
+            self.jurisdictions_combo.findData("file"),
+            self.tr("Polygon file: %s (select to change)") % Path(path).name
+            if selected_file
+            else self.tr("Choose polygon file..."),
         )
-        source, accepted = QtWidgets.QInputDialog.getItem(
-            self,
-            self.tr("Choose jurisdiction boundaries"),
-            self.tr("Boundary source"),
-            [
-                admin_source,
-                self.tr("Custom polygon file"),
-            ],
-            0,
-            False,
+        self.jurisdictions_combo.setToolTip(
+            path if selected_file else self.tr("Choose a jurisdiction source.")
         )
-        if not accepted:
+
+    def _choose_jurisdictions(self, _index):
+        project = self._project()
+        if self._changing or project is None:
             return
-        if source == admin_source:
-            self.jurisdictions_path.clear()
-            self.jurisdictions_combo.setCurrentIndex(
-                self.jurisdictions_combo.findData("admin")
+        context = project["context"]
+        if self.jurisdictions_combo.currentData() == "file":
+            path, _ = QtWidgets.QFileDialog.getOpenFileName(
+                self,
+                self.tr("Choose custom jurisdiction polygons"),
+                context["jurisdictions_path"] or "",
+                self.tr("Vector files (*.gpkg *.shp *.geojson);;All files (*)"),
             )
-            self._context_changed()
-            return
-        path, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self,
-            self.tr("Choose custom jurisdiction polygons"),
-            "",
-            self.tr("Vector files (*.gpkg *.shp *.geojson);;All files (*)"),
-        )
-        if path:
-            self.jurisdictions_path.setText(path)
-            self.jurisdictions_combo.setCurrentIndex(
-                self.jurisdictions_combo.findData("file")
-            )
-            self._context_changed()
+            if not path:
+                self.jurisdictions_combo.setCurrentIndex(
+                    self.jurisdictions_combo.findData(context["jurisdictions"])
+                )
+                return
+            context["jurisdictions_path"] = path
+        self._context_changed()
+        self._update_jurisdiction_label(context)
 
     def _focus_section(self, section):
         widget = {
             "baseline": self.baseline_combo,
             "reporting": self.reporting_combo,
             "arr": self.combos["arr"],
+            "prepare": self.section_groups["prepare"],
+            "area": (
+                self.adopt_area_button
+                if self.adopt_area_button.isVisible()
+                else self.region_selector
+            ),
+            "ranking": self.combos["priority"],
+            "priority": self.combos["priority"],
             "candidate": self.combos["candidate"],
+            "candidates": self.section_groups["candidates"],
             "context": self.context_group,
             "targets": self.scenario_editor,
+            "scenario": self.section_groups["scenario"],
         }.get(section, self.region_selector)
         ancestor = widget.parentWidget()
         while ancestor is not None and ancestor is not self:
@@ -1282,14 +1562,25 @@ class PlanningPanel(QtWidgets.QWidget):
         except (ValueError, OSError, RuntimeError) as exc:
             import html
 
+            message = str(exc)
+            lowered = message.lower()
+            if "candidate target" in lowered or "polygon target" in lowered:
+                focus, label = "targets", self.tr("Configure targets")
+            elif "candidate" in lowered:
+                focus, label = "candidates", self.tr("Review candidate areas")
+            elif "priority" in lowered or "ranking" in lowered:
+                focus, label = "ranking", self.tr("Review intervention ranking")
+            elif "baseline" in lowered or "jurisdiction" in lowered or "year" in lowered:
+                focus, label = "context", self.tr("Review scenario inputs")
+            elif "region" in lowered or "area" in lowered:
+                focus, label = "area", self.tr("Review project area")
+            elif "arr" in lowered:
+                focus, label = "prepare", self.tr("Review project inputs")
+            else:
+                focus, label = "targets", self.tr("Review scenario targets")
             self.readiness_label.setText(
-                self.tr("Needs attention: %s") % html.escape(str(exc))
-                + ' <a href="context">'
-                + self.tr("Project settings")
-                + "</a>"
-                + ' | <a href="targets">'
-                + self.tr("Configure targets")
-                + "</a>"
+                self.tr("Needs attention: %s") % html.escape(message)
+                + f' <a href="{focus}">{label}</a>'
             )
         else:
             required = ["arr"]
@@ -1298,12 +1589,17 @@ class PlanningPanel(QtWidgets.QWidget):
             if self._draft()["use_candidates"]:
                 required.append("candidate")
             unverified = any(
-                self._lineage_states.get(key) in ("unknown", "processing")
+                self._lineage_states.get(key) in (
+                    "unknown",
+                    "processing",
+                    "failed",
+                )
                 for key in required
             )
             self.readiness_label.setText(
                 self.tr(
-                    "Draft configured; some source links are unverified. Inspect their reports before running."
+                    "Draft configured, but some source links are not verified. "
+                    "Check the selected datasets before running."
                 )
                 if unverified
                 else self.tr(
@@ -1405,8 +1701,9 @@ class PlanningPanel(QtWidgets.QWidget):
                         index = combo.count() - 1
                     combo.setCurrentIndex(index)
                 combo.setEnabled(project is not None)
-            self.actions_button.setEnabled(project is not None)
             self._restore_editor(project)
+            self.input_context_group.setEnabled(project is not None)
+            self._restore_view_state(project)
         finally:
             self._changing = False
         self._update_status()
@@ -1416,21 +1713,35 @@ class PlanningPanel(QtWidgets.QWidget):
         self.adopt_area_button.setEnabled(project is not None)
         self._lineage_states = {}
         if project is None:
-            self.area_label.setText(self.tr("Create or select a planning project."))
+            self.area_label.setText(self.tr("Create a planning project to begin."))
+            self.adopt_area_button.setVisible(False)
             self.baseline_status.setText("")
             for key, _label, _result, _bands in RESULTS:
                 self._set_lineage_status(key, "empty", "")
                 self.step_buttons[key].setEnabled(False)
+                self.map_buttons[key].setEnabled(False)
+                self.result_summary_labels[key].clear()
+                self.export_buttons[key].setEnabled(False)
+            for key, group in self.section_groups.items():
+                group.setTitle(self.section_titles[key])
+            self.completion_label.setText(
+                self.tr("No completed result for this draft yet.")
+            )
+            self.use_result_button.setEnabled(False)
+            self.compare_button.setEnabled(False)
+            self.comparison_label.setText(self.tr("No comparison selected."))
+            self.clear_comparison_button.setVisible(False)
+            self.draft_save_status.clear()
+            self.scenario_editor.update_candidate_summary()
             self._update_readiness()
             return
         area = self._current_area()
+        area_matches = False
         if area is not None:
             if area["sha256"] == project["area"].get("sha256"):
+                area_matches = True
                 self.area_label.setText(
-                    self.tr(
-                        "Project area: %s. Dataset area compatibility is not verified."
-                    )
-                    % project["area"].get("name", "")
+                    self.tr("Project area: %s") % project["area"].get("name", "")
                 )
             else:
                 self.area_label.setText(
@@ -1440,6 +1751,7 @@ class PlanningPanel(QtWidgets.QWidget):
                     )
                     % project["area"].get("name", "")
                 )
+        self.adopt_area_button.setVisible(area is not None and not area_matches)
         baseline_selection = project["selections"].get("baseline")
         if not baseline_selection:
             self.baseline_status.setText(self.tr("No baseline indicator selected."))
@@ -1458,38 +1770,46 @@ class PlanningPanel(QtWidgets.QWidget):
                 self.tr("The baseline is selected. Configure its years above.")
             )
         for key, _label, _result, _bands in RESULTS:
-            if pending := self._pending_result(project["id"], key):
-                self._set_lineage_status(
-                    key, "processing", pending.get("task_name", "")
-                )
-                continue
-            if failure := self._failed_results.get((project["id"], key)):
-                self._set_lineage_status(key, "unknown", failure)
-                continue
             selection = project["selections"].get(key)
             job = self._selected(key)
             button = self.step_buttons[key]
             button.setEnabled(True)
             button_labels = {
-                "arr": (self.tr("Create ARR..."), self.tr("Update ARR...")),
+                "arr": (
+                    self.tr("Classify land..."),
+                    self.tr("Revise classification..."),
+                ),
                 "land_types": (
                     self.tr("Define land types..."),
-                    self.tr("Update land types..."),
+                    self.tr("Revise land types..."),
                 ),
                 "priority": (
-                    self.tr("Create priority preview..."),
-                    self.tr("Update priority preview..."),
+                    self.tr("Rank intervention areas..."),
+                    self.tr("Revise ranking..."),
                 ),
                 "candidate": (
                     self.tr("Select candidate areas..."),
-                    self.tr("Update candidate areas..."),
+                    self.tr("Revise selection..."),
                 ),
-                "scenario": (
-                    self.tr("Run current draft"),
-                    self.tr("Run current draft"),
-                ),
+                "scenario": (self.tr("Run scenario"), self.tr("Run scenario")),
             }
             button.setText(button_labels[key][bool(selection)])
+            self.map_buttons[key].setEnabled(job is not None)
+            self.export_buttons[key].setEnabled(job is not None)
+            self.result_summary_labels[key].setText(
+                self._result_metrics(key, job)
+                if job is not None
+                else self.tr("Select a saved result or create one.")
+            )
+            if pending := self._pending_result(project["id"], key):
+                self._set_lineage_status(
+                    key, "processing", pending.get("task_name", "")
+                )
+                button.setEnabled(False)
+                continue
+            if failure := self._failed_results.get((project["id"], key)):
+                self._set_lineage_status(key, "failed", failure)
+                continue
             if not selection:
                 state, text = "empty", self.tr("No result selected.")
             elif job is None:
@@ -1507,7 +1827,85 @@ class PlanningPanel(QtWidgets.QWidget):
             else:
                 state, text = self._lineage_status(key, job)
             self._set_lineage_status(key, state, text)
+        for key in self.section_groups:
+            self._update_section_title(key)
+        draft = self._draft()
+        comparison_id = draft.get("comparison_job_id") if draft else None
+        comparison_job = self._jobs.get(comparison_id)
+        self.comparison_label.setText(
+            self.tr("Comparing against: %s") % (comparison_job.task_name or comparison_id)
+            if comparison_job is not None
+            else (
+                self.tr("Comparison result unavailable: %s") % comparison_id
+                if comparison_id
+                else self.tr("No comparison selected.")
+            )
+        )
+        self.clear_comparison_button.setVisible(comparison_id is not None)
+        self.compare_button.setEnabled(self._selected("scenario") is not None)
+        self.scenario_editor.update_candidate_summary()
+        latest_id = draft.get("latest_result_id") if draft else None
+        latest = self._jobs.get(latest_id)
+        completed_at = getattr(latest, "start_date", None) if latest is not None else None
+        if hasattr(completed_at, "strftime"):
+            completed_at = completed_at.strftime("%Y-%m-%d")
+        self.completion_label.setText(
+            self.tr("Latest completed result: %s%s")
+            % (
+                latest.task_name or latest_id,
+                f" ({completed_at})" if completed_at else "",
+            )
+            if latest is not None
+            else self.tr("No completed result for this draft yet.")
+        )
+        self.use_result_button.setEnabled(latest_id in self._jobs)
+        target_year = project["context"].get("target_year")
+        self.input_context_group.setTitle(
+            self.tr("Scenario inputs and projection period · target %s")
+            % (target_year or self.tr("not set"))
+        )
         self._update_readiness()
+
+    def _update_section_title(self, key):
+        state_labels = {
+            "match": self.tr("Ready"),
+            "stale": self.tr("Needs review"),
+            "unknown": self.tr("Not verified"),
+            "processing": self.tr("Running"),
+            "failed": self.tr("Failed"),
+            "empty": self.tr("Not configured"),
+        }
+        state = self._lineage_states.get(
+            {
+                "prepare": "arr",
+                "ranking": "priority",
+                "candidates": "candidate",
+                "scenario": "scenario",
+            }[key],
+            "empty",
+        )
+        state_label = state_labels.get(state, self.tr("Not configured"))
+        title = f"{self.section_titles[key]}  ·  {state_label}"
+        group = self.section_groups[key]
+        if not group.isChecked():
+            result_key = {
+                "prepare": "arr",
+                "ranking": "priority",
+                "candidates": "candidate",
+                "scenario": "scenario",
+            }[key]
+            result_job = self._selected(result_key)
+            result_name = result_job.task_name if result_job is not None else ""
+            if key == "prepare" and not result_name:
+                land_types = self._selected("land_types")
+                result_name = land_types.task_name if land_types is not None else ""
+            if key == "scenario" and not result_name:
+                result_name = (self._draft() or {}).get("task_name", "")
+            if len(result_name) > 16:
+                result_name = result_name[:13] + "..."
+            if result_name:
+                title += f"  ·  {result_name}"
+        group.setTitle(title)
 
     def _set_lineage_status(self, key, state, text):
         self._lineage_states[key] = state
@@ -1520,10 +1918,11 @@ class PlanningPanel(QtWidgets.QWidget):
             "stale": self.tr("Needs update"),
             "unknown": self.tr("Not verified"),
             "processing": self.tr("Result processing"),
+            "failed": self.tr("Failed"),
         }
         if state in labels:
             label = labels[state]
-            self.status_labels[key].setText("%s: %s" % (label, text) if text else label)
+            self.status_labels[key].setText(f"{label}: {text}" if text else label)
         else:
             self.status_labels[key].setText(text)
         icon = self.status_icons[key]
@@ -1535,6 +1934,7 @@ class PlanningPanel(QtWidgets.QWidget):
             "stale": QtWidgets.QStyle.StandardPixmap.SP_DialogCancelButton,
             "unknown": QtWidgets.QStyle.StandardPixmap.SP_MessageBoxWarning,
             "processing": QtWidgets.QStyle.StandardPixmap.SP_BrowserReload,
+            "failed": QtWidgets.QStyle.StandardPixmap.SP_MessageBoxCritical,
         }
         if state in icons:
             icon.setPixmap(self.style().standardIcon(icons[state]).pixmap(16, 16))
@@ -1629,9 +2029,9 @@ class PlanningPanel(QtWidgets.QWidget):
             if priority is None:
                 missing.append(self.tr("Source priority: %s") % (recorded or "unknown"))
             elif recorded and recorded != str(priority.id):
-                return "stale", self.tr("Uses a different priority preview.")
+                return "stale", self.tr("Uses a different intervention ranking.")
             elif self._lineage_states.get("priority") == "stale":
-                return "stale", self.tr("The selected priority preview needs updating.")
+                return "stale", self.tr("The selected intervention ranking needs updating.")
             elif self._lineage_states.get("priority") != "match":
                 missing.append(self.tr("The selected priority input is not verified."))
         else:
@@ -1876,7 +2276,7 @@ class PlanningPanel(QtWidgets.QWidget):
             QtWidgets.QMessageBox.information(
                 self,
                 self.tr("Select priority"),
-                self.tr("Choose a priority preview first."),
+                self.tr("Create or select intervention priorities first."),
             )
             return
         kwargs = {"preselect_priority_job_id": str(priority.id)}
@@ -2166,16 +2566,18 @@ class PlanningPanel(QtWidgets.QWidget):
         job_manager.ensure_results_loaded(job)
         job_manager.display_selected_job_results(job, list(bands))
 
-    def _summary(self, key):
+    def _export_scenario_report(self, key):
+        if key != "scenario":
+            return
         job = self._selected(key)
         if job is None:
             QtWidgets.QMessageBox.information(
                 self,
-                self.tr("No dataset"),
-                self.tr("Choose an available dataset first."),
+                self.tr("No scenario result"),
+                self.tr("Choose a saved scenario result first."),
             )
             return
-        show_planning_summary(job, self)
+        open_excel_report(job, self)
 
 
 def open_panel(main_dock):

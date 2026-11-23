@@ -15,7 +15,6 @@ import uuid
 from copy import deepcopy
 from pathlib import Path
 
-import backoff
 import te_algorithms.gdal.land_deg.config as ld_conf
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
@@ -3394,16 +3393,6 @@ def _get_raster_vrt(tiles: list[Path], out_file: Path):
     ds = None
 
 
-def backoff_hdlr(details):
-    log(
-        "Backing off {wait:0.1f} seconds after {tries} tries "
-        "calling function {target}".format(**details)
-    )
-
-
-@backoff.on_predicate(
-    backoff.expo, lambda x: x is None, max_tries=5, on_backoff=backoff_hdlr
-)
 def _delete_job_datasets(job: Job):
     if job.results is not None:
         try:

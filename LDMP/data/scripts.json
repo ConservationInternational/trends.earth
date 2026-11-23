@@ -212,7 +212,7 @@
         "name": "ldn-planning-arr",
         "name_readable": "LDN Planning — Avoid/Reduce/Reverse",
         "run_mode": "local",
-        "version": "2.3.2"
+        "version": "2.3.9"
     },
     {
         "description": "Rank zones by degraded fraction to identify degradation hotspots",
@@ -220,7 +220,7 @@
         "name": "ldn-planning-hotspots",
         "name_readable": "LDN Planning — Hotspot Prioritization",
         "run_mode": "local",
-        "version": "2.3.2"
+        "version": "2.3.9"
     },
     {
         "description": "Combine categorical rasters into a reusable land types layer",
@@ -228,7 +228,7 @@
         "name": "ldn-planning-land-types",
         "name_readable": "LDN Planning — Define Land Types",
         "run_mode": "local",
-        "version": "2.3.2"
+        "version": "2.3.9"
     },
     {
         "description": "Project BAU degradation and apply scenario targets over a horizon",
@@ -236,7 +236,7 @@
         "name": "ldn-planning-projection",
         "name_readable": "LDN Planning — Scenario & BAU Projection",
         "run_mode": "local",
-        "version": "2.3.2"
+        "version": "2.3.9"
     },
     {
         "description": "Score eligible ARR areas using class-specific criteria",
@@ -244,7 +244,7 @@
         "name": "ldn-planning-priority",
         "name_readable": "LDN Planning - Prioritize interventions",
         "run_mode": "local",
-        "version": "2.3.8"
+        "version": "2.3.9"
     },
     {
         "description": "Select candidate areas for review before scenario approval",
@@ -252,6 +252,6 @@
         "name": "ldn-planning-selection",
         "name_readable": "LDN Planning - Select candidate areas",
         "run_mode": "local",
-        "version": "2.3.8"
+        "version": "2.3.9"
     }
 ]

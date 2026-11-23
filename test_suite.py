@@ -29,10 +29,10 @@ def _run_tests(test_suite, package_name, with_coverage=False):
     version = int(version)
 
     print("########")
-    print("%s tests has been discovered in %s" % (count, package_name))
-    print("QGIS : %s" % version)
-    print("Python GDAL : %s" % gdal.VersionInfo("VERSION_NUM"))
-    print("QT : %s" % QT_VERSION_STR)
+    print(f"{count} tests has been discovered in {package_name}")
+    print(f"QGIS : {version}")
+    print("Python GDAL : {}".format(gdal.VersionInfo("VERSION_NUM")))
+    print(f"QT : {QT_VERSION_STR}")
     print("Run slow tests : %s" % (not os.environ.get("ON_TRAVIS", "")))
     print("########")
     if with_coverage:
@@ -47,11 +47,10 @@ def _run_tests(test_suite, package_name, with_coverage=False):
     if with_coverage:
         cov.stop()
         cov.save()
-        report = tempfile.NamedTemporaryFile(delete=False)
-        cov.report(file=report)
+        with tempfile.NamedTemporaryFile(delete=False) as report:
+            cov.report(file=report)
         # Produce HTML reports in the `htmlcov` folder and open index.html
         # cov.html_report()
-        report.close()
         with open(report.name, "r") as fin:
             print(fin.read())
     return result
@@ -104,8 +103,6 @@ def test_e2e_custom(package="test"):
     )
     if not _run_tests(test_suite, package).wasSuccessful():
         raise AssertionError("Custom-data end-to-end tests failed")
-
-
 def test_planning(package="test"):
     """Run the LDN planning unit and embedded-tab integration tests."""
     suite = unittest.TestSuite()

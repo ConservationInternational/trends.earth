@@ -119,7 +119,7 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
                     f"No logs available - Last updated: {current_time}"
                 )
 
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             error_msg = f"Failed to fetch logs: {e!s}"
 
             self.logsTextEdit.setPlainText(error_msg)
@@ -154,7 +154,7 @@ class DlgExecutionLogs(QtWidgets.QDialog, DlgExecutionLogsUi):
         resp = job_manager.api_client.call_api(endpoint, method="get", use_token=True)
 
         if resp is None:
-            raise Exception(
+            raise RuntimeError(
                 "Failed to fetch logs. Check your internet connection and login status."
             )
 

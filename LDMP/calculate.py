@@ -528,18 +528,19 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.iface.showOptionsDialog(self.iface.mainWindow(), currentPage=OPTIONS_TITLE)
 
     def btn_calculate(self):
-        if self.script.run_mode == AlgorithmRunMode.REMOTE:
-            if not auth.get_auth_config(auth.TE_API_AUTH_SETUP, warn=False):
-                QtWidgets.QMessageBox.critical(
-                    self,
-                    tr_calculate.tr("Login required"),
-                    tr_calculate.tr(
-                        "No login credentials configured. "
-                        "Please set up your username and password in "
-                        "Trends.Earth settings before submitting a remote job."
-                    ),
-                )
-                return False
+        if self.script.run_mode == AlgorithmRunMode.REMOTE and not auth.get_auth_config(
+            auth.TE_API_AUTH_SETUP, warn=False
+        ):
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_calculate.tr("Login required"),
+                tr_calculate.tr(
+                    "No login credentials configured. "
+                    "Please set up your username and password in "
+                    "Trends.Earth settings before submitting a remote job."
+                ),
+            )
+            return False
 
         area_method = settings_manager.get_value(Setting.AREA_FROM_OPTION)
         has_buffer = settings_manager.get_value(Setting.BUFFER_CHECKED)

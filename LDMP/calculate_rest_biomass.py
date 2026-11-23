@@ -73,7 +73,7 @@ class DlgCalculateRestBiomassData(
             return "coastal"
         else:
             # Should never get here
-            raise
+            raise RuntimeError("Unknown restoration type")
 
     def calculate_on_GEE(self):
         self.close()

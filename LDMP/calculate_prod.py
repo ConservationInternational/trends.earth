@@ -429,7 +429,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         else:
             climate_gee_dataset = None
 
-        crosses_180th, geojsons = self.gee_bounding_box
+        _crosses_180th, geojsons = self.gee_bounding_box
         payload = {
             "geojsons": json.dumps(geojsons),
             "task_name": self.execution_name_le.text(),

@@ -247,7 +247,7 @@ def _get_pop_inputs(
             female_pop_band_info.band_info.metadata["year"],
         ]
     else:
-        raise Exception("Unknown population mode {pop_mode}")
+        raise ValueError(f"Unknown population mode {pop_mode}")
 
     return PopInputInfo(
         paths=paths, bands=bands, band_indices=band_indices, years=years
@@ -418,7 +418,7 @@ def get_main_sdg_15_3_1_job_params(
         )
         params["periods"]["productivity"] = params["layer_lpd_years"]
     else:
-        raise Exception(f"Unknown productivity mode {prod_mode}")
+        raise ValueError(f"Unknown productivity mode {prod_mode}")
 
     # Add in period start/end if it isn't already in the parameters
     # (wouldn't be if these layers were all run individually and not

@@ -7,6 +7,10 @@ from flask import request
 from .trends_api_server_app import app
 
 
+def run_mock_api_server(port):
+    MockApiServer(port).run()
+
+
 class MockApiServer(Thread):
     """Mock a live API server with health check support"""
 
@@ -14,7 +18,7 @@ class MockApiServer(Thread):
         super().__init__()
         self.port = port
         self.app = app
-        self.url = "http://localhost:%s" % self.port
+        self.url = f"http://localhost:{self.port}"
 
         try:
             self.app.add_url_rule("/shutdown", view_func=self._shutdown_server)
@@ -37,7 +41,7 @@ class MockApiServer(Thread):
         return "Shutting down"
 
     def shutdown_server(self):
-        requests.get("http://localhost:%s/shutdown" % self.port)
+        requests.get(f"http://localhost:{self.port}/shutdown")
         self.join()
 
     def wait_until_ready(self, timeout=10):

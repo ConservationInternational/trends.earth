@@ -14,9 +14,7 @@ import urllib.parse
 import uuid
 from copy import deepcopy
 from pathlib import Path
-from typing import List
 
-import backoff
 import te_algorithms.gdal.land_deg.config as ld_conf
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
@@ -84,26 +82,24 @@ class tr_manager:
         return QtCore.QCoreApplication.translate("tr_manager", message)
 
 
-def _get_etag(uri: typing.Optional[results.URI]) -> typing.Optional[results.Etag]:
+def _get_etag(uri: results.URI | None) -> results.Etag | None:
     """Extract the Etag from a URI if available."""
     if uri is None or uri.etag is None:
         return None
     return uri.etag
 
 
-def _find_error_recode_result(job: Job) -> typing.Optional[VectorResults]:
+def _find_error_recode_result(job: Job) -> VectorResults | None:
     """Find the error recode VectorResults from a job's results.
 
     Returns:
         The VectorResults with ERROR_RECODE type, or None if not found.
     """
     for result in job._get_results_list():
-        if isinstance(result, VectorResults):
-            if (
-                result.vector is not None
-                and result.vector.type == VectorType.ERROR_RECODE
-            ):
-                return result
+        if isinstance(result, VectorResults) and (
+            result.vector is not None and result.vector.type == VectorType.ERROR_RECODE
+        ):
+            return result
     return None
 
 
@@ -179,10 +175,10 @@ def _get_extent_tuple_raster(path):
             # Ensure GDAL dataset is properly closed to prevent memory leaks
             if ds is not None:
                 ds = None
-    except (OSError, IOError, RuntimeError, MemoryError) as exc:
+    except (OSError, RuntimeError, MemoryError) as exc:
         log(f"Failed to calculate extent for {path} - {type(exc).__name__}: {exc}")
         return None
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         log(
             f"Unexpected error calculating extent for {path} - {type(exc).__name__}: {exc}"
         )
@@ -222,7 +218,7 @@ def _get_extent_tuple_vector(path):
 
         try:
             is_empty = hasattr(rect, "isEmpty") and rect.isEmpty()
-        except Exception:
+        except Exception:  # noqa: BLE001
             is_empty = False
 
         if (not rect) or is_empty:
@@ -253,10 +249,10 @@ def _get_extent_tuple_vector(path):
                     f"({xmin}, {ymin}, {xmax}, {ymax})"
                 )
             return None
-    except (OSError, IOError, RuntimeError, MemoryError) as exc:
+    except (OSError, RuntimeError, MemoryError) as exc:
         log(f"Failed to calculate extent for {path} - {type(exc).__name__}: {exc}")
         return None
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         log(
             f"Unexpected error calculating extent for {path} - {type(exc).__name__}: {exc}"
         )
@@ -361,26 +357,28 @@ def _set_results_extents_if_missing(job) -> bool:
                     if not hasattr(raster, "extent") or raster.extent is None:
                         raster.extent = _get_extent_tuple_raster(raster.uri.uri)
                         changed = True
-                elif raster.type == results.RasterType.TILED_RASTER:
-                    if not hasattr(raster, "extents") or raster.extents is None:
-                        raster.extents = []
-                        for raster_tile_uri in raster.tile_uris:
-                            extent = _get_extent_tuple_raster(raster_tile_uri.uri)
-                            if extent is None:
-                                raise RuntimeError(
-                                    f"Failed to calculate extent for tile {raster_tile_uri.uri} in job {job.id}. "
-                                    f"File may be missing, corrupted, or inaccessible."
-                                )
-                            raster.extents.append(extent)
-                        changed = True
-        elif isinstance(result, VectorResults):
-            if not hasattr(result, "extent") or result.extent is None:
-                uri_to_use = result.uri
-                if uri_to_use is None and result.vector is not None:
-                    uri_to_use = result.vector.uri
-                if uri_to_use is not None and uri_to_use.uri is not None:
-                    result.extent = _get_extent_tuple_vector(uri_to_use.uri)
+                elif raster.type == results.RasterType.TILED_RASTER and (
+                    not hasattr(raster, "extents") or raster.extents is None
+                ):
+                    raster.extents = []
+                    for raster_tile_uri in raster.tile_uris:
+                        extent = _get_extent_tuple_raster(raster_tile_uri.uri)
+                        if extent is None:
+                            raise RuntimeError(
+                                f"Failed to calculate extent for tile {raster_tile_uri.uri} in job {job.id}. "
+                                f"File may be missing, corrupted, or inaccessible."
+                            )
+                        raster.extents.append(extent)
                     changed = True
+        elif isinstance(result, VectorResults) and (
+            not hasattr(result, "extent") or result.extent is None
+        ):
+            uri_to_use = result.uri
+            if uri_to_use is None and result.vector is not None:
+                uri_to_use = result.vector.uri
+            if uri_to_use is not None and uri_to_use.uri is not None:
+                result.extent = _get_extent_tuple_vector(uri_to_use.uri)
+                changed = True
     return changed
 
 
@@ -581,9 +579,7 @@ def _is_download_lock_stale(lock_path: Path) -> bool:
 
     if pid is not None and not _is_pid_alive(pid):
         return True
-    if time.time() - ts > _DOWNLOAD_LOCK_STALE_SECONDS:
-        return True
-    return False
+    return time.time() - ts > _DOWNLOAD_LOCK_STALE_SECONDS
 
 
 def _try_acquire_download_lock(job_dir: Path) -> bool:
@@ -721,7 +717,7 @@ class DownloadJobResultsTask(QgsTask):
         output_path: Path,
         expected_etag=None,
         max_retries: int = 5,
-        progress_fn: typing.Optional[typing.Callable[[float], None]] = None,
+        progress_fn: typing.Callable[[float], None] | None = None,
     ) -> bool:
         """Download one file with retries using QgsBlockingNetworkRequest."""
         import time as _time
@@ -734,20 +730,23 @@ class DownloadJobResultsTask(QgsTask):
 
             try:
                 success = self._qgs_download(url, output_path, progress_fn=progress_fn)
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 log(
                     f"Download attempt {attempt + 1} failed for {output_path.name}: {e}"
                 )
                 output_path.unlink(missing_ok=True)
                 success = False
 
-            if success and expected_etag is not None:
-                if not ldmp_download.verify_file_against_etag(
+            if (
+                success
+                and expected_etag is not None
+                and not ldmp_download.verify_file_against_etag(
                     output_path, expected_etag
-                ):
-                    log(f"Etag verification failed for {output_path}")
-                    output_path.unlink(missing_ok=True)
-                    success = False
+                )
+            ):
+                log(f"Etag verification failed for {output_path}")
+                output_path.unlink(missing_ok=True)
+                success = False
 
             if success:
                 # Refresh the download lock to prove we're still alive and
@@ -768,7 +767,7 @@ class DownloadJobResultsTask(QgsTask):
         self,
         url: str,
         output_path: Path,
-        progress_fn: typing.Optional[typing.Callable[[float], None]] = None,
+        progress_fn: typing.Callable[[float], None] | None = None,
     ) -> bool:
         """Download one file via QgsBlockingNetworkRequest.
 
@@ -857,7 +856,7 @@ class DownloadJobResultsTask(QgsTask):
 
     def _download_cloud_result(
         self, raster_result: RasterResults, files_done: int, total_files: int
-    ) -> typing.Tuple[bool, int]:
+    ) -> tuple[bool, int]:
         """Download all raster files for one RasterResults.
 
         Returns (success, new_files_done).
@@ -947,7 +946,7 @@ class DownloadJobResultsTask(QgsTask):
         # Setup the main URI (may be a VRT combining multiple rasters)
         if len(raster_result.rasters) > 1 or (
             len(raster_result.rasters) == 1
-            and [*raster_result.rasters.values()][0].type
+            and next(iter(raster_result.rasters.values())).type
             == results.RasterType.TILED_RASTER
         ):
             vrt_file = base_output_path.parent / f"{result_base_path.name}.vrt"
@@ -962,7 +961,7 @@ class DownloadJobResultsTask(QgsTask):
             )
             raster_result.uri = results.URI(uri=vrt_file)
         else:
-            raster_result.uri = [*raster_result.rasters.values()][0].uri
+            raster_result.uri = next(iter(raster_result.rasters.values())).uri
 
         _set_results_extents_raster(raster_result, self.job)
         return True, files_done
@@ -1030,15 +1029,15 @@ class JobManager(QtCore.QObject):
     _light_refresh_days = 2  # Lookback window for quick/light refresh
     _full_refresh_interval_minutes = 30  # Auto-trigger full refresh after this interval
 
-    _known_running_jobs: typing.Dict[uuid.UUID, Job]
-    _known_finished_jobs: typing.Dict[uuid.UUID, Job]
-    _known_failed_jobs: typing.Dict[uuid.UUID, Job]
-    _known_deleted_jobs: typing.Dict[uuid.UUID, Job]
-    _known_downloaded_jobs: typing.Dict[uuid.UUID, Job]
-    _known_ready_jobs: typing.Dict[uuid.UUID, Job]
-    _known_pending_jobs: typing.Dict[uuid.UUID, Job]
-    _known_cancelled_jobs: typing.Dict[uuid.UUID, Job]
-    _known_expired_jobs: typing.Dict[uuid.UUID, Job]
+    _known_running_jobs: dict[uuid.UUID, Job]
+    _known_finished_jobs: dict[uuid.UUID, Job]
+    _known_failed_jobs: dict[uuid.UUID, Job]
+    _known_deleted_jobs: dict[uuid.UUID, Job]
+    _known_downloaded_jobs: dict[uuid.UUID, Job]
+    _known_ready_jobs: dict[uuid.UUID, Job]
+    _known_pending_jobs: dict[uuid.UUID, Job]
+    _known_cancelled_jobs: dict[uuid.UUID, Job]
+    _known_expired_jobs: dict[uuid.UUID, Job]
 
     refreshed_local_state = QtCore.pyqtSignal()
     refreshed_from_remote = QtCore.pyqtSignal()
@@ -1077,10 +1076,10 @@ class JobManager(QtCore.QObject):
         # QgsTask-based download state
         self._download_in_progress = False
         self._current_download_task = None  # active DownloadJobResultsTask
-        self._cancelled_download_job_ids: typing.Set[uuid.UUID] = set()
-        self._failed_download_job_ids: typing.Set[uuid.UUID] = set()
+        self._cancelled_download_job_ids: set[uuid.UUID] = set()
+        self._failed_download_job_ids: set[uuid.UUID] = set()
         # Jobs the user has manually queued for download (FIFO, on-demand)
-        self._user_download_queue: typing.List[uuid.UUID] = []
+        self._user_download_queue: list[uuid.UUID] = []
 
     @property
     def api_client(self):
@@ -1131,9 +1130,9 @@ class JobManager(QtCore.QObject):
         try:
             stat_info = file_path.stat()
             return stat_info.st_size > 0
-        except (OSError, IOError, PermissionError):
+        except (OSError, PermissionError):
             return False
-        except Exception:
+        except Exception:  # noqa: BLE001
             return False
 
     @property
@@ -1155,7 +1154,7 @@ class JobManager(QtCore.QObject):
             self._state_update_mutex.unlock()
 
     @property
-    def relevant_jobs(self) -> typing.List[Job]:
+    def relevant_jobs(self) -> list[Job]:
         """Return a list of all jobs that are relevant to show to the user."""
         relevant_statuses = (
             jobs.JobStatus.READY,
@@ -1178,8 +1177,8 @@ class JobManager(QtCore.QObject):
 
     def get_job_dropdown_metadata(
         self,
-        status_filter: typing.Optional[typing.List[str]] = None,
-    ) -> typing.List[typing.Dict[str, typing.Any]]:
+        status_filter: list[str] | None = None,
+    ) -> list[dict[str, typing.Any]]:
         """Get lightweight metadata for all jobs, suitable for dropdown population.
 
         This reads directly from SQLite indexed columns - no Job unpickling needed.
@@ -1251,12 +1250,12 @@ class JobManager(QtCore.QObject):
             self._known_expired_jobs = {}
             # Params preserved from jobs transitioning away from RUNNING status.
             # Used to restore params when fetching finished job data from remote.
-            self._transitioned_job_params: typing.Dict[uuid.UUID, dict] = {}
+            self._transitioned_job_params: dict[uuid.UUID, dict] = {}
             # Metadata preserved from jobs transitioning status. The remote API
             # excludes task_name/task_notes, so we save them for later merging.
             self._transitioned_job_metadata: dict[uuid.UUID, dict[str, typing.Any]] = {}
             # Track when last full remote refresh was done
-            self._last_full_refresh_time: typing.Optional[dt.datetime] = None
+            self._last_full_refresh_time: dt.datetime | None = None
             # Also clear the per-directory cache (may not exist yet during __init__)
             if hasattr(self, "_dir_job_cache"):
                 self._dir_job_cache.clear()
@@ -1308,7 +1307,7 @@ class JobManager(QtCore.QObject):
 
     def _get_internal_dict_for_status(
         self, status: jobs.JobStatus
-    ) -> typing.Dict[uuid.UUID, Job]:
+    ) -> dict[uuid.UUID, Job]:
         """Return the *actual* internal dict for a given status.
 
         Unlike the ``known_jobs`` property (which returns shallow copies for
@@ -1587,7 +1586,7 @@ class JobManager(QtCore.QObject):
         # mutex, to avoid blocking the UI thread. We identify which finished
         # jobs need fetching by reading the preloaded dir cache (no mutex
         # needed since only this worker writes to it during refresh).
-        prefetched_finished_jobs: typing.Dict[uuid.UUID, typing.Optional[Job]] = {}
+        prefetched_finished_jobs: dict[uuid.UUID, Job | None] = {}
         if not offline_mode and remote_fetch_ok:
             # Read local state from the preloaded cache to identify new jobs
             local_deleted_ids = {
@@ -1618,7 +1617,7 @@ class JobManager(QtCore.QObject):
         # All network I/O and heavy file parsing is done above. Now do
         # in-memory dict updates. File writes are collected in
         # _deferred_writes and flushed after releasing the mutex.
-        deferred_writes: typing.List[Job] = []
+        deferred_writes: list[Job] = []
         self._state_update_mutex.lock()
         try:
             self._refresh_local_deleted_jobs()
@@ -1672,7 +1671,7 @@ class JobManager(QtCore.QObject):
         for job_to_write in deferred_writes:
             try:
                 self.write_job_metadata_file(job_to_write)
-            except (OSError, IOError) as exc:
+            except OSError as exc:
                 log(
                     f"Failed to write deferred job file for {job_to_write.id}: "
                     f"{type(exc).__name__}: {exc}"
@@ -1707,9 +1706,9 @@ class JobManager(QtCore.QObject):
 
     def submit_remote_job(
         self,
-        params: typing.Dict,
+        params: dict,
         script_id: uuid.UUID,
-    ) -> typing.Optional[Job]:
+    ) -> Job | None:
         """Submit a job for remote execution
 
         Creation of new jobs entails:
@@ -1739,7 +1738,7 @@ class JobManager(QtCore.QObject):
             # Safely set result extents to prevent crashes from file access issues
             try:
                 set_results_extents(job)
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001
                 log(
                     f"Failed to set extents for job {job.id}: {type(exc).__name__}: {exc}"
                 )
@@ -1752,7 +1751,7 @@ class JobManager(QtCore.QObject):
 
     def submit_local_job_as_qgstask(
         self,
-        params: typing.Dict,
+        params: dict,
         script_name: str,
         area_of_interest: areaofinterest.AOI,
     ):
@@ -1830,7 +1829,7 @@ class JobManager(QtCore.QObject):
 
     def submit_local_job(
         self,
-        params: typing.Dict,
+        params: dict,
         script_name: str,
         area_of_interest: areaofinterest.AOI,
     ):
@@ -2155,7 +2154,7 @@ class JobManager(QtCore.QObject):
         # Safely set result extents to prevent crashes from file access issues
         try:
             set_results_extents(job)
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             log(
                 f"Failed to set extents for imported job {job.id}: {type(exc).__name__}: {exc}"
             )
@@ -2241,7 +2240,7 @@ class JobManager(QtCore.QObject):
         self,
         dataset_path: Path,
         band_name: str,
-        band_metadata: typing.Dict,
+        band_metadata: dict,
         task_name: str,
         task_notes: str = "",
     ) -> Job:
@@ -2370,7 +2369,7 @@ class JobManager(QtCore.QObject):
             # Safely set result extents to prevent crashes from file access issues
             try:
                 set_results_extents(job)
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001
                 log(
                     f"Failed to set extents for job {job.id}: {type(exc).__name__}: {exc}"
                 )
@@ -2900,7 +2899,7 @@ class JobManager(QtCore.QObject):
         self.imported_job.emit(job)
         return job
 
-    def get_planning_input_jobs(self) -> List[Job]:
+    def get_planning_input_jobs(self) -> list[Job]:
         """Return registered LDN-planning prioritization input datasets."""
         result = []
         for j in self.relevant_jobs:
@@ -2909,12 +2908,12 @@ class JobManager(QtCore.QObject):
                 result.append(j)
         return result
 
-    def save_planning_input_profiles(self, job: Job, profiles: List[dict]):
+    def save_planning_input_profiles(self, job: Job, profiles: list[dict]):
         """Persist the scoring profiles stored on a planning input dataset."""
         job.params["scoring_profiles"] = profiles
         self.write_job_metadata_file(job)
 
-    def get_ldn_targets_jobs(self) -> List[Job]:
+    def get_ldn_targets_jobs(self) -> list[Job]:
         """Return all LDN Planning Target vector jobs visible in the Datasets panel.
 
         Searches the full in-memory job cache (not just DOWNLOADED) so that
@@ -2935,7 +2934,7 @@ class JobManager(QtCore.QObject):
                 result.append(j)
         return result
 
-    def get_ldn_land_types_jobs(self) -> List[Job]:
+    def get_ldn_land_types_jobs(self) -> list[Job]:
         """Return all LDN Planning Zones jobs (Create Analysis Zones tool).
 
         Matched by the script id set at creation time so jobs are found
@@ -2979,7 +2978,7 @@ class JobManager(QtCore.QObject):
             os.path.pardir,
             "data",
             "error_recode",
-            "error_recode_{}.gpkg".format(locale),
+            f"error_recode_{locale}.gpkg",
         )
         if os.path.exists(path):
             shutil.copy2(path, output_path)
@@ -3017,7 +3016,7 @@ class JobManager(QtCore.QObject):
                 if param and param.get("path"):
                     try:
                         rext = _get_extent_tuple_raster(Path(param["path"]))
-                    except Exception:
+                    except Exception:  # noqa: BLE001
                         rext = None
                     union_extent = _union(union_extent, rext)
 
@@ -3089,10 +3088,10 @@ class JobManager(QtCore.QObject):
 
     def _refresh_local_running_jobs(
         self,
-        remote_jobs: typing.List[Job],
+        remote_jobs: list[Job],
         remote_fetch_ok: bool = True,
-        deferred_writes: typing.Optional[typing.List[Job]] = None,
-    ) -> typing.Dict[uuid.UUID, Job]:
+        deferred_writes: list[Job] | None = None,
+    ) -> dict[uuid.UUID, Job]:
         """Update local directory of running jobs by comparing with the remote jobs.
 
         When *remote_fetch_ok* is ``False`` (the API call failed), we preserve
@@ -3192,12 +3191,10 @@ class JobManager(QtCore.QObject):
 
     def _refresh_local_finished_jobs(
         self,
-        remote_jobs: typing.List[Job],
-        prefetched_finished_jobs: typing.Optional[
-            typing.Dict[uuid.UUID, typing.Optional[Job]]
-        ] = None,
-        deferred_writes: typing.Optional[typing.List[Job]] = None,
-    ) -> typing.Dict[uuid.UUID, Job]:
+        remote_jobs: list[Job],
+        prefetched_finished_jobs: dict[uuid.UUID, Job | None] | None = None,
+        deferred_writes: list[Job] | None = None,
+    ) -> dict[uuid.UUID, Job]:
         """Update in-memory cache with finished jobs.
 
         If *prefetched_finished_jobs* is provided, use pre-fetched full job
@@ -3308,7 +3305,7 @@ class JobManager(QtCore.QObject):
     # @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
     def _load_jobs_from_dir(self, base_dir: Path) -> dict[jobs.JobStatus, list[Job]]:
         """Scan *base_dir* once and return all valid jobs grouped by status."""
-        grouped: typing.Dict[jobs.JobStatus, typing.List[Job]] = {}
+        grouped: dict[jobs.JobStatus, list[Job]] = {}
 
         if not base_dir.exists() or not base_dir.is_dir():
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
@@ -3320,7 +3317,7 @@ class JobManager(QtCore.QObject):
         except (OSError, PermissionError, RuntimeError) as exc:
             log(f"Error scanning directory {base_dir}: {type(exc).__name__}: {exc}")
             return grouped
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             log(
                 f"Unexpected error scanning directory {base_dir}: {type(exc).__name__}: {exc}"
             )
@@ -3333,7 +3330,7 @@ class JobManager(QtCore.QObject):
                 # Check file mtime for cache validity
                 try:
                     file_mtime = job_metadata_path.stat().st_mtime
-                except (OSError, IOError) as exc:
+                except OSError as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Cannot stat file {job_metadata_path!r}: {exc}")
                     continue
@@ -3362,7 +3359,7 @@ class JobManager(QtCore.QObject):
                                 f"Skipping unsafe or corrupted file {job_metadata_path!r}"
                             )
                         continue
-                except Exception as exc:
+                except Exception as exc:  # noqa: BLE001
                     self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                     log(
                         f"Error checking safety of file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
@@ -3392,11 +3389,11 @@ class JobManager(QtCore.QObject):
                             extents_changed = _set_results_extents_if_missing(job)
                         else:
                             set_results_extents(job)
-                    except (OSError, IOError, RuntimeError, MemoryError) as exc:
+                    except (OSError, RuntimeError, MemoryError) as exc:
                         log(
                             f"Failed to set extents for job {job.id} during loading: {type(exc).__name__}: {exc}"
                         )
-                    except Exception as exc:
+                    except Exception as exc:  # noqa: BLE001
                         log(
                             f"Unexpected error setting extents for job {job.id}: {type(exc).__name__}: {exc}"
                         )
@@ -3406,7 +3403,7 @@ class JobManager(QtCore.QObject):
                             self.write_job_metadata_file(job)
                             # Update mtime after writing
                             file_mtime = job_metadata_path.stat().st_mtime
-                        except Exception as exc:
+                        except Exception as exc:  # noqa: BLE001
                             log(
                                 f"Failed to persist extents for job {job.id}: {type(exc).__name__}: {exc}"
                             )
@@ -3414,7 +3411,7 @@ class JobManager(QtCore.QObject):
                     # Update SQLite cache with parsed job
                     self._job_cache.cache_job(job_metadata_path, file_mtime, job)
                     grouped.setdefault(job.status, []).append(job)
-                except (OSError, IOError, PermissionError) as exc:
+                except (OSError, PermissionError) as exc:
                     self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Failed to read file {job_metadata_path!r}: {exc}")
@@ -3438,16 +3435,16 @@ class JobManager(QtCore.QObject):
                 except RuntimeError as exc:
                     self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                     log(f"Runtime error processing file {job_metadata_path!r}: {exc}")
-            except (OSError, IOError, PermissionError) as exc:
+            except (OSError, PermissionError) as exc:
                 log(f"File system error accessing {job_metadata_path!r}: {exc}")
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001
                 log(
                     f"Unexpected error processing {job_metadata_path!r}: {type(exc).__name__}: {exc}"
                 )
 
         return grouped
 
-    def _get_local_jobs(self, status: jobs.JobStatus) -> typing.List[Job]:
+    def _get_local_jobs(self, status: jobs.JobStatus) -> list[Job]:
         """Return local jobs with the given *status*."""
         base_dir = {
             jobs.JobStatus.FINISHED: self.finished_jobs_dir,
@@ -3467,7 +3464,7 @@ class JobManager(QtCore.QObject):
 
         return list(self._dir_job_cache[base_dir].get(status, []))
 
-    def _get_local_finished_jobs(self) -> typing.Dict[uuid.UUID, Job]:
+    def _get_local_finished_jobs(self) -> dict[uuid.UUID, Job]:
         """Synchronize the in-memory cache and filesystem with regard to finished jobs.
 
         This method takes care of checking the local filesystem directory for relevant
@@ -3507,7 +3504,7 @@ class JobManager(QtCore.QObject):
 
         return self._known_finished_jobs
 
-    def _get_local_failed_jobs(self) -> typing.Dict[uuid.UUID, Job]:
+    def _get_local_failed_jobs(self) -> dict[uuid.UUID, Job]:
         """Synchronize the in-memory cache and filesystem with regard to failed jobs.
 
         This method takes care of checking the local filesystem directory for relevant
@@ -3534,7 +3531,7 @@ class JobManager(QtCore.QObject):
 
         return self._known_failed_jobs
 
-    def _get_local_expired_jobs(self) -> typing.Dict[uuid.UUID, Job]:
+    def _get_local_expired_jobs(self) -> dict[uuid.UUID, Job]:
         """Synchronize the in-memory cache and filesystem with regard to expired jobs.
 
         This method takes care of checking the local filesystem directory for expired
@@ -3596,8 +3593,8 @@ class JobManager(QtCore.QObject):
     def update_job_from_remote(
         self,
         remote_job: Job,
-        local_job: typing.Optional[Job],
-        deferred_writes: typing.Optional[typing.List[Job]] = None,
+        local_job: Job | None,
+        deferred_writes: list[Job] | None = None,
     ):
         """Update job metadata file from remote, preserving local data.
 
@@ -3635,7 +3632,7 @@ class JobManager(QtCore.QObject):
 
     def _find_job_file_in_all_dirs(
         self, job: Job, suffix: str = ".json"
-    ) -> typing.Optional[Path]:
+    ) -> Path | None:
         """Find the actual file for a job by searching all status directories.
 
         When ``job.status`` has been mutated before the on-disk file was moved,
@@ -3695,8 +3692,8 @@ class JobManager(QtCore.QObject):
 
     def _refresh_remote_jobs_by_status(
         self,
-        remote_jobs: typing.List[Job],
-        deferred_writes: typing.Optional[typing.List[Job]] = None,
+        remote_jobs: list[Job],
+        deferred_writes: list[Job] | None = None,
     ) -> None:
         """Update in-memory cache with READY, PENDING, and CANCELLED jobs from remote server"""
         # Preserve existing local jobs first, then merge with remote
@@ -3717,7 +3714,7 @@ class JobManager(QtCore.QObject):
         # This is necessary because _restore_job_data pops from
         # _transitioned_job_metadata; if _preserve_job_data hasn't been
         # called first the data is missing and the job gets "unknown-area".
-        local_job_lookup: typing.Dict[uuid.UUID, Job] = {}
+        local_job_lookup: dict[uuid.UUID, Job] = {}
         for j in local_ready_jobs + local_pending_jobs + local_cancelled_jobs:
             local_job_lookup[j.id] = j
 
@@ -3820,8 +3817,8 @@ class JobManager(QtCore.QObject):
 
     def _refresh_remote_failed_jobs(
         self,
-        remote_jobs: typing.List[Job],
-        deferred_writes: typing.Optional[typing.List[Job]] = None,
+        remote_jobs: list[Job],
+        deferred_writes: list[Job] | None = None,
     ) -> None:
         """Update in-memory cache with FAILED jobs from remote server"""
         # Start with local failed jobs from disk
@@ -3848,7 +3845,7 @@ class JobManager(QtCore.QObject):
                     self.write_job_metadata_file(remote_job)
 
 
-def _get_local_job_output_paths(job: Job) -> typing.Tuple[Path, Path]:
+def _get_local_job_output_paths(job: Job) -> tuple[Path, Path]:
     """Retrieve output path for a job so that it can be sent to the local processor.
 
     Computes the target filepath without mutating the job's status, which avoids
@@ -3871,9 +3868,9 @@ def _get_local_context() -> str:
     )
 
 
-def find_job(target: Job, source: typing.List[Job]) -> typing.Optional[Job]:
+def find_job(target: Job, source: list[Job]) -> Job | None:
     try:
-        result = [j for j in source if j.id == target.id][0]
+        result = next(j for j in source if j.id == target.id)
     except IndexError:
         log(f"Could not find job {target.id!r} on the list of jobs")
         result = None
@@ -3922,7 +3919,7 @@ def _get_access_token():
         return None
 
 
-def _get_user_id() -> typing.Optional[uuid.UUID]:
+def _get_user_id() -> uuid.UUID | None:
     # First try to get cached user ID from settings
     cached_user_id = conf.settings_manager.get_value(conf.Setting.USER_ID)
     if cached_user_id:
@@ -3956,23 +3953,13 @@ def _get_user_id() -> typing.Optional[uuid.UUID]:
     return None
 
 
-def _get_raster_vrt(tiles: List[Path], out_file: Path):
+def _get_raster_vrt(tiles: list[Path], out_file: Path):
     ds = gdal.BuildVRT(str(out_file), [str(tile) for tile in tiles])
     if ds is not None:
         ds.FlushCache()
     ds = None
 
 
-def backoff_hdlr(details):
-    log(
-        "Backing off {wait:0.1f} seconds after {tries} tries "
-        "calling function {target}".format(**details)
-    )
-
-
-@backoff.on_predicate(
-    backoff.expo, lambda x: x is None, max_tries=5, on_backoff=backoff_hdlr
-)
 def _delete_job_datasets(job: Job):
     if job.results is not None:
         try:
@@ -3985,8 +3972,8 @@ def _delete_job_datasets(job: Job):
 
 
 def get_remote_jobs(
-    end_date: typing.Optional[dt.datetime] = None,
-) -> typing.Optional[typing.List[Job]]:
+    end_date: dt.datetime | None = None,
+) -> list[Job] | None:
     """Get a list of remote jobs, as returned by the server.
 
     Returns ``None`` when the API could not be reached (auth failure, network
@@ -4079,19 +4066,19 @@ def get_remote_jobs(
                 remote_jobs.append(job)
         except ValidationError as exc:
             log(
-                f"Could not retrieve remote job {raw_job.get('id', 'unknown')}: {str(exc)}"
+                f"Could not retrieve remote job {raw_job.get('id', 'unknown')}: {exc!s}"
             )
             log(f"Raw job data keys: {list(raw_job.keys())}")
         except RuntimeError as exc:
             log(str(exc))
         except TypeError as exc:
-            log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
+            log(f"Could not retrieve remote job {raw_job['id']}: {exc!s}")
 
     log(f"Successfully processed {len(remote_jobs)} out of {len(raw_jobs)} remote jobs")
     return remote_jobs
 
 
-def get_remote_job_with_results(job_id: uuid.UUID) -> typing.Optional[Job]:
+def get_remote_job_with_results(job_id: uuid.UUID) -> Job | None:
     """Fetch a single job from the API with results for downloading.
 
     This is used when a job transitions to FINISHED status and we need
@@ -4135,7 +4122,7 @@ def get_remote_job_with_results(job_id: uuid.UUID) -> typing.Optional[Job]:
         return None
 
 
-def get_relevant_remote_jobs(remote_jobs: typing.List[Job]) -> typing.List[Job]:
+def get_relevant_remote_jobs(remote_jobs: list[Job]) -> list[Job]:
     """Filter a list of jobs gotten from the remote server for relevant jobs.
 
     Relevant jobs are those whose ``local_context.base_dir`` matches the

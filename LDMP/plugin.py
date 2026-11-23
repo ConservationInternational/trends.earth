@@ -219,7 +219,7 @@ class LDMPPlugin:
             from . import boundaries_management
 
             boundaries_management.validate_and_migrate_boundary_settings()
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(f"Warning: QSettings migration failed: {e}")
 
         self._warn_if_plotly_missing()
@@ -342,7 +342,7 @@ class LDMPPlugin:
             import plotly.graph_objects  # noqa: F401
 
             return
-        except Exception:
+        except Exception:  # noqa: BLE001
             self.iface.messageBar().pushWarning(
                 "Trends.Earth",
                 self.tr(

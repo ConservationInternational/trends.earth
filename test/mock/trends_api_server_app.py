@@ -36,7 +36,7 @@ def get_script_uuid_map():
                 if script_name and script_id:
                     _script_uuid_cache[script_name] = script_id
                     _script_uuid_cache[script_id] = script_name
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             print(f"Warning: Could not load scripts.json: {e}")
 
     return _script_uuid_cache

@@ -41,7 +41,7 @@ def clear_boundaries_cache(older_than_days=None):
 
         return cleared_count
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         log(f"Error clearing boundary cache: {e}")
         return 0
 
@@ -113,7 +113,7 @@ def refresh_boundaries_from_api(release_type="gbOpen"):
         if admin_bounds and result["success"]:
             log(f"Successfully refreshed admin bounds: {len(admin_bounds)} countries")
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         error_msg = f"Error refreshing boundaries from API: {e}"
         log(error_msg)
         result["error"] = str(e)
@@ -172,7 +172,7 @@ def get_cache_statistics():
             "release_type": release_type,
         }
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         log(f"Error getting cache statistics: {e}")
         return {
             "boundaries_list_files": 0,
@@ -237,7 +237,7 @@ def check_server_for_updates(release_type="gbOpen") -> dict[str, typing.Any]:
             result["error"] = "Could not get server timestamp"
             log("Could not get server last updated timestamp")
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         error_msg = f"Error checking server for updates: {e}"
         log(error_msg)
         result["error"] = str(e)
@@ -277,7 +277,7 @@ def force_server_update_check(release_type="gbOpen") -> dict[str, typing.Any]:
 
         return result
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         log(f"Error forcing server update check: {e}")
         return {"server_available": False, "error": str(e), "refresh_performed": False}
 
@@ -314,7 +314,7 @@ def validate_and_migrate_boundary_settings() -> bool:
 
         return True
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         log(f"Error during QSettings cleanup: {e}")
         return False
 
@@ -363,5 +363,5 @@ def clear_legacy_boundary_cache() -> None:
 
         log("Legacy boundary cache cleanup completed")
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         log(f"Error during legacy cache cleanup: {e}")

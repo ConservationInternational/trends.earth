@@ -345,4 +345,4 @@ class RestBiomassSummaryWorker(worker.AbstractWorker):
         if self.killed:
             return None
 
-        return list((biomass_initial, biomass_change, area_site))
+        return [biomass_initial, biomass_change, area_site]

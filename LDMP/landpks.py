@@ -145,7 +145,9 @@ class DlgLandPKSDownload(calculate.DlgCalculateBase, DlgLandPKSDownloadUi):
     def selection_changed(self):
         if self.data_view.selectedIndexes():
             # Note there can only be one row selected at a time by default
-            row = list({index.row() for index in self.data_view.selectedIndexes()})[0]
+            row = next(
+                iter({index.row() for index in self.data_view.selectedIndexes()})
+            )
             first_year = self.datasets[row]["Start year"]
             last_year = self.datasets[row]["End year"]
             if (first_year == "NA") or (last_year == "NA"):

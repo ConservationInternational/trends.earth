@@ -32,6 +32,7 @@ WidgetDatasetItemUi, _ = uic.loadUiType(
 )
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, "icons")
+INVALID_MODEL_INDEX = QtCore.QModelIndex()
 
 logger = logging.getLogger(__name__)
 
@@ -82,15 +83,15 @@ class JobsModel(QtCore.QAbstractItemModel):
     def parent(self, index: QtCore.QModelIndex) -> QtCore.QModelIndex:
         return QtCore.QModelIndex()
 
-    def rowCount(self, index: QtCore.QModelIndex = QtCore.QModelIndex()) -> int:
+    def rowCount(self, index: QtCore.QModelIndex = INVALID_MODEL_INDEX) -> int:
         return len(self._relevant_jobs)
 
-    def columnCount(self, index: QtCore.QModelIndex = QtCore.QModelIndex()) -> int:
+    def columnCount(self, index: QtCore.QModelIndex = INVALID_MODEL_INDEX) -> int:
         return 1
 
     def data(
         self,
-        index: QtCore.QModelIndex = QtCore.QModelIndex(),
+        index: QtCore.QModelIndex = INVALID_MODEL_INDEX,
         role: QtCore.Qt.ItemDataRole = QtCore.Qt.DisplayRole,
     ) -> Job | None:
         result = None
@@ -104,7 +105,7 @@ class JobsModel(QtCore.QAbstractItemModel):
         return result
 
     def flags(
-        self, index: QtCore.QModelIndex = QtCore.QModelIndex()
+        self, index: QtCore.QModelIndex = INVALID_MODEL_INDEX
     ) -> QtCore.Qt.ItemFlags:
         if index.isValid():
             flags = super().flags(index)
@@ -665,7 +666,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         if self._report_handler:
             try:
                 self._report_handler.init()
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 print(f"Warning: Failed to initialize report handler: {e}")
                 self._report_handler = None
 
@@ -870,7 +871,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             existing_dialog.activateWindow()
             return
 
-        data = [x for x in table if x["name"] == "mean"][0]
+        data = next(x for x in table if x["name"] == "mean")
         base_title = self.tr("Time Series")
         if self.job.task_name:
             task_name = self.job.task_name
@@ -1115,10 +1116,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def has_connected_data(self):
         manager.job_manager.ensure_params_loaded(self.job)
-        has_prod = True if "prod" in self.job.params else False
-        has_lc = True if "lc" in self.job.params else False
-        has_soil = True if "soil" in self.job.params else False
-        has_sdg = True if "sdg" in self.job.params else False
+        has_prod = "prod" in self.job.params
+        has_lc = "lc" in self.job.params
+        has_soil = "soil" in self.job.params
+        has_sdg = "sdg" in self.job.params
 
         return has_prod and has_lc and has_soil and has_sdg
 
@@ -1193,24 +1194,22 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             # For generic jobs, load rasters directly from this job's results
             manager.job_manager.ensure_results_loaded(self.job)
             for result in self.job._get_results_list():
-                if isinstance(result, RasterResults):
-                    if result.uri.uri.suffix in [".tif", ".vrt"]:
-                        for band_index, band in enumerate(result.get_bands(), start=1):
-                            if band.add_to_map:
-                                layers.add_layer(
-                                    str(result.uri.uri),
-                                    band_index,
-                                    JobBand.Schema().dump(band),
-                                )
+                if isinstance(result, RasterResults) and result.uri.uri.suffix in [
+                    ".tif",
+                    ".vrt",
+                ]:
+                    for band_index, band in enumerate(result.get_bands(), start=1):
+                        if band.add_to_map:
+                            layers.add_layer(
+                                str(result.uri.uri),
+                                band_index,
+                                JobBand.Schema().dump(band),
+                            )
 
     def _load_raster(self, jobs, name):
         if name in self.job.params:
             data = self.job.params[name]
-            job = (
-                jobs[uuid.UUID(data["uuid"])]
-                if uuid.UUID(data["uuid"]) in jobs
-                else None
-            )
+            job = jobs.get(uuid.UUID(data["uuid"]), None)
             if job:
                 # Get bands from the first raster result
                 raster_result = job.get_first_result_by_type(RasterResults)

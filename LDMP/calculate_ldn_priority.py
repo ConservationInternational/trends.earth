@@ -219,9 +219,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         self.project_context_label.setWordWrap(True)
         self.project_context_label.hide()
         inner.addWidget(self.project_context_label)
-        self.change_project_button = QtWidgets.QPushButton(
-            self.tr("Change in project")
-        )
+        self.change_project_button = QtWidgets.QPushButton(self.tr("Change in project"))
         self.change_project_button.clicked.connect(self._change_project_inputs)
         self.change_project_button.hide()
         inner.addWidget(self.change_project_button)
@@ -254,9 +252,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         more_button.setMenu(more_menu)
         row.addWidget(more_button)
         inner.addLayout(row)
-        optional = _make_group(
-            self.tr("Optional exclusions and breakdowns"), layout
-        )
+        optional = _make_group(self.tr("Optional exclusions and breakdowns"), layout)
         optional_box = layout.itemAt(layout.count() - 1).widget()
         optional_box.setCheckable(True)
         optional_box.setChecked(False)
@@ -434,9 +430,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                 self.tr("Using project inputs — ARR: %s; land types: %s")
                 % (
                     arr.task_name if arr is not None else self.tr("Not selected"),
-                    land_types.task_name
-                    if land_types is not None
-                    else self.tr("None"),
+                    land_types.task_name if land_types is not None else self.tr("None"),
                 )
             )
             self.project_context_label.show()
@@ -953,9 +947,7 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
         self.project_context_label.setWordWrap(True)
         self.project_context_label.hide()
         source.addWidget(self.project_context_label)
-        self.change_project_button = QtWidgets.QPushButton(
-            self.tr("Change in project")
-        )
+        self.change_project_button = QtWidgets.QPushButton(self.tr("Change in project"))
         self.change_project_button.clicked.connect(self._change_project_inputs)
         self.change_project_button.hide()
         source.addWidget(self.change_project_button)
@@ -1043,7 +1035,7 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
         note.setWordWrap(True)
         layout.addWidget(note)
         self.execution_name_le, self.task_notes = _add_task_name_notes(
-            layout,             "LDN Planning - Candidate areas"
+            layout, "LDN Planning - Candidate areas"
         )
         self.region_la, self.region_button = _add_region_buttons(layout)
         left = QtWidgets.QWidget()
@@ -1110,20 +1102,12 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
                 QtWidgets.QMessageBox.warning(
                     self,
                     self.tr("Dataset unavailable"),
-                    self.tr(
-                        "The selected intervention priorities are unavailable."
-                    ),
+                    self.tr("The selected intervention priorities are unavailable."),
                 )
         if getattr(self, "project_inputs", None):
-            selection = self.project_inputs["state"]["selections"].get(
-                "priority", {}
-            )
+            selection = self.project_inputs["state"]["selections"].get("priority", {})
             source_job = next(
-                (
-                    job
-                    for job in self.jobs
-                    if str(job.id) == selection.get("job_id")
-                ),
+                (job for job in self.jobs if str(job.id) == selection.get("job_id")),
                 None,
             )
             self.project_context_label.setText(
@@ -1273,9 +1257,7 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
             validate_project_dialog(self)
             index = self.combo_priority.currentIndex()
             if index < 0:
-                raise ValueError(
-                    self.tr("First create intervention priorities.")
-                )
+                raise ValueError(self.tr("First create intervention priorities."))
             if getattr(self, "project_inputs", None):
                 selected_id = self.project_inputs["state"]["selections"]["priority"][
                     "job_id"
@@ -1285,7 +1267,9 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
                 )
                 if job is None:
                     raise ValueError(
-                        self.tr("The project's intervention priorities are unavailable.")
+                        self.tr(
+                            "The project's intervention priorities are unavailable."
+                        )
                     )
             else:
                 job = self.jobs[index]

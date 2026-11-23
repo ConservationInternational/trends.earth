@@ -521,9 +521,7 @@ class DlgCalculateLDNPlanningARR(DlgCalculateBase):
                 "LDN planning tutorial</a></p>"
             ),
         )
-        self.setWindowTitle(
-            self.tr("Classify land for Avoid, Reduce, and Reverse")
-        )
+        self.setWindowTitle(self.tr("Classify land for Avoid, Reduce, and Reverse"))
         self.resize(600, 560)
 
     def _populate_combos(self):
@@ -960,9 +958,7 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
         self.btn_clear_candidate_targets = QtWidgets.QPushButton(
             self.tr("Remove candidate targets")
         )
-        self.btn_clear_candidate_targets.clicked.connect(
-            self._clear_candidate_targets
-        )
+        self.btn_clear_candidate_targets.clicked.connect(self._clear_candidate_targets)
         self.candidate_group.addWidget(self.btn_clear_candidate_targets)
 
         self.use_polygons = QtWidgets.QCheckBox(
@@ -1000,15 +996,15 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
         self.polygon_group.addWidget(self._help_widget)
         self.btn_targets_help.toggled.connect(self._toggle_targets_help)
 
-        self.polygon_group.addWidget(
-            QtWidgets.QLabel(self.tr("Saved target layer"))
-        )
+        self.polygon_group.addWidget(QtWidgets.QLabel(self.tr("Saved target layer")))
         self.combo_targets_layer = QtWidgets.QComboBox()
         self.polygon_group.addWidget(self.combo_targets_layer)
 
         add_menu = QtWidgets.QMenu(self)
         add_menu.addAction(self.tr("Draw new polygons..."), self._create_targets_layer)
-        add_menu.addAction(self.tr("Import polygon file..."), self._import_targets_from_file)
+        add_menu.addAction(
+            self.tr("Import polygon file..."), self._import_targets_from_file
+        )
         self.load_targets_action = add_menu.addAction(
             self.tr("Use selected saved layer"), self._load_targets_from_job
         )
@@ -1105,8 +1101,7 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
                 f"{self.panel._result_metrics('candidate', job)}"
             )
         configured = [
-            f"{target['intervention'].title()} "
-            f"{100 * target['effectiveness']:.0f}%"
+            f"{target['intervention'].title()} {100 * target['effectiveness']:.0f}%"
             for target in self._targets
             if target.get("selected_mask_path")
         ]
@@ -1114,9 +1109,7 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
             self.candidate_summary.setText(
                 self.candidate_summary.text()
                 + "\n"
-                + self.tr("Configured effectiveness: {0}").format(
-                    ", ".join(configured)
-                )
+                + self.tr("Configured effectiveness: {0}").format(", ".join(configured))
             )
 
     def _refresh_targets_combo(self):
@@ -1413,18 +1406,22 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
             return
 
         source_id = str(job.id)
-        if any(
-            target.get("source_job_id") == source_id
-            and not target.get("selected_mask_path")
-            for target in self._targets
-        ) and QtWidgets.QMessageBox.question(
-            self,
-            self.tr("Replace polygon snapshot"),
-            self.tr(
-                "Replace the existing snapshot from '%s' with the selected layer?"
+        if (
+            any(
+                target.get("source_job_id") == source_id
+                and not target.get("selected_mask_path")
+                for target in self._targets
             )
-            % (job.task_name or source_id),
-        ) != QtWidgets.QMessageBox.StandardButton.Yes:
+            and QtWidgets.QMessageBox.question(
+                self,
+                self.tr("Replace polygon snapshot"),
+                self.tr(
+                    "Replace the existing snapshot from '%s' with the selected layer?"
+                )
+                % (job.task_name or source_id),
+            )
+            != QtWidgets.QMessageBox.StandardButton.Yes
+        ):
             return
         self._targets = [
             target
@@ -1588,8 +1585,7 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
             sources.setdefault(target.get("source_job_id"), []).append(target)
         for targets in sources.values():
             effects = ", ".join(
-                f"{target['intervention']} "
-                f"{100 * target['effectiveness']:.0f}%"
+                f"{target['intervention']} {100 * target['effectiveness']:.0f}%"
                 for target in targets
             )
             self.targets_list.addItem(

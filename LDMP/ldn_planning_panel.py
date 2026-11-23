@@ -494,9 +494,7 @@ class PlanningPanel(QtWidgets.QWidget):
             }[key]
             if key == "scenario":
                 self._build_scenario_editor()
-            self.section_layouts.get(section_key, self.scenario_layout).addWidget(
-                group
-            )
+            self.section_layouts.get(section_key, self.scenario_layout).addWidget(group)
         self.scenario_layout.addLayout(self.comparison_layout)
         self.scroll = scroll
         body_layout.addStretch()
@@ -950,17 +948,17 @@ class PlanningPanel(QtWidgets.QWidget):
                 coverage = value.get("coverage_fraction")
                 if scored:
                     items.append(scored)
-                if isinstance(coverage, (int, float)) and not isinstance(
-                    coverage, bool
-                ) and math.isfinite(coverage):
+                if (
+                    isinstance(coverage, (int, float))
+                    and not isinstance(coverage, bool)
+                    and math.isfinite(coverage)
+                ):
                     items.append(
                         self.tr("%s coverage: %s%%")
                         % (name.title(), f"{coverage * 100:.1f}")
                     )
                 else:
-                    items.append(
-                        self.tr("%s coverage: Not available") % name.title()
-                    )
+                    items.append(self.tr("%s coverage: Not available") % name.title())
             items.append(self.tr("Scores compare only within each class."))
         elif key == "candidate":
             selections = summary.get("selections", {})
@@ -1027,7 +1025,11 @@ class PlanningPanel(QtWidgets.QWidget):
                 )
                 if total:
                     items.append(total)
-        return "  •  ".join(items) if items else self.tr("Result details are not available.")
+        return (
+            "  •  ".join(items)
+            if items
+            else self.tr("Result details are not available.")
+        )
 
     def _build_scenario_editor(self):
         from .calculate_ldn_planning import ScenarioTargetsWidget
@@ -1062,9 +1064,7 @@ class PlanningPanel(QtWidgets.QWidget):
         self.completion_label = QtWidgets.QLabel()
         self.completion_label.setWordWrap(True)
         inner.addWidget(self.completion_label)
-        self.use_result_button = QtWidgets.QPushButton(
-            self.tr("Select this result")
-        )
+        self.use_result_button = QtWidgets.QPushButton(self.tr("Select this result"))
         self.use_result_button.clicked.connect(self._use_result)
         inner.addWidget(self.use_result_button)
         self.step_buttons["scenario"].setToolTip(
@@ -1570,7 +1570,9 @@ class PlanningPanel(QtWidgets.QWidget):
                 focus, label = "candidates", self.tr("Review candidate areas")
             elif "priority" in lowered or "ranking" in lowered:
                 focus, label = "ranking", self.tr("Review intervention ranking")
-            elif "baseline" in lowered or "jurisdiction" in lowered or "year" in lowered:
+            elif (
+                "baseline" in lowered or "jurisdiction" in lowered or "year" in lowered
+            ):
                 focus, label = "context", self.tr("Review scenario inputs")
             elif "region" in lowered or "area" in lowered:
                 focus, label = "area", self.tr("Review project area")
@@ -1589,7 +1591,8 @@ class PlanningPanel(QtWidgets.QWidget):
             if self._draft()["use_candidates"]:
                 required.append("candidate")
             unverified = any(
-                self._lineage_states.get(key) in (
+                self._lineage_states.get(key)
+                in (
                     "unknown",
                     "processing",
                     "failed",
@@ -1833,7 +1836,8 @@ class PlanningPanel(QtWidgets.QWidget):
         comparison_id = draft.get("comparison_job_id") if draft else None
         comparison_job = self._jobs.get(comparison_id)
         self.comparison_label.setText(
-            self.tr("Comparing against: %s") % (comparison_job.task_name or comparison_id)
+            self.tr("Comparing against: %s")
+            % (comparison_job.task_name or comparison_id)
             if comparison_job is not None
             else (
                 self.tr("Comparison result unavailable: %s") % comparison_id
@@ -1846,7 +1850,9 @@ class PlanningPanel(QtWidgets.QWidget):
         self.scenario_editor.update_candidate_summary()
         latest_id = draft.get("latest_result_id") if draft else None
         latest = self._jobs.get(latest_id)
-        completed_at = getattr(latest, "start_date", None) if latest is not None else None
+        completed_at = (
+            getattr(latest, "start_date", None) if latest is not None else None
+        )
         if hasattr(completed_at, "strftime"):
             completed_at = completed_at.strftime("%Y-%m-%d")
         self.completion_label.setText(
@@ -2031,7 +2037,9 @@ class PlanningPanel(QtWidgets.QWidget):
             elif recorded and recorded != str(priority.id):
                 return "stale", self.tr("Uses a different intervention ranking.")
             elif self._lineage_states.get("priority") == "stale":
-                return "stale", self.tr("The selected intervention ranking needs updating.")
+                return "stale", self.tr(
+                    "The selected intervention ranking needs updating."
+                )
             elif self._lineage_states.get("priority") != "match":
                 missing.append(self.tr("The selected priority input is not verified."))
         else:

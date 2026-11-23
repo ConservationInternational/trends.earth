@@ -14,7 +14,7 @@
 import unittest
 from multiprocessing import Process
 
-from mock.mock_http_server import MockApiServer
+from mock.mock_http_server import MockApiServer, run_mock_api_server
 from qgis.core import QgsApplication, QgsAuthMethodConfig
 from qgis.PyQt import QtCore
 
@@ -29,7 +29,7 @@ class CalculateLDNOneStep(unittest.TestCase):
     def setUp(self):
         self.app_server = MockApiServer()
 
-        self.server = Process(target=self.app_server.run)
+        self.server = Process(target=run_mock_api_server, args=(self.app_server.port,))
         self.server.start()
 
         # Wait for server to be ready before continuing

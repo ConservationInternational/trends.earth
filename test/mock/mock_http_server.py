@@ -7,6 +7,10 @@ from flask import request
 from .trends_api_server_app import app
 
 
+def run_mock_api_server(port):
+    MockApiServer(port).run()
+
+
 class MockApiServer(Thread):
     """Mock a live API server with health check support"""
 

@@ -14,6 +14,7 @@ Training Manual
    Land Consumption <landconsumption>
    Carbon <carbon>
    Restoration <restoration>
+   LDN Planning <ldnplanning>
    Dataset Metadata <metadata>
    False Positives/Negatives <errorrecode>
    Dataset Reports <reports>

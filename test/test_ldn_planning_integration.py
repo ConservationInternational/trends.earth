@@ -13,6 +13,7 @@ import unittest
 import uuid
 from pathlib import Path
 from traceback import format_exception
+from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
 import numpy as np
@@ -42,7 +43,6 @@ from LDMP.calculate_ldn_priority import job_raster_path
 from LDMP.jobs.manager import job_manager
 from LDMP.jobs.models import Job
 from LDMP.ldn_planning_actions import (
-    DlgPlanningSummary,
     report_files,
     select_job_band,
 )
@@ -368,6 +368,14 @@ class PlanningWorkflow(contextlib.ExitStack):
     def run_step(self, key, action):
         """Click a panel section button and return the job it created."""
         before = len(self.submitted)
+        section = {
+            "arr": "prepare",
+            "land_types": "prepare",
+            "priority": "ranking",
+            "candidate": "candidates",
+            "scenario": "scenario",
+        }[key]
+        self.panel.section_groups[section].setChecked(True)
         if key == "scenario":
             action(self.panel.scenario_editor)
         else:
@@ -411,26 +419,8 @@ class PlanningWorkflow(contextlib.ExitStack):
         }
 
     def summary(self, key):
-        """Open the panel summary for a section and return its displayed rows."""
-        captured = {}
-
-        def show(dialog):
-            captured["rows"] = tree_rows(dialog.tree.invisibleRootItem())
-            return QtWidgets.QDialog.DialogCode.Accepted
-
-        with patch.object(DlgPlanningSummary, "exec", new=show):
-            self.panel._summary(key)
-        return captured["rows"]
-
-
-def tree_rows(item, prefix=""):
-    rows = {}
-    for index in range(item.childCount()):
-        child = item.child(index)
-        path = f"{prefix}/{child.text(0)}" if prefix else child.text(0)
-        rows[path] = child.text(1)
-        rows.update(tree_rows(child, path))
-    return rows
+        """Return the compact inline details for a selected result."""
+        return self.panel.result_summary_labels[key].text()
 
 
 def report(job):
@@ -482,6 +472,9 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             self.assertEqual(
                 str(dialog.combo_arr.get_current_band().job.id), str(arr.id)
             )
+            self.assertFalse(dialog.combo_arr.isVisible())
+            self.assertIn("Using project inputs", dialog.project_context_label.text())
+            self.assertTrue(dialog.change_project_button.isVisible())
             self.assertEqual(
                 dialog.combo_land_types.currentData(),
                 str(land_types.id) if land_types else None,
@@ -508,6 +501,9 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
     def select_candidates(self, workflow, priority, selections=None):
         def action(dialog):
             self.assertEqual(dialog.combo_priority.currentData(), str(priority.id))
+            self.assertFalse(dialog.combo_priority.isVisible())
+            self.assertIn("Using project ranking", dialog.project_context_label.text())
+            self.assertTrue(dialog.change_project_button.isVisible())
             if selections is None:
                 return
             for key, (enabled, mode, threshold, area) in dialog.rows.items():
@@ -542,15 +538,19 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             self.assertFalse(hasattr(dialog, "combo_arr"))
             self.assertFalse(hasattr(dialog, "combo_baseline"))
             self.assertFalse(hasattr(dialog, "combo_candidates"))
-            dialog.spin_candidate_eff.setValue(0.5)
+            dialog.default_effectiveness = 0.5
 
             def configure(target_dialog):
+                target_dialog.default_effectiveness.setValue(0.5)
                 target_dialog._accept()
                 return QtWidgets.QDialog.DialogCode.Accepted
 
             with patch.object(DlgConfigureCandidateTargets, "exec", new=configure):
                 dialog.btn_configure_candidates.click()
-            self.assertEqual(dialog.targets_list.count(), 1, workflow.errors)
+            self.assertEqual(dialog.targets_list.count(), 0, workflow.errors)
+            self.assertIn(
+                "Configured effectiveness", dialog.candidate_summary.text()
+            )
 
         return workflow.run_step("scenario", action)
 
@@ -614,20 +614,28 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                 panel.combos["arr"].currentIndex(),
                 "ARR classification for a planning area with a very long descriptive name",
             )
-            workflow.main_dock.resize(480, 720)
-            workflow.main_dock.tabWidget.setGeometry(0, 0, 480, 720)
-            QtWidgets.QApplication.processEvents()
-            self.assertLessEqual(panel.width(), 480)
-            self.assertEqual(
-                panel.scroll.horizontalScrollBar().maximum(),
-                0,
-                [
-                    (type(widget).__name__, widget.minimumSizeHint().width())
-                    for widget in panel.scroll.widget().findChildren(QtWidgets.QWidget)
-                    if widget.minimumSizeHint().width()
-                    > panel.scroll.viewport().width()
-                ],
-            )
+            for width in (480, 360):
+                workflow.main_dock.resize(width, 720)
+                workflow.main_dock.tabWidget.setGeometry(0, 0, width, 720)
+                QtWidgets.QApplication.processEvents()
+                viewport_width = panel.scroll.viewport().width()
+                self.assertLessEqual(panel.width(), width)
+                self.assertLessEqual(panel.scroll.widget().width(), viewport_width)
+                self.assertEqual(panel.scroll.horizontalScrollBar().maximum(), 0)
+                controls = panel.scroll.widget().findChildren(
+                    QtWidgets.QPushButton
+                ) + panel.scroll.widget().findChildren(QtWidgets.QComboBox)
+                for control in controls:
+                    if control.isVisible():
+                        right_edge = control.mapTo(
+                            panel.scroll.widget(), QtCore.QPoint(0, 0)
+                        ).x() + control.width()
+                        self.assertLessEqual(
+                            control.width(),
+                            viewport_width,
+                            f"{type(control).__name__} exceeds {width}px panel",
+                        )
+                        self.assertLessEqual(right_edge, panel.scroll.widget().width())
             panel.scroll.ensureWidgetVisible(panel.scenario_editor)
             panel.scenario_group.setChecked(False)
             QtWidgets.QApplication.processEvents()
@@ -636,10 +644,28 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             QtWidgets.QApplication.processEvents()
             self.assertTrue(panel.scenario_editor.isVisible())
             panel.scroll.ensureWidgetVisible(
-                panel.scenario_editor.btn_preview_candidates
+                panel.map_buttons["candidate"]
             )
-            panel.scenario_editor.btn_preview_candidates.setFocus()
-            self.assertTrue(panel.scenario_editor.btn_preview_candidates.hasFocus())
+            panel.section_groups["candidates"].setChecked(True)
+            panel.map_buttons["candidate"].setFocus()
+            self.assertTrue(panel.map_buttons["candidate"].hasFocus())
+            self.assertNotIn(
+                "Summary...",
+                [button.text() for button in panel.findChildren(QtWidgets.QPushButton)],
+            )
+            project_id = panel._project()["id"]
+            panel.section_groups["ranking"].setChecked(True)
+            panel.section_groups["candidates"].setChecked(False)
+            panel.section_groups["prepare"].setChecked(False)
+            panel.refresh()
+            self.assertTrue(panel.section_groups["ranking"].isChecked())
+            self.assertFalse(panel.section_groups["candidates"].isChecked())
+            self.assertFalse(panel.section_groups["prepare"].isChecked())
+            self.assertTrue(
+                panel._settings.value(
+                    f"trends_earth/ldn_planning_view/{project_id}"
+                )
+            )
             self.assertEqual(workflow.exceptions + workflow.errors, [])
 
     def test_embedded_navigation_preserves_draft_and_candidate_targets_for_alternatives(
@@ -810,6 +836,78 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             panel._clear_comparison()
             self.assertIsNone(panel._draft()["comparison_job_id"])
 
+    def test_comparison_uses_downloaded_boundary_checksums(self):
+        from LDMP import calculate_ldn_planning
+
+        with self.workflow() as workflow:
+            arr = self.create_arr(workflow)
+            workflow.select("arr", arr)
+            workflow.select_baseline("baseline")
+            panel = workflow.panel
+            conf.settings_manager.write_value(conf.Setting.COUNTRY_ID, "TST")
+            index = panel.jurisdictions_combo.findData("admin")
+            panel.jurisdictions_combo.setCurrentIndex(index)
+            panel.jurisdictions_combo.activated.emit(index)
+            boundary = json.loads(workflow.aoi_path.read_text())
+            boundary["features"][0]["properties"]["shapeName"] = "District"
+            resolve_admin = calculate_ldn_planning._resolve_admin_zones
+
+            def tracked_admin(parent):
+                path = resolve_admin(parent)
+                self.assertIsNotNone(path)
+                workflow.callback(Path(path).unlink, missing_ok=True)
+                return path
+
+            with (
+                patch.object(
+                    calculate_ldn_planning, "_resolve_admin_zones", tracked_admin
+                ),
+                patch("LDMP.download.download_boundary_geojson", return_value=boundary),
+                patch(
+                    "LDMP.download.get_admin_bounds",
+                    return_value={
+                        "Test country": SimpleNamespace(code="TST", level1_regions={})
+                    },
+                ),
+            ):
+                first = workflow.run_step("scenario", lambda editor: None)
+                first_path = Path(first.params["jurisdictions_path"])
+                first_path.unlink()
+                workflow.select("scenario", first)
+                before = len(workflow.submitted)
+                panel._compare()
+                QtWidgets.QApplication.processEvents()
+                self.assertEqual(len(workflow.submitted), before + 1, workflow.errors)
+                comparison = workflow.submitted[-1]
+                self.assertEqual(comparison.status, te_jobs.JobStatus.GENERATED_LOCALLY)
+                second_path = comparison.params["jurisdictions_path"]
+                self.assertNotEqual(second_path, str(first_path))
+                self.assertEqual(
+                    first.params["input_checksums"]["jurisdictions_path"][
+                        str(first_path)
+                    ],
+                    comparison.params["input_checksums"]["jurisdictions_path"][
+                        second_path
+                    ],
+                )
+                self.assertEqual(
+                    comparison.params["comparison"]["parameters"]["jurisdictions_path"],
+                    str(first_path),
+                )
+                self.assertEqual(
+                    comparison.results.data["report"]["scenario_comparison"][
+                        "previous_job_id"
+                    ],
+                    str(first.id),
+                )
+
+                boundary["features"][0]["properties"]["shapeName"] = "Changed"
+                before = len(workflow.submitted)
+                panel._compare()
+                self.assertEqual(len(workflow.submitted), before)
+                self.assertIn("jurisdiction boundary checksums", workflow.errors.pop())
+                self.assertEqual(workflow.exceptions + workflow.errors, [])
+
     def test_polygon_snapshots_work_alone_and_with_candidates(self):
         with self.workflow() as workflow:
             self.build_chain(workflow)
@@ -915,10 +1013,21 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
 
             self.assertEqual(panel.years["year_initial"].value(), 2000)
             self.assertEqual(panel.years["year_final"].value(), 2015)
+            self.assertEqual(panel.years["year_initial"].text(), "2000")
+            self.assertEqual(panel.years["year_final"].text(), "2015")
+            self.assertEqual(panel.years["target_year"].text(), "2030")
             self.assertEqual(panel.years["target_year"].value(), 2030)
+            panel.input_context_group.setChecked(True)
             self.assertFalse(panel.years["year_initial"].isEnabled())
             self.assertFalse(panel.years["year_final"].isEnabled())
-            self.assertTrue(panel.years["target_year"].isEnabled())
+            self.assertTrue(
+                panel.years["target_year"].isEnabled(),
+                (
+                    panel.scenario_group.isEnabled(),
+                    panel.input_context_group.isEnabled(),
+                    panel.context_group.isEnabled(),
+                ),
+            )
             self.assertEqual(panel.years["target_year"].minimum(), 2016)
 
             panel._project()["context"].update(year_initial=2005, year_final=2010)
@@ -951,6 +1060,7 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             self.assertEqual(panel.years["year_final"].value(), 2035)
             self.assertEqual(panel.years["target_year"].value(), 2036)
             self.assertEqual(panel.years["target_year"].minimum(), 2036)
+            self.assertEqual(panel.years["target_year"].text(), "2036")
             panel.years["target_year"].setValue(2040)
             self.assertEqual(panel._project()["context"]["target_year"], 2040)
 
@@ -976,6 +1086,8 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             workflow.select_baseline("baseline")
             self.assertEqual(panel.years["year_initial"].value(), 2001)
             self.assertEqual(panel.years["year_final"].value(), 2015)
+            self.assertEqual(panel.years["year_initial"].text(), "2001")
+            self.assertEqual(panel.years["year_final"].text(), "2015")
 
             panel.reporting_combo.setCurrentIndex(
                 panel.reporting_combo.findData(
@@ -987,6 +1099,7 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                 (context["year_initial"], context["year_final"]), (2001, 2023)
             )
             self.assertEqual(panel.years["year_final"].maximum(), 2023)
+            self.assertEqual(panel.years["year_final"].text(), "2023")
             self.assertEqual(panel.years["target_year"].value(), 2030)
 
             panel.reporting_combo.setCurrentIndex(0)
@@ -995,34 +1108,65 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
     def test_jurisdiction_picker_supports_builtin_and_custom_boundaries(self):
         with self.workflow() as workflow:
             panel = workflow.panel
-            admin_source = panel.tr(
-                "Trends.Earth administrative boundaries for the selected country"
-            )
-            with patch.object(
-                QtWidgets.QInputDialog,
-                "getItem",
-                return_value=(admin_source, True),
-            ):
-                panel._choose_jurisdictions()
-            self.assertEqual(panel.jurisdictions_combo.currentData(), "admin")
+            combo = panel.jurisdictions_combo
 
-            custom_source = panel.tr("Custom polygon file")
-            custom_path = workflow.inputs / "jurisdictions.geojson"
-            with (
-                patch.object(
-                    QtWidgets.QInputDialog,
-                    "getItem",
-                    return_value=(custom_source, True),
-                ),
-                patch.object(
-                    QtWidgets.QFileDialog,
-                    "getOpenFileName",
-                    return_value=(str(custom_path), ""),
-                ),
+            def choose(source):
+                index = combo.findData(source)
+                combo.setCurrentIndex(index)
+                combo.activated.emit(index)
+
+            with patch.object(QtWidgets.QFileDialog, "getOpenFileName") as browse:
+                choose("admin")
+                browse.assert_not_called()
+            self.assertEqual(panel._project()["context"]["jurisdictions"], "admin")
+
+            with patch.object(
+                QtWidgets.QFileDialog, "getOpenFileName", return_value=("", "")
             ):
-                panel._choose_jurisdictions()
-            self.assertEqual(panel.jurisdictions_combo.currentData(), "file")
-            self.assertEqual(panel.jurisdictions_path.text(), str(custom_path))
+                choose("file")
+            self.assertEqual(combo.currentData(), "admin")
+            self.assertEqual(panel._project()["context"]["jurisdictions"], "admin")
+
+            custom_path = workflow.inputs / "jurisdictions.geojson"
+            with patch.object(
+                QtWidgets.QFileDialog,
+                "getOpenFileName",
+                return_value=(str(custom_path), ""),
+            ) as browse:
+                choose("file")
+                browse.assert_called_once()
+            context = panel._project()["context"]
+            self.assertEqual(context["jurisdictions"], "file")
+            self.assertEqual(context["jurisdictions_path"], str(custom_path))
+            self.assertIn(custom_path.name, combo.currentText())
+            self.assertEqual(combo.toolTip(), str(custom_path))
+
+            with patch.object(
+                QtWidgets.QFileDialog, "getOpenFileName", return_value=("", "")
+            ):
+                choose("file")
+            self.assertEqual(context["jurisdictions_path"], str(custom_path))
+            self.assertEqual(combo.currentData(), "file")
+
+            replacement = workflow.inputs / "replacement.geojson"
+            with patch.object(
+                QtWidgets.QFileDialog,
+                "getOpenFileName",
+                return_value=(str(replacement), ""),
+            ):
+                choose("file")
+            self.assertEqual(context["jurisdictions_path"], str(replacement))
+            self.assertIn(replacement.name, combo.currentText())
+
+            with patch.object(QtWidgets.QFileDialog, "getOpenFileName") as browse:
+                panel = workflow.open_panel()
+                browse.assert_not_called()
+            combo = panel.jurisdictions_combo
+            self.assertEqual(combo.currentData(), "file")
+            self.assertIn(replacement.name, combo.currentText())
+            self.assertEqual(combo.toolTip(), str(replacement))
+            choose("none")
+            self.assertEqual(panel._project()["context"]["jurisdictions"], "none")
 
     def test_full_chain_populates_dropdowns_and_consistent_reports(self):
         with self.workflow() as workflow:
@@ -1044,14 +1188,40 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                 self.assertTrue(
                     panel.step_buttons[key]
                     .text()
-                    .startswith("Run" if key == "scenario" else "Update"),
+                    .startswith("Run" if key == "scenario" else "Revise"),
                     key,
                 )
                 for suffix in (".xlsx", ".json"):
                     self.assertTrue(report_files(job, suffix), f"{key}{suffix}")
-                rows = workflow.summary(key)
-                self.assertNotIn("No report", rows, key)
-                self.assertGreater(len(rows), 5, key)
+                details = workflow.summary(key)
+                self.assertTrue(details, key)
+                self.assertNotIn("details are not available", details, key)
+            legacy = SimpleNamespace(
+                results=SimpleNamespace(
+                    data={
+                        "report": {
+                            "arr": {},
+                            "land_types": {},
+                            "projection": {"year_final": 2015},
+                        }
+                    }
+                )
+            )
+            with patch(
+                "LDMP.ldn_planning_panel.job_manager.ensure_results_loaded",
+                return_value=True,
+            ):
+                arr_details = panel._result_metrics("arr", legacy)
+                land_type_details = panel._result_metrics("land_types", legacy)
+                scenario_details = panel._result_metrics("scenario", legacy)
+            self.assertIn("Avoid: Not available", arr_details)
+            self.assertIn("Land types: Not available", land_type_details)
+            self.assertIn("Projection year: Not available", scenario_details)
+            self.assertNotIn("Avoid: 0.00", arr_details)
+            self.assertNotIn(
+                "Summary...",
+                [button.text() for button in panel.findChildren(QtWidgets.QPushButton)],
+            )
 
             arr = report(chain["arr"])["arr"]
             land_types = report(chain["land_types"])["land_types"]
@@ -1146,6 +1316,7 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                 0.5 * selections["avoid"]["selected_area_km2"],
             )
             projection = scenario["projection"]
+            self.assertIn("Projection year: 2030", workflow.summary("scenario"))
             self.assertAlmostEqual(
                 projection["scenario_contribution_km2"],
                 projection["scenario_gains_km2"]
@@ -1180,7 +1351,7 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                 scenario="stale",
             )
             self.assertIn("different arr dataset", texts["priority"])
-            self.assertIn("priority preview needs updating", texts["candidate"])
+            self.assertIn("intervention ranking needs updating", texts["candidate"])
             self.assertIn("different arr dataset", texts["scenario"])
 
             priority = self.prioritize(workflow, arr, chain["land_types"], False)
@@ -1192,7 +1363,7 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                 candidate="stale",
                 scenario="stale",
             )
-            self.assertIn("different priority preview", texts["candidate"])
+            self.assertIn("different intervention ranking", texts["candidate"])
 
             candidate = self.select_candidates(workflow, priority)
             self.assertEqual(

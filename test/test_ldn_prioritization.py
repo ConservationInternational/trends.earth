@@ -18,6 +18,7 @@ from qgis.core import (
     QgsVectorLayer,
 )
 from qgis.PyQt import QtCore, QtWidgets
+from qgis.PyQt.QtGui import QColor
 from te_algorithms.common.checksum import file_checksum
 from te_algorithms.gdal.land_deg import config as ld_config
 
@@ -502,8 +503,13 @@ class PriorityInputTests(unittest.TestCase):
             project.return_value.mapLayers.return_value = {"layer": layer}
             with patch("LDMP.calculate_ldn_planning.job_manager") as manager:
                 manager.get_job_file_path.return_value = Path("/missing")
-                ScenarioTargetsWidget._load_targets_from_job(dialog)
-                ScenarioTargetsWidget._load_targets_from_job(dialog)
+                with patch.object(
+                    QtWidgets.QMessageBox,
+                    "question",
+                    return_value=QtWidgets.QMessageBox.StandardButton.Yes,
+                ):
+                    ScenarioTargetsWidget._load_targets_from_job(dialog)
+                    ScenarioTargetsWidget._load_targets_from_job(dialog)
         self.assertTrue(layer.isEditable())
         self.assertTrue(layer.isModified())
         self.assertEqual(len(dialog._targets), 1)
@@ -904,7 +910,139 @@ class PlanningPanelTests(unittest.TestCase):
             # Global band 2 -> score raster band 2; global band 4 -> coverage band 1.
             self.assertEqual(calls, [(str(score_path), 2), (str(coverage_path), 1)])
 
-    def test_planning_actions_menu_and_summary_viewer(self):
+    def test_priority_map_renders_each_score_band_and_transparent_nodata(self):
+        from te_schemas.results import (
+            URI,
+            DataType,
+            Raster,
+            RasterFileType,
+            RasterResults,
+        )
+        from te_schemas.results import Band as JobBand
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "priority.tif"
+            self._make_multiband(
+                path,
+                [
+                    [[0, 0.333333, 0.333334, 0.666667, 0.666668, 1, -32768]],
+                    [[1, 0.666668, 0.666667, 0.333334, 0.333333, 0, -32768]],
+                    [[-32768] * 7],
+                ],
+            )
+            bands = [
+                JobBand(
+                    name=f"LDN Planning - Priority ({key})",
+                    no_data_value=-32768,
+                    metadata={"priority_class": key},
+                )
+                for key in ("avoid", "reduce", "reverse")
+            ]
+            result = RasterResults(
+                name="ldn-planning-priority",
+                uri=URI(uri=path),
+                rasters={
+                    "Float32": Raster(
+                        uri=URI(uri=path),
+                        bands=bands,
+                        datatype=DataType.FLOAT32,
+                        filetype=RasterFileType.GEOTIFF,
+                    )
+                },
+            )
+            job = SimpleNamespace(
+                id="job", get_first_result_by_type=lambda _type: result
+            )
+            added = []
+
+            def add_raster(layer_path, title):
+                layer = QgsRasterLayer(layer_path, title)
+                added.append(layer)
+                return layer
+
+            iface = Mock()
+            iface.addRasterLayer.side_effect = add_raster
+            with patch.object(layers, "iface", iface):
+                job_manager.display_selected_job_results(job, [1, 2, 3])
+
+            self.assertEqual(
+                [layer.name() for layer in added],
+                [
+                    "LDN Planning - Avoid relative priority",
+                    "LDN Planning - Reduce relative priority",
+                    "LDN Planning - Reverse relative priority",
+                ],
+            )
+            expected = [
+                [
+                    "#edf8e9",
+                    "#edf8e9",
+                    "#74c476",
+                    "#74c476",
+                    "#006d2c",
+                    "#006d2c",
+                    None,
+                ],
+                [
+                    "#006d2c",
+                    "#006d2c",
+                    "#74c476",
+                    "#74c476",
+                    "#edf8e9",
+                    "#edf8e9",
+                    None,
+                ],
+                [None] * 7,
+            ]
+            for index, (layer, colors) in enumerate(zip(added, expected), start=1):
+                self.assertEqual(layer.renderer().type(), "singlebandpseudocolor")
+                self.assertEqual(layer.renderer().inputBand(), index)
+                shader = layer.renderer().shader().rasterShaderFunction()
+                self.assertEqual(
+                    [item.label for item in shader.colorRampItemList()],
+                    [
+                        "Low relative priority (0-0.333333)",
+                        "Medium relative priority (>0.333333-0.666667)",
+                        "High relative priority (>0.666667-1)",
+                    ],
+                )
+                block = layer.renderer().block(1, layer.extent(), 7, 1)
+                for column, expected_color in enumerate(colors):
+                    color = QColor.fromRgba(block.color(0, column))
+                    if expected_color is None:
+                        self.assertEqual(color.alpha(), 0)
+                    else:
+                        self.assertEqual(color.alpha(), 255)
+                        self.assertEqual(color.name(), expected_color)
+
+    def test_other_discrete_style_retains_configured_nodata_color(self):
+        from te_schemas.results import Band as JobBand
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "scenario.tif"
+            self._make_multiband(path, [[[20, -32768]]])
+            band = JobBand(
+                name="LDN Planning - Scenario P(restoration)",
+                no_data_value=-32768,
+                metadata={},
+            )
+            layer = QgsRasterLayer(str(path), "scenario")
+            self.assertTrue(
+                layers.style_layer(
+                    str(path),
+                    layer,
+                    1,
+                    layers.styles[band.name],
+                    JobBand.Schema().dump(band),
+                    in_process_alg=True,
+                )
+            )
+            block = layer.renderer().block(1, layer.extent(), 2, 1)
+            self.assertEqual(QColor.fromRgba(block.color(0, 0)).name(), "#c7e9c0")
+            nodata = QColor.fromRgba(block.color(0, 1))
+            self.assertEqual((nodata.name(), nodata.alpha()), ("#000000", 255))
+
+    def test_planning_actions_hide_panel_reports_but_keep_independent_reports(self):
         from te_schemas.jobs import JobStatus
 
         from LDMP.ldn_planning_actions import (
@@ -929,7 +1067,9 @@ class PlanningPanelTests(unittest.TestCase):
         button = QtWidgets.QPushButton()
         self.assertTrue(attach_planning_actions(button, job, Mock()))
         titles = [action.text() for action in button.menu().actions()]
-        self.assertIn("View planning summary...", titles)
+        self.assertNotIn("View planning summary...", titles)
+        self.assertNotIn("Open Excel report", titles)
+        self.assertIn("Open report folder", titles)
         self.assertIn("Select candidate areas...", titles)
         self.assertTrue(button.isEnabled())
 
@@ -942,7 +1082,23 @@ class PlanningPanelTests(unittest.TestCase):
             "LDMP.ldn_planning_actions.job_manager.ensure_results_loaded",
             return_value=True,
         ):
-            dialog = DlgPlanningSummary(job)
+            independent_job = SimpleNamespace(
+                id="hotspot-job",
+                task_name="Hotspots",
+                status=JobStatus.GENERATED_LOCALLY,
+                script=SimpleNamespace(name="ldn-planning-hotspots", id="x"),
+                results=SimpleNamespace(data={"report": report}),
+            )
+            hotspot_button = QtWidgets.QPushButton()
+            self.assertTrue(
+                attach_planning_actions(hotspot_button, independent_job, Mock())
+            )
+            hotspot_titles = [
+                action.text() for action in hotspot_button.menu().actions()
+            ]
+            self.assertIn("View planning summary...", hotspot_titles)
+            self.assertIn("Open Excel report", hotspot_titles)
+            dialog = DlgPlanningSummary(independent_job)
         texts = [
             dialog.tree.topLevelItem(i).text(0)
             for i in range(dialog.tree.topLevelItemCount())
@@ -1037,7 +1193,12 @@ class PlanningPanelTests(unittest.TestCase):
             ):
                 panel.combos[key].setCurrentIndex(panel.combos[key].findData(job_id))
             self.assertEqual(
-                panel.status_icons["candidate"].property("lineage_state"), "match"
+                panel.status_icons["candidate"].property("lineage_state"),
+                "match",
+                (
+                    panel.combos["candidate"].currentData(),
+                    panel._project()["selections"],
+                ),
             )
             with patch("LDMP.ldn_planning_panel.launch_calculate_dialog") as launch:
                 panel._select_candidates()
@@ -1339,7 +1500,13 @@ class PlanningPanelTests(unittest.TestCase):
                 )
             for key in ("priority", "candidate", "scenario"):
                 self.assertEqual(
-                    panel.status_icons[key].property("lineage_state"), "match"
+                    panel.status_icons[key].property("lineage_state"),
+                    "match",
+                    (
+                        key,
+                        panel.combos[key].currentData(),
+                        panel._project()["selections"],
+                    ),
                 )
             self.assertIn("not verified", panel.status_labels["scenario"].text())
 
@@ -1362,6 +1529,8 @@ class PlanningPanelTests(unittest.TestCase):
             self.assertEqual(
                 panel.status_icons["priority"].property("lineage_state"), "match"
             )
+            panel.section_groups["ranking"].setChecked(True)
+            panel.section_groups["candidates"].setChecked(True)
             del priority.params["arr_job_id"]
             priority.params["arr_layer_path"] = "/arr-1.tif"
             panel._update_status()
@@ -1824,7 +1993,6 @@ class PrioritizationJobTests(unittest.TestCase):
             configuration = SimpleNamespace(
                 panel=Mock(),
                 _targets=[],
-                spin_candidate_eff=Mock(),
                 targets_list=Mock(),
                 tr=lambda text: text,
                 _configure_candidate_targets=Mock(return_value={"avoid": 0.5}),
@@ -1838,7 +2006,6 @@ class PrioritizationJobTests(unittest.TestCase):
                 "area_sha256": "area",
                 "arr_job_id": "arr",
             }
-            configuration.spin_candidate_eff.value.return_value = 0.5
             with (
                 patch(
                     "LDMP.calculate_ldn_priority.job_raster_path",

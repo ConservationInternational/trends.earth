@@ -31,6 +31,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.extlinks",
     "sphinxcontrib.spelling",
+    "sphinxcontrib.mermaid",
     "sphinx_design",
     "myst_parser",
 ]
@@ -57,6 +58,12 @@ myst_enable_extensions = [
     "substitution",
     "tasklist",
 ]
+
+myst_fence_as_directive = ["mermaid"]
+
+mermaid_height = "auto"
+mermaid_light_theme = "neutral"
+mermaid_dark_theme = "neutral"
 
 # Spellcheck options
 spelling_word_list_filename = ["known_good_spellings.txt"]

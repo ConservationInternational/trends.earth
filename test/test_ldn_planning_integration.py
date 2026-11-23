@@ -548,9 +548,7 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             with patch.object(DlgConfigureCandidateTargets, "exec", new=configure):
                 dialog.btn_configure_candidates.click()
             self.assertEqual(dialog.targets_list.count(), 0, workflow.errors)
-            self.assertIn(
-                "Configured effectiveness", dialog.candidate_summary.text()
-            )
+            self.assertIn("Configured effectiveness", dialog.candidate_summary.text())
 
         return workflow.run_step("scenario", action)
 
@@ -627,9 +625,12 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                 ) + panel.scroll.widget().findChildren(QtWidgets.QComboBox)
                 for control in controls:
                     if control.isVisible():
-                        right_edge = control.mapTo(
-                            panel.scroll.widget(), QtCore.QPoint(0, 0)
-                        ).x() + control.width()
+                        right_edge = (
+                            control.mapTo(
+                                panel.scroll.widget(), QtCore.QPoint(0, 0)
+                            ).x()
+                            + control.width()
+                        )
                         self.assertLessEqual(
                             control.width(),
                             viewport_width,
@@ -643,9 +644,7 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             panel.scenario_group.setChecked(True)
             QtWidgets.QApplication.processEvents()
             self.assertTrue(panel.scenario_editor.isVisible())
-            panel.scroll.ensureWidgetVisible(
-                panel.map_buttons["candidate"]
-            )
+            panel.scroll.ensureWidgetVisible(panel.map_buttons["candidate"])
             panel.section_groups["candidates"].setChecked(True)
             panel.map_buttons["candidate"].setFocus()
             self.assertTrue(panel.map_buttons["candidate"].hasFocus())
@@ -662,9 +661,7 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             self.assertFalse(panel.section_groups["candidates"].isChecked())
             self.assertFalse(panel.section_groups["prepare"].isChecked())
             self.assertTrue(
-                panel._settings.value(
-                    f"trends_earth/ldn_planning_view/{project_id}"
-                )
+                panel._settings.value(f"trends_earth/ldn_planning_view/{project_id}")
             )
             self.assertEqual(workflow.exceptions + workflow.errors, [])
 

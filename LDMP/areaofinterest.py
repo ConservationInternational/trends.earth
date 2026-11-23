@@ -1,4 +1,3 @@
-import functools
 import json
 import typing
 from pathlib import Path
@@ -136,7 +135,7 @@ def get_admin_poly_geojson():
     except ValueError as e:
         log(f"Invalid boundary data received: {e}")
         return None
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         log(f"Unexpected error downloading boundaries from API: {e}")
         # Log full traceback for debugging
         import traceback
@@ -264,7 +263,6 @@ class AOI:
             n += 1
         return qgis.core.QgsGeometry.unaryUnion(geometries)
 
-    @functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
     def meridian_split(self, out_type="extent", out_format="geojson", warn=True):
         """
         Return list of bounding boxes in WGS84 as geojson for GEE
@@ -480,7 +478,7 @@ class AOI:
 
         if not l_buffered.isValid():
             log("Error buffering layer")
-            raise
+            raise RuntimeError("Error buffering layer")
         else:
             self.l = l_buffered
             self.datatype = "polygon"
@@ -489,7 +487,6 @@ class AOI:
     def isValid(self):
         return self.l.isValid()
 
-    @functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
     def calc_frac_overlap(self, geom):
         """
         Returns fraction of AOI that is overlapped by geom (where geom is a QgsGeometry)
@@ -765,7 +762,7 @@ def try_prepare_area_of_interest(use_cache: bool = True) -> typing.Optional["AOI
     if use_cache:
         try:
             key = _current_aoi_settings_key()
-        except Exception:
+        except Exception:  # noqa: BLE001
             key = None
         if key is not None and key == _aoi_cache_key and _aoi_cache_value is not None:
             return _aoi_cache_value
@@ -779,7 +776,7 @@ def try_prepare_area_of_interest(use_cache: bool = True) -> typing.Optional["AOI
         try:
             _aoi_cache_key = _current_aoi_settings_key()
             _aoi_cache_value = aoi
-        except Exception:
+        except Exception:  # noqa: BLE001
             _aoi_cache_key = None
             _aoi_cache_value = None
 

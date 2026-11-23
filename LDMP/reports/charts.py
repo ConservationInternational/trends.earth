@@ -10,7 +10,7 @@ import numpy as np
 
 try:
     import plotly.graph_objects as go
-except Exception:
+except ImportError:
     go = None
 from qgis import processing
 from qgis.core import (
@@ -160,7 +160,7 @@ class BaseChart:
         try:
             figure.write_image(path)
             return True
-        except Exception:
+        except Exception:  # noqa: BLE001
             return QtChartRenderer(figure, pw, ph).save(path)
 
     @staticmethod
@@ -306,7 +306,7 @@ class UniqueValuesPieChart(BaseUniqueValuesChart):
         fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
         fig.update_traces(
             textinfo=text_info,
-            marker=dict(colors=colors),
+            marker={"colors": colors},
             textfont={"size": self.font_size_body},
         )
         fig.update_layout(
@@ -716,7 +716,7 @@ class BaseAlgorithmChartsConfiguration:
 
         # Append class name to the messages
         cls_name = self.__class__.__name__
-        fmt_msgs = map(lambda msg: f"{cls_name} - {msg}", messages)
+        fmt_msgs = (f"{cls_name} - {msg}" for msg in messages)
 
         return status, list(fmt_msgs)
 
@@ -1388,7 +1388,7 @@ class SdgSummaryJobAttributes:
 
 
 def _create_indexed_color_ramp(
-    style_name: str, band_info: dict = None
+    style_name: str, band_info: dict | None = None
 ) -> dict[float, QgsColorRampShader.ColorRampItem]:
     # Create a dictionary containing color ramp items for categorical
     # items indexed by pixel value.

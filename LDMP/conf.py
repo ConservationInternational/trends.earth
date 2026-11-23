@@ -142,7 +142,7 @@ class SettingsManager:
     _base_path: str = "trends_earth"
     _base_data_path: str = "trends_earth_data"
 
-    DEFAULT_SETTINGS = {
+    DEFAULT_SETTINGS: typing.ClassVar[dict] = {
         Setting.UPDATE_FREQUENCY_MILLISECONDS: 10000,
         Setting.LOCAL_POLLING_FREQUENCY: 30,
         Setting.UNKNOWN_AREA_OF_INTEREST: "unknown-area",
@@ -254,7 +254,7 @@ class SettingsManager:
             self._mutex.unlock()
 
     def _initialize_settings(self):
-        for setting, default_value in self.DEFAULT_SETTINGS.items():
+        for setting in self.DEFAULT_SETTINGS:
             current_value = self._settings.value(f"{self.base_path}/{setting.value}")
 
             if current_value is None:
@@ -311,9 +311,13 @@ def _load_jsonc(file_path: str) -> typing.Any:
                 in_string = not in_string
                 continue
 
-            if not in_string and char == "/" and index + 1 < len(raw_line):
-                if raw_line[index + 1] == "/":
-                    return raw_line[:index]
+            if (
+                not in_string
+                and char == "/"
+                and index + 1 < len(raw_line)
+                and raw_line[index + 1] == "/"
+            ):
+                return raw_line[:index]
 
         return raw_line
 

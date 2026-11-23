@@ -47,7 +47,8 @@ def compute_urban_change_summary_table(
         # Compute the pixel-aligned bounding box (slightly larger than
         # aoi). Use this instead of croptocutline in gdal.Warp in order to
         # keep the pixels aligned with the chosen productivity layer.
-        indic_vrt = tempfile.NamedTemporaryFile(suffix=".vrt").name
+        with tempfile.NamedTemporaryFile(suffix=".vrt", delete=False) as temp_file:
+            indic_vrt = temp_file.name
         LDMP.logger.log(f"Saving indicator VRT to: {indic_vrt}")
         ds_vrt = gdal.BuildVRT(
             indic_vrt,
@@ -275,4 +276,4 @@ class UrbanSummaryWorker(worker.AbstractWorker):
         if self.killed:
             return None
         else:
-            return list((areas, populations))
+            return [areas, populations]

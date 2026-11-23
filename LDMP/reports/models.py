@@ -145,7 +145,7 @@ class ItemScopeMapping:
 
     def __init__(self, name: str, **kwargs) -> None:
         self.name = name
-        self.type_id_mapping = kwargs.pop("type_id_mapping", dict())
+        self.type_id_mapping = kwargs.pop("type_id_mapping", {})
 
     def __hash__(self):
         return hash(self.name + json.dumps(self.type_id_mapping, sort_keys=True))
@@ -255,7 +255,7 @@ class ReportTemplateInfo:
         self.simple_landscape_path = kwargs.pop("simple_landscape_path", "")
         self.full_portrait_path = kwargs.pop("full_portrait_path", "")
         self.full_landscape_path = kwargs.pop("full_landscape_path", "")
-        self.item_scopes = kwargs.pop("item_scopes", list())
+        self.item_scopes = kwargs.pop("item_scopes", [])
         self._abs_simple_portrait_path = ""
         self._abs_simple_landscape_path = ""
         self._abs_full_portrait_path = ""
@@ -343,13 +343,13 @@ class ReportTemplateInfo:
     @property
     def is_multi_scope(self) -> bool:
         """True if the template is for compound reports."""
-        return True if len(self.item_scopes) > 1 else False
+        return len(self.item_scopes) > 1
 
     def contains_scope(self, name: str) -> bool:
         """
         True if the template contains a scope mapping with the given name.
         """
-        return True if len(self.scope_mappings_by_name(name)) > 0 else False
+        return len(self.scope_mappings_by_name(name)) > 0
 
 
 @dataclass
@@ -386,8 +386,8 @@ class ReportTaskContext:
     def __init__(
         self,
         report_configuration: ReportConfiguration,
-        jobs: list[Job] = None,
-        root_report_dir: str = None,
+        jobs: list[Job] | None = None,
+        root_report_dir: str | None = None,
     ):
         self.report_configuration = report_configuration
         self.jobs = jobs or []

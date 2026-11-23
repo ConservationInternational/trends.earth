@@ -47,6 +47,7 @@ DockWidgetTrendsEarthUi, _ = uic.loadUiType(
 
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
+INVALID_MODEL_INDEX = QtCore.QModelIndex()
 
 
 class NetworkImageTextBrowser(QtWidgets.QTextBrowser):
@@ -544,7 +545,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
                 script_names = sorted(
                     {m["script_name"] for m in metadata if m["script_name"]}
                 )
-            except Exception:
+            except Exception:  # noqa: BLE001
                 # Fall back to empty if cache unavailable
                 statuses = []
                 script_names = []
@@ -1263,7 +1264,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # QgsApplication.authManager() is not thread-safe from worker threads.
         try:
             job_manager.api_client.pre_cache_credentials()
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(
                 f"Failed to pre-cache credentials before remote refresh: {e}",
                 level=2,
@@ -1402,7 +1403,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.tabWidget.setCurrentIndex(self._SUB_INDICATORS_TAB_PAGE)
 
     def _open_all_algorithm_persistent_editors(
-        self, parent_index: QtCore.QModelIndex = QtCore.QModelIndex()
+        self, parent_index: QtCore.QModelIndex = INVALID_MODEL_INDEX
     ):
         model = self.algorithms_tv.model()
         for row in range(model.rowCount(parent_index)):
@@ -1564,7 +1565,7 @@ def _should_run(periodic_frequency_seconds: int, last_run: dt.datetime):
     except TypeError:
         delta = dt.timedelta(seconds=periodic_frequency_seconds)
 
-    return True if delta.seconds >= periodic_frequency_seconds else False
+    return delta.seconds >= periodic_frequency_seconds
 
 
 def _get_script(

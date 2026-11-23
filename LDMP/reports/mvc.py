@@ -292,7 +292,7 @@ class MultiscopeJobReportModel(QStandardItemModel):
         Returns a mapping of scope name and corresponding job as paired
         by the user.
         """
-        sj_mapping = dict()
+        sj_mapping = {}
 
         for r in range(self.rowCount()):
             scope_name = self.item(r, 0).text()

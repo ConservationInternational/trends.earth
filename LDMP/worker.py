@@ -90,7 +90,7 @@ class AbstractWorker(QtCore.QObject):
             self.finished.emit(result)
         except UserAbortedNotification:
             self.finished.emit(None)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             # forward the exception upstream
             self.error.emit(e)
             self.finished.emit(None)

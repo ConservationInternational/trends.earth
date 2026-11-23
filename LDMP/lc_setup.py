@@ -17,6 +17,7 @@ import json
 import os
 from copy import deepcopy
 from pathlib import Path
+from typing import ClassVar
 
 from marshmallow.exceptions import ValidationError
 from marshmallow_dataclass import dataclass
@@ -809,11 +810,11 @@ class DlgCalculateLCSetAggregationESA(DlgCalculateLCSetAggregationBase):
             child_code = self.table_model.index(
                 row, self.table_model.child_code_col()
             ).data()
-            parent_class = [
+            parent_class = next(
                 self.nesting.parent_for_child(c)
                 for c in self.nesting.child.key_with_nodata()
                 if c.code == child_code
-            ][0]
+            )
 
             if not parent_class:
                 continue
@@ -929,11 +930,11 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
             child_code = self.table_model.index(
                 row, self.table_model.child_code_col()
             ).data()
-            parent_class = [
+            parent_class = next(
                 self.nesting.parent_for_child(c)
                 for c in self.nesting.child.key_with_nodata()
                 if c.code == child_code
-            ][0]
+            )
 
             lc_class_combo = LCClassComboBox(self.nesting)
 
@@ -1080,7 +1081,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         # Update nest based on previously saved values' mapping
         settings_nest = custom_lc_nesting_from_settings()
         if len(settings_nest) > 0:
-            for parent_code, child_list in nest.items():
+            for parent_code in nest:
                 stored_codes = settings_nest.get(str(parent_code), [])
                 if stored_codes:
                     nest[parent_code] = [v for v in stored_codes if v in values]
@@ -1644,7 +1645,7 @@ class LCClassInfo:
     parent: LCClass = None
 
     class Meta:
-        load_only = ["idx"]
+        load_only: ClassVar[list[str]] = ["idx"]
 
 
 class LccInfoUtils:
@@ -1655,12 +1656,16 @@ class LccInfoUtils:
     CUSTOM_LEGEND_NAME = "Custom Land Cover"
 
     @staticmethod
-    def save_settings(lcc_infos: list[LCClassInfo] = [], restore_default=True) -> bool:
+    def save_settings(
+        lcc_infos: list[LCClassInfo] | None = None, restore_default=True
+    ) -> bool:
         """
         Saves list of LCClassInfo objects to settings but if settings is
         empty and 'restore_default' is True then it will restore the default
         UNCCD land cover classes.
         """
+        if lcc_infos is None:
+            lcc_infos = []
         if len(lcc_infos) == 0:
             conf.settings_manager.write_value(conf.Setting.LC_CLASSES, [])
             if restore_default:
@@ -1679,7 +1684,7 @@ class LccInfoUtils:
             conf.settings_manager.write_value(conf.Setting.LC_CLASSES, infos)
         except ValidationError:
             status = False
-        except Exception:
+        except Exception:  # noqa: BLE001
             status = False
 
         # Update transition matrix and land cover nesting with our new custom
@@ -1711,7 +1716,7 @@ class LccInfoUtils:
         except ValidationError:
             status = False
 
-        except Exception:
+        except Exception:  # noqa: BLE001
             status = False
 
         return status, lcc_infos
@@ -1727,7 +1732,7 @@ class LccInfoUtils:
                 lc_cls_infos.append(lcc_dict)
         except ValidationError:
             status = False
-        except Exception:
+        except Exception:  # noqa: BLE001
             status = False
 
         if not status:
@@ -1770,7 +1775,7 @@ class LccInfoUtils:
             except ValidationError as ve:
                 log(f"ValidationError while loading {file_path}: {ve}")
                 status = False
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001
                 log(f"Exception while loading {file_path}: {exc}")
                 status = False
 
@@ -2066,7 +2071,7 @@ class LccInfoUtils:
         only replace if the corresponding setting is empty otherwise it will
         always update the land cover classes.
         """
-        status, lcc_infos = LccInfoUtils.load_settings()
+        _status, lcc_infos = LccInfoUtils.load_settings()
         if len(lcc_infos) > 0 and not force_update:
             return
 
@@ -2094,7 +2099,7 @@ class LccInfoUtils:
         only replace if the corresponding setting is empty otherwise it will
         always update the land cover classes.
         """
-        status, lcc_infos = LccInfoUtils.load_settings()
+        _status, lcc_infos = LccInfoUtils.load_settings()
         if len(lcc_infos) > 0 and not force_update:
             return
 

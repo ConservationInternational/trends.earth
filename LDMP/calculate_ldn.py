@@ -2570,6 +2570,7 @@ class DlgCalculateLDNSummaryTableAdmin(
     LOCAL_SCRIPT_NAME: str = "sdg-15-3-1-summary"
 
     button_calculate: QtWidgets.QPushButton
+
     def __init__(
         self,
         iface: qgis.gui.QgisInterface,

@@ -1816,9 +1816,7 @@ class PrioritizationJobTests(unittest.TestCase):
             mask = gdal.Open(str(selected.uri.uri)).ReadAsArray()
             self.assertEqual(int(mask[0, 1]), 1)
             self.assertNotEqual(int(mask[0, 0]), 1)
-            self.assertNotIn(
-                "approved", selected.rasters["Int16"].bands[0].metadata
-            )
+            self.assertNotIn("approved", selected.rasters["Int16"].bands[0].metadata)
             # Reports must not share the job metadata file name.
             for name in ("selection_candidates", "priority_priority"):
                 self.assertTrue((directory / f"{name}.xlsx").is_file())
@@ -1862,6 +1860,4 @@ class PrioritizationJobTests(unittest.TestCase):
                 make_raster(selected.uri.uri, [[1, 1, 0, 0]])
                 ScenarioTargetsWidget._configure_candidates(configuration)
                 error.assert_called_once()
-                self.assertIn(
-                    "no longer matches its report", error.call_args.args[2]
-                )
+                self.assertIn("no longer matches its report", error.call_args.args[2])

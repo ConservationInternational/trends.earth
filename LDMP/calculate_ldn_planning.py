@@ -995,9 +995,7 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
         self.spin_candidate_eff.setRange(0, 1)
         self.spin_candidate_eff.setValue(0.8)
         self.spin_candidate_eff.setSingleStep(0.05)
-        inner_t.addWidget(
-            QtWidgets.QLabel(self.tr("Default effectiveness (0-1)"))
-        )
+        inner_t.addWidget(QtWidgets.QLabel(self.tr("Default effectiveness (0-1)")))
         inner_t.addWidget(self.spin_candidate_eff)
         self.btn_configure_candidates = QtWidgets.QPushButton(
             self.tr("Set candidate targets...")
@@ -1427,9 +1425,7 @@ class ScenarioTargetsWidget(QtWidgets.QWidget):
             return
         report = result.data.get("report", {})
         classes = [key for key in CLASSES if key in job.params.get("selections", {})]
-        effectiveness_by_class = self._configure_candidate_targets(
-            job, report, classes
-        )
+        effectiveness_by_class = self._configure_candidate_targets(job, report, classes)
         if not effectiveness_by_class:
             return
         try:

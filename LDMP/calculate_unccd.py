@@ -175,6 +175,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
     LOCAL_SCRIPT_NAME: str = "unccd-report"
 
     button_calculate: QtWidgets.QPushButton
+
     def __init__(
         self,
         iface: qgis.gui.QgisInterface,

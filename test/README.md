@@ -6,6 +6,15 @@ When run standalone, the sub-indicator dialog tests start an application with
 Calling `start_app()` unconditionally inside the QGIS runner can create a
 second application and fail during QGIS initialization.
 
+## Ruff CI
+
+The Ruff workflow scans the full repository with a pinned Ruff version and
+compares diagnostics with the PR base (the default branch for branch pushes).
+It annotates and fails on new violations without requiring unrelated cleanup
+of the existing lint backlog. Line shifts do not create new violations, but
+additional occurrences do. Default-branch pushes compare with `HEAD^`.
+Run the same check locally with `python scripts/check_ruff.py origin/main`.
+
 ## Generated custom-data end-to-end tests (offline)
 
 [`e2e/test_custom_population.py`](e2e/test_custom_population.py) runs without

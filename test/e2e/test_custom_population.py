@@ -534,6 +534,31 @@ class CustomPopulationE2ETest(unittest.TestCase):
         self.assertIsNone(result.success)
         QgsApplication.processEvents()
 
+    def test_import_waits_for_thread_cleanup_before_returning(self):
+        class FastWorker(worker.AbstractWorker):
+            def work(self):
+                return True
+
+        cleaned_up = []
+        finish = worker.worker_finished
+
+        def delayed_finish(*args):
+            def cleanup():
+                finish(*args)
+                cleaned_up.append(True)
+
+            worker.QTimer.singleShot(20, cleanup)
+
+        try:
+            with patch.object(worker, "worker_finished", delayed_finish):
+                result = worker.StartWorker(FastWorker, "E2E delayed thread cleanup")
+            self.assertTrue(result.success)
+            self.assertEqual(cleaned_up, [True])
+        finally:
+            loop = worker.QEventLoop()
+            worker.QTimer.singleShot(50, loop.quit)
+            loop.exec()
+
 
 class PopulationMetadataTest(unittest.TestCase):
     def test_plugin_and_algorithms_use_same_cell_area_math(self):

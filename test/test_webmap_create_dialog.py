@@ -290,8 +290,10 @@ class TestWebmapPublication(unittest.TestCase):
 class TestWebmapCreationUi(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.app = QgsApplication.instance() or QgsApplication([], False)
-        cls.app.initQgis()
+        cls.app = QgsApplication.instance()
+        if cls.app is None:
+            cls.app = QgsApplication([], False)
+            QgsApplication.initQgis()
 
     @patch("LDMP.webmap_create_dialog.api.APIClient")
     def test_select_and_configure_local_raster(self, _client):

@@ -40,11 +40,9 @@ def load_object(python_path: str) -> typing.Any:
 
 
 def save_vrt(source_path: Path, source_band_index: int) -> str:
-    temporary_file = tempfile.NamedTemporaryFile(suffix=".vrt", delete=False)
-    temporary_file.close()
-    ds = gdal.BuildVRT(
-        temporary_file.name, str(source_path), bandList=[source_band_index]
-    )
+    with tempfile.NamedTemporaryFile(suffix=".vrt", delete=False) as temporary_file:
+        temporary_path = temporary_file.name
+    ds = gdal.BuildVRT(temporary_path, str(source_path), bandList=[source_band_index])
     if ds is None:
         raise RuntimeError(
             f"Failed to create VRT for band {source_band_index} from {source_path}"
@@ -136,7 +134,7 @@ def qgis_bin_dir() -> str:
     msg = "QGIS 'bin' directory could not be determined."
 
     if platform_name == "win32":
-        rt_path, sep, sub_path = lib_path.partition("apps")
+        rt_path, sep, _sub_path = lib_path.partition("apps")
         if not sep:
             log(msg, warning)
             return ""

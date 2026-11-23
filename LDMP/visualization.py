@@ -170,7 +170,7 @@ def get_admin_bbox(
                 geom = QgsGeometry.fromJson(json.dumps(feature_geojson["geometry"]))
                 if not geom.isEmpty():
                     return geom
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(f"Error loading region geometry from GeoBoundaries: {e}")
             # Fall through to legacy method
 
@@ -210,7 +210,7 @@ def get_admin_bbox(
                         combined = QgsGeometry.unaryUnion(geom_parts)
                         if not combined.isEmpty():
                             return combined
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(f"Error loading country geometry from GeoBoundaries: {e}")
 
         # Fallback to Natural Earth shapefile
@@ -440,7 +440,7 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, DlgVisualizationBasemapUi):
         self.setupUi(self)
 
         if not conf.ADMIN_BOUNDS_KEY:
-            raise Exception("Admin boundaries not available")
+            raise RuntimeError("Admin boundaries not available")
         self.area_admin_0.addItems(sorted(conf.ADMIN_BOUNDS_KEY.keys()))
         self.populate_admin_1()
 

@@ -42,7 +42,7 @@ class CalculateLDNOneStep(unittest.TestCase):
 
     def set_auth_db(self):
         AUTHDB_MASTERPWD = "password"
-        print("Init script: %s" % __file__)
+        print(f"Init script: {__file__}")
 
         auth_manager = QgsApplication.authManager()
         if not auth_manager.masterPasswordHashInDatabase():
@@ -67,9 +67,9 @@ class CalculateLDNOneStep(unittest.TestCase):
     def test_job_submission(self):
         ldn_one_step_script_name = "sdg-15-3-1-sub-indicators"
 
-        script = [
+        script = next(
             s for s in KNOWN_SCRIPTS.values() if s.name == ldn_one_step_script_name
-        ][0]
+        )
 
         self.auth_id = self.set_auth_db()
 

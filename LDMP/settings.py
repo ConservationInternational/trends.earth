@@ -15,6 +15,7 @@ import csv
 import os
 from enum import Flag, auto
 from pathlib import Path
+from typing import ClassVar
 
 import qgis.core
 import qgis.gui
@@ -257,7 +258,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             )
             return
         configs = qgis.core.QgsApplication.authManager().availableAuthMethodConfigs()
-        if authConfigId not in configs.keys():
+        if authConfigId not in configs:
             QtCore.QSettings().setValue(
                 f"trends_earth/{auth.TE_API_AUTH_SETUP.key}", None
             )
@@ -984,7 +985,7 @@ class ProfileFormMixin:
     def _N(s):
         return QtCore.QT_TRANSLATE_NOOP("tr_settings", s)
 
-    GENDER_OPTIONS = [
+    GENDER_OPTIONS: ClassVar[list[tuple[str, str]]] = [
         ("", ""),
         (_N("Woman"), "woman"),
         (_N("Man"), "man"),
@@ -993,7 +994,7 @@ class ProfileFormMixin:
         (_N("Prefer not to say"), "prefer_not_to_say"),
     ]
 
-    PURPOSE_OPTIONS = [
+    PURPOSE_OPTIONS: ClassVar[list[tuple[str, str]]] = [
         ("", ""),
         (_N("National/International Reporting (UNCCD, SDGs, etc.)"), "reporting"),
         (_N("Academic Research"), "academic_research"),
@@ -1009,7 +1010,7 @@ class ProfileFormMixin:
         (_N("Other"), "other"),
     ]
 
-    SECTOR_OPTIONS = [
+    SECTOR_OPTIONS: ClassVar[list[tuple[str, str]]] = [
         ("", ""),
         (_N("Government - Environment/Natural Resources"), "gov_environment"),
         (_N("Government - Agriculture"), "gov_agriculture"),
@@ -2325,10 +2326,7 @@ class LandCoverCustomClassesManager(
     def has_class_infos(self) -> bool:
         # Returns True if there are classes in the table, else False.
         row_count = self.model.rowCount()
-        if row_count == 0:
-            return False
-
-        return True
+        return row_count != 0
 
     def save_settings(self) -> bool:
         """
@@ -2793,7 +2791,7 @@ class LandCoverClassSelectionDialog(QtWidgets.QDialog):
             combo_box = QtWidgets.QComboBox()
             combo_box.setToolTip(combo_box_tooltip)
 
-            status, ref_classes = LccInfoUtils.load_settings()
+            _status, ref_classes = LccInfoUtils.load_settings()
 
             for l_class in ref_classes:
                 combo_box.insertItem(l_class.idx, l_class.lcc.name_long, l_class.lcc)

@@ -43,17 +43,17 @@ def compute_counterbalancing_local(
     """
     params = job.params
 
-    cb_kwargs = dict(
-        status_path=params["status_layer_path"],
-        status_band_index=params.get("status_band_index", 1),
-        land_type_layer_paths=params["land_type_layer_paths"],
-        output_path=str(job_output_path),
-        aoi=AOI(aoi.get_geojson()),
-        n_cpus=params.get("n_cpus", max(1, multiprocessing.cpu_count() - 1)),
-        progress_callback=progress_callback,
-        killed_callback=killed_callback,
-        parallel_backend="thread",
-    )
+    cb_kwargs = {
+        "status_path": params["status_layer_path"],
+        "status_band_index": params.get("status_band_index", 1),
+        "land_type_layer_paths": params["land_type_layer_paths"],
+        "output_path": str(job_output_path),
+        "aoi": AOI(aoi.get_geojson()),
+        "n_cpus": params.get("n_cpus", max(1, multiprocessing.cpu_count() - 1)),
+        "progress_callback": progress_callback,
+        "killed_callback": killed_callback,
+        "parallel_backend": "thread",
+    }
 
     (
         summary_table,

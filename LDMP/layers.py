@@ -429,13 +429,13 @@ def round_to_n(x, sf=3):
         elif x == 0:
             return 0
         else:
-            return float(np.round(x, -int(floor(log10(abs(x)))) + (sf - 1)))
+            return float(np.round(x, -floor(log10(abs(x))) + (sf - 1)))
     else:
         # For arrays, use vectorized operations
         if x == 0:
             return 0
         else:
-            return np.around(x, -int(floor(log10(abs(x)))) + (sf - 1))
+            return np.around(x, -floor(log10(abs(x))) + (sf - 1))
 
 
 def get_sample(f, band_number, n=1e6):

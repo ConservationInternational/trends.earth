@@ -232,7 +232,7 @@ class NewsClient(QtCore.QObject):
         try:
             items_data = json.loads(cached_json)
             return [NewsItem.from_dict(item) for item in items_data]
-        except (json.JSONDecodeError, Exception) as e:
+        except (json.JSONDecodeError, Exception) as e:  # noqa: BLE001
             log(f"Error loading cached news: {e}")
             return []
 
@@ -286,7 +286,7 @@ class NewsClient(QtCore.QObject):
                 log("No response from news API")
                 self.news_fetched.emit([])
 
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             error_msg = f"Error fetching news: {e}"
             log(error_msg)
             self.fetch_error.emit(error_msg)

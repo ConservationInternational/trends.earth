@@ -969,10 +969,13 @@ class JobCache:
 
             # Check for local .vrt or .tif file that exists
             try:
-                if hasattr(uri_path, "suffix"):
-                    if uri_path.suffix in [".vrt", ".tif"]:
-                        if hasattr(uri_path, "exists") and uri_path.exists():
-                            return True
+                if (
+                    hasattr(uri_path, "suffix")
+                    and uri_path.suffix in [".vrt", ".tif"]
+                    and hasattr(uri_path, "exists")
+                    and uri_path.exists()
+                ):
+                    return True
             except (AttributeError, OSError):
                 pass
 

@@ -23,7 +23,7 @@ def _infer_periods_affected_from_summary(summary_path: Path) -> list[str]:
     try:
         with open(summary_path, "r") as f:
             summary = json.load(f)
-    except Exception:
+    except Exception:  # noqa: BLE001
         # Fall back to baseline only if we cannot read the summary
         return ["baseline"]
 
@@ -32,13 +32,12 @@ def _infer_periods_affected_from_summary(summary_path: Path) -> list[str]:
     if not isinstance(lc, dict):
         return ["baseline"]
 
-    if "baseline" in lc or True:
-        if "baseline" not in periods:
-            periods.append("baseline")
+    if (True) and "baseline" not in periods:
+        periods.append("baseline")
 
     import re as _re
 
-    for key in lc.keys():
+    for key in lc:
         sk = str(key).lower()
         m_prog = _re.match(r"^progress(?:_(\d+))?$", sk)
         m_report = _re.match(r"^report(?:_(\d+))?$", sk)
@@ -92,11 +91,11 @@ class UNCCDReportInputInfo:
 
 def _get_unccd_report_inputs(combo_box):
     path = combo_box.get_current_data_file()
-    summary_path = [
+    summary_path = next(
         p
         for p in path.parents[0].glob("*.json")
         if bool(re.search("_summary.json", str(p)))
-    ][0]
+    )
     all_paths = [p for p in path.parents[0].glob("*")]
     all_files = [x for x in all_paths if x.is_file()]
     return UNCCDReportInputInfo(path, summary_path, all_files)
@@ -368,7 +367,7 @@ def _set_error_recode(in_file, out_file, error_recode_polys):
     key_to_norm = {}
     norm_to_key = {}
 
-    for k in lc.keys():
+    for k in lc:
         sk = str(k).lower()
         if sk == "baseline":
             norm = "baseline"

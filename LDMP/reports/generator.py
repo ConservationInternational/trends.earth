@@ -98,8 +98,8 @@ class ReportTaskProcessor:
         self._proj.setFilePathStorage(Qgis.FilePathType.Absolute)
         self._feedback = feedback
         self._layout = None
-        self._messages = dict()
-        self._jobs_layers = dict()
+        self._messages = {}
+        self._jobs_layers = {}
         self._should_add_basemap = True
         self._basemap_layers = []
         self._output_root_dir = ""
@@ -162,10 +162,7 @@ class ReportTaskProcessor:
 
     def _process_cancelled(self) -> bool:
         # Check if there is a request to cancel the process, True to cancel.
-        if self._feedback and self._feedback.isCanceled():
-            return True
-
-        return False
+        return bool(self._feedback and self._feedback.isCanceled())
 
     def _create_layers(self):
         # Creates map layers for each job.
@@ -421,24 +418,23 @@ class ReportTaskProcessor:
             # For now we are only interested in layers with rule-based
             # renderers
             ref_size_info = self._base_layers_symbol_sizes.get(bl.name(), None)
-            if ref_size_info is not None:
-                if renderer.type() == "RuleRenderer":
-                    root_rule = renderer.rootRule()
-                    children = root_rule.children()
-                    for cr in children:
-                        lbl = cr.label()
-                        ref_size = ref_size_info.get(lbl, None)
-                        if ref_size is None:
-                            continue
-                        symbol = cr.symbol().clone()
-                        if symbol.type() != Qgis.SymbolType.Marker:
-                            continue
-                        new_marker_size = ref_size * font_size_factor
-                        symbol.setSize(new_marker_size)
-                        cr.setSymbol(symbol)
+            if ref_size_info is not None and renderer.type() == "RuleRenderer":
+                root_rule = renderer.rootRule()
+                children = root_rule.children()
+                for cr in children:
+                    lbl = cr.label()
+                    ref_size = ref_size_info.get(lbl, None)
+                    if ref_size is None:
+                        continue
+                    symbol = cr.symbol().clone()
+                    if symbol.type() != Qgis.SymbolType.Marker:
+                        continue
+                    new_marker_size = ref_size * font_size_factor
+                    symbol.setSize(new_marker_size)
+                    cr.setSymbol(symbol)
 
-                        if not refresh_renderer:
-                            refresh_renderer = True
+                    if not refresh_renderer:
+                        refresh_renderer = True
 
             # Set new renderer if it has been updated
             if refresh_renderer:
@@ -492,7 +488,7 @@ class ReportTaskProcessor:
         status = False
         try:
             status = self._run()
-        except Exception as ex:
+        except Exception as ex:  # noqa: BLE001
             # Use general exception as last resort to capture raster read
             # failures by GDAL.
             exc_info = "".join(traceback.TracebackException.from_exception(ex).format())
@@ -532,7 +528,7 @@ class ReportTaskProcessor:
         orientation_layer = self._jobs_layers[job_id][0]
         extent = orientation_layer.extent()
         w, h = extent.width(), extent.height()
-        use_landscape = True if w > h else False
+        use_landscape = w > h
         ref_simple_temp = simple_ls_path if use_landscape else simple_pt_path
         ref_full_temp = full_ls_path if use_landscape else full_pt_path
 
@@ -587,27 +583,25 @@ class ReportTaskProcessor:
         if (
             self._options.template_type == TemplateType.SIMPLE
             or self._options.template_type == TemplateType.ALL
+        ) and (
+            not abs_paths.simple_landscape_exists()
+            and not abs_paths.simple_portrait_exists()
         ):
-            if (
-                not abs_paths.simple_landscape_exists()
-                and not abs_paths.simple_portrait_exists()
-            ):
-                msg = "Simple report templates not found."
-                self._append_warning_msg(f"{msg}: {simple_pt_path, simple_ls_path}")
-                return False
+            msg = "Simple report templates not found."
+            self._append_warning_msg(f"{msg}: {simple_pt_path, simple_ls_path}")
+            return False
 
         # Full layout
         if (
             self._options.template_type == TemplateType.FULL
             or self._options.template_type == TemplateType.ALL
+        ) and (
+            not abs_paths.full_portrait_exists()
+            and not abs_paths.full_landscape_exists()
         ):
-            if (
-                not abs_paths.full_portrait_exists()
-                and not abs_paths.full_landscape_exists()
-            ):
-                msg = "Full report templates not found."
-                self._append_warning_msg(f"{msg}: {full_pt_path, full_ls_path}")
-                return False
+            msg = "Full report templates not found."
+            self._append_warning_msg(f"{msg}: {full_pt_path, full_ls_path}")
+            return False
 
         return True
 
@@ -732,10 +726,7 @@ class ReportTaskProcessor:
         label_ids = item_scope.label_ids()
         if len(label_ids) == 0:
             self._append_info_msg(f"No label ids found in '{alg_name}' scope.")
-        if not self._update_label_items(label_ids, job, job_layer):
-            return False
-
-        return True
+        return self._update_label_items(label_ids, job, job_layer)
 
     def _update_map_items(self, map_ids, layer: QgsRasterLayer) -> bool:
         # Update map items with the given layer
@@ -761,10 +752,12 @@ class ReportTaskProcessor:
         for i in range(1, layout_model.rowCount()):
             item_idx = layout_model.index(i, 0)
             item = layout_model.itemFromIndex(item_idx)
-            if item.type() == QgsLayoutItemRegistry.ItemType.LayoutLegend:
-                if item.linkedMap().uuid() == map_item.uuid():
-                    item.setLegendFilterByMapEnabled(True)
-                    self._update_map_legend_items(item)
+            if (
+                item.type() == QgsLayoutItemRegistry.ItemType.LayoutLegend
+                and item.linkedMap().uuid() == map_item.uuid()
+            ):
+                item.setLegendFilterByMapEnabled(True)
+                self._update_map_legend_items(item)
 
     def _update_map_legend_items(self, legend: QgsLayoutItemLegend):
         # Update legend items based on flags in the legend renderer context.
@@ -1055,10 +1048,7 @@ class ReportProcessHandlerTask(QgsTask):
         result_code = self._process.returncode
 
         # Ignore access violation error code raised by PNG driver.
-        if result_code == 0 or result_code == 3221225477:
-            return True
-
-        return False
+        return bool(result_code == 0 or result_code == 3221225477)
 
 
 class ReportGeneratorManager(QObject):
@@ -1248,17 +1238,11 @@ class ReportGeneratorManager(QObject):
 
         # Persistent check: if the report has already failed twice (initial +
         # one retry), never attempt it again, even after a restart.
-        if self._get_persistent_failure_count(ctx.id()) >= 2:
-            return True
-
-        return False
+        return self._get_persistent_failure_count(ctx.id()) >= 2
 
     def is_task_running(self, ctx: ReportTaskContext) -> bool:
         # Check whether the task with the given id is running.
-        if ctx not in self._submitted_tasks:
-            return False
-
-        return True
+        return ctx in self._submitted_tasks
 
     def is_task_queued(self, ctx: ReportTaskContext) -> bool:
         """Check whether the context is already in the pending queue."""

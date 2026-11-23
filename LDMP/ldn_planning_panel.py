@@ -29,6 +29,11 @@ RESULTS = (
     ("scenario", "Scenario", "ldn-planning-projection", (1, 2, 3)),
 )
 AVAILABLE = (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
+AUTO_SELECT_RESULT_KEYS = {
+    "ldn-planning-arr": "arr",
+    "ldn-planning-land-types": "land_types",
+    "ldn-planning-selection": "candidate",
+}
 
 
 def new_draft():
@@ -172,6 +177,41 @@ def baseline_bands():
     )
 
 
+def band_period(band, reporting=False):
+    """Return the (start, end) years recorded in an SDG band's metadata.
+
+    Indicator bands record ``year_initial``/``year_final``. Status bands
+    compare a reporting period against the baseline, so they span the
+    baseline start to the baseline end (or the reporting end for reporting).
+    Degraded classes in either band are cumulative over this period.
+    """
+    if band is None:
+        return None
+    metadata = getattr(getattr(band, "band_info", band), "metadata", None)
+    if not isinstance(metadata, dict):
+        return None
+    end_key = "reporting_year_final" if reporting else "baseline_year_final"
+    years = []
+    for keys in (
+        ("year_initial", "baseline_year_initial"),
+        ("year_final", end_key),
+    ):
+        value = next((metadata[k] for k in keys if metadata.get(k) is not None), None)
+        if isinstance(value, bool):
+            return None
+        try:
+            year = int(value)
+            if year != float(value):
+                return None
+        except (TypeError, ValueError):
+            return None
+        years.append(year)
+    start, end = years
+    if not 1980 <= start < end < 2100:
+        return None
+    return start, end
+
+
 def load_projects(settings):
     raw = settings.value(SETTINGS_KEY, "")
     if not raw:
@@ -230,6 +270,9 @@ class PlanningPanel(QtWidgets.QWidget):
         self._settings = settings if settings is not None else QtCore.QSettings()
         self._jobs = {}
         self._baseline_bands = {}
+        self._launching_result_key = None
+        self._pending_results = {}
+        self._failed_results = {}
         self._changing = False
         self._disposed = False
         self.setObjectName("trends_earth_ldn_planning_panel")
@@ -256,7 +299,7 @@ class PlanningPanel(QtWidgets.QWidget):
         self.area_label.setWordWrap(True)
         layout.addWidget(self.area_label)
         self.adopt_area_button = QtWidgets.QPushButton(
-            self.tr("Use current region for this project...")
+            self.tr("Change project area to current region...")
         )
         self.adopt_area_button.clicked.connect(self._adopt_area)
         layout.addWidget(self.adopt_area_button)
@@ -286,14 +329,10 @@ class PlanningPanel(QtWidgets.QWidget):
         body_layout.addWidget(baseline_group)
         self.reporting_combo = QtWidgets.QComboBox()
         body_layout.addWidget(
-            QtWidgets.QLabel(self.tr("Reporting status (optional, for BAU)"))
+            QtWidgets.QLabel(self.tr("Reporting period (optional, sets BAU rate)"))
         )
         body_layout.addWidget(self.reporting_combo)
-        self.reporting_combo.currentIndexChanged.connect(
-            lambda: self._band_changed(
-                "reporting", self.reporting_combo, self._baseline_bands
-            )
-        )
+        self.reporting_combo.currentIndexChanged.connect(self._reporting_changed)
         self.context_group = QtWidgets.QGroupBox(
             self.tr("Period and reporting breakdown")
         )
@@ -343,9 +382,7 @@ class PlanningPanel(QtWidgets.QWidget):
         self.jurisdictions_combo.currentIndexChanged.connect(self._context_changed)
         self.jurisdictions_path = QtWidgets.QLineEdit()
         self.jurisdictions_path.setReadOnly(True)
-        browse = QtWidgets.QPushButton(
-            self.tr("Choose jurisdiction boundaries...")
-        )
+        browse = QtWidgets.QPushButton(self.tr("Choose jurisdiction boundaries..."))
         browse.clicked.connect(self._choose_jurisdictions)
         context_layout.addRow(self.jurisdictions_path)
         context_layout.addRow(browse)
@@ -436,8 +473,12 @@ class PlanningPanel(QtWidgets.QWidget):
         )
         for signal in self._signals:
             signal.connect(self.refresh, QtCore.Qt.ConnectionType.QueuedConnection)
+        job_manager.submitted_local_job.connect(self._submitted_result)
         job_manager.processed_local_job.connect(
             self._completed, QtCore.Qt.ConnectionType.QueuedConnection
+        )
+        job_manager.failed_local_job.connect(
+            self._failed_result, QtCore.Qt.ConnectionType.QueuedConnection
         )
         try:
             self.data = load_projects(self._settings)
@@ -454,7 +495,9 @@ class PlanningPanel(QtWidgets.QWidget):
         self._disposed = True
         for signal in self._signals:
             signal.disconnect(self.refresh)
+        job_manager.submitted_local_job.disconnect(self._submitted_result)
         job_manager.processed_local_job.disconnect(self._completed)
+        job_manager.failed_local_job.disconnect(self._failed_result)
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -553,6 +596,7 @@ class PlanningPanel(QtWidgets.QWidget):
         project = self._project()
         if project is None:
             return
+        self._failed_results.pop((project["id"], key), None)
         job_id = self.combos[key].currentData()
         if job_id is None:
             project["selections"].pop(key, None)
@@ -585,44 +629,32 @@ class PlanningPanel(QtWidgets.QWidget):
             self._update_status()
 
     def _baseline_year_range(self):
-        baseline = self._selected_baseline()
+        baseline = band_period(self._selected_baseline())
         if baseline is None:
             return None
-        band_info = getattr(baseline, "band_info", baseline)
-        metadata = getattr(band_info, "metadata", None)
-        if not isinstance(metadata, dict):
-            return None
-        year_initial = metadata.get("year_initial")
-        year_final = metadata.get("year_final")
-        if (
-            type(year_initial) is not int
-            or type(year_final) is not int
-            or not 1980 <= year_initial < year_final < 2100
-        ):
-            return None
-        return year_initial, year_final
+        reporting_band = self._baseline_bands.get(self.reporting_combo.currentData())
+        if reporting_band is None:
+            return baseline
+        # Indicator bands measure their own period; status bands measure from
+        # the baseline start to the reporting end.
+        return band_period(reporting_band, reporting=True)
+
+    def _reporting_changed(self, _index):
+        if self._changing:
+            return
+        self._band_changed("reporting", self.reporting_combo, self._baseline_bands)
+        project = self._project()
+        if project is not None:
+            self._sync_baseline_years(project, reset=True)
+            self._save()
+            self._update_status()
 
     def _sync_baseline_years(self, project, reset=False):
         context = project["context"]
         supported_years = self._baseline_year_range()
         changed = False
         if supported_years is not None:
-            first_year, last_year = supported_years
-            initial = context["year_initial"]
-            final = context["year_final"]
-            if (
-                reset
-                or type(initial) is not int
-                or not first_year <= initial < last_year
-            ):
-                initial = first_year
-            if (
-                reset
-                or type(final) is not int
-                or not first_year < final <= last_year
-                or initial >= final
-            ):
-                final = last_year
+            initial, final = supported_years
             target = context["target_year"]
             if reset or type(target) is not int or target <= final:
                 target = max(2030, final + 1)
@@ -665,22 +697,22 @@ class PlanningPanel(QtWidgets.QWidget):
                 "year_final": (1979, 2099),
             }
         else:
+            # Degraded classes are cumulative over the band's period, so the
+            # BAU rate is only valid for the exact period in its metadata.
             first_year, last_year = supported_years
             limits = {
-                "year_initial": (first_year, last_year - 1),
-                "year_final": (first_year + 1, last_year),
+                "year_initial": (first_year, first_year),
+                "year_final": (last_year, last_year),
             }
         end_year = context["year_final"]
-        target_minimum = (
-            max(1980, end_year + 1)
-            if type(end_year) is int
-            else 1979
-        )
+        target_minimum = max(1980, end_year + 1) if type(end_year) is int else 1979
         limits["target_year"] = (target_minimum, 2100)
         for key, spin in self.years.items():
             blocked = spin.blockSignals(True)
             spin.setRange(*limits[key])
             spin.setValue(context[key] or 1979)
+            if key != "target_year":
+                spin.setEnabled(supported_years is None)
             spin.blockSignals(blocked)
 
     def _band_changed(self, key, combo, bands):
@@ -864,12 +896,7 @@ class PlanningPanel(QtWidgets.QWidget):
         )
         supported_years = self._baseline_year_range()
         if supported_years is not None:
-            initial = context["year_initial"]
-            final = context["year_final"]
-            if changed_year == "year_initial" and initial >= final:
-                context["year_final"] = initial + 1
-            elif changed_year == "year_final" and final <= initial:
-                context["year_initial"] = final - 1
+            context["year_initial"], context["year_final"] = supported_years
         else:
             initial = context["year_initial"]
             final = context["year_final"]
@@ -1151,7 +1178,9 @@ class PlanningPanel(QtWidgets.QWidget):
                     )
                 )
             candidate_targets = [
-                target for target in draft["targets"] if target.get("selected_mask_path")
+                target
+                for target in draft["targets"]
+                if target.get("selected_mask_path")
             ]
             if not candidate_targets:
                 raise ValueError(
@@ -1160,9 +1189,11 @@ class PlanningPanel(QtWidgets.QWidget):
             actual_context = self.candidate_target_context(check_files)
             path, result = job_raster_path(candidate)
             for target in candidate_targets:
-                recorded = target.get("configuration_context") or target.get(
-                    "approval_context"
-                ) or {}
+                recorded = (
+                    target.get("configuration_context")
+                    or target.get("approval_context")
+                    or {}
+                )
                 configured_effectiveness = target.get(
                     "configured_effectiveness", target.get("approved_effectiveness")
                 )
@@ -1175,9 +1206,8 @@ class PlanningPanel(QtWidgets.QWidget):
                             "areas and update the scenario targets."
                         )
                     )
-                if (
-                    configured_effectiveness != target["effectiveness"]
-                    or any(recorded.get(k) != v for k, v in actual_context.items())
+                if configured_effectiveness != target["effectiveness"] or any(
+                    recorded.get(k) != v for k, v in actual_context.items()
                 ):
                     raise ValueError(
                         self.tr(
@@ -1268,7 +1298,8 @@ class PlanningPanel(QtWidgets.QWidget):
             if self._draft()["use_candidates"]:
                 required.append("candidate")
             unverified = any(
-                self._lineage_states.get(key) == "unknown" for key in required
+                self._lineage_states.get(key) in ("unknown", "processing")
+                for key in required
             )
             self.readiness_label.setText(
                 self.tr(
@@ -1427,6 +1458,14 @@ class PlanningPanel(QtWidgets.QWidget):
                 self.tr("The baseline is selected. Configure its years above.")
             )
         for key, _label, _result, _bands in RESULTS:
+            if pending := self._pending_result(project["id"], key):
+                self._set_lineage_status(
+                    key, "processing", pending.get("task_name", "")
+                )
+                continue
+            if failure := self._failed_results.get((project["id"], key)):
+                self._set_lineage_status(key, "unknown", failure)
+                continue
             selection = project["selections"].get(key)
             job = self._selected(key)
             button = self.step_buttons[key]
@@ -1480,10 +1519,13 @@ class PlanningPanel(QtWidgets.QWidget):
             ),
             "stale": self.tr("Needs update"),
             "unknown": self.tr("Not verified"),
+            "processing": self.tr("Result processing"),
         }
-        self.status_labels[key].setText(
-            "%s: %s" % (labels[state], text) if state in labels else text
-        )
+        if state in labels:
+            label = labels[state]
+            self.status_labels[key].setText("%s: %s" % (label, text) if text else label)
+        else:
+            self.status_labels[key].setText(text)
         icon = self.status_icons[key]
         icon.setProperty("lineage_state", state)
         icon.setToolTip(self.status_labels[key].text())
@@ -1492,6 +1534,7 @@ class PlanningPanel(QtWidgets.QWidget):
             "match": QtWidgets.QStyle.StandardPixmap.SP_DialogApplyButton,
             "stale": QtWidgets.QStyle.StandardPixmap.SP_DialogCancelButton,
             "unknown": QtWidgets.QStyle.StandardPixmap.SP_MessageBoxWarning,
+            "processing": QtWidgets.QStyle.StandardPixmap.SP_BrowserReload,
         }
         if state in icons:
             icon.setPixmap(self.style().standardIcon(icons[state]).pixmap(16, 16))
@@ -1519,7 +1562,7 @@ class PlanningPanel(QtWidgets.QWidget):
         if key in ("arr", "land_types"):
             if missing:
                 return "unknown", " ".join(missing)
-            return "match", self.tr("Input coverage and file contents are not checked.")
+            return "match", ""
 
         def check_raster(selection_key, path_key, band_key=None, job_key=None):
             selected = self._selected(selection_key)
@@ -1616,9 +1659,7 @@ class PlanningPanel(QtWidgets.QWidget):
             elif selections["baseline"].get("area_sha256") != project["area"].get(
                 "sha256"
             ):
-                return "stale", self.tr(
-                    "Select the baseline again for this area."
-                )
+                return "stale", self.tr("Select the baseline again for this area.")
             elif params.get("status_baseline_job_id"):
                 if (
                     str(params["status_baseline_job_id"]) != str(baseline.job.id)
@@ -1722,13 +1763,61 @@ class PlanningPanel(QtWidgets.QWidget):
 
     def _launch(self, factory, **kwargs):
         if self._require_area():
-            launch_calculate_dialog(
-                self._main_dock,
-                factory,
-                project_inputs={"panel": self, "state": self.operation_context()},
-                **kwargs,
-            )
+            previous_result_key = self._launching_result_key
+            self._launching_result_key = {
+                arr_factory: "arr",
+                land_types_factory: "land_types",
+                selection_factory: "candidate",
+            }.get(factory)
+            try:
+                launch_calculate_dialog(
+                    self._main_dock,
+                    factory,
+                    project_inputs={"panel": self, "state": self.operation_context()},
+                    **kwargs,
+                )
+            finally:
+                self._launching_result_key = previous_result_key
             self.refresh()
+
+    def _pending_result(self, project_id, key):
+        pending = None
+        for result in self._pending_results.values():
+            if result["project_id"] == project_id and result["key"] == key:
+                pending = result
+        return pending
+
+    def _submitted_result(self, job):
+        if self._disposed or self._launching_result_key is None:
+            return
+        script_name = getattr(getattr(job, "script", None), "name", None)
+        if AUTO_SELECT_RESULT_KEYS.get(script_name) != self._launching_result_key:
+            return
+        project = self._project()
+        if project is None:
+            return
+        key = self._launching_result_key
+        self._failed_results.pop((project["id"], key), None)
+        self._pending_results[str(job.id)] = {
+            "key": key,
+            "project_id": project["id"],
+            "area_sha256": project["area"].get("sha256"),
+            "task_name": job.task_name or str(job.id),
+        }
+        self._update_status()
+
+    def _failed_result(self, job):
+        pending = self._pending_results.pop(str(job.id), None)
+        if pending is None:
+            return
+        self._failed_results[(pending["project_id"], pending["key"])] = self.tr(
+            "Result processing failed; the current selection was not changed."
+        )
+        if (
+            self._project() is not None
+            and self._project()["id"] == pending["project_id"]
+        ):
+            self._update_status()
 
     def operation_context(self):
         project = self._project()
@@ -1848,10 +1937,6 @@ class PlanningPanel(QtWidgets.QWidget):
                     "projection": (result.data or {}).get("projection"),
                     "parameters": comparison.params,
                 }
-                if not params["status_reporting_path"]:
-                    raise ValueError(
-                        self.tr("Reporting status is required for comparison.")
-                    )
                 # The helper checks reference inputs before calculating differences.
                 compare_scenarios(params, params["comparison"]["projection"])
             if not params["targets"]:
@@ -1895,6 +1980,23 @@ class PlanningPanel(QtWidgets.QWidget):
     def _completed(self, job):
         if self._disposed or self.data is None:
             return
+        pending = self._pending_results.pop(str(job.id), None)
+        if pending is not None:
+            for project in self.data["projects"]:
+                if project["id"] != pending["project_id"]:
+                    continue
+                key = pending["key"]
+                project["selections"][key] = {
+                    "job_id": str(job.id),
+                    "area_sha256": pending["area_sha256"],
+                }
+                if key == "land_types":
+                    project["context"]["breakdown"] = "saved"
+                self._failed_results.pop((project["id"], key), None)
+                self._save()
+                if self._project() is project:
+                    self.refresh()
+                break
         if not job_manager.ensure_params_loaded(job):
             return
         params = job.params or {}

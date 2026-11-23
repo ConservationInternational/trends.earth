@@ -268,14 +268,6 @@ class LDMPPlugin:
         )
 
         self.add_action(
-            os.path.join(os.path.dirname(__file__), "icons", "layout.svg"),
-            text=tr_plugin.tr("LDN Planning"),
-            callback=self.run_planning_panel,
-            parent=self.iface.mainWindow(),
-            status_tip=tr_plugin.tr("Open the LDN planning project panel"),
-        )
-
-        self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "info.svg"),
             text=tr_plugin.tr("About"),
             callback=self.run_about,
@@ -391,16 +383,6 @@ class LDMPPlugin:
         # Clean up cached modules to allow proper reload when upgrading the plugin
         # without restarting QGIS. This must be done last after all other cleanup.
         _cleanup_plugin_modules()
-
-    def run_planning_panel(self):
-        """Activate LDN Planning inside the Trends.Earth interface."""
-        if self.dock_widget is None:
-            self.run_docked_interface(True)
-            if self.start_action is not None:
-                self.start_action.setChecked(True)
-        from .ldn_planning_panel import open_panel
-
-        open_panel(self.dock_widget)
 
     def run_docked_interface(self, checked):
         if checked:

@@ -385,6 +385,10 @@ class PlanningWorkflow(contextlib.ExitStack):
             te_jobs.JobStatus.GENERATED_LOCALLY,
             f"{key} failed: {job.status}",
         )
+        if key in ("arr", "land_types", "candidate"):
+            self.assertion.assertEqual(
+                self.panel.combos[key].currentData(), str(job.id)
+            )
         return job
 
     def select(self, key, job):
@@ -522,8 +526,10 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
         panel.reporting_combo.setCurrentIndex(
             panel.reporting_combo.findData(f"{workflow.baselines['reporting'].id}:1")
         )
-        panel.years["year_initial"].setValue(2000)
-        panel.years["year_final"].setValue(2019)
+        self.assertEqual(
+            (panel.years["year_initial"].value(), panel.years["year_final"].value()),
+            (2004, 2019),
+        )
         panel.years["target_year"].setValue(2030)
         panel.breakdown_combo.setCurrentIndex(panel.breakdown_combo.findData("saved"))
 
@@ -691,7 +697,9 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             panel = workflow.panel
             editor = panel.scenario_editor
             before = copy.deepcopy(panel._draft()["targets"])
-            with patch.object(editor, "_configure_candidate_targets", return_value=None):
+            with patch.object(
+                editor, "_configure_candidate_targets", return_value=None
+            ):
                 editor._configure_candidates()
             self.assertEqual(panel._draft()["targets"], before)
             editor._targets[0]["effectiveness"] = 0.9
@@ -750,7 +758,12 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             self.assertIsNone(scenario.params["land_type_path"])
             self.assertIsNone(scenario.params["jurisdictions_path"])
             self.assertEqual(scenario.params["targets"], [])
-            self.assertIsNone(scenario.results.data["projection"])
+            projection = scenario.results.data["projection"]
+            self.assertEqual(
+                (projection["year_initial"], projection["year_final"]), (2000, 2015)
+            )
+            self.assertIsNone(projection["degraded_area_reporting_km2"])
+            self.assertIsNotNone(projection["bau_projection_km2"])
             self.assertEqual(
                 panel.combos["scenario"].currentData(), str(chain["scenario"].id)
             )
@@ -895,7 +908,7 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                 & scripts
             )
 
-    def test_baseline_period_defaults_are_editable_within_supported_years(self):
+    def test_period_is_locked_to_band_metadata(self):
         with self.workflow() as workflow:
             panel = workflow.panel
             workflow.select_baseline("baseline")
@@ -903,22 +916,33 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             self.assertEqual(panel.years["year_initial"].value(), 2000)
             self.assertEqual(panel.years["year_final"].value(), 2015)
             self.assertEqual(panel.years["target_year"].value(), 2030)
-            self.assertEqual(panel.years["year_initial"].minimum(), 2000)
-            self.assertEqual(panel.years["year_initial"].maximum(), 2014)
-            self.assertEqual(panel.years["year_final"].minimum(), 2001)
-            self.assertEqual(panel.years["year_final"].maximum(), 2015)
+            self.assertFalse(panel.years["year_initial"].isEnabled())
+            self.assertFalse(panel.years["year_final"].isEnabled())
+            self.assertTrue(panel.years["target_year"].isEnabled())
             self.assertEqual(panel.years["target_year"].minimum(), 2016)
 
-            panel.years["year_initial"].setValue(2005)
-            panel.years["year_final"].setValue(2010)
-            self.assertEqual(panel._project()["context"]["year_initial"], 2005)
-            self.assertEqual(panel._project()["context"]["year_final"], 2010)
+            panel._project()["context"].update(year_initial=2005, year_final=2010)
             panel.refresh()
-            self.assertEqual(panel._project()["context"]["year_initial"], 2005)
-            self.assertEqual(panel._project()["context"]["year_final"], 2010)
-            self.assertEqual(panel.years["year_initial"].value(), 2005)
-            self.assertEqual(panel.years["year_final"].value(), 2010)
+            context = panel._project()["context"]
+            self.assertEqual(
+                (context["year_initial"], context["year_final"]), (2000, 2015)
+            )
             self.assertEqual(panel.years["target_year"].value(), 2030)
+
+            # An indicator reporting band uses its own period.
+            panel.reporting_combo.setCurrentIndex(
+                panel.reporting_combo.findData(
+                    f"{workflow.baselines['reporting'].id}:1"
+                )
+            )
+            self.assertEqual(
+                (
+                    panel.years["year_initial"].value(),
+                    panel.years["year_final"].value(),
+                ),
+                (2004, 2019),
+            )
+            panel.reporting_combo.setCurrentIndex(0)
 
             reporting_id = str(workflow.baselines["reporting"].id)
             reporting_band = panel._baseline_bands[f"{reporting_id}:1"]
@@ -927,6 +951,46 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             self.assertEqual(panel.years["year_final"].value(), 2035)
             self.assertEqual(panel.years["target_year"].value(), 2036)
             self.assertEqual(panel.years["target_year"].minimum(), 2036)
+            panel.years["target_year"].setValue(2040)
+            self.assertEqual(panel._project()["context"]["target_year"], 2040)
+
+    def test_period_reads_status_metadata_and_spans_baseline_to_reporting(self):
+        with self.workflow() as workflow:
+            panel = workflow.panel
+            bands = {
+                name: panel._baseline_bands[f"{workflow.baselines[name].id}:1"]
+                for name in ("baseline", "reporting")
+            }
+            bands["baseline"].band_info.metadata = {
+                "baseline_year_initial": 2001,
+                "baseline_year_final": 2015,
+                "reporting_year_initial": 2004,
+                "reporting_year_final": 2019,
+            }
+            bands["reporting"].band_info.metadata = {
+                "baseline_year_initial": 2001,
+                "baseline_year_final": 2015,
+                "reporting_year_initial": 2008,
+                "reporting_year_final": 2023,
+            }
+            workflow.select_baseline("baseline")
+            self.assertEqual(panel.years["year_initial"].value(), 2001)
+            self.assertEqual(panel.years["year_final"].value(), 2015)
+
+            panel.reporting_combo.setCurrentIndex(
+                panel.reporting_combo.findData(
+                    f"{workflow.baselines['reporting'].id}:1"
+                )
+            )
+            context = panel._project()["context"]
+            self.assertEqual(
+                (context["year_initial"], context["year_final"]), (2001, 2023)
+            )
+            self.assertEqual(panel.years["year_final"].maximum(), 2023)
+            self.assertEqual(panel.years["target_year"].value(), 2030)
+
+            panel.reporting_combo.setCurrentIndex(0)
+            self.assertEqual(panel.years["year_final"].value(), 2015)
 
     def test_jurisdiction_picker_supports_builtin_and_custom_boundaries(self):
         with self.workflow() as workflow:
@@ -944,14 +1008,17 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
 
             custom_source = panel.tr("Custom polygon file")
             custom_path = workflow.inputs / "jurisdictions.geojson"
-            with patch.object(
-                QtWidgets.QInputDialog,
-                "getItem",
-                return_value=(custom_source, True),
-            ), patch.object(
-                QtWidgets.QFileDialog,
-                "getOpenFileName",
-                return_value=(str(custom_path), ""),
+            with (
+                patch.object(
+                    QtWidgets.QInputDialog,
+                    "getItem",
+                    return_value=(custom_source, True),
+                ),
+                patch.object(
+                    QtWidgets.QFileDialog,
+                    "getOpenFileName",
+                    return_value=(str(custom_path), ""),
+                ),
             ):
                 panel._choose_jurisdictions()
             self.assertEqual(panel.jurisdictions_combo.currentData(), "file")
@@ -1090,11 +1157,18 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
         with self.workflow() as workflow:
             chain = self.build_chain(workflow)
             arr = self.create_arr(workflow, threshold=0.3)
-            # A new result is listed immediately but does not replace the choice.
             self.assertEqual(
                 self.combo_jobs(workflow, "arr"), [str(chain["arr"].id), str(arr.id)]
             )
-            self.expect_states(workflow, **ALL_MATCH)
+            self.assertEqual(workflow.panel.combos["arr"].currentData(), str(arr.id))
+            self.expect_states(
+                workflow,
+                arr="match",
+                land_types="match",
+                priority="stale",
+                candidate="stale",
+                scenario="stale",
+            )
 
             workflow.select("arr", arr)
             texts = self.expect_states(
@@ -1219,6 +1293,7 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
         with self.workflow() as workflow:
             chain = self.build_chain(workflow)
             panel = workflow.panel
+            self.assertEqual(panel.status_labels["arr"].text(), "Analysis area matches")
             submitted = len(workflow.submitted)
 
             workflow.set_area(workflow.other_aoi_path)
@@ -1315,3 +1390,37 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
             self.assertLess(hotspots["mean_degraded_fraction"], 0.3)
             for suffix in (".xlsx", ".json", ".gpkg"):
                 self.assertTrue(report_files(job, suffix), suffix)
+
+    def test_arr_result_shows_processing_then_selects_completed_dataset(self):
+        with self.workflow() as workflow:
+            tasks = []
+
+            def configure_arr(dialog):
+                select_job_band(
+                    dialog.combo_status,
+                    workflow.baselines["baseline"].id,
+                    dialog,
+                    "status",
+                )
+                dialog.chk_use_risk.setChecked(True)
+                dialog._risk_path = str(workflow.risk)
+                dialog.spin_risk_threshold.setValue(0.5)
+
+            with patch.object(job_manager.tm, "addTask", side_effect=tasks.append):
+                workflow.dialog_actions.append(configure_arr)
+                workflow.panel.step_buttons["arr"].click()
+                QtWidgets.QApplication.processEvents()
+                job = workflow.submitted[-1]
+                self.assertEqual(
+                    workflow.panel.status_labels["arr"].text(),
+                    "Result processing: %s" % job.task_name,
+                )
+                self.assertEqual(len(tasks), 1)
+
+                tasks[0].finished(tasks[0].run())
+                QtWidgets.QApplication.processEvents()
+
+            self.assertEqual(workflow.panel.combos["arr"].currentData(), str(job.id))
+            self.assertEqual(
+                workflow.panel.status_labels["arr"].text(), "Analysis area matches"
+            )

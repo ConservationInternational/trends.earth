@@ -227,7 +227,9 @@ class PriorityInputTests(unittest.TestCase):
         class JobSignals(QtCore.QObject):
             imported_job = QtCore.pyqtSignal(object)
             downloaded_job_results = QtCore.pyqtSignal(object)
+            submitted_local_job = QtCore.pyqtSignal(object)
             processed_local_job = QtCore.pyqtSignal(object)
+            failed_local_job = QtCore.pyqtSignal(object)
             deleted_job = QtCore.pyqtSignal(object)
 
             def __init__(self):
@@ -1113,7 +1115,9 @@ class PlanningPanelTests(unittest.TestCase):
         class JobSignals(QtCore.QObject):
             imported_job = QtCore.pyqtSignal(object)
             downloaded_job_results = QtCore.pyqtSignal(object)
+            submitted_local_job = QtCore.pyqtSignal(object)
             processed_local_job = QtCore.pyqtSignal(object)
+            failed_local_job = QtCore.pyqtSignal(object)
             deleted_job = QtCore.pyqtSignal(object)
 
             def ensure_params_loaded(self, _job):

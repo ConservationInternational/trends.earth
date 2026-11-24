@@ -246,9 +246,6 @@ class StartWorker:
         def on_finished(result):
             if result is not None:
                 self.save_success(result)
-            # Allow the other finished slot to stop and clean up the QThread
-            # before the caller can destroy its parent window.
-            QTimer.singleShot(0, pause.quit)
 
         self.worker.finished.connect(on_finished)
         self.worker.error.connect(self.save_exception)
@@ -268,7 +265,12 @@ class StartWorker:
         self.worker.progress.connect(watchdog.kick)
         self.worker.set_message.connect(watchdog.kick)
 
-        start_worker(self.worker, iface, tr_worker.tr(f"Processing: {process_name}"))
+        thread, _ = start_worker(
+            self.worker, iface, tr_worker.tr(f"Processing: {process_name}")
+        )
+        # A worker result can arrive before its QThread has been stopped.
+        # Do not let the caller destroy the parent window until cleanup finishes.
+        thread.finished.connect(pause.quit)
         watchdog.start()
         pause.exec()
         watchdog.stop()

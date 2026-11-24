@@ -221,6 +221,13 @@ for running algorithms and their results.</string>
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="manage_webmap_shares_pb">
+            <property name="text">
+             <string>Manage web maps...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="pushButton_download">
             <property name="toolTip">
              <string>Download datasets from the official Trends.Earth remote server</string>

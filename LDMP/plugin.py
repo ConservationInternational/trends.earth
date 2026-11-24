@@ -430,6 +430,20 @@ class LDMPPlugin:
     def run_about(self):
         self.dlg_about.exec()
 
+    def run_webmap_shares(self):
+        from .webmap_dialog import WebmapSharesDialog
+
+        WebmapSharesDialog(self.iface.mainWindow()).exec()
+
+    def run_create_webmap(self):
+        from .webmap_create_dialog import CreateWebmapDialog
+        from .webmap_dialog import show_link
+
+        parent = self.iface.mainWindow()
+        CreateWebmapDialog(
+            parent, on_published=lambda result: show_link(parent, result)
+        ).exec()
+
     def activate_polygon_tool(self):
         self.iface.mapCanvas().setMapTool(self.polygon_tool)
 

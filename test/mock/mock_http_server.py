@@ -8,7 +8,8 @@ from .trends_api_server_app import app
 
 
 def run_mock_api_server(port):
-    MockApiServer(port).run()
+    """Construct the server in the child, without pickling Flask or a Thread."""
+    MockApiServer(port=port).run()
 
 
 class MockApiServer(Thread):

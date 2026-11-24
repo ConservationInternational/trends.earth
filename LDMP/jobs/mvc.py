@@ -412,6 +412,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     report_pb: QtWidgets.QPushButton
     status_frame: QtWidgets.QFrame
     status_label: QtWidgets.QLabel
+    share_tb: QtWidgets.QToolButton
 
     def __init__(self, job: Job, main_dock: "MainWidget", parent=None):
         super().__init__(parent)
@@ -435,6 +436,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.view_logs_tb.clicked.connect(self.view_execution_logs)
         self.delete_tb.clicked.connect(self.delete_dataset)
         self.load_tb.clicked.connect(self.load_layer)
+        self.share_tb.clicked.connect(lambda: self.main_dock.share_dataset(self.job))
+        self.share_tb.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, "document.svg")))
+        self.share_tb.hide()
 
         self.edit_tb.clicked.connect(self.edit_layer)
 
@@ -588,6 +592,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.download_tb.hide()
             self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
             self.metadata_pb.setEnabled(self.has_loadable_result())
+            self.share_tb.setVisible(
+                (self.job.is_raster() or self.job.is_vector())
+                and not self.job.is_timeseries()
+            )
         elif self.job.status in [
             JobStatus.FAILED,
             JobStatus.CANCELLED,
@@ -597,6 +605,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         else:
             # For unknown statuses, disable main actions
             self.download_tb.hide()
+            self.share_tb.hide()
             self._disable_main_action_buttons()
 
         # Apply job type specific visibility for completed jobs only
@@ -698,6 +707,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.edit_tb.hide()
         self.report_pb.hide()
         self.download_tb.hide()
+        self.share_tb.hide()
 
     def has_loadable_result(self):
         """Check if this job has loadable results.

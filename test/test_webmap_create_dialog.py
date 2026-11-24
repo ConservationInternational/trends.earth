@@ -60,7 +60,9 @@ class TestWebmapPublication(unittest.TestCase):
 
         dialog._upload()
 
-        self.assertEqual(api_client.return_value.url, "https://api-staging.trends.earth")
+        self.assertEqual(
+            api_client.return_value.url, "https://api-staging.trends.earth"
+        )
         self.assertEqual(
             publish_task.call_args.args[0], "https://api-staging.trends.earth"
         )

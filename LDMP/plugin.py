@@ -268,22 +268,6 @@ class LDMPPlugin:
         )
 
         self.add_action(
-            os.path.join(os.path.dirname(__file__), "icons", "document.svg"),
-            text=tr_plugin.tr("Share web map"),
-            callback=self.run_create_webmap,
-            parent=self.iface.mainWindow(),
-            add_to_toolbar=False,
-        )
-
-        self.add_action(
-            os.path.join(os.path.dirname(__file__), "icons", "document.svg"),
-            text=tr_plugin.tr("Manage web-map shares"),
-            callback=self.run_webmap_shares,
-            parent=self.iface.mainWindow(),
-            add_to_toolbar=False,
-        )
-
-        self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "info.svg"),
             text=tr_plugin.tr("About"),
             callback=self.run_about,

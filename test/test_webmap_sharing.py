@@ -1,21 +1,15 @@
 """Tests for the owner API and private multipart transfer contract."""
 
-import http.client
 import http.server
 import importlib.util
 import os
-import select
-import shutil
-import socket
-import socketserver
-import ssl
-import subprocess
 import tempfile
 import threading
 import unittest
 from pathlib import Path
-from unittest.mock import ANY, Mock, patch
+from unittest.mock import Mock, patch
 
+from qgis.PyQt import QtCore, QtNetwork
 from qgis.PyQt.QtNetwork import QNetworkProxy
 
 spec = importlib.util.spec_from_file_location(
@@ -60,6 +54,20 @@ class TestWebmapSharing(unittest.TestCase):
     def tearDown(self):
         self.client.close()
 
+    def test_append_layers_uses_owner_api_route(self):
+        declarations = [{"name": "new output", "kind": "raster"}]
+        self.client._api_session.request.return_value = response(data={"id": SHARE})
+
+        self.assertEqual(self.client.add_layers(SHARE, declarations), {"id": SHARE})
+        args, kwargs = self.client._api_session.request.call_args
+        self.assertEqual(
+            args, ("POST", f"https://api.test/api/v1/shares/{SHARE}/layers")
+        )
+        self.assertEqual(kwargs["json"], {"layers": declarations})
+        self.assertEqual(
+            kwargs["headers"]["Authorization"], "Bearer owner-token"
+        )
+
     def test_owner_api_and_one_time_link(self):
         self.client._api_session.request.return_value = response(
             data={"link": "https://viewer.test/#secret"}
@@ -102,7 +110,6 @@ class TestWebmapSharing(unittest.TestCase):
         )
         self.assertEqual(progress[-1], 5)
         for _, _, kwargs in sent:
-            self.assertFalse(kwargs["allow_redirects"])
             self.assertNotIn("Authorization", kwargs["headers"])
 
     def test_invalid_upload_description_never_contacts_storage(self):
@@ -126,262 +133,129 @@ class TestWebmapSharing(unittest.TestCase):
 
     def test_error_does_not_include_signed_url(self):
         self.client._api_session.request.return_value = response(data=part_list())
-        self.client._upload_session.put.side_effect = http.client.HTTPException(
-            "https://s3.test/?secret"
+        self.client._upload_session.put.side_effect = sharing.ShareError(
+            "Could not contact upload storage"
         )
         with self.assertRaises(sharing.ShareError) as error:
             self.client.upload(SHARE, LAYER, self.file)
         self.assertNotIn("secret", str(error.exception))
 
-    def test_signed_upload_uses_bounded_stream_without_http_debugging(self):
-        source = Mock()
-        source.read.side_effect = [b"abc", b""]
-        connection = Mock()
-        connection.getresponse.return_value.status = 200
-        connection.getresponse.return_value.getheader.return_value = '"etag"'
+    def test_signed_upload_uses_qgis_network_manager_and_bounded_stream(self):
+        manager = Mock()
+        reply = Mock()
+        reply.isFinished.return_value = True
+        reply.attribute.return_value = 200
+        reply.rawHeader.return_value = QtCore.QByteArray(b'"etag"')
+        reply.uploadProgress.connect.side_effect = lambda callback: callback(3, 3)
+        sent = []
+
+        def put(request, device):
+            sent.append(bytes(device.read(3)))
+            return reply
+
+        manager.put.side_effect = put
+        source = self.file.open("rb")
+        self.addCleanup(source.close)
+        reader = sharing._PartReader(
+            source, 3, lambda: False, lambda _count: None, 0
+        )
         with patch.object(
-            sharing.http.client, "HTTPSConnection", return_value=connection
+            sharing.QgsNetworkAccessManager, "instance", return_value=manager
         ):
             result = sharing._UploadSession().put(
                 "https://s3.test/part?signature=secret",
-                data=source,
+                data=reader,
                 headers={"Content-Length": "3"},
                 timeout=30,
-                allow_redirects=False,
             )
-        connection.set_debuglevel.assert_called_once_with(0)
-        connection.putrequest.assert_called_once_with(
-            "PUT", "/part?signature=secret", skip_accept_encoding=True
+
+        request = manager.put.call_args.args[0]
+        self.assertEqual(
+            request.url().toString(), "https://s3.test/part?signature=secret"
         )
-        connection.send.assert_called_once_with(b"abc")
-        connection.close.assert_called_once()
+        self.assertEqual(
+            bytes(request.rawHeader(QtCore.QByteArray(b"Content-Length"))), b"3"
+        )
+        self.assertFalse(request.rawHeader(QtCore.QByteArray(b"Authorization")))
+        try:
+            redirect_attribute = (
+                QtNetwork.QNetworkRequest.Attribute.RedirectPolicyAttribute
+            )
+            manual_redirect = (
+                QtNetwork.QNetworkRequest.RedirectPolicy.ManualRedirectPolicy
+            )
+        except AttributeError:
+            redirect_attribute = QtNetwork.QNetworkRequest.RedirectPolicyAttribute
+            manual_redirect = QtNetwork.QNetworkRequest.ManualRedirectPolicy
+        self.assertEqual(
+            request.attribute(redirect_attribute), manual_redirect
+        )
+        self.assertEqual(sent, [b"abc"])
+        self.assertEqual(reader.remaining, 0)
+        self.assertEqual(result.status_code, 200)
         self.assertEqual(result.headers["ETag"], '"etag"')
 
-    def test_signed_upload_uses_authenticated_http_connect(self):
-        source = Mock()
-        source.read.side_effect = [b"abc", b""]
-        connection = Mock()
-        connection.getresponse.return_value.status = 200
-        connection.getresponse.return_value.getheader.return_value = '"etag"'
-        with (
-            patch.object(
-                sharing, "_proxy_for_url", return_value="http://user:p%40ss@proxy:3128"
-            ),
-            patch.object(
-                sharing.http.client, "HTTPSConnection", return_value=connection
-            ) as factory,
-        ):
-            sharing._UploadSession().put(
-                "https://s3.test/part?signature=secret",
-                data=source,
-                headers={"Content-Length": "3"},
-                timeout=30,
-                allow_redirects=False,
-            )
-        factory.assert_called_once_with("proxy", 3128, timeout=30, context=ANY)
-        connection.set_tunnel.assert_called_once_with(
-            "s3.test",
-            443,
-            headers={"Proxy-Authorization": "Basic dXNlcjpwQHNz"},
-        )
-        connection.putrequest.assert_called_once_with(
-            "PUT", "/part?signature=secret", skip_accept_encoding=True
-        )
-        connection.putheader.assert_called_once_with("Content-Length", "3")
-
-    def test_socks_proxy_uses_remote_dns_and_credentials(self):
-        source = Mock()
-        source.read.return_value = b""
-        connection = Mock()
-        connection.getresponse.return_value.status = 200
-        with (
-            patch.object(
-                sharing, "_proxy_for_url", return_value="socks5h://user:pass@proxy:1080"
-            ),
-            patch.object(
-                sharing.http.client, "HTTPSConnection", return_value=connection
-            ),
-            patch.object(sharing.socks, "create_connection") as connect,
-        ):
-            sharing._UploadSession().put(
-                "https://s3.test/part?signature=secret",
-                data=source,
-                headers={"Content-Length": "0"},
-                timeout=30,
-                allow_redirects=False,
-            )
-            connection._create_connection(("s3.test", 443), 30)
-        connect.assert_called_once_with(
-            ("s3.test", 443),
-            timeout=30,
-            source_address=None,
-            proxy_type=sharing.socks.SOCKS5,
-            proxy_addr="proxy",
-            proxy_port=1080,
-            proxy_rdns=True,
-            proxy_username="user",
-            proxy_password="pass",
-        )
-
-    @unittest.skipUnless(shutil.which("openssl"), "OpenSSL is required for TLS fixture")
-    def test_signed_upload_through_proxies_to_tls_server(self):
+    def test_qgis_network_manager_streams_upload_to_local_server(self):
         requests_seen = []
-        connects = []
-        socks_requests = []
-
-        def relay(local, remote):
-            while True:
-                ready, _, _ = select.select([local, remote], [], [], 5)
-                if not ready:
-                    return
-                for source in ready:
-                    data = source.recv(65536)
-                    if not data:
-                        return
-                    (remote if source is local else local).sendall(data)
 
         class Target(http.server.BaseHTTPRequestHandler):
             def do_PUT(self):
+                if self.headers.get("Transfer-Encoding") == "chunked":
+                    chunks = []
+                    while length := int(self.rfile.readline().strip(), 16):
+                        chunks.append(self.rfile.read(length))
+                        self.rfile.read(2)
+                    self.rfile.readline()
+                    body = b"".join(chunks)
+                else:
+                    body = self.rfile.read(int(self.headers.get("Content-Length", 0)))
                 requests_seen.append(
-                    (self.path, self.rfile.read(int(self.headers["Content-Length"])))
+                    (
+                        self.path,
+                        body,
+                        self.headers.get("Content-Length"),
+                        self.headers.get("Authorization"),
+                    )
                 )
                 self.send_response(200)
                 self.send_header("ETag", '"etag"')
-                self.send_header("Connection", "close")
                 self.end_headers()
 
             def log_message(self, *_args):
                 pass
 
-        class Proxy(socketserver.StreamRequestHandler):
-            def handle(self):
-                first = self.rfile.readline().decode("ascii").strip()
-                headers = []
-                while True:
-                    line = self.rfile.readline()
-                    if line in (b"\r\n", b""):
-                        break
-                    headers.append(line.decode("ascii").strip())
-                connects.append((first, headers))
-                with socket.create_connection(target.server_address) as remote:
-                    self.wfile.write(b"HTTP/1.1 200 Connection established\r\n\r\n")
-                    self.wfile.flush()
-                    relay(self.connection, remote)
-
-        class SocksProxy(socketserver.StreamRequestHandler):
-            def handle(self):
-                version, count = self.rfile.read(2)
-                methods = self.rfile.read(count)
-                if version != 5 or 2 not in methods:
-                    return
-                self.wfile.write(b"\x05\x02")
-                self.wfile.flush()
-                version, length = self.rfile.read(2)
-                username = self.rfile.read(length)
-                length = self.rfile.read(1)[0]
-                password = self.rfile.read(length)
-                if version != 1:
-                    return
-                self.wfile.write(b"\x01\x00")
-                self.wfile.flush()
-                version, command, _, address_type = self.rfile.read(4)
-                if version != 5 or command != 1 or address_type != 1:
-                    return
-                address = socket.inet_ntoa(self.rfile.read(4))
-                port = int.from_bytes(self.rfile.read(2), "big")
-                socks_requests.append((username, password, address, port))
-                with socket.create_connection(target.server_address) as remote:
-                    self.wfile.write(b"\x05\x00\x00\x01\x00\x00\x00\x00\x00\x00")
-                    self.wfile.flush()
-                    relay(self.connection, remote)
-
-        key = Path(self.directory.name) / "key.pem"
-        certificate = Path(self.directory.name) / "certificate.pem"
-        subprocess.run(
-            [
-                "openssl",
-                "req",
-                "-x509",
-                "-newkey",
-                "rsa:2048",
-                "-nodes",
-                "-keyout",
-                str(key),
-                "-out",
-                str(certificate),
-                "-days",
-                "1",
-                "-subj",
-                "/CN=localhost",
-                "-addext",
-                "subjectAltName=IP:127.0.0.1",
-            ],
-            check=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            timeout=30,
-        )
-        target = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Target)
-        context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-        context.minimum_version = ssl.TLSVersion.TLSv1_2
-        context.load_cert_chain(certificate, key)
-        target.socket = context.wrap_socket(target.socket, server_side=True)
-        proxy = socketserver.ThreadingTCPServer(("127.0.0.1", 0), Proxy)
-        proxy.daemon_threads = True
-        socks_proxy = socketserver.ThreadingTCPServer(("127.0.0.1", 0), SocksProxy)
-        socks_proxy.daemon_threads = True
-        for server in (target, proxy, socks_proxy):
-            threading.Thread(target=server.serve_forever, daemon=True).start()
-            self.addCleanup(server.server_close)
-            self.addCleanup(server.shutdown)
-        reader = sharing._PartReader(
-            self.file.open("rb"), 3, lambda: False, lambda _count: None, 0
-        )
-        self.addCleanup(reader.source.close)
-        with (
-            patch.object(
-                sharing,
-                "_proxy_for_url",
-                return_value=f"http://user:pass@127.0.0.1:{proxy.server_address[1]}",
-            ),
-            patch.dict(os.environ, {"REQUESTS_CA_BUNDLE": str(certificate)}),
-        ):
+        manager = sharing.QgsNetworkAccessManager.instance()
+        original = QNetworkProxy(manager.fallbackProxy())
+        excludes = manager.excludeList()
+        no_proxy = manager.noProxyList()
+        server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Target)
+        server.daemon_threads = True
+        worker = threading.Thread(target=server.serve_forever, daemon=True)
+        worker.start()
+        source = self.file.open("rb")
+        progress = []
+        reader = sharing._PartReader(source, 3, lambda: False, progress.append, 0)
+        try:
+            manager.setFallbackProxyAndExcludes(
+                QNetworkProxy(QNetworkProxy.ProxyType.NoProxy), [], []
+            )
             result = sharing._UploadSession().put(
-                f"https://127.0.0.1:{target.server_address[1]}/part?signature=secret",
+                f"http://127.0.0.1:{server.server_address[1]}/part?signature=secret",
                 data=reader,
                 headers={"Content-Length": "3"},
                 timeout=5,
-                allow_redirects=False,
             )
+        finally:
+            source.close()
+            server.shutdown()
+            server.server_close()
+            worker.join()
+            manager.setFallbackProxyAndExcludes(original, excludes, no_proxy)
         self.assertEqual(result.status_code, 200)
         self.assertEqual(result.headers["ETag"], '"etag"')
-        self.assertEqual(requests_seen, [("/part?signature=secret", b"abc")])
-        self.assertTrue(
-            connects[0][0].startswith(f"CONNECT 127.0.0.1:{target.server_address[1]} ")
-        )
-        self.assertIn("Proxy-Authorization: Basic dXNlcjpwYXNz", connects[0][1])
-        self.assertNotIn("signature", str(connects))
-        reader.source.seek(0)
-        reader.remaining = 3
-        with (
-            patch.object(
-                sharing,
-                "_proxy_for_url",
-                return_value=f"socks5h://user:pass@127.0.0.1:{socks_proxy.server_address[1]}",
-            ),
-            patch.dict(os.environ, {"REQUESTS_CA_BUNDLE": str(certificate)}),
-        ):
-            result = sharing._UploadSession().put(
-                f"https://127.0.0.1:{target.server_address[1]}/part?signature=secret",
-                data=reader,
-                headers={"Content-Length": "3"},
-                timeout=5,
-                allow_redirects=False,
-            )
-        self.assertEqual(result.status_code, 200)
-        self.assertEqual(requests_seen[-1], ("/part?signature=secret", b"abc"))
+        self.assertEqual(reader.remaining, 0)
         self.assertEqual(
-            socks_requests, [(b"user", b"pass", "127.0.0.1", target.server_address[1])]
+            requests_seen, [("/part?signature=secret", b"abc", "3", None)]
         )
 
     def test_owner_api_uses_resolved_proxy_and_explicit_ca_bundle(self):

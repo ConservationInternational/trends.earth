@@ -10,17 +10,20 @@ from pathlib import Path
 
 from qgis.core import (
     QgsApplication,
-    QgsColorRampShader,
-    QgsProject,
     QgsProviderRegistry,
     QgsRasterLayer,
     QgsTask,
     QgsVectorLayer,
 )
 from qgis.PyQt import QtCore, QtWidgets
+from te_schemas.jobs import JobStatus
+from te_schemas.results import Band as JobBand
+from te_schemas.results import RasterResults, VectorResults
 
 from . import api
 from .constants import TIMEOUT, get_api_url
+from .jobs.manager import job_manager
+from .layers import _create_color_ramp, _get_band_scale, styles as default_raster_styles
 from .webmap_sharing import ShareCancelled, ShareClient, ShareError
 from .webmap_snapshots import export_raster, export_vector
 
@@ -45,40 +48,72 @@ def _local_layer(layer):
     return str(path), uri.get("layerName") or None
 
 
-def _raster_style(layer):
-    renderer = layer.renderer()
-    if renderer is None:
-        return None
-    if renderer.type() == "paletted":
-        classes = renderer.classes()
+def _raster_style(path, band_index, band_info):
+    style_config = default_raster_styles.get(band_info["name"])
+    if style_config is None:
+        raise ShareError(
+            f"No default Trends.Earth style is defined for {band_info['name']}"
+        )
+    try:
+        items = _create_color_ramp(path, band_index, style_config, band_info)
+        band_scale = _get_band_scale(path, band_index)
+    except (KeyError, RuntimeError, TypeError, ValueError) as exc:
+        raise ShareError(
+            f"Could not convert the default style for {band_info['name']}: {exc}"
+        ) from exc
+
+    nodata = band_info.get("no_data_value")
+    configured_nodata = style_config.get("ramp", {}).get("no data", {}).get("value")
+    if configured_nodata is not None:
+        configured_nodata *= band_scale
+    ramp_type = style_config["ramp"]["type"]
+    is_categorical = ramp_type.startswith("categorical") and (
+        ramp_type != "categorical with dynamic ramp"
+    )
+    colors = []
+    for item in items:
+        if item.value == nodata or item.value == configured_nodata:
+            continue
+        if item.color.alpha() != 255 or not math.isfinite(item.value):
+            raise ShareError(
+                f"The default style for {band_info['name']} uses unsupported colors"
+            )
+        value = float(item.value)
+        if not is_categorical and band_scale not in (0, 1):
+            value /= band_scale
+        colors.append((value, item.color.name().lower()))
+
+    if is_categorical:
         values = {}
-        for item in classes:
-            if not float(item.value).is_integer() or item.color.alpha() != 255:
-                return None
-            values[str(int(item.value))] = item.color.name()
-        if 1 <= len(values) <= 256:
-            return {"kind": "categorical", "values": values}
-    if renderer.type() == "singlebandpseudocolor":
-        raster_shader = renderer.shader()
-        if raster_shader is None:
-            return None
-        shader = raster_shader.rasterShaderFunction()
-        if (
-            isinstance(shader, QgsColorRampShader)
-            and shader.colorRampType() == QgsColorRampShader.Exact
-        ):
-            values = {}
-            for item in shader.colorRampItemList():
-                if (
-                    not math.isfinite(item.value)
-                    or not float(item.value).is_integer()
-                    or item.color.alpha() != 255
-                ):
-                    return None
-                values[str(int(item.value))] = item.color.name()
-            if 1 <= len(values) <= 256:
-                return {"kind": "categorical", "values": values}
-    return None
+        for value, color in colors:
+            if not value.is_integer():
+                raise ShareError(
+                    f"The default categories for {band_info['name']} are not integers"
+                )
+            values[str(int(value))] = color
+        if not values or len(values) > 256:
+            raise ShareError(
+                f"The default categories for {band_info['name']} are unsupported"
+            )
+        return {"kind": "categorical", "values": values}
+
+    colors.sort(key=lambda item: item[0])
+    stops = []
+    for value, color in colors:
+        if stops and value == stops[-1]["value"]:
+            stops[-1]["color"] = color
+        else:
+            stops.append({"value": value, "color": color})
+    if len(stops) < 2 or len(stops) > 32:
+        raise ShareError(
+            f"The default color ramp for {band_info['name']} is unsupported"
+        )
+    return {
+        "kind": "continuous",
+        "min": stops[0]["value"],
+        "max": stops[-1]["value"],
+        "stops": stops,
+    }
 
 
 def _vector_style(layer):
@@ -92,7 +127,7 @@ def _vector_style(layer):
     }
     renderer = layer.renderer()
     if renderer is None:
-        return style
+        raise ShareError("This vector output has no supported default style")
     if renderer.type() == "singleSymbol" and renderer.symbol():
         color = renderer.symbol().color()
         style["stroke"] = color.name()
@@ -103,23 +138,37 @@ def _vector_style(layer):
         values = {}
         for category in renderer.categories():
             if not category.renderState() or category.symbol() is None:
-                return style
+                raise ShareError(
+                    "This categorized vector output has an unsupported default style"
+                )
             raw_value = category.value()
             if raw_value is None:
-                return style
+                raise ShareError(
+                    "This categorized vector output has an unsupported default style"
+                )
             if isinstance(raw_value, bool):
                 value = str(raw_value).lower()
             elif isinstance(raw_value, float):
                 if not math.isfinite(raw_value) or not raw_value.is_integer():
-                    return style
+                    raise ShareError(
+                        "This categorized vector output has an unsupported category"
+                    )
                 value = str(int(raw_value))
             else:
                 value = str(raw_value)
             if not value or len(value) > 120 or value in values:
-                return style
+                raise ShareError(
+                    "This categorized vector output has unsupported categories"
+                )
             values[value] = category.symbol().color().name()
         if field and 1 <= len(values) <= 256:
             style["category"] = {"field": field, "values": values}
+        else:
+            raise ShareError(
+                "This categorized vector output has no supported category field"
+            )
+    else:
+        raise ShareError("This vector output has an unsupported default style")
     return style
 
 
@@ -159,13 +208,41 @@ def _validate_style(style, kind, fields):
         valid = set(style) == {"kind", "values"} and colors(style.get("values"), True)
     elif kind == "raster" and style.get("kind") == "continuous":
         valid = (
-            set(style) == {"kind", "min", "max", "palette"}
-            and number(style.get("min"), -float("inf"), float("inf"))
+            number(style.get("min"), -float("inf"), float("inf"))
             and number(style.get("max"), -float("inf"), float("inf"))
             and style["min"] < style["max"]
-            and style["palette"]
-            in {"viridis", "plasma", "magma", "inferno", "cividis", "turbo"}
         )
+        if valid and set(style) == {"kind", "min", "max", "palette"}:
+            valid = style["palette"] in {
+                "viridis",
+                "plasma",
+                "magma",
+                "inferno",
+                "cividis",
+                "turbo",
+            }
+        elif valid and set(style) == {"kind", "min", "max", "stops"}:
+            stops = style["stops"]
+            valid = (
+                isinstance(stops, list)
+                and 2 <= len(stops) <= 32
+                and all(
+                    isinstance(stop, dict)
+                    and set(stop) == {"value", "color"}
+                    and number(stop["value"], style["min"], style["max"])
+                    and isinstance(stop["color"], str)
+                    and _COLOR.fullmatch(stop["color"])
+                    and (
+                        index == 0
+                        or stop["value"] > stops[index - 1]["value"]
+                    )
+                    for index, stop in enumerate(stops)
+                )
+                and stops[0]["value"] == style["min"]
+                and stops[-1]["value"] == style["max"]
+            )
+        else:
+            valid = False
     elif kind == "vector" and style.get("kind") == "vector":
         required = {"kind", "stroke", "fill", "width", "fill_opacity", "radius"}
         valid = (
@@ -196,9 +273,11 @@ def _validate_style(style, kind, fields):
 
 
 class _LayerOptions(QtWidgets.QDialog):
-    def __init__(self, layer, parent=None):
+    def __init__(self, layer, band_index=None, band_info=None, parent=None):
         super().__init__(parent)
         self.layer = layer
+        self.band_index = band_index
+        self.band_info = band_info
         self.setWindowTitle(self.tr("Web-map layer options"))
         self.resize(550, 500)
         layout = QtWidgets.QVBoxLayout(self)
@@ -209,17 +288,16 @@ class _LayerOptions(QtWidgets.QDialog):
         self.attribution.setMaxLength(500)
         form.addRow(self.tr("Layer name"), self.name)
         form.addRow(self.tr("Attribution"), self.attribution)
-        self.band = QtWidgets.QSpinBox()
         self.min_zoom = QtWidgets.QSpinBox()
         self.max_zoom = QtWidgets.QSpinBox()
         self.fields = QtWidgets.QListWidget()
+        self.path, self.source_layer_name = _local_layer(layer)
         if isinstance(layer, QgsRasterLayer):
-            self.band.setRange(1, max(1, layer.bandCount()))
-            renderer = layer.renderer()
-            if renderer and hasattr(renderer, "band"):
-                self.band.setValue(renderer.band())
-            form.addRow(self.tr("Raster band"), self.band)
-            default_style = _raster_style(layer)
+            if type(band_index) is not int or band_info is None:
+                raise ShareError("Select a raster band from the dataset")
+            self.default_style = _raster_style(
+                self.path, band_index, band_info
+            )
         else:
             self.min_zoom.setRange(0, 22)
             self.max_zoom.setRange(0, 22)
@@ -227,7 +305,7 @@ class _LayerOptions(QtWidgets.QDialog):
             self.max_zoom.setValue(10)
             form.addRow(self.tr("Minimum zoom"), self.min_zoom)
             form.addRow(self.tr("Maximum zoom"), self.max_zoom)
-            default_style = _vector_style(layer)
+            self.default_style = _vector_style(layer)
         layout.addLayout(form)
         if isinstance(layer, QgsVectorLayer):
             note = QtWidgets.QLabel(
@@ -243,25 +321,18 @@ class _LayerOptions(QtWidgets.QDialog):
                 item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
                 item.setCheckState(QtCore.Qt.Unchecked)
                 self.fields.addItem(item)
+                category = self.default_style.get("category")
+                if category and field.name() == category["field"]:
+                    item.setCheckState(QtCore.Qt.Checked)
             layout.addWidget(self.fields)
         note = QtWidgets.QLabel(
             self.tr(
-                "Review or edit the API style JSON. Styles are limited to categorical "
-                "or supported continuous raster palettes, and uniform or categorical "
-                "vector styles. Extracted colors and symbol sizes can be approximate; "
-                "unsupported symbology cannot be reproduced automatically."
+                "The map uses the default Trends.Earth style for this output. "
+                "Style editing is not available."
             )
         )
         note.setWordWrap(True)
         layout.addWidget(note)
-        self.style = QtWidgets.QPlainTextEdit()
-        if default_style:
-            self.style.setPlainText(json.dumps(default_style, indent=2))
-        else:
-            self.style.setPlaceholderText(
-                '{"kind":"continuous","min":0,"max":1,"palette":"viridis"}'
-            )
-        layout.addWidget(self.style)
         buttons = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
         )
@@ -272,10 +343,6 @@ class _LayerOptions(QtWidgets.QDialog):
 
     def _accept(self):
         try:
-            style = json.loads(self.style.toPlainText())
-            if not isinstance(style, dict):
-                raise TypeError
-            path, source_layer = _local_layer(self.layer)
             name = self.name.text().strip()
             if not name:
                 raise ShareError("A layer name is required")
@@ -285,9 +352,7 @@ class _LayerOptions(QtWidgets.QDialog):
                 if self.fields.item(index).checkState() == QtCore.Qt.Checked
             ]
             if isinstance(self.layer, QgsVectorLayer):
-                if style.get("kind") != "vector":
-                    raise ShareError("A vector style is required")
-                category = style.get("category")
+                category = self.default_style.get("category")
                 if category and (
                     not isinstance(category, dict)
                     or category.get("field") not in fields
@@ -299,29 +364,20 @@ class _LayerOptions(QtWidgets.QDialog):
                     raise ShareError("Minimum zoom must not exceed maximum zoom")
                 kind = "vector"
             else:
-                if style.get("kind") not in ("categorical", "continuous"):
-                    raise ShareError("A supported raster style is required")
                 kind = "raster"
-            _validate_style(style, kind, fields)
+            _validate_style(self.default_style, kind, fields)
             self.configuration = {
                 "name": name,
                 "kind": kind,
-                "path": path,
-                "source_layer_name": source_layer,
-                "band": self.band.value(),
+                "path": self.path,
+                "source_layer_name": self.source_layer_name,
+                "band": self.band_index,
                 "fields": fields,
                 "min_zoom": self.min_zoom.value(),
                 "max_zoom": self.max_zoom.value(),
-                "style": style,
+                "style": self.default_style,
                 "attribution": self.attribution.text(),
             }
-        except (ValueError, TypeError):
-            QtWidgets.QMessageBox.warning(
-                self,
-                self.tr("Web-map layer"),
-                self.tr("Enter a valid JSON style object."),
-            )
-            return
         except ShareError as exc:
             QtWidgets.QMessageBox.warning(self, self.tr("Web-map layer"), str(exc))
             return
@@ -378,7 +434,15 @@ class _PrepareTask(QgsTask):
 
 class _PublishTask(QgsTask):
     def __init__(
-        self, base_url, token, title, retention, snapshots, share_id, callback
+        self,
+        base_url,
+        token,
+        title,
+        retention,
+        snapshots,
+        share_id,
+        callback,
+        update_existing=False,
     ):
         super().__init__("Upload and publish web map", QgsTask.CanCancel)
         self.base_url = base_url
@@ -387,10 +451,12 @@ class _PublishTask(QgsTask):
         self.retention = retention
         self.snapshots = snapshots
         self.share_id = share_id
+        self.update_existing = update_existing
         self.callback = callback
         self.error = None
         self.result = None
         self.published = False
+        self.updated = False
 
     def _check_cancelled(self):
         if self.isCanceled():
@@ -402,6 +468,66 @@ class _PublishTask(QgsTask):
             self._check_cancelled()
             client = ShareClient(self.base_url, self.token, timeout=TIMEOUT)
             resuming = bool(self.share_id)
+            if self.update_existing:
+                share = client.status(self.share_id)
+                pending = [
+                    layer for layer in share["layers"] if not layer.get("published")
+                ]
+                if share.get("update_state") == "idle":
+                    share = client.add_layers(
+                        self.share_id,
+                        [snapshot["declaration"] for snapshot in self.snapshots],
+                    )
+                    pending = [
+                        layer
+                        for layer in share["layers"]
+                        if not layer.get("published")
+                    ]
+                expected_names = {
+                    item["declaration"]["name"] for item in self.snapshots
+                }
+                if {layer["name"] for layer in pending} != expected_names:
+                    raise ShareError(
+                        "The pending share update does not match the prepared layers"
+                    )
+                if share.get("update_state") not in (
+                    "uploading",
+                    "failed",
+                    "validating",
+                ):
+                    raise ShareError("The published map cannot accept this update")
+                layers = {layer["name"]: layer for layer in pending}
+                if share["update_state"] == "validating":
+                    share = client.complete(
+                        self.share_id,
+                        [
+                            {"layer_id": layer["id"], "parts": []}
+                            for layer in pending
+                        ],
+                    )
+                else:
+                    share = self._upload_pending(client, layers, share)
+                while share.get("update_state") == "validating":
+                    for _ in range(5):
+                        self._check_cancelled()
+                        time.sleep(1)
+                    share = client.status(self.share_id)
+                if share.get("update_state") == "failed":
+                    details = "; ".join(
+                        error["error"]
+                        for error in share.get("validation_errors", [])
+                    )
+                    raise ShareError(
+                        "Server validation failed: "
+                        + (details or "The new layers could not be validated")
+                    )
+                if share.get("update_state") != "idle":
+                    raise ShareError("The layer update did not complete")
+                self.result = {"share": share}
+                self.updated = True
+                self.published = True
+                self.setProgress(100)
+                return True
             if self.share_id:
                 share = client.status(self.share_id)
             else:
@@ -415,35 +541,7 @@ class _PublishTask(QgsTask):
             if set(layers) != {item["declaration"]["name"] for item in self.snapshots}:
                 raise ShareError("The draft layers do not match the prepared snapshots")
             if share["state"] in ("draft", "uploading"):
-                errors = {
-                    error["layer_id"] for error in share.get("validation_errors", [])
-                }
-                manifest = []
-                total = sum(
-                    item["declaration"]["size_bytes"] for item in self.snapshots
-                )
-                uploaded = 0
-                for item in self.snapshots:
-                    self._check_cancelled()
-                    layer = layers[item["declaration"]["name"]]
-                    size = item["declaration"]["size_bytes"]
-                    if layer["upload_completed"] and layer["id"] not in errors:
-                        manifest.append({"layer_id": layer["id"], "parts": []})
-                    else:
-                        manifest.append(
-                            client.upload(
-                                self.share_id,
-                                layer["id"],
-                                item["path"],
-                                cancelled=self.isCanceled,
-                                progress=lambda count, offset=uploaded: (
-                                    self.setProgress(90 * (offset + count) / total)
-                                ),
-                            )
-                        )
-                    uploaded += size
-                self._check_cancelled()
-                share = client.complete(self.share_id, manifest)
+                share = self._upload_pending(client, layers, share)
             elif share["state"] == "validating" and resuming:
                 # Completion is idempotent and can recover a lost validation enqueue.
                 share = client.complete(
@@ -502,15 +600,51 @@ class _PublishTask(QgsTask):
             if client:
                 client.close()
 
+    def _upload_pending(self, client, layers, share):
+        errors = {
+            error["layer_id"] for error in share.get("validation_errors", [])
+        }
+        manifest = []
+        total = sum(item["declaration"]["size_bytes"] for item in self.snapshots)
+        uploaded = 0
+        for item in self.snapshots:
+            self._check_cancelled()
+            layer = layers[item["declaration"]["name"]]
+            size = item["declaration"]["size_bytes"]
+            if layer["upload_completed"] and layer["id"] not in errors:
+                manifest.append({"layer_id": layer["id"], "parts": []})
+            else:
+                manifest.append(
+                    client.upload(
+                        self.share_id,
+                        layer["id"],
+                        item["path"],
+                        cancelled=self.isCanceled,
+                        progress=lambda count, offset=uploaded: (
+                            self.setProgress(90 * (offset + count) / total)
+                        ),
+                    )
+                )
+            uploaded += size
+        self._check_cancelled()
+        return client.complete(self.share_id, manifest)
+
     def finished(self, result):
         self.callback(self.published or result, self.result, self.share_id, self.error)
 
 
 class CreateWebmapDialog(QtWidgets.QDialog):
-    def __init__(self, parent=None, on_published=None):
+    def __init__(
+        self, parent=None, on_published=None, job=None, existing_share_id=None
+    ):
         super().__init__(parent)
-        self.setWindowTitle(self.tr("Share web map"))
-        self.resize(650, 500)
+        self.existing_share_id = existing_share_id
+        self.setWindowTitle(
+            self.tr("Add layers to shared map")
+            if existing_share_id
+            else self.tr("Share web map")
+        )
+        self.resize(650, 620)
         self.on_published = on_published
         self.api_client = api.APIClient(get_api_url(), TIMEOUT)
         self.directory = tempfile.TemporaryDirectory(prefix="te-webmap-")
@@ -519,14 +653,16 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         self.task = None
         self.share_id = None
         layout = QtWidgets.QVBoxLayout(self)
-        warning = QtWidgets.QLabel(
-            self.tr(
-                "An unlisted link gives anyone who has it access to the map. "
-                "Recipients can forward the link or save content. Review attribution, "
-                "rights, sensitive locations and public vector attributes before sharing. "
-                "The entire layer is shared, not just selected features."
-            )
+        warning_text = (
+            "The existing public link remains active while these layers are uploaded "
+            "and validated. Recipients can forward the link or save content."
+            if existing_share_id
+            else "An unlisted link gives anyone who has it access to the map. "
+            "Recipients can forward the link or save content. Review attribution, "
+            "rights, sensitive locations and public vector attributes before sharing. "
+            "The entire layer is shared, not just selected features."
         )
+        warning = QtWidgets.QLabel(self.tr(warning_text))
         warning.setWordWrap(True)
         layout.addWidget(warning)
         form = QtWidgets.QFormLayout()
@@ -538,16 +674,26 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         form.addRow(self.tr("Map title"), self.title)
         form.addRow(self.tr("Retention after publication"), self.retention)
         layout.addLayout(form)
-        self.layer_choice = QtWidgets.QComboBox()
-        for layer in QgsProject.instance().mapLayers().values():
-            if isinstance(layer, (QgsRasterLayer, QgsVectorLayer)):
-                self.layer_choice.addItem(layer.name(), layer.id())
-        add = QtWidgets.QPushButton(self.tr("Add and configure layer"))
+        if existing_share_id:
+            self.title.hide()
+            self.retention.hide()
+            form.labelForField(self.title).hide()
+            form.labelForField(self.retention).hide()
+
+        self.job_choice = QtWidgets.QComboBox()
+        self.output_choice = QtWidgets.QComboBox()
+        self.band_choice = QtWidgets.QComboBox()
+        self.job_choice_label = QtWidgets.QLabel(self.tr("Dataset"))
+        self.output_choice_label = QtWidgets.QLabel(self.tr("Output"))
+        self.band_choice_label = QtWidgets.QLabel(self.tr("Band"))
+        selectors = QtWidgets.QFormLayout()
+        selectors.addRow(self.job_choice_label, self.job_choice)
+        selectors.addRow(self.output_choice_label, self.output_choice)
+        selectors.addRow(self.band_choice_label, self.band_choice)
+        layout.addLayout(selectors)
+        add = QtWidgets.QPushButton(self.tr("Add selected output"))
         add.clicked.connect(self._add_layer)
-        row = QtWidgets.QHBoxLayout()
-        row.addWidget(self.layer_choice)
-        row.addWidget(add)
-        layout.addLayout(row)
+        layout.addWidget(add)
         self.layers = QtWidgets.QListWidget()
         layout.addWidget(self.layers)
         remove = QtWidgets.QPushButton(self.tr("Remove selected layer"))
@@ -570,7 +716,11 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         layout.addWidget(self.progress)
         buttons = QtWidgets.QHBoxLayout()
         self.prepare_button = QtWidgets.QPushButton(self.tr("Prepare and review"))
-        self.upload_button = QtWidgets.QPushButton(self.tr("Upload and publish"))
+        self.upload_button = QtWidgets.QPushButton(
+            self.tr("Upload and add layers")
+            if existing_share_id
+            else self.tr("Upload and publish")
+        )
         self.cancel_button = QtWidgets.QPushButton(self.tr("Cancel task"))
         self.close_button = QtWidgets.QPushButton(self.tr("Close"))
         for button in (
@@ -587,25 +737,104 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         self.close_button.clicked.connect(self.close)
         self.upload_button.setEnabled(False)
         self.cancel_button.setEnabled(False)
+        self.job_choice.currentIndexChanged.connect(self._populate_outputs)
+        self.output_choice.currentIndexChanged.connect(self._populate_bands)
+        local_jobs = [
+            item
+            for item in job_manager.relevant_jobs
+            if item.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
+            and (item.is_raster() or item.is_vector())
+            and not item.is_timeseries()
+        ]
+        if job is not None:
+            local_jobs = [job]
+            self.job_choice_label.hide()
+            self.job_choice.hide()
+        for item in local_jobs:
+            label = item.visible_name or item.task_name or str(item.id)
+            self.job_choice.addItem(label, item)
+        self._populate_outputs()
         self._editing_widgets = [
             self.title,
             self.retention,
-            self.layer_choice,
+            self.job_choice,
+            self.output_choice,
+            self.band_choice,
             add,
             remove,
             self.prepare_button,
         ]
 
+    def _populate_outputs(self):
+        self.output_choice.clear()
+        self.band_choice.clear()
+        job = self.job_choice.currentData()
+        if job is None or not job_manager.ensure_results_loaded(job):
+            return
+        for result in job._get_results_list():
+            if not isinstance(result, (RasterResults, VectorResults)) or not result.uri:
+                continue
+            path = Path(str(result.uri.uri))
+            if not path.is_file():
+                continue
+            if isinstance(result, RasterResults) and result.get_bands():
+                self.output_choice.addItem(
+                    self.tr("{name} (raster)").format(name=result.name), result
+                )
+            elif isinstance(result, VectorResults):
+                self.output_choice.addItem(
+                    self.tr("{name} (vector)").format(name=result.name), result
+                )
+        self._populate_bands()
+
+    def _populate_bands(self):
+        result = self.output_choice.currentData()
+        raster = isinstance(result, RasterResults)
+        self.band_choice_label.setVisible(raster)
+        self.band_choice.setVisible(raster)
+        self.band_choice.clear()
+        if raster:
+            for index, band in enumerate(result.get_bands(), start=1):
+                self.band_choice.addItem(
+                    self.tr("{name} (band {index})").format(
+                        name=band.name, index=index
+                    ),
+                    index,
+                )
+
     def _add_layer(self):
-        layer = QgsProject.instance().mapLayer(self.layer_choice.currentData())
-        if layer is None:
+        result = self.output_choice.currentData()
+        if result is None:
             return
         try:
+            path = str(result.uri.uri)
+            band_index = None
+            band_info = None
+            if isinstance(result, RasterResults):
+                band_index = self.band_choice.currentData()
+                if type(band_index) is not int:
+                    raise ShareError("Select an output band")
+                band = result.get_bands()[band_index - 1]
+                band_info = JobBand.Schema().dump(band)
+                layer = QgsRasterLayer(path, band.name, "gdal")
+            else:
+                source = (
+                    f"{path}|layername={result.name}"
+                    if Path(path).suffix.lower() in (".gpkg", ".sqlite")
+                    else path
+                )
+                layer = QgsVectorLayer(source, result.name, "ogr")
+            if not layer.isValid():
+                raise ShareError("The selected dataset output could not be opened")
             _local_layer(layer)
         except ShareError as exc:
             QtWidgets.QMessageBox.warning(self, self.tr("Share web map"), str(exc))
             return
-        dialog = _LayerOptions(layer, self)
+        try:
+            dialog = _LayerOptions(layer, band_index, band_info, self)
+        except ShareError as exc:
+            QtWidgets.QMessageBox.warning(self, self.tr("Share web map"), str(exc))
+            return
         if dialog.exec():
             config = dialog.configuration
             if len(self.configurations) >= 10 or any(
@@ -618,7 +847,11 @@ class CreateWebmapDialog(QtWidgets.QDialog):
                 )
                 return
             self.configurations.append(config)
-            self.layers.addItem(f"{config['name']} ({config['kind']})")
+            self.layers.addItem(
+                self.tr("{name} ({kind})").format(
+                    name=config["name"], kind=config["kind"]
+                )
+            )
             self.upload_button.setEnabled(False)
 
     def _remove_layer(self):
@@ -630,17 +863,23 @@ class CreateWebmapDialog(QtWidgets.QDialog):
 
     def _busy(self, busy):
         for widget in self._editing_widgets:
-            widget.setEnabled(not busy and self.share_id is None)
+            widget.setEnabled(
+                not busy
+                and (self.share_id is None or self.existing_share_id is not None)
+            )
         self.upload_button.setEnabled(not busy and bool(self.snapshots))
         self.cancel_button.setEnabled(busy)
         self.close_button.setEnabled(not busy)
 
     def _prepare(self):
-        if not self.title.text().strip() or not self.configurations:
+        if (
+            (not self.existing_share_id and not self.title.text().strip())
+            or not self.configurations
+        ):
             QtWidgets.QMessageBox.warning(
                 self,
                 self.tr("Share web map"),
-                self.tr("Enter a title and select at least one layer."),
+                self.tr("Enter a title and select at least one output."),
             )
             return
         self.directory.cleanup()
@@ -705,7 +944,9 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             return
         self.status.setText(
             self.tr(
-                "Uploading, validating and publishing. This may take several minutes."
+                "Uploading and validating the new layers. This may take several minutes."
+                if self.existing_share_id
+                else "Uploading, validating and publishing. This may take several minutes."
             )
         )
         self.task = _PublishTask(
@@ -714,8 +955,9 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             self.title.text().strip(),
             self.retention.currentData(),
             self.snapshots,
-            self.share_id,
+            self.existing_share_id or self.share_id,
             self._published,
+            update_existing=bool(self.existing_share_id),
         )
         self.task.progressChanged.connect(
             lambda value: self.progress.setValue(int(value))
@@ -729,11 +971,11 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         self._busy(False)
         if not succeeded:
             if error and error.startswith("Server validation failed:"):
-                self.upload_button.setEnabled(False)
+                self.upload_button.setEnabled(bool(self.existing_share_id))
                 self.status.setText(
                     self.tr(
-                        "{error}. Revoke the draft in Manage web-map shares, "
-                        "then create a new share with corrected data."
+                        "{error}. Existing published layers remain available. "
+                        "Correct the source or try again."
                     ).format(error=error)
                 )
                 return
@@ -747,7 +989,11 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             )
             return
         self.upload_button.setEnabled(False)
-        if self.on_published:
+        if self.existing_share_id:
+            self.status.setText(
+                self.tr("The new layers are available in the existing shared map.")
+            )
+        elif self.on_published:
             self.on_published(result)
         self.directory.cleanup()
         self.accept()

@@ -4,14 +4,12 @@ Capability links and signed upload URLs are deliberately kept in memory only.
 This module does not log requests, responses, or transport exceptions.
 """
 
-import base64
-import http.client
 import os
-import ssl
-from urllib.parse import quote, unquote, urlsplit, urlunsplit
+from urllib.parse import quote, urlsplit, urlunsplit
 
 import requests
-import socks
+from qgis.core import QgsNetworkAccessManager
+from qgis.PyQt import QtCore, QtNetwork
 
 
 class ShareError(Exception):
@@ -120,68 +118,108 @@ def _proxy_for_url(url):
 
 
 class _UploadSession:
-    """Send signed URLs without passing their query strings to HTTP loggers."""
+    """Stream signed multipart uploads through QGIS's configured network manager."""
 
-    def put(self, url, data, headers, timeout, allow_redirects):
-        parsed = urlsplit(url)
-        target = parsed.path or "/"
-        if parsed.query:
-            target += "?" + parsed.query
-        proxy_url = _proxy_for_url(url)
-        proxy = urlsplit(proxy_url) if proxy_url else None
-        ca_bundle = os.environ.get("REQUESTS_CA_BUNDLE") or os.environ.get(
-            "CURL_CA_BUNDLE"
+    def put(self, url, data, headers, timeout, cancelled=lambda: False):
+        if cancelled():
+            raise ShareCancelled("Upload cancelled")
+
+        manager = QgsNetworkAccessManager.instance()
+        request = QtNetwork.QNetworkRequest(QtCore.QUrl(url))
+        request.setRawHeader(
+            QtCore.QByteArray(b"Content-Length"),
+            QtCore.QByteArray(headers["Content-Length"].encode("ascii")),
         )
-        context = ssl.create_default_context(cafile=ca_bundle or None)
-        if proxy and proxy.scheme == "http":
-            connection = http.client.HTTPSConnection(
-                proxy.hostname, proxy.port or 80, timeout=timeout, context=context
-            )
-            tunnel_headers = {}
-            if proxy.username is not None:
-                credentials = (
-                    f"{unquote(proxy.username)}:{unquote(proxy.password or '')}"
-                )
-                token = base64.b64encode(credentials.encode("utf-8")).decode("ascii")
-                tunnel_headers["Proxy-Authorization"] = f"Basic {token}"
-            connection.set_tunnel(
-                parsed.hostname, parsed.port or 443, headers=tunnel_headers
-            )
-        else:
-            connection = http.client.HTTPSConnection(
-                parsed.hostname, parsed.port, timeout=timeout, context=context
-            )
-            if proxy:
-
-                def connect(address, timeout=None, source_address=None):
-                    return socks.create_connection(
-                        address,
-                        timeout=timeout,
-                        source_address=source_address,
-                        proxy_type=socks.SOCKS5,
-                        proxy_addr=proxy.hostname,
-                        proxy_port=proxy.port or 1080,
-                        proxy_rdns=proxy.scheme == "socks5h",
-                        proxy_username=unquote(proxy.username)
-                        if proxy.username
-                        else None,
-                        proxy_password=unquote(proxy.password)
-                        if proxy.password
-                        else None,
-                    )
-
-                connection._create_connection = connect
-        connection.set_debuglevel(0)
         try:
-            connection.putrequest("PUT", target, skip_accept_encoding=True)
-            connection.putheader("Content-Length", headers["Content-Length"])
-            connection.endheaders()
-            while chunk := data.read(65536):
-                connection.send(chunk)
-            reply = connection.getresponse()
-            return _UploadResponse(reply.status, reply.getheader("ETag"))
+            request.setAttribute(
+                QtNetwork.QNetworkRequest.Attribute.RedirectPolicyAttribute,
+                QtNetwork.QNetworkRequest.RedirectPolicy.ManualRedirectPolicy,
+            )
+        except AttributeError:
+            request.setAttribute(
+                QtNetwork.QNetworkRequest.RedirectPolicyAttribute,
+                QtNetwork.QNetworkRequest.ManualRedirectPolicy,
+            )
+
+        path = getattr(data.source, "name", None)
+        if not isinstance(path, (str, os.PathLike)):
+            raise ShareError("Could not read the snapshot for upload")
+        device = QtCore.QFile(os.fspath(path))
+        try:
+            open_mode = QtCore.QIODevice.OpenModeFlag.ReadOnly
+        except AttributeError:
+            open_mode = QtCore.QIODevice.ReadOnly
+        if not device.open(open_mode):
+            raise ShareError("Could not read the snapshot for upload")
+        if not device.seek(data.source.tell()):
+            device.close()
+            raise ShareError("Could not seek to the snapshot part")
+
+        reply = manager.put(request, device)
+        loop = QtCore.QEventLoop()
+        reply.finished.connect(loop.quit)
+        timeout_timer = QtCore.QTimer()
+        timeout_timer.setSingleShot(True)
+        cancelled_timer = QtCore.QTimer()
+        timed_out = False
+        transferred = 0
+
+        def reset_timeout(*_args):
+            timeout_timer.start(timeout * 1000)
+
+        def report_progress(sent, _total):
+            nonlocal transferred
+            sent = min(int(sent), data.size)
+            if sent > transferred:
+                data.remaining -= sent - transferred
+                transferred = sent
+                data.progress(data.offset + sent)
+
+        def on_timeout():
+            nonlocal timed_out
+            timed_out = True
+            reply.abort()
+            loop.quit()
+
+        def check_cancelled():
+            if cancelled():
+                reply.abort()
+                loop.quit()
+
+        timeout_timer.timeout.connect(on_timeout)
+        cancelled_timer.timeout.connect(check_cancelled)
+        cancelled_timer.start(100)
+        reply.uploadProgress.connect(report_progress)
+        reply.uploadProgress.connect(reset_timeout)
+        reply.downloadProgress.connect(reset_timeout)
+        reset_timeout()
+        try:
+            if not reply.isFinished():
+                loop.exec()
+            if timed_out:
+                raise ShareError("Snapshot upload timed out")
+            if cancelled():
+                raise ShareCancelled("Upload cancelled")
+
+            try:
+                status_attribute = (
+                    QtNetwork.QNetworkRequest.Attribute.HttpStatusCodeAttribute
+                )
+            except AttributeError:
+                status_attribute = QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
+            status = reply.attribute(status_attribute)
+            status = int(status or 0)
+            if status <= 0:
+                raise ShareError("Could not contact upload storage")
+            etag = bytes(reply.rawHeader(QtCore.QByteArray(b"ETag"))).decode(
+                "latin-1"
+            )
+            return _UploadResponse(status, etag or None)
         finally:
-            connection.close()
+            timeout_timer.stop()
+            cancelled_timer.stop()
+            device.close()
+            reply.deleteLater()
 
     def close(self):
         pass
@@ -269,6 +307,13 @@ class ShareClient:
     def status(self, share_id):
         return self._request("GET", "/" + _share_id(share_id))
 
+    def add_layers(self, share_id, layers):
+        return self._request(
+            "POST",
+            "/" + _share_id(share_id) + "/layers",
+            {"layers": layers},
+        )
+
     def publish(self, share_id):
         return self._request("POST", "/" + _share_id(share_id) + "/publish")
 
@@ -340,9 +385,9 @@ class ShareClient:
                                 data=reader,
                                 headers={"Content-Length": str(size)},
                                 timeout=self.timeout,
-                                allow_redirects=False,
+                                cancelled=cancelled,
                             )
-                        except (OSError, http.client.HTTPException):
+                        except OSError:
                             raise ShareError("Could not upload the snapshot") from None
                         if response.status_code == 403 and attempt == 0:
                             refreshed = self._parts(share_id, layer_id, file_size)

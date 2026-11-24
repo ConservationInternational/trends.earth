@@ -191,6 +191,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     lineEdit_search: QtWidgets.QLineEdit
     import_dataset_pb: QtWidgets.QPushButton
     create_layer_pb: QtWidgets.QPushButton
+    manage_webmap_shares_pb: QtWidgets.QPushButton
     pushButton_load: QtWidgets.QPushButton
     pushButton_download: QtWidgets.QPushButton
     pushButton_refresh: QtWidgets.QPushButton
@@ -981,6 +982,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.pushButton_load.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, "globe.svg")))
         self.pushButton_load.clicked.connect(self.load_base_map)
+        self.manage_webmap_shares_pb.clicked.connect(self.run_webmap_shares)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 
         # Connect search box filter once here (not in refresh_after_cache_update)
@@ -1522,6 +1524,16 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.iface, KNOWN_SCRIPTS["download-landpks"], self
         )
         dialogue.exec()
+
+    def run_webmap_shares(self):
+        from .webmap_dialog import WebmapSharesDialog
+
+        WebmapSharesDialog(self).exec()
+
+    def share_dataset(self, job):
+        from .webmap_create_dialog import CreateWebmapDialog
+
+        CreateWebmapDialog(self, job=job).exec()
 
     def import_known_dataset(self, action: QtWidgets.QAction):
         dialogue = DlgDataIOLoadTE(self)

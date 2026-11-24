@@ -114,6 +114,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         layout.addWidget(self.details)
         controls = QtWidgets.QHBoxLayout()
         self.create_button = QtWidgets.QPushButton(self.tr("Share web map"))
+        self.add_layers_button = QtWidgets.QPushButton(self.tr("Add layers..."))
         self.refresh_button = QtWidgets.QPushButton(self.tr("Refresh"))
         self.publish_button = QtWidgets.QPushButton(self.tr("Publish"))
         self.rotate_button = QtWidgets.QPushButton(self.tr("Rotate link"))
@@ -121,6 +122,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.close_button = QtWidgets.QPushButton(self.tr("Close"))
         for button in (
             self.create_button,
+            self.add_layers_button,
             self.refresh_button,
             self.publish_button,
             self.rotate_button,
@@ -130,6 +132,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             controls.addWidget(button)
         layout.addLayout(controls)
         self.create_button.clicked.connect(self._create)
+        self.add_layers_button.clicked.connect(self._add_layers)
         self.refresh_button.clicked.connect(self.refresh)
         self.publish_button.clicked.connect(self._publish)
         self.rotate_button.clicked.connect(self._rotate)
@@ -152,6 +155,12 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         published = bool(share and share.get("ready_at"))
         self.publish_button.setEnabled(ready and not published and self.task is None)
         self.rotate_button.setEnabled(ready and published and self.task is None)
+        self.add_layers_button.setEnabled(
+            ready
+            and published
+            and share.get("update_state") in ("idle", "uploading", "failed")
+            and self.task is None
+        )
         self.delete_button.setEnabled(bool(share) and self.task is None)
         errors = share.get("validation_errors", []) if share else []
         self.details.setPlainText(
@@ -178,6 +187,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             self._finished,
         )
         self.create_button.setEnabled(False)
+        self.add_layers_button.setEnabled(False)
         self.refresh_button.setEnabled(False)
         self._selection_changed()
         QgsApplication.taskManager().addTask(self.task)
@@ -192,17 +202,33 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.create_button.setEnabled(False)
         CreateWebmapDialog(self, on_published=self._show_link).exec()
         self.create_button.setEnabled(True)
+        self.add_layers_button.setEnabled(True)
+        self.refresh()
+
+    def _add_layers(self):
+        share = self._selected()
+        if not share or share.get("state") != "ready" or not share.get("ready_at"):
+            return
+        from .webmap_create_dialog import CreateWebmapDialog
+
+        self.timer.stop()
+        self.add_layers_button.setEnabled(False)
+        CreateWebmapDialog(self, existing_share_id=share["id"]).exec()
+        self.add_layers_button.setEnabled(True)
         self.refresh()
 
     def _poll(self):
         if self.task is None and any(
-            item.get("state") == "validating" for item in self.shares
+            item.get("state") == "validating"
+            or item.get("update_state") == "validating"
+            for item in self.shares
         ):
             self.refresh()
 
     def _finished(self, operation, succeeded, result, error):
         self.task = None
         self.create_button.setEnabled(True)
+        self.add_layers_button.setEnabled(True)
         self.refresh_button.setEnabled(True)
         if not succeeded:
             self.timer.stop()

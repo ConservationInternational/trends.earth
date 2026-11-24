@@ -11,8 +11,6 @@ from qgis.core import (
     QgsApplication,
     QgsColorRampShader,
     QgsRasterLayer,
-    QgsRasterShader,
-    QgsSingleBandPseudoColorRenderer,
     QgsVectorLayer,
 )
 from qgis.PyQt import QtCore, QtGui
@@ -174,6 +172,65 @@ class TestWebmapPublication(unittest.TestCase):
         self.assertFalse(callback.call_args.args[0])
 
     @patch("LDMP.webmap_create_dialog.time.sleep")
+    @patch("LDMP.webmap_create_dialog.ShareClient")
+    def test_add_layers_to_published_share_preserves_link(self, client, _sleep):
+        owner = client.return_value
+        snapshot = self.snapshots()[0]
+        snapshot["declaration"].update(
+            kind="raster",
+            band=1,
+            sha256=hashlib.sha256(b"raster").hexdigest(),
+            style={"kind": "categorical", "values": {"1": "#ff0000"}},
+            attribution="",
+        )
+        current = {
+            "id": "share",
+            "state": "ready",
+            "update_state": "idle",
+            "ready_at": "published",
+            "layers": [{"id": "old", "name": "old", "published": True}],
+        }
+        added = {
+            **current,
+            "update_state": "uploading",
+            "layers": current["layers"]
+            + [
+                {
+                    "id": "new",
+                    "name": "raster",
+                    "published": False,
+                    "upload_completed": False,
+                }
+            ],
+        }
+        owner.status.side_effect = [
+            current,
+            {**added, "update_state": "validating"},
+            {**added, "update_state": "idle"},
+        ]
+        owner.add_layers.return_value = added
+        owner.upload.return_value = {"layer_id": "new", "parts": []}
+        owner.complete.return_value = {**added, "update_state": "validating"}
+        task = _PublishTask(
+            "https://api.test",
+            "token",
+            "",
+            7,
+            [snapshot],
+            "share",
+            Mock(),
+            update_existing=True,
+        )
+
+        self.assertTrue(task.run(), task.error)
+        self.assertTrue(task.updated)
+        owner.publish.assert_not_called()
+        owner.add_layers.assert_called_once()
+        owner.complete.assert_called_once_with(
+            "share", [{"layer_id": "new", "parts": []}]
+        )
+
+    @patch("LDMP.webmap_create_dialog.time.sleep")
     def test_real_client_runs_multipart_contract(self, _sleep):
         share_id = "bd729388-17b4-4083-b761-f9de911b026a"
         layer_id = "17170ee0-1623-456f-8bf6-3e57f7a5042d"
@@ -246,7 +303,6 @@ class TestWebmapPublication(unittest.TestCase):
             def put(self, _url, **kwargs):
                 self_test.assertFalse(self.trust_env)
                 self_test.assertNotIn("Authorization", kwargs["headers"])
-                self_test.assertFalse(kwargs["allow_redirects"])
                 body = kwargs["data"]
                 chunks = []
                 while chunk := body.read(2):
@@ -311,21 +367,41 @@ class TestWebmapCreationUi(unittest.TestCase):
             layer = QgsRasterLayer(str(path), "Local raster")
             self.assertTrue(layer.isValid())
             layer.setAttribution("Test attribution")
-            shader = QgsColorRampShader()
-            shader.setColorRampType(QgsColorRampShader.Exact)
-            shader.setColorRampItemList(
-                [QgsColorRampShader.ColorRampItem(1, QtGui.QColor("#ff0000"), "One")]
-            )
-            raster_shader = QgsRasterShader()
-            raster_shader.setRasterShaderFunction(shader)
-            layer.setRenderer(
-                QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1, raster_shader)
-            )
-            options = _LayerOptions(layer)
+            band_info = {
+                "name": "Test band",
+                "no_data_value": -9999,
+                "metadata": {},
+            }
+            style_config = {
+                "ramp": {
+                    "type": "categorical",
+                    "no data": {"value": -9999},
+                }
+            }
+            ramp_items = [
+                QgsColorRampShader.ColorRampItem(
+                    -9999, QtGui.QColor("#000000"), "No data"
+                ),
+                QgsColorRampShader.ColorRampItem(
+                    1, QtGui.QColor("#ff0000"), "One"
+                ),
+            ]
+            with (
+                patch(
+                    "LDMP.webmap_create_dialog.default_raster_styles",
+                    {"Test band": style_config},
+                ),
+                patch(
+                    "LDMP.webmap_create_dialog._create_color_ramp",
+                    return_value=ramp_items,
+                ),
+                patch("LDMP.webmap_create_dialog._get_band_scale", return_value=1),
+            ):
+                options = _LayerOptions(layer, 1, band_info)
             self.assertEqual(options.attribution.text(), "Test attribution")
-            self.assertIn('"1": "#ff0000"', options.style.toPlainText())
-            options.style.setPlainText(
-                '{"kind":"continuous","min":0,"max":1,"palette":"viridis"}'
+            self.assertEqual(
+                options.default_style,
+                {"kind": "categorical", "values": {"1": "#ff0000"}},
             )
             options._accept()
             self.assertEqual(options.configuration["path"], str(path))
@@ -357,6 +433,7 @@ class TestWebmapCreationUi(unittest.TestCase):
             dialog.configurations = [options.configuration]
             dialog.title.setText("Test map")
             self.assertEqual(dialog.retention.currentData(), 7)
+            self.assertTrue(hasattr(dialog, "output_choice"))
             dialog.reject()
             options.deleteLater()
             layer = None

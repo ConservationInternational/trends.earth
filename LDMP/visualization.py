@@ -298,8 +298,8 @@ def places_data_path() -> str:
 
 class ExtractAdministrativeArea:
     """
-    Uses a heuristic approach to try get the country name (and possibly
-    region) that intersect with the input extents.
+    Uses the country with the largest overlap with the input extents,
+    then tries to identify a sub-region within that country.
     """
 
     EXTRACT_BY_LOC_ALG = "native:extractbylocation"
@@ -361,34 +361,43 @@ class ExtractAdministrativeArea:
         ):
             return "", ""
 
-        # Start with national
-        nat_ext_layer = self._extract_by_loc(self._national_layer)
+        # A neighbouring country may be fully enclosed while the target
+        # country's bounds differ slightly from the raster's pixel grid.
+        extent_geom = QgsGeometry.fromRect(self._extent)
+        country_code = None
+        whole_country = False
+        nat_ext_layer = self._extract_by_loc(self._national_layer, [0])
         if nat_ext_layer.isValid():
             feat_cnt = nat_ext_layer.featureCount()
-            if feat_cnt == 1:
-                feat = next(nat_ext_layer.getFeatures())
-
-            elif feat_cnt > 1:
-                # Get country with the largest area as it will be the one
-                # covering our area of interest.
-                feats_iter = nat_ext_layer.getFeatures()
-                feat = max(feats_iter, key=lambda f: f.geometry().area())
-
             if feat_cnt > 0:
-                cnt_name = country_name_from_code(feat[cnt_code_attr])
+                feat = max(
+                    nat_ext_layer.getFeatures(),
+                    key=lambda f: f.geometry().intersection(extent_geom).area(),
+                )
+                country_code = feat[cnt_code_attr]
+                cnt_name = country_name_from_code(country_code)
+                whole_country = feat.geometry().within(extent_geom)
 
         if cnt_name:
             region = conf.TR_ALL_REGIONS
-        else:
+        if not whole_country:
             # Try sub-national starting with the WITHIN predicate
-            cnt_name, region = self._admin_from_sub_national_extraction_op([6])
-            if not cnt_name or not region:
+            sub_country, sub_region = self._admin_from_sub_national_extraction_op(
+                [6], country_code
+            )
+            if not sub_country or not sub_region:
                 # Use INTERSECT predicate
-                cnt_name, region = self._admin_from_sub_national_extraction_op([0])
+                sub_country, sub_region = self._admin_from_sub_national_extraction_op(
+                    [0], country_code
+                )
+            if sub_country:
+                cnt_name, region = sub_country, sub_region
 
         return cnt_name, region
 
-    def _admin_from_sub_national_extraction_op(self, predicates) -> tuple[str, str]:
+    def _admin_from_sub_national_extraction_op(
+        self, predicates, country_code: str | None = None
+    ) -> tuple[str, str]:
         """
         Returns the country name and level admin name by intersecting with
         the sub-national layer using the given predicates.
@@ -401,9 +410,14 @@ class ExtractAdministrativeArea:
 
         sub_nat_ext_layer = self._extract_by_loc(self._sub_nat_layer, predicates)
         if sub_nat_ext_layer.isValid():
-            feat_count = sub_nat_ext_layer.featureCount()
+            features = [
+                feature
+                for feature in sub_nat_ext_layer.getFeatures()
+                if country_code is None or feature[sub_cnt_attr] == country_code
+            ]
+            feat_count = len(features)
             if feat_count == 1:
-                feat = next(sub_nat_ext_layer.getFeatures())
+                feat = features[0]
                 cnt_name = country_name_from_code(feat[sub_cnt_attr])
                 sub_code = feat[sub_admin_one_attr]
                 region = admin_one_name_from_code(cnt_name, sub_code)
@@ -412,7 +426,14 @@ class ExtractAdministrativeArea:
 
             elif feat_count > 1:
                 # Just return the national name and 'All regions'
-                feat = next(sub_nat_ext_layer.getFeatures())
+                feat = max(
+                    features,
+                    key=lambda f: (
+                        f.geometry()
+                        .intersection(QgsGeometry.fromRect(self._extent))
+                        .area()
+                    ),
+                )
                 cnt_name = country_name_from_code(feat[sub_cnt_attr])
                 region = conf.TR_ALL_REGIONS
 

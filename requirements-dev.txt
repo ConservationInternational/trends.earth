@@ -5,6 +5,7 @@ sphinx-design
 sphinx-intl
 sphinx-rtd-theme
 sphinxcontrib-spelling
+sphinxcontrib-mermaid>=2.1.1
 myst-parser
 linkify-it-py
 rst2pdf

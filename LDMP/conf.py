@@ -542,6 +542,29 @@ _ALGORITHM_CONFIG = [
         "name": tr_conf.tr("Experimental"),
         "groups": [
             {
+                "name": tr_conf.tr("LDN Planning"),
+                "name_details": tr_conf.tr(
+                    "Planning tools for Land Degradation Neutrality "
+                    "target setting and scenario analysis"
+                ),
+                "algorithms": [
+                    {
+                        "id": "c1f2a3b4-d5e6-7890-abcd-ef1234567802",
+                        "name": tr_conf.tr("Degradation Hotspot Prioritization"),
+                        "description": tr_conf.tr(
+                            "Rank sub-national zones by degraded fraction to "
+                            "identify where intervention is most urgent."
+                        ),
+                        "scripts": [
+                            {
+                                "script": KNOWN_SCRIPTS["ldn-planning-hotspots"],
+                                "parametrization_dialogue": "LDMP.calculate_ldn_planning.DlgCalculateLDNPlanningHotspots",
+                            }
+                        ],
+                    },
+                ],
+            },
+            {
                 "name": tr_conf.tr("LDN Counterbalancing"),
                 "name_details": tr_conf.tr(
                     "Assess whether gains offset losses within each land type"

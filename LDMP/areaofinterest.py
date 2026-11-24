@@ -1,3 +1,4 @@
+import functools
 import json
 import typing
 from pathlib import Path
@@ -263,6 +264,7 @@ class AOI:
             n += 1
         return qgis.core.QgsGeometry.unaryUnion(geometries)
 
+    @functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
     def meridian_split(self, out_type="extent", out_format="geojson", warn=True):
         """
         Return list of bounding boxes in WGS84 as geojson for GEE
@@ -487,6 +489,7 @@ class AOI:
     def isValid(self):
         return self.l.isValid()
 
+    @functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
     def calc_frac_overlap(self, geom):
         """
         Returns fraction of AOI that is overlapped by geom (where geom is a QgsGeometry)

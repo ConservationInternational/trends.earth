@@ -178,7 +178,8 @@ class RemoteStateRefreshWorker(UpdateWorker):
 class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     _SUB_INDICATORS_TAB_PAGE: int = 0
     _DATASETS_TAB_PAGE: int = 1
-    _NEWS_TAB_PAGE: int = 2
+    _PLANNING_TAB_PAGE: int = 2
+    _NEWS_TAB_PAGE: int = 3
 
     iface: qgis.gui.QgisInterface
     refreshing_filesystem_cache: bool
@@ -219,6 +220,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.scheduler_paused = False
         self._pending_cache_refresh = False
         self.setupUi(self)
+        self.setup_planning_tab()
 
         # Initialize the news tab
         self._setup_news_tab()
@@ -636,6 +638,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         super().closeEvent(event)
 
+    def setup_planning_tab(self):
+        from .ldn_planning_panel import PlanningPanel
+
+        self.planning_panel = PlanningPanel(self, self)
+        self.tabWidget.insertTab(
+            self._PLANNING_TAB_PAGE, self.planning_panel, self.tr("LDN Planning")
+        )
+
     def _setup_news_tab(self) -> None:
         """Initialize the news tab with news widgets."""
         from .news import NewsClient
@@ -957,6 +967,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         action_import_population_dataset.triggered.connect(
             self.import_population_dataset
         )
+        action_import_planning_input = self.import_menu.addAction(
+            self.tr("Import LDN prioritization input...")
+        )
+        action_import_planning_input.triggered.connect(self.import_planning_input)
         self.import_dataset_pb.setMenu(self.import_menu)
         self.import_dataset_pb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionSharingImport.svg"))
@@ -993,6 +1007,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.tr("Create false positive/negative layer")
         )
         action_create_error_recode.triggered.connect(self.create_error_recode)
+        action_create_ldn_targets = self.error_recode_menu.addAction(
+            self.tr("Create LDN planning targets layer")
+        )
+        action_create_ldn_targets.triggered.connect(self.create_ldn_targets)
         self.create_layer_pb.setMenu(self.error_recode_menu)
         # self.create_layer_pb.setIcon(
         #    QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg")))
@@ -1430,6 +1448,35 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
             self.resume_scheduler()
 
+    def create_ldn_targets(self):
+        task_name, ok = QtWidgets.QInputDialog.getText(
+            self,
+            self.tr("Create LDN planning targets layer"),
+            self.tr("Task name:"),
+            text=self.tr("LDN Planning Targets"),
+        )
+        if not ok:
+            return
+        if not task_name:
+            task_name = self.tr("LDN Planning Targets")
+        self.pause_scheduler()
+        try:
+            job_manager.create_ldn_targets_layer(task_name)
+        finally:
+            self.resume_scheduler()
+
+        # Find the newly added layer and make it the active layer so that
+        # QGIS's standard Add Feature tool works on it directly.
+        from qgis.core import QgsProject
+
+        for layer in QgsProject.instance().mapLayers().values():
+            if (
+                layer.customProperty("job_id")
+                and layer.name() == "LDN Planning Targets"
+            ):
+                self.iface.setActiveLayer(layer)
+                break
+
     def update_refresh_button_status(self):
         if self.remote_refresh_running:
             self.pushButton_refresh.setEnabled(False)
@@ -1546,6 +1593,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     def import_population_dataset(self, action: QtWidgets.QAction):
         log("import_population_dataset called")
         dialogue = DlgDataIOImportPopulation(self)
+        dialogue.exec()
+
+    def import_planning_input(self, action: QtWidgets.QAction = None):
+        log("import_planning_input called")
+        from .ldn_planning_assets import DlgImportPlanningInput
+
+        dialogue = DlgImportPlanningInput(self)
         dialogue.exec()
 
 

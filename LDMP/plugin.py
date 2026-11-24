@@ -363,6 +363,7 @@ class LDMPPlugin:
         # threads can reference deleted C++ objects after an in-place
         # plugin upgrade.
         if self.dock_widget is not None:
+            self.dock_widget.planning_panel.dispose()
             self.dock_widget.close()
             self.iface.removeDockWidget(self.dock_widget)
             self.dock_widget.deleteLater()

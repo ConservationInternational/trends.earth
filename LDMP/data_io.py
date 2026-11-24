@@ -2306,9 +2306,7 @@ def _get_usable_bands(
         job: Job
         is_available = job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
         is_of_interest = (selected_job_id is None) or (job.id == selected_job_id)
-        is_valid_type = job.is_raster()
-
-        if not (is_available and is_of_interest and is_valid_type):
+        if not (is_available and is_of_interest):
             continue
 
         # Quick bbox pre-filter using cached extent — avoids loading
@@ -2341,8 +2339,9 @@ def _get_usable_bands(
                 continue
 
         # Load data only after all the pre-filtering
+        if not job_manager.ensure_results_loaded(job) or not job.is_raster():
+            continue
         job_manager.ensure_params_loaded(job)
-        job_manager.ensure_results_loaded(job)
 
         # Full prod_mode check (handles edge cases the cache can't cover)
         params = job.params or {}
@@ -2498,6 +2497,8 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         """
         if not self.layer_list:
             return LayerValidationStatus.NO_REGION
+        if self.comboBox_layers.currentIndex() < 0:
+            return LayerValidationStatus.NO_LAYERS
         current_text = self.comboBox_layers.currentText()
         if current_text == self.NO_REGION_MESSAGE:
             return LayerValidationStatus.NO_REGION

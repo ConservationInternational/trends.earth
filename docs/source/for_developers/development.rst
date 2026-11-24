@@ -699,9 +699,9 @@ Overview
 
 The documentation for Trends.Earth is produced using `Sphinx
 <http://www.sphinx-doc.org/en/master/>`_, and is written in `reStructuredText
-<http://docutils.sourceforge.net/rst.html>`_ format. If you are unfamiliar with
-either of these tools, see their documentation for more information on how they
-are used.
+<http://docutils.sourceforge.net/rst.html>`_ or Markdown parsed by
+`MyST <https://myst-parser.readthedocs.io/>`_. If you are unfamiliar with these
+tools, see their documentation for more information on how they are used.
 
 The documentation for Trends.Earth is stored in the "docs" folder under the
 main trends.earth directory. Within that folder there are a number of key files
@@ -719,9 +719,33 @@ and folders to be aware of:
      English version of the plugin - if appropriate additional folders can be
      added under "resources" with two-letter language codes to include images
      specific to a particular language.
-   - source: contains the reStructuredText source files that define the
+   - source: contains the reStructuredText and Markdown source files that define the
      documentation (these are the actual English text of the documentation, and
      are the files you are most likely to need to modify).
+
+Mermaid process diagrams
+------------------------
+
+Write Mermaid diagrams in Markdown using ordinary fenced code blocks::
+
+   ```mermaid
+   flowchart TD
+       Inputs["Choose inputs"] --> Run["Run tool"]
+       Run --> Result["Inspect saved result"]
+   ```
+
+MyST maps these fences to the ``sphinxcontrib.mermaid`` directive, so they render
+on both GitHub and Read the Docs rather than appearing as code listings.
+Read the Docs installs the extension from ``requirements-dev.txt``. HTML pages
+load Mermaid.js in the reader's browser; JavaScript is required to view diagrams.
+Use short labels and accompanying prose, and preview large diagrams at narrow
+screen widths.
+
+Keep published pages under ``docs/source`` and link them from a toctree; Markdown
+files directly under ``docs`` are not part of the published site. For
+diagram-only guides, wrap the toctree entry in ``.. only:: html`` so the
+``rst2pdf`` build does not need to render interactive Mermaid nodes. See the
+:ref:`ldn_planning_process` for examples.
 
 Installing dependencies
 -----------------------

@@ -594,18 +594,16 @@ class TCSummaryWorker(worker.AbstractWorker):
             # Note that carbon is scaled by 10
             initial_carbon_total = initial_carbon_total * 1e-4 / 10
 
-        return list(
-            (
-                forest_loss,
-                carbon_loss,
-                area_missing,
-                area_water,
-                area_non_forest,
-                area_site,
-                initial_forest_area,
-                initial_carbon_total,
-            )
-        )
+        return [
+            forest_loss,
+            carbon_loss,
+            area_missing,
+            area_water,
+            area_non_forest,
+            area_site,
+            initial_forest_area,
+            initial_carbon_total,
+        ]
 
 
 class DlgCalculateTCSummaryTable(

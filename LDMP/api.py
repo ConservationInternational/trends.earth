@@ -51,7 +51,7 @@ def get_client_header():
     # Get QGIS version
     try:
         qgis_version = Qgis.QGIS_VERSION
-    except Exception:
+    except AttributeError:
         qgis_version = "unknown"
 
     # Get OS name
@@ -67,7 +67,7 @@ def get_client_header():
     try:
         locale = QgsApplication.locale()
         lang = locale.split("_")[0] if locale else "en"
-    except Exception:
+    except (AttributeError, RuntimeError):
         lang = "en"
 
     return (
@@ -347,7 +347,7 @@ class RequestTask(QgsTask):
             else:
                 self.exception = ValueError(f"Unrecognized method: {self.method}")
                 return False
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             self.exception = exc
             return False
 
@@ -467,7 +467,7 @@ class APIClient(QtCore.QObject):
             payload_data = json.loads(decoded_bytes.decode("utf-8"))
 
             return payload_data
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(f"Error decoding JWT payload: {e}")
             return None
 
@@ -719,7 +719,7 @@ class APIClient(QtCore.QObject):
                     log("Server-side logout successful")
                 else:
                     log("Server-side logout failed, but clearing local tokens anyway")
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 log(f"Error during server-side logout: {e}")
 
         # Always clear local tokens, credential cache, and cached user ID
@@ -733,14 +733,14 @@ class APIClient(QtCore.QObject):
         # Clear cached user ID from settings
         try:
             conf.settings_manager.write_value(conf.Setting.USER_ID, None)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(f"Warning: Could not clear cached user ID: {e}")
 
         # Remove QGIS authentication configuration to prevent conflicts with new logins
         try:
             auth.remove_current_auth_config(auth.TE_API_AUTH_SETUP)
             log("Removed QGIS authentication configuration")
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(f"Warning: Could not remove QGIS auth config: {e}")
 
         # Clear all auth-related settings to ensure clean state
@@ -750,7 +750,7 @@ class APIClient(QtCore.QObject):
             settings.setValue(f"trends_earth/{auth.TE_API_AUTH_SETUP.key}", None)
 
             log("Cleared Trends.Earth authentication settings")
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(f"Warning: Could not clear auth settings: {e}")
 
         log("User logged out and tokens cleared")
@@ -814,7 +814,7 @@ class APIClient(QtCore.QObject):
                             "requires_password_reset", False
                         ),
                     }
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(f"Failed to parse login error response: {e}")
 
         return False, error_info
@@ -899,7 +899,7 @@ class APIClient(QtCore.QObject):
                         encoding = bytes(resp.rawHeader(b"Content-Encoding")).decode(
                             "utf-8", errors="ignore"
                         )
-                    except Exception:
+                    except (AttributeError, TypeError):
                         encoding = ""
                     if "gzip" in encoding.lower():
                         try:
@@ -918,7 +918,7 @@ class APIClient(QtCore.QObject):
                         encoding = bytes(resp.rawHeader(b"Content-Encoding")).decode(
                             "utf-8", errors="ignore"
                         )
-                    except Exception:
+                    except (AttributeError, TypeError):
                         encoding = ""
                     if "gzip" in encoding.lower():
                         try:
@@ -962,7 +962,7 @@ class APIClient(QtCore.QObject):
                         log(
                             f"Non-JSON error response (first 500 chars): {error_text[:500]}"
                         )
-                except Exception as e:
+                except Exception as e:  # noqa: BLE001
                     log(f"Could not parse error response body: {e}")
 
                 # Provide user-friendly error messages for common transient errors

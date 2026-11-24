@@ -214,14 +214,14 @@ def _get_script_by_id_from_remote(script_id: str) -> ExecutionScript:
     if remote_scripts is None:
         return
     try:
-        script = [s for s in remote_scripts if str(s.id) == str(script_id)][0]
+        script = next(s for s in remote_scripts if str(s.id) == str(script_id))
     except IndexError:
         log(
             f"script {script_id!r} not found on remote server "
             "by id - checking for matches by slug"
         )
         try:
-            script = [s for s in remote_scripts if str(s.slug) == str(script_id)][0]
+            script = next(s for s in remote_scripts if str(s.slug) == str(script_id))
         except IndexError:
             raise IndexError
     script = ExecutionScript.Schema().load(RemoteScript.Schema().dump(script))
@@ -231,9 +231,9 @@ def _get_script_by_id_from_remote(script_id: str) -> ExecutionScript:
 
 def _get_script_by_id_from_local(script_id: str) -> ExecutionScript:
     try:
-        script = [
+        script = next(
             s for s in conf.KNOWN_SCRIPTS.values() if str(s.id) == str(script_id)
-        ][0]
+        )
         return script
     except IndexError:
         raise IndexError

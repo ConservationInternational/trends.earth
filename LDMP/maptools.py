@@ -288,7 +288,7 @@ class TEMapToolMixin:
         if len(job.params) == 0:
             return None
 
-        related_job = list(job.params.values())[0]
+        related_job = next(iter(job.params.values()))
         path = related_job.get("path", None)
         if path is None:
             return None

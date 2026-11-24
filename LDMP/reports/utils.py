@@ -108,8 +108,8 @@ def job_has_report(job: Job, options: ReportOutputOptions) -> bool:
     even a single missing file, it will return False.
     """
     _, band_paths = build_report_paths(job, options)
-    for band_idx, tt_paths in band_paths.items():
-        for template_type, paths in tt_paths.items():
+    for tt_paths in band_paths.values():
+        for paths in tt_paths.values():
             for rpt_path in paths:
                 if not os.path.exists(rpt_path):
                     return False

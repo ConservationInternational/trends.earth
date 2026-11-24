@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 WidgetAlgorithmLeafUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetAlgorithmLeaf.ui")
 )
+INVALID_MODEL_INDEX = QtCore.QModelIndex()
 
 
 class AlgorithmTreeModel(QtCore.QAbstractItemModel):
@@ -59,7 +60,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         invalid_index = QtCore.QModelIndex()
         if index.isValid():
             current_item = index.internalPointer()
-            current_item: typing.Optional[models.AlgorithmGroup, models.Algorithm]
+            current_item: models.AlgorithmGroup | models.Algorithm | None
             parent_item = current_item.parent
             if parent_item is None:
                 row = 0
@@ -77,12 +78,12 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
             result = invalid_index
         return result
 
-    def rowCount(self, index: QtCore.QModelIndex = QtCore.QModelIndex()) -> int:
+    def rowCount(self, index: QtCore.QModelIndex = INVALID_MODEL_INDEX) -> int:
         if index.column() > 0:
             result = 0
         elif index.isValid():
             current_item = index.internalPointer()
-            current_item: typing.Optional[models.AlgorithmGroup, models.Algorithm]
+            current_item: models.AlgorithmGroup | models.Algorithm | None
             if current_item is not None:
                 if current_item.item_type == models.AlgorithmNodeType.Group:
                     result = len(current_item.groups) + len(current_item.algorithms)
@@ -94,12 +95,12 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
             result = len(self.root_item.groups) + len(self.root_item.algorithms)
         return result
 
-    def columnCount(self, index: QtCore.QModelIndex = QtCore.QModelIndex()) -> int:
+    def columnCount(self, index: QtCore.QModelIndex = INVALID_MODEL_INDEX) -> int:
         return 1
 
     def data(
         self,
-        index: QtCore.QModelIndex = QtCore.QModelIndex(),
+        index: QtCore.QModelIndex = INVALID_MODEL_INDEX,
         role: QtCore.Qt.ItemDataRole = QtCore.Qt.DisplayRole,
     ) -> models.AlgorithmGroup | models.Algorithm | None:
         if index.isValid():
@@ -126,7 +127,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         return result
 
     def flags(
-        self, index: QtCore.QModelIndex = QtCore.QModelIndex()
+        self, index: QtCore.QModelIndex = INVALID_MODEL_INDEX
     ) -> QtCore.Qt.ItemFlags:
         if index.isValid():
             default_flags = super().flags(index)

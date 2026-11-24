@@ -162,7 +162,7 @@ class BoundaryTimestampManager:
             else:
                 log("Could not get server last updated timestamp")
                 return None
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(f"Error fetching server timestamp: {e}")
             return None
 
@@ -374,9 +374,12 @@ def extract_zipfile(f, verify=True):
     filename = os.path.join(os.path.dirname(__file__), "data", f)
     url = f"https://s3.amazonaws.com/trends.earth/sharing/{f}"
 
-    if os.path.exists(filename) and verify:
-        if not check_hash_against_etag(url, filename):
-            os.remove(filename)
+    if (
+        os.path.exists(filename)
+        and verify
+        and not check_hash_against_etag(url, filename)
+    ):
+        os.remove(filename)
 
     if not os.path.exists(filename):
         log(f"Downloading {f}")
@@ -412,9 +415,12 @@ def read_json(f, verify=True):
     filename = os.path.join(os.path.dirname(__file__), "data", f)
     url = f"https://s3.amazonaws.com/trends.earth/sharing/{f}"
 
-    if os.path.exists(filename) and verify:
-        if not check_hash_against_etag(url, filename):
-            os.remove(filename)
+    if (
+        os.path.exists(filename)
+        and verify
+        and not check_hash_against_etag(url, filename)
+    ):
+        os.remove(filename)
 
     if not os.path.exists(filename):
         log(f"Downloading {f}")
@@ -543,7 +549,7 @@ def get_admin_bounds() -> dict[str, Country]:
             Qgis.MessageLevel.Critical,
         )
         return {}
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         log(f"Error loading boundaries from API: {e}")
         cached_boundaries = _get_boundaries_from_local_cache()
         if cached_boundaries:
@@ -610,7 +616,7 @@ def _get_boundaries_from_api() -> dict[str, Country] | None:
         )
         return _convert_api_boundaries_to_countries(boundaries_list)
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         log(f"Error fetching boundaries from API: {e}")
         return None
 
@@ -649,7 +655,7 @@ def _get_boundaries_from_local_cache() -> dict[str, Country] | None:
 
         log("Loaded administrative boundaries from packaged cache")
         return _convert_api_boundaries_to_countries(boundaries_list)
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         log(
             f"Error loading boundaries from packaged cache: {exc}",
             Qgis.MessageLevel.Warning,
@@ -846,7 +852,7 @@ def download_boundary_geojson(
                     else:
                         boundaries_list = cached_data
                     log("Loaded boundaries list from cache for download URLs")
-                except Exception as cache_err:
+                except Exception as cache_err:  # noqa: BLE001
                     log(f"Error loading cached boundaries list: {cache_err}")
                     boundaries_list = None
 
@@ -965,7 +971,7 @@ def download_boundary_geojson(
 
         try:
             encoding = bytes(reply.rawHeader(b"Content-Encoding")).decode("utf-8")
-        except Exception:
+        except (AttributeError, TypeError):
             encoding = ""
 
         try:
@@ -997,7 +1003,7 @@ def download_boundary_geojson(
 
         return geojson_data
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         log(f"Error downloading boundary GeoJSON: {e}")
         return None
 
@@ -1072,7 +1078,7 @@ class DownloadWorker(AbstractWorker):
             loop.exec()
             watchdog.stop()
 
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(tr_download.tr("Error in downloading file, {}").format(str(e)))
 
     def update_progress(self, value, total):
@@ -1137,7 +1143,7 @@ class Download:
                 tr_download.tr("Error"),
                 tr_download.tr("Download failed. Check your internet connection."),
             )
-        except Exception:
+        except Exception:  # noqa: BLE001
             QtWidgets.QMessageBox.critical(
                 None,
                 tr_download.tr("Error"),
@@ -1192,18 +1198,21 @@ class DownloadFileTask(QgsTask):
 
             try:
                 success = self._download_with_qgs_file_downloader()
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 log(
                     f"Download attempt {attempt + 1} failed for "
                     f"{self.output_path.name}: {e}"
                 )
                 success = False
 
-            if success and self.expected_etag is not None:
-                if not verify_file_against_etag(self.output_path, self.expected_etag):
-                    log(f"Etag verification failed for {self.output_path}, deleting")
-                    self.output_path.unlink(missing_ok=True)
-                    success = False
+            if (
+                success
+                and self.expected_etag is not None
+                and not verify_file_against_etag(self.output_path, self.expected_etag)
+            ):
+                log(f"Etag verification failed for {self.output_path}, deleting")
+                self.output_path.unlink(missing_ok=True)
+                success = False
 
             if success:
                 self.success = True

@@ -46,7 +46,8 @@ def compute_soil_organic_carbon(
         soc_job.params["legend_nesting_custom_to_ipcc"]
     )
 
-    in_vrt_path = tempfile.NamedTemporaryFile(suffix=".vrt").name
+    with tempfile.NamedTemporaryFile(suffix=".vrt", delete=False) as temp_file:
+        in_vrt_path = temp_file.name
     LDMP.logger.log(f"Saving SOC input files to {in_vrt_path}")
     ds_vrt = gdal.BuildVRT(
         in_vrt_path,
@@ -317,7 +318,7 @@ def soilorganiccarbon_work(
                 # cover, and second digit for target year land cover), but
                 # only update where changes actually ocurred.
                 lc_tr = lc_t0 * ipcc_nesting.get_multiplier() + lc_t1
-                lc_tr[(lc_t0 < 1) | (lc_t1 < 1)] < --32768
+                lc_tr[(lc_t0 < 1) | (lc_t1 < 1)] = -32768
 
                 ######################################################
                 # If more than one year has elapsed, need to split the

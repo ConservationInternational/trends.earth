@@ -148,12 +148,18 @@ def scan_archive_files(archive_path, rules):
         for entry in archive.infolist():
             filename = entry.filename
             basename = Path(filename).name
-            if filename.endswith(".py") and (entry.external_attr >> 16) & 0o111:
-                if "FILE_EXECUTABLE" in enabled:
-                    executable_python.append(filename)
-            if basename.startswith(".") and basename not in HIDDEN_ALLOWLIST:
-                if "FILE_HIDDEN" in enabled:
-                    suspicious.append(f"{filename} - Hidden file detected")
+            if (
+                filename.endswith(".py")
+                and (entry.external_attr >> 16) & 0o111
+                and "FILE_EXECUTABLE" in enabled
+            ):
+                executable_python.append(filename)
+            if (
+                basename.startswith(".")
+                and basename not in HIDDEN_ALLOWLIST
+                and "FILE_HIDDEN" in enabled
+            ):
+                suspicious.append(f"{filename} - Hidden file detected")
             for extension in SUSPICIOUS_EXTENSIONS:
                 if filename.lower().endswith(extension):
                     if "FILE_SUSPICIOUS" in enabled:

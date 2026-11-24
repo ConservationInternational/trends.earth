@@ -127,8 +127,7 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
     def on_accept(self):
         # Slot raised to check if all the datasets have been selected based
         # on the 'validate_all' flag.
-        if self.validate_all:
-            if not self.validate_selection():
-                return
+        if self.validate_all and not self.validate_selection():
+            return
 
         self.accept()

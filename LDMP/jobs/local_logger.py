@@ -104,5 +104,5 @@ class LocalJobLogHandler(logging.Handler):
             with open(self.log_file_path, "a", encoding="utf-8") as f:
                 f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-        except Exception:
+        except Exception:  # noqa: BLE001
             self.handleError(record)

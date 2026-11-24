@@ -309,6 +309,9 @@ class ShareClient:
     def status(self, share_id):
         return self._request("GET", "/" + _share_id(share_id))
 
+    def link(self, share_id):
+        return self._request("GET", "/" + _share_id(share_id) + "/link")
+
     def add_layers(self, share_id, layers):
         return self._request(
             "POST",

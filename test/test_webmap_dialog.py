@@ -59,6 +59,59 @@ class TestWebmapSharesDialog(unittest.TestCase):
         self.assertEqual(self.dialog.details.toPlainText(), "Invalid COG")
         self.assertIn("pending cleanup 1", self.dialog.storage.text())
 
+    def test_published_share_link_is_viewable_and_copyable(self):
+        usage = {
+            "uploaded_bytes": 0,
+            "reserved_bytes": 0,
+            "cleanup_pending_bytes": 0,
+            "available_bytes": 1,
+            "quota_limit_bytes": 1,
+        }
+        published = {"state": "ready", "ready_at": "2026-01-01T00:00:00Z"}
+        shares = [
+            dict(published, id="a", title="Current", link="https://viewer.test/a#s"),
+            dict(published, id="b", title="Legacy", link=None),
+        ]
+        self.dialog._finished("refresh", True, (shares, usage), None)
+        self.dialog.table.selectRow(0)
+        self.assertEqual(self.dialog.link.text(), "https://viewer.test/a#s")
+        self.assertEqual(self.dialog.table.item(0, 4).text(), "https://viewer.test/a#s")
+        self.dialog._copy_link()
+        self.assertEqual(
+            QtWidgets.QApplication.clipboard().text(), "https://viewer.test/a#s"
+        )
+        self.dialog.table.selectRow(1)
+        self.assertEqual(self.dialog.link.text(), "")
+        self.assertFalse(self.dialog.copy_link_button.isEnabled())
+        self.assertIn("rotate", self.dialog.link.placeholderText())
+
+    @patch("LDMP.webmap_dialog.ShareClient")
+    def test_refresh_fetches_links_only_for_published_shares(self, client):
+        client.return_value.list.return_value = [
+            {"id": "a", "state": "ready", "ready_at": "2026-01-01T00:00:00Z"},
+            {"id": "b", "state": "ready", "ready_at": "2026-01-01T00:00:00Z"},
+            {"id": "c", "state": "ready", "ready_at": None},
+        ]
+        client.return_value.storage.return_value = {
+            "uploaded_bytes": 0,
+            "reserved_bytes": 0,
+            "cleanup_pending_bytes": 0,
+            "available_bytes": 1,
+            "quota_limit_bytes": 1,
+        }
+        client.return_value.link.side_effect = [
+            {"link": "https://viewer.test/a#s"},
+            ShareError("Not stored", 409),
+        ]
+        task = _OwnerTask("https://api.test", "owner-token", "refresh", None, Mock())
+        self.assertTrue(task.run())
+        shares, _ = task.result
+        self.assertEqual(
+            [share["link"] for share in shares],
+            ["https://viewer.test/a#s", None, None],
+        )
+        self.assertEqual(client.return_value.link.call_count, 2)
+
     def test_busy_dialog_cannot_be_dismissed(self):
         self.dialog.task = Mock()
         with patch.object(QtWidgets.QDialog, "reject") as reject:

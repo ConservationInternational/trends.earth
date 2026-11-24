@@ -1,7 +1,7 @@
 """Owner controls for expiring unlisted web maps."""
 
 from qgis.core import QgsApplication, QgsTask
-from qgis.PyQt import QtCore, QtWidgets
+from qgis.PyQt import QtCore, QtGui, QtWidgets
 
 from . import api
 from .constants import TIMEOUT, get_api_url
@@ -42,6 +42,8 @@ class _OwnerTask(QgsTask):
                     raise ShareError(
                         "Invalid response from the web-map sharing service"
                     )
+                for share in shares:
+                    share["link"] = self._link(client, share)
             else:
                 self.result = getattr(client, self.operation)(self.share_id)
                 if not isinstance(self.result, dict):
@@ -68,6 +70,22 @@ class _OwnerTask(QgsTask):
             if client:
                 client.close()
 
+    @staticmethod
+    def _link(client, share):
+        if share.get("state") != "ready" or not share.get("ready_at"):
+            return None
+        try:
+            result = client.link(share["id"])
+        except ShareError as exc:
+            # Links minted before the API stored them must be rotated once.
+            if exc.status_code == 409:
+                return None
+            raise
+        link = result.get("link") if isinstance(result, dict) else None
+        if not isinstance(link, str) or not link.startswith("https://"):
+            raise ShareError("Invalid response from the web-map sharing service")
+        return link
+
     def finished(self, result):
         self.callback(self.operation, result, self.result, self.error)
 
@@ -93,13 +111,14 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.storage = QtWidgets.QLabel()
         self.storage.setWordWrap(True)
         layout.addWidget(self.storage)
-        self.table = QtWidgets.QTableWidget(0, 4)
+        self.table = QtWidgets.QTableWidget(0, 5)
         self.table.setHorizontalHeaderLabels(
             [
                 self.tr("Title"),
                 self.tr("Status"),
                 self.tr("Expires (UTC)"),
                 self.tr("Size"),
+                self.tr("Link"),
             ]
         )
         self.table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
@@ -108,6 +127,18 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.table.horizontalHeader().setStretchLastSection(True)
         self.table.itemSelectionChanged.connect(self._selection_changed)
         layout.addWidget(self.table)
+        link_row = QtWidgets.QHBoxLayout()
+        link_row.addWidget(QtWidgets.QLabel(self.tr("Link:")))
+        self.link = QtWidgets.QLineEdit()
+        self.link.setReadOnly(True)
+        link_row.addWidget(self.link)
+        self.copy_link_button = QtWidgets.QPushButton(self.tr("Copy link"))
+        self.open_link_button = QtWidgets.QPushButton(self.tr("Open in browser"))
+        link_row.addWidget(self.copy_link_button)
+        link_row.addWidget(self.open_link_button)
+        layout.addLayout(link_row)
+        self.copy_link_button.clicked.connect(self._copy_link)
+        self.open_link_button.clicked.connect(self._open_link)
         self.details = QtWidgets.QPlainTextEdit()
         self.details.setReadOnly(True)
         self.details.setMaximumHeight(80)
@@ -162,6 +193,18 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             and self.task is None
         )
         self.delete_button.setEnabled(bool(share) and self.task is None)
+        link = share.get("link") if share else None
+        self.link.setText(link or "")
+        if share and ready and published and not link:
+            self.link.setPlaceholderText(
+                self.tr("This link was created before links were stored; rotate it.")
+            )
+        else:
+            self.link.setPlaceholderText(
+                self.tr("Select a published share to view its link.")
+            )
+        self.copy_link_button.setEnabled(bool(link))
+        self.open_link_button.setEnabled(bool(link))
         errors = share.get("validation_errors", []) if share else []
         self.details.setPlainText(
             "\n".join(str(error.get("error", "")) for error in errors)
@@ -250,6 +293,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
                     share.get("state", ""),
                     share.get("expires_at") or "",
                     str(share.get("quota_reserved_bytes", 0)),
+                    share.get("link") or "",
                 )
                 for column, value in enumerate(values):
                     self.table.setItem(
@@ -284,6 +328,14 @@ class WebmapSharesDialog(QtWidgets.QDialog):
 
     def _show_link(self, result):
         show_link(self, result)
+
+    def _copy_link(self):
+        if self.link.text():
+            QtWidgets.QApplication.clipboard().setText(self.link.text())
+
+    def _open_link(self):
+        if self.link.text().startswith("https://"):
+            QtGui.QDesktopServices.openUrl(QtCore.QUrl(self.link.text()))
 
     def _publish(self):
         answer = QtWidgets.QMessageBox.question(
@@ -337,8 +389,8 @@ def show_link(parent, result):
     layout = QtWidgets.QVBoxLayout(dialog)
     label = QtWidgets.QLabel(
         dialog.tr(
-            "Copy this link now. It cannot be retrieved again; anyone with it "
-            "can access and redistribute the map until it expires or is revoked."
+            "Anyone with this link can access and redistribute the map until it "
+            "expires or is revoked. You can view it again in Manage web-map shares."
         )
     )
     label.setWordWrap(True)

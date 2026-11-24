@@ -80,6 +80,16 @@ class TestWebmapSharing(unittest.TestCase):
         self.assertEqual(kwargs["headers"]["Authorization"], "Bearer owner-token")
         self.assertFalse(kwargs["allow_redirects"])
 
+    def test_owner_can_retrieve_current_link(self):
+        self.client._api_session.request.return_value = response(
+            data={"link": "https://viewer.test/share/id#secret"}
+        )
+        self.assertEqual(
+            self.client.link(SHARE)["link"], "https://viewer.test/share/id#secret"
+        )
+        args, _ = self.client._api_session.request.call_args
+        self.assertEqual(args, ("GET", f"https://api.test/api/v1/shares/{SHARE}/link"))
+
     def test_api_503_explains_server_configuration_is_required(self):
         self.client._api_session.request.return_value = response(status=503)
 

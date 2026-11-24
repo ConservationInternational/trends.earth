@@ -23,7 +23,8 @@ from te_schemas.results import RasterResults, VectorResults
 from . import api
 from .constants import TIMEOUT, get_api_url
 from .jobs.manager import job_manager
-from .layers import _create_color_ramp, _get_band_scale, styles as default_raster_styles
+from .layers import _create_color_ramp, _get_band_scale
+from .layers import styles as default_raster_styles
 from .webmap_sharing import ShareCancelled, ShareClient, ShareError
 from .webmap_snapshots import export_raster, export_vector
 
@@ -232,10 +233,7 @@ def _validate_style(style, kind, fields):
                     and number(stop["value"], style["min"], style["max"])
                     and isinstance(stop["color"], str)
                     and _COLOR.fullmatch(stop["color"])
-                    and (
-                        index == 0
-                        or stop["value"] > stops[index - 1]["value"]
-                    )
+                    and (index == 0 or stop["value"] > stops[index - 1]["value"])
                     for index, stop in enumerate(stops)
                 )
                 and stops[0]["value"] == style["min"]
@@ -295,9 +293,7 @@ class _LayerOptions(QtWidgets.QDialog):
         if isinstance(layer, QgsRasterLayer):
             if type(band_index) is not int or band_info is None:
                 raise ShareError("Select a raster band from the dataset")
-            self.default_style = _raster_style(
-                self.path, band_index, band_info
-            )
+            self.default_style = _raster_style(self.path, band_index, band_info)
         else:
             self.min_zoom.setRange(0, 22)
             self.max_zoom.setRange(0, 22)
@@ -479,9 +475,7 @@ class _PublishTask(QgsTask):
                         [snapshot["declaration"] for snapshot in self.snapshots],
                     )
                     pending = [
-                        layer
-                        for layer in share["layers"]
-                        if not layer.get("published")
+                        layer for layer in share["layers"] if not layer.get("published")
                     ]
                 expected_names = {
                     item["declaration"]["name"] for item in self.snapshots
@@ -500,10 +494,7 @@ class _PublishTask(QgsTask):
                 if share["update_state"] == "validating":
                     share = client.complete(
                         self.share_id,
-                        [
-                            {"layer_id": layer["id"], "parts": []}
-                            for layer in pending
-                        ],
+                        [{"layer_id": layer["id"], "parts": []} for layer in pending],
                     )
                 else:
                     share = self._upload_pending(client, layers, share)
@@ -514,8 +505,7 @@ class _PublishTask(QgsTask):
                     share = client.status(self.share_id)
                 if share.get("update_state") == "failed":
                     details = "; ".join(
-                        error["error"]
-                        for error in share.get("validation_errors", [])
+                        error["error"] for error in share.get("validation_errors", [])
                     )
                     raise ShareError(
                         "Server validation failed: "
@@ -601,9 +591,7 @@ class _PublishTask(QgsTask):
                 client.close()
 
     def _upload_pending(self, client, layers, share):
-        errors = {
-            error["layer_id"] for error in share.get("validation_errors", [])
-        }
+        errors = {error["layer_id"] for error in share.get("validation_errors", [])}
         manifest = []
         total = sum(item["declaration"]["size_bytes"] for item in self.snapshots)
         uploaded = 0
@@ -620,8 +608,8 @@ class _PublishTask(QgsTask):
                         layer["id"],
                         item["path"],
                         cancelled=self.isCanceled,
-                        progress=lambda count, offset=uploaded: (
-                            self.setProgress(90 * (offset + count) / total)
+                        progress=lambda count, offset=uploaded: self.setProgress(
+                            90 * (offset + count) / total
                         ),
                     )
                 )
@@ -873,9 +861,8 @@ class CreateWebmapDialog(QtWidgets.QDialog):
 
     def _prepare(self):
         if (
-            (not self.existing_share_id and not self.title.text().strip())
-            or not self.configurations
-        ):
+            not self.existing_share_id and not self.title.text().strip()
+        ) or not self.configurations:
             QtWidgets.QMessageBox.warning(
                 self,
                 self.tr("Share web map"),

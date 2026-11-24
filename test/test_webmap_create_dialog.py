@@ -382,9 +382,7 @@ class TestWebmapCreationUi(unittest.TestCase):
                 QgsColorRampShader.ColorRampItem(
                     -9999, QtGui.QColor("#000000"), "No data"
                 ),
-                QgsColorRampShader.ColorRampItem(
-                    1, QtGui.QColor("#ff0000"), "One"
-                ),
+                QgsColorRampShader.ColorRampItem(1, QtGui.QColor("#ff0000"), "One"),
             ]
             with (
                 patch(

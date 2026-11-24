@@ -211,9 +211,7 @@ class _UploadSession:
             status = int(status or 0)
             if status <= 0:
                 raise ShareError("Could not contact upload storage")
-            etag = bytes(reply.rawHeader(QtCore.QByteArray(b"ETag"))).decode(
-                "latin-1"
-            )
+            etag = bytes(reply.rawHeader(QtCore.QByteArray(b"ETag"))).decode("latin-1")
             return _UploadResponse(status, etag or None)
         finally:
             timeout_timer.stop()

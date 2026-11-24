@@ -436,9 +436,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.view_logs_tb.clicked.connect(self.view_execution_logs)
         self.delete_tb.clicked.connect(self.delete_dataset)
         self.load_tb.clicked.connect(self.load_layer)
-        self.share_tb.clicked.connect(
-            lambda: self.main_dock.share_dataset(self.job)
-        )
+        self.share_tb.clicked.connect(lambda: self.main_dock.share_dataset(self.job))
         self.share_tb.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, "document.svg")))
         self.share_tb.hide()
 

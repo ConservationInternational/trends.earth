@@ -64,9 +64,7 @@ class TestWebmapSharing(unittest.TestCase):
             args, ("POST", f"https://api.test/api/v1/shares/{SHARE}/layers")
         )
         self.assertEqual(kwargs["json"], {"layers": declarations})
-        self.assertEqual(
-            kwargs["headers"]["Authorization"], "Bearer owner-token"
-        )
+        self.assertEqual(kwargs["headers"]["Authorization"], "Bearer owner-token")
 
     def test_owner_api_and_one_time_link(self):
         self.client._api_session.request.return_value = response(
@@ -156,9 +154,7 @@ class TestWebmapSharing(unittest.TestCase):
         manager.put.side_effect = put
         source = self.file.open("rb")
         self.addCleanup(source.close)
-        reader = sharing._PartReader(
-            source, 3, lambda: False, lambda _count: None, 0
-        )
+        reader = sharing._PartReader(source, 3, lambda: False, lambda _count: None, 0)
         with patch.object(
             sharing.QgsNetworkAccessManager, "instance", return_value=manager
         ):
@@ -187,9 +183,7 @@ class TestWebmapSharing(unittest.TestCase):
         except AttributeError:
             redirect_attribute = QtNetwork.QNetworkRequest.RedirectPolicyAttribute
             manual_redirect = QtNetwork.QNetworkRequest.ManualRedirectPolicy
-        self.assertEqual(
-            request.attribute(redirect_attribute), manual_redirect
-        )
+        self.assertEqual(request.attribute(redirect_attribute), manual_redirect)
         self.assertEqual(sent, [b"abc"])
         self.assertEqual(reader.remaining, 0)
         self.assertEqual(result.status_code, 200)
@@ -254,9 +248,7 @@ class TestWebmapSharing(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertEqual(result.headers["ETag"], '"etag"')
         self.assertEqual(reader.remaining, 0)
-        self.assertEqual(
-            requests_seen, [("/part?signature=secret", b"abc", "3", None)]
-        )
+        self.assertEqual(requests_seen, [("/part?signature=secret", b"abc", "3", None)])
 
     def test_owner_api_uses_resolved_proxy_and_explicit_ca_bundle(self):
         self.client._api_session.request.return_value = response(data=[])

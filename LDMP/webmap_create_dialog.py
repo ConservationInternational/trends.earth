@@ -923,6 +923,8 @@ class CreateWebmapDialog(QtWidgets.QDialog):
                 ),
             )
             return
+        base_url = get_api_url()
+        self.api_client.url = base_url
         token = self.api_client.login()
         if not token:
             QtWidgets.QMessageBox.warning(
@@ -937,7 +939,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             )
         )
         self.task = _PublishTask(
-            self.api_client.url,
+            base_url,
             token,
             self.title.text().strip(),
             self.retention.currentData(),

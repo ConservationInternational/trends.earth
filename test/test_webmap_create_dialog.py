@@ -42,6 +42,33 @@ class TestWebmapPublication(unittest.TestCase):
             },
         ]
 
+    @patch("LDMP.webmap_create_dialog.QgsApplication.taskManager")
+    @patch("LDMP.webmap_create_dialog._PublishTask")
+    @patch("LDMP.webmap_create_dialog.api.APIClient")
+    @patch("LDMP.webmap_create_dialog.get_api_url")
+    def test_upload_uses_current_custom_api_url(
+        self, get_api_url, api_client, publish_task, task_manager
+    ):
+        get_api_url.side_effect = [
+            "https://api-old.test",
+            "https://api-staging.trends.earth",
+        ]
+        api_client.return_value.login.return_value = "token"
+        dialog = CreateWebmapDialog()
+        self.addCleanup(dialog.directory.cleanup)
+        dialog.confirm.setChecked(True)
+
+        dialog._upload()
+
+        self.assertEqual(api_client.return_value.url, "https://api-staging.trends.earth")
+        self.assertEqual(
+            publish_task.call_args.args[0], "https://api-staging.trends.earth"
+        )
+        api_client.return_value.login.assert_called_once_with()
+        task_manager.return_value.addTask.assert_called_once_with(
+            publish_task.return_value
+        )
+
     def draft(self):
         return {
             "id": "share",

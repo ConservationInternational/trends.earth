@@ -173,6 +173,8 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         share = self._selected()
         if operation != "refresh" and not share:
             return
+        base_url = get_api_url()
+        self.api_client.url = base_url
         token = self.api_client.login()
         if not token:
             QtWidgets.QMessageBox.warning(
@@ -180,7 +182,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             )
             return
         self.task = _OwnerTask(
-            self.api_client.url,
+            base_url,
             token,
             operation,
             share["id"] if share else None,

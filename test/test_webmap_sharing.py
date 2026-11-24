@@ -80,6 +80,19 @@ class TestWebmapSharing(unittest.TestCase):
         self.assertEqual(kwargs["headers"]["Authorization"], "Bearer owner-token")
         self.assertFalse(kwargs["allow_redirects"])
 
+    def test_api_503_explains_server_configuration_is_required(self):
+        self.client._api_session.request.return_value = response(status=503)
+
+        with self.assertRaises(sharing.ShareError) as context:
+            self.client.create("Test map", 7, [])
+
+        self.assertIn("configured API returned HTTP 503", str(context.exception))
+        self.assertIn("Contact the API administrator", str(context.exception))
+        self.assertEqual(
+            self.client._api_session.request.call_args.args[1],
+            "https://api.test/api/v1/shares",
+        )
+
     def test_upload_refreshes_expired_urls_and_sends_only_part_bytes(self):
         self.client._api_session.request.side_effect = [
             response(data=part_list()),

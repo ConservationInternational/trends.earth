@@ -277,7 +277,11 @@ class ShareClient:
                 403: "Sharing is not permitted for this account",
                 409: "The share is not ready for this operation",
                 429: "Storage quota, share limit or request rate exceeded",
-                503: "Sharing service is unavailable or not ready; try again",
+                503: (
+                    "The configured API returned HTTP 503; web-map sharing may be "
+                    "disabled or missing server-side storage, viewer, or renderer "
+                    "configuration. Contact the API administrator"
+                ),
             }
             detail = descriptions.get(response.status_code, "Sharing request failed")
             raise ShareError(

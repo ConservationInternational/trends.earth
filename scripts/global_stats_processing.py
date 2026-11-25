@@ -272,7 +272,7 @@ def _collapse_value_stats(value_stats: dict[int, list[float]]):
     sorted_items = sorted(value_stats.items())
     unique_values = np.array([item[0] for item in sorted_items], dtype=np.int32)
     value_counts = np.array(
-        [int(round(item[1][0])) for item in sorted_items], dtype=np.int64
+        [round(item[1][0]) for item in sorted_items], dtype=np.int64
     )
     value_areas = np.array(
         [float(item[1][1]) for item in sorted_items], dtype=np.float64

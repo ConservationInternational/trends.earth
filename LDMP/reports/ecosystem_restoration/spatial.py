@@ -6,7 +6,9 @@ import json
 import re
 import shutil
 from pathlib import Path
-from xml.sax.saxutils import escape  # nosec B406 - only escapes text written to QML, no XML is parsed
+from xml.sax.saxutils import (
+    escape,  # nosec B406 - only escapes text written to QML, no XML is parsed
+)
 
 from qgis.core import (
     QgsCoordinateReferenceSystem,

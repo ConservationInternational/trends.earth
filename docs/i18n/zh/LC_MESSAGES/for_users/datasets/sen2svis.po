@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.3.2\n"
+"Project-Id-Version: Trends.Earth 2.3.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-16 04:09+0000\n"
+"POT-Creation-Date: 2026-11-11 04:05+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Chinese (https://app.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -56,47 +56,47 @@ msgstr ""
 "Trends.Earth 空间分辨率为 10 米的土地生产力数据集，几乎涵盖了从东 180° 到西 180°，和从北纬 80° 到南纬 "
 "80°（不包括南极洲）的所有陆地像素，并在 2018 年至 2021 年期间按年提供。理论上，像素值如下："
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "VI"
 msgstr "VI"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "Maximum value"
 msgstr "最大值"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "Minimum value"
 msgstr "最小值"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "EVI2"
 msgstr "EVI2"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "1.25"
 msgstr "1.25"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "-0.7"
 msgstr "-0.7"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "1.5"
 msgstr "1.5"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "-0.5"
 msgstr "-0.5"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "NDVI"
 msgstr "NDVI"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "1"
 msgstr "1"
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "-1"
 msgstr "-1"
 

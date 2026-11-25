@@ -2,21 +2,22 @@
 
 import datetime as dt
 import re
+import zipfile
 from pathlib import Path
 
 import openpyxl
+from openpyxl.utils.exceptions import InvalidFileException
 
 from ...logger import log
 from ..models import slugify
 from .model import IndicatorDataModel, RestorationDataModel, SpatialSupportedOvertime
 from .spatial import GEF_CP_ID_REGEX
-from .writer.pdf import write_pdf
 from .writer.chart import (
     write_current_progress_indicator_chart,
     write_progress_over_time_chart,
     write_progress_to_bar_chart,
 )
-
+from .writer.pdf import write_pdf
 
 # QGIS print layout template of the report
 TEMPLATE_PATH = Path(__file__).parent / "template.qpt"
@@ -114,6 +115,16 @@ def _cell_text(value) -> str:
     if isinstance(value, float) and value.is_integer():
         value = int(value)
     return str(value).strip()
+
+
+# Errors raised by read_data() when the file cannot be read as an XLSX
+READ_DATA_ERRORS = (
+    OSError,
+    ValueError,
+    KeyError,
+    zipfile.BadZipFile,
+    InvalidFileException,
+)
 
 
 def read_data(path: str | Path) -> tuple[list[str], list[dict]]:

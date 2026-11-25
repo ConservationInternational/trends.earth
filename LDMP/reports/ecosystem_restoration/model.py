@@ -1,6 +1,3 @@
-from typing import List
-
-
 class SpatialSupportedOvertime:
     """Spatial Supported Overtime."""
 
@@ -19,10 +16,10 @@ class RestorationDataModel:
     target: int
     reported_progress: int
     spatially_supported: int
-    spatially_supported_overtime: List[SpatialSupportedOvertime] | None
+    spatially_supported_overtime: list[SpatialSupportedOvertime] | None
 
     # Sub data
-    sub_indicator_data: List["RestorationDataModel"]
+    sub_indicator_data: list["RestorationDataModel"]
 
     def __init__(
         self,
@@ -31,7 +28,7 @@ class RestorationDataModel:
         reported_progress,
         spatially_supported,
         spatially_supported_overtime=None,
-        sub_indicator_data: List["RestorationDataModel"] | None = None,
+        sub_indicator_data: list["RestorationDataModel"] | None = None,
     ):
         self.label = label
         self.target = target
@@ -48,7 +45,7 @@ class IndicatorDataModel(RestorationDataModel):
     def __init__(
         self,
         label: str,
-        sub_indicator_data: List[RestorationDataModel],
+        sub_indicator_data: list[RestorationDataModel],
     ):
         target = sum(sub.target or 0 for sub in sub_indicator_data)
         reported_progress = sum(

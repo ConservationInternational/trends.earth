@@ -1,6 +1,5 @@
 """Line chart."""
 
-import typing
 from dataclasses import dataclass
 
 from qgis.PyQt.QtGui import QColor
@@ -23,7 +22,7 @@ class LineSeries:
     y: list[float]
     color: str
 
-    dash: typing.Optional[str] = None
+    dash: str | None = None
     width: float = 3
     markers: bool = True
     fill: bool = False
@@ -37,15 +36,15 @@ class LineChart(BaseChart):
 
         self.series: list[LineSeries] = kwargs.pop("series", [])
 
-        self.x_ticks: typing.Optional[list] = kwargs.pop("x_ticks", None)
-        self.size: typing.Optional[tuple[int, int]] = kwargs.pop("size", None)
+        self.x_ticks: list | None = kwargs.pop("x_ticks", None)
+        self.size: tuple[int, int] | None = kwargs.pop("size", None)
         self.show_legend: bool = kwargs.pop("show_legend", True)
 
         # Optional styles, plotly defaults are used when None
-        self.font_family: typing.Optional[str] = kwargs.pop("font_family", None)
-        self.text_color: typing.Optional[str] = kwargs.pop("text_color", None)
-        self.axis_color: typing.Optional[str] = kwargs.pop("axis_color", None)
-        self.grid_color: typing.Optional[str] = kwargs.pop("grid_color", None)
+        self.font_family: str | None = kwargs.pop("font_family", None)
+        self.text_color: str | None = kwargs.pop("text_color", None)
+        self.axis_color: str | None = kwargs.pop("axis_color", None)
+        self.grid_color: str | None = kwargs.pop("grid_color", None)
 
         self.font_size_title: int = kwargs.pop("font_size_title", 18)
         self.font_size_body: int = kwargs.pop("font_size_body", 13)

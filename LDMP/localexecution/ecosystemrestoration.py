@@ -50,7 +50,7 @@ CUSTOM_AOI_FILE_NAME = "custom_aoi.geojson"
 
 
 def _now() -> str:
-    return dt.datetime.now(dt.timezone.utc).isoformat()
+    return dt.datetime.now(dt.UTC).isoformat()
 
 
 def _relative(path: Path, output_dir: Path) -> str:
@@ -295,8 +295,8 @@ def _create_report(
     # Copies of the files of the spatial input layers
     spatial_data_dir = output_dir / SPATIAL_DATA_DIR_NAME
     spatial_data_dir.mkdir(parents=True, exist_ok=True)
-    for name in layers_by_name:
-        layer = open_spatial_file(layers_by_name[name].get("source"))
+    for name, layer_info in layers_by_name.items():
+        layer = open_spatial_file(layer_info.get("source"))
         errors = LayerValidation(layer).run()
         validation["spatial_layers"].append({"name": name, **_validation(errors)})
         if errors:
@@ -308,13 +308,13 @@ def _create_report(
         # with the sites of all the child projects
         files = [
             Path(shutil.copy2(file, spatial_data_dir / file.name))
-            for file in layer_files(layers_by_name[name].get("source"))
+            for file in layer_files(layer_info.get("source"))
         ]
         sites_paths.extend(files)
         manifest["inputs"]["spatial_layers"].append(
             {
                 "name": name,
-                "source": layers_by_name[name].get("source"),
+                "source": layer_info.get("source"),
                 "country": LAYER_NAME_REGEX.match(name).group(1),
                 "date": layer_date(name),
                 "sites": layer.featureCount(),
@@ -391,7 +391,7 @@ def _create_report(
         f"{gef_cp_id}" if gef_cp_id else "All projects",
     )
 
-    job.end_date = dt.datetime.now(dt.timezone.utc)
+    job.end_date = dt.datetime.now(dt.UTC)
     job.progress = 100
     manifest["job"]["end_date"] = job.end_date
     charts_dir = output_dir / CHARTS_DIR_NAME

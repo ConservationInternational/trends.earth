@@ -23,15 +23,16 @@ from te_schemas.algorithms import ExecutionScript
 from . import calculate
 from .jobs.manager import job_manager
 from .reports.ecosystem_restoration.report import (
+    COUNTRY,
     DATA_TEMPLATE_PATH,
     DATA_XLSX_NAME,
-    COUNTRY,
-    GEF_CP_ID,
     DEFAULT_BASELINE_YEARS_BEFORE,
+    GEF_CP_ID,
     MIN_REPORTING_YEAR,
     REPORTING_SCOPE_COUNTRY,
     REPORTING_SCOPE_CUSTOM_AOI,
     REPORTING_SCOPE_PROJECT,
+    READ_DATA_ERRORS,
     REQUIRED_DATA_COLUMNS,
     read_data,
     validate_reporting_period,
@@ -42,8 +43,8 @@ from .reports.ecosystem_restoration.spatial import (
     TEMPLATE_FORMATS,
     layer_name,
     open_spatial_file,
-    spatial_file,
     read_sites_yearly,
+    spatial_file,
     validate_spatial_layer_name,
     write_spatial_template,
 )
@@ -282,7 +283,7 @@ class DlgEcosystemReportingRestorationProgress(
         if path and Path(path).is_file():
             try:
                 _, data = read_data(path)
-            except Exception as error:
+            except READ_DATA_ERRORS as error:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
@@ -351,7 +352,7 @@ class DlgEcosystemReportingRestorationProgress(
             try:
                 columns, _ = read_data(path)
                 error = None
-            except Exception as read_error:
+            except READ_DATA_ERRORS as read_error:
                 error = read_error
             if error is not None:
                 message = self.tr("Cannot read the report data file: {}").format(error)

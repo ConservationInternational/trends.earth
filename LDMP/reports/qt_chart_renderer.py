@@ -461,7 +461,7 @@ class QtChartRenderer:
         return True
 
     @classmethod
-    def _rgba_color(cls, value: typing.Any) -> typing.Optional[QColor]:
+    def _rgba_color(cls, value: typing.Any) -> QColor | None:
         """Color from a plotly color, including "rgba(r, g, b, a)"."""
         if not value:
             return None

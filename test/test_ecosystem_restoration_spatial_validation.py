@@ -7,9 +7,11 @@ from qgis.core import QgsFeature, QgsGeometry, QgsVectorLayer
 from utilities_for_testing import get_qgis_app
 
 from LDMP.reports.ecosystem_restoration import spatial_validation
+from LDMP.reports.ecosystem_restoration.spatial import read_sites_yearly
 from LDMP.reports.ecosystem_restoration.spatial_validation import (
     MAX_SITE_ERRORS,
     LayerValidation,
+    validate_spatial_data,
 )
 
 QGIS_APP = get_qgis_app()
@@ -101,8 +103,10 @@ class TestAttributesValidation(unittest.TestCase):
                 "Site IND_0011: GEF_CP_ID 111300 is not five numbers.",
                 "Site IND_0012: GEF_CP_ID 11a30 is not five numbers.",
                 "Site IND_0013: GEF_CP_ID GEF01 is not five numbers.",
-                "Site ZAF_0014: Country ZAF is not IND, the country of layer "
-                f"{LAYER_NAME}.",
+                (
+                    "Site ZAF_0014: Country ZAF is not IND, the country of layer "
+                    f"{LAYER_NAME}."
+                ),
                 "Site ZAF_0015: Site_ID does not start with Country IND.",
                 "Site IND_0016: Site_ID is not unique.",
             ]
@@ -122,14 +126,18 @@ class TestAttributesValidation(unittest.TestCase):
             + [
                 f"Site IND_0023: {DATE_ERROR}",
                 "Site IND_0023: GEF_CP_ID 1113 is not five numbers.",
-                "Site IND_0023: Country ZAF is not IND, the country of layer "
-                f"{LAYER_NAME}.",
+                (
+                    "Site IND_0023: Country ZAF is not IND, the country of layer "
+                    f"{LAYER_NAME}."
+                ),
                 "Site IND_0023: Site_ID does not start with Country ZAF.",
             ]
             # A Date after the date of the layer name
             + [
-                "Site IND_0024: Date 2027-01-01 is after 2026-12-31, the date of "
-                f"layer {LAYER_NAME}.",
+                (
+                    "Site IND_0024: Date 2027-01-01 is after 2026-12-31, the date of "
+                    f"layer {LAYER_NAME}."
+                ),
             ]
             # A text Date that is not YYYY_MM_DD
             + [f"Site IND_0025: {DATE_ERROR}"],
@@ -201,21 +209,27 @@ class TestOverlappingValidation(unittest.TestCase):
 
     def overlap(self, site: str, other_site: str, indicator: str = INDICATOR_3) -> str:
         return (
-            f"Site {site}: boundary overlaps Site {other_site} of the same "
-            f"Indicator {indicator}."
+            f"Site {site} ({LAYER_NAME}): boundary overlaps Site {other_site} "
+            f"({LAYER_NAME}) of the same Indicator {indicator} in 2026."
         )
 
     def test_overlap(self):
+        # Overlaps are checked across the layers by validate_spatial_data, the
+        # layer validation only reports the invalid boundary
         self.assertEqual(
             validate("error_overlapping"),
+            ["Site IND_0018: boundary is not valid: Self-intersection"],
+        )
+        sites = read_sites_yearly([open_layer("error_overlapping")])
+        self.assertEqual(
+            validate_spatial_data(sites),
             [
                 self.overlap("IND_0002", "IND_0001"),
-                self.overlap("IND_0004", "IND_0003", INDICATOR_1),
                 self.overlap("IND_0008", "IND_0007"),
                 self.overlap("IND_0010", "IND_0009"),
                 self.overlap("IND_0016", "IND_0014"),
                 self.overlap("IND_0016", "IND_0015"),
-                "Site IND_0018: boundary is not valid: Self-intersection",
+                self.overlap("IND_0004", "IND_0003", INDICATOR_1),
             ],
         )
 

@@ -1,6 +1,5 @@
 """Vertical bar chart."""
 
-import typing
 from dataclasses import dataclass
 
 from ..charts import (
@@ -19,10 +18,10 @@ class BarSeries:
     name: str
     values: list[float]
     # One color for the whole series, or one color per bar
-    color: typing.Union[str, list[str]]
+    color: str | list[str]
 
     # Optional text shown on each bar, defaults to the formatted value
-    texts: typing.Optional[list[str]] = None
+    texts: list[str] | None = None
 
 
 class BarChart(BaseChart):
@@ -37,14 +36,14 @@ class BarChart(BaseChart):
 
         self.categories: list[str] = kwargs.pop("categories", [])
         self.series: list[BarSeries] = kwargs.pop("series", [])
-        self.size: typing.Optional[tuple[int, int]] = kwargs.pop("size", None)
+        self.size: tuple[int, int] | None = kwargs.pop("size", None)
         self.show_legend: bool = kwargs.pop("show_legend", True)
 
         # Optional styles, plotly defaults are used when None
-        self.font_family: typing.Optional[str] = kwargs.pop("font_family", None)
-        self.text_color: typing.Optional[str] = kwargs.pop("text_color", None)
-        self.axis_color: typing.Optional[str] = kwargs.pop("axis_color", None)
-        self.grid_color: typing.Optional[str] = kwargs.pop("grid_color", None)
+        self.font_family: str | None = kwargs.pop("font_family", None)
+        self.text_color: str | None = kwargs.pop("text_color", None)
+        self.axis_color: str | None = kwargs.pop("axis_color", None)
+        self.grid_color: str | None = kwargs.pop("grid_color", None)
 
         self.font_size_title: int = kwargs.pop("font_size_title", 36)
         self.font_size_body: int = kwargs.pop("font_size_body", 26)

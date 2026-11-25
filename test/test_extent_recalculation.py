@@ -359,22 +359,24 @@ class TestAutoExtentRecalculation(unittest.TestCase):
                 mock_schema_instance.load.return_value = mock_job
                 mock_job_schema.return_value = mock_schema_instance
 
-                with patch("LDMP.data_io.set_results_extents") as mock_set_extents:
-                    with patch("LDMP.data_io.update_uris_if_needed"):
-                        job, error = dialog.parse_chosen_path(temp_file)
+                with (
+                    patch("LDMP.data_io.set_results_extents") as mock_set_extents,
+                    patch("LDMP.data_io.update_uris_if_needed"),
+                ):
+                    _job, _error = dialog.parse_chosen_path(temp_file)
 
-                        # Verify that set_results_extents was called with force=True
-                        # because missing extent was detected
-                        self.assertTrue(mock_set_extents.called)
-                        call_args = mock_set_extents.call_args
+                    # Verify that set_results_extents was called with force=True
+                    # because missing extent was detected
+                    self.assertTrue(mock_set_extents.called)
+                    call_args = mock_set_extents.call_args
 
-                        # Check if force=True was used
-                        called_with_force = False
-                        if len(call_args) > 1:  # Has both args and kwargs
-                            if len(call_args[0]) > 1:  # positional force arg
-                                called_with_force = call_args[0][1]
-                            elif call_args[1]:  # kwargs
-                                called_with_force = call_args[1].get("force", False)
+                    # Check if force=True was used
+                    called_with_force = False
+                    if len(call_args) > 1:  # Has both args and kwargs
+                        if len(call_args[0]) > 1:  # positional force arg
+                            called_with_force = call_args[0][1]
+                        elif call_args[1]:  # kwargs
+                            called_with_force = call_args[1].get("force", False)
 
                         self.assertTrue(
                             called_with_force,
@@ -414,21 +416,23 @@ class TestAutoExtentRecalculation(unittest.TestCase):
                 mock_schema_instance.load.return_value = mock_job
                 mock_job_schema.return_value = mock_schema_instance
 
-                with patch("LDMP.data_io.set_results_extents") as mock_set_extents:
-                    with patch("LDMP.data_io.update_uris_if_needed"):
-                        job, error = dialog.parse_chosen_path(temp_file)
+                with (
+                    patch("LDMP.data_io.set_results_extents") as mock_set_extents,
+                    patch("LDMP.data_io.update_uris_if_needed"),
+                ):
+                    _job, _error = dialog.parse_chosen_path(temp_file)
 
-                        # Verify that set_results_extents was called but NOT with force=True
-                        self.assertTrue(mock_set_extents.called)
-                        call_args = mock_set_extents.call_args
+                    # Verify that set_results_extents was called but NOT with force=True
+                    self.assertTrue(mock_set_extents.called)
+                    call_args = mock_set_extents.call_args
 
-                        # Check if force=False (default) was used
-                        called_with_force = False
-                        if len(call_args) > 1:  # Has both args and kwargs
-                            if len(call_args[0]) > 1:  # positional force arg
-                                called_with_force = call_args[0][1]
-                            elif call_args[1]:  # kwargs
-                                called_with_force = call_args[1].get("force", False)
+                    # Check if force=False (default) was used
+                    called_with_force = False
+                    if len(call_args) > 1:  # Has both args and kwargs
+                        if len(call_args[0]) > 1:  # positional force arg
+                            called_with_force = call_args[0][1]
+                        elif call_args[1]:  # kwargs
+                            called_with_force = call_args[1].get("force", False)
 
                         self.assertFalse(
                             called_with_force,
@@ -477,23 +481,23 @@ class TestCheckDatasetOverlapRaster(unittest.TestCase):
         mock_raster_results = Mock()
         mock_raster_results.get_extents.return_value = [(0.0, 0.0, 10.0, 10.0)]
 
-        with patch("LDMP.data_io.log") as mock_log:
-            with patch("LDMP.data_io._extent_as_geom") as mock_extent_as_geom:
-                # Mock the geometry creation
-                mock_geom = Mock()
-                mock_extent_as_geom.return_value = mock_geom
+        with (
+            patch("LDMP.data_io.log") as mock_log,
+            patch("LDMP.data_io._extent_as_geom") as mock_extent_as_geom,
+        ):
+            # Mock the geometry creation
+            mock_geom = Mock()
+            mock_extent_as_geom.return_value = mock_geom
 
-                result = self._check_dataset_overlap_raster(
-                    mock_aoi, mock_raster_results
-                )
+            result = self._check_dataset_overlap_raster(mock_aoi, mock_raster_results)
 
-                # Should return True (full overlap)
-                self.assertTrue(result)
+            # Should return True (full overlap)
+            self.assertTrue(result)
 
-                # Warning should NOT be logged for valid extents
-                if mock_log.called:
-                    log_message = mock_log.call_args[0][0]
-                    self.assertNotIn("No valid extents found", str(log_message))
+            # Warning should NOT be logged for valid extents
+            if mock_log.called:
+                log_message = mock_log.call_args[0][0]
+                self.assertNotIn("No valid extents found", str(log_message))
 
     def test_check_dataset_overlap_recalculates_unset_extents(self):
         """Unset (None) extents, as on a just-finished local job, are recalculated"""
@@ -507,11 +511,13 @@ class TestCheckDatasetOverlapRaster(unittest.TestCase):
             [(0.0, 0.0, 10.0, 10.0)],
         ]
 
-        with patch("LDMP.jobs.manager.set_results_extents") as mock_set_extents:
-            with patch("LDMP.data_io._extent_as_geom", return_value=Mock()):
-                result = self._check_dataset_overlap_raster(
-                    mock_aoi, mock_raster_results, job=mock_job
-                )
+        with (
+            patch("LDMP.jobs.manager.set_results_extents") as mock_set_extents,
+            patch("LDMP.data_io._extent_as_geom", return_value=Mock()),
+        ):
+            result = self._check_dataset_overlap_raster(
+                mock_aoi, mock_raster_results, job=mock_job
+            )
 
         mock_set_extents.assert_called_once_with(mock_job, force=True)
         self.assertTrue(result)

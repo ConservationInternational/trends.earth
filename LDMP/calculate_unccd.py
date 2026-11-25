@@ -175,7 +175,6 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
     LOCAL_SCRIPT_NAME: str = "unccd-report"
 
     button_calculate: QtWidgets.QPushButton
-    combo_boxes: dict[str, unccd.UNCCDReportWidgets] = {}
 
     def __init__(
         self,
@@ -188,7 +187,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
 
         self._finish_initialization()
 
-        self.combo_boxes = unccd.UNCCDReportWidgets(
+        self.combo_boxes: unccd.UNCCDReportWidgets = unccd.UNCCDReportWidgets(
             combo_dataset_so1_so2=self.combo_dataset_so1_so2,
             combo_dataset_error_recode=self.combo_dataset_error_recode,
             combo_dataset_so3=self.combo_dataset_so3,
@@ -229,7 +228,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
 
     def validate_data_selections(self, combo_boxes):
         """validate all needed datasets are selected"""
-        if (
+        return not (
             self.groupbox_so1_so2.isChecked()
             and not self._validate_dataset_selection(
                 combo_boxes.combo_dataset_so1_so2, self.tr("SO1 and SO2")
@@ -238,10 +237,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
             and not self._validate_dataset_selection(
                 combo_boxes.combo_dataset_so3, self.tr("SO3 (hazard and exposure)")
             )
-        ):
-            return False
-        else:
-            return True
+        )
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

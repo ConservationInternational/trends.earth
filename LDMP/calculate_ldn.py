@@ -1000,7 +1000,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         _jrc_keys = [
             k
-            for k in conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()
+            for k in conf.REMOTE_DATASETS["Land Productivity Dynamics"]
             if "FWv2" not in k
         ]
         self.cb_jrc_baseline.addItems(_jrc_keys)
@@ -1147,10 +1147,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             QtWidgets.QMessageBox.Yes,
             QtWidgets.QMessageBox.No,
         )
-        if resp == QtWidgets.QMessageBox.Yes:
-            return True
-        else:
-            return False
+        return resp == QtWidgets.QMessageBox.Yes
 
     def _setup_preset_ui(self):
         """Initialize the preset UI components."""
@@ -1242,23 +1239,25 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if preset.productivity_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
             self.radio_lpd_precalculated.setChecked(True)
             # Get JRC dataset from baseline period if it's a JRCPeriod
-            if preset.baseline_period and isinstance(preset.baseline_period, JRCPeriod):
-                if preset.baseline_period.jrc_dataset:
-                    idx = self.cb_jrc_baseline.findText(
-                        preset.baseline_period.jrc_dataset
-                    )
-                    if idx >= 0:
-                        self.cb_jrc_baseline.setCurrentIndex(idx)
-            # Get JRC dataset from first reporting period if it's a JRCPeriod
-            if preset.progress_periods and isinstance(
-                preset.progress_periods[0], JRCPeriod
+            if (
+                preset.baseline_period
+                and isinstance(preset.baseline_period, JRCPeriod)
+                and preset.baseline_period.jrc_dataset
             ):
-                if preset.progress_periods[0].jrc_dataset:
-                    idx = self.cb_jrc_progress.findText(
-                        preset.progress_periods[0].jrc_dataset
-                    )
-                    if idx >= 0:
-                        self.cb_jrc_progress.setCurrentIndex(idx)
+                idx = self.cb_jrc_baseline.findText(preset.baseline_period.jrc_dataset)
+                if idx >= 0:
+                    self.cb_jrc_baseline.setCurrentIndex(idx)
+            # Get JRC dataset from first reporting period if it's a JRCPeriod
+            if (
+                preset.progress_periods
+                and isinstance(preset.progress_periods[0], JRCPeriod)
+                and preset.progress_periods[0].jrc_dataset
+            ):
+                idx = self.cb_jrc_progress.findText(
+                    preset.progress_periods[0].jrc_dataset
+                )
+                if idx >= 0:
+                    self.cb_jrc_progress.setCurrentIndex(idx)
         elif preset.productivity_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
             self.radio_fao_wocat.setChecked(True)
         elif (
@@ -1267,24 +1266,24 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         ):
             self.radio_lpd_fwv2.setChecked(True)
             # Set FWv2 dataset comboboxes from the preset periods
-            if preset.baseline_period and isinstance(
-                preset.baseline_period, FWv2Period
+            if (
+                preset.baseline_period
+                and isinstance(preset.baseline_period, FWv2Period)
+                and preset.baseline_period.fwv2_dataset
             ):
-                if preset.baseline_period.fwv2_dataset:
-                    idx = self.cb_jrc_baseline.findText(
-                        preset.baseline_period.fwv2_dataset
-                    )
-                    if idx >= 0:
-                        self.cb_jrc_baseline.setCurrentIndex(idx)
-            if preset.progress_periods and isinstance(
-                preset.progress_periods[0], FWv2Period
+                idx = self.cb_jrc_baseline.findText(preset.baseline_period.fwv2_dataset)
+                if idx >= 0:
+                    self.cb_jrc_baseline.setCurrentIndex(idx)
+            if (
+                preset.progress_periods
+                and isinstance(preset.progress_periods[0], FWv2Period)
+                and preset.progress_periods[0].fwv2_dataset
             ):
-                if preset.progress_periods[0].fwv2_dataset:
-                    idx = self.cb_jrc_progress.findText(
-                        preset.progress_periods[0].fwv2_dataset
-                    )
-                    if idx >= 0:
-                        self.cb_jrc_progress.setCurrentIndex(idx)
+                idx = self.cb_jrc_progress.findText(
+                    preset.progress_periods[0].fwv2_dataset
+                )
+                if idx >= 0:
+                    self.cb_jrc_progress.setCurrentIndex(idx)
         else:  # ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
             self.radio_lpd_te.setChecked(True)
 
@@ -1627,7 +1626,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     QtWidgets.QMessageBox.information(
                         self, "Export Successful", f"Presets exported to {file_path}"
                     )
-                except Exception as e:
+                except Exception as e:  # noqa: BLE001
                     QtWidgets.QMessageBox.critical(
                         self, "Export Failed", f"Failed to export presets: {e}"
                     )
@@ -1647,7 +1646,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
                 QtWidgets.QMessageBox.information(self, "Import Results", message)
                 self._refresh_preset_list()
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 QtWidgets.QMessageBox.critical(
                     self, "Import Failed", f"Failed to import presets: {e}"
                 )
@@ -2038,8 +2037,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         cb_lpd.addItems(lpd_keys)
         cb_lpd.setCurrentIndex(0)
 
+        self_ref = weakref.ref(self)
         cb_lpd.currentIndexChanged.connect(
-            lambda _ix, wref=weakref.ref(self): wref() and wref().update_time_bounds(w)
+            lambda _ix, wref=self_ref: wref() and wref().update_time_bounds(w)
         )
 
         w = TimePeriodWidgets(
@@ -2570,7 +2570,6 @@ class DlgCalculateLDNSummaryTableAdmin(
     LOCAL_SCRIPT_NAME: str = "sdg-15-3-1-summary"
 
     button_calculate: QtWidgets.QPushButton
-    combo_boxes: dict[str, ldn.SummaryTableLDWidgets] = {}
 
     def __init__(
         self,
@@ -2586,7 +2585,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.on_add_progress_period_clicked
         )
 
-        self.combo_boxes = dict()
+        self.combo_boxes: dict[str, ldn.SummaryTableLDWidgets] = {}
 
         self._finish_initialization()
 
@@ -2648,7 +2647,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         self.toggle_pop_options_progress()
         self.changed_region.connect(self.populate_combos)
 
-        self.extra_progress_boxes = dict()
+        self.extra_progress_boxes = {}
 
     def _setup_alg_help(self):
         self.alg_help.setHtml(
@@ -2747,7 +2746,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         # Base combo boxes are "baseline" and "report_1", so we start from report_2
         existing_report_numbers = [
             int(key.split("_")[1])
-            for key in self.combo_boxes.keys()
+            for key in self.combo_boxes
             if key.startswith("report_")
         ]
         next_idx = max(existing_report_numbers, default=0) + 1
@@ -2811,7 +2810,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.combo_boxes = {
                 k: v for k, v in self.combo_boxes.items() if k in base_keys
             }
-            self.extra_progress_boxes = dict()
+            self.extra_progress_boxes = {}
 
     def _validate_layer_selection(self, combo_box, layer_name):
         return not combo_box.show_validation_error(
@@ -2994,16 +2993,12 @@ class DlgCalculateLDNSummaryTableAdmin(
             ):
                 return False
 
-        if pop_mode == ldn.PopulationMode.BySex.value:
-            if not self._validate_crs(
-                combo_boxes.combo_layer_pop_male.get_layer(),
-                "population (male)",
-                combo_boxes.combo_layer_pop_female.get_layer(),
-                "population (female)",
-            ):
-                return False
-
-        return True
+        return pop_mode != ldn.PopulationMode.BySex.value or self._validate_crs(
+            combo_boxes.combo_layer_pop_male.get_layer(),
+            "population (male)",
+            combo_boxes.combo_layer_pop_female.get_layer(),
+            "population (female)",
+        )
 
     def _get_prod_mode(self, radio_lpd_te, radio_fao_wocat):
         if radio_lpd_te.isChecked():
@@ -3188,25 +3183,17 @@ class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi)
         if self.rb_sdg.isChecked():
             self.combo_layer_input.setProperty(
                 "layer_type",
-                ";".join([ld_config.SDG_BAND_NAME, ld_config.SDG_STATUS_BAND_NAME]),
+                f"{ld_config.SDG_BAND_NAME};{ld_config.SDG_STATUS_BAND_NAME}",
             )
         elif self.rb_prod.isChecked():
             self.combo_layer_input.setProperty(
                 "layer_type",
-                ";".join(
-                    [
-                        ld_config.JRC_LPD_BAND_NAME,
-                        ld_config.FAO_WOCAT_LPD_BAND_NAME,
-                        ld_config.TE_LPD_BAND_NAME,
-                    ]
-                ),
+                f"{ld_config.JRC_LPD_BAND_NAME};{ld_config.FAO_WOCAT_LPD_BAND_NAME};{ld_config.TE_LPD_BAND_NAME}",
             )
         elif self.rb_lc.isChecked():
             self.combo_layer_input.setProperty(
                 "layer_type",
-                ";".join(
-                    [ld_config.LC_DEG_BAND_NAME, ld_config.LC_DEG_COMPARISON_BAND_NAME]
-                ),
+                f"{ld_config.LC_DEG_BAND_NAME};{ld_config.LC_DEG_COMPARISON_BAND_NAME}",
             )
         elif self.rb_soc.isChecked():
             self.combo_layer_input.setProperty(

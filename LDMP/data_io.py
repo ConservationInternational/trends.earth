@@ -434,15 +434,15 @@ class RasterImportWorker(worker.AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        warp_kwargs = dict(
-            format="GTiff",
-            dstNodata=-32768,
-            dstSRS="epsg:4326",
-            outputType=self.out_data_type,
-            resampleAlg=self.resample_mode,
-            creationOptions=["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
-            callback=self.progress_callback,
-        )
+        warp_kwargs = {
+            "format": "GTiff",
+            "dstNodata": -32768,
+            "dstSRS": "epsg:4326",
+            "outputType": self.out_data_type,
+            "resampleAlg": self.resample_mode,
+            "creationOptions": ["COMPRESS=LZW", "NUM_THREADS=ALL_CPUS"],
+            "callback": self.progress_callback,
+        }
 
         if self.out_res:
             warp_kwargs["xRes"] = self.out_res
@@ -1128,10 +1128,7 @@ def extents_within_tolerance(
 
     tolerance = conf.settings_manager.get_value(conf.Setting.IMPORT_AREA_TOLERANCE)
 
-    if (1 - diff_ratio) > tolerance:
-        return True
-
-    return False
+    return 1 - diff_ratio > tolerance
 
 
 class DlgDataIOImportBase(QtWidgets.QDialog):
@@ -1426,17 +1423,16 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         Returns True if validation passes, False otherwise (with error message shown).
         """
-        if self.is_clip_to_region_enabled():
-            if try_get_aoi_geometry() is None:
-                QtWidgets.QMessageBox.critical(
-                    self,
-                    tr_data_io.tr("Error"),
-                    tr_data_io.tr(
-                        "No region is selected. Either select a region or uncheck "
-                        "'Clip to region' to import the full dataset extent."
-                    ),
-                )
-                return False
+        if self.is_clip_to_region_enabled() and try_get_aoi_geometry() is None:
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "No region is selected. Either select a region or uncheck "
+                    "'Clip to region' to import the full dataset extent."
+                ),
+            )
+            return False
         return True
 
     def get_resample_mode(self, f):
@@ -2251,8 +2247,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
         layer_name = self.get_layer_name(
             self.tr(
-                "Land productivity (imported - {datatype}, "
-                "{year_initial}-{year_final})"
+                "Land productivity (imported - {datatype}, {year_initial}-{year_final})"
             ).format(
                 datatype=self.datatype_cb.currentText(),
                 year_initial=int(self.spinBox_year_initial.text()),
@@ -2299,9 +2294,9 @@ PROD_MODE_FOR_BAND = {
 @functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
 def _get_usable_bands(
     band_name: str | tuple[str, ...] | None = "any",
-    selected_job_id: uuid.UUID = None,
-    filter_field: str = None,
-    filter_value: str = None,
+    selected_job_id: uuid.UUID | None = None,
+    filter_field: str | None = None,
+    filter_value: str | None = None,
     aoi=None,
     prod_mode=None,
 ) -> list[Band]:
@@ -2337,13 +2332,13 @@ def _get_usable_bands(
         expected_mode = prod_mode
         if expected_mode is not None:
             cached_pm = getattr(job, "_cached_prod_mode", None)
-            if cached_pm is not None:
-                # Custom LPD always passes
-                if (
-                    cached_pm != ProductivityMode.CUSTOM_5_CLASS_LPD.value
-                    and cached_pm != expected_mode
-                ):
-                    continue
+            # Custom LPD always passes
+            if (
+                cached_pm is not None
+                and cached_pm != ProductivityMode.CUSTOM_5_CLASS_LPD.value
+                and cached_pm != expected_mode
+            ):
+                continue
 
         # Load data only after all the pre-filtering
         job_manager.ensure_params_loaded(job)
@@ -2641,14 +2636,12 @@ def _cached_extent_overlaps_aoi(job, aoi) -> bool | None:
     west, south, east, north = extent
     aoi_rect = aoi.l.extent()
     # Pure arithmetic disjoint check
-    if (
+    return not (
         east < aoi_rect.xMinimum()
         or west > aoi_rect.xMaximum()
         or north < aoi_rect.yMinimum()
         or south > aoi_rect.yMaximum()
-    ):
-        return False
-    return True
+    )
 
 
 @functools.cache  # not using functools.cache, as it was only introduced in Python 3.9
@@ -2704,7 +2697,7 @@ def _check_dataset_overlap_raster(aoi, raster_results, dataset_name=None, job=No
             try:
                 jobs.manager.set_results_extents(job, force=True)
                 extents = [e for e in raster_results.get_extents() if e is not None]
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 log(
                     f"Failed to recalculate extents{dataset_label}: {type(e).__name__}: {e}"
                 )
@@ -2735,10 +2728,7 @@ def _check_dataset_overlap_raster(aoi, raster_results, dataset_name=None, job=No
         )
         return False
 
-    if frac >= 0.99:
-        return True
-    else:
-        return False
+    return frac >= 0.99
 
 
 def _check_dataset_overlap_vector(aoi, vector_results):
@@ -2776,13 +2766,15 @@ def get_usable_datasets(
 
         if dataset_name != "any":
             script = getattr(job, "script", None)
-            if script is not None and hasattr(script, "name"):
-                if not _script_name_matches_dataset(script.name, dataset_name):
-                    # For vectors, also check vector.type which is matched
-                    # differently — we can't exclude here.  Only skip if
-                    # the job is purely raster (no vector results possible).
-                    if not job.is_vector():
-                        continue
+            if (
+                script is not None
+                and hasattr(script, "name")
+                and not _script_name_matches_dataset(script.name, dataset_name)
+                # For vectors, also check vector.type which is matched
+                # differently — we can't exclude here. Only skip raster jobs.
+                and not job.is_vector()
+            ):
+                continue
 
         # Quick bbox pre-filter using cached extent — avoids loading
         # heavy results pickle for jobs outside the selected region.
@@ -2792,12 +2784,11 @@ def get_usable_datasets(
         expected_mode = productivity_mode
         if expected_mode is not None:
             cached_pm = getattr(job, "_cached_prod_mode", None)
-            if cached_pm is not None:
-                if (
-                    cached_pm != ProductivityMode.CUSTOM_5_CLASS_LPD.value
-                    and cached_pm != expected_mode
-                ):
-                    continue
+            if cached_pm is not None and (
+                cached_pm != ProductivityMode.CUSTOM_5_CLASS_LPD.value
+                and cached_pm != expected_mode
+            ):
+                continue
 
         job_manager.ensure_params_loaded(job)
         job_manager.ensure_results_loaded(job)
@@ -2843,23 +2834,22 @@ def get_usable_datasets(
             continue
 
         # Check for raster results
-        if raster_result is not None:
-            if (
-                (
-                    aoi is None
-                    or _check_dataset_overlap_raster(
-                        aoi, raster_result, job.visible_name, job
-                    )
+        if raster_result is not None and (
+            (
+                aoi is None
+                or _check_dataset_overlap_raster(
+                    aoi, raster_result, job.visible_name, job
                 )
-                and _script_name_matches_dataset(job.script.name, dataset_name)
-                and raster_result.uri is not None
-            ):
-                result.append(
-                    Dataset(
-                        job=job,
-                        path=raster_result.uri.uri,
-                    )
+            )
+            and _script_name_matches_dataset(job.script.name, dataset_name)
+            and raster_result.uri is not None
+        ):
+            result.append(
+                Dataset(
+                    job=job,
+                    path=raster_result.uri.uri,
                 )
+            )
 
         # Check for vector results
         vector_result = job.get_first_result_by_type(VectorResults)

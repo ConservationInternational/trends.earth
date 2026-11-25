@@ -1,7 +1,7 @@
 import unittest
 from multiprocessing import Process
 
-from mock.mock_http_server import MockApiServer
+from mock.mock_http_server import MockApiServer, run_mock_api_server
 from qgis.core import QgsApplication, QgsAuthMethodConfig
 from qgis.PyQt import QtCore
 
@@ -16,7 +16,7 @@ class CalculateSoc(unittest.TestCase):
     def setUp(self):
         self.app_server = MockApiServer()
 
-        self.server = Process(target=self.app_server.run)
+        self.server = Process(target=run_mock_api_server, args=(self.app_server.port,))
         self.server.start()
 
         # Wait for server to be ready before continuing
@@ -29,7 +29,7 @@ class CalculateSoc(unittest.TestCase):
 
     def set_auth_db(self):
         AUTHDB_MASTERPWD = "password"
-        print("Init script: %s" % __file__)
+        print(f"Init script: {__file__}")
 
         auth_manager = QgsApplication.authManager()
         if not auth_manager.masterPasswordHashInDatabase():
@@ -54,9 +54,9 @@ class CalculateSoc(unittest.TestCase):
     def test_job_submission(self):
         local_land_cover_script_name = "soil-organic-carbon"
 
-        script = [
+        script = next(
             s for s in KNOWN_SCRIPTS.values() if s.name == local_land_cover_script_name
-        ][0]
+        )
 
         self.auth_id = self.set_auth_db()
 

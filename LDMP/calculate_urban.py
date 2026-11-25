@@ -184,7 +184,7 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
             return False
         else:
             # Should never get here
-            raise
+            raise RuntimeError("Unknown population definition")
 
     def calculate_on_GEE(self):
         self.close()

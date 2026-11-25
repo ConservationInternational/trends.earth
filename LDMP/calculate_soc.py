@@ -178,11 +178,11 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         if self.fl_radio_custom.isChecked():
             return float(self.fl_custom_lineEdit.text())
         elif self.fl_radio_chooseRegime.isChecked():
-            return [
+            return next(
                 r[1]
                 for r in self.regimes
                 if r[0] == self.fl_chooseRegime_comboBox.currentText()
-            ][0]
+            )
         else:
             return "per pixel"
 

@@ -81,9 +81,9 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         else:
             self.end_time_le.setText("Not completed")
 
+        is_unccd_report = self.job.script.name == "unccd-report"
         self.delete_btn.clicked.connect(self.delete_dataset)
         self.open_directory_btn.clicked.connect(self.open_job_directory)
-        self.export_btn.clicked.connect(self.export_dataset)
         self.alg_le.setText(self.job.script.name)
         empty_paths_msg = "This dataset does not have local paths"
 
@@ -101,26 +101,41 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
                 path_le_text = f"{empty_paths_msg} yet"
         else:
             path_le_text = f"{empty_paths_msg} yet"
-        self.export_btn.setEnabled(main_uri_exist)
+        self.export_btn.setEnabled(main_uri_exist or is_unccd_report)
         self.path_le.setText(path_le_text)
         self.open_directory_btn.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionFileOpen.svg"))
         )
-        self.export_btn.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, "export_zip.svg")))
+        if is_unccd_report:
+            self.export_btn.setText(self.tr("Open folder"))
+            self.export_btn.setIcon(
+                QtGui.QIcon(os.path.join(ICON_PATH, "mActionFileOpen.svg"))
+            )
+            self.export_btn.clicked.connect(self.open_job_directory)
+            self.open_directory_btn.hide()
+        else:
+            self.export_btn.setIcon(
+                QtGui.QIcon(os.path.join(ICON_PATH, "export_zip.svg"))
+            )
+            self.export_btn.clicked.connect(self.export_dataset)
         self.delete_btn.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionDeleteSelected.svg"))
         )
 
         # Hide inappropriate buttons for failed and cancelled jobs
         # Failed or cancelled jobs should only show the open folder and info buttons
-        if self.job.status in (
-            JobStatus.FAILED,
-            JobStatus.CANCELLING,
-            JobStatus.CANCELLED,
-            JobStatus.EXPIRED,
+        if (
+            self.job.status
+            in (
+                JobStatus.FAILED,
+                JobStatus.CANCELLING,
+                JobStatus.CANCELLED,
+                JobStatus.EXPIRED,
+            )
+            and not is_unccd_report
         ):
             self.export_btn.hide()
-            # Keep open_directory_btn (folder icon) and delete_btn (info/delete icon) visible
+            # Keep the folder action and delete button visible.
 
         self.comments.setText(self.job.task_notes)
         self.input.set_json_data(self.job.params, collapse_level=1)
@@ -136,7 +151,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.layout().insertWidget(0, self.bar, alignment=QtCore.Qt.AlignTop)
 
     def open_job_directory(self):
-        log(f"Open directory button clicked for job {self.job.task_name!r}")
+        log(f"Opening directory for job {self.job.task_name!r}")
         job_directory = manager.job_manager.get_job_file_path(self.job).parent
         # NOTE: not using QDesktopServices.openUrl here, since it seems to not be
         # working correctly (as of Jun 2021 on Ubuntu)

@@ -36,7 +36,7 @@ def _pct(data, category, metric):
         if math.isnan(v) or math.isinf(v) or v < 0:
             return 0
         return round(v)
-    except Exception:
+    except (TypeError, ValueError, OverflowError):
         return 0
 
 
@@ -49,7 +49,7 @@ def build_chart_html(stats_json):
     if stats_json:
         try:
             data = json.loads(stats_json) if isinstance(stats_json, str) else stats_json
-        except Exception:
+        except json.JSONDecodeError:
             data = {}
     if not isinstance(data, dict):
         data = {}
@@ -219,6 +219,6 @@ def calculate_error_recode_stats(band_datas, feature, parent, context):
             stats[band["out_name"]] = _sanitize_stats(band_stats[band_hash])
 
         return json.dumps(stats)
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         log(f"Error calculating error recode stats: {e}")
         return None

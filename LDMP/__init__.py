@@ -112,10 +112,8 @@ def classFactory(iface):  # pylint: disable=invalid-name
 # NamedTemporaryFile - necessary when the file is for usage in another process
 # (i.e. GDAL)
 def GetTempFilename(suffix):
-    f = NamedTemporaryFile(suffix=suffix, delete=False)
-    f.close()
-
-    return f.name
+    with NamedTemporaryFile(suffix=suffix, delete=False) as temp_file:
+        return temp_file.name
 
 
 logger.log(
@@ -178,7 +176,7 @@ def openFolder(path):
 
     # The executable is absolute and argv only opens the validated selected path.
     if sys.platform == "win32":
-        res = subprocess.run([executable, path])  # nosec B603
+        res = subprocess.run([executable, path], check=False)  # nosec B603
         # For some reason windows "explorer" often returns 1 on success (as
         # apparently do other windows GUI programs...)
 

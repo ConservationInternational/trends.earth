@@ -9,6 +9,7 @@ import shutil
 import stat
 import subprocess
 import sys
+import time
 import zipfile
 from contextlib import contextmanager
 from datetime import UTC, datetime
@@ -851,6 +852,22 @@ def _safe_remove_folder(rootdir):
         print(f"Removed directory and all contents: {rootdir}")
 
 
+def _check_call_with_retries(cmd):
+    """Retry a Git package install up to three times for transient failures."""
+    for attempt in range(3):
+        try:
+            subprocess.check_call(cmd)
+            return
+        except subprocess.CalledProcessError:
+            if attempt == 2:
+                raise
+            delay = 2 * (attempt + 1)
+            print(
+                f"Command failed; retrying in {delay} seconds (attempt {attempt + 2}/3)."
+            )
+            time.sleep(delay)
+
+
 @task(
     help={
         "clean": "Clean out dependencies first",
@@ -973,7 +990,7 @@ def plugin_setup(c, clean=True, link=False, pip="pip"):
                     ]
                     cmd.extend(constraint_args)
                     cmd.append(install_req)
-                    subprocess.check_call(cmd)
+                    _check_call_with_retries(cmd)
 
                 # Copy all packages from temp directory to ext_libs (git packages + their dependencies)
                 print(f"Contents of temp directory: {os.listdir(temp_dir)}")

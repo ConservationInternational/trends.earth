@@ -161,7 +161,9 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
     def selection_changed(self):
         if self.data_view.selectedIndexes():
             # Note there can only be one row selected at a time by default
-            row = list({index.row() for index in self.data_view.selectedIndexes()})[0]
+            row = next(
+                iter({index.row() for index in self.data_view.selectedIndexes()})
+            )
             year_initial = self.datasets[row]["Start year"]
             year_final = self.datasets[row]["End year"]
             if (year_initial == "NA") or (year_final == "NA"):

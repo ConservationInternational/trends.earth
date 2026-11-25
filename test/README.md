@@ -6,6 +6,38 @@ When run standalone, the sub-indicator dialog tests start an application with
 Calling `start_app()` unconditionally inside the QGIS runner can create a
 second application and fail during QGIS initialization.
 
+## Report map masks (offline)
+
+[`test_report_admin_area.py`](test_report_admin_area.py) uses generated polygons
+and native QGIS processing to verify that report masks select the country with
+the largest overlap with the raster extent, not an enclosed neighbour or a
+larger country mostly outside the extent. It also checks sub-region masking
+when the neighbouring country is clipped by the extent, and extents without
+land. No API credentials or downloaded basemap are needed.
+
+## LDN planning integration (offline)
+
+Run the planning unit and integrated-tab tests together:
+
+```bash
+bash run_tests.sh 3.44 test_suite.test_planning
+bash run_tests.sh 4.2-trixie test_suite.test_planning
+```
+
+[`test_ldn_planning_integration.py`](test_ldn_planning_integration.py) exercises
+the embedded Trends.Earth tab, generated inputs, real planning dialogs, native
+scenario controls, job execution, persisted outputs, and signal-driven updates.
+Only network lookups, modal interaction, and task scheduling are automated.
+The tests cover tab navigation, drafts, candidate-target configuration and invalidation,
+polygon-only and combined targets, zero-target runs, immutable results, and
+comparison preflight. They also check explicit project selection in dataset
+shortcuts, consolidated Algorithms entries, and a 480-pixel-wide tab with long
+dataset names, collapsible controls, and keyboard access to the candidate map.
+[`test_ldn_prioritization.py`](test_ldn_prioritization.py)
+also covers project migration and the tab's lifecycle and News navigation.
+No API credentials are needed. Use matching algorithms/schemas sources or
+packages when validating coordinated unreleased changes.
+
 ## Generated custom-data end-to-end tests (offline)
 
 [`e2e/test_custom_population.py`](e2e/test_custom_population.py) runs without

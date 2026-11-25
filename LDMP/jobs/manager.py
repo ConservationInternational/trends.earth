@@ -15,7 +15,6 @@ import uuid
 from copy import deepcopy
 from pathlib import Path
 
-import backoff
 import te_algorithms.gdal.land_deg.config as ld_conf
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
@@ -96,12 +95,10 @@ def _find_error_recode_result(job: Job) -> VectorResults | None:
         The VectorResults with ERROR_RECODE type, or None if not found.
     """
     for result in job._get_results_list():
-        if isinstance(result, VectorResults):
-            if (
-                result.vector is not None
-                and result.vector.type == VectorType.ERROR_RECODE
-            ):
-                return result
+        if isinstance(result, VectorResults) and (
+            result.vector is not None and result.vector.type == VectorType.ERROR_RECODE
+        ):
+            return result
     return None
 
 
@@ -180,7 +177,7 @@ def _get_extent_tuple_raster(path):
     except (OSError, RuntimeError, MemoryError) as exc:
         log(f"Failed to calculate extent for {path} - {type(exc).__name__}: {exc}")
         return None
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         log(
             f"Unexpected error calculating extent for {path} - {type(exc).__name__}: {exc}"
         )
@@ -220,7 +217,7 @@ def _get_extent_tuple_vector(path):
 
         try:
             is_empty = hasattr(rect, "isEmpty") and rect.isEmpty()
-        except Exception:
+        except Exception:  # noqa: BLE001
             is_empty = False
 
         if (not rect) or is_empty:
@@ -254,7 +251,7 @@ def _get_extent_tuple_vector(path):
     except (OSError, RuntimeError, MemoryError) as exc:
         log(f"Failed to calculate extent for {path} - {type(exc).__name__}: {exc}")
         return None
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         log(
             f"Unexpected error calculating extent for {path} - {type(exc).__name__}: {exc}"
         )
@@ -359,26 +356,28 @@ def _set_results_extents_if_missing(job) -> bool:
                     if not hasattr(raster, "extent") or raster.extent is None:
                         raster.extent = _get_extent_tuple_raster(raster.uri.uri)
                         changed = True
-                elif raster.type == results.RasterType.TILED_RASTER:
-                    if not hasattr(raster, "extents") or raster.extents is None:
-                        raster.extents = []
-                        for raster_tile_uri in raster.tile_uris:
-                            extent = _get_extent_tuple_raster(raster_tile_uri.uri)
-                            if extent is None:
-                                raise RuntimeError(
-                                    f"Failed to calculate extent for tile {raster_tile_uri.uri} in job {job.id}. "
-                                    f"File may be missing, corrupted, or inaccessible."
-                                )
-                            raster.extents.append(extent)
-                        changed = True
-        elif isinstance(result, VectorResults):
-            if not hasattr(result, "extent") or result.extent is None:
-                uri_to_use = result.uri
-                if uri_to_use is None and result.vector is not None:
-                    uri_to_use = result.vector.uri
-                if uri_to_use is not None and uri_to_use.uri is not None:
-                    result.extent = _get_extent_tuple_vector(uri_to_use.uri)
+                elif raster.type == results.RasterType.TILED_RASTER and (
+                    not hasattr(raster, "extents") or raster.extents is None
+                ):
+                    raster.extents = []
+                    for raster_tile_uri in raster.tile_uris:
+                        extent = _get_extent_tuple_raster(raster_tile_uri.uri)
+                        if extent is None:
+                            raise RuntimeError(
+                                f"Failed to calculate extent for tile {raster_tile_uri.uri} in job {job.id}. "
+                                f"File may be missing, corrupted, or inaccessible."
+                            )
+                        raster.extents.append(extent)
                     changed = True
+        elif isinstance(result, VectorResults) and (
+            not hasattr(result, "extent") or result.extent is None
+        ):
+            uri_to_use = result.uri
+            if uri_to_use is None and result.vector is not None:
+                uri_to_use = result.vector.uri
+            if uri_to_use is not None and uri_to_use.uri is not None:
+                result.extent = _get_extent_tuple_vector(uri_to_use.uri)
+                changed = True
     return changed
 
 
@@ -569,9 +568,7 @@ def _is_download_lock_stale(lock_path: Path) -> bool:
 
     if pid is not None and not _is_pid_alive(pid):
         return True
-    if time.time() - ts > _DOWNLOAD_LOCK_STALE_SECONDS:
-        return True
-    return False
+    return time.time() - ts > _DOWNLOAD_LOCK_STALE_SECONDS
 
 
 def _try_acquire_download_lock(job_dir: Path) -> bool:
@@ -722,20 +719,23 @@ class DownloadJobResultsTask(QgsTask):
 
             try:
                 success = self._qgs_download(url, output_path, progress_fn=progress_fn)
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 log(
                     f"Download attempt {attempt + 1} failed for {output_path.name}: {e}"
                 )
                 output_path.unlink(missing_ok=True)
                 success = False
 
-            if success and expected_etag is not None:
-                if not ldmp_download.verify_file_against_etag(
+            if (
+                success
+                and expected_etag is not None
+                and not ldmp_download.verify_file_against_etag(
                     output_path, expected_etag
-                ):
-                    log(f"Etag verification failed for {output_path}")
-                    output_path.unlink(missing_ok=True)
-                    success = False
+                )
+            ):
+                log(f"Etag verification failed for {output_path}")
+                output_path.unlink(missing_ok=True)
+                success = False
 
             if success:
                 # Refresh the download lock to prove we're still alive and
@@ -935,7 +935,7 @@ class DownloadJobResultsTask(QgsTask):
         # Setup the main URI (may be a VRT combining multiple rasters)
         if len(raster_result.rasters) > 1 or (
             len(raster_result.rasters) == 1
-            and [*raster_result.rasters.values()][0].type
+            and next(iter(raster_result.rasters.values())).type
             == results.RasterType.TILED_RASTER
         ):
             vrt_file = base_output_path.parent / f"{result_base_path.name}.vrt"
@@ -950,7 +950,7 @@ class DownloadJobResultsTask(QgsTask):
             )
             raster_result.uri = results.URI(uri=vrt_file)
         else:
-            raster_result.uri = [*raster_result.rasters.values()][0].uri
+            raster_result.uri = next(iter(raster_result.rasters.values())).uri
 
         _set_results_extents_raster(raster_result, self.job)
         return True, files_done
@@ -1121,7 +1121,7 @@ class JobManager(QtCore.QObject):
             return stat_info.st_size > 0
         except (OSError, PermissionError):
             return False
-        except Exception:
+        except Exception:  # noqa: BLE001
             return False
 
     @property
@@ -1727,7 +1727,7 @@ class JobManager(QtCore.QObject):
             # Safely set result extents to prevent crashes from file access issues
             try:
                 set_results_extents(job)
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001
                 log(
                     f"Failed to set extents for job {job.id}: {type(exc).__name__}: {exc}"
                 )
@@ -2125,7 +2125,7 @@ class JobManager(QtCore.QObject):
         # Safely set result extents to prevent crashes from file access issues
         try:
             set_results_extents(job)
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             log(
                 f"Failed to set extents for imported job {job.id}: {type(exc).__name__}: {exc}"
             )
@@ -2340,7 +2340,7 @@ class JobManager(QtCore.QObject):
             # Safely set result extents to prevent crashes from file access issues
             try:
                 set_results_extents(job)
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001
                 log(
                     f"Failed to set extents for job {job.id}: {type(exc).__name__}: {exc}"
                 )
@@ -2451,7 +2451,7 @@ class JobManager(QtCore.QObject):
                 if param and param.get("path"):
                     try:
                         rext = _get_extent_tuple_raster(Path(param["path"]))
-                    except Exception:
+                    except Exception:  # noqa: BLE001
                         rext = None
                     union_extent = _union(union_extent, rext)
 
@@ -2752,7 +2752,7 @@ class JobManager(QtCore.QObject):
         except (OSError, PermissionError, RuntimeError) as exc:
             log(f"Error scanning directory {base_dir}: {type(exc).__name__}: {exc}")
             return grouped
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             log(
                 f"Unexpected error scanning directory {base_dir}: {type(exc).__name__}: {exc}"
             )
@@ -2794,7 +2794,7 @@ class JobManager(QtCore.QObject):
                                 f"Skipping unsafe or corrupted file {job_metadata_path!r}"
                             )
                         continue
-                except Exception as exc:
+                except Exception as exc:  # noqa: BLE001
                     self._job_cache.cache_job(job_metadata_path, file_mtime, None)
                     log(
                         f"Error checking safety of file {job_metadata_path!r}: {type(exc).__name__}: {exc}"
@@ -2828,7 +2828,7 @@ class JobManager(QtCore.QObject):
                         log(
                             f"Failed to set extents for job {job.id} during loading: {type(exc).__name__}: {exc}"
                         )
-                    except Exception as exc:
+                    except Exception as exc:  # noqa: BLE001
                         log(
                             f"Unexpected error setting extents for job {job.id}: {type(exc).__name__}: {exc}"
                         )
@@ -2838,7 +2838,7 @@ class JobManager(QtCore.QObject):
                             self.write_job_metadata_file(job)
                             # Update mtime after writing
                             file_mtime = job_metadata_path.stat().st_mtime
-                        except Exception as exc:
+                        except Exception as exc:  # noqa: BLE001
                             log(
                                 f"Failed to persist extents for job {job.id}: {type(exc).__name__}: {exc}"
                             )
@@ -2872,7 +2872,7 @@ class JobManager(QtCore.QObject):
                     log(f"Runtime error processing file {job_metadata_path!r}: {exc}")
             except (OSError, PermissionError) as exc:
                 log(f"File system error accessing {job_metadata_path!r}: {exc}")
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001
                 log(
                     f"Unexpected error processing {job_metadata_path!r}: {type(exc).__name__}: {exc}"
                 )
@@ -3305,7 +3305,7 @@ def _get_local_context() -> str:
 
 def find_job(target: Job, source: list[Job]) -> Job | None:
     try:
-        result = [j for j in source if j.id == target.id][0]
+        result = next(j for j in source if j.id == target.id)
     except IndexError:
         log(f"Could not find job {target.id!r} on the list of jobs")
         result = None
@@ -3395,16 +3395,6 @@ def _get_raster_vrt(tiles: list[Path], out_file: Path):
     ds = None
 
 
-def backoff_hdlr(details):
-    log(
-        "Backing off {wait:0.1f} seconds after {tries} tries "
-        "calling function {target}".format(**details)
-    )
-
-
-@backoff.on_predicate(
-    backoff.expo, lambda x: x is None, max_tries=5, on_backoff=backoff_hdlr
-)
 def _delete_job_datasets(job: Job):
     if job.results is not None:
         try:

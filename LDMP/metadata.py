@@ -247,7 +247,7 @@ def combine_metadata(metadata, other):
 
 
 def export_dataset_metadata(job: Job):
-    md_paths = list()
+    md_paths = []
 
     file_path = manager.job_manager.get_job_file_path(job)
     md_path = os.path.splitext(file_path)[0] + ".qmd"

@@ -222,7 +222,7 @@ class TemplateManager:
             except ValidationError as ve:
                 err_msg = str(ve.messages)
                 log(err_msg, Qgis.MessageLevel.Warning)
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001
                 log(str(exc), Qgis.MessageLevel.Warning)
             finally:
                 tf.close()

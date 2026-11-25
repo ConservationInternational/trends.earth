@@ -17,6 +17,7 @@ from LDMP.jobs.models import Job, SortField, TypeFilter
 from LDMP.jobs.mvc import JobsSortFilterProxyModel
 
 QGIS_APP = get_qgis_app()
+INVALID_MODEL_INDEX = QtCore.QModelIndex()
 
 
 def create_mock_job(
@@ -53,7 +54,7 @@ class SimpleJobsModel(QtCore.QAbstractItemModel):
         super().__init__(parent)
         self.jobs = jobs
 
-    def index(self, row, column, parent=QtCore.QModelIndex()):
+    def index(self, row, column, parent=INVALID_MODEL_INDEX):
         if not self.hasIndex(row, column, parent):
             return QtCore.QModelIndex()
         # Use internalPointer to store the job object, like the real JobsModel does
@@ -63,10 +64,10 @@ class SimpleJobsModel(QtCore.QAbstractItemModel):
     def parent(self, index):
         return QtCore.QModelIndex()
 
-    def rowCount(self, parent=QtCore.QModelIndex()):
+    def rowCount(self, parent=INVALID_MODEL_INDEX):
         return len(self.jobs) if not parent.isValid() else 0
 
-    def columnCount(self, parent=QtCore.QModelIndex()):
+    def columnCount(self, parent=INVALID_MODEL_INDEX):
         return 1
 
     def data(self, index, role=QtCore.Qt.DisplayRole):

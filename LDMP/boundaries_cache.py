@@ -518,7 +518,7 @@ class BoundariesCache:
                     except OSError as e:
                         log(f"Error deleting cache file {cache_file}: {e}")
 
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             log(f"Error during cache cleanup: {e}")
 
         if cleared_count > 0:

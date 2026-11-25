@@ -25,6 +25,7 @@ import hashlib
 import logging
 import os
 import tempfile
+from typing import ClassVar
 
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
@@ -43,7 +44,7 @@ class HtmlTableAsImageDirective(Directive):
     """Mark a raw HTML block for PNG rendering in PDF output."""
 
     has_content = True
-    option_spec = {
+    option_spec: ClassVar[dict] = {
         "viewport-width": directives.positive_int,
     }
 
@@ -150,7 +151,7 @@ def _process_html_tables(app, doctree, docname):
             logger.info("Rendering HTML table to %s …", png_filename)
             try:
                 _render_html_to_png(html_fragment, css, png_path, viewport_width)
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001
                 logger.warning(
                     "Failed to render HTML table as image: %s.  "
                     "Is Playwright installed?  "

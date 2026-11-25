@@ -223,7 +223,7 @@ for running algorithms and their results.</string>
           <item>
            <widget class="QPushButton" name="manage_webmap_shares_pb">
             <property name="text">
-             <string>Manage web maps...</string>
+             <string>Shared web maps...</string>
             </property>
            </widget>
           </item>

@@ -1065,24 +1065,41 @@ def delete_layer_by_filename(f: str) -> bool:
     return result
 
 
-def _try_load_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
-    """Attempt to load a vector layer from the given path.
-
-    Returns the layer if successful, None otherwise.
-    """
+def _load_vector_sublayer(layer_path: str) -> "QgsVectorLayer":
+    """Load the first OGR sublayer with its default style, without adding it."""
     sublayers = (
         QgsProviderRegistry.instance()
         .providerMetadata("ogr")
         .querySublayers(layer_path)
     )
+    if not sublayers:
+        return None
+    options = QgsProviderSublayerDetails.LayerOptions(
+        QgsProject.instance().transformContext()
+    )
+    options.loadDefaultStyle = True
+    return sublayers[0].toLayer(options)
 
-    layer = None
-    if len(sublayers) > 0:
-        options = QgsProviderSublayerDetails.LayerOptions(
-            QgsProject.instance().transformContext()
-        )
-        options.loadDefaultStyle = True
-        layer = sublayers[0].toLayer(options)
+
+def open_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
+    """Open a vector output exactly as it is styled and named in the map.
+
+    Unlike add_vector_layer, the layer is not added to the project.
+    """
+    layer = _load_vector_sublayer(layer_path) or QgsVectorLayer(layer_path, name, "ogr")
+    if layer is None or not layer.isValid():
+        return None
+    layer.setName(name)
+    return layer
+
+
+def _try_load_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
+    """Attempt to load a vector layer from the given path.
+
+    Returns the layer if successful, None otherwise.
+    """
+    layer = _load_vector_sublayer(layer_path)
+    if layer is not None:
         if layer.isValid():
             found = False
             layers = QgsProject.instance().mapLayers()

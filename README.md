@@ -39,23 +39,35 @@ the plugin.
 
 ### Sharing web maps
 
-Add the local result layers to the QGIS project, then choose **Share web map**
-from the Trends.Earth menu. Configure each layer's name, attribution and style;
-for vectors explicitly select only public-safe attributes and set the zoom
-range. Vector exports include a generated feature identifier. The tool checks
-for omitted features and changed selected attributes at each zoom; tiling still
-clips and quantizes geometry. Unsupported styles must be replaced with a
-supported style in the editor. Review the prepared size, styles and attribution,
-confirm sharing rights and the absence of sensitive content, then upload and
-publish. Uploads can be cancelled or retried while the dialog remains open.
-Failed or abandoned drafts remain reserved until revoked or expired.
+New public links contain a single unguessable path token: they can be copied
+from the browser address bar and forwarded without a separate secret. Tiles may
+be cached publicly for up to four days (never past the link expiry); replacing
+or revoking a link requests CDN removal, which takes time to propagate.
 
-**Manage web-map shares** lists shares, storage usage, validation errors and
-UTC expiry, and can publish validated drafts, rotate links or revoke shares.
-Copy a new link when it is shown: it cannot be retrieved again. Anyone with the
-link can forward it or save the displayed content. Revocation is immediate, but
-storage remains reserved until server cleanup succeeds. Sharing requires an
-authenticated account and a server with public web-map sharing enabled.
+Open **Shared web maps...** from the Trends.Earth dock and choose
+**New web map...**. Enter a title, check the downloaded outputs to include
+(double-click a layer name to rename it) and choose **Share**. Rasters use the
+default Trends.Earth style and legend labels. For vectors, explicitly select only
+public-safe attributes and set the zoom range; exports include a generated feature
+identifier, and tiling clips and quantizes geometry. Before anything is uploaded,
+a confirmation explains that the unlisted link can be viewed, forwarded and
+saved by anyone who has it. The layers are then prepared, uploaded, validated and
+published in one step, and the link is shown with **Copy link** and **Open in
+browser** buttons.
+
+To add layers to a published map, use the share button on a dataset, or
+**Add layers...** in **Shared web maps**. The dataset button only adds layers to
+existing maps. The link stays the same, and recipients see the new layers the
+next time they open it.
+
+**Shared web maps** lists your maps, links, storage usage, validation errors and
+UTC expiry. It can publish a validated draft, replace a link or revoke a map.
+Double-click a map to open it. Link replacement and revocation immediately block
+new server access, but cached tiles can remain available until CDN removal
+propagates. Storage remains reserved until server cleanup succeeds. Failed
+or abandoned drafts remain reserved until revoked or expired. Sharing requires
+an authenticated account and a server with public web-map sharing enabled.
+
 Sharing uses QGIS proxy resolution and supports HTTP CONNECT and SOCKS5 proxies,
 including configured credentials and proxy exclusions. HTTPS-to-proxy connections
 and interactive proxy authentication are not supported. The sharing transport

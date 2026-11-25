@@ -68,10 +68,11 @@ class TestWebmapSharing(unittest.TestCase):
 
     def test_owner_api_and_one_time_link(self):
         self.client._api_session.request.return_value = response(
-            data={"link": "https://viewer.test/#secret"}
+            data={"link": "https://viewer.test/share/s/public-token"}
         )
         self.assertEqual(
-            self.client.publish(SHARE)["link"], "https://viewer.test/#secret"
+            self.client.publish(SHARE)["link"],
+            "https://viewer.test/share/s/public-token",
         )
         args, kwargs = self.client._api_session.request.call_args
         self.assertEqual(
@@ -82,10 +83,10 @@ class TestWebmapSharing(unittest.TestCase):
 
     def test_owner_can_retrieve_current_link(self):
         self.client._api_session.request.return_value = response(
-            data={"link": "https://viewer.test/share/id#secret"}
+            data={"link": "https://viewer.test/share/s/public-token"}
         )
         self.assertEqual(
-            self.client.link(SHARE)["link"], "https://viewer.test/share/id#secret"
+            self.client.link(SHARE)["link"], "https://viewer.test/share/s/public-token"
         )
         args, _ = self.client._api_session.request.call_args
         self.assertEqual(args, ("GET", f"https://api.test/api/v1/shares/{SHARE}/link"))
@@ -272,6 +273,59 @@ class TestWebmapSharing(unittest.TestCase):
         self.assertEqual(result.headers["ETag"], '"etag"')
         self.assertEqual(reader.remaining, 0)
         self.assertEqual(requests_seen, [("/part?signature=secret", b"abc", "3", None)])
+
+    def test_qgis_network_manager_uploads_each_multipart_part_exactly(self):
+        part_size = 6 * 1024**2
+        content = os.urandom(2 * part_size)
+        self.file.write_bytes(content)
+        bodies = []
+
+        class Target(http.server.BaseHTTPRequestHandler):
+            protocol_version = "HTTP/1.1"
+
+            def do_PUT(self):
+                bodies.append(self.rfile.read(int(self.headers["Content-Length"])))
+                self.send_response(200)
+                self.send_header("ETag", f'"etag{len(bodies)}"')
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+
+            def log_message(self, *_args):
+                pass
+
+        manager = sharing.QgsNetworkAccessManager.instance()
+        original = QNetworkProxy(manager.fallbackProxy())
+        excludes = manager.excludeList()
+        no_proxy = manager.noProxyList()
+        server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Target)
+        server.daemon_threads = True
+        worker = threading.Thread(target=server.serve_forever, daemon=True)
+        worker.start()
+        base = f"http://127.0.0.1:{server.server_address[1]}"
+        parts = [
+            {"part_number": n, "size_bytes": part_size, "url": f"{base}/{n}"}
+            for n in (1, 2)
+        ]
+        self.client._upload_session = sharing._UploadSession()
+        try:
+            manager.setFallbackProxyAndExcludes(
+                QNetworkProxy(QNetworkProxy.ProxyType.NoProxy), [], []
+            )
+            with patch.object(self.client, "_parts", return_value=parts):
+                result = self.client.upload(SHARE, LAYER, self.file)
+        finally:
+            server.shutdown()
+            server.server_close()
+            worker.join()
+            manager.setFallbackProxyAndExcludes(original, excludes, no_proxy)
+        self.assertEqual(bodies, [content[:part_size], content[part_size:]])
+        self.assertEqual(
+            result["parts"],
+            [
+                {"part_number": 1, "etag": '"etag1"'},
+                {"part_number": 2, "etag": '"etag2"'},
+            ],
+        )
 
     def test_owner_api_uses_resolved_proxy_and_explicit_ca_bundle(self):
         self.client._api_session.request.return_value = response(data=[])

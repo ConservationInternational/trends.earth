@@ -5,7 +5,71 @@ from qgis.PyQt import QtCore, QtGui, QtWidgets
 
 from . import api
 from .constants import TIMEOUT, get_api_url
+from .utils import FileUtils
 from .webmap_sharing import ShareClient, ShareError
+
+
+def confirm_public_sharing(parent, layer_names, map_title=None):
+    """Ask for explicit consent immediately before content is made public."""
+    box = QtWidgets.QMessageBox(parent)
+    box.setIcon(QtWidgets.QMessageBox.Warning)
+    box.setWindowTitle(box.tr("Share publicly?"))
+    box.setText(
+        box.tr("Add these layers to “{title}”?").format(title=map_title)
+        if map_title
+        else box.tr("Create a public web map with these layers?")
+    )
+    box.setInformativeText(
+        box.tr(
+            "The link is unlisted: it is not published or searchable, but anyone "
+            "who has it can view the map, forward the link and save its content "
+            "until it expires. Tiles may be cached publicly for up to four days. "
+            "Revocation requests cache removal, which takes time to propagate.\n\n"
+            "Only continue if you have the right to share these layers publicly "
+            "and they contain no sensitive information."
+        )
+    )
+    box.setDetailedText("\n".join(layer_names))
+    share = box.addButton(box.tr("Share publicly"), QtWidgets.QMessageBox.AcceptRole)
+    box.addButton(QtWidgets.QMessageBox.Cancel)
+    box.setDefaultButton(QtWidgets.QMessageBox.Cancel)
+    box.exec()
+    return box.clickedButton() is share
+
+
+def format_bytes(size):
+    size = float(size or 0)
+    for unit in ("bytes", "KB", "MB", "GB"):
+        if size < 1024 or unit == "GB":
+            return f"{size:.0f} {unit}" if unit == "bytes" else f"{size:.1f} {unit}"
+        size /= 1024
+    return f"{size:.1f} GB"
+
+
+def share_status(share):
+    if share.get("state") == "ready" and share.get("ready_at"):
+        if share.get("update_state") == "validating":
+            return QtCore.QCoreApplication.translate("webmap", "Published (updating)")
+        if share.get("update_state") == "failed":
+            return QtCore.QCoreApplication.translate(
+                "webmap", "Published (update failed)"
+            )
+        return QtCore.QCoreApplication.translate("webmap", "Published")
+    return {
+        "draft": QtCore.QCoreApplication.translate("webmap", "Draft"),
+        "uploading": QtCore.QCoreApplication.translate("webmap", "Uploading"),
+        "validating": QtCore.QCoreApplication.translate("webmap", "Validating"),
+        "ready": QtCore.QCoreApplication.translate("webmap", "Ready to publish"),
+        "failed": QtCore.QCoreApplication.translate("webmap", "Failed"),
+    }.get(share.get("state"), str(share.get("state", "")))
+
+
+def can_add_layers(share):
+    return (
+        share.get("state") == "ready"
+        and bool(share.get("ready_at"))
+        and share.get("update_state") in ("idle", "uploading", "failed")
+    )
 
 
 class _OwnerTask(QgsTask):
@@ -23,7 +87,15 @@ class _OwnerTask(QgsTask):
         client = None
         try:
             client = ShareClient(self.base_url, self.token, timeout=TIMEOUT)
-            if self.operation == "refresh":
+            if self.operation == "list":
+                self.result = client.list()
+                if not isinstance(self.result, list) or not all(
+                    isinstance(share, dict) for share in self.result
+                ):
+                    raise ShareError(
+                        "Invalid response from the web-map sharing service"
+                    )
+            elif self.operation == "refresh":
                 self.result = (client.list(), client.storage())
                 shares, usage = self.result
                 if (
@@ -93,24 +165,30 @@ class _OwnerTask(QgsTask):
 class WebmapSharesDialog(QtWidgets.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle(self.tr("Manage web-map shares"))
-        self.resize(760, 420)
+        self.setWindowTitle(self.tr("Shared web maps"))
+        self.resize(760, 440)
         self.api_client = api.APIClient(get_api_url(), TIMEOUT)
         self.task = None
         self.shares = []
+        self._select_id = None
         layout = QtWidgets.QVBoxLayout(self)
         warning = QtWidgets.QLabel(
             self.tr(
-                "Unlisted links grant access to anyone who has them. Recipients can "
-                "forward links or save content. Revocation blocks access immediately; "
-                "storage is released after cleanup."
+                "Unlisted links work for anyone who has them. Cached tiles can "
+                "remain available while revocation propagates."
             )
         )
         warning.setWordWrap(True)
         layout.addWidget(warning)
+        header = QtWidgets.QHBoxLayout()
         self.storage = QtWidgets.QLabel()
         self.storage.setWordWrap(True)
-        layout.addWidget(self.storage)
+        header.addWidget(self.storage, 1)
+        self.refresh_button = QtWidgets.QToolButton()
+        self.refresh_button.setIcon(FileUtils.get_icon("mActionRefresh.svg"))
+        self.refresh_button.setToolTip(self.tr("Refresh"))
+        header.addWidget(self.refresh_button)
+        layout.addLayout(header)
         self.table = QtWidgets.QTableWidget(0, 5)
         self.table.setHorizontalHeaderLabels(
             [
@@ -126,6 +204,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.table.horizontalHeader().setStretchLastSection(True)
         self.table.itemSelectionChanged.connect(self._selection_changed)
+        self.table.itemDoubleClicked.connect(lambda _item: self._open_link())
         layout.addWidget(self.table)
         link_row = QtWidgets.QHBoxLayout()
         link_row.addWidget(QtWidgets.QLabel(self.tr("Link:")))
@@ -144,23 +223,26 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.details.setMaximumHeight(80)
         layout.addWidget(self.details)
         controls = QtWidgets.QHBoxLayout()
-        self.create_button = QtWidgets.QPushButton(self.tr("Share web map"))
+        self.create_button = QtWidgets.QPushButton(self.tr("New web map..."))
+        self.create_button.setDefault(True)
         self.add_layers_button = QtWidgets.QPushButton(self.tr("Add layers..."))
-        self.refresh_button = QtWidgets.QPushButton(self.tr("Refresh"))
         self.publish_button = QtWidgets.QPushButton(self.tr("Publish"))
-        self.rotate_button = QtWidgets.QPushButton(self.tr("Rotate link"))
+        self.rotate_button = QtWidgets.QPushButton(self.tr("New link"))
+        self.rotate_button.setToolTip(
+            self.tr("Replace the link; the current link stops working")
+        )
         self.delete_button = QtWidgets.QPushButton(self.tr("Revoke"))
         self.close_button = QtWidgets.QPushButton(self.tr("Close"))
         for button in (
             self.create_button,
             self.add_layers_button,
-            self.refresh_button,
             self.publish_button,
             self.rotate_button,
             self.delete_button,
-            self.close_button,
         ):
             controls.addWidget(button)
+        controls.addStretch()
+        controls.addWidget(self.close_button)
         layout.addLayout(controls)
         self.create_button.clicked.connect(self._create)
         self.add_layers_button.clicked.connect(self._add_layers)
@@ -184,24 +266,24 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         share = self._selected()
         ready = bool(share and share.get("state") == "ready")
         published = bool(share and share.get("ready_at"))
+        self.publish_button.setVisible(ready and not published)
         self.publish_button.setEnabled(ready and not published and self.task is None)
         self.rotate_button.setEnabled(ready and published and self.task is None)
         self.add_layers_button.setEnabled(
-            ready
-            and published
-            and share.get("update_state") in ("idle", "uploading", "failed")
-            and self.task is None
+            bool(share) and can_add_layers(share) and self.task is None
         )
         self.delete_button.setEnabled(bool(share) and self.task is None)
         link = share.get("link") if share else None
         self.link.setText(link or "")
         if share and ready and published and not link:
             self.link.setPlaceholderText(
-                self.tr("This link was created before links were stored; rotate it.")
+                self.tr(
+                    "This link was created before links were stored; choose New link."
+                )
             )
         else:
             self.link.setPlaceholderText(
-                self.tr("Select a published share to view its link.")
+                self.tr("Select a published map to view its link.")
             )
         self.copy_link_button.setEnabled(bool(link))
         self.open_link_button.setEnabled(bool(link))
@@ -245,7 +327,9 @@ class WebmapSharesDialog(QtWidgets.QDialog):
 
         self.timer.stop()
         self.create_button.setEnabled(False)
-        CreateWebmapDialog(self, on_published=self._show_link).exec()
+        dialog = CreateWebmapDialog(self, on_published=self._show_link)
+        dialog.exec()
+        self._select_id = dialog.share_id
         self.create_button.setEnabled(True)
         self.add_layers_button.setEnabled(True)
         self.refresh()
@@ -258,7 +342,9 @@ class WebmapSharesDialog(QtWidgets.QDialog):
 
         self.timer.stop()
         self.add_layers_button.setEnabled(False)
-        CreateWebmapDialog(self, existing_share_id=share["id"]).exec()
+        CreateWebmapDialog(
+            self, existing_share_id=share["id"], shares=self.shares
+        ).exec()
         self.add_layers_button.setEnabled(True)
         self.refresh()
 
@@ -284,15 +370,16 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             self.timer.start()
             shares, usage = result
             selected = self._selected()
-            selected_id = selected.get("id") if selected else None
+            selected_id = self._select_id or (selected.get("id") if selected else None)
+            self._select_id = None
             self.shares = shares
             self.table.setRowCount(len(shares))
             for row, share in enumerate(shares):
                 values = (
                     share.get("title", ""),
-                    share.get("state", ""),
+                    share_status(share),
                     share.get("expires_at") or "",
-                    str(share.get("quota_reserved_bytes", 0)),
+                    format_bytes(share.get("quota_reserved_bytes", 0)),
                     share.get("link") or "",
                 )
                 for column, value in enumerate(values):
@@ -301,18 +388,18 @@ class WebmapSharesDialog(QtWidgets.QDialog):
                     )
                 if share.get("id") == selected_id:
                     self.table.selectRow(row)
-            self.storage.setText(
-                self.tr(
-                    "Storage (bytes): uploaded {uploaded}; reserved {reserved}; "
-                    "pending cleanup {pending}; available {available}; quota {quota}."
-                ).format(
-                    uploaded=usage["uploaded_bytes"],
-                    reserved=usage["reserved_bytes"],
-                    pending=usage["cleanup_pending_bytes"],
-                    available=usage["available_bytes"],
-                    quota=usage["quota_limit_bytes"],
-                )
+            if self.table.currentRow() < 0 and shares:
+                self.table.selectRow(0)
+            self.table.resizeColumnsToContents()
+            storage = self.tr("Storage: {used} of {quota} used").format(
+                used=format_bytes(usage["reserved_bytes"]),
+                quota=format_bytes(usage["quota_limit_bytes"]),
             )
+            if usage["cleanup_pending_bytes"]:
+                storage += self.tr(" ({pending} awaiting cleanup)").format(
+                    pending=format_bytes(usage["cleanup_pending_bytes"])
+                )
+            self.storage.setText(storage)
             self._selection_changed()
         elif operation in ("publish", "rotate"):
             self._show_link(result)
@@ -338,24 +425,20 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             QtGui.QDesktopServices.openUrl(QtCore.QUrl(self.link.text()))
 
     def _publish(self):
-        answer = QtWidgets.QMessageBox.question(
-            self,
-            self.tr("Publish web map"),
-            self.tr(
-                "Anyone with the unlisted link can access, forward or save this map. "
-                "Do you have the rights to share all included content and have you "
-                "checked it for sensitive information and locations?"
-            ),
-        )
-        if answer == QtWidgets.QMessageBox.Yes:
+        share = self._selected()
+        if share and confirm_public_sharing(
+            self, [layer.get("name", "") for layer in share.get("layers", [])]
+        ):
             self._start("publish")
 
     def _rotate(self):
         answer = QtWidgets.QMessageBox.question(
             self,
-            self.tr("Rotate link"),
+            self.tr("Create a new link"),
             self.tr(
-                "The previous link and all open viewer sessions will stop working."
+                "The current link and open viewer sessions will be invalidated. "
+                "Cached tiles may remain available until CDN removal completes. "
+                "Create a new link?"
             ),
         )
         if answer == QtWidgets.QMessageBox.Yes:
@@ -366,7 +449,8 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             self,
             self.tr("Revoke share"),
             self.tr(
-                "Revoke this link immediately and schedule its storage for deletion?"
+                "Revoke this link and schedule its storage for deletion? "
+                "Cached tiles may remain available until CDN removal completes."
             ),
         )
         if answer == QtWidgets.QMessageBox.Yes:
@@ -383,14 +467,16 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             super().reject()
 
 
-def show_link(parent, result):
+def show_link(parent, result, message=None):
     dialog = QtWidgets.QDialog(parent)
-    dialog.setWindowTitle(dialog.tr("Unlisted web-map link"))
+    dialog.setWindowTitle(dialog.tr("Web-map link"))
     layout = QtWidgets.QVBoxLayout(dialog)
     label = QtWidgets.QLabel(
-        dialog.tr(
-            "Anyone with this link can access and redistribute the map until it "
-            "expires or is revoked. You can view it again in Manage web-map shares."
+        message
+        or dialog.tr(
+            "Your map is ready. Anyone with this link can view it until it expires, "
+            "forward the link or save its content. Revocation takes time to propagate. "
+            "You can find the link again under Shared web maps."
         )
     )
     label.setWordWrap(True)
@@ -405,10 +491,21 @@ def show_link(parent, result):
     link = QtWidgets.QLineEdit(result["link"])
     link.setReadOnly(True)
     layout.addWidget(link)
-    copy = QtWidgets.QPushButton(dialog.tr("Copy link"))
+    buttons = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Close)
+    copy = buttons.addButton(
+        dialog.tr("Copy link"), QtWidgets.QDialogButtonBox.ActionRole
+    )
+    browse = buttons.addButton(
+        dialog.tr("Open in browser"), QtWidgets.QDialogButtonBox.ActionRole
+    )
     copy.clicked.connect(
         lambda: QtWidgets.QApplication.clipboard().setText(link.text())
     )
-    layout.addWidget(copy)
+    browse.clicked.connect(
+        lambda: QtGui.QDesktopServices.openUrl(QtCore.QUrl(link.text()))
+    )
+    buttons.rejected.connect(dialog.reject)
+    layout.addWidget(buttons)
+    copy.setDefault(True)
     dialog.exec()
     link.clear()

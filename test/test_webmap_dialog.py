@@ -57,7 +57,7 @@ class TestWebmapSharesDialog(unittest.TestCase):
         self.assertEqual(self.dialog.table.item(1, 2).text(), "2026-01-08T00:00:00Z")
         self.dialog.table.selectRow(2)
         self.assertEqual(self.dialog.details.toPlainText(), "Invalid COG")
-        self.assertIn("pending cleanup 1", self.dialog.storage.text())
+        self.assertIn("1 bytes awaiting cleanup", self.dialog.storage.text())
 
     def test_published_share_link_is_viewable_and_copyable(self):
         usage = {
@@ -83,7 +83,7 @@ class TestWebmapSharesDialog(unittest.TestCase):
         self.dialog.table.selectRow(1)
         self.assertEqual(self.dialog.link.text(), "")
         self.assertFalse(self.dialog.copy_link_button.isEnabled())
-        self.assertIn("rotate", self.dialog.link.placeholderText())
+        self.assertIn("New link", self.dialog.link.placeholderText())
 
     @patch("LDMP.webmap_dialog.ShareClient")
     def test_refresh_fetches_links_only_for_published_shares(self, client):

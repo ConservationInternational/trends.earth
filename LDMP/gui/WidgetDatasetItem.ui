@@ -260,7 +260,7 @@
             <item>
              <widget class="QToolButton" name="share_tb">
               <property name="toolTip">
-               <string>Share selected dataset outputs in a web map</string>
+               <string>Add outputs to a shared web map</string>
               </property>
               <property name="text">
                <string>Share</string>

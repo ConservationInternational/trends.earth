@@ -13,14 +13,16 @@ from qgis.core import (
     QgsRasterLayer,
     QgsVectorLayer,
 )
-from qgis.PyQt import QtCore, QtGui
+from qgis.PyQt import QtCore, QtGui, QtWidgets
 
 from LDMP.webmap_create_dialog import (
     CreateWebmapDialog,
     _LayerOptions,
     _PrepareTask,
     _PublishTask,
+    _raster_style,
     _validate_style,
+    _vector_style,
 )
 from LDMP.webmap_sharing import ShareError
 
@@ -56,9 +58,9 @@ class TestWebmapPublication(unittest.TestCase):
         api_client.return_value.login.return_value = "token"
         dialog = CreateWebmapDialog()
         self.addCleanup(dialog.directory.cleanup)
-        dialog.confirm.setChecked(True)
+        dialog.snapshots = self.snapshots()
 
-        dialog._upload()
+        dialog._publish()
 
         self.assertEqual(
             api_client.return_value.url, "https://api-staging.trends.earth"
@@ -70,6 +72,57 @@ class TestWebmapPublication(unittest.TestCase):
         task_manager.return_value.addTask.assert_called_once_with(
             publish_task.return_value
         )
+
+    def checked_dialog(self, **kwargs):
+        dialog = CreateWebmapDialog(**kwargs)
+        self.addCleanup(dialog.directory.cleanup)
+        item = QtWidgets.QTreeWidgetItem(["Output", "Layer"])
+        dialog.tree.addTopLevelItem(item)
+        dialog.entries = [[item, {"name": "Layer"}]]
+        dialog.title.setText("Map")
+        return dialog
+
+    @patch("LDMP.webmap_create_dialog.QgsApplication.taskManager")
+    @patch("LDMP.webmap_create_dialog.confirm_public_sharing")
+    def test_share_requires_public_confirmation(self, confirm, task_manager):
+        dialog = self.checked_dialog()
+        confirm.return_value = False
+        dialog._share()
+        confirm.assert_called_once_with(dialog, ["Layer"], None)
+        task_manager.return_value.addTask.assert_not_called()
+        self.assertIsNone(dialog.task)
+
+        confirm.return_value = True
+        dialog._share()
+        self.assertIsInstance(dialog.task, _PrepareTask)
+        task_manager.return_value.addTask.assert_called_once_with(dialog.task)
+        dialog.task = None
+
+    @patch("LDMP.webmap_create_dialog.QgsApplication.taskManager")
+    @patch("LDMP.webmap_create_dialog.confirm_public_sharing", return_value=True)
+    def test_add_mode_lists_only_published_maps(self, confirm, task_manager):
+        published = {
+            "id": "live",
+            "title": "Live",
+            "state": "ready",
+            "ready_at": "2026-01-01T00:00:00Z",
+            "expires_at": "2026-01-08T00:00:00Z",
+            "update_state": "idle",
+        }
+        draft = {"id": "draft", "title": "Draft", "state": "ready", "ready_at": None}
+        dialog = self.checked_dialog(existing_share_id="live", shares=[draft])
+        self.assertTrue(dialog.no_maps.isVisibleTo(dialog))
+        self.assertFalse(dialog.share_button.isEnabled())
+
+        dialog._targets_loaded("list", True, [draft, published], None)
+        self.assertEqual(dialog.target.count(), 1)
+        self.assertEqual(dialog.target.currentData(), "live")
+        self.assertEqual(dialog.target.currentText(), "Live (expires 2026-01-08)")
+        self.assertFalse(dialog.no_maps.isVisibleTo(dialog))
+        self.assertTrue(dialog.share_button.isEnabled())
+        dialog._share()
+        confirm.assert_called_once_with(dialog, ["Layer"], "Live (expires 2026-01-08)")
+        dialog.task = None
 
     def draft(self):
         return {
@@ -428,7 +481,11 @@ class TestWebmapCreationUi(unittest.TestCase):
             self.assertEqual(options.attribution.text(), "Test attribution")
             self.assertEqual(
                 options.default_style,
-                {"kind": "categorical", "values": {"1": "#ff0000"}},
+                {
+                    "kind": "categorical",
+                    "values": {"1": "#ff0000"},
+                    "labels": {"1": "One"},
+                },
             )
             options._accept()
             self.assertEqual(options.configuration["path"], str(path))
@@ -457,10 +514,8 @@ class TestWebmapCreationUi(unittest.TestCase):
             timer.stop()
             self.assertEqual(completed, [(True, None)])
             dialog = CreateWebmapDialog()
-            dialog.configurations = [options.configuration]
             dialog.title.setText("Test map")
             self.assertEqual(dialog.retention.currentData(), 7)
-            self.assertTrue(hasattr(dialog, "output_choice"))
             dialog.reject()
             options.deleteLater()
             layer = None
@@ -502,6 +557,144 @@ class TestWebmapCreationUi(unittest.TestCase):
         }
         with self.assertRaises(ShareError):
             _validate_style(style, "vector", [])
+
+    def test_vector_legend_text_comes_from_plugin_renderer(self):
+        from qgis.core import (
+            QgsCategorizedSymbolRenderer,
+            QgsRendererCategory,
+            QgsSymbol,
+            QgsWkbTypes,
+        )
+
+        layer = QgsVectorLayer("Point?field=status:string", "Points", "memory")
+        symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry)
+        symbol.setColor(QtGui.QColor("#ff0000"))
+        layer.setRenderer(
+            QgsCategorizedSymbolRenderer(
+                "status", [QgsRendererCategory("a", symbol, "Degraded area")]
+            )
+        )
+        style = _vector_style(layer)
+        self.assertEqual(style["category"]["labels"], {"a": "Degraded area"})
+        self.assertEqual(style["category"]["other_label"], "Other or missing values")
+        _validate_style(style, "vector", ["status"])
+
+    def test_vector_share_uses_map_loader_default_style(self):
+        from qgis.core import (
+            QgsCategorizedSymbolRenderer,
+            QgsRendererCategory,
+            QgsSymbol,
+            QgsWkbTypes,
+        )
+
+        from LDMP.layers import open_vector_layer
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "result.gpkg"
+            data = ogr.GetDriverByName("GPKG").CreateDataSource(str(path))
+            crs = osr.SpatialReference()
+            crs.ImportFromEPSG(4326)
+            ogr_layer = data.CreateLayer("stored_name", crs, ogr.wkbPoint)
+            ogr_layer.CreateField(ogr.FieldDefn("status", ogr.OFTString))
+            data = None
+            stored = QgsVectorLayer(f"{path}|layername=stored_name", "x", "ogr")
+            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry)
+            stored.setRenderer(
+                QgsCategorizedSymbolRenderer(
+                    "status", [QgsRendererCategory("a", symbol, "Translated label")]
+                )
+            )
+            save = getattr(stored, "saveStyleToDatabaseV2", None)
+            if save is not None:
+                save("default", "", True, "")
+            else:
+                stored.saveStyleToDatabase("default", "", True, "")
+            stored = None
+
+            layer = open_vector_layer(str(path), "Result title")
+            self.assertEqual(layer.name(), "Result title")
+            self.assertEqual(
+                layer.renderer().categories()[0].label(), "Translated label"
+            )
+            self.assertEqual(
+                _vector_style(layer)["category"]["labels"], {"a": "Translated label"}
+            )
+            layer = None
+
+    def raster_style(self, ramp, ramp_items, band_scale=1):
+        band_info = {"name": "Styled band", "no_data_value": -32768}
+        items = [
+            QgsColorRampShader.ColorRampItem(value, QtGui.QColor(color), label)
+            for value, color, label in ramp_items
+        ]
+        with (
+            patch(
+                "LDMP.webmap_create_dialog.default_raster_styles",
+                {"Styled band": {"ramp": ramp}},
+            ),
+            patch("LDMP.webmap_create_dialog._create_color_ramp", return_value=items),
+            patch("LDMP.webmap_create_dialog._get_band_scale", return_value=band_scale),
+        ):
+            style = _raster_style("/layer.tif", 1, band_info)
+        _validate_style(style, "raster", [])
+        return style
+
+    def test_discrete_categories_keep_trends_earth_labels(self):
+        style = self.raster_style(
+            {"type": "categorical", "shader": "discrete"},
+            [
+                (-32768, "#000000", "No data"),
+                (-10, "#9b2779", "Potential degradation"),
+                (9, "#ffffe0", "Stable"),
+                (100, "#006500", "Potential improvement"),
+            ],
+        )
+        self.assertEqual(
+            style,
+            {
+                "kind": "categorical",
+                "values": {"-10": "#9b2779", "9": "#ffffe0", "100": "#006500"},
+                "labels": {
+                    "-10": "Potential degradation",
+                    "9": "Stable",
+                    "100": "Potential improvement",
+                },
+                "classification": "discrete",
+            },
+        )
+
+    def test_interpolated_categories_become_labelled_stops(self):
+        style = self.raster_style(
+            {"type": "categorical", "shader": "interpolated"},
+            [
+                (-2500, "#a50026", "Extreme drought"),
+                (0, "#ffffbf", "Normal"),
+                (2500, "#313695", "Extremely wet"),
+            ],
+            band_scale=0.001,
+        )
+        self.assertEqual(
+            style,
+            {
+                "kind": "continuous",
+                "min": -2500,
+                "max": 2500,
+                "stops": [
+                    {"value": -2500, "color": "#a50026", "label": "Extreme drought"},
+                    {"value": 0, "color": "#ffffbf", "label": "Normal"},
+                    {"value": 2500, "color": "#313695", "label": "Extremely wet"},
+                ],
+            },
+        )
+
+    def test_rejects_labels_for_unknown_categories(self):
+        style = {
+            "kind": "categorical",
+            "values": {"1": "#ffffff"},
+            "labels": {"2": "x"},
+        }
+        with self.assertRaises(ShareError):
+            _validate_style(style, "raster", [])
 
 
 if __name__ == "__main__":

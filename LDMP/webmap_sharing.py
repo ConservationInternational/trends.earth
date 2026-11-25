@@ -11,6 +11,11 @@ import requests
 from qgis.core import QgsNetworkAccessManager
 from qgis.PyQt import QtCore, QtNetwork
 
+try:
+    _NO_NETWORK_ERROR = QtNetwork.QNetworkReply.NetworkError.NoError
+except AttributeError:
+    _NO_NETWORK_ERROR = QtNetwork.QNetworkReply.NoError
+
 
 class ShareError(Exception):
     """An owner API or upload operation failed."""
@@ -141,19 +146,20 @@ class _UploadSession:
                 QtNetwork.QNetworkRequest.ManualRedirectPolicy,
             )
 
-        path = getattr(data.source, "name", None)
-        if not isinstance(path, (str, os.PathLike)):
-            raise ShareError("Could not read the snapshot for upload")
-        device = QtCore.QFile(os.fspath(path))
+        # Qt must only see this part's bytes: a whole-file device would let it
+        # send past the part and report progress against the rest of the file.
+        payload = data.source.read(data.size)
+        if len(payload) != data.size:
+            raise ShareError("Snapshot changed or ended during upload")
+        device = QtCore.QBuffer()
+        device.setData(QtCore.QByteArray(payload))
+        del payload
         try:
             open_mode = QtCore.QIODevice.OpenModeFlag.ReadOnly
         except AttributeError:
             open_mode = QtCore.QIODevice.ReadOnly
         if not device.open(open_mode):
             raise ShareError("Could not read the snapshot for upload")
-        if not device.seek(data.source.tell()):
-            device.close()
-            raise ShareError("Could not seek to the snapshot part")
 
         reply = manager.put(request, device)
         loop = QtCore.QEventLoop()
@@ -211,6 +217,9 @@ class _UploadSession:
             status = int(status or 0)
             if status <= 0:
                 raise ShareError("Could not contact upload storage")
+            if reply.error() == _NO_NETWORK_ERROR:
+                # Qt throttles progress signals, so the last one may be dropped.
+                report_progress(data.size, data.size)
             etag = bytes(reply.rawHeader(QtCore.QByteArray(b"ETag"))).decode("latin-1")
             return _UploadResponse(status, etag or None)
         finally:

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 2.3.2\n"
+"Project-Id-Version: Trends.Earth 2.3.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-16 04:09+0000\n"
+"POT-Creation-Date: 2026-11-11 04:05+0000\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Language-Team: Persian (https://app.transifex.com/conservation-international/teams/80165/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -46,47 +46,47 @@ msgid ""
 "2021. Theoretically, pixel values are as follows:"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "VI"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "Maximum value"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "Minimum value"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "EVI2"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "1.25"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "-0.7"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "1.5"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "-0.5"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "NDVI"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "1"
 msgstr ""
 
-#: ../../source/for_users/datasets/sen2svis.md:0
+#: ../../source/for_users/datasets/sen2svis.md:24
 msgid "-1"
 msgstr ""
 

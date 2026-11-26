@@ -487,12 +487,40 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                 with patch.object(
                     QtWidgets.QInputDialog, "getItem", return_value=(label, True)
                 ):
-                    dialog._configure_entry_for_job(workflow.capital_input)
-                dialog._entry_changed(len(dialog.entries) - 1, arr_class=arr_class)
+                    dialog._configure_entry_for_job(
+                        workflow.capital_input, arr_class=arr_class
+                    )
+            for arr_class in CLASSES:
+                table = dialog.criteria_tables[arr_class]
+                self.assertEqual(table.rowCount(), 1)
+                self.assertIn(
+                    "Only active criterion: 100%",
+                    table.cellWidget(0, 2).findChild(QtWidgets.QLabel).text(),
+                )
+            with (
+                patch.object(
+                    QtWidgets.QInputDialog, "getItem", return_value=(label, True)
+                ),
+                patch.object(
+                    QtWidgets.QMessageBox,
+                    "question",
+                    return_value=QtWidgets.QMessageBox.StandardButton.Yes,
+                ),
+            ):
+                dialog._configure_entry_for_job(
+                    workflow.capital_input, arr_class="avoid"
+                )
+            dialog._entry_changed(len(dialog.entries) - 1, weight=2)
+            avoid = dialog.criteria_tables["avoid"]
+            shares = [
+                avoid.cellWidget(row, 2).findChild(QtWidgets.QLabel).text()
+                for row in range(avoid.rowCount())
+            ]
             self.assertEqual(
-                [dialog.criteria_table.item(row, 5).text() for row in range(3)],
-                ["100%"] * 3,
+                shares,
+                ["33% of this class score", "67% of this class score"],
             )
+            dialog._remove_entry(len(dialog.entries) - 1)
 
         return workflow.run_step("priority", action)
 

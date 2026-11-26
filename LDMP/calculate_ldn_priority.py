@@ -84,9 +84,7 @@ class DlgPriorityCriterion(QtWidgets.QDialog):
         self.weight.setRange(0, 1e6)
         self.weight.setDecimals(6)
         self.weight.setValue(1)
-        form.addRow(
-            self.tr("Relative weight (normalized within each class)"), self.weight
-        )
+        form.addRow(self.tr("Relative importance within this class"), self.weight)
         self.direction = QtWidgets.QComboBox()
         self.direction.addItem(self.tr("Higher preferred"), "higher")
         self.direction.addItem(self.tr("Lower preferred"), "lower")
@@ -201,7 +199,12 @@ class DlgPriorityCriterion(QtWidgets.QDialog):
 class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
     LOCAL_SCRIPT_NAME = "ldn-planning-priority"
     DRAFT_NAME = "priority"
-    TABLE_HEADERS = ("", "Input", "Profile", "Class", "Weight", "Influence")
+    TABLE_HEADERS = (
+        "Use",
+        "Criterion and scoring rule",
+        "Relative importance",
+        "Actions",
+    )
 
     def __init__(self, iface, script, parent=None, draft_name=None):
         super().__init__(iface, script, parent)
@@ -226,32 +229,84 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         self.combo_arr = data_io.WidgetDataIOSelectTELayerExisting()
         self.combo_arr.setProperty("layer_type", "LDN Planning - Avoid/Reduce/Reverse")
         inner.addWidget(self.combo_arr)
-        inner = _make_group(self.tr("Class-specific priority criteria"), layout)
-        self.criteria_table = QtWidgets.QTableWidget(0, len(self.TABLE_HEADERS))
-        self.criteria_table.setHorizontalHeaderLabels(
-            [self.tr(header) for header in self.TABLE_HEADERS]
+        criteria_group = _make_group(self.tr("Rank within each ARR class"), layout)
+        explanation = QtWidgets.QLabel(
+            self.tr(
+                "ARR determines which locations are eligible for Avoid, Reduce, "
+                "or Reverse. Criteria rank locations within a class; they do not "
+                "change ARR classes. Each class gets its own priority score."
+            )
         )
-        self.criteria_table.horizontalHeader().setStretchLastSection(True)
-        self.criteria_table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
-        inner.addWidget(self.criteria_table)
-        row = QtWidgets.QHBoxLayout()
-        add_menu = QtWidgets.QMenu(self)
-        add_menu.addAction(self.tr("Add imported input..."), self._add_managed)
-        add_menu.addAction(self.tr("Import dataset..."), self._import_input)
-        add_button = QtWidgets.QPushButton(self.tr("Add criterion..."))
-        add_button.setMenu(add_menu)
-        row.addWidget(add_button)
-        remove_button = QtWidgets.QPushButton(self.tr("Remove selected"))
-        remove_button.clicked.connect(self._remove)
-        row.addWidget(remove_button)
+        explanation.setWordWrap(True)
+        criteria_group.addWidget(explanation)
+        self.criteria_tables = {}
+        self.class_status_labels = {}
+        class_labels = {
+            "avoid": self.tr("Avoid - protect non-degraded land"),
+            "reduce": self.tr("Reduce - manage at-risk non-degraded land"),
+            "reverse": self.tr("Reverse - restore degraded land"),
+        }
+        for arr_class in CLASSES:
+            class_box = QtWidgets.QGroupBox(class_labels[arr_class])
+            class_layout = QtWidgets.QVBoxLayout(class_box)
+            status = QtWidgets.QLabel()
+            status.setWordWrap(True)
+            self.class_status_labels[arr_class] = status
+            class_layout.addWidget(status)
+            table = QtWidgets.QTableWidget(0, len(self.TABLE_HEADERS))
+            table.setHorizontalHeaderLabels(
+                [self.tr(header) for header in self.TABLE_HEADERS]
+            )
+            table.horizontalHeader().setStretchLastSection(True)
+            table.horizontalHeader().setSectionResizeMode(
+                1, QtWidgets.QHeaderView.Stretch
+            )
+            table.horizontalHeader().setSectionResizeMode(
+                3, QtWidgets.QHeaderView.ResizeToContents
+            )
+            table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+            table.setMinimumHeight(72)
+            self.criteria_tables[arr_class] = table
+            class_layout.addWidget(table)
+            row = QtWidgets.QHBoxLayout()
+            add_menu = QtWidgets.QMenu(self)
+            add_menu.addAction(
+                self.tr("Add imported input..."),
+                lambda checked=False, key=arr_class: self._add_managed(key),
+            )
+            add_menu.addAction(
+                self.tr("Import dataset..."),
+                lambda checked=False, key=arr_class: self._import_input(key),
+            )
+            add_button = QtWidgets.QPushButton(
+                self.tr("Add criterion to %s...") % arr_class.title()
+            )
+            add_button.setMenu(add_menu)
+            row.addWidget(add_button)
+            equal_button = QtWidgets.QPushButton(self.tr("Set equal importance"))
+            equal_button.clicked.connect(
+                lambda checked=False, key=arr_class: self._set_equal_importance(key)
+            )
+            row.addWidget(equal_button)
+            class_layout.addLayout(row)
+            criteria_group.addWidget(class_box)
         more_menu = QtWidgets.QMenu(self)
         more_menu.addAction(self.tr("Advanced: add from file..."), self._add)
         more_menu.addAction(self.tr("Import settings..."), self._load_settings)
         more_menu.addAction(self.tr("Export settings..."), self._save_settings)
         more_button = QtWidgets.QPushButton(self.tr("More"))
         more_button.setMenu(more_menu)
-        row.addWidget(more_button)
-        inner.addLayout(row)
+        criteria_group.addWidget(more_button)
+        weight_note = QtWidgets.QLabel(
+            self.tr(
+                "Relative importance is normalized within each class. Only "
+                "the ratios matter: weights 2 and 1 contribute about 67% and "
+                "33%. A single active criterion contributes 100%, whatever "
+                "its positive weight. Priority is not intervention effectiveness."
+            )
+        )
+        weight_note.setWordWrap(True)
+        criteria_group.addWidget(weight_note)
         optional = _make_group(self.tr("Optional exclusions and breakdowns"), layout)
         optional_box = layout.itemAt(layout.count() - 1).widget()
         optional_box.setCheckable(True)
@@ -324,12 +379,14 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                 widget.hide()
         note = QtWidgets.QLabel(
             self.tr(
-                "Complete-case scoring: pixels missing any required criterion remain "
-                "unscored. Scores are comparable only within an ARR class. "
-                "This creates a priority map, not scenario targets. "
-                "Add candidate areas to a scenario draft to compare outcomes. "
-                "Repeat with different weights to examine sensitivity. "
-                "Your configuration is kept as a draft between sessions."
+                "ARR determines eligibility. Criteria combine into a relative "
+                "priority score separately within Avoid, Reduce, and Reverse; "
+                "scores are not comparable across classes or probabilities of "
+                "success. Missing data for any positive-importance criterion "
+                "remain unscored. Ranking creates a priority map, not candidate "
+                "areas or scenario targets. Candidate selection and expected "
+                "effectiveness are separate steps. Your configuration is kept "
+                "as a draft between sessions."
             )
         )
         note.setWordWrap(True)
@@ -345,12 +402,17 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             left,
             self.tr(
                 "<h3>Rank intervention areas</h3>"
-                "<p>Select an ARR layer, then add imported prioritization inputs "
-                "and their scoring profiles to each response class. Dataset "
-                "provenance and scoring settings are stored with the input, so "
-                "they are configured once and reused across plans.</p>"
-                "<p>Scores are comparable within a class. Missing criterion data "
-                "remain unscored. Inspect coverage and compare alternative weights.</p>"
+                "<p>ARR determines where each response applies. Criteria rank "
+                "locations within Avoid, Reduce, or Reverse; they do not change "
+                "the ARR class. Each class receives a separate 0-1 relative "
+                "priority score.</p>"
+                "<p>Relative importance is normalized within its class. Only "
+                "the ratios matter; a single active criterion is 100% of that "
+                "class regardless of its positive weight. Missing required "
+                "criterion data remain unscored.</p>"
+                "<p>Candidate selection chooses locations from a ranking. A "
+                "scenario then uses selected targets and your expected "
+                "effectiveness assumptions.</p>"
                 "<p><a href='https://docs.trends.earth/en/latest/for_users/training/ldnplanning.html'>"
                 "LDN planning tutorial</a></p>"
             ),
@@ -514,27 +576,81 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
     # Criteria table
     # ------------------------------------------------------------------
 
-    def _entry_labels(self, entry) -> typing.Tuple[str, str]:
+    def _entry_details(self, entry) -> tuple[str, str, str, str]:
         from . import ldn_planning_assets
 
         if entry["kind"] == "managed":
             job = self._find_input_job(entry["job_id"])
-            input_label = (
+            input_name = (
                 ldn_planning_assets.input_display_name(job)
                 if job is not None
                 else self.tr("Missing input %s — relink or re-import") % entry["job_id"]
             )
             profile = entry["profile"]
-            profile_label = "%s (rev %s)" % (
-                profile.get("name", "?"),
-                profile.get("revision", "?"),
+            profile_name = (
+                f"{profile.get('name', '?')} (rev {profile.get('revision', '?')})"
             )
-            return input_label, profile_label
-        criterion = entry["criterion"]
-        return (
-            self.tr("File: %s") % criterion.get("path", "?"),
-            criterion.get("name", "?"),
+            if job is not None:
+                try:
+                    path = ldn_planning_assets.input_path(job)
+                except (OSError, ValueError) as exc:
+                    path = self.tr("Unavailable: %s") % exc
+            else:
+                path = ""
+            settings = profile
+            provenance = job.params.get("provenance") or {} if job is not None else {}
+            if not isinstance(provenance, dict):
+                provenance = {}
+        else:
+            criterion = entry["criterion"]
+            input_name = self.tr("Direct file")
+            profile_name = criterion.get("name", "?")
+            path = criterion.get("path", "")
+            settings = criterion
+            provenance = criterion
+
+        if settings.get("field"):
+            band_or_field = self.tr("Field: %s") % settings["field"]
+        else:
+            band_or_field = self.tr("Band %s") % settings.get("band_index", 1)
+        if settings.get("categories"):
+            category_count = len(settings["categories"])
+            scoring = self.tr("%d categories scored; others remain unscored") % (
+                category_count
+            )
+        else:
+            direction = settings.get("direction", "higher")
+            if direction == "lower":
+                preference = self.tr("lower values preferred")
+            else:
+                preference = self.tr("higher values preferred")
+            minimum = settings.get("minimum", 0)
+            maximum = settings.get("maximum", 1)
+            scoring = self.tr("%s; range %s to %s, values outside are clamped") % (
+                preference,
+                minimum,
+                maximum,
+            )
+        summary = f"{band_or_field}; {scoring}"
+        details = "\n".join(
+            (
+                self.tr("Input: %s") % input_name,
+                self.tr("Scoring rule: %s") % profile_name,
+                self.tr("Source: %s") % (path or self.tr("Unavailable")),
+                self.tr("ARR class: %s") % self._entry_class(entry).title(),
+                self.tr("Relative importance: %s") % self._entry_weight(entry),
+                self.tr("Scoring: %s") % summary,
+                self.tr("Source / attribution: %s")
+                % provenance.get("source", self.tr("Not specified")),
+                self.tr("Dataset date: %s")
+                % provenance.get("date", self.tr("Not specified")),
+                self.tr("Units: %s")
+                % provenance.get("units", self.tr("Not specified")),
+                self.tr("License / usage rights: %s")
+                % provenance.get("license", self.tr("Not specified")),
+            )
         )
+        return input_name, profile_name, summary, details
 
     def _find_input_job(self, job_id: str):
         for job in job_manager.get_planning_input_jobs():
@@ -543,47 +659,110 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         return None
 
     def _refresh(self):
-        self.criteria_table.setRowCount(0)
+        for table in self.criteria_tables.values():
+            table.setRowCount(0)
         for index, entry in enumerate(self.entries):
-            row = self.criteria_table.rowCount()
-            self.criteria_table.insertRow(row)
+            arr_class = self._entry_class(entry)
+            table = self.criteria_tables[arr_class]
+            row = table.rowCount()
+            table.insertRow(row)
             enabled = QtWidgets.QCheckBox()
+            enabled.setAccessibleName(self.tr("Use criterion in ranking"))
             enabled.setChecked(entry.get("enabled", True))
             enabled.toggled.connect(
                 lambda checked, i=index: self._entry_changed(i, enabled=checked)
             )
-            self.criteria_table.setCellWidget(row, 0, enabled)
-            input_label, profile_label = self._entry_labels(entry)
-            for column, text in ((1, input_label), (2, profile_label)):
-                item = QtWidgets.QTableWidgetItem(text)
-                item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)
-                self.criteria_table.setItem(row, column, item)
-            class_combo = QtWidgets.QComboBox()
-            for key, label in (
-                ("avoid", self.tr("Avoid")),
-                ("reduce", self.tr("Reduce")),
-                ("reverse", self.tr("Reverse")),
-            ):
-                class_combo.addItem(label, key)
-            class_combo.setCurrentIndex(CLASSES.index(self._entry_class(entry)))
-            class_combo.currentIndexChanged.connect(
-                lambda _, i=index, combo=class_combo: self._entry_changed(
-                    i, arr_class=combo.currentData()
-                )
+            table.setCellWidget(row, 0, enabled)
+            _input_name, profile_name, summary, details = self._entry_details(entry)
+            criterion_label = QtWidgets.QLabel(
+                f"{_input_name}\n{summary}; {profile_name}"
             )
-            self.criteria_table.setCellWidget(row, 3, class_combo)
+            criterion_label.setWordWrap(True)
+            criterion_label.setToolTip(details)
+            table.setCellWidget(row, 1, criterion_label)
             weight = QtWidgets.QDoubleSpinBox()
             weight.setRange(0, 1e6)
             weight.setDecimals(3)
             weight.setValue(self._entry_weight(entry))
+            weight.setEnabled(entry.get("enabled", True))
+            weight.setToolTip(
+                self.tr(
+                    "Relative importance within this ARR class; only weight "
+                    "ratios within the class affect its score."
+                )
+            )
             weight.valueChanged.connect(
                 lambda value, i=index: self._entry_changed(i, weight=value)
             )
-            self.criteria_table.setCellWidget(row, 4, weight)
-            influence = QtWidgets.QTableWidgetItem("")
-            influence.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.criteria_table.setItem(row, 5, influence)
-        self._update_influence()
+            share = QtWidgets.QLabel()
+            share.setWordWrap(True)
+            share_layout = QtWidgets.QVBoxLayout()
+            share_layout.setContentsMargins(2, 0, 2, 0)
+            share_layout.addWidget(weight)
+            share_layout.addWidget(share)
+            share_widget = QtWidgets.QWidget()
+            share_widget.setLayout(share_layout)
+            table.setCellWidget(row, 2, share_widget)
+            table.setItem(row, 0, QtWidgets.QTableWidgetItem())
+            table.item(row, 0).setData(QtCore.Qt.UserRole, index)
+            actions = QtWidgets.QToolButton()
+            actions.setText(self.tr("Actions"))
+            actions.setPopupMode(QtWidgets.QToolButton.InstantPopup)
+            menu = QtWidgets.QMenu(actions)
+            menu.addAction(
+                self.tr("Details..."),
+                lambda checked=False, text=details: QtWidgets.QMessageBox.information(
+                    self, self.tr("Criterion details"), text
+                ),
+            )
+            menu.addAction(
+                self.tr("Create new scoring-rule revision...")
+                if entry["kind"] == "managed"
+                else self.tr("Edit scoring..."),
+                lambda checked=False, i=index: self._edit_entry(i),
+            )
+            move_menu = menu.addMenu(self.tr("Move to..."))
+            for other_class in CLASSES:
+                if other_class == arr_class:
+                    continue
+                move_menu.addAction(
+                    self.tr(other_class.title()),
+                    lambda checked=False, i=index, key=other_class: self._move_entry(
+                        i, key
+                    ),
+                )
+            menu.addAction(
+                self.tr("Remove"),
+                lambda checked=False, i=index: self._remove_entry(i),
+            )
+            actions.setMenu(menu)
+            table.setCellWidget(row, 3, actions)
+            table.setRowHeight(row, 68)
+
+        for arr_class, table in self.criteria_tables.items():
+            class_entries = [
+                entry for entry in self.entries if self._entry_class(entry) == arr_class
+            ]
+            active = [entry for entry in class_entries if entry.get("enabled", True)]
+            positive = [entry for entry in active if self._entry_weight(entry) > 0]
+            if not active:
+                text = self.tr(
+                    "No ranking for this class. Add a criterion to score and select "
+                    "locations for this response."
+                )
+            elif not positive:
+                text = self.tr(
+                    "No positive relative importance. Increase at least one active "
+                    "criterion above zero to create a ranking."
+                )
+            else:
+                text = self.tr(
+                    "%d active criteria. Their preferences are combined only within "
+                    "this class. Locations missing any positive-weight criterion "
+                    "remain unscored."
+                ) % len(active)
+            self.class_status_labels[arr_class].setText(text)
+        self._update_weight_shares()
 
     def _entry_class(self, entry) -> str:
         if entry["kind"] == "managed":
@@ -609,39 +788,64 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                 entry["weight"] = weight
             else:
                 entry["criterion"]["weight"] = weight
-        self._update_influence()
+        if enabled is not None:
+            self._refresh()
+        else:
+            self._update_weight_shares()
 
-    def _update_influence(self):
-        totals: typing.Dict[str, float] = {}
+    def _update_weight_shares(self):
+        totals: dict[str, float] = {}
+        positive_counts: dict[str, int] = {}
         for entry in self.entries:
-            if entry.get("enabled", True):
-                totals[self._entry_class(entry)] = totals.get(
-                    self._entry_class(entry), 0.0
-                ) + self._entry_weight(entry)
-        for row, entry in enumerate(self.entries):
-            if row >= self.criteria_table.rowCount():
-                break
-            total = totals.get(self._entry_class(entry), 0.0)
-            if not entry.get("enabled", True):
-                text = self.tr("excluded")
-            elif total <= 0:
-                text = self.tr("no positive weights")
-            else:
-                text = f"{100 * self._entry_weight(entry) / total:.0f}%"
-            self.criteria_table.item(row, 5).setText(text)
+            if entry.get("enabled", True) and self._entry_weight(entry) > 0:
+                arr_class = self._entry_class(entry)
+                totals[arr_class] = totals.get(arr_class, 0.0) + self._entry_weight(
+                    entry
+                )
+                positive_counts[arr_class] = positive_counts.get(arr_class, 0) + 1
+        for arr_class, table in self.criteria_tables.items():
+            for row in range(table.rowCount()):
+                index = table.item(row, 0).data(QtCore.Qt.UserRole)
+                entry = self.entries[index]
+                enabled = entry.get("enabled", True)
+                weight = self._entry_weight(entry)
+                if not enabled:
+                    text = self.tr("Not used")
+                elif weight <= 0:
+                    text = self.tr("No score contribution")
+                elif positive_counts.get(arr_class) == 1:
+                    text = self.tr("Only active criterion: 100% of this class score")
+                else:
+                    total = totals.get(arr_class, 0.0)
+                    text = self.tr("%d%% of this class score") % round(
+                        100 * weight / total
+                    )
+                table.cellWidget(row, 2).findChildren(QtWidgets.QLabel)[0].setText(text)
+                table.cellWidget(row, 2).findChild(QtWidgets.QDoubleSpinBox).setEnabled(
+                    enabled
+                )
+
+    def _set_equal_importance(self, arr_class):
+        for entry in self.entries:
+            if self._entry_class(entry) == arr_class and entry.get("enabled", True):
+                if entry["kind"] == "managed":
+                    entry["weight"] = 1.0
+                else:
+                    entry["criterion"]["weight"] = 1.0
+        self._refresh()
 
     # ------------------------------------------------------------------
     # Adding and removing criteria
     # ------------------------------------------------------------------
 
-    def _import_input(self):
+    def _import_input(self, arr_class="avoid"):
         from .ldn_planning_assets import DlgImportPlanningInput
 
         dialog = DlgImportPlanningInput(self)
         if dialog.exec() == QtWidgets.QDialog.Accepted and dialog.job is not None:
-            self._configure_entry_for_job(dialog.job)
+            self._configure_entry_for_job(dialog.job, arr_class)
 
-    def _add_managed(self):
+    def _add_managed(self, arr_class="avoid"):
         inputs = job_manager.get_planning_input_jobs()
         if not inputs:
             QtWidgets.QMessageBox.information(
@@ -661,9 +865,9 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         )
         if not ok:
             return
-        self._configure_entry_for_job(inputs[labels.index(label)])
+        self._configure_entry_for_job(inputs[labels.index(label)], arr_class)
 
-    def _configure_entry_for_job(self, job):
+    def _configure_entry_for_job(self, job, arr_class="avoid"):
         from .ldn_planning_assets import DlgScoringProfile, input_params
 
         try:
@@ -700,20 +904,44 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             if dialog.exec() != QtWidgets.QDialog.Accepted or dialog.profile is None:
                 return
             profile = dialog.profile
+        duplicate = any(
+            entry["kind"] == "managed"
+            and entry.get("enabled", True)
+            and str(entry.get("job_id")) == str(job.id)
+            and entry.get("arr_class", "avoid") == arr_class
+            and entry.get("profile") == profile
+            for entry in self.entries
+        )
+        if duplicate and (
+            QtWidgets.QMessageBox.question(
+                self,
+                self.tr("Criterion already used"),
+                self.tr(
+                    "This input and scoring rule are already active in %s. "
+                    "Adding it again gives that preference extra importance. "
+                    "Add another copy anyway?"
+                )
+                % arr_class.title(),
+            )
+            != QtWidgets.QMessageBox.StandardButton.Yes
+        ):
+            return
         self.entries.append(
             {
                 "kind": "managed",
                 "job_id": str(job.id),
                 "profile": profile,
-                "arr_class": "avoid",
+                "arr_class": arr_class,
                 "weight": 1.0,
                 "enabled": True,
             }
         )
         self._refresh()
 
-    def _add(self):
+    def _add(self, arr_class=None):
         dialog = DlgPriorityCriterion(self)
+        if arr_class is not None:
+            dialog.arr_class.setCurrentIndex(CLASSES.index(arr_class))
         if dialog.exec() == QtWidgets.QDialog.Accepted:
             self.entries.append(
                 {"kind": "file", "criterion": dialog.criterion, "enabled": True}
@@ -721,10 +949,55 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             self._refresh()
 
     def _remove(self):
-        index = self.criteria_table.currentRow()
-        if index >= 0:
-            del self.entries[index]
-            self._refresh()
+        for table in self.criteria_tables.values():
+            row = table.currentRow()
+            if row >= 0 and table.item(row, 0) is not None:
+                index = table.item(row, 0).data(QtCore.Qt.UserRole)
+                self._remove_entry(index)
+                return
+
+    def _remove_entry(self, index):
+        del self.entries[index]
+        self._refresh()
+
+    def _move_entry(self, index, arr_class):
+        entry = self.entries[index]
+        if entry["kind"] == "managed":
+            entry["arr_class"] = arr_class
+        else:
+            entry["criterion"]["arr_class"] = arr_class
+        self._refresh()
+
+    def _edit_entry(self, index):
+        entry = self.entries[index]
+        if entry["kind"] == "managed":
+            from .ldn_planning_assets import DlgScoringProfile
+
+            job = self._find_input_job(entry["job_id"])
+            if job is None:
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    self.tr("Cannot edit criterion"),
+                    self.tr("The source input is unavailable. Re-import it first."),
+                )
+                return
+            try:
+                dialog = DlgScoringProfile(job, self, profile=entry["profile"])
+            except (OSError, ValueError) as exc:
+                QtWidgets.QMessageBox.critical(
+                    self, self.tr("Cannot edit criterion"), str(exc)
+                )
+                return
+            if (
+                dialog.exec() == QtWidgets.QDialog.Accepted
+                and dialog.profile is not None
+            ):
+                entry["profile"] = dialog.profile
+        else:
+            dialog = DlgPriorityCriterion(self, criterion=entry["criterion"])
+            if dialog.exec() == QtWidgets.QDialog.Accepted:
+                entry["criterion"] = dialog.criterion
+        self._refresh()
 
     def _browse(self, widget):
         path, _ = QtWidgets.QFileDialog.getOpenFileName(
@@ -954,6 +1227,13 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
         self.combo_priority = QtWidgets.QComboBox()
         source.addWidget(self.combo_priority)
         self.source_note = QtWidgets.QLabel()
+        self.source_note.setText(
+            self.tr(
+                "Scores are relative only within an ARR class. Candidate selection "
+                "chooses locations from this ranking; expected effectiveness is "
+                "configured separately in a scenario."
+            )
+        )
         self.source_note.setWordWrap(True)
         source.addWidget(self.source_note)
         self.rows = {}
@@ -969,10 +1249,16 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
             )
             mode = QtWidgets.QComboBox()
             mode.addItem(
-                self.tr("Keep every pixel at or above a minimum score"), "threshold"
+                self.tr("Choose all scored locations meeting a minimum priority score"),
+                "threshold",
             )
-            mode.addItem(self.tr("Keep the best pixels up to a maximum area"), "area")
-            threshold_label = QtWidgets.QLabel(self.tr("Minimum ranking score (0-1)"))
+            mode.addItem(
+                self.tr("Choose highest-priority locations up to an area limit"),
+                "area",
+            )
+            threshold_label = QtWidgets.QLabel(
+                self.tr("Minimum priority score (0-1; not a percentile)")
+            )
             threshold = QtWidgets.QDoubleSpinBox()
             threshold.setRange(0, 1)
             threshold.setDecimals(6)
@@ -1025,11 +1311,14 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
             area.valueChanged.connect(self._invalidate_estimates)
         note = QtWidgets.QLabel(
             self.tr(
-                "Threshold selection includes all scored pixels at or above the threshold. "
-                "Area selection ranks by score with deterministic ties and does not exceed "
-                "the physical-area limit. Inspect the output map and selected-area "
-                "report, then configure desired areas as scenario targets in the "
-                "LDN Planning tab. This step does not modify existing scenario drafts."
+                "Scores are relative preferences within each ARR class, not "
+                "percentiles or success probabilities. A threshold keeps every "
+                "scored pixel at or above the score; an area limit selects the "
+                "highest-scoring whole pixels up to that per-class limit. Ties "
+                "are deterministic and the actual area can be smaller. Review "
+                "the output map and selected area, then explicitly configure "
+                "candidate areas as scenario targets and set expected "
+                "effectiveness. This step never changes existing scenario drafts."
             )
         )
         note.setWordWrap(True)
@@ -1045,10 +1334,12 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
             left,
             self.tr(
                 "<h3>Select candidate areas</h3>"
-                "<p>Choose intervention priorities and enable the response classes "
-                "to select. Set a minimum score or a maximum area for each class.</p>"
-                "<p>Inspect the resulting map and selected-area report. Add "
-                "desired areas as scenario targets in the LDN Planning tab.</p>"
+                "<p>ARR determines the eligible response class. The selected "
+                "priority map ranks locations only within that class; choose "
+                "a minimum priority score or an area limit for each class.</p>"
+                "<p>Candidate areas are proposed locations, not scenario targets "
+                "or predicted successful area. Review the map, then configure "
+                "targets and expected effectiveness in a scenario.</p>"
                 "<p><a href='https://docs.trends.earth/en/latest/for_users/training/ldnplanning.html'>"
                 "LDN planning tutorial</a></p>"
             ),
@@ -1126,7 +1417,9 @@ class DlgCalculateLDNPlanningSelection(DlgCalculateBase):
             self.source_note.setText(
                 self.tr(
                     "This source is inherited from the project. Change it in the "
-                    "Rank intervention areas section."
+                    "Rank intervention areas section. Scores are relative within "
+                    "each ARR class; expected effectiveness is set separately in "
+                    "a scenario."
                 )
             )
 

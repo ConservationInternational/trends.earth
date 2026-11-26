@@ -326,8 +326,12 @@ class PlanningPanel(QtWidgets.QWidget):
         body_layout = QtWidgets.QVBoxLayout(body)
         note = QtWidgets.QLabel(
             self.tr(
-                "Each revision creates a new result; saved results are unchanged. "
-                "A result is not updated until you select it for this project."
+                "Workflow: ARR determines eligible response classes; ranking "
+                "scores locations within each class; candidate selection chooses "
+                "locations; scenarios apply expected effectiveness. Ranking and "
+                "candidate selection are optional when you use drawn or imported "
+                "targets. Each revision creates a new result; saved results are "
+                "unchanged until you select a result for this project."
             )
         )
         note.setWordWrap(True)

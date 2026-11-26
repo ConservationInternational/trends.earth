@@ -148,11 +148,20 @@ Rank intervention areas
 
    Profiles are saved with the input as numbered revisions, so a dataset is
    configured once and reused across plans and sessions.
-4. In the criteria table, set each row's response class and relative weight,
-   and enable or disable rows. The **Influence** column shows each
-   criterion's normalized share within its class; weights are normalized
-   separately per class. Classes without criteria remain unscored. No
-   criteria or value judgments are supplied by default.
+4. Add criteria under the **Avoid**, **Reduce**, or **Reverse** group. ARR
+   determines which locations are eligible for each response; criteria rank
+   locations within that class and never change their ARR class. Each row shows
+   the input, its scoring rule, and its **Relative importance**. The calculated
+   share below the weight is its share of that class's score. Only ratios matter:
+   weights 2 and 1 contribute about 67% and 33%. A single active criterion is
+   100% of its class score regardless of its positive weight, so its weight
+   cannot change the ranking by itself. Weights in different classes do not
+   interact. Use **Set equal importance** to reset active criteria in a class
+   equally; unchecked criteria are retained but not used. A zero-weight
+   criterion contributes nothing and its missing data do not prevent scoring.
+   Missing data in a positive-weight criterion leave that location unscored.
+   Class scores are relative preferences, not success probabilities, and
+   scores should not be compared across classes.
 5. Optionally add an exclusion raster. Values greater than zero are excluded;
    missing exclusion values remain unscored. The configuration is kept as a
    draft between sessions; **More > Export settings...** saves it to a file for
@@ -174,8 +183,11 @@ Select candidate areas
 1. Open **Select candidate areas** and use the project's saved
    **Intervention priorities**.
 2. Enable each response class to include. For each enabled class choose either
-   a minimum priority score or a maximum physical area; only the control for
-   the chosen method is shown. **Estimate selected area** shows a sampled
+   **Choose all scored locations meeting a minimum priority score** or
+   **Choose highest-priority locations up to an area limit**; only the control
+   for the chosen method is shown. A score threshold is not a percentile or
+   success probability. Area caps apply independently to each class, not as a
+   shared budget. **Estimate selected area** shows a sampled
    estimate of how much scored area each setting would keep (and, for
    area caps, roughly where the cap binds on the score scale); the final run
    uses the exact deterministic algorithm. Threshold selection includes scored
@@ -188,6 +200,11 @@ Select candidate areas
    Existing scenario targets remain unchanged until configured again. To
    revise candidates, change the criteria or selection settings and run the
    relevant steps again.
+
+Candidate areas are proposed locations, not scenario targets or predicted
+successful area. In **Build scenarios**, explicitly add the desired candidate
+classes as targets and set expected effectiveness for each. Effectiveness is a
+separate scenario assumption; it does not change the ranking or candidate mask.
 
 Build a scenario and compare it with BAU
 ----------------------------------------

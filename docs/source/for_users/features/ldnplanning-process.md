@@ -28,6 +28,10 @@ Revisions create new results and preserve earlier analyses. Scenarios can use
 candidates, polygons, or both. Leaving both target sources unchecked runs a
 zero-intervention scenario after confirmation.
 
+The decision sequence is **ARR eligibility → within-class priority → candidate
+locations → scenario targets and expected effectiveness**. Ranking and candidate
+selection can be skipped when using drawn or imported polygons.
+
 ## Prepare inputs: classify Avoid / Reduce / Reverse
 
 ARR identifies where each response is eligible. The status band's metadata
@@ -80,14 +84,15 @@ profile's declared range are clamped; unconfigured categories remain unscored.
 
 ## Rank intervention areas
 
-Ranking uses the selected ARR classification to determine class eligibility.
-It combines the planner's criteria **within each response class**, without
-changing ARR classes.
+ARR determines which response applies at each location. Ranking combines the
+planner's criteria **within each response class**, without changing ARR classes
+or comparing scores across classes. Within a class, criterion weights are
+normalized as relative shares; only their ratios affect the combined score.
 
 ```mermaid
 flowchart TD
-    ARR["ARR classification"] --> Rank["Rank within each response class"]
-    Criteria["Criteria and weights"] --> Rank
+    ARR["ARR eligibility map"] --> Rank["Rank locations within each class"]
+    Criteria["Scoring preferences and relative importance"] --> Rank
     Rank --> Scores["Priority and coverage maps"]
     Scores --> Review["Inspect scores and coverage"]
 ```
@@ -113,6 +118,10 @@ For each class, choose a minimum score or maximum area. Area-limited selection
 resolves ties deterministically and adds whole pixels that fit within the
 specified limit. Review and configure the resulting candidates as targets in a
 scenario draft.
+
+Candidate areas are proposed locations, not scenario targets or predicted
+successful area. A scenario applies the separately chosen expected
+effectiveness to explicitly configured targets.
 
 ## Build scenarios: target sources and execution
 

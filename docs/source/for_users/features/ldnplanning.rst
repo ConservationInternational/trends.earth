@@ -73,17 +73,25 @@ Methods and interpretation
 
 **Hotspot prioritization** ranks zones by the fraction of valid pixels
 classified as degraded. **Intervention ranking** uses a weighted
-combination of user-defined criteria for each ARR class. Continuous values are
-normalized to a user-defined range; categorical values use user-defined scores.
+combination of user-defined criteria separately within each ARR class. ARR
+determines which response is eligible at each location; ranking does not
+change that class. Criterion weights are relative importance values normalized
+within their class, so only within-class weight ratios matter. A single
+positive-weight criterion contributes 100% of that class's score. Class scores
+are relative preferences, not probabilities, and should not be compared across
+classes. Continuous values are normalized to a user-defined range; categorical
+values use user-defined scores.
 Weights are normalized within each class. Missing required criterion data
 leave a pixel unscored, and scores are comparable only within the same class.
 Optional exclusions and coverage layers help explain where scores apply.
 
-**Select candidate areas** uses either a minimum score or a maximum physical
-area for each selected class. Area limits apply to whole pixels, so some of
-the requested area may remain unused. Add the desired candidate areas to a
-scenario draft and assign their expected effectiveness to compare projected
-plans.
+**Select candidate areas** uses either a minimum priority score or a maximum
+physical area for each selected class. A score threshold is not a percentile or
+success probability; area limits apply independently to each class and to whole
+pixels, so some of the requested area may remain unused. Candidate areas are
+proposed locations, not scenario targets. Add the desired candidate areas to a
+scenario draft and assign their expected effectiveness, a separate scenario
+assumption, to compare projected plans.
 
 **Scenario projection** estimates expected intervention effects using
 the effectiveness assigned to targets. For overlapping targets of the same

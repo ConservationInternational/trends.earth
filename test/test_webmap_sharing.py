@@ -66,6 +66,18 @@ class TestWebmapSharing(unittest.TestCase):
         self.assertEqual(kwargs["json"], {"layers": declarations})
         self.assertEqual(kwargs["headers"]["Authorization"], "Bearer owner-token")
 
+    def test_remove_layers_uses_owner_api_route(self):
+        self.client._api_session.request.return_value = response(
+            status=202, data={"share": {"id": SHARE}, "cleanup_scheduled": True}
+        )
+        self.client.remove_layers(SHARE, [LAYER])
+        args, kwargs = self.client._api_session.request.call_args
+        self.assertEqual(
+            args, ("DELETE", f"https://api.test/api/v1/shares/{SHARE}/layers")
+        )
+        self.assertEqual(kwargs["json"], {"layer_ids": [LAYER]})
+        self.assertEqual(kwargs["headers"]["Authorization"], "Bearer owner-token")
+
     def test_owner_api_and_one_time_link(self):
         self.client._api_session.request.return_value = response(
             data={"link": "https://viewer.test/share/s/public-token"}

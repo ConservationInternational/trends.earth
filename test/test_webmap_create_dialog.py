@@ -14,6 +14,8 @@ from qgis.core import (
     QgsVectorLayer,
 )
 from qgis.PyQt import QtCore, QtGui, QtWidgets
+from te_schemas.jobs import JobStatus
+from te_schemas.results import VectorResults
 
 from LDMP.webmap_create_dialog import (
     CreateWebmapDialog,
@@ -76,11 +78,73 @@ class TestWebmapPublication(unittest.TestCase):
     def checked_dialog(self, **kwargs):
         dialog = CreateWebmapDialog(**kwargs)
         self.addCleanup(dialog.directory.cleanup)
-        item = QtWidgets.QTreeWidgetItem(["Output", "Layer"])
+        item = QtWidgets.QTreeWidgetItem(["Layer"])
         dialog.tree.addTopLevelItem(item)
         dialog.entries = [[item, {"name": "Layer"}]]
         dialog.title.setText("Map")
         return dialog
+
+    @patch("LDMP.webmap_create_dialog.job_manager")
+    def test_job_tree_expands_available_and_empty_outputs(self, manager):
+        with tempfile.NamedTemporaryFile(suffix=".gpkg") as dataset:
+            result = Mock(spec=VectorResults)
+            result.uri = Mock(uri=Path(dataset.name))
+            result.name = "Vector output"
+            available = Mock(
+                status=JobStatus.DOWNLOADED,
+                visible_name="Available",
+                task_name="Available",
+            )
+            available.is_raster.return_value = False
+            available.is_vector.return_value = True
+            available.is_timeseries.return_value = False
+            available._get_results_list.return_value = [result]
+            empty = Mock(
+                status=JobStatus.GENERATED_LOCALLY,
+                visible_name="Empty",
+                task_name="Empty",
+            )
+            empty.is_raster.return_value = False
+            empty.is_vector.return_value = True
+            empty.is_timeseries.return_value = False
+            empty._get_results_list.return_value = []
+            manager.relevant_jobs = [available, empty]
+            manager.ensure_results_loaded.return_value = True
+
+            dialog = CreateWebmapDialog(existing_share_id="map", shares=[])
+            self.addCleanup(dialog.directory.cleanup)
+            first = dialog.tree.topLevelItem(0)
+            second = dialog.tree.topLevelItem(1)
+            policy = QtWidgets.QTreeWidgetItem.ChildIndicatorPolicy
+            self.assertEqual(first.childIndicatorPolicy(), policy.ShowIndicator)
+            self.assertEqual(second.childIndicatorPolicy(), policy.ShowIndicator)
+
+            first.setExpanded(True)
+            second.setExpanded(True)
+
+            self.assertEqual(first.childCount(), 1)
+            self.assertEqual(first.child(0).text(0), "Vector output")
+            self.assertEqual(second.childCount(), 0)
+            self.assertEqual(
+                second.childIndicatorPolicy(), policy.DontShowIndicatorWhenChildless
+            )
+
+    def test_select_and_rename_layer_in_single_column(self):
+        dialog = CreateWebmapDialog()
+        self.addCleanup(dialog.directory.cleanup)
+        dialog.title.setText("Map")
+        dialog._add_output(dialog.tree.invisibleRootItem(), "Output", (Mock(), None))
+        item = dialog.tree.topLevelItem(0)
+        self.assertEqual(dialog.tree.columnCount(), 1)
+        with patch.object(dialog, "_configure", return_value={"name": "Output"}):
+            item.setCheckState(0, QtCore.Qt.Checked)
+        with patch.object(dialog.tree, "editItem") as edit:
+            dialog._edit_name(item, 0)
+            edit.assert_called_once_with(item, 0)
+        item.setText(0, "Renamed")
+        self.assertEqual(dialog._selected_configurations()[0]["name"], "Renamed")
+        item.setCheckState(0, QtCore.Qt.Unchecked)
+        self.assertEqual(dialog.entries, [])
 
     @patch("LDMP.webmap_create_dialog.QgsApplication.taskManager")
     @patch("LDMP.webmap_create_dialog.confirm_public_sharing")

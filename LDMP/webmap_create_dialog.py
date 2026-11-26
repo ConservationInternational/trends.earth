@@ -36,6 +36,7 @@ from .webmap_dialog import (
     confirm_public_sharing,
     show_link,
 )
+from .webmap_mask import MaskSelector
 from .webmap_sharing import ShareCancelled, ShareClient, ShareError
 from .webmap_snapshots import export_raster, export_vector
 
@@ -534,6 +535,7 @@ class _PublishTask(QgsTask):
         share_id,
         callback,
         update_existing=False,
+        mask=None,
     ):
         super().__init__("Upload and publish web map", QgsTask.CanCancel)
         self.base_url = base_url
@@ -543,6 +545,7 @@ class _PublishTask(QgsTask):
         self.snapshots = snapshots
         self.share_id = share_id
         self.update_existing = update_existing
+        self.mask = mask
         self.callback = callback
         self.error = None
         self.result = None
@@ -625,12 +628,15 @@ class _PublishTask(QgsTask):
             if self.share_id:
                 share = client.status(self.share_id)
             else:
-                share = client.create(
+                args = (
                     self.title,
                     self.retention,
                     [snapshot["declaration"] for snapshot in self.snapshots],
                 )
+                share = client.create(*args, mask=self.mask) if self.mask else client.create(*args)
                 self.share_id = share["id"]
+                if self.mask and not share.get("has_mask"):
+                    raise ShareError("The sharing API did not accept the requested mask")
             layers = {layer["name"]: layer for layer in share["layers"]}
             if set(layers) != {item["declaration"]["name"] for item in self.snapshots}:
                 raise ShareError("The draft layers do not match the prepared snapshots")
@@ -756,6 +762,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         self.directory = tempfile.TemporaryDirectory(prefix="te-webmap-")
         self.entries = []
         self.snapshots = []
+        self.mask_geometry = None
         self.task = None
         self.share_id = None
         self._updating = False
@@ -776,6 +783,13 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             form.addRow(self.tr("Map title"), self.title)
             form.addRow(self.tr("Keep online for"), self.retention)
         layout.addLayout(form)
+        self.mask_selector = MaskSelector()
+        self.mask_selector.setVisible(not self.adding)
+        self.mask_selector.setToolTip(
+            self.tr("The polygon is shared with link holders. This is a display mask, not a data restriction.")
+        )
+        self.mask_selector.changed.connect(self._invalidate)
+        layout.addWidget(self.mask_selector)
 
         self.no_maps = QtWidgets.QWidget()
         no_maps_layout = QtWidgets.QHBoxLayout(self.no_maps)
@@ -802,8 +816,8 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         hint.setWordWrap(True)
         layout.addWidget(hint)
         self.tree = QtWidgets.QTreeWidget()
-        self.tree.setColumnCount(2)
-        self.tree.setHeaderLabels([self.tr("Output"), self.tr("Layer name")])
+        self.tree.setColumnCount(1)
+        self.tree.setHeaderLabels([self.tr("Layer name")])
         self.tree.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tree.header().setStretchLastSection(True)
         layout.addWidget(self.tree, 1)
@@ -862,7 +876,9 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             )
             node.setData(0, _JOB_ROLE, item)
             node.setFlags(QtCore.Qt.ItemIsEnabled)
-            node.setChildIndicatorPolicy(QtWidgets.QTreeWidgetItem.ShowIndicator)
+            node.setChildIndicatorPolicy(
+                QtWidgets.QTreeWidgetItem.ChildIndicatorPolicy.ShowIndicator
+            )
             self.tree.addTopLevelItem(node)
         if len(jobs) == 1:
             self.tree.topLevelItem(0).setExpanded(True)
@@ -878,7 +894,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         self._add_outputs(node, job)
         if not node.childCount():
             node.setChildIndicatorPolicy(
-                QtWidgets.QTreeWidgetItem.DontShowIndicatorWhenChildless
+                QtWidgets.QTreeWidgetItem.ChildIndicatorPolicy.DontShowIndicatorWhenChildless
             )
 
     def _add_outputs(self, parent, job):
@@ -903,7 +919,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             self._updating = False
 
     def _add_output(self, parent, title, output):
-        item = QtWidgets.QTreeWidgetItem([title, title])
+        item = QtWidgets.QTreeWidgetItem([title])
         item.setData(0, _OUTPUT_ROLE, output)
         item.setFlags(
             QtCore.Qt.ItemIsEnabled
@@ -915,8 +931,8 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         parent.addChild(item)
 
     def _edit_name(self, item, column):
-        if column == 1 and item.data(0, _OUTPUT_ROLE) is not None and not self.task:
-            self.tree.editItem(item, 1)
+        if column == 0 and item.data(0, _OUTPUT_ROLE) is not None and not self.task:
+            self.tree.editItem(item, 0)
 
     def _entry(self, item):
         return next((entry for entry in self.entries if entry[0] is item), None)
@@ -940,7 +956,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
                 return
             self.entries.append([item, configuration])
             self._updating = True
-            item.setText(1, configuration["name"])
+            item.setText(0, configuration["name"])
             self._updating = False
         elif item.checkState(0) != QtCore.Qt.Checked and entry is not None:
             self.entries.remove(entry)
@@ -948,8 +964,8 @@ class CreateWebmapDialog(QtWidgets.QDialog):
 
     def _configure(self, item):
         result, band_index = item.data(0, _OUTPUT_ROLE)
-        names = {entry[0].text(1).strip() for entry in self.entries}
-        name = item.text(1).strip()
+        names = {entry[0].text(0).strip() for entry in self.entries}
+        name = item.text(0).strip()
         if name in names:
             dataset = item.parent().text(0) if item.parent() else ""
             name = f"{name} ({dataset})" if dataset else name
@@ -983,6 +999,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
     def _invalidate(self, *_args):
         if not self._locked():
             self.snapshots = []
+            self.mask_geometry = None
             self._confirmed = False
 
     def _locked(self):
@@ -994,7 +1011,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         has_target = not self.adding or self.target.currentData() is not None
         self.share_button.setEnabled(not busy and bool(self.entries) and has_target)
         editable = not busy and not self._locked()
-        for widget in (self.tree, self.title, self.retention):
+        for widget in (self.tree, self.title, self.retention, self.mask_selector):
             widget.setEnabled(editable)
         self.target.setEnabled(
             not busy and self.adding and self.target.currentData() is not None
@@ -1054,7 +1071,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
     def _selected_configurations(self):
         configurations = []
         for item, configuration in self.entries:
-            configuration["name"] = item.text(1).strip()
+            configuration["name"] = item.text(0).strip()
             configurations.append(configuration)
         names = [configuration["name"] for configuration in configurations]
         if not names:
@@ -1078,6 +1095,8 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             return
         try:
             configurations = self._selected_configurations()
+            if not self.adding and not self._locked() and not self.snapshots:
+                self.mask_geometry = self.mask_selector.geometry()
         except ShareError as exc:
             QtWidgets.QMessageBox.warning(self, self.windowTitle(), str(exc))
             return
@@ -1143,6 +1162,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             target,
             self._published,
             update_existing=self.adding,
+            mask=self.mask_geometry,
         )
         self.task.progressChanged.connect(
             lambda value: self.progress.setValue(int(value))

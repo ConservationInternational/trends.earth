@@ -281,10 +281,10 @@ class ShareClient:
         if response.status_code not in (200, 201, 202):
             # Do not include an untrusted body that could contain a signed URL.
             descriptions = {
-                400: "The share declaration or snapshot size is invalid",
+                400: "The share declaration, snapshot or mask is invalid or too large",
                 401: "Authentication expired; sign in again",
                 403: "Sharing is not permitted for this account",
-                409: "The share is not ready for this operation",
+                409: "The share changed or is not ready; refresh and try again",
                 429: "Storage quota, share limit or request rate exceeded",
                 503: (
                     "The configured API returned HTTP 503; web-map sharing may be "
@@ -302,11 +302,21 @@ class ShareClient:
         except (ValueError, KeyError, TypeError):
             raise ShareError("Invalid response from the sharing API") from None
 
-    def create(self, title, retention_days, layers):
+    def create(self, title, retention_days, layers, mask=None):
+        payload = {"title": title, "retention_days": retention_days, "layers": layers}
+        if mask is not None:
+            payload["mask"] = mask
         return self._request(
             "POST",
             "",
-            {"title": title, "retention_days": retention_days, "layers": layers},
+            payload,
+        )
+
+    def update_mask(self, share_id, mask, mask_version):
+        return self._request(
+            "PUT",
+            "/" + _share_id(share_id) + "/mask",
+            {"mask": mask, "mask_version": mask_version},
         )
 
     def list(self):
@@ -326,6 +336,13 @@ class ShareClient:
             "POST",
             "/" + _share_id(share_id) + "/layers",
             {"layers": layers},
+        )
+
+    def remove_layers(self, share_id, layer_ids):
+        return self._request(
+            "DELETE",
+            "/" + _share_id(share_id) + "/layers",
+            {"layer_ids": [_share_id(layer_id) for layer_id in layer_ids]},
         )
 
     def publish(self, share_id):

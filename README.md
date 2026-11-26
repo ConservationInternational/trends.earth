@@ -55,10 +55,21 @@ saved by anyone who has it. The layers are then prepared, uploaded, validated an
 published in one step, and the link is shown with **Copy link** and **Open in
 browser** buttons.
 
-To add layers to a published map, use the share button on a dataset, or
-**Add layers...** in **Shared web maps**. The dataset button only adds layers to
-existing maps. The link stays the same, and recipients see the new layers the
-next time they open it.
+To add layers to a published map, use the share button on a dataset. The link
+stays the same, and recipients see the new layers the next time they open it.
+To remove layers, select the map in **Shared web maps** and choose **Edit
+layers...**. The map can remain online without layers. Removed tiles may remain
+available until CDN invalidation propagates, and storage remains reserved until
+cleanup succeeds.
+
+When creating a map, optionally enable **Mask shared layers to a region** and
+select an administrative region or polygon in the normal Trends.Earth region
+settings. In **Shared web maps**, use **Change mask...** to replace or remove
+the mask without changing the link. Open viewers pick up changes within about
+30 seconds. The polygon is shared with link holders. Masking only changes the
+display: underlying tiles and data outside the mask remain accessible, so do
+not use it to protect sensitive information. Masks are limited to 512 KB and
+30,000 coordinates; simplify larger polygons before sharing.
 
 **Shared web maps** lists your maps, links, storage usage, validation errors and
 UTC expiry. It can publish a validated draft, replace a link or revoke a map.

@@ -4,9 +4,14 @@ import unittest
 from unittest.mock import Mock, patch
 
 from qgis.core import QgsApplication
-from qgis.PyQt import QtCore, QtWidgets
+from qgis.PyQt import QtCore, QtGui, QtWidgets
 
-from LDMP.webmap_dialog import WebmapSharesDialog, _OwnerTask
+from LDMP.webmap_dialog import (
+    WebmapSharesDialog,
+    _OwnerTask,
+    confirm_public_sharing,
+    show_link,
+)
 from LDMP.webmap_sharing import ShareError
 
 
@@ -59,6 +64,116 @@ class TestWebmapSharesDialog(unittest.TestCase):
         self.assertEqual(self.dialog.details.toPlainText(), "Invalid COG")
         self.assertIn("1 bytes awaiting cleanup", self.dialog.storage.text())
 
+    def test_public_sharing_confirmation_accept_and_cancel(self):
+        for accept in (True, False):
+            with self.subTest(accept=accept):
+                shown = []
+
+                def respond(accept=accept, shown=shown):
+                    box = QtWidgets.QApplication.activeModalWidget()
+                    cancel = box.button(QtWidgets.QMessageBox.StandardButton.Cancel)
+                    shown.append(
+                        (box.text(), box.detailedText(), box.defaultButton() is cancel)
+                    )
+                    button = (
+                        next(
+                            button
+                            for button in box.buttons()
+                            if box.buttonRole(button)
+                            == QtWidgets.QMessageBox.ButtonRole.AcceptRole
+                        )
+                        if accept
+                        else cancel
+                    )
+                    button.click()
+
+                QtCore.QTimer.singleShot(0, respond)
+                self.assertEqual(
+                    confirm_public_sharing(self.dialog, ["Layer"], "Map"), accept
+                )
+                self.assertIn("Map", shown[0][0])
+                self.assertEqual(shown[0][1], "Layer")
+                self.assertTrue(shown[0][2])
+
+    def test_edit_layers_selects_removals_and_confirms(self):
+        share = {
+            "id": "map",
+            "state": "ready",
+            "ready_at": "2026-01-01",
+            "update_state": "idle",
+            "layers": [
+                {"id": "first", "name": "First", "published": True},
+                {"id": "second", "name": "Second", "published": True},
+            ],
+        }
+        self.dialog.shares = [share]
+        self.dialog.table.setRowCount(1)
+        self.dialog.table.selectRow(0)
+        self.dialog._selection_changed()
+        self.assertTrue(self.dialog.edit_layers_button.isEnabled())
+        observed = []
+
+        def select_layers():
+            dialog = QtWidgets.QApplication.activeModalWidget()
+            layers = dialog.findChild(QtWidgets.QListWidget)
+            buttons = dialog.findChild(QtWidgets.QDialogButtonBox)
+            remove = next(
+                button
+                for button in buttons.buttons()
+                if buttons.buttonRole(button)
+                == QtWidgets.QDialogButtonBox.ButtonRole.AcceptRole
+            )
+            observed.append((layers.count(), remove.isEnabled()))
+            layers.item(0).setCheckState(QtCore.Qt.Checked)
+            observed.append(remove.isEnabled())
+            remove.click()
+
+        with (
+            patch.object(self.dialog, "_start") as start,
+            patch.object(
+                QtWidgets.QMessageBox,
+                "question",
+                return_value=QtWidgets.QMessageBox.Yes,
+            ),
+        ):
+            QtCore.QTimer.singleShot(0, select_layers)
+            self.dialog._edit_layers()
+        self.assertEqual(observed, [(2, False), True])
+        start.assert_called_once_with("remove_layers", layer_ids=["first"])
+        with (
+            patch.object(self.dialog, "_start") as start,
+            patch.object(
+                QtWidgets.QMessageBox,
+                "question",
+                return_value=QtWidgets.QMessageBox.No,
+            ),
+        ):
+            QtCore.QTimer.singleShot(0, select_layers)
+            self.dialog._edit_layers()
+        start.assert_not_called()
+        share["update_state"] = "validating"
+        self.dialog._selection_changed()
+        self.assertFalse(self.dialog.edit_layers_button.isEnabled())
+
+    @patch("LDMP.webmap_dialog.ShareClient")
+    def test_remove_layers_task_sends_selected_ids(self, client):
+        client.return_value.remove_layers.return_value = {
+            "share": {"id": "map"},
+            "cleanup_scheduled": True,
+        }
+        task = _OwnerTask(
+            "https://api.test",
+            "token",
+            "remove_layers",
+            "map",
+            Mock(),
+            layer_ids=["first", "second"],
+        )
+        self.assertTrue(task.run(), task.error)
+        client.return_value.remove_layers.assert_called_once_with(
+            "map", ["first", "second"]
+        )
+
     def test_published_share_link_is_viewable_and_copyable(self):
         usage = {
             "uploaded_bytes": 0,
@@ -84,6 +199,34 @@ class TestWebmapSharesDialog(unittest.TestCase):
         self.assertEqual(self.dialog.link.text(), "")
         self.assertFalse(self.dialog.copy_link_button.isEnabled())
         self.assertIn("New link", self.dialog.link.placeholderText())
+
+    def test_published_link_dialog_copies_and_opens_link(self):
+        url = "https://viewer.test/share/s/token"
+        result = {"link": url, "share": {"expires_at": "2026-01-08T00:00:00Z"}}
+        shown = []
+
+        def interact():
+            dialog = QtWidgets.QApplication.activeModalWidget()
+            link = dialog.findChild(QtWidgets.QLineEdit)
+            buttons = dialog.findChild(QtWidgets.QDialogButtonBox)
+            actions = {
+                button.text(): button
+                for button in buttons.buttons()
+                if buttons.buttonRole(button)
+                == QtWidgets.QDialogButtonBox.ButtonRole.ActionRole
+            }
+            shown.append((link.text(), link.isReadOnly()))
+            actions["Copy link"].click()
+            actions["Open in browser"].click()
+            buttons.button(QtWidgets.QDialogButtonBox.StandardButton.Close).click()
+
+        QtWidgets.QApplication.clipboard().clear()
+        with patch.object(QtGui.QDesktopServices, "openUrl") as open_url:
+            QtCore.QTimer.singleShot(0, interact)
+            show_link(self.dialog, result)
+            open_url.assert_called_once_with(QtCore.QUrl(url))
+        self.assertEqual(shown, [(url, True)])
+        self.assertEqual(QtWidgets.QApplication.clipboard().text(), url)
 
     @patch("LDMP.webmap_dialog.ShareClient")
     def test_refresh_fetches_links_only_for_published_shares(self, client):

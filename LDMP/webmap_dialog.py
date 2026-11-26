@@ -6,6 +6,7 @@ from qgis.PyQt import QtCore, QtGui, QtWidgets
 from . import api
 from .constants import TIMEOUT, get_api_url
 from .utils import FileUtils
+from .webmap_mask import MaskSelector
 from .webmap_sharing import ShareClient, ShareError
 
 
@@ -23,14 +24,15 @@ def confirm_public_sharing(parent, layer_names, map_title=None):
         box.tr(
             "The link is unlisted: it is not published or searchable, but anyone "
             "who has it can view the map, forward the link and save its content "
-            "until it expires. Tiles may be cached publicly for up to four days. "
-            "Revocation requests cache removal, which takes time to propagate.\n\n"
+            "until it expires. \n\n"
             "Only continue if you have the right to share these layers publicly "
             "and they contain no sensitive information."
         )
     )
     box.setDetailedText("\n".join(layer_names))
-    share = box.addButton(box.tr("Share publicly"), QtWidgets.QMessageBox.AcceptRole)
+    share = box.addButton(
+        box.tr("Share publicly"), QtWidgets.QMessageBox.ButtonRole.AcceptRole
+    )
     box.addButton(QtWidgets.QMessageBox.Cancel)
     box.setDefaultButton(QtWidgets.QMessageBox.Cancel)
     box.exec()
@@ -73,13 +75,26 @@ def can_add_layers(share):
 
 
 class _OwnerTask(QgsTask):
-    def __init__(self, base_url, token, operation, share_id, callback):
+    def __init__(
+        self,
+        base_url,
+        token,
+        operation,
+        share_id,
+        callback,
+        mask=None,
+        mask_version=None,
+        layer_ids=None,
+    ):
         super().__init__("Trends.Earth web-map sharing")
         self.base_url = base_url
         self.token = token
         self.operation = operation
         self.share_id = share_id
         self.callback = callback
+        self.mask = mask
+        self.mask_version = mask_version
+        self.layer_ids = layer_ids
         self.result = None
         self.error = None
 
@@ -116,6 +131,28 @@ class _OwnerTask(QgsTask):
                     )
                 for share in shares:
                     share["link"] = self._link(client, share)
+            elif self.operation == "update_mask":
+                self.result = client.update_mask(
+                    self.share_id, self.mask, self.mask_version
+                )
+                if (
+                    not isinstance(self.result, dict)
+                    or self.result.get("mask_version") != self.mask_version + 1
+                    or self.result.get("has_mask") is not (self.mask is not None)
+                ):
+                    raise ShareError(
+                        "Invalid response from the web-map sharing service"
+                    )
+            elif self.operation == "remove_layers":
+                self.result = client.remove_layers(self.share_id, self.layer_ids)
+                if (
+                    not isinstance(self.result, dict)
+                    or not isinstance(self.result.get("share"), dict)
+                    or type(self.result.get("cleanup_scheduled")) is not bool
+                ):
+                    raise ShareError(
+                        "Invalid response from the web-map sharing service"
+                    )
             else:
                 self.result = getattr(client, self.operation)(self.share_id)
                 if not isinstance(self.result, dict):
@@ -225,8 +262,9 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         controls = QtWidgets.QHBoxLayout()
         self.create_button = QtWidgets.QPushButton(self.tr("New web map..."))
         self.create_button.setDefault(True)
-        self.add_layers_button = QtWidgets.QPushButton(self.tr("Add layers..."))
         self.publish_button = QtWidgets.QPushButton(self.tr("Publish"))
+        self.edit_layers_button = QtWidgets.QPushButton(self.tr("Edit layers..."))
+        self.mask_button = QtWidgets.QPushButton(self.tr("Change mask..."))
         self.rotate_button = QtWidgets.QPushButton(self.tr("New link"))
         self.rotate_button.setToolTip(
             self.tr("Replace the link; the current link stops working")
@@ -235,7 +273,8 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.close_button = QtWidgets.QPushButton(self.tr("Close"))
         for button in (
             self.create_button,
-            self.add_layers_button,
+            self.edit_layers_button,
+            self.mask_button,
             self.publish_button,
             self.rotate_button,
             self.delete_button,
@@ -245,9 +284,10 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         controls.addWidget(self.close_button)
         layout.addLayout(controls)
         self.create_button.clicked.connect(self._create)
-        self.add_layers_button.clicked.connect(self._add_layers)
         self.refresh_button.clicked.connect(self.refresh)
         self.publish_button.clicked.connect(self._publish)
+        self.edit_layers_button.clicked.connect(self._edit_layers)
+        self.mask_button.clicked.connect(self._change_mask)
         self.rotate_button.clicked.connect(self._rotate)
         self.delete_button.clicked.connect(self._revoke)
         self.close_button.clicked.connect(self.close)
@@ -269,8 +309,18 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.publish_button.setVisible(ready and not published)
         self.publish_button.setEnabled(ready and not published and self.task is None)
         self.rotate_button.setEnabled(ready and published and self.task is None)
-        self.add_layers_button.setEnabled(
-            bool(share) and can_add_layers(share) and self.task is None
+        self.edit_layers_button.setEnabled(
+            ready
+            and published
+            and share.get("update_state") == "idle"
+            and any(layer.get("published") for layer in share.get("layers", []))
+            and self.task is None
+        )
+        self.mask_button.setEnabled(
+            ready
+            and published
+            and self.task is None
+            and isinstance(share.get("mask_version"), int)
         )
         self.delete_button.setEnabled(bool(share) and self.task is None)
         link = share.get("link") if share else None
@@ -292,7 +342,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             "\n".join(str(error.get("error", "")) for error in errors)
         )
 
-    def _start(self, operation):
+    def _start(self, operation, mask=None, mask_version=None, layer_ids=None):
         if self.task is not None:
             return
         share = self._selected()
@@ -312,9 +362,11 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             operation,
             share["id"] if share else None,
             self._finished,
+            mask=mask,
+            mask_version=mask_version,
+            layer_ids=layer_ids,
         )
         self.create_button.setEnabled(False)
-        self.add_layers_button.setEnabled(False)
         self.refresh_button.setEnabled(False)
         self._selection_changed()
         QgsApplication.taskManager().addTask(self.task)
@@ -331,21 +383,6 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         dialog.exec()
         self._select_id = dialog.share_id
         self.create_button.setEnabled(True)
-        self.add_layers_button.setEnabled(True)
-        self.refresh()
-
-    def _add_layers(self):
-        share = self._selected()
-        if not share or share.get("state") != "ready" or not share.get("ready_at"):
-            return
-        from .webmap_create_dialog import CreateWebmapDialog
-
-        self.timer.stop()
-        self.add_layers_button.setEnabled(False)
-        CreateWebmapDialog(
-            self, existing_share_id=share["id"], shares=self.shares
-        ).exec()
-        self.add_layers_button.setEnabled(True)
         self.refresh()
 
     def _poll(self):
@@ -359,7 +396,6 @@ class WebmapSharesDialog(QtWidgets.QDialog):
     def _finished(self, operation, succeeded, result, error):
         self.task = None
         self.create_button.setEnabled(True)
-        self.add_layers_button.setEnabled(True)
         self.refresh_button.setEnabled(True)
         if not succeeded:
             self.timer.stop()
@@ -404,6 +440,17 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         elif operation in ("publish", "rotate"):
             self._show_link(result)
             self.refresh()
+        elif operation == "remove_layers":
+            if not result["cleanup_scheduled"]:
+                QtWidgets.QMessageBox.warning(
+                    self,
+                    self.tr("Web-map sharing"),
+                    self.tr(
+                        "Layers were removed, but cleanup could not be scheduled. "
+                        "The server will retry it automatically."
+                    ),
+                )
+            self.refresh()
         else:
             if not result.get("cleanup_scheduled", True):
                 QtWidgets.QMessageBox.warning(
@@ -430,6 +477,105 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             self, [layer.get("name", "") for layer in share.get("layers", [])]
         ):
             self._start("publish")
+
+    def _edit_layers(self):
+        share = self._selected()
+        if not share or not self.edit_layers_button.isEnabled():
+            return
+        dialog = QtWidgets.QDialog(self)
+        dialog.setWindowTitle(self.tr("Edit shared map layers"))
+        layout = QtWidgets.QVBoxLayout(dialog)
+        hint = QtWidgets.QLabel(
+            self.tr("Select the layers to remove from this shared map.")
+        )
+        hint.setWordWrap(True)
+        layout.addWidget(hint)
+        layers = QtWidgets.QListWidget()
+        for layer in share.get("layers", []):
+            if layer.get("published"):
+                item = QtWidgets.QListWidgetItem(layer["name"], layers)
+                item.setData(QtCore.Qt.UserRole, layer["id"])
+                item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+                item.setCheckState(QtCore.Qt.Unchecked)
+        layout.addWidget(layers)
+        buttons = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Cancel)
+        remove = buttons.addButton(
+            self.tr("Remove selected"),
+            QtWidgets.QDialogButtonBox.ButtonRole.AcceptRole,
+        )
+        remove.setEnabled(False)
+        layers.itemChanged.connect(
+            lambda _item: remove.setEnabled(
+                any(
+                    layers.item(index).checkState() == QtCore.Qt.Checked
+                    for index in range(layers.count())
+                )
+            )
+        )
+        buttons.accepted.connect(dialog.accept)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        if not dialog.exec():
+            return
+        layer_ids = [
+            layers.item(index).data(QtCore.Qt.UserRole)
+            for index in range(layers.count())
+            if layers.item(index).checkState() == QtCore.Qt.Checked
+        ]
+        if not layer_ids:
+            return
+        answer = QtWidgets.QMessageBox.question(
+            self,
+            self.tr("Remove shared layers"),
+            self.tr(
+                "Remove the selected layers for everyone with this link? "
+                "Cached tiles may remain available until removal propagates. "
+                "The uploaded snapshots will be deleted."
+            ),
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No,
+        )
+        if answer == QtWidgets.QMessageBox.Yes:
+            self._start("remove_layers", layer_ids=layer_ids)
+
+    def _change_mask(self):
+        share = self._selected()
+        if not share or not isinstance(share.get("mask_version"), int):
+            return
+        dialog = QtWidgets.QDialog(self)
+        dialog.setWindowTitle(self.tr("Change display mask"))
+        layout = QtWidgets.QVBoxLayout(dialog)
+        description = QtWidgets.QLabel(
+            self.tr(
+                "Choose the current region as the new mask, or uncheck to remove it. "
+                "The polygon is visible to link holders. A display mask does not restrict access to tiles."
+            )
+        )
+        description.setWordWrap(True)
+        layout.addWidget(description)
+        selector = MaskSelector(dialog)
+        selector.setChecked(bool(share.get("has_mask")))
+        layout.addWidget(selector)
+        buttons = QtWidgets.QDialogButtonBox(
+            QtWidgets.QDialogButtonBox.Save | QtWidgets.QDialogButtonBox.Cancel
+        )
+        buttons.accepted.connect(dialog.accept)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        if not dialog.exec():
+            return
+        try:
+            mask = selector.geometry()
+        except ShareError as exc:
+            QtWidgets.QMessageBox.warning(self, self.tr("Web-map sharing"), str(exc))
+            return
+        answer = QtWidgets.QMessageBox.question(
+            self,
+            self.tr("Update display mask"),
+            self.tr("Update the mask for everyone with this map link?"),
+        )
+        if answer == QtWidgets.QMessageBox.Yes:
+            self._start("update_mask", mask, share["mask_version"])
 
     def _rotate(self):
         answer = QtWidgets.QMessageBox.question(
@@ -493,10 +639,10 @@ def show_link(parent, result, message=None):
     layout.addWidget(link)
     buttons = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Close)
     copy = buttons.addButton(
-        dialog.tr("Copy link"), QtWidgets.QDialogButtonBox.ActionRole
+        dialog.tr("Copy link"), QtWidgets.QDialogButtonBox.ButtonRole.ActionRole
     )
     browse = buttons.addButton(
-        dialog.tr("Open in browser"), QtWidgets.QDialogButtonBox.ActionRole
+        dialog.tr("Open in browser"), QtWidgets.QDialogButtonBox.ButtonRole.ActionRole
     )
     copy.clicked.connect(
         lambda: QtWidgets.QApplication.clipboard().setText(link.text())

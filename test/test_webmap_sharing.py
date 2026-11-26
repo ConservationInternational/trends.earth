@@ -78,6 +78,16 @@ class TestWebmapSharing(unittest.TestCase):
         self.assertEqual(kwargs["json"], {"layer_ids": [LAYER]})
         self.assertEqual(kwargs["headers"]["Authorization"], "Bearer owner-token")
 
+    def test_reorder_layers_uses_owner_api_route(self):
+        self.client._api_session.request.return_value = response(data={"id": SHARE})
+        self.client.reorder_layers(SHARE, [LAYER])
+        args, kwargs = self.client._api_session.request.call_args
+        self.assertEqual(
+            args, ("PUT", f"https://api.test/api/v1/shares/{SHARE}/layers/order")
+        )
+        self.assertEqual(kwargs["json"], {"layer_ids": [LAYER]})
+        self.assertEqual(kwargs["headers"]["Authorization"], "Bearer owner-token")
+
     def test_owner_api_and_one_time_link(self):
         self.client._api_session.request.return_value = response(
             data={"link": "https://viewer.test/share/s/public-token"}

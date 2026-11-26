@@ -345,6 +345,14 @@ class ShareClient:
             {"layer_ids": [_share_id(layer_id) for layer_id in layer_ids]},
         )
 
+    def reorder_layers(self, share_id, layer_ids):
+        """Set the viewer order of published layers; the first is the top."""
+        return self._request(
+            "PUT",
+            "/" + _share_id(share_id) + "/layers/order",
+            {"layer_ids": [_share_id(layer_id) for layer_id in layer_ids]},
+        )
+
     def publish(self, share_id):
         return self._request("POST", "/" + _share_id(share_id) + "/publish")
 

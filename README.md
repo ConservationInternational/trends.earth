@@ -37,55 +37,6 @@ University with additional funding from the Global Environment Facility (GEF).
 See the [user guide](http://trends.earth) for information on how to use
 the plugin.
 
-### Sharing web maps
-
-New public links contain a single unguessable path token: they can be copied
-from the browser address bar and forwarded without a separate secret. Tiles may
-be cached publicly for up to four days (never past the link expiry); replacing
-or revoking a link requests CDN removal, which takes time to propagate.
-
-Open **Shared web maps...** from the Trends.Earth dock and choose
-**New web map...**. Enter a title and retention period and choose **Create
-map**. After a confirmation that the unlisted link can be viewed, forwarded and
-saved by anyone who has it, the empty map is published and its link is shown
-with **Copy link** and **Open in browser** buttons.
-
-To add layers, use the **Share** button on a dataset in the **Datasets** tab,
-choose the map, check the outputs to include (double-click a layer name to
-rename it) and choose **Add to map**. Rasters use the default Trends.Earth style
-and legend labels. For vectors, explicitly select only public-safe attributes
-and set the zoom range; exports include a generated feature identifier, and
-tiling clips and quantizes geometry. Layers are prepared, uploaded and validated
-after a confirmation. The link stays the same, and recipients see the new layers
-the next time they open it.
-To remove layers, select the map in **Shared web maps** and choose **Edit
-layers...**. The map can remain online without layers. Removed tiles may remain
-available until CDN invalidation propagates, and storage remains reserved until
-cleanup succeeds.
-
-When creating a map, optionally enable **Mask shared layers to a region** and
-select an administrative region or polygon in the normal Trends.Earth region
-settings. In **Shared web maps**, use **Change mask...** to replace or remove
-the mask without changing the link. Open viewers pick up changes within about
-30 seconds. The polygon is shared with link holders. Masking only changes the
-display: underlying tiles and data outside the mask remain accessible, so do
-not use it to protect sensitive information. Masks are limited to 512 KB and
-30,000 coordinates. Larger polygons are simplified automatically unless you
-clear **Simplify the polygon automatically if it is too detailed**.
-
-**Shared web maps** lists your maps, links, storage usage, validation errors and
-UTC expiry. It can publish a validated draft, replace a link or revoke a map.
-Double-click a map to open it. Link replacement and revocation immediately block
-new server access, but cached tiles can remain available until CDN removal
-propagates. Storage remains reserved until server cleanup succeeds. Failed
-or abandoned drafts remain reserved until revoked or expired. Sharing requires
-an authenticated account and a server with public web-map sharing enabled.
-
-Sharing uses QGIS proxy resolution and supports HTTP CONNECT and SOCKS5 proxies,
-including configured credentials and proxy exclusions. HTTPS-to-proxy connections
-and interactive proxy authentication are not supported. The sharing transport
-uses the system TLS trust store; set `REQUESTS_CA_BUNDLE` or `CURL_CA_BUNDLE`
-when a different CA bundle is needed. It does not use QGIS's custom CA store.
 
 ## Installation of stable version of plugin
 

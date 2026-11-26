@@ -162,6 +162,14 @@ class _OwnerTask(QgsTask):
                     raise ShareError(
                         "Invalid response from the web-map sharing service"
                     )
+            elif self.operation == "reorder_layers":
+                self.result = client.reorder_layers(self.share_id, self.layer_ids)
+                if not isinstance(self.result, dict) or not isinstance(
+                    self.result.get("layers"), list
+                ):
+                    raise ShareError(
+                        "Invalid response from the web-map sharing service"
+                    )
             else:
                 self.result = getattr(client, self.operation)(self.share_id)
                 if not isinstance(self.result, dict):
@@ -230,6 +238,11 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.storage = QtWidgets.QLabel()
         self.storage.setWordWrap(True)
         header.addWidget(self.storage, 1)
+        self.usage = None
+        self.quota_button = QtWidgets.QPushButton(self.tr("Quota..."))
+        self.quota_button.setToolTip(self.tr("View your remaining sharing quota"))
+        self.quota_button.setEnabled(False)
+        header.addWidget(self.quota_button)
         self.refresh_button = QtWidgets.QToolButton()
         self.refresh_button.setIcon(FileUtils.get_icon("mActionRefresh.svg"))
         self.refresh_button.setToolTip(self.tr("Refresh"))
@@ -273,6 +286,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.create_button.setDefault(True)
         self.publish_button = QtWidgets.QPushButton(self.tr("Publish"))
         self.edit_layers_button = QtWidgets.QPushButton(self.tr("Edit layers..."))
+        self.order_layers_button = QtWidgets.QPushButton(self.tr("Order layers..."))
         self.mask_button = QtWidgets.QPushButton(self.tr("Change mask..."))
         self.rotate_button = QtWidgets.QPushButton(self.tr("New link"))
         self.rotate_button.setToolTip(
@@ -283,6 +297,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         for button in (
             self.create_button,
             self.edit_layers_button,
+            self.order_layers_button,
             self.mask_button,
             self.publish_button,
             self.rotate_button,
@@ -296,6 +311,8 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.refresh_button.clicked.connect(self.refresh)
         self.publish_button.clicked.connect(self._publish)
         self.edit_layers_button.clicked.connect(self._edit_layers)
+        self.order_layers_button.clicked.connect(self._order_layers)
+        self.quota_button.clicked.connect(self._show_quota)
         self.mask_button.clicked.connect(self._change_mask)
         self.rotate_button.clicked.connect(self._rotate)
         self.delete_button.clicked.connect(self._revoke)
@@ -318,13 +335,19 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.publish_button.setVisible(ready and not published)
         self.publish_button.setEnabled(ready and not published and self.task is None)
         self.rotate_button.setEnabled(ready and published and self.task is None)
-        self.edit_layers_button.setEnabled(
+        editable = bool(
             ready
             and published
             and share.get("update_state") == "idle"
-            and any(layer.get("published") for layer in share.get("layers", []))
             and self.task is None
         )
+        published_layers = (
+            [layer for layer in share.get("layers", []) if layer.get("published")]
+            if share
+            else []
+        )
+        self.edit_layers_button.setEnabled(editable and bool(published_layers))
+        self.order_layers_button.setEnabled(editable and len(published_layers) > 1)
         self.mask_button.setEnabled(
             ready
             and published
@@ -436,18 +459,28 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             if self.table.currentRow() < 0 and shares:
                 self.table.selectRow(0)
             self.table.resizeColumnsToContents()
-            storage = self.tr("Storage: {used} of {quota} used").format(
+            self.usage = usage
+            self.quota_button.setEnabled(True)
+            storage = self.tr(
+                "Storage: {used} of {quota} used, {free} remaining"
+            ).format(
                 used=format_bytes(usage["reserved_bytes"]),
                 quota=format_bytes(usage["quota_limit_bytes"]),
+                free=format_bytes(usage["available_bytes"]),
             )
             if usage["cleanup_pending_bytes"]:
                 storage += self.tr(" ({pending} awaiting cleanup)").format(
                     pending=format_bytes(usage["cleanup_pending_bytes"])
                 )
+            maps = self._active_maps(usage)
+            if maps:
+                storage += "; " + maps
             self.storage.setText(storage)
             self._selection_changed()
         elif operation in ("publish", "rotate"):
             self._show_link(result)
+            self.refresh()
+        elif operation == "reorder_layers":
             self.refresh()
         elif operation == "remove_layers":
             if not result["cleanup_scheduled"]:
@@ -546,6 +579,131 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         )
         if answer == QtWidgets.QMessageBox.Yes:
             self._start("remove_layers", layer_ids=layer_ids)
+
+    def _active_maps(self, usage):
+        count, limit = usage.get("active_share_count"), usage.get("active_share_limit")
+        # Older API versions do not report the active-map limit.
+        if not isinstance(count, int) or not isinstance(limit, int):
+            return ""
+        return self.tr("Maps: {count} of {limit} active").format(
+            count=count, limit=limit
+        )
+
+    def _show_quota(self):
+        usage = self.usage
+        if not usage:
+            return
+        lines = [
+            self.tr("Storage used: {used} of {quota}").format(
+                used=format_bytes(usage["reserved_bytes"]),
+                quota=format_bytes(usage["quota_limit_bytes"]),
+            ),
+            self.tr("Storage remaining: {free}").format(
+                free=format_bytes(usage["available_bytes"])
+            ),
+            self.tr("Awaiting cleanup: {pending}").format(
+                pending=format_bytes(usage["cleanup_pending_bytes"])
+            ),
+        ]
+        count, limit = usage.get("active_share_count"), usage.get("active_share_limit")
+        if isinstance(count, int) and isinstance(limit, int):
+            lines.append(
+                self.tr("Active maps: {count} of {limit} ({free} remaining)").format(
+                    count=count, limit=limit, free=max(0, limit - count)
+                )
+            )
+        max_layers = usage.get("max_layers_per_share")
+        max_bytes = usage.get("max_share_bytes")
+        if isinstance(max_layers, int) and isinstance(max_bytes, int):
+            lines.append(
+                self.tr("Each map: up to {layers} layers and {size}").format(
+                    layers=max_layers, size=format_bytes(max_bytes)
+                )
+            )
+        lines.append("")
+        lines.append(
+            self.tr(
+                "Storage used by revoked or expired maps is released after "
+                "cleanup. Removing layers or revoking maps frees quota."
+            )
+        )
+        QtWidgets.QMessageBox.information(
+            self, self.tr("Web-map sharing quota"), "\n".join(lines)
+        )
+
+    def _order_layers(self):
+        share = self._selected()
+        if not share or not self.order_layers_button.isEnabled():
+            return
+        dialog = QtWidgets.QDialog(self)
+        dialog.setWindowTitle(self.tr("Order shared map layers"))
+        layout = QtWidgets.QVBoxLayout(dialog)
+        hint = QtWidgets.QLabel(
+            self.tr(
+                "Drag layers or use the buttons to change their order. The first "
+                "layer is drawn on top in the web map."
+            )
+        )
+        hint.setWordWrap(True)
+        layout.addWidget(hint)
+        row = QtWidgets.QHBoxLayout()
+        layers = QtWidgets.QListWidget()
+        layers.setDragDropMode(QtWidgets.QAbstractItemView.DragDropMode.InternalMove)
+        layers.setDefaultDropAction(QtCore.Qt.DropAction.MoveAction)
+        original = []
+        for layer in share.get("layers", []):
+            if layer.get("published"):
+                item = QtWidgets.QListWidgetItem(layer["name"], layers)
+                item.setData(QtCore.Qt.ItemDataRole.UserRole, layer["id"])
+                original.append(layer["id"])
+        row.addWidget(layers)
+        moves = QtWidgets.QVBoxLayout()
+        up = QtWidgets.QPushButton(self.tr("Move up"))
+        down = QtWidgets.QPushButton(self.tr("Move down"))
+        moves.addWidget(up)
+        moves.addWidget(down)
+        moves.addStretch()
+        row.addLayout(moves)
+        layout.addLayout(row)
+        buttons = QtWidgets.QDialogButtonBox(
+            QtWidgets.QDialogButtonBox.StandardButton.Cancel
+        )
+        save = buttons.addButton(
+            self.tr("Save order"), QtWidgets.QDialogButtonBox.ButtonRole.AcceptRole
+        )
+
+        def order():
+            return [
+                layers.item(index).data(QtCore.Qt.ItemDataRole.UserRole)
+                for index in range(layers.count())
+            ]
+
+        def update():
+            current = layers.currentRow()
+            up.setEnabled(current > 0)
+            down.setEnabled(0 <= current < layers.count() - 1)
+            save.setEnabled(order() != original)
+
+        def move(offset):
+            current = layers.currentRow()
+            target = current + offset
+            if current < 0 or not 0 <= target < layers.count():
+                return
+            layers.insertItem(target, layers.takeItem(current))
+            layers.setCurrentRow(target)
+            update()
+
+        up.clicked.connect(lambda: move(-1))
+        down.clicked.connect(lambda: move(1))
+        layers.currentRowChanged.connect(lambda _row: update())
+        for signal in ("rowsMoved", "rowsInserted", "rowsRemoved"):
+            getattr(layers.model(), signal).connect(lambda *_args: update())
+        buttons.accepted.connect(dialog.accept)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        update()
+        if dialog.exec() and order() != original:
+            self._start("reorder_layers", layer_ids=order())
 
     def _change_mask(self):
         share = self._selected()

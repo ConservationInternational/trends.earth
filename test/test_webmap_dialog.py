@@ -174,6 +174,101 @@ class TestWebmapSharesDialog(unittest.TestCase):
             "map", ["first", "second"]
         )
 
+    def test_order_layers_moves_layers_and_saves_new_order(self):
+        share = {
+            "id": "map",
+            "state": "ready",
+            "ready_at": "2026-01-01",
+            "update_state": "idle",
+            "layers": [
+                {"id": "first", "name": "First", "published": True},
+                {"id": "second", "name": "Second", "published": True},
+                {"id": "third", "name": "Third", "published": True},
+            ],
+        }
+        self.dialog.shares = [share]
+        self.dialog.table.setRowCount(1)
+        self.dialog.table.selectRow(0)
+        self.dialog._selection_changed()
+        self.assertTrue(self.dialog.order_layers_button.isEnabled())
+        observed = []
+
+        def reorder():
+            dialog = QtWidgets.QApplication.activeModalWidget()
+            layers = dialog.findChild(QtWidgets.QListWidget)
+            buttons = dialog.findChild(QtWidgets.QDialogButtonBox)
+            save = next(
+                button
+                for button in buttons.buttons()
+                if buttons.buttonRole(button)
+                == QtWidgets.QDialogButtonBox.ButtonRole.AcceptRole
+            )
+            up = next(
+                button
+                for button in dialog.findChildren(QtWidgets.QPushButton)
+                if button.text() == "Move up"
+            )
+            observed.append(save.isEnabled())
+            layers.setCurrentRow(2)
+            up.click()
+            up.click()
+            observed.append(([layers.item(i).text() for i in range(3)], up.isEnabled()))
+            save.click()
+
+        with patch.object(self.dialog, "_start") as start:
+            QtCore.QTimer.singleShot(0, reorder)
+            self.dialog._order_layers()
+        self.assertEqual(observed, [False, (["Third", "First", "Second"], False)])
+        start.assert_called_once_with(
+            "reorder_layers", layer_ids=["third", "first", "second"]
+        )
+        share["layers"] = share["layers"][:1]
+        self.dialog._selection_changed()
+        self.assertFalse(self.dialog.order_layers_button.isEnabled())
+
+    @patch("LDMP.webmap_dialog.ShareClient")
+    def test_reorder_layers_task_sends_order(self, client):
+        client.return_value.reorder_layers.return_value = {"id": "map", "layers": []}
+        task = _OwnerTask(
+            "https://api.test",
+            "token",
+            "reorder_layers",
+            "map",
+            Mock(),
+            layer_ids=["second", "first"],
+        )
+        self.assertTrue(task.run(), task.error)
+        client.return_value.reorder_layers.assert_called_once_with(
+            "map", ["second", "first"]
+        )
+
+    def test_quota_shows_remaining_storage_and_maps(self):
+        usage = {
+            "uploaded_bytes": 4,
+            "reserved_bytes": 5,
+            "cleanup_pending_bytes": 0,
+            "available_bytes": 15,
+            "quota_limit_bytes": 20,
+        }
+        self.dialog._finished("refresh", True, ([], usage), None)
+        self.assertIn("15 bytes remaining", self.dialog.storage.text())
+        self.assertNotIn("Maps", self.dialog.storage.text())
+        usage.update(
+            active_share_count=2,
+            active_share_limit=10,
+            max_layers_per_share=10,
+            max_share_bytes=30,
+        )
+        self.dialog._finished("refresh", True, ([], usage), None)
+        self.assertIn("Maps: 2 of 10 active", self.dialog.storage.text())
+        self.assertTrue(self.dialog.quota_button.isEnabled())
+        with patch.object(QtWidgets.QMessageBox, "information") as information:
+            self.dialog.quota_button.click()
+        text = information.call_args.args[2]
+        self.assertIn("Storage remaining: 15 bytes", text)
+        self.assertIn("Active maps: 2 of 10 (8 remaining)", text)
+        self.assertIn("up to 10 layers and 30 bytes", text)
+
     def test_published_share_link_is_viewable_and_copyable(self):
         usage = {
             "uploaded_bytes": 0,

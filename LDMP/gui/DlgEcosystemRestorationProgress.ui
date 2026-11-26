@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgEcosystemReportingRestorationProgress</class>
- <widget class="QDialog" name="DlgEcosystemReportingRestorationProgress">
+ <class>DlgEcosystemRestorationProgress</class>
+ <widget class="QDialog" name="DlgEcosystemRestorationProgress">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -98,7 +98,7 @@
            <string>XLSX file with the target and the reported progress of each sub-indicator.</string>
           </property>
           <property name="title">
-           <string>Restoration Progress Report data</string>
+           <string>Restoration progress report data</string>
           </property>
           <layout class="QVBoxLayout" name="data_xlsx_box_layout">
            <item>
@@ -871,7 +871,7 @@ p, li { white-space: pre-wrap; }
   <connection>
    <sender>button_box</sender>
    <signal>accepted()</signal>
-   <receiver>DlgEcosystemReportingRestorationProgress</receiver>
+   <receiver>DlgEcosystemRestorationProgress</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -887,7 +887,7 @@ p, li { white-space: pre-wrap; }
   <connection>
    <sender>button_box</sender>
    <signal>rejected()</signal>
-   <receiver>DlgEcosystemReportingRestorationProgress</receiver>
+   <receiver>DlgEcosystemRestorationProgress</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

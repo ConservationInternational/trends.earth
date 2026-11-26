@@ -11,20 +11,25 @@
  ***************************************************************************/
 """
 
-import shutil
 from pathlib import Path
 
 import qgis.gui
 from qgis.core import QgsProject, QgsVectorLayer
 from qgis.gui import QgsFileWidget
-from qgis.PyQt import QtCore, QtGui, QtWidgets, uic
+from qgis.PyQt import QtCore, QtWidgets, uic
 from te_schemas.algorithms import ExecutionScript
 
 from . import calculate
 from .jobs.manager import job_manager
+from .reports.ecosystem_restoration.data_progress_template.generator import (
+    DEFAULT_COUNTRY,
+    countries,
+    read_child_projects,
+    write_data_template,
+)
 from .reports.ecosystem_restoration.report import (
     COUNTRY,
-    DATA_TEMPLATE_PATH,
+    COUNTRY_REGEX,
     DATA_XLSX_NAME,
     DEFAULT_BASELINE_YEARS_BEFORE,
     GEF_CP_ID,
@@ -56,52 +61,98 @@ from .reports.ecosystem_restoration.spatial_validation import (
     validate_spatial_data,
 )
 
-DlgEcosystemReportingRestorationProgressUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgEcosystemReportingRestorationProgress.ui")
+DlgEcosystemRestorationProgressUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgEcosystemRestorationProgress.ui")
 )
-DlgSpatialTemplateUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgSpatialTemplate.ui")
+DlgEcosystemRestorationSpatialTemplateUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgEcosystemRestorationSpatialTemplate.ui")
+)
+DlgEcosystemRestorationDataTemplateUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgEcosystemRestorationDataTemplate.ui")
 )
 
 
-class DlgSpatialTemplate(QtWidgets.QDialog, DlgSpatialTemplateUi):
-    """ISO3 of the country and date of the restoration sites template."""
+class _CountryInput:
+    """Country input of a template dialog, its editable combo box country:
+    a country of the child projects, or an ISO3 entered, DEFAULT_COUNTRY by
+    default."""
+
+    def _setup_country(self):
+        # Country name shown, its ISO3 as the data
+        for iso3, name in countries(read_child_projects()).items():
+            self.country.addItem(f"{name} ({iso3})", iso3)
+        self.country.setCurrentIndex(-1)
+        self.country.setEditText(DEFAULT_COUNTRY)
+
+    def iso3(self) -> str:
+        """ISO3 of the country chosen, or of the text entered in upper case,
+        e.g. AGO for Angola (AGO) or for ago."""
+        text = self.country.currentText().strip()
+        index = self.country.findText(text)
+        if index >= 0:
+            return self.country.itemData(index)
+        return text.upper()
+
+    def _check_country(self) -> bool:
+        """Shows an error and returns False when the ISO3 is not three
+        letters."""
+        if COUNTRY_REGEX.match(self.iso3()):
+            return True
+        QtWidgets.QMessageBox.critical(
+            self,
+            self.tr("Error"),
+            self.tr(
+                "Choose a country, or enter the three-letter ISO 3166-1 "
+                "alpha-3 code of the country, e.g. IND."
+            ),
+        )
+        return False
+
+
+class DlgEcosystemRestorationSpatialTemplate(
+    QtWidgets.QDialog, DlgEcosystemRestorationSpatialTemplateUi, _CountryInput
+):
+    """Country and date of the restoration sites template."""
 
     def __init__(self, parent: QtWidgets.QWidget = None):
         super().__init__(parent)
         self.setupUi(self)
-        # Only letters, upper case when accepted
-        self.country.setValidator(
-            QtGui.QRegularExpressionValidator(
-                QtCore.QRegularExpression("[A-Za-z]{0,3}"), self.country
-            )
-        )
+        self._setup_country()
         self.date.setDate(QtCore.QDate.currentDate())
         self.template_format.addItems(list(TEMPLATE_FORMATS))
         self.button_box.accepted.connect(self.accept)
         self.button_box.rejected.connect(self.reject)
 
     def accept(self):
-        self.country.setText(self.country.text().strip().upper())
-        if not LAYER_NAME_REGEX.match(self.layer_name()):
-            QtWidgets.QMessageBox.critical(
-                self,
-                self.tr("Error"),
-                self.tr(
-                    "Enter the three-letter ISO 3166-1 alpha-3 code of the "
-                    "country, e.g. IND."
-                ),
-            )
+        if not self._check_country():
             return
         super().accept()
 
     def layer_name(self) -> str:
         """Name of the files of the template, e.g. IND_V20261231."""
-        return layer_name(self.country.text(), self.date.date().toPyDate())
+        return layer_name(self.iso3(), self.date.date().toPyDate())
 
 
-class DlgEcosystemReportingRestorationProgress(
-    calculate.DlgCalculateBase, DlgEcosystemReportingRestorationProgressUi
+class DlgEcosystemRestorationDataTemplate(
+    QtWidgets.QDialog, DlgEcosystemRestorationDataTemplateUi, _CountryInput
+):
+    """Country of the report data template."""
+
+    def __init__(self, parent: QtWidgets.QWidget = None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self._setup_country()
+        self.button_box.accepted.connect(self.accept)
+        self.button_box.rejected.connect(self.reject)
+
+    def accept(self):
+        if not self._check_country():
+            return
+        super().accept()
+
+
+class DlgEcosystemRestorationProgress(
+    calculate.DlgCalculateBase, DlgEcosystemRestorationProgressUi
 ):
     LOCAL_SCRIPT_NAME = "ecosystem-restoration-progress-local"
 
@@ -334,11 +385,16 @@ class DlgEcosystemReportingRestorationProgress(
             self.reporting_year.setValue(year)
 
     def _download_data_template(self):
-        """Save the report data XLSX template."""
+        """Save the report data XLSX template of the choosen country."""
+        dialog = DlgEcosystemRestorationDataTemplate(self)
+        if dialog.exec() != QtWidgets.QDialog.Accepted:
+            return
+
+        country = dialog.iso3()
         path, _ = QtWidgets.QFileDialog.getSaveFileName(
             self,
             self.tr("Save report data template"),
-            DATA_XLSX_NAME,
+            f"{Path(DATA_XLSX_NAME).stem}_{country}.xlsx",
             self.tr("Excel files (*.xlsx)"),
         )
         if not path:
@@ -346,8 +402,8 @@ class DlgEcosystemReportingRestorationProgress(
         if Path(path).suffix.lower() != ".xlsx":
             path = f"{path}.xlsx"
         try:
-            shutil.copyfile(DATA_TEMPLATE_PATH, path)
-        except OSError as error:
+            write_data_template(Path(path), country)
+        except (OSError, ValueError) as error:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -356,9 +412,8 @@ class DlgEcosystemReportingRestorationProgress(
             return
 
     def _download_spatial_template(self):
-        """Save the template of the restoration sites, in the format chosen in
-        DlgSpatialTemplate."""
-        dialog = DlgSpatialTemplate(self)
+        """Save the template of the restoration sites."""
+        dialog = DlgEcosystemRestorationSpatialTemplate(self)
         if dialog.exec() != QtWidgets.QDialog.Accepted:
             return
 
@@ -380,7 +435,7 @@ class DlgEcosystemReportingRestorationProgress(
         try:
             write_spatial_template(
                 Path(path),
-                dialog.country.text(),
+                dialog.iso3(),
                 dialog.date.date().toPyDate(),
                 template_format,
                 dialog.separate_attributes.isChecked(),

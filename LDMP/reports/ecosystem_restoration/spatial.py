@@ -20,6 +20,7 @@ from qgis.core import (
     QgsField,
     QgsFields,
     QgsGeometry,
+    QgsRectangle,
     QgsVectorFileWriter,
     QgsVectorLayer,
     QgsWkbTypes,
@@ -212,6 +213,10 @@ def _write_shapefile_template(path: Path, country: str, date: dt.date):
             qml = file.read_text(encoding="utf-8")
             qml = _set_default(qml, COUNTRY_FIELD, country)
             qml = _set_default(qml, SITE_ID_FIELD, f"{country}_")
+            # GEF_CP_ID of the country with one child project
+            gef_cp_ids = example_gef_cp_ids(country)
+            if len(gef_cp_ids) == 1 and gef_cp_ids[0] != EXAMPLE_GEF_CP_ID:
+                qml = _set_default(qml, GEF_CP_ID_FIELD, gef_cp_ids[0])
             target.write_text(qml, encoding="utf-8")
         else:
             shutil.copyfile(file, target)
@@ -264,27 +269,54 @@ def _write_vector_template(
     if writer.hasError() != QgsVectorFileWriter.NoError:
         raise OSError(writer.errorMessage())
 
-    # Example site
-    feature = QgsFeature(fields)
-    if is_kml or name_only:
-        feature[KML_NAME_FIELD] = f"{country}_0001"
-    if not name_only:
-        feature[GEF_CP_ID_FIELD] = EXAMPLE_GEF_CP_ID
-        feature[COUNTRY_FIELD] = country
-        feature[SITE_ID_FIELD] = f"{country}_0001"
-        feature[DATE_FIELD] = (
-            date.strftime("%Y_%m_%d")
-            if is_kml
-            else QDate(date.year, date.month, date.day)
-        )
-        feature[INDICATOR_FIELD] = EXAMPLE_INDICATOR
-        feature[SUB_INDICATOR_FIELD] = EXAMPLE_SUB_INDICATOR
-        feature[AREA_TYPE_FIELD] = EXAMPLE_AREA_TYPE
-    feature.setGeometry(
-        QgsGeometry.fromWkt("POLYGON((0 0,0.01 0,0.01 0.01,0 0.01,0 0))")
-    )
-    writer.addFeature(feature)
+    # Example sites, one per child project of the country
+    for site_id, gef_cp_id, geometry in example_sites(country):
+        feature = QgsFeature(fields)
+        if is_kml or name_only:
+            feature[KML_NAME_FIELD] = site_id
+        if not name_only:
+            feature[GEF_CP_ID_FIELD] = gef_cp_id
+            feature[COUNTRY_FIELD] = country
+            feature[SITE_ID_FIELD] = site_id
+            feature[DATE_FIELD] = (
+                date.strftime("%Y_%m_%d")
+                if is_kml
+                else QDate(date.year, date.month, date.day)
+            )
+            feature[INDICATOR_FIELD] = EXAMPLE_INDICATOR
+            feature[SUB_INDICATOR_FIELD] = EXAMPLE_SUB_INDICATOR
+            feature[AREA_TYPE_FIELD] = EXAMPLE_AREA_TYPE
+        feature.setGeometry(geometry)
+        writer.addFeature(feature)
     del writer
+
+
+def example_gef_cp_ids(country: str) -> list[str]:
+    """GEF_CP_ID of the child projects of the country, or EXAMPLE_GEF_CP_ID
+    when the country has none, e.g. XXX."""
+    # Imported here, the generator imports spatial
+    from .data_progress_template.generator import read_child_projects
+
+    return [
+        project.gef_cp_id
+        for project in read_child_projects()
+        if project.country == country
+    ] or [EXAMPLE_GEF_CP_ID]
+
+
+def example_sites(country: str) -> list[tuple[str, str, QgsGeometry]]:
+    """Site_ID, GEF_CP_ID and polygon of the example sites of the templates,
+    one per child project of the country, side by side, not overlapping."""
+    return [
+        (
+            f"{country}_{number:04d}",
+            gef_cp_id,
+            QgsGeometry.fromRect(
+                QgsRectangle(0.02 * (number - 1), 0, 0.02 * (number - 1) + 0.01, 0.01)
+            ),
+        )
+        for number, gef_cp_id in enumerate(example_gef_cp_ids(country), start=1)
+    ]
 
 
 def open_spatial_file(path: str) -> QgsVectorLayer:

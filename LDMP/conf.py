@@ -657,7 +657,7 @@ _ALGORITHM_CONFIG = [
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["ecosystem-restoration-progress-local"],
-                        "parametrization_dialogue": "LDMP.ecosystems_restoration_monitoring.DlgEcosystemReportingRestorationProgress",
+                        "parametrization_dialogue": "LDMP.ecosystems_restoration_monitoring.DlgEcosystemRestorationProgress",
                     },
                 ],
             },

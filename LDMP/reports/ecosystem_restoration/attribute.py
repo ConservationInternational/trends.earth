@@ -13,7 +13,6 @@ from .spatial import (
     COUNTRY_FIELD,
     DATE_FIELD,
     EXAMPLE_AREA_TYPE,
-    EXAMPLE_GEF_CP_ID,
     EXAMPLE_INDICATOR,
     EXAMPLE_SUB_INDICATOR,
     GEF_CP_ID_FIELD,
@@ -24,6 +23,7 @@ from .spatial import (
     SPATIAL_FIELDS,
     SPATIAL_FILE_PROPERTY,
     SUB_INDICATOR_FIELD,
+    example_sites,
     layer_file,
 )
 
@@ -42,21 +42,23 @@ def attributes_file(path: str) -> Path | None:
 
 def write_attributes_template(path: Path, country: str, date: dt.date):
     """Write the attributes XLSX template, the columns of SPATIAL_FIELDS and
-    one example site, of the polygon named {country}_0001."""
+    the example sites of example_sites, of the polygons named by their
+    Site_ID, e.g. {country}_0001."""
     workbook = openpyxl.Workbook()
     sheet = workbook.active
     sheet.title = "Attributes"
     sheet.append(list(SPATIAL_FIELDS))
-    example = {
-        GEF_CP_ID_FIELD: EXAMPLE_GEF_CP_ID,
-        COUNTRY_FIELD: country,
-        SITE_ID_FIELD: f"{country}_0001",
-        DATE_FIELD: date,
-        INDICATOR_FIELD: EXAMPLE_INDICATOR,
-        SUB_INDICATOR_FIELD: EXAMPLE_SUB_INDICATOR,
-        AREA_TYPE_FIELD: EXAMPLE_AREA_TYPE,
-    }
-    sheet.append([example.get(name) for name in SPATIAL_FIELDS])
+    for site_id, gef_cp_id, _ in example_sites(country):
+        example = {
+            GEF_CP_ID_FIELD: gef_cp_id,
+            COUNTRY_FIELD: country,
+            SITE_ID_FIELD: site_id,
+            DATE_FIELD: date,
+            INDICATOR_FIELD: EXAMPLE_INDICATOR,
+            SUB_INDICATOR_FIELD: EXAMPLE_SUB_INDICATOR,
+            AREA_TYPE_FIELD: EXAMPLE_AREA_TYPE,
+        }
+        sheet.append([example.get(name) for name in SPATIAL_FIELDS])
 
     for index, name in enumerate(SPATIAL_FIELDS, start=1):
         column = sheet.cell(1, index).column_letter

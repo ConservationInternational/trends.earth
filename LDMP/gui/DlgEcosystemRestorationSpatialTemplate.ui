@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgSpatialTemplate</class>
- <widget class="QDialog" name="DlgSpatialTemplate">
+ <class>DlgEcosystemRestorationSpatialTemplate</class>
+ <widget class="QDialog" name="DlgEcosystemRestorationSpatialTemplate">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -25,20 +25,20 @@
         </font>
        </property>
        <property name="text">
-        <string>ISO3:</string>
+        <string>Country:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="country">
+      <widget class="QComboBox" name="country">
        <property name="toolTip">
-        <string>Three-letter ISO 3166-1 alpha-3 code of the country of the restoration sites.</string>
+        <string>Choose a country of the ERIP child projects, or enter the three-letter ISO 3166-1 alpha-3 code of the country of the restoration sites, e.g. IND.</string>
        </property>
-       <property name="maxLength">
-        <number>3</number>
+       <property name="editable">
+        <bool>true</bool>
        </property>
-       <property name="placeholderText">
-        <string>e.g. IND</string>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
        </property>
       </widget>
      </item>

@@ -14,8 +14,10 @@ from qgis.core import (
 )
 
 from .spatial import (
+    AREA_TYPE_FIELD,
     COUNTRY_FIELD,
     DATE_FIELD,
+    EXAMPLE_AREA_TYPE,
     EXAMPLE_GEF_CP_ID,
     GEF_CP_ID_FIELD,
     GEF_CP_ID_REGEX,
@@ -171,6 +173,12 @@ class LayerValidation:
             errors.append(
                 f"{GEF_CP_ID_FIELD} {gef_cp_id} is the example site of the "
                 "template, delete it."
+            )
+        # Example site of a child project of the country, of its Area_Type
+        elif str(feature[AREA_TYPE_FIELD] or "").strip() == EXAMPLE_AREA_TYPE:
+            errors.append(
+                f"{AREA_TYPE_FIELD} '{EXAMPLE_AREA_TYPE}' is the example site "
+                "of the template, delete it."
             )
 
         country = str(feature[COUNTRY_FIELD]).strip()

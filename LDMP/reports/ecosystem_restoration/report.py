@@ -11,7 +11,7 @@ from openpyxl.utils.exceptions import InvalidFileException
 from ...logger import log
 from ..models import slugify
 from .model import IndicatorDataModel, RestorationDataModel, SpatialSupportedOvertime
-from .spatial import GEF_CP_ID_REGEX
+from .spatial import EXAMPLE_GEF_CP_ID, GEF_CP_ID_REGEX
 from .writer.chart import (
     write_current_progress_indicator_chart,
     write_progress_over_time_chart,
@@ -201,6 +201,12 @@ def _rows_by_sub_indicator(data: list[dict]) -> dict[str, dict]:
             raise ValueError(f"{source}: '{gef_cp_id}' is empty")
         if not GEF_CP_ID_REGEX.match(gef_cp_id):
             raise ValueError(f"{source}: {GEF_CP_ID} {gef_cp_id} is not five numbers.")
+        if gef_cp_id == EXAMPLE_GEF_CP_ID:
+            raise ValueError(
+                f"{source}: {GEF_CP_ID} {gef_cp_id} is the example child project "
+                "of the template, replace it with the GEF_CP_ID of the child "
+                "project."
+            )
         country = (row[COUNTRY] or "").strip()
         if not COUNTRY_REGEX.match(country):
             raise ValueError(

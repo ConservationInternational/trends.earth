@@ -28,6 +28,7 @@ from .reports.ecosystem_restoration.report import (
     DATA_XLSX_NAME,
     DEFAULT_BASELINE_YEARS_BEFORE,
     GEF_CP_ID,
+    INDICATORS,
     MIN_REPORTING_YEAR,
     READ_DATA_ERRORS,
     REPORTING_SCOPE_COUNTRY,
@@ -41,8 +42,10 @@ from .reports.ecosystem_restoration.spatial import (
     LAYER_NAME_REGEX,
     SPATIAL_FILE_FILTER,
     TEMPLATE_FORMATS,
+    latest_file,
     layer_name,
     open_spatial_file,
+    read_site_ids,
     read_sites_yearly,
     spatial_file,
     validate_spatial_layer_name,
@@ -156,6 +159,22 @@ class DlgEcosystemReportingRestorationProgress(
         self.baseline_year.setMaximum(self.reporting_year.value())
         self.reporting_year.valueChanged.connect(self._reporting_year_changed)
         self.baseline_year.valueChanged.connect(self._baseline_year_changed)
+
+        # Sites of the maps of each indicator, in the advanced options
+        self._latest_layer = None
+        self._site_lists: dict[str, QtWidgets.QListWidget] = {}
+        self._setup_site_lists()
+        self.spatial_layers.fileChanged.connect(self._load_latest_layer)
+        for radio_button in (
+            self.reporting_scope_project_radio_button,
+            self.reporting_scope_country_radio_button,
+            self.reporting_scope_custom_aoi_radio_button,
+            self.child_project_radio_button,
+        ):
+            radio_button.toggled.connect(self._update_site_lists)
+        self.child_project.currentTextChanged.connect(self._update_site_lists)
+        self.country.currentTextChanged.connect(self._update_site_lists)
+
         self._finish_initialization()
         self._update_reporting_scope()
 
@@ -176,6 +195,104 @@ class DlgEcosystemReportingRestorationProgress(
         is_custom_aoi = reporting_scope == REPORTING_SCOPE_CUSTOM_AOI
         self.region_la.setVisible(is_custom_aoi)
         self.region_button.setVisible(is_custom_aoi)
+
+    def _setup_site_lists(self):
+        """The list of checkable sites of each indicator, of the .ui, e.g.
+        indicator_1_sites, with its Select all and Unselect all buttons."""
+        for indicator_name in INDICATORS:
+            site_list = getattr(self, f"{indicator_name}_sites")
+            for button_name, state in (
+                ("select_all_button", QtCore.Qt.Checked),
+                ("unselect_all_button", QtCore.Qt.Unchecked),
+            ):
+                getattr(self, f"{indicator_name}_{button_name}").clicked.connect(
+                    lambda _, site_list=site_list, state=state: self._check_all_sites(
+                        site_list, state
+                    )
+                )
+            self._site_lists[indicator_name] = site_list
+
+    @staticmethod
+    def _check_all_sites(site_list: QtWidgets.QListWidget, state):
+        for row in range(site_list.count()):
+            site_list.item(row).setCheckState(state)
+
+    def _load_latest_layer(self, *_):
+        """Open the latest spatial input file, the sites of its lists."""
+        paths = QgsFileWidget.splitFilePaths(self.spatial_layers.filePath())
+        path = latest_file(paths)
+        self._latest_layer = None
+        if path:
+            try:
+                self._latest_layer = open_spatial_file(path)
+            except ValueError:
+                # Shown when the report is run
+                self._latest_layer = None
+        self._update_site_lists()
+
+    def _site_scope(self) -> tuple[str | None, str | None]:
+        """GEF_CP_ID and country of the sites of the lists, None for any."""
+        reporting_scope = self._reporting_scope()
+        if reporting_scope == REPORTING_SCOPE_COUNTRY:
+            return None, self.country.currentText().strip() or None
+        if (
+            reporting_scope == REPORTING_SCOPE_PROJECT
+            and self.child_project_radio_button.isChecked()
+        ):
+            return self.child_project.currentText().strip() or None, None
+        return None, None
+
+    def _update_site_lists(self, *_):
+        """List the sites of the latest spatial input file in the reporting scope."""
+        if not self._site_lists:
+            return
+        site_ids = {}
+        if self._latest_layer is not None:
+            site_ids = read_site_ids([self._latest_layer], *self._site_scope())
+        for indicator_name, site_list in self._site_lists.items():
+            unchecked = {
+                site_list.item(row).text()
+                for row in range(site_list.count())
+                if site_list.item(row).checkState() != QtCore.Qt.Checked
+            }
+            site_list.clear()
+            for site_id in site_ids.get(INDICATORS[indicator_name]["label"], []):
+                item = QtWidgets.QListWidgetItem(site_id, site_list)
+                item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+                item.setCheckState(
+                    QtCore.Qt.Unchecked if site_id in unchecked else QtCore.Qt.Checked
+                )
+
+    def _selected_sites(self) -> dict[str, list[str]]:
+        """Checked Site_ID of each indicator."""
+        return {
+            indicator_name: [
+                site_list.item(row).text()
+                for row in range(site_list.count())
+                if site_list.item(row).checkState() == QtCore.Qt.Checked
+            ]
+            for indicator_name, site_list in self._site_lists.items()
+        }
+
+    def _check_selected_sites(self, selected_sites: dict[str, list[str]]) -> bool:
+        """Shows an error and returns False when an indicator with sites has no selected site."""
+        missing = [
+            INDICATORS[indicator_name]["label"]
+            for indicator_name, site_list in self._site_lists.items()
+            if site_list.count() and not selected_sites[indicator_name]
+        ]
+        if missing:
+            message = self.tr(
+                "Select one site at least in Advanced options for: {}"
+            ).format(", ".join(missing))
+        elif not any(selected_sites.values()):
+            message = self.tr(
+                "The latest spatial input file has no sites in the reporting scope."
+            )
+        else:
+            return True
+        QtWidgets.QMessageBox.critical(None, self.tr("Error"), message)
+        return False
 
     def _load_spatial_files(self):
         """Add the selected spatial input files to the QGIS project."""
@@ -483,6 +600,11 @@ class DlgEcosystemReportingRestorationProgress(
             )
             return
 
+        # Sites of the maps, one site at least
+        selected_sites = self._selected_sites()
+        if not self._check_selected_sites(selected_sites):
+            return
+
         self.close()
 
         job_params = {
@@ -503,6 +625,7 @@ class DlgEcosystemReportingRestorationProgress(
                 }
                 for spatial_layer in spatial_layers
             ],
+            "selected_sites": selected_sites,
         }
         job_manager.submit_local_job_as_qgstask(
             job_params, self.LOCAL_SCRIPT_NAME, self.aoi

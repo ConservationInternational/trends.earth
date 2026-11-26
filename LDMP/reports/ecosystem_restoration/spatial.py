@@ -11,10 +11,12 @@ from xml.sax.saxutils import (
 )
 
 from qgis.core import (
+    Qgis,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransformContext,
     QgsDistanceArea,
     QgsFeature,
+    QgsFeatureRequest,
     QgsField,
     QgsFields,
     QgsGeometry,
@@ -402,6 +404,40 @@ def read_sites_yearly(
                 }
             )
     return sites
+
+
+def latest_file(paths: list[str]) -> str | None:
+    """Spatial input file of the latest date of its name."""
+    dated = [(date, path) for path in paths if (date := layer_date(Path(path).stem))]
+    return max(dated)[1] if dated else None
+
+
+def read_site_ids(
+    layers: list[QgsVectorLayer],
+    gef_cp_id: str | None = None,
+    country: str | None = None,
+) -> dict[str, list[str]]:
+    """Read site ids from layers."""
+    names = [GEF_CP_ID_FIELD, SITE_ID_FIELD, INDICATOR_FIELD]
+    site_ids: dict[str, set[str]] = {}
+    for layer in layers:
+        match = LAYER_NAME_REGEX.match(layer.name() or "")
+        if country and (not match or match.group(1) != country):
+            continue
+        if any(layer.fields().lookupField(name) < 0 for name in names):
+            continue
+        request = QgsFeatureRequest()
+        request.setFlags(Qgis.FeatureRequestFlag.NoGeometry)
+        request.setSubsetOfAttributes(names, layer.fields())
+        for feature in layer.getFeatures(request):
+            site_id = str(feature[SITE_ID_FIELD] or "").strip()
+            if not site_id:
+                continue
+            if gef_cp_id and str(feature[GEF_CP_ID_FIELD] or "").strip() != gef_cp_id:
+                continue
+            indicator = str(feature[INDICATOR_FIELD] or "").strip()
+            site_ids.setdefault(indicator, set()).add(site_id)
+    return {indicator: sorted(ids) for indicator, ids in site_ids.items()}
 
 
 def site_country(site: dict) -> str:

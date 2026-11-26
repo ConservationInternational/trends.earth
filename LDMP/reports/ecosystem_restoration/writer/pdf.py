@@ -5,15 +5,19 @@ from pathlib import Path
 
 from qgis.core import (
     QgsExpressionContextUtils,
+    QgsGeometry,
     QgsLayoutExporter,
+    QgsLayoutItemMap,
     QgsLayoutItemPicture,
     QgsPrintLayout,
     QgsProject,
     QgsReadWriteContext,
+    QgsRectangle,
 )
 from qgis.PyQt.QtXml import QDomDocument
 
 from ....logger import log
+from .map import set_site_map
 
 try:
     _EXPORT_SUCCESS = QgsLayoutExporter.Success
@@ -26,15 +30,14 @@ def write_pdf(
     variables: dict[str, str],
     pictures: dict[str, Path],
     pdf_path: Path,
+    maps: dict[str, tuple[list[QgsGeometry], QgsRectangle | None]] | None = None,
 ) -> Path | None:
     """
     Export the template as PDF.
 
-    variables are set as layout variables, used in the labels of the template
-    as [% @name %]. pictures maps the id of a picture item to its image, the
-    picture items without an image are hidden.
     Returns the path of the PDF, or None when it could not be exported.
     """
+    maps = maps or {}
     document = QDomDocument()
     if not document.setContent(template_path.read_text(encoding="utf-8")):
         log(f"Could not read the report template {template_path}")
@@ -52,6 +55,9 @@ def write_pdf(
         QgsExpressionContextUtils.setLayoutVariable(layout, name, value)
 
     for item in layout.items():
+        if isinstance(item, QgsLayoutItemMap) and item.id() in maps:
+            set_site_map(project, item, *maps[item.id()])
+            continue
         if not isinstance(item, QgsLayoutItemPicture):
             continue
         image_path = pictures.get(item.id())

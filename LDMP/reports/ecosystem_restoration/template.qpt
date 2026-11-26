@@ -6626,7 +6626,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{99e5faa2-d2f7-418b-98a1-084169366ee3}" positionOnPage="112.209,142.02,mm" id="Indicator_1.Map_2Caption" templateUuid="{99e5faa2-d2f7-418b-98a1-084169366ee3}" referencePoint="0" itemRotation="0" positionLock="false" zValue="203" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="112.209,449.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Baseline satellite image — [Baseline year]" valign="32" halign="1" groupUuid="">
+ <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{99e5faa2-d2f7-418b-98a1-084169366ee3}" positionOnPage="112.209,142.02,mm" id="Indicator_1.Map_2Caption" templateUuid="{99e5faa2-d2f7-418b-98a1-084169366ee3}" referencePoint="0" itemRotation="0" positionLock="false" zValue="203" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="112.209,449.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Latest satellite image — [% @te_restoration_reporting_period_reporting %]" valign="32" halign="1" groupUuid="">
   <FrameColor green="0" blue="0" alpha="255" red="0"/>
   <BackgroundColor green="255" blue="255" alpha="255" red="255"/>
   <LayoutObject>
@@ -6727,7 +6727,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{81201abc-0615-41dd-98d4-12fc3c9c33bd}" positionOnPage="112.209,142.02,mm" id="Indicator_3.Map_2Caption" templateUuid="{81201abc-0615-41dd-98d4-12fc3c9c33bd}" referencePoint="0" itemRotation="0" positionLock="false" zValue="203" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="112.209,1063.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Baseline satellite image — [Baseline year]" valign="32" halign="1" groupUuid="">
+ <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{81201abc-0615-41dd-98d4-12fc3c9c33bd}" positionOnPage="112.209,142.02,mm" id="Indicator_3.Map_2Caption" templateUuid="{81201abc-0615-41dd-98d4-12fc3c9c33bd}" referencePoint="0" itemRotation="0" positionLock="false" zValue="203" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="112.209,1063.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Latest satellite image — [% @te_restoration_reporting_period_reporting %]" valign="32" halign="1" groupUuid="">
   <FrameColor green="0" blue="0" alpha="255" red="0"/>
   <BackgroundColor green="255" blue="255" alpha="255" red="255"/>
   <LayoutObject>
@@ -6828,7 +6828,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{50c03530-978f-4d2d-b2c4-02616460fab4}" positionOnPage="112.209,142.02,mm" id="Indicator_4.Map_2Caption" templateUuid="{50c03530-978f-4d2d-b2c4-02616460fab4}" referencePoint="0" itemRotation="0" positionLock="false" zValue="203" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="112.209,1677.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Baseline satellite image — [Baseline year]" valign="32" halign="1" groupUuid="">
+ <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{50c03530-978f-4d2d-b2c4-02616460fab4}" positionOnPage="112.209,142.02,mm" id="Indicator_4.Map_2Caption" templateUuid="{50c03530-978f-4d2d-b2c4-02616460fab4}" referencePoint="0" itemRotation="0" positionLock="false" zValue="203" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="112.209,1677.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Latest satellite image — [% @te_restoration_reporting_period_reporting %]" valign="32" halign="1" groupUuid="">
   <FrameColor green="0" blue="0" alpha="255" red="0"/>
   <BackgroundColor green="255" blue="255" alpha="255" red="255"/>
   <LayoutObject>
@@ -8593,7 +8593,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{1c23c267-3d9f-4220-868a-3e63ed9d646b}" positionOnPage="24.651,142.02,mm" id="Indicator_1.Map_1Caption" templateUuid="{1c23c267-3d9f-4220-868a-3e63ed9d646b}" referencePoint="0" itemRotation="0" positionLock="false" zValue="129" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="24.651,449.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Baseline satellite image — [Baseline year]" valign="32" halign="1" groupUuid="">
+ <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{1c23c267-3d9f-4220-868a-3e63ed9d646b}" positionOnPage="24.651,142.02,mm" id="Indicator_1.Map_1Caption" templateUuid="{1c23c267-3d9f-4220-868a-3e63ed9d646b}" referencePoint="0" itemRotation="0" positionLock="false" zValue="129" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="24.651,449.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Baseline satellite image — [% @te_restoration_reporting_period_baseline %]" valign="32" halign="1" groupUuid="">
   <FrameColor green="0" blue="0" alpha="255" red="0"/>
   <BackgroundColor green="255" blue="255" alpha="255" red="255"/>
   <LayoutObject>
@@ -8795,7 +8795,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{47f9de5f-84ee-4d28-98ac-f9c37e526940}" positionOnPage="24.651,142.02,mm" id="Indicator_3.Map_1Caption" templateUuid="{47f9de5f-84ee-4d28-98ac-f9c37e526940}" referencePoint="0" itemRotation="0" positionLock="false" zValue="129" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="24.651,1063.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Baseline satellite image — [Baseline year]" valign="32" halign="1" groupUuid="">
+ <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{47f9de5f-84ee-4d28-98ac-f9c37e526940}" positionOnPage="24.651,142.02,mm" id="Indicator_3.Map_1Caption" templateUuid="{47f9de5f-84ee-4d28-98ac-f9c37e526940}" referencePoint="0" itemRotation="0" positionLock="false" zValue="129" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="24.651,1063.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Baseline satellite image — [% @te_restoration_reporting_period_baseline %]" valign="32" halign="1" groupUuid="">
   <FrameColor green="0" blue="0" alpha="255" red="0"/>
   <BackgroundColor green="255" blue="255" alpha="255" red="255"/>
   <LayoutObject>
@@ -8997,7 +8997,7 @@
    </dd_properties>
   </text-style>
  </LayoutItem>
- <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{016ed747-6bb1-4ded-a170-d0c4881ed4bf}" positionOnPage="24.651,142.02,mm" id="Indicator_4.Map_1Caption" templateUuid="{016ed747-6bb1-4ded-a170-d0c4881ed4bf}" referencePoint="0" itemRotation="0" positionLock="false" zValue="129" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="24.651,1677.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Baseline satellite image — [Baseline year]" valign="32" halign="1" groupUuid="">
+ <LayoutItem size="75.5818,5.48409,mm" marginX="2" uuid="{016ed747-6bb1-4ded-a170-d0c4881ed4bf}" positionOnPage="24.651,142.02,mm" id="Indicator_4.Map_1Caption" templateUuid="{016ed747-6bb1-4ded-a170-d0c4881ed4bf}" referencePoint="0" itemRotation="0" positionLock="false" zValue="129" frame="false" type="65641" outlineWidthM="0.3,mm" visibility="1" excludeFromExports="0" background="false" position="24.651,1677.02,mm" frameJoinStyle="miter" marginY="0" blendMode="0" opacity="1" htmlState="0" labelText="Baseline satellite image — [% @te_restoration_reporting_period_baseline %]" valign="32" halign="1" groupUuid="">
   <FrameColor green="0" blue="0" alpha="255" red="0"/>
   <BackgroundColor green="255" blue="255" alpha="255" red="255"/>
   <LayoutObject>

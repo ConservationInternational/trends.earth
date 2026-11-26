@@ -481,6 +481,196 @@
          </widget>
         </item>
         <item>
+         <widget class="QgsCollapsibleGroupBox" name="advanced_options">
+          <property name="title">
+           <string>Advanced options</string>
+          </property>
+          <property name="collapsed">
+           <bool>true</bool>
+          </property>
+          <layout class="QVBoxLayout" name="advanced_options_layout">
+           <item>
+            <widget class="QLabel" name="sites_help_label">
+             <property name="text">
+              <string>Sites drawn in the report, using sites in spatial input.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="indicator_1_sites_box">
+             <property name="title">
+              <string>1. Under improved management</string>
+             </property>
+             <layout class="QVBoxLayout" name="indicator_1_sites_layout">
+              <item>
+               <widget class="QListWidget" name="indicator_1_sites">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>160</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="indicator_1_sites_buttons_layout">
+                <item>
+                 <widget class="QPushButton" name="indicator_1_select_all_button">
+                  <property name="text">
+                   <string>Select all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="indicator_1_unselect_all_button">
+                  <property name="text">
+                   <string>Unselect all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="indicator_1_sites_buttons_spacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="indicator_3_sites_box">
+             <property name="title">
+              <string>3. Under restoration</string>
+             </property>
+             <layout class="QVBoxLayout" name="indicator_3_sites_layout">
+              <item>
+               <widget class="QListWidget" name="indicator_3_sites">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>160</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="indicator_3_sites_buttons_layout">
+                <item>
+                 <widget class="QPushButton" name="indicator_3_select_all_button">
+                  <property name="text">
+                   <string>Select all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="indicator_3_unselect_all_button">
+                  <property name="text">
+                   <string>Unselect all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="indicator_3_sites_buttons_spacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="indicator_4_sites_box">
+             <property name="title">
+              <string>4. Under improved practices</string>
+             </property>
+             <layout class="QVBoxLayout" name="indicator_4_sites_layout">
+              <item>
+               <widget class="QListWidget" name="indicator_4_sites">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>160</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="indicator_4_sites_buttons_layout">
+                <item>
+                 <widget class="QPushButton" name="indicator_4_select_all_button">
+                  <property name="text">
+                   <string>Select all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="indicator_4_unselect_all_button">
+                  <property name="text">
+                   <string>Unselect all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="indicator_4_sites_buttons_spacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer_5">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -668,6 +858,12 @@ p, li { white-space: pre-wrap; }
    <class>QgsFileWidget</class>
    <extends>QWidget</extends>
    <header>qgsfilewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsCollapsibleGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>qgis.gui</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -15,6 +15,7 @@ from ..reports.ecosystem_restoration.report import (
     COUNTRY,
     DATA_XLSX_NAME,
     GEF_CP_ID,
+    INDICATORS,
     REPORTING_SCOPE_COUNTRY,
     REPORTING_SCOPE_CUSTOM_AOI,
     REPORTING_SCOPE_PROJECT,
@@ -194,6 +195,7 @@ def _create_report(
         "baseline_year": job.params.get("baseline_year"),
         "reporting_year": job.params.get("reporting_year"),
         "spatial_layers": spatial_layers,
+        "selected_sites": job.params.get("selected_sites") or {},
     }
     job_output_path.write_text(json.dumps(inputs, indent=2))
     validation = manifest["validation"]
@@ -223,6 +225,11 @@ def _create_report(
             )
     manifest["scope"]["reporting_scope"] = REPORTING_SCOPES[reporting_scope]
     manifest["scope"]["country"] = country
+
+    # Sites of the maps, one site at least
+    selected_site_ids = inputs["selected_sites"]
+    if not any(selected_site_ids.values()):
+        raise ValueError("No site was selected for the maps of the report.")
 
     # Reporting period, from the baseline year to the reporting year
     reporting_period = (inputs["baseline_year"], inputs["reporting_year"])
@@ -353,6 +360,21 @@ def _create_report(
             scope = ""
         raise ValueError(f"The spatial input layers have no restoration sites{scope}.")
 
+    # Sites of the maps, the sites of the Site_ID selected for their indicator
+    site_ids_by_label = {
+        INDICATORS[name]["label"]: set(site_ids)
+        for name, site_ids in selected_site_ids.items()
+        if name in INDICATORS
+    }
+    selected_sites = {
+        (indicator, year): [
+            site
+            for site in group
+            if site["site_id"] in site_ids_by_label.get(indicator, set())
+        ]
+        for (indicator, year), group in sites.items()
+    }
+
     # Validated sites used by the report, one GeoJSON per year
     validated_sites_paths = write_validated_sites(
         sites,
@@ -389,6 +411,7 @@ def _create_report(
         reporting_period,
         spatial_data_version,
         f"{gef_cp_id}" if gef_cp_id else "All projects",
+        selected_sites,
     )
 
     job.end_date = dt.datetime.now(dt.UTC)

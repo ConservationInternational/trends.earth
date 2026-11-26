@@ -17,6 +17,7 @@ from .writer.chart import (
     write_progress_over_time_chart,
     write_progress_to_bar_chart,
 )
+from .writer.map import sites_extent
 from .writer.pdf import write_pdf
 
 # QGIS print layout template of the report
@@ -376,6 +377,9 @@ def _report_variables(
         "te_restoration_reporting_period": (
             f"{reporting_period[0]} to {reporting_period[1]}"
         ),
+        # Years of the baseline and the latest
+        "te_restoration_reporting_period_baseline": str(reporting_period[0]),
+        "te_restoration_reporting_period_reporting": str(reporting_period[1]),
         "te_restoration_report_generated": dt.date.today().strftime("%Y-%m-%d"),
         # Name of the spatial input layer, e.g. IND_V20251231
         "te_restoration_spatial_data_version": spatial_data_version,
@@ -404,6 +408,27 @@ def _report_variables(
     return variables
 
 
+def _site_maps(
+    selected_sites: dict[tuple[str, int], list[dict]],
+    reporting_period: tuple[int, int],
+) -> dict:
+    """Return geometries and extend per indicator and baseline or reporting period."""
+    maps = {}
+    for indicator_name, indicator in INDICATORS.items():
+        geometries = [
+            [
+                site["geometry"]
+                for site in selected_sites.get((indicator["label"], year), [])
+            ]
+            for year in reporting_period
+        ]
+        extent = sites_extent(geometries[0] + geometries[1])
+        item_prefix = indicator_name.capitalize()
+        for number, year_geometries in enumerate(geometries, start=1):
+            maps[f"{item_prefix}.Map_{number}"] = (year_geometries, extent)
+    return maps
+
+
 def generate_report(
     output_dir: Path,
     report_title: str,
@@ -414,10 +439,12 @@ def generate_report(
     reporting_period: tuple[int, int],
     spatial_data_version: str,
     gef_child_project: str,
+    selected_sites: dict[tuple[str, int], list[dict]],
 ) -> Path | None:
     """Generate the PDF report of Ecosystem Restoration Progress.
 
     The reporting period is the baseline year and the reporting year.
+    The selected sites are the sites of read_sites_yearly drawn in the maps.
     Returns the path of the PDF, or None when it could not be exported.
     """
     global_data = _format_data(data, spatial_data, reporting_period)
@@ -486,4 +513,5 @@ def generate_report(
         ),
         pictures,
         output_dir / "Restoration_Progress_Report.pdf",
+        _site_maps(selected_sites, reporting_period),
     )

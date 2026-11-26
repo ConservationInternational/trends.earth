@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DlgEcosystemRestorationProgress</class>
+ <widget class="QDialog" name="DlgEcosystemRestorationProgress">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>958</width>
+    <height>507</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string> Reporting Restoration Progress | Ecosystems Restoration Monitoring</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="handleWidth">
+      <number>16</number>
+     </property>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>652</width>
+         <height>962</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QGroupBox" name="report_title_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
+          </property>
+          <property name="toolTip">
+           <string>Title of the report, on its first page and its reporting scope.</string>
+          </property>
+          <property name="title">
+           <string>Report title</string>
+          </property>
+          <layout class="QVBoxLayout" name="report_title_box_layout">
+           <item>
+            <widget class="QLineEdit" name="report_title">
+             <property name="toolTip">
+              <string>Title of the report, on its first page and its reporting scope.</string>
+             </property>
+             <property name="text">
+              <string>Project Restoration Progress Report</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="data_xlsx_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
+          </property>
+          <property name="toolTip">
+           <string>XLSX file with the target and the reported progress of each sub-indicator.</string>
+          </property>
+          <property name="title">
+           <string>Restoration progress report data</string>
+          </property>
+          <layout class="QVBoxLayout" name="data_xlsx_box_layout">
+           <item>
+            <widget class="QgsFileWidget" name="data_xlsx">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;XLSX file with one row per sub-indicator of a child project and the columns GEF_CP_ID, Country, indicator, sub_indicator, target and reported_progress.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="filter">
+              <string>Excel files (*.xlsx)</string>
+             </property>
+             <property name="storageMode">
+              <enum>QgsFileWidget::GetFile</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="data_xlsx_template_label">
+             <property name="text">
+              <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="spatial_layers_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
+          </property>
+          <property name="toolTip">
+           <string>Polygon layers of the restoration sites of one country, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.</string>
+          </property>
+          <property name="title">
+           <string>Spatial input (restoration sites)</string>
+          </property>
+          <layout class="QVBoxLayout" name="spatial_layers_box_layout">
+           <item>
+            <widget class="QLabel" name="spatial_layers_help_label">
+             <property name="text">
+              <string>A spatial boundary refers to the boundary of a restoration site using a closed polygon. This boundary should accurately reflect the restoration site, excluding any surrounding areas that are not part of the project implementation, private property or protected area.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="spatial_layers_layout">
+             <item>
+              <widget class="QgsFileWidget" name="spatial_layers">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GeoJSON, KML, KMZ or Shapefile files of the restoration sites of one country, in WGS 84 (EPSG:4326), with one layer each, named [ISO COUNTRY]_V[YYYYMMDD], e.g. IDN_V20261231.shp. A site has one record in a year, the record of the latest file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="storageMode">
+                <enum>QgsFileWidget::GetMultipleFiles</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="spatial_layers_load_button">
+               <property name="toolTip">
+                <string>Load the selected files into the QGIS project, to view or edit them.</string>
+               </property>
+               <property name="text">
+                <string>Load to QGIS</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="spatial_layers_attributes_help_label">
+             <property name="text">
+              <string>The attributes of the sites are in the spatial layer, or can be separated in an XLSX of the same name in the same folder, e.g. IND_V20261231.kml and IND_V20261231.xlsx. The XLSX has the ERIP defined attributes as columns, one row per site, and the Name of each polygon is its Site_ID.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="spatial_layers_template_label">
+             <property name="toolTip">
+              <string>Save a template of the restoration sites of a country, named [ISO COUNTRY]_V[YYYYMMDD] from the ISO3 and the date entered: a Shapefile with its fields, QGIS form and legend, or a GeoJSON, KML or KMZ with one example site to delete.</string>
+             </property>
+             <property name="text">
+              <string>&lt;a href=&quot;template&quot;&gt;Download template here&lt;/a&gt;</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="reporting_scope_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
+          </property>
+          <property name="toolTip">
+           <string>Reporting scope of the report: the child projects of the report data, the restoration sites of a country, or a custom AOI.</string>
+          </property>
+          <property name="title">
+           <string>Reporting scope</string>
+          </property>
+          <layout class="QVBoxLayout" name="reporting_scope_layout">
+           <item>
+            <widget class="QRadioButton" name="reporting_scope_project_radio_button">
+             <property name="toolTip">
+              <string>Report all the child projects, or one child project, of the report data.</string>
+             </property>
+             <property name="text">
+              <string>Project</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="reporting_scope_country_radio_button">
+             <property name="toolTip">
+              <string>Report the rows of the report data and the restoration sites of a country.</string>
+             </property>
+             <property name="text">
+              <string>Country</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="reporting_scope_custom_aoi_radio_button">
+             <property name="toolTip">
+              <string>Report the restoration sites of the current region. For now, all the restoration sites of all the child projects.</string>
+             </property>
+             <property name="text">
+              <string>Custom AOI</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="child_project_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
+          </property>
+          <property name="title">
+           <string>Filter data by projects</string>
+          </property>
+          <layout class="QVBoxLayout" name="child_project_layout">
+           <item>
+            <widget class="QRadioButton" name="all_child_projects_radio_button">
+             <property name="toolTip">
+              <string>Report all the child projects of the report data file.</string>
+             </property>
+             <property name="text">
+              <string>All child projects</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="select_child_project_layout">
+             <item>
+              <widget class="QRadioButton" name="child_project_radio_button">
+               <property name="toolTip">
+                <string>Report only one child project of the report data file.</string>
+               </property>
+               <property name="text">
+                <string>Child project:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="child_project">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>GEF_CP_ID of the child project, from the report data file. Type to search.</string>
+               </property>
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+               <property name="insertPolicy">
+                <enum>QComboBox::NoInsert</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="country_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
+          </property>
+          <property name="title">
+           <string>Select country</string>
+          </property>
+          <layout class="QVBoxLayout" name="country_layout">
+           <item>
+            <widget class="QComboBox" name="country">
+             <property name="toolTip">
+              <string>ISO3 of the country of the report, from the Country of the report data file: its rows and the restoration sites of the country. Type to search.</string>
+             </property>
+             <property name="editable">
+              <bool>true</bool>
+             </property>
+             <property name="insertPolicy">
+              <enum>QComboBox::NoInsert</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="reporting_period_box">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { font-weight: bold; }</string>
+          </property>
+          <property name="toolTip">
+           <string>Reporting period of the report, from the baseline year to the monitoring year. The spatially supported area of a year is the area of the sites with a Date in that year.</string>
+          </property>
+          <property name="title">
+           <string>Reporting period</string>
+          </property>
+          <layout class="QVBoxLayout" name="reporting_period_box_layout">
+           <item>
+            <layout class="QHBoxLayout" name="reporting_period_layout">
+             <item>
+              <spacer name="reporting_period_left_spacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="baseline_year_layout">
+               <item>
+                <widget class="QLabel" name="baseline_year_label">
+                 <property name="text">
+                  <string>Baseline year</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="baseline_year">
+                 <property name="toolTip">
+                  <string>First year of the reporting period, not after the monitoring year.</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="reporting_period_middle_spacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>24</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="reporting_year_layout">
+               <item>
+                <widget class="QLabel" name="reporting_year_label">
+                 <property name="text">
+                  <string>Monitoring year</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="reporting_year">
+                 <property name="toolTip">
+                  <string>Last year of the reporting period, not after this year.</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="reporting_period_right_spacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QgsCollapsibleGroupBox" name="advanced_options">
+          <property name="title">
+           <string>Advanced options</string>
+          </property>
+          <property name="collapsed">
+           <bool>true</bool>
+          </property>
+          <layout class="QVBoxLayout" name="advanced_options_layout">
+           <item>
+            <widget class="QLabel" name="sites_help_label">
+             <property name="text">
+              <string>Sites drawn in the report, using sites in spatial input.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="indicator_1_sites_box">
+             <property name="title">
+              <string>1. Under improved management</string>
+             </property>
+             <layout class="QVBoxLayout" name="indicator_1_sites_layout">
+              <item>
+               <widget class="QListWidget" name="indicator_1_sites">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>160</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="indicator_1_sites_buttons_layout">
+                <item>
+                 <widget class="QPushButton" name="indicator_1_select_all_button">
+                  <property name="text">
+                   <string>Select all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="indicator_1_unselect_all_button">
+                  <property name="text">
+                   <string>Unselect all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="indicator_1_sites_buttons_spacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="indicator_3_sites_box">
+             <property name="title">
+              <string>3. Under restoration</string>
+             </property>
+             <layout class="QVBoxLayout" name="indicator_3_sites_layout">
+              <item>
+               <widget class="QListWidget" name="indicator_3_sites">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>160</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="indicator_3_sites_buttons_layout">
+                <item>
+                 <widget class="QPushButton" name="indicator_3_select_all_button">
+                  <property name="text">
+                   <string>Select all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="indicator_3_unselect_all_button">
+                  <property name="text">
+                   <string>Unselect all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="indicator_3_sites_buttons_spacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="indicator_4_sites_box">
+             <property name="title">
+              <string>4. Under improved practices</string>
+             </property>
+             <layout class="QVBoxLayout" name="indicator_4_sites_layout">
+              <item>
+               <widget class="QListWidget" name="indicator_4_sites">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>160</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="indicator_4_sites_buttons_layout">
+                <item>
+                 <widget class="QPushButton" name="indicator_4_select_all_button">
+                  <property name="text">
+                   <string>Select all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="indicator_4_unselect_all_button">
+                  <property name="text">
+                   <string>Unselect all</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="indicator_4_sites_buttons_spacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="Line" name="line">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="sizeIncrement">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="region_la">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>The current selected region of interest</string>
+            </property>
+            <property name="text">
+             <string>region name</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="region_button">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Change region</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="execution_name_label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Input the name that will be assigned to the execution task.</string>
+          </property>
+          <property name="text">
+           <string>Execution name:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="execution_name">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="task_notes_label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Notes:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="task_notes">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>User notes associated with the executed task.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QTextBrowser" name="alg_help">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="accessibleName">
+       <string/>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="openExternalLinks">
+       <bool>true</bool>
+      </property>
+      <property name="openLinks">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="button_box">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsFileWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsfilewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsCollapsibleGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>qgis.gui</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>button_box</sender>
+   <signal>accepted()</signal>
+   <receiver>DlgEcosystemRestorationProgress</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button_box</sender>
+   <signal>rejected()</signal>
+   <receiver>DlgEcosystemRestorationProgress</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

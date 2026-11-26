@@ -1,0 +1,42 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0001",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.1,
+       20.0
+      ],
+      [
+       77.11,
+       20.0
+      ],
+      [
+       77.11,
+       20.01
+      ],
+      [
+       77.1,
+       20.01
+      ],
+      [
+       77.1,
+       20.0
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

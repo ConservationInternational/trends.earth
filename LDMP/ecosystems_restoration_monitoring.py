@@ -1,0 +1,687 @@
+"""
+/***************************************************************************
+ LDMP - A QGIS plugin
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
+ and in support of the SDG Land Degradation Neutrality (LDN) target.
+                              -------------------
+        begin                : 2017-05-23
+        git sha              : $Format:%H$
+        copyright            : (C) 2017 by Conservation International
+        email                : trends.earth@conservation.org
+ ***************************************************************************/
+"""
+
+from pathlib import Path
+
+import qgis.gui
+from qgis.core import QgsProject, QgsVectorLayer
+from qgis.gui import QgsFileWidget
+from qgis.PyQt import QtCore, QtWidgets, uic
+from te_schemas.algorithms import ExecutionScript
+
+from . import calculate
+from .jobs.manager import job_manager
+from .reports.ecosystem_restoration.data_progress_template.generator import (
+    DEFAULT_COUNTRY,
+    countries,
+    read_child_projects,
+    write_data_template,
+)
+from .reports.ecosystem_restoration.report import (
+    COUNTRY,
+    COUNTRY_REGEX,
+    DATA_XLSX_NAME,
+    DEFAULT_BASELINE_YEARS_BEFORE,
+    GEF_CP_ID,
+    INDICATORS,
+    MIN_REPORTING_YEAR,
+    READ_DATA_ERRORS,
+    REPORTING_SCOPE_COUNTRY,
+    REPORTING_SCOPE_CUSTOM_AOI,
+    REPORTING_SCOPE_PROJECT,
+    REQUIRED_DATA_COLUMNS,
+    read_data,
+    validate_reporting_period,
+)
+from .reports.ecosystem_restoration.spatial import (
+    LAYER_NAME_REGEX,
+    SPATIAL_FILE_FILTER,
+    TEMPLATE_FORMATS,
+    latest_file,
+    layer_name,
+    open_spatial_file,
+    read_site_ids,
+    read_sites_yearly,
+    spatial_file,
+    validate_spatial_layer_name,
+    write_spatial_template,
+)
+from .reports.ecosystem_restoration.spatial_validation import (
+    LayerValidation,
+    validate_spatial_data,
+)
+
+DlgEcosystemRestorationProgressUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgEcosystemRestorationProgress.ui")
+)
+DlgEcosystemRestorationSpatialTemplateUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgEcosystemRestorationSpatialTemplate.ui")
+)
+DlgEcosystemRestorationDataTemplateUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgEcosystemRestorationDataTemplate.ui")
+)
+
+
+class _CountryInput:
+    """Country input of a template dialog, its editable combo box country:
+    a country of the child projects, or an ISO3 entered, DEFAULT_COUNTRY by
+    default."""
+
+    def _setup_country(self):
+        # Country name shown, its ISO3 as the data
+        for iso3, name in countries(read_child_projects()).items():
+            self.country.addItem(f"{name} ({iso3})", iso3)
+        self.country.setCurrentIndex(-1)
+        self.country.setEditText(DEFAULT_COUNTRY)
+
+    def iso3(self) -> str:
+        """ISO3 of the country chosen, or of the text entered in upper case,
+        e.g. AGO for Angola (AGO) or for ago."""
+        text = self.country.currentText().strip()
+        index = self.country.findText(text)
+        if index >= 0:
+            return self.country.itemData(index)
+        return text.upper()
+
+    def _check_country(self) -> bool:
+        """Shows an error and returns False when the ISO3 is not three
+        letters."""
+        if COUNTRY_REGEX.match(self.iso3()):
+            return True
+        QtWidgets.QMessageBox.critical(
+            self,
+            self.tr("Error"),
+            self.tr(
+                "Choose a country, or enter the three-letter ISO 3166-1 "
+                "alpha-3 code of the country, e.g. IND."
+            ),
+        )
+        return False
+
+
+class DlgEcosystemRestorationSpatialTemplate(
+    QtWidgets.QDialog, DlgEcosystemRestorationSpatialTemplateUi, _CountryInput
+):
+    """Country and date of the restoration sites template."""
+
+    def __init__(self, parent: QtWidgets.QWidget = None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self._setup_country()
+        self.date.setDate(QtCore.QDate.currentDate())
+        self.template_format.addItems(list(TEMPLATE_FORMATS))
+        self.button_box.accepted.connect(self.accept)
+        self.button_box.rejected.connect(self.reject)
+
+    def accept(self):
+        if not self._check_country():
+            return
+        super().accept()
+
+    def layer_name(self) -> str:
+        """Name of the files of the template, e.g. IND_V20261231."""
+        return layer_name(self.iso3(), self.date.date().toPyDate())
+
+
+class DlgEcosystemRestorationDataTemplate(
+    QtWidgets.QDialog, DlgEcosystemRestorationDataTemplateUi, _CountryInput
+):
+    """Country of the report data template."""
+
+    def __init__(self, parent: QtWidgets.QWidget = None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self._setup_country()
+        self.button_box.accepted.connect(self.accept)
+        self.button_box.rejected.connect(self.reject)
+
+    def accept(self):
+        if not self._check_country():
+            return
+        super().accept()
+
+
+class DlgEcosystemRestorationProgress(
+    calculate.DlgCalculateBase, DlgEcosystemRestorationProgressUi
+):
+    LOCAL_SCRIPT_NAME = "ecosystem-restoration-progress-local"
+
+    def __init__(
+        self,
+        iface: qgis.gui.QgisInterface,
+        script: ExecutionScript,
+        parent: QtWidgets.QWidget = None,
+    ):
+        super().__init__(iface, script, parent)
+        self.setupUi(self)
+
+        # Reporting scope: the project shows the filter of the child projects,
+        # the country the countries, the custom AOI the current region
+        for radio_button in (
+            self.reporting_scope_project_radio_button,
+            self.reporting_scope_country_radio_button,
+            self.reporting_scope_custom_aoi_radio_button,
+        ):
+            radio_button.toggled.connect(self._update_reporting_scope)
+
+        # Child projects of the report data, searched by any part of their GEF_CP_ID
+        completer = self.child_project.completer()
+        completer.setFilterMode(QtCore.Qt.MatchContains)
+        completer.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
+        completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.child_project_radio_button.toggled.connect(self.child_project.setEnabled)
+        # Countries of the report data, searched by any part of their ISO3
+        completer = self.country.completer()
+        completer.setFilterMode(QtCore.Qt.MatchContains)
+        completer.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
+        completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.data_xlsx.fileChanged.connect(self._load_child_projects)
+        self.data_xlsx_template_label.linkActivated.connect(
+            self._download_data_template
+        )
+
+        # Spatial input files
+        self.spatial_layers.setFilter(self.tr(SPATIAL_FILE_FILTER))
+        self.spatial_layers_load_button.clicked.connect(self._load_spatial_files)
+        self.spatial_layers_template_label.linkActivated.connect(
+            self._download_spatial_template
+        )
+
+        # Reporting period, from the baseline year to the reporting year, the
+        # baseline year is not after the reporting year
+        this_year = QtCore.QDate.currentDate().year()
+        for spin_box in (self.baseline_year, self.reporting_year):
+            spin_box.setRange(MIN_REPORTING_YEAR, this_year)
+        self.reporting_year.setValue(this_year)
+        # Year inputs twice as wide as their default width
+        for spin_box in (self.baseline_year, self.reporting_year):
+            spin_box.setMinimumWidth(2 * spin_box.sizeHint().width())
+        self.baseline_year.setValue(this_year - DEFAULT_BASELINE_YEARS_BEFORE)
+        self.baseline_year.setMaximum(self.reporting_year.value())
+        self.reporting_year.valueChanged.connect(self._reporting_year_changed)
+        self.baseline_year.valueChanged.connect(self._baseline_year_changed)
+
+        # Sites of the maps of each indicator, in the advanced options
+        self._latest_layer = None
+        self._site_lists: dict[str, QtWidgets.QListWidget] = {}
+        self._setup_site_lists()
+        self.spatial_layers.fileChanged.connect(self._load_latest_layer)
+        for radio_button in (
+            self.reporting_scope_project_radio_button,
+            self.reporting_scope_country_radio_button,
+            self.reporting_scope_custom_aoi_radio_button,
+            self.child_project_radio_button,
+        ):
+            radio_button.toggled.connect(self._update_site_lists)
+        self.child_project.currentTextChanged.connect(self._update_site_lists)
+        self.country.currentTextChanged.connect(self._update_site_lists)
+
+        self._finish_initialization()
+        self._update_reporting_scope()
+
+    def _reporting_scope(self) -> str:
+        """Reporting scope of the checked radio button."""
+        if self.reporting_scope_country_radio_button.isChecked():
+            return REPORTING_SCOPE_COUNTRY
+        if self.reporting_scope_custom_aoi_radio_button.isChecked():
+            return REPORTING_SCOPE_CUSTOM_AOI
+        return REPORTING_SCOPE_PROJECT
+
+    def _update_reporting_scope(self):
+        """Show the inputs of the reporting scope: the filter of the child
+        projects, the country, or the current region."""
+        reporting_scope = self._reporting_scope()
+        self.child_project_box.setVisible(reporting_scope == REPORTING_SCOPE_PROJECT)
+        self.country_box.setVisible(reporting_scope == REPORTING_SCOPE_COUNTRY)
+        is_custom_aoi = reporting_scope == REPORTING_SCOPE_CUSTOM_AOI
+        self.region_la.setVisible(is_custom_aoi)
+        self.region_button.setVisible(is_custom_aoi)
+
+    def _setup_site_lists(self):
+        """The list of checkable sites of each indicator, of the .ui, e.g.
+        indicator_1_sites, with its Select all and Unselect all buttons."""
+        for indicator_name in INDICATORS:
+            site_list = getattr(self, f"{indicator_name}_sites")
+            for button_name, state in (
+                ("select_all_button", QtCore.Qt.Checked),
+                ("unselect_all_button", QtCore.Qt.Unchecked),
+            ):
+                getattr(self, f"{indicator_name}_{button_name}").clicked.connect(
+                    lambda _, site_list=site_list, state=state: self._check_all_sites(
+                        site_list, state
+                    )
+                )
+            self._site_lists[indicator_name] = site_list
+
+    @staticmethod
+    def _check_all_sites(site_list: QtWidgets.QListWidget, state):
+        for row in range(site_list.count()):
+            site_list.item(row).setCheckState(state)
+
+    def _load_latest_layer(self, *_):
+        """Open the latest spatial input file, the sites of its lists."""
+        paths = QgsFileWidget.splitFilePaths(self.spatial_layers.filePath())
+        path = latest_file(paths)
+        self._latest_layer = None
+        if path:
+            try:
+                self._latest_layer = open_spatial_file(path)
+            except ValueError:
+                # Shown when the report is run
+                self._latest_layer = None
+        self._update_site_lists()
+
+    def _site_scope(self) -> tuple[str | None, str | None]:
+        """GEF_CP_ID and country of the sites of the lists, None for any."""
+        reporting_scope = self._reporting_scope()
+        if reporting_scope == REPORTING_SCOPE_COUNTRY:
+            return None, self.country.currentText().strip() or None
+        if (
+            reporting_scope == REPORTING_SCOPE_PROJECT
+            and self.child_project_radio_button.isChecked()
+        ):
+            return self.child_project.currentText().strip() or None, None
+        return None, None
+
+    def _update_site_lists(self, *_):
+        """List the sites of the latest spatial input file in the reporting scope."""
+        if not self._site_lists:
+            return
+        site_ids = {}
+        if self._latest_layer is not None:
+            site_ids = read_site_ids([self._latest_layer], *self._site_scope())
+        for indicator_name, site_list in self._site_lists.items():
+            unchecked = {
+                site_list.item(row).text()
+                for row in range(site_list.count())
+                if site_list.item(row).checkState() != QtCore.Qt.Checked
+            }
+            site_list.clear()
+            for site_id in site_ids.get(INDICATORS[indicator_name]["label"], []):
+                item = QtWidgets.QListWidgetItem(site_id, site_list)
+                item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+                item.setCheckState(
+                    QtCore.Qt.Unchecked if site_id in unchecked else QtCore.Qt.Checked
+                )
+
+    def _selected_sites(self) -> dict[str, list[str]]:
+        """Checked Site_ID of each indicator."""
+        return {
+            indicator_name: [
+                site_list.item(row).text()
+                for row in range(site_list.count())
+                if site_list.item(row).checkState() == QtCore.Qt.Checked
+            ]
+            for indicator_name, site_list in self._site_lists.items()
+        }
+
+    def _check_selected_sites(self, selected_sites: dict[str, list[str]]) -> bool:
+        """Shows an error and returns False when an indicator with sites has no selected site."""
+        missing = [
+            INDICATORS[indicator_name]["label"]
+            for indicator_name, site_list in self._site_lists.items()
+            if site_list.count() and not selected_sites[indicator_name]
+        ]
+        if missing:
+            message = self.tr(
+                "Select one site at least in Advanced options for: {}"
+            ).format(", ".join(missing))
+        elif not any(selected_sites.values()):
+            message = self.tr(
+                "The latest spatial input file has no sites in the reporting scope."
+            )
+        else:
+            return True
+        QtWidgets.QMessageBox.critical(None, self.tr("Error"), message)
+        return False
+
+    def _load_spatial_files(self):
+        """Add the selected spatial input files to the QGIS project."""
+        paths = QgsFileWidget.splitFilePaths(self.spatial_layers.filePath())
+        if not paths:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Choose the files of the restoration sites."),
+            )
+            return
+
+        errors = []
+        for path in paths:
+            try:
+                layer = open_spatial_file(path)
+            except ValueError as error:
+                errors.append(str(error))
+                continue
+            QgsProject.instance().addMapLayer(layer)
+        if errors:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Cannot load the files:\n{}").format("\n".join(errors)),
+            )
+
+    def _reporting_year_changed(self, year: int):
+        """The baseline year is not after the reporting year, it is changed to
+        the reporting year when it is."""
+        if self.baseline_year.value() > year:
+            self.baseline_year.setValue(year)
+        self.baseline_year.setMaximum(year)
+
+    def _baseline_year_changed(self, year: int):
+        """The reporting year is not before the baseline year, it is changed
+        to the baseline year when it is."""
+        if self.reporting_year.value() < year:
+            self.reporting_year.setValue(year)
+
+    def _download_data_template(self):
+        """Save the report data XLSX template of the choosen country."""
+        dialog = DlgEcosystemRestorationDataTemplate(self)
+        if dialog.exec() != QtWidgets.QDialog.Accepted:
+            return
+
+        country = dialog.iso3()
+        path, _ = QtWidgets.QFileDialog.getSaveFileName(
+            self,
+            self.tr("Save report data template"),
+            f"{Path(DATA_XLSX_NAME).stem}_{country}.xlsx",
+            self.tr("Excel files (*.xlsx)"),
+        )
+        if not path:
+            return
+        if Path(path).suffix.lower() != ".xlsx":
+            path = f"{path}.xlsx"
+        try:
+            write_data_template(Path(path), country)
+        except (OSError, ValueError) as error:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Cannot save the template: {}").format(error),
+            )
+            return
+
+    def _download_spatial_template(self):
+        """Save the template of the restoration sites."""
+        dialog = DlgEcosystemRestorationSpatialTemplate(self)
+        if dialog.exec() != QtWidgets.QDialog.Accepted:
+            return
+
+        template_format = dialog.template_format.currentText()
+        extension = TEMPLATE_FORMATS[template_format]
+        path, _ = QtWidgets.QFileDialog.getSaveFileName(
+            self,
+            self.tr("Save restoration sites template"),
+            f"{dialog.layer_name()}{extension}",
+            self.tr("{} files (*{})").format(
+                template_format,
+                extension,
+            ),
+        )
+        if not path:
+            return
+        if Path(path).suffix.lower() != extension:
+            path = f"{path}{extension}"
+        try:
+            write_spatial_template(
+                Path(path),
+                dialog.iso3(),
+                dialog.date.date().toPyDate(),
+                template_format,
+                dialog.separate_attributes.isChecked(),
+            )
+        except OSError as error:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Cannot save the template: {}").format(error),
+            )
+
+    def _load_child_projects(self, path: str):
+        """List the GEF_CP_ID of the report data in the child project input,
+        and its Country in the country input."""
+        child_projects = set()
+        countries = set()
+        if path and Path(path).is_file():
+            try:
+                _, data = read_data(path)
+            except READ_DATA_ERRORS as error:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr("Cannot read the report data file: {}").format(error),
+                )
+                data = []
+            child_projects.update(row.get(GEF_CP_ID, "") for row in data)
+            countries.update(row.get(COUNTRY, "") for row in data)
+        child_projects.discard("")
+        countries.discard("")
+        self.child_project.clear()
+        self.child_project.addItems(sorted(child_projects))
+        self.country.clear()
+        self.country.addItems(sorted(countries))
+
+    def _setup_alg_help(self):
+        self.alg_help.setHtml(
+            self.tr(
+                "<h3>Reporting Restoration Progress</h3>"
+                "<p>Generates a restoration progress report for the selected "
+                "project, country, or custom area of interest. The report "
+                "compares the reporting target, the reported progress, and the "
+                "spatially supported area for the GEF-8 Ecosystem Restoration "
+                "Integrated Program (ERIP) core spatial indicators:</p>"
+                "<ul>"
+                "<li><b>Indicator 1.</b> Terrestrial protected areas under "
+                "improved management.</li>"
+                "<li><b>Indicator 3.</b> Land and ecosystems under restoration "
+                "(degraded agricultural lands, forest and forest land, natural "
+                "grasslands and woodlands, wetlands).</li>"
+                "<li><b>Indicator 4.</b> Landscapes under improved "
+                "practices.</li>"
+                "</ul>"
+                "<p>Each indicator is summarized with its sub-indicator "
+                "breakdown, satellite monitoring evidence, and the remaining "
+                "gap to target.</p>"
+                "<h4>Report data (XLSX)</h4>"
+                "<p>The first sheet of the XLSX file has a header row with "
+                "these columns, and one row per sub-indicator of a child "
+                "project:</p>"
+                "<ul>"
+                "<li><b>GEF_CP_ID</b>: GEF identification of the child "
+                "project.</li>"
+                "<li><b>Country</b>: ISO3 code of the country of the child "
+                "project, e.g. <i>IND</i>.</li>"
+                "<li><b>indicator</b>: full name of the indicator, e.g. "
+                "<i>1. Under improved management</i>.</li>"
+                "<li><b>sub_indicator</b>: full name of the sub-indicator, "
+                "e.g. <i>1.1 Protected areas newly created</i>.</li>"
+                "<li><b>target</b>: reporting target, in hectares.</li>"
+                "<li><b>reported_progress</b>: reported progress, in "
+                "hectares.</li>"
+                "</ul>"
+                "<p>The indicator totals are the sums of their "
+                "sub-indicators. Download the template for an example.</p>"
+            )
+        )
+
+    def _check_data_xlsx(self, path: str) -> bool:
+        """Shows an error and returns False when the XLSX cannot be used."""
+        if not path:
+            message = self.tr("Choose the XLSX file with the report data.")
+        elif not Path(path).is_file():
+            message = self.tr("The report data file does not exist.")
+        else:
+            try:
+                columns, _ = read_data(path)
+                error = None
+            except READ_DATA_ERRORS as read_error:
+                error = read_error
+            if error is not None:
+                message = self.tr("Cannot read the report data file: {}").format(error)
+            else:
+                missing = [c for c in REQUIRED_DATA_COLUMNS if c not in columns]
+                if not missing:
+                    return True
+                message = self.tr("The report data file has no column: {}").format(
+                    ", ".join(missing)
+                )
+
+        QtWidgets.QMessageBox.critical(None, self.tr("Error"), message)
+        return False
+
+    def _check_spatial_layer(self, layer) -> bool:
+        """Shows an error and returns False when the layer cannot be used."""
+        if not isinstance(layer, QgsVectorLayer):
+            message = self.tr("The restoration sites layer is not a vector layer.")
+        else:
+            errors = LayerValidation(layer).run()
+            if not errors:
+                return True
+            message = self.tr("The layer {} is not valid:\n{}").format(
+                layer.name(), "\n".join(errors)
+            )
+
+        QtWidgets.QMessageBox.critical(None, self.tr("Error"), message)
+        return False
+
+    def btn_calculate(self):
+        ret = super().btn_calculate()
+        if not ret:
+            return
+
+        report_title = self.report_title.text().strip()
+        if not report_title:
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Enter the report title.")
+            )
+            return
+
+        data_xlsx = self.data_xlsx.filePath()
+        if not self._check_data_xlsx(data_xlsx):
+            return
+
+        # Reporting scope, the GEF_CP_ID of the child project of the project
+        # scope, None for all the child projects, and the ISO3 of the country
+        # of the country scope
+        reporting_scope = self._reporting_scope()
+        country = None
+        if reporting_scope == REPORTING_SCOPE_COUNTRY:
+            country = self.country.currentText().strip()
+            if self.country.findText(country) < 0:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr("Choose a country of the report data file."),
+                )
+                return
+        gef_cp_id = None
+        if (
+            reporting_scope == REPORTING_SCOPE_PROJECT
+            and self.child_project_radio_button.isChecked()
+        ):
+            gef_cp_id = self.child_project.currentText().strip()
+            if self.child_project.findText(gef_cp_id) < 0:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr("Choose a child project of the report data file."),
+                )
+                return
+
+        # Reporting period, the baseline year is not after the reporting year
+        baseline_year = self.baseline_year.value()
+        reporting_year = self.reporting_year.value()
+        errors = validate_reporting_period(baseline_year, reporting_year)
+        if errors:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), "\n".join(errors))
+            return
+
+        # Spatial input files of one country
+        paths = QgsFileWidget.splitFilePaths(self.spatial_layers.filePath())
+        if not paths:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Choose the files of the restoration sites."),
+            )
+            return
+        spatial_layers = []
+        for path in paths:
+            try:
+                spatial_layers.append(open_spatial_file(path))
+            except ValueError as error:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"), str(error))
+                return
+        errors = validate_spatial_layer_name([layer.name() for layer in spatial_layers])
+        if errors:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), "\n".join(errors))
+            return
+        # The sites of the country are in the layers of the country
+        layer_countries = {
+            LAYER_NAME_REGEX.match(layer.name()).group(1) for layer in spatial_layers
+        }
+        if country and country not in layer_countries:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "The spatial input layers are of {}, not of the country {}."
+                ).format(", ".join(sorted(layer_countries)), country),
+            )
+            return
+        for spatial_layer in spatial_layers:
+            if not self._check_spatial_layer(spatial_layer):
+                return
+        # Sites of the layers, one record of a site in a year, the sites of an
+        # indicator in a year do not overlap
+        errors = validate_spatial_data(read_sites_yearly(spatial_layers))
+        if errors:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("The spatial input layers are not valid:\n{}").format(
+                    "\n".join(errors)
+                ),
+            )
+            return
+
+        # Sites of the maps, one site at least
+        selected_sites = self._selected_sites()
+        if not self._check_selected_sites(selected_sites):
+            return
+
+        self.close()
+
+        job_params = {
+            "task_name": self.execution_name.text(),
+            "task_notes": self.task_notes.toPlainText(),
+            "report_title": report_title,
+            "data_xlsx": data_xlsx,
+            "reporting_scope": reporting_scope,
+            "country": country,
+            "gef_cp_id": gef_cp_id,
+            "baseline_year": baseline_year,
+            "reporting_year": reporting_year,
+            "spatial_layers": [
+                {
+                    "name": spatial_layer.name(),
+                    "source": str(spatial_file(spatial_layer)),
+                    "provider": spatial_layer.providerType(),
+                }
+                for spatial_layer in spatial_layers
+            ],
+            "selected_sites": selected_sites,
+        }
+        job_manager.submit_local_job_as_qgstask(
+            job_params, self.LOCAL_SCRIPT_NAME, self.aoi
+        )

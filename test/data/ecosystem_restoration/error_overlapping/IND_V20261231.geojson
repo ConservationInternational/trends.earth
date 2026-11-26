@@ -1,0 +1,743 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0001",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.0,
+       20.0
+      ],
+      [
+       77.01,
+       20.0
+      ],
+      [
+       77.01,
+       20.01
+      ],
+      [
+       77.0,
+       20.01
+      ],
+      [
+       77.0,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0002",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.005,
+       20.005
+      ],
+      [
+       77.015,
+       20.005
+      ],
+      [
+       77.015,
+       20.015
+      ],
+      [
+       77.005,
+       20.015
+      ],
+      [
+       77.005,
+       20.005
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0003",
+    "Date": "2026-12-31",
+    "Indicator": "1. Under improved management",
+    "Sub_Indic": "1.1 Protected areas newly created",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.1,
+       20.0
+      ],
+      [
+       77.11,
+       20.0
+      ],
+      [
+       77.11,
+       20.01
+      ],
+      [
+       77.1,
+       20.01
+      ],
+      [
+       77.1,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0004",
+    "Date": "2026-12-31",
+    "Indicator": "1. Under improved management",
+    "Sub_Indic": "1.2 Improved management effectiveness",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.105,
+       20.0
+      ],
+      [
+       77.11500000000001,
+       20.0
+      ],
+      [
+       77.11500000000001,
+       20.01
+      ],
+      [
+       77.105,
+       20.01
+      ],
+      [
+       77.105,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0005",
+    "Date": "2026-12-31",
+    "Indicator": "1. Under improved management",
+    "Sub_Indic": "1.1 Protected areas newly created",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.2,
+       20.0
+      ],
+      [
+       77.21000000000001,
+       20.0
+      ],
+      [
+       77.21000000000001,
+       20.01
+      ],
+      [
+       77.2,
+       20.01
+      ],
+      [
+       77.2,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0006",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.205,
+       20.005
+      ],
+      [
+       77.215,
+       20.005
+      ],
+      [
+       77.215,
+       20.015
+      ],
+      [
+       77.205,
+       20.015
+      ],
+      [
+       77.205,
+       20.005
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0007",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.3,
+       20.0
+      ],
+      [
+       77.34,
+       20.0
+      ],
+      [
+       77.34,
+       20.04
+      ],
+      [
+       77.3,
+       20.04
+      ],
+      [
+       77.3,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0008",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.31,
+       20.01
+      ],
+      [
+       77.32000000000001,
+       20.01
+      ],
+      [
+       77.32000000000001,
+       20.020000000000003
+      ],
+      [
+       77.31,
+       20.020000000000003
+      ],
+      [
+       77.31,
+       20.01
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0009",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.4,
+       20.0
+      ],
+      [
+       77.41000000000001,
+       20.0
+      ],
+      [
+       77.41000000000001,
+       20.01
+      ],
+      [
+       77.4,
+       20.01
+      ],
+      [
+       77.4,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0010",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.4,
+       20.0
+      ],
+      [
+       77.41000000000001,
+       20.0
+      ],
+      [
+       77.41000000000001,
+       20.01
+      ],
+      [
+       77.4,
+       20.01
+      ],
+      [
+       77.4,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0011",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.5,
+       20.0
+      ],
+      [
+       77.51,
+       20.0
+      ],
+      [
+       77.51,
+       20.01
+      ],
+      [
+       77.5,
+       20.01
+      ],
+      [
+       77.5,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0012",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.51,
+       20.0
+      ],
+      [
+       77.52000000000001,
+       20.0
+      ],
+      [
+       77.52000000000001,
+       20.01
+      ],
+      [
+       77.51,
+       20.01
+      ],
+      [
+       77.51,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0013",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.52,
+       20.01
+      ],
+      [
+       77.53,
+       20.01
+      ],
+      [
+       77.53,
+       20.020000000000003
+      ],
+      [
+       77.52,
+       20.020000000000003
+      ],
+      [
+       77.52,
+       20.01
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0014",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.6,
+       20.0
+      ],
+      [
+       77.61,
+       20.0
+      ],
+      [
+       77.61,
+       20.01
+      ],
+      [
+       77.6,
+       20.01
+      ],
+      [
+       77.6,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0015",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.62,
+       20.0
+      ],
+      [
+       77.63000000000001,
+       20.0
+      ],
+      [
+       77.63000000000001,
+       20.01
+      ],
+      [
+       77.62,
+       20.01
+      ],
+      [
+       77.62,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0016",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.605,
+       20.0
+      ],
+      [
+       77.625,
+       20.0
+      ],
+      [
+       77.625,
+       20.02
+      ],
+      [
+       77.605,
+       20.02
+      ],
+      [
+       77.605,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0017",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.7,
+       20.0
+      ],
+      [
+       77.71000000000001,
+       20.0
+      ],
+      [
+       77.71000000000001,
+       20.01
+      ],
+      [
+       77.7,
+       20.01
+      ],
+      [
+       77.7,
+       20.0
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "GEF_CP_ID": "11130",
+    "Country": "IND",
+    "Site_ID": "IND_0018",
+    "Date": "2026-12-31",
+    "Indicator": "3. Under restoration",
+    "Sub_Indic": "3.2 Forest and forest land",
+    "Area_Type": null,
+    "Activity": null,
+    "Source": null
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       77.7,
+       20.0
+      ],
+      [
+       77.71000000000001,
+       20.01
+      ],
+      [
+       77.71000000000001,
+       20.0
+      ],
+      [
+       77.7,
+       20.01
+      ],
+      [
+       77.7,
+       20.0
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

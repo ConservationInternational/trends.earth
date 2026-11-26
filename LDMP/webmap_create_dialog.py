@@ -15,7 +15,6 @@ from qgis.core import (
     QgsVectorLayer,
 )
 from qgis.PyQt import QtCore, QtWidgets
-from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
 from te_schemas.results import RasterResults, VectorResults
 
@@ -732,14 +731,14 @@ class _PublishTask(QgsTask):
 
 
 _OUTPUT_ROLE = QtCore.Qt.UserRole
-_JOB_ROLE = QtCore.Qt.UserRole + 1
 
 
 class CreateWebmapDialog(QtWidgets.QDialog):
-    """Create a web map, or add outputs to an existing one.
+    """Create an empty web map, or add a dataset's outputs to an existing one.
 
     Passing ``job`` or ``existing_share_id`` only allows adding layers to an
-    already published map; new maps are created without either argument.
+    already published map. New maps are created without layers; their layers
+    are added from each dataset's Share button.
     """
 
     def __init__(
@@ -756,7 +755,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         self.setWindowTitle(
             self.tr("Add to shared web map") if self.adding else self.tr("New web map")
         )
-        self.resize(640, 560)
+        self.resize(640, 560 if self.adding else 0)
         self.on_published = on_published
         self.api_client = api.APIClient(get_api_url(), TIMEOUT)
         self.directory = tempfile.TemporaryDirectory(prefix="te-webmap-")
@@ -812,6 +811,11 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             self.tr(
                 "Check the outputs to include. Double-click a layer name to rename it."
             )
+            if self.adding
+            else self.tr(
+                "The map is created without layers. To add layers, use the Share "
+                "button on each dataset in the Datasets tab."
+            )
         )
         hint.setWordWrap(True)
         layout.addWidget(hint)
@@ -820,7 +824,10 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         self.tree.setHeaderLabels([self.tr("Layer name")])
         self.tree.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tree.header().setStretchLastSection(True)
+        self.tree.setVisible(self.adding)
         layout.addWidget(self.tree, 1)
+        if not self.adding:
+            layout.addStretch(1)
 
         self.status = QtWidgets.QLabel()
         self.status.setWordWrap(True)
@@ -833,7 +840,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         buttons = QtWidgets.QHBoxLayout()
         buttons.addStretch()
         self.share_button = QtWidgets.QPushButton(
-            self.tr("Add to map") if self.adding else self.tr("Share")
+            self.tr("Add to map") if self.adding else self.tr("Create map")
         )
         self.share_button.setDefault(True)
         self.cancel_button = QtWidgets.QPushButton(self.tr("Cancel"))
@@ -844,12 +851,12 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         self.cancel_button.clicked.connect(self._cancel)
 
         self.tree.itemChanged.connect(self._item_changed)
-        self.tree.itemExpanded.connect(self._populate_job)
         self.tree.itemDoubleClicked.connect(self._edit_name)
         self.target.currentIndexChanged.connect(self._invalidate)
         self.title.textChanged.connect(self._invalidate)
         self.retention.currentIndexChanged.connect(self._invalidate)
-        self._populate_tree(job)
+        if job is not None:
+            self._add_outputs(self.tree.invisibleRootItem(), job)
         if self.adding:
             if shares is None:
                 self.target.addItem(self.tr("Loading shared maps..."))
@@ -858,44 +865,6 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             else:
                 self._targets_loaded("list", True, shares, None)
         self._update_buttons()
-
-    def _populate_tree(self, job):
-        if job is not None:
-            self._add_outputs(self.tree.invisibleRootItem(), job)
-            return
-        jobs = [
-            item
-            for item in job_manager.relevant_jobs
-            if item.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
-            and (item.is_raster() or item.is_vector())
-            and not item.is_timeseries()
-        ]
-        for item in jobs:
-            node = QtWidgets.QTreeWidgetItem(
-                [item.visible_name or item.task_name or str(item.id)]
-            )
-            node.setData(0, _JOB_ROLE, item)
-            node.setFlags(QtCore.Qt.ItemIsEnabled)
-            node.setChildIndicatorPolicy(
-                QtWidgets.QTreeWidgetItem.ChildIndicatorPolicy.ShowIndicator
-            )
-            self.tree.addTopLevelItem(node)
-        if len(jobs) == 1:
-            self.tree.topLevelItem(0).setExpanded(True)
-        elif not jobs:
-            self.status.setText(
-                self.tr("No downloaded raster or vector datasets are available.")
-            )
-
-    def _populate_job(self, node):
-        job = node.data(0, _JOB_ROLE)
-        if job is None or node.childCount():
-            return
-        self._add_outputs(node, job)
-        if not node.childCount():
-            node.setChildIndicatorPolicy(
-                QtWidgets.QTreeWidgetItem.ChildIndicatorPolicy.DontShowIndicatorWhenChildless
-            )
 
     def _add_outputs(self, parent, job):
         self._updating = True
@@ -1009,7 +978,9 @@ class CreateWebmapDialog(QtWidgets.QDialog):
     def _update_buttons(self):
         busy = self.task is not None
         has_target = not self.adding or self.target.currentData() is not None
-        self.share_button.setEnabled(not busy and bool(self.entries) and has_target)
+        self.share_button.setEnabled(
+            not busy and (bool(self.entries) or not self.adding) and has_target
+        )
         editable = not busy and not self._locked()
         for widget in (self.tree, self.title, self.retention, self.mask_selector):
             widget.setEnabled(editable)
@@ -1069,6 +1040,10 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         WebmapSharesDialog(parent).exec()
 
     def _selected_configurations(self):
+        if not self.adding:
+            if not self.title.text().strip():
+                raise ShareError(self.tr("Enter a map title."))
+            return []
         configurations = []
         for item, configuration in self.entries:
             configuration["name"] = item.text(0).strip()
@@ -1084,9 +1059,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             raise ShareError(
                 self.tr("Each layer needs a unique name of up to 120 characters.")
             )
-        if not self.adding and not self.title.text().strip():
-            raise ShareError(self.tr("Enter a map title."))
-        if self.adding and self.target.currentData() is None:
+        if self.target.currentData() is None:
             raise ShareError(self.tr("Choose a shared map."))
         return configurations
 
@@ -1108,7 +1081,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             ):
                 return
             self._confirmed = True
-        if self.snapshots:
+        if self.snapshots or not self.adding:
             self._publish()
             return
         self.directory.cleanup()
@@ -1148,9 +1121,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         self.status.setText(
             self.tr("Uploading and checking layers. This may take several minutes.")
             if self.adding
-            else self.tr(
-                "Uploading, checking and publishing. This may take several minutes."
-            )
+            else self.tr("Creating the web map...")
         )
         target = self.target.currentData() if self.adding else self.share_id
         self.task = _PublishTask(

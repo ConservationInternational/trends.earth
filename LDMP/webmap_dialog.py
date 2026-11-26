@@ -19,6 +19,8 @@ def confirm_public_sharing(parent, layer_names, map_title=None):
         box.tr("Add these layers to “{title}”?").format(title=map_title)
         if map_title
         else box.tr("Create a public web map with these layers?")
+        if layer_names
+        else box.tr("Create a public web map?")
     )
     box.setInformativeText(
         box.tr(
@@ -28,8 +30,15 @@ def confirm_public_sharing(parent, layer_names, map_title=None):
             "Only continue if you have the right to share these layers publicly "
             "and they contain no sensitive information."
         )
+        if layer_names
+        else box.tr(
+            "The link is unlisted: it is not published or searchable, but anyone "
+            "who has it can view the map, including any layers you add later, "
+            "forward the link and save its content until it expires."
+        )
     )
-    box.setDetailedText("\n".join(layer_names))
+    if layer_names:
+        box.setDetailedText("\n".join(layer_names))
     share = box.addButton(
         box.tr("Share publicly"), QtWidgets.QMessageBox.ButtonRole.AcceptRole
     )
@@ -545,14 +554,6 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         dialog = QtWidgets.QDialog(self)
         dialog.setWindowTitle(self.tr("Change display mask"))
         layout = QtWidgets.QVBoxLayout(dialog)
-        description = QtWidgets.QLabel(
-            self.tr(
-                "Choose the current region as the new mask, or uncheck to remove it. "
-                "The polygon is visible to link holders. A display mask does not restrict access to tiles."
-            )
-        )
-        description.setWordWrap(True)
-        layout.addWidget(description)
         selector = MaskSelector(dialog)
         selector.setChecked(bool(share.get("has_mask")))
         layout.addWidget(selector)

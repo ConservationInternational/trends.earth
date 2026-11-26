@@ -14,7 +14,6 @@ from qgis.core import (
     QgsVectorLayer,
 )
 from qgis.PyQt import QtCore, QtGui, QtWidgets
-from te_schemas.jobs import JobStatus
 from te_schemas.results import VectorResults
 
 from LDMP.webmap_create_dialog import (
@@ -27,6 +26,15 @@ from LDMP.webmap_create_dialog import (
     _vector_style,
 )
 from LDMP.webmap_sharing import ShareError
+
+PUBLISHED = {
+    "id": "live",
+    "title": "Live",
+    "state": "ready",
+    "ready_at": "2026-01-01T00:00:00Z",
+    "expires_at": "2026-01-08T00:00:00Z",
+    "update_state": "idle",
+}
 
 
 class TestWebmapPublication(unittest.TestCase):
@@ -84,55 +92,72 @@ class TestWebmapPublication(unittest.TestCase):
         dialog.title.setText("Map")
         return dialog
 
+    def test_new_map_has_no_layer_selection_and_creates_empty_map(self):
+        dialog = CreateWebmapDialog()
+        self.addCleanup(dialog.directory.cleanup)
+        self.assertFalse(dialog.tree.isVisibleTo(dialog))
+        self.assertEqual(dialog.tree.topLevelItemCount(), 0)
+        self.assertTrue(
+            any(
+                "Datasets tab" in label.text()
+                for label in dialog.findChildren(QtWidgets.QLabel)
+            )
+        )
+        self.assertTrue(dialog.share_button.isEnabled())
+        with patch.object(QtWidgets.QMessageBox, "warning") as warning:
+            dialog._share()
+            warning.assert_called_once()
+        dialog.title.setText("Map")
+        with (
+            patch(
+                "LDMP.webmap_create_dialog.confirm_public_sharing", return_value=True
+            ) as confirm,
+            patch.object(dialog, "_publish") as publish,
+        ):
+            dialog._share()
+        confirm.assert_called_once_with(dialog, [], None)
+        publish.assert_called_once_with()
+        self.assertEqual(dialog.snapshots, [])
+
+    @patch("LDMP.webmap_create_dialog.ShareClient")
+    def test_empty_map_is_created_and_published_without_uploads(self, client):
+        owner = client.return_value
+        owner.create.return_value = {
+            "id": "share",
+            "state": "ready",
+            "ready_at": None,
+            "layers": [],
+        }
+        owner.publish.return_value = {
+            "link": "https://viewer/s/token",
+            "share": {"expires_at": "utc"},
+        }
+        task = _PublishTask("https://api.test", "token", "Title", 7, [], None, Mock())
+        self.assertTrue(task.run(), task.error)
+        owner.create.assert_called_once_with("Title", 7, [])
+        owner.upload.assert_not_called()
+        owner.complete.assert_not_called()
+        owner.publish.assert_called_once_with("share")
+
     @patch("LDMP.webmap_create_dialog.job_manager")
-    def test_job_tree_expands_available_and_empty_outputs(self, manager):
+    def test_dataset_outputs_are_listed_when_adding(self, manager):
         with tempfile.NamedTemporaryFile(suffix=".gpkg") as dataset:
             result = Mock(spec=VectorResults)
             result.uri = Mock(uri=Path(dataset.name))
             result.name = "Vector output"
-            available = Mock(
-                status=JobStatus.DOWNLOADED,
-                visible_name="Available",
-                task_name="Available",
-            )
-            available.is_raster.return_value = False
-            available.is_vector.return_value = True
-            available.is_timeseries.return_value = False
-            available._get_results_list.return_value = [result]
-            empty = Mock(
-                status=JobStatus.GENERATED_LOCALLY,
-                visible_name="Empty",
-                task_name="Empty",
-            )
-            empty.is_raster.return_value = False
-            empty.is_vector.return_value = True
-            empty.is_timeseries.return_value = False
-            empty._get_results_list.return_value = []
-            manager.relevant_jobs = [available, empty]
+            job = Mock()
+            job._get_results_list.return_value = [result]
             manager.ensure_results_loaded.return_value = True
 
-            dialog = CreateWebmapDialog(existing_share_id="map", shares=[])
+            dialog = CreateWebmapDialog(job=job, shares=[])
             self.addCleanup(dialog.directory.cleanup)
-            first = dialog.tree.topLevelItem(0)
-            second = dialog.tree.topLevelItem(1)
-            policy = QtWidgets.QTreeWidgetItem.ChildIndicatorPolicy
-            self.assertEqual(first.childIndicatorPolicy(), policy.ShowIndicator)
-            self.assertEqual(second.childIndicatorPolicy(), policy.ShowIndicator)
-
-            first.setExpanded(True)
-            second.setExpanded(True)
-
-            self.assertEqual(first.childCount(), 1)
-            self.assertEqual(first.child(0).text(0), "Vector output")
-            self.assertEqual(second.childCount(), 0)
-            self.assertEqual(
-                second.childIndicatorPolicy(), policy.DontShowIndicatorWhenChildless
-            )
+            self.assertTrue(dialog.tree.isVisibleTo(dialog))
+            self.assertEqual(dialog.tree.topLevelItemCount(), 1)
+            self.assertEqual(dialog.tree.topLevelItem(0).text(0), "Vector output")
 
     def test_select_and_rename_layer_in_single_column(self):
-        dialog = CreateWebmapDialog()
+        dialog = CreateWebmapDialog(existing_share_id="live", shares=[PUBLISHED])
         self.addCleanup(dialog.directory.cleanup)
-        dialog.title.setText("Map")
         dialog._add_output(dialog.tree.invisibleRootItem(), "Output", (Mock(), None))
         item = dialog.tree.topLevelItem(0)
         self.assertEqual(dialog.tree.columnCount(), 1)
@@ -149,10 +174,10 @@ class TestWebmapPublication(unittest.TestCase):
     @patch("LDMP.webmap_create_dialog.QgsApplication.taskManager")
     @patch("LDMP.webmap_create_dialog.confirm_public_sharing")
     def test_share_requires_public_confirmation(self, confirm, task_manager):
-        dialog = self.checked_dialog()
+        dialog = self.checked_dialog(existing_share_id="live", shares=[PUBLISHED])
         confirm.return_value = False
         dialog._share()
-        confirm.assert_called_once_with(dialog, ["Layer"], None)
+        confirm.assert_called_once_with(dialog, ["Layer"], dialog.target.currentText())
         task_manager.return_value.addTask.assert_not_called()
         self.assertIsNone(dialog.task)
 

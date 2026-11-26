@@ -2,11 +2,67 @@
 
 import json
 
-from qgis.core import QgsWkbTypes
+from qgis.core import QgsGeometry, QgsWkbTypes
 from qgis.PyQt import QtCore, QtWidgets
 
 from . import areaofinterest, conf
 from .webmap_sharing import ShareError
+
+MAX_MASK_BYTES = 512 * 1024
+MAX_MASK_COORDINATES = 30000
+# Simplified masks stay below the API limits because the server may add
+# vertices when it splits polygons at the antimeridian.
+_SIMPLIFIED_LIMIT_FACTOR = 0.95
+
+
+def _mask_size(geometry, precision=17):
+    mask = json.loads(geometry.asJson(precision))
+    return mask, len(json.dumps(mask, separators=(",", ":")).encode())
+
+
+def _within_limits(geometry, precision=17, factor=1):
+    mask, size = _mask_size(geometry, precision)
+    vertices = sum(1 for _ in geometry.vertices())
+    fits = size <= MAX_MASK_BYTES * factor and vertices <= MAX_MASK_COORDINATES * factor
+    return mask if fits else None
+
+
+def _polygonal(geometry):
+    if geometry.isNull() or geometry.isEmpty():
+        return None
+    if not geometry.isGeosValid():
+        geometry = geometry.makeValid()
+    if QgsWkbTypes.geometryType(geometry.wkbType()) != QgsWkbTypes.PolygonGeometry:
+        parts = [
+            part
+            for part in geometry.asGeometryCollection()
+            if QgsWkbTypes.geometryType(part.wkbType()) == QgsWkbTypes.PolygonGeometry
+        ]
+        if not parts:
+            return None
+        geometry = QgsGeometry.unaryUnion(parts)
+    if geometry.isEmpty() or not geometry.isGeosValid() or geometry.area() <= 0:
+        return None
+    return geometry
+
+
+def simplify_mask(geometry):
+    """Return the least simplified GeoJSON polygon that fits the sharing limits.
+
+    Coordinates are first rounded to about 10 cm, then the tolerance is doubled
+    until both the size and coordinate limits are met.
+    """
+    box = geometry.boundingBox()
+    tolerance = max(box.width(), box.height()) * 1e-6
+    candidate = _polygonal(geometry.snappedToGrid(1e-6, 1e-6))
+    for _ in range(40):
+        if candidate is not None:
+            mask = _within_limits(candidate, 6, _SIMPLIFIED_LIMIT_FACTOR)
+            if mask is not None:
+                return mask
+        candidate = _polygonal(geometry.simplify(tolerance).snappedToGrid(1e-6, 1e-6))
+        tolerance *= 2
+    return None
 
 
 class MaskSelector(QtWidgets.QGroupBox):
@@ -26,14 +82,12 @@ class MaskSelector(QtWidgets.QGroupBox):
         region.addWidget(self.label, 1)
         region.addWidget(self.button)
         layout.addLayout(region)
-        notice = QtWidgets.QLabel(
-            self.tr(
-                "The polygon is visible to link holders. Masking only changes "
-                "the display; it does not restrict access to the layer data."
-            )
+        self.simplify = QtWidgets.QCheckBox(
+            self.tr("Simplify the polygon automatically if it is too detailed")
         )
-        notice.setWordWrap(True)
-        layout.addWidget(notice)
+        self.simplify.setChecked(True)
+        self.simplify.toggled.connect(self.changed)
+        layout.addWidget(self.simplify)
         self.toggled.connect(self.changed)
         self._refresh()
 
@@ -78,16 +132,26 @@ class MaskSelector(QtWidgets.QGroupBox):
                 raise ShareError(self.tr("The selected region is not a valid polygon."))
             geometry.get().dropZValue()
             geometry.get().dropMValue()
-            mask = json.loads(geometry.asJson())
-            size = len(json.dumps(mask, separators=(",", ":")).encode())
-            if size > 512 * 1024 or sum(1 for _ in geometry.vertices()) > 30000:
+            mask = _within_limits(geometry)
+            if mask is not None:
+                return mask
+            if self.simplify.isChecked():
+                mask = simplify_mask(geometry)
+                if mask is not None:
+                    return mask
                 raise ShareError(
                     self.tr(
-                        "The mask is too detailed to share (maximum 512 KB and "
-                        "30,000 coordinates). Choose a simpler polygon."
+                        "The mask could not be simplified to fit the sharing limits "
+                        "(512 KB and 30,000 coordinates). Choose a simpler polygon."
                     )
                 )
-            return mask
+            raise ShareError(
+                self.tr(
+                    "The mask is too detailed to share (maximum 512 KB and "
+                    "30,000 coordinates). Enable automatic simplification or "
+                    "choose a simpler polygon."
+                )
+            )
         except (RuntimeError, ValueError, TypeError) as exc:
             raise ShareError(
                 self.tr("Could not prepare the mask: {error}").format(error=str(exc))

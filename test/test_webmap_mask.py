@@ -1,13 +1,14 @@
 """Tests for region-based web-map masks."""
 
 import json
+import math
 import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
-from qgis.core import QgsApplication, QgsGeometry
+from qgis.core import QgsApplication, QgsGeometry, QgsPointXY
 from qgis.PyQt import QtCore, QtWidgets
 
 from LDMP import conf
@@ -164,6 +165,53 @@ class TestWebmapMask(unittest.TestCase):
                     max(point[1] for point in coordinates), 1, places=5
                 )
                 selector.deleteLater()
+
+    def test_detailed_region_is_simplified_only_when_enabled(self):
+        count = 40000
+        ring = [
+            [
+                30 + 2 * math.cos(2 * math.pi * index / count),
+                -1 + 2 * math.sin(2 * math.pi * index / count),
+            ]
+            for index in range(count)
+        ]
+        ring.append(ring[0])
+        collection = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {"type": "Polygon", "coordinates": [ring]},
+                }
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "detailed.geojson"
+            path.write_text(json.dumps(collection))
+            values = {
+                conf.Setting.AREA_FROM_OPTION: conf.AreaSetting.VECTOR_LAYER.value,
+                conf.Setting.VECTOR_FILE_PATH: str(path),
+            }
+            with patch("LDMP.webmap_mask.conf.settings_manager") as settings:
+                settings.get_value.side_effect = lambda key: values.get(key)
+                selector = MaskSelector()
+                self.addCleanup(selector.deleteLater)
+                selector.setChecked(True)
+                self.assertTrue(selector.simplify.isChecked())
+                result = selector.geometry()
+                size = len(json.dumps(result, separators=(",", ":")).encode())
+                self.assertLessEqual(size, 512 * 1024)
+                self.assertLessEqual(len(result["coordinates"][0]), 30000)
+                simplified = QgsGeometry.fromPolygonXY(
+                    [[QgsPointXY(x, y) for x, y in result["coordinates"][0]]]
+                )
+                self.assertTrue(simplified.isGeosValid())
+                self.assertAlmostEqual(simplified.area(), 4 * math.pi, places=2)
+
+                selector.simplify.setChecked(False)
+                with self.assertRaisesRegex(ShareError, "too detailed"):
+                    selector.geometry()
 
     def test_owner_dialog_can_remove_mask(self):
         with (

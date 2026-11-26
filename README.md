@@ -45,18 +45,19 @@ be cached publicly for up to four days (never past the link expiry); replacing
 or revoking a link requests CDN removal, which takes time to propagate.
 
 Open **Shared web maps...** from the Trends.Earth dock and choose
-**New web map...**. Enter a title, check the downloaded outputs to include
-(double-click a layer name to rename it) and choose **Share**. Rasters use the
-default Trends.Earth style and legend labels. For vectors, explicitly select only
-public-safe attributes and set the zoom range; exports include a generated feature
-identifier, and tiling clips and quantizes geometry. Before anything is uploaded,
-a confirmation explains that the unlisted link can be viewed, forwarded and
-saved by anyone who has it. The layers are then prepared, uploaded, validated and
-published in one step, and the link is shown with **Copy link** and **Open in
-browser** buttons.
+**New web map...**. Enter a title and retention period and choose **Create
+map**. After a confirmation that the unlisted link can be viewed, forwarded and
+saved by anyone who has it, the empty map is published and its link is shown
+with **Copy link** and **Open in browser** buttons.
 
-To add layers to a published map, use the share button on a dataset. The link
-stays the same, and recipients see the new layers the next time they open it.
+To add layers, use the **Share** button on a dataset in the **Datasets** tab,
+choose the map, check the outputs to include (double-click a layer name to
+rename it) and choose **Add to map**. Rasters use the default Trends.Earth style
+and legend labels. For vectors, explicitly select only public-safe attributes
+and set the zoom range; exports include a generated feature identifier, and
+tiling clips and quantizes geometry. Layers are prepared, uploaded and validated
+after a confirmation. The link stays the same, and recipients see the new layers
+the next time they open it.
 To remove layers, select the map in **Shared web maps** and choose **Edit
 layers...**. The map can remain online without layers. Removed tiles may remain
 available until CDN invalidation propagates, and storage remains reserved until
@@ -69,7 +70,8 @@ the mask without changing the link. Open viewers pick up changes within about
 30 seconds. The polygon is shared with link holders. Masking only changes the
 display: underlying tiles and data outside the mask remain accessible, so do
 not use it to protect sensitive information. Masks are limited to 512 KB and
-30,000 coordinates; simplify larger polygons before sharing.
+30,000 coordinates. Larger polygons are simplified automatically unless you
+clear **Simplify the polygon automatically if it is too detailed**.
 
 **Shared web maps** lists your maps, links, storage usage, validation errors and
 UTC expiry. It can publish a validated draft, replace a link or revoke a map.

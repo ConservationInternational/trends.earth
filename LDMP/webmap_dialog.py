@@ -228,8 +228,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         layout = QtWidgets.QVBoxLayout(self)
         warning = QtWidgets.QLabel(
             self.tr(
-                "Unlisted links work for anyone who has them. Cached tiles can "
-                "remain available while revocation propagates."
+                "Unlisted links work for anyone who has them."
             )
         )
         warning.setWordWrap(True)
@@ -571,7 +570,6 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             self.tr("Remove shared layers"),
             self.tr(
                 "Remove the selected layers for everyone with this link? "
-                "Cached tiles may remain available until removal propagates. "
                 "The uploaded snapshots will be deleted."
             ),
             QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
@@ -742,7 +740,6 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             self.tr("Create a new link"),
             self.tr(
                 "The current link and open viewer sessions will be invalidated. "
-                "Cached tiles may remain available until CDN removal completes. "
                 "Create a new link?"
             ),
         )
@@ -754,8 +751,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             self,
             self.tr("Revoke share"),
             self.tr(
-                "Revoke this link and schedule its storage for deletion? "
-                "Cached tiles may remain available until CDN removal completes."
+                "Revoke this link and schedule its storage for deletion?"
             ),
         )
         if answer == QtWidgets.QMessageBox.Yes:

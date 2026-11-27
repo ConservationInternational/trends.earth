@@ -199,12 +199,11 @@ class DlgPriorityCriterion(QtWidgets.QDialog):
 class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
     LOCAL_SCRIPT_NAME = "ldn-planning-priority"
     DRAFT_NAME = "priority"
-    TABLE_HEADERS = (
-        "Use",
-        "Criterion and scoring rule",
-        "Relative importance",
-        "Actions",
-    )
+    CLASS_LABELS: typing.ClassVar[dict[str, str]] = {
+        "avoid": "Avoid",
+        "reduce": "Reduce",
+        "reverse": "Reverse",
+    }
 
     def __init__(self, iface, script, parent=None, draft_name=None):
         super().__init__(iface, script, parent)
@@ -217,11 +216,48 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         #   {"kind": "file", "criterion": {...}, "enabled": ...}
         self.entries: typing.List[dict] = []
         layout = QtWidgets.QVBoxLayout()
-        inner = _make_group(self.tr("ARR classification"), layout)
+        self.region_la, self.region_button = _add_region_buttons(layout)
+        header = QtWidgets.QHBoxLayout()
+        header.addStretch()
+        self.help_button = QtWidgets.QPushButton(self.tr("Show help"))
+        self.help_button.clicked.connect(self.splitter_toggled)
+        header.addWidget(self.help_button)
+        settings_menu = QtWidgets.QMenu(self)
+        settings_menu.addAction(
+            self.tr("Advanced: add from file..."),
+            lambda: self._add(self._current_class()),
+        )
+        settings_menu.addAction(self.tr("Import settings..."), self._load_settings)
+        settings_menu.addAction(self.tr("Export settings..."), self._save_settings)
+        settings_button = QtWidgets.QPushButton(self.tr("Settings"))
+        settings_button.setMenu(settings_menu)
+        header.addWidget(settings_button)
+        layout.addLayout(header)
+
+        self.tabs = QtWidgets.QTabWidget()
+        self.setup_page = QtWidgets.QWidget()
+        setup_page_layout = QtWidgets.QVBoxLayout(self.setup_page)
+        setup_scroll = QtWidgets.QScrollArea()
+        setup_scroll.setWidgetResizable(True)
+        setup_content = QtWidgets.QWidget()
+        setup_layout = QtWidgets.QVBoxLayout(setup_content)
+        inner = _make_group(self.tr("ARR classification"), setup_layout)
         self.project_context_label = QtWidgets.QLabel()
         self.project_context_label.setWordWrap(True)
         self.project_context_label.hide()
+        self.arr_context_label = QtWidgets.QLabel()
+        self.arr_context_label.setWordWrap(True)
+        self.arr_context_label.hide()
+        self.land_types_context_label = QtWidgets.QLabel()
+        self.land_types_context_label.setWordWrap(True)
+        self.land_types_context_label.hide()
+        self.jurisdictions_context_label = QtWidgets.QLabel()
+        self.jurisdictions_context_label.setWordWrap(True)
+        self.jurisdictions_context_label.hide()
         inner.addWidget(self.project_context_label)
+        inner.addWidget(self.arr_context_label)
+        inner.addWidget(self.land_types_context_label)
+        inner.addWidget(self.jurisdictions_context_label)
         self.change_project_button = QtWidgets.QPushButton(self.tr("Change in project"))
         self.change_project_button.clicked.connect(self._change_project_inputs)
         self.change_project_button.hide()
@@ -229,123 +265,69 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         self.combo_arr = data_io.WidgetDataIOSelectTELayerExisting()
         self.combo_arr.setProperty("layer_type", "LDN Planning - Avoid/Reduce/Reverse")
         inner.addWidget(self.combo_arr)
-        criteria_group = _make_group(self.tr("Rank within each ARR class"), layout)
-        explanation = QtWidgets.QLabel(
-            self.tr(
-                "ARR determines which locations are eligible for Avoid, Reduce, "
-                "or Reverse. Criteria rank locations within a class; they do not "
-                "change ARR classes. Each class gets its own priority score."
-            )
-        )
-        explanation.setWordWrap(True)
-        criteria_group.addWidget(explanation)
-        self.criteria_tables = {}
-        self.class_status_labels = {}
-        class_labels = {
-            "avoid": self.tr("Avoid - protect non-degraded land"),
-            "reduce": self.tr("Reduce - manage at-risk non-degraded land"),
-            "reverse": self.tr("Reverse - restore degraded land"),
-        }
-        for arr_class in CLASSES:
-            class_box = QtWidgets.QGroupBox(class_labels[arr_class])
-            class_layout = QtWidgets.QVBoxLayout(class_box)
-            status = QtWidgets.QLabel()
-            status.setWordWrap(True)
-            self.class_status_labels[arr_class] = status
-            class_layout.addWidget(status)
-            table = QtWidgets.QTableWidget(0, len(self.TABLE_HEADERS))
-            table.setHorizontalHeaderLabels(
-                [self.tr(header) for header in self.TABLE_HEADERS]
-            )
-            table.horizontalHeader().setStretchLastSection(True)
-            table.horizontalHeader().setSectionResizeMode(
-                1, QtWidgets.QHeaderView.Stretch
-            )
-            table.horizontalHeader().setSectionResizeMode(
-                3, QtWidgets.QHeaderView.ResizeToContents
-            )
-            table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
-            table.setMinimumHeight(72)
-            self.criteria_tables[arr_class] = table
-            class_layout.addWidget(table)
-            row = QtWidgets.QHBoxLayout()
-            add_menu = QtWidgets.QMenu(self)
-            add_menu.addAction(
-                self.tr("Add imported input..."),
-                lambda checked=False, key=arr_class: self._add_managed(key),
-            )
-            add_menu.addAction(
-                self.tr("Import dataset..."),
-                lambda checked=False, key=arr_class: self._import_input(key),
-            )
-            add_button = QtWidgets.QPushButton(
-                self.tr("Add criterion to %s...") % arr_class.title()
-            )
-            add_button.setMenu(add_menu)
-            row.addWidget(add_button)
-            equal_button = QtWidgets.QPushButton(self.tr("Set equal importance"))
-            equal_button.clicked.connect(
-                lambda checked=False, key=arr_class: self._set_equal_importance(key)
-            )
-            row.addWidget(equal_button)
-            class_layout.addLayout(row)
-            criteria_group.addWidget(class_box)
-        more_menu = QtWidgets.QMenu(self)
-        more_menu.addAction(self.tr("Advanced: add from file..."), self._add)
-        more_menu.addAction(self.tr("Import settings..."), self._load_settings)
-        more_menu.addAction(self.tr("Export settings..."), self._save_settings)
-        more_button = QtWidgets.QPushButton(self.tr("More"))
-        more_button.setMenu(more_menu)
-        criteria_group.addWidget(more_button)
-        weight_note = QtWidgets.QLabel(
-            self.tr(
-                "Relative importance is normalized within each class. Only "
-                "the ratios matter: weights 2 and 1 contribute about 67% and "
-                "33%. A single active criterion contributes 100%, whatever "
-                "its positive weight. Priority is not intervention effectiveness."
-            )
-        )
-        weight_note.setWordWrap(True)
-        criteria_group.addWidget(weight_note)
-        optional = _make_group(self.tr("Optional exclusions and breakdowns"), layout)
-        optional_box = layout.itemAt(layout.count() - 1).widget()
-        optional_box.setCheckable(True)
-        optional_box.setChecked(False)
-        optional_box.toggled.connect(
-            lambda checked: [
-                widget.setVisible(checked)
-                for widget in optional_box.findChildren(
-                    QtWidgets.QWidget,
-                    options=QtCore.Qt.FindChildOption.FindDirectChildrenOnly,
+
+        def add_collapsible_section(title):
+            section_header = QtWidgets.QToolButton()
+            section_header.setText(title)
+            section_header.setCheckable(True)
+            section_header.setChecked(False)
+            section_header.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+            section_header.setArrowType(QtCore.Qt.RightArrow)
+            section_content = QtWidgets.QWidget()
+            section_content.hide()
+            section_layout = QtWidgets.QVBoxLayout(section_content)
+            section_layout.setContentsMargins(8, 4, 8, 4)
+            section_header.toggled.connect(section_content.setVisible)
+            section_header.toggled.connect(
+                lambda checked: section_header.setArrowType(
+                    QtCore.Qt.DownArrow if checked else QtCore.Qt.RightArrow
                 )
-            ]
-        )
+            )
+            setup_layout.addWidget(section_header)
+            setup_layout.addWidget(section_content)
+            return section_header, section_layout
+
         self.paths = {}
-        key, label = (
-            "exclusion_path",
-            self.tr("Exclusion raster (>0 excluded; missing values unscored)"),
+        self.exclusion_section_header, exclusion_section_layout = (
+            add_collapsible_section(self.tr("Exclusions (optional)"))
         )
+        exclusion_group = QtWidgets.QGroupBox(self.tr("Exclusions"))
+        exclusion_layout = QtWidgets.QVBoxLayout(exclusion_group)
         row = QtWidgets.QHBoxLayout()
         path = QtWidgets.QLineEdit()
-        self.paths[key] = path
+        path.setPlaceholderText(self.tr("Optional exclusion raster"))
+        self.paths["exclusion_path"] = path
         row.addWidget(path)
         button = QtWidgets.QPushButton(self.tr("Browse..."))
         button.clicked.connect(lambda checked=False, w=path: self._browse(w))
         row.addWidget(button)
-        optional.addWidget(QtWidgets.QLabel(label))
-        optional.addLayout(row)
+        exclusion_layout.addLayout(row)
+        exclusion_note = QtWidgets.QLabel(
+            self.tr(
+                "Values greater than zero are excluded; missing values remain unscored."
+            )
+        )
+        exclusion_note.setWordWrap(True)
+        exclusion_layout.addWidget(exclusion_note)
+        exclusion_section_layout.addWidget(exclusion_group)
+
+        self.breakdown_section_header, breakdown_section_layout = (
+            add_collapsible_section(self.tr("Reporting breakdowns (optional)"))
+        )
+        breakdown_group = QtWidgets.QGroupBox(self.tr("Reporting breakdowns"))
+        breakdown_layout = QtWidgets.QVBoxLayout(breakdown_group)
         self.land_types_label = QtWidgets.QLabel(
             self.tr("Land-type summaries (optional)")
         )
-        optional.addWidget(self.land_types_label)
+        breakdown_layout.addWidget(self.land_types_label)
         self.combo_land_types = QtWidgets.QComboBox()
-        optional.addWidget(self.combo_land_types)
+        breakdown_layout.addWidget(self.combo_land_types)
         self._land_types_jobs: typing.List = []
         self._pending_land_type_job_id = None
         self.jurisdictions_label = QtWidgets.QLabel(
             self.tr("Jurisdiction summaries (optional)")
         )
-        optional.addWidget(self.jurisdictions_label)
+        breakdown_layout.addWidget(self.jurisdictions_label)
         self.rb_zones_none = QtWidgets.QRadioButton(
             self.tr("No jurisdiction breakdown")
         )
@@ -355,7 +337,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         )
         self.rb_zones_file = QtWidgets.QRadioButton(self.tr("Upload a polygon layer"))
         for radio in (self.rb_zones_none, self.rb_zones_admin, self.rb_zones_file):
-            optional.addWidget(radio)
+            breakdown_layout.addWidget(radio)
         row = QtWidgets.QHBoxLayout()
         zones_edit = QtWidgets.QLineEdit()
         zones_edit.setPlaceholderText(self.tr("No file selected"))
@@ -366,35 +348,112 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             lambda checked=False, w=zones_edit: self._browse(w)
         )
         row.addWidget(self.btn_zones_browse)
-        optional.addLayout(row)
+        breakdown_layout.addLayout(row)
         zones_edit.setEnabled(False)
         self.btn_zones_browse.setEnabled(False)
         self.rb_zones_file.toggled.connect(zones_edit.setEnabled)
         self.rb_zones_file.toggled.connect(self.btn_zones_browse.setEnabled)
-        if not optional_box.isChecked():
-            for widget in optional_box.findChildren(
-                QtWidgets.QWidget,
-                options=QtCore.Qt.FindChildOption.FindDirectChildrenOnly,
-            ):
-                widget.hide()
-        note = QtWidgets.QLabel(
-            self.tr(
-                "ARR determines eligibility. Criteria combine into a relative "
-                "priority score separately within Avoid, Reduce, and Reverse; "
-                "scores are not comparable across classes or probabilities of "
-                "success. Missing data for any positive-importance criterion "
-                "remain unscored. Ranking creates a priority map, not candidate "
-                "areas or scenario targets. Candidate selection and expected "
-                "effectiveness are separate steps. Your configuration is kept "
-                "as a draft between sessions."
+        path.textChanged.connect(self._update_setup_summaries)
+        zones_edit.textChanged.connect(self._update_setup_summaries)
+        self.combo_land_types.currentIndexChanged.connect(self._update_setup_summaries)
+        self.rb_zones_none.toggled.connect(self._update_setup_summaries)
+        self.rb_zones_admin.toggled.connect(self._update_setup_summaries)
+        self.rb_zones_file.toggled.connect(self._update_setup_summaries)
+        breakdown_section_layout.addWidget(breakdown_group)
+
+        output_group = QtWidgets.QGroupBox(self.tr("Output"))
+        output_layout = QtWidgets.QVBoxLayout(output_group)
+        output_layout.addWidget(QtWidgets.QLabel(self.tr("Task name")))
+        self.execution_name_le = QtWidgets.QLineEdit(
+            self.tr("LDN Planning - Intervention priorities")
+        )
+        output_layout.addWidget(self.execution_name_le)
+        notes_toggle = QtWidgets.QToolButton()
+        notes_toggle.setText(self.tr("Task notes (optional)"))
+        notes_toggle.setCheckable(True)
+        notes_toggle.setChecked(False)
+        notes_toggle.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+        notes_toggle.setArrowType(QtCore.Qt.RightArrow)
+        self.task_notes = QtWidgets.QTextEdit()
+        self.task_notes.setMaximumHeight(80)
+        self.task_notes.hide()
+        notes_toggle.toggled.connect(self.task_notes.setVisible)
+        notes_toggle.toggled.connect(
+            lambda checked: notes_toggle.setArrowType(
+                QtCore.Qt.DownArrow if checked else QtCore.Qt.RightArrow
             )
         )
-        note.setWordWrap(True)
-        layout.addWidget(note)
-        self.execution_name_le, self.task_notes = _add_task_name_notes(
-            layout, "LDN Planning - Intervention priorities"
-        )
-        self.region_la, self.region_button = _add_region_buttons(layout)
+        output_layout.addWidget(notes_toggle)
+        output_layout.addWidget(self.task_notes)
+        setup_layout.addWidget(output_group)
+        setup_layout.addStretch()
+        setup_scroll.setWidget(setup_content)
+        setup_page_layout.addWidget(setup_scroll)
+        self.tabs.addTab(self.setup_page, self.tr("Setup"))
+
+        self.criteria_lists = {}
+        self.criteria_scroll_areas = {}
+        self.criteria_contents = {}
+        self._criterion_controls = {}
+        self.class_add_buttons = {}
+        self.class_status_labels = {}
+        class_descriptions = {
+            "avoid": self.tr("Protect non-degraded land."),
+            "reduce": self.tr("Manage at-risk non-degraded land."),
+            "reverse": self.tr("Restore degraded land."),
+        }
+        for arr_class in CLASSES:
+            page = QtWidgets.QWidget()
+            class_layout = QtWidgets.QVBoxLayout(page)
+            description = QtWidgets.QLabel(class_descriptions[arr_class])
+            description.setWordWrap(True)
+            class_layout.addWidget(description)
+            status = QtWidgets.QLabel()
+            status.setWordWrap(True)
+            self.class_status_labels[arr_class] = status
+            class_layout.addWidget(status)
+            scroll = QtWidgets.QScrollArea()
+            scroll.setWidgetResizable(True)
+            scroll.setFrameShape(QtWidgets.QFrame.NoFrame)
+            cards_widget = QtWidgets.QWidget()
+            cards_layout = QtWidgets.QVBoxLayout(cards_widget)
+            cards_layout.setSizeConstraint(
+                QtWidgets.QLayout.SizeConstraint.SetMinimumSize
+            )
+            cards_layout.setContentsMargins(2, 2, 2, 2)
+            cards_layout.setSpacing(6)
+            scroll.setWidget(cards_widget)
+            self.criteria_lists[arr_class] = cards_layout
+            self.criteria_scroll_areas[arr_class] = scroll
+            self.criteria_contents[arr_class] = cards_widget
+            class_layout.addWidget(scroll, 1)
+
+            row = QtWidgets.QHBoxLayout()
+            add_menu = QtWidgets.QMenu(self)
+            add_menu.addAction(
+                self.tr("Add imported input..."),
+                lambda checked=False, key=arr_class: self._add_managed(key),
+            )
+            add_menu.addAction(
+                self.tr("Import dataset..."),
+                lambda checked=False, key=arr_class: self._import_input(key),
+            )
+            add_button = QtWidgets.QPushButton(self.tr("Add criterion..."))
+            add_button.setMenu(add_menu)
+            self.class_add_buttons[arr_class] = add_button
+            row.addWidget(add_button)
+            equal_button = QtWidgets.QPushButton(self.tr("Set equal importance"))
+            equal_button.clicked.connect(
+                lambda checked=False, key=arr_class: self._set_equal_importance(key)
+            )
+            row.addWidget(equal_button)
+            class_layout.addLayout(row)
+            self.tabs.addTab(page, self.tr(self.CLASS_LABELS[arr_class]))
+        layout.addWidget(self.tabs, 1)
+        self.summary_label = QtWidgets.QLabel()
+        self.summary_label.setWordWrap(True)
+        self.summary_label.setAccessibleName(self.tr("Ranking configuration status"))
+        layout.addWidget(self.summary_label)
         left = QtWidgets.QWidget()
         left.setLayout(layout)
         self.splitter, self.button_box = _build_splitter_with_ok_cancel(
@@ -422,8 +481,10 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             self.tr("Create ranking")
         )
         self.setWindowTitle(self.tr("Rank intervention areas"))
-        self.resize(950, 700)
+        self.resize(900, 650)
+        self.splitter_toggled()
         self.changed_region.connect(self.combo_arr.populate)
+        self._refresh()
         self._restore_draft()
 
     def showEvent(self, event):
@@ -488,13 +549,28 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             panel = self.project_inputs["panel"]
             arr = panel._selected("arr")
             land_types = panel._selected("land_types")
-            self.project_context_label.setText(
-                self.tr("Using project inputs — ARR: %s; land types: %s")
-                % (
-                    arr.task_name if arr is not None else self.tr("Not selected"),
-                    land_types.task_name if land_types is not None else self.tr("None"),
-                )
+            self.project_context_label.setText(self.tr("Using project inputs"))
+            self.arr_context_label.setText(
+                self.tr("ARR classification: %s")
+                % (arr.task_name if arr is not None else self.tr("Not selected"))
             )
+            self.land_types_context_label.setText(
+                self.tr("Land types: %s")
+                % (land_types.task_name if land_types is not None else self.tr("None"))
+            )
+            jurisdiction_labels = {
+                "none": self.tr("None"),
+                "admin": self.tr("Administrative units (level 1)"),
+                "file": context["jurisdictions_path"]
+                or self.tr("Uploaded polygon layer"),
+            }
+            self.jurisdictions_context_label.setText(
+                self.tr("Jurisdiction breakdown: %s")
+                % jurisdiction_labels[context["jurisdictions"]]
+            )
+            self.arr_context_label.show()
+            self.land_types_context_label.show()
+            self.jurisdictions_context_label.show()
             self.project_context_label.show()
             self.change_project_button.show()
             self._apply_zones_source(
@@ -659,52 +735,42 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
         return None
 
     def _refresh(self):
-        for table in self.criteria_tables.values():
-            table.setRowCount(0)
+        current_tab = self.tabs.currentIndex()
+        scroll_positions = {
+            key: scroll.verticalScrollBar().value()
+            for key, scroll in self.criteria_scroll_areas.items()
+        }
+        for cards_layout in self.criteria_lists.values():
+            while cards_layout.count():
+                item = cards_layout.takeAt(0)
+                if item.widget() is not None:
+                    item.widget().deleteLater()
+        for content in self.criteria_contents.values():
+            content.setMinimumHeight(0)
+        self._criterion_controls.clear()
+
         for index, entry in enumerate(self.entries):
             arr_class = self._entry_class(entry)
-            table = self.criteria_tables[arr_class]
-            row = table.rowCount()
-            table.insertRow(row)
+            cards_layout = self.criteria_lists[arr_class]
+            card = QtWidgets.QFrame()
+            card.setFrameShape(QtWidgets.QFrame.StyledPanel)
+            card_layout = QtWidgets.QVBoxLayout(card)
+            card_layout.setSizeConstraint(
+                QtWidgets.QLayout.SizeConstraint.SetMinimumSize
+            )
+            card_layout.setContentsMargins(8, 6, 8, 6)
+            heading = QtWidgets.QHBoxLayout()
             enabled = QtWidgets.QCheckBox()
-            enabled.setAccessibleName(self.tr("Use criterion in ranking"))
             enabled.setChecked(entry.get("enabled", True))
-            enabled.toggled.connect(
-                lambda checked, i=index: self._entry_changed(i, enabled=checked)
+            heading.addWidget(enabled)
+            input_name, profile_name, summary, details = self._entry_details(entry)
+            title = QtWidgets.QLabel(input_name)
+            title.setWordWrap(True)
+            title.setMinimumWidth(0)
+            title.setSizePolicy(
+                QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred
             )
-            table.setCellWidget(row, 0, enabled)
-            _input_name, profile_name, summary, details = self._entry_details(entry)
-            criterion_label = QtWidgets.QLabel(
-                f"{_input_name}\n{summary}; {profile_name}"
-            )
-            criterion_label.setWordWrap(True)
-            criterion_label.setToolTip(details)
-            table.setCellWidget(row, 1, criterion_label)
-            weight = QtWidgets.QDoubleSpinBox()
-            weight.setRange(0, 1e6)
-            weight.setDecimals(3)
-            weight.setValue(self._entry_weight(entry))
-            weight.setEnabled(entry.get("enabled", True))
-            weight.setToolTip(
-                self.tr(
-                    "Relative importance within this ARR class; only weight "
-                    "ratios within the class affect its score."
-                )
-            )
-            weight.valueChanged.connect(
-                lambda value, i=index: self._entry_changed(i, weight=value)
-            )
-            share = QtWidgets.QLabel()
-            share.setWordWrap(True)
-            share_layout = QtWidgets.QVBoxLayout()
-            share_layout.setContentsMargins(2, 0, 2, 0)
-            share_layout.addWidget(weight)
-            share_layout.addWidget(share)
-            share_widget = QtWidgets.QWidget()
-            share_widget.setLayout(share_layout)
-            table.setCellWidget(row, 2, share_widget)
-            table.setItem(row, 0, QtWidgets.QTableWidgetItem())
-            table.item(row, 0).setData(QtCore.Qt.UserRole, index)
+            heading.addWidget(title, 1)
             actions = QtWidgets.QToolButton()
             actions.setText(self.tr("Actions"))
             actions.setPopupMode(QtWidgets.QToolButton.InstantPopup)
@@ -726,7 +792,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                 if other_class == arr_class:
                     continue
                 move_menu.addAction(
-                    self.tr(other_class.title()),
+                    self.tr(self.CLASS_LABELS[other_class]),
                     lambda checked=False, i=index, key=other_class: self._move_entry(
                         i, key
                     ),
@@ -736,33 +802,205 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                 lambda checked=False, i=index: self._remove_entry(i),
             )
             actions.setMenu(menu)
-            table.setCellWidget(row, 3, actions)
-            table.setRowHeight(row, 68)
+            heading.addWidget(actions)
+            card_layout.addLayout(heading)
 
-        for arr_class, table in self.criteria_tables.items():
+            criterion_label = QtWidgets.QLabel(f"{summary}; {profile_name}")
+            criterion_label.setWordWrap(True)
+            criterion_label.setToolTip(details)
+            card_layout.addWidget(criterion_label)
+
+            importance_row = QtWidgets.QHBoxLayout()
+            importance_label = QtWidgets.QLabel(self.tr("Relative importance"))
+            importance_row.addWidget(importance_label)
+            weight = QtWidgets.QDoubleSpinBox()
+            weight.setRange(0, 1e6)
+            weight.setDecimals(3)
+            weight.setValue(self._entry_weight(entry))
+            weight.setMinimumWidth(100)
+            weight.setToolTip(
+                self.tr("Only weight ratios within this ARR class affect its score.")
+            )
+            importance_row.addWidget(weight)
+            share = QtWidgets.QLabel()
+            share.setWordWrap(True)
+            importance_row.addWidget(share, 1)
+            card_layout.addLayout(importance_row)
+            cards_layout.addWidget(card)
+
+            enabled.setAccessibleName(
+                self.tr("Use %s in %s ranking")
+                % (input_name, self.CLASS_LABELS[arr_class])
+            )
+            weight.setAccessibleName(self.tr("Relative importance for %s") % input_name)
+            enabled.toggled.connect(
+                lambda checked, i=index: self._entry_changed(i, enabled=checked)
+            )
+            weight.valueChanged.connect(
+                lambda value, i=index: self._entry_changed(i, weight=value)
+            )
+            self._criterion_controls[index] = {
+                "enabled": enabled,
+                "weight": weight,
+                "share": share,
+            }
+
+        for arr_class, cards_layout in self.criteria_lists.items():
+            if not any(self._entry_class(entry) == arr_class for entry in self.entries):
+                empty_state = QtWidgets.QLabel(
+                    self.tr(
+                        "No criteria for this class. Add a criterion below to rank "
+                        "locations for this response."
+                    )
+                )
+                empty_state.setWordWrap(True)
+                empty_state.setAlignment(QtCore.Qt.AlignCenter)
+                empty_state.setMinimumHeight(72)
+                cards_layout.addWidget(empty_state)
+            cards_layout.addStretch()
+
+        for arr_class, cards_layout in self.criteria_lists.items():
+            cards_layout.activate()
+            content = self.criteria_contents[arr_class]
+            content.adjustSize()
+            content.setMinimumHeight(cards_layout.sizeHint().height())
+
+        self.tabs.setCurrentIndex(current_tab)
+        for key, value in scroll_positions.items():
+            self.criteria_scroll_areas[key].verticalScrollBar().setValue(value)
+        self._update_weight_shares()
+
+    def _current_class(self):
+        index = self.tabs.currentIndex() - 1
+        if 0 <= index < len(CLASSES):
+            return CLASSES[index]
+        return "avoid"
+
+    def _update_setup_summaries(self, *_):
+        exclusion_path = self.paths["exclusion_path"].text().strip()
+        exclusion_summary = (
+            self.tr("configured") if exclusion_path else self.tr("not set")
+        )
+        self.exclusion_section_header.setText(
+            self.tr("Exclusions (optional): %s") % exclusion_summary
+        )
+
+        land_types = self.combo_land_types.currentText() or self.tr("Not selected")
+        if len(land_types) > 24:
+            land_types = land_types[:21] + "..."
+        if self.rb_zones_admin.isChecked():
+            jurisdictions = self.tr("Admin level 1")
+        elif self.rb_zones_file.isChecked():
+            zones_path = self.paths["zones_path"].text().strip()
+            jurisdictions = (
+                Path(zones_path).name if zones_path else self.tr("Polygon layer")
+            )
+            if len(jurisdictions) > 20:
+                jurisdictions = jurisdictions[:17] + "..."
+        else:
+            jurisdictions = self.tr("None")
+        self.breakdown_section_header.setText(
+            self.tr("Breakdowns: land types %s; jurisdictions %s")
+            % (land_types, jurisdictions)
+        )
+
+    def _focus_validation_issue(self, error):
+        message = str(error).casefold()
+        if "exclusion" in message:
+            self.tabs.setCurrentWidget(self.setup_page)
+            self.exclusion_section_header.setChecked(True)
+            self.paths["exclusion_path"].setFocus()
+            return
+        if "jurisdiction" in message or "polygon" in message:
+            self.tabs.setCurrentWidget(self.setup_page)
+            self.breakdown_section_header.setChecked(True)
+            target = (
+                self.paths["zones_path"]
+                if self.rb_zones_file.isChecked()
+                else self.rb_zones_file
+            )
+            target.setFocus()
+            return
+        if "land type" in message or "land-type" in message:
+            self.tabs.setCurrentWidget(self.setup_page)
+            self.breakdown_section_header.setChecked(True)
+            self.combo_land_types.setFocus()
+            return
+        if "arr" in message or "project" in message or "region" in message:
+            self.tabs.setCurrentWidget(self.setup_page)
+            target = (
+                self.change_project_button
+                if getattr(self, "project_inputs", None)
+                else self.combo_arr
+            )
+            target.setFocus()
+            return
+
+        arr_class = next((key for key in CLASSES if key in message), None)
+        if arr_class is None:
+            arr_class = next(
+                (
+                    self._entry_class(entry)
+                    for entry in self.entries
+                    if entry.get("enabled", True)
+                ),
+                "avoid",
+            )
+        self.tabs.setCurrentIndex(CLASSES.index(arr_class) + 1)
+        index = next(
+            (
+                index
+                for index, entry in enumerate(self.entries)
+                if self._entry_class(entry) == arr_class
+            ),
+            None,
+        )
+        if index is None:
+            self.class_add_buttons[arr_class].setFocus()
+        else:
+            self._criterion_controls[index]["enabled"].setFocus()
+
+    def splitter_toggled(self):
+        super().splitter_toggled()
+        self.help_button.setText(
+            self.tr("Hide help")
+            if not self.splitter_collapsed
+            else self.tr("Show help")
+        )
+
+    def _update_class_status(self):
+        summaries = []
+        for arr_class in CLASSES:
             class_entries = [
                 entry for entry in self.entries if self._entry_class(entry) == arr_class
             ]
             active = [entry for entry in class_entries if entry.get("enabled", True)]
             positive = [entry for entry in active if self._entry_weight(entry) > 0]
             if not active:
-                text = self.tr(
-                    "No ranking for this class. Add a criterion to score and select "
-                    "locations for this response."
+                text = self.tr("No criteria used. Add one to rank this response.")
+                summaries.append(
+                    self.tr("%s: not ranked") % self.tr(self.CLASS_LABELS[arr_class])
                 )
             elif not positive:
                 text = self.tr(
-                    "No positive relative importance. Increase at least one active "
-                    "criterion above zero to create a ranking."
+                    "No positive importance. Increase at least one used criterion "
+                    "above zero."
+                )
+                summaries.append(
+                    self.tr("%s: no positive importance")
+                    % self.tr(self.CLASS_LABELS[arr_class])
                 )
             else:
                 text = self.tr(
-                    "%d active criteria. Their preferences are combined only within "
-                    "this class. Locations missing any positive-weight criterion "
-                    "remain unscored."
+                    "%d criteria used. Locations missing any positive-importance "
+                    "criterion remain unscored."
                 ) % len(active)
+                summaries.append(
+                    self.tr("%s: %d used")
+                    % (self.tr(self.CLASS_LABELS[arr_class]), len(active))
+                )
             self.class_status_labels[arr_class].setText(text)
-        self._update_weight_shares()
+        self.summary_label.setText("  |  ".join(summaries))
 
     def _entry_class(self, entry) -> str:
         if entry["kind"] == "managed":
@@ -789,9 +1027,8 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             else:
                 entry["criterion"]["weight"] = weight
         if enabled is not None:
-            self._refresh()
-        else:
-            self._update_weight_shares()
+            self._criterion_controls[index]["weight"].setEnabled(enabled)
+        self._update_weight_shares()
 
     def _update_weight_shares(self):
         totals: dict[str, float] = {}
@@ -803,27 +1040,23 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                     entry
                 )
                 positive_counts[arr_class] = positive_counts.get(arr_class, 0) + 1
-        for arr_class, table in self.criteria_tables.items():
-            for row in range(table.rowCount()):
-                index = table.item(row, 0).data(QtCore.Qt.UserRole)
-                entry = self.entries[index]
-                enabled = entry.get("enabled", True)
-                weight = self._entry_weight(entry)
-                if not enabled:
-                    text = self.tr("Not used")
-                elif weight <= 0:
-                    text = self.tr("No score contribution")
-                elif positive_counts.get(arr_class) == 1:
-                    text = self.tr("Only active criterion: 100% of this class score")
-                else:
-                    total = totals.get(arr_class, 0.0)
-                    text = self.tr("%d%% of this class score") % round(
-                        100 * weight / total
-                    )
-                table.cellWidget(row, 2).findChildren(QtWidgets.QLabel)[0].setText(text)
-                table.cellWidget(row, 2).findChild(QtWidgets.QDoubleSpinBox).setEnabled(
-                    enabled
-                )
+        for index, controls in self._criterion_controls.items():
+            entry = self.entries[index]
+            arr_class = self._entry_class(entry)
+            enabled = entry.get("enabled", True)
+            weight = self._entry_weight(entry)
+            if not enabled:
+                text = self.tr("Not used")
+            elif weight <= 0:
+                text = self.tr("No score contribution")
+            elif positive_counts.get(arr_class) == 1:
+                text = self.tr("100% of this class score")
+            else:
+                total = totals.get(arr_class, 0.0)
+                text = self.tr("%d%% of this class score") % round(100 * weight / total)
+            controls["share"].setText(text)
+            controls["weight"].setEnabled(enabled)
+        self._update_class_status()
 
     def _set_equal_importance(self, arr_class):
         for entry in self.entries:
@@ -947,14 +1180,6 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                 {"kind": "file", "criterion": dialog.criterion, "enabled": True}
             )
             self._refresh()
-
-    def _remove(self):
-        for table in self.criteria_tables.values():
-            row = table.currentRow()
-            if row >= 0 and table.item(row, 0) is not None:
-                index = table.item(row, 0).data(QtCore.Qt.UserRole)
-                self._remove_entry(index)
-                return
 
     def _remove_entry(self, index):
         del self.entries[index]
@@ -1181,6 +1406,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
                     if isinstance(unit, dict)
                 }
         except (ValueError, ImportError) as exc:
+            self._focus_validation_issue(exc)
             QtWidgets.QMessageBox.critical(self, self.tr("Cannot prioritize"), str(exc))
             return
         if settings["zones_source"] == "admin_level_1":

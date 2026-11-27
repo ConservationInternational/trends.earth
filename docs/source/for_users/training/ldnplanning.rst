@@ -132,9 +132,10 @@ Rank intervention areas
    period and breakdown**. The ranking uses land-type summaries when **Saved
    land types** is selected there; the **Land cover** option applies to
    scenarios.
-3. Select **Add criterion > Add imported input** and choose a dataset. Pick one of its saved
-   scoring profiles, or create a new one. In the profile editor, choose the
-   band or numeric field from a dropdown, then either:
+3. Open the **Avoid**, **Reduce**, or **Reverse** tab and select **Add
+   criterion > Add imported input**. Choose a dataset, then pick one of its
+   saved scoring profiles or create a new one. In the profile editor, choose
+   the band or numeric field from a dropdown, then either:
 
    * **Continuous values**: choose whether higher or lower values receive
      higher priority and set the normalization range. **Use observed range**
@@ -148,25 +149,27 @@ Rank intervention areas
 
    Profiles are saved with the input as numbered revisions, so a dataset is
    configured once and reused across plans and sessions.
-4. Add criteria under the **Avoid**, **Reduce**, or **Reverse** group. ARR
-   determines which locations are eligible for each response; criteria rank
-   locations within that class and never change their ARR class. Each row shows
-   the input, its scoring rule, and its **Relative importance**. The calculated
-   share below the weight is its share of that class's score. Only ratios matter:
-   weights 2 and 1 contribute about 67% and 33%. A single active criterion is
-   100% of its class score regardless of its positive weight, so its weight
-   cannot change the ranking by itself. Weights in different classes do not
-   interact. Use **Set equal importance** to reset active criteria in a class
-   equally; unchecked criteria are retained but not used. A zero-weight
-   criterion contributes nothing and its missing data do not prevent scoring.
-   Missing data in a positive-weight criterion leave that location unscored.
-   Class scores are relative preferences, not success probabilities, and
-   scores should not be compared across classes.
-5. Optionally add an exclusion raster. Values greater than zero are excluded;
-   missing exclusion values remain unscored. The configuration is kept as a
-   draft between sessions; **More > Export settings...** saves it to a file for
-   sharing, and **More > Import settings...** loads saved settings. **More >
-   Advanced: add from file...** accepts a one-off dataset.
+4. Add criteria on each response's tab. ARR determines which locations are
+   eligible for each response; criteria rank locations within that class and
+   never change their ARR class. Each criterion card shows its input, scoring
+   rule, relative importance, and calculated share of that class's score. Only
+   ratios matter: weights 2 and 1 contribute about 67% and 33%. A single
+   positive-weight criterion is 100% of its class score regardless of its
+   positive weight, so its weight cannot change the ranking by itself. Weights
+   in different classes do not interact. Use **Set equal importance** to reset
+   used criteria in a class equally; unchecked criteria are retained but not
+   used. A zero-weight criterion contributes nothing and its missing data do
+   not prevent scoring. Missing data in a positive-weight criterion leave that
+   location unscored. Class scores are relative preferences, not success
+   probabilities, and scores should not be compared across classes.
+5. On **Setup**, optionally expand **Exclusions** to add an exclusion raster.
+   Values greater than zero are excluded; missing exclusion values remain
+   unscored. Expand **Reporting breakdowns** to choose land-type summaries or a
+   jurisdiction breakdown. The configuration is kept as a draft between
+   sessions; **Settings > Export settings...** saves it to a file for sharing,
+   **Settings > Import settings...** loads saved settings, and **Settings >
+   Advanced: add from file...** accepts a one-off dataset. Help is available
+   from **Show help**.
 6. Run the task, select the completed result under **Intervention priorities**,
    and examine its priority map and inline coverage. Coverage bands and
    detailed reports are available from **Datasets** and its report folder.

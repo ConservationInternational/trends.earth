@@ -7,6 +7,7 @@ are shown and submitted with their OK button; scenarios run from the tab.
 """
 
 import contextlib
+import copy
 import json
 import sys
 import unittest
@@ -479,6 +480,14 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                 dialog.combo_land_types.currentData(),
                 str(land_types.id) if land_types else None,
             )
+            self.assertEqual(
+                [dialog.tabs.tabText(index) for index in range(dialog.tabs.count())],
+                ["Setup", "Avoid", "Reduce", "Reverse"],
+            )
+            self.assertTrue(dialog.splitter_collapsed)
+            dialog._focus_validation_issue(ValueError("Reduce criterion is invalid"))
+            self.assertEqual(dialog.tabs.currentIndex(), 2)
+            dialog.tabs.setCurrentIndex(0)
             if not add_criteria:
                 self.assertEqual(len(dialog.entries), 3)
                 return
@@ -491,12 +500,74 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                         workflow.capital_input, arr_class=arr_class
                     )
             for arr_class in CLASSES:
-                table = dialog.criteria_tables[arr_class]
-                self.assertEqual(table.rowCount(), 1)
-                self.assertIn(
-                    "Only active criterion: 100%",
-                    table.cellWidget(0, 2).findChild(QtWidgets.QLabel).text(),
+                self.assertEqual(
+                    sum(
+                        dialog._entry_class(entry) == arr_class
+                        for entry in dialog.entries
+                    ),
+                    1,
                 )
+                index = next(
+                    index
+                    for index, entry in enumerate(dialog.entries)
+                    if dialog._entry_class(entry) == arr_class
+                )
+                self.assertIn(
+                    "100% of this class score",
+                    dialog._criterion_controls[index]["share"].text(),
+                )
+            dialog.resize(900, 600)
+            dialog.tabs.setCurrentIndex(0)
+            QtWidgets.QApplication.processEvents()
+            setup_scroll = dialog.setup_page.findChild(QtWidgets.QScrollArea)
+            self.assertEqual(setup_scroll.verticalScrollBar().maximum(), 0)
+            self.assertTrue(dialog.execution_name_le.isVisible())
+            self.assertTrue(dialog.button_box.isVisible())
+            self.assertLessEqual(dialog.button_box.geometry().bottom(), dialog.height())
+
+            dialog.resize(768, 700)
+            dialog.tabs.setCurrentIndex(1)
+            QtWidgets.QApplication.processEvents()
+            self.assertEqual(dialog.width(), 768)
+            self.assertEqual(
+                dialog.criteria_scroll_areas["avoid"].verticalScrollBar().maximum(),
+                0,
+            )
+            self.assertTrue(dialog.button_box.isVisible())
+            original_entries = dialog.entries
+            dialog.entries = [copy.deepcopy(original_entries[0]) for _ in range(10)]
+            dialog._refresh()
+            QtWidgets.QApplication.processEvents()
+            scroll = dialog.criteria_scroll_areas["avoid"]
+            content = dialog.criteria_contents["avoid"]
+            self.assertGreater(
+                scroll.verticalScrollBar().maximum(),
+                0,
+                "Ten criterion cards should overflow the class list viewport; "
+                f"viewport={scroll.viewport().height()}, content={content.height()}, "
+                f"minimum={content.minimumHeight()}, cards={len(dialog._criterion_controls)}",
+            )
+            dialog.entries = original_entries
+            dialog._refresh()
+            avoid_index = next(
+                index
+                for index, entry in enumerate(dialog.entries)
+                if dialog._entry_class(entry) == "avoid"
+            )
+            avoid_controls = dialog._criterion_controls[avoid_index]
+            avoid_controls["weight"].setValue(0)
+            self.assertIn(
+                "No positive importance",
+                dialog.class_status_labels["avoid"].text(),
+            )
+            avoid_controls["weight"].setValue(1)
+            avoid_controls["enabled"].setChecked(False)
+            self.assertFalse(avoid_controls["weight"].isEnabled())
+            self.assertIn(
+                "No criteria used", dialog.class_status_labels["avoid"].text()
+            )
+            avoid_controls["enabled"].setChecked(True)
+            self.assertTrue(avoid_controls["weight"].isEnabled())
             with (
                 patch.object(
                     QtWidgets.QInputDialog, "getItem", return_value=(label, True)
@@ -511,10 +582,10 @@ class LDNPlanningIntegrationTests(unittest.TestCase):
                     workflow.capital_input, arr_class="avoid"
                 )
             dialog._entry_changed(len(dialog.entries) - 1, weight=2)
-            avoid = dialog.criteria_tables["avoid"]
             shares = [
-                avoid.cellWidget(row, 2).findChild(QtWidgets.QLabel).text()
-                for row in range(avoid.rowCount())
+                dialog._criterion_controls[index]["share"].text()
+                for index, entry in enumerate(dialog.entries)
+                if dialog._entry_class(entry) == "avoid"
             ]
             self.assertEqual(
                 shares,

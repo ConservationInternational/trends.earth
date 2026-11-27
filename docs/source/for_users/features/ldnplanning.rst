@@ -84,6 +84,10 @@ values use user-defined scores.
 Weights are normalized within each class. Missing required criterion data
 leave a pixel unscored, and scores are comparable only within the same class.
 Optional exclusions and coverage layers help explain where scores apply.
+The ranking dialog separates shared ARR and optional reporting settings from
+the Avoid, Reduce, and Reverse criterion lists. Each response class has its own
+tab; criteria remain independently configurable and the ranking is still
+created as one result.
 
 **Select candidate areas** uses either a minimum priority score or a maximum
 physical area for each selected class. A score threshold is not a percentile or

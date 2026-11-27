@@ -744,6 +744,7 @@ class DlgCalculateLDNPlanningPriority(DlgCalculateBase):
             while cards_layout.count():
                 item = cards_layout.takeAt(0)
                 if item.widget() is not None:
+                    item.widget().hide()
                     item.widget().deleteLater()
         for content in self.criteria_contents.values():
             content.setMinimumHeight(0)

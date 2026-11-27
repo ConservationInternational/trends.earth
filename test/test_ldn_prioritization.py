@@ -346,6 +346,62 @@ class PriorityInputTests(unittest.TestCase):
                 dialog.close()
         parent.close()
 
+    def test_priority_refresh_hides_replaced_criteria_widgets(self):
+        parent = QtWidgets.QWidget()
+        parent.cache_refresh_about_to_begin = Mock()
+        parent.cache_refresh_finished = Mock()
+        parent.refreshing_filesystem_cache = False
+        with (
+            patch(
+                "LDMP.calculate.download.get_admin_bounds", return_value={"country": {}}
+            ),
+            patch("LDMP.calculate.download.get_cities", return_value={"city": {}}),
+            patch.object(DlgCalculateLDNPlanningPriority, "_restore_draft"),
+            patch.object(DlgCalculateLDNPlanningPriority, "_store_draft"),
+        ):
+            dialog = DlgCalculateLDNPlanningPriority(
+                Mock(),
+                KNOWN_SCRIPTS[DlgCalculateLDNPlanningPriority.LOCAL_SCRIPT_NAME],
+                parent,
+            )
+            dialog._firstShowEvent = False
+            dialog.combo_arr.populate = Mock()
+            dialog.show()
+            QtWidgets.QApplication.processEvents()
+
+            for index, arr_class in enumerate(("avoid", "reduce", "reverse"), 1):
+                dialog.tabs.setCurrentIndex(index)
+                empty_state = dialog.criteria_lists[arr_class].itemAt(0).widget()
+                self.assertTrue(empty_state.isVisible())
+                dialog._refresh()
+                self.assertTrue(empty_state.isHidden())
+                empty_state = dialog.criteria_lists[arr_class].itemAt(0).widget()
+                QtWidgets.QApplication.processEvents()
+                self.assertTrue(empty_state.isVisible())
+
+                dialog.entries.append(
+                    {
+                        "kind": "direct",
+                        "criterion": {"arr_class": arr_class, "weight": 1},
+                    }
+                )
+                dialog._refresh()
+                self.assertTrue(empty_state.isHidden())
+                card = dialog.criteria_lists[arr_class].itemAt(0).widget()
+                self.assertIsInstance(card, QtWidgets.QFrame)
+                QtWidgets.QApplication.processEvents()
+                self.assertTrue(card.isVisible())
+
+                dialog.entries.clear()
+                dialog._refresh()
+                self.assertTrue(card.isHidden())
+                QtWidgets.QApplication.processEvents()
+                self.assertTrue(
+                    dialog.criteria_lists[arr_class].itemAt(0).widget().isVisible()
+                )
+            dialog.close()
+        parent.close()
+
     def test_priority_update_respects_cleared_or_missing_land_types(self):
         parent = QtWidgets.QWidget()
         parent.cache_refresh_about_to_begin = Mock()

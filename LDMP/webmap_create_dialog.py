@@ -32,6 +32,7 @@ from .webmap_dialog import (
     WebmapSharesDialog,
     _OwnerTask,
     can_add_layers,
+    commit_layer_name_edit,
     confirm_public_sharing,
     show_link,
 )
@@ -826,6 +827,12 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         self.tree.header().setStretchLastSection(True)
         self.tree.setVisible(self.adding)
         layout.addWidget(self.tree, 1)
+        self.rename_button = QtWidgets.QPushButton(self.tr("Rename layer"))
+        self.rename_button.setVisible(self.adding)
+        self.rename_button.setEnabled(False)
+        layout.addWidget(
+            self.rename_button, alignment=QtCore.Qt.AlignmentFlag.AlignLeft
+        )
         if not self.adding:
             layout.addStretch(1)
 
@@ -852,6 +859,14 @@ class CreateWebmapDialog(QtWidgets.QDialog):
 
         self.tree.itemChanged.connect(self._item_changed)
         self.tree.itemDoubleClicked.connect(self._edit_name)
+        self.rename_button.clicked.connect(
+            lambda: self._edit_name(self.tree.currentItem(), 0)
+        )
+        self.tree.currentItemChanged.connect(
+            lambda item, _previous: self.rename_button.setEnabled(
+                item is not None and not self.task
+            )
+        )
         self.target.currentIndexChanged.connect(self._invalidate)
         self.title.textChanged.connect(self._invalidate)
         self.retention.currentIndexChanged.connect(self._invalidate)
@@ -900,7 +915,12 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         parent.addChild(item)
 
     def _edit_name(self, item, column):
-        if column == 0 and item.data(0, _OUTPUT_ROLE) is not None and not self.task:
+        if (
+            item is not None
+            and column == 0
+            and item.data(0, _OUTPUT_ROLE) is not None
+            and not self.task
+        ):
             self.tree.editItem(item, 0)
 
     def _entry(self, item):
@@ -933,14 +953,14 @@ class CreateWebmapDialog(QtWidgets.QDialog):
 
     def _configure(self, item):
         result, band_index = item.data(0, _OUTPUT_ROLE)
-        names = {entry[0].text(0).strip() for entry in self.entries}
+        names = {entry[0].text(0).strip().casefold() for entry in self.entries}
         name = item.text(0).strip()
-        if name in names:
+        if name.casefold() in names:
             dataset = item.parent().text(0) if item.parent() else ""
             name = f"{name} ({dataset})" if dataset else name
             suffix = 2
             base = name
-            while name in names:
+            while name.casefold() in names:
                 name = f"{base} {suffix}"
                 suffix += 1
         try:
@@ -984,6 +1004,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
         editable = not busy and not self._locked()
         for widget in (self.tree, self.title, self.retention, self.mask_selector):
             widget.setEnabled(editable)
+        self.rename_button.setEnabled(editable and self.tree.currentItem() is not None)
         self.target.setEnabled(
             not busy and self.adding and self.target.currentData() is not None
         )
@@ -1053,9 +1074,9 @@ class CreateWebmapDialog(QtWidgets.QDialog):
             raise ShareError(self.tr("Check at least one output to share."))
         if len(names) > 10:
             raise ShareError(self.tr("A web map can include at most 10 layers."))
-        if any(not name or len(name) > 120 for name in names) or len(set(names)) != len(
-            names
-        ):
+        if any(not name or len(name) > 120 for name in names) or len(
+            {name.casefold() for name in names}
+        ) != len(names):
             raise ShareError(
                 self.tr("Each layer needs a unique name of up to 120 characters.")
             )
@@ -1066,6 +1087,7 @@ class CreateWebmapDialog(QtWidgets.QDialog):
     def _share(self):
         if self.task:
             return
+        commit_layer_name_edit(self.tree)
         try:
             configurations = self._selected_configurations()
             if not self.adding and not self._locked() and not self.snapshots:

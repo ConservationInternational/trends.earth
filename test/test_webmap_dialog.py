@@ -5,6 +5,7 @@ from unittest.mock import Mock, patch
 
 from qgis.core import QgsApplication
 from qgis.PyQt import QtCore, QtGui, QtWidgets
+from qgis.PyQt.QtTest import QTest
 
 from LDMP.webmap_dialog import (
     WebmapSharesDialog,
@@ -210,6 +211,7 @@ class TestWebmapSharesDialog(unittest.TestCase):
             )
             observed.append(save.isEnabled())
             layers.setCurrentRow(2)
+            layers.item(2).setText("Custom")
             up.click()
             up.click()
             observed.append(([layers.item(i).text() for i in range(3)], up.isEnabled()))
@@ -218,13 +220,120 @@ class TestWebmapSharesDialog(unittest.TestCase):
         with patch.object(self.dialog, "_start") as start:
             QtCore.QTimer.singleShot(0, reorder)
             self.dialog._order_layers()
-        self.assertEqual(observed, [False, (["Third", "First", "Second"], False)])
+        self.assertEqual(observed, [False, (["Custom", "First", "Second"], False)])
         start.assert_called_once_with(
-            "reorder_layers", layer_ids=["third", "first", "second"]
+            "edit_layers",
+            layers=[
+                {"id": "third", "name": "Custom"},
+                {"id": "first", "name": "First"},
+                {"id": "second", "name": "Second"},
+            ],
         )
         share["layers"] = share["layers"][:1]
         self.dialog._selection_changed()
-        self.assertFalse(self.dialog.order_layers_button.isEnabled())
+        self.assertTrue(self.dialog.order_layers_button.isEnabled())
+
+    def test_edit_layer_rejects_empty_and_duplicate_titles(self):
+        self.dialog.shares = [
+            {
+                "id": "map",
+                "state": "ready",
+                "ready_at": "2026-01-01",
+                "update_state": "idle",
+                "layers": [
+                    {"id": "first", "name": "First", "published": True},
+                    {"id": "second", "name": "Second", "published": True},
+                ],
+            }
+        ]
+        self.dialog.table.setRowCount(1)
+        self.dialog.table.selectRow(0)
+        self.dialog._selection_changed()
+
+        def edit():
+            dialog = QtWidgets.QApplication.activeModalWidget()
+            layers = dialog.findChild(QtWidgets.QListWidget)
+            buttons = dialog.findChild(QtWidgets.QDialogButtonBox)
+            save = next(
+                button
+                for button in buttons.buttons()
+                if buttons.buttonRole(button)
+                == QtWidgets.QDialogButtonBox.ButtonRole.AcceptRole
+            )
+            for name in (" ", " FIRST "):
+                layers.item(1).setText(name)
+                save.click()
+                self.assertTrue(dialog.isVisible())
+            layers.item(1).setText("New title")
+            save.click()
+
+        with (
+            patch.object(self.dialog, "_start") as start,
+            patch.object(QtWidgets.QMessageBox, "warning") as warning,
+        ):
+            QtCore.QTimer.singleShot(0, edit)
+            self.dialog._order_layers()
+        self.assertEqual(warning.call_count, 2)
+        start.assert_called_once_with(
+            "edit_layers",
+            layers=[
+                {"id": "first", "name": "First"},
+                {"id": "second", "name": "New title"},
+            ],
+        )
+
+    def test_edit_single_layer_with_rename_button(self):
+        self.dialog.shares = [
+            {
+                "id": "map",
+                "state": "ready",
+                "ready_at": "2026-01-01",
+                "update_state": "idle",
+                "layers": [{"id": "first", "name": "First", "published": True}],
+            }
+        ]
+        self.dialog.table.setRowCount(1)
+        self.dialog.table.selectRow(0)
+        self.dialog._selection_changed()
+
+        def edit():
+            dialog = QtWidgets.QApplication.activeModalWidget()
+            layers = dialog.findChild(QtWidgets.QListWidget)
+            layers.setCurrentRow(0)
+            rename = next(
+                button
+                for button in dialog.findChildren(QtWidgets.QPushButton)
+                if button.text() == "Rename"
+            )
+            rename.click()
+            editor = layers.findChild(QtWidgets.QLineEdit)
+            self.assertIsNotNone(editor)
+            editor.selectAll()
+            QTest.keyClicks(editor, "New title")
+            save = next(
+                button
+                for button in dialog.findChildren(QtWidgets.QPushButton)
+                if button.text() == "Save changes"
+            )
+            self.assertTrue(save.isEnabled())
+            QTest.mouseClick(save, QtCore.Qt.MouseButton.LeftButton)
+
+        with patch.object(self.dialog, "_start") as start:
+            QtCore.QTimer.singleShot(0, edit)
+            self.dialog._order_layers()
+        start.assert_called_once_with(
+            "edit_layers", layers=[{"id": "first", "name": "New title"}]
+        )
+
+    @patch("LDMP.webmap_dialog.ShareClient")
+    def test_edit_layers_task_sends_titles(self, client):
+        client.return_value.edit_layers.return_value = {"id": "map", "layers": []}
+        layers = [{"id": "first", "name": "Custom"}]
+        task = _OwnerTask(
+            "https://api.test", "token", "edit_layers", "map", Mock(), layers=layers
+        )
+        self.assertTrue(task.run(), task.error)
+        client.return_value.edit_layers.assert_called_once_with("map", layers)
 
     @patch("LDMP.webmap_dialog.ShareClient")
     def test_reorder_layers_task_sends_order(self, client):

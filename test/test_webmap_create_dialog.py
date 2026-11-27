@@ -14,6 +14,7 @@ from qgis.core import (
     QgsVectorLayer,
 )
 from qgis.PyQt import QtCore, QtGui, QtWidgets
+from qgis.PyQt.QtTest import QTest
 from te_schemas.results import VectorResults
 
 from LDMP.webmap_create_dialog import (
@@ -164,12 +165,45 @@ class TestWebmapPublication(unittest.TestCase):
         with patch.object(dialog, "_configure", return_value={"name": "Output"}):
             item.setCheckState(0, QtCore.Qt.Checked)
         with patch.object(dialog.tree, "editItem") as edit:
-            dialog._edit_name(item, 0)
+            dialog.tree.setCurrentItem(item)
+            self.assertTrue(dialog.rename_button.isEnabled())
+            dialog.rename_button.click()
             edit.assert_called_once_with(item, 0)
         item.setText(0, "Renamed")
         self.assertEqual(dialog._selected_configurations()[0]["name"], "Renamed")
         item.setCheckState(0, QtCore.Qt.Unchecked)
         self.assertEqual(dialog.entries, [])
+
+    def test_layer_titles_must_be_unique_ignoring_case(self):
+        dialog = self.checked_dialog(existing_share_id="live", shares=[PUBLISHED])
+        item = QtWidgets.QTreeWidgetItem([" layer "])
+        dialog.tree.addTopLevelItem(item)
+        dialog.entries.append([item, {"name": "layer"}])
+        with self.assertRaises(ShareError):
+            dialog._selected_configurations()
+
+    def test_share_commits_active_title_edit_before_confirmation(self):
+        dialog = CreateWebmapDialog(existing_share_id="live", shares=[PUBLISHED])
+        self.addCleanup(dialog.directory.cleanup)
+        dialog._add_output(dialog.tree.invisibleRootItem(), "Output", (Mock(), None))
+        item = dialog.tree.topLevelItem(0)
+        with patch.object(dialog, "_configure", return_value={"name": "Output"}):
+            item.setCheckState(0, QtCore.Qt.Checked)
+        dialog.show()
+        self.addCleanup(dialog.close)
+        dialog.tree.setCurrentItem(item)
+        dialog.rename_button.click()
+        editor = dialog.tree.findChild(QtWidgets.QLineEdit)
+        self.assertIsNotNone(editor)
+        editor.selectAll()
+        QTest.keyClicks(editor, "Custom title")
+        with patch(
+            "LDMP.webmap_create_dialog.confirm_public_sharing", return_value=False
+        ) as confirm:
+            dialog._share()
+        confirm.assert_called_once_with(
+            dialog, ["Custom title"], dialog.target.currentText()
+        )
 
     @patch("LDMP.webmap_create_dialog.QgsApplication.taskManager")
     @patch("LDMP.webmap_create_dialog.confirm_public_sharing")

@@ -10,6 +10,13 @@ from .webmap_mask import MaskSelector
 from .webmap_sharing import ShareClient, ShareError
 
 
+def commit_layer_name_edit(view):
+    """Commit an active inline title editor before reading the model."""
+    editor = view.findChild(QtWidgets.QLineEdit)
+    if editor is not None and editor.isVisible():
+        view.itemDelegate().commitData.emit(editor)
+
+
 def confirm_public_sharing(parent, layer_names, map_title=None):
     """Ask for explicit consent immediately before content is made public."""
     box = QtWidgets.QMessageBox(parent)
@@ -94,6 +101,7 @@ class _OwnerTask(QgsTask):
         mask=None,
         mask_version=None,
         layer_ids=None,
+        layers=None,
     ):
         super().__init__("Trends.Earth web-map sharing")
         self.base_url = base_url
@@ -104,6 +112,7 @@ class _OwnerTask(QgsTask):
         self.mask = mask
         self.mask_version = mask_version
         self.layer_ids = layer_ids
+        self.layers = layers
         self.result = None
         self.error = None
 
@@ -164,6 +173,14 @@ class _OwnerTask(QgsTask):
                     )
             elif self.operation == "reorder_layers":
                 self.result = client.reorder_layers(self.share_id, self.layer_ids)
+                if not isinstance(self.result, dict) or not isinstance(
+                    self.result.get("layers"), list
+                ):
+                    raise ShareError(
+                        "Invalid response from the web-map sharing service"
+                    )
+            elif self.operation == "edit_layers":
+                self.result = client.edit_layers(self.share_id, self.layers)
                 if not isinstance(self.result, dict) or not isinstance(
                     self.result.get("layers"), list
                 ):
@@ -284,8 +301,8 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         self.create_button = QtWidgets.QPushButton(self.tr("New web map..."))
         self.create_button.setDefault(True)
         self.publish_button = QtWidgets.QPushButton(self.tr("Publish"))
-        self.edit_layers_button = QtWidgets.QPushButton(self.tr("Edit layers..."))
-        self.order_layers_button = QtWidgets.QPushButton(self.tr("Order layers..."))
+        self.edit_layers_button = QtWidgets.QPushButton(self.tr("Remove layers..."))
+        self.order_layers_button = QtWidgets.QPushButton(self.tr("Edit map layers..."))
         self.mask_button = QtWidgets.QPushButton(self.tr("Change mask..."))
         self.rotate_button = QtWidgets.QPushButton(self.tr("New link"))
         self.rotate_button.setToolTip(
@@ -346,7 +363,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             else []
         )
         self.edit_layers_button.setEnabled(editable and bool(published_layers))
-        self.order_layers_button.setEnabled(editable and len(published_layers) > 1)
+        self.order_layers_button.setEnabled(editable and bool(published_layers))
         self.mask_button.setEnabled(
             ready
             and published
@@ -373,7 +390,9 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             "\n".join(str(error.get("error", "")) for error in errors)
         )
 
-    def _start(self, operation, mask=None, mask_version=None, layer_ids=None):
+    def _start(
+        self, operation, mask=None, mask_version=None, layer_ids=None, layers=None
+    ):
         if self.task is not None:
             return
         share = self._selected()
@@ -396,6 +415,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             mask=mask,
             mask_version=mask_version,
             layer_ids=layer_ids,
+            layers=layers,
         )
         self.create_button.setEnabled(False)
         self.refresh_button.setEnabled(False)
@@ -479,7 +499,7 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         elif operation in ("publish", "rotate"):
             self._show_link(result)
             self.refresh()
-        elif operation == "reorder_layers":
+        elif operation in ("reorder_layers", "edit_layers"):
             self.refresh()
         elif operation == "remove_layers":
             if not result["cleanup_scheduled"]:
@@ -634,12 +654,13 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         if not share or not self.order_layers_button.isEnabled():
             return
         dialog = QtWidgets.QDialog(self)
-        dialog.setWindowTitle(self.tr("Order shared map layers"))
+        dialog.setWindowTitle(self.tr("Edit map layers"))
         layout = QtWidgets.QVBoxLayout(dialog)
         hint = QtWidgets.QLabel(
             self.tr(
-                "Drag layers or use the buttons to change their order. The first "
-                "layer is drawn on top in the web map."
+                "Double-click a layer title or use Rename to edit it. Drag layers or "
+                "use the buttons to change their order. The first layer is drawn "
+                "on top in the web map."
             )
         )
         hint.setWordWrap(True)
@@ -648,16 +669,20 @@ class WebmapSharesDialog(QtWidgets.QDialog):
         layers = QtWidgets.QListWidget()
         layers.setDragDropMode(QtWidgets.QAbstractItemView.DragDropMode.InternalMove)
         layers.setDefaultDropAction(QtCore.Qt.DropAction.MoveAction)
+        layers.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.DoubleClicked)
         original = []
         for layer in share.get("layers", []):
             if layer.get("published"):
                 item = QtWidgets.QListWidgetItem(layer["name"], layers)
                 item.setData(QtCore.Qt.ItemDataRole.UserRole, layer["id"])
-                original.append(layer["id"])
+                item.setFlags(item.flags() | QtCore.Qt.ItemFlag.ItemIsEditable)
+                original.append({"id": layer["id"], "name": layer["name"]})
         row.addWidget(layers)
         moves = QtWidgets.QVBoxLayout()
         up = QtWidgets.QPushButton(self.tr("Move up"))
         down = QtWidgets.QPushButton(self.tr("Move down"))
+        rename = QtWidgets.QPushButton(self.tr("Rename"))
+        moves.addWidget(rename)
         moves.addWidget(up)
         moves.addWidget(down)
         moves.addStretch()
@@ -667,12 +692,15 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             QtWidgets.QDialogButtonBox.StandardButton.Cancel
         )
         save = buttons.addButton(
-            self.tr("Save order"), QtWidgets.QDialogButtonBox.ButtonRole.AcceptRole
+            self.tr("Save changes"), QtWidgets.QDialogButtonBox.ButtonRole.AcceptRole
         )
 
-        def order():
+        def layer_edits():
             return [
-                layers.item(index).data(QtCore.Qt.ItemDataRole.UserRole)
+                {
+                    "id": layers.item(index).data(QtCore.Qt.ItemDataRole.UserRole),
+                    "name": layers.item(index).text().strip(),
+                }
                 for index in range(layers.count())
             ]
 
@@ -680,7 +708,8 @@ class WebmapSharesDialog(QtWidgets.QDialog):
             current = layers.currentRow()
             up.setEnabled(current > 0)
             down.setEnabled(0 <= current < layers.count() - 1)
-            save.setEnabled(order() != original)
+            rename.setEnabled(current >= 0)
+            save.setEnabled(layer_edits() != original)
 
         def move(offset):
             current = layers.currentRow()
@@ -693,15 +722,38 @@ class WebmapSharesDialog(QtWidgets.QDialog):
 
         up.clicked.connect(lambda: move(-1))
         down.clicked.connect(lambda: move(1))
+        def edit_selected():
+            if layers.currentItem() is not None:
+                save.setEnabled(True)
+                layers.editItem(layers.currentItem())
+
+        rename.clicked.connect(edit_selected)
+        layers.itemDoubleClicked.connect(lambda _item: save.setEnabled(True))
         layers.currentRowChanged.connect(lambda _row: update())
+        layers.itemChanged.connect(lambda _item: update())
         for signal in ("rowsMoved", "rowsInserted", "rowsRemoved"):
             getattr(layers.model(), signal).connect(lambda *_args: update())
-        buttons.accepted.connect(dialog.accept)
+
+        def accept():
+            commit_layer_name_edit(layers)
+            names = [layer["name"] for layer in layer_edits()]
+            if any(not name or len(name) > 120 for name in names) or len(
+                {name.casefold() for name in names}
+            ) != len(names):
+                QtWidgets.QMessageBox.warning(
+                    dialog,
+                    self.tr("Edit map layers"),
+                    self.tr("Each layer needs a unique name of up to 120 characters."),
+                )
+                return
+            dialog.accept()
+
+        buttons.accepted.connect(accept)
         buttons.rejected.connect(dialog.reject)
         layout.addWidget(buttons)
         update()
-        if dialog.exec() and order() != original:
-            self._start("reorder_layers", layer_ids=order())
+        if dialog.exec() and layer_edits() != original:
+            self._start("edit_layers", layers=layer_edits())
 
     def _change_mask(self):
         share = self._selected()

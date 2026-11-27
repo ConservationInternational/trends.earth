@@ -353,6 +353,19 @@ class ShareClient:
             {"layer_ids": [_share_id(layer_id) for layer_id in layer_ids]},
         )
 
+    def edit_layers(self, share_id, layers):
+        """Set the titles and viewer order of published layers."""
+        return self._request(
+            "PUT",
+            "/" + _share_id(share_id) + "/layers",
+            {
+                "layers": [
+                    {"id": _share_id(layer["id"]), "name": layer["name"]}
+                    for layer in layers
+                ]
+            },
+        )
+
     def publish(self, share_id):
         return self._request("POST", "/" + _share_id(share_id) + "/publish")
 
